@@ -9,6 +9,9 @@
   import { MobileNavigation } from '$components/MobileNavigation';
   import ConnectWalletButton from '$components/Button/ConnectWalletButton.svelte';
   import { account } from '$stores/account';
+  import { ThemeButton } from '$components/ThemeButton';
+  import { Icon } from '$components/Icon';
+  import { LogoWithText } from '$components/Logo';
 
   let screenSize: number;
   let mobileMenu = false;
@@ -26,7 +29,7 @@
   {#if $screen == 'mobile'}
     <a href="/">
       <div class="flex justify-around items-center">
-        <img src={Logo} alt="logo" />
+        <LogoWithText textFillClass="fill-primary-content" width={77} />
       </div>
     </a>
     <!-- Mobile Burger Button -->
@@ -43,7 +46,7 @@
   {/if}
   {#if $screen == 'desktop'}
     <a href="/">
-      <img src={Logo} alt="logo" class="w-[90px] h-[24.5px]" />
+      <LogoWithText textFillClass="fill-primary-content" width={77} />
     </a>
     <div class="flex items-center justify-center gap-14 h-9 text-primary-content body-regular">
       <div class="dropdown dropdown-hover dropdown-bottom bg-transparent">
@@ -72,6 +75,10 @@
       </div>
     </div>
     <ConnectWalletButton />
+    <div class="hidden md:inline-flex">
+      <div class="v-sep my-auto mx-[8px] h-[24px]" />
+      <ThemeButton />
+    </div>
   {/if}
   {#if mobileMenu}
     <MobileNavigation />
