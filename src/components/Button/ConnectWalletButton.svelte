@@ -6,7 +6,7 @@
   import Button from './Button.svelte';
   import { shortenAddress } from '$libs/util/shortenAddress';
   import { web3modal } from '$libs/connect';
-  import { UserIcon } from '$components/Icon';
+  import { Icon } from '$components/Icon';
 
   function handleConnectWallet() {
     // Do not open if connection is active
@@ -24,7 +24,7 @@
   <button
     class="btn btn-primary border-0 text-primary-content rounded-full body-bold px-6 min-h-12 h-12 w-fit"
     on:click={handleConnectWallet}>
-    <UserIcon />
+    <Icon type={'user'} />
     Connect Wallet
   </button>
 {:else}
@@ -32,7 +32,7 @@
   <button
     class="btn bg-neutral border-0 text-primary-content rounded-full body-bold px-6 min-h-12 h-12 w-fit"
     on:click={handleConfigureWallet}>
-    <UserIcon />
+    <Icon type={'user'} />
     {shortenAddress($account.address ?? 'undefined')}
   </button>
 {/if}
