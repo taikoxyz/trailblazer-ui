@@ -24,7 +24,7 @@
   <button
     class="btn btn-primary border-0 text-primary-content rounded-full body-bold px-6 min-h-12 h-12 w-fit"
     on:click={handleConnectWallet}>
-    <Icon type={'user'} />
+    <Icon type={'user-circle'} />
     Connect Wallet
   </button>
 {:else}
@@ -32,7 +32,7 @@
   <button
     class="btn bg-neutral border-0 text-primary-content rounded-full body-bold px-6 min-h-12 h-12 w-fit"
     on:click={handleConfigureWallet}>
-    <Icon type={'user'} />
+    <Icon type={'user-circle'} />
     {shortenAddress($account.address ?? 'undefined')}
   </button>
 {/if}

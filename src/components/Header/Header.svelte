@@ -9,6 +9,11 @@
   import { MobileNavigation } from '$components/MobileNavigation';
   import ConnectWalletButton from '$components/Button/ConnectWalletButton.svelte';
   import { account } from '$stores/account';
+  import { ThemeButton } from '$components/ThemeButton';
+  import { Icon } from '$components/Icon';
+  import { LogoWithText } from '$components/Logo';
+  import { NavigationData } from '$configs/navigation';
+  import { page } from '$app/stores';
 
   let screenSize: number;
   let mobileMenu = false;
@@ -26,7 +31,7 @@
   {#if $screen == 'mobile'}
     <a href="/">
       <div class="flex justify-around items-center">
-        <img src={Logo} alt="logo" />
+        <LogoWithText textFillClass="fill-primary-content" width={77} />
       </div>
     </a>
     <!-- Mobile Burger Button -->
@@ -43,35 +48,27 @@
   {/if}
   {#if $screen == 'desktop'}
     <a href="/">
-      <img src={Logo} alt="logo" class="w-[90px] h-[24.5px]" />
+      <LogoWithText textFillClass="fill-primary-content" width={77} />
     </a>
-    <div class="flex items-center justify-center gap-14 h-9 text-primary-content body-regular">
-      <div class="dropdown dropdown-hover dropdown-bottom bg-transparent">
-        <a href="/">
-          <div tabindex="0" role="button">Airdrop +</div>
-        </a>
-        <ul
-          class="dropdown-content bg-gradient-background backdrop-blur opacity-50 z-[1] menu p-2 shadow rounded-box w-52 body-regular">
-          <li>
-            <a href="/claim" class="flex items-center gap-4"
-              ><img src={StarIcon} alt="icon" class="size-4" />Claim Token</a>
-          </li>
-          <li>
-            <a href="/bind" class="flex items-center gap-4"
-              ><img src={HourglassIcon} alt="icon" class="size-4" />Bind Account</a>
-          </li>
-        </ul>
-      </div>
+    <!-- Header Navigation -->
 
-      <div>
-        <div>Trailblazer +</div>
-      </div>
-
-      <div>
-        <div class="text-tertiary-content">Leaderboard</div>
-      </div>
+    <div class="lg:flex items-start justify-center gap-10 body-bold">
+      {#each NavigationData as data}
+        <header-item>
+          <a
+            class={`hover:text-[#CD0682] ${$page.url.pathname === data.url ? 'active-tab' : ''} nav-item ${data.disabled ? 'disabled-tag' : ''}`}
+            href={data.disabled ? '#' : data.url}
+            >{data.label}
+          </a>
+        </header-item>
+      {/each}
     </div>
-    <ConnectWalletButton />
+
+    <div class="hidden md:inline-flex">
+      <ConnectWalletButton />
+      <div class="v-sep my-auto mx-[8px] h-[24px]" />
+      <ThemeButton />
+    </div>
   {/if}
   {#if mobileMenu}
     <MobileNavigation />
