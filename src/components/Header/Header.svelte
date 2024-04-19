@@ -6,8 +6,6 @@
   import StarIcon from '$images/star.svg';
   import HourglassIcon from '$images/hourglass.svg';
   import { screen } from '$stores/responsiveness';
-  import { web3Modal } from '$stores';
-  import { page } from '$app/stores';
   import { MobileNavigation } from '$components/MobileNavigation';
   import ConnectWalletButton from '$components/Button/ConnectWalletButton.svelte';
   import { account } from '$stores/account';
