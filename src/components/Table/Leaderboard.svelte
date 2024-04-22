@@ -1,5 +1,19 @@
 <script lang="ts">
-  let headers = ['Name', 'Job', 'Favorite Color'];
+  import { onMount } from 'svelte';
+  let headers = ['#', 'Wallet Address', 'Score'];
+  export let start: number;
+  export let end: number;
+  type LeaderboardRow = {
+    address: string;
+    score: string;
+    date: string;
+  };
+  let rows: LeaderboardRow[] = []
+  onMount(async () => {
+		const res = await fetch(`https://trailblazer.internal.taiko.xyz/leaderboard?since=${start}&until=${end}`);
+		const data = await res.json();
+    rows = data.items
+	});
 </script>
 
 <div class="overflow-x-auto w-full">
@@ -13,33 +27,13 @@
       </tr>
     </thead>
     <tbody class="rounded-lg">
-      <!-- row 1 -->
+      {#each rows as thing, i (thing.address)}
       <tr class="row">
-        <td class="border rounded-l-lg p-2">Ganderton</td>
-        <td>Quality Control Specialist</td>
-        <td class="rounded-r-lg p-2">Blue</td>
+        <td>{i}</td>
+        <td>{thing.address}</td>
+        <td>{thing.score}</td>
       </tr>
-      <!-- row 2 -->
-      <tr>
-        <td>Hart Hagerty</td>
-        <td>Desktop Support Technician</td>
-        <td>Purple</td>
-      </tr>
-      <!-- row 3 -->
-      <tr>
-        <td>Brice Swyre</td>
-        <td>Tax Accountant</td>
-        <td>Red</td>
-      </tr>
+      {/each}
     </tbody>
   </table>
 </div>
-
-<!-- Maybe refactor in the future -->
-<style>
-  tr.row {
-    border-radius: 20px;
-    border: 2px solid var(--grays-gray-200, #adb1b8);
-    background: rgba(202, 203, 206, 0.15);
-  }
-</style>
