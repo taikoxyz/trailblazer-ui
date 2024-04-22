@@ -16,6 +16,11 @@ export const NavigationData: INavigation[] = [
     disabled: false,
   },
   {
+    label: 'Profile',
+    url: '/profile',
+    disabled: false,
+  },
+  {
     label: 'NFT',
     url: '/nft',
     disabled: true,
