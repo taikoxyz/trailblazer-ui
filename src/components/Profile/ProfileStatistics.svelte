@@ -9,7 +9,7 @@
 
   <div class="flex flex-col">
     <div>last active</div>
-    <div>20234/01/15</div>
+    <div>2024/01/15</div>
   </div>
 
   {#each statistics as statistic}
