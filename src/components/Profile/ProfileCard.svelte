@@ -57,7 +57,8 @@
       </div>
     </div>
   </div>
-  <div class="flex flex-col w-full gap-5">
+
+  <div class="flex flex-col w-full gap-5 pt-8">
     <div class="flex w-full justify-between items-center gap-2">
       <div class="flex items-center gap-1">
         <Icon type="user-circle"></Icon>Welcome, <span class="body-bold">{profile.name}</span>
@@ -65,21 +66,21 @@
       <div>{profile.address} / {profile.ens}</div>
     </div>
     <div class="flex items-center gap-2">
-      <div class="font-clash-grotesk font-semibold text-[64px]">{profile.points}</div>
+      <div class="font-clash-grotesk font-semibold text-[64px] leading-none">{profile.points}</div>
       <div>points</div>
     </div>
     <div class="flex flex-col gap-4">
-      <div class="flex justify-between">
+      <div class="flex justify-between body-bold">
         <div>{profile.rank}</div>
-        <div>{profile.experience}/{profile.nextLevelExperience}</div>
+        <div>{profile.experience} / <span class="text-tertiary-content">{profile.nextLevelExperience}</span></div>
       </div>
       <progress
         class="progress progress-secondary w-full h-9"
         value={profile.experience}
         max={profile.nextLevelExperience}>
       </progress>
-      <div class="flex justify-between">
-        <div>Top {profile.rankPercentile} %</div>
+      <div class="flex justify-between body-bold">
+        <div class="text-tertiary-content">Top {profile.rankPercentile} %</div>
         <div>{profile.position}</div>
       </div>
     </div>

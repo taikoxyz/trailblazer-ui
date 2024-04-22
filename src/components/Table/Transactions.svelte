@@ -1,5 +1,10 @@
 <script lang="ts">
+  import Skeleton from '$components/Mock/Skeleton.svelte';
+  import { MOCK_USER_TRANSACTIONS } from 'src/tests/mocks/userTransactions';
+
   let headers = ['Activity Name', 'Points', 'Date & Time'];
+
+  let transactions = MOCK_USER_TRANSACTIONS;
 </script>
 
 <div class="border-collapse w-full border-none">
@@ -18,38 +23,16 @@
   <div class="overflow-scroll max-h-[529px] block bg-elevated-background rounded-2xl px-[55px] py-[20px]">
     <table class="table w-full border-collapse bg-elevated-background">
       <tbody class="border-none pt-6 overflow-scroll">
-        <tr class="border-none">
-          <td>Gandertsson</td>
-          <td>Quality Control Specialist</td>
-          <td>B2ue</td>
-        </tr>
-
-        <tr class="border-none">
-          <td class="">Ganderton</td>
-          <td>Quality Control Specialist</td>
-          <td>B2ue</td>
-        </tr>
-        <tr class="border-none">
-          <td>Ganderton</td>
-          <td>Quality Control Specialist</td>
-          <td>B2ue</td>
-        </tr>
-        <tr class="border-none">
-          <td>Ganderton</td>
-          <td>Quality Control Specialist</td>
-          <td>B2ue</td>
-        </tr>
-        <tr class="border-none">
-          <td class="">Ganderton</td>
-          <td>Quality Control Specialist</td>
-          <td>B2ue</td>
-        </tr>
-        <!-- row 2 -->
-        <tr class="border-none">
-          <td>Ganderton</td>
-          <td>Quality Control Specialist</td>
-          <td>B2ue</td>
-        </tr>
+        {#each transactions as transaction, i}
+          <tr class="border-none">
+            <td class="flex gap-2 items-center">
+              <Skeleton width="w-4" height="h-4" bgColor="bg-blue-200" shineColor="bg-blue-100" />
+              {transaction.activityName}
+            </td>
+            <td>{transaction.points}</td>
+            <td>{transaction.date.toLocaleString()}</td>
+          </tr>
+        {/each}
       </tbody>
     </table>
   </div>
