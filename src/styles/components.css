@@ -1,6 +1,16 @@
 @tailwind components;
 
+
 @layer components {
+
+  .font-public-sans {
+    font-family: 'Public Sans';
+  }
+
+  .font-clash-grotesk {
+    font-family: 'Clash Grotesk';
+  }
+
   /* Typography */
   .title-screen-regular {
     @apply font-normal text-[2rem]/10;

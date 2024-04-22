@@ -1,5 +1,6 @@
 <script lang="ts">
   import { Icon } from '$components/Icon';
+  import Skeleton from '$components/Mock/Skeleton.svelte';
   import Placeholder from '$images/placeholder.png';
 
   type ProfileCard = {
@@ -36,7 +37,25 @@
         <img src={profile.avatar} alt="avatar" />
       </div>
     </div>
-    <div class="bg-neutral rounded-full px-5 py-3">Multipliers</div>
+    <div class="flex items-center gap-4 bg-neutral rounded-full px-5 py-3 max-w-[364px]">
+      Multipliers
+      <div class="bg-elevated-background rounded-full px-5 py-3 overflow-x-scroll">
+        <div class="flex gap-1 w-fit">
+          <Skeleton width="w-4" height="h-4" bgColor="bg-blue-200" shineColor="bg-blue-100" />
+          <Skeleton width="w-4" height="h-4" bgColor="bg-red-200" shineColor="bg-red-100" />
+          <Skeleton width="w-4" height="h-4" bgColor="bg-yellow-200" shineColor="bg-yellow-100" />
+          <Skeleton width="w-4" height="h-4" bgColor="bg-green-200" shineColor="bg-green-100" />
+          <Skeleton width="w-4" height="h-4" bgColor="bg-blue-200" shineColor="bg-blue-100" />
+          <Skeleton width="w-4" height="h-4" bgColor="bg-red-200" shineColor="bg-red-100" />
+          <Skeleton width="w-4" height="h-4" bgColor="bg-yellow-200" shineColor="bg-yellow-100" />
+          <Skeleton width="w-4" height="h-4" bgColor="bg-green-200" shineColor="bg-green-100" />
+          <Skeleton width="w-4" height="h-4" bgColor="bg-blue-200" shineColor="bg-blue-100" />
+          <Skeleton width="w-4" height="h-4" bgColor="bg-red-200" shineColor="bg-red-100" />
+          <Skeleton width="w-4" height="h-4" bgColor="bg-yellow-200" shineColor="bg-yellow-100" />
+          <Skeleton width="w-4" height="h-4" bgColor="bg-green-200" shineColor="bg-green-100" />
+        </div>
+      </div>
+    </div>
   </div>
   <div class="flex flex-col w-full gap-5">
     <div class="flex w-full justify-between items-center gap-2">
@@ -46,7 +65,7 @@
       <div>{profile.address} / {profile.ens}</div>
     </div>
     <div class="flex items-center gap-2">
-      <div class="title-screen-bold">{profile.points}</div>
+      <div class="font-clash-grotesk font-semibold text-[64px]">{profile.points}</div>
       <div>points</div>
     </div>
     <div class="flex flex-col gap-4">
