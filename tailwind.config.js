@@ -331,7 +331,7 @@ export default {
           '--warning-sentiment': '#775602', // yellow-700
           '--warning-background': '#FFF6DE', // yellow-10
 
-          '--elevated-background': '#FAFAFA', // grey-5
+          '--elevated-background': '#F3F3F3', // grey-5
           '--neutral-background': '#FFFFFF', //  grey-0
           '--neutral-content': '#191E28', // grey-800
           '--neutral-accent': '#e3e3e3', // grey-50
