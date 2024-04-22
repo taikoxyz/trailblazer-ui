@@ -25,6 +25,10 @@ input[type='number'] {
  * By design we don't have any opacity on disabled buttons,
  * also font color is tertiary-content
  */
+
+.btn {
+  @apply rounded-full
+}
 .btn.btn-disabled,
 .btn[disabled],
 .btn:disabled {

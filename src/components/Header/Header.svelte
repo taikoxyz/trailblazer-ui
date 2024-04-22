@@ -28,7 +28,7 @@
 
 <div class="absolute w-full">
   <div
-    class=" flex body-regular justify-between items-center box-border mx-auto w-full max-w-[1440px] mt-8 py-2 pl-6 pr-2 rounded-full lg:bg-elevated-background">
+    class=" flex body-regular justify-between items-center box-border mx-auto w-full max-w-section mt-8 py-2 pl-6 pr-2 rounded-full lg:bg-elevated-background">
     {#if $screen == 'mobile'}
       <a href="/">
         <div class="flex justify-around items-center">

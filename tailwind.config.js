@@ -192,6 +192,10 @@ export default {
 
         'divider-border': 'var(--divider-border)',
       },
+      maxWidth: {
+        'section': '1362px',
+      },
+
     },
   },
 
