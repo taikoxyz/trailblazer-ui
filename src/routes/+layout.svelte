@@ -10,6 +10,7 @@
   import { SwitchChainModal } from '$components/SwitchChainModal';
   import { WelcomeModal } from '$components/WelcomeModal';
   import { startWatching, stopWatching } from '$libs/wagmi';
+  import { Footer } from '$components/Footer';
 
   const syncPointer = ({ x, y }: { x: number; y: number }) => {
     document.documentElement.style.setProperty('--x', x.toFixed(2));
@@ -34,6 +35,8 @@
 <main>
   <slot />
 </main>
+
+<Footer />
 
 <!--
   The following UI is global and should be rendered 
