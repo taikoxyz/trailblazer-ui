@@ -29,7 +29,7 @@
   };
 </script>
 
-<div class="w-full flex bg-elevated-background p-5 gap-10 rounded-3xl min-w-[1130px]">
+<div class="w-full flex bg-elevated-background p-5 gap-10 rounded-3xl min-w-[900px]">
   <div class="flex flex-col gap-5">
     <div class="avatar">
       <div class="w-[364px] bg-orange-400 rounded-3xl">

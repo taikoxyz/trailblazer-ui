@@ -4,7 +4,7 @@
   let statistics = [1];
 </script>
 
-<div class="w-full flex flex-col bg-elevated-background p-5 gap-10 rounded-3xl">
+<div class=" flex flex-col bg-elevated-background p-5 gap-10 rounded-3xl">
   <div>Statistics</div>
 
   <div class="flex flex-col">
