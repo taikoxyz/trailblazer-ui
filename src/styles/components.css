@@ -76,6 +76,10 @@
     @apply font-normal text-sm;
   }
 
+  .social-media-text {
+    @apply font-clash-grotesk font-[500] text-2xl/7;
+  }
+
   /* Form Controls */
   .input-box {
     /* Using shadows to increase border size without impacting the surroundings */
