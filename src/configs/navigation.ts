@@ -21,9 +21,9 @@ export const NavigationData: INavigation[] = [
     disabled: false,
   },
   {
-    label: 'NFT',
-    url: '/nft',
-    disabled: true,
+    label: 'Factions',
+    url: '/factions',
+    disabled: false,
   },
   {
     label: 'Airdrop',
