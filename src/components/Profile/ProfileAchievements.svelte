@@ -1,0 +1,12 @@
+<script>
+  import { MOCK_USER_STATISTICS } from 'src/tests/mocks/userStatistics';
+  import StatisticItem from './StatisticItem.svelte';
+
+  let statistics = MOCK_USER_STATISTICS;
+</script>
+
+<div class="flex gap-2 overflow-x-scroll max-h-[300px]">
+  {#each statistics as statistic}
+    <StatisticItem {statistic} />
+  {/each}
+</div>
