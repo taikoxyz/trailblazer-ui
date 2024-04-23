@@ -1,6 +1,6 @@
 <script lang="ts">
-  import Skeleton from '$components/Mock/Skeleton.svelte';
-  import { Spinner } from '$components/Spinner';
+  import { FactionCollection } from '$components/Carousel';
+  import { ProfileAchievements } from '$components/Profile';
   import { Transactions } from '$components/Table';
 
   type TabContent = {
@@ -17,12 +17,12 @@
     },
     {
       name: 'Achievements',
-      content: Skeleton,
+      content: ProfileAchievements,
       checked: false,
     },
     {
       name: 'NFT Collection',
-      content: Skeleton,
+      content: FactionCollection,
       checked: false,
     },
   ];
@@ -37,7 +37,7 @@
       class="tab whitespace-nowrap [--tab-bg:#e81899] [--tab-radius:0] [--tab-border-color:transparent] body-bold"
       aria-label={tab.name}
       checked={tab.checked} />
-    <div role="tabpanel" class="tab-content p-6">
+    <div role="tabpanel" class="tab-content p-6 bg-elevated-background max-w-full overflow-hidden">
       <svelte:component this={tab.content} />
     </div>
   {/each}
