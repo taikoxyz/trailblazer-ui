@@ -8,12 +8,12 @@
     score: string;
     date: string;
   };
-  let rows: LeaderboardRow[] = []
+  let rows: LeaderboardRow[] = [];
   onMount(async () => {
-		const res = await fetch(`https://trailblazer.internal.taiko.xyz/leaderboard?since=${start}&until=${end}`);
-		const data = await res.json();
-    rows = data.items
-	});
+    const res = await fetch(`https://trailblazer.internal.taiko.xyz/leaderboard?since=${start}&until=${end}`);
+    const data = await res.json();
+    rows = data.items;
+  });
 </script>
 
 <div class="overflow-x-auto w-full">
@@ -28,11 +28,11 @@
     </thead>
     <tbody class="rounded-lg">
       {#each rows as thing, i (thing.address)}
-      <tr class="row">
-        <td>{i}</td>
-        <td>{thing.address}</td>
-        <td>{thing.score}</td>
-      </tr>
+        <tr class="row">
+          <td>{i}</td>
+          <td>{thing.address}</td>
+          <td>{thing.score}</td>
+        </tr>
       {/each}
     </tbody>
   </table>

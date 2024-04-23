@@ -7,8 +7,8 @@
   let transactions = MOCK_USER_TRANSACTIONS;
 </script>
 
-<div class="border-collapse w-full border-none">
-  <div class=" px-[55px]">
+<div class="border-collapse w-full border-none bg-elevated-background">
+  <div class="px-[5px]">
     <table class="table w-full border-collapse">
       <thead class="border-none bg-none">
         <tr class="border-none">
@@ -19,12 +19,13 @@
       </thead>
     </table>
   </div>
+  <div class="divider m-0"></div>
 
-  <div class="overflow-scroll max-h-[529px] block bg-elevated-background rounded-2xl px-[55px] py-[20px]">
+  <div class="overflow-scroll max-h-[529px] block bg-elevated-background px-[5px]">
     <table class="table w-full border-collapse bg-elevated-background">
       <tbody class="border-none pt-6 overflow-scroll">
         {#each transactions as transaction, i}
-          <tr class="border-none">
+          <tr class="border-2 border-transparent hover:border-2 hover:border-orange-400">
             <td class="flex gap-2 items-center">
               <Skeleton width="w-4" height="h-4" bgColor="bg-blue-200" shineColor="bg-blue-100" />
               {transaction.activityName}
