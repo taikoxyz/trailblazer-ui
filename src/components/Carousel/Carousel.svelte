@@ -62,7 +62,7 @@
 </script>
 
 <div class="flex w-full justify-center items-center gap-[12.25px]">
-  <button on:click={scrollLeft} class="btn btn-circle bg-grey-5">
+  <button on:click={scrollLeft} class="btn btn-circle bg-elevated-background">
     <Icon type="chevron-left" class="-translate-x-[2px]"></Icon>
   </button>
   <div bind:this={carousel} class="carousel w-full overflow-scroll rounded-box gap-8 max-w-[1362px]">
@@ -70,7 +70,7 @@
       <CarouselItem />
     {/each}
   </div>
-  <button on:click={scrollRight} class="btn btn-circle bg-grey-5 flex items-center justify-center">
+  <button on:click={scrollRight} class="btn btn-circle bg-elevated-background flex items-center justify-center">
     <Icon type="chevron-right" class="translate-x-[2px]"></Icon>
   </button>
 </div>
