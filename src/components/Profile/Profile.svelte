@@ -1,5 +1,6 @@
 <script>
   import { Transactions } from '$components/Table';
+  import Tabs from '$components/Tabs/Tabs.svelte';
   import ProfileCard from './ProfileCard.svelte';
   import ProfileStatistics from './ProfileStatistics.svelte';
 </script>
@@ -10,7 +11,6 @@
     <ProfileStatistics />
   </div>
   <div class="max-w-section w-full title-section-regular">Transaction Details</div>
-  <div class="max-w-section w-full gap-8">
-    <Transactions />
-  </div>
+
+  <Tabs />
 </div>
