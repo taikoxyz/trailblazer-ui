@@ -23,3 +23,5 @@ export const MOCK_BRIDGE_TX_1 = {
   blockNumber: numberToHex(BLOCK_NUMBER_1),
   message: MOCK_MESSAGE_L1_L2,
 } satisfies BridgeTransaction;
+
+

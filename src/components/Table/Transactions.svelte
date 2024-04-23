@@ -1,10 +1,13 @@
 <script lang="ts">
   import Skeleton from '$components/Mock/Skeleton.svelte';
+  import type { UserTransaction } from '$libs/profile';
+  import { userTransactions } from '$stores/userTransactions';
   import { MOCK_USER_TRANSACTIONS } from 'src/tests/mocks/userTransactions';
 
   let headers = ['Activity Name', 'Points', 'Date & Time'];
 
-  let transactions = MOCK_USER_TRANSACTIONS;
+  let transactions: UserTransaction[];
+  $: transactions = $userTransactions;
 </script>
 
 <div class="border-collapse w-full border-none bg-elevated-background">
@@ -28,10 +31,10 @@
           <tr class="border-2 border-transparent hover:border-2 hover:border-orange-400">
             <td class="flex gap-2 items-center">
               <Skeleton width="w-4" height="h-4" bgColor="bg-blue-200" shineColor="bg-blue-100" />
-              {transaction.activityName}
+              {transaction?.activityName}
             </td>
-            <td>{transaction.points}</td>
-            <td>{transaction.date.toLocaleString()}</td>
+            <td>{transaction?.points}</td>
+            <td>{transaction?.date.toLocaleString()}</td>
           </tr>
         {/each}
       </tbody>

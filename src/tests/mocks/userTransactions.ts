@@ -1,9 +1,4 @@
-
-type UserTransaction = {
-  activityName: string;
-  points: number;
-  date: Date;
-}
+import type { UserTransaction } from "$libs/profile";
 
 export const MOCK_USER_TRANSACTIONS: UserTransaction[] = [
   {
