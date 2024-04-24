@@ -13,7 +13,6 @@ export class Profile {
     setInterval(() => {
       currentProfile.set(MOCK_PROFILE_2);
     }, 5000)
-
     // TODO: Link with backend
 
   }
@@ -26,8 +25,6 @@ export class Profile {
     }, 5000)
 
     // TODO: Link with backend
-
-
   }
 
   public getStatistics() {
