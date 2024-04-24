@@ -44,6 +44,10 @@
     @apply font-bold text-lg/6;
   }
 
+  .display-small-medium {
+    @apply font-clash-grotesk font-medium text-[35px]/[42px];
+  }
+
   .body-regular {
     @apply font-normal text-base;
   }
