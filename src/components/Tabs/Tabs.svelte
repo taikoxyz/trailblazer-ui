@@ -34,10 +34,12 @@
       type="radio"
       name="my_tabs_2"
       role="tab"
-      class="tab whitespace-nowrap [--tab-bg:#e81899] [--tab-radius:0] [--tab-border-color:transparent] body-bold"
+      class="tab hover:cursor-pointer hover:bg-[#e81899] hover:bg-opacity-20 whitespace-nowrap [--tab-bg:#e81899] [--tab-radius:0] [--tab-border-color:transparent] body-bold"
       aria-label={tab.name}
       checked={tab.checked} />
-    <div role="tabpanel" class="tab-content p-6 bg-elevated-background max-w-full overflow-hidden">
+    <div
+      role="tabpanel"
+      class="tab-content p-6 bg-elevated-background max-w-full overflow-hidden rounded-r-[30px] rounded-b-[30px] min-h-64">
       <svelte:component this={tab.content} />
     </div>
   {/each}
