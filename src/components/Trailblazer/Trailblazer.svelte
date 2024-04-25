@@ -1,9 +1,12 @@
 <script>
   import Carousel from '$components/Carousel/Carousel.svelte';
+  import LandingTitle from '$components/Landing/LandingTitle.svelte';
 </script>
 
 <div class="flex flex-col w-full items-center gap-8">
   <!-- Section 1 -->
+  <LandingTitle />
+
   <div
     class="w-full max-w-section rounded-3xl bg-grey-10 flex flex-col justify-center items-center pt-[120px] pb-[110px] gap-[54px]">
     <div class="flex flex-col gap-[11px]">
