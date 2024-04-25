@@ -1,6 +1,6 @@
 <script lang="ts">
   import { FactionCollection } from '$components/Carousel';
-  import { ProfileAchievements } from '$components/Profile';
+  import { ProfileAchievements, ProfileBoosters } from '$components/Profile';
   import { Transactions } from '$components/Table';
 
   type TabContent = {
@@ -18,6 +18,11 @@
     {
       name: 'Achievements',
       content: ProfileAchievements,
+      checked: false,
+    },
+    {
+      name: 'Boosters',
+      content: ProfileBoosters,
       checked: false,
     },
     {

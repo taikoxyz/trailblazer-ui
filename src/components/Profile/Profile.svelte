@@ -5,9 +5,9 @@
   import ProfileCard from './ProfileCard.svelte';
   import ProfileSubCard from './ProfileSubCard.svelte';
 
-  onMount(() => {
-    Profile.getUserTransactions();
-    Profile.getProfile();
+  onMount(async () => {
+    await Profile.getUserTransactions();
+    await Profile.getProfile();
   });
 </script>
 
