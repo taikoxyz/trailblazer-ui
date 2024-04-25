@@ -26,14 +26,16 @@ export class Profile {
       const response = await fetch(`${PUBLIC_TRAILBLAZER_API_URL}/user?user=0x8626f6940E2eb28930eFb4CeF49B2d1F2C9C1199`)
       const userProfile: UserProfile = await response.json() as UserProfile
 
-      // Update currentProfile only with defined keys from userProfile
+      // Safely update the currentProfile with userProfile details
       currentProfile.update(current => {
-        Object.keys(userProfile).forEach(key => {
-          if (userProfile[key] !== undefined) {
-            current[key] = userProfile[key];
+        const updates: Partial<UserProfile> = {};
+        (Object.keys(userProfile) as Array<keyof UserProfile>).forEach(key => {
+          const userValue = userProfile[key];
+          if (userValue !== undefined) {
+            updates[key] = userValue as never;
           }
         });
-        return current;
+        return { ...current, ...updates };
       });
     }
 
