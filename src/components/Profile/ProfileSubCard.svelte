@@ -1,7 +1,6 @@
 <script lang="ts">
   type CardProps = {
-    bodyColor: string;
-    actionColor: string;
+    color: string;
     actionText: string;
     actionLink?: string;
   };
