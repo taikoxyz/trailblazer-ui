@@ -15,9 +15,9 @@ export class Profile {
   static async getProfile() {
 
     // Mock Data
-    setInterval(() => {
-      currentProfile.set(MOCK_PROFILE_2);
-    }, 5000)
+    // setInterval(() => {
+    //   currentProfile.set(MOCK_PROFILE_2);
+    // }, 5000)
 
     const account = getAccount(config);
     if (account?.address) {

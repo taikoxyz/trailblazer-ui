@@ -14,6 +14,16 @@ export type UserProfile = {
   isLoading: boolean;
 };
 
+export type UserBooster = {
+  title: string;
+  boost: number;
+  type: BoosterType;
+  unlocked: boolean;
+}
+
+export type BoosterType = 'nft' | 'stake' | 'bridge';
+
+
 export type UserFaction = {
   faction: Faction;
   boostedOrBased: BoostedOrBased;
