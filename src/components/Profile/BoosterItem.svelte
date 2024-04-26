@@ -1,21 +1,38 @@
 <script lang="ts">
-  import Skeleton from '$components/Mock/Skeleton.svelte';
+  import type { UserBooster } from '$libs/profile';
+  import BoosterIcon from './BoosterIcon.svelte';
 
-  type Statistic = {
-    description: string;
-    value: string;
-  };
+  export let data: UserBooster;
+  let disabled: boolean = true;
+  let bg = "bg-[url('/src/public/images/booster-bg.svg')]";
+  let blur = "bg-[url('/src/public/images/booster-bg.svg')]";
 
-  export let statistic: Statistic = {
-    description: 'transactions',
-    value: '420',
-  };
+  $: if (data.unlocked) {
+    disabled = false;
+    bg = "bg-[url('/src/public/images/booster-bg.svg')]";
+    blur = '';
+  } else {
+    disabled = true;
+    bg = "bg-[url('/src/public/images/booster-bg-disabled.svg')]";
+    blur = 'blur-md';
+  }
 </script>
 
-<div class="flex p-[10px] bg-neutral rounded-[10px] gap-3">
-  <Skeleton width="w-4" height="h-4" bgColor="bg-green-50" shineColor="bg-green-10" />
-  <div class="flex flex-col gap-1">
-    <div class="body-bold leading-none">{statistic.value}</div>
-    <div class="body-regular text-secondary-content leading-none">{statistic.description}</div>
+<div class="flex w-full min-h-[351px] {bg} bg-no-repeat bg-contain">
+  <div class="w-full pt-[28px] pb-[20px] px-[20px] flex flex-col justify-between {blur}">
+    <div class="absolute z-10 px-[10px] py-[5px] body-bold rounded-full bg-purple-600 place-self-start">
+      {data.boost}x Boost
+    </div>
+    <div class="flex flex-col w-full h-full items-center justify-between pb-[20px]">
+      <div class=" ">
+        <BoosterIcon type={data.type} />
+      </div>
+      <div class="display-small-medium text-center">
+        {data.title}
+      </div>
+      <div class="w-full place-self-end mb-0">
+        <button class="btn btn-primary btn-block">Earn Booster</button>
+      </div>
+    </div>
   </div>
 </div>
