@@ -6,8 +6,8 @@
   let boosters = MOCK_USER_BOOSTERS;
 </script>
 
-<div class="flex gap-2 overflow-x-scroll max-h-[300px]">
-  {#each boosters as statistic}
-    <BoosterItem />
+<div class="grid grid-cols-4 gap-5">
+  {#each boosters as booster}
+    <BoosterItem data={booster} />
   {/each}
 </div>
