@@ -30,6 +30,11 @@
       content: FactionCollection,
       checked: false,
     },
+    {
+      name: 'Faction Badges',
+      content: FactionCollection,
+      checked: false,
+    },
   ];
 </script>
 
