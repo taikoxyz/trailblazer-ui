@@ -1,6 +1,6 @@
 import { getAccount } from "@wagmi/core";
 import { MOCK_PROFILE_2 } from "src/tests/mocks/profile";
-import { MOCK_USER_TRANSACTIONS } from "src/tests/mocks/userPointHistory";
+import { MOCK_USER_POINT_HISTORY } from "src/tests/mocks/userPointHistory";
 
 import { PUBLIC_TRAILBLAZER_API_URL } from "$env/static/public";
 import { config } from "$libs/wagmi";
@@ -52,13 +52,13 @@ export class Profile {
 
     // Mock Data
     // setInterval(() => {
-    //   userPointHistory.set(MOCK_USER_TRANSACTIONS);
+    //   userPointHistory.set(MOCK_USER_POINT_HISTORY);
     // }, 100)
 
     // Get current page for user transactions
 
 
-    const response = await fetch(`${PUBLIC_TRAILBLAZER_API_URL}/use r?user=0x8626f6940E2eb28930eFb4CeF49B2d1F2C9C1199`)
+    // const response = await fetch(`${PUBLIC_TRAILBLAZER_API_URL}/use r?user=0x8626f6940E2eb28930eFb4CeF49B2d1F2C9C1199`)
     // const userProfile: UserProfile = await response.json() as UserPointHistoryPage
 
 
