@@ -4,8 +4,8 @@ env:
 
 on:
   push:
-    tags:
-      - 'bridge-ui-*'
+    branches:
+      - 'main'
 
 jobs:
   Deploy-Production:

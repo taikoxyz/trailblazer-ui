@@ -4,10 +4,8 @@ env:
 
 on:
   push:
-    branches-ignore:
-      - main
-    paths:
-      - '.'
+    branches:
+      - 'dev'
 
 jobs:
   Deploy-Preview:
