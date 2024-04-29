@@ -8,11 +8,10 @@
   import TKOIcon from '$images/tokens/TKO.png';
   import ETHIcon from '$images/tokens/ETH.png';
   import { Icon } from '$components/Icon';
-  import ProfileMultipliers from './ProfileMultipliers.svelte';
   import { Skeleton } from '$components/Mock';
 
   onMount(async () => {
-    await Profile.getUserTransactions();
+    // await Profile.getUserTransactions();
     await Profile.getProfile();
   });
 </script>
@@ -20,8 +19,10 @@
 <div class="flex flex-col items-center">
   <div class="flex flex-col max-w-section w-full gap-8">
     <div class="flex max-w-section w-full gap-8 box-content h-[264px]">
+      <!-- Profile Card -->
       <ProfileCard />
 
+      <!-- Bridged Card -->
       <ProfileSubCard>
         <div class="flex flex-col gap-8 items-center w-full">
           <div class="f-center gap-2">
@@ -41,6 +42,7 @@
         </div>
       </ProfileSubCard>
 
+      <!-- Booster Card -->
       <ProfileSubCard props={{ color: 'bg-purple-600' }}>
         <div class="flex flex-col gap-6 items-center justify-center w-full">
           <div class="f-center gap-2">

@@ -1,13 +1,9 @@
 <script lang="ts">
   import Skeleton from '$components/Mock/Skeleton.svelte';
-  import type { UserTransaction } from '$libs/profile';
-  import { userTransactions } from '$stores/userTransactions';
-  import { MOCK_USER_TRANSACTIONS } from 'src/tests/mocks/userTransactions';
+  import type { UserPointHistory } from '$libs/profile';
+  import { userPointHistory } from '$stores/userPointHistory';
 
   let headers = ['Activity Name', 'Points', 'Date & Time'];
-
-  let transactions: UserTransaction[];
-  $: transactions = $userTransactions;
 </script>
 
 <div class="border-collapse w-full border-none bg-elevated-background">
@@ -27,14 +23,14 @@
   <div class="overflow-y-scroll max-h-[529px] block bg-elevated-background px-[5px]">
     <table class="table w-full border-collapse bg-elevated-background">
       <tbody class="border-none pt-6 overflow-scroll">
-        {#each transactions as transaction, i}
+        {#each $userPointHistory as pointHistory}
           <tr class="border-2 border-transparent hover:border-2 hover:border-orange-400">
             <td class="flex gap-2 items-center">
               <Skeleton width="w-4" height="h-4" bgColor="bg-blue-200" shineColor="bg-blue-100" />
-              {transaction?.activityName}
+              {pointHistory?.event}
             </td>
-            <td>{transaction?.points}</td>
-            <td>{transaction?.date.toLocaleString()}</td>
+            <td>{pointHistory?.points}</td>
+            <td>{pointHistory?.date}</td>
           </tr>
         {/each}
       </tbody>
