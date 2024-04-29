@@ -1,7 +1,4 @@
 <script>
-  import Carousel from '$components/Carousel/Carousel.svelte';
-  import { FactionCollection } from '$components/Carousel';
-  import Placeholder from '$images/placeholder.png';
 </script>
 
 <div class="relative flex h-fit">
