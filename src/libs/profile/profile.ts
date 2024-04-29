@@ -1,13 +1,13 @@
 import { getAccount } from "@wagmi/core";
 import { MOCK_PROFILE_2 } from "src/tests/mocks/profile";
-import { MOCK_USER_TRANSACTIONS } from "src/tests/mocks/userTransactions";
+import { MOCK_USER_TRANSACTIONS } from "src/tests/mocks/userPointHistory";
 
 import { PUBLIC_TRAILBLAZER_API_URL } from "$env/static/public";
 import { config } from "$libs/wagmi";
 import { currentProfile } from "$stores/profile";
-import { userTransactions } from "$stores/userTransactions";
+import { userPointHistory } from "$stores/userPointHistory";
 
-import type { UserProfile } from "./types";
+import type { UserPointHistoryPage, UserProfile } from "./types";
 
 export class Profile {
 
@@ -37,18 +37,31 @@ export class Profile {
         });
         return { ...current, ...updates };
       });
+
+      userPointHistory.set(userProfile.pointsHistory)
+
+      // set page 
+
+
+
     }
 
   }
 
-  static async getUserTransactions() {
+  static async getUserPointsHistory() {
 
     // Mock Data
-    setInterval(() => {
-      userTransactions.set(MOCK_USER_TRANSACTIONS);
-    }, 5000)
+    // setInterval(() => {
+    //   userPointHistory.set(MOCK_USER_TRANSACTIONS);
+    // }, 100)
 
-    // TODO: Link with backend
+    // Get current page for user transactions
+
+
+    const response = await fetch(`${PUBLIC_TRAILBLAZER_API_URL}/use r?user=0x8626f6940E2eb28930eFb4CeF49B2d1F2C9C1199`)
+    // const userProfile: UserProfile = await response.json() as UserPointHistoryPage
+
+
   }
 
   static async getStatistics() {

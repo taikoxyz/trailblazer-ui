@@ -68,9 +68,11 @@ export type UserPointHistoryPage = {
   visible: number
 }
 
+export type Event = "ETHBridged" | "ERC20Bridged" | "ERC721Bridged"
+
 export type UserPointHistory = {
   address: string,
   event: Event,
   points: number,
-  timestamp: Date
+  date: string
 }

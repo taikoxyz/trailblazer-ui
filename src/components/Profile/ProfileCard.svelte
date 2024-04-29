@@ -24,10 +24,10 @@
   <div class="flex flex-col w-full gap-5 self-center">
     <div class="flex w-full justify-between items-center gap-2">
       <div class="flex items-center gap-1">
-        <Icon type="user-circle"></Icon>Welcome, <span class="body-bold">{profile?.name}</span>
+        <Icon type="user-circle"></Icon>Welcome, <span class="body-bold">{shortenAddress(profile?.address)}</span>
       </div>
 
-      <div>{shortenAddress(profile?.address)} / {profile?.ens}</div>
+      <!-- <div>{shortenAddress(profile?.address)} / {profile?.ens}</div> -->
     </div>
 
     <!-- Points -->
@@ -48,13 +48,15 @@
     <div class="flex flex-col gap-4">
       <div class="flex justify-between body-bold">
         <div>{profile?.rank}</div>
-        <div>{profile?.experience} / <span class="text-tertiary-content">{profile?.nextLevelExperience}</span></div>
+        <div>
+          {profile?.points} / <span class="text-tertiary-content">{profile?.points + profile?.pointsToNextLevel}</span>
+        </div>
       </div>
       <!-- Experience Bar -->
       <progress
         class="progress progress-secondary w-full h-3"
-        value={profile?.experience}
-        max={profile?.nextLevelExperience}>
+        value={profile?.points}
+        max={profile?.points + profile?.pointsToNextLevel}>
       </progress>
       <!-- Profile Percentile & Position -->
       <!-- <div class="flex justify-between body-bold">
