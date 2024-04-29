@@ -29,6 +29,12 @@ export type UserFaction = {
   boostedOrBased: BoostedOrBased;
 }
 
+// UserFactionBadge type extends UserFaction
+export type UserFactionBadge = UserFaction & {
+  unlocked: boolean;
+}
+
+
 export type Faction =
   "Ravers" |
   "Robots" |

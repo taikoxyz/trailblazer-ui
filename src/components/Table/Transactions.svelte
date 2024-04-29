@@ -24,7 +24,7 @@
   </div>
   <div class="divider m-0"></div>
 
-  <div class="overflow-scroll max-h-[529px] block bg-elevated-background px-[5px]">
+  <div class="overflow-y-scroll max-h-[529px] block bg-elevated-background px-[5px]">
     <table class="table w-full border-collapse bg-elevated-background">
       <tbody class="border-none pt-6 overflow-scroll">
         {#each transactions as transaction, i}
