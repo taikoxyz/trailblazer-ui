@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { FactionCollection } from '$components/Carousel';
-  import { ProfileAchievements, ProfileBoosters } from '$components/Profile';
+  import { NFTCollection } from '$components/Carousel';
+  import { ProfileAchievements, ProfileBoosters, ProfileFactions } from '$components/Profile';
   import { Transactions } from '$components/Table';
 
   type TabContent = {
@@ -27,7 +27,12 @@
     },
     {
       name: 'NFT Collection',
-      content: FactionCollection,
+      content: NFTCollection,
+      checked: false,
+    },
+    {
+      name: 'Faction Badges',
+      content: ProfileFactions,
       checked: false,
     },
   ];

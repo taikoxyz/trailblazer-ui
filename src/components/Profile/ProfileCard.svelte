@@ -1,13 +1,10 @@
 <script lang="ts">
   import { Icon } from '$components/Icon';
-  import LoadingText from '$components/LoadingText/LoadingText.svelte';
-  import Skeleton from '$components/Mock/Skeleton.svelte';
   import type { UserProfile } from '$libs/profile';
   import { shortenAddress } from '$libs/util/shortenAddress';
   import { currentProfile } from '$stores/profile';
-  import { MOCK_PROFILE } from 'src/tests/mocks/profile';
-  import { onMount } from 'svelte';
-  import ProfileMutlipliers from './ProfileMutlipliers.svelte';
+
+  import ProfileMultipliers from './ProfileMultipliers.svelte';
 
   let profile: UserProfile;
   $: profile = $currentProfile;
@@ -21,7 +18,7 @@
         <img src={profile?.avatar} alt="avatar" />
       </div>
     </div>
-    <!-- <ProfileMutlipliers /> -->
+    <!-- <ProfileMultipliers /> -->
   </div>
 
   <div class="flex flex-col w-full gap-5 self-center">
