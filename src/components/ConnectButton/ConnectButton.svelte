@@ -13,7 +13,7 @@
   import { ethBalance } from '$stores/balance';
   import { connectedSourceChain } from '$stores/network';
 
-  export let connected = false;
+  $: connected = $account?.isConnected;
 
   let web3modalOpen = false;
   let unsubscribeWeb3Modal = noop;

@@ -11,8 +11,8 @@
   import { Skeleton } from '$components/Mock';
 
   onMount(async () => {
-    // await Profile.getUserTransactions();
     await Profile.getProfile();
+    await Profile.getUserPointsHistory();
   });
 </script>
 

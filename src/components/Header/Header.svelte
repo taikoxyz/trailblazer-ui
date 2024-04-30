@@ -1,19 +1,15 @@
 <script lang="ts">
   // variables
-  import Logo from '$images/taiko-h-wht.svg';
   import HamburgerIcon from '$images/hamburger.svg';
   import XIcon from '$images/x.svg';
-  import StarIcon from '$images/star.svg';
-  import HourglassIcon from '$images/hourglass.svg';
   import { screen } from '$stores/responsiveness';
   import { MobileNavigation } from '$components/MobileNavigation';
-  import ConnectWalletButton from '$components/Button/ConnectWalletButton.svelte';
   import { account } from '$stores/account';
   import { ThemeButton } from '$components/ThemeButton';
-  import { Icon } from '$components/Icon';
   import { LogoWithText } from '$components/Logo';
   import { NavigationData } from '$configs/navigation';
   import { page } from '$app/stores';
+  import ConnectButton from '$components/ConnectButton/ConnectButton.svelte';
 
   let screenSize: number;
   let mobileMenu = false;
@@ -67,7 +63,7 @@
         </div>
 
         <div class="hidden md:inline-flex">
-          <ConnectWalletButton />
+          <ConnectButton />
           <div class="v-sep my-auto mx-[8px] h-[24px]" />
           <ThemeButton />
         </div>
