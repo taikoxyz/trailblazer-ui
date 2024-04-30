@@ -27,6 +27,7 @@ jobs:
         run: |
           vercel env add PUBLIC_TRAILBLAZER_API_URL production $PUBLIC_TRAILBLAZER_API_URL --token=${{ secrets.VERCEL_TOKEN }}
           vercel env add PUBLIC_WALLETCONNECT_PROJECT_ID production $PUBLIC_WALLETCONNECT_PROJECT_ID --token=${{ secrets.VERCEL_TOKEN }}
+          vercel env add CONFIGURED_CHAINS production $CONFIGURED_CHAINS --token=${{ secrets.VERCEL_TOKEN }}
           # Add more variables as needed
 
       - name: Build Project Artifacts
