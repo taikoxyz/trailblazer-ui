@@ -74,5 +74,5 @@ export type UserPointHistory = {
   address: string,
   event: Event,
   points: number,
-  date: string
+  date: number
 }
