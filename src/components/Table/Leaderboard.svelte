@@ -1,18 +1,14 @@
 <script lang="ts">
+  import { Leaderboard } from '$libs/leaderboard';
+  import { currentLeaderboard } from '$stores/leaderboard';
   import { onMount } from 'svelte';
   let headers = ['#', 'Wallet Address', 'Score'];
-  export let start: number;
-  export let end: number;
-  type LeaderboardRow = {
-    address: string;
-    score: string;
-    date: string;
-  };
-  let rows: LeaderboardRow[] = [];
+
+  export let start = 0;
+  export let end = 2714348799;
+
   onMount(async () => {
-    const res = await fetch(`https://trailblazer.internal.taiko.xyz/leaderboard?since=${start}&until=${end}`);
-    const data = await res.json();
-    rows = data.items;
+    await Leaderboard.getLeaderboard(start, end);
   });
 </script>
 
@@ -27,7 +23,7 @@
       </tr>
     </thead>
     <tbody class="rounded-lg">
-      {#each rows as thing, i (thing.address)}
+      {#each $currentLeaderboard.items as thing, i (thing.address)}
         <tr class="row">
           <td>{i}</td>
           <td>{thing.address}</td>
