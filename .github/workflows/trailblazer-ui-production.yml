@@ -25,8 +25,8 @@ jobs:
 
       - name: Set Vercel Environment Variables
         run: |
-          vercel env add PUBLIC_TRAILBLAZER_API_URL prod $PUBLIC_TRAILBLAZER_API_URL --token=${{ secrets.VERCEL_TOKEN }}
-          vercel env add PUBLIC_WALLETCONNECT_PROJECT_ID prod $PUBLIC_WALLETCONNECT_PROJECT_ID --token=${{ secrets.VERCEL_TOKEN }}
+          vercel env add PUBLIC_TRAILBLAZER_API_URL production $PUBLIC_TRAILBLAZER_API_URL --token=${{ secrets.VERCEL_TOKEN }}
+          vercel env add PUBLIC_WALLETCONNECT_PROJECT_ID production $PUBLIC_WALLETCONNECT_PROJECT_ID --token=${{ secrets.VERCEL_TOKEN }}
           # Add more variables as needed
 
       - name: Build Project Artifacts
