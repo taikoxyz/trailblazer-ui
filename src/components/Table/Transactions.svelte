@@ -25,7 +25,7 @@
     <table class="table w-full border-collapse bg-elevated-background">
       <tbody class="border-none pt-6 overflow-scroll">
         {#if $currentProfile.pointsHistory}
-          {#each $currentProfile.pointsHistory?.items as pointHistory}
+          {#each $currentProfile.pointsHistory.items as pointHistory}
             <tr class="border-2 border-transparent hover:border-2 hover:border-orange-400">
               <td class="flex gap-2 items-center">
                 <Skeleton width="w-4" height="h-4" bgColor="bg-blue-200" shineColor="bg-blue-100" />

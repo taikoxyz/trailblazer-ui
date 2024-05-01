@@ -25,7 +25,7 @@
 <div class="absolute w-full flex justify-center">
   <div class="max-w-section w-full">
     <div
-      class="container flex body-regular justify-between items-center box-border mx-auto w-full mt-8 py-2 pl-6 pr-2 rounded-full lg:bg-elevated-background">
+      class="container flex body-regular items-center justify-between box-border w-full mt-8 py-2 pl-6 pr-2 rounded-full lg:bg-none">
       {#if $screen == 'mobile'}
         <a href="/">
           <div class="flex justify-around items-center">
@@ -50,22 +50,20 @@
         </a>
         <!-- Header Navigation -->
 
-        <div class="lg:flex items-start justify-center gap-10 body-bold">
+        <div class="lg:flex justify-center gap-[10px] body-bold">
           {#each NavigationData as data}
-            <header-item>
-              <a
-                class={`hover:text-[#CD0682] ${$page.url.pathname === data.url ? 'active-tab' : ''} nav-item ${data.disabled ? 'disabled-tag' : ''}`}
-                href={data.disabled ? '#' : data.url}
-                >{data.label}
-              </a>
-            </header-item>
+            <a
+              class={`bg-neutral-background py-3 px-5 w-full max-w-[140px] text-center rounded-full hover:text-[#CD0682] ${$page.url.pathname === data.url ? 'active-tab' : ''} nav-item ${data.disabled ? 'disabled-tag' : ''}`}
+              href={data.disabled ? '#' : data.url}
+              >{data.label}
+            </a>
           {/each}
         </div>
 
-        <div class="hidden md:inline-flex">
+        <div class="hidden md:flex justify-end">
           <ConnectButton />
-          <div class="v-sep my-auto mx-[8px] h-[24px]" />
-          <ThemeButton />
+          <!-- <div class="v-sep my-auto mx-[8px] h-[24px]" />
+          <ThemeButton /> -->
         </div>
       {/if}
       {#if mobileMenu}
