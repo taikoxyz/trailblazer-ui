@@ -34,7 +34,7 @@
 
     <!-- Points -->
     <div class="flex items-center gap-2">
-      <CountUp class="font-clash-grotesk font-semibold text-[45px] leading-none" value={profile?.points} />
+      <CountUp class="font-clash-grotesk font-semibold text-[45px] leading-none" value={$currentProfile?.points} />
       <div>points</div>
     </div>
     <!-- Faction -->
