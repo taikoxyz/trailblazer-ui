@@ -1,4 +1,5 @@
 <script>
+  import { ShinyCard } from '$components/Card';
   import Carousel from '$components/Carousel/Carousel.svelte';
   import LandingTitle from '$components/Landing/LandingTitle.svelte';
 </script>
@@ -59,6 +60,17 @@
   <!-- Rank Session -->
   <div
     class=" max-w-section w-full h-[929.746px] rounded-3xl bg-gradient-to-t from-grey-10/100 to-grey-10/0 flex flex-col justify-center items-center pt-[120px] pb-[110px] gap-[54px]">
+  </div>
+
+  <div class="flex flex-wrap gap-2">
+    <ShinyCard type="pink" />
+    <ShinyCard type="gold" />
+    <ShinyCard type="rainbow" />
+    <ShinyCard type="silver" />
+    <ShinyCard type="bronze" />
+    <ShinyCard type="platinum" />
+    <ShinyCard type="diamond" />
+    <ShinyCard type="glass" />
   </div>
 
   <!-- Footer -->

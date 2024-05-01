@@ -9,6 +9,7 @@
   import ETHIcon from '$images/tokens/ETH.png';
   import { Icon } from '$components/Icon';
   import { Skeleton } from '$components/Mock';
+  import ShinyCard from '$components/Card/ShinyCard.svelte';
 
   onMount(async () => {
     await Profile.getProfile();
