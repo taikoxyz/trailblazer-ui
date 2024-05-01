@@ -249,4 +249,19 @@
   }
 
   /* TODO: add more components here */
+
+  @layer components {
+      @keyframes shine {
+        from {
+            left: -150%;
+        }
+        to {
+            left: 150%;
+        }
+    }
+
+    .animate-shine {
+        animation: shine 5s infinite;
+    }
+  }
 }
