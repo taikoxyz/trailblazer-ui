@@ -7,13 +7,21 @@ import { ethBalance } from '$stores/balance';
 
 export function renderBalance(balance: Maybe<GetBalanceReturnType>) {
   if (!balance) return '0.00';
-  // if (typeof balance === 'bigint') return balance.toString();
-  const maxlength = Number(balance.formatted) < 0.000001 ? balance.decimals : 6;
-  return `${truncateString(balance.formatted, maxlength, '')} ${truncateString(balance.symbol, 7)}`;
+
+  // Determine the appropriate number of decimal places
+  const formattedNumber = parseFloat(balance.formatted);
+  const maxLength = formattedNumber !== 0 && formattedNumber < 0.000001 ? balance.decimals : 2;
+
+  // Truncate and format the number
+  const formattedBalance = formattedNumber.toFixed(maxLength);
+
+  return `${formattedBalance} ${truncateString(balance.symbol, 7)}`;
 }
 
-export function renderEthBalance(balance: bigint, maxlength = 8): string {
-  return `${truncateString(formatEther(balance).toString(), maxlength, '')} ETH`;
+export function renderEthBalance(balance: bigint): string {
+  // Convert balance from wei to ether and format to 2 decimal places
+  const formattedBalance = parseFloat(formatEther(balance)).toFixed(2);
+  return `${formattedBalance} ETH`;
 }
 
 export const refreshUserBalance = async () => {
