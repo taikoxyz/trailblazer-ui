@@ -1,5 +1,7 @@
 <script lang="ts">
+  import { Bar } from '$components/Bar';
   import { Icon } from '$components/Icon';
+  import CountUp from '$components/Numbers/CountUp.svelte';
   import type { UserProfile } from '$libs/profile';
   import { shortenAddress } from '$libs/util/shortenAddress';
   import { currentProfile } from '$stores/profile';
@@ -32,7 +34,7 @@
 
     <!-- Points -->
     <div class="flex items-center gap-2">
-      <div class="font-clash-grotesk font-semibold text-[45px] leading-none">{profile?.points}</div>
+      <CountUp class="font-clash-grotesk font-semibold text-[45px] leading-none" value={profile?.points} />
       <div>points</div>
     </div>
     <!-- Faction -->
@@ -48,16 +50,17 @@
     <div class="flex flex-col gap-4">
       <div class="flex justify-between body-bold">
         <div>{profile?.rank}</div>
-        <div>
-          {profile?.points} / <span class="text-tertiary-content">{profile?.points + profile?.pointsToNextLevel}</span>
+        <div class="flex">
+          <CountUp value={profile?.points} /> /
+          <span class="text-tertiary-content">{profile?.points + profile?.pointsToNextLevel}</span>
         </div>
       </div>
       <!-- Experience Bar -->
-      <progress
+
+      <Bar
         class="progress progress-secondary w-full h-3"
         value={profile?.points}
-        max={profile?.points + profile?.pointsToNextLevel}>
-      </progress>
+        maxValue={profile?.points + profile?.pointsToNextLevel} />
       <!-- Profile Percentile & Position -->
       <!-- <div class="flex justify-between body-bold">
         <div class="text-tertiary-content">Top {profile?.rankPercentile} %</div>
