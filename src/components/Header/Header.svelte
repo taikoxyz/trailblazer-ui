@@ -22,10 +22,10 @@
 
 <svelte:window bind:innerWidth={screenSize} />
 
-<div class="absolute w-full flex justify-center">
-  <div class="max-w-section w-full">
+<div class="absolute w-full f-center">
+  <div class="max-w-section f-center w-full">
     <div
-      class="container flex body-regular items-center justify-between box-border w-full mt-8 py-2 pl-6 pr-2 rounded-full lg:bg-none">
+      class="container flex body-regular items-center justify-between box-border w-full mt-8 py-2 rounded-full lg:bg-none">
       {#if $screen == 'mobile'}
         <a href="/">
           <div class="flex justify-around items-center">
@@ -62,8 +62,8 @@
 
         <div class="hidden md:flex justify-end">
           <ConnectButton />
-          <!-- <div class="v-sep my-auto mx-[8px] h-[24px]" />
-          <ThemeButton /> -->
+          <div class="v-sep my-auto mx-[8px] h-[24px]" />
+          <ThemeButton />
         </div>
       {/if}
       {#if mobileMenu}
