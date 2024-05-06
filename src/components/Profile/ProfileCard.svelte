@@ -16,7 +16,7 @@
 <div class="flex bg-elevated-background p-5 gap-10 rounded-3xl w-fit">
   <div class="flex flex-col gap-5">
     <div class="avatar">
-      <div class=" bg-orange-400 rounded-3xl">
+      <div class=" bg-orange-400 rounded-3xl max-w-[224px]">
         <img src={profile?.avatar} alt="avatar" />
       </div>
     </div>

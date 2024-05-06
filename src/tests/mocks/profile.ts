@@ -1,4 +1,4 @@
-import Placeholder from '$images/placeholder.png';
+import Placeholder from '$images/avatar.png';
 import type { UserProfile } from '$libs/profile';
 
 export const MOCK_PROFILE: UserProfile = {
