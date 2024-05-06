@@ -50,15 +50,7 @@
         </a>
         <!-- Header Navigation -->
 
-        <div class="lg:flex justify-center gap-[10px] body-bold">
-          {#each NavigationData as data}
-            <a
-              class={`bg-neutral-background py-3 px-5 w-full max-w-[140px] text-center rounded-full hover:text-[#CD0682] ${$page.url.pathname === data.url ? 'active-tab' : ''} nav-item ${data.disabled ? 'disabled-tag' : ''}`}
-              href={data.disabled ? '#' : data.url}
-              >{data.label}
-            </a>
-          {/each}
-        </div>
+        <div class="lg:flex justify-center gap-[10px] body-bold"></div>
 
         <div class="hidden md:flex justify-end">
           <ConnectButton />
