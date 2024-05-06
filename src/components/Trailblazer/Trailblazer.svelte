@@ -1,8 +1,9 @@
 <script lang="ts">
   import { PlusIcon } from '$components/Icon';
   import TrailblazerDude from '$images/trailblazer-dude.png';
-  import {FAQDropdown} from '$components/Dropdown';
-  import {MOCK_FAQS} from '$mocks';
+  import TrailblazerNFTText from '$images/trailblazer-NFT-text.svg';
+  import { FAQDropdown } from '$components/Dropdown';
+  import { MOCK_FAQS } from '$mocks';
 
   let time: number = 0;
   let duration: number | undefined;
@@ -53,8 +54,14 @@
 <div class="f-center container flex-col w-full overflow-visible">
   <!-- section 1 -->
   <div class="flex w-full px-[75px] py-[86px] relative h-screen max-h-[850px]">
-    <div>
-      <div class="font-clash-grotesk text-[160px]/[120px] tracking-[-2px] pb-[114px]">call of taiko NFT</div>
+    <div class="w-full">
+      <div class="font-clash-grotesk text-[160px]/[120px] tracking-[-2px] pb-[114px] w-full">
+        <div class="relative">
+          <span class="w-fit">call of taiko</span>
+          <img class="absolute bottom-0 left-[350px]" src={TrailblazerNFTText} alt={TrailblazerNFTText} />
+        </div>
+      </div>
+
       <PlusIcon class="pb-[40px]" />
       <div class="body-bold max-w-[343px]">
         In the vibrant world of Neo Nakuzaa revolutionary cast of charactersis emerging: Taiko Factions.
@@ -86,16 +93,15 @@
   </div>
   <!-- faq section -->
   <div class=" w-full px-[75px] py-[86px]">
-    
-  <div class="pb-[30px]">
-    <div class="display-large-medium">FAQs</div>
-  </div>
-  <div class="flex flex-col w-full gap-4">
+    <div class="pb-[30px]">
+      <div class="display-large-medium">FAQs</div>
+    </div>
+    <div class="flex flex-col w-full gap-4">
       {#each faqs as { question, answer }}
         <FAQDropdown {question} {answer}></FAQDropdown>
       {/each}
+    </div>
   </div>
-</div>
 </div>
 
 <style>
