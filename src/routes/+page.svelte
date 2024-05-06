@@ -12,6 +12,6 @@
 <div class="h-24"></div>
 
 <CoverImage src={''}></CoverImage>
-<Page>
+<div class="f-center">
   <Trailblazer />
-</Page>
+</div>
