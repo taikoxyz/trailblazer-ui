@@ -48,6 +48,11 @@
     @apply font-clash-grotesk font-medium text-[35px]/[42px];
   }
 
+  .display-large-medium {
+    @apply font-clash-grotesk font-medium text-[57px]/[64px];
+  }
+
+
   .body-regular {
     @apply font-normal text-base;
   }

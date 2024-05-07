@@ -1,6 +1,7 @@
 <script lang="ts">
   // variables
   import HamburgerIcon from '$images/hamburger.svg';
+  import TrailblazerTag from '$images/trailblazer-tag.svg';
   import XIcon from '$images/x.svg';
   import { screen } from '$stores/responsiveness';
   import { MobileNavigation } from '$components/MobileNavigation';
@@ -45,20 +46,16 @@
         </button>
       {/if}
       {#if $screen == 'desktop'}
-        <a href="/">
-          <LogoWithText textFillClass="fill-primary-content" width={77} />
-        </a>
+        <div class="f-center gap-2">
+          <a href="/">
+            <LogoWithText textFillClass="fill-primary-content" width={90} />
+          </a>
+          <img src={TrailblazerTag} />
+        </div>
+
         <!-- Header Navigation -->
 
-        <div class="lg:flex justify-center gap-[10px] body-bold">
-          {#each NavigationData as data}
-            <a
-              class={`bg-neutral-background py-3 px-5 w-full max-w-[140px] text-center rounded-full hover:text-[#CD0682] ${$page.url.pathname === data.url ? 'active-tab' : ''} nav-item ${data.disabled ? 'disabled-tag' : ''}`}
-              href={data.disabled ? '#' : data.url}
-              >{data.label}
-            </a>
-          {/each}
-        </div>
+        <div class="lg:flex justify-center gap-[10px] body-bold"></div>
 
         <div class="hidden md:flex justify-end">
           <ConnectButton />
