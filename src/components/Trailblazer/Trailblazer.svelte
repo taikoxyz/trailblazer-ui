@@ -1,9 +1,12 @@
 <script lang="ts">
-  import { PlusIcon } from '$components/Icon';
+  import { Icon, PlusIcon } from '$components/Icon';
   import TrailblazerDude from '$images/trailblazer-dude.png';
   import TrailblazerNFTText from '$images/trailblazer-NFT-text.svg';
   import { FAQDropdown } from '$components/Dropdown';
   import { MOCK_FAQS } from '$mocks';
+  import ButtonWithArrow from '$components/Button/ButtonWithArrow.svelte';
+  import { signMessage } from '@wagmi/core';
+  import { config } from '$libs/wagmi';
 
   let time: number = 0;
   let duration: number | undefined;
@@ -15,6 +18,13 @@
   let showControlsTimeout: ReturnType<typeof setTimeout> | undefined;
 
   let lastMouseDown: Date | undefined;
+
+  async function handleAnswerTheCall() {
+    // sign off chain message
+    await signMessage(config, { message: 'Answer the call' });
+
+    // save address and signature to database
+  }
 
   function handleMove(e: MouseEvent | TouchEvent): void {
     clearTimeout(showControlsTimeout);
@@ -53,24 +63,52 @@
 
 <div class="f-center container flex-col w-full overflow-visible">
   <!-- section 1 -->
-  <div class="flex w-full px-[75px] py-[86px] relative h-screen max-h-[850px]">
-    <div class="w-full">
-      <div class="font-clash-grotesk text-[160px]/[120px] tracking-[-2px] pb-[114px] w-full">
-        <div class="relative">
-          <span class="w-fit">call of taiko</span>
-          <img class="absolute bottom-0 left-[350px]" src={TrailblazerNFTText} alt={TrailblazerNFTText} />
+  <div class="flex flex-col w-full py-[86px] gap-[132px]">
+    <div class="flex w-full relative">
+      <div class="w-full">
+        <!-- Title -->
+        <div class="font-clash-grotesk text-[160px]/[120px] tracking-[-2px] pb-[114px] max-w-[596px]">
+          <div class="relative">
+            <span class="w-fit">call of taiko</span>
+            <img class="absolute bottom-0 left-[350px]" src={TrailblazerNFTText} alt={TrailblazerNFTText} />
+          </div>
+        </div>
+        <!-- Description -->
+        <PlusIcon class="pb-[40px]" />
+        <div class="body-bold max-w-[343px] pb-[50px]">
+          In the vibrant world of Neo Nakuzaa revolutionary cast of charactersis emerging: Taiko Factions.
+        </div>
+        <!-- CTA -->
+        <ButtonWithArrow />
+      </div>
+      <!-- Image -->
+      <div class="w-full">
+        <img class="absolute -z-10 right-[-107px] top-[-173px] w-[782px]" src={TrailblazerDude} alt={TrailblazerDude} />
+      </div>
+    </div>
+    <!-- Banner CTA -->
+    <div class="border-gradient-pink">
+      <div class="flex items-center justify-between gap-8">
+        <div class="border-gradient-pink p-[5px] before:opacity-50 before:border-[1px] z-10">
+          <div class="f-center p-4 rounded-[14px] bg-gradient-to-r from-[#EA36A4] to-[#F997D0]">
+            <Icon type={'star'} fillClass="none" vWidth={24} vHeight={24} />
+          </div>
+        </div>
+        <div class="relative w-full flex font-clash-grotesk text-[40px]/[32px] gap-2">
+          <div class="w-full break-keep whitespace-nowrap">Taiko needs you. Will you</div>
+          <button
+            class=" hover:text-pink-500 z-10 w-full break-keep whitespace-nowrap"
+            on:click={() => {
+              handleAnswerTheCall();
+            }}>answer the call?</button>
+        </div>
+        <div class="w-full flex justify-end z-10">
+          <ButtonWithArrow />
         </div>
       </div>
-
-      <PlusIcon class="pb-[40px]" />
-      <div class="body-bold max-w-[343px]">
-        In the vibrant world of Neo Nakuzaa revolutionary cast of charactersis emerging: Taiko Factions.
-      </div>
-    </div>
-    <div class="w-full">
-      <img class="absolute right-[-27px] top-[-63px]" src={TrailblazerDude} alt={TrailblazerDude} />
     </div>
   </div>
+
   <!-- video section -->
   <div class="relative justify-self-center overflow-visible w-screen">
     <video
