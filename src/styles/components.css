@@ -57,6 +57,10 @@
     @apply font-normal text-base;
   }
 
+  .body-medium {
+    @apply font-semibold text-base;
+  }
+
   .body-bold {
     @apply font-bold text-base;
   }
@@ -269,4 +273,28 @@
         animation: shine 5s infinite;
     }
   }
+
+  .border-gradient-pink {
+    display: flow-root;
+    position: relative;
+    padding: 1.3rem;
+  }
+  
+  .border-gradient-pink::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 20px;
+    border: 3px solid transparent;
+    background: var(--gradient-pink) border-box;
+    -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: destination-out;
+    mask-composite: exclude;
+  }
+  
+  
+
 }
