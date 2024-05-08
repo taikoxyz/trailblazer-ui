@@ -23,10 +23,9 @@
 
 <svelte:window bind:innerWidth={screenSize} />
 
-<div class="absolute w-full f-center">
-  <div class="max-w-section f-center w-full">
-    <div
-      class="container flex body-regular items-center justify-between box-border w-full mt-8 py-2 rounded-full lg:bg-none">
+<div class="absolute w-full f-center px-8">
+  <div class="container f-center w-full">
+    <div class=" flex body-regular items-center justify-between box-border w-full mt-8 py-2 rounded-full lg:bg-none">
       {#if $screen == 'mobile'}
         <a href="/">
           <div class="flex justify-around items-center">
