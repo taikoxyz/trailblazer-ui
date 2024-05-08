@@ -41,7 +41,8 @@
     | 'approve-dark'
     | 'welcome-icon'
     | 'settings'
-    | 'swap';
+    | 'swap'
+    | 'star';
 </script>
 
 <script lang="ts">
@@ -54,8 +55,8 @@
   // Fixed viewBox
   const minX = 0;
   const minY = 0;
-  const vWidth = 20;
-  const vHeight = 20;
+  export let vWidth = 20;
+  export let vHeight = 20;
   const viewBox = `${minX} ${minY} ${vWidth} ${vHeight}`;
 </script>
 
@@ -502,5 +503,13 @@
       fill-rule="evenodd"
       clip-rule="evenodd"
       fill="none" />
+  {:else if type === 'star'}
+    <path
+      d="M13.73 4.37645L15.49 7.89645C15.73 8.38645 16.37 8.85645 16.91 8.94645L20.1 9.47645C22.14 9.81645 22.62 11.2965 21.15 12.7565L18.67 15.2365C18.25 15.6565 18.02 16.4665 18.15 17.0465L18.86 20.1165C19.42 22.5465 18.13 23.4865 15.98 22.2165L12.99 20.4465C12.45 20.1265 11.56 20.1265 11.01 20.4465L8.02003 22.2165C5.88003 23.4865 4.58003 22.5365 5.14003 20.1165L5.85003 17.0465C5.98003 16.4665 5.75003 15.6565 5.33003 15.2365L2.85003 12.7565C1.39003 11.2965 1.86003 9.81645 3.90003 9.47645L7.09003 8.94645C7.62003 8.85645 8.26003 8.38645 8.50003 7.89645L10.26 4.37645C11.22 2.46645 12.78 2.46645 13.73 4.37645Z"
+      class={fillClass}
+      stroke="white"
+      stroke-width="1.5"
+      stroke-linecap="round"
+      stroke-linejoin="round" />
   {/if}
 </svg>
