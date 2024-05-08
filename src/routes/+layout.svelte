@@ -11,6 +11,7 @@
   import { WelcomeModal } from '$components/WelcomeModal';
   import { startWatching, stopWatching } from '$libs/wagmi';
   import { Footer } from '$components/Footer';
+  import { Ribbon } from '$components/Ribbon';
 
   const syncPointer = ({ x, y }: { x: number; y: number }) => {
     document.documentElement.style.setProperty('--x', x.toFixed(2));
@@ -31,6 +32,7 @@
 </script>
 
 <!-- App components -->
+<Ribbon></Ribbon>
 <Header />
 <main>
   <slot />

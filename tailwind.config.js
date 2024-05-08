@@ -148,6 +148,7 @@ export default {
 
         secondary: {
           DEFAULT: 'var(--secondary-brand)',
+          "warm-yellow": 'var(--secondary-warm-yellow)',
           brand: 'var(--secondary-brand)',
           content: 'var(--secondary-content)',
           icon: 'var(--secondary-icon)',
@@ -185,6 +186,8 @@ export default {
             disabled: 'var(--dialog-dialog-interactive-disabled)',
           },
         },
+
+
 
         'elevated-background': 'var(--elevated-background)',
         'neutral-background': 'var(--neutral-background)',
@@ -235,6 +238,7 @@ export default {
           '--secondary-brand': '#E81899', // pink-400
           '--secondary-content': '#ADB1B8', // grey-200
           '--secondary-icon': '#2B303B', // grey-700
+          '--secondary-warm-yellow': '#FFE2A0', // grey-700
 
           '--secondary-interactive-accent': '#2B303B', // grey-700
           '--secondary-interactive-hover': '#ADB1B8', // grey-200
@@ -262,6 +266,7 @@ export default {
 
           '--dialog-background': '#2B303B', // grey-700
           '--dialog-dialog-interactive-disabled': '#444A55', // grey-600
+
 
           // ================================ //
 
@@ -315,6 +320,8 @@ export default {
           '--secondary-icon': '#2B303B', // grey-700
           '--secondary-interactive-accent': '#E3E3E3', // grey-50
           '--secondary-interactive-hover': '##F3F3F3', // grey-10
+          '--secondary-warm-yellow': '#FFE2A0', // grey-700
+
 
           '--tertiary-content': '#91969F', // grey-300
 
