@@ -6,6 +6,31 @@ export default {
   content: ['./src/**/*.{html,js,svelte,ts}'],
   theme: {
     extend: {
+      screens: {
+        'sm': '640px',
+        // => @media (min-width: 640px) { ... }
+
+        'md': '768px',
+        // => @media (min-width: 768px) { ... }
+
+        'lg': '1024px',
+        // => @media (min-width: 1024px) { ... }
+
+        'xl': '1362px',
+        // => @media (min-width: 1280px) { ... }
+
+        '2xl': '1536px',
+        // => @media (min-width: 1536px) { ... }
+      },
+      keyframes: {
+        'slide-right': {
+          '0%': { transform: 'translateX(-14px)' },
+          '100%': { transform: 'translateX(14px)' },
+        },
+      },
+      animation: {
+        'slide-right': 'slide-right 0.3s ease-in-out',
+      },
       colors: {
         /***************
          * Base colors *
@@ -188,7 +213,7 @@ export default {
         },
 
 
-
+        'gradient-pink': 'var(--gradient-pink)',
         'elevated-background': 'var(--elevated-background)',
         'neutral-background': 'var(--neutral-background)',
         'overlay-background': 'var(--overlay-background)',
@@ -266,7 +291,7 @@ export default {
 
           '--dialog-background': '#2B303B', // grey-700
           '--dialog-dialog-interactive-disabled': '#444A55', // grey-600
-
+          '--gradient-pink': 'linear-gradient(to right, #EA36A4 0%, #F997D0 100%)',
 
           // ================================ //
 
@@ -349,6 +374,8 @@ export default {
           '--dialog-dialog-interactive-disabled': '#E3E3E3', // grey-50
 
           '--divider-border': '#CACBCE', // grey-100
+          '--gradient-pink': 'linear-gradient(to right, #EA36A4 0%, #F997D0 100%)',
+
 
           // ================================ //
 
