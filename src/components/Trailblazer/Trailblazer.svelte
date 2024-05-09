@@ -9,6 +9,7 @@
   import { config } from '$libs/wagmi';
   import { web3modal } from '$libs/connect';
   import { account } from '$stores/account';
+  import TwitterLogin from '$components/Twitter/TwitterLogin.svelte';
 
   let time: number = 0;
   let duration: number | undefined;
@@ -114,6 +115,7 @@
         </div>
       </div>
     </div>
+    <TwitterLogin />
   </div>
 
   <!-- video section -->
