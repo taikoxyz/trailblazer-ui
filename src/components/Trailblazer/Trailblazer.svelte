@@ -7,6 +7,8 @@
   import ButtonWithArrow from '$components/Button/ButtonWithArrow.svelte';
   import { signMessage } from '@wagmi/core';
   import { config } from '$libs/wagmi';
+  import { web3modal } from '$libs/connect';
+  import { account } from '$stores/account';
 
   let time: number = 0;
   let duration: number | undefined;
@@ -20,6 +22,11 @@
   let lastMouseDown: Date | undefined;
 
   async function handleAnswerTheCall() {
+    // connect wallet if not
+    if ($account?.isConnected === false) {
+      web3modal.open({ view: 'Connect' });
+    }
+
     // sign off chain message
     await signMessage(config, { message: 'Answer the call' });
 
