@@ -6,7 +6,7 @@
 
 <div class="f-center container px-16 py-16 gap-2">
   <!-- Cards -->
-  {#each items as item, }
+  {#each items as item, i}
     <div class="avatar max-w-full min-w-0 card">
       <div class="rounded-[30px] h-[400px]">
         <img class="" src={item.image} />
