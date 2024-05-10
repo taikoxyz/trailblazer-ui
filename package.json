@@ -76,6 +76,7 @@
     "debug": "^4.3.4",
     "events": "^3.3.0",
     "object-hash": "^3.0.0",
+    "postcss-import": "^16.1.0",
     "svelte-i18n": "^3.7.4",
     "viem": "^2.10.2"
   }
