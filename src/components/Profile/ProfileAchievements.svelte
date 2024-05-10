@@ -1,5 +1,5 @@
 <script>
-  import { MOCK_USER_STATISTICS } from 'src/tests/mocks/userStatistics';
+  import { MOCK_USER_STATISTICS } from '$mocks';
 
   import StatisticItem from './StatisticItem.svelte';
 

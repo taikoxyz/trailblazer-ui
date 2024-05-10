@@ -1,5 +1,5 @@
 <script>
-  import { MOCK_USER_FACTIONS } from 'src/tests/mocks/userFactions';
+  import { MOCK_USER_FACTIONS } from '$mocks';
 
   import FactionBadgeItem from './FactionBadgeItem.svelte';
 

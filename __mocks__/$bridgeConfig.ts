@@ -1,4 +1,4 @@
-import { L1_ADDRESSES, L2_A_ADDRESSES, L3_ADDRESSES } from '../src/tests/mocks/addresses';
+import { L1_ADDRESSES, L2_A_ADDRESSES, L3_ADDRESSES } from '$mocks';
 
 export const routingContractsMap = {
   1: {
