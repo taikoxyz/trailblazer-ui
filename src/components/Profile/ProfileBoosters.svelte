@@ -1,5 +1,5 @@
 <script>
-  import { MOCK_USER_BOOSTERS } from 'src/tests/mocks/userBoosters';
+  import { MOCK_USER_BOOSTERS } from '$mocks';
 
   import BoosterItem from './BoosterItem.svelte';
   import StatisticItem from './StatisticItem.svelte';

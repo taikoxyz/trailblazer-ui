@@ -1,6 +1,4 @@
 import { getAccount } from '@wagmi/core';
-import { MOCK_PROFILE_2 } from 'src/tests/mocks/profile';
-import { MOCK_USER_POINT_HISTORY } from 'src/tests/mocks/userPointHistory';
 import { get } from 'svelte/store';
 
 import { PUBLIC_TRAILBLAZER_API_URL } from '$env/static/public';
