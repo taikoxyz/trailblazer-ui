@@ -1,8 +1,6 @@
 @tailwind components;
 
-
 @layer components {
-
   .font-public-sans {
     font-family: 'Public Sans';
   }
@@ -48,10 +46,14 @@
     @apply font-clash-grotesk font-medium text-[35px]/[42px];
   }
 
+
+  .display-medium-medium {
+    @apply font-clash-grotesk font-medium text-[45px]/[52px];
+  }
+
   .display-large-medium {
     @apply font-clash-grotesk font-medium text-[57px]/[64px];
   }
-
 
   .body-regular {
     @apply font-normal text-base;
@@ -260,17 +262,17 @@
   /* TODO: add more components here */
 
   @layer components {
-      @keyframes shine {
-        from {
-            left: -150%;
-        }
-        to {
-            left: 150%;
-        }
+    @keyframes shine {
+      from {
+        left: -150%;
+      }
+      to {
+        left: 150%;
+      }
     }
 
     .animate-shine {
-        animation: shine 5s infinite;
+      animation: shine 5s infinite;
     }
   }
 
@@ -279,9 +281,9 @@
     position: relative;
     padding: 1.3rem;
   }
-  
+
   .border-gradient-pink::before {
-    content: "";
+    content: '';
     position: absolute;
     top: 0;
     left: 0;
@@ -290,11 +292,10 @@
     border-radius: 20px;
     border: 3px solid transparent;
     background: var(--gradient-pink) border-box;
-    -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+    -webkit-mask:
+      linear-gradient(#fff 0 0) padding-box,
+      linear-gradient(#fff 0 0);
     -webkit-mask-composite: destination-out;
     mask-composite: exclude;
   }
-  
-  
-
 }

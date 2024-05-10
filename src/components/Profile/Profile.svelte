@@ -1,15 +1,16 @@
 <script>
-  import { ProfileTabs } from '$components/Tabs';
-  import { Profile } from '$libs/profile';
   import { onMount } from 'svelte';
-  import ProfileCard from './ProfileCard.svelte';
-  import ProfileSubCard from './ProfileSubCard.svelte';
 
-  import TKOIcon from '$images/tokens/TKO.png';
-  import ETHIcon from '$images/tokens/ETH.png';
+  import ShinyCard from '$components/Card/ShinyCard.svelte';
   import { Icon } from '$components/Icon';
   import { Skeleton } from '$components/Mock';
-  import ShinyCard from '$components/Card/ShinyCard.svelte';
+  import { ProfileTabs } from '$components/Tabs';
+  import ETHIcon from '$images/tokens/ETH.png';
+  import TKOIcon from '$images/tokens/TKO.png';
+  import { Profile } from '$libs/profile';
+
+  import ProfileCard from './ProfileCard.svelte';
+  import ProfileSubCard from './ProfileSubCard.svelte';
 
   onMount(async () => {
     await Profile.getProfile();

@@ -1,7 +1,8 @@
 <script lang="ts">
+  import { onMount } from 'svelte';
+
   import { Leaderboard } from '$libs/leaderboard';
   import { currentLeaderboard } from '$stores/leaderboard';
-  import { onMount } from 'svelte';
   let headers = ['#', 'Wallet Address', 'Score'];
 
   export let start = 0;

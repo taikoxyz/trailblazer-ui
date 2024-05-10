@@ -8,11 +8,10 @@ import { config } from '$libs/wagmi';
 export const load: Load = async () => {
   // const user = get(session).user;
 
-  const account = getAccount(config)
+  const account = getAccount(config);
   if (account?.address) {
     throw redirect(302, `/factions/${account?.address}`);
   } else {
-
     // TODO: Force user to connect wallet
     throw redirect(302, '/');
   }

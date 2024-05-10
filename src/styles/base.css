@@ -30,7 +30,7 @@
     right: 0;
     bottom: 0;
     left: 0;
-   
+
     /* No grid background by default */
     background-size: 0, cover, cover;
     background-blend-mode: color-dodge, lighten, multiply;

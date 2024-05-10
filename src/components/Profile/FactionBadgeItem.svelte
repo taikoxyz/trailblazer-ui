@@ -1,5 +1,6 @@
 <script lang="ts">
   import type { UserFactionBadge } from '$libs/profile';
+
   import FactionImage from './FactionImage.svelte';
 
   export let data: UserFactionBadge;

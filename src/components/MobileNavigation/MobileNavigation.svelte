@@ -1,9 +1,10 @@
 <script>
   import { fly } from 'svelte/transition';
-  import StarIcon from '$images/star.svg';
-  import HourglassIcon from '$images/hourglass.svg';
-  import TaikoLogo from '$images/taiko-h-wht.svg';
+
   import ConnectWalletButton from '$components/Button/ConnectWalletButton.svelte';
+  import HourglassIcon from '$images/hourglass.svg';
+  import StarIcon from '$images/star.svg';
+  import TaikoLogo from '$images/taiko-h-wht.svg';
 </script>
 
 <!-- Overlay -->

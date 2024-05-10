@@ -1,5 +1,6 @@
 <script>
   import { MOCK_USER_FACTIONS } from 'src/tests/mocks/userFactions';
+
   import FactionBadgeItem from './FactionBadgeItem.svelte';
 
   let factions = MOCK_USER_FACTIONS;

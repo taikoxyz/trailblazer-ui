@@ -15,7 +15,6 @@ let isWatching = false;
 let unWatchAccount: () => void;
 
 export async function startWatching() {
-
   if (!isWatching) {
     unWatchAccount = watchAccount(config, {
       onChange(data) {

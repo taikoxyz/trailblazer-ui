@@ -1,12 +1,8 @@
 <script lang="ts">
-  import { account } from '$stores/account';
-
-  import ProfileIcon from '$images/user-icon.svg';
-
-  import Button from './Button.svelte';
-  import { shortenAddress } from '$libs/util/shortenAddress';
-  import { web3modal } from '$libs/connect';
   import { Icon } from '$components/Icon';
+  import { web3modal } from '$libs/connect';
+  import { shortenAddress } from '$libs/util/shortenAddress';
+  import { account } from '$stores/account';
 
   function handleConnectWallet() {
     // Do not open if connection is active

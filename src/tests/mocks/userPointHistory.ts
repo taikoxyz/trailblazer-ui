@@ -1,4 +1,4 @@
-import type { UserPointHistory } from "$libs/profile";
+import type { UserPointHistory } from '$libs/profile';
 
 export const MOCK_USER_POINT_HISTORY: UserPointHistory[] = [
   {
@@ -19,4 +19,4 @@ export const MOCK_USER_POINT_HISTORY: UserPointHistory[] = [
     points: 1000,
     date: new Date('2024-01-01').toLocaleString(),
   },
-]
+];

@@ -1,5 +1,6 @@
 <script>
   import { MOCK_USER_STATISTICS } from 'src/tests/mocks/userStatistics';
+
   import StatisticItem from './StatisticItem.svelte';
 
   let statistics = MOCK_USER_STATISTICS;

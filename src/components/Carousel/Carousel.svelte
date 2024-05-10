@@ -1,5 +1,6 @@
 <script lang="ts">
   import { Icon } from '$components/Icon';
+
   import CarouselItem from './CarouselItem.svelte';
 
   type CarouselItem = {

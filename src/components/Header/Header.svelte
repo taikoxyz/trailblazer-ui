@@ -1,16 +1,16 @@
 <script lang="ts">
   // variables
+  import { page } from '$app/stores';
+  import ConnectButton from '$components/ConnectButton/ConnectButton.svelte';
+  import { LogoWithText } from '$components/Logo';
+  import { MobileNavigation } from '$components/MobileNavigation';
+  import { ThemeButton } from '$components/ThemeButton';
+  import { NavigationData } from '$configs/navigation';
   import HamburgerIcon from '$images/hamburger.svg';
   import TrailblazerTag from '$images/trailblazer-tag.svg';
   import XIcon from '$images/x.svg';
-  import { screen } from '$stores/responsiveness';
-  import { MobileNavigation } from '$components/MobileNavigation';
   import { account } from '$stores/account';
-  import { ThemeButton } from '$components/ThemeButton';
-  import { LogoWithText } from '$components/Logo';
-  import { NavigationData } from '$configs/navigation';
-  import { page } from '$app/stores';
-  import ConnectButton from '$components/ConnectButton/ConnectButton.svelte';
+  import { screen } from '$stores/responsiveness';
 
   let screenSize: number;
   let mobileMenu = false;

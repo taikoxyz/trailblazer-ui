@@ -5,13 +5,14 @@
   import { onDestroy, onMount } from 'svelte';
 
   import { AccountConnectionToast } from '$components/AccountConnectionToast';
+  import { Footer } from '$components/Footer';
   import { Header } from '$components/Header';
   import { NotificationToast } from '$components/NotificationToast';
+  import { Ribbon } from '$components/Ribbon';
   import { SwitchChainModal } from '$components/SwitchChainModal';
   import { WelcomeModal } from '$components/WelcomeModal';
+  import { startWatching as startWatchingX, stopWatching as stopWatchingX } from '$libs/supabase';
   import { startWatching, stopWatching } from '$libs/wagmi';
-  import { Footer } from '$components/Footer';
-  import { Ribbon } from '$components/Ribbon';
 
   const syncPointer = ({ x, y }: { x: number; y: number }) => {
     document.documentElement.style.setProperty('--x', x.toFixed(2));
@@ -22,11 +23,13 @@
 
   onMount(async () => {
     await startWatching();
+    startWatchingX();
     document.body.addEventListener('pointermove', syncPointer);
   });
 
   onDestroy(() => {
     stopWatching();
+    stopWatchingX();
     document.body.removeEventListener('pointermove', syncPointer);
   });
 </script>

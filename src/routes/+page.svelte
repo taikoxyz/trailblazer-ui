@@ -1,7 +1,6 @@
 <script>
-  import { Trailblazer } from '$components/Trailblazer';
-  import { Page } from '$components/Page';
   import { CoverImage } from '$components/CoverImage';
+  import { Trailblazer } from '$components/Trailblazer';
 </script>
 
 <svelte:head>

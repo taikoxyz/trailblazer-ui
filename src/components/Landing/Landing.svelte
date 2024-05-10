@@ -1,6 +1,6 @@
 <script>
-  import Carousel from '$components/Carousel/Carousel.svelte';
   import { FactionCollection } from '$components/Carousel';
+  import Carousel from '$components/Carousel/Carousel.svelte';
   import Placeholder from '$images/placeholder.png';
 </script>
 
