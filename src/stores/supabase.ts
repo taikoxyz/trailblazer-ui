@@ -8,3 +8,5 @@ export const supabaseClient = writable<SupabaseClient<Database>>();
 export const session = writable<AuthSession | null>();
 export const twitterUsername = writable<string>("");
 export const twitterId = writable<string>("");
+export const twitterAvatarUrl = writable<string>("");
+export const twitterAvatarId = writable<string>("");
