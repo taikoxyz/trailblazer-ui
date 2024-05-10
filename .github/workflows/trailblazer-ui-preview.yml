@@ -31,7 +31,7 @@ jobs:
 
       - name: Set Vercel Environment Variables
         run: |
-          vercel env add PUBLIC_TRAILBLAZER_API_URL preview $PUBLIC_TRAILBLAZER_API_URL --token=$VERCEL_TOKEN
+          vercel env add PUBLIC_TRAILBLAZER_API_URL preview ${{ vars.PUBLIC_TRAILBLAZER_API_URL}} --token=$VERCEL_TOKEN
           vercel env add PUBLIC_WALLETCONNECT_PROJECT_ID preview $PUBLIC_WALLETCONNECT_PROJECT_ID --token=$VERCEL_TOKEN
           vercel env add CONFIGURED_CHAINS preview $CONFIGURED_CHAINS --token=$VERCEL_TOKEN
           vercel env add PUBLIC_SUPABASE_ANON_KEY preview $PUBLIC_SUPABASE_ANON_KEY --token=$VERCEL_TOKEN
