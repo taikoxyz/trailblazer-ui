@@ -1,6 +1,5 @@
 <script lang="ts">
   import Skeleton from '$components/Mock/Skeleton.svelte';
-
   import { currentProfile } from '$stores/profile';
 
   $: profile = $currentProfile;

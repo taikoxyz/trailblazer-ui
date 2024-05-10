@@ -12,5 +12,5 @@ export const currentLeaderboard = writable<LeaderboardPage>({
   total: 0,
   last: 1,
   first: 0,
-  visible: 0
+  visible: 0,
 });

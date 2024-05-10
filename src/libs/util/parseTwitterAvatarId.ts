@@ -6,4 +6,4 @@ export const parseTwitterAvatarId = (url: string) => {
   } else {
     return null; // Return null if no match is found
   }
-}
+};

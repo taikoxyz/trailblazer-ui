@@ -1,9 +1,9 @@
 <script lang="ts">
-  import { Auth } from '@supabase/auth-ui-svelte';
   import { ThemeSupa } from '@supabase/auth-ui-shared';
-  import { supabaseClient } from '$libs/supabase';
-
+  import { Auth } from '@supabase/auth-ui-svelte';
   import { onMount } from 'svelte';
+
+  import { supabaseClient } from '$libs/supabase';
 
   let url: string;
   $: url;

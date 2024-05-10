@@ -1,7 +1,8 @@
 <script>
   import { MOCK_USER_BOOSTERS } from 'src/tests/mocks/userBoosters';
-  import StatisticItem from './StatisticItem.svelte';
+
   import BoosterItem from './BoosterItem.svelte';
+  import StatisticItem from './StatisticItem.svelte';
 
   let boosters = MOCK_USER_BOOSTERS;
 </script>

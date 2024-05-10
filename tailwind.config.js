@@ -7,16 +7,16 @@ export default {
   theme: {
     extend: {
       screens: {
-        'sm': '640px',
+        sm: '640px',
         // => @media (min-width: 640px) { ... }
 
-        'md': '768px',
+        md: '768px',
         // => @media (min-width: 768px) { ... }
 
-        'lg': '1024px',
+        lg: '1024px',
         // => @media (min-width: 1024px) { ... }
 
-        'xl': '1362px',
+        xl: '1362px',
         // => @media (min-width: 1280px) { ... }
 
         '2xl': '1536px',
@@ -138,6 +138,10 @@ export default {
           1000: '#050912',
         },
 
+        purple: {
+          DEFAULT: '#1B0E3E'
+        },
+
         /*******************
          * Semantic colors *
          *******************/
@@ -173,7 +177,7 @@ export default {
 
         secondary: {
           DEFAULT: 'var(--secondary-brand)',
-          "warm-yellow": 'var(--secondary-warm-yellow)',
+          'warm-yellow': 'var(--secondary-warm-yellow)',
           brand: 'var(--secondary-brand)',
           content: 'var(--secondary-content)',
           icon: 'var(--secondary-icon)',
@@ -212,7 +216,6 @@ export default {
           },
         },
 
-
         'gradient-pink': 'var(--gradient-pink)',
         'elevated-background': 'var(--elevated-background)',
         'neutral-background': 'var(--neutral-background)',
@@ -221,9 +224,8 @@ export default {
         'divider-border': 'var(--divider-border)',
       },
       maxWidth: {
-        'section': '1362px',
+        section: '1362px',
       },
-
     },
   },
 
@@ -347,7 +349,6 @@ export default {
           '--secondary-interactive-hover': '##F3F3F3', // grey-10
           '--secondary-warm-yellow': '#FFE2A0', // grey-700
 
-
           '--tertiary-content': '#91969F', // grey-300
 
           // TODO: these two are missing. Remain the same as dark theme
@@ -375,7 +376,6 @@ export default {
 
           '--divider-border': '#CACBCE', // grey-100
           '--gradient-pink': 'linear-gradient(to right, #EA36A4 0%, #F997D0 100%)',
-
 
           // ================================ //
 

@@ -1,6 +1,4 @@
-import type { UserBooster } from "$libs/profile";
-
-
+import type { UserBooster } from '$libs/profile';
 
 export const MOCK_USER_BOOSTERS: UserBooster[] = [
   {
@@ -14,7 +12,6 @@ export const MOCK_USER_BOOSTERS: UserBooster[] = [
     boost: 1.5,
     type: 'stake',
     unlocked: true,
-
   },
   {
     title: 'Bridge on Taiko',
@@ -22,7 +19,6 @@ export const MOCK_USER_BOOSTERS: UserBooster[] = [
     type: 'bridge',
 
     unlocked: true,
-
   },
   {
     title: 'Active Days on Katla',
@@ -30,7 +26,6 @@ export const MOCK_USER_BOOSTERS: UserBooster[] = [
     type: 'nft',
 
     unlocked: true,
-
   },
   {
     title: 'Jeets Slayer',
@@ -38,5 +33,5 @@ export const MOCK_USER_BOOSTERS: UserBooster[] = [
     type: 'nft',
 
     unlocked: false,
-  }
-]
+  },
+];

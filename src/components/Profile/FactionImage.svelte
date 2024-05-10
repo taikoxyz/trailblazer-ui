@@ -1,8 +1,7 @@
 <script lang="ts">
-  import type { Faction } from '$libs/profile';
-
   import RaverImage from '$images/factions/faction-1.png';
   import RobotsImage from '$images/factions/faction-2.png';
+  import type { Faction } from '$libs/profile';
   // import AndroidsImage from '$images/factions/androids.svg';
   // import BouncerImage from '$images/factions/bouncers.svg';
   // import DrummerImage from '$images/factions/drummers.svg';

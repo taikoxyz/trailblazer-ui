@@ -1,9 +1,7 @@
-
-import { error, json } from '@sveltejs/kit';
+import { error } from '@sveltejs/kit';
 
 /** @type {import('./$types').RequestHandler} */
 export async function GET({ params }) {
-
   const { slug: twitterImageId } = params;
 
   // Verify if slug exists
@@ -20,7 +18,7 @@ export async function GET({ params }) {
       return error(response.status, `Failed to fetch image: ${response.statusText}`);
     }
     // Read the image as a blob
-    const originalPfp = await response.arrayBuffer()
+    const originalPfp = await response.arrayBuffer();
 
     // convert blob to base64
     // Convert blob to Base64
@@ -68,15 +66,14 @@ export async function GET({ params }) {
     </g>
     <path class="cls-2"
       d="M0,0v400h400V0H0ZM200,375.7c-97,0-175.7-78.7-175.7-175.7S103,24.3,200,24.3s175.7,78.7,175.7,175.7-78.7,175.7-175.7,175.7Z" />
-  </svg>`
-
+  </svg>`;
 
     // Stream the image directly in the response
     // return json(svg);
     return new Response(svg, {
       headers: {
-        'Content-Type': 'image/svg+xml'
-      }
+        'Content-Type': 'image/svg+xml',
+      },
     });
   } catch (e) {
     console.error('Failed to fetch image:', e);

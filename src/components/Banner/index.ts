@@ -1,1 +1,1 @@
-export { default as CTABanner } from './CTABanner';
+export { default as CTABanner } from './CTABanner.svelte';

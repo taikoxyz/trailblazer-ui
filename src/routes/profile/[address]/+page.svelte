@@ -1,6 +1,6 @@
 <script>
-  import { Profile } from '$components/Profile';
   import { Page } from '$components/Page';
+  import { Profile } from '$components/Profile';
 </script>
 
 <svelte:head>

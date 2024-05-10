@@ -1,7 +1,7 @@
 <script>
-  import { Quest } from '$components/Quest';
-  import { Page } from '$components/Page';
   import { CoverImage } from '$components/CoverImage';
+  import { Page } from '$components/Page';
+  import { Quest } from '$components/Quest';
 </script>
 
 <svelte:head>

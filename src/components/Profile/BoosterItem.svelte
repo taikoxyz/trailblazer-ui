@@ -1,5 +1,6 @@
 <script lang="ts">
   import type { UserBooster } from '$libs/profile';
+
   import BoosterIcon from './BoosterIcon.svelte';
 
   export let data: UserBooster;

@@ -27,7 +27,7 @@ input[type='number'] {
  */
 
 .btn {
-  @apply rounded-full
+  @apply rounded-full;
 }
 .btn.btn-disabled,
 .btn[disabled],

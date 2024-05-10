@@ -18,7 +18,7 @@
     <div class="icon" class:open={isOpen}>+</div>
   </button>
   {#if isOpen}
-    <div class="p-1  w-full mt-8" transition:slide>
+    <div class="p-1 w-full mt-8" transition:slide>
       <!-- Dropdown content goes here -->
       <p class="body-regular">{answer}</p>
     </div>
@@ -37,5 +37,4 @@
   .icon.open {
     transform: rotate(45deg); /* Plus icon turns into a 'x' */
   }
-
 </style>

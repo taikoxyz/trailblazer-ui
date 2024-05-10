@@ -15,7 +15,6 @@ export const MOCK_PROFILE: UserProfile = {
   isLoading: true,
 };
 
-
 export const MOCK_PROFILE_2: UserProfile = {
   avatar: Placeholder,
   name: 'Jane',
