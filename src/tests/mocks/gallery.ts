@@ -1,6 +1,6 @@
 import RaverFaction from '$images/factions/faction-gallery-1.png';
 
-type GalleryItem = {
+export type GalleryItem = {
   image: string;
   name: string;
 };

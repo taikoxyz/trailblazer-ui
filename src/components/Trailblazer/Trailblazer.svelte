@@ -17,6 +17,7 @@
   import { CTABanner } from '$components/Banner';
 
   import FactionStack from '$images/faction-stack.png';
+  import Connector from '$components/SVG/Connector.svelte';
 
   let time: number = 0;
   let duration: number | undefined;
@@ -190,7 +191,39 @@
       </div>
     </div>
 
-    <!-- Twiter -->
+    <div class="f-center">
+      <div class="flex flex-col px-[35px] py-[38px] bg-purple rounded-[30px] gap-[20px]">
+        <div class="flex items-center gap-2 display-small-medium">
+          <Icon type="semi-circle-reversed" fillClass="fill-primary-brand" />Register
+        </div>
+        <div class="text-secondary-content">
+          Begin by registering your wallet address. This initial step is crucial as it links your identity to your
+          participation.
+        </div>
+      </div>
+      <Connector class="fill-purple" />
+      <div class="flex flex-col px-[35px] py-[38px] bg-purple rounded-[30px] gap-[20px]">
+        <div class="flex items-center gap-2 display-small-medium">
+          <Icon type="quad-circles" fillClass="fill-primary-brand" />Pinkify & Prove it
+        </div>
+        <div class="text-secondary-content">
+          Begin by registering your wallet address. This initial step is crucial as it links your identity to your
+          participation.
+        </div>
+      </div>
+      <Connector class={'fill-purple'} />
+      <div class="flex flex-col px-[35px] py-[38px] bg-purple rounded-[30px] gap-[20px]">
+        <div class="flex items-center gap-2 display-small-medium">
+          <Icon type="diamond" fillClass="fill-primary-brand" />Amplify The Call
+        </div>
+        <div class="text-secondary-content">
+          Begin by registering your wallet address. This initial step is crucial as it links your identity to your
+          participation.
+        </div>
+      </div>
+    </div>
+
+    <!-- Twitter -->
     {#if !$twitterId}
       <TwitterLogin />
       <button on:click={getSession}>asd</button>

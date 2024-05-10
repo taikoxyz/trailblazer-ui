@@ -12,8 +12,8 @@
   const viewBox = `${minX} ${minY} ${vWidth} ${vHeight}`;
 </script>
 
-<svg {width} {height} class={$$props.class} {viewBox} fill="none" xmlns="http://www.w3.org/2000/svg">
+<svg {width} {height} class="{$$props.class} min-w-[{size}px]" {viewBox} xmlns="http://www.w3.org/2000/svg">
   <path
-    class={fillClass}
+    class={$$props.class}
     d="M0 0V0C8.38992 8.02514 21.6101 8.02514 30 0V0V30V30C21.7157 21.7157 8.28427 21.7157 0 30V30V0Z" />
 </svg>
