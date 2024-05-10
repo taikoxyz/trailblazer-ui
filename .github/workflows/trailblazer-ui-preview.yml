@@ -31,11 +31,11 @@ jobs:
 
       - name: Set Vercel Environment Variables
         run: |
-          vercel secrets add PUBLIC_TRAILBLAZER_API_URL "$PUBLIC_TRAILBLAZER_API_URL" --scope preview --token=$VERCEL_TOKEN
-          vercel secrets add PUBLIC_WALLETCONNECT_PROJECT_ID "$PUBLIC_WALLETCONNECT_PROJECT_ID" --scope preview --token=$VERCEL_TOKEN
-          vercel secrets add CONFIGURED_CHAINS "$CONFIGURED_CHAINS" --scope preview --token=$VERCEL_TOKEN
-          vercel secrets add PUBLIC_SUPABASE_ANON_KEY "$PUBLIC_SUPABASE_ANON_KEY" --scope preview --token=$VERCEL_TOKEN
-          vercel secrets add PUBLIC_SUPABASE_URL "$PUBLIC_SUPABASE_URL" --scope preview --token=$VERCEL_TOKEN
+          vercel secrets add PUBLIC_TRAILBLAZER_API_URL "$PUBLIC_TRAILBLAZER_API_URL" --token=$VERCEL_TOKEN
+          vercel secrets add PUBLIC_WALLETCONNECT_PROJECT_ID "$PUBLIC_WALLETCONNECT_PROJECT_ID" --token=$VERCEL_TOKEN
+          vercel secrets add CONFIGURED_CHAINS "$CONFIGURED_CHAINS" --token=$VERCEL_TOKEN
+          vercel secrets add PUBLIC_SUPABASE_ANON_KEY "$PUBLIC_SUPABASE_ANON_KEY" --token=$VERCEL_TOKEN
+          vercel secrets add PUBLIC_SUPABASE_URL "$PUBLIC_SUPABASE_URL" --token=$VERCEL_TOKEN
 
           # Add more variables as needed
 
