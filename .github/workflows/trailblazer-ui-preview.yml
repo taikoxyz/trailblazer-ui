@@ -31,11 +31,11 @@ jobs:
 
       - name: Remove Vercel Environment Variables
         run: |
-          vercel env rm PUBLIC_TRAILBLAZER_API_URL preview --token=$VERCEL_TOKEN
-          vercel env rm PUBLIC_WALLETCONNECT_PROJECT_ID preview --token=$VERCEL_TOKEN
-          vercel env rm CONFIGURED_CHAINS preview --token=$VERCEL_TOKEN
-          vercel env rm PUBLIC_SUPABASE_ANON_KEY preview --token=$VERCEL_TOKEN
-          vercel env rm PUBLIC_SUPABASE_URL "$PUBLIC_SUPABASE_URL" preview --token=$VERCEL_TOKEN
+          echo "y" | vercel env rm PUBLIC_TRAILBLAZER_API_URL preview --token=$VERCEL_TOKEN
+          echo "y" | vercel env rm PUBLIC_WALLETCONNECT_PROJECT_ID preview --token=$VERCEL_TOKEN
+          echo "y" | vercel env rm CONFIGURED_CHAINS preview --token=$VERCEL_TOKEN
+          echo "y" | vercel env rm PUBLIC_SUPABASE_ANON_KEY preview --token=$VERCEL_TOKEN
+          echo "y" | vercel env rm PUBLIC_SUPABASE_URL "$PUBLIC_SUPABASE_URL" preview --token=$VERCEL_TOKEN
 
       - name: Set Vercel Environment Variables
         run: |
