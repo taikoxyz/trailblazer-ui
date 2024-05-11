@@ -45,7 +45,7 @@ jobs:
           echo "$PUBLIC_WALLETCONNECT_PROJECT_ID" | vercel env add PUBLIC_WALLETCONNECT_PROJECT_ID preview --token=$VERCEL_TOKEN
           echo "$CONFIGURED_CHAINS" | vercel env add CONFIGURED_CHAINS preview --token=$VERCEL_TOKEN
           echo "$PUBLIC_SUPABASE_ANON_KEY" | vercel env add PUBLIC_SUPABASE_ANON_KEY preview --token=$VERCEL_TOKEN
-          echo "$PUBLIC_SUPABASE_URL" | vercel env add PUBLIC_SUPABASE_URL "$PUBLIC_SUPABASE_URL" preview --token=$VERCEL_TOKEN
+          echo "$PUBLIC_SUPABASE_URL" | vercel env add PUBLIC_SUPABASE_URL preview --token=$VERCEL_TOKEN
 
           # Add more variables as needed
 
