@@ -30,6 +30,7 @@ jobs:
         run: vercel pull --yes --environment=preview --token=$VERCEL_TOKEN
 
       - name: Remove Vercel Environment Variables
+        continue-on-error: true
         run: |
           echo "y" | vercel env rm PUBLIC_TRAILBLAZER_API_URL preview --token=$VERCEL_TOKEN
           echo "y" | vercel env rm PUBLIC_WALLETCONNECT_PROJECT_ID preview --token=$VERCEL_TOKEN
@@ -38,6 +39,7 @@ jobs:
           echo "y" | vercel env rm PUBLIC_SUPABASE_URL preview --token=$VERCEL_TOKEN
 
       - name: Set Vercel Environment Variables
+        continue-on-error: true
         run: |
           echo "$PUBLIC_TRAILBLAZER_API_URL" | vercel env add PUBLIC_TRAILBLAZER_API_URL preview --token=$VERCEL_TOKEN
           echo "$PUBLIC_WALLETCONNECT_PROJECT_ID" | vercel env add PUBLIC_WALLETCONNECT_PROJECT_ID preview --token=$VERCEL_TOKEN
