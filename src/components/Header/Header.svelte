@@ -30,7 +30,7 @@
       {#if $screen == 'mobile'}
         <a href="/">
           <div class="flex justify-around items-center">
-            <LogoWithText textFillClass="fill-primary-content" width={77} />
+            <LogoWithText textFillClass="fill-primary-content" />
           </div>
         </a>
         <!-- Mobile Burger Button -->
@@ -48,8 +48,8 @@
       {#if $screen == 'desktop'}
         <div class="f-center flex gap-2">
           <a class="f-center flex gap-2" href="/">
-            <LogoWithText textFillClass="fill-primary-content" width={90} />
-            <TaikoTrailblazersLogo width={120} />
+            <LogoWithText textFillClass="fill-primary-content"  width={90} />
+            <TaikoTrailblazersLogo class="w-[125px]" />
           </a>
         </div>
 

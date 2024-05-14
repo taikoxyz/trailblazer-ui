@@ -12,9 +12,9 @@
 </script>
 
 <div
-  class=" flex flex-col w-full py-[42.5px] px-[36px] bg-neutral-background box-border items-start text-left justify-start rounded-[20px]">
+  class=" flex flex-col w-full py-[20px] px-[24px] xl:py-[42.5px] xl:px-[36px] bg-neutral-background box-border items-start text-left justify-start rounded-[20px]">
   <button class="flex justify-between items-center text-left cursor-pointer w-full" on:click={toggleDropdown}>
-    <div class="font-clash-grotesk text-[26px]/[32px] body-regular">{question}</div>
+    <div class="font-clash-grotesk text-[20px]/[22px] xl:text-[26px]/[32px] body-regular">{question}</div>
     <div class="icon" class:open={isOpen}>+</div>
   </button>
   {#if isOpen}
