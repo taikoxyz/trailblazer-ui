@@ -1,12 +1,12 @@
 env:
   VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
   VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID_TRAILBLAZER}}
-  VERCEL_TOKEN: ${{ secrets.VERCEL_PROJECT_ID_TRAILBLAZER}}
-  PUBLIC_TRAILBLAZER_API_URL: ${{ vars.PUBLIC_TRAILBLAZER_API_URL}}
-  PUBLIC_WALLETCONNECT_PROJECT_ID: ${{ vars.PUBLIC_WALLETCONNECT_PROJECT_ID}}
-  CONFIGURED_CHAINS: ${{ vars.CONFIGURED_CHAINS}}
-  PUBLIC_SUPABASE_ANON_KEY: ${{ vars.PUBLIC_SUPABASE_ANON_KEY}}
-  PUBLIC_SUPABASE_URL: ${{ vars.PUBLIC_SUPABASE_URL}}
+  VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN}}
+  PUBLIC_TRAILBLAZER_API_URL: ${{ secrets.PUBLIC_TRAILBLAZER_API_URL}}
+  PUBLIC_WALLETCONNECT_PROJECT_ID: ${{ secrets.PUBLIC_WALLETCONNECT_PROJECT_ID}}
+  CONFIGURED_CHAINS: ${{ secrets.CONFIGURED_CHAINS}}
+  PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.PUBLIC_SUPABASE_ANON_KEY}}
+  PUBLIC_SUPABASE_URL: ${{ secrets.PUBLIC_SUPABASE_URL}}
 
 on:
   push:
@@ -26,21 +26,28 @@ jobs:
       - name: Install Vercel CLI
         run: pnpm add --global vercel@latest
 
-      - name: Pull Vercel Environment Information
-        run: vercel pull --yes --environment=preview --token=$VERCEL_TOKEN
+      - name: Remove Vercel Environment Variables
+        continue-on-error: true
+        run: |
+          echo "y" | vercel env rm PUBLIC_TRAILBLAZER_API_URL preview --token=$VERCEL_TOKEN
+          echo "y" | vercel env rm PUBLIC_WALLETCONNECT_PROJECT_ID preview --token=$VERCEL_TOKEN
+          echo "y" | vercel env rm CONFIGURED_CHAINS preview --token=$VERCEL_TOKEN
+          echo "y" | vercel env rm PUBLIC_SUPABASE_ANON_KEY preview --token=$VERCEL_TOKEN
+          echo "y" | vercel env rm PUBLIC_SUPABASE_URL preview --token=$VERCEL_TOKEN
 
       - name: Set Vercel Environment Variables
+        continue-on-error: true
         run: |
-          vercel env add PUBLIC_TRAILBLAZER_API_URL preview $PUBLIC_TRAILBLAZER_API_URL --token=$VERCEL_TOKEN
-          vercel env add PUBLIC_WALLETCONNECT_PROJECT_ID preview $PUBLIC_WALLETCONNECT_PROJECT_ID --token=$VERCEL_TOKEN
-          vercel env add CONFIGURED_CHAINS preview $CONFIGURED_CHAINS --token=$VERCEL_TOKEN
-          vercel env add PUBLIC_SUPABASE_ANON_KEY preview $PUBLIC_SUPABASE_ANON_KEY --token=$VERCEL_TOKEN
-          vercel env add PUBLIC_SUPABASE_URL preview $PUBLIC_SUPABASE_URL --token=$VERCEL_TOKEN
+          echo "$PUBLIC_TRAILBLAZER_API_URL" | vercel env add PUBLIC_TRAILBLAZER_API_URL preview --token=$VERCEL_TOKEN
+          echo "$PUBLIC_WALLETCONNECT_PROJECT_ID" | vercel env add PUBLIC_WALLETCONNECT_PROJECT_ID preview --token=$VERCEL_TOKEN
+          echo "$CONFIGURED_CHAINS" | vercel env add CONFIGURED_CHAINS preview --token=$VERCEL_TOKEN
+          echo "$PUBLIC_SUPABASE_ANON_KEY" | vercel env add PUBLIC_SUPABASE_ANON_KEY preview --token=$VERCEL_TOKEN
+          echo "$PUBLIC_SUPABASE_URL" | vercel env add PUBLIC_SUPABASE_URL preview --token=$VERCEL_TOKEN
 
           # Add more variables as needed
 
       - name: Build Project Artifacts
-        run: vercel build --token=${{ secrets.VERCEL_TOKEN }}
+        run: vercel build --token=$VERCEL_TOKEN
 
       - name: Deploy Project Artifacts to Vercel
-        run: vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }}
+        run: vercel deploy --prebuilt --token=$VERCEL_TOKEN
