@@ -7,12 +7,7 @@
   export let height = 34;
 </script>
 
-<svg
-  {width}
-  viewBox="0 0 655 109"
-  fill="none"
-  xmlns="http://www.w3.org/2000/svg"
-  xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg viewBox="0 0 655 109" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
   <rect width={'655'} height="108.664" fill="url(#pattern0_259_2232)" />
   <defs>
     <pattern id="pattern0_259_2232" patternContentUnits="objectBoundingBox" width="1" height="1">

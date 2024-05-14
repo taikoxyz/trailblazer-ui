@@ -5,28 +5,24 @@ type FAQType = {
 
 export const MOCK_FAQS: FAQType[] = [
   {
-    question: 'What is Taiko?',
+    question: 'How do I participate in the challenges?',
     answer:
-      'Taiko is a decentralized, community-driven platform that aims to provide a seamless and secure experience for users to participate in the DeFi ecosystem.',
+      "Just like Taiko's provers and proposers, the challenges for each trail are permissionless, meaning that anyone is free to join them!",
   },
   {
-    question: 'Wjhat is Taiko Factions?',
+    question: 'What are the benefits of the faction badges?',
     answer:
-      'Taiko is a decentralized, community-driven platform that aims to provide a seamless and secure experience for users to participate in the DeFi ecosystem.',
+      'Each faction badge would provide a boost to *REDACTED*'
   },
   {
-    question: 'What is The Call of Taiko?',
+    question: 'Where can I learn more about the factions?',
     answer:
-      'Taiko is a decentralized, community-driven platform that aims to provide a seamless and secure experience for users to participate in the DeFi ecosystem.',
+      'Refer to our medium article',
   },
   {
-    question: 'How do I join Taiko Factions',
+    question: 'Will I get rewarded?',
     answer:
       'Taiko is a decentralized, community-driven platform that aims to provide a seamless and secure experience for users to participate in the DeFi ecosystem.',
   },
-  {
-    question: 'What is the utility for Taiko Factions?',
-    answer:
-      'Taiko is a decentralized, community-driven platform that aims to provide a seamless and secure experience for users to participate in the DeFi ecosystem.',
-  },
+
 ];
