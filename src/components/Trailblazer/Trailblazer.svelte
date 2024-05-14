@@ -19,9 +19,9 @@
     <div class="f-center flex-col xl:flex-row w-full">
       <div class="f-center flex-col w-full">
         <!-- Title -->
-        <div class="xl:self-start font-clash-grotesk text-[45px]/[45px] tracking-[22.5px] pb-[30px] xl:pb-[114px]">
+        <div class="xl:self-start font-clash-grotesk text-[23px]/[28px] tracking-[10px] xl:text-[45px]/[45px] xl:tracking-[22.5px] pb-[30px] xl:pb-[114px]">
           <div class="f-center w-full flex-col gap-5">
-            <TaikoTrailblazersLogo width={655} />
+            <TaikoTrailblazersLogo class="w-[335px] xl:w-[655px]"/>
             <span class="w-fit text-center xl:text-left">call of taiko</span>
           </div>
         </div>
@@ -52,7 +52,7 @@
   <FullWidthVideo />
 
   <!-- faq section -->
-  <div class=" w-full px-[20px] py-[100px] xl:px-[75px] xl:py-[86px]">
+  <div class=" w-full px-[0px] py-[100px] xl:px-[75px] xl:py-[86px]">
     <div class="pb-[30px]">
       <div class="display-large-medium">FAQs</div>
     </div>
