@@ -2,12 +2,13 @@
   // variables
   import { page } from '$app/stores';
   import ConnectButton from '$components/ConnectButton/ConnectButton.svelte';
-  import { LogoWithText } from '$components/Logo';
+  import { LogoWithText, TaikoTrailblazersLogo } from '$components/Logo';
   import { MobileNavigation } from '$components/MobileNavigation';
   import { ThemeButton } from '$components/ThemeButton';
   import { NavigationData } from '$configs/navigation';
   import HamburgerIcon from '$images/hamburger.svg';
   import TrailblazerTag from '$images/trailblazer-tag.svg';
+  import TrailblazerLogo from '$images/taiko-trailblazer-logo.svg';
   import XIcon from '$images/x.svg';
   import { account } from '$stores/account';
   import { screen } from '$stores/responsiveness';
@@ -45,11 +46,11 @@
         </button>
       {/if}
       {#if $screen == 'desktop'}
-        <div class="f-center gap-2">
-          <a href="/">
+        <div class="f-center flex gap-2">
+          <a class="f-center flex gap-2" href="/">
             <LogoWithText textFillClass="fill-primary-content" width={90} />
+            <TaikoTrailblazersLogo width={120} />
           </a>
-          <img src={TrailblazerTag} />
         </div>
 
         <!-- Header Navigation -->

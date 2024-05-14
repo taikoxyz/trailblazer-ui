@@ -7,6 +7,7 @@
   import { Icon, PlusIcon } from '$components/Icon';
   import TwitterLogin from '$components/Twitter/TwitterLogin.svelte';
   import TrailblazerDude from '$images/trailblazer-dude.png';
+  import PinkifyYourProfile from '$images/pinkify-your-profile.svg';
   import TrailblazerNFTText from '$images/trailblazer-NFT-text.svg';
   import { web3modal } from '$libs/connect';
   import { getSession } from '$libs/supabase';
@@ -18,6 +19,9 @@
 
   import FactionStack from '$images/faction-stack.png';
   import Connector from '$components/SVG/Connector.svelte';
+  import FullWidthVideo from '$components/Video/FullWidthVideo.svelte';
+  import ResponsiveVideo from '$components/Video/ResponsiveVideo.svelte';
+  import { TaikoTrailblazersLogo } from '$components/Logo';
 
   let time: number = 0;
   let duration: number | undefined;
@@ -83,10 +87,10 @@
     <div class="flex w-full relative">
       <div class="w-full">
         <!-- Title -->
-        <div class="font-clash-grotesk text-[160px]/[120px] tracking-[-2px] pb-[114px] max-w-[596px]">
-          <div class="relative">
+        <div class="font-clash-grotesk text-[45px]/[45px] tracking-[22.5px] pb-[114px] max-w-[596px]">
+          <div class="f-center flex-col gap-5">
+            <TaikoTrailblazersLogo width={655} />
             <span class="w-fit">call of taiko</span>
-            <img class="absolute bottom-0 left-[350px]" src={TrailblazerNFTText} alt={TrailblazerNFTText} />
           </div>
         </div>
         <!-- Description -->
@@ -143,7 +147,7 @@
       <div class="flex justify-between">
         <!-- Title text: Will you answer the call -->
         <div class="font-clash-grotesk tracking-[-1.5px] text-[75px]/[70px]">
-          Will you answer<br /><span class="text-primary-brand">The Call?</span>
+          Will you answer<br /><span class="text-secondary-brand">The Call?</span>
         </div>
 
         <!-- Sub text: Complete all 3 steps to mint Raver Faction on mainnet launch day to enter trailblazer campaign. -->
@@ -156,7 +160,7 @@
     <div class="flex gap-[30px] flex-col">
       <div class="flex justify-between">
         <!-- Title text: Taiko Factions -->
-        <div class="font-clash-grotesk text-primary-brand tracking-[-1.5px] text-[75px]/[70px]">
+        <div class="font-clash-grotesk text-secondary-brand tracking-[-1.5px] text-[75px]/[70px]">
           Taiko<br /><span class="text-base-content">Factions</span>
         </div>
 
@@ -190,7 +194,7 @@
         </div>
       </div>
     </div>
-
+    <!-- Steps -->
     <div class="f-center">
       <div class="flex flex-col px-[35px] py-[38px] bg-purple rounded-[30px] gap-[20px]">
         <div class="flex items-center gap-2 display-small-medium">
@@ -223,6 +227,28 @@
       </div>
     </div>
 
+    <!-- Pinkify Your Profile -->
+    <div class="relative flex p-[40px] rounded-[30px] border-2 border-primary-border-hover bg-[#310E2F] min-h-[502px]">
+      <div class="flex flex-col">
+        <div class="pb-[73px]">
+          <div class="rounded-full bg-secondary-brand f-center py-[10px] px-[35px] body-small-bold w-fit">
+            JOIN THE REVOLUTION
+          </div>
+        </div>
+        <div class="font-clash-grotesk tracking-[-1.5px] text-[75px]/[70px] pb-[46px]">
+          <span class="text-secondary-brand">Pinkify</span><br /> Your Profile!
+        </div>
+        <div class="max-w-[513px] body-regular">
+          Show your support for the Taiko community by pinkifying your profile. Change your profile picture to pink, add
+          a drum emoji, or use the Taiko hand gesture. Share your support with #CallofTaiko and become part of the
+          movement!
+        </div>
+      </div>
+      <div class="absolute top-0 right-[52px]">
+        <img src={PinkifyYourProfile} />
+      </div>
+    </div>
+
     <!-- Twitter -->
     {#if !$twitterId}
       <TwitterLogin />
@@ -245,26 +271,8 @@
     {/if}
   </div>
 
-  <!-- video section -->
-  <div class="relative justify-self-center overflow-visible w-screen">
-    <video
-      class="w-full"
-      poster="https://sveltejs.github.io/assets/caminandes-llamigos.jpg"
-      src="https://sveltejs.github.io/assets/caminandes-llamigos.mp4"
-      on:mousemove={handleMove}
-      on:touchmove|preventDefault={handleMove}
-      on:mousedown={handleMousedown}
-      on:mouseup={handleMouseup}
-      bind:currentTime={time}
-      bind:duration
-      bind:paused>
-      <track kind="captions" />
-    </video>
-
-    <div class="controls" style="opacity: {duration && showControls ? 1 : 0}">
-      <progress value={time / duration || 0} />
-    </div>
-  </div>
+  <FullWidthVideo />
+  <ResponsiveVideo />
 
   <!-- Gallery Section  -->
   <Gallery />
@@ -281,28 +289,3 @@
     </div>
   </div>
 </div>
-
-<style>
-  .controls {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    transition: opacity 1s;
-  }
-
-  progress {
-    display: block;
-    width: 100%;
-    height: 10px;
-    -webkit-appearance: none;
-    appearance: none;
-  }
-
-  progress::-webkit-progress-bar {
-    background-color: rgba(0, 0, 0, 0.2);
-  }
-
-  progress::-webkit-progress-value {
-    background-color: rgba(255, 255, 255, 0.6);
-  }
-</style>

@@ -1,4 +1,5 @@
 <script lang="ts">
+  import LockIcon from '$components/Icon/LockIcon.svelte';
   import { MOCK_FACTION_GALLERY, type GalleryItem } from '$mocks';
 
   export let items: GalleryItem[] = MOCK_FACTION_GALLERY;
@@ -7,17 +8,28 @@
 <div class="f-center container px-16 py-16 gap-2">
   <!-- Cards -->
   {#each items as item, i}
-    <div class="avatar relative max-w-full min-w-0 card">
-      <div class="rounded-[30px] h-[400px]">
-        <img class="" src={item.image} alt={item.image} />
-        <div
-          class="absolute flex card-contents left-2 top-2 h-full w-full flex-col font-clash-grotesk display-small-medium text-white">
-          {#each 'RAVER'.split('') as letter, i}
-            <div class="w-fit pink-glow">{letter}</div>
-          {/each}
+    {#if item.locked}
+      <div class="avatar relative max-w-full min-w-0 w-full">
+        <div class="rounded-[30px] h-[400px] f-center">
+          <div class="absolute z-10 w-full h-full f-center">
+            <LockIcon />
+          </div>
+          <img class={item.locked ? 'blur-lg' : ''} src={item.image} alt={item.image} />
         </div>
       </div>
-    </div>
+    {:else}
+      <div class="avatar relative max-w-full min-w-0 card">
+        <div class="rounded-[30px] h-[400px] f-center">
+          <img class={item.locked ? 'blur-lg' : ''} src={item.image} alt={item.image} />
+          <div
+            class="absolute flex card-contents left-2 top-2 h-full w-full flex-col font-clash-grotesk display-small-medium text-white">
+            {#each item.name.toUpperCase().split('') as letter, i}
+              <div class="w-fit pink-glow">{letter}</div>
+            {/each}
+          </div>
+        </div>
+      </div>
+    {/if}
   {/each}
 </div>
 
