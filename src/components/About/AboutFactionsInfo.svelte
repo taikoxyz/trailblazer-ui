@@ -2,7 +2,7 @@
   import FactionStack from '$images/faction-stack.png';
 </script>
 
-<div class="flex flex-col gap-3 w-full px-5">
+<div class="flex flex-col xl:flex-row gap-3 w-full px-5">
   <!-- Image -->
   <img class="-mt-24 xl:m-0" src={FactionStack} alt="{FactionStack}/" />
   <!-- Details -->

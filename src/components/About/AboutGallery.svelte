@@ -6,7 +6,7 @@
 <div class="flex flex-col px-5 xl:flex-row gap-5 xl:gap-3 w-full">
   <div class="rounded-[30px] max-h-[745px] h-[151px] xl:h-auto xl:max-w-[530px] relative overflow-hidden">
     <img
-      class="absolute -top-[280px] xl:relative rounded-[30px] xl:h-full h-[500px] w-full hover-zoom object-cover"
+      class="absolute -top-[280px] xl:top-0 xl:relative rounded-[30px] xl:h-full h-[500px] w-full hover-zoom object-cover"
       src={GalleryImage}
       alt={GalleryImage} />
   </div>
