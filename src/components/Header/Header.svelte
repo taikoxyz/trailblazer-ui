@@ -48,7 +48,7 @@
       {#if $screen == 'desktop'}
         <div class="f-center flex gap-2">
           <a class="f-center flex gap-2" href="/">
-            <LogoWithText textFillClass="fill-primary-content"  width={90} />
+            <LogoWithText textFillClass="fill-primary-content" width={90} />
             <TaikoTrailblazersLogo class="w-[125px]" />
           </a>
         </div>
@@ -56,12 +56,6 @@
         <!-- Header Navigation -->
 
         <div class="lg:flex justify-center gap-[10px] body-bold"></div>
-
-        <div class="hidden md:flex justify-end">
-          <ConnectButton />
-          <div class="v-sep my-auto mx-[8px] h-[24px]" />
-          <ThemeButton />
-        </div>
       {/if}
       {#if mobileMenu}
         <MobileNavigation />
