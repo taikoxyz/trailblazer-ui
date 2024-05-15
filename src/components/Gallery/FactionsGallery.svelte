@@ -16,7 +16,8 @@
 
       <!-- Sub text: In the vibrant world of Neo Nakuz, a groundbreaking cast of characters is emerging, centered around the electrifying ecosystem of Taiko Radio and its dynamic cast of characters: ravers, drummers, masters and more. -->
       <div class="title-body-regular text-secondary-content self-end max-w-[365px]">
-        Complete all 3 steps to mint Raver Faction on mainnet launch day to enter trailblazer campaign.
+        In the vibrant world of Neo Nakuz, a groundbreaking cast of characters is emerging, centered around the
+        electrifying ecosystem of Taiko Radio and its dynamic cast of characters: ravers, drummers, masters and more.
       </div>
     </div>
   </div>
