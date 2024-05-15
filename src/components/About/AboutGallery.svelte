@@ -1,9 +1,12 @@
 <script lang="ts">
+  import GalleryImage from '$images/gallery-image.png';
 </script>
 
 <!-- Title Gallery -->
 <div class="flex gap-3 w-full">
-  <div class="rounded-[30px] bg-pink-400 min-w-[530px]"></div>
+  <div class="rounded-[30px] max-h-[745px] min-w-[530px] overflow-hidden">
+    <img class="rounded-[30px] w-full hover-zoom" src={GalleryImage} alt={GalleryImage} />
+  </div>
   <div class="flex flex-col gap-3 w-full">
     <div class="flex flex-col h-full w-full rounded-[30px] bg-elevated-background px-[33px] py-[36px]">
       <div class="body-bold text-primary-brand tracking-[0.175px] text-[14px]/[20px] pb-[33px]">
