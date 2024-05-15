@@ -1,15 +1,20 @@
 <script lang="ts">
+  import { FAQ } from '$components/FAQ';
+  import { FactionsGallery } from '$components/Gallery';
   import { ResponsiveVideo } from '$components/Video';
+  import AboutFactionsInfo from './AboutFactionsInfo.svelte';
   import AboutGallery from './AboutGallery.svelte';
 </script>
 
-<div class="f-center container flex-col w-full overflow-visible">
+<div class="f-center container flex-col w-full overflow-visible gap-[120px]">
   <!-- About Gallery -->
   <AboutGallery />
-
-  <div class="flex flex-col w-full py-[86px] gap-[132px]">
-    <ResponsiveVideo />
-  </div>
-
-  <!-- faq section -->
+  <!-- Factions Gallery -->
+  <FactionsGallery />
+  <!-- About Factions -->
+  <AboutFactionsInfo />
+  <!-- Video -->
+  <ResponsiveVideo />
+  <!-- FAQ -->
+  <FAQ />
 </div>

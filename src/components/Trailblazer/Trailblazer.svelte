@@ -8,7 +8,7 @@
   import { TaikoTrailblazersLogo } from '$components/Logo';
 
   import { ResponsiveVideo } from '$components/Video';
-  import TrailblazerFactionsInfo from './TrailblazerFactionsInfo.svelte';
+  import TrailblazerFactionsInfo from '../About/AboutFactionsInfo.svelte';
   import TrailblazerGallery from './TrailblazerGallery.svelte';
   import TrailblazerGuide from './TrailblazerGuide.svelte';
   import TrailblazerPinkifyYourProfile from './TrailblazerPinkifyYourProfile.svelte';
