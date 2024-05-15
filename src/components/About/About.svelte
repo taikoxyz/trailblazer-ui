@@ -6,7 +6,7 @@
   import AboutGallery from './AboutGallery.svelte';
 </script>
 
-<div class="f-center container flex-col w-full overflow-visible gap-[120px]">
+<div class="f-center flex-col w-full gap-[120px] container">
   <!-- About Gallery -->
   <AboutGallery />
   <!-- Factions Gallery -->
