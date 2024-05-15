@@ -1,4 +1,5 @@
 <script>
+  import { Page } from '$components/Page';
   import { About } from '$components/About';
 </script>
 
@@ -6,9 +7,6 @@
   <title>Taiko Trailblazer - About</title>
 </svelte:head>
 
-<!-- spacer -->
-<div class="h-24"></div>
-
-<div class="f-center px-8">
+<Page>
   <About />
-</div>
+</Page>
