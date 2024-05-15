@@ -4,8 +4,11 @@
 
 <!-- Title Gallery -->
 <div class="flex flex-col px-5 xl:flex-row gap-5 xl:gap-3 w-full">
-  <div class="rounded-[30px] max-h-[745px] xl:min-w-[530px] overflow-hidden">
-    <img class="rounded-[30px] w-full hover-zoom" src={GalleryImage} alt={GalleryImage} />
+  <div class="rounded-[30px] max-h-[745px] h-[151px] xl:h-auto xl:max-w-[530px] relative overflow-hidden">
+    <img
+      class="absolute -top-[280px] xl:relative rounded-[30px] xl:h-full h-[500px] w-full hover-zoom object-cover"
+      src={GalleryImage}
+      alt={GalleryImage} />
   </div>
   <div class="flex flex-col gap-5 xl:gap-3 w-full">
     <div class="flex flex-col h-full w-full rounded-[30px] bg-elevated-background px-[33px] py-[36px]">
