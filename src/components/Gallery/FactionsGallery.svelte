@@ -19,14 +19,14 @@
       electrifying ecosystem of Taiko Radio and its dynamic cast of characters: ravers, drummers, masters and more.
     </div>
   </div>
-  <div class="max-w-full h-[700px]">
+  <div class="max-w-full h-[700px] xl:h-auto">
     <div
       class="flex xl:f-center gap-2 xl:ml-0 w-full overflow-x-scroll xl:overflow-visible py-20 px-0 hide-scrollbar xl:p-0">
       <!-- Cards -->
       {#each items as item, i}
         {#if i == 0}
           <!-- spacer -->
-          <div class="flex min-w-[10px]"></div>
+          <div class="flex min-w-[10px] xl:min-w-0"></div>
         {/if}
         {#if item.locked}
           <div class="avatar relative xl:max-w-full xl:min-w-0 xl:w-full max-w-full min-w-[277px] w-full">
