@@ -13,10 +13,11 @@
       Taiko<br /><span class="text-base-content">Factions</span>
     </div>
 
-    <!-- Sub text: In the vibrant world of Neo Nakuz, a groundbreaking cast of characters is emerging, centered around the electrifying ecosystem of Taiko Radio and its dynamic cast of characters: ravers, drummers, masters and more. -->
-    <div class="title-body-regular text-secondary-content text-center xl:self-end max-w-[365px] xl:text-left">
-      In the vibrant world of Neo Nakuza, a groundbreaking cast of characters is emerging, centered around the
-      electrifying ecosystem of Taiko Radio and its dynamic cast of characters: ravers, drummers, masters and more.
+      <!-- Sub text: In the vibrant world of Neo Nakuz, a groundbreaking cast of characters is emerging, centered around the electrifying ecosystem of Taiko Radio and its dynamic cast of characters: ravers, drummers, masters and more. -->
+      <div class="title-body-regular text-secondary-content self-end max-w-[365px]">
+        In the vibrant world of Neo Nakuz, a groundbreaking cast of characters is emerging, centered around the
+        electrifying ecosystem of Taiko Radio and its dynamic cast of characters: ravers, drummers, masters and more.
+      </div>
     </div>
   </div>
   <div class="max-w-full h-[700px] xl:h-auto">
