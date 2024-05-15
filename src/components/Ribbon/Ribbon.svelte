@@ -23,7 +23,7 @@
   });
 </script>
 
-<div bind:this={outerRibbon} class="w-screen bg-pink-400 overflow-hidden h-6 f-center py-5">
+<div bind:this={outerRibbon} class="max-w-screen bg-pink-400 overflow-hidden h-6 f-center py-5">
   <div bind:this={ribbonGroup} class="w-full flex gap-[50px] animate-move">
     {#each Array.from({ length: count + 2 }, (_, i) => i) as _}
       <!-- Add whatever repeating content here -->
