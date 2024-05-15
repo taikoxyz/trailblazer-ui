@@ -10,6 +10,12 @@
   import FullWidthVideo from '$components/Video/FullWidthVideo.svelte';
   import { TaikoTrailblazersLogo } from '$components/Logo';
 
+  import { ResponsiveVideo } from '$components/Video';
+  import TrailblazerFactionsInfo from './TrailblazerFactionsInfo.svelte';
+  import TrailblazerGallery from './TrailblazerGallery.svelte';
+  import TrailblazerGuide from './TrailblazerGuide.svelte';
+  import TrailblazerPinkifyYourProfile from './TrailblazerPinkifyYourProfile.svelte';
+
   let faqs = MOCK_FAQS;
 </script>
 
@@ -19,9 +25,10 @@
     <div class="f-center flex-col xl:flex-row w-full">
       <div class="f-center flex-col w-full">
         <!-- Title -->
-        <div class="xl:self-start font-clash-grotesk text-[23px]/[28px] tracking-[10px] xl:text-[45px]/[45px] xl:tracking-[22.5px] pb-[30px] xl:pb-[114px]">
+        <div
+          class="xl:self-start font-clash-grotesk text-[23px]/[28px] tracking-[10px] xl:text-[45px]/[45px] xl:tracking-[22.5px] pb-[30px] xl:pb-[114px]">
           <div class="f-center w-full flex-col gap-5">
-            <TaikoTrailblazersLogo class="w-[335px] xl:w-[655px]"/>
+            <TaikoTrailblazersLogo class="w-[335px] xl:w-[655px]" />
             <span class="w-fit text-center xl:text-left">call of taiko</span>
           </div>
         </div>
@@ -50,6 +57,15 @@
   </div>
 
   <FullWidthVideo />
+
+  <div class="flex flex-col w-full py-[86px] gap-[132px]">
+    <ResponsiveVideo />
+
+    <TrailblazerFactionsInfo />
+    <TrailblazerGallery />
+    <TrailblazerPinkifyYourProfile />
+    <TrailblazerGuide />
+  </div>
 
   <!-- faq section -->
   <div class=" w-full px-[0px] py-[100px] xl:px-[75px] xl:py-[86px]">
