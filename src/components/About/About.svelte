@@ -1,6 +1,7 @@
 <script lang="ts">
   import { FactionsGallery } from '$components/Gallery';
   import { ResponsiveVideo } from '$components/Video';
+  import AboutFactionsInfo from './AboutFactionsInfo.svelte';
   import AboutGallery from './AboutGallery.svelte';
 </script>
 
@@ -9,6 +10,8 @@
   <AboutGallery />
 
   <FactionsGallery />
+  <!--  -->
+  <AboutFactionsInfo />
 
   <div class="flex flex-col w-full py-[86px] gap-[132px]">
     <ResponsiveVideo />
