@@ -2,12 +2,12 @@
   import FactionStack from '$images/faction-stack.png';
 </script>
 
-<div class="flex gap-3 w-full">
+<div class="flex flex-col xl:flex-row gap-3 w-full px-5">
   <!-- Image -->
-  <img src={FactionStack} alt="{FactionStack}/" />
+  <img class="-mt-24 xl:m-0" src={FactionStack} alt="{FactionStack}/" />
   <!-- Details -->
-  <div class="flex flex-col rounded-[30px] bg-purple w-full px-[40px] py-[32px]">
-    <div class="text-secondary-content flex flex-col w-fit gap-3 pb-[55px]">
+  <div class="flex flex-col rounded-[30px] bg-purple w-full px-[24px] py-[30px] xl:px-[40px] xl:py-[32px]">
+    <div class="text-secondary-content flex flex-col w-fit gap-3 pb-[20px] xl:pb-[55px]">
       <div class="body-bold tracking-[0.175px]">EXCLUSIVE REWARDS</div>
       <div class="border-b-2 border-primary-brand w-[40%]"></div>
     </div>
@@ -17,7 +17,7 @@
     </div>
 
     <!-- Sub text: Complete all 3 steps to mint Raver Faction on mainnet launch day to enter trailblazer campaign. -->
-    <div class="title-body-regular text-secondary-content max-w-[658px]">
+    <div class="text-[16px]/[24px] xl:title-body-regular text-secondary-content max-w-[658px]">
       These faction badges are vital to enhancing your influence within the Trailblazers points program. Secure these
       powerful multipliers to gain increased points, elevate your community status, and unlock access to special events
       and future opportunities.
