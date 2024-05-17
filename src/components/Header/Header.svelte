@@ -55,10 +55,13 @@
 
         <!-- Header Navigation -->
 
-        <div class="lg:flex justify-center gap-[10px] body-bold"></div>
-      {/if}
-      {#if mobileMenu}
-        <MobileNavigation />
+        <!-- <div class="lg:flex justify-center gap-[10px] body-bold"></div> -->
+        <!-- 
+        <div class="hidden md:flex justify-end">
+          <ConnectButton />
+          <div class="v-sep my-auto mx-[8px] h-[24px]" />
+          <ThemeButton />
+        </div> -->
       {/if}
     </div>
   </div>

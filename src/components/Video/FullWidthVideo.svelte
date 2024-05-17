@@ -49,6 +49,8 @@
     <track kind="captions" />
   </video>
 
+  <div class="absolute z-10">play</div>
+
   <div class="controls" style="opacity: {duration && showControls ? 1 : 0}">
     <progress value={time / duration || 0} />
   </div>
