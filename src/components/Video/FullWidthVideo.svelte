@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { fade } from 'svelte/transition';
+
   let time: number = 0;
   let duration: number | undefined;
   let paused: boolean = true;
@@ -34,7 +36,7 @@
 </script>
 
 <!-- video section -->
-<div class="relative justify-self-center overflow-visible w-screen">
+<div class="relative flex justify-self-center overflow-visible w-screen">
   <video
     class="w-full"
     poster="https://sveltejs.github.io/assets/caminandes-llamigos.jpg"
@@ -43,13 +45,18 @@
     on:touchmove|preventDefault={handleMove}
     on:mousedown={handleMousedown}
     on:mouseup={handleMouseup}
+    on:mouseenter={() => (showControls = true)}
+    on:mouseleave={() => (showControls = false)}
     bind:currentTime={time}
     bind:duration
     bind:paused>
     <track kind="captions" />
   </video>
-
-  <div class="absolute z-10">play</div>
+  <div
+    transition:fade={{ delay: 10, duration: 10 }}
+    class="{showControls ? 'opacity-50' : ''} hover:opacity-50 absolute self-center justify-center left-[50%] z-10">
+    play
+  </div>
 
   <div class="controls" style="opacity: {duration && showControls ? 1 : 0}">
     <progress value={time / duration || 0} />
