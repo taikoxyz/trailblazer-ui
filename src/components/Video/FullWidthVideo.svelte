@@ -1,6 +1,7 @@
 <script lang="ts">
   import { fade } from 'svelte/transition';
   import PlayButton from '$images/play-button.svg';
+  import TeaserVideo from '$images/Taiko-tower-teaser.mp4';
 
   let time: number = 0;
   let duration: number | undefined;
@@ -40,8 +41,7 @@
 <div class="relative flex justify-self-center overflow-visible w-screen cursor-pointer">
   <video
     class="w-full"
-    poster="https://sveltejs.github.io/assets/caminandes-llamigos.jpg"
-    src="https://sveltejs.github.io/assets/caminandes-llamigos.mp4"
+    src={TeaserVideo}
     on:mousemove={handleMove}
     on:touchmove|preventDefault={handleMove}
     on:mousedown={handleMousedown}
