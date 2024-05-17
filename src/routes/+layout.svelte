@@ -10,7 +10,6 @@
   import { NotificationToast } from '$components/NotificationToast';
   import { Ribbon } from '$components/Ribbon';
   import { SwitchChainModal } from '$components/SwitchChainModal';
-  import { WelcomeModal } from '$components/WelcomeModal';
   import { startWatching as startWatchingX, stopWatching as stopWatchingX } from '$libs/supabase';
   import { startWatching, stopWatching } from '$libs/wagmi';
 
@@ -53,5 +52,3 @@
 <AccountConnectionToast />
 
 <SwitchChainModal />
-
-<WelcomeModal />
