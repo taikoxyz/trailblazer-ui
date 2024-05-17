@@ -54,5 +54,9 @@
 
   <FullWidthVideo />
 
+  <div class="flex flex-col w-full py-[86px] gap-[132px]">
+    <FAQ />
+  </div>
+
   <!-- faq section -->
 </div>

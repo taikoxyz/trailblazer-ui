@@ -1,5 +1,6 @@
 <script lang="ts">
   import { fade } from 'svelte/transition';
+  import PlayButton from '$images/play-button.svg';
 
   let time: number = 0;
   let duration: number | undefined;
@@ -36,7 +37,7 @@
 </script>
 
 <!-- video section -->
-<div class="relative flex justify-self-center overflow-visible w-screen">
+<div class="relative flex justify-self-center overflow-visible w-screen cursor-pointer">
   <video
     class="w-full"
     poster="https://sveltejs.github.io/assets/caminandes-llamigos.jpg"
@@ -54,8 +55,10 @@
   </video>
   <div
     transition:fade={{ delay: 10, duration: 10 }}
-    class="{showControls ? 'opacity-50' : ''} hover:opacity-50 absolute self-center justify-center left-[50%] z-10">
-    play
+    class="{showControls
+      ? 'opacity-100 cursor-pointer'
+      : 'opacity-50'} hover:opacity-100 absolute self-center justify-center left-[50%] z-10 {paused || 'hidden'}">
+    <img src={PlayButton} alt={PlayButton} />
   </div>
 
   <div class="controls" style="opacity: {duration && showControls ? 1 : 0}">
