@@ -1,15 +1,15 @@
 <script lang="ts">
   import Icon from '$components/Icon/Icon.svelte';
   import { DiscordLink, TwitterLink } from '$components/Links';
-  import { Modal } from '$components/Modal';
   import PrePinkify from '$images/pre-pinkify.svg';
-  import { TwitterLogin } from '$components/Twitter';
   import { getSession, supabaseClient } from '$libs/supabase';
   import { parseTwitterAvatarId } from '$libs/util/parseTwitterAvatarId';
   import { twitterAvatarUrl, twitterId, twitterUsername } from '$stores/supabase';
   import PinkifyModal from './PinkifyModal.svelte';
   import { signMessage } from '@wagmi/core';
   import { config } from '$libs/wagmi';
+  import { onMount } from 'svelte';
+  import { generateTwitterCardSVG } from '$libs/pinkify/generateTwitterCard';
 
   enum Step {
     CONNECT,
@@ -21,8 +21,6 @@
   async function signInWithTwitter() {
     // Handle sign in with oauth and redirect to the current page
     const currentPage = window.location.origin + window.location.pathname;
-    console.log('🚀 | signInWithTwitter | currentPage:', currentPage);
-
     const { data, error } = await supabaseClient.auth.signInWithOAuth({
       provider: 'twitter',
       options: { redirectTo: currentPage },
@@ -31,9 +29,6 @@
 
   async function logout() {
     // Handle sign in with oauth and redirect to the current page
-    const currentPage = window.location.origin + window.location.pathname;
-    console.log('🚀 | signInWithTwitter | currentPage:', currentPage);
-
     const { error } = await supabaseClient.auth.signOut();
     step = Step.CONNECT;
   }
@@ -62,41 +57,47 @@
     }, 2000);
   }
 
-  let step: Step;
-  step = Step.CONNECT;
-
   const handleDialogSelection = () => {
     modalOpen = false;
   };
 
   $: if ($twitterId) {
     step = Step.PINKIFY;
+
+    generateTwitterCardSVG().then((res) => {
+      svg = res;
+      console.log('🚀 | generateTwitterCardSVG | svg:', svg);
+    });
   }
+
+  let step: Step;
+  step = Step.CONNECT;
+
+  let base64data: string;
 
   let modalOpen = false;
   let generating = false;
   let generated = false;
   let signing = false;
   let signed = false;
+
+  let svg: string;
 </script>
 
+{@html svg}
+
 <PinkifyModal bind:modalOpen on:selected={() => handleDialogSelection()} />
+<img src={base64data} />
 
-<button
-  name="nftInfoDialog"
-  class="px-[10px] py-[8px] h-[36px] f-between-center w-full"
-  on:click={() => (modalOpen = true)}>
-  <Icon type="option-dots" fillClass="fill-grey-500" /></button>
-
-<div class="f-center flex-col w-full gap-[80px] xl:gap-[120px] container">
+<div class="f-center flex-col w-full gap-[80px] xl:gap-[20px] container">
   <!-- Section Header -->
-  <div class="f-center w-full flex-col xl:flex-row xl:justify-between gap-[40px]">
+  <div class="f-center w-full flex-col xl:flex-row xl:justify-between gap-[40px] pb-[60px]">
     <!-- Title text: Taiko Factions -->
     <div class="font-clash-grotesk text-base-content tracking-[-1.5px] text-[75px]/[70px] text-center xl:text-left">
       Start your<br /><span class="text-secondary-brand">journey</span>
     </div>
     <!-- Sub text: In the vibrant world of Neo Nakuz, a groundbreaking cast of characters is emerging, centered around the electrifying ecosystem of Taiko Radio and its dynamic cast of characters: ravers, drummers, masters and more. -->
-    <div class="title-body-regular text-secondary-content text-center xl:self-end max-w-[365px] xl:text-left">
+    <div class="title-body-regular text-secondary-content text-center xl:self-end max-w-[432px] xl:text-left">
       Begin your journey through a city where ancient rhythms meet the future of Ethereum. Let’s make history together.
       Start by pinkifying your profile to show your allegiance!
     </div>
@@ -188,11 +189,11 @@
       <div class="avatar w-[355px]">
         {#if step == Step.CONNECT}
           <div class="flex gap-4">
-            <img src={PrePinkify} alt="unpinkified" />]
+            <img src={PrePinkify} alt="unpinkified" />
           </div>
         {:else if step == Step.PINKIFY}
           <div class="flex gap-4">
-            <img class="size-64 rounded-full" src={$twitterAvatarUrl} alt="unpinkified" />]
+            <img class="size-64 rounded-full" src={$twitterAvatarUrl} alt="unpinkified" />
           </div>
         {:else if step == Step.REGISTER}
           <img
@@ -208,7 +209,7 @@
       </div>
     </div>
   </div>
-  {#if step == Step.COMPLETED}}
+  {#if step == Step.COMPLETED}
     <div class="w-full flex justify-between p-[40px] rounded-[30px] bg-secondary-brand">
       <div class="f-col gap-5 max-w-[740px]">
         <div class="display-small-medium">You’re all set. What’s next?</div>
