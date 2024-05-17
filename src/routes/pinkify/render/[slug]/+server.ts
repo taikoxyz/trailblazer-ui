@@ -1,9 +1,7 @@
 
 import { error } from '@sveltejs/kit';
 
-import { blobToBase64 } from '$libs/util/blobToBase64';
-
-
+import { generateTwitterCardSVG } from '$libs/pinkify/generateTwitterCard.js';
 
 /** @type {import('./$types').RequestHandler} */
 export async function GET({ url }) {
@@ -31,25 +29,27 @@ export async function GET({ url }) {
     }
 
     const blob = await response.blob();
-    const base64data = await blobToBase64(blob);
 
-    const svg = `<svg
-    id="test"
-    width="600"
-    viewBox="0 0 1200 600"
-    preserveAspectRatio="xMidYMid meet"
-    xmlns="http://www.w3.org/2000/svg">
-    <rect x="0" y="0" width="100%" height="100%" fill="#d63b95" />
-    <image x="50%" y="50%" width="300" height="400" transform="translate(-150,-150)" href="${base64data}" />
-    <text
-      x="50%"
-      y="100"
-      text-anchor="middle"
-      fill="white"
-      font-size="80"
-      font-family="Clash Grotesk"
-      alignment-baseline="middle">@zkenk has answered the call</text>
-    </svg>`;
+    // const base64data = await blobToBase64(blob);
+    // const svg = `<svg
+    // id="test"
+    // width="600"
+    // viewBox="0 0 1200 600"
+    // preserveAspectRatio="xMidYMid meet"
+    // xmlns="http://www.w3.org/2000/svg">
+    // <rect x="0" y="0" width="100%" height="100%" fill="#d63b95" />
+    // <image x="50%" y="50%" width="300" height="400" transform="translate(-150,-150)" href="${base64data}" />
+    // <text
+    //   x="50%"
+    //   y="100"
+    //   text-anchor="middle"
+    //   fill="white"
+    //   font-size="80"
+    //   font-family="Clash Grotesk"
+    //   alignment-baseline="middle">@zkenk has answered the call</text>
+    // </svg>`;
+
+    const svg = await generateTwitterCardSVG(blob);
 
 
     return new Response(svg, {

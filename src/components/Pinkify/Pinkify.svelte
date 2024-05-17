@@ -6,10 +6,10 @@
   import { parseTwitterAvatarId } from '$libs/util/parseTwitterAvatarId';
   import { twitterAvatarUrl, twitterId, twitterUsername } from '$stores/supabase';
   import PinkifyModal from './PinkifyModal.svelte';
-  import { signMessage } from '@wagmi/core';
+  import { getAccount, signMessage } from '@wagmi/core';
   import { config } from '$libs/wagmi';
-  import { onMount } from 'svelte';
-  import { generateTwitterCardSVG } from '$libs/pinkify/generateTwitterCard';
+  import { postSignature } from '$libs/pinkify/api';
+  import { blobToBase64 } from '$libs/util/blobToBase64';
 
   enum Step {
     CONNECT,
@@ -36,7 +36,14 @@
   async function handleSign() {
     signing = true;
     try {
-      await signMessage(config, { message: 'Answer the call' });
+      const address = getAccount(config).address;
+      const message = 'Your campaign message here';
+      if (!address) {
+        throw new Error('No address found');
+      }
+
+      let signature = await signMessage(config, { message: message });
+      await postSignature(address, signature, message);
       step = Step.COMPLETED;
       signed = true;
     } catch (e) {
@@ -45,10 +52,11 @@
     signing = false;
   }
 
-  function handleGenerate() {
+  async function handleGenerate() {
     // Handle pinkify logic
     step = Step.REGISTER;
     generating = true;
+    await fetchPinkifiedAvatar();
 
     setTimeout(() => {
       modalOpen = true;
@@ -57,23 +65,28 @@
     }, 2000);
   }
 
+  async function fetchPinkifiedAvatar() {
+    // Fetch twitter avatar
+    let response = await fetch(`/api/generate/${parseTwitterAvatarId($twitterAvatarUrl)}`);
+    pinkifiedAvatar = await blobToBase64(await response.blob());
+    pinkifiedAvatar = pinkifiedAvatar.replace('data:image/png;base64', 'data:image/svg+xml;base64');
+
+    console.log('🚀 | pinkifiedAvatar:', pinkifiedAvatar);
+  }
+
   const handleDialogSelection = () => {
     modalOpen = false;
   };
 
   $: if ($twitterId) {
     step = Step.PINKIFY;
-
-    generateTwitterCardSVG().then((res) => {
-      svg = res;
-      console.log('🚀 | generateTwitterCardSVG | svg:', svg);
-    });
   }
 
   let step: Step;
   step = Step.CONNECT;
 
   let base64data: string;
+  let pinkifiedAvatar: string;
 
   let modalOpen = false;
   let generating = false;
@@ -84,9 +97,9 @@
   let svg: string;
 </script>
 
-{@html svg}
+<!-- {@html svg} -->
 
-<PinkifyModal bind:modalOpen on:selected={() => handleDialogSelection()} />
+<PinkifyModal bind:modalOpen on:selected={() => handleDialogSelection()} {pinkifiedAvatar} />
 <img src={base64data} />
 
 <div class="f-center flex-col w-full gap-[80px] xl:gap-[20px] container">
@@ -192,19 +205,11 @@
             <img src={PrePinkify} alt="unpinkified" />
           </div>
         {:else if step == Step.PINKIFY}
-          <div class="flex gap-4">
-            <img class="size-64 rounded-full" src={$twitterAvatarUrl} alt="unpinkified" />
-          </div>
-        {:else if step == Step.REGISTER}
-          <img
-            class="size-64 rounded-full coin"
-            src="/api/generate/{parseTwitterAvatarId($twitterAvatarUrl)}"
-            alt="avatar" />
-        {:else if step == Step.COMPLETED}
-          <img
-            class="size-64 rounded-full"
-            src="/api/generate/{parseTwitterAvatarId($twitterAvatarUrl)}"
-            alt="avatar" />
+          <img class="size-64 rounded-full" src={$twitterAvatarUrl} alt="unpinkified" />
+        {:else if step == Step.REGISTER && pinkifiedAvatar}
+          <img class="size-64 rounded-full coin" src={pinkifiedAvatar} alt="avatar" />
+        {:else if step == Step.COMPLETED && pinkifiedAvatar}
+          <img class="size-64 rounded-full" src={pinkifiedAvatar} alt="avatar" />
         {/if}
       </div>
     </div>

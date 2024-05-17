@@ -1,15 +1,9 @@
 <script lang="ts">
   import { createEventDispatcher, onMount } from 'svelte';
-  import { t } from 'svelte-i18n';
 
-  import { chainConfig } from '$chainConfig';
   import { ActionButton, CloseButton } from '$components/Button';
-  import { Icon } from '$components/Icon';
-  import { Spinner } from '$components/Spinner';
-  import { shortenAddress } from '$libs/util/shortenAddress';
+
   import { uid } from '$libs/util/uid';
-  import { parseTwitterAvatarId } from '$libs/util/parseTwitterAvatarId';
-  import { twitterAvatarUrl } from '$stores/supabase';
 
   const dialogId = `dialog-${uid()}`;
 
@@ -22,6 +16,7 @@
   };
 
   let imageLoaded = false;
+  export let pinkifiedAvatar: string;
 
   function handleImageLoad() {
     imageLoaded = true;
@@ -40,7 +35,7 @@
   <div class="modal-box relative p-0 md:rounded-[20px] bg-neutral-background">
     <CloseButton onClick={closeModal} />
     <div class="f-center f-col w-full space-y-[30px] pt-[35px]">
-      <img class="size-[328px]" src="/api/generate/{parseTwitterAvatarId($twitterAvatarUrl)}" alt="avatar" />
+      <img class="size-[328px]" src={pinkifiedAvatar} alt="avatar" />
       <div class="f-center f-col gap-[10px] w-[370px]">
         <div class="display-small-medium">Pinkified - Now Amplify!</div>
         <div class="body-small-regular text-center">

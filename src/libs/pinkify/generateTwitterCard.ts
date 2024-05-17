@@ -1,18 +1,11 @@
-import { get } from "svelte/store";
-
 import { blobToBase64 } from "$libs/util/blobToBase64";
-import { parseTwitterAvatarId } from "$libs/util/parseTwitterAvatarId";
-import { twitterAvatarUrl } from "$stores/supabase";
 
-export async function generateTwitterCardSVG(): Promise<string> {
-  const response = await fetch(`/api/generate/${parseTwitterAvatarId(get(twitterAvatarUrl))}`)
+export async function generateTwitterCardSVG(avatarBlob: Blob): Promise<string> {
 
-  const blob = await response.blob();
-  let base64data = await blobToBase64(blob);
-  // console.log("🚀 | generateTwitterCardSVG | base64data:", base64data)
+  const base64data = await blobToBase64(avatarBlob);
 
   // Replace data:image/png;base64 with data:image/svg+xml;base64
-  base64data = base64data.replace("data:image/png;base64", "data:image/svg+xml;base64");
+  // base64data = base64data.replace("data:image/png;base64", "data:image/svg+xml;base64");
 
   return `<svg
     id="test"
