@@ -7,22 +7,21 @@ export const MOCK_FAQS: FAQType[] = [
   {
     question: 'How do I participate in the challenges?',
     answer:
-      "Just like Taiko's provers and proposers, the challenges for each trail are permissionless, meaning that anyone is free to join them!",
+      "Join our Discord community and follow us on social media for all the details.",
   },
   {
     question: 'What are the benefits of the faction badges?',
     answer:
-      'Each faction badge would provide a boost to *REDACTED*'
+      'These badges provide boosts in our Trailblazers points program, stay tuned to our social media to get detailed information.'
   },
   {
     question: 'Where can I learn more about the factions?',
     answer:
-      'Refer to our medium article',
+      'Detailed descriptions, stories, and benefits, of each faction will be made available on our campaign page as it progresses.',
   },
   {
     question: 'Will I get rewarded?',
     answer:
-      'Taiko is a decentralized, community-driven platform that aims to provide a seamless and secure experience for users to participate in the DeFi ecosystem.',
+      ' Participation in the Trailblazers campaign and minting your Faction Badge on mainnet day gives you exclusive rewards.',
   },
-
 ];
