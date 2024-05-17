@@ -1,4 +1,8 @@
 <script lang="ts">
+  import { fade } from 'svelte/transition';
+  import PlayButton from '$images/play-button.svg';
+  import TeaserVideo from '$images/Taiko-tower-teaser.mp4';
+
   let time: number = 0;
   let duration: number | undefined;
   let paused: boolean = true;
@@ -34,20 +38,28 @@
 </script>
 
 <!-- video section -->
-<div class="relative justify-self-center overflow-visible w-screen">
+<div class="relative flex justify-self-center overflow-visible w-screen cursor-pointer">
   <video
     class="w-full"
-    poster="https://sveltejs.github.io/assets/caminandes-llamigos.jpg"
-    src="https://sveltejs.github.io/assets/caminandes-llamigos.mp4"
+    src={TeaserVideo}
     on:mousemove={handleMove}
     on:touchmove|preventDefault={handleMove}
     on:mousedown={handleMousedown}
     on:mouseup={handleMouseup}
+    on:mouseenter={() => (showControls = true)}
+    on:mouseleave={() => (showControls = false)}
     bind:currentTime={time}
     bind:duration
     bind:paused>
     <track kind="captions" />
   </video>
+  <div
+    transition:fade={{ delay: 10, duration: 10 }}
+    class="{showControls
+      ? 'opacity-100 cursor-pointer'
+      : 'opacity-50'} hover:opacity-100 absolute self-center justify-center left-[50%] z-10 {paused || 'hidden'}">
+    <img src={PlayButton} alt={PlayButton} />
+  </div>
 
   <div class="controls" style="opacity: {duration && showControls ? 1 : 0}">
     <progress value={time / duration || 0} />

@@ -55,11 +55,6 @@
   <FullWidthVideo />
 
   <div class="flex flex-col w-full py-[86px] gap-[132px]">
-    <ResponsiveVideo />
-    <TrailblazerFactionsInfo />
-    <TrailblazerGallery />
-    <TrailblazerPinkifyYourProfile />
-    <TrailblazerGuide />
     <FAQ />
   </div>
 
