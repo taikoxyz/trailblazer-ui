@@ -1,16 +1,18 @@
 <script lang="ts">
-  import { FAQDropdown } from '$components/Dropdown';
   import { Icon, PlusIcon } from '$components/Icon';
 
   import TraiblazerDJ from '$images/trailblazer-dj.png';
   import TraiblazerDJFlare from '$images/trailblazer-dj-flare.png';
 
-  import { MOCK_FAQS } from '$mocks';
-
   import FullWidthVideo from '$components/Video/FullWidthVideo.svelte';
   import { TaikoTrailblazersLogo } from '$components/Logo';
 
-  let faqs = MOCK_FAQS;
+  import { ResponsiveVideo } from '$components/Video';
+  import TrailblazerFactionsInfo from '../About/AboutFactionsInfo.svelte';
+  import TrailblazerGallery from './TrailblazerGallery.svelte';
+  import TrailblazerGuide from './TrailblazerGuide.svelte';
+  import TrailblazerPinkifyYourProfile from './TrailblazerPinkifyYourProfile.svelte';
+  import { FAQ } from '$components/FAQ';
 </script>
 
 <div class="f-center container flex-col w-full overflow-visible">
@@ -50,15 +52,11 @@
     </div>
   </div>
 
-  <!-- faq section -->
-  <div class=" w-full px-[0px] py-[100px] xl:px-[75px] xl:py-[86px]">
-    <div class="pb-[30px]">
-      <div class="display-large-medium">FAQs</div>
-    </div>
-    <div class="flex flex-col w-full gap-4">
-      {#each faqs as { question, answer }}
-        <FAQDropdown {question} {answer}></FAQDropdown>
-      {/each}
-    </div>
+  <FullWidthVideo />
+
+  <div class="flex flex-col w-full py-[86px] gap-[132px]">
+    <FAQ />
   </div>
+
+  <!-- faq section -->
 </div>
