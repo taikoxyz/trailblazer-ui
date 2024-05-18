@@ -2,6 +2,6 @@
 // which essentially means you turn your app into an SPA.
 // See https://kit.svelte.dev/docs/page-options#ssr
 
-export const ssr = true;
-export const prerender = true;
+export const ssr = false;
+export const prerender = false;
 
