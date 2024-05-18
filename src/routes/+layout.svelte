@@ -1,6 +1,6 @@
 <script lang="ts">
   import '../app.css';
-  import '../i18n';
+  // import '../i18n';
 
   import { onDestroy, onMount } from 'svelte';
 
