@@ -17,7 +17,7 @@ export const MOCK_FAQS: FAQType[] = [
   {
     question: 'Where can I learn more about the factions?',
     answer:
-      'Detailed descriptions, stories, and benefits, of each faction will be made available on our campaign page as it progresses.',
+      'Detailed descriptions, stories, and benefits of each faction will be made available on our campaign page as it progresses.',
   },
   {
     question: 'Will I get rewarded?',
