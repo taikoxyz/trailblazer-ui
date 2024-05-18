@@ -14,7 +14,7 @@ const log = getLogger('wagmi:watcher');
 let isWatching = false;
 let unWatchAccount: () => void;
 
-export async function startWatching() {
+export function startWatching() {
   if (!isWatching) {
     unWatchAccount = watchAccount(config, {
       onChange(data) {
@@ -46,6 +46,10 @@ export async function startWatching() {
 }
 
 export function stopWatching() {
-  unWatchAccount();
-  isWatching = false;
+
+  if (typeof unWatchAccount === 'function') {
+    unWatchAccount();
+    isWatching = false;
+  }
+
 }

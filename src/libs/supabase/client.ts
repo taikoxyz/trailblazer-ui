@@ -71,8 +71,11 @@ export function startWatching() {
 }
 
 export function stopWatching() {
-  unWatchAccount();
-  isWatching = false;
+  if (typeof unWatchAccount === 'function') {
+    unWatchAccount();
+    isWatching = false;
+  }
+
 }
 
 export function handleSupabaseLogout() {

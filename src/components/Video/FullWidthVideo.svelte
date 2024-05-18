@@ -22,7 +22,7 @@
 
     const clientX = e.type === 'touchmove' ? (e as TouchEvent).touches[0].clientX : (e as MouseEvent).clientX;
     const { left, right } = (e.target as HTMLElement).getBoundingClientRect();
-    time = (duration * (clientX - left)) / (right - left);
+    // time = (duration * (clientX - left)) / (right - left);
   }
 
   function handleMousedown(e: MouseEvent): void {
