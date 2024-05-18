@@ -9,10 +9,9 @@ export async function generateTwitterCardSVG(avatarBlob: Blob): Promise<string> 
   // const base64Image: string | null = 'data:image/svg+xml;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAKklEQVR42mJ89+57VwMQFr3KiWwDkYHLJgEGdAPoAmoFA4YBoGMJmBgBWYBlPXKmJWAAAAAElFTkSuQmCC'
 
   return `
-
   <svg
     id="test"
-    width="600"
+    width="300"
     viewBox="0 0 1200 600"
     preserveAspectRatio="xMidYMid meet"
     xmlns="http://www.w3.org/2000/svg"

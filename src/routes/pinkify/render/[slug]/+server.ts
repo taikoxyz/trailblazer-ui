@@ -1,59 +1,65 @@
-import { error } from '@sveltejs/kit';
+import { error, json } from '@sveltejs/kit';
 import { createCanvas, loadImage } from 'canvas';
 
 import { generateTwitterCardSVG } from '$libs/pinkify/generateTwitterCard.js';
+import { savePngToSupabase } from '$libs/supabase/functions';
 
 /** @type {import('./$types').RequestHandler} */
-export async function GET({ url }) {
-  // Extract slug parameter from the request
-  const { pathname } = url;
-
-  // Split the pathname to get the slug
-  const slug = pathname.split('/').pop();
-
-  // Verify if slug exists
-  if (!slug) {
-    return new Response('Bad Request', { status: 400 });
-  }
+export async function GET({ params }) {
+  const { slug } = params;
 
   try {
-    // Fetch the image from Twitter
-    const response = await fetch(`https://pbs.twimg.com/profile_images/${slug}/X926izfy_400x400.jpg`);
+
+    // const response = await fetch(`https://pbs.twimg.com/profile_images/${slug}/X926izfy_400x400.jpg`);
+    const response = await fetch(`https://pbs.twimg.com/profile_images/1773273774345138176/X926izfy_400x400.jpg`);
 
     if (!response.ok) {
-      return new Response(`Failed to fetch image: ${response.statusText}`, { status: response.status });
+      return json({
+        status: response.status,
+        body: `Failed to fetch image`
+      });
     }
 
-    // Get Image
     const blob = await response.blob();
+    // const buffer = Buffer.from(arrayBuffer);
+
+    // Generate the SVG content (replace this with your actual SVG generation logic)
     const svg = await generateTwitterCardSVG(blob);
-    const svgBuffer = Buffer.from(svg, 'utf-8');
 
-    // Convert SVG to PNG
-    const width = 1200;
-    const height = 600;
-
-    const canvas = createCanvas(width, height);
+    // Create a new canvas element
+    const canvas = createCanvas(1200, 600); // Adjust the dimensions as needed
     const ctx = canvas.getContext('2d');
+    const img = await loadImage('data:image/svg+xml;base64,' + Buffer.from(svg).toString('base64'));
 
-    const img = await loadImage(`data:image/svg+xml;base64,${svgBuffer.toString('base64')}`);
-    ctx.drawImage(img, 0, 0, width, height);
+    // Set canvas size to match SVG dimensions
+    canvas.width = img.width;
+    canvas.height = img.height;
 
-    const imgBuffer = canvas.toBuffer('image/png');
+    // Draw SVG onto canvas
+    ctx.drawImage(img, 0, 0);
+
+    // Convert canvas to data URL
+    const dataUrl = canvas.toDataURL('image/png');
+    const buffer = canvas.toBuffer('image/png');
 
 
-    // const pngUrl = URL.createObjectURL(imgBuffer);
 
+    // Save PNG to Supabase (assuming you have a savePngToSupabase function)
+    await savePngToSupabase(slug, dataUrl);
 
-
-    // Return the PNG image
-    return new Response(imgBuffer, {
+    return {
+      status: 200,
       headers: {
-        'Content-Type': 'image/png',
-      }
+        'Content-Type': 'image/png'
+      },
+      body: buffer,
+      blob: buffer
+    };
+
+  } catch (error) {
+    return json({
+      status: 500,
+      body: `Error`
     });
-  } catch (e) {
-    console.error('Failed to fetch image:', e);
-    return new Response('Internal Server Error', { status: 500 });
   }
 }
