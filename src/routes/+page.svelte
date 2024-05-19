@@ -23,6 +23,6 @@
 <div class="h-24"></div>
 
 <CoverImage src={''}></CoverImage>
-<div class="f-center px-8">
+<div class="f-center px-5">
   <Trailblazer />
 </div>
