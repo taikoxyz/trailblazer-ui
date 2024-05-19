@@ -25,7 +25,7 @@
 </script>
 
 <!-- App components -->
-<Ribbon></Ribbon>
+<!-- <Ribbon></Ribbon> -->
 <Header />
 <main>
   <slot />
