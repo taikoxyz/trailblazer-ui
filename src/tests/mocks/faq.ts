@@ -22,6 +22,6 @@ export const MOCK_FAQS: FAQType[] = [
   {
     question: 'Will I get rewarded?',
     answer:
-      ' Participation in the Trailblazers campaign and minting your Faction Badge on mainnet day gives you exclusive rewards.',
+      ' Participation in the Trailblazers campaign and minting your Faction Badge gives you exclusive rewards.',
   },
 ];
