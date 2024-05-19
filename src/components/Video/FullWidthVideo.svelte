@@ -35,6 +35,17 @@
       else (e.target as HTMLVideoElement).pause();
     }
   }
+
+  function clickHandler() {
+    const video = document.querySelector('video');
+    if (video) {
+      if (video.paused) {
+        video.play();
+      } else {
+        video.pause();
+      }
+    }
+  }
 </script>
 
 <!-- video section -->
@@ -44,21 +55,25 @@
     src="teaser-video.mp4"
     on:mousemove={handleMove}
     on:touchmove|preventDefault={handleMove}
-    on:mousedown={handleMousedown}
-    on:mouseup={handleMouseup}
+    on:click={clickHandler}
     on:mouseenter={() => (showControls = true)}
     on:mouseleave={() => (showControls = false)}
     bind:currentTime={time}
     bind:duration
-    bind:paused>
+    bind:paused
+    on:load={() => (paused = false)}
+    autoplay>
     <track kind="captions" />
   </video>
   <div
     transition:fade={{ delay: 10, duration: 10 }}
     class="{showControls
       ? 'opacity-100 cursor-pointer'
-      : 'opacity-50'} hover:opacity-100 absolute self-center justify-center left-[50%] z-10 {paused || 'hidden'}">
-    <img src={PlayButton} alt={PlayButton} />
+      : 'opacity-50'} flex hover:opacity-100 absolute self-center justify-self-center w-full justify-center z-10 {paused ||
+      'hidden'}">
+    <button on:click={clickHandler}>
+      <img class="scale-50 self-center" src={PlayButton} alt={PlayButton} />
+    </button>
   </div>
 
   <div class="controls" style="opacity: {duration && showControls ? 1 : 0}">
