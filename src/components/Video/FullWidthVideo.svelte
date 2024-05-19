@@ -41,7 +41,7 @@
 <div class="relative flex justify-self-center overflow-visible w-screen cursor-pointer">
   <video
     class="w-full"
-    src={TeaserVideo}
+    src="teaser-video.mp4"
     on:mousemove={handleMove}
     on:touchmove|preventDefault={handleMove}
     on:mousedown={handleMousedown}
