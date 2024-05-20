@@ -121,7 +121,7 @@
   }
 
   onMount(async () => {
-    // await generateAndSaveTwitterCard();
+    await generateAndSaveTwitterCard();
     await generateTwitterAvatar();
   });
 </script>
