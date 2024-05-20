@@ -29,11 +29,12 @@
   $: if (modalOpen) {
     // placeholder
   }
-
+  let svgDataUrl = '';
+  $: svgDataUrl = `data:image/svg+xml;base64,${btoa(unescape(encodeURIComponent(svg)))}`;
   async function generateAndSaveTwitterCard() {
     // Save to supabase
 
-    const response = await fetch(`https://pbs.twimg.com/profile_images/${get(twitterAvatarId)}/X926izfy_400x400.jpg`);
+    const response = await fetch(`https://pbs.twimg.com/profile_images/${get(twitterAvatarId)}_400x400.jpg`);
 
     if (!response.ok) {
       return new Response(`Failed to fetch image: ${response.statusText}`, { status: response.status });
@@ -43,31 +44,43 @@
     svg = await generateTwitterCardSVG(blob);
 
     // Create a new canvas element
-    const canvas = document.createElement('canvas');
+    const svgElement = svg;
+    const canvas = document.getElementById('canvas') as HTMLCanvasElement;
     const ctx = canvas.getContext('2d');
-    const img = new Image();
+
+    // Serialize the SVG to a string
+    const img = new Image(1200, 600);
+
+    // Create an image element
     img.onload = () => {
       // Set canvas size to match SVG dimensions
-      canvas.width = img.width;
-      canvas.height = img.height;
+      canvas.width = 1200;
+      canvas.height = 600;
 
       // Draw SVG onto canvas
       (ctx as CanvasRenderingContext2D).drawImage(img, 0, 0);
 
-      // Convert canvas to data URL
-      const dataUrl = canvas.toDataURL('image/png');
+      // Convert canvas to PNG
+      const pngDataUrl = canvas.toDataURL('image/png');
+      console.log('🚀 | generateAndSaveTwitterCard | pngDataUrl:', pngDataUrl);
 
-      // Create a link element
-      const link = document.createElement('a');
-      link.href = dataUrl;
-      link.download = 'fileName';
-      savePngToSupabase(get(twitterAvatarId), dataUrl).then(() => {
+      // Display the PNG image
+      const outputImage = document.getElementById('outputImage') as HTMLImageElement;
+
+      if (!outputImage) {
+        return;
+      }
+      outputImage.src = pngDataUrl;
+
+      savePngToSupabase(get(twitterAvatarId), pngDataUrl).then(() => {
         console.log('png saved');
       });
     };
 
     // Set the Image source to the SVG content
     img.src = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svg)));
+
+    console.log('🚀 | generateAndSaveTwitterCard | svgDataUrl:', svgDataUrl);
   }
 
   onMount(async () => {
@@ -79,9 +92,10 @@
   <div class="modal-box relative p-0 md:rounded-[20px] bg-neutral-background overflow-hidden">
     <CloseButton onClick={closeModal} />
     <div class="f-center f-col w-full space-y-[30px] pt-[35px]">
-      <div class="hidden">
-        {@html svg}
-      </div>
+      <canvas id="canvas" style="display:none;"></canvas>
+      <!-- <img src={svgDataUrl} alt="gallery" /> -->
+      <img id="outputImage" />
+
       <img class="size-[328px]" src={pinkifiedAvatar} alt="avatar" />
       <div class="f-center f-col gap-[10px] w-[370px]">
         <div class="display-small-medium">Pinkified - Now Amplify!</div>

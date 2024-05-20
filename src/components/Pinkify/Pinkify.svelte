@@ -98,13 +98,13 @@
 </script>
 
 <!-- {@html svg} -->
+{#if modalOpen}
+  <PinkifyModal bind:modalOpen on:selected={() => handleDialogSelection()} {pinkifiedAvatar} />
+{/if}
 
-<PinkifyModal bind:modalOpen on:selected={() => handleDialogSelection()} {pinkifiedAvatar} />
-<img src={base64data} />
-
-<div class="f-center flex-col w-full gap-[80px] xl:gap-[20px] container">
+<div class="f-center flex-col w-full xl:gap-[20px] container">
   <!-- Section Header -->
-  <div class="f-center w-full flex-col xl:flex-row xl:justify-between gap-[40px] pb-[60px]">
+  <div class="f-center w-full flex-col xl:flex-row xl:justify-between gap-[40px] xl:pb-[60px]">
     <!-- Title text: Taiko Factions -->
     <div class="font-clash-grotesk text-base-content tracking-[-1.5px] text-[75px]/[70px] text-center xl:text-left">
       Start your<br /><span class="text-secondary-brand">journey</span>
@@ -117,13 +117,14 @@
   </div>
 
   <!-- Pinkify Interface -->
-  <div class="flex rounded-[30px] w-full bg-elevated-background px-[55px] py-[74px]">
-    <div class="f-center flex-col w-full">
+  <div
+    class="f-center flex-col xl:flex-row rounded-[30px] w-full xl:bg-elevated-background px-[29px] py-[44px] xl:px-[55px] xl:py-[74px]">
+    <div class="f-center flex-col w-full order-1 xl:order-0">
       <!-- Step 1 -->
-      <div class="flex items-center w-full justify-between">
-        <div class="f-center gap-4 max-w-[400px]">
+      <div class="flex flex-col xl:flex-row items-center w-full justify-between">
+        <div class="f-center flex-col xl:flex-row gap-4 max-w-[400px]">
           <div class="bg-neutral-background f-center rounded-full min-w-12 min-h-12">1</div>
-          <div class="flex flex-col">
+          <div class="flex flex-col text-center xl:text-left pb-4 xl:pb-0">
             <div class="font-clash-grotesk text-[22px]">Connect to X</div>
             <div>Activity from this linked X account will be associated with your wallet in the next step.</div>
           </div>
@@ -146,10 +147,10 @@
       <div class="divider divider-neutral"></div>
       <!-- Step 2 -->
 
-      <div class="flex items-center w-full justify-between">
-        <div class="f-center gap-4 max-w-[400px]">
+      <div class="flex flex-col xl:flex-row items-center w-full justify-between">
+        <div class="f-center flex-col xl:flex-row gap-4 max-w-[400px]">
           <div class="bg-neutral-background f-center rounded-full min-w-12 min-h-12">2</div>
-          <div class="flex flex-col">
+          <div class="flex flex-col text-center xl:text-left pb-4 xl:pb-0">
             <div class="font-clash-grotesk text-[22px]">Pinkify & Share</div>
             <div>Pinkify your profile picture by generating a Taiko pink design and share it on X.</div>
           </div>
@@ -159,9 +160,7 @@
           <button class="self-center btn btn-disabled w-[230px] body-bold">Generating...</button>
         {:else if generated}
           <div class="f-center bg-neutral-background rounded-full p-2 h-fit gap-2">
-            <button
-              on:click={logout}
-              class="f-center gap-2 min-w-[170px] px-[15px] py-[6px] bg-tertiary-content rounded-full">
+            <button class="f-center gap-2 min-w-[170px] px-[15px] py-[6px] bg-tertiary-content rounded-full">
               <div>Completed</div>
             </button>
             <Icon size={36} type="check-circle" fillClass="fill-[#47E0A0]" />
@@ -173,10 +172,10 @@
       <div class="divider divider-neutral"></div>
       <!-- Step 3 -->
 
-      <div class="flex items-center w-full justify-between">
-        <div class="f-center max-w-[400px] gap-4">
+      <div class="flex flex-col xl:flex-row items-center w-full justify-between">
+        <div class="f-center flex-col xl:flex-row gap-4 max-w-[400px]">
           <div class="bg-neutral-background f-center rounded-full min-w-12 min-h-12">3</div>
-          <div class="flex flex-col max-w-[400px]">
+          <div class="flex flex-col text-center xl:text-left pb-4 xl:pb-0">
             <div class="font-clash-grotesk text-[22px]">Register your wallet</div>
             <div>Lastly, register your wallet address to unlock the gates of Neo Nakuza.</div>
           </div>
@@ -198,8 +197,8 @@
       </div>
     </div>
 
-    <div class="flex flex-col pl-[90px]">
-      <div class="avatar w-[355px]">
+    <div class="flex flex-col xl:pl-[90px] pb-10 xl:pb-0 order-0 xl:order-1">
+      <div class="avatar w-full xl:w-[355px]">
         {#if step == Step.CONNECT}
           <div class="flex gap-4">
             <img src={PrePinkify} alt="unpinkified" />
