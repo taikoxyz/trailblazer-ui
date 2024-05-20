@@ -11,7 +11,7 @@ const config = {
   kit: {
     // https://kit.svelte.dev/docs/single-page-apps
     adapter: adapter({
-      maxDuration: 300,
+      fallback: 'index.html',
     }),
     alias: {
       '$components/*': './src/components/*',
