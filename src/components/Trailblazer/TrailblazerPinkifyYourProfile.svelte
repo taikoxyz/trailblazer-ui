@@ -1,13 +1,10 @@
 <script lang="ts">
-  import { TwitterLogin } from '$components/Twitter';
   import PinkifyYourProfile from '$images/pinkify-your-profile.svg';
-  import { getSession } from '$libs/supabase';
-  import { parseTwitterAvatarId } from '$libs/util/parseTwitterAvatarId';
-  import { twitterAvatarUrl, twitterId } from '$stores/supabase';
 </script>
 
-<div class="relative flex p-[40px] rounded-[30px] border-2 border-primary-border-hover bg-[#310E2F] min-h-[502px]">
-  <div class="flex flex-col">
+<div
+  class="relative flex flex-col xl:flex-row p-[40px] rounded-[30px] border-2 border-primary-border-hover bg-[#310E2F] min-h-[502px]">
+  <div class="flex flex-col order-1 xl:order-0">
     <div class="pb-[73px]">
       <div class="rounded-full bg-secondary-brand f-center py-[10px] px-[35px] body-small-bold w-fit">
         JOIN THE REVOLUTION
@@ -21,7 +18,7 @@
       drum emoji, or use the Taiko hand gesture. Share your support with #CallofTaiko and become part of the movement!
     </div>
   </div>
-  <div class="absolute top-0 right-[52px]">
+  <div class="xl:absolute f-center top-0 right-[52px]">
     <img src={PinkifyYourProfile} />
   </div>
 </div>
