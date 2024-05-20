@@ -3,3 +3,6 @@ export const config = {
     runtime: 'edge',
     split: true
 };
+
+export const ssr = false;
+export const prerender = false;
