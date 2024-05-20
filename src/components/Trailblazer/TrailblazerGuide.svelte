@@ -24,8 +24,7 @@
   <TrailblazerGuideStep
     icon="semi-circle-reversed"
     title="Connect"
-    description="Begin by registering your wallet address. This initial step is crucial as it links your identity to your
-    participation.">
+    description="Kickstart your journey by connecting your X account. This quick setup is your gateway to the vibrant Taiko community.">
   </TrailblazerGuideStep>
   <div class="rotate-90 xl:rotate-0">
     <Connector class="fill-purple min-w-[32px]" />
@@ -33,16 +32,14 @@
   <TrailblazerGuideStep
     icon="quad-circles"
     title="Pinkify & Amplify"
-    description="Begin by registering your wallet address. This initial step is crucial as it links your identity to your
-    participation.">
+    description="Update your profile picture with a generated Taiko pink design. Show your colors by sharing your new look on X and prove your participation.">
   </TrailblazerGuideStep>
   <div class="rotate-90 xl:rotate-0">
     <Connector class="fill-purple min-w-[32px]" />
   </div>
   <TrailblazerGuideStep
     icon="diamond"
-    title="Amplify The Call"
-    description="Begin by registering your wallet address. This initial step is crucial as it links your identity to your
-  participation.">
+    title="Begin your trail"
+    description="Lastly, register your wallet address. This step not only links your identity and prepares you to claim your exclusive faction badge, but also lets you be part of something bigger.">
   </TrailblazerGuideStep>
 </div>
