@@ -46,7 +46,6 @@
     svg = await generateTwitterCardSVG(blob);
 
     // Create a new canvas element
-    const svgElement = svg;
     const canvas = document.getElementById('canvas') as HTMLCanvasElement;
     const ctx = canvas.getContext('2d');
 
@@ -64,7 +63,6 @@
 
       // Convert canvas to PNG
       const pngDataUrl = canvas.toDataURL('image/png');
-      console.log('🚀 | generateAndSaveTwitterCard | pngDataUrl:', pngDataUrl);
 
       // Display the PNG image
       const outputImage = document.getElementById('outputImage') as HTMLImageElement;
@@ -78,15 +76,47 @@
         console.log('png saved');
       });
     };
-
     // Set the Image source to the SVG content
     img.src = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svg)));
+  }
 
-    console.log('🚀 | generateAndSaveTwitterCard | svgDataUrl:', svgDataUrl);
+  async function generateTwitterAvatar() {
+    // Save to supabase
+
+    // Create a new canvas element
+    const canvas = document.getElementById('canvas2') as HTMLCanvasElement;
+    const ctx = canvas.getContext('2d');
+
+    // Serialize the SVG to a string
+    const img = new Image(400, 400);
+
+    // Create an image element
+    img.onload = () => {
+      // Set canvas size to match SVG dimensions
+      canvas.width = 400;
+      canvas.height = 400;
+
+      // Draw SVG onto canvas
+      (ctx as CanvasRenderingContext2D).drawImage(img, 0, 0);
+
+      // Convert canvas to PNG
+      const pngDataUrl = canvas.toDataURL('image/png');
+
+      // Display the PNG image
+      const outputImage = document.getElementById('outputAvatar') as HTMLImageElement;
+
+      if (!outputImage) {
+        return;
+      }
+      outputImage.src = pngDataUrl;
+    };
+    // Set the Image source to the SVG content
+    img.src = pinkifiedAvatar;
   }
 
   onMount(async () => {
     await generateAndSaveTwitterCard();
+    await generateTwitterAvatar();
   });
 </script>
 
@@ -95,10 +125,12 @@
     <CloseButton onClick={closeModal} />
     <div class="f-center f-col w-full space-y-[30px] pt-[35px]">
       <canvas id="canvas" style="display:none;"></canvas>
+      <canvas id="canvas2" style="display:none;"></canvas>
       <!-- <img src={svgDataUrl} alt="gallery" /> -->
       <img id="outputImage" class="hidden" />
+      <img id="outputAvatar" class="size-[328px]" />
 
-      <img class="size-[328px]" src={pinkifiedAvatar} alt="avatar" />
+      <!-- <img class="size-[328px]" src={pinkifiedAvatar} alt="avatar" /> -->
       <div class="f-center f-col gap-[10px] w-[370px]">
         <div class="display-small-medium">Pinkified - Now Amplify!</div>
         <div class="body-small-regular text-center">
