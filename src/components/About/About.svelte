@@ -14,7 +14,7 @@
   <!-- About Factions -->
   <AboutFactionsInfo />
   <!-- Video -->
-  <ResponsiveVideo />
+  <!-- <ResponsiveVideo /> -->
   <!-- FAQ -->
   <FAQ />
 </div>
