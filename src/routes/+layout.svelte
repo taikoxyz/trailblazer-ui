@@ -12,6 +12,7 @@
   import { SwitchChainModal } from '$components/SwitchChainModal';
   import { startWatching as startWatchingX, stopWatching as stopWatchingX } from '$libs/supabase';
   import { startWatching, stopWatching } from '$libs/wagmi';
+  import { browser } from '$app/environment';
 
   const syncPointer = ({ x, y }: { x: number; y: number }) => {
     document.documentElement.style.setProperty('--x', x.toFixed(2));
@@ -29,7 +30,8 @@
   onDestroy(() => {
     stopWatching();
     stopWatchingX();
-    document.body.removeEventListener('pointermove', syncPointer);
+
+    browser && document.body.removeEventListener('pointermove', syncPointer);
   });
 </script>
 
@@ -43,7 +45,7 @@
 <Footer />
 
 <!--
-  The following UI is global and should be rendered 
+  The following UI is global and should be rendered
   at the root of the app.
 -->
 

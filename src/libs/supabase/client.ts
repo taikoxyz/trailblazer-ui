@@ -71,7 +71,7 @@ export function startWatching() {
 }
 
 export function stopWatching() {
-  unWatchAccount();
+  unWatchAccount && unWatchAccount();
   isWatching = false;
 }
 
