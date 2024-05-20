@@ -16,7 +16,6 @@ if (!supabaseUrl || !supabaseAnonKey) {
 export const supabaseClient = createClient(supabaseUrl, supabaseAnonKey);
 
 export function getSession() {
-  console.log(get(session));
   return supabaseClient.auth.getSession();
 }
 
