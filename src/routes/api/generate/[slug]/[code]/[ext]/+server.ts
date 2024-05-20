@@ -75,6 +75,6 @@ export async function GET({ params }) {
     });
   } catch (e) {
     console.error('Failed to fetch image:', e);
-    return error(500, e.message);
+    return error(500, 'Internal Server Error');
   }
 }
