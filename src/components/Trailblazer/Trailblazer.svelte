@@ -52,9 +52,10 @@
     </div>
   </div>
 
-  <FullWidthVideo />
-
   <div class="flex flex-col w-full py-[86px] gap-[132px]">
+    <TrailblazerGuide />
+    <TrailblazerPinkifyYourProfile />
+    <ResponsiveVideo />
     <FAQ />
   </div>
 
