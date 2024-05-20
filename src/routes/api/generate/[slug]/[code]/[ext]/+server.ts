@@ -33,20 +33,20 @@ export async function GET({ params }) {
         .cls-1 {
           fill: #d63b95;
         }
-  
+
         .cls-1,
         .cls-2 {
           stroke-width: 0px;
         }
-  
+
         .cls-2 {
           fill: #d63c95;
         }
-  
+
         .cls-3 {
           opacity: .3;
         }
-  
+
         .cls-4 {
           opacity: .7;
         }
