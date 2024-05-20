@@ -4,6 +4,9 @@ export const parseTwitterImage = (url: string) => {
   const endPart = urlParts.pop();
   const id = endPart.split('_');
 
-  urlParts.push(`${id[0]}_400x400.jpg`);
+  // get file extension
+  const ext = id[1].split('.')[1];
+
+  urlParts.push(`${id[0]}_400x400.${ext}`);
   return urlParts.join('/');
 };

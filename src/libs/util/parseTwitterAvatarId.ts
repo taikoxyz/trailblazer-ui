@@ -10,8 +10,11 @@ export const parseTwitterAvatarId = (url: string) => {
     const endPart = urlParts.pop();
     const id = endPart.split('_');
 
+    // get file extension
+    const ext = id[1].split('.')[1];
+
     urlParts.push(`${id[0]}_400x400.jpg`);
-    return `${match[1]}/${id[0]}`; // Return the numeric ID
+    return `${match[1]}/${id[0]}/${ext}`; // Return the numeric ID
   } else {
     return ''; // Return null if no match is found
   }

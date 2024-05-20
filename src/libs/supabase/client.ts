@@ -26,6 +26,8 @@ export function startWatching() {
   if (!isWatching) {
     const { data } = supabaseClient.auth.onAuthStateChange((_event, _session) => {
       session.set(_session);
+      console.log("🚀 | const{data}=supabaseClient.auth.onAuthStateChange | _session:", _session)
+
       // if (_session && _session.provider_token) {
       //     window.localStorage.setItem('oauth_provider_token', session.provider_token)
       // }
