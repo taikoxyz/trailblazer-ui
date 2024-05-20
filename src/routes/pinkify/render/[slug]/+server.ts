@@ -1,6 +1,7 @@
 import { error, json } from '@sveltejs/kit';
 import { createCanvas, loadImage } from 'canvas';
 
+import { PUBLIC_SUPABASE_URL } from '$env/static/public';
 import { generateTwitterCardSVG } from '$libs/pinkify/generateTwitterCard.js';
 import { savePngToSupabase } from '$libs/supabase/functions';
 
@@ -10,51 +11,24 @@ export async function GET({ params }) {
 
   try {
 
-    // const response = await fetch(`https://pbs.twimg.com/profile_images/${slug}/X926izfy_400x400.jpg`);
-    const response = await fetch(`https://pbs.twimg.com/profile_images/1773273774345138176/X926izfy_400x400.jpg`);
+    // Fetch the image from Supabase
+    const response = await fetch(`${PUBLIC_SUPABASE_URL}/pinkify/${hash}.png`);
 
+    // Check if the image was found
     if (!response.ok) {
-      return json({
-        status: response.status,
-        body: `Failed to fetch image`
-      });
+      return error(response.status, `Failed to fetch image: ${response.statusText}`);
     }
 
-    const blob = await response.blob();
-    // const buffer = Buffer.from(arrayBuffer);
+    const base64 = await response.text(); // Assuming the fetch returns a full base64 URI
+    const data = base64.split(',')[1]; // This removes the 'data:image/png;base64,' part
+    const binaryData = Buffer.from(data, 'base64'); // Decode base64 to binary
 
-    // Generate the SVG content (replace this with your actual SVG generation logic)
-    const svg = await generateTwitterCardSVG(blob);
-
-    // Create a new canvas element
-    const canvas = createCanvas(1200, 600); // Adjust the dimensions as needed
-    const ctx = canvas.getContext('2d');
-    const img = await loadImage('data:image/svg+xml;base64,' + Buffer.from(svg).toString('base64'));
-
-    // Set canvas size to match SVG dimensions
-    canvas.width = img.width;
-    canvas.height = img.height;
-
-    // Draw SVG onto canvas
-    ctx.drawImage(img, 0, 0);
-
-    // Convert canvas to data URL
-    const dataUrl = canvas.toDataURL('image/png');
-    const buffer = canvas.toBuffer('image/png');
-
-
-
-    // Save PNG to Supabase (assuming you have a savePngToSupabase function)
-    await savePngToSupabase(slug, dataUrl);
-
-    return {
-      status: 200,
+    // Stream the image directly in the response
+    return new Response(binaryData, {
       headers: {
         'Content-Type': 'image/png'
-      },
-      body: buffer,
-      blob: buffer
-    };
+      }
+    });
 
   } catch (error) {
     return json({
