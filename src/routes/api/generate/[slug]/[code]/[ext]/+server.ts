@@ -1,8 +1,8 @@
 import { error } from '@sveltejs/kit';
 
 /** @type {import('./$types').RequestHandler} */
-export async function POST({ request }) {
-  const { slug: twitterImageId, code: twitterImageCode, ext } = await request.json();
+export async function GET({ params }) {
+  const { slug: twitterImageId, code: twitterImageCode, ext } = params;
 
   // Verify if slug exists
   if (!twitterImageId || !twitterImageCode) {
