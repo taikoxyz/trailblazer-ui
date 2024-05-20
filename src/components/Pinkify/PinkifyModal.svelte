@@ -5,9 +5,11 @@
 
   import { uid } from '$libs/util/uid';
   import { generateTwitterCardSVG } from '$libs/pinkify';
-  import { twitterAvatarId } from '$stores/supabase';
+  import { twitterAvatarId, twitterId } from '$stores/supabase';
   import { get } from 'svelte/store';
   import { savePngToSupabase } from '$libs/supabase/functions';
+  import { draftMessage } from '$libs/twitter';
+  import { page } from '$app/stores';
 
   const dialogId = `dialog-${uid()}`;
 
@@ -94,7 +96,7 @@
     <div class="f-center f-col w-full space-y-[30px] pt-[35px]">
       <canvas id="canvas" style="display:none;"></canvas>
       <!-- <img src={svgDataUrl} alt="gallery" /> -->
-      <img id="outputImage" />
+      <img id="outputImage" class="hidden" />
 
       <img class="size-[328px]" src={pinkifiedAvatar} alt="avatar" />
       <div class="f-center f-col gap-[10px] w-[370px]">
@@ -104,7 +106,12 @@
         </div>
       </div>
       <div class="divider" />
-      <button on:click={() => {}} class="self-center btn btn-block btn-primary body-bold">Share on X</button>
+      <a
+        class="self-center btn btn-block btn-primary body-bold"
+        href={draftMessage($page.url.toString() + '/' + $twitterAvatarId.split('/')[0])}
+        target="_blank">
+        Share on X
+      </a>
     </div>
   </div>
 </dialog>

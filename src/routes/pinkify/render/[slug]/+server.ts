@@ -1,9 +1,6 @@
 import { error, json } from '@sveltejs/kit';
-import { createCanvas, loadImage } from 'canvas';
 
 import { PUBLIC_SUPABASE_URL } from '$env/static/public';
-import { generateTwitterCardSVG } from '$libs/pinkify/generateTwitterCard.js';
-import { savePngToSupabase } from '$libs/supabase/functions';
 
 /** @type {import('./$types').RequestHandler} */
 export async function GET({ params }) {
@@ -12,7 +9,7 @@ export async function GET({ params }) {
   try {
 
     // Fetch the image from Supabase
-    const response = await fetch(`${PUBLIC_SUPABASE_URL}/pinkify/${hash}.png`);
+    const response = await fetch(`${PUBLIC_SUPABASE_URL}/pinkify/${slug}.png`);
 
     // Check if the image was found
     if (!response.ok) {
