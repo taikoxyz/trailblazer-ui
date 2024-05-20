@@ -19,11 +19,9 @@ export async function POST({ request }) {
       return error(response.status, `Failed to fetch image: ${response.statusText}`);
     }
     // Read the image as a blob
-    const originalPfp = await response.arrayBuffer();
 
     // convert blob to base64
     // Convert blob to Base64
-    const base64data = Buffer.from(originalPfp).toString('base64');
 
     const svg = `<svg
     width="400"
@@ -54,7 +52,6 @@ export async function POST({ request }) {
         }
       </style>
     </defs>
-    <image x="0" y="0" width="400" height="400" href="data:image/png;base64,${base64data}" />
     <path class="cls-1"
       d="M200,28c45.9,0,89.1,17.9,121.6,50.4,32.5,32.5,50.4,75.7,50.4,121.6s-17.9,89.1-50.4,121.6c-32.5,32.5-75.7,50.4-121.6,50.4s-89.1-17.9-121.6-50.4c-32.5-32.5-50.4-75.7-50.4-121.6s17.9-89.1,50.4-121.6c32.5-32.5,75.7-50.4,121.6-50.4M200,0C89.5,0,0,89.5,0,200s89.5,200,200,200,200-89.5,200-200S310.5,0,200,0h0Z" />
     <g class="cls-4">
