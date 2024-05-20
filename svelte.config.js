@@ -10,7 +10,7 @@ const config = {
   kit: {
     // https://kit.svelte.dev/docs/single-page-apps
     adapter: adapter({
-      fallback: 'index.html',
+      maxDuration: 300,
     }),
     alias: {
       '$components/*': './src/components/*',

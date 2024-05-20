@@ -4,12 +4,13 @@
   import PrePinkify from '$images/pre-pinkify.svg';
   import { getSession, supabaseClient } from '$libs/supabase';
   import { parseTwitterAvatarId } from '$libs/util/parseTwitterAvatarId';
-  import { twitterAvatarUrl, twitterId, twitterUsername } from '$stores/supabase';
+  import { twitterAvatarId, twitterAvatarUrl, twitterId, twitterUsername } from '$stores/supabase';
   import PinkifyModal from './PinkifyModal.svelte';
   import { getAccount, signMessage } from '@wagmi/core';
   import { config } from '$libs/wagmi';
   import { postSignature } from '$libs/pinkify/api';
   import { blobToBase64 } from '$libs/util/blobToBase64';
+  import { get } from 'svelte/store';
 
   enum Step {
     CONNECT,
@@ -67,7 +68,22 @@
 
   async function fetchPinkifiedAvatar() {
     // Fetch twitter avatar
-    let response = await fetch(`/api/generate/${parseTwitterAvatarId($twitterAvatarUrl)}`);
+    let avatarData = get(twitterAvatarId).split('/');
+
+    const data = {
+      slug: avatarData[0],
+      code: avatarData[1],
+      ext: avatarData[2], // or 'png', etc.
+    };
+
+    let response = await fetch(`/api/generate`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    });
+
     pinkifiedAvatar = await blobToBase64(await response.blob());
     pinkifiedAvatar = pinkifiedAvatar.replace('data:image/png;base64', 'data:image/svg+xml;base64');
   }
