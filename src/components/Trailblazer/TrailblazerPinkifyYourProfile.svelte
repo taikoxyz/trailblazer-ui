@@ -4,7 +4,7 @@
 
 <div
   class="relative flex flex-col xl:flex-row xl:p-[40px] rounded-[30px] border-2 border-primary-border-hover bg-[#310E2F] min-h-[502px]">
-  <div class="f-center flex-col order-1 xl:order-0 p-8">
+  <div class="f-center flex-col order-1 xl:order-0 p-[40px]">
     <div class="pb-[40px] xl:pb-[73px]">
       <div class="rounded-full bg-secondary-brand f-center py-[10px] px-[35px] body-small-bold w-fit">
         JOIN THE REVOLUTION
