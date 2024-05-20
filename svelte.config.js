@@ -1,4 +1,4 @@
-import adapter from '@sveltejs/adapter-vercel';
+import adapter from '@sveltejs/adapter-static';
 import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
 
 /** @type {import('@sveltejs/kit').Config} */
@@ -10,7 +10,6 @@ const config = {
   kit: {
     // https://kit.svelte.dev/docs/single-page-apps
     adapter: adapter({
-      maxDuration: 300,
     }),
     alias: {
       '$components/*': './src/components/*',
