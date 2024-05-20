@@ -1,4 +1,4 @@
-import adapter from '@sveltejs/adapter-auto';
+import adapter from '@sveltejs/adapter-vercel';
 import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
 
 
@@ -10,10 +10,7 @@ const config = {
 
   kit: {
     // https://kit.svelte.dev/docs/single-page-apps
-    adapter: adapter({
-      fallback: 'index.html',
-      maxDuration: 300,
-    }),
+    adapter: adapter(),
     alias: {
       '$components/*': './src/components/*',
       '$stores/*': './src/stores/*',
