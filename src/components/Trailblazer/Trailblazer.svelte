@@ -32,7 +32,7 @@
         <div class="xl:self-start f-center flex-col xl:pb-0">
           <PlusIcon class="  xl:self-start  pb-[40px] hidden xl:block" />
           <div class="body-bold max-w-[343px] text-center xl:text-left">
-            In the vibrant world of Neo Nakuzaa revolutionary cast of characters is emerging: Taiko Factions.
+            In the vibrant world of Neo Nakuza, a revolutionary cast of characters is emerging: Taiko Trailblazers.
           </div>
         </div>
       </div>
