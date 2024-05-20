@@ -37,7 +37,7 @@
     signing = true;
     try {
       const address = getAccount(config).address;
-      const message = 'Your campaign message here';
+      const message = 'Answer the call';
       if (!address) {
         throw new Error('No address found');
       }
