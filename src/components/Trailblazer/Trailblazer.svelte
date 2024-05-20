@@ -17,7 +17,7 @@
 
 <div class="f-center container flex-col w-full overflow-visible">
   <!-- section 1 -->
-  <div class="f-center flex-col w-full pt-[20px] xl:pt-[150px] xl:pb-[165px] gap-[132px]">
+  <div class="f-center flex-col w-full pt-[20px] xl:pt-[150px] xl:pb-[165px] gap-[80px] xl:gap-[132px]">
     <div class="f-center flex-col xl:flex-row w-full">
       <div class="f-center flex-col w-full">
         <!-- Title -->
@@ -31,7 +31,7 @@
         <!-- Description -->
         <div class="xl:self-start f-center flex-col xl:pb-0">
           <PlusIcon class="  xl:self-start  pb-[40px] hidden xl:block" />
-          <div class="body-bold max-w-[343px] text-center xl:text-left">
+          <div class="xl:body-bold max-w-[262px] xl:max-w-[343px] text-center xl:text-left">
             In the vibrant world of Neo Nakuza, a revolutionary cast of characters is emerging: Taiko Trailblazers.
           </div>
         </div>
@@ -52,7 +52,7 @@
     </div>
   </div>
 
-  <div class="flex flex-col w-full py-[86px] gap-[132px]">
+  <div class="flex flex-col w-full py-[86px] gap-[80px] xl:gap-[132px]">
     <TrailblazerGuide />
     <TrailblazerPinkifyYourProfile />
     <ResponsiveVideo />

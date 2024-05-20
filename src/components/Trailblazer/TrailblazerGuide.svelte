@@ -9,7 +9,7 @@
   <div>STEP-BY-STEP PARTICIPATION GUIDE</div>
   <div class="f-center w-full flex-col xl:flex-row xl:justify-between gap-8 text-center xl:text-left">
     <!-- Title text: Will you answer the call -->
-    <div class="font-clash-grotesk tracking-[-1.5px] text-[75px]/[70px]">
+    <div class="font-clash-grotesk tracking-[-1.5px] text-[45px]/[52px] xl:text-[75px]/[70px]">
       How to participate in the<br /><span class="text-secondary-brand">Call of Taiko</span>
     </div>
 
