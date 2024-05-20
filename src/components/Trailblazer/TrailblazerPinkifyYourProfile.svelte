@@ -20,7 +20,7 @@
     </div>
   </div>
   <div class="overflow-visible xl:top-0 xl:right-[52px]">
-    <img class="w-full" src={PinkifyYourProfile} />
+    <img class="w-full" src={PinkifyYourProfile} alt="pinkify" />
   </div>
 </div>
 

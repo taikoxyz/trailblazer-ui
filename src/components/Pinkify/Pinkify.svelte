@@ -12,6 +12,7 @@
   import { blobToBase64 } from '$libs/util/blobToBase64';
   import { get } from 'svelte/store';
 
+  import { PUBLIC_FALLBACK_IMAGE_API_URL } from '$env/static/public';
   enum Step {
     CONNECT,
     PINKIFY,
@@ -83,7 +84,7 @@
     //   },
     //   body: JSON.stringify(data),
     // });
-    let response = await fetch(`/api/generate/${avatarData[0]}/${avatarData[1]}/${avatarData[2]}`);
+    let response = await fetch(`${PUBLIC_FALLBACK_IMAGE_API_URL}/${avatarData[0]}/${avatarData[1]}/${avatarData[2]}`);
     pinkifiedAvatar = await blobToBase64(await response.blob());
     pinkifiedAvatar = pinkifiedAvatar.replace('data:image/png;base64', 'data:image/svg+xml;base64');
   }

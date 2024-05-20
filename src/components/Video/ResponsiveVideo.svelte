@@ -79,20 +79,4 @@
     width: 100%;
     transition: opacity 1s;
   }
-
-  progress {
-    display: block;
-    width: 100%;
-    height: 10px;
-    -webkit-appearance: none;
-    appearance: none;
-  }
-
-  progress::-webkit-progress-bar {
-    background-color: rgba(0, 0, 0, 0.2);
-  }
-
-  progress::-webkit-progress-value {
-    background-color: rgba(255, 255, 255, 0.6);
-  }
 </style>

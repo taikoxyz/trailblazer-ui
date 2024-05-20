@@ -131,8 +131,8 @@
       <canvas id="canvas" style="display:none;"></canvas>
       <canvas id="canvas2" style="display:none;"></canvas>
       <!-- <img src={svgDataUrl} alt="gallery" /> -->
-      <img id="outputImage" class="hidden" />
-      <img id="outputAvatar" class="size-[328px]" />
+      <img id="outputImage" class="hidden" alt="outputImage" />
+      <img id="outputAvatar" class="size-[328px]" alt="outputAvatar" />
 
       <!-- <img class="size-[328px]" src={pinkifiedAvatar} alt="avatar" /> -->
       <div class="f-center f-col gap-[10px] w-[370px]">

@@ -9,10 +9,16 @@ export const MOCK_PROFILE: UserProfile = {
   points: 0,
   rank: 'Drummer Level 5',
   experience: 10000,
-  nextLevelExperience: 12000,
   rankPercentile: '99',
-  position: '1st',
   isLoading: true,
+  faction: {
+    faction: 'Drummers',
+    boostedOrBased: 'Boosted',
+  },
+  leaderboardPosition: '1',
+  pointsToNextLevel: 1000,
+
+
 };
 
 export const MOCK_PROFILE_2: UserProfile = {
@@ -23,8 +29,14 @@ export const MOCK_PROFILE_2: UserProfile = {
   points: 0,
   rank: 'Drummer Level 4',
   experience: 10000,
-  nextLevelExperience: 12000,
   rankPercentile: '99',
-  position: '1st',
   isLoading: false,
+  faction: {
+    faction: 'Drummers',
+    boostedOrBased: 'Boosted',
+  },
+  leaderboardPosition: '1',
+  pointsToNextLevel: 1000,
+
+
 };
