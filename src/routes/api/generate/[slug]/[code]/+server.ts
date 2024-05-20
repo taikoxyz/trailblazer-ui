@@ -2,16 +2,16 @@ import { error } from '@sveltejs/kit';
 
 /** @type {import('./$types').RequestHandler} */
 export async function GET({ params }) {
-  const { slug: twitterImageId } = params;
+  const { slug: twitterImageId, code: twitterImageCode } = params;
 
   // Verify if slug exists
-  if (!twitterImageId) {
+  if (!twitterImageId || !twitterImageCode) {
     return error(400, 'Bad Request');
   }
 
   try {
     // Fetch the image from twitter
-    const response = await fetch(`https://pbs.twimg.com/profile_images/${twitterImageId}/X926izfy_400x400.jpg`);
+    const response = await fetch(`https://pbs.twimg.com/profile_images/${twitterImageId}/${twitterImageCode}_400x400.jpg`);
     // https://pbs.twimg.com/profile_images/1773273774345138176/X926izfy_400x400.jpg
     // Check if the image was found
     if (!response.ok) {

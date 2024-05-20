@@ -45,7 +45,8 @@
     | 'star'
     | 'semi-circle-reversed'
     | 'quad-circles'
-    | 'diamond';
+    | 'diamond'
+    | 'twitter';
 </script>
 
 <script lang="ts">
@@ -551,5 +552,11 @@
         <rect width="20" height="20" fill="white" />
       </clipPath>
     </defs>
+  {:else if type === 'twitter'}
+    <svg viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path
+        d="M12.6009 0H15.0544L9.69434 6.12618L16 14.4625H11.0627L7.19566 9.40657L2.77087 14.4625H0.31595L6.04904 7.90989L0 0H5.06262L8.55811 4.62133L12.6009 0ZM11.7399 12.994H13.0993L4.32392 1.39137H2.86506L11.7399 12.994Z"
+        fill="#CACBCE" />
+    </svg>
   {/if}
 </svg>

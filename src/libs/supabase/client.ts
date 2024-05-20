@@ -16,7 +16,6 @@ if (!supabaseUrl || !supabaseAnonKey) {
 export const supabaseClient = createClient(supabaseUrl, supabaseAnonKey);
 
 export function getSession() {
-  console.log(get(session));
   return supabaseClient.auth.getSession();
 }
 
@@ -47,7 +46,6 @@ export function startWatching() {
         // handle sign in event
         twitterUsername.set(_session?.user?.user_metadata?.preferred_username);
         twitterId.set(_session?.user?.user_metadata?.provider_id);
-
         twitterAvatarUrl.set(parseTwitterImage(_session?.user?.user_metadata?.avatar_url));
         twitterAvatarId.set(parseTwitterAvatarId(_session?.user?.user_metadata?.avatar_url));
       } else if (_event === 'SIGNED_OUT') {

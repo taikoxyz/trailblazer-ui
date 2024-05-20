@@ -216,6 +216,12 @@ export default {
           },
         },
 
+        neutral: {
+          DEFAULT: 'var(--neutral-background)',
+          background: 'var(--neutral-background)',
+          content: 'var(--neutral-content)',
+        },
+
         'gradient-pink': 'var(--gradient-pink)',
         'elevated-background': 'var(--elevated-background)',
         'neutral-background': 'var(--neutral-background)',
