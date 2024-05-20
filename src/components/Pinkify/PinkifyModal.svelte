@@ -36,7 +36,11 @@
   async function generateAndSaveTwitterCard() {
     // Save to supabase
 
-    const response = await fetch(`https://pbs.twimg.com/profile_images/${get(twitterAvatarId)}_400x400.jpg`);
+    let avatarParams = get(twitterAvatarId).split('/');
+
+    const response = await fetch(
+      `https://pbs.twimg.com/profile_images/${avatarParams[0]}/${avatarParams[1]}_400x400.${avatarParams[2]}`,
+    );
 
     if (!response.ok) {
       return new Response(`Failed to fetch image: ${response.statusText}`, { status: response.status });
