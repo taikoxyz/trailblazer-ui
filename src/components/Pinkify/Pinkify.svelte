@@ -84,7 +84,7 @@
     //   },
     //   body: JSON.stringify(data),
     // });
-    let response = await fetch(`${PUBLIC_FALLBACK_IMAGE_API_URL}/${avatarData[0]}/${avatarData[1]}/${avatarData[2]}`);
+    let response = await fetch(`api/generate/${avatarData[0]}/${avatarData[1]}/${avatarData[2]}`);
     pinkifiedAvatar = await blobToBase64(await response.blob());
     pinkifiedAvatar = pinkifiedAvatar.replace('data:image/png;base64', 'data:image/svg+xml;base64');
   }
