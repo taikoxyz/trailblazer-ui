@@ -70,8 +70,6 @@
     let response = await fetch(`/api/generate/${parseTwitterAvatarId($twitterAvatarUrl)}`);
     pinkifiedAvatar = await blobToBase64(await response.blob());
     pinkifiedAvatar = pinkifiedAvatar.replace('data:image/png;base64', 'data:image/svg+xml;base64');
-
-    console.log('🚀 | pinkifiedAvatar:', pinkifiedAvatar);
   }
 
   const handleDialogSelection = () => {

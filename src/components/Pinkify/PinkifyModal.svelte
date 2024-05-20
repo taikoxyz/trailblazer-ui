@@ -63,7 +63,6 @@
 
       // Convert canvas to PNG
       const pngDataUrl = canvas.toDataURL('image/png');
-      console.log('🚀 | generateAndSaveTwitterCard | pngDataUrl:', pngDataUrl);
 
       // Display the PNG image
       const outputImage = document.getElementById('outputImage') as HTMLImageElement;
@@ -79,12 +78,9 @@
     };
     // Set the Image source to the SVG content
     img.src = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svg)));
-    console.log('🚀 | generateAndSaveTwitterCard | svgDataUrl:', svgDataUrl);
   }
 
   async function generateTwitterAvatar() {
-    console.log('🚀 | generateTwitterAvatar | pinkifiedAvatar:', pinkifiedAvatar);
-
     // Save to supabase
 
     // Create a new canvas element
@@ -105,7 +101,6 @@
 
       // Convert canvas to PNG
       const pngDataUrl = canvas.toDataURL('image/png');
-      console.log('🚀 | generateAndSaveTwitterCard | pngDataUrl:', pngDataUrl);
 
       // Display the PNG image
       const outputImage = document.getElementById('outputAvatar') as HTMLImageElement;
@@ -117,7 +112,6 @@
     };
     // Set the Image source to the SVG content
     img.src = pinkifiedAvatar;
-    console.log('🚀 | generateAndSaveTwitterCard | svgDataUrl:', svgDataUrl);
   }
 
   onMount(async () => {
