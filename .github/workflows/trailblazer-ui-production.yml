@@ -7,6 +7,7 @@ env:
   CONFIGURED_CHAINS: ${{ secrets.CONFIGURED_CHAINS}}
   PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.PUBLIC_SUPABASE_ANON_KEY}}
   PUBLIC_SUPABASE_URL: ${{ secrets.PUBLIC_SUPABASE_URL}}
+  PUBLIC_FALLBACK_IMAGE_API_URL: ${{ secrets.PUBLIC_FALLBACK_IMAGE_API_URL}}
 
 on:
   push:
@@ -37,6 +38,8 @@ jobs:
           echo "y" | vercel env rm CONFIGURED_CHAINS production --token=$VERCEL_TOKEN
           echo "y" | vercel env rm PUBLIC_SUPABASE_ANON_KEY production --token=$VERCEL_TOKEN
           echo "y" | vercel env rm PUBLIC_SUPABASE_URL production --token=$VERCEL_TOKEN
+          echo "y" | vercel env rm PUBLIC_FALLBACK_IMAGE_API_URL production --token=$VERCEL_TOKEN
+
 
       - name: Set Vercel Environment Variables
         continue-on-error: true
@@ -46,6 +49,7 @@ jobs:
           echo "$CONFIGURED_CHAINS" | vercel env add CONFIGURED_CHAINS production --token=$VERCEL_TOKEN
           echo "$PUBLIC_SUPABASE_ANON_KEY" | vercel env add PUBLIC_SUPABASE_ANON_KEY production --token=$VERCEL_TOKEN
           echo "$PUBLIC_SUPABASE_URL" | vercel env add PUBLIC_SUPABASE_URL production --token=$VERCEL_TOKEN
+          echo "$PUBLIC_FALLBACK_IMAGE_API_URL" | vercel env add PUBLIC_FALLBACK_IMAGE_API_URL production --token=$VERCEL_TOKEN
 
           # Add more variables as needed
 
