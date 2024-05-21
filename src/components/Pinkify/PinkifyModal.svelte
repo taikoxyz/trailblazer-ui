@@ -143,13 +143,13 @@
   function share() {
     downloadImage();
     // Open new window
-    // window.open(
-    //   draftMessage($page.url.toString() + '/' + $twitterAvatarId.split('/')[0]),
-    //   '_blank',
-    //   'toolbar=0,location=0,menubar=0',
-    // );
+    window.open(
+      draftMessage($page.url.toString() + '/' + $twitterAvatarId.split('/')[0]),
+      '_blank',
+      'toolbar=0,location=0,menubar=0',
+    );
 
-    // dispatchEvent('share', { detail: { message: 'shared' } });
+    dispatchEvent('share', { detail: { message: 'shared' } });
   }
 
   onMount(async () => {
