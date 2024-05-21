@@ -15,6 +15,8 @@
 
   export let modalOpen: boolean;
 
+  let dispatchEvent = createEventDispatcher();
+
   let svg: string;
 
   const closeModal = () => {
@@ -118,6 +120,17 @@
     img.src = pinkifiedAvatar;
   }
 
+  function share() {
+    // Open new window
+    window.open(
+      draftMessage($page.url.toString() + '/' + $twitterAvatarId.split('/')[0]),
+      '_blank',
+      'toolbar=0,location=0,menubar=0',
+    );
+
+    dispatchEvent('share', { detail: { message: 'shared' } });
+  }
+
   onMount(async () => {
     await generateAndSaveTwitterCard();
     await generateTwitterAvatar();
@@ -142,12 +155,7 @@
         </div>
       </div>
       <div class="divider" />
-      <a
-        class="self-center btn btn-block btn-primary body-bold"
-        href={draftMessage($page.url.toString() + '/' + $twitterAvatarId.split('/')[0])}
-        target="_blank">
-        Share on X
-      </a>
+      <button on:click={share} class="self-center btn btn-block btn-primary body-bold"> Share on X </button>
     </div>
   </div>
 </dialog>

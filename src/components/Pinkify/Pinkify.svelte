@@ -31,6 +31,11 @@
     });
   }
 
+  async function checkSigned() {
+    let response = await fetch(`${PUBLIC_TRAILBLAZER_API_URL}/check?address=${getAccount(config).address}`);
+    signed = await response.json();
+  }
+
   async function logout() {
     // Handle sign in with oauth and redirect to the current page
     const { error } = await supabaseClient.auth.signOut();
@@ -80,12 +85,22 @@
     pinkifiedAvatar = pinkifiedAvatar.replace('data:image/png;base64', 'data:image/svg+xml;base64');
   }
 
+  function handleShared() {
+    // Handle shared logic
+    modalOpen = false;
+    step = Step.COMPLETED;
+  }
+
   const handleDialogSelection = () => {
     modalOpen = false;
   };
 
   $: if ($twitterId) {
     step = Step.PINKIFY;
+  }
+
+  $: if ($account?.isConnected) {
+    checkSigned();
   }
 
   let step: Step;
@@ -105,7 +120,7 @@
 
 <!-- {@html svg} -->
 {#if modalOpen}
-  <PinkifyModal bind:modalOpen on:selected={() => handleDialogSelection()} {pinkifiedAvatar} />
+  <PinkifyModal on:share={handleShared} bind:modalOpen on:selected={() => handleDialogSelection()} {pinkifiedAvatar} />
 {/if}
 
 <div class="f-center flex-col w-full xl:gap-[20px] container">
@@ -137,7 +152,7 @@
         </div>
 
         {#if !$twitterId}
-          <button on:click={signInWithTwitter} class=" self-center btn btn-primary w-[230px]">Log in</button>
+          <button on:click={signInWithTwitter} class=" self-center btn btn-primary w-[230px] body-bold">Log in</button>
         {:else}
           <div class="f-center bg-neutral-background rounded-full p-2 h-fit gap-2">
             <button
@@ -163,7 +178,7 @@
         </div>
 
         {#if generating}
-          <button class="self-center btn btn-disabled w-[230px] body-bold">Generating...</button>
+          <button class="self-center btn btn-disabled w-[230px] body-bold">Pinkifying...</button>
         {:else if generated}
           <div class="f-center bg-neutral-background rounded-full p-2 h-fit gap-2">
             <button class="f-center gap-2 min-w-[170px] px-[15px] py-[6px] bg-tertiary-content rounded-full">
@@ -172,7 +187,11 @@
             <Icon size={36} type="check-circle" fillClass="fill-[#47E0A0]" />
           </div>
         {:else}
-          <button on:click={handleGenerate} class="self-center btn btn-primary w-[230px] body-bold">Generate</button>
+          <button
+            on:click={handleGenerate}
+            class="self-center btn btn-primary w-[230px] body-bold {step === Step.PINKIFY
+              ? ''
+              : 'btn-disabled border-0'}">Pinkify</button>
         {/if}
       </div>
       <div class="divider divider-neutral"></div>
@@ -189,7 +208,7 @@
         {#if !$account?.isConnected}
           <ConnectButton />
         {:else if signing}
-          <button class="self-center btn btn-disabled w-[230px] body-bold">Answering...</button>
+          <button class="self-center btn border-0 btn-disabled w-[230px] body-bold">Answering...</button>
         {:else if signed}
           <div class="f-center bg-neutral-background rounded-full p-2 h-fit gap-2">
             <button
@@ -200,7 +219,11 @@
             <Icon size={36} type="check-circle" fillClass="fill-[#47E0A0]" />
           </div>
         {:else}
-          <button on:click={handleSign} class="self-center btn btn-primary w-[230px] body-bold">Answer the call</button>
+          <button
+            on:click={handleSign}
+            class="self-center btn btn-primary {step === Step.COMPLETED
+              ? ''
+              : 'btn-disabled border-0'} w-[230px] body-bold">Answer the call</button>
         {/if}
       </div>
     </div>
