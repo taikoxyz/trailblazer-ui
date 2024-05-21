@@ -73,7 +73,9 @@
     // Fetch twitter avatar
     let avatarData = get(twitterAvatarId).split('/');
 
-    let response = await fetch(`${PUBLIC_TRAILBLAZER_API_URL}/${avatarData[0]}/${avatarData[1]}/${avatarData[2]}`);
+    let response = await fetch(
+      `${PUBLIC_TRAILBLAZER_API_URL}/api/generate/${avatarData[0]}/${avatarData[1]}/${avatarData[2]}`,
+    );
     pinkifiedAvatar = await blobToBase64(await response.blob());
     pinkifiedAvatar = pinkifiedAvatar.replace('data:image/png;base64', 'data:image/svg+xml;base64');
   }
