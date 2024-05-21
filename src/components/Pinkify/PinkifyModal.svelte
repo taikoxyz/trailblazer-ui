@@ -160,7 +160,7 @@
 
 <dialog id={dialogId} class="modal modal-bottom md:modal-middle" class:modal-open={modalOpen}>
   <div class="modal-box relative p-0 md:rounded-[20px] bg-neutral-background overflow-hidden">
-    <CloseButton onClick={closeModal} />
+    <!-- <CloseButton onClick={closeModal} /> -->
     <div class="f-center f-col w-full space-y-[30px] pt-[35px]">
       <canvas id="canvas" style="display:none;"></canvas>
       <canvas id="canvas2" style="display:none;"></canvas>
