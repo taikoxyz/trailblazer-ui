@@ -103,6 +103,10 @@
     checkSigned();
   }
 
+  $: if (signed) {
+    step = Step.COMPLETED;
+  }
+
   let step: Step;
   step = Step.CONNECT;
 
@@ -167,7 +171,6 @@
       </div>
       <div class="divider divider-neutral"></div>
       <!-- Step 2 -->
-
       <div class="flex flex-col xl:flex-row items-center w-full justify-between">
         <div class="f-center flex-col xl:flex-row gap-4 max-w-[400px]">
           <div class="bg-neutral-background f-center rounded-full min-w-12 min-h-12">2</div>
