@@ -1,6 +1,6 @@
 export type UserProfile = {
   address: string;
-  pointsHistory: UserPointHistoryPage;
+  pointsHistory?: UserPointHistoryPage;
   points: number;
   pointsToNextLevel: number;
   rank: string;

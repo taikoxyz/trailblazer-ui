@@ -5,4 +5,6 @@ export const enum Theme {
   LIGHT = 'light',
 }
 
-export const theme = writable<Theme>((localStorage.getItem('theme') as Theme) || Theme.DARK);
+
+//export const theme = writable<Theme>((localStorage.getItem('theme') as Theme) || Theme.DARK);
+export const theme = writable<Theme>(Theme.DARK as Theme);

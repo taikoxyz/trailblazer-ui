@@ -46,10 +46,6 @@ export function startWatching() {
 }
 
 export function stopWatching() {
-
-  if (typeof unWatchAccount === 'function') {
-    unWatchAccount();
-    isWatching = false;
-  }
-
+  unWatchAccount && unWatchAccount();
+  isWatching = false;
 }

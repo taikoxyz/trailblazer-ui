@@ -28,7 +28,8 @@
 
     <div class="h-fit w-full rounded-[30px] bg-pink-400 px-[33px] py-[36px]">
       <div class="font-clash-grotesk text-base-content tracking-[-1.5px] text-[35px]/[42px] xl:text-[45px]/[45px]">
-        Taiko needs you.<br /><span class="">Will you answer the call?</span>
+        Taiko needs you.<br /><span class=""
+          >Will you <a href="/pinkify" class="hover:cursor-pointer hover:text-primary-brand">answer the call?</a></span>
       </div>
     </div>
   </div>

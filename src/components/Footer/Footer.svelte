@@ -77,9 +77,8 @@
           <div class="body-bold">ABOUT</div>
           <a href="https://taiko.mirror.xyz/" class="body-regular text-secondary-content hover:text-primary-content"
             >Blog</a>
-          <a
-            href="https://taikoxyz.notion.site/Taiko-Jobs-828fd7232d2c4150a11e10c8baa910a2"
-            class="body-regular text-secondary-content hover:text-primary-content">Careers</a>
+          <a href="https://taiko.xyz/careers" class="body-regular text-secondary-content hover:text-primary-content"
+            >Careers</a>
           <a
             href="https://github.com/taikoxyz/taiko-mono/tree/main/packages/branding/"
             class="body-regular text-secondary-content hover:text-primary-content">Brand kit</a>
@@ -102,7 +101,7 @@
           <a href="https://docs.taiko.xyz/" class="body-regular text-secondary-content hover:text-primary-content"
             >Documentation</a>
           <a
-            href="https://explorer.hekla.taiko.xyz"
+            href="https://hekla.taikoscan.network/"
             class="body-regular text-secondary-content hover:text-primary-content">Explorer</a>
         </div>
         <div class="col-span-5 lg:col-span-1 opacity-25 mt-auto ml-auto text-right body-regular order-7">

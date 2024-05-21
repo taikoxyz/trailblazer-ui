@@ -12,6 +12,7 @@
   // import { SwitchChainModal } from '$components/SwitchChainModal';
   import { startWatching as startWatchingX, stopWatching as stopWatchingX } from '$libs/supabase';
   import { startWatching, stopWatching } from '$libs/wagmi';
+  import { browser } from '$app/environment';
 
   onMount(() => {
     startWatching();
@@ -34,7 +35,7 @@
 <Footer />
 
 <!--
-  The following UI is global and should be rendered 
+  The following UI is global and should be rendered
   at the root of the app.
 -->
 
