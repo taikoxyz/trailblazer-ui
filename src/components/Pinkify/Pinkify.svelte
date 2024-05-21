@@ -105,6 +105,7 @@
 
   $: if (signed) {
     step = Step.COMPLETED;
+    fetchPinkifiedAvatar();
   }
 
   let step: Step;
@@ -257,7 +258,6 @@
           media channels.
         </div>
       </div>
-
       <div class="f-center gap-[10px]">
         <TwitterLink />
         <DiscordLink />
