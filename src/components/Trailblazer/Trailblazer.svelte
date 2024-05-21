@@ -38,7 +38,7 @@
         </div>
         <div class="gap-4 self-center xl:self-start hidden xl:flex">
           <a href="/pinkify">
-            <ButtonWithArrow text="Begin your trail" />
+            <ButtonWithArrow text="Start now" />
           </a>
           <a class="btn bg-transparent border-2 border-secondary-brand min-w-[183px]" href="/about">Learn more</a>
         </div>
@@ -58,7 +58,7 @@
       </div>
       <div class="gap-4 self-center xl:self-start flex flex-col pb-16 xl:hidden">
         <a href="/pinkify">
-          <ButtonWithArrow text="Begin your trail" />
+          <ButtonWithArrow text="Start now" />
         </a>
         <a class="btn bg-transparent border-2 border-secondary-brand min-w-[183px]" href="/about">Learn more</a>
       </div>
