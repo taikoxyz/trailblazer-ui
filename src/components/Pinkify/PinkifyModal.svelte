@@ -144,7 +144,7 @@
     downloadImage();
     // Open new window
     window.open(
-      draftMessage($page.url.toString() + '/' + $twitterAvatarId.split('/')[0]),
+      draftMessage('https://trailblazers.taiko.xyz/pinkify/' + $twitterAvatarId.split('/')[0] + ' #CallOfTaiko'),
       '_blank',
       'toolbar=0,location=0,menubar=0',
     );

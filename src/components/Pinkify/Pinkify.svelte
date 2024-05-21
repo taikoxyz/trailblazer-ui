@@ -105,6 +105,7 @@
 
   $: if (signed) {
     step = Step.COMPLETED;
+    fetchPinkifiedAvatar();
   }
 
   let step: Step;
@@ -131,11 +132,13 @@
   <!-- Section Header -->
   <div class="f-center w-full flex-col xl:flex-row xl:justify-between gap-[40px] xl:pb-[60px]">
     <!-- Title text: Taiko Factions -->
-    <div class="font-clash-grotesk text-base-content tracking-[-1.5px] text-[75px]/[70px] text-center xl:text-left">
+    <div
+      class="font-clash-grotesk text-base-content tracking-[-1.5px] xl:text-[75px]/[70px] text-[45px]/[52px] text-center xl:text-left">
       Start your<br /><span class="text-secondary-brand">journey</span>
     </div>
     <!-- Sub text: In the vibrant world of Neo Nakuz, a groundbreaking cast of characters is emerging, centered around the electrifying ecosystem of Taiko Radio and its dynamic cast of characters: ravers, drummers, masters and more. -->
-    <div class="title-body-regular text-secondary-content text-center xl:self-end max-w-[432px] xl:text-left">
+    <div
+      class="title-body-regular text-secondary-content text-center xl:self-end max-w-[432px] xl:text-left px-[45px] xl:px-0">
       Begin your journey through a city where ancient rhythms meet the future of Ethereum. Let’s make history together.
       Start by pinkifying your profile to show your allegiance!
     </div>
@@ -248,7 +251,7 @@
     </div>
   </div>
   {#if step == Step.COMPLETED}
-    <div class="w-full flex justify-between p-[40px] rounded-[30px] bg-secondary-brand">
+    <div class="w-full flex flex-col xl:flex-row justify-between p-[40px] rounded-[30px] bg-secondary-brand gap-4">
       <div class="f-col gap-5 max-w-[740px]">
         <div class="display-small-medium">You’re all set. What’s next?</div>
         <div>
@@ -257,8 +260,7 @@
           media channels.
         </div>
       </div>
-
-      <div class="f-center gap-[10px]">
+      <div class="f-center flex-col xl:flex-row gap-[10px]">
         <TwitterLink />
         <DiscordLink />
       </div>
