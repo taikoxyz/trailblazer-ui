@@ -12,7 +12,7 @@
   import { blobToBase64 } from '$libs/util/blobToBase64';
   import { get } from 'svelte/store';
 
-  import { PUBLIC_FALLBACK_IMAGE_API_URL } from '$env/static/public';
+  import { PUBLIC_FALLBACK_IMAGE_API_URL, PUBLIC_TRAILBLAZER_API_URL } from '$env/static/public';
   import { account } from '$stores/account';
   import ConnectButton from '$components/ConnectButton/ConnectButton.svelte';
   enum Step {
@@ -73,20 +73,7 @@
     // Fetch twitter avatar
     let avatarData = get(twitterAvatarId).split('/');
 
-    // const data = {
-    //   slug: avatarData[0],
-    //   code: avatarData[1],
-    //   ext: avatarData[2], // or 'png', etc.
-    // };
-
-    // let response = await fetch(`/api/generate`, {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //   },
-    //   body: JSON.stringify(data),
-    // });
-    let response = await fetch(`api/generate/${avatarData[0]}/${avatarData[1]}/${avatarData[2]}`);
+    let response = await fetch(`${PUBLIC_TRAILBLAZER_API_URL}/${avatarData[0]}/${avatarData[1]}/${avatarData[2]}`);
     pinkifiedAvatar = await blobToBase64(await response.blob());
     pinkifiedAvatar = pinkifiedAvatar.replace('data:image/png;base64', 'data:image/svg+xml;base64');
   }
