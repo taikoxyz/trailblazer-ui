@@ -252,9 +252,9 @@
       <div class="f-col gap-5 max-w-[740px]">
         <div class="display-small-medium">You’re all set. What’s next?</div>
         <div>
-          You’ve successfully completed all three steps. Your efforts have qualified you to mint your Faction badge on
-          the mainnet launch day, granting you entry into the Trailblazer campaign. Stay tuned for further updates by
-          following us on our social media channels.
+          You’ve successfully completed all three steps. Your efforts have qualified you to mint your Faction badge,
+          granting you entry into the Trailblazer campaign. Stay tuned for further updates by following us on our social
+          media channels.
         </div>
       </div>
 
