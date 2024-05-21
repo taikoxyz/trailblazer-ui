@@ -41,7 +41,7 @@
             <ButtonWithArrow text="Start now" />
           </a>
           <a
-            class="btn bg-transparent border-2 border-secondary-brand min-w-[183px] hover:bg-[#E81899]/20 hover:border-2 hover:border-secondary-brand"
+            class="btn bg-transparent border-2 border-secondary-brand min-w-[183px] hover:bg-[#E81899]/20 hover:border-2 hover:border-secondary-brand body-regular"
             href="/about">Learn more</a>
         </div>
       </div>
@@ -63,7 +63,7 @@
           <ButtonWithArrow text="Start now" />
         </a>
         <a
-          class="btn bg-transparent border-2 border-secondary-brand min-w-[183px] hover:bg-[#E81899]/20 hover:border-2 hover:border-secondary-brand"
+          class="btn bg-transparent border-2 border-secondary-brand min-w-[183px] hover:bg-[#E81899]/20 hover:border-2 hover:border-secondary-brand body-regular"
           href="/about">Learn more</a>
       </div>
     </div>
