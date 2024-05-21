@@ -13,6 +13,7 @@
   import TrailblazerGuide from './TrailblazerGuide.svelte';
   import TrailblazerPinkifyYourProfile from './TrailblazerPinkifyYourProfile.svelte';
   import { FAQ } from '$components/FAQ';
+  import { ButtonWithArrow } from '$components/Button';
 </script>
 
 <div class="f-center container flex-col w-full overflow-visible">
@@ -29,11 +30,17 @@
           </div>
         </div>
         <!-- Description -->
-        <div class="xl:self-start f-center flex-col xl:pb-0">
+        <div class="xl:self-start f-center flex-col pb-10 xl:pb-10">
           <PlusIcon class="  xl:self-start  pb-[40px] hidden xl:block" />
           <div class="xl:body-bold max-w-[262px] xl:max-w-[343px] text-center xl:text-left">
             In the vibrant world of Neo Nakuza, a revolutionary cast of characters is emerging: Taiko Trailblazers.
           </div>
+        </div>
+        <div class="gap-4 self-center xl:self-start hidden xl:flex">
+          <a href="/pinkify">
+            <ButtonWithArrow text="Begin your trail" />
+          </a>
+          <a class="btn bg-transparent border-2 border-secondary-brand min-w-[183px]" href="/about">Learn more</a>
         </div>
       </div>
       <!-- Image -->
@@ -49,10 +56,16 @@
             alt={TraiblazerDJFlare} />
         </div>
       </div>
+      <div class="gap-4 self-center xl:self-start flex flex-col pb-16 xl:hidden">
+        <a href="/pinkify">
+          <ButtonWithArrow text="Begin your trail" />
+        </a>
+        <a class="btn bg-transparent border-2 border-secondary-brand min-w-[183px]" href="/about">Learn more</a>
+      </div>
     </div>
   </div>
 
-  <div class="flex flex-col w-full py-[86px] gap-[80px] xl:gap-[132px]">
+  <div class="flex flex-col w-full pb-[86px] gap-[80px] xl:gap-[132px]">
     <TrailblazerGuide />
     <TrailblazerPinkifyYourProfile />
     <ResponsiveVideo />

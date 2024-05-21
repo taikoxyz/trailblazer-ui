@@ -4,7 +4,7 @@
 
 <div
   class="relative flex flex-col xl:flex-row xl:p-[40px] rounded-[30px] border-2 border-primary-border-hover bg-[#310E2F] min-h-[502px]">
-  <div class="f-center flex-col order-1 xl:order-0 p-[40px]">
+  <div class="f-center xl:justify-start xl:items-start flex-col order-1 xl:order-0 p-[40px]">
     <div class="pb-[40px] xl:pb-[73px]">
       <div class="rounded-full bg-secondary-brand f-center py-[10px] px-[35px] body-small-bold w-fit">
         JOIN THE REVOLUTION
@@ -19,7 +19,7 @@
       share it on X with #CallofTaiko to become part of the movement!
     </div>
   </div>
-  <div class="overflow-visible xl:top-0 xl:right-[52px]">
+  <div class="overflow-visible xl:top-0 xl:right-[52px] order-0 xl:order-1">
     <img class="w-full" src={PinkifyYourProfile} alt="pinkify" />
   </div>
 </div>

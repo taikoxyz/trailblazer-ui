@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { ButtonWithArrow } from '$components/Button';
   import { Icon } from '$components/Icon';
   import { Connector } from '$components/SVG';
   import TrailblazerGuideStep from './TrailblazerGuideStep.svelte';
@@ -14,8 +15,13 @@
     </div>
 
     <!-- Sub text: Complete all 3 steps to mint Raver Faction on mainnet launch day to enter trailblazer campaign. -->
-    <div class="title-body-regular text-secondary-content xl:self-end max-w-[343px]">
-      Follow these simple steps to dive into the world of Neo Nakuza and make your mark.
+    <div class="flex flex-col gap-8">
+      <div class="title-body-regular text-secondary-content xl:self-end max-w-[343px]">
+        Follow these simple steps to dive into the world of Neo Nakuza and make your mark.
+      </div>
+      <a class="self-center xl:self-start" href="/about">
+        <ButtonWithArrow text="Learn more" />
+      </a>
     </div>
   </div>
 </div>

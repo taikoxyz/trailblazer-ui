@@ -13,6 +13,8 @@
   import { get } from 'svelte/store';
 
   import { PUBLIC_FALLBACK_IMAGE_API_URL } from '$env/static/public';
+  import { account } from '$stores/account';
+  import ConnectButton from '$components/ConnectButton/ConnectButton.svelte';
   enum Step {
     CONNECT,
     PINKIFY,
@@ -195,7 +197,9 @@
             <div>Lastly, register your wallet address to unlock the gates of Neo Nakuza.</div>
           </div>
         </div>
-        {#if signing}
+        {#if !$account?.isConnected}
+          <ConnectButton />
+        {:else if signing}
           <button class="self-center btn btn-disabled w-[230px] body-bold">Answering...</button>
         {:else if signed}
           <div class="f-center bg-neutral-background rounded-full p-2 h-fit gap-2">
