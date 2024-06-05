@@ -20,7 +20,7 @@
         Follow these simple steps to dive into the world of Neo Nakuza and make your mark.
       </div>
       <a class="self-center xl:self-start" href="/about">
-        <ButtonWithArrow text="Learn more" />
+        <ButtonWithArrow class="min-w-[183px]" text="Learn more" />
       </a>
     </div>
   </div>

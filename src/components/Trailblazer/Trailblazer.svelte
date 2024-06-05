@@ -38,9 +38,11 @@
         </div>
         <div class="gap-4 self-center xl:self-start hidden xl:flex">
           <a href="/pinkify">
-            <ButtonWithArrow text="Begin your trail" />
+            <ButtonWithArrow text="Start now" />
           </a>
-          <a class="btn bg-transparent border-2 border-secondary-brand min-w-[183px]" href="/about">Learn more</a>
+          <a
+            class="btn bg-transparent border-2 border-secondary-brand min-w-[183px] hover:bg-[#E81899]/20 hover:border-2 hover:border-secondary-brand body-regular"
+            href="/about">Learn more</a>
         </div>
       </div>
       <!-- Image -->
@@ -56,11 +58,13 @@
             alt={TraiblazerDJFlare} />
         </div>
       </div>
-      <div class="gap-4 self-center xl:self-start flex flex-col pb-16 xl:hidden">
+      <div class="gap-4 self-center items-center xl:self-start flex flex-col pb-16 xl:hidden">
         <a href="/pinkify">
-          <ButtonWithArrow text="Begin your trail" />
+          <ButtonWithArrow class="min-w-[183px]" text="Start now" />
         </a>
-        <a class="btn bg-transparent border-2 border-secondary-brand min-w-[183px]" href="/about">Learn more</a>
+        <a
+          class="btn bg-transparent border-2 border-secondary-brand min-w-[183px] hover:bg-[#E81899]/20 hover:border-2 hover:border-secondary-brand body-regular"
+          href="/about">Learn more</a>
       </div>
     </div>
   </div>

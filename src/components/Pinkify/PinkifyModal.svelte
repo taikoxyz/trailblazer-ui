@@ -15,6 +15,9 @@
 
   export let modalOpen: boolean;
 
+  let dispatchEvent = createEventDispatcher();
+  let pngDataUrl: string;
+
   let svg: string;
 
   const closeModal = () => {
@@ -104,7 +107,7 @@
       (ctx as CanvasRenderingContext2D).drawImage(img, 0, 0);
 
       // Convert canvas to PNG
-      const pngDataUrl = canvas.toDataURL('image/png');
+      pngDataUrl = canvas.toDataURL('image/png');
 
       // Display the PNG image
       const outputImage = document.getElementById('outputAvatar') as HTMLImageElement;
@@ -118,6 +121,37 @@
     img.src = pinkifiedAvatar;
   }
 
+  function downloadImage() {
+    let avatarData = get(twitterAvatarId).split('/');
+    // Create a temporary anchor element
+    const link = document.createElement('a');
+    link.href = pngDataUrl;
+
+    // Set the download attribute with a filename
+    link.download = `pinkified.${avatarData[2]}`; // Update with your desired filename
+
+    // Append the anchor to the body (required for Firefox)
+    document.body.appendChild(link);
+
+    // Programmatically click the anchor to trigger the download
+    link.click();
+
+    // Remove the anchor from the document
+    document.body.removeChild(link);
+  }
+
+  function share() {
+    downloadImage();
+    // Open new window
+    window.open(
+      draftMessage('https://trailblazers.taiko.xyz/pinkify/' + $twitterAvatarId.split('/')[0] + ' #CallOfTaiko'),
+      '_blank',
+      'toolbar=0,location=0,menubar=0',
+    );
+
+    dispatchEvent('share', { detail: { message: 'shared' } });
+  }
+
   onMount(async () => {
     await generateAndSaveTwitterCard();
     await generateTwitterAvatar();
@@ -126,14 +160,13 @@
 
 <dialog id={dialogId} class="modal modal-bottom md:modal-middle" class:modal-open={modalOpen}>
   <div class="modal-box relative p-0 md:rounded-[20px] bg-neutral-background overflow-hidden">
-    <CloseButton onClick={closeModal} />
+    <!-- <CloseButton onClick={closeModal} /> -->
     <div class="f-center f-col w-full space-y-[30px] pt-[35px]">
       <canvas id="canvas" style="display:none;"></canvas>
       <canvas id="canvas2" style="display:none;"></canvas>
       <!-- <img src={svgDataUrl} alt="gallery" /> -->
       <img id="outputImage" class="hidden" alt="outputImage" />
       <img id="outputAvatar" class="size-[328px]" alt="outputAvatar" />
-
       <!-- <img class="size-[328px]" src={pinkifiedAvatar} alt="avatar" /> -->
       <div class="f-center f-col gap-[10px] w-[370px]">
         <div class="display-small-medium">Pinkified - Now Amplify!</div>
@@ -142,12 +175,7 @@
         </div>
       </div>
       <div class="divider" />
-      <a
-        class="self-center btn btn-block btn-primary body-bold"
-        href={draftMessage($page.url.toString() + '/' + $twitterAvatarId.split('/')[0])}
-        target="_blank">
-        Share on X
-      </a>
+      <button on:click={share} class="self-center btn btn-block btn-primary body-bold"> Download & Share on X </button>
     </div>
   </div>
 </dialog>

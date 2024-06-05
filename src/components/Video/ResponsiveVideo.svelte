@@ -47,7 +47,7 @@
 <div class="relative flex justify-self-center overflow-visible rounded-[30px] container">
   <video
     class="w-full rounded-[30px]"
-    src="COT-Video-01.mp4"
+    src="https://gmku2ryolc4ua2nz.public.blob.vercel-storage.com/COT-Video-01-vAJDpE9AFumdT7YQxBJ5pwttVuoM12.mp4"
     on:mousemove={handleMove}
     on:touchmove|preventDefault={handleMove}
     on:mousedown={handleMousedown}

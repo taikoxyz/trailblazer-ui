@@ -11,8 +11,10 @@
       </div>
     </div>
     <div
-      class="font-clash-grotesk tracking-[-1.5px] text-[45px]/[52px] xl:text-[75px]/[70px] pb-[25px] xl:pb-[46px] text-center xl:text-left">
-      <span class="text-secondary-brand">Pinkify</span><br /> Your Profile!
+      class="font-clash-grotesk tracking-[-1.5px] text-[45px]/[52px] xl:text-[75px]/[70px] pb-[25px] xl:pb-[46px] text-center xl:text-left hover:scale-[105%]">
+      <a class="" href="/pinkify">
+        <span class="text-secondary-brand">Pinkify</span><br /> Your Profile!
+      </a>
     </div>
     <div class="max-w-[513px] body-regular text-center xl:text-left">
       Show your support for the Taiko community by pinkifying your profile. Change your profile picture to pink, and

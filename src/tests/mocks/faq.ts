@@ -17,11 +17,11 @@ export const MOCK_FAQS: FAQType[] = [
   {
     question: 'Where can I learn more about the factions?',
     answer:
-      'Detailed descriptions, stories, and benefits, of each faction will be made available on our campaign page as it progresses.',
+      'Detailed descriptions, stories, and benefits of each faction will be made available on our campaign page as it progresses.',
   },
   {
     question: 'Will I get rewarded?',
     answer:
-      ' Participation in the Trailblazers campaign and minting your Faction Badge on mainnet day gives you exclusive rewards.',
+      'Participation in the Trailblazers campaign and minting your Faction Badge on mainnet gives you exclusive rewards.',
   },
 ];

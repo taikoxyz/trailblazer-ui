@@ -12,7 +12,7 @@
   import { blobToBase64 } from '$libs/util/blobToBase64';
   import { get } from 'svelte/store';
 
-  import { PUBLIC_FALLBACK_IMAGE_API_URL } from '$env/static/public';
+  import { PUBLIC_FALLBACK_IMAGE_API_URL, PUBLIC_TRAILBLAZER_API_URL } from '$env/static/public';
   import { account } from '$stores/account';
   import ConnectButton from '$components/ConnectButton/ConnectButton.svelte';
   enum Step {
@@ -29,6 +29,11 @@
       provider: 'twitter',
       options: { redirectTo: currentPage },
     });
+  }
+
+  async function checkSigned() {
+    let response = await fetch(`${PUBLIC_TRAILBLAZER_API_URL}/check?address=${getAccount(config).address}`);
+    signed = await response.json();
   }
 
   async function logout() {
@@ -73,22 +78,17 @@
     // Fetch twitter avatar
     let avatarData = get(twitterAvatarId).split('/');
 
-    // const data = {
-    //   slug: avatarData[0],
-    //   code: avatarData[1],
-    //   ext: avatarData[2], // or 'png', etc.
-    // };
-
-    // let response = await fetch(`/api/generate`, {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //   },
-    //   body: JSON.stringify(data),
-    // });
-    let response = await fetch(`api/generate/${avatarData[0]}/${avatarData[1]}/${avatarData[2]}`);
+    let response = await fetch(
+      `${PUBLIC_TRAILBLAZER_API_URL}/api/generate/${avatarData[0]}/${avatarData[1]}/${avatarData[2]}`,
+    );
     pinkifiedAvatar = await blobToBase64(await response.blob());
     pinkifiedAvatar = pinkifiedAvatar.replace('data:image/png;base64', 'data:image/svg+xml;base64');
+  }
+
+  function handleShared() {
+    // Handle shared logic
+    modalOpen = false;
+    step = Step.COMPLETED;
   }
 
   const handleDialogSelection = () => {
@@ -97,6 +97,15 @@
 
   $: if ($twitterId) {
     step = Step.PINKIFY;
+  }
+
+  $: if ($account?.isConnected) {
+    checkSigned();
+  }
+
+  $: if (signed) {
+    step = Step.COMPLETED;
+    fetchPinkifiedAvatar();
   }
 
   let step: Step;
@@ -116,18 +125,20 @@
 
 <!-- {@html svg} -->
 {#if modalOpen}
-  <PinkifyModal bind:modalOpen on:selected={() => handleDialogSelection()} {pinkifiedAvatar} />
+  <PinkifyModal on:share={handleShared} bind:modalOpen on:selected={() => handleDialogSelection()} {pinkifiedAvatar} />
 {/if}
 
 <div class="f-center flex-col w-full xl:gap-[20px] container">
   <!-- Section Header -->
   <div class="f-center w-full flex-col xl:flex-row xl:justify-between gap-[40px] xl:pb-[60px]">
     <!-- Title text: Taiko Factions -->
-    <div class="font-clash-grotesk text-base-content tracking-[-1.5px] text-[75px]/[70px] text-center xl:text-left">
+    <div
+      class="font-clash-grotesk text-base-content tracking-[-1.5px] xl:text-[75px]/[70px] text-[45px]/[52px] text-center xl:text-left">
       Start your<br /><span class="text-secondary-brand">journey</span>
     </div>
     <!-- Sub text: In the vibrant world of Neo Nakuz, a groundbreaking cast of characters is emerging, centered around the electrifying ecosystem of Taiko Radio and its dynamic cast of characters: ravers, drummers, masters and more. -->
-    <div class="title-body-regular text-secondary-content text-center xl:self-end max-w-[432px] xl:text-left">
+    <div
+      class="title-body-regular text-secondary-content text-center xl:self-end max-w-[432px] xl:text-left px-[45px] xl:px-0">
       Begin your journey through a city where ancient rhythms meet the future of Ethereum. Let’s make history together.
       Start by pinkifying your profile to show your allegiance!
     </div>
@@ -148,7 +159,7 @@
         </div>
 
         {#if !$twitterId}
-          <button on:click={signInWithTwitter} class=" self-center btn btn-primary w-[230px]">Log in</button>
+          <button on:click={signInWithTwitter} class=" self-center btn btn-primary w-[230px] body-bold">Log in</button>
         {:else}
           <div class="f-center bg-neutral-background rounded-full p-2 h-fit gap-2">
             <button
@@ -163,7 +174,6 @@
       </div>
       <div class="divider divider-neutral"></div>
       <!-- Step 2 -->
-
       <div class="flex flex-col xl:flex-row items-center w-full justify-between">
         <div class="f-center flex-col xl:flex-row gap-4 max-w-[400px]">
           <div class="bg-neutral-background f-center rounded-full min-w-12 min-h-12">2</div>
@@ -174,7 +184,7 @@
         </div>
 
         {#if generating}
-          <button class="self-center btn btn-disabled w-[230px] body-bold">Generating...</button>
+          <button class="self-center btn btn-disabled w-[230px] body-bold">Pinkifying...</button>
         {:else if generated}
           <div class="f-center bg-neutral-background rounded-full p-2 h-fit gap-2">
             <button class="f-center gap-2 min-w-[170px] px-[15px] py-[6px] bg-tertiary-content rounded-full">
@@ -183,7 +193,11 @@
             <Icon size={36} type="check-circle" fillClass="fill-[#47E0A0]" />
           </div>
         {:else}
-          <button on:click={handleGenerate} class="self-center btn btn-primary w-[230px] body-bold">Generate</button>
+          <button
+            on:click={handleGenerate}
+            class="self-center btn btn-primary w-[230px] body-bold {step === Step.PINKIFY
+              ? ''
+              : 'btn-disabled border-0'}">Pinkify</button>
         {/if}
       </div>
       <div class="divider divider-neutral"></div>
@@ -200,7 +214,7 @@
         {#if !$account?.isConnected}
           <ConnectButton />
         {:else if signing}
-          <button class="self-center btn btn-disabled w-[230px] body-bold">Answering...</button>
+          <button class="self-center btn border-0 btn-disabled w-[230px] body-bold">Answering...</button>
         {:else if signed}
           <div class="f-center bg-neutral-background rounded-full p-2 h-fit gap-2">
             <button
@@ -211,7 +225,11 @@
             <Icon size={36} type="check-circle" fillClass="fill-[#47E0A0]" />
           </div>
         {:else}
-          <button on:click={handleSign} class="self-center btn btn-primary w-[230px] body-bold">Answer the call</button>
+          <button
+            on:click={handleSign}
+            class="self-center btn btn-primary {step === Step.COMPLETED
+              ? ''
+              : 'btn-disabled border-0'} w-[230px] body-bold">Answer the call</button>
         {/if}
       </div>
     </div>
@@ -233,17 +251,16 @@
     </div>
   </div>
   {#if step == Step.COMPLETED}
-    <div class="w-full flex justify-between p-[40px] rounded-[30px] bg-secondary-brand">
+    <div class="w-full flex flex-col xl:flex-row justify-between p-[40px] rounded-[30px] bg-secondary-brand gap-4">
       <div class="f-col gap-5 max-w-[740px]">
         <div class="display-small-medium">You’re all set. What’s next?</div>
         <div>
           You’ve successfully completed all three steps. Your efforts have qualified you to mint your Faction badge on
-          the mainnet launch day, granting you entry into the Trailblazer campaign. Stay tuned for further updates by
-          following us on our social media channels.
+          mainnet, granting you entry into the Trailblazer campaign. Stay tuned for further updates by following us on
+          our social media channels.
         </div>
       </div>
-
-      <div class="f-center gap-[10px]">
+      <div class="f-center flex-col xl:flex-row gap-[10px]">
         <TwitterLink />
         <DiscordLink />
       </div>
