@@ -36,7 +36,6 @@
 </script>
 
 <!-- App components -->
-<Ribbon></Ribbon>
 <Header />
 <main>
   <slot />
