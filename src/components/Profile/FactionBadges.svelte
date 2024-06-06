@@ -1,4 +1,5 @@
 <script>
+  import { classNames } from '$libs/util/classNames';
   import { MOCK_USER_FACTIONS } from '$mocks';
 
   import FactionBadgeItem from './FactionBadgeItem.svelte';
@@ -6,7 +7,7 @@
   let factions = MOCK_USER_FACTIONS;
 </script>
 
-<div class="box">
+<div class="box gap-4">
   {#each factions as faction}
     <FactionBadgeItem data={faction} />
   {/each}
@@ -17,7 +18,6 @@
   .box {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(306px, 1fr));
-    gap: 10px;
-    margin: 20px;
+    gap: 25px;
   }
 </style>
