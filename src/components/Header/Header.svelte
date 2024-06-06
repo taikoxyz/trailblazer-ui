@@ -1,14 +1,10 @@
 <script lang="ts">
   // variables
-  import { page } from '$app/stores';
   import ConnectButton from '$components/ConnectButton/ConnectButton.svelte';
   import { LogoWithText, TaikoTrailblazersLogo } from '$components/Logo';
-  import { MobileNavigation } from '$components/MobileNavigation';
-  import { ThemeButton } from '$components/ThemeButton';
-  import { NavigationData } from '$configs/navigation';
+
   import HamburgerIcon from '$images/hamburger.svg';
-  import TrailblazerTag from '$images/trailblazer-tag.svg';
-  import TrailblazerLogo from '$images/taiko-trailblazer-logo.svg';
+
   import XIcon from '$images/x.svg';
   import { account } from '$stores/account';
   import { screen } from '$stores/responsiveness';
@@ -56,7 +52,7 @@
         <!-- Header Navigation -->
 
         <!-- <div class="lg:flex justify-center gap-[10px] body-bold"></div> -->
-        
+
         <div class="hidden md:flex justify-end">
           <ConnectButton />
         </div>
