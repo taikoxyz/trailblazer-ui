@@ -6,7 +6,6 @@
   import XIcon from '$images/x.svg';
   import { account } from '$stores/account';
 
-  let screenSize: number;
   let mobileMenu = false;
 
   function toggleMobileMenu() {
@@ -14,8 +13,6 @@
     mobileMenu = !mobileMenu;
   }
 </script>
-
-<svelte:window bind:innerWidth={screenSize} />
 
 <div class="absolute w-full f-center px-8">
   <div class="container f-center w-full">
