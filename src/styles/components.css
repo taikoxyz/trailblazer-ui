@@ -46,7 +46,6 @@
     @apply font-clash-grotesk font-medium text-[35px]/[42px];
   }
 
-
   .display-medium-medium {
     @apply font-clash-grotesk font-medium text-[45px]/[52px];
   }
@@ -300,6 +299,6 @@
   }
 
   .hover-zoom {
-   @apply scale-[1.0] hover:scale-[1.1] transition-transform duration-300 ease-in-out;
+    @apply scale-[1.0] hover:scale-[1.1] transition-transform duration-300 ease-in-out;
   }
 }

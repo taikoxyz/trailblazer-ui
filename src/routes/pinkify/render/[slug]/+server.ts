@@ -7,7 +7,6 @@ export async function GET({ params }) {
   const { slug } = params;
 
   try {
-
     // Fetch the image from Supabase
     const response = await fetch(`${PUBLIC_SUPABASE_URL}/pinkify/${slug}.png`);
 
@@ -23,14 +22,13 @@ export async function GET({ params }) {
     // Stream the image directly in the response
     return new Response(binaryData, {
       headers: {
-        'Content-Type': 'image/png'
-      }
+        'Content-Type': 'image/png',
+      },
     });
-
   } catch (error) {
     return json({
       status: 500,
-      body: `Error`
+      body: `Error`,
     });
   }
 }
