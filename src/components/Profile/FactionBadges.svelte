@@ -14,7 +14,6 @@
   async function load() {
     if (!$account || !$account.address) return;
     userFactions = await getUserBadges($account.address);
-    console.log({ userFactions });
   }
 
   $: $account, load();

@@ -33,12 +33,9 @@
 
   async function handleClick() {
     if (claimable && $account && $account.address) {
-      console.log('claiming', name, FACTIONS[name]);
       const signature = await getMintSignature($account.address, FACTIONS[name]);
-      console.log({ signature });
       const res = await claimBadge($account.address, FACTIONS[name], signature);
-
-      console.log('claiming', res);
+      unlocked = true;
     }
   }
 </script>
