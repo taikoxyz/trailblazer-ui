@@ -5,4 +5,6 @@ export type CarouselItem = {
   image: string;
   publishDate: Date;
   readTime: number;
+  link: string;
+  tag?: string;
 };

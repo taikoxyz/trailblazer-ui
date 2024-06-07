@@ -53,7 +53,9 @@
       <button class="f-center btn-circle border border-primary-brand" on:click={scrollLeft}>
         <Icon class="-translate-x-[2px]" type="chevron-left" />
       </button>
-      <button class="f-center btn-circle bg-primary-brand border-primary-brand" on:click={scrollRight}>
+      <button
+        class="f-center btn-circle bg-primary-brand border-primary-brand hover:bg-primary-interactive-hover"
+        on:click={scrollRight}>
         <Icon class="translate-x-[2px]" type="chevron-right" />
       </button>
     </div>

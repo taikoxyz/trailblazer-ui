@@ -14,7 +14,7 @@
     </div>
 
     <!-- Sub text: In the vibrant world of Neo Nakuz, a groundbreaking cast of characters is emerging, centered around the electrifying ecosystem of Taiko Radio and its dynamic cast of characters: ravers, drummers, masters and more. -->
-    <div class="title-body-regular text-secondary-content text-center xl:self-end max-w-[365px] xl:text-left">
+    <div class="title-body-regular text-secondary-content text-center xl:self-end max-w-[505px] xl:text-left">
       In the vibrant world of Neo Nakuza, a groundbreaking cast of characters is emerging, centered around the
       electrifying ecosystem of Taiko Radio and its dynamic cast of characters: ravers, drummers, masters and more.
     </div>

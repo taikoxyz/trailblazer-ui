@@ -16,10 +16,13 @@
   import { ButtonWithArrow } from '$components/Button';
   import TrailblazerMain from './TrailblazerMain.svelte';
   import TrailblazerOngoingTrails from './TrailblazerOngoingTrails.svelte';
+  import AboutFactionsInfo from '../About/AboutFactionsInfo.svelte';
+  import { FactionsGallery } from '$components/Gallery';
 </script>
 
 <div class="f-center container flex-col w-full overflow-visible gap-[100px]">
   <TrailblazerMain />
   <TrailblazerGuide />
   <TrailblazerOngoingTrails />
+  <FactionsGallery />
 </div>
