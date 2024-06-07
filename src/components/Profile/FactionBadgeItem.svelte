@@ -31,11 +31,20 @@
     blur = 'blur-md';
   }
 
+  $: isClaiming = false;
   async function handleClick() {
     if (claimable && $account && $account.address) {
-      const signature = await getMintSignature($account.address, FACTIONS[name]);
-      const res = await claimBadge($account.address, FACTIONS[name], signature);
-      unlocked = true;
+      try {
+        disabled = 'btn-disabled border-transparent block';
+        isClaiming = true;
+        await claimBadge($account.address, FACTIONS[name]);
+        unlocked = true;
+      } catch (e) {
+        console.error(e);
+      } finally {
+        isClaiming = false;
+        disabled = '';
+      }
     }
   }
 </script>
@@ -50,7 +59,11 @@
     </div>
     <div class="absolute bottom-8 place-self-center w-full px-6">
       <button on:click={handleClick} class="btn btn-primary {disabled} btn-block">
-        {claimable ? 'Claim' : 'Locked'}
+        {#if isClaiming}
+          <span class="loading loading-spinner loading-md"></span>
+        {:else}
+          {claimable ? 'Claim' : 'Locked'}
+        {/if}
       </button>
     </div>
   </div>
