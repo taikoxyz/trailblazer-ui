@@ -1,3 +1,5 @@
+import type { Address } from 'viem';
+
 export interface Toast {
   id?: number;
   type: 'info' | 'success' | 'error';
@@ -7,3 +9,7 @@ export interface Toast {
 }
 
 export type ScreenMode = 'desktop' | 'mobile';
+
+export type IChainId = 167009 | 167000;
+
+export type IContractData = Address;
