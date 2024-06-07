@@ -14,8 +14,8 @@
   }
 </script>
 
-<div class="absolute w-full f-center px-8">
-  <div class="container f-center w-full">
+<div class="absolute w-full f-center top-0">
+  <div class="container f-center w-full px-[75px]">
     <div class=" flex body-regular items-center justify-between box-border w-full mt-8 py-2 rounded-full lg:bg-none">
       <!-- Mobile Burger Button -->
       <button
