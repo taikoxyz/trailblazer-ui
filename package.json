@@ -64,6 +64,7 @@
   },
   "type": "module",
   "dependencies": {
+    "@ethereumjs/util": "^9.0.3",
     "@metamask/eth-sig-util": "^7.0.2",
     "@sveltejs/adapter-vercel": "^5.3.0",
     "@sveltejs/vite-plugin-svelte": "^3.1.0",
