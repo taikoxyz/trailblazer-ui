@@ -100,9 +100,7 @@ export const trailblazersBadgesAbi = [
     type: 'function',
     inputs: [],
     name: 'blacklist',
-    outputs: [
-      { name: '', internalType: 'contract IMinimalBlacklist', type: 'address' },
-    ],
+    outputs: [{ name: '', internalType: 'contract IMinimalBlacklist', type: 'address' }],
     stateMutability: 'view',
   },
   {
@@ -588,9 +586,7 @@ export const trailblazersBadgesAbi = [
   },
   {
     type: 'error',
-    inputs: [
-      { name: 'implementation', internalType: 'address', type: 'address' },
-    ],
+    inputs: [{ name: 'implementation', internalType: 'address', type: 'address' }],
     name: 'ERC1967InvalidImplementation',
   },
   { type: 'error', inputs: [], name: 'ERC1967NonPayable' },
@@ -618,7 +614,7 @@ export const trailblazersBadgesAbi = [
     inputs: [{ name: 'slot', internalType: 'bytes32', type: 'bytes32' }],
     name: 'UUPSUnsupportedProxiableUUID',
   },
-] as const
+] as const;
 
 /**
  * [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xf6Df36FF0ef62E8dBEFb663d7DBd3b63594e645A)
@@ -626,7 +622,7 @@ export const trailblazersBadgesAbi = [
 export const trailblazersBadgesAddress = {
   167000: '0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512',
   167009: '0xf6Df36FF0ef62E8dBEFb663d7DBd3b63594e645A',
-} as const
+} as const;
 
 /**
  * [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xf6Df36FF0ef62E8dBEFb663d7DBd3b63594e645A)
@@ -634,4 +630,4 @@ export const trailblazersBadgesAddress = {
 export const trailblazersBadgesConfig = {
   address: trailblazersBadgesAddress,
   abi: trailblazersBadgesAbi,
-} as const
+} as const;
