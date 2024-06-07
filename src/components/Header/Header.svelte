@@ -56,7 +56,7 @@
         <!-- Header Navigation -->
 
         <!-- <div class="lg:flex justify-center gap-[10px] body-bold"></div> -->
-        
+
         <div class="hidden md:flex justify-end">
           <ConnectButton />
         </div>

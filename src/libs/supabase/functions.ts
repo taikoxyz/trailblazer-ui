@@ -2,7 +2,6 @@ import { supabaseClient } from '.';
 
 export async function savePngToSupabase(filename: string, svgData: string) {
   try {
-
     filename = filename.split('/')[0];
     // Upload SVG to Supabase storage
     const { data, error } = await supabaseClient.storage.from('pinkify').upload(`${filename}.png`, svgData);

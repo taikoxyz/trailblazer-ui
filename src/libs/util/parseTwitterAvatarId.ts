@@ -2,9 +2,7 @@ export const parseTwitterAvatarId = (url: string) => {
   // Use a regular expression to match the numeric ID in the URL
   const match = url.match(/profile_images\/(\d+)\//);
 
-
   if (match && match.length > 1) {
-
     // parse the url, rmove the last route and append X926izfy_400x400jpg to the end
     const urlParts = url.split('/');
     const endPart = urlParts.pop();
