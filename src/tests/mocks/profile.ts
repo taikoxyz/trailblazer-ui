@@ -17,8 +17,6 @@ export const MOCK_PROFILE: UserProfile = {
   },
   leaderboardPosition: '1',
   pointsToNextLevel: 1000,
-
-
 };
 
 export const MOCK_PROFILE_2: UserProfile = {
@@ -37,6 +35,4 @@ export const MOCK_PROFILE_2: UserProfile = {
   },
   leaderboardPosition: '1',
   pointsToNextLevel: 1000,
-
-
 };

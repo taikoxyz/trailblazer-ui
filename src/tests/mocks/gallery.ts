@@ -23,13 +23,11 @@ export const MOCK_FACTION_GALLERY: GalleryItem[] = [
     image: RobotFaction,
     name: 'Robots',
     locked: true,
-
   },
   {
     image: BouncerFaction,
     name: 'Bouncers',
     locked: true,
-
   },
   {
     image: MasterFaction,

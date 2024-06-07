@@ -40,7 +40,6 @@ jobs:
           echo "y" | vercel env rm PUBLIC_SUPABASE_URL production --token=$VERCEL_TOKEN
           echo "y" | vercel env rm PUBLIC_FALLBACK_IMAGE_API_URL production --token=$VERCEL_TOKEN
 
-
       - name: Set Vercel Environment Variables
         continue-on-error: true
         run: |

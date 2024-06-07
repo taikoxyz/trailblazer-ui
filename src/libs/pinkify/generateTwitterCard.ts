@@ -1,7 +1,7 @@
-import { blobToBase64 } from "$libs/util/blobToBase64";
+import { blobToBase64 } from '$libs/util/blobToBase64';
 
 export async function generateTwitterCardSVG(avatarBlob: Blob): Promise<string> {
-  // 
+  //
   const base64data = await blobToBase64(avatarBlob);
 
   // Replace data:image/png;base64 with data:image/svg+xml;base64
@@ -93,7 +93,6 @@ export async function generateTwitterCardSVG(avatarBlob: Blob): Promise<string> 
 // </svg>
 // `
 
-
 // return `
 
 // <svg
@@ -114,5 +113,3 @@ export async function generateTwitterCardSVG(avatarBlob: Blob): Promise<string> 
 //     font-family="Clash Grotesk"
 //     alignment-baseline="middle">@zkenk has answered the call</text>
 // </svg>`;
-
-
