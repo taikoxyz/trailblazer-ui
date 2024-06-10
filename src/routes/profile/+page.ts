@@ -11,8 +11,5 @@ export const load: Load = async () => {
   const account = getAccount(wagmiConfig);
   if (account?.address) {
     throw redirect(302, `/profile/${account?.address}`);
-  } else {
-    // TODO: Force user to connect wallet
-    throw redirect(302, '/');
-  }
+  } 
 };

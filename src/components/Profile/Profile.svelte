@@ -12,13 +12,20 @@
   import ProfileCard from './ProfileCard.svelte';
   import ProfileSubCard from './ProfileSubCard.svelte';
   import { page } from '$app/stores';
+  import { account } from '$stores/account';
+
+  $: if ($account) {
+    let address = $account.address;
+    Profile.getProfile(address);
+    Profile.getUserPointsHistory(address);
+  }
 
   onMount(async () => {
     // get slug
-    const slug = $page.params.address;
-    console.log('🚀 | Profile | Profile.getProfile | slug:', slug);
-    await Profile.getProfile(slug);
-    await Profile.getUserPointsHistory(slug);
+    let address = $page.params.address;
+
+    await Profile.getProfile(address);
+    await Profile.getUserPointsHistory(address);
   });
 </script>
 
