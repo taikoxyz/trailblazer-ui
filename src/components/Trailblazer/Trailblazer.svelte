@@ -23,6 +23,6 @@
 <div class="f-center container flex-col w-full overflow-visible gap-[100px]">
   <TrailblazerMain />
   <TrailblazerGuide />
-  <TrailblazerOngoingTrails />
+  <!-- <TrailblazerOngoingTrails /> -->
   <FactionsGallery />
 </div>
