@@ -21,7 +21,7 @@
     [FactionNames.Androids]: false,
     [FactionNames.Shinto]: false,
   };
-  
+
   async function load() {
     if (!$account || !$account.address) return;
     userFactions = await getUserBadges($account.address);

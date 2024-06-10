@@ -51,25 +51,23 @@
 </script>
 
 {#if $account && $account.address}
-<div
-  class="{shadow} flex w-full min-h-[306px] max-w-[306px] border-2 border-primary-border-hover rounded-[20px] bg-[#310E2F]">
-  <div class="w-full relative pt-[28px] pb-[20px] px-[20px] flex flex-col justify-between">
-    <div class="w-full flex flex-col items-center {blur}">
-      <div>
-        <FactionImage {unlocked} 
-        address={$account.address}
-        type={name} />
+  <div
+    class="{shadow} flex w-full min-h-[306px] max-w-[306px] border-2 border-primary-border-hover rounded-[20px] bg-[#310E2F]">
+    <div class="w-full relative pt-[28px] pb-[20px] px-[20px] flex flex-col justify-between">
+      <div class="w-full flex flex-col items-center {blur}">
+        <div>
+          <FactionImage {unlocked} address={$account.address} type={name} />
+        </div>
+      </div>
+      <div class="absolute bottom-8 place-self-center w-full px-6">
+        <button on:click={handleClick} class="btn btn-primary {disabled} btn-block">
+          {#if isClaiming}
+            <span class="loading loading-spinner loading-md"></span>
+          {:else}
+            {claimable ? 'Claim' : 'Locked'}
+          {/if}
+        </button>
       </div>
     </div>
-    <div class="absolute bottom-8 place-self-center w-full px-6">
-      <button on:click={handleClick} class="btn btn-primary {disabled} btn-block">
-        {#if isClaiming}
-          <span class="loading loading-spinner loading-md"></span>
-        {:else}
-          {claimable ? 'Claim' : 'Locked'}
-        {/if}
-      </button>
-    </div>
   </div>
-</div>
 {/if}

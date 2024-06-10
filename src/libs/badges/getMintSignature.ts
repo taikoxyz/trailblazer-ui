@@ -1,5 +1,3 @@
-import { ecsign } from '@ethereumjs/util';
-import { concatSig } from '@metamask/eth-sig-util';
 import { readContract, signMessage } from '@wagmi/core';
 import { type Address } from 'viem';
 
@@ -10,23 +8,13 @@ import type { IChainId, IContractData } from '$types';
 
 import { trailblazersBadgesAbi, trailblazersBadgesAddress } from '../../generated/abi';
 
-// mock signature function
-// TODO: export to api endpoint
-export async function mockSignHash(hash: string): Promise<IContractData> {
-  const privateKey = '0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80';
-
-  const sig = ecsign(Buffer.from(hash.slice(2), 'hex'), Buffer.from(privateKey.slice(2), 'hex'));
-  const serialized = concatSig(Buffer.from(sig.v.toString(16), 'hex'), sig.r, sig.s);
-  return serialized as IContractData;
-}
-
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 async function signHash(config: any, address: Address, badgeId: number): Promise<IContractData> {
   const challenge = Date.now().toString();
   const signature = await signMessage(config, { message: challenge });
-  
-  
+
   //const baseUrl = config.chainId === 167000 ? '' : 'https://trailblazer.hekla.taiko.xyz/mint';
-  const baseUrl = 'https://trailblazer.hekla.taiko.xyz/mint'
+  const baseUrl = 'https://trailblazer.hekla.taiko.xyz/mint';
 
   const res = await fetch(baseUrl, {
     method: 'POST',
@@ -38,6 +26,7 @@ async function signHash(config: any, address: Address, badgeId: number): Promise
       signature,
       message: challenge,
       badgeId,
+      chainId: config.chainId,
     }),
   });
 
@@ -64,6 +53,6 @@ export default async function getMintSignature(
   });
 
   const signature = await signHash(config, address, factionId);
-  console.log({signature, hash})
+  console.log({ signature, hash });
   return { signature, hash };
 }

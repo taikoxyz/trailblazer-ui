@@ -14,7 +14,7 @@
   // import ShintoImage from '$images/factions/shinto.svg';
 
   export let type: Faction;
-  export let address: Address
+  export let address: Address;
 
   export let unlocked: boolean = false;
   const sources: Record<string, string[]> = {
@@ -37,22 +37,22 @@
   };
 
   async function getVideoSrc() {
-    const src = await getBadgeSrc(address, type as FactionNames)
-    console.log({src})
+    const src = await getBadgeSrc(address, type as FactionNames);
+    console.log({ src });
   }
 
-  $: src = '/test-badge.mp4'
-  onMount(async() => {
-    if (!sources[type]){
-      console.error('Unrecognized badge type', type)
-      return
+  $: src = '/test-badge.mp4';
+  onMount(async () => {
+    if (!sources[type]) {
+      console.error('Unrecognized badge type', type);
+      return;
     }
-    src = `https://nftstorage.link/ipfs/${sources[type][0]}`
-  })
+    src = `https://nftstorage.link/ipfs/${sources[type][0]}`;
+  });
 </script>
 
 <video loop autoplay={unlocked}>
-  <source src={src} type="video/mp4" />
+  <source {src} type="video/mp4" />
   Your browser does not support the video tag.
 </video>
 
