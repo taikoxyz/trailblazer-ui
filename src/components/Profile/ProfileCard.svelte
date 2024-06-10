@@ -34,33 +34,33 @@
 
     <!-- Points -->
     <div class="flex items-center gap-2">
-      <CountUp class="font-clash-grotesk font-semibold text-[45px] leading-none" value={$currentProfile?.points} />
+      <CountUp class="font-clash-grotesk font-semibold text-[45px] leading-none" value={$currentProfile?.score} />
       <div>points</div>
     </div>
     <!-- Faction -->
-    <div class="flex gap-2 items-center">
+    <!-- <div class="flex gap-2 items-center">
       <div class="flex rounded-full border border-divider-border p-0.5 pl-[15px] gap-2 items-center w-fit">
         <div class="flex text-secondary-content">Faction</div>
         <div class="flex rounded-full px-[10px] py-[6px] bg-primary-brand items-center body-bold">Ravers</div>
       </div>
 
       <div class="flex rounded-full px-[10px] py-[6px] bg-purple-600 items-center body-bold">Boosted</div>
-    </div>
+    </div> -->
     <!-- Rank & Experience -->
     <div class="flex flex-col gap-4">
       <div class="flex justify-between body-bold">
-        <div>{profile?.rank}</div>
+        <!-- <div>{profile?.rank}</div> -->
         <div class="flex">
-          <CountUp value={profile?.points} /> /
-          <span class="text-tertiary-content">{profile?.points + profile?.pointsToNextLevel}</span>
+          <CountUp value={+profile?.rank} /> /
+          <span class="text-tertiary-content">{profile?.total}</span>
         </div>
       </div>
       <!-- Experience Bar -->
 
       <Bar
         class="progress progress-secondary w-full h-3"
-        value={profile?.points}
-        maxValue={profile?.points + profile?.pointsToNextLevel} />
+        value={+profile?.rank}
+        maxValue={profile.total ? +profile?.total : 0} />
       <!-- Profile Percentile & Position -->
       <!-- <div class="flex justify-between body-bold">
         <div class="text-tertiary-content">Top {profile?.rankPercentile} %</div>

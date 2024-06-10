@@ -1,9 +1,9 @@
 export type UserProfile = {
   address: string;
-  pointsHistory?: UserPointHistoryPage;
-  points: number;
+  score: number;
   pointsToNextLevel: number;
   rank: string;
+  total?: string;
   leaderboardPosition: string;
   faction: UserFaction;
   avatar?: string;

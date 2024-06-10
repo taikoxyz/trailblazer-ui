@@ -18,7 +18,7 @@ export class Profile {
     const account = getAccount(config);
     if (account?.address) {
       // TOOO: Update this
-      const response = await fetch(`${PUBLIC_TRAILBLAZER_API_URL}/user?user=${account.address}`);
+      const response = await fetch(`${PUBLIC_TRAILBLAZER_API_URL}/user?address=${account.address}`);
       // const response = await fetch(`${PUBLIC_TRAILBLAZER_API_URL}/user?user=0x8626f6940E2eb28930eFb4CeF49B2d1F2C9C1199`)
       const userProfile: UserProfile = (await response.json()) as UserProfile;
       console.log('🚀 | Profile | getProfile | userProfile:', userProfile);
@@ -35,7 +35,7 @@ export class Profile {
         return { ...current, ...updates };
       });
 
-      userPointHistory.set(userProfile.pointsHistory);
+      // userPointHistory.set(userProfile.pointsHistory);
 
       // set page
     }
