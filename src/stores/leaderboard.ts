@@ -15,8 +15,28 @@ export const currentLeaderboard = writable<LeaderboardPage>({
   visible: 0,
 });
 
+export const currentUserLeaderboard = writable<LeaderboardPage>({
+  items: [],
+  page: 0,
+  size: 20,
+  max_page: 0,
+  total_pages: 0,
+  total: 0,
+  last: 1,
+  first: 0,
+  visible: 0,
+});
+
 export const setLeaderboard = (leaderboard: LeaderboardPage) => {
   currentLeaderboard.update((store) => {
+    store = leaderboard;
+    store.items = leaderboard.items.filter(item => !!item.address)
+    return store;
+  });
+};
+
+export const setUserLeaderboard = (leaderboard: LeaderboardPage) => {
+  currentUserLeaderboard.update((store) => {
     store = leaderboard;
     store.items = leaderboard.items.filter(item => !!item.address)
     return store;
