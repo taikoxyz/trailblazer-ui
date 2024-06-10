@@ -9,5 +9,5 @@ Follow these steps to install and run the project:
     Use the following command to clone this repository:
 
     ```bash
-    git clone https://github.com/taikoxyz/trailblazer-ui.git 
+    git clone https://github.com/taikoxyz/trailblazer-ui.git
     ```
