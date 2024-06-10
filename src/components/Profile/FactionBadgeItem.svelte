@@ -4,6 +4,7 @@
   import getMintSignature from '$libs/badges/getMintSignature';
   import type { UserFactionBadge } from '$libs/profile';
   import { account } from '$stores/account';
+  import { onMount } from 'svelte';
 
   import FactionImage from './FactionImage.svelte';
 
@@ -50,11 +51,11 @@
 </script>
 
 <div
-  class="{shadow} flex w-full min-h-[351px] max-w-[306px] border-2 border-primary-border-hover rounded-[20px] bg-[#310E2F]">
+  class="{shadow} flex w-full min-h-[306px] max-w-[306px] border-2 border-primary-border-hover rounded-[20px] bg-[#310E2F]">
   <div class="w-full relative pt-[28px] pb-[20px] px-[20px] flex flex-col justify-between">
     <div class="w-full flex flex-col items-center {blur}">
       <div>
-        <FactionImage type={name} />
+        <FactionImage {unlocked} type={name} />
       </div>
     </div>
     <div class="absolute bottom-8 place-self-center w-full px-6">

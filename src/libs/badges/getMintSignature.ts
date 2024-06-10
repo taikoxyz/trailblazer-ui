@@ -1,6 +1,6 @@
 import { ecsign } from '@ethereumjs/util';
 import { concatSig } from '@metamask/eth-sig-util';
-import { readContract } from '@wagmi/core';
+import { readContract, signMessage } from '@wagmi/core';
 import { type Address } from 'viem';
 
 import type { FACTIONS } from '$configs/badges';
@@ -12,7 +12,7 @@ import { trailblazersBadgesAbi, trailblazersBadgesAddress } from '../../generate
 
 // mock signature function
 // TODO: export to api endpoint
-async function signHash(hash: string): Promise<IContractData> {
+export async function mockSignHash(hash: string): Promise<IContractData> {
   const privateKey = '0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80';
 
   const sig = ecsign(Buffer.from(hash.slice(2), 'hex'), Buffer.from(privateKey.slice(2), 'hex'));
@@ -20,9 +20,31 @@ async function signHash(hash: string): Promise<IContractData> {
   return serialized as IContractData;
 }
 
-export default async function getMintSignature(address: Address, factionId: FACTIONS): Promise<IContractData> {
+async function signHash(config: any, address: Address, badgeId: number): Promise<IContractData> {
+  const challenge = Date.now().toString();
+  const signature = await signMessage(config, { message: challenge });
+  const res = await fetch('https://trailblazer.hekla.taiko.xyz/mint', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      address,
+      signature,
+      message: challenge,
+      badgeId,
+    }),
+  });
+
+  const mintSignature = await res.json();
+  return `0x${mintSignature}`;
+}
+export default async function getMintSignature(
+  address: Address,
+  factionId: FACTIONS,
+): Promise<{ signature: IContractData; hash: IContractData }> {
   const { selectedNetworkId } = web3modal.getState();
-  if (!selectedNetworkId) return '0x0';
+  if (!selectedNetworkId) return { signature: '0x0', hash: '0x0' };
 
   const chainId = selectedNetworkId as IChainId;
   const contractAddress = trailblazersBadgesAddress[chainId];
@@ -35,7 +57,7 @@ export default async function getMintSignature(address: Address, factionId: FACT
     chainId,
   });
 
-  const signature = await signHash(hash);
+  const signature = await signHash(config, address, factionId);
 
-  return signature;
+  return { signature, hash };
 }

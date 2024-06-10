@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { FactionNames } from '$configs/badges';
   import RaverImage from '$images/factions/faction-1.png';
   import RobotsImage from '$images/factions/faction-2.png';
   import type { Faction } from '$libs/profile';
@@ -10,7 +11,26 @@
   // import ShintoImage from '$images/factions/shinto.svg';
 
   export let type: Faction;
+
+  export let unlocked: boolean = false;
+  const sources = {
+    [FactionNames.Ravers]: [
+      // neutral
+      // based
+      // boosted
+    ],
+    [FactionNames.Robots]: [
+      // neutral
+      // based
+      // boosted
+    ],
+  };
 </script>
+
+<video loop autoplay={unlocked}>
+  <source src="/test-badge.mp4" type="video/mp4" />
+  Your browser does not support the video tag.
+</video>
 
 <!-- {#if type === 'Ravers'}
   <img src={RaverImage} alt={RaverImage} />
@@ -31,23 +51,3 @@
 {:else}
   💩💩💩
 {/if} -->
-
-{#if type === 'Ravers'}
-  <img src={RaverImage} alt={RaverImage} />
-{:else if type === 'Robots'}
-  <img src={RobotsImage} alt={RobotsImage} />
-{:else if type === 'Bouncers'}
-  bouncers
-{:else if type === 'Masters'}
-  masters
-{:else if type === 'Monks'}
-  monks
-{:else if type === 'Drummers'}
-  drummers
-{:else if type === 'Androids'}
-  androids
-{:else if type === 'Shinto'}
-  shinto
-{:else}
-  💩💩💩
-{/if}

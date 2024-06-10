@@ -31,5 +31,7 @@ export default async function isSignatureValid(signature: IContractData, address
   });
   const localSigner = await recoverAddress({ hash, signature });
 
+  console.log({ mintSigner, localSigner });
+
   return mintSigner.toLocaleLowerCase() === localSigner.toLocaleLowerCase();
 }
