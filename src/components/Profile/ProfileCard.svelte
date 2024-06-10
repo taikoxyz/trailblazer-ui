@@ -13,18 +13,18 @@
   let loading = true;
 </script>
 
-<div class="flex bg-elevated-background p-5 gap-10 rounded-3xl w-fit">
-  <div class="flex flex-col gap-5">
-    <div class="avatar">
-      <div class=" bg-orange-400 rounded-3xl max-w-[224px]">
+<div class="flex lg:bg-elevated-background p-5 rounded-3xl w-full flex-col lg:flex-row items-center">
+  <!-- <div class="flex flex-col gap-5 lg:w-1/2 w-full items-center lg:items-start lg:max-h-[300px] lg:max-w-[300px]"> -->
+    <div class="avatar w-1/2 items-center lg:mr-4">
+      <div class="h-full bg-orange-400 rounded-3xl">
         <img src={profile?.avatar} alt="avatar" />
       </div>
     </div>
     <!-- <ProfileMultipliers /> -->
-  </div>
+  <!-- </div> -->
 
-  <div class="flex flex-col w-full gap-5 self-center">
-    <div class="flex w-full justify-between items-center gap-2">
+  <div class="flex flex-col gap-2 self-center lg:min-w-[300px]">
+    <div class="flex align-start justify-between items-center gap-2 mt-5 lg:mt-0">
       <div class="flex items-center gap-1">
         <Icon type="user-circle"></Icon>Welcome, <span class="body-bold">{shortenAddress(profile?.address)}</span>
       </div>
@@ -48,19 +48,19 @@
     </div> -->
     <!-- Rank & Experience -->
     <div class="flex flex-col gap-4">
-      <div class="flex justify-between body-bold">
+      <!-- <div class="flex justify-between body-bold"> -->
         <!-- <div>{profile?.rank}</div> -->
-        <div class="flex">
+        <!-- <div class="flex">
           <CountUp value={+profile?.rank} /> /
           <span class="text-tertiary-content">{profile?.total}</span>
         </div>
-      </div>
+      </div> -->
       <!-- Experience Bar -->
 
-      <Bar
+      <!-- <Bar
         class="progress progress-secondary w-full h-3"
         value={+profile?.rank}
-        maxValue={profile.total ? +profile?.total : 0} />
+        maxValue={profile.total ? +profile?.total : 0} /> -->
       <!-- Profile Percentile & Position -->
       <!-- <div class="flex justify-between body-bold">
         <div class="text-tertiary-content">Top {profile?.rankPercentile} %</div>

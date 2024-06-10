@@ -1,9 +1,10 @@
 export type UserProfile = {
   address: string;
+  pointsHistory?: UserPointHistoryPage;
   score: number;
   pointsToNextLevel: number;
   rank: string;
-  total?: string;
+  total: string;
   leaderboardPosition: string;
   faction: UserFaction;
   avatar?: string;
@@ -55,7 +56,7 @@ export type UserPointHistoryPage = {
   visible: number;
 };
 
-export type Event = 'ETHBridged' | 'ERC20Bridged' | 'ERC721Bridged';
+export type Event = 'Transaction' | 'TransactionValue' | 'BlockProposed';
 
 export type UserPointHistory = {
   address: string;
