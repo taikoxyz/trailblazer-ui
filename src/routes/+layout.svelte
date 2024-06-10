@@ -9,7 +9,6 @@
   import { Header } from '$components/Header';
   import { NotificationToast } from '$components/NotificationToast';
   import { Ribbon } from '$components/Ribbon';
-  import { SwitchChainModal } from '$components/SwitchChainModal';
   import { startWatching as startWatchingX, stopWatching as stopWatchingX } from '$libs/supabase';
   import { startWatching, stopWatching, wagmiConfig } from '$libs/wagmi';
   import { browser } from '$app/environment';
@@ -23,6 +22,7 @@
   };
 
   onMount(() => {
+    reconnect(wagmiConfig);
     startWatching();
   });
 
@@ -46,4 +46,3 @@
 
 <NotificationToast />
 <AccountConnectionToast />
-<SwitchChainModal />

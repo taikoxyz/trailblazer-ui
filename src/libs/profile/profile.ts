@@ -20,11 +20,11 @@ export class Profile {
       const response = await fetch(`${PUBLIC_TRAILBLAZER_API_URL}/user?address=${account.address}`);
       // const response = await fetch(`${PUBLIC_TRAILBLAZER_API_URL}/user?user=0x8626f6940E2eb28930eFb4CeF49B2d1F2C9C1199`)
       const userProfile: UserProfile = (await response.json()) as UserProfile;
-      console.log('🚀 | Profile | getProfile | userProfile:', userProfile);
-
       // Safely update the currentProfile with userProfile details
       currentProfile.update((current) => {
         const updates: Partial<UserProfile> = {};
+
+        updates.address = account.address;
         (Object.keys(userProfile) as Array<keyof UserProfile>).forEach((key) => {
           const userValue = userProfile[key];
           if (userValue !== undefined) {
