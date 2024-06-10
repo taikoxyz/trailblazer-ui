@@ -11,10 +11,14 @@
 
   import ProfileCard from './ProfileCard.svelte';
   import ProfileSubCard from './ProfileSubCard.svelte';
+  import { page } from '$app/stores';
 
   onMount(async () => {
-    await Profile.getProfile();
-    await Profile.getUserPointsHistory();
+    // get slug
+    const slug = $page.params.address;
+    console.log('🚀 | Profile | Profile.getProfile | slug:', slug);
+    await Profile.getProfile(slug);
+    await Profile.getUserPointsHistory(slug);
   });
 </script>
 
@@ -26,7 +30,7 @@
 
       <!-- Bridged Card -->
       <!-- <ProfileSubCard> -->
-        <!-- <div class="flex flex-col gap-8 items-center w-full">
+      <!-- <div class="flex flex-col gap-8 items-center w-full">
           <div class="f-center gap-2">
             <div class="title-subsection-bold">Bridged</div>
             <Icon type={'question-circle'}></Icon>
@@ -46,7 +50,7 @@
 
       <!-- Booster Card -->
       <!-- <ProfileSubCard> -->
-        <!-- <div class="flex flex-col gap-6 items-center justify-center w-full">
+      <!-- <div class="flex flex-col gap-6 items-center justify-center w-full">
           <div class="f-center gap-2">
             <div class="title-subsection-bold">Booster</div>
             <Icon type={'question-circle'}></Icon>
