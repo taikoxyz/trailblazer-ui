@@ -3,13 +3,10 @@
 
   import { Leaderboard } from '$libs/leaderboard';
   import { currentLeaderboard } from '$stores/leaderboard';
-  let headers = ['#', 'Wallet Address', 'Score'];
-
-  export let start = 0;
-  export let end = 2714348799;
+  let headers = ['#', 'Address', 'Score'];
 
   onMount(async () => {
-    await Leaderboard.getLeaderboard(start, end);
+    await Leaderboard.getLeaderboard();
   });
 </script>
 
@@ -24,9 +21,9 @@
       </tr>
     </thead>
     <tbody class="rounded-lg">
-      {#each $currentLeaderboard.items as thing, i (thing.address)}
+      {#each $currentLeaderboard.items as thing, i}
         <tr class="row">
-          <td>{i}</td>
+          <td>{i+1}</td>
           <td>{thing.address}</td>
           <td>{thing.score}</td>
         </tr>

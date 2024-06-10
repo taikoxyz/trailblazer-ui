@@ -14,3 +14,11 @@ export const currentLeaderboard = writable<LeaderboardPage>({
   first: 0,
   visible: 0,
 });
+
+export const setLeaderboard = (leaderboard: LeaderboardPage) => {
+  currentLeaderboard.update((store) => {
+    store = leaderboard;
+    store.items = leaderboard.items.filter(item => !!item.address)
+    return store;
+  });
+};
