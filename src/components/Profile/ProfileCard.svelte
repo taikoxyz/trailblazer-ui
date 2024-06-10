@@ -15,18 +15,24 @@
 
 <div class="flex lg:bg-elevated-background p-5 rounded-3xl w-full flex-col lg:flex-row items-center">
   <!-- <div class="flex flex-col gap-5 lg:w-1/2 w-full items-center lg:items-start lg:max-h-[300px] lg:max-w-[300px]"> -->
-    <div class="avatar w-1/2 items-center lg:mr-4">
-      <div class="h-full bg-orange-400 rounded-3xl">
-        <img src={profile?.avatar} alt="avatar" />
-      </div>
+  <div class="avatar w-1/2 items-center lg:mr-4">
+    <div class="h-full bg-orange-400 rounded-3xl">
+      <img src={profile?.avatar} alt="avatar" />
     </div>
-    <!-- <ProfileMultipliers /> -->
+  </div>
+  <!-- <ProfileMultipliers /> -->
   <!-- </div> -->
 
   <div class="flex flex-col gap-2 self-center lg:min-w-[300px]">
     <div class="flex align-start justify-between items-center gap-2 mt-5 lg:mt-0">
       <div class="flex items-center gap-1">
-        <Icon type="user-circle"></Icon>Welcome, <span class="body-bold">{shortenAddress(profile?.address)}</span>
+        <Icon type="user-circle"></Icon>
+        <a
+          href={`https://taikoscan.io/address/${profile?.address}`}
+          target="_blank"
+          class="body-bold hover:cursor-pointer underline">
+          {shortenAddress(profile?.address)}
+        </a>
       </div>
 
       <!-- <div>{shortenAddress(profile?.address)} / {profile?.ens}</div> -->
@@ -49,8 +55,8 @@
     <!-- Rank & Experience -->
     <div class="flex flex-col gap-4">
       <!-- <div class="flex justify-between body-bold"> -->
-        <!-- <div>{profile?.rank}</div> -->
-        <!-- <div class="flex">
+      <!-- <div>{profile?.rank}</div> -->
+      <!-- <div class="flex">
           <CountUp value={+profile?.rank} /> /
           <span class="text-tertiary-content">{profile?.total}</span>
         </div>
