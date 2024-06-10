@@ -11,16 +11,17 @@
   let factions = Object.keys(FactionNames) as FactionNames[];
   $: userFactions = {} as Record<FactionNames, boolean>;
 
-  const mockLockedMap: Record<FactionNames, boolean> = {
+  const mockClaimableMap: Record<FactionNames, boolean> = {
     [FactionNames.Ravers]: true,
-    [FactionNames.Robots]: true,
-    [FactionNames.Bouncers]: true,
-    [FactionNames.Masters]: true,
+    [FactionNames.Robots]: false,
+    [FactionNames.Bouncers]: false,
+    [FactionNames.Masters]: false,
     [FactionNames.Monks]: false,
     [FactionNames.Drummers]: false,
     [FactionNames.Androids]: false,
     [FactionNames.Shinto]: false,
   };
+  
   async function load() {
     if (!$account || !$account.address) return;
     userFactions = await getUserBadges($account.address);
@@ -31,7 +32,7 @@
 
 <div class="box gap-4">
   {#each factions as faction}
-    <FactionBadgeItem name={faction} claimable={mockLockedMap[faction]} unlocked={userFactions[faction]} />
+    <FactionBadgeItem name={faction} claimable={mockClaimableMap[faction]} unlocked={userFactions[faction]} />
   {/each}
 </div>
 

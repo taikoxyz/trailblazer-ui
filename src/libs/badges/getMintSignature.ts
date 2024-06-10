@@ -23,7 +23,12 @@ export async function mockSignHash(hash: string): Promise<IContractData> {
 async function signHash(config: any, address: Address, badgeId: number): Promise<IContractData> {
   const challenge = Date.now().toString();
   const signature = await signMessage(config, { message: challenge });
-  const res = await fetch('https://trailblazer.hekla.taiko.xyz/mint', {
+  
+  
+  //const baseUrl = config.chainId === 167000 ? '' : 'https://trailblazer.hekla.taiko.xyz/mint';
+  const baseUrl = 'https://trailblazer.hekla.taiko.xyz/mint'
+
+  const res = await fetch(baseUrl, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -39,6 +44,7 @@ async function signHash(config: any, address: Address, badgeId: number): Promise
   const mintSignature = await res.json();
   return `0x${mintSignature}`;
 }
+
 export default async function getMintSignature(
   address: Address,
   factionId: FACTIONS,
@@ -58,6 +64,6 @@ export default async function getMintSignature(
   });
 
   const signature = await signHash(config, address, factionId);
-
+  console.log({signature, hash})
   return { signature, hash };
 }
