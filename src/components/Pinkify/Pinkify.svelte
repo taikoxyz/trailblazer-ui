@@ -7,7 +7,7 @@
   import { twitterAvatarId, twitterAvatarUrl, twitterId, twitterUsername } from '$stores/supabase';
   import PinkifyModal from './PinkifyModal.svelte';
   import { getAccount, signMessage } from '@wagmi/core';
-  import { config } from '$libs/wagmi';
+  import { wagmiConfig } from '$libs/wagmi';
   import { postSignature } from '$libs/pinkify/api';
   import { blobToBase64 } from '$libs/util/blobToBase64';
   import { get } from 'svelte/store';
@@ -32,7 +32,7 @@
   }
 
   async function checkSigned() {
-    let response = await fetch(`${PUBLIC_TRAILBLAZER_API_URL}/check?address=${getAccount(config).address}`);
+    let response = await fetch(`${PUBLIC_TRAILBLAZER_API_URL}/check?address=${getAccount(wagmiConfig).address}`);
     signed = await response.json();
   }
 
@@ -45,13 +45,13 @@
   async function handleSign() {
     signing = true;
     try {
-      const address = getAccount(config).address;
+      const address = getAccount(wagmiConfig).address;
       const message = 'Answer the call';
       if (!address) {
         throw new Error('No address found');
       }
 
-      let signature = await signMessage(config, { message: message });
+      let signature = await signMessage(wagmiConfig, { message: message });
       await postSignature(address, signature, message);
       step = Step.COMPLETED;
       signed = true;

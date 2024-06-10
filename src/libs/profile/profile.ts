@@ -2,9 +2,8 @@ import { getAccount } from '@wagmi/core';
 import { get } from 'svelte/store';
 
 import { PUBLIC_TRAILBLAZER_API_URL } from '$env/static/public';
-import { config } from '$libs/wagmi';
+import { wagmiConfig } from '$libs/wagmi';
 import { currentProfile } from '$stores/profile';
-import { userPointHistory } from '$stores/userPointHistory';
 
 import type { UserPointHistoryPage, UserProfile } from './types';
 
@@ -15,7 +14,7 @@ export class Profile {
     //   currentProfile.set(MOCK_PROFILE_2);
     // }, 5000)
 
-    const account = getAccount(config);
+    const account = getAccount(wagmiConfig);
     if (account?.address) {
       // TOOO: Update this
       const response = await fetch(`${PUBLIC_TRAILBLAZER_API_URL}/user?address=${account.address}`);
@@ -49,7 +48,7 @@ export class Profile {
 
     // Get current page for user transactions
 
-    const account = getAccount(config);
+    const account = getAccount(wagmiConfig);
     if (account?.address) {
       const response = await fetch(`${PUBLIC_TRAILBLAZER_API_URL}/userhistory?user=${account.address}`);
       const pointsHistory: UserPointHistoryPage = (await response.json()) as UserPointHistoryPage;

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import ConnectButton from '$components/ConnectButton/ConnectButton.svelte';
+  import { ConnectButton } from '$components/ConnectButton';
   import { LogoWithText, TaikoTrailblazersLogo } from '$components/Logo';
   import HamburgerIcon from '$images/hamburger.svg';
 
@@ -34,7 +34,6 @@
           <TaikoTrailblazersLogo class="w-[125px]" />
         </a>
       </div>
-
       <div class="hidden lg:flex justify-end">
         <ConnectButton />
       </div>

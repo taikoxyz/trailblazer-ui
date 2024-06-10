@@ -7,7 +7,7 @@
   import { LoadingMask } from '$components/LoadingMask';
   import { warningToast } from '$components/NotificationToast';
   import { chains } from '$libs/chain';
-  import { config } from '$libs/wagmi';
+  import { wagmiConfig } from '$libs/wagmi';
   import { switchChainModal } from '$stores/modal';
 
   // TODO: We should combine this with the ChainSelector component.
@@ -25,7 +25,7 @@
     switchingNetwork = true;
 
     try {
-      await switchChain(config, { chainId: chain.id });
+      await switchChain(wagmiConfig, { chainId: chain.id });
       closeModal();
     } catch (err) {
       console.error(err);
