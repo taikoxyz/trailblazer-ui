@@ -38,7 +38,7 @@ export const setLeaderboard = (leaderboard: LeaderboardPage) => {
 export const setUserLeaderboard = (leaderboard: LeaderboardPage) => {
   currentUserLeaderboard.update((store) => {
     store = leaderboard;
-    store.items = leaderboard.items.filter(item => !!item.address)
+    store.items = leaderboard.items.filter(item => !!item.address).map(item => ({...item, score: +item.score.toFixed(1) }))
     return store;
   });
 };
