@@ -6,6 +6,7 @@
 
   import XIcon from '$images/x.svg';
   import { account } from '$stores/account';
+  import NavigationItem from './NavigationItem.svelte';
 
   let mobileMenu = false;
 
@@ -37,18 +38,17 @@
       </div>
       <!--  Desktop Only -->
       <div class="hidden lg:flex gap-2">
-        <a class="f-center" href="/profile">
-          <div
-            class="hover:cursor-pointer rounded-full lg:bg-neutral-background lg:hover:bg-elevated-background px-[20px] py-[12px] f-center">
-            Profile
-          </div>
-        </a>
-        <a class="f-center" href="/leaderboard">
-          <div
-            class="hover:cursor-pointer rounded-full lg:bg-neutral-background lg:hover:bg-elevated-background px-[20px] py-[12px] f-center">
-            Leaderboard +
-          </div>
-        </a>
+        <div class="flex gap-2">
+          <NavigationItem navigation={{ name: 'Profile', url: '/profile' }}></NavigationItem>
+          <NavigationItem
+            navigation={{ name: 'Leaderboards', url: '/leaderboard' }}
+            children={[
+              { name: 'User', url: '/users' },
+              { name: 'Dapp', url: '/leaderboard' },
+            ]}></NavigationItem>
+          <NavigationItem navigation={{ name: 'Discover', url: 'https://taiko.xyz/ecosystem' }}></NavigationItem>
+        </div>
+
         <ConnectButton />
       </div>
     </div>

@@ -4,6 +4,8 @@ export type UserProfile = {
   score: number;
   pointsToNextLevel: number;
   rank: string;
+  title: string;
+  level: string;
   total: string;
   leaderboardPosition: string;
   faction: UserFaction;
@@ -27,6 +29,11 @@ export type BoosterType = 'nft' | 'stake' | 'bridge';
 export type UserFaction = {
   faction: Faction;
   boostedOrBased: BoostedOrBased;
+};
+
+export type UserLevel = {
+  level: number;
+  title: string;
 };
 
 // UserFactionBadge type extends UserFaction

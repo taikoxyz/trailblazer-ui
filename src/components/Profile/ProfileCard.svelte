@@ -53,31 +53,29 @@
       <div class="flex rounded-full px-[10px] py-[6px] bg-purple-600 items-center body-bold">Boosted</div>
     </div> -->
     <!-- Rank & Experience -->
-    <div class="flex flex-col gap-4">
+    <div class="flex flex-col gap-[10px]">
       <!-- <div class="flex justify-between body-bold"> -->
-      <!-- <div>{profile?.rank}</div> -->
-      <!-- <div class="flex">
-          <CountUp value={+profile?.rank} /> /
-          <span class="text-tertiary-content">{profile?.total}</span>
-        </div>
-      </div> -->
-      <!-- Experience Bar -->
-
-      <!-- <Bar
-        class="progress progress-secondary w-full h-3"
-        value={+profile?.rank}
-        maxValue={profile.total ? +profile?.total : 0} /> -->
-      <!-- Profile Percentile & Position -->
-      <!-- <div class="flex justify-between body-bold">
-        <div class="text-tertiary-content">Top {profile?.rankPercentile} %</div>
-        <div>{profile?.position}</div>
-      </div> -->
+      <div class="flex justify-between">
+        <div>Level</div>
+        <div class="body-bold">{profile?.level}</div>
+      </div>
+      <div class="flex justify-between">
+        <div>Title</div>
+        <div class="body-bold">{profile?.title}</div>
+      </div>
+      <div class="flex justify-between">
+        <div>Rank</div>
+        <div class="body-bold">{profile.rank} <span class="text-tertiary-content">out of {profile?.total}</span></div>
+      </div>
+      <div class="flex justify-end">
+        <div class="body-regular">Top {profile?.rankPercentile}</div>
+      </div>
     </div>
+  </div>
 
-    <!-- Battle and Explore Buttons -->
-    <!-- <div class="flex gap-4">
+  <!-- Battle and Explore Buttons -->
+  <!-- <div class="flex gap-4">
       <button class="btn btn-primary min-w-[156px] body-bold"> Battle </button>
       <button class="btn btn-primary min-w-[156px] body-bold bg-transparent"> Explore </button>
     </div> -->
-  </div>
 </div>
