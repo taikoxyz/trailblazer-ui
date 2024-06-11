@@ -5,7 +5,7 @@
 </script>
 
 <div
-  class="f-center relative flex-col w-full pt-[20px] xl:py-[217px] xl:px-[57px] gap-[80px] xl:gap-[132px] rounded-[30px] overflow-hidden">
+  class="f-center relative flex-col w-full pt-[50%] lg:pt-[20px] xl:py-[217px] xl:px-[57px] gap-[80px] xl:gap-[132px] rounded-[30px] overflow-hidden">
   <div class="f-center flex-col xl:flex-row w-full">
     <div class="f-center flex-col w-full">
       <!-- Title -->
