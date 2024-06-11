@@ -2,7 +2,6 @@
   import { fade } from 'svelte/transition';
 
   import PlayButton from '$images/play-button.svg';
-  import TeaserVideo from '$images/Taiko-tower-teaser.mp4';
 
   let time: number = 0;
   let duration: number | undefined;
@@ -21,11 +20,11 @@
     if (!duration) return; // video not loaded yet
     if (e.type !== 'touchmove' && !(e instanceof MouseEvent && e.buttons & 1)) return; // mouse not down
 
-    const clientX = e.type === 'touchmove' ? (e as TouchEvent).touches[0].clientX : (e as MouseEvent).clientX;
-    const { left, right } = (e.target as HTMLElement).getBoundingClientRect();
+    // const clientX = e.type === 'touchmove' ? (e as TouchEvent).touches[0].clientX : (e as MouseEvent).clientX;
+    // const { left, right } = (e.target as HTMLElement).getBoundingClientRect();
   }
 
-  function handleMousedown(e: MouseEvent): void {
+  function handleMousedown(): void {
     lastMouseDown = new Date();
   }
 

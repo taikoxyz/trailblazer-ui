@@ -25,6 +25,7 @@
 
 <div bind:this={outerRibbon} class="max-w-screen bg-pink-400 overflow-hidden h-6 f-center py-5">
   <div bind:this={ribbonGroup} class="w-full flex gap-[50px] animate-move">
+    <!-- eslint-disable-next-line @typescript-eslint/no-unused-vars -->
     {#each Array.from({ length: count + 2 }, (_, i) => i) as _}
       <!-- Add whatever repeating content here -->
       <div bind:this={innerRibbon} class="min-w-fit flex flex-nowrap break-keep overflow-visible">

@@ -1,10 +1,9 @@
 import { readContract } from '@wagmi/core';
 import type { Address } from 'viem';
 
-import { FactionNames, FACTIONS } from '$configs/badges';
 import { web3modal } from '$libs/connect';
 import { wagmiConfig } from '$libs/wagmi';
-import type { IChainId, IContractData } from '$types';
+import type { IChainId } from '$types';
 
 import { trailblazersBadgesAbi, trailblazersBadgesAddress } from '../../generated/abi/';
 

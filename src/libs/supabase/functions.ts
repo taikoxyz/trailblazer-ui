@@ -4,12 +4,12 @@ export async function savePngToSupabase(filename: string, svgData: string) {
   try {
     filename = filename.split('/')[0];
     // Upload SVG to Supabase storage
-    const { data, error } = await supabaseClient.storage.from('pinkify').upload(`${filename}.png`, svgData);
+    const { error } = await supabaseClient.storage.from('pinkify').upload(`${filename}.png`, svgData);
 
     if (error) {
       console.error('Error uploading PNG to Supabase:', error.message);
     } else {
-      console.log('PNG uploaded successfully');
+      console.info('PNG uploaded successfully');
     }
   } catch (error) {
     console.error('Error:', error);
@@ -20,12 +20,12 @@ export async function savePngToSupabase(filename: string, svgData: string) {
 export async function saveSvgToSupabase(filename: string, svgData: string) {
   try {
     // Upload SVG to Supabase storage
-    const { data, error } = await supabaseClient.storage.from('pinkify').upload(`${filename}.svg`, svgData);
+    const { error } = await supabaseClient.storage.from('pinkify').upload(`${filename}.svg`, svgData);
 
     if (error) {
       console.error('Error uploading SVG to Supabase:', error.message);
     } else {
-      console.log('SVG uploaded successfully');
+      console.info('SVG uploaded successfully');
     }
   } catch (error) {
     console.error('Error:', error);

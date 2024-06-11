@@ -2,7 +2,7 @@
   import { fade } from 'svelte/transition';
 
   import PlayButton from '$images/play-button.svg';
-  import TeaserVideo from '$images/Taiko-tower-teaser.mp4';
+
   let time: number = 0;
   let duration: number | undefined;
   let paused: boolean = true;
@@ -21,7 +21,7 @@
     if (e.type !== 'touchmove' && !(e instanceof MouseEvent && e.buttons & 1)) return; // mouse not down
   }
 
-  function handleMousedown(e: MouseEvent): void {
+  function handleMousedown(): void {
     lastMouseDown = new Date();
   }
 

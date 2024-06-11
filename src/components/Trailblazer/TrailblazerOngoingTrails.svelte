@@ -2,37 +2,6 @@
   import { TrailsCarousel } from '$components/Carousel';
   import { Icon } from '$components/Icon';
 
-  let trails = [
-    {
-      tag: 'tag',
-      image: 'path/to/image1.jpg',
-      title: 'Decentralized and permissionless nodes, proposers, and provers',
-      date: '12 Sep 2023',
-      readTime: '6 min read',
-    },
-    {
-      tag: 'tag',
-      image: 'path/to/image2.jpg',
-      title: "Taiko's code is open source and available on GitHub",
-      date: '12 Sep 2023',
-      readTime: '6 min read',
-    },
-    {
-      tag: 'tag',
-      image: 'path/to/image3.jpg',
-      title: 'An Ethereum-equivalent (Type 1) zkEVM means maximum compatibility with Ethereum',
-      date: '12 Sep 2023',
-      readTime: '6 min read',
-    },
-    {
-      tag: 'tag',
-      image: 'path/to/image4.jpg',
-      title: 'Decentralized and permissionless nodes, proposers, and provers',
-      date: '12 Sep 2023',
-      readTime: '6 min read',
-    },
-  ];
-
   let carouselElement: HTMLDivElement;
 
   function scrollLeft() {

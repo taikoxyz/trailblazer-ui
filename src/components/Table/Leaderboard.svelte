@@ -4,7 +4,6 @@
   import ExplorerLink from '$components/Links/ExplorerLink.svelte';
   import { Skeleton } from '$components/Mock';
   import { Leaderboard } from '$libs/leaderboard';
-  import { shortenAddress } from '$libs/util/shortenAddress';
   import { currentLeaderboard } from '$stores/leaderboard';
   let headers = ['Dapp', 'Address', 'Points'];
   // 0xE4eDb277e41dc89aB076a1F049f4a3EfA700bCE8 orbiter finance
@@ -100,7 +99,7 @@
       </tr>
     </thead>
     <tbody class="rounded-lg">
-      {#each $currentLeaderboard.items as thing, i}
+      {#each $currentLeaderboard.items as thing}
         <tr class="row h-12">
           <td class="lg:px-10">
             <div class="flex gap-[20px] align-center">

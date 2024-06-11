@@ -17,7 +17,7 @@
     "svelte:check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --ignore ./wagmi.config.ts --watch",
     "format": "prettier --write .",
     "lint": "prettier --check . && eslint .",
-    "lint:fix": "pnpm format && eslint . --fix",
+    "lint:fix": "eslint . --fix",
     "generate:abi": "cd ../taiko-mono.git/packages/nfts && pnpm compile && cd - && wagmi generate",
     "export:config": "pnpm ./scripts/exportJsonToEnv.js"
   },

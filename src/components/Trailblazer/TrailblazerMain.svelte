@@ -45,9 +45,3 @@
   <div class="absolute -z-20 bg-[url(/mobile.png)] hidden md:block lg:hidden w-full h-full bg-cover" />
   <div class="absolute -z-20 bg-[url(/small.png)] block md:hidden w-full h-full bg-cover" />
 </div>
-
-<style>
-  .bg-gradient-to-r {
-    background: linear-gradient(90deg, #051434 50.04%, rgba(5, 20, 52, 0) 98.25%);
-  }
-</style>
