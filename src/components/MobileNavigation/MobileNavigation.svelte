@@ -20,7 +20,7 @@
     <div class="flex flex-col w-full gap-2">
       <div class="collapse collapse-plus bg-neutral w-full rounded-box px-4">
         <input type="radio" name="my-accordion-3" checked />
-        <div class="collapse-title title-subsection-bold">Airdrop</div>
+        <div class="collapse-title title-subsection-bold">Trailblazers</div>
         <div class="collapse-content bg-neutral w-full rounded-box flex flex-col gap-4">
           <MobileNavigationLink on:navigate url="/" label="Home" />
           <MobileNavigationLink on:navigate url="/profile" label="Profile" />
