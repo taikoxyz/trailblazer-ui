@@ -1,62 +1,16 @@
 import { getAccount, reconnect } from '@wagmi/core';
 import { createWeb3Modal, defaultWagmiConfig } from '@web3modal/wagmi';
-import { defineChain } from 'viem';
+import { taiko, taikoHekla } from 'viem/chains';
 
-import { PUBLIC_WALLETCONNECT_PROJECT_ID } from '$env/static/public';
+import { PUBLIC_ENV, PUBLIC_WALLETCONNECT_PROJECT_ID } from '$env/static/public';
 
 const projectId = PUBLIC_WALLETCONNECT_PROJECT_ID;
 
-const taikoHekla = defineChain({
-  // Should be in viem package 2.9.18
-  id: 167009,
-  name: 'Taiko Hekla (Alpha-7 Testnet)',
-  network: 'tko-hekla',
-  nativeCurrency: { name: 'Ether', symbol: 'ETH', decimals: 18 },
-  rpcUrls: {
-    default: {
-      http: ['https://rpc.hekla.taiko.xyz'],
-    },
-    public: {
-      http: ['https://rpc.hekla.taiko.xyz'],
-    },
-  },
-  blockExplorers: {
-    default: {
-      name: 'taikoscan',
-      url: 'https://hekla.taikoscan.network',
-    },
-  },
-  testnet: true,
-});
-
-const taiko = defineChain({
-  // Should be in viem package 2.9.18
-  id: 167000,
-  name: 'Taiko',
-  network: 'tko',
-  nativeCurrency: { name: 'Ether', symbol: 'ETH', decimals: 18 },
-  rpcUrls: {
-    default: {
-      http: ['https://rpc.mainnet.taiko.xyz'],
-    },
-    public: {
-      http: ['https://rpc.mainnet.taiko.xyz'],
-    },
-  },
-  blockExplorers: {
-    default: {
-      name: 'etherscan',
-      url: 'https://taikoscan.io',
-    },
-  },
-  testnet: true,
-});
-
-const chains = [taiko, taikoHekla] as const;
+const chains = PUBLIC_ENV === 'development' ? [taikoHekla, taiko] : [taiko];
 const metadata = {
   name: 'Taiko Trailblazer',
   description: 'Taiko Trailblazer',
-  url: 'https://claim.taiko.xyz',
+  url: 'https://trailblazers.taiko.xyz/',
   icons: ['https://avatars.githubusercontent.com/u/99078433'],
 };
 
