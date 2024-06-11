@@ -13,20 +13,26 @@
   let loading = true;
 </script>
 
-<div class="flex bg-elevated-background p-5 gap-10 rounded-3xl w-fit">
-  <div class="flex flex-col gap-5">
-    <div class="avatar">
-      <div class=" bg-orange-400 rounded-3xl max-w-[224px]">
-        <img src={profile?.avatar} alt="avatar" />
-      </div>
+<div class="flex lg:bg-elevated-background p-5 rounded-3xl w-full flex-col lg:flex-row items-center">
+  <!-- <div class="flex flex-col gap-5 lg:w-1/2 w-full items-center lg:items-start lg:max-h-[300px] lg:max-w-[300px]"> -->
+  <div class="avatar w-1/2 items-center lg:mr-4">
+    <div class="h-full bg-orange-400 rounded-3xl">
+      <img src={profile?.avatar} alt="avatar" />
     </div>
-    <!-- <ProfileMultipliers /> -->
   </div>
+  <!-- <ProfileMultipliers /> -->
+  <!-- </div> -->
 
-  <div class="flex flex-col w-full gap-5 self-center">
-    <div class="flex w-full justify-between items-center gap-2">
+  <div class="flex flex-col gap-2 self-center lg:min-w-[300px]">
+    <div class="flex align-start justify-between items-center gap-2 mt-5 lg:mt-0">
       <div class="flex items-center gap-1">
-        <Icon type="user-circle"></Icon>Welcome, <span class="body-bold">{shortenAddress(profile?.address)}</span>
+        <Icon type="user-circle"></Icon>
+        <a
+          href={`https://taikoscan.io/address/${profile?.address}`}
+          target="_blank"
+          class="body-bold hover:cursor-pointer underline">
+          {shortenAddress(profile?.address)}
+        </a>
       </div>
 
       <!-- <div>{shortenAddress(profile?.address)} / {profile?.ens}</div> -->
@@ -34,33 +40,33 @@
 
     <!-- Points -->
     <div class="flex items-center gap-2">
-      <CountUp class="font-clash-grotesk font-semibold text-[45px] leading-none" value={$currentProfile?.points} />
+      <CountUp class="font-clash-grotesk font-semibold text-[45px] leading-none" value={$currentProfile?.score} />
       <div>points</div>
     </div>
     <!-- Faction -->
-    <div class="flex gap-2 items-center">
+    <!-- <div class="flex gap-2 items-center">
       <div class="flex rounded-full border border-divider-border p-0.5 pl-[15px] gap-2 items-center w-fit">
         <div class="flex text-secondary-content">Faction</div>
         <div class="flex rounded-full px-[10px] py-[6px] bg-primary-brand items-center body-bold">Ravers</div>
       </div>
 
       <div class="flex rounded-full px-[10px] py-[6px] bg-purple-600 items-center body-bold">Boosted</div>
-    </div>
+    </div> -->
     <!-- Rank & Experience -->
     <div class="flex flex-col gap-4">
-      <div class="flex justify-between body-bold">
-        <div>{profile?.rank}</div>
-        <div class="flex">
-          <CountUp value={profile?.points} /> /
-          <span class="text-tertiary-content">{profile?.points + profile?.pointsToNextLevel}</span>
+      <!-- <div class="flex justify-between body-bold"> -->
+      <!-- <div>{profile?.rank}</div> -->
+      <!-- <div class="flex">
+          <CountUp value={+profile?.rank} /> /
+          <span class="text-tertiary-content">{profile?.total}</span>
         </div>
-      </div>
+      </div> -->
       <!-- Experience Bar -->
 
-      <Bar
+      <!-- <Bar
         class="progress progress-secondary w-full h-3"
-        value={profile?.points}
-        maxValue={profile?.points + profile?.pointsToNextLevel} />
+        value={+profile?.rank}
+        maxValue={profile.total ? +profile?.total : 0} /> -->
       <!-- Profile Percentile & Position -->
       <!-- <div class="flex justify-between body-bold">
         <div class="text-tertiary-content">Top {profile?.rankPercentile} %</div>

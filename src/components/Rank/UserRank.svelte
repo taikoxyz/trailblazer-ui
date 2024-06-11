@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Leaderboard } from '$components/Table';
+  import { UserLeaderboard } from '$components/Table';
 </script>
 
 <div class="flex flex-col w-full h-full items-center gap-8">
@@ -13,7 +13,7 @@
         class="tab"
         checked={i === 0} /> -->
       <!-- <div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6"> -->
-        <Leaderboard />
+        <UserLeaderboard />
       <!-- </div> -->
     <!-- {/each} -->
   <!-- </div> -->

@@ -9,10 +9,10 @@
   import { Header } from '$components/Header';
   import { NotificationToast } from '$components/NotificationToast';
   import { Ribbon } from '$components/Ribbon';
-  import { SwitchChainModal } from '$components/SwitchChainModal';
   import { startWatching as startWatchingX, stopWatching as stopWatchingX } from '$libs/supabase';
-  import { startWatching, stopWatching } from '$libs/wagmi';
+  import { startWatching, stopWatching, wagmiConfig } from '$libs/wagmi';
   import { browser } from '$app/environment';
+  import { reconnect } from '@wagmi/core';
 
   const syncPointer = ({ x, y }: { x: number; y: number }) => {
     document.documentElement.style.setProperty('--x', x.toFixed(2));
@@ -21,26 +21,21 @@
     document.documentElement.style.setProperty('--yp', (y / window.innerHeight).toFixed(2));
   };
 
-  onMount(async () => {
-    await startWatching();
-    startWatchingX();
-    document.body.addEventListener('pointermove', syncPointer);
+  onMount(() => {
+    reconnect(wagmiConfig);
+    startWatching();
   });
 
   onDestroy(() => {
     stopWatching();
     stopWatchingX();
-
     browser && document.body.removeEventListener('pointermove', syncPointer);
   });
 </script>
 
 <!-- App components -->
-<Ribbon></Ribbon>
 <Header />
-<main>
-  <slot />
-</main>
+<slot />
 
 <Footer />
 
@@ -50,7 +45,4 @@
 -->
 
 <NotificationToast />
-
 <AccountConnectionToast />
-
-<SwitchChainModal />

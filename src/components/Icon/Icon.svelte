@@ -46,7 +46,9 @@
     | 'semi-circle-reversed'
     | 'quad-circles'
     | 'diamond'
-    | 'twitter';
+    | 'twitter'
+    | 'clock'
+    | 'calendar';
 </script>
 
 <script lang="ts">
@@ -557,6 +559,22 @@
       <path
         d="M12.6009 0H15.0544L9.69434 6.12618L16 14.4625H11.0627L7.19566 9.40657L2.77087 14.4625H0.31595L6.04904 7.90989L0 0H5.06262L8.55811 4.62133L12.6009 0ZM11.7399 12.994H13.0993L4.32392 1.39137H2.86506L11.7399 12.994Z"
         fill="#CACBCE" />
+    </svg>
+  {:else if type === 'clock'}
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 19" fill="none">
+      <circle cx="9" cy="9.78125" r="6.5" stroke="#ADB1B8" />
+      <path
+        d="M12.375 9.78125H9.15625C9.06996 9.78125 9 9.71129 9 9.625V7.15625"
+        stroke="#ADB1B8"
+        stroke-linecap="round" />
+    </svg>
+  {:else if type === 'calendar'}
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 18" fill="none">
+      <rect x="2.25" y="4.5" width="13.5" height="11.25" rx="1.25" stroke="#ADB1B8" />
+      <path d="M3 8.25H15" stroke="#ADB1B8" stroke-linecap="round" />
+      <path d="M6.75 12H11.25" stroke="#ADB1B8" stroke-linecap="round" />
+      <path d="M6 2.25L6 5.25" stroke="#ADB1B8" stroke-linecap="round" />
+      <path d="M12 2.25L12 5.25" stroke="#ADB1B8" stroke-linecap="round" />
     </svg>
   {/if}
 </svg>
