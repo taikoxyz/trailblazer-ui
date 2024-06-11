@@ -1,5 +1,4 @@
 import { getAccount } from '@wagmi/core';
-import { get } from 'svelte/store';
 
 import { PUBLIC_TRAILBLAZER_API_URL } from '$env/static/public';
 import { wagmiConfig } from '$libs/wagmi';
@@ -64,8 +63,6 @@ export class Profile {
         return { ...current, pointsHistory };
       });
     }
-
-    console.log(get(currentProfile));
   }
 
   static async getStatistics() {

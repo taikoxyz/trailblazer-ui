@@ -1,6 +1,7 @@
 import { watchAccount } from '@wagmi/core';
 import { get } from 'svelte/store';
 
+import { Profile } from '$libs/profile';
 import { refreshUserBalance } from '$libs/util/balance';
 import { account, address } from '$stores/account';
 
@@ -21,6 +22,9 @@ export async function startWatching() {
         await refreshUserBalance();
         // Update address if differen t
         if (data.address !== get(address)) {
+          console.log(`Address Changed: ${data.address}`);
+          await Profile.getProfile(data.address);
+          await Profile.getUserPointsHistory(data.address);
           address.set(data.address);
         }
         isWatching = true;

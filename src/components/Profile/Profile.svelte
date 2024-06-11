@@ -16,17 +16,16 @@
 
   $: if ($account) {
     let address = $account.address;
-    Profile.getProfile(address);
-    Profile.getUserPointsHistory(address);
+    console.log('🚀 | address:', address);
   }
 
-  // onMount(async () => {
-  //   // get slug
-  //   let address = $page.params.address;
+  onMount(async () => {
+    // get slug
+    let address = $page.params.address;
 
-  //   await Profile.getProfile(address);
-  //   await Profile.getUserPointsHistory(address);
-  // });
+    await Profile.getProfile(address);
+    await Profile.getUserPointsHistory(address);
+  });
 </script>
 
 <div class="flex flex-col items-center">
