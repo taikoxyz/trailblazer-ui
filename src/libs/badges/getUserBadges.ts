@@ -29,28 +29,17 @@ export async function getUserBadges(address: Address): Promise<Record<FactionNam
   const result = await readContract(config, {
     abi: trailblazersBadgesAbi,
     address: contractAddress,
-    functionName: 'balanceOfBatch',
+    functionName: 'badgeBalances',
     args: [
-      [address, address, address, address, address, address, address, address],
-      [
-        BigInt(FACTIONS.Ravers),
-        BigInt(FACTIONS.Robots),
-        BigInt(FACTIONS.Bouncers),
-        BigInt(FACTIONS.Masters),
-        BigInt(FACTIONS.Monks),
-        BigInt(FACTIONS.Drummers),
-        BigInt(FACTIONS.Androids),
-        BigInt(FACTIONS.Shinto),
-      ],
+      address
     ],
     chainId,
   });
 
   const factionNames = Object.keys(FactionNames);
 
-  result.forEach((bigInt, index) => {
-    const num = parseInt(bigInt.toString());
-    out[factionNames[index] as FactionNames] = num > 0;
+  result.forEach((owned, index) => {
+    out[factionNames[index] as FactionNames] = owned;
   });
 
   return out;

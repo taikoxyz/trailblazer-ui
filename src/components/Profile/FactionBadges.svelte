@@ -1,9 +1,6 @@
 <script lang="ts">
   import { getUserBadges } from '$libs/badges/getUserBadges';
-  import { classNames } from '$libs/util/classNames';
-  import { MOCK_USER_FACTIONS } from '$mocks';
   import { account } from '$stores/account';
-  import { onMount } from 'svelte';
 
   import FactionBadgeItem from './FactionBadgeItem.svelte';
   import { FactionNames } from '$configs/badges';
