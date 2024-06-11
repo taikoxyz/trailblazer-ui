@@ -9,7 +9,7 @@ import type { IChainId, IContractData } from '$types';
 import { trailblazersBadgesAbi, trailblazersBadgesAddress } from '../../generated/abi';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-async function signHash(config: any, address: Address, badgeId: number): Promise<IContractData> {
+async function signHash(config: any, address: Address, badgeId: number, chainId: number): Promise<IContractData> {
   const challenge = Date.now().toString();
   const signature = await signMessage(config, { message: challenge });
 
@@ -26,11 +26,12 @@ async function signHash(config: any, address: Address, badgeId: number): Promise
       signature,
       message: challenge,
       badgeId,
-      chainId: config.chainId,
+      chainId,
     }),
   });
 
   const mintSignature = await res.json();
+
   return `0x${mintSignature}`;
 }
 
@@ -42,6 +43,7 @@ export default async function getMintSignature(
   if (!selectedNetworkId) return { signature: '0x0', hash: '0x0' };
 
   const chainId = selectedNetworkId as IChainId;
+
   const contractAddress = trailblazersBadgesAddress[chainId];
 
   const hash = await readContract(wagmiConfig, {
@@ -52,7 +54,6 @@ export default async function getMintSignature(
     chainId,
   });
 
-  const signature = await signHash(wagmiConfig, address, factionId);
-  console.log({ signature, hash });
+  const signature = await signHash(wagmiConfig, address, factionId, chainId);
   return { signature, hash };
 }

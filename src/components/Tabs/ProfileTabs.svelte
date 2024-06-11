@@ -14,11 +14,11 @@
       content: Transactions,
       checked: true,
     },
-    // {
-    //   name: 'Faction Badges',
-    //   content: ProfileFactions,
-    //   checked: false,
-    // },
+{
+  name: 'Faction Badges',
+  content: ProfileFactions,
+  checked: false,
+},
     // {
     //   name: 'Achievements',
     //   content: ProfileAchievements,

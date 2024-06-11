@@ -4,13 +4,14 @@
   import getMintSignature from '$libs/badges/getMintSignature';
   import type { UserFactionBadge } from '$libs/profile';
   import { account } from '$stores/account';
-  import { onMount } from 'svelte';
 
   import FactionImage from './FactionImage.svelte';
+  import type { Address } from 'viem';
 
   export let name: FactionNames;
   export let unlocked: boolean = false;
   export let claimable: boolean = false;
+  export let address: Address;
 
   let disabled = '';
   let bg = "bg-[url('/src/public/images/booster-bg.svg')]";
@@ -34,11 +35,11 @@
 
   $: isClaiming = false;
   async function handleClick() {
-    if (claimable && $account && $account.address) {
+    if (claimable /*&& $account && $account.address*/) {
       try {
         disabled = 'btn-disabled border-transparent block';
         isClaiming = true;
-        await claimBadge($account.address, FACTIONS[name]);
+        await claimBadge(address, FACTIONS[name]);
         unlocked = true;
       } catch (e) {
         console.error(e);
@@ -50,16 +51,16 @@
   }
 </script>
 
-{#if $account && $account.address}
-  <div
-    class="{shadow} flex w-full min-h-[306px] max-w-[306px] border-2 border-primary-border-hover rounded-[20px] bg-[#310E2F]">
-    <div class="w-full relative pt-[28px] pb-[20px] px-[20px] flex flex-col justify-between">
-      <div class="w-full flex flex-col items-center {blur}">
-        <div>
-          <FactionImage {unlocked} address={$account.address} type={name} />
-        </div>
+<div
+  class="{shadow} flex w-full min-h-[306px] max-w-[306px] border-2 border-primary-border-hover rounded-[20px] bg-[#310E2F]">
+  <div class="w-full relative pt-[28px] pb-[20px] px-[20px] flex flex-col justify-between">
+    <div class="w-full flex flex-col items-center {blur}">
+      <div>
+        <FactionImage {unlocked} {address} type={name} />
       </div>
-      <div class="absolute bottom-8 place-self-center w-full px-6">
+    </div>
+    <div class="absolute bottom-8 place-self-center w-full px-6">
+      {#if $account && $account.address && $account.address.toLowerCase() === address.toLowerCase()}
         <button on:click={handleClick} class="btn btn-primary {disabled} btn-block">
           {#if isClaiming}
             <span class="loading loading-spinner loading-md"></span>
@@ -67,7 +68,7 @@
             {claimable ? 'Claim' : 'Locked'}
           {/if}
         </button>
-      </div>
+      {/if}
     </div>
   </div>
-{/if}
+</div>
