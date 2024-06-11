@@ -25,7 +25,7 @@
 
   <!-- </div> -->
 
-  <div class="flex flex-col gap-2 self-center lg:min-w-[300px]">
+  <div class="flex flex-col gap-2 self-center lg:min-w-[300px] w-full">
     <div class="flex align-start justify-between items-center gap-2 mt-5 lg:mt-0">
       <div class="flex items-center gap-1">
         <Icon type="user-circle"></Icon>

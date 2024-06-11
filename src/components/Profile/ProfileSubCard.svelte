@@ -15,7 +15,7 @@
   };
 </script>
 
-<div class="flex flex-col w-full max-w-[312px] h-full">
+<div class="flex flex-col w-full lg:max-w-[312px] h-full mb-4 lg:mb-0">
   <div class="flex flex-col gap-8 rounded-[30px] {props.color} bg-opacity-20 px-5 pt-[28px] pb-[39px] h-full">
     <slot></slot>
   </div>
