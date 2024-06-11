@@ -15,7 +15,7 @@
 </script>
 
 <div class="absolute w-full f-center top-0 z-50">
-  <div class="container f-center w-full px-[75px]">
+  <div class="container f-center w-full px-[20px] lg:px-[75px]">
     <div class=" flex body-regular items-center justify-between box-border w-full mt-8 py-2 rounded-full lg:bg-none">
       <!-- Mobile Burger Button -->
       <button
@@ -42,7 +42,6 @@
             Profile
           </div>
         </a>
-
         <a class="f-center" href="/leaderboard">
           <div
             class="hover:cursor-pointer rounded-full lg:bg-neutral-background lg:hover:bg-elevated-background px-[20px] py-[12px] f-center">
