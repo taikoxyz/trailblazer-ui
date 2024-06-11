@@ -1,6 +1,5 @@
 <script>
-  import { FactionCollection } from '$components/Carousel';
-  import Carousel from '$components/Carousel/Carousel.svelte';
+  import { NFTCollection } from '$components/Carousel';
   import Placeholder from '$images/placeholder.png';
 </script>
 
@@ -15,5 +14,5 @@
     <h1>Collection</h1>
   </div>
 
-  <FactionCollection></FactionCollection>
+  <NFTCollection></NFTCollection>
 </div>

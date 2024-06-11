@@ -16,7 +16,6 @@ if (!supabaseUrl || !supabaseAnonKey) {
 export const supabaseClient = createClient(supabaseUrl, supabaseAnonKey);
 
 export function getSession() {
-  console.log(get(session));
   return supabaseClient.auth.getSession();
 }
 
@@ -27,6 +26,7 @@ export function startWatching() {
   if (!isWatching) {
     const { data } = supabaseClient.auth.onAuthStateChange((_event, _session) => {
       session.set(_session);
+
       // if (_session && _session.provider_token) {
       //     window.localStorage.setItem('oauth_provider_token', session.provider_token)
       // }
@@ -47,7 +47,6 @@ export function startWatching() {
         // handle sign in event
         twitterUsername.set(_session?.user?.user_metadata?.preferred_username);
         twitterId.set(_session?.user?.user_metadata?.provider_id);
-
         twitterAvatarUrl.set(parseTwitterImage(_session?.user?.user_metadata?.avatar_url));
         twitterAvatarId.set(parseTwitterAvatarId(_session?.user?.user_metadata?.avatar_url));
       } else if (_event === 'SIGNED_OUT') {
@@ -71,11 +70,8 @@ export function startWatching() {
 }
 
 export function stopWatching() {
-  if (typeof unWatchAccount === 'function') {
-    unWatchAccount();
-    isWatching = false;
-  }
-
+  unWatchAccount && unWatchAccount();
+  isWatching = false;
 }
 
 export function handleSupabaseLogout() {

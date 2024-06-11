@@ -19,8 +19,8 @@ export default {
         xl: '1362px',
         // => @media (min-width: 1280px) { ... }
 
-        '2xl': '1536px',
-        // => @media (min-width: 1536px) { ... }
+        '2xl': '1512px',
+        // => @media (min-width: 1512px) { ... }
       },
       keyframes: {
         'slide-right': {
@@ -139,7 +139,7 @@ export default {
         },
 
         purple: {
-          DEFAULT: '#1B0E3E'
+          DEFAULT: '#1B0E3E',
         },
 
         /*******************
@@ -214,6 +214,12 @@ export default {
           interactive: {
             disabled: 'var(--dialog-dialog-interactive-disabled)',
           },
+        },
+
+        neutral: {
+          DEFAULT: 'var(--neutral-background)',
+          background: 'var(--neutral-background)',
+          content: 'var(--neutral-content)',
         },
 
         'gradient-pink': 'var(--gradient-pink)',

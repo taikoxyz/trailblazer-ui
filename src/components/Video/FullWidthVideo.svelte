@@ -22,7 +22,6 @@
 
     const clientX = e.type === 'touchmove' ? (e as TouchEvent).touches[0].clientX : (e as MouseEvent).clientX;
     const { left, right } = (e.target as HTMLElement).getBoundingClientRect();
-    // time = (duration * (clientX - left)) / (right - left);
   }
 
   function handleMousedown(e: MouseEvent): void {
@@ -41,7 +40,7 @@
 <div class="relative flex justify-self-center overflow-visible w-screen cursor-pointer">
   <video
     class="w-full"
-    src="teaser-video.mp4"
+    src="https://gmku2ryolc4ua2nz.public.blob.vercel-storage.com/COT-Video-01-vAJDpE9AFumdT7YQxBJ5pwttVuoM12.mp4"
     on:mousemove={handleMove}
     on:touchmove|preventDefault={handleMove}
     on:mousedown={handleMousedown}

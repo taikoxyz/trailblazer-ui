@@ -43,9 +43,13 @@
     | 'settings'
     | 'swap'
     | 'star'
+    | 'star2'
     | 'semi-circle-reversed'
     | 'quad-circles'
-    | 'diamond';
+    | 'diamond'
+    | 'twitter'
+    | 'clock'
+    | 'calendar';
 </script>
 
 <script lang="ts">
@@ -514,6 +518,17 @@
       stroke-width="1.5"
       stroke-linecap="round"
       stroke-linejoin="round" />
+  {:else if type === 'star2'}
+    <g clip-path="url(#clip0_566_6238)">
+      <path
+        d="M7.01778 14C6.79699 14 6.61036 13.8401 6.55689 13.6259C6.38646 12.9432 6.06021 12.2172 5.57812 11.4479C5.00695 10.5243 4.19271 9.66756 3.13542 8.87761C2.21584 8.18258 1.29627 7.70861 0.376697 7.45577C0.158904 7.39592 0 7.20279 0 6.97691C0 6.75546 0.152791 6.56456 0.365731 6.50376C1.26732 6.24634 2.13585 5.82842 2.97135 5.25C3.93142 4.5816 4.7335 3.77951 5.3776 2.84375C5.9474 2.01015 6.33855 1.18572 6.55104 0.370445C6.60671 0.156866 6.79473 0 7.01547 0C7.23863 0 7.42798 0.160341 7.4823 0.376831C7.60494 0.865578 7.7966 1.36584 8.05728 1.8776C8.38544 2.50955 8.80467 3.11718 9.31511 3.70052C9.83766 4.2717 10.421 4.7882 11.0651 5.25C11.9068 5.84662 12.7624 6.26578 13.6321 6.50748C13.8454 6.56676 14 6.75671 14 6.97812C14 7.20286 13.8407 7.39438 13.624 7.45381C13.0728 7.60494 12.5054 7.84868 11.9219 8.18489C11.217 8.5981 10.5608 9.09027 9.95309 9.66147C9.34549 10.2205 8.84723 10.8099 8.45831 11.4297C7.97531 12.2005 7.64869 12.9322 7.47859 13.6247C7.42581 13.8396 7.23891 14 7.01778 14Z"
+        fill="#EE42AD" />
+    </g>
+    <defs>
+      <clipPath id="clip0_566_6238">
+        <rect width="14" height="14" fill="white" />
+      </clipPath>
+    </defs>
   {:else if type === 'semi-circle-reversed'}
     <g clip-path="url(#clip0_257_2071)">
       <path
@@ -551,5 +566,27 @@
         <rect width="20" height="20" fill="white" />
       </clipPath>
     </defs>
+  {:else if type === 'twitter'}
+    <svg viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path
+        d="M12.6009 0H15.0544L9.69434 6.12618L16 14.4625H11.0627L7.19566 9.40657L2.77087 14.4625H0.31595L6.04904 7.90989L0 0H5.06262L8.55811 4.62133L12.6009 0ZM11.7399 12.994H13.0993L4.32392 1.39137H2.86506L11.7399 12.994Z"
+        fill="#CACBCE" />
+    </svg>
+  {:else if type === 'clock'}
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 19" fill="none">
+      <circle cx="9" cy="9.78125" r="6.5" stroke="#ADB1B8" />
+      <path
+        d="M12.375 9.78125H9.15625C9.06996 9.78125 9 9.71129 9 9.625V7.15625"
+        stroke="#ADB1B8"
+        stroke-linecap="round" />
+    </svg>
+  {:else if type === 'calendar'}
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 18" fill="none">
+      <rect x="2.25" y="4.5" width="13.5" height="11.25" rx="1.25" stroke="#ADB1B8" />
+      <path d="M3 8.25H15" stroke="#ADB1B8" stroke-linecap="round" />
+      <path d="M6.75 12H11.25" stroke="#ADB1B8" stroke-linecap="round" />
+      <path d="M6 2.25L6 5.25" stroke="#ADB1B8" stroke-linecap="round" />
+      <path d="M12 2.25L12 5.25" stroke="#ADB1B8" stroke-linecap="round" />
+    </svg>
   {/if}
 </svg>

@@ -1,14 +1,15 @@
 import { createWeb3Modal } from '@web3modal/wagmi';
 
+import { browser } from '$app/environment';
 import { PUBLIC_WALLETCONNECT_PROJECT_ID } from '$env/static/public';
 import { getChainImages } from '$libs/chain';
-import { config } from '$libs/wagmi';
+import { wagmiConfig } from '$libs/wagmi';
 
 const projectId = PUBLIC_WALLETCONNECT_PROJECT_ID;
 const chainImages = getChainImages();
 
 export const web3modal = createWeb3Modal({
-  wagmiConfig: config,
+  wagmiConfig: wagmiConfig,
   projectId,
   featuredWalletIds: [],
   allowUnsupportedChain: true,
@@ -22,5 +23,5 @@ export const web3modal = createWeb3Modal({
     '--w3m-border-radius-master': '9999px',
     '--w3m-accent': 'var(--primary-brand)',
   },
-  themeMode: (localStorage.getItem('theme') as 'dark' | 'light') ?? 'dark',
+  themeMode: browser ? (localStorage.getItem('theme') as 'dark' | 'light') ?? 'dark' : 'dark',
 });

@@ -1,9 +1,12 @@
 export type UserProfile = {
   address: string;
-  pointsHistory: UserPointHistoryPage;
-  points: number;
+  pointsHistory?: UserPointHistoryPage;
+  score: number;
   pointsToNextLevel: number;
   rank: string;
+  title: string;
+  level: string;
+  total: string;
   leaderboardPosition: string;
   faction: UserFaction;
   avatar?: string;
@@ -28,9 +31,15 @@ export type UserFaction = {
   boostedOrBased: BoostedOrBased;
 };
 
+export type UserLevel = {
+  level: number;
+  title: string;
+};
+
 // UserFactionBadge type extends UserFaction
 export type UserFactionBadge = UserFaction & {
   unlocked: boolean;
+  claimable: boolean;
 };
 
 export type Faction = 'Ravers' | 'Robots' | 'Bouncers' | 'Masters' | 'Monks' | 'Drummers' | 'Androids' | 'Shinto';
@@ -55,7 +64,7 @@ export type UserPointHistoryPage = {
   visible: number;
 };
 
-export type Event = 'ETHBridged' | 'ERC20Bridged' | 'ERC721Bridged';
+export type Event = 'Transaction' | 'TransactionValue' | 'BlockProposed';
 
 export type UserPointHistory = {
   address: string;

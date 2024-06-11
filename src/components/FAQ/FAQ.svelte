@@ -3,7 +3,7 @@
   import { MOCK_FAQS } from '../../tests/mocks/faq';
 </script>
 
-<div class="w-full px-0 xl:p-0">
+<div class="w-full px-5 xl:p-0">
   <div class="pb-[30px]">
     <div class="display-large-medium">FAQs</div>
   </div>

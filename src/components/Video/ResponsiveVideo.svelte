@@ -1,4 +1,7 @@
 <script lang="ts">
+  import { fade } from 'svelte/transition';
+  import PlayButton from '$images/play-button.svg';
+  import TeaserVideo from '$images/Taiko-tower-teaser.mp4';
   let time: number = 0;
   let duration: number | undefined;
   let paused: boolean = true;
@@ -15,10 +18,6 @@
 
     if (!duration) return; // video not loaded yet
     if (e.type !== 'touchmove' && !(e instanceof MouseEvent && e.buttons & 1)) return; // mouse not down
-
-    const clientX = e.type === 'touchmove' ? (e as TouchEvent).touches[0].clientX : (e as MouseEvent).clientX;
-    const { left, right } = (e.target as HTMLElement).getBoundingClientRect();
-    time = (duration * (clientX - left)) / (right - left);
   }
 
   function handleMousedown(e: MouseEvent): void {
@@ -31,25 +30,45 @@
       else (e.target as HTMLVideoElement).pause();
     }
   }
+
+  function clickHandler() {
+    const video = document.querySelector('video');
+    if (video) {
+      if (video.paused) {
+        video.play();
+      } else {
+        video.pause();
+      }
+    }
+  }
 </script>
 
 <!-- video with frame -->
-<div class="relative justify-self-center overflow-visible rounded-[30px] container">
+<div class="relative flex justify-self-center overflow-visible rounded-[30px] container">
   <video
     class="w-full rounded-[30px]"
-    poster="https://sveltejs.github.io/assets/caminandes-llamigos.jpg"
-    src="https://sveltejs.github.io/assets/caminandes-llamigos.mp4"
+    src="https://gmku2ryolc4ua2nz.public.blob.vercel-storage.com/COT-Video-01-vAJDpE9AFumdT7YQxBJ5pwttVuoM12.mp4"
     on:mousemove={handleMove}
     on:touchmove|preventDefault={handleMove}
     on:mousedown={handleMousedown}
     on:mouseup={handleMouseup}
+    on:mouseenter={() => (showControls = true)}
+    on:mouseleave={() => (showControls = false)}
     bind:currentTime={time}
     bind:duration
     bind:paused>
     <track kind="captions" />
   </video>
-  <div class="controls" style="opacity: {duration && showControls ? 1 : 0}">
-    <progress value={time / duration || 0} />
+
+  <div
+    transition:fade={{ delay: 10, duration: 10 }}
+    class="{showControls
+      ? 'opacity-100 cursor-pointer'
+      : 'opacity-50'} flex hover:opacity-100 absolute self-center justify-self-center w-full justify-center z-10 {paused ||
+      'hidden'}">
+    <button class="" on:click={clickHandler}>
+      <img class="scale-50 self-center" src={PlayButton} alt={PlayButton} />
+    </button>
   </div>
 </div>
 
@@ -59,21 +78,5 @@
     bottom: 0;
     width: 100%;
     transition: opacity 1s;
-  }
-
-  progress {
-    display: block;
-    width: 100%;
-    height: 10px;
-    -webkit-appearance: none;
-    appearance: none;
-  }
-
-  progress::-webkit-progress-bar {
-    background-color: rgba(0, 0, 0, 0.2);
-  }
-
-  progress::-webkit-progress-value {
-    background-color: rgba(255, 255, 255, 0.6);
   }
 </style>

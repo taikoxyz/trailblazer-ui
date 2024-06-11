@@ -5,13 +5,14 @@
   import { ActionButton } from '$components/Button';
   import { Icon } from '$components/Icon';
   import { getChainImage } from '$libs/chain';
-  import { web3modal } from '$libs/connect';
-  import { refreshUserBalance, renderEthBalance } from '$libs/util/balance';
+  import { wagmiConfig, web3Modal } from '$libs/wagmi';
+
+  import { renderEthBalance } from '$libs/util/balance';
   import { noop } from '$libs/util/noop';
   import { shortenAddress } from '$libs/util/shortenAddress';
   import { account } from '$stores/account';
   import { ethBalance } from '$stores/balance';
-  import { connectedSourceChain } from '$stores/network';
+  import { getChainId } from '@wagmi/core';
 
   $: connected = $account?.isConnected;
 
@@ -20,21 +21,21 @@
 
   function connectWallet() {
     if (web3modalOpen) return;
-    web3modal.open();
+    console.log($account.isConnected);
+    web3Modal.open();
   }
 
   function onWeb3Modal(state: { open: boolean }) {
     web3modalOpen = state.open;
   }
 
-  $: currentChainId = $connectedSourceChain?.id;
+  $: currentChainId = getChainId(wagmiConfig);
   $: accountAddress = $account?.address || '';
 
   $: balance = $ethBalance || 0n;
 
   onMount(async () => {
-    unsubscribeWeb3Modal = web3modal.subscribeState(onWeb3Modal);
-    await refreshUserBalance();
+    unsubscribeWeb3Modal = web3Modal.subscribeState(onWeb3Modal);
   });
 
   onDestroy(unsubscribeWeb3Modal);
@@ -49,7 +50,7 @@
       <div class="flex w-full">{renderEthBalance(balance)}</div>
     </div>
     <div
-      class="flex items-center text-tertiary-content btn-glass-bg rounded-full px-[10px] py-[4px] md:min-h-[38px] bg-tertiary-background my-2">
+      class="flex items-center btn-glass-bg text-secondary-content rounded-full px-[10px] py-[4px] md:min-h-[38px] bg-tertiary-background my-2">
       {shortenAddress(accountAddress, 4, 4)}
     </div>
   </button>
