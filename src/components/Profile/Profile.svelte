@@ -30,7 +30,7 @@
 
 <div class="flex flex-col items-center">
   <div class="flex flex-col max-w-section w-full lg:gap-8">
-    <div class="flex flex-col lg:flex-row px-4 lg:px-0 gap-8 h-full box-content">
+    <div class="flex px-4 lg:px-0 gap-8 h-full box-content flex-col lg:flex-row">
       <!-- Profile Card -->
       <ProfileCard />
 
