@@ -12,6 +12,7 @@
     web3modal.open({ view: 'Connect' });
   }
   async function load() {
+    console.log('called load')
     if ($account && $account.address) {
       window.location.href = `/profile/${$account.address}`;
       console.log('redirecting', `/profile/${$account.address}`);

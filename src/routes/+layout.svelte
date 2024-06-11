@@ -4,14 +4,13 @@
 
   import { onDestroy, onMount } from 'svelte';
 
-  // import { AccountConnectionToast } from '$components/AccountConnectionToast';
+  import { AccountConnectionToast } from '$components/AccountConnectionToast';
   import { Footer } from '$components/Footer';
   import { Header } from '$components/Header';
   import { NotificationToast } from '$components/NotificationToast';
   import { startWatching as startWatchingX, stopWatching as stopWatchingX } from '$libs/supabase';
   import { startWatching, stopWatching, wagmiConfig } from '$libs/wagmi';
   import { browser } from '$app/environment';
-  import { AccountConnectionToast } from '$components/AccountConnectionToast';
 
   const syncPointer = ({ x, y }: { x: number; y: number }) => {
     document.documentElement.style.setProperty('--x', x.toFixed(2));

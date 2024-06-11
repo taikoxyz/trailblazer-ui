@@ -41,6 +41,9 @@ importers:
       events:
         specifier: ^3.3.0
         version: 3.3.0
+      intl-messageformat:
+        specifier: ^10.5.14
+        version: 10.5.14
       object-hash:
         specifier: ^3.0.0
         version: 3.0.0
