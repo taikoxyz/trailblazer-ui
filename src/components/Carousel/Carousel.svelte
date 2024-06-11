@@ -67,6 +67,7 @@
     <Icon type="chevron-left" class="-translate-x-[2px]"></Icon>
   </button>
   <div bind:this={carousel} class="carousel w-full overflow-scroll rounded-box gap-8 max-w-[1362px]">
+    <!-- eslint-disable-next-line @typescript-eslint/no-unused-vars -->
     {#each carouselItems as carouselItem}
       <CarouselItem />
     {/each}

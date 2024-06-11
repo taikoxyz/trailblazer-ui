@@ -20,7 +20,6 @@
 
   function connectWallet() {
     if (web3modalOpen) return;
-    console.log($account.isConnected);
     web3Modal.open();
   }
 

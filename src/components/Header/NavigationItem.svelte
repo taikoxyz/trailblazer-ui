@@ -17,6 +17,7 @@
     </a>
     <ul
       class="dropdown-delay dropdown-content bg-overlay-background opacity-100 -left-1/3 z-[1] menu p-4 mt-2 shadow rounded-box w-52 body-regular">
+      <!-- eslint-disable-next-line @typescript-eslint/no-unused-vars -->
       {#each Object.entries(children) as [key, value]}
         <li>
           <a href={value.url} class="flex items-center gap-4">{value.name}</a>

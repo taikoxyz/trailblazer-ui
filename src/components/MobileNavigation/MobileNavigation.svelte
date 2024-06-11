@@ -1,5 +1,4 @@
 <script>
-  import { createEventDispatcher } from 'svelte';
   import { fly } from 'svelte/transition';
 
   import ConnectButton from '$components/ConnectButton/ConnectButton.svelte';

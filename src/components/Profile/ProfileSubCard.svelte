@@ -9,7 +9,6 @@
     color: 'bg-elevated-background',
     actionText: 'Action',
   };
-
 </script>
 
 <div class="flex flex-col w-full lg:max-w-[312px] mb-4 lg:mb-0">

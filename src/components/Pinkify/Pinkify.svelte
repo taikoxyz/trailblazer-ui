@@ -29,8 +29,6 @@
       provider: 'twitter',
       options: { redirectTo: currentPage },
     });
-
-
   }
 
   async function checkSigned() {
@@ -120,7 +118,6 @@
   let generated = false;
   let signing = false;
   let signed = false;
-
 </script>
 
 <!-- {@html svg} -->

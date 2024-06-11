@@ -43,7 +43,7 @@
               <img class={item.locked ? 'blur-lg' : ''} src={item.image} alt={item.image} />
               <div
                 class="absolute flex card-contents p-4 left-0 top-0 h-full w-full flex-col font-clash-grotesk display-small-medium text-white">
-                {#each item.name.toUpperCase().split('') as letter, i}
+                {#each item.name.toUpperCase().split('') as letter}
                   <div class="w-fit pink-glow">{letter}</div>
                 {/each}
               </div>

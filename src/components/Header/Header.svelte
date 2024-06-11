@@ -11,7 +11,6 @@
   let mobileMenu = false;
 
   function toggleMobileMenu() {
-    console.log('toggleMobileMenu');
     mobileMenu = !mobileMenu;
   }
 </script>
