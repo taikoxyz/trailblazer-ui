@@ -1,9 +1,12 @@
 export type UserProfile = {
   address: string;
   pointsHistory?: UserPointHistoryPage;
-  points: number;
+  score: number;
   pointsToNextLevel: number;
   rank: string;
+  title: string;
+  level: string;
+  total: string;
   leaderboardPosition: string;
   faction: UserFaction;
   avatar?: string;
@@ -26,6 +29,11 @@ export type BoosterType = 'nft' | 'stake' | 'bridge';
 export type UserFaction = {
   faction: Faction;
   boostedOrBased: BoostedOrBased;
+};
+
+export type UserLevel = {
+  level: number;
+  title: string;
 };
 
 // UserFactionBadge type extends UserFaction
@@ -56,7 +64,7 @@ export type UserPointHistoryPage = {
   visible: number;
 };
 
-export type Event = 'ETHBridged' | 'ERC20Bridged' | 'ERC721Bridged';
+export type Event = 'Transaction' | 'TransactionValue' | 'BlockProposed';
 
 export type UserPointHistory = {
   address: string;

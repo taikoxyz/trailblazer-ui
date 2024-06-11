@@ -3,13 +3,13 @@ import { type Address } from 'viem';
 
 import type { FACTIONS } from '$configs/badges';
 import { web3modal } from '$libs/connect';
-import { config } from '$libs/wagmi';
+import { wagmiConfig } from '$libs/wagmi';
 import type { IChainId, IContractData } from '$types';
 
 import { trailblazersBadgesAbi, trailblazersBadgesAddress } from '../../generated/abi';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-async function signHash(config: any, address: Address, badgeId: number, chainId: number): Promise<IContractData> {
+async function signHash(config: any, address: Address, badgeId: number): Promise<IContractData> {
   const challenge = Date.now().toString();
   const signature = await signMessage(config, { message: challenge });
 
@@ -26,7 +26,7 @@ async function signHash(config: any, address: Address, badgeId: number, chainId:
       signature,
       message: challenge,
       badgeId,
-      chainId,
+      chainId: config.chains[0].id,
     }),
   });
 
@@ -45,7 +45,7 @@ export default async function getMintSignature(
   const chainId = selectedNetworkId as IChainId;
   const contractAddress = trailblazersBadgesAddress[chainId];
 
-  const hash = await readContract(config, {
+  const hash = await readContract(wagmiConfig, {
     abi: trailblazersBadgesAbi,
     address: contractAddress,
     functionName: 'getHash',
@@ -53,7 +53,6 @@ export default async function getMintSignature(
     chainId,
   });
 
-  const signature = await signHash(config, address, factionId, chainId);
-
+  const signature = await signHash(wagmiConfig, address, factionId);
   return { signature, hash };
 }

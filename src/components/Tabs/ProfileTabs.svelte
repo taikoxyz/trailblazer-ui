@@ -1,6 +1,5 @@
 <script lang="ts">
-  import { NFTCollection } from '$components/Carousel';
-  import { ProfileAchievements, ProfileBoosters, ProfileFactions } from '$components/Profile';
+  import { ProfileFactions } from '$components/Profile';
   import { Transactions } from '$components/Table';
 
   type TabContent = {
@@ -15,30 +14,30 @@
       content: Transactions,
       checked: true,
     },
-    {
-      name: 'Achievements',
-      content: ProfileAchievements,
-      checked: false,
-    },
-    {
-      name: 'Boosters',
-      content: ProfileBoosters,
-      checked: false,
-    },
-    {
-      name: 'NFT Collection',
-      content: NFTCollection,
-      checked: false,
-    },
-    {
-      name: 'Faction Badges',
-      content: ProfileFactions,
-      checked: false,
-    },
+    // {
+    //   name: 'Faction Badges',
+    //   content: ProfileFactions,
+    //   checked: false,
+    // },
+    // {
+    //   name: 'Achievements',
+    //   content: ProfileAchievements,
+    //   checked: false,
+    // },
+    // {
+    //   name: 'Boosters',
+    //   content: ProfileBoosters,
+    //   checked: false,
+    // },
+    // {
+    //   name: 'NFT Collection',
+    //   content: NFTCollection,
+    //   checked: false,
+    // },
   ];
 </script>
 
-<div role="tablist" class="tabs tabs-lifted w-full">
+<div role="tablist" class="tabs tabs-lifted w-full px-4 lg:px-0">
   {#each tabs as tab}
     <input
       type="radio"

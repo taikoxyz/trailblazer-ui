@@ -25,6 +25,7 @@ const config = {
       '$fonts/*': './src/public/fonts/*',
       $chainConfig: './src/generated/chainConfig.ts',
       $customToken: './src/generated/customTokenConfig.ts',
+      $i18n: './src/i18n/index.ts',
     },
     /*
     prerender: {

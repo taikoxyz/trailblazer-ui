@@ -3,7 +3,7 @@ import { type Address } from 'viem';
 
 import { FACTIONS } from '$configs/badges';
 import { web3modal } from '$libs/connect';
-import { config } from '$libs/wagmi';
+import { wagmiConfig } from '$libs/wagmi';
 import type { IChainId, IContractData } from '$types';
 
 import { trailblazersBadgesAbi, trailblazersBadgesAddress } from '../../generated/abi';
@@ -22,13 +22,13 @@ export default async function mint(address: Address, factionId: FACTIONS, signat
   }
 
   // ensure locally that the signature is valid before calling metamask
-  const tx = await writeContract(config, {
+  const tx = await writeContract(wagmiConfig, {
     abi: trailblazersBadgesAbi,
     address: trailblazersBadgesAddress[chainId],
     functionName: 'mint',
     args: [signature, BigInt(factionId)],
     chainId: chainId as number,
   });
-  const receipt = await waitForTransactionReceipt(config, { hash: tx });
+  const receipt = await waitForTransactionReceipt(wagmiConfig, { hash: tx });
   return receipt;
 }

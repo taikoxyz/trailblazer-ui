@@ -3,7 +3,7 @@ import type { Address } from 'viem';
 
 import { type FactionNames, FACTIONS } from '$configs/badges';
 import { web3modal } from '$libs/connect';
-import { config } from '$libs/wagmi';
+import { wagmiConfig } from '$libs/wagmi';
 import type { IChainId } from '$types';
 
 import { trailblazersBadgesAbi, trailblazersBadgesAddress } from '../../generated/abi/';
@@ -18,7 +18,7 @@ export default async function getBadgeSrc(owner: Address, badge: FactionNames) {
 
   const tokenId = await getTokenId(owner, FACTIONS[badge]);
 
-  const result = await readContract(config, {
+  const result = await readContract(wagmiConfig, {
     abi: trailblazersBadgesAbi,
     address: contractAddress,
     functionName: 'tokenURI',

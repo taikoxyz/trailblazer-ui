@@ -3,7 +3,7 @@ import type { Address } from 'viem';
 
 import { FactionNames } from '$configs/badges';
 import { web3modal } from '$libs/connect';
-import { config } from '$libs/wagmi';
+import { wagmiConfig } from '$libs/wagmi';
 import type { IChainId } from '$types';
 
 import { trailblazersBadgesAbi, trailblazersBadgesAddress } from '../../generated/abi/';
@@ -12,22 +12,23 @@ export async function getUserBadges(address: Address): Promise<Record<FactionNam
   const out = {
     [FactionNames.Ravers]: false,
     [FactionNames.Robots]: false,
-    [FactionNames.Bouncers]: false,
+    /*[FactionNames.Bouncers]: false,
     [FactionNames.Masters]: false,
     [FactionNames.Monks]: false,
     [FactionNames.Drummers]: false,
     [FactionNames.Androids]: false,
-    [FactionNames.Shinto]: false,
+    [FactionNames.Shinto]: false,*/
   };
 
   let { selectedNetworkId } = web3modal.getState();
   if (!selectedNetworkId) {
-    selectedNetworkId = config.chains[0].id;
+    selectedNetworkId = wagmiConfig.chains[0].id;
   }
 
   const chainId = selectedNetworkId as IChainId;
   const contractAddress = trailblazersBadgesAddress[chainId];
-  const result = await readContract(config, {
+
+  const result = await readContract(wagmiConfig, {
     abi: trailblazersBadgesAbi,
     address: contractAddress,
     functionName: 'badgeBalances',
