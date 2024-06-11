@@ -1,31 +1,31 @@
 env:
-    VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-    VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID_TRAILBLAZER}}
-    VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN}}
-    PUBLIC_TRAILBLAZER_API_URL: ${{ secrets.PUBLIC_TRAILBLAZER_API_URL}}
-    PUBLIC_WALLETCONNECT_PROJECT_ID: ${{ secrets.PUBLIC_WALLETCONNECT_PROJECT_ID}}
-    CONFIGURED_CHAINS: ${{ secrets.CONFIGURED_CHAINS}}
-    PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.PUBLIC_SUPABASE_ANON_KEY}}
-    PUBLIC_SUPABASE_URL: ${{ secrets.PUBLIC_SUPABASE_URL}}
-    PUBLIC_FALLBACK_IMAGE_API_URL: ${{ secrets.PUBLIC_FALLBACK_IMAGE_API_URL}}
-    PUBLIC_ENV: preview
-    PUBLIC_IPFS_GATEWAYS: ${{ secrets.PUBLIC_IPFS_GATEWAYS}}
+  VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+  VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID_TRAILBLAZER}}
+  VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN}}
+  PUBLIC_TRAILBLAZER_API_URL: ${{ secrets.PUBLIC_TRAILBLAZER_API_URL}}
+  PUBLIC_WALLETCONNECT_PROJECT_ID: ${{ secrets.PUBLIC_WALLETCONNECT_PROJECT_ID}}
+  CONFIGURED_CHAINS: ${{ secrets.CONFIGURED_CHAINS}}
+  PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.PUBLIC_SUPABASE_ANON_KEY}}
+  PUBLIC_SUPABASE_URL: ${{ secrets.PUBLIC_SUPABASE_URL}}
+  PUBLIC_FALLBACK_IMAGE_API_URL: ${{ secrets.PUBLIC_FALLBACK_IMAGE_API_URL}}
+  PUBLIC_ENV: preview
+  PUBLIC_IPFS_GATEWAYS: ${{ secrets.PUBLIC_IPFS_GATEWAYS}}
 on:
-    push:
-      branches-ignore:
-        - 'main'
+  push:
+    branches-ignore:
+      - 'main'
 jobs:
-    Deploy-Preview:
-      runs-on: [taiko-runner]
-      steps:
-        - name: Checkout repository
-          uses: actions/checkout@v4
+  Deploy-Preview:
+    runs-on: [taiko-runner]
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-        - name: Install pnpm dependencies
-          uses: ./.github/actions/install-pnpm-dependencies
+      - name: Install pnpm dependencies
+        uses: ./.github/actions/install-pnpm-dependencies
 
-        - name: Svelte check
-          run: pnpm svelte:check
+      - name: Svelte check
+        run: pnpm svelte:check
 
-        - name: Lint
-          run: pnpm lint
+      - name: Lint
+        run: pnpm lint
