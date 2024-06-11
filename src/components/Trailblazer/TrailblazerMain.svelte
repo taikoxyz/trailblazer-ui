@@ -5,22 +5,21 @@
 </script>
 
 <div
-  class="f-center relative flex-col w-full pt-[50%] lg:pt-[20px] xl:py-[217px] xl:px-[57px] gap-[80px] xl:gap-[132px] rounded-[30px] overflow-hidden">
-  <div class="f-center flex-col xl:flex-row w-full">
+  class="f-center relative flex-col w-dvw rounded-[30px] overflow-hidden">
+  <div class="f-center flex-col xl:flex-row h-dvh w-[90%]">
     <div class="f-center flex-col w-full">
       <!-- Title -->
       <div
-        class="xl:self-start font-clash-grotesk text-[23px]/[28px] tracking-[10px] xl:text-[45px]/[45px] xl:tracking-[22.5px] pb-[30px] xl:pb-[114px]">
+        class="xl:self-start font-clash-grotesk text-[23px]/[28px] tracking-[10px] xl:text-[45px]/[45px] xl:tracking-[22.5px] pb-[30px]">
         <div class="f-center w-full flex-col gap-5">
           <TaikoTrailblazersLogo class="w-[335px] xl:w-[558px]" />
         </div>
       </div>
       <!-- Description -->
       <div class="xl:self-start f-center flex-col pb-10 xl:pb-10">
-        <PlusIcon class="  xl:self-start  pb-[40px] hidden xl:block" />
-        <div class="max-w-[262px] xl:max-w-[343px] text-center xl:text-left">
-          Embark on your Taiko Trail, an open-access, performance-based program designed to reward both users and
-          applications.
+        <PlusIcon class="  xl:self-start  pb-[20px] hidden xl:block" />
+        <div class="max-w-[262px] xl:max-w-[343px] text-center xl:text-left lg:title-subsection-regular body-regular">
+          Embark on the Trailblazers Journey: Unleash your potential in the Taiko universe!
         </div>
       </div>
       <div class="gap-4 self-center xl:self-start hidden xl:flex">
@@ -42,8 +41,10 @@
         href="/about">Learn more</a>
     </div>
   </div>
-  <div class="absolute -z-10 bg-gradient-to-r w-[687px] h-full left-0" />
-  <div class="absolute -z-20 bg-[url(/trailblazers-bg.jpeg)] w-full h-full left-[274px] bg-cover" />
+  <div class="absolute -z-20 bg-[url(/desktop.png)] hidden xl:block w-full h-full bg-cover" />
+  <div class="absolute -z-20 bg-[url(/pad.png)] hidden lg:block xl:hidden w-full h-full bg-cover" />
+  <div class="absolute -z-20 bg-[url(/mobile.png)] hidden md:block lg:hidden w-full h-full bg-cover" />
+  <div class="absolute -z-20 bg-[url(/small.png)] block md:hidden w-full h-full bg-cover" />
 </div>
 
 <style>

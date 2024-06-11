@@ -30,6 +30,10 @@
       name: 'Owlto Finance',
       handle: '@Owlto_Finance',
     },
+    '0x1Df2De291F909baA50C1456C87C71Edf9Fb199D5': {
+      name: 'rhino.fi',
+      handle: '@rhinofi',
+    },
     '0x07d83526730c7438048D55A4fc0b850e2aaB6f0b': {
       name: 'USDC',
       handle: '@circle',
