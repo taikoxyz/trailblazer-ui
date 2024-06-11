@@ -17,7 +17,7 @@
     "svelte:check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --ignore ./wagmi.config.ts --watch",
     "format": "prettier --write .",
     "lint": "prettier --check . && eslint .",
-    "lint:fix": "pnpm format && eslint . --fix",
+    "lint:fix": "eslint . --fix",
     "generate:abi": "cd ../taiko-mono.git/packages/nfts && pnpm compile && cd - && wagmi generate",
     "export:config": "pnpm ./scripts/exportJsonToEnv.js"
   },
@@ -77,6 +77,7 @@
     "events": "^3.3.0",
     "object-hash": "^3.0.0",
     "postcss-import": "^16.1.0",
+    "stores": "link:@zerodevx/svelte-toast/stores",
     "svelte-i18n": "^4.0.0",
     "viem": "^2.13.7"
   }

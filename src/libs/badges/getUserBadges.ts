@@ -11,13 +11,13 @@ import { trailblazersBadgesAbi, trailblazersBadgesAddress } from '../../generate
 export async function getUserBadges(address: Address): Promise<Record<FactionNames, boolean>> {
   const out = {
     [FactionNames.Ravers]: false,
-    [FactionNames.Robots]: false,/*
+    [FactionNames.Robots]: false /*
     [FactionNames.Bouncers]: false,
     [FactionNames.Masters]: false,
     [FactionNames.Monks]: false,
     [FactionNames.Drummers]: false,
     [FactionNames.Androids]: false,
-    [FactionNames.Shinto]: false,*/
+    [FactionNames.Shinto]: false,*/,
   };
 
   let { selectedNetworkId } = web3modal.getState();

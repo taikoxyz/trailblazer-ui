@@ -27,15 +27,19 @@
             <tr class="border-2 border-transparent hover:border-2">
               <td class="flex gap-2 items-center">
                 <Skeleton width="w-4" height="h-4" bgColor="bg-pink-200" shineColor="bg-pink-100" />
-                {pointHistory?.event === "TransactionValue" ? 'Transaction Value' : pointHistory?.event === "BlockProposed" ? "Block Proposed": "Transaction" }
+                {pointHistory?.event === 'TransactionValue'
+                  ? 'Transaction Value'
+                  : pointHistory?.event === 'BlockProposed'
+                    ? 'Block Proposed'
+                    : 'Transaction'}
               </td>
               <td>
-                {#if pointHistory?.points === 0 }
+                {#if pointHistory?.points === 0}
                   <span class="text-negative-sentiment">Daily Max Reached</span>
                 {:else}
                   + {pointHistory?.points}
                 {/if}
-                </td>
+              </td>
               <td>{new Date(pointHistory?.date * 1000).toLocaleString()}</td>
             </tr>
           {/each}

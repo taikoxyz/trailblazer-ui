@@ -1,11 +1,10 @@
 <script lang="ts">
+  import { ButtonWithArrow } from '$components/Button';
   import { PlusIcon } from '$components/Icon';
   import { TaikoTrailblazersLogo } from '$components/Logo';
-  import { ButtonWithArrow } from '$components/Button';
 </script>
 
-<div
-  class="f-center relative flex-col w-dvw rounded-[30px] overflow-hidden">
+<div class="f-center relative flex-col w-dvw rounded-[30px] overflow-hidden">
   <div class="f-center flex-col xl:flex-row h-dvh w-[90%]">
     <div class="f-center flex-col w-full">
       <!-- Title -->
@@ -46,9 +45,3 @@
   <div class="absolute -z-20 bg-[url(/mobile.png)] hidden md:block lg:hidden w-full h-full bg-cover" />
   <div class="absolute -z-20 bg-[url(/small.png)] block md:hidden w-full h-full bg-cover" />
 </div>
-
-<style>
-  .bg-gradient-to-r {
-    background: linear-gradient(90deg, #051434 50.04%, rgba(5, 20, 52, 0) 98.25%);
-  }
-</style>

@@ -1,5 +1,6 @@
 <script lang="ts">
   import { Icon } from '$components/Icon';
+
   import type { CarouselItem } from './types';
 
   export let carouselItem: CarouselItem;

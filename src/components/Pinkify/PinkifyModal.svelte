@@ -1,15 +1,12 @@
 <script lang="ts">
   import { createEventDispatcher, onMount } from 'svelte';
-
-  import { ActionButton, CloseButton } from '$components/Button';
-
-  import { uid } from '$libs/util/uid';
-  import { generateTwitterCardSVG } from '$libs/pinkify';
-  import { twitterAvatarId, twitterId } from '$stores/supabase';
   import { get } from 'svelte/store';
+
+  import { generateTwitterCardSVG } from '$libs/pinkify';
   import { savePngToSupabase } from '$libs/supabase/functions';
   import { draftMessage } from '$libs/twitter';
-  import { page } from '$app/stores';
+  import { uid } from '$libs/util/uid';
+  import { twitterAvatarId } from '$stores/supabase';
 
   const dialogId = `dialog-${uid()}`;
 
@@ -20,22 +17,11 @@
 
   let svg: string;
 
-  const closeModal = () => {
-    modalOpen = false;
-  };
-
-  let imageLoaded = false;
   export let pinkifiedAvatar: string;
-
-  function handleImageLoad() {
-    imageLoaded = true;
-  }
 
   $: if (modalOpen) {
     // placeholder
   }
-  let svgDataUrl = '';
-  $: svgDataUrl = `data:image/svg+xml;base64,${btoa(unescape(encodeURIComponent(svg)))}`;
   async function generateAndSaveTwitterCard() {
     // Save to supabase
 
@@ -80,7 +66,7 @@
       outputImage.src = pngDataUrl;
 
       savePngToSupabase(get(twitterAvatarId), pngDataUrl).then(() => {
-        console.log('png saved');
+        console.info('png saved');
       });
     };
     // Set the Image source to the SVG content

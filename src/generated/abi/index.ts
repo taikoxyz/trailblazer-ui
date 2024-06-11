@@ -133,9 +133,7 @@ export const trailblazersBadgesAbi = [
     type: 'function',
     inputs: [],
     name: 'blacklist',
-    outputs: [
-      { name: '', internalType: 'contract IMinimalBlacklist', type: 'address' },
-    ],
+    outputs: [{ name: '', internalType: 'contract IMinimalBlacklist', type: 'address' }],
     stateMutability: 'view',
   },
   {
@@ -247,9 +245,7 @@ export const trailblazersBadgesAbi = [
   },
   {
     type: 'function',
-    inputs: [
-      { name: 'signatureHash', internalType: 'bytes32', type: 'bytes32' },
-    ],
+    inputs: [{ name: 'signatureHash', internalType: 'bytes32', type: 'bytes32' }],
     name: 'minted',
     outputs: [{ name: 'hasMinted', internalType: 'bool', type: 'bool' }],
     stateMutability: 'view',
@@ -261,9 +257,7 @@ export const trailblazersBadgesAbi = [
       { name: '', internalType: 'uint256', type: 'uint256' },
     ],
     name: 'movementBadges',
-    outputs: [
-      { name: 'movementBadge', internalType: 'uint256', type: 'uint256' },
-    ],
+    outputs: [{ name: 'movementBadge', internalType: 'uint256', type: 'uint256' }],
     stateMutability: 'view',
   },
   {
@@ -691,9 +685,7 @@ export const trailblazersBadgesAbi = [
   {
     type: 'event',
     anonymous: false,
-    inputs: [
-      { name: '_uri', internalType: 'string', type: 'string', indexed: false },
-    ],
+    inputs: [{ name: '_uri', internalType: 'string', type: 'string', indexed: false }],
     name: 'UriSet',
   },
   { type: 'error', inputs: [], name: 'ADDRESS_BLACKLISTED' },
@@ -704,9 +696,7 @@ export const trailblazersBadgesAbi = [
   },
   {
     type: 'error',
-    inputs: [
-      { name: 'implementation', internalType: 'address', type: 'address' },
-    ],
+    inputs: [{ name: 'implementation', internalType: 'address', type: 'address' }],
     name: 'ERC1967InvalidImplementation',
   },
   { type: 'error', inputs: [], name: 'ERC1967NonPayable' },
@@ -791,7 +781,7 @@ export const trailblazersBadgesAbi = [
     inputs: [{ name: 'slot', internalType: 'bytes32', type: 'bytes32' }],
     name: 'UUPSUnsupportedProxiableUUID',
   },
-] as const
+] as const;
 
 /**
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.network/address/0xa20a8856e00F5ad024a55A663F06DCc419FFc4d5)
@@ -800,7 +790,7 @@ export const trailblazersBadgesAbi = [
 export const trailblazersBadgesAddress = {
   167000: '0xa20a8856e00F5ad024a55A663F06DCc419FFc4d5',
   167009: '0x010992985d1DA35676271bd5abA16E0E8D5582d3',
-} as const
+} as const;
 
 /**
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.network/address/0xa20a8856e00F5ad024a55A663F06DCc419FFc4d5)
@@ -809,4 +799,4 @@ export const trailblazersBadgesAddress = {
 export const trailblazersBadgesConfig = {
   address: trailblazersBadgesAddress,
   abi: trailblazersBadgesAbi,
-} as const
+} as const;

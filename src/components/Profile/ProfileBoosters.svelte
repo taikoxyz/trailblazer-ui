@@ -2,7 +2,6 @@
   import { MOCK_USER_BOOSTERS } from '$mocks';
 
   import BoosterItem from './BoosterItem.svelte';
-  import StatisticItem from './StatisticItem.svelte';
 
   let boosters = MOCK_USER_BOOSTERS;
 </script>

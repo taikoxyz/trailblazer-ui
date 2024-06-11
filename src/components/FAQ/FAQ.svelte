@@ -1,5 +1,6 @@
 <script lang="ts">
   import { FAQDropdown } from '$components/Dropdown';
+
   import { MOCK_FAQS } from '../../tests/mocks/faq';
 </script>
 

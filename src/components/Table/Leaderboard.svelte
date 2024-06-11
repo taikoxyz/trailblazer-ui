@@ -1,11 +1,10 @@
 <script lang="ts">
   import { onMount } from 'svelte';
 
+  import ExplorerLink from '$components/Links/ExplorerLink.svelte';
+  import { Skeleton } from '$components/Mock';
   import { Leaderboard } from '$libs/leaderboard';
   import { currentLeaderboard } from '$stores/leaderboard';
-  import { shortenAddress } from '$libs/util/shortenAddress';
-  import { Skeleton } from '$components/Mock';
-  import ExplorerLink from '$components/Links/ExplorerLink.svelte';
   let headers = ['Dapp', 'Address', 'Points'];
   // 0xE4eDb277e41dc89aB076a1F049f4a3EfA700bCE8 orbiter finance
   // 0x5e809A85Aa182A9921EDD10a4163745bb3e36284 owlto finance
@@ -100,7 +99,7 @@
       </tr>
     </thead>
     <tbody class="rounded-lg">
-      {#each $currentLeaderboard.items as thing, i}
+      {#each $currentLeaderboard.items as thing}
         <tr class="row h-12">
           <td class="lg:px-10">
             <div class="flex gap-[20px] align-center">

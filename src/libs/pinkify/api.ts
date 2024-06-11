@@ -13,5 +13,5 @@ export async function postSignature(address: string, signature: string, message:
     }),
   });
   const data = await response.json();
-  console.log(data);
+  console.info(data);
 }

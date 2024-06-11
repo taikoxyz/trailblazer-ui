@@ -1,5 +1,6 @@
 <script lang="ts">
   import { Connector } from '$components/SVG';
+
   import TrailblazerGuideStep from './TrailblazerGuideStep.svelte';
 </script>
 

@@ -1,10 +1,11 @@
 <script lang="ts">
   import { ProfileFactions } from '$components/Profile';
   import { Transactions } from '$components/Table';
+  import type { IToDo } from '$types';
 
   type TabContent = {
     name: string;
-    content: any;
+    content: IToDo;
     checked: boolean;
   };
 
@@ -14,11 +15,11 @@
       content: Transactions,
       checked: true,
     },
-{
-  name: 'Faction Badges',
-  content: ProfileFactions,
-  checked: false,
-},
+    {
+      name: 'Faction Badges',
+      content: ProfileFactions,
+      checked: false,
+    },
     // {
     //   name: 'Achievements',
     //   content: ProfileAchievements,

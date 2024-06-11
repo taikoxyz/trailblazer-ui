@@ -1,7 +1,7 @@
 <script lang="ts">
   import { FAQ } from '$components/FAQ';
   import { FactionsGallery } from '$components/Gallery';
-  import { ResponsiveVideo } from '$components/Video';
+
   import AboutFactionsInfo from './AboutFactionsInfo.svelte';
   import AboutGallery from './AboutGallery.svelte';
 </script>

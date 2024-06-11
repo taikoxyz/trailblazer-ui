@@ -21,6 +21,7 @@ export const MOCK_PROFILE: UserProfile = {
   leaderboardPosition: '1',
   pointsToNextLevel: 1000,
   total: '0',
+  rank: '0',
 };
 
 export const MOCK_PROFILE_2: UserProfile = {
@@ -41,4 +42,5 @@ export const MOCK_PROFILE_2: UserProfile = {
   leaderboardPosition: '1',
   pointsToNextLevel: 1000,
   total: '0',
+  rank: '0',
 };

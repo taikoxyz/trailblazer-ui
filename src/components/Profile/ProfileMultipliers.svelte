@@ -1,8 +1,5 @@
 <script lang="ts">
   import Skeleton from '$components/Mock/Skeleton.svelte';
-  import { currentProfile } from '$stores/profile';
-
-  $: profile = $currentProfile;
 </script>
 
 <div class="flex items-center gap-4 bg-neutral rounded-full px-5 py-3 max-w-[364px]">

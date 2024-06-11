@@ -3,15 +3,14 @@
   import { LogoWithText, TaikoTrailblazersLogo } from '$components/Logo';
   import { MobileNavigation } from '$components/MobileNavigation';
   import HamburgerIcon from '$images/hamburger.svg';
-
   import XIcon from '$images/x.svg';
   import { account } from '$stores/account';
+
   import NavigationItem from './NavigationItem.svelte';
 
   let mobileMenu = false;
 
   function toggleMobileMenu() {
-    console.log('toggleMobileMenu');
     mobileMenu = !mobileMenu;
   }
 </script>

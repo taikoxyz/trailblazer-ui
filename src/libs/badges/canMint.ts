@@ -1,7 +1,6 @@
 import { readContract } from '@wagmi/core';
 import type { Address } from 'viem';
 
-import { FactionNames, FACTIONS } from '$configs/badges';
 import { web3modal } from '$libs/connect';
 import { wagmiConfig } from '$libs/wagmi';
 import type { IChainId, IContractData } from '$types';
@@ -19,7 +18,7 @@ export async function canMint(signature: IContractData, address: Address, factio
     abi: trailblazersBadgesAbi,
     address: contractAddress,
     functionName: 'canMint',
-    args: [signature, address, BigInt(0)],
+    args: [signature, address, BigInt(factionId)],
     chainId,
   });
 

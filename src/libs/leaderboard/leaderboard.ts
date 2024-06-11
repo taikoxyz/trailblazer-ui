@@ -7,12 +7,12 @@ export class Leaderboard {
   static async getLeaderboard() {
     const response = await fetch(`${PUBLIC_TRAILBLAZER_API_URL}/leaderboard`);
     const leaderboardPage: LeaderboardPage = (await response.json()) as LeaderboardPage;
-    setLeaderboard(leaderboardPage)
+    setLeaderboard(leaderboardPage);
   }
 
   static async getUserLeaderboard() {
     const response = await fetch(`${PUBLIC_TRAILBLAZER_API_URL}/user/leaderboard`);
     const leaderboardPage: LeaderboardPage = (await response.json()) as LeaderboardPage;
-    setUserLeaderboard(leaderboardPage)
+    setUserLeaderboard(leaderboardPage);
   }
 }

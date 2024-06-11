@@ -1,6 +1,6 @@
 <script lang="ts">
-  import type { CarouselItem } from './types';
   import TrailsCarouselItem from './TrailsCarouselItem.svelte';
+  import type { CarouselItem } from './types';
 
   export let carouselElement: HTMLDivElement;
 

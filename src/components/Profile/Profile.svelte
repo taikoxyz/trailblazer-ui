@@ -1,22 +1,18 @@
 <script>
   import { onMount } from 'svelte';
 
-  import ShinyCard from '$components/Card/ShinyCard.svelte';
+  import { page } from '$app/stores';
   import { Icon } from '$components/Icon';
-  import { Skeleton } from '$components/Mock';
   import { ProfileTabs } from '$components/Tabs';
-  import ETHIcon from '$images/tokens/ETH.png';
-  import TKOIcon from '$images/tokens/TKO.png';
   import { Profile } from '$libs/profile';
+  import { account } from '$stores/account';
 
   import ProfileCard from './ProfileCard.svelte';
   import ProfileSubCard from './ProfileSubCard.svelte';
-  import { page } from '$app/stores';
-  import { account } from '$stores/account';
 
   $: if ($account) {
     let address = $account.address;
-    console.log('🚀 | address:', address);
+    console.info('🚀 | address:', address);
   }
 
   onMount(async () => {

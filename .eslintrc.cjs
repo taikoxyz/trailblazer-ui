@@ -7,7 +7,7 @@ module.exports = {
     'linebreak-style': ['error', 'unix'],
     'simple-import-sort/imports': 'error',
     'simple-import-sort/exports': 'error',
-    'no-console': ['error', { allow: ['warn', 'error'] }],
+    'no-console': ['error', { allow: ['warn', 'error', 'info'] }],
   },
   parserOptions: {
     sourceType: 'module',

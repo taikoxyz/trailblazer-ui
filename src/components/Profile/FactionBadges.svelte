@@ -1,10 +1,12 @@
 <script lang="ts">
+  import { type Address, zeroAddress } from 'viem';
+
+  import { page } from '$app/stores';
+  import { FactionNames } from '$configs/badges';
   import { getUserBadges } from '$libs/badges/getUserBadges';
   import { account } from '$stores/account';
-  import { page } from '$app/stores';
+
   import FactionBadgeItem from './FactionBadgeItem.svelte';
-  import { FactionNames } from '$configs/badges';
-  import { zeroAddress, type Address } from 'viem';
 
   let factions = Object.keys(FactionNames) as FactionNames[];
   $: userFactions = {} as Record<FactionNames, boolean>;
@@ -12,12 +14,14 @@
   const mockClaimableMap: Record<FactionNames, boolean> = {
     [FactionNames.Ravers]: true,
     [FactionNames.Robots]: false,
+    /*
     [FactionNames.Bouncers]: false,
     [FactionNames.Masters]: false,
     [FactionNames.Monks]: false,
     [FactionNames.Drummers]: false,
     [FactionNames.Androids]: false,
     [FactionNames.Shinto]: false,
+    */
   };
 
   async function load() {

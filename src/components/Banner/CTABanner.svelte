@@ -17,3 +17,9 @@
     </div>
   </div>
 </div>
+
+<style>
+  .bg-gradient-to-r {
+    background: linear-gradient(90deg, #051434 50.04%, rgba(5, 20, 52, 0) 98.25%);
+  }
+</style>

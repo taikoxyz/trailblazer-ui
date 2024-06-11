@@ -1,5 +1,4 @@
 import { createClient } from '@supabase/supabase-js';
-import { get } from 'svelte/store';
 
 import { PUBLIC_SUPABASE_ANON_KEY, PUBLIC_SUPABASE_URL } from '$env/static/public';
 import { parseTwitterAvatarId } from '$libs/util/parseTwitterAvatarId';
@@ -10,7 +9,7 @@ const supabaseUrl = PUBLIC_SUPABASE_URL;
 const supabaseAnonKey = PUBLIC_SUPABASE_ANON_KEY;
 
 if (!supabaseUrl || !supabaseAnonKey) {
-  console.log('SUPABASE_URL or SUPABASE_ANON_KEY is not set. Please set it in .env!');
+  console.error('SUPABASE_URL or SUPABASE_ANON_KEY is not set. Please set it in .env!');
 }
 
 export const supabaseClient = createClient(supabaseUrl, supabaseAnonKey);

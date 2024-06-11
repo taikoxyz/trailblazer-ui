@@ -4,6 +4,7 @@ import { get } from 'svelte/store';
 import { PUBLIC_TRAILBLAZER_API_URL } from '$env/static/public';
 import { wagmiConfig } from '$libs/wagmi';
 import { currentProfile } from '$stores/profile';
+import type { IToDo } from '$types';
 
 import type { UserLevel, UserPointHistoryPage, UserProfile } from './types';
 
@@ -135,7 +136,7 @@ export class Profile {
       const formattedRankPercentile = `${(100 - rankPercentile).toFixed(2)}%`;
 
       // Update Profile
-      currentProfile.update((current) => {
+      currentProfile.update((current: IToDo) => {
         return { ...current, ...level, rankPercentile: formattedRankPercentile };
       });
     }

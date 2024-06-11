@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { BoosterType, UserBooster } from '$libs/profile';
+  import type { BoosterType } from '$libs/profile';
 
   export let type: BoosterType;
 </script>
