@@ -1,9 +1,10 @@
 <script lang="ts">
   import { getUserBadges } from '$libs/badges/getUserBadges';
   import { account } from '$stores/account';
-
+  import { page } from '$app/stores';
   import FactionBadgeItem from './FactionBadgeItem.svelte';
   import { FactionNames } from '$configs/badges';
+  import { zeroAddress, type Address } from 'viem';
 
   let factions = Object.keys(FactionNames) as FactionNames[];
   $: userFactions = {} as Record<FactionNames, boolean>;
@@ -20,16 +21,18 @@
   };
 
   async function load() {
-    if (!$account || !$account.address) return;
-    userFactions = await getUserBadges($account.address);
-  }
+    const urlAddress = $page.url.pathname.split('/').pop();
+    address = urlAddress as Address;
 
+    userFactions = await getUserBadges(address);
+  }
+  $: address = zeroAddress as Address;
   $: $account, load();
 </script>
 
 <div class="box gap-4">
   {#each factions as faction}
-    <FactionBadgeItem name={faction} claimable={mockClaimableMap[faction]} unlocked={userFactions[faction]} />
+    <FactionBadgeItem {address} name={faction} claimable={mockClaimableMap[faction]} unlocked={userFactions[faction]} />
   {/each}
 </div>
 

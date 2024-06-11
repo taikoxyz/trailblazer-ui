@@ -1,7 +1,7 @@
 import { readContract } from '@wagmi/core';
 import type { Address } from 'viem';
 
-import { type FactionNames,FACTIONS } from '$configs/badges';
+import { type FactionNames, FACTIONS } from '$configs/badges';
 import { web3modal } from '$libs/connect';
 import { config } from '$libs/wagmi';
 import type { IChainId } from '$types';
