@@ -1,17 +1,15 @@
 <script lang="ts">
   import Skeleton from '$components/Mock/Skeleton.svelte';
-  import type { UserPointHistory } from '$libs/profile';
   import { currentProfile } from '$stores/profile';
-  import { userPointHistory } from '$stores/userPointHistory';
 
-  let headers = ['Activity Name', 'Points', 'Date & Time'];
+  let headers = ['Activity', 'Points', 'Time'];
 </script>
 
 <div class="border-collapse w-full border-none bg-elevated-background">
   <div class="px-[5px]">
     <table class="table w-full border-collapse">
       <thead class="border-none bg-none">
-        <tr class="border-none">
+        <tr class="border-none body-bold">
           {#each headers as header}
             <th>{header}</th>
           {/each}
@@ -26,12 +24,12 @@
       <tbody class="border-none pt-6 overflow-scroll">
         {#if $currentProfile.pointsHistory}
           {#each $currentProfile.pointsHistory.items as pointHistory}
-            <tr class="border-2 border-transparent hover:border-2 hover:border-orange-400">
+            <tr class="border-2 border-transparent hover:border-2">
               <td class="flex gap-2 items-center">
-                <Skeleton width="w-4" height="h-4" bgColor="bg-blue-200" shineColor="bg-blue-100" />
-                {pointHistory?.event}
+                <Skeleton width="w-4" height="h-4" bgColor="bg-pink-200" shineColor="bg-pink-100" />
+                {pointHistory?.event === "TransactionValue" ? 'Transaction Value' : pointHistory?.event === "BlockProposed" ? "Block Proposed": "Transaction" }
               </td>
-              <td>{pointHistory?.points}</td>
+              <td>+ {pointHistory?.points}</td>
               <td>{new Date(pointHistory?.date * 1000).toLocaleString()}</td>
             </tr>
           {/each}

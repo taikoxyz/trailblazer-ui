@@ -13,5 +13,4 @@ export type LeaderboardPage = {
 export type LeaderboardRow = {
   address: string;
   score: number;
-  date: number;
 };

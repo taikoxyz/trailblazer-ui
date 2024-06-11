@@ -7,7 +7,7 @@ import { FailedTransactionError } from '$libs/error';
 import { refreshUserBalance } from '$libs/util/balance';
 import { Deferred } from '$libs/util/Deferred';
 import { getLogger } from '$libs/util/logger';
-import { config } from '$libs/wagmi';
+import { wagmiConfig } from '$libs/wagmi';
 
 const log = getLogger('store:pendingTransactions');
 
@@ -43,7 +43,7 @@ export const pendingTransactions = {
        * the transaction has confirms blocks mined on top of the block in which
        * is was mined.
        */
-      waitForTransactionReceipt(config, {
+      waitForTransactionReceipt(wagmiConfig, {
         hash,
         chainId,
         timeout: pendingTransaction.waitTimeout,

@@ -1,51 +1,39 @@
 import { watchAccount } from '@wagmi/core';
+import { get } from 'svelte/store';
 
-import { chains, isSupportedChain } from '$libs/chain';
+import { Profile } from '$libs/profile';
 import { refreshUserBalance } from '$libs/util/balance';
-import { getLogger } from '$libs/util/logger';
-import { account } from '$stores/account';
-import { switchChainModal } from '$stores/modal';
-import { connectedSourceChain } from '$stores/network';
+import { account, address } from '$stores/account';
 
-import { config } from './client';
-
-const log = getLogger('wagmi:watcher');
+import { getCurrentAddressOrNull, wagmiConfig } from '.';
 
 let isWatching = false;
 let unWatchAccount: () => void;
 
 export async function startWatching() {
+  address.set(getCurrentAddressOrNull());
+
   if (!isWatching) {
-    unWatchAccount = watchAccount(config, {
-      onChange(data) {
-        log('Account changed', data);
-
-        refreshUserBalance();
-        const { chainId } = data;
-
-        // We need to check if the chain is supported, and if not
-        // we present the user with a modal to switch networks.
-        if (chainId && !isSupportedChain(Number(chainId))) {
-          log('Unsupported chain', chainId);
-          switchChainModal.set(true);
-          return;
-        } else if (chainId) {
-          // When we switch networks, we are actually selecting
-          // the source chain.
-          const srcChain = chains.find((c) => c.id === Number(chainId));
-          if (srcChain) connectedSourceChain.set(srcChain);
-
-          refreshUserBalance();
-        }
+    // Action for subscribing to network changes.
+    // See https://wagmi.sh/core/actions/watchNetwork
+    unWatchAccount = watchAccount(wagmiConfig, {
+      async onChange(data) {
         account.set(data);
+        await refreshUserBalance();
+        // Update address if differen t
+        if (data.address !== get(address)) {
+          console.log(`Address Changed: ${data.address}`);
+          await Profile.getProfile(data.address);
+          await Profile.getUserPointsHistory(data.address);
+          address.set(data.address);
+        }
+        isWatching = true;
       },
     });
-
-    isWatching = true;
   }
 }
 
 export function stopWatching() {
-  unWatchAccount && unWatchAccount();
+  unWatchAccount();
   isWatching = false;
 }
