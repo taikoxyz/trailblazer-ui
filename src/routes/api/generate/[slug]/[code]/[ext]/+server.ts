@@ -11,7 +11,9 @@ export async function GET({ params }) {
 
   try {
     // Fetch the image from twitter
-    const response = await fetch(`https://pbs.twimg.com/profile_images/${twitterImageId}/${twitterImageCode}_400x400.${ext}`);
+    const response = await fetch(
+      `https://pbs.twimg.com/profile_images/${twitterImageId}/${twitterImageCode}_400x400.${ext}`,
+    );
 
     // https://pbs.twimg.com/profile_images/1773273774345138176/X926izfy_400x400.jpg
     // Check if the image was found

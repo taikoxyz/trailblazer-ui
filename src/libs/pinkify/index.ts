@@ -1,1 +1,1 @@
-export * from "./generateTwitterCard";
+export * from './generateTwitterCard';

@@ -32,6 +32,7 @@ export type UserFaction = {
 // UserFactionBadge type extends UserFaction
 export type UserFactionBadge = UserFaction & {
   unlocked: boolean;
+  claimable: boolean;
 };
 
 export type Faction = 'Ravers' | 'Robots' | 'Bouncers' | 'Masters' | 'Monks' | 'Drummers' | 'Androids' | 'Shinto';

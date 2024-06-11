@@ -18,7 +18,7 @@
     "format": "prettier --write .",
     "lint": "prettier --check . && eslint .",
     "lint:fix": "pnpm format && eslint . --fix",
-    "generate:abi": "cd ../protocol && pnpm forge build --evm-version cancun && cd - && pnpm wagmi generate",
+    "generate:abi": "cd ../taiko-mono.git/packages/nfts && pnpm compile && cd - && wagmi generate",
     "export:config": "pnpm ./scripts/exportJsonToEnv.js"
   },
   "devDependencies": {
@@ -73,6 +73,7 @@
     "axios": "^1.7.2",
     "buffer": "^6.0.3",
     "debug": "^4.3.5",
+    "ethers": "^6.13.0",
     "events": "^3.3.0",
     "object-hash": "^3.0.0",
     "postcss-import": "^16.1.0",

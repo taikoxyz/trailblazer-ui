@@ -39,12 +39,26 @@
       </div> -->
       <div class="flex gap-2">
         <a class="f-center" href={`/profile`}>
-          <div class="hover:cursor-pointer rounded-full lg:bg-neutral-background lg:hover:bg-elevated-background px-[20px] py-[12px] f-center">
+          <div
+            class="hover:cursor-pointer rounded-full lg:bg-neutral-background lg:hover:bg-elevated-background px-[20px] py-[12px] f-center">
             Profile
           </div>
         </a>
+        <!-- Mobile Burger Button -->
+        <button
+          class="indicator btn bg-elevated-background size-[50px] btn-circle fixed z-30 right-7"
+          on:click={toggleMobileMenu}>
+          <span class="indicator-item badge badge-xs {$account?.isConnected ? 'badge-primary' : 'badge-accent'}"></span>
+          {#if !mobileMenu}
+            <img src={HamburgerIcon} alt="menu" />
+          {:else}
+            <img src={XIcon} alt="menu" />
+          {/if}
+        </button>
+
         <a class="f-center" href="/leaderboard">
-          <div class="hover:cursor-pointer rounded-full lg:bg-neutral-background lg:hover:bg-elevated-background px-[20px] py-[12px] f-center">
+          <div
+            class="hover:cursor-pointer rounded-full lg:bg-neutral-background lg:hover:bg-elevated-background px-[20px] py-[12px] f-center">
             Leaderboard +
           </div>
         </a>
