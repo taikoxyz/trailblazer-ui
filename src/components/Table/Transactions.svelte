@@ -34,7 +34,7 @@
                     : 'Transaction'}
               </td>
               <td>
-                {#if pointHistory?.points === 0 }
+                {#if pointHistory?.points === 0}
                   <span class="text-negative-sentiment">Daily Max Reached</span>
                 {:else}
                   + {pointHistory?.points}
