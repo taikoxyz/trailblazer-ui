@@ -29,7 +29,13 @@
                 <Skeleton width="w-4" height="h-4" bgColor="bg-pink-200" shineColor="bg-pink-100" />
                 {pointHistory?.event === "TransactionValue" ? 'Transaction Value' : pointHistory?.event === "BlockProposed" ? "Block Proposed": "Transaction" }
               </td>
-              <td>+ {pointHistory?.points}</td>
+              <td>
+                {#if pointHistory?.points === 0 }
+                  <span>Daily Max Reached</span>
+                {:else}
+                  + {pointHistory?.points}
+                {/if}
+                </td>
               <td>{new Date(pointHistory?.date * 1000).toLocaleString()}</td>
             </tr>
           {/each}
