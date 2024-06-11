@@ -9,7 +9,7 @@ env:
     PUBLIC_SUPABASE_URL: ${{ secrets.PUBLIC_SUPABASE_URL}}
     PUBLIC_FALLBACK_IMAGE_API_URL: ${{ secrets.PUBLIC_FALLBACK_IMAGE_API_URL}}
     PUBLIC_ENV: preview
-    PUBLIC_IPFS_GATEWAY: ${{ secrets.PUBLIC_IPFS_GATEWAY}}
+    PUBLIC_IPFS_GATEWAYS: ${{ secrets.PUBLIC_IPFS_GATEWAYS}}
 on:
     push:
       branches-ignore:
