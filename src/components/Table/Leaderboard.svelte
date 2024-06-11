@@ -75,7 +75,7 @@
   });
 </script>
 
-<div class="overflow-x-auto w-full px-8">
+<div class="overflow-x-auto lg:w-full px-8">
   <div class="flex flex-col gap-2 lg:flex-row justify-between mb-4">
     <div class="font-clash-grotesk lg:text-[60px] text-[40px] leading-none lg:leading-relaxed">
       <span class="text-secondary">Dapps</span> Leaderboard
@@ -90,14 +90,14 @@
     <thead>
       <tr>
         {#each headers as header}
-          <th class="body-regular text-secondary-content text-start pt-8 px-10">{header}</th>
+          <th class="body-regular text-secondary-content text-start pt-8 lg:px-10">{header}</th>
         {/each}
       </tr>
     </thead>
-    <tbody class="rounded-lg ">
+    <tbody class="rounded-lg">
       {#each $currentLeaderboard.items as thing, i}
         <tr class="row h-12">
-          <td class="px-10">
+          <td class="lg:px-10">
             <div class='flex gap-[20px] align-center'>
               <Skeleton class="hidden lg:table-cell" width="w-12" height="h-12" bgColor="bg-pink-200" shineColor="bg-pink-100" />
               <div class='flex flex-col justify-around'>
@@ -114,9 +114,9 @@
               </div>
             </div>
           </td>
-          <td class="lg:table-cell hidden px-10 body-regular">{thing.address}</td>
-          <td class="text-start lg:hidden table-cell px-10 body-regular">{shortenAddress(thing.address)}</td>
-          <td class="px-10 body-regular">{thing.score}</td>
+          <td class="lg:table-cell hidden lg:px-10 body-regular">{thing.address}</td>
+          <td class="text-start lg:hidden table-cell lg:px-10 body-regular">{shortenAddress(thing.address)}</td>
+          <td class="lg:px-10 body-regular">{thing.score}</td>
         </tr>
       {/each}
     </tbody>
