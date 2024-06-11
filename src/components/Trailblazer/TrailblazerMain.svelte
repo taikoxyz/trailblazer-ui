@@ -4,8 +4,7 @@
   import { ButtonWithArrow } from '$components/Button';
 </script>
 
-<div
-  class="f-center relative flex-col w-dvw rounded-[30px] overflow-hidden">
+<div class="f-center relative flex-col w-dvw rounded-[30px] overflow-hidden">
   <div class="f-center flex-col xl:flex-row h-dvh w-[90%]">
     <div class="f-center flex-col w-full">
       <!-- Title -->
