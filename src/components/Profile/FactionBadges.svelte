@@ -14,12 +14,14 @@
   const mockClaimableMap: Record<FactionNames, boolean> = {
     [FactionNames.Ravers]: true,
     [FactionNames.Robots]: false,
+    /*
     [FactionNames.Bouncers]: false,
     [FactionNames.Masters]: false,
     [FactionNames.Monks]: false,
     [FactionNames.Drummers]: false,
     [FactionNames.Androids]: false,
     [FactionNames.Shinto]: false,
+    */
   };
 
   async function load() {
@@ -34,7 +36,7 @@
 
 <div class="box gap-4">
   {#each factions as faction}
-    <FactionBadgeItem {address} name={faction} claimable={mockClaimableMap[faction]} unlocked={userFactions[faction]} />
+    <FactionBadgeItem name={faction} claimable={mockClaimableMap[faction]} unlocked={userFactions[faction]} />
   {/each}
 </div>
 

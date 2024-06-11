@@ -1,17 +1,14 @@
 <script lang="ts">
-  import { Bar } from '$components/Bar';
   import { Icon } from '$components/Icon';
   import CountUp from '$components/Numbers/CountUp.svelte';
   import type { UserProfile } from '$libs/profile';
   import { shortenAddress } from '$libs/util/shortenAddress';
   import { currentProfile } from '$stores/profile';
 
-  import ProfileMultipliers from './ProfileMultipliers.svelte';
   import RankDisplay from './RankDisplay.svelte';
 
   let profile: UserProfile;
   $: profile = $currentProfile;
-  let loading = true;
 </script>
 
 <div

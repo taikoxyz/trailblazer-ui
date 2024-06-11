@@ -5,12 +5,11 @@
   import ConnectButton from '$components/ConnectButton/ConnectButton.svelte';
   import Icon from '$components/Icon/Icon.svelte';
   import { DiscordLink, TwitterLink } from '$components/Links';
-  import { PUBLIC_FALLBACK_IMAGE_API_URL, PUBLIC_TRAILBLAZER_API_URL } from '$env/static/public';
+  import { PUBLIC_TRAILBLAZER_API_URL } from '$env/static/public';
   import PrePinkify from '$images/pre-pinkify.svg';
   import { postSignature } from '$libs/pinkify/api';
-  import { getSession, supabaseClient } from '$libs/supabase';
+  import { supabaseClient } from '$libs/supabase';
   import { blobToBase64 } from '$libs/util/blobToBase64';
-  import { parseTwitterAvatarId } from '$libs/util/parseTwitterAvatarId';
   import { wagmiConfig } from '$libs/wagmi';
   import { account } from '$stores/account';
   import { twitterAvatarId, twitterAvatarUrl, twitterId, twitterUsername } from '$stores/supabase';
@@ -26,10 +25,12 @@
   async function signInWithTwitter() {
     // Handle sign in with oauth and redirect to the current page
     const currentPage = window.location.origin + window.location.pathname;
-    const { data, error } = await supabaseClient.auth.signInWithOAuth({
+    await supabaseClient.auth.signInWithOAuth({
       provider: 'twitter',
       options: { redirectTo: currentPage },
     });
+
+
   }
 
   async function checkSigned() {
@@ -39,7 +40,7 @@
 
   async function logout() {
     // Handle sign in with oauth and redirect to the current page
-    const { error } = await supabaseClient.auth.signOut();
+    await supabaseClient.auth.signOut();
     step = Step.CONNECT;
   }
 
@@ -112,7 +113,6 @@
   let step: Step;
   step = Step.CONNECT;
 
-  let base64data: string;
   let pinkifiedAvatar: string;
 
   let modalOpen = false;
@@ -121,7 +121,6 @@
   let signing = false;
   let signed = false;
 
-  let svg: string;
 </script>
 
 <!-- {@html svg} -->

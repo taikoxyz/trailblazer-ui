@@ -3,8 +3,6 @@
 
   import { type FactionNames, FACTIONS } from '$configs/badges';
   import claimBadge from '$libs/badges/claimBadge';
-  import getMintSignature from '$libs/badges/getMintSignature';
-  import type { UserFactionBadge } from '$libs/profile';
   import { account } from '$stores/account';
 
   import FactionImage from './FactionImage.svelte';
@@ -15,22 +13,18 @@
   export let address: Address;
 
   let disabled = '';
-  let bg = "bg-[url('/src/public/images/booster-bg.svg')]";
   let blur = '';
   let shadow = '';
 
   $: if (unlocked) {
     disabled = 'hidden';
-    bg = "bg-[url('/src/public/images/booster-bg.svg')]";
     blur = '';
   } else if (claimable) {
     disabled = 'border-transparent block';
-    bg = "bg-[url('/src/public/images/booster-bg-disabled.svg')]";
     blur = 'blur-md';
     shadow = 'shadow-primary shadow-[0_0px_20px]';
   } else {
     disabled = 'btn-disabled border-transparent block';
-    bg = "bg-[url('/src/public/images/booster-bg-disabled.svg')]";
     blur = 'blur-md';
   }
 
@@ -57,7 +51,7 @@
   <div class="w-full relative pt-[28px] pb-[20px] px-[20px] flex flex-col justify-between">
     <div class="w-full flex flex-col items-center {blur}">
       <div>
-        <FactionImage {unlocked} {address} type={name} />
+        <FactionImage {unlocked} type={name} />
       </div>
     </div>
     <div class="absolute bottom-8 place-self-center w-full px-6">
