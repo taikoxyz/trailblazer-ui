@@ -20,13 +20,13 @@
     Profile.getUserPointsHistory(address);
   }
 
-  onMount(async () => {
-    // get slug
-    let address = $page.params.address;
+  // onMount(async () => {
+  //   // get slug
+  //   let address = $page.params.address;
 
-    await Profile.getProfile(address);
-    await Profile.getUserPointsHistory(address);
-  });
+  //   await Profile.getProfile(address);
+  //   await Profile.getUserPointsHistory(address);
+  // });
 </script>
 
 <div class="flex flex-col items-center">

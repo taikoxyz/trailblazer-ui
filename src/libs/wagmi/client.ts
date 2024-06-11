@@ -52,7 +52,6 @@ const taiko = defineChain({
   testnet: true,
 });
 
-// export const chains = [mainnet] as const;
 const chains = [taiko, taikoHekla] as const;
 const metadata = {
   name: 'Taiko Trailblazer',
