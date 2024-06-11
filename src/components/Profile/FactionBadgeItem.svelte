@@ -1,6 +1,7 @@
 <script lang="ts">
   import type { Address } from 'viem';
 
+  import { errorToast } from '$components/NotificationToast';
   import { type FactionNames, FACTIONS } from '$configs/badges';
   import claimBadge from '$libs/badges/claimBadge';
   import { account } from '$stores/account';
@@ -30,13 +31,18 @@
 
   $: isClaiming = false;
   async function handleClick() {
-    if (claimable /*&& $account && $account.address*/) {
+    if (claimable) {
       try {
         disabled = 'btn-disabled border-transparent block';
         isClaiming = true;
         await claimBadge(address, FACTIONS[name]);
         unlocked = true;
-      } catch (e) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      } catch (e: any) {
+        errorToast({
+          title: 'Badge Claim Error',
+          message: e.message,
+        });
         console.error(e);
       } finally {
         isClaiming = false;
