@@ -4,6 +4,7 @@ export type UserProfile = {
   score: number;
   pointsToNextLevel: number;
   rank: string;
+  title: string;
   level: string;
   total: string;
   leaderboardPosition: string;

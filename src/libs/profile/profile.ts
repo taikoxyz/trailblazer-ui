@@ -9,7 +9,6 @@ import type { UserLevel, UserPointHistoryPage, UserProfile } from './types';
 
 export class Profile {
   static getLevel(percentile: number): UserLevel {
-    console.log('🚀 | Profile | getLevel | percentile:', percentile);
     if (percentile < 0 || percentile > 100) {
       return { level: 0, title: 'Beginner' };
     }
@@ -131,10 +130,9 @@ export class Profile {
 
       // Calculate Level
       const level = this.getLevel(rankPercentile);
-      console.log('🚀 | Profile | getProfile | level:', level);
 
       // Format rankPercentile to 2 decimal places and add suffix
-      const formattedRankPercentile = `${rankPercentile.toFixed(2)}%`;
+      const formattedRankPercentile = `${(100 - rankPercentile).toFixed(2)}%`;
 
       // Update Profile
       currentProfile.update((current) => {

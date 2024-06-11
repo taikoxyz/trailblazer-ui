@@ -23,7 +23,6 @@
   };
 
   onMount(() => {
-    reconnect(wagmiConfig);
     startWatching();
   });
 

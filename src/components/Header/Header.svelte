@@ -41,7 +41,7 @@
         <div class="flex gap-2">
           <NavigationItem navigation={{ name: 'Profile', url: '/profile' }}></NavigationItem>
           <NavigationItem
-            navigation={{ name: 'Leaderboards', url: '/profile' }}
+            navigation={{ name: 'Leaderboards', url: '/leaderboard' }}
             children={[
               { name: 'User', url: '/users' },
               { name: 'Dapp', url: '/leaderboard' },
