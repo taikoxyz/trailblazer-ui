@@ -1,6 +1,7 @@
 <script lang="ts">
   import { ConnectButton } from '$components/ConnectButton';
   import { LogoWithText, TaikoTrailblazersLogo } from '$components/Logo';
+  import { MobileNavigation } from '$components/MobileNavigation';
   import HamburgerIcon from '$images/hamburger.svg';
 
   import XIcon from '$images/x.svg';
@@ -53,3 +54,6 @@
     </div>
   </div>
 </div>
+{#if mobileMenu}
+  <MobileNavigation on:navigate={toggleMobileMenu} />
+{/if}
