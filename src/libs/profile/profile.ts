@@ -1,12 +1,102 @@
 import { getAccount } from '@wagmi/core';
+import { get } from 'svelte/store';
 
 import { PUBLIC_TRAILBLAZER_API_URL } from '$env/static/public';
 import { wagmiConfig } from '$libs/wagmi';
 import { currentProfile } from '$stores/profile';
 
-import type { UserPointHistoryPage, UserProfile } from './types';
+import type { UserLevel, UserPointHistoryPage, UserProfile } from './types';
 
 export class Profile {
+  static getLevel(percentile: number): UserLevel {
+    console.log('🚀 | Profile | getLevel | percentile:', percentile);
+    if (percentile < 0 || percentile > 100) {
+      return { level: 0, title: 'Beginner' };
+    }
+
+    const levelTiers = [
+      {
+        percentileCap: 20,
+        level: 0,
+        title: 'Beginner',
+      },
+      {
+        percentileCap: 25,
+        level: 1,
+        title: 'Initiate',
+      },
+      {
+        percentileCap: 30,
+        level: 2,
+        title: 'Senshi I',
+      },
+      {
+        percentileCap: 35,
+        level: 3,
+        title: 'Senshi II',
+      },
+      {
+        percentileCap: 40,
+        level: 4,
+        title: 'Samurai I',
+      },
+      {
+        percentileCap: 45,
+        level: 5,
+        title: 'Samurai II',
+      },
+      {
+        percentileCap: 50,
+        level: 6,
+        title: 'Sensei I',
+      },
+      {
+        percentileCap: 94,
+        level: 7,
+        title: 'Sensei II',
+      },
+      {
+        percentileCap: 96,
+        level: 8,
+        title: 'Taichou I',
+      },
+      {
+        percentileCap: 98,
+        level: 9,
+        title: 'Taichou II',
+      },
+      {
+        percentileCap: 99,
+        level: 10,
+        title: 'Shogun',
+      },
+      {
+        percentileCap: 99.5,
+        level: 11,
+        title: 'Hashira',
+      },
+      {
+        percentileCap: 99.8,
+        level: 12,
+        title: 'Kodai',
+      },
+      {
+        percentileCap: 99.9,
+        level: 13,
+        title: 'Densetsu',
+      },
+      {
+        percentileCap: 100,
+        level: 14,
+        title: 'Legend',
+      },
+    ];
+
+    // 0-20 percentile will have the Beginner Title
+    const level = levelTiers.find((tier) => percentile <= tier.percentileCap) as UserLevel;
+    return { level: level.level, title: level.title };
+  }
+
   static async getProfile(address?: string) {
     // Mock Data
     // setInterval(() => {
@@ -36,9 +126,20 @@ export class Profile {
         return { ...current, ...updates };
       });
 
-      // userPointHistory.set(userProfile.pointsHistory);
+      // Calculate Percentile
+      const rankPercentile = this.calculatePercentile();
 
-      // set page
+      // Calculate Level
+      const level = this.getLevel(rankPercentile);
+      console.log('🚀 | Profile | getProfile | level:', level);
+
+      // Format rankPercentile to 2 decimal places and add suffix
+      const formattedRankPercentile = `${rankPercentile.toFixed(2)}%`;
+
+      // Update Profile
+      currentProfile.update((current) => {
+        return { ...current, ...level, rankPercentile: formattedRankPercentile };
+      });
     }
   }
 
@@ -67,5 +168,14 @@ export class Profile {
 
   static async getStatistics() {
     // fetches statistics from backend
+  }
+
+  static calculatePercentile() {
+    // Take current rank over total
+    const profile = get(currentProfile);
+    const rank = profile.rank;
+    const total = profile.total;
+    const percentile = (1 - Number(rank) / Number(total)) * 100;
+    return percentile;
   }
 }

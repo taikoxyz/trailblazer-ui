@@ -55,7 +55,9 @@
     <!-- Rank & Experience -->
     <div class="flex flex-col gap-4">
       <!-- <div class="flex justify-between body-bold"> -->
-      <!-- <div>{profile?.rank}</div> -->
+      <div>{profile?.level}</div>
+      <div>{profile?.title}</div>
+      <div>{profile?.rank} out of {profile?.total} (top {profile?.rankPercentile})</div>
       <!-- <div class="flex">
           <CountUp value={+profile?.rank} /> /
           <span class="text-tertiary-content">{profile?.total}</span>
