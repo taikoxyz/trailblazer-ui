@@ -44,7 +44,7 @@ export default async function getMintSignature(
 
   const chainId = selectedNetworkId as IChainId;
   const contractAddress = trailblazersBadgesAddress[chainId];
-
+  console.log({chainId})
   const hash = await readContract(wagmiConfig, {
     abi: trailblazersBadgesAbi,
     address: contractAddress,
