@@ -15,7 +15,6 @@ async function signHash(config: any, address: Address, badgeId: number, chainId:
 
   //const baseUrl = config.chainId === 167000 ? '' : 'https://trailblazer.hekla.taiko.xyz/mint';
   const baseUrl = 'https://trailblazer.hekla.taiko.xyz/mint';
-
   const res = await fetch(baseUrl, {
     method: 'POST',
     headers: {
