@@ -25,7 +25,7 @@
 
   <!-- </div> -->
 
-  <div class="flex flex-col gap-2 self-center lg:min-w-[300px]">
+  <div class="flex flex-col gap-2 self-center lg:min-w-[300px] w-full">
     <div class="flex align-start justify-between items-center gap-2 mt-5 lg:mt-0">
       <div class="flex items-center gap-1">
         <Icon type="user-circle"></Icon>
@@ -55,7 +55,7 @@
       <div class="flex rounded-full px-[10px] py-[6px] bg-purple-600 items-center body-bold">Boosted</div>
     </div> -->
     <!-- Rank & Experience -->
-    <div class="flex flex-col gap-[10px]">
+    <div class="flex flex-col gap-[10px] w-full">
       <!-- <div class="flex justify-between body-bold"> -->
       <div class="flex justify-between">
         <div>Level</div>
