@@ -36,7 +36,7 @@
 
 <div class="box gap-4">
   {#each factions as faction}
-    <FactionBadgeItem name={faction} claimable={mockClaimableMap[faction]} unlocked={userFactions[faction]} />
+    <FactionBadgeItem {address} name={faction} claimable={mockClaimableMap[faction]} unlocked={userFactions[faction]} />
   {/each}
 </div>
 

@@ -2,7 +2,7 @@ import { readContract } from '@wagmi/core';
 import type { Address } from 'viem';
 
 import { web3modal } from '$libs/connect';
-import { config } from '$libs/wagmi';
+import { wagmiConfig } from '$libs/wagmi';
 import type { IChainId } from '$types';
 
 import { trailblazersBadgesAbi, trailblazersBadgesAddress } from '../../generated/abi/';
@@ -12,7 +12,7 @@ export async function balanceOf(address: Address): Promise<number> {
   if (!selectedNetworkId) return 0;
 
   const chainId = selectedNetworkId as IChainId;
-  const result = await readContract(config, {
+  const result = await readContract(wagmiConfig, {
     abi: trailblazersBadgesAbi,
     address: trailblazersBadgesAddress[chainId],
     functionName: 'balanceOf',
