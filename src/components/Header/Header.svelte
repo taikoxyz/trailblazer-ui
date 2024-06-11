@@ -34,27 +34,14 @@
           <TaikoTrailblazersLogo class="w-[125px]" />
         </a>
       </div>
-      <!-- <div class="flex-grow flex items-center justify-center">
-        <div class="flex items-center justify-center relative gap-4 h-9 text-primary-content body-regular"></div>
-      </div> -->
-      <div class="flex gap-2">
-        <a class="f-center" href={`/profile`}>
+      <!--  Desktop Only -->
+      <div class="hidden lg:flex gap-2">
+        <a class="f-center" href="/profile">
           <div
             class="hover:cursor-pointer rounded-full lg:bg-neutral-background lg:hover:bg-elevated-background px-[20px] py-[12px] f-center">
             Profile
           </div>
         </a>
-        <!-- Mobile Burger Button -->
-        <button
-          class="indicator btn bg-elevated-background size-[50px] btn-circle fixed z-30 right-7"
-          on:click={toggleMobileMenu}>
-          <span class="indicator-item badge badge-xs {$account?.isConnected ? 'badge-primary' : 'badge-accent'}"></span>
-          {#if !mobileMenu}
-            <img src={HamburgerIcon} alt="menu" />
-          {:else}
-            <img src={XIcon} alt="menu" />
-          {/if}
-        </button>
 
         <a class="f-center" href="/leaderboard">
           <div
@@ -62,8 +49,8 @@
             Leaderboard +
           </div>
         </a>
+        <ConnectButton />
       </div>
-      <ConnectButton />
     </div>
   </div>
 </div>
