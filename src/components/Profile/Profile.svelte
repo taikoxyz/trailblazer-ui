@@ -30,7 +30,7 @@
 
 <div class="flex flex-col items-center">
   <div class="flex flex-col max-w-section w-full lg:gap-8">
-    <div class="flex px-4 lg:px-0 gap-8 lg:w-1/2 lg:max-w-[630px] box-content">
+    <div class="flex px-4 lg:px-0 gap-8 h-full box-content flex-col lg:flex-row justify-center">
       <!-- Profile Card -->
       <ProfileCard />
 
@@ -55,25 +55,17 @@
       <!-- </ProfileSubCard> -->
 
       <!-- Booster Card -->
-      <!-- <ProfileSubCard> -->
-      <!-- <div class="flex flex-col gap-6 items-center justify-center w-full">
+      <ProfileSubCard>
+        <div class="flex flex-col gap-6 items-center justify-center w-full">
           <div class="f-center gap-2">
             <div class="title-subsection-bold">Booster</div>
             <Icon type={'question-circle'}></Icon>
           </div>
           <div class="f-center flex-col w-full">
-            <div class="display-small-medium">1x</div>
+            <div class="display-small-medium text-tertiary-content">Coming Soon</div>
           </div>
-          <div class="f-center ml-1">
-            <Skeleton width="w-6" height="h-6" bgColor="bg-blue-200" shineColor="bg-blue-100" class="-ml-1" />
-            <Skeleton width="w-6" height="h-6" bgColor="bg-red-200" shineColor="bg-red-100" class="-ml-1" />
-            <Skeleton width="w-6" height="h-6" bgColor="bg-yellow-200" shineColor="bg-yellow-100" class="-ml-1" />
-            <Skeleton width="w-6" height="h-6" bgColor="bg-blue-200" shineColor="bg-blue-100" class="-ml-1" />
-            <Skeleton width="w-6" height="h-6" bgColor="bg-red-200" shineColor="bg-red-100" class="-ml-1" />
-            <Skeleton width="w-6" height="h-6" bgColor="bg-yellow-200" shineColor="bg-yellow-100" class="-ml-1" />
-          </div>
-        </div> -->
-      <!-- </ProfileSubCard> -->
+        </div>
+      </ProfileSubCard>
     </div>
 
     <ProfileTabs />
