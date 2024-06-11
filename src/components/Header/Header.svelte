@@ -21,7 +21,7 @@
     <div class=" flex body-regular items-center justify-between box-border w-full mt-8 py-2 rounded-full lg:bg-none">
       <!-- Mobile Burger Button -->
       <button
-        class="flex lg:hidden indicator btn bg-elevated-background size-[50px] btn-circle fixed z-30 right-7"
+        class="flex lg:hidden indicator btn bg-neutral-background border-none size-[50px] btn-circle fixed z-30 right-7"
         on:click={toggleMobileMenu}>
         <span class="indicator-item badge badge-xs {$account?.isConnected ? 'badge-primary' : 'badge-accent'}"></span>
         {#if !mobileMenu}

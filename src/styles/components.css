@@ -301,4 +301,9 @@
   .hover-zoom {
     @apply scale-[1.0] hover:scale-[1.1] transition-transform duration-300 ease-in-out;
   }
+
+  .dropdown-delay {
+    transition-property: unset !important;
+    transition-duration: 1000ms !important;
+  }
 }
