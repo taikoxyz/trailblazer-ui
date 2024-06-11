@@ -15,9 +15,9 @@
 </script>
 
 <div
-  class="flex bg-elevated-background p-5 pt-[84px] lg:pt-5 rounded-3xl w-full flex-col lg:flex-row items-center lg:w-1/2 lg:max-w-[630px]">
+  class="flex bg-elevated-background p-5 pt-[84px] lg:pt-5 rounded-3xl w-full flex-col lg:flex-row items-center xl:w-1/2 xl:max-w-[630px]">
   <!-- <div class="flex flex-col gap-5 lg:w-1/2 w-full items-center lg:items-start lg:max-h-[300px] lg:max-w-[300px]"> -->
-  <div class="avatar lg:size-[258px] size-[250px] items-center lg:mr-4">
+  <div class="avatar lg:size-[258px] size-[250px] items-center lg:mr-8">
     <div class="h-full bg-orange-400 rounded-3xl">
       <img src={profile?.avatar} alt="avatar" />
     </div>
@@ -40,9 +40,9 @@
     </div>
 
     <!-- Points -->
-    <div class="flex items-center gap-2">
+    <div class="flex items-center gap-2 lg:mb-4">
       <CountUp class="font-clash-grotesk font-semibold text-[45px] leading-none" value={$currentProfile?.score} />
-      <div>xp</div>
+      <div>Points</div>
     </div>
     <!-- Faction -->
     <!-- <div class="flex gap-2 items-center">
