@@ -13,6 +13,7 @@
   import { startWatching, stopWatching, wagmiConfig } from '$libs/wagmi';
   import { browser } from '$app/environment';
   import { reconnect } from '@wagmi/core';
+  import MobileNavigation from '$components/MobileNavigation/MobileNavigation.svelte';
 
   const syncPointer = ({ x, y }: { x: number; y: number }) => {
     document.documentElement.style.setProperty('--x', x.toFixed(2));

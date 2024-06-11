@@ -139,7 +139,7 @@ export default {
         },
 
         purple: {
-          DEFAULT: '#1B0E3E'
+          DEFAULT: '#1B0E3E',
         },
 
         /*******************

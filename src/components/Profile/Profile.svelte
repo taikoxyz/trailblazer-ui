@@ -16,8 +16,7 @@
 
   $: if ($account) {
     let address = $account.address;
-    Profile.getProfile(address);
-    Profile.getUserPointsHistory(address);
+    console.log('🚀 | address:', address);
   }
 
   onMount(async () => {

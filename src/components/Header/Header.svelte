@@ -1,6 +1,7 @@
 <script lang="ts">
   import { ConnectButton } from '$components/ConnectButton';
   import { LogoWithText, TaikoTrailblazersLogo } from '$components/Logo';
+  import { MobileNavigation } from '$components/MobileNavigation';
   import HamburgerIcon from '$images/hamburger.svg';
 
   import XIcon from '$images/x.svg';
@@ -15,7 +16,7 @@
 </script>
 
 <div class="absolute w-full f-center top-0 z-50">
-  <div class="container f-center w-full px-[75px]">
+  <div class="container f-center w-full px-[20px] lg:px-[75px]">
     <div class=" flex body-regular items-center justify-between box-border w-full mt-8 py-2 rounded-full lg:bg-none">
       <!-- Mobile Burger Button -->
       <button
@@ -34,22 +35,25 @@
           <TaikoTrailblazersLogo class="w-[125px]" />
         </a>
       </div>
-      <!-- <div class="flex-grow flex items-center justify-center">
-        <div class="flex items-center justify-center relative gap-4 h-9 text-primary-content body-regular"></div>
-      </div> -->
-      <div class="flex gap-2">
-        <a class="f-center" href={`/profile`}>
-          <div class="hover:cursor-pointer rounded-full lg:bg-neutral-background lg:hover:bg-elevated-background px-[20px] py-[12px] f-center">
+      <!--  Desktop Only -->
+      <div class="hidden lg:flex gap-2">
+        <a class="f-center" href="/profile">
+          <div
+            class="hover:cursor-pointer rounded-full lg:bg-neutral-background lg:hover:bg-elevated-background px-[20px] py-[12px] f-center">
             Profile
           </div>
         </a>
         <a class="f-center" href="/leaderboard">
-          <div class="hover:cursor-pointer rounded-full lg:bg-neutral-background lg:hover:bg-elevated-background px-[20px] py-[12px] f-center">
+          <div
+            class="hover:cursor-pointer rounded-full lg:bg-neutral-background lg:hover:bg-elevated-background px-[20px] py-[12px] f-center">
             Leaderboard +
           </div>
         </a>
+        <ConnectButton />
       </div>
-      <ConnectButton />
     </div>
   </div>
 </div>
+{#if mobileMenu}
+  <MobileNavigation on:navigate={toggleMobileMenu} />
+{/if}

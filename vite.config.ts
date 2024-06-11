@@ -1,6 +1,6 @@
 import { sveltekit } from '@sveltejs/kit/vite';
 import dotenv from 'dotenv';
-import { defineConfig } from 'vite'
+import { defineConfig } from 'vite';
 import tsconfigPaths from 'vite-tsconfig-paths';
 
 import { generateChainConfig } from './scripts/vite-plugins/generateChainConfig';

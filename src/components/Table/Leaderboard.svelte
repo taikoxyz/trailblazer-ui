@@ -12,14 +12,16 @@
 </script>
 
 <div class="overflow-x-auto w-full px-8">
-  <div class="flex justify-between mb-4">
-    <div class="font-clash-grotesk lg:text-[60px] text-[40px] leading-none lg:leading-relaxed"><span class="text-secondary">Dapps</span> Leaderboard</div>
+  <div class="flex flex-col gap-2 lg:flex-row justify-between mb-4">
+    <div class="font-clash-grotesk lg:text-[60px] text-[40px] leading-none lg:leading-relaxed">
+      <span class="text-secondary">Dapps</span> Leaderboard
+    </div>
     <div class="body-small-regular lg:body-regular flex flex-col justify-center">
       <div>Complete trails, bridge,</div>
       <div>use Dapps to rank up.</div>
     </div>
   </div>
-  <table class="table-lg w-full body-regular text-white rounded-3xl" style="background: rgba(25, 30, 40, .50)"> 
+  <table class="table-lg w-full body-regular text-white rounded-3xl" style="background: rgba(25, 30, 40, .50)">
     <!-- head -->
     <thead>
       <tr>

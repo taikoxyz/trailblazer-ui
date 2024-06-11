@@ -3,8 +3,6 @@
   import { Auth } from '@supabase/auth-ui-svelte';
   import { onMount } from 'svelte';
 
-  
-
   import { supabaseClient } from '$libs/supabase';
 
   let url: string;

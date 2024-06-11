@@ -2,7 +2,6 @@ import Placeholder from '$images/avatar.png';
 import type { UserProfile } from '$libs/profile';
 import { zeroAddress } from 'viem';
 
-
 export const MOCK_PROFILE: UserProfile = {
   avatar: Placeholder,
   name: 'Jane',
