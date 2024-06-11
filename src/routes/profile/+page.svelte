@@ -27,7 +27,7 @@
 
 <Page>
   {#if !$account?.isConnected}
-  <div class="flex w-full justify-center">
+  <div class="flex w-full justify-center mt-[18%] lg:mt-0">
     <div class="h-fit flex flex-col rounded-[30px] lg:bg-gradient-background items-center justify-center lg:p-[50px] lg:max-w-[570px] w-full align-center">
       <div class="flex flex-col h-full w-full items-center justify-between break-words gap-12">
         <div class="flex flex-col gap-8 items-center w-full">
