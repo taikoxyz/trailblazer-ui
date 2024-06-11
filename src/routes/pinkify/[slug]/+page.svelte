@@ -1,7 +1,7 @@
 <script>
+  import { page } from '$app/stores';
   import { Page } from '$components/Page';
   import { Pinkify } from '$components/Pinkify';
-  import { page } from '$app/stores';
 </script>
 
 <svelte:head>

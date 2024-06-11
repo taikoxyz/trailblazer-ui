@@ -1,15 +1,14 @@
 <script lang="ts">
   import { createEventDispatcher, onMount } from 'svelte';
-
-  import { ActionButton, CloseButton } from '$components/Button';
-
-  import { uid } from '$libs/util/uid';
-  import { generateTwitterCardSVG } from '$libs/pinkify';
-  import { twitterAvatarId, twitterId } from '$stores/supabase';
   import { get } from 'svelte/store';
+
+  import { page } from '$app/stores';
+  import { ActionButton, CloseButton } from '$components/Button';
+  import { generateTwitterCardSVG } from '$libs/pinkify';
   import { savePngToSupabase } from '$libs/supabase/functions';
   import { draftMessage } from '$libs/twitter';
-  import { page } from '$app/stores';
+  import { uid } from '$libs/util/uid';
+  import { twitterAvatarId, twitterId } from '$stores/supabase';
 
   const dialogId = `dialog-${uid()}`;
 

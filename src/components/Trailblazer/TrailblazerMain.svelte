@@ -1,7 +1,7 @@
 <script lang="ts">
+  import { ButtonWithArrow } from '$components/Button';
   import { PlusIcon } from '$components/Icon';
   import { TaikoTrailblazersLogo } from '$components/Logo';
-  import { ButtonWithArrow } from '$components/Button';
 </script>
 
 <div class="f-center relative flex-col w-dvw rounded-[30px] overflow-hidden">

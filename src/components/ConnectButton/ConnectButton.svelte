@@ -1,18 +1,17 @@
 <script lang="ts">
+  import { getChainId } from '@wagmi/core';
   import { onDestroy, onMount } from 'svelte';
   import { t } from 'svelte-i18n';
 
   import { ActionButton } from '$components/Button';
   import { Icon } from '$components/Icon';
   import { getChainImage } from '$libs/chain';
-  import { wagmiConfig, web3Modal } from '$libs/wagmi';
-
   import { renderEthBalance } from '$libs/util/balance';
   import { noop } from '$libs/util/noop';
   import { shortenAddress } from '$libs/util/shortenAddress';
+  import { wagmiConfig, web3Modal } from '$libs/wagmi';
   import { account } from '$stores/account';
   import { ethBalance } from '$stores/balance';
-  import { getChainId } from '@wagmi/core';
 
   $: connected = $account?.isConnected;
 

@@ -1,8 +1,9 @@
 <script lang="ts">
-  import { FactionNames } from '$configs/badges';
-  import type { Faction } from '$libs/profile';
   import { onMount } from 'svelte';
   import type { Address } from 'viem';
+
+  import { FactionNames } from '$configs/badges';
+  import type { Faction } from '$libs/profile';
 
   export let type: Faction;
   export let address: Address;

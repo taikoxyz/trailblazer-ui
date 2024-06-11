@@ -2,8 +2,8 @@
   import { onMount } from 'svelte';
 
   import { Leaderboard } from '$libs/leaderboard';
-  import { currentUserLeaderboard } from '$stores/leaderboard';
   import { shortenAddress } from '$libs/util/shortenAddress';
+  import { currentUserLeaderboard } from '$stores/leaderboard';
   let headers = ['Rank', 'Address', 'Points'];
 
   onMount(async () => {

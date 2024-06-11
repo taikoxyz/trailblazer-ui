@@ -1,12 +1,8 @@
 <script lang="ts">
-  import { account } from '$stores/account';
-  import NotEligibleImage from '$images/not-eligible.png';
   import { Page } from '$components/Page';
-  import { onMount } from 'svelte';
-  import { Profile } from '$components/Profile';
-
+  import NotEligibleImage from '$images/not-eligible.png';
   import { web3modal } from '$libs/connect';
-  console.log($account);
+  import { account } from '$stores/account';
 
   function handleConnectWallet() {
     web3modal.open({ view: 'Connect' });
@@ -14,9 +10,8 @@
   async function load() {
     if ($account && $account.address) {
       window.location.href = `/profile/${$account.address}`;
-      console.log('redirecting', `/profile/${$account.address}`);
     } else {
-      console.error('no account!');
+      console.warn('no account!');
       web3modal.open();
     }
   }

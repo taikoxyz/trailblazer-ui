@@ -1,9 +1,10 @@
 <script>
-  import { fly } from 'svelte/transition';
-  import ConnectButton from '$components/ConnectButton/ConnectButton.svelte';
-  import MobileNavigationLink from './MobileNavigationLink.svelte';
-
   import { createEventDispatcher } from 'svelte';
+  import { fly } from 'svelte/transition';
+
+  import ConnectButton from '$components/ConnectButton/ConnectButton.svelte';
+
+  import MobileNavigationLink from './MobileNavigationLink.svelte';
 </script>
 
 <!-- Overlay -->

@@ -1,6 +1,6 @@
 <script lang="ts">
   import LockIcon from '$components/Icon/LockIcon.svelte';
-  import { MOCK_FACTION_GALLERY, type GalleryItem } from '$mocks';
+  import { type GalleryItem, MOCK_FACTION_GALLERY } from '$mocks';
 
   export let items: GalleryItem[] = MOCK_FACTION_GALLERY;
 </script>

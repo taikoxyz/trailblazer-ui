@@ -1,12 +1,13 @@
 <script lang="ts">
-  import { FACTIONS, type FactionNames } from '$configs/badges';
+  import type { Address } from 'viem';
+
+  import { type FactionNames, FACTIONS } from '$configs/badges';
   import claimBadge from '$libs/badges/claimBadge';
   import getMintSignature from '$libs/badges/getMintSignature';
   import type { UserFactionBadge } from '$libs/profile';
   import { account } from '$stores/account';
 
   import FactionImage from './FactionImage.svelte';
-  import type { Address } from 'viem';
 
   export let name: FactionNames;
   export let unlocked: boolean = false;

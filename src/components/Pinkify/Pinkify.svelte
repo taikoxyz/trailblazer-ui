@@ -1,20 +1,21 @@
 <script lang="ts">
-  import Icon from '$components/Icon/Icon.svelte';
-  import { DiscordLink, TwitterLink } from '$components/Links';
-  import PrePinkify from '$images/pre-pinkify.svg';
-  import { getSession, supabaseClient } from '$libs/supabase';
-  import { parseTwitterAvatarId } from '$libs/util/parseTwitterAvatarId';
-  import { twitterAvatarId, twitterAvatarUrl, twitterId, twitterUsername } from '$stores/supabase';
-  import PinkifyModal from './PinkifyModal.svelte';
   import { getAccount, signMessage } from '@wagmi/core';
-  import { wagmiConfig } from '$libs/wagmi';
-  import { postSignature } from '$libs/pinkify/api';
-  import { blobToBase64 } from '$libs/util/blobToBase64';
   import { get } from 'svelte/store';
 
-  import { PUBLIC_FALLBACK_IMAGE_API_URL, PUBLIC_TRAILBLAZER_API_URL } from '$env/static/public';
-  import { account } from '$stores/account';
   import ConnectButton from '$components/ConnectButton/ConnectButton.svelte';
+  import Icon from '$components/Icon/Icon.svelte';
+  import { DiscordLink, TwitterLink } from '$components/Links';
+  import { PUBLIC_FALLBACK_IMAGE_API_URL, PUBLIC_TRAILBLAZER_API_URL } from '$env/static/public';
+  import PrePinkify from '$images/pre-pinkify.svg';
+  import { postSignature } from '$libs/pinkify/api';
+  import { getSession, supabaseClient } from '$libs/supabase';
+  import { blobToBase64 } from '$libs/util/blobToBase64';
+  import { parseTwitterAvatarId } from '$libs/util/parseTwitterAvatarId';
+  import { wagmiConfig } from '$libs/wagmi';
+  import { account } from '$stores/account';
+  import { twitterAvatarId, twitterAvatarUrl, twitterId, twitterUsername } from '$stores/supabase';
+
+  import PinkifyModal from './PinkifyModal.svelte';
   enum Step {
     CONNECT,
     PINKIFY,

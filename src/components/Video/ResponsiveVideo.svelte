@@ -1,5 +1,6 @@
 <script lang="ts">
   import { fade } from 'svelte/transition';
+
   import PlayButton from '$images/play-button.svg';
   import TeaserVideo from '$images/Taiko-tower-teaser.mp4';
   let time: number = 0;
