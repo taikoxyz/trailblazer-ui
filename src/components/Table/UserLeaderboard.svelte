@@ -11,7 +11,7 @@
   });
 </script>
 
-<div class="overflow-x-auto w-full px-8">
+<div class="overflow-x-auto lg:w-full px-8 mt-[18%] lg:mt-0">
   <div class="flex justify-between mb-4">
     <div class="font-clash-grotesk lg:text-[60px] text-[40px] leading-none lg:leading-relaxed"><span class="text-secondary">User</span> Leaderboard</div>
     <div class="body-small-regular lg:body-regular flex flex-col justify-center">
