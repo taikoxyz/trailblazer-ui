@@ -13,7 +13,8 @@
   let loading = true;
 </script>
 
-<div class="flex lg:bg-elevated-background p-5 rounded-3xl w-full flex-col lg:flex-row items-center">
+<div
+  class="flex lg:bg-elevated-background p-5 rounded-3xl w-full flex-col lg:flex-row items-center lg:w-1/2 lg:max-w-[630px]">
   <!-- <div class="flex flex-col gap-5 lg:w-1/2 w-full items-center lg:items-start lg:max-h-[300px] lg:max-w-[300px]"> -->
   <div class="avatar w-1/2 items-center lg:mr-4">
     <div class="h-full bg-orange-400 rounded-3xl">
@@ -21,6 +22,7 @@
     </div>
   </div>
   <!-- <ProfileMultipliers /> -->
+
   <!-- </div> -->
 
   <div class="flex flex-col gap-2 self-center lg:min-w-[300px]">
@@ -41,7 +43,7 @@
     <!-- Points -->
     <div class="flex items-center gap-2">
       <CountUp class="font-clash-grotesk font-semibold text-[45px] leading-none" value={$currentProfile?.score} />
-      <div>points</div>
+      <div>xp</div>
     </div>
     <!-- Faction -->
     <!-- <div class="flex gap-2 items-center">
