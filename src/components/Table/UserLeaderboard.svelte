@@ -1,9 +1,9 @@
 <script lang="ts">
   import { onMount } from 'svelte';
 
+  import { ExplorerLink } from '$components/Links';
   import { Leaderboard } from '$libs/leaderboard';
   import { currentUserLeaderboard } from '$stores/leaderboard';
-  import { ExplorerLink } from '$components/Links';
   let headers = ['Rank', 'Address', 'Points'];
 
   onMount(async () => {
