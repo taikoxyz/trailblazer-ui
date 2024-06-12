@@ -82,9 +82,9 @@
       <!-- Claim Galxe -->
       <!-- {#if !profile.galxePointsClaimed && profile?.galxePoints && profile.galxePoints > 0} -->
       <ProfileSubCard props={{ color: 'bg-[#310E2F]' }}>
-        <div class="flex flex-col items-center justify-center w-full h-full">
+        <div class="flex flex-col items-center justify-start w-full h-full">
           <!-- Top Half -->
-          <div class="flex gap-2">
+          <div class="flex gap-2 pb-3">
             <div class="title-subsection-bold">Galxe</div>
             <Tooltip position="bottom">
               <div>Are you a Galxe user?</div>
@@ -94,10 +94,10 @@
               </div>
             </Tooltip>
           </div>
-
           <div class="divider m-0"></div>
+
           <div class="f-center flex-col px-6 w-full justify-between">
-            <div class="f-center flex-col">
+            <div class="f-center flex-col py-[38px]">
               <div class="display-medium-medium">{profile.trailblazerPoints}</div>
               <div>Trailblazer Points</div>
             </div>

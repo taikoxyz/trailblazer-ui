@@ -36,7 +36,6 @@ export class Galxe {
       const response = await fetch(`${PUBLIC_TRAILBLAZER_API_URL}/api/galxe?address=${address}`);
       // const response = await fetch(`${PUBLIC_TRAILBLAZER_API_URL}/user?user=0x8626f6940E2eb28930eFb4CeF49B2d1F2C9C1199`)
       const galxePoints: GalxePointsResponse = (await response.json()) as GalxePointsResponse;
-      console.log('🚀 | Galxe | getPoints | galxePoints:', galxePoints);
       // Safely update the currentProfile with galxePoints details
       currentProfile.update((current) => {
         const updates: Partial<GalxePoints> = {};
