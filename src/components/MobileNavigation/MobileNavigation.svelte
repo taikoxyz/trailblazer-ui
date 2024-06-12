@@ -24,7 +24,8 @@
         <div class="collapse-content bg-neutral w-full rounded-box flex flex-col gap-4">
           <MobileNavigationLink on:navigate url="/" label="Home" />
           <MobileNavigationLink on:navigate url="/profile" label="Profile" />
-          <MobileNavigationLink on:navigate url="/leaderboard" label="Leaderboard" />
+          <MobileNavigationLink on:navigate url="/leaderboard/user" label="Leaderboard - User" />
+          <MobileNavigationLink on:navigate url="/leaderboard/dapp" label="Leaderboard - Dapp" />
         </div>
       </div>
     </div>
