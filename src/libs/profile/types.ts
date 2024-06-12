@@ -1,4 +1,4 @@
-export type UserProfile = {
+export type UserProfile = GalxePoints & {
   address: string;
   pointsHistory?: UserPointHistoryPage;
   score: number;
@@ -15,6 +15,12 @@ export type UserProfile = {
   experience?: number;
   rankPercentile?: string;
   isLoading: boolean;
+};
+
+export type GalxePoints = {
+  galxePoints?: number;
+  trailblazerPoints?: number;
+  galxePointsClaimed?: boolean;
 };
 
 export type UserBooster = {

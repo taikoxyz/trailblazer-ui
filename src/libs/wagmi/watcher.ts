@@ -1,6 +1,7 @@
 import { watchAccount } from '@wagmi/core';
 import { get } from 'svelte/store';
 
+import { Galxe } from '$libs/galxe';
 import { Profile } from '$libs/profile';
 import { refreshUserBalance } from '$libs/util/balance';
 import { account, address } from '$stores/account';
@@ -20,6 +21,8 @@ export async function startWatching() {
       async onChange(data) {
         account.set(data);
         await refreshUserBalance();
+        await Galxe.refreshData();
+
         // Update address if differen t
         if (data.address !== get(address)) {
           // console.log(`Address Changed: ${data.address}`);

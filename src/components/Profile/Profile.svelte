@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { onMount } from 'svelte';
 
   import { page } from '$app/stores';
@@ -7,21 +7,37 @@
   import { ProfileTabs } from '$components/Tabs';
   import { Profile } from '$libs/profile';
   import { account } from '$stores/account';
+  import type { UserProfile } from '$libs/profile';
 
   import ProfileCard from './ProfileCard.svelte';
   import ProfileSubCard from './ProfileSubCard.svelte';
+  import ActionButton from '$components/Button/ActionButton.svelte';
+  import { Galxe } from '$libs/galxe';
+  import { currentProfile } from '$stores/profile';
+  import { galxeLoading } from '$stores/load';
+  import { Tooltip } from '$components/Tooltip';
 
   $: if ($account) {
     let address = $account.address;
     console.info('🚀 | address:', address);
   }
 
+  let profile: UserProfile;
+  $: profile = $currentProfile;
+
+  let galxeClaimLoading = true;
+  async function handleGalxeClaim() {
+    $galxeLoading = true;
+    await Galxe.claim();
+    $galxeLoading = false;
+  }
+
   onMount(async () => {
     // get slug
     let address = $page.params.address;
-
     await Profile.getProfile(address);
     await Profile.getUserPointsHistory(address);
+    // await Galxe.refreshData();
   });
 </script>
 
@@ -63,6 +79,39 @@
           </div>
         </div>
       </ProfileSubCard>
+
+      <!-- Claim Galxe -->
+      <!-- {#if !profile.galxePointsClaimed && profile?.galxePoints && profile.galxePoints > 0} -->
+      <ProfileSubCard props={{ color: 'bg-[#310E2F]' }}>
+        <div class="flex flex-col items-center justify-start w-full h-full">
+          <!-- Top Half -->
+          <div class="flex gap-2 pb-3">
+            <div class="title-subsection-bold">Galxe</div>
+            <Tooltip position="bottom">
+              <div>Are you a Galxe user?</div>
+              <div>
+                Galxe users receive an automatic headstart in Trailblazers as a special benefit. Convert your Galxe
+                points directly into Trailblazer points to begin your journey with an advantage!
+              </div>
+            </Tooltip>
+          </div>
+          <div class="divider m-0"></div>
+
+          <div class="f-center flex-col px-6 w-full justify-between">
+            <div class="f-center flex-col py-[38px]">
+              <div class="display-medium-medium">{profile.trailblazerPoints}</div>
+              <div>Trailblazer Points</div>
+            </div>
+            <ActionButton
+              class="h-fit"
+              disabled={profile.galxePointsClaimed || profile.galxePoints == 0}
+              loading={$galxeLoading}
+              priority="primary"
+              on:click={handleGalxeClaim}>{profile.galxePointsClaimed ? 'Claimed' : 'Claim'}</ActionButton>
+          </div>
+        </div>
+      </ProfileSubCard>
+      <!-- {/if} -->
     </div>
 
     <ProfileTabs />
