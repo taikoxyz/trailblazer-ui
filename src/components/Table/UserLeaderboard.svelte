@@ -1,8 +1,8 @@
 <script lang="ts">
   import { onMount } from 'svelte';
 
+  import { ExplorerLink } from '$components/Links';
   import { Leaderboard } from '$libs/leaderboard';
-  import { shortenAddress } from '$libs/util/shortenAddress';
   import { currentUserLeaderboard } from '$stores/leaderboard';
   let headers = ['Rank', 'Address', 'Points'];
 
@@ -26,16 +26,17 @@
     <thead>
       <tr>
         {#each headers as header}
-          <th class="body-regular text-secondary-content text-start">{header}</th>
+          <th class="body-regular text-secondary-content text-start pt-8 lg:px-10">{header}</th>
         {/each}
       </tr>
     </thead>
     <tbody class="rounded-lg">
       {#each $currentUserLeaderboard.items as thing, i}
-        <tr class="row">
-          <td>{i + 1}</td>
-          <td class="text-start lg:block hidden">{thing.address}</td>
-          <td class="text-start lg:hidden block">{shortenAddress(thing.address)}</td>
+        <tr class="row h-12">
+          <td class="lg:px-10">{i + 1}</td>
+          <td class="lg:table-cell hidden lg:px-10 body-regular"><ExplorerLink address={thing.address} /></td>
+          <td class="text-start lg:hidden table-cell lg:px-10 body-regular"
+            ><ExplorerLink address={thing.address} shorten={true} /></td>
           <td>{thing.score}</td>
         </tr>
       {/each}
