@@ -85,8 +85,8 @@
       <span class="text-secondary">Dapps</span> Leaderboard
     </div>
     <div class="body-small-regular lg:body-regular flex flex-col justify-center">
-      <div>Complete trails, bridge,</div>
-      <div>use Dapps to rank up.</div>
+      <!-- <div>Complete trails, bridge,</div>
+      <div>use Dapps to rank up.</div> -->
     </div>
   </div>
   <table class="table-lg w-full body-regular text-white rounded-3xl" style="background: rgba(25, 30, 40, .50)">
