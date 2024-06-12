@@ -97,7 +97,8 @@
           <div class="divider m-0"></div>
 
           <div class="f-center flex-col px-6 w-full justify-between">
-            <div class="f-center flex-col py-[38px]">
+            <div class="f-center flex-col py-[28px]">
+              <div class="body-bold">{profile.galxePoints} Galxe Points =</div>
               <div class="display-medium-medium">{profile.trailblazerPoints}</div>
               <div>Trailblazer Points</div>
             </div>

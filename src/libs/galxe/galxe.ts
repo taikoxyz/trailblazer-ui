@@ -40,7 +40,8 @@ export class Galxe {
       currentProfile.update((current) => {
         const updates: Partial<GalxePoints> = {};
 
-        updates.trailblazerPoints = galxePoints.value;
+        updates.galxePoints = galxePoints.value;
+        updates.trailblazerPoints = galxePoints.value * 35;
 
         return { ...current, ...updates };
       });
