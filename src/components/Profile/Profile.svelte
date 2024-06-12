@@ -3,6 +3,7 @@
 
   import { page } from '$app/stores';
   import { Icon } from '$components/Icon';
+  import { MintDisclaimerModal } from '$components/MintDisclaimerModal';
   import { ProfileTabs } from '$components/Tabs';
   import { Profile } from '$libs/profile';
   import { account } from '$stores/account';
@@ -67,3 +68,5 @@
     <ProfileTabs />
   </div>
 </div>
+
+<MintDisclaimerModal />
