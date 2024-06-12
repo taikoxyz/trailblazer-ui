@@ -3,6 +3,7 @@ import { getAccount } from '@wagmi/core';
 import { PUBLIC_TRAILBLAZER_API_URL } from '$env/static/public';
 import type { GalxePoints } from '$libs/profile';
 import { wagmiConfig } from '$libs/wagmi';
+import { galxeLoading } from '$stores/load';
 import { currentProfile } from '$stores/profile';
 
 import { readClaimGalxePointsAlreadyRegistered, writeClaimGalxePointsRegister } from '../../generated/abi';
@@ -48,5 +49,6 @@ export class Galxe {
   }
   static async refreshData() {
     await Promise.all([this.getPoints(), this.checkClaimed()]);
+    galxeLoading.set(false);
   }
 }
