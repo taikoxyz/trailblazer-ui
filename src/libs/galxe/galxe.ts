@@ -23,7 +23,7 @@ export class Galxe {
     });
   }
   static async claim() {
-    const tx = await writeClaimGalxePointsRegister(wagmiConfig, {});
+    await writeClaimGalxePointsRegister(wagmiConfig, {});
   }
 
   static async getPoints(address?: string) {

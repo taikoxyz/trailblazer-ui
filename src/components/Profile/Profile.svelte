@@ -2,20 +2,20 @@
   import { onMount } from 'svelte';
 
   import { page } from '$app/stores';
+  import ActionButton from '$components/Button/ActionButton.svelte';
   import { Icon } from '$components/Icon';
   import { MintDisclaimerModal } from '$components/MintDisclaimerModal';
   import { ProfileTabs } from '$components/Tabs';
+  import { Tooltip } from '$components/Tooltip';
+  import { Galxe } from '$libs/galxe';
+  import type { UserProfile } from '$libs/profile';
   import { Profile } from '$libs/profile';
   import { account } from '$stores/account';
-  import type { UserProfile } from '$libs/profile';
+  import { galxeLoading } from '$stores/load';
+  import { currentProfile } from '$stores/profile';
 
   import ProfileCard from './ProfileCard.svelte';
   import ProfileSubCard from './ProfileSubCard.svelte';
-  import ActionButton from '$components/Button/ActionButton.svelte';
-  import { Galxe } from '$libs/galxe';
-  import { currentProfile } from '$stores/profile';
-  import { galxeLoading } from '$stores/load';
-  import { Tooltip } from '$components/Tooltip';
 
   $: if ($account) {
     let address = $account.address;
@@ -25,7 +25,6 @@
   let profile: UserProfile;
   $: profile = $currentProfile;
 
-  let galxeClaimLoading = true;
   async function handleGalxeClaim() {
     $galxeLoading = true;
     await Galxe.claim();

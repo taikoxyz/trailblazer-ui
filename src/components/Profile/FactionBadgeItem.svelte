@@ -5,6 +5,7 @@
   import { type FactionNames, FACTIONS } from '$configs/badges';
   import claimBadge from '$libs/badges/claimBadge';
   import { account } from '$stores/account';
+  import { isMintDisclaimerAccepted, mintDisclaimerModal } from '$stores/modal';
 
   import FactionImage from './FactionImage.svelte';
 
@@ -30,24 +31,37 @@
   }
 
   $: isClaiming = false;
+  $: isAwaitingDisclaimer = false;
+
+  $: $mintDisclaimerModal, isAwaitingDisclaimer && !$mintDisclaimerModal && safeClaimBadge();
+
+  async function safeClaimBadge() {
+    try {
+      await claimBadge(address, FACTIONS[name]);
+      unlocked = true;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (e: any) {
+      errorToast({
+        title: 'Badge Claim Error',
+        message: e.message,
+      });
+      console.error(e);
+    } finally {
+      isClaiming = false;
+      disabled = '';
+    }
+  }
   async function handleClick() {
     if (claimable) {
-      try {
-        disabled = 'btn-disabled border-transparent block';
-        isClaiming = true;
-        await claimBadge(address, FACTIONS[name]);
-        unlocked = true;
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      } catch (e: any) {
-        errorToast({
-          title: 'Badge Claim Error',
-          message: e.message,
-        });
-        console.error(e);
-      } finally {
-        isClaiming = false;
-        disabled = '';
+      disabled = 'btn-disabled border-transparent block';
+      isClaiming = true;
+      if (!isMintDisclaimerAccepted()) {
+        isAwaitingDisclaimer = true;
+
+        mintDisclaimerModal.set(true);
+        return;
       }
+      await safeClaimBadge();
     }
   }
 </script>
