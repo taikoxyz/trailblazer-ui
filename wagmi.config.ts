@@ -2,9 +2,9 @@ import { defineConfig } from '@wagmi/cli';
 import { actions } from '@wagmi/cli/plugins';
 import type { Abi, Address } from 'abitype';
 
-import * as HeklaDeployment from '../taiko-mono/packages/nfts/deployments/trailblazers-badges/hekla.json';
-import * as MainnetDeployment from '../taiko-mono/packages/nfts/deployments/trailblazers-badges/mainnet.json';
-import TrailblazersBadges from '../taiko-mono/packages/nfts/out/TrailblazersBadges.sol/TrailblazersBadges.json';
+import * as HeklaDeployment from '../taiko-mono.git/packages/nfts/deployments/trailblazers-badges/hekla.json';
+import * as MainnetDeployment from '../taiko-mono.git/packages/nfts/deployments/trailblazers-badges/mainnet.json';
+import TrailblazersBadges from '../taiko-mono.git/packages/nfts/out/TrailblazersBadges.sol/TrailblazersBadges.json';
 
 export default defineConfig({
   out: 'src/generated/abi/index.ts',
