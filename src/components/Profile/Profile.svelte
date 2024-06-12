@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { onMount } from 'svelte';
 
   import { page } from '$app/stores';
@@ -6,14 +6,21 @@
   import { ProfileTabs } from '$components/Tabs';
   import { Profile } from '$libs/profile';
   import { account } from '$stores/account';
+  import type { UserProfile } from '$libs/profile';
 
   import ProfileCard from './ProfileCard.svelte';
   import ProfileSubCard from './ProfileSubCard.svelte';
+  import ActionButton from '$components/Button/ActionButton.svelte';
+  import { Galxe } from '$libs/galxe';
+  import { currentProfile } from '$stores/profile';
 
   $: if ($account) {
     let address = $account.address;
     console.info('🚀 | address:', address);
   }
+
+  let profile: UserProfile;
+  $: profile = $currentProfile;
 
   onMount(async () => {
     // get slug
@@ -62,6 +69,21 @@
           </div>
         </div>
       </ProfileSubCard>
+
+      <!-- Claim Galxe -->
+      <!-- {#if !profile.galxePointsClaimed && profile?.galxePoints && profile.galxePoints > 0} -->
+      <ProfileSubCard>
+        <div class="flex flex-col gap-6 items-center justify-center w-full">
+          <div class="f-center gap-2">
+            <div class="title-subsection-bold">Claim Galxe Points</div>
+
+            <Icon type={'question-circle'}></Icon>
+          </div>
+          <ActionButton priority="primary" on:click={() => Galxe.claim()}
+            >Claim {profile.trailblazerPoints} Trailblazer Points</ActionButton>
+        </div>
+      </ProfileSubCard>
+      <!-- {/if} -->
     </div>
 
     <ProfileTabs />
