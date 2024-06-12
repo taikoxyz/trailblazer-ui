@@ -2,7 +2,6 @@
   import { onMount } from 'svelte';
 
   import { Leaderboard } from '$libs/leaderboard';
-  import { shortenAddress } from '$libs/util/shortenAddress';
   import { currentUserLeaderboard } from '$stores/leaderboard';
   import { ExplorerLink } from '$components/Links';
   let headers = ['Rank', 'Address', 'Points'];
