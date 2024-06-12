@@ -39,9 +39,7 @@
       <div class="hidden xl:flex gap-2">
         <div class="flex gap-2">
           <NavigationItem navigation={{ name: 'Profile', url: '/profile' }}></NavigationItem>
-          <NavigationItem
-            navigation={{ name: 'Leaderboards', url: '/leaderboard' }}
-            ></NavigationItem>
+          <NavigationItem navigation={{ name: 'Leaderboards', url: '/leaderboard' }}></NavigationItem>
           <NavigationItem navigation={{ name: 'Discover', url: 'https://taiko.xyz/ecosystem' }}></NavigationItem>
         </div>
 
