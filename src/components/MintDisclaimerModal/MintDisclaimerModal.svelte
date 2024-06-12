@@ -4,6 +4,7 @@
 
   import { Button } from '$components/Button';
   import { classNames } from '$libs/util/classNames';
+  import { mintDisclaimerModal } from '$stores/modal';
 
   const modalContentWrapperClasses = classNames('modal-box', 'p-0', 'bg-[#2B303B]', 'md:w-[40vw]');
   const modalTitleClasses = classNames('pt-6', 'w-full', 'm-0', 'text-[35px]/[42px]');
@@ -29,6 +30,7 @@
   function acceptTerms() {
     localStorage.setItem('acceptedLegal', 'true');
     if (!modal) return;
+    mintDisclaimerModal.set(false);
     modal.close();
   }
 
@@ -36,10 +38,16 @@
 
   $: modal = undefined as HTMLDialogElement | undefined;
 
+  $: $mintDisclaimerModal, load();
+
+  function load() {
+    if ($mintDisclaimerModal && modal) {
+      modal.showModal();
+    }
+  }
   onMount(() => {
     const accepted = localStorage.getItem('acceptedLegal') === 'true';
     if (!modal || accepted) return;
-    modal.showModal();
   });
 </script>
 
@@ -49,12 +57,7 @@
       {$t('legal.title')}
     </div>
 
-    <div
-      class={classNames(
-        // 'border-border-divider-default',
-        'divider',
-      )}>
-    </div>
+    <div class={classNames('divider')}></div>
     <div>
       <div class={bodyWrapperClasses}>
         {$t('legal.textPre')}
