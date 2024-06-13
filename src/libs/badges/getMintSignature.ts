@@ -32,9 +32,9 @@ async function signHash(config: any, address: Address, badgeId: number, chainId:
 
     const mintSignature = await res.json();
 
-    return `0x${mintSignature}`; 
+    return `0x${mintSignature}`;
   } catch (error) {
-    throw new Error('')
+    throw new Error('');
   }
 }
 
