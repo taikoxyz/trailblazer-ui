@@ -3,6 +3,7 @@
 
   import { errorToast } from '$components/NotificationToast';
   import { type FactionNames, FACTIONS } from '$configs/badges';
+  import canClaimPreflight from '$libs/badges/canClaimPreflight';
   import claimBadge from '$libs/badges/claimBadge';
   import { account } from '$stores/account';
   import { isMintDisclaimerAccepted, mintDisclaimerModal } from '$stores/modal';
@@ -11,12 +12,12 @@
 
   export let name: FactionNames;
   export let unlocked: boolean = false;
-  export let claimable: boolean = false;
   export let address: Address;
 
   let disabled = '';
   let blur = '';
   let shadow = '';
+  let claimable: boolean = false;
 
   $: if (unlocked) {
     disabled = 'hidden';
@@ -64,6 +65,13 @@
       await safeClaimBadge();
     }
   }
+
+  async function claimPreflight() {
+    if (isClaiming || !$account || !$account.address) return;
+    claimable = await canClaimPreflight(address, FACTIONS[name]);
+  }
+
+  $: $account, claimPreflight();
 </script>
 
 <div

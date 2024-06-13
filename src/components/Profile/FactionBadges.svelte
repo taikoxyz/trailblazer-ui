@@ -11,19 +11,6 @@
   let factions = Object.keys(FactionNames) as FactionNames[];
   $: userFactions = {} as Record<FactionNames, boolean>;
 
-  const mockClaimableMap: Record<FactionNames, boolean> = {
-    [FactionNames.Ravers]: true,
-    [FactionNames.Robots]: false,
-    /*
-    [FactionNames.Bouncers]: false,
-    [FactionNames.Masters]: false,
-    [FactionNames.Monks]: false,
-    [FactionNames.Drummers]: false,
-    [FactionNames.Androids]: false,
-    [FactionNames.Shinto]: false,
-    */
-  };
-
   async function load() {
     const urlAddress = $page.url.pathname.split('/').pop();
     address = urlAddress as Address;
@@ -36,7 +23,7 @@
 
 <div class="box gap-4">
   {#each factions as faction}
-    <FactionBadgeItem {address} name={faction} claimable={mockClaimableMap[faction]} unlocked={userFactions[faction]} />
+    <FactionBadgeItem {address} name={faction} unlocked={userFactions[faction]} />
   {/each}
 </div>
 
