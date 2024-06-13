@@ -15,24 +15,27 @@ async function signHash(config: any, address: Address, badgeId: number, chainId:
 
   //const baseUrl = config.chainId === 167000 ? '' : 'https://trailblazer.hekla.taiko.xyz/mint';
   const baseUrl = 'https://trailblazer.hekla.taiko.xyz/mint';
+  try {
+    const res = await fetch(baseUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        address,
+        signature,
+        message: challenge,
+        badgeId,
+        chainId,
+      }),
+    });
 
-  const res = await fetch(baseUrl, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      address,
-      signature,
-      message: challenge,
-      badgeId,
-      chainId,
-    }),
-  });
+    const mintSignature = await res.json();
 
-  const mintSignature = await res.json();
-
-  return `0x${mintSignature}`;
+    return `0x${mintSignature}`; 
+  } catch (error) {
+    throw new Error('')
+  }
 }
 
 export default async function getMintSignature(
