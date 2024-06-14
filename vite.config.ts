@@ -3,7 +3,6 @@ import dotenv from 'dotenv';
 import { defineConfig } from 'vite';
 import tsconfigPaths from 'vite-tsconfig-paths';
 
-
 if (process.env.NODE_ENV === 'test') {
   dotenv.config({ path: './.env.test' });
 }
