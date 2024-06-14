@@ -1,9 +1,4 @@
-import {
-  estimateFeesPerGas,
-  estimateMaxPriorityFeePerGas,
-  waitForTransactionReceipt,
-  writeContract,
-} from '@wagmi/core';
+import { waitForTransactionReceipt, writeContract } from '@wagmi/core';
 import { type Address, parseGwei } from 'viem';
 
 import { FACTIONS } from '$configs/badges';
@@ -25,8 +20,7 @@ export default async function mint(address: Address, factionId: FACTIONS, signat
   if (!signatureValid) {
     throw new Error('Invalid signature');
   }
-  const gasFee = await estimateFeesPerGas(wagmiConfig);
-  const priorityFee = await estimateMaxPriorityFeePerGas(wagmiConfig);
+
   const min = parseGwei('0.01');
   // ensure locally that the signature is valid before calling metamask
   const tx = await writeContract(wagmiConfig, {
@@ -35,8 +29,7 @@ export default async function mint(address: Address, factionId: FACTIONS, signat
     functionName: 'mint',
     args: [signature, BigInt(factionId)],
     chainId: chainId as number,
-    maxFeePerGas: ((gasFee.maxFeePerGas < min ? min : gasFee.maxFeePerGas) * BigInt(12)) / BigInt(10),
-    maxPriorityFeePerGas: ((priorityFee < min ? min : priorityFee) * BigInt(12)) / BigInt(10),
+    gasPrice: min,
   });
   const receipt = await waitForTransactionReceipt(wagmiConfig, { hash: tx });
   return receipt;
