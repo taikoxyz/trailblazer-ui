@@ -1,22 +1,32 @@
 <script lang="ts">
+  import { t } from 'svelte-i18n';
+
+  import { goto } from '$app/navigation';
+  import { ActionButton } from '$components/Button';
   import LockIcon from '$components/Icon/LockIcon.svelte';
   import { type GalleryItem, MOCK_FACTION_GALLERY } from '$mocks';
-
   export let items: GalleryItem[] = MOCK_FACTION_GALLERY;
+
+  const handleFactionsButton = () => {
+    goto('/about');
+  };
 </script>
 
 <!-- Taiko Faction -->
 <div class="flex gap-[30px] flex-col container">
-  <div class="f-center flex-col xl:flex-row xl:justify-between gap-[40px]">
+  <div class="f-center flex-col xl:flex-row xl:justify-between mb-[47px]">
     <!-- Title text: Taiko Factions -->
     <div class="font-clash-grotesk text-secondary-brand tracking-[-1.5px] text-[75px]/[70px] text-center xl:text-left">
       Taiko<br /><span class="text-base-content">Factions</span>
     </div>
 
     <!-- Sub text: In the vibrant world of Neo Nakuz, a groundbreaking cast of characters is emerging, centered around the electrifying ecosystem of Taiko Radio and its dynamic cast of characters: ravers, drummers, masters and more. -->
-    <div class="title-body-regular text-secondary-content text-center xl:self-end max-w-[505px] xl:text-left">
-      In the vibrant world of Neo Nakuza, a groundbreaking cast of characters is emerging, centered around the
-      electrifying ecosystem of Taiko Radio and its dynamic cast of characters: ravers, drummers, masters and more.
+    <div class="f-col space-y-[40px]">
+      <div class="title-body-regular text-secondary-content text-center xl:self-end max-w-[505px] xl:text-left">
+        {$t('factions.gallery.description')}
+      </div>
+      <ActionButton priority="primary" class="!w-[240px]" withArrow on:click={handleFactionsButton}
+        >{$t('buttons.factions.learn_about')}</ActionButton>
     </div>
   </div>
   <div class="max-w-full h-[700px] xl:h-auto">

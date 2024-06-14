@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { ButtonWithArrow } from '$components/Button';
   import { Icon } from '$components/Icon';
 </script>
 
@@ -13,7 +12,7 @@
     <slot />
 
     <div class="w-full flex justify-end z-10">
-      <ButtonWithArrow />
+      <!-- <ButtonWithArrow /> -->
     </div>
   </div>
 </div>

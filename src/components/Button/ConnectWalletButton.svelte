@@ -11,7 +11,7 @@
 
   function handleConfigureWallet() {
     // Do not open if connection is active
-    web3modal.open({ view: 'Account' });
+    // web3modal.open({ view: 'Account' });
   }
 </script>
 

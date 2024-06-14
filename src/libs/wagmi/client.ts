@@ -1,13 +1,12 @@
 import { getAccount, reconnect } from '@wagmi/core';
 import { createWeb3Modal, defaultWagmiConfig } from '@web3modal/wagmi';
 import type { Address } from 'viem';
-import { type Chain, taiko, taikoHekla } from 'viem/chains';
 
-import { PUBLIC_ENV, PUBLIC_WALLETCONNECT_PROJECT_ID } from '$env/static/public';
+import { PUBLIC_WALLETCONNECT_PROJECT_ID } from '$env/static/public';
+import { chains } from '$libs/chain';
 
 const projectId = PUBLIC_WALLETCONNECT_PROJECT_ID;
 
-const chains: [Chain, ...Chain[]] = PUBLIC_ENV === 'development' ? [taikoHekla, taiko] : [taiko];
 const metadata = {
   name: 'Taiko Trailblazer',
   description: 'Taiko Trailblazer',
