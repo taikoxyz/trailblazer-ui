@@ -16,14 +16,14 @@
       // boosted
       'bafybeif5a6a3f7clbiwobf45yv3mwaspmq33diwiges3spy5deoaj7fcsu',
     ],
-    [FactionNames.Robots]: [
-      // neutral
-      'bafybeibapxclpevtmdiy6loojskeplfhge54pqbtfl35amglwppqi2p5wm',
-      // based
-      'bafybeihfr65edgndtxtbvwuo6pfjrgouhwc5vd3yypeav4luu24zpduzie',
-      // boosted
-      'bafybeibquskpksahxffzfkuk5ivd45vgqhfyhynl225wlnuckn3nju5f5i',
-    ],
+    // [FactionNames.Robots]: [
+    //   // neutral
+    //   'bafybeibapxclpevtmdiy6loojskeplfhge54pqbtfl35amglwppqi2p5wm',
+    //   // based
+    //   'bafybeihfr65edgndtxtbvwuo6pfjrgouhwc5vd3yypeav4luu24zpduzie',
+    //   // boosted
+    //   'bafybeibquskpksahxffzfkuk5ivd45vgqhfyhynl225wlnuckn3nju5f5i',
+    // ],
   };
 
   $: src = '/test-badge.mp4';
