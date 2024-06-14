@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { TrailsCarousel } from '$components/Carousel';
+  // import { TrailsCarousel } from '$components/Carousel';
   import { Icon } from '$components/Icon';
 
   let carouselElement: HTMLDivElement;
@@ -29,5 +29,5 @@
       </button>
     </div>
   </div>
-  <TrailsCarousel bind:carouselElement />
+  <!-- <TrailsCarousel bind:carouselElement /> -->
 </div>
