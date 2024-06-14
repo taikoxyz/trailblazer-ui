@@ -1,5 +1,5 @@
 import { waitForTransactionReceipt, writeContract } from '@wagmi/core';
-import { type Address } from 'viem';
+import { type Address, parseGwei } from 'viem';
 
 import { FACTIONS } from '$configs/badges';
 import { web3modal } from '$libs/connect';
@@ -21,6 +21,7 @@ export default async function mint(address: Address, factionId: FACTIONS, signat
     throw new Error('Invalid signature');
   }
 
+  const min = parseGwei('0.01');
   // ensure locally that the signature is valid before calling metamask
   const tx = await writeContract(wagmiConfig, {
     abi: trailblazersBadgesAbi,
@@ -28,6 +29,7 @@ export default async function mint(address: Address, factionId: FACTIONS, signat
     functionName: 'mint',
     args: [signature, BigInt(factionId)],
     chainId: chainId as number,
+    gasPrice: min,
   });
   const receipt = await waitForTransactionReceipt(wagmiConfig, { hash: tx });
   return receipt;
