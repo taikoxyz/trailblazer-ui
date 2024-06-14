@@ -1,5 +1,6 @@
 import { getAccount, reconnect } from '@wagmi/core';
 import { createWeb3Modal, defaultWagmiConfig } from '@web3modal/wagmi';
+import type { Address } from 'viem';
 import { type Chain, taiko, taikoHekla } from 'viem/chains';
 
 import { PUBLIC_ENV, PUBLIC_WALLETCONNECT_PROJECT_ID } from '$env/static/public';
@@ -38,7 +39,7 @@ export const web3Modal = createWeb3Modal({
   },
 });
 
-export function getCurrentAddressOrNull(): `0x${string}` | undefined {
+export function getCurrentAddressOrNull(): Address | undefined {
   const { address } = getAccount(wagmiConfig);
   return address;
 }
