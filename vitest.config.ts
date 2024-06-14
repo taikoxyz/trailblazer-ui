@@ -13,7 +13,6 @@ export default defineProject({
     alias: {
       $components: path.resolve(__dirname, './src/components'),
       $stores: path.resolve(__dirname, './src/stores'),
-      $config: path.resolve(__dirname, './src/app.config.ts'),
       $libs: path.resolve(__dirname, './src/libs'),
       $abi: path.resolve(__dirname, './src/abi/index.ts'),
       $chainConfig: path.resolve(__dirname, './src/generated/chainConfig.ts'),
