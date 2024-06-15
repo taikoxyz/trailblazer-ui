@@ -1,4 +1,5 @@
 import { createWeb3Modal } from '@web3modal/wagmi';
+import { taiko } from 'viem/chains';
 
 import { browser } from '$app/environment';
 import { PUBLIC_WALLETCONNECT_PROJECT_ID } from '$env/static/public';
@@ -14,6 +15,7 @@ export const web3modal = createWeb3Modal({
   featuredWalletIds: [],
   allowUnsupportedChain: true,
   excludeWalletIds: [],
+  defaultChain: taiko,
   // chains,
   chainImages,
   themeVariables: {

@@ -1,19 +1,25 @@
 import { derived, writable } from 'svelte/store';
 
-// Create writable stores for each media query
-export const desktopQuery = window.matchMedia('(min-width: 1200px)');
-export const tabletQuery = window.matchMedia('(min-width: 768px) and (max-width: 1199px)');
-export const mobileQuery = window.matchMedia('(max-width: 767px)');
+export let desktopQuery: MediaQueryList;
+export let tabletQuery: MediaQueryList;
+export let mobileQuery: MediaQueryList;
 
-const isDesktopQuery = writable(desktopQuery.matches);
-const isTabletQuery = writable(tabletQuery.matches);
-const isMobileQuery = writable(mobileQuery.matches);
+// Writable stores to track media query states
+const isDesktopQuery = writable(true);
+const isTabletQuery = writable(false);
+const isMobileQuery = writable(false);
 
-// Update the writable stores based on media query changes
+// Function to update the writable stores based on media query changes
 export function updateMediaQueries() {
-  isDesktopQuery.set(desktopQuery.matches);
-  isTabletQuery.set(tabletQuery.matches);
-  isMobileQuery.set(mobileQuery.matches);
+  if (desktopQuery) {
+    isDesktopQuery.set(desktopQuery.matches);
+  }
+  if (tabletQuery) {
+    isTabletQuery.set(tabletQuery.matches);
+  }
+  if (mobileQuery) {
+    isMobileQuery.set(mobileQuery.matches);
+  }
 }
 
 export function mediaQueryHandler() {
@@ -24,3 +30,20 @@ export function mediaQueryHandler() {
 export const isDesktop = derived(isDesktopQuery, ($isDesktopQuery) => $isDesktopQuery);
 export const isTablet = derived(isTabletQuery, ($isTabletQuery) => $isTabletQuery);
 export const isMobile = derived(isMobileQuery, ($isMobileQuery) => $isMobileQuery);
+
+// Function to initialize media queries only on the client side
+export function initializeMediaQueries() {
+  if (typeof window !== 'undefined') {
+    desktopQuery = window.matchMedia('(min-width: 1200px)');
+    tabletQuery = window.matchMedia('(min-width: 768px) and (max-width: 1199px)');
+    mobileQuery = window.matchMedia('(max-width: 767px)');
+
+    // Set initial values
+    updateMediaQueries();
+
+    // Listen for changes
+    desktopQuery.addEventListener('change', updateMediaQueries);
+    tabletQuery.addEventListener('change', updateMediaQueries);
+    mobileQuery.addEventListener('change', updateMediaQueries);
+  }
+}

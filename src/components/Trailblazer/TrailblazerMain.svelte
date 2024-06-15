@@ -5,11 +5,11 @@
   import ActionButton from '$components/Button/ActionButton.svelte';
   import { PlusIcon } from '$components/Icon';
   import { TaikoTrailblazersLogo } from '$components/Logo';
-  import { web3Modal } from '$libs/wagmi';
+  import { web3modal } from '$libs/connect';
   import { account } from '$stores/account';
 
   const handlePrimaryAction = () => {
-    $account.isConnected ? goto('/profile') : web3Modal.open();
+    $account.isConnected ? goto('/profile') : web3modal.open();
   };
 
   const handleSecondaryAction = () => {

@@ -47,7 +47,7 @@
     }
   },
   "switch_modal": {
-    "description": "Your current network is not supported. Please select one of the following chains to proceed:",
+    "description": "Your current network is not supported. Please connect to the Taiko Mainnet to continue.",
     "title": "Incorrect network detected"
   },
   "trailblazer_guide": {

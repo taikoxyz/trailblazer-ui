@@ -1,7 +1,7 @@
-import type { Chain } from "viem";
-import { taiko, taikoHekla } from "viem/chains";
+import type { Chain } from 'viem';
+import { taiko, taikoHekla } from 'viem/chains';
 
-import { PUBLIC_ENV } from "$env/static/public";
+import { PUBLIC_ENV } from '$env/static/public';
 
 export const getChainImages = (): Record<number, string> => {
   const map = {

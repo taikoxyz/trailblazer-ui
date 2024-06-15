@@ -10,54 +10,20 @@ import { switchChainModal } from '$stores/modal';
 import { wagmiConfig } from '.';
 
 let isWatching = false;
-let unWatchAccount: () => void;
-
-// export async function startWatching() {
-//   address.set(getCurrentAddressOrNull());
-
-//   if (!isWatching) {
-//     // Action for subscribing to network changes.
-//     // See https://wagmi.sh/core/actions/watchNetwork
-//     unWatchAccount = watchAccount(wagmiConfig, {
-//       async onChange(data) {
-//         account.set(data);
-//         await refreshUserBalance();
-//         await Galxe.refreshData();
-
-//         // Update address if differen t
-//         if (data.address !== get(address)) {
-//           // console.log(`Address Changed: ${data.address}`);
-//           await Profile.getProfile(data.address);
-//           await Profile.getUserPointsHistory(data.address);
-//           address.set(data.address);
-//         }
-//         isWatching = true;
-//       },
-//     });
-//   }
-// }
-
-// export function stopWatching() {
-//   unWatchAccount();
-//   isWatching = false;
-// }
-
+let unWatchAccount: () => void = () => {};
 
 const log = getLogger('wagmi:watcher');
 
-
 export async function startWatching() {
-
   if (!isWatching) {
     unWatchAccount = watchAccount(wagmiConfig, {
       async onChange(data) {
         log('Account changed', data);
-
-        refreshUserBalance();
+        account.set(data);
+        // refreshUserBalance();
         const { chainId, address } = data;
 
         if (chainId && address) {
-
           // We need to check if the chain is supported, and if not
           // we present the user with a modal to switch networks.
           if (chainId && !isSupportedChain(Number(chainId))) {
@@ -67,8 +33,8 @@ export async function startWatching() {
           } else if (chainId) {
             refreshUserBalance();
             await Galxe.refreshData();
+            switchChainModal.set(false);
           }
-          account.set(data);
           await Galxe.refreshData();
         }
       },
@@ -79,6 +45,8 @@ export async function startWatching() {
 }
 
 export function stopWatching() {
-  unWatchAccount();
+  if (typeof unWatchAccount === 'function') {
+    unWatchAccount();
+  }
   isWatching = false;
 }

@@ -1,7 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte';
 
-  import { page } from '$app/stores';
   import ActionButton from '$components/Button/ActionButton.svelte';
   import { Icon } from '$components/Icon';
   import { MintDisclaimerModal } from '$components/MintDisclaimerModal';
@@ -9,7 +8,6 @@
   import { Tooltip } from '$components/Tooltip';
   import { Galxe } from '$libs/galxe';
   import type { UserProfile } from '$libs/profile';
-  import { Profile } from '$libs/profile';
   import { account } from '$stores/account';
   import { galxeLoading } from '$stores/load';
   import { currentProfile } from '$stores/profile';
@@ -32,11 +30,7 @@
   }
 
   onMount(async () => {
-    // get slug
-    let address = $page.params.address;
-    await Profile.getProfile(address);
-    await Profile.getUserPointsHistory(address);
-    // await Galxe.refreshData();
+    await Galxe.refreshData();
   });
 </script>
 

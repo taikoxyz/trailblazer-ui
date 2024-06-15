@@ -4,7 +4,6 @@
   import { MobileNavigation } from '$components/MobileNavigation';
   import HamburgerIcon from '$images/hamburger.svg';
   import XIcon from '$images/x.svg';
-  import { isDesktop } from '$libs/util/responsiveCheck';
 
   import NavigationItem from './NavigationItem.svelte';
 
@@ -48,9 +47,9 @@
           <NavigationItem navigation={{ name: 'Discover', url: 'https://taiko.xyz/ecosystem' }}></NavigationItem>
         </div>
       </div>
-      {#if $isDesktop}
+      <div class="hidden xl:flex">
         <ConnectButton />
-      {/if}
+      </div>
     </div>
   </div>
 </div>
