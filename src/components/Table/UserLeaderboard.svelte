@@ -4,6 +4,7 @@
   import { ExplorerLink } from '$components/Links';
   import { Leaderboard } from '$libs/leaderboard';
   import { currentUserLeaderboard } from '$stores/leaderboard';
+  import { formatNumbers } from '$libs/util/formatNumbers';
   let headers = ['Rank', 'Address', 'Points'];
 
   onMount(async () => {
@@ -37,7 +38,7 @@
           <td class="lg:table-cell hidden lg:px-10 body-regular"><ExplorerLink address={thing.address} /></td>
           <td class="text-start lg:hidden table-cell lg:px-10 body-regular"
             ><ExplorerLink address={thing.address} shorten={true} /></td>
-          <td>{thing.score}</td>
+          <td>{formatNumbers(Math.round(thing.score))}</td>
         </tr>
       {/each}
     </tbody>

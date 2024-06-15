@@ -5,6 +5,7 @@
   import { Skeleton } from '$components/Mock';
   import { Leaderboard } from '$libs/leaderboard';
   import { currentLeaderboard } from '$stores/leaderboard';
+  import { formatNumbers } from '$libs/util/formatNumbers';
   let headers = ['Dapp', 'Address', 'Points'];
   // 0xE4eDb277e41dc89aB076a1F049f4a3EfA700bCE8 orbiter finance
   // 0x5e809A85Aa182A9921EDD10a4163745bb3e36284 owlto finance
@@ -126,7 +127,7 @@
           <td class="lg:table-cell hidden lg:px-10 body-regular"><ExplorerLink address={thing.address} /></td>
           <td class="text-start lg:hidden table-cell lg:px-10 body-regular"
             ><ExplorerLink address={thing.address} shorten={true} /></td>
-          <td class="lg:px-10 body-regular">{thing.score}</td>
+          <td class="lg:px-10 body-regular">{formatNumbers(Math.round(thing.score))}</td>
         </tr>
       {/each}
     </tbody>
