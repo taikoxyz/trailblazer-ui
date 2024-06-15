@@ -9,7 +9,7 @@ import { switchChainModal } from '$stores/modal';
 import { wagmiConfig } from '.';
 
 let isWatching = false;
-let unWatchAccount: () => void = () => { };
+let unWatchAccount: () => void = () => {};
 
 const log = getLogger('wagmi:watcher');
 
