@@ -8,7 +8,7 @@
 export function formatNumbers(num: number): string {
   const [integerPart, decimalPart] = num.toString().split('.');
 
-  const formattedIntegerPart = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  const formattedIntegerPart = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 
   if (decimalPart !== undefined) {
     return `${formattedIntegerPart}.${decimalPart}`;

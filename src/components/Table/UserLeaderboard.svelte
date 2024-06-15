@@ -3,8 +3,8 @@
 
   import { ExplorerLink } from '$components/Links';
   import { Leaderboard } from '$libs/leaderboard';
-  import { currentUserLeaderboard } from '$stores/leaderboard';
   import { formatNumbers } from '$libs/util/formatNumbers';
+  import { currentUserLeaderboard } from '$stores/leaderboard';
   let headers = ['Rank', 'Address', 'Points'];
 
   onMount(async () => {

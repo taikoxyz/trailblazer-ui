@@ -4,8 +4,8 @@
   import ExplorerLink from '$components/Links/ExplorerLink.svelte';
   import { Skeleton } from '$components/Mock';
   import { Leaderboard } from '$libs/leaderboard';
-  import { currentLeaderboard } from '$stores/leaderboard';
   import { formatNumbers } from '$libs/util/formatNumbers';
+  import { currentLeaderboard } from '$stores/leaderboard';
   let headers = ['Dapp', 'Address', 'Points'];
   // 0xE4eDb277e41dc89aB076a1F049f4a3EfA700bCE8 orbiter finance
   // 0x5e809A85Aa182A9921EDD10a4163745bb3e36284 owlto finance
