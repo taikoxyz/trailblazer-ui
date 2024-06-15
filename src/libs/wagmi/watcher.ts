@@ -2,7 +2,6 @@ import { watchAccount } from '@wagmi/core';
 
 import { isSupportedChain } from '$libs/chain';
 import { Galxe } from '$libs/galxe';
-import { refreshUserBalance } from '$libs/util/balance';
 import { getLogger } from '$libs/util/logger';
 import { account } from '$stores/account';
 import { switchChainModal } from '$stores/modal';
@@ -10,7 +9,7 @@ import { switchChainModal } from '$stores/modal';
 import { wagmiConfig } from '.';
 
 let isWatching = false;
-let unWatchAccount: () => void = () => {};
+let unWatchAccount: () => void = () => { };
 
 const log = getLogger('wagmi:watcher');
 
@@ -20,7 +19,6 @@ export async function startWatching() {
       async onChange(data) {
         log('Account changed', data);
         account.set(data);
-        // refreshUserBalance();
         const { chainId, address } = data;
 
         if (chainId && address) {
@@ -31,11 +29,9 @@ export async function startWatching() {
             switchChainModal.set(true);
             return;
           } else if (chainId) {
-            refreshUserBalance();
             await Galxe.refreshData();
             switchChainModal.set(false);
           }
-          await Galxe.refreshData();
         }
       },
     });
