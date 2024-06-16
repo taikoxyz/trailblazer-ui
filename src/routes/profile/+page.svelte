@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { goto } from '$app/navigation';
   import { Page } from '$components/Page';
   import NotEligibleImage from '$images/not-eligible.png';
   import { web3modal } from '$libs/connect';
@@ -9,10 +10,10 @@
   }
   async function load() {
     if ($account && $account.address) {
-      window.location.href = `/profile/${$account.address}`;
+      const location = `/profile/${$account.address}`;
+      goto(location);
     } else {
       console.warn('no account!');
-      web3modal.open();
     }
   }
 
@@ -20,7 +21,9 @@
 </script>
 
 <Page>
-  {#if !$account?.isConnected}
+  {#if $account?.isConnected}
+    <div class="skeleton w-full h-[75vh]"></div>
+  {:else}
     <div class="flex w-full justify-center mt-[18%] lg:mt-0">
       <div
         class="h-fit flex flex-col rounded-[30px] lg:bg-gradient-background items-center justify-center lg:p-[50px] lg:max-w-[570px] w-full align-center">
@@ -37,7 +40,5 @@
         </div>
       </div>
     </div>
-  {:else}
-    <div class="skeleton w-full h-[75vh]"></div>
   {/if}
 </Page>

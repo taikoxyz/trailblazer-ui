@@ -4,6 +4,7 @@
   import ExplorerLink from '$components/Links/ExplorerLink.svelte';
   import { Skeleton } from '$components/Mock';
   import { Leaderboard } from '$libs/leaderboard';
+  import { formatNumbers } from '$libs/util/formatNumbers';
   import { currentLeaderboard } from '$stores/leaderboard';
   let headers = ['Dapp', 'Address', 'Points'];
   // 0xE4eDb277e41dc89aB076a1F049f4a3EfA700bCE8 orbiter finance
@@ -126,7 +127,7 @@
           <td class="lg:table-cell hidden lg:px-10 body-regular"><ExplorerLink address={thing.address} /></td>
           <td class="text-start lg:hidden table-cell lg:px-10 body-regular"
             ><ExplorerLink address={thing.address} shorten={true} /></td>
-          <td class="lg:px-10 body-regular">{thing.score}</td>
+          <td class="lg:px-10 body-regular">{formatNumbers(Math.round(thing.score))}</td>
         </tr>
       {/each}
     </tbody>

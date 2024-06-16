@@ -6,8 +6,6 @@ import { browser } from '$app/environment';
 // open and close the modal from anywhere in the app
 export const switchChainModal = writable<boolean>(false);
 
-export const bridgePausedModal = writable<boolean>(false);
-
 export const mintDisclaimerModal = writable<boolean>(false);
 
 export function isMintDisclaimerAccepted() {

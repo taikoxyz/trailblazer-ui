@@ -4,7 +4,6 @@
   import { MobileNavigation } from '$components/MobileNavigation';
   import HamburgerIcon from '$images/hamburger.svg';
   import XIcon from '$images/x.svg';
-  import { account } from '$stores/account';
 
   import NavigationItem from './NavigationItem.svelte';
 
@@ -17,12 +16,12 @@
 
 <div class="absolute w-full f-center top-0 z-50">
   <div class="container f-center w-full px-[20px] lg:px-[75px]">
-    <div class=" flex body-regular items-center justify-between box-border w-full mt-8 py-2 rounded-full lg:bg-none">
+    <div class="flex body-regular items-center justify-between box-border w-full mt-8 py-2 rounded-full lg:bg-none">
       <!-- Mobile Burger Button -->
       <button
         class="flex xl:hidden indicator btn bg-neutral-background border-none size-[50px] btn-circle fixed z-30 right-7"
         on:click={toggleMobileMenu}>
-        <span class="indicator-item badge badge-xs {$account?.isConnected ? 'badge-primary' : 'badge-accent'}"></span>
+        <!-- <span class="indicator-item badge badge-xs {$account?.isConnected ? 'badge-primary' : 'badge-accent'}"></span> -->
         {#if !mobileMenu}
           <img src={HamburgerIcon} alt="menu" />
         {:else}
@@ -38,16 +37,17 @@
       <!--  Desktop Only -->
       <div class="hidden xl:flex gap-2">
         <div class="flex gap-2">
-          <NavigationItem navigation={{ name: 'Profile', url: '/profile' }}></NavigationItem>
+          <NavigationItem navigation={{ name: 'Profile', route: '/profile' }}></NavigationItem>
           <NavigationItem
-            navigation={{ name: 'Leaderboards', url: '/leaderboard/user' }}
+            navigation={{ name: 'Leaderboards', route: '/leaderboard/user' }}
             children={[
-              { name: 'User', url: '/leaderboard/user' },
-              { name: 'Dapp', url: '/leaderboard/dapp' },
+              { name: 'User', route: '/leaderboard/user' },
+              { name: 'Dapp', route: '/leaderboard/dapp' },
             ]}></NavigationItem>
           <NavigationItem navigation={{ name: 'Discover', url: 'https://taiko.xyz/ecosystem' }}></NavigationItem>
         </div>
-
+      </div>
+      <div class="hidden xl:flex">
         <ConnectButton />
       </div>
     </div>

@@ -1,4 +1,5 @@
 export type NavigationData = {
-  url: string;
+  url?: string;
   name: string;
+  route?: string;
 };

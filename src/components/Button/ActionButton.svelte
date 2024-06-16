@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { Icon } from '$components/Icon';
   import { Spinner } from '$components/Spinner';
   import { classNames } from '$libs/util/classNames';
 
@@ -9,6 +10,8 @@
 
   export let priority: ActionButtonType;
   export let state: ButtonState = ButtonState.DEFAULT;
+
+  export let withArrow = false;
 
   export let onPopup = false;
 
@@ -21,8 +24,9 @@
   $: disabledColor = onPopup && $$restProps.disabled ? '!bg-dialog-interactive-disabled' : '';
 
   $: commonClasses = classNames(
-    'btn size-[56px] px-[28px] py-[14px] rounded-full flex-1 w-full items-center',
+    'btn size-[56px] px-[20px] py-[8px] rounded-full flex-1  items-center body-medium',
     $$restProps.disabled ? 'cursor-not-allowed' : 'cursor-pointer',
+    withArrow ? 'min-w-[180px]' : 'w-full',
     disabledColor,
     $$props.class,
   );
@@ -47,6 +51,21 @@
   {#if loading}
     <Spinner />
   {/if}
-
   <slot />
+  {#if withArrow}
+    <div class="flex items-center justify-end">
+      <div class="f-center w-[32px] min-h-[32px] rounded-full bg-white overflow-hidden">
+        <div class="arrow-container translate-x-[-14px] flex gap-[14px] hover:animate-slide-right">
+          <Icon type={'arrow-right'} fillClass="fill-secondary-brand" width={14} />
+          <Icon type={'arrow-right'} fillClass="fill-secondary-brand" width={14} />
+        </div>
+      </div>
+    </div>
+  {/if}
 </button>
+
+<style>
+  .btn:hover .arrow-container {
+    animation: slide-right 0.3s forwards;
+  }
+</style>

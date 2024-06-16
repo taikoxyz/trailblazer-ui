@@ -1,56 +1,58 @@
 <script lang="ts">
-  import { getChainId } from '@wagmi/core';
   import { onDestroy, onMount } from 'svelte';
   import { t } from 'svelte-i18n';
 
   import { ActionButton } from '$components/Button';
   import { Icon } from '$components/Icon';
   import { getChainImage } from '$libs/chain';
-  import { renderEthBalance } from '$libs/util/balance';
+  import { web3modal } from '$libs/connect';
+  import { refreshUserBalance, renderEthBalance } from '$libs/util/balance';
   import { noop } from '$libs/util/noop';
   import { shortenAddress } from '$libs/util/shortenAddress';
-  import { wagmiConfig, web3Modal } from '$libs/wagmi';
   import { account } from '$stores/account';
   import { ethBalance } from '$stores/balance';
-
-  $: connected = $account?.isConnected;
+  import { connectedSourceChain } from '$stores/network';
 
   let web3modalOpen = false;
   let unsubscribeWeb3Modal = noop;
 
   function connectWallet() {
     if (web3modalOpen) return;
-    web3Modal.open();
+    web3modal.open();
   }
 
   function onWeb3Modal(state: { open: boolean }) {
     web3modalOpen = state.open;
   }
 
-  $: currentChainId = getChainId(wagmiConfig);
+  $: currentChainId = $connectedSourceChain?.id;
   $: accountAddress = $account?.address || '';
 
   $: balance = $ethBalance || 0n;
 
   onMount(async () => {
-    unsubscribeWeb3Modal = web3Modal.subscribeState(onWeb3Modal);
+    unsubscribeWeb3Modal = web3modal.subscribeState(onWeb3Modal);
+    await refreshUserBalance();
   });
 
   onDestroy(unsubscribeWeb3Modal);
 </script>
 
-{#if connected}
+{#if $account?.isConnected}
   <button
     on:click={connectWallet}
-    class="rounded-full gap-2 flex w-fit whitespace-nowrap items-center pl-[8px] pr-[3px] md:max-h-[48px] max-h-[40px] min-h-[40px] wc-parent-glass !border-solid font-bold">
-    <div class="flex w-full items-center text-secondary-content gap-2">
-      <img alt="chain icon" src={(currentChainId && getChainImage(currentChainId)) || 'chains/ethereum.svg'} />
-      <div class="flex w-full">{renderEthBalance(balance)}</div>
-    </div>
-    <div
-      class="flex items-center btn-glass-bg text-secondary-content rounded-full px-[10px] py-[4px] md:min-h-[38px] bg-tertiary-background my-2">
-      {shortenAddress(accountAddress, 4, 4)}
-    </div>
+    class="rounded-full flex items-center pl-[8px] pr-[3px] md:max-h-[48px] max-h-[40px] min-h-[40px] wc-parent-glass !border-solid gap-2 font-bold">
+    <img
+      alt="chain icon"
+      class="w-[24px]"
+      src={(currentChainId && getChainImage(currentChainId)) || 'chains/ethereum.svg'} />
+    <span class="flex items-center text-secondary-content justify-self-start gap-4 md:text-normal text-sm"
+      >{renderEthBalance(balance, 6)}
+      <span
+        class="flex items-center text-tertiary-content btn-glass-bg rounded-full px-[10px] py-[4px] md:min-h-[38px] bg-tertiary-background">
+        {shortenAddress(accountAddress, 4, 6)}
+      </span>
+    </span>
   </button>
 {:else}
   <ActionButton

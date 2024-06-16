@@ -1,7 +1,7 @@
 <script>
   import { page } from '$app/stores';
   import { Page } from '$components/Page';
-  import { Pinkify } from '$components/Pinkify';
+  import TrailEnded from '$components/Trails/Ended/TrailEnded.svelte';
 </script>
 
 <svelte:head>
@@ -25,5 +25,6 @@
 </svelte:head>
 
 <Page>
-  <Pinkify />
+  <!-- <Pinkify /> -->
+  <TrailEnded />
 </Page>

@@ -1,7 +1,7 @@
 <script lang="ts">
   import { Icon } from '$components/Icon';
 
-  export let text: string = 'Learn more';
+  export let text: string;
 </script>
 
 <button
