@@ -1,6 +1,8 @@
 <script lang="ts">
-  import { getAddress, type Address } from 'viem';
+  import { t } from 'svelte-i18n';
+  import { type Address,getAddress } from 'viem';
 
+  import ActionButton from '$components/Button/ActionButton.svelte';
   import { errorToast } from '$components/NotificationToast';
   import { type FactionNames, FACTIONS } from '$configs/badges';
   import canClaimPreflight from '$libs/badges/canClaimPreflight';
@@ -9,9 +11,6 @@
   import { isMintDisclaimerAccepted, mintDisclaimerModal } from '$stores/modal';
 
   import FactionImage from './FactionImage.svelte';
-  import ActionButton from '$components/Button/ActionButton.svelte';
-
-  import { t } from 'svelte-i18n';
 
   export let name: FactionNames;
   export let unlocked: boolean = false;
