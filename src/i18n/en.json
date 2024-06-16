@@ -1,11 +1,18 @@
 {
   "buttons": {
     "connect_wallet": "Connect",
+    "explore_more": "Explore more",
     "factions": {
       "learn_about": "Learn about factions"
     },
     "get_started": "Get started",
+    "home": "Back to the homepage",
     "learn_more": "Learn more"
+  },
+  "trails": {
+    "general": {
+      "has_ended": "This trail has already ended."
+    }
   },
   "factions": {
     "gallery": {

@@ -93,19 +93,15 @@
         </div>
         <div class="flex flex-col gap-4">
           <div class="body-bold">SOLUTIONS</div>
-          <a
-            href="https://bridge.hekla.taiko.xyz/"
-            class="body-regular text-secondary-content hover:text-primary-content">Bridge</a>
-          <a href="https://swap.hekla.taiko.xyz/" class="body-regular text-secondary-content hover:text-primary-content"
-            >Swap</a>
+          <a href="https://bridge.taiko.xyz/" class="body-regular text-secondary-content hover:text-primary-content"
+            >Bridge</a>
           <a href="https://docs.taiko.xyz/" class="body-regular text-secondary-content hover:text-primary-content"
             >Documentation</a>
-          <a
-            href="https://hekla.taikoscan.network/"
-            class="body-regular text-secondary-content hover:text-primary-content">Explorer</a>
+          <a href="https://www.taikoscan.io/" class="body-regular text-secondary-content hover:text-primary-content"
+            >Explorer</a>
         </div>
         <div class="col-span-5 lg:col-span-1 opacity-25 mt-auto ml-auto text-right body-regular order-7">
-          © 2024 Taiko Labs
+          © {new Date().getFullYear()} Taiko Labs
         </div>
       </div>
     </div>
