@@ -1,14 +1,10 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-
   import { FactionNames } from '$configs/badges';
   import type { Faction } from '$libs/profile';
 
   export let type: Faction;
-
   export let unlocked: boolean = false;
-
-  let videoSupported = false;
 
   const sources: Record<string, string[]> = {
     [FactionNames.Ravers]: [
@@ -29,25 +25,27 @@
     // ],
   };
 
-  $: videoSrc = '';
-  $: imageSrc = '/factions/ravers/badge/fallback.png';
-  onMount(async () => {
-    const video = document.createElement('video');
-    videoSupported = !!video.canPlayType;
-    if (!sources[type]) {
+  let videoSrc = '';
+  const fallBackImage = `/factions/${type.toLowerCase()}/badge/fallback.png`;
+
+  onMount(() => {
+    if (sources[type]) {
+      videoSrc = `https://nftstorage.link/ipfs/${sources[type][0]}`;
+    } else {
       console.warn('Unrecognized badge type', type);
-      return;
+      videoSrc = '';
     }
-    videoSrc = `https://nftstorage.link/ipfs/${sources[type][0]}`;
   });
 </script>
 
 <div class="relative w-full h-full">
-  <img src={imageSrc} alt="faction badge" class="rounded absolute left-0 top-0 rounded-[20px]" />
-  {#if videoSupported}
-    <video loop autoplay={unlocked} class="rounded-[20px] absolute left-0 top-0 rounded-[20px]">
+  <img src={fallBackImage} alt="faction badge" class="rounded absolute left-0 top-0 rounded-[20px] z-10" />
+
+  {#if videoSrc}
+    <video loop autoplay={unlocked} class="rounded-[20px] absolute left-0 top-0 z-20">
       <track kind="captions" />
       <source src={videoSrc} type="video/mp4" />
+      Your browser does not support the video tag.
     </video>
   {/if}
 </div>

@@ -1,6 +1,6 @@
 <script lang="ts">
   import { t } from 'svelte-i18n';
-  import { type Address,getAddress } from 'viem';
+  import { type Address, getAddress } from 'viem';
 
   import ActionButton from '$components/Button/ActionButton.svelte';
   import { errorToast } from '$components/NotificationToast';
@@ -80,14 +80,16 @@
     <div class="w-full f-col items-center {blur}">
       <FactionImage {unlocked} type={name} />
     </div>
-    <div class="absolute bottom-8 place-self-center w-full px-6">
-      <ActionButton
-        priority="primary"
-        on:click={handleClaimClick}
-        disabled={isClaiming || !claimable}
-        loading={isClaiming}>
-        {buttonText}
-      </ActionButton>
-    </div>
+    {#if !unlocked}
+      <div class="absolute bottom-8 place-self-center w-full px-6">
+        <ActionButton
+          priority="primary"
+          on:click={handleClaimClick}
+          disabled={isClaiming || !claimable}
+          loading={isClaiming}>
+          {buttonText}
+        </ActionButton>
+      </div>
+    {/if}
   </div>
 </div>
