@@ -1,5 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte';
+
   import { FactionNames } from '$configs/badges';
   import type { Faction } from '$libs/profile';
 
