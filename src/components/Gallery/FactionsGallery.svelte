@@ -13,19 +13,20 @@
 </script>
 
 <!-- Taiko Faction -->
-<div class="flex gap-[30px] flex-col container">
-  <div class="f-center flex-col xl:flex-row xl:justify-between mb-[47px]">
+<div class="flex flex-col container px-[57px]">
+  <div class="f-center flex-col md:flex-row mb-[47px] space-y-[40px] space-x-[56px] xl:space-x-[88px]">
     <!-- Title text: Taiko Factions -->
-    <div class="font-clash-grotesk text-secondary-brand tracking-[-1.5px] text-[75px]/[70px] text-center xl:text-left">
+    <div
+      class="max-w-[434px] xl:w-[434px] font-clash-grotesk text-secondary-brand tracking-[-1.5px] text-[75px]/[70px] text-center md:text-left">
       Taiko<br /><span class="text-base-content">Factions</span>
     </div>
 
     <!-- Sub text: In the vibrant world of Neo Nakuz, a groundbreaking cast of characters is emerging, centered around the electrifying ecosystem of Taiko Radio and its dynamic cast of characters: ravers, drummers, masters and more. -->
-    <div class="f-col space-y-[40px]">
-      <div class="title-body-regular text-secondary-content text-center xl:self-end max-w-[505px] xl:text-left">
+    <div class="max-w-[434px] f-col space-y-[40px]">
+      <div class="title-body-regular text-secondary-content text-center xl:self-end max-w-[505px] md:text-left">
         {$t('factions.gallery.description')}
       </div>
-      <ActionButton priority="primary" class="!w-[240px]" withArrow on:click={handleFactionsButton}
+      <ActionButton priority="primary" class="!w-[240px] xs:w-full" withArrow on:click={handleFactionsButton}
         >{$t('buttons.factions.learn_about')}</ActionButton>
     </div>
   </div>

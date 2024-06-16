@@ -1,6 +1,7 @@
 import { redirect } from '@sveltejs/kit';
-import { type Address, isAddress } from 'viem';
+import { isAddress } from 'viem';
 
+import { browser } from '$app/environment';
 import { Profile } from '$libs/profile';
 import { getLogger } from '$libs/util/logger.js';
 
@@ -10,15 +11,14 @@ export const load = async ({ params }) => {
   const { address } = params;
 
   if (!address || !isAddress(address)) {
+    log('Invalid address', address);
     throw redirect(302, '/profile');
   }
 
-  const fetchProfileData = async (address: Address) => {
-    log('Fetching profile data', address);
+  log('Fetching profile data', address);
+  if (browser) {
     const loadProfile = Profile.getProfile(address);
     const loadHistory = Profile.getUserPointsHistory(address);
     await Promise.all([loadProfile, loadHistory]);
-  };
-
-  await fetchProfileData(address as Address);
+  }
 };

@@ -45,7 +45,7 @@
     <img
       alt="chain icon"
       class="w-[24px]"
-      src={(currentChainId && getChainImage(currentChainId)) || 'chains/ethereum.svg'} />
+      src={(currentChainId && getChainImage(currentChainId)) || '/chains/ethereum.svg'} />
     <span class="flex items-center text-secondary-content justify-self-start gap-4 md:text-normal text-sm"
       >{renderEthBalance(balance, 6)}
       <span

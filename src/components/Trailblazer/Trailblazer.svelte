@@ -5,7 +5,7 @@
   import TrailblazerMain from './TrailblazerMain.svelte';
 </script>
 
-<div class="f-center container flex-col w-full overflow-visible gap-[100px]">
+<div class="f-center container flex-col w-full overflow-visible gap-[100px] mb-[130px]">
   <TrailblazerMain />
   <TrailblazerGuide />
   <!-- <TrailblazerOngoingTrails /> -->
