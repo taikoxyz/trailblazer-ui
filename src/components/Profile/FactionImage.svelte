@@ -7,6 +7,9 @@
   export let type: Faction;
 
   export let unlocked: boolean = false;
+
+  let videoSupported = false;
+
   const sources: Record<string, string[]> = {
     [FactionNames.Ravers]: [
       // neutral
@@ -26,18 +29,25 @@
     // ],
   };
 
-  $: src = '/test-badge.mp4';
+  $: videoSrc = '';
+  $: imageSrc = '/factions/ravers/badge/fallback.png';
   onMount(async () => {
+    const video = document.createElement('video');
+    videoSupported = !!video.canPlayType;
     if (!sources[type]) {
       console.warn('Unrecognized badge type', type);
       return;
     }
-    src = `https://nftstorage.link/ipfs/${sources[type][0]}`;
+    videoSrc = `https://nftstorage.link/ipfs/${sources[type][0]}`;
   });
 </script>
 
-<!-- svelte-ignore a11y-media-has-caption -->
-<video loop autoplay={unlocked}>
-  <source {src} type="video/mp4" />
-  Your browser does not support the video tag.
-</video>
+<div class="relative w-full h-full">
+  <img src={imageSrc} alt="faction badge" class="rounded absolute left-0 top-0 rounded-[20px]" />
+  {#if videoSupported}
+    <video loop autoplay={unlocked} class="rounded-[20px] absolute left-0 top-0 rounded-[20px]">
+      <track kind="captions" />
+      <source src={videoSrc} type="video/mp4" />
+    </video>
+  {/if}
+</div>

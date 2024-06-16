@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { Address } from 'viem';
+  import { getAddress, type Address } from 'viem';
 
   import { errorToast } from '$components/NotificationToast';
   import { type FactionNames, FACTIONS } from '$configs/badges';
@@ -9,25 +9,24 @@
   import { isMintDisclaimerAccepted, mintDisclaimerModal } from '$stores/modal';
 
   import FactionImage from './FactionImage.svelte';
+  import ActionButton from '$components/Button/ActionButton.svelte';
+
+  import { t } from 'svelte-i18n';
 
   export let name: FactionNames;
   export let unlocked: boolean = false;
   export let address: Address;
 
-  let disabled = '';
   let blur = '';
   let shadow = '';
   let claimable: boolean = false;
 
   $: if (unlocked) {
-    disabled = 'hidden';
     blur = '';
   } else if (claimable) {
-    disabled = 'border-transparent block';
     blur = 'blur-md';
     shadow = 'shadow-primary shadow-[0_0px_20px]';
   } else {
-    disabled = 'btn-disabled border-transparent block';
     blur = 'blur-md';
   }
 
@@ -49,49 +48,47 @@
       console.error(e);
     } finally {
       isClaiming = false;
-      disabled = '';
     }
   }
-  async function handleClick() {
+  async function handleClaimClick() {
+    isClaiming = true;
     if (claimable) {
-      disabled = 'btn-disabled border-transparent block';
-      isClaiming = true;
       if (!isMintDisclaimerAccepted()) {
         isAwaitingDisclaimer = true;
-
         mintDisclaimerModal.set(true);
+        isClaiming = false;
         return;
       }
       await safeClaimBadge();
     }
+    isClaiming = false;
   }
 
   async function claimPreflight() {
     if (isClaiming || !$account || !$account.address) return;
+    if (getAddress($account.address) !== getAddress(address.toLowerCase())) return;
     claimable = await canClaimPreflight(address, FACTIONS[name]);
   }
 
   $: $account, claimPreflight();
+
+  $: buttonText = isClaiming ? $t('common.claiming') : claimable ? $t('common.claim') : $t('common.not_eligible');
 </script>
 
 <div
   class="{shadow} flex w-full min-h-[306px] max-w-[306px] border-2 border-primary-border-hover rounded-[20px] bg-[#310E2F]">
-  <div class="w-full relative pt-[28px] pb-[20px] px-[20px] flex flex-col justify-between">
-    <div class="w-full flex flex-col items-center {blur}">
-      <div>
-        <FactionImage {unlocked} type={name} />
-      </div>
+  <div class="w-full relative flex flex-col justify-between overflow-hidden">
+    <div class="w-full f-col items-center {blur}">
+      <FactionImage {unlocked} type={name} />
     </div>
     <div class="absolute bottom-8 place-self-center w-full px-6">
-      {#if $account && $account.address && $account.address.toLowerCase() === address.toLowerCase()}
-        <button on:click={handleClick} class="btn btn-primary {disabled} btn-block">
-          {#if isClaiming}
-            <span class="loading loading-spinner loading-md"></span>
-          {:else}
-            {claimable ? 'Claim' : 'Locked'}
-          {/if}
-        </button>
-      {/if}
+      <ActionButton
+        priority="primary"
+        on:click={handleClaimClick}
+        disabled={isClaiming || !claimable}
+        loading={isClaiming}>
+        {buttonText}
+      </ActionButton>
     </div>
   </div>
 </div>
