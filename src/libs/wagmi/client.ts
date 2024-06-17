@@ -1,4 +1,4 @@
-import { getAccount, reconnect } from '@wagmi/core';
+import { getAccount, reconnect, switchChain } from '@wagmi/core';
 import { createWeb3Modal, defaultWagmiConfig } from '@web3modal/wagmi';
 import { get } from 'svelte/store';
 import { type Chain, taiko, taikoHekla } from 'viem/chains';
@@ -57,8 +57,5 @@ export function handleDisconnectWallet() {
 }
 
 export async function enforceChain() {
-  const chainId = get(account).chainId;
-  if (chainId !== 167000) {
-    web3Modal.open({ view: 'Networks' });
-  }
+  await switchChain(wagmiConfig, { chainId: 167000 });
 }
