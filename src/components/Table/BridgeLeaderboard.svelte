@@ -1,0 +1,65 @@
+<script lang="ts">
+  import { onMount } from 'svelte';
+
+  import ExplorerLink from '$components/Links/ExplorerLink.svelte';
+  import { Skeleton } from '$components/Mock';
+  import { Leaderboard } from '$libs/leaderboard';
+  import { formatNumbers } from '$libs/util/formatNumbers';
+  import { currentBridgeLeaderboard } from '$stores/leaderboard';
+  import { EthIcon } from '$components/Icon';
+  let headers = ['Dapp', 'Volume'];
+
+  onMount(async () => {
+    await Leaderboard.getBridgeLeaderboard();
+  });
+</script>
+
+<div class="overflow-x-auto lg:w-full px-8 mt-[18%] lg:mt-0">
+  <div class="flex flex-col gap-2 lg:flex-row justify-between mb-4">
+    <div class="font-clash-grotesk lg:text-[60px] text-[40px] leading-none lg:leading-relaxed">
+      <span class="text-secondary">Dapps</span> Leaderboard
+    </div>
+    <div class="body-small-regular lg:body-regular flex flex-col justify-center">
+      <!-- <div>Complete trails, bridge,</div>
+      <div>use Dapps to rank up.</div> -->
+    </div>
+  </div>
+  <table class="table-lg w-full body-regular text-white rounded-3xl" style="background: rgba(25, 30, 40, .50)">
+    <!-- head -->
+    <thead>
+      <tr>
+        {#each headers as header}
+          <th class="body-regular text-secondary-content text-start pt-8 lg:px-10">{header}</th>
+        {/each}
+      </tr>
+    </thead>
+    <tbody class="rounded-lg">
+      {#each $currentBridgeLeaderboard.items as thing}
+        <tr class="row h-12">
+          <td class="lg:px-10">
+            <div class="flex gap-[20px] align-center">
+              <Skeleton
+                class="hidden lg:table-cell"
+                width="w-12"
+                height="h-12"
+                bgColor="bg-pink-200"
+                shineColor="bg-pink-100" />
+              <div class="flex flex-col justify-around">
+                <div class="body-bold">{thing.address}</div>
+              </div>
+            </div>
+          </td>
+          <td class="lg:px-10 body-regular">
+            <div class='flex gap-[10px] align-end'>
+              {formatNumbers(Math.round(thing.score))}
+              {#if thing.token === "0x07d83526730c7438048D55A4fc0b850e2aaB6f0b"}
+              <EthIcon />
+              {:else}
+              <EthIcon />
+              {/if}
+            </div></td>
+        </tr>
+      {/each}
+    </tbody>
+  </table>
+</div>

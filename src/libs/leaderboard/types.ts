@@ -14,3 +14,22 @@ export type LeaderboardRow = {
   address: string;
   score: number;
 };
+
+export type BridgeLeaderboardPage = {
+  items: BridgeLeaderboardRow[];
+  page: number;
+  size: number;
+  max_page: number;
+  total_pages: number;
+  total: number;
+  last: number;
+  first: number;
+  visible: number;
+};
+
+export type BridgeLeaderboardRow = {
+  address: string;
+  token: string;
+  score: number;
+};
+

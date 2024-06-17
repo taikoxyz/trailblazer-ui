@@ -70,7 +70,7 @@ export type UserPointHistoryPage = {
   visible: number;
 };
 
-export type Event = 'Transaction' | 'TransactionValue' | 'BlockProposed';
+export type Event = 'Transaction' | 'TransactionValue' | 'BlockProposed' | 'Bridged';
 
 export type UserPointHistory = {
   address: string;
