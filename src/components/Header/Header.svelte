@@ -39,9 +39,9 @@
         <div class="flex gap-2">
           <NavigationItem navigation={{ name: 'Profile', route: '/profile' }}></NavigationItem>
           <NavigationItem
-            navigation={{ name: 'Leaderboards', route: '/leaderboard/user' }}
+            navigation={{ name: 'Leaderboards', route: '/leaderboard/dapp' }}
             children={[
-              { name: 'User', route: '/leaderboard/user' },
+              { name: 'Bridge', route: '/leaderboard/bridge' },
               { name: 'Dapp', route: '/leaderboard/dapp' },
             ]}></NavigationItem>
           <NavigationItem navigation={{ name: 'Discover', url: 'https://taiko.xyz/ecosystem' }}></NavigationItem>
