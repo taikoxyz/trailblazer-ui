@@ -8,13 +8,16 @@ import type { IChainId, IContractData } from '$types';
 
 import { trailblazersBadgesAbi, trailblazersBadgesAddress } from '../../generated/abi';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-async function signHash(config: any, address: Address, badgeId: number, chainId: number): Promise<IContractData> {
+async function signHash(
+  config: typeof wagmiConfig,
+  address: Address,
+  badgeId: number,
+  chainId: number,
+): Promise<IContractData> {
   const challenge = Date.now().toString();
   const signature = await signMessage(config, { message: challenge });
 
-  //const baseUrl = config.chainId === 167000 ? '' : 'https://trailblazer.hekla.taiko.xyz/mint';
-  const baseUrl = 'https://trailblazer.hekla.taiko.xyz/mint';
+  const baseUrl = 'https://qa.trailblazer.taiko.xyz/mint';
   try {
     const res = await fetch(baseUrl, {
       method: 'POST',
@@ -30,11 +33,15 @@ async function signHash(config: any, address: Address, badgeId: number, chainId:
       }),
     });
 
+    if (!res.ok) {
+      throw new Error(`Failed to fetch mint signature: ${res.statusText}`);
+    }
+
     const mintSignature = await res.json();
 
     return `0x${mintSignature}`;
   } catch (error) {
-    throw new Error('');
+    throw new Error(`Error in signHash: ${error}`);
   }
 }
 
@@ -46,7 +53,6 @@ export default async function getMintSignature(
   if (!selectedNetworkId) return { signature: '0x0', hash: '0x0' };
 
   const chainId = selectedNetworkId as IChainId;
-
   const contractAddress = trailblazersBadgesAddress[chainId];
 
   const hash = await readContract(wagmiConfig, {
