@@ -2,14 +2,11 @@
   import { onMount } from 'svelte';
 
   import { EthIcon } from '$components/Icon';
-  import Erc20 from '$components/Icon/ERC20.svelte';
   import Usdc from '$components/Icon/USDC.svelte';
-  import ExplorerLink from '$components/Links/ExplorerLink.svelte';
   import { Skeleton } from '$components/Mock';
   import { Leaderboard } from '$libs/leaderboard';
   import { formatNumbers } from '$libs/util/formatNumbers';
   import { currentBridgeLeaderboard } from '$stores/leaderboard';
-  let headers = ['Dapp', 'Volume'];
 
   onMount(async () => {
     await Leaderboard.getBridgeLeaderboard();
@@ -44,7 +41,7 @@
               {#if thing.icon}
                 <div class="avatar">
                   <div class="w-12 rounded-full">
-                    <img src="/{thing.icon}" />
+                    <img alt="icon" src="/{thing.icon}" />
                   </div>
                 </div>
               {:else}
