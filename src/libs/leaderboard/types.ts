@@ -14,9 +14,12 @@ export type LeaderboardRow = {
   address: string;
   score: number;
 };
+
+export type BridgedTokenData = { token: string; score: number };
+
 export type GroupedData = {
   address: string;
-  bridged: { token: string; score: number }[];
+  bridged: BridgedTokenData[];
   value: number;
 };
 export type BridgeData = GroupedData & {
@@ -24,6 +27,7 @@ export type BridgeData = GroupedData & {
   twitter?: string;
   icon?: string;
 };
+
 export type BridgeLeaderboardPage = {
   items: BridgeData[];
   page: number;

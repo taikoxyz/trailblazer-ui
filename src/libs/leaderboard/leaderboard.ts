@@ -1,7 +1,7 @@
 import { PUBLIC_TRAILBLAZER_API_URL } from '$env/static/public';
 import { setBridgeLeaderboard, setLeaderboard, setUserLeaderboard } from '$stores/leaderboard';
 
-import type { BridgeData, BridgeLeaderboardPage, LeaderboardPage } from './types';
+import type { BridgeData, BridgeDataFlat, BridgeLeaderboardPage, LeaderboardPage } from './types';
 
 export class Leaderboard {
   static async getLeaderboard() {
@@ -19,7 +19,8 @@ export class Leaderboard {
   static async getBridgeLeaderboard() {
     const response = await fetch(`${PUBLIC_TRAILBLAZER_API_URL}/bridge`);
     const leaderboardPage: BridgeLeaderboardPage = (await response.json()) as BridgeLeaderboardPage;
-    leaderboardPage.items.forEach((item: any) => {
+    leaderboardPage.items.forEach((item: BridgeData) => {
+      // If WETH
       if (item.token === '0xA51894664A773981C6C112C43ce576f315d5b1B6') {
         item.token = '0x0000000000000000000000000000000000000000';
       }
@@ -30,18 +31,19 @@ export class Leaderboard {
     };
 
     // Group by address and then by token
-    const groupedData = leaderboardPage.items.reduce((acc: any, curr: any) => {
+    const groupedData = leaderboardPage.items.reduce((acc: { [key: string]: BridgeData }, curr: BridgeDataFlat) => {
       if (!acc[curr.address]) {
-        acc[curr.address] = { address: curr.address, bridged: [] };
+        acc[curr.address] = { address: curr.address, bridged: [], value: 0 };
       }
       acc[curr.address].bridged.push({ token: curr.token, score: curr.score });
       acc[curr.address].value = (acc[curr.address].value || 0) + curr.score * (tokenPrices[curr.token] || 0);
       return acc;
     }, {});
-    const result: BridgeData[] = Object.values(groupedData).sort((a: any, b: any) => b.value - a.value) as BridgeData[];
+    const result: BridgeData[] = Object.values(groupedData).sort(
+      (a: BridgeData, b: BridgeData) => b.value - a.value,
+    ) as BridgeData[];
 
     leaderboardPage.items = this.appendBridgeAdditionalData(result);
-    console.log('🚀 | Leaderboard | getBridgeLeaderboard |  leaderboardPage.items:', leaderboardPage.items);
 
     setBridgeLeaderboard(leaderboardPage);
   }
