@@ -60,8 +60,6 @@ export const setBridgeLeaderboard = (leaderboard: BridgeLeaderboardPage) => {
   currentBridgeLeaderboard.update((store) => {
     store = leaderboard;
     store.items = leaderboard.items
-      .filter((item) => !!item.address)
-      .map((item) => ({ ...item, score: +item.score.toFixed(1) }));
     return store;
   });
 };

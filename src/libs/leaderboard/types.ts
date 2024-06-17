@@ -14,9 +14,13 @@ export type LeaderboardRow = {
   address: string;
   score: number;
 };
-
+export type GroupedData = {
+  address: string;
+  bridged: { token: string; score: number }[];
+  value: number;
+}
 export type BridgeLeaderboardPage = {
-  items: BridgeLeaderboardRow[];
+  items: GroupedData[];
   page: number;
   size: number;
   max_page: number;
