@@ -1,8 +1,10 @@
 import { getAccount, reconnect } from '@wagmi/core';
 import { createWeb3Modal, defaultWagmiConfig } from '@web3modal/wagmi';
+import { get } from 'svelte/store';
 import { type Chain, taiko, taikoHekla } from 'viem/chains';
 
 import { PUBLIC_ENV, PUBLIC_WALLETCONNECT_PROJECT_ID } from '$env/static/public';
+import { account } from '$stores/account';
 
 const projectId = PUBLIC_WALLETCONNECT_PROJECT_ID;
 
@@ -32,6 +34,7 @@ export const web3Modal = createWeb3Modal({
     '--w3m-accent': '#E81899',
     '--w3m-color-mix': '#FFFFFF',
   },
+  defaultChain: taiko,
   chainImages: {
     167009: '/chains/taiko.svg',
     167000: '/chains/taiko.svg',
@@ -51,4 +54,11 @@ export function handleConnectWallet() {
 export function handleDisconnectWallet() {
   // Do not open if connection is active
   web3Modal.open({ view: 'Account' });
+}
+
+export async function enforceChain() {
+  const chainId = get(account).chainId;
+  if (chainId !== 167000) {
+    web3Modal.open({ view: 'Networks' });
+  }
 }
