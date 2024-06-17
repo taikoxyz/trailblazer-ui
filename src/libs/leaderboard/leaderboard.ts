@@ -1,4 +1,5 @@
 import { PUBLIC_TRAILBLAZER_API_URL } from '$env/static/public';
+import { address } from '$stores/account';
 import { setBridgeLeaderboard, setLeaderboard, setUserLeaderboard } from '$stores/leaderboard';
 
 import type { BridgeData, BridgeLeaderboardPage, BridgeLeaderboardRow, GroupedData, LeaderboardPage } from './types';
@@ -63,6 +64,41 @@ export class Leaderboard {
         twitter: 'rhinofi',
         icon: 'rhinofi.png',
       },
+      Retrobridge: {
+        name: 'Retro Bridge',
+        twitter: 'Retro_bridge',
+        icon: 'retro.png',
+      },
+      XY: {
+        name: 'XY Finance',
+        twitter: 'Xyfinance',
+        icon: 'xy.svg',
+      },
+      Router: {
+        name: 'Router Protocol',
+        twitter: 'Routerprotocol',
+        icon: 'router.svg',
+      },
+      Pheasant: {
+        name: 'Pheasant Network',
+        twitter: 'pheasantnetwork',
+        icon: 'pheasant.png',
+      },
+      Comet: {
+        name: 'Comet',
+        twitter: 'Comet_Protocol',
+        icon: 'comet.svg',
+      },
+      Symbiosis: {
+        name: 'Symbiosis Finance',
+        twitter: 'Symbiosis_fi',
+        icon: 'symbiosis.svg',
+      },
+      BunnyFi: {
+        name: 'BunnyFi',
+        twitter: 'BunnyfiLabs',
+        icon: 'bunnyfi.svg',
+      },
     };
 
     // loop through the items in page and add data to page
@@ -73,6 +109,16 @@ export class Leaderboard {
         item.twitter = additionalData.twitter;
         item.icon = additionalData.icon;
       }
+    });
+
+    // append meson
+    page.push({
+      address: 'Meson',
+      bridged: [{ token: '', score: 0 }],
+      value: 0,
+      name: 'mesonfi',
+      twitter: 'mesonfi',
+      icon: 'mesonfi.jpg',
     });
 
     return page;
