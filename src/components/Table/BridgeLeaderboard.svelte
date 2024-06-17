@@ -9,7 +9,7 @@
   import { EthIcon } from '$components/Icon';
   import Erc20 from '$components/Icon/ERC20.svelte';
   import Usdc from '$components/Icon/USDC.svelte';
-  let headers = ['Dapp'];
+  let headers = ['Dapp', 'Volume'];
 
   onMount(async () => {
     await Leaderboard.getBridgeLeaderboard();
@@ -21,18 +21,14 @@
     <div class="font-clash-grotesk lg:text-[60px] text-[40px] leading-none lg:leading-relaxed">
       <span class="text-secondary">Bridge</span> Leaderboard
     </div>
-    <div class="body-small-regular lg:body-regular flex flex-col justify-center">
-      <!-- <div>Complete trails, bridge,</div>
-      <div>use Dapps to rank up.</div> -->
-    </div>
+    <div class="body-small-regular lg:body-regular flex flex-col justify-center"></div>
   </div>
   <table class="table-lg w-full body-regular text-white rounded-3xl" style="background: rgba(25, 30, 40, .50)">
     <!-- head -->
     <thead>
       <tr>
-        {#each headers as header}
-          <th class="body-regular text-secondary-content text-start pt-8 lg:px-10">{header}</th>
-        {/each}
+        <th class="body-regular text-secondary-content text-start pt-8 lg:px-10">Dapp</th>
+        <th class="body-regular text-secondary-content text-end pt-8 lg:px-10">Volume</th>
       </tr>
     </thead>
     <tbody class="rounded-lg">
@@ -53,9 +49,9 @@
           </td>
           <td class="lg:px-10 body-regular flex-col">
             {#each thing.bridged as bridge}
-              <div class='flex gap-[10px] my-1 justify-between text-right'>
+              <div class="flex gap-[10px] my-1 justify-between text-right">
                 <div class="w-full">{formatNumbers(Math.round(bridge.score))}</div>
-                {#if bridge.token === "0x07d83526730c7438048D55A4fc0b850e2aaB6f0b"}
+                {#if bridge.token === '0x07d83526730c7438048D55A4fc0b850e2aaB6f0b'}
                   <Usdc />
                 {:else}
                   <EthIcon />
