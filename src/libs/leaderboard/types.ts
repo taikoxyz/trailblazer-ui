@@ -18,7 +18,7 @@ export type GroupedData = {
   address: string;
   bridged: { token: string; score: number }[];
   value: number;
-}
+};
 export type BridgeLeaderboardPage = {
   items: GroupedData[];
   page: number;
@@ -36,4 +36,3 @@ export type BridgeLeaderboardRow = {
   token: string;
   score: number;
 };
-

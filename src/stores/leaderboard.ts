@@ -59,7 +59,7 @@ export const setUserLeaderboard = (leaderboard: LeaderboardPage) => {
 export const setBridgeLeaderboard = (leaderboard: BridgeLeaderboardPage) => {
   currentBridgeLeaderboard.update((store) => {
     store = leaderboard;
-    store.items = leaderboard.items
+    store.items = leaderboard.items;
     return store;
   });
 };
