@@ -1,14 +1,14 @@
 <script lang="ts">
   import { onMount } from 'svelte';
 
+  import { EthIcon } from '$components/Icon';
+  import Erc20 from '$components/Icon/ERC20.svelte';
+  import Usdc from '$components/Icon/USDC.svelte';
   import ExplorerLink from '$components/Links/ExplorerLink.svelte';
   import { Skeleton } from '$components/Mock';
   import { Leaderboard } from '$libs/leaderboard';
   import { formatNumbers } from '$libs/util/formatNumbers';
   import { currentBridgeLeaderboard } from '$stores/leaderboard';
-  import { EthIcon } from '$components/Icon';
-  import Erc20 from '$components/Icon/ERC20.svelte';
-  import Usdc from '$components/Icon/USDC.svelte';
   let headers = ['Dapp', 'Volume'];
 
   onMount(async () => {

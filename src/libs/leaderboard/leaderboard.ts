@@ -1,8 +1,7 @@
 import { PUBLIC_TRAILBLAZER_API_URL } from '$env/static/public';
-import { address } from '$stores/account';
 import { setBridgeLeaderboard, setLeaderboard, setUserLeaderboard } from '$stores/leaderboard';
 
-import type { BridgeData, BridgeLeaderboardPage, BridgeLeaderboardRow, GroupedData, LeaderboardPage } from './types';
+import type { BridgeData, BridgeLeaderboardPage, LeaderboardPage } from './types';
 
 export class Leaderboard {
   static async getLeaderboard() {
