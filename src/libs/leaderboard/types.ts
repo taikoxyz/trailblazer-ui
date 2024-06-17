@@ -29,6 +29,18 @@ export type BridgeData = GroupedData & {
 };
 
 export type BridgeLeaderboardPage = {
+  items: BridgeLeaderboardRow[];
+  page: number;
+  size: number;
+  max_page: number;
+  total_pages: number;
+  total: number;
+  last: number;
+  first: number;
+  visible: number;
+};
+
+export type BridgeLeaderboardTotal = {
   items: BridgeData[];
   page: number;
   size: number;

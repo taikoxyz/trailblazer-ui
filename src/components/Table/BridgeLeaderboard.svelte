@@ -7,7 +7,6 @@
   import { Leaderboard } from '$libs/leaderboard';
   import { formatNumbers } from '$libs/util/formatNumbers';
   import { currentBridgeLeaderboard } from '$stores/leaderboard';
-
   onMount(async () => {
     await Leaderboard.getBridgeLeaderboard();
   });
