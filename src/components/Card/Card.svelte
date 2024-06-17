@@ -1,8 +1,8 @@
 <script lang="ts">
-	import { classNames } from '$libs/util/classNames';
-	import { isDesktop } from '$libs/util/responsiveCheck';
+  import { classNames } from '$libs/util/classNames';
+  import { isDesktop } from '$libs/util/responsiveCheck';
 
-	const styles = `
+  const styles = `
     w-full 
     md:card 
     md:rounded-[20px] 
@@ -13,27 +13,24 @@
     light:md:light-glass-background-gradient
     `;
 
-	export let title: string = '';
-	export let text = '';
+  export let title: string = '';
+  export let text = '';
 
-	$: dynamicAttrs = isDesktop ? { 'data-glow-border': true } : {};
+  $: dynamicAttrs = isDesktop ? { 'data-glow-border': true } : {};
 
-	$: classes = classNames(styles, $$props.class);
+  $: classes = classNames(styles, $$props.class);
 </script>
 
 <div class={classes}>
-	<div
-		{...dynamicAttrs}
-		class="card-body body-regular px-4 md:p-[50px] gap-0 py-0 md:mt-[0px] mt-[40px]"
-	>
-		{#if title}
-			<h2 class="card-title title-screen-bold">{title}</h2>
-		{/if}
-		{#if text}
-			<p class="text-secondary-content">{text}</p>
-		{/if}
-		<div class="f-col">
-			<slot />
-		</div>
-	</div>
+  <div {...dynamicAttrs} class="card-body body-regular px-4 md:p-[50px] gap-0 py-0 md:mt-[0px] mt-[40px]">
+    {#if title}
+      <h2 class="card-title title-screen-bold">{title}</h2>
+    {/if}
+    {#if text}
+      <p class="text-secondary-content">{text}</p>
+    {/if}
+    <div class="f-col">
+      <slot />
+    </div>
+  </div>
 </div>

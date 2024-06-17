@@ -1,66 +1,66 @@
 <script lang="ts">
-	import '../app.css';
-	import '../i18n';
+  import '../app.css';
+  import '../i18n';
 
-	import { onDestroy, onMount } from 'svelte';
+  import { onDestroy, onMount } from 'svelte';
 
-	import { browser } from '$app/environment';
-	import { AccountConnectionToast } from '$components/AccountConnectionToast';
-	import { Footer } from '$components/Footer';
-	import { Header } from '$components/Header';
-	import { NotificationToast } from '$components/NotificationToast';
-	import { SwitchChainModal } from '$components/SwitchChainModal';
-	import { stopWatching as stopWatchingSupabase } from '$libs/supabase';
-	import {
-		desktopQuery,
-		initializeMediaQueries,
-		mediaQueryHandler,
-		mobileQuery,
-		tabletQuery
-	} from '$libs/util/responsiveCheck';
-	import { startWatching, stopWatching } from '$libs/wagmi';
+  import { browser } from '$app/environment';
+  import { AccountConnectionToast } from '$components/AccountConnectionToast';
+  import { Footer } from '$components/Footer';
+  import { Header } from '$components/Header';
+  import { NotificationToast } from '$components/NotificationToast';
+  import { SwitchChainModal } from '$components/SwitchChainModal';
+  import { stopWatching as stopWatchingSupabase } from '$libs/supabase';
+  import {
+    desktopQuery,
+    initializeMediaQueries,
+    mediaQueryHandler,
+    mobileQuery,
+    tabletQuery,
+  } from '$libs/util/responsiveCheck';
+  import { startWatching, stopWatching } from '$libs/wagmi';
 
-	const syncPointer = ({ x, y }: { x: number; y: number }) => {
-		if (browser) {
-			document.documentElement.style.setProperty('--x', x.toFixed(2));
-			document.documentElement.style.setProperty('--xp', (x / window.innerWidth).toFixed(2));
-			document.documentElement.style.setProperty('--y', y.toFixed(2));
-			document.documentElement.style.setProperty('--yp', (y / window.innerHeight).toFixed(2));
-		}
-	};
+  const syncPointer = ({ x, y }: { x: number; y: number }) => {
+    if (browser) {
+      document.documentElement.style.setProperty('--x', x.toFixed(2));
+      document.documentElement.style.setProperty('--xp', (x / window.innerWidth).toFixed(2));
+      document.documentElement.style.setProperty('--y', y.toFixed(2));
+      document.documentElement.style.setProperty('--yp', (y / window.innerHeight).toFixed(2));
+    }
+  };
 
-	onMount(() => {
-		startWatching();
-		initializeMediaQueries();
+  onMount(() => {
+    startWatching();
+    initializeMediaQueries();
 
-		if (desktopQuery) {
-			desktopQuery.addEventListener('change', mediaQueryHandler);
-			document.body.addEventListener('pointermove', syncPointer);
-		}
-		if (tabletQuery) {
-			tabletQuery.addEventListener('change', mediaQueryHandler);
-		}
-		if (mobileQuery) {
-			mobileQuery.addEventListener('change', mediaQueryHandler);
-		}
-	});
+    if (desktopQuery) {
+      desktopQuery.addEventListener('change', mediaQueryHandler);
+      document.body.addEventListener('pointermove', syncPointer);
+    }
+    if (tabletQuery) {
+      tabletQuery.addEventListener('change', mediaQueryHandler);
+    }
+    if (mobileQuery) {
+      mobileQuery.addEventListener('change', mediaQueryHandler);
+    }
+  });
 
-	onDestroy(() => {
-		stopWatching();
-		stopWatchingSupabase();
-		if (browser) {
-			document.body.removeEventListener('pointermove', syncPointer);
-		}
-		if (desktopQuery) {
-			desktopQuery.removeEventListener('change', mediaQueryHandler);
-		}
-		if (tabletQuery) {
-			tabletQuery.removeEventListener('change', mediaQueryHandler);
-		}
-		if (mobileQuery) {
-			mobileQuery.removeEventListener('change', mediaQueryHandler);
-		}
-	});
+  onDestroy(() => {
+    stopWatching();
+    stopWatchingSupabase();
+    if (browser) {
+      document.body.removeEventListener('pointermove', syncPointer);
+    }
+    if (desktopQuery) {
+      desktopQuery.removeEventListener('change', mediaQueryHandler);
+    }
+    if (tabletQuery) {
+      tabletQuery.removeEventListener('change', mediaQueryHandler);
+    }
+    if (mobileQuery) {
+      mobileQuery.removeEventListener('change', mediaQueryHandler);
+    }
+  });
 </script>
 
 <!-- App components -->
