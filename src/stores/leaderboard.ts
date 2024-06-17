@@ -1,7 +1,7 @@
 // tokenInfoStore.ts
 import { writable } from 'svelte/store';
 
-import type { LeaderboardPage } from '$libs/leaderboard/types';
+import type { BridgeLeaderboardPage, LeaderboardPage } from '$libs/leaderboard/types';
 
 export const currentLeaderboard = writable<LeaderboardPage>({
   items: [],
@@ -16,6 +16,17 @@ export const currentLeaderboard = writable<LeaderboardPage>({
 });
 
 export const currentUserLeaderboard = writable<LeaderboardPage>({
+  items: [],
+  page: 0,
+  size: 20,
+  max_page: 0,
+  total_pages: 0,
+  total: 0,
+  last: 1,
+  first: 0,
+  visible: 0,
+});
+export const currentBridgeLeaderboard = writable<BridgeLeaderboardPage>({
   items: [],
   page: 0,
   size: 20,
@@ -41,6 +52,14 @@ export const setUserLeaderboard = (leaderboard: LeaderboardPage) => {
     store.items = leaderboard.items
       .filter((item) => !!item.address)
       .map((item) => ({ ...item, score: +item.score.toFixed(1) }));
+    return store;
+  });
+};
+
+export const setBridgeLeaderboard = (leaderboard: BridgeLeaderboardPage) => {
+  currentBridgeLeaderboard.update((store) => {
+    store = leaderboard;
+    store.items = leaderboard.items
     return store;
   });
 };

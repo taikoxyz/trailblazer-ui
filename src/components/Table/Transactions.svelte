@@ -31,7 +31,8 @@
                   ? 'Transaction Value'
                   : pointHistory?.event === 'BlockProposed'
                     ? 'Block Proposed'
-                    : 'Transaction'}
+                    : pointHistory?.event === 'Bridged'
+                    ? 'Bridged' : 'Transaction'}
               </td>
               <td>
                 {#if pointHistory?.points === 0}
