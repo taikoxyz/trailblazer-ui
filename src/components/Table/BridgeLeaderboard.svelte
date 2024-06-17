@@ -36,14 +36,27 @@
         <tr class="row h-12">
           <td class="lg:px-10">
             <div class="flex gap-[20px] align-center">
-              <Skeleton
-                class="hidden lg:table-cell"
-                width="w-12"
-                height="h-12"
-                bgColor="bg-pink-200"
-                shineColor="bg-pink-100" />
+              {#if thing.icon}
+                <div class="avatar">
+                  <div class="w-12 rounded-xl">
+                    <img src="/{thing.icon}" />
+                  </div>
+                </div>
+              {:else}
+                <Skeleton
+                  class="hidden lg:table-cell"
+                  width="w-12"
+                  height="h-12"
+                  bgColor="bg-pink-200"
+                  shineColor="bg-pink-100" />
+              {/if}
               <div class="flex flex-col justify-around">
-                <div class="body-bold">{thing.address}</div>
+                {#if thing.twitter}
+                  <a class="link" target="_blank" href="https://twitter.com/{thing.twitter}"
+                    >{thing.name ? thing.name : thing.address}</a>
+                {:else}
+                  <div class="body-bold">{thing.name ? thing.name : thing.address}</div>
+                {/if}
               </div>
             </div>
           </td>
