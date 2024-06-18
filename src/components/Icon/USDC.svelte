@@ -2,9 +2,6 @@
   export let size = 20;
   export let width: number = size;
   export let height: number = size;
-  const originalViewBoxWidth = 2000;
-  const targetViewBoxSize = 20;
-  const scale: number = targetViewBoxSize / originalViewBoxWidth;
 </script>
 
 <svg {width} {height} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2000 2000">
