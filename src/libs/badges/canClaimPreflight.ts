@@ -2,7 +2,7 @@ import type { Address } from 'viem';
 
 export default async function canClaimPreflight(address: Address, badgeId: number): Promise<boolean> {
   try {
-    const baseUrl = 'https://trailblazer.hekla.taiko.xyz/whitelist?address=';
+    const baseUrl = 'https://qa.trailblazer.taiko.xyz/whitelist?address=';
     const res = await fetch(`${baseUrl}${address}&badgeId=${badgeId}`);
     const json = await res.json();
 

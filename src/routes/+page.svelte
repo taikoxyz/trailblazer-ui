@@ -1,5 +1,5 @@
 <script>
-  import { Trailblazer } from '$components/Trailblazer';
+  import { Trailblazer } from '$components/Startpage';
 </script>
 
 <svelte:head>

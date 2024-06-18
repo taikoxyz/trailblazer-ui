@@ -1,6 +1,6 @@
 <script lang="ts">
+  import { FactionsGallery } from '$components/FactionsGallery';
   import { FAQ } from '$components/FAQ';
-  import { FactionsGallery } from '$components/Gallery';
 
   import AboutFactionsInfo from './AboutFactionsInfo.svelte';
   import AboutGallery from './AboutGallery.svelte';

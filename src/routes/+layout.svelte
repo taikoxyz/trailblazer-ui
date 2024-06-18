@@ -4,6 +4,7 @@
 
   import { onDestroy, onMount } from 'svelte';
 
+  import { browser } from '$app/environment';
   import { AccountConnectionToast } from '$components/AccountConnectionToast';
   import { Footer } from '$components/Footer';
   import { Header } from '$components/Header';
@@ -19,12 +20,22 @@
   } from '$libs/util/responsiveCheck';
   import { startWatching, stopWatching } from '$libs/wagmi';
 
+  const syncPointer = ({ x, y }: { x: number; y: number }) => {
+    if (browser) {
+      document.documentElement.style.setProperty('--x', x.toFixed(2));
+      document.documentElement.style.setProperty('--xp', (x / window.innerWidth).toFixed(2));
+      document.documentElement.style.setProperty('--y', y.toFixed(2));
+      document.documentElement.style.setProperty('--yp', (y / window.innerHeight).toFixed(2));
+    }
+  };
+
   onMount(() => {
     startWatching();
     initializeMediaQueries();
 
     if (desktopQuery) {
       desktopQuery.addEventListener('change', mediaQueryHandler);
+      document.body.addEventListener('pointermove', syncPointer);
     }
     if (tabletQuery) {
       tabletQuery.addEventListener('change', mediaQueryHandler);
@@ -37,7 +48,9 @@
   onDestroy(() => {
     stopWatching();
     stopWatchingSupabase();
-
+    if (browser) {
+      document.body.removeEventListener('pointermove', syncPointer);
+    }
     if (desktopQuery) {
       desktopQuery.removeEventListener('change', mediaQueryHandler);
     }
