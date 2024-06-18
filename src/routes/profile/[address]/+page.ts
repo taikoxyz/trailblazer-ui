@@ -17,8 +17,12 @@ export const load = async ({ params }) => {
 
   log('Fetching profile data', address);
   if (browser) {
-    const loadProfile = Profile.getProfile(address);
-    const loadHistory = Profile.getUserPointsHistory(address);
-    await Promise.all([loadProfile, loadHistory]);
+    try {
+      const loadProfile = Profile.getProfile(address);
+      const loadHistory = Profile.getUserPointsHistory(address);
+      await Promise.all([loadProfile, loadHistory]);
+    } catch (e) {
+      console.error(e);
+    }
   }
 };

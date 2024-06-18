@@ -3,3 +3,5 @@ export enum Movements {
   Based,
   Boosted,
 }
+
+export const MovementNames: string[] = Object.keys(Movements).filter((key) => isNaN(Number(key)));

@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { MovementSelector } from '$components/MovementSelector';
   import { ProfileFactions } from '$components/Profile';
   import { Transactions } from '$components/Table';
   import type { IToDo } from '$types';
@@ -18,6 +19,11 @@
     {
       name: 'Faction Badges',
       content: ProfileFactions,
+      checked: false,
+    },
+    {
+      name: 'Movement Selector',
+      content: MovementSelector,
       checked: false,
     },
     // {

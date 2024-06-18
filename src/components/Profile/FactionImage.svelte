@@ -27,7 +27,6 @@
   };
 
   let videoSrc = '';
-  const fallBackImage = `/factions/${type.toLowerCase()}/badge/fallback.png`;
 
   onMount(() => {
     if (sources[type]) {
@@ -40,8 +39,6 @@
 </script>
 
 <div class="relative w-full h-full">
-  <img src={fallBackImage} alt="faction badge" class="rounded absolute left-0 top-0 rounded-[20px] z-10" />
-
   {#if videoSrc}
     <video loop autoplay={unlocked} class="rounded-[20px] absolute left-0 top-0 z-20">
       <track kind="captions" />
