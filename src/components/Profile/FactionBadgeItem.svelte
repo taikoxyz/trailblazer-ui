@@ -7,6 +7,7 @@
   import { type FactionNames, FACTIONS } from '$configs/badges';
   import canClaimPreflight from '$libs/badges/canClaimPreflight';
   import claimBadge from '$libs/badges/claimBadge';
+  import type { Movements } from '$libs/badges/const';
   import { account } from '$stores/account';
   import { isMintDisclaimerAccepted, mintDisclaimerModal } from '$stores/modal';
 
@@ -15,6 +16,7 @@
   export let name: FactionNames;
   export let unlocked: boolean = false;
   export let address: Address;
+  export let movement: Movements;
 
   let blur = '';
   let shadow = '';
@@ -78,7 +80,7 @@
   class="{shadow} flex w-full min-h-[306px] max-w-[306px] border-2 border-primary-border-hover rounded-[20px] bg-[#310E2F]">
   <div class="w-full relative flex flex-col justify-between overflow-hidden">
     <div class="w-full f-col items-center {blur}">
-      <FactionImage {unlocked} type={name} />
+      <FactionImage {movement} {unlocked} type={name} />
     </div>
     {#if !unlocked}
       <div class="absolute bottom-8 place-self-center w-full px-6">

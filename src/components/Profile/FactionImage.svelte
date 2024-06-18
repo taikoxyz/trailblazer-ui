@@ -1,11 +1,11 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
-
   import { FactionNames } from '$configs/badges';
+  import type { Movements } from '$libs/badges/const';
   import type { Faction } from '$libs/profile';
 
   export let type: Faction;
   export let unlocked: boolean = false;
+  export let movement: Movements;
 
   const sources: Record<string, string[]> = {
     [FactionNames.Ravers]: [
@@ -26,24 +26,22 @@
     ],
   };
 
-  let videoSrc = '';
+  let videoSrc = setVideoSrc();
+  $: movement, (videoSrc = setVideoSrc());
+  $: type, (videoSrc = setVideoSrc());
 
-  onMount(() => {
-    if (sources[type]) {
-      videoSrc = `https://nftstorage.link/ipfs/${sources[type][0]}`;
-    } else {
-      console.warn('Unrecognized badge type', type);
-      videoSrc = '';
-    }
-  });
+  function setVideoSrc() {
+    if (movement < 0) return '';
+    return `https://nftstorage.link/ipfs/${sources[type][movement]}`;
+  }
 </script>
 
 <div class="relative w-full h-full">
-  {#if videoSrc}
-    <video loop autoplay={unlocked} class="rounded-[20px] absolute left-0 top-0 z-20">
-      <track kind="captions" />
+  <video loop autoplay={unlocked} class="rounded-[20px] absolute left-0 top-0 z-20">
+    <track kind="captions" />
+    {#if videoSrc}
       <source src={videoSrc} type="video/mp4" />
-      Your browser does not support the video tag.
-    </video>
-  {/if}
+    {/if}
+    Your browser does not support the video tag.
+  </video>
 </div>

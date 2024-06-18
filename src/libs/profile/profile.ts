@@ -1,7 +1,9 @@
 import { getAccount } from '@wagmi/core';
 import { get } from 'svelte/store';
+import type { Address } from 'viem';
 
 import { PUBLIC_TRAILBLAZER_API_URL } from '$env/static/public';
+import getMovement from '$libs/badges/getMovement';
 import { wagmiConfig } from '$libs/wagmi';
 import { currentProfile } from '$stores/profile';
 import type { IToDo } from '$types';
@@ -124,6 +126,15 @@ export class Profile {
           }
         });
         return { ...current, ...updates };
+      });
+
+      // Get the movement (neutral vs based vs boosted)
+      const movement = await getMovement(address as Address);
+      console.warn({ movement });
+
+      // update the movement
+      currentProfile.update((current) => {
+        return { ...current, movement };
       });
 
       // Calculate Percentile

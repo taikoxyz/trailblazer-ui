@@ -19,8 +19,8 @@ export async function startWatching() {
       async onChange(data) {
         log('Account changed', data);
         account.set(data);
-        const { chainId, address } = data;
 
+        const { chainId, address } = data;
         if (chainId && address) {
           // We need to check if the chain is supported, and if not
           // we present the user with a modal to switch networks.

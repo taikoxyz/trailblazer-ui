@@ -1,35 +1,35 @@
 <script lang="ts">
+  import { ZeroAddress } from 'ethers';
   import { onMount } from 'svelte';
   import type { Address } from 'viem';
 
+  import { page } from '$app/stores';
   import { Button } from '$components/Button';
   import { MovementNames, Movements } from '$libs/badges/const';
   import getMovement from '$libs/badges/getMovement';
   import setMovement from '$libs/badges/setMovement';
-  import type { UserProfile } from '$libs/profile';
+  import { account } from '$stores/account';
   import { currentProfile } from '$stores/profile';
 
-  let profile: UserProfile;
-  $: profile = $currentProfile;
-
   $: isReady = false;
+  $: urlAddress = $page.url.pathname.split('/').pop() || ZeroAddress;
 
   $: movement = -1;
-  async function load() {
-    if (!profile || !profile.address) return;
-    isReady = false;
-    movement = await getMovement(profile.address as Address);
-    isReady = true;
-  }
 
   async function updateMovement(movement: Movements) {
     isReady = false;
     await setMovement(movement);
-    await load();
+    currentProfile.set({
+      ...$currentProfile,
+      movement,
+    });
+    movement = await getMovement(urlAddress as Address);
+    isReady = true;
   }
 
   onMount(async () => {
-    await load();
+    movement = await getMovement(urlAddress as Address);
+    isReady = true;
   });
 </script>
 
@@ -40,14 +40,15 @@
     {:else}
       <div class="loading loading-spinner loading-md"></div>
     {/if}
-
-    {#each MovementNames as movementName, movementId}
-      <Button
-        wide
-        block
-        type="primary"
-        disabled={!isReady || movementId === movement}
-        on:click={() => updateMovement(movementId)}>{movementName}</Button>
-    {/each}
+    {#if $account && $account.address && $account.address.toLowerCase() === urlAddress.toLowerCase()}
+      {#each MovementNames as movementName, movementId}
+        <Button
+          wide
+          block
+          type="primary"
+          disabled={!isReady || movementId === movement}
+          on:click={() => updateMovement(movementId)}>{movementName}</Button>
+      {/each}
+    {/if}
   </div>
 </div>
