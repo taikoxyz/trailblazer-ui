@@ -22,42 +22,4 @@
   body {
     height: 100%;
   }
-
-  [data-theme='dark'] body::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-
-    /* No grid background by default */
-    background-size: 0, cover, cover;
-    background-blend-mode: color-dodge, lighten, multiply;
-    z-index: -1;
-  }
-
-  [data-theme='light'] body::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-
-    /* No grid background by default */
-    background-size: 0, cover, cover;
-    background-blend-mode: color-dodge, color, hard-light;
-    z-index: -1;
-  }
-
-  @media (min-width: 768px) {
-    [data-theme='dark'] body::before {
-      background-size: 50px, cover, cover;
-    }
-
-    [data-theme='light'] body::before {
-      background-size: 50px, cover, cover;
-    }
-  }
 }
