@@ -22,6 +22,11 @@ export type GroupedData = {
   bridged: BridgedTokenData[];
   value: number;
 };
+export type BridgeData = GroupedData & {
+  name?: string;
+  twitter?: string;
+  icon?: string;
+};
 
 export type BridgeLeaderboardPage = {
   items: BridgeLeaderboardRow[];
