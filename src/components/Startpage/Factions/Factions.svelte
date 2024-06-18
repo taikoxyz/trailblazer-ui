@@ -46,9 +46,8 @@
         <span class="text-base-content">through weekly trails</span>
       </Title>
       <div class="text-left text-secondary-content">
-        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quibusdam laboriosam earum, dolores reprehenderit vel
-        perferendis esse itaque amet beatae accusantium molestias dolor quis reiciendis autem cumque, exercitationem
-        soluta at provident.
+        To earn Taiko Faction Badges, participants must complete specific weekly challenges outlined in the
+        Trailblazers: Call of Taiko campaign.
       </div>
     </div>
   </div>
