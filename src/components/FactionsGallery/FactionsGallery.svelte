@@ -1,8 +1,45 @@
 <script lang="ts">
   import { LockIcon } from '$components/Icon';
-  import { type GalleryItem, MOCK_FACTION_GALLERY } from '$mocks';
+  import RaverFaction from '$images/factions/faction-gallery-1.png';
+  import RobotFaction from '$images/factions/faction-gallery-2.png';
+  import BouncerFaction from '$images/factions/faction-gallery-3.png';
+  import MasterFaction from '$images/factions/faction-gallery-4.png';
+  import MonkFaction from '$images/factions/faction-gallery-5.png';
+  import DrummerFaction from '$images/factions/faction-gallery-6.png';
+  import { type GalleryItem } from '$mocks';
 
-  export let items: GalleryItem[] = MOCK_FACTION_GALLERY;
+  export let items: GalleryItem[] = [
+    {
+      image: RaverFaction,
+      name: 'Ravers',
+      locked: false,
+    },
+    {
+      image: RobotFaction,
+      name: 'Robots',
+      locked: false,
+    },
+    {
+      image: BouncerFaction,
+      name: 'Bouncers',
+      locked: true,
+    },
+    {
+      image: MasterFaction,
+      name: 'Masters',
+      locked: true,
+    },
+    {
+      image: MonkFaction,
+      name: 'Monks',
+      locked: true,
+    },
+    {
+      image: DrummerFaction,
+      name: 'Drummers',
+      locked: true,
+    },
+  ];
 </script>
 
 <div class="max-w-full h-[700px] xl:h-auto">
