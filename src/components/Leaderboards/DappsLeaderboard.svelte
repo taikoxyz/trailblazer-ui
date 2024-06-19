@@ -6,6 +6,8 @@
   import { Leaderboard } from '$libs/leaderboard';
   import { formatNumbers } from '$libs/util/formatNumbers';
   import { currentLeaderboard } from '$stores/leaderboard';
+
+  import DappsHeader from './Header/DappsHeader.svelte';
   let headers = ['Dapp', 'Address', 'Points'];
   // 0xE4eDb277e41dc89aB076a1F049f4a3EfA700bCE8 orbiter finance
   // 0x5e809A85Aa182A9921EDD10a4163745bb3e36284 owlto finance
@@ -80,16 +82,8 @@
   });
 </script>
 
-<div class="overflow-x-auto lg:w-full px-8 mt-[18%] lg:mt-0">
-  <div class="flex flex-col gap-2 lg:flex-row justify-between mb-4">
-    <div class="font-clash-grotesk lg:text-[60px] text-[40px] leading-none lg:leading-relaxed">
-      <span class="text-secondary">Dapps</span> Leaderboard
-    </div>
-    <div class="body-small-regular lg:body-regular flex flex-col justify-center">
-      <!-- <div>Complete trails, bridge,</div>
-      <div>use Dapps to rank up.</div> -->
-    </div>
-  </div>
+<div class="overflow-x-auto lg:w-full px-8 mt-[18%] lg:mt-0 space-y-[60px]">
+  <DappsHeader />
   <table class="table-lg w-full body-regular text-white rounded-3xl" style="background: rgba(25, 30, 40, .50)">
     <!-- head -->
     <thead>

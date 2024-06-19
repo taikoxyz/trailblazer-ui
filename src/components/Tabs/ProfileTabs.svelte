@@ -1,6 +1,6 @@
 <script lang="ts">
+  import { LeaderboardTransactions } from '$components/Leaderboards';
   import { ProfileFactions } from '$components/Profile';
-  import { Transactions } from '$components/Table';
   import type { IToDo } from '$types';
 
   type TabContent = {
@@ -12,7 +12,7 @@
   export let tabs: TabContent[] = [
     {
       name: 'Transactions',
-      content: Transactions,
+      content: LeaderboardTransactions,
       checked: true,
     },
     {
