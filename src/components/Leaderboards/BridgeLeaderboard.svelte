@@ -5,11 +5,17 @@
   import Usdc from '$components/Icon/USDC.svelte';
   import Usdt from '$components/Icon/USDT.svelte';
   import { Skeleton } from '$components/Mock';
+  import { web3modal } from '$libs/connect';
   import { Leaderboard } from '$libs/leaderboard';
   import { formatNumbers } from '$libs/util/formatNumbers';
   import { currentBridgeLeaderboard } from '$stores/leaderboard';
 
+  import { usdcAddress, usdtAddress } from '../../generated/abi';
+  import type { IChainId } from '../../types/types';
   import BridgeHeader from './Header/BridgeHeader.svelte';
+
+  const { selectedNetworkId } = web3modal.getState();
+  $: chainId = (selectedNetworkId as IChainId) || 160000;
 
   onMount(async () => {
     await Leaderboard.getBridgeLeaderboard();
@@ -63,9 +69,9 @@
             {#each thing.bridged as bridge}
               <div class="flex gap-[10px] my-1 justify-between text-right">
                 <div class="w-full">{bridge.score > 0 ? formatNumbers(Math.round(bridge.score)) : '-'}</div>
-                {#if bridge.token.toLowerCase() === '0x07d83526730c7438048D55A4fc0b850e2aaB6f0b'.toLowerCase()}
+                {#if bridge.token.toLowerCase() === usdcAddress[chainId].toLowerCase()}
                   <Usdc />
-                {:else if bridge.token.toLowerCase() === '0x2DEF195713CF4a606B49D07E520e22C17899a736'.toLowerCase()}
+                {:else if bridge.token.toLowerCase() === usdtAddress[chainId].toLowerCase()}
                   <Usdt />
                 {:else}
                   <EthIcon />
