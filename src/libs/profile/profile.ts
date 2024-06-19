@@ -130,7 +130,6 @@ export class Profile {
 
       // Get the movement (neutral vs based vs boosted)
       const movement = await getMovement(address as Address);
-      console.warn({ movement });
 
       // update the movement
       currentProfile.update((current) => {

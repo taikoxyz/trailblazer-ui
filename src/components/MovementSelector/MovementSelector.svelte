@@ -5,6 +5,7 @@
 
   import { page } from '$app/stores';
   import { Button } from '$components/Button';
+  import { Spinner } from '$components/Spinner';
   import { MovementNames, Movements } from '$libs/badges/const';
   import getMovement from '$libs/badges/getMovement';
   import setMovement from '$libs/badges/setMovement';
@@ -18,13 +19,18 @@
 
   async function updateMovement(movement: Movements) {
     isReady = false;
-    await setMovement(movement);
-    currentProfile.set({
-      ...$currentProfile,
-      movement,
-    });
-    movement = await getMovement(urlAddress as Address);
-    isReady = true;
+    try {
+      await setMovement(movement);
+      currentProfile.set({
+        ...$currentProfile,
+        movement,
+      });
+      movement = await getMovement(urlAddress as Address);
+    } catch (e) {
+      console.error(e);
+    } finally {
+      isReady = true;
+    }
   }
 
   onMount(async () => {
@@ -38,7 +44,7 @@
     {#if isReady}
       <p>Your movement is <b>#{movement} {MovementNames[movement]}</b></p>
     {:else}
-      <div class="loading loading-spinner loading-md"></div>
+      <Spinner />
     {/if}
     {#if $account && $account.address && $account.address.toLowerCase() === urlAddress.toLowerCase()}
       {#each MovementNames as movementName, movementId}
