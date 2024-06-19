@@ -13,8 +13,8 @@
           Rank up<br /><span class="text-base-content">on the leaderboard</span>
         </div>
         <div class="mt-[50px] mb-[40px]">
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quisquam harum delectus accusantium ab alias modi
-          nobis non a explicabo id, illo corporis perferendis facere, esse praesentium rem odit iure minus.
+          Earn Experience Points (XP) and climb from beginner to legend. Every action moves you to closer exclusive
+          rewards and elite status.
         </div>
 
         <div class="flex flex-row gap-[15px]">

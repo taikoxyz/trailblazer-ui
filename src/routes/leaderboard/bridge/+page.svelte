@@ -1,6 +1,10 @@
 <script>
+  import { t } from 'svelte-i18n';
+
+  import { goto } from '$app/navigation';
+  import { ActionButton } from '$components/Button';
+  import { BridgeLeaderboard } from '$components/Leaderboards';
   import { Page } from '$components/Page';
-  import BridgeLeaderboard from '$components/Table/BridgeLeaderboard.svelte';
 </script>
 
 <svelte:head>
@@ -9,4 +13,10 @@
 
 <Page>
   <BridgeLeaderboard />
+
+  <div class="w-full flex justify-center mt-[58px]">
+    <ActionButton class="max-w-[280px]" priority="primary" on:click={() => goto('/leaderboard/dapp')} withArrow>
+      {$t('buttons.leaderboard.dapp')}
+    </ActionButton>
+  </div>
 </Page>

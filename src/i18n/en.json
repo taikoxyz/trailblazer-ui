@@ -7,6 +7,10 @@
     },
     "get_started": "Get started",
     "home": "Back to the homepage",
+    "leaderboard": {
+      "bridge": "Go to Bridge leaderboard",
+      "dapp": "Go to Dapps leaderboard"
+    },
     "learn_more": "Learn more"
   },
   "common": {
