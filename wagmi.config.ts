@@ -20,7 +20,7 @@ export default defineConfig({
     {
       name: 'USDC',
       address: {
-        167009: '0x07d83526730c7438048D55A4fc0b850e2aaB6f0b',
+        167009: '0xB1Ca1F376AAF482Bf5db741EF4B884eB5d69f27B',
         167000: '0x07d83526730c7438048D55A4fc0b850e2aaB6f0b',
       },
       abi: [],
@@ -28,7 +28,7 @@ export default defineConfig({
     {
       name: 'USDT',
       address: {
-        167009: '0x2DEF195713CF4a606B49D07E520e22C17899a736',
+        167009: '0x1292DFD7abeC7D739448e10903C103C99f032cd2',
         167000: '0x2DEF195713CF4a606B49D07E520e22C17899a736',
       },
       abi: [],
