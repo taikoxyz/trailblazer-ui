@@ -1,11 +1,11 @@
 <script lang="ts">
+  import { LeaderboardTransactions } from '$components/Leaderboards';
   import { ProfileFactions } from '$components/Profile';
-  import { Transactions } from '$components/Table';
 
   export let tabs = [
     {
       name: 'Transactions',
-      content: Transactions,
+      content: LeaderboardTransactions,
       checked: true,
     },
     {
