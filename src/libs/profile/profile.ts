@@ -7,7 +7,6 @@ import { isDevelopmentEnv } from '$libs/util/isDevelopmentEnv';
 import { getLogger } from '$libs/util/logger';
 import { wagmiConfig } from '$libs/wagmi';
 import { currentProfile } from '$stores/profile';
-import type { IToDo } from '$types';
 
 import type { UserLevel, UserPointHistoryPage, UserProfile } from './types';
 
@@ -99,8 +98,8 @@ export class Profile {
       },
     ];
     // 0-20 percentile will have the Beginner Title
-    const level = levelTiers.find((tier) => percentile <= tier.percentileCap) as UserLevel;
-    return { level: level.level, title: level.title };
+    const { level, title } = levelTiers.find((tier) => percentile <= tier.percentileCap) as UserLevel;
+    return { level, title };
   }
 
   static async getProfile(address?: string) {
@@ -150,7 +149,7 @@ export class Profile {
       log('Formatted', formattedRankPercentile);
 
       // Update Profile
-      currentProfile.update((current: IToDo) => {
+      currentProfile.update((current) => {
         return { ...current, ...level, rankPercentile: formattedRankPercentile };
       });
       log('Final Profile: ', get(currentProfile));

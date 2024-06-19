@@ -23,4 +23,4 @@ export const isSupportedChain = (chainId: number) => {
   return chains.some((chain) => chain.id === chainId);
 };
 
-export const chains: [Chain, ...Chain[]] = isDevelopmentEnv ? [taikoHekla, taiko] : [taiko];
+export const chains: [Chain, ...Chain[]] = isDevelopmentEnv ? [taikoHekla] : [taiko];

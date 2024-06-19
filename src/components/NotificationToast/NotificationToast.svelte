@@ -74,9 +74,7 @@
 <script lang="ts">
   import { SvelteToast } from '@zerodevx/svelte-toast';
 
-  import type { IToDo } from '$types';
-
-  const options: IToDo = {
+  const options = {
     duration: toastConfig.duration,
   };
 </script>

@@ -1,15 +1,8 @@
 <script lang="ts">
   import { ProfileFactions } from '$components/Profile';
   import { Transactions } from '$components/Table';
-  import type { IToDo } from '$types';
 
-  type TabContent = {
-    name: string;
-    content: IToDo;
-    checked: boolean;
-  };
-
-  export let tabs: TabContent[] = [
+  export let tabs = [
     {
       name: 'Transactions',
       content: Transactions,
