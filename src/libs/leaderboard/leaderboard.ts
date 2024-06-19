@@ -108,6 +108,11 @@ export class Leaderboard {
         twitter: 'BunnyfiLabs',
         icon: 'bunnyfi.svg',
       },
+      Layerswap: {
+        name: 'Layerswap',
+        twitter: 'layerswap',
+        icon: 'layerswap.jpeg',
+      },
     };
 
     // loop through the items in page and add data to page
