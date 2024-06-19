@@ -116,7 +116,7 @@ export class Profile {
       // const response = await fetch(`${PUBLIC_TRAILBLAZER_API_URL}/user?user=0x8626f6940E2eb28930eFb4CeF49B2d1F2C9C1199`)
       const userProfile: UserProfile = (await response.data) as UserProfile;
 
-      log("User Profile: ", userProfile)
+      log('User Profile: ', userProfile);
 
       // Safely update the currentProfile with userProfile details
       currentProfile.update((current) => {
@@ -132,25 +132,25 @@ export class Profile {
         return { ...current, ...updates };
       });
 
-      log("Updated Profile: ", get(currentProfile))
+      log('Updated Profile: ', get(currentProfile));
 
       // Calculate Percentile
       const rankPercentile = this.calculatePercentile();
-      log("Rank Percentile: ", rankPercentile)
+      log('Rank Percentile: ', rankPercentile);
 
       // Calculate Level
       const level = this.getLevel(rankPercentile);
-      log("Level: ", level)
+      log('Level: ', level);
 
       // Format rankPercentile to 2 decimal places and add suffix
       const formattedRankPercentile = `${(100 - rankPercentile).toFixed(2)}%`;
-      log("Formatted", formattedRankPercentile)
+      log('Formatted', formattedRankPercentile);
 
       // Update Profile
       currentProfile.update((current: IToDo) => {
         return { ...current, ...level, rankPercentile: formattedRankPercentile };
       });
-      log("Final Profile: ", get(currentProfile))
+      log('Final Profile: ', get(currentProfile));
     }
   }
 

@@ -1,16 +1,13 @@
-
 import { MOCK_PROFILE } from '../../tests/mocks/profile';
 import { Profile } from './profile';
 
 vi.mock('axios');
 describe('Profile', () => {
-
   afterEach(() => {
     vi.restoreAllMocks();
   });
 
   describe('getLevel', () => {
-
     it('should return Beginner level if percentile is less than 0', () => {
       const level = Profile.getLevel(-1);
       expect(level).toEqual({ level: 0, title: 'Beginner' });
@@ -32,7 +29,7 @@ describe('Profile', () => {
       expect(level3).toEqual({ level: 3, title: 'Senshi II' });
 
       const level14 = Profile.getLevel(100);
-      expect(level14).toEqual({ level: 14, title: "Legend" });
+      expect(level14).toEqual({ level: 14, title: 'Legend' });
     });
   });
 
@@ -40,13 +37,11 @@ describe('Profile', () => {
     const { writable } = await import('svelte/store');
     const mockProfile = { ...MOCK_PROFILE, rank: 5, total: 10 };
     return {
-      currentProfile: writable(mockProfile)
+      currentProfile: writable(mockProfile),
     };
   });
 
-
   describe('calculatePercentile', () => {
-
     it('should calculate percentile correctly', async () => {
       // Given
       vi.mock('$stores/profile', async () => {
@@ -58,8 +53,8 @@ describe('Profile', () => {
         return {
           currentProfile: {
             ...writable(mockProfile),
-            get: vi.fn()
-          }
+            get: vi.fn(),
+          },
         };
       });
 
