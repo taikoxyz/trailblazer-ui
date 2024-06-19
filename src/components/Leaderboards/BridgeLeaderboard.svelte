@@ -8,24 +8,19 @@
   import { formatNumbers } from '$libs/util/formatNumbers';
   import { currentBridgeLeaderboard } from '$stores/leaderboard';
 
+  import BridgeHeader from './Header/BridgeHeader.svelte';
+
   onMount(async () => {
     await Leaderboard.getBridgeLeaderboard();
   });
 </script>
 
-<div class="overflow-x-auto lg:w-full px-8 mt-[18%] lg:mt-0">
-  <div class="flex flex-col gap-2 lg:flex-row justify-between mb-4">
-    <div class="relative bg-[#310E2F] rounded-[30px] w-full p-12">
-      <div class="font-clash-grotesk lg:text-[60px] text-[40px] leading-none">
-        <span class="text-secondary">Bridge<br /></span> Leaderboard
-      </div>
-    </div>
+<div class="overflow-x-auto lg:w-full px-8 mt-[18%] lg:mt-0 space-y-[60px]">
+  <BridgeHeader />
 
-    <div class="body-small-regular lg:body-regular flex flex-col justify-center"></div>
-  </div>
   <table class="table-lg w-full body-regular text-white rounded-3xl" style="background: rgba(25, 30, 40, .50)">
     <!-- head -->
-    <thead>
+    <thead class="border-b-2 border-gray-800 ;">
       <tr>
         <th class="body-regular text-secondary-content text-start pt-8 lg:px-10">No.</th>
         <th class="body-regular text-secondary-content text-start pt-8 lg:px-10">Dapp</th>

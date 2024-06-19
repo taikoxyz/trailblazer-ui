@@ -1,10 +1,10 @@
 <script lang="ts">
-  import { Leaderboard } from '$components/Table';
+  import { UserLeaderboard } from '$components/Leaderboards/';
 </script>
 
 <div class="flex flex-col w-full h-full items-center gap-8">
   <!-- Leaderboard -->
-  <Leaderboard />
+  <UserLeaderboard />
 
   <!-- Cover image -->
   <div

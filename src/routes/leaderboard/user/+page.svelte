@@ -1,12 +1,12 @@
 <script>
+  import UserLeaderboard from '$components/Leaderboards/UserLeaderboard.svelte';
   import { Page } from '$components/Page';
-  import UserRank from '$components/Rank/UserRank.svelte';
 </script>
 
 <svelte:head>
-  <title>Taiko Trailblazer - Leaderboard</title>
+  <title>Taiko Trailblazer - User Leaderboard</title>
 </svelte:head>
 
 <Page>
-  <UserRank />
+  <UserLeaderboard />
 </Page>
