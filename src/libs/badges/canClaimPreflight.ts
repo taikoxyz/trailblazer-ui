@@ -1,9 +1,9 @@
 import type { Address } from 'viem';
 
-import { PUBLIC_ENV } from '$env/static/public';
+import { isDevelopmentEnv } from '$libs/util/isDevelopmentEnv';
 
 export default async function canClaimPreflight(address: Address, badgeId: number): Promise<boolean> {
-  if (PUBLIC_ENV === 'development') {
+  if (isDevelopmentEnv) {
     return true;
   }
   try {

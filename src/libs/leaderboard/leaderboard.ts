@@ -1,9 +1,10 @@
-import { PUBLIC_ENV, PUBLIC_TRAILBLAZER_API_URL } from '$env/static/public';
+import { PUBLIC_TRAILBLAZER_API_URL } from '$env/static/public';
+import { isDevelopmentEnv } from '$libs/util/isDevelopmentEnv';
 import { setBridgeLeaderboard, setLeaderboard, setUserLeaderboard } from '$stores/leaderboard';
 
 import type { BridgeData, BridgeLeaderboardPage, LeaderboardPage } from './types';
 
-const baseApiUrl = PUBLIC_ENV === 'development' ? '/mock-api' : PUBLIC_TRAILBLAZER_API_URL;
+const baseApiUrl = isDevelopmentEnv ? '/mock-api' : PUBLIC_TRAILBLAZER_API_URL;
 
 export class Leaderboard {
   static async getLeaderboard() {

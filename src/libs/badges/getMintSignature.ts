@@ -2,8 +2,8 @@ import { readContract, signMessage } from '@wagmi/core';
 import { type Address } from 'viem';
 
 import type { FACTIONS } from '$configs/badges';
-import { PUBLIC_ENV } from '$env/static/public';
 import { web3modal } from '$libs/connect';
+import { isDevelopmentEnv } from '$libs/util/isDevelopmentEnv';
 import { wagmiConfig } from '$libs/wagmi';
 import type { IChainId, IContractData } from '$types';
 
@@ -66,7 +66,7 @@ export default async function getMintSignature(
   });
 
   // sign with the dev account instead of the API
-  if (PUBLIC_ENV === 'development') {
+  if (isDevelopmentEnv) {
     const signature = await mockSignHash(hash);
     return { signature, hash };
   }

@@ -2,7 +2,8 @@ import { getAccount } from '@wagmi/core';
 import axios from 'axios';
 import { get } from 'svelte/store';
 
-import { PUBLIC_ENV, PUBLIC_TRAILBLAZER_API_URL } from '$env/static/public';
+import { PUBLIC_TRAILBLAZER_API_URL } from '$env/static/public';
+import { isDevelopmentEnv } from '$libs/util/isDevelopmentEnv';
 import { getLogger } from '$libs/util/logger';
 import { wagmiConfig } from '$libs/wagmi';
 import { currentProfile } from '$stores/profile';
@@ -12,7 +13,7 @@ import type { UserLevel, UserPointHistoryPage, UserProfile } from './types';
 
 const log = getLogger('Profile');
 
-const baseApiUrl = PUBLIC_ENV === 'development' ? '/mock-api' : PUBLIC_TRAILBLAZER_API_URL;
+const baseApiUrl = isDevelopmentEnv ? '/mock-api' : PUBLIC_TRAILBLAZER_API_URL;
 
 export class Profile {
   static getLevel(percentile: number): UserLevel {

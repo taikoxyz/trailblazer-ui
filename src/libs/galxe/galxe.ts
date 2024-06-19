@@ -1,8 +1,9 @@
 import { getAccount } from '@wagmi/core';
 
-import { PUBLIC_ENV, PUBLIC_TRAILBLAZER_API_URL } from '$env/static/public';
+import { PUBLIC_TRAILBLAZER_API_URL } from '$env/static/public';
 import { web3modal } from '$libs/connect';
 import type { GalxePoints } from '$libs/profile';
+import { isDevelopmentEnv } from '$libs/util/isDevelopmentEnv';
 import { wagmiConfig } from '$libs/wagmi';
 import { galxeLoading } from '$stores/load';
 import { currentProfile } from '$stores/profile';
@@ -11,7 +12,7 @@ import type { IChainId } from '$types';
 import { readClaimGalxePointsAlreadyRegistered, writeClaimGalxePointsRegister } from '../../generated/abi';
 import type { GalxePointsResponse } from './types';
 
-const baseApiUrl = PUBLIC_ENV === 'development' ? '/mock-api' : PUBLIC_TRAILBLAZER_API_URL;
+const baseApiUrl = isDevelopmentEnv ? '/mock-api' : PUBLIC_TRAILBLAZER_API_URL;
 
 export class Galxe {
   static async checkClaimed() {
@@ -44,9 +45,13 @@ export class Galxe {
 
     if (address) {
       // TOOO: Update this
-      const response = await fetch(`${baseApiUrl}/api/galxe?address=${address}`);
-      // const response = await fetch(`${baseApiUrl}/user?user=0x8626f6940E2eb28930eFb4CeF49B2d1F2C9C1199`)
-      const galxePoints: GalxePointsResponse = (await response.json()) as GalxePointsResponse;
+      let galxePoints: GalxePointsResponse = { address, value: 0 };
+      try {
+        const response = await fetch(`${baseApiUrl}/api/galxe?address=${address}`);
+        galxePoints = (await response.json()) as GalxePointsResponse;
+      } catch (e) {
+        console.warn(e);
+      }
       // Safely update the currentProfile with galxePoints details
       currentProfile.update((current) => {
         const updates: Partial<GalxePoints> = {};
