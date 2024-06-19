@@ -22,8 +22,17 @@ describe('Profile', () => {
     });
 
     it('should return correct level based on percentile', () => {
-      const level = Profile.getLevel(70);
-      expect(level).toEqual({ level: 3, title: 'Senshi II' });
+      const level0 = Profile.getLevel(0);
+      expect(level0).toEqual({ level: 0, title: 'Beginner' });
+
+      const level1 = Profile.getLevel(51);
+      expect(level1).toEqual({ level: 1, title: 'Initiate' });
+
+      const level3 = Profile.getLevel(70);
+      expect(level3).toEqual({ level: 3, title: 'Senshi II' });
+
+      const level14 = Profile.getLevel(100);
+      expect(level14).toEqual({ level: 14, title: "Legend" });
     });
   });
 

@@ -3,12 +3,12 @@ import axios from 'axios';
 import { get } from 'svelte/store';
 
 import { PUBLIC_TRAILBLAZER_API_URL } from '$env/static/public';
+import { getLogger } from '$libs/util/logger';
 import { wagmiConfig } from '$libs/wagmi';
 import { currentProfile } from '$stores/profile';
 import type { IToDo } from '$types';
 
 import type { UserLevel, UserPointHistoryPage, UserProfile } from './types';
-import { getLogger } from '$libs/util/logger';
 
 const log = getLogger('Profile');
 
@@ -80,12 +80,12 @@ export class Profile {
         title: 'Hashira',
       },
       {
-        percentileCap: 99.8,
+        percentileCap: 99.9,
         level: 12,
         title: 'Kodai',
       },
       {
-        percentileCap: 99.9,
+        percentileCap: 99.99,
         level: 13,
         title: 'Densetsu',
       },
