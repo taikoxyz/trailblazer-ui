@@ -77,7 +77,7 @@
 </script>
 
 <div
-  class="{shadow} flex w-full min-h-[306px] max-w-[306px] border-2 border-primary-border-hover rounded-[20px] bg-[#310E2F]">
+  class="overflow-hidden {shadow} flex w-full min-h-[306px] max-w-[306px] border-2 border-primary-border-hover rounded-[20px] bg-[#310E2F]">
   <div class="w-full relative flex flex-col justify-between overflow-hidden">
     <div class="w-full f-col items-center {blur}">
       <FactionImage {movement} {unlocked} type={name} />

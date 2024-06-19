@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { MovementSelector } from '$components/MovementSelector';
   import { LeaderboardTransactions } from '$components/Leaderboards';
+  import { MovementSelector } from '$components/MovementSelector';
   import { ProfileFactions } from '$components/Profile';
   import type { IToDo } from '$types';
 
