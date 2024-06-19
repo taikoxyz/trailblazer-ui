@@ -1,4 +1,5 @@
 import { getAccount } from '@wagmi/core';
+import axios from 'axios';
 import { get } from 'svelte/store';
 
 import { PUBLIC_TRAILBLAZER_API_URL } from '$env/static/public';
@@ -7,6 +8,9 @@ import { currentProfile } from '$stores/profile';
 import type { IToDo } from '$types';
 
 import type { UserLevel, UserPointHistoryPage, UserProfile } from './types';
+import { getLogger } from '$libs/util/logger';
+
+const log = getLogger('Profile');
 
 export class Profile {
   static getLevel(percentile: number): UserLevel {
@@ -16,37 +20,37 @@ export class Profile {
 
     const levelTiers = [
       {
-        percentileCap: 20,
+        percentileCap: 50,
         level: 0,
         title: 'Beginner',
       },
       {
-        percentileCap: 25,
+        percentileCap: 58,
         level: 1,
         title: 'Initiate',
       },
       {
-        percentileCap: 30,
+        percentileCap: 66,
         level: 2,
         title: 'Senshi I',
       },
       {
-        percentileCap: 35,
+        percentileCap: 74,
         level: 3,
         title: 'Senshi II',
       },
       {
-        percentileCap: 40,
+        percentileCap: 82,
         level: 4,
         title: 'Samurai I',
       },
       {
-        percentileCap: 45,
+        percentileCap: 90,
         level: 5,
         title: 'Samurai II',
       },
       {
-        percentileCap: 50,
+        percentileCap: 92,
         level: 6,
         title: 'Sensei I',
       },
@@ -91,7 +95,6 @@ export class Profile {
         title: 'Legend',
       },
     ];
-
     // 0-20 percentile will have the Beginner Title
     const level = levelTiers.find((tier) => percentile <= tier.percentileCap) as UserLevel;
     return { level: level.level, title: level.title };
@@ -109,9 +112,12 @@ export class Profile {
 
     if (address) {
       // TOOO: Update this
-      const response = await fetch(`${PUBLIC_TRAILBLAZER_API_URL}/user?address=${address}`);
+      const response = await axios.get(`${PUBLIC_TRAILBLAZER_API_URL}/user?address=${address}`);
       // const response = await fetch(`${PUBLIC_TRAILBLAZER_API_URL}/user?user=0x8626f6940E2eb28930eFb4CeF49B2d1F2C9C1199`)
-      const userProfile: UserProfile = (await response.json()) as UserProfile;
+      const userProfile: UserProfile = (await response.data) as UserProfile;
+
+      log("User Profile: ", userProfile)
+
       // Safely update the currentProfile with userProfile details
       currentProfile.update((current) => {
         const updates: Partial<UserProfile> = {};
@@ -126,19 +132,25 @@ export class Profile {
         return { ...current, ...updates };
       });
 
+      log("Updated Profile: ", get(currentProfile))
+
       // Calculate Percentile
       const rankPercentile = this.calculatePercentile();
+      log("Rank Percentile: ", rankPercentile)
 
       // Calculate Level
       const level = this.getLevel(rankPercentile);
+      log("Level: ", level)
 
       // Format rankPercentile to 2 decimal places and add suffix
       const formattedRankPercentile = `${(100 - rankPercentile).toFixed(2)}%`;
+      log("Formatted", formattedRankPercentile)
 
       // Update Profile
       currentProfile.update((current: IToDo) => {
         return { ...current, ...level, rankPercentile: formattedRankPercentile };
       });
+      log("Final Profile: ", get(currentProfile))
     }
   }
 
