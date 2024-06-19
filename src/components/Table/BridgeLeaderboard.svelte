@@ -7,6 +7,7 @@
   import { Leaderboard } from '$libs/leaderboard';
   import { formatNumbers } from '$libs/util/formatNumbers';
   import { currentBridgeLeaderboard } from '$stores/leaderboard';
+  import Usdt from '$components/Icon/USDT.svelte';
 
   onMount(async () => {
     await Leaderboard.getBridgeLeaderboard();
@@ -67,8 +68,10 @@
             {#each thing.bridged as bridge}
               <div class="flex gap-[10px] my-1 justify-between text-right">
                 <div class="w-full">{bridge.score > 0 ? formatNumbers(Math.round(bridge.score)) : '-'}</div>
-                {#if bridge.token === '0x07d83526730c7438048D55A4fc0b850e2aaB6f0b'}
+                {#if bridge.token.toLowerCase() === '0x07d83526730c7438048D55A4fc0b850e2aaB6f0b'.toLowerCase()}
                   <Usdc />
+                {:else if bridge.token.toLowerCase() === '0x2DEF195713CF4a606B49D07E520e22C17899a736'.toLowerCase()}
+                  <Usdt />
                 {:else}
                   <EthIcon />
                 {/if}
