@@ -189,6 +189,6 @@ export class Profile {
     const rank = profile.rank;
     const total = profile.total;
     const percentile = (1 - Number(rank) / Number(total)) * 100;
-    return percentile;
+    return percentile || 0;
   }
 }
