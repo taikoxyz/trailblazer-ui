@@ -3,11 +3,11 @@
 
   import { EthIcon } from '$components/Icon';
   import Usdc from '$components/Icon/USDC.svelte';
+  import Usdt from '$components/Icon/USDT.svelte';
   import { Skeleton } from '$components/Mock';
   import { Leaderboard } from '$libs/leaderboard';
   import { formatNumbers } from '$libs/util/formatNumbers';
   import { currentBridgeLeaderboard } from '$stores/leaderboard';
-  import Usdt from '$components/Icon/USDT.svelte';
 
   onMount(async () => {
     await Leaderboard.getBridgeLeaderboard();
