@@ -121,6 +121,11 @@ export class Leaderboard {
         twitter: 'Chaineye_tools',
         icon: 'minibridge.jpeg',
       },
+      Stargate: {
+        name: 'Stargate',
+        twitter: 'StargateFinance',
+        icon: 'stargate.jpeg',
+      },
     };
 
     // loop through the items in page and add data to page
