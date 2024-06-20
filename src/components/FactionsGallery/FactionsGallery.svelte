@@ -136,8 +136,4 @@
     border-radius: 30px;
     background-color: rgba(0, 0, 0, 0.5); /* Darken background */
   }
-
-  .pink-glow {
-    filter: drop-shadow(2px 2px 1px #e81899);
-  }
 </style>
