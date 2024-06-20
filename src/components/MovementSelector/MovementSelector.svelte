@@ -1,7 +1,7 @@
 <script lang="ts">
   import { ZeroAddress } from 'ethers';
   import { onMount } from 'svelte';
-  import { type Address,getAddress } from 'viem';
+  import { type Address, getAddress } from 'viem';
 
   import { page } from '$app/stores';
   import { Button } from '$components/Button';
