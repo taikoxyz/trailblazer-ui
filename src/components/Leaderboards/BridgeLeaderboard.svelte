@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { ZeroAddress } from 'ethers';
   import { onMount } from 'svelte';
   import { getAddress } from 'viem/utils';
 
@@ -16,7 +17,7 @@
   import BridgeHeader from './Header/BridgeHeader.svelte';
 
   const { selectedNetworkId } = web3modal.getState();
-  $: chainId = (selectedNetworkId as IChainId) != 167009 && (selectedNetworkId as IChainId) != 167000 ? 167000 : 167009;
+  $: chainId = (selectedNetworkId as IChainId) || 167000;
 
   onMount(async () => {
     await Leaderboard.getBridgeLeaderboard();
@@ -70,9 +71,9 @@
             {#each thing.bridged as bridge}
               <div class="flex gap-[10px] my-1 justify-between text-right">
                 <div class="w-full">{bridge.score > 0 ? formatNumbers(Math.round(bridge.score)) : '-'}</div>
-                {#if getAddress(bridge.token) === getAddress(usdcAddress[chainId])}
+                {#if getAddress(bridge.token || ZeroAddress) === getAddress(usdcAddress[chainId])}
                   <Usdc />
-                {:else if getAddress(bridge.token) === getAddress(usdtAddress[chainId])}
+                {:else if getAddress(bridge.token || ZeroAddress) === getAddress(usdtAddress[chainId])}
                   <Usdt />
                 {:else}
                   <EthIcon />
