@@ -1,5 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte';
+  import { getAddress } from 'viem/utils';
 
   import { EthIcon } from '$components/Icon';
   import Usdc from '$components/Icon/USDC.svelte';
@@ -13,7 +14,6 @@
   import { usdcAddress, usdtAddress } from '../../generated/abi';
   import type { IChainId } from '../../types/types';
   import BridgeHeader from './Header/BridgeHeader.svelte';
-  import { getAddress } from 'viem/utils';
 
   const { selectedNetworkId } = web3modal.getState();
   $: chainId = (selectedNetworkId as IChainId) || 160000;
