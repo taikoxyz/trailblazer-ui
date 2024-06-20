@@ -1,7 +1,7 @@
 <script lang="ts">
   import { ZeroAddress } from 'ethers';
   import { onMount } from 'svelte';
-  import type { Address } from 'viem';
+  import { type Address,getAddress } from 'viem';
 
   import { page } from '$app/stores';
   import { Button } from '$components/Button';
@@ -9,7 +9,7 @@
   import { MovementNames, Movements } from '$libs/badges/const';
   import getMovement from '$libs/badges/getMovement';
   import setMovement from '$libs/badges/setMovement';
-  import { account } from '$stores/account';
+  import getConnectedAddress from '$libs/util/getConnectedAddress';
   import { currentProfile } from '$stores/profile';
 
   $: isReady = false;
@@ -46,7 +46,7 @@
     {:else}
       <Spinner />
     {/if}
-    {#if $account && $account.address && $account.address.toLowerCase() === urlAddress.toLowerCase()}
+    {#if getAddress(getConnectedAddress()) === getAddress(urlAddress)}
       {#each MovementNames as movementName, movementId}
         <Button
           wide

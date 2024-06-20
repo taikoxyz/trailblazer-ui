@@ -3,7 +3,6 @@ import { type Address } from 'viem';
 
 import { FACTIONS } from '$configs/badges';
 import { chainId } from '$libs/chain';
-import calculateGasPrice from '$libs/util/calculateGasPrice';
 import { wagmiConfig } from '$libs/wagmi';
 import type { IContractData } from '$types';
 
@@ -23,8 +22,7 @@ export default async function mint(address: Address, factionId: FACTIONS, signat
     address: trailblazersBadgesAddress[chainId],
     functionName: 'mint',
     args: [signature, BigInt(factionId)],
-    chainId: chainId as number,
-    gasPrice: await calculateGasPrice(),
+    chainId: chainId,
   });
   const receipt = await waitForTransactionReceipt(wagmiConfig, { hash: tx });
   return receipt;

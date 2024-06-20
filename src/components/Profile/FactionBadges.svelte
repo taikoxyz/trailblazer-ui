@@ -1,10 +1,11 @@
 <script lang="ts">
-  import { type Address, zeroAddress } from 'viem';
+  import { type Address, getAddress,zeroAddress } from 'viem';
 
   import { page } from '$app/stores';
   import { FactionNames } from '$configs/badges';
   import getMovement from '$libs/badges/getMovement';
   import { getUserBadges } from '$libs/badges/getUserBadges';
+  import getConnectedAddress from '$libs/util/getConnectedAddress';
   import { account } from '$stores/account';
   import { currentProfile } from '$stores/profile';
 
@@ -15,11 +16,15 @@
 
   $: profile = $currentProfile;
   $: movement = -1;
+
+  $: isSelfProfile = false;
+
   async function load() {
     const urlAddress = $page.url.pathname.split('/').pop();
     address = urlAddress as Address;
     movement = await getMovement(address);
     userFactions = await getUserBadges(address);
+    isSelfProfile = getAddress(address) === getAddress(getConnectedAddress());
   }
   $: address = zeroAddress as Address;
   $: $account, load();
@@ -28,7 +33,12 @@
 
 <div class="box gap-4">
   {#each factions as faction}
-    <FactionBadgeItem {address} {movement} name={faction} unlocked={userFactions[faction]} />
+    <FactionBadgeItem
+      {address}
+      {movement}
+      canClick={isSelfProfile && !userFactions[faction]}
+      name={faction}
+      unlocked={userFactions[faction]} />
   {/each}
 </div>
 

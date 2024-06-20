@@ -3,7 +3,7 @@ import type { Address } from 'viem';
 
 import { chainId } from '$libs/chain';
 import { wagmiConfig } from '$libs/wagmi';
-import { IContractData } from '$types';
+import type { IContractData } from '$types';
 
 import { trailblazersBadgesAbi, trailblazersBadgesAddress } from '../../generated/abi/';
 
