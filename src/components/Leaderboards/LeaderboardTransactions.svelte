@@ -2,6 +2,9 @@
   import Skeleton from '$components/Mock/Skeleton.svelte';
   import { currentProfile } from '$stores/profile';
 
+  $: pointsHistory = $currentProfile.pointsHistory;
+  $: hasPointHistory = pointsHistory && pointsHistory.items && pointsHistory.items.length > 0;
+
   let headers = ['Activity', 'Points', 'Time'];
 </script>
 
@@ -22,8 +25,8 @@
   <div class="overflow-y-scroll max-h-[529px] block bg-elevated-background px-[5px]">
     <table class="table w-full border-collapse bg-elevated-background">
       <tbody class="border-none pt-6 overflow-scroll">
-        {#if $currentProfile.pointsHistory && $currentProfile.pointsHistory.items}
-          {#each $currentProfile.pointsHistory.items as pointHistory}
+        {#if pointsHistory && hasPointHistory}
+          {#each pointsHistory.items as pointHistory}
             <tr class="border-2 border-transparent hover:border-2">
               <td class="flex gap-2 items-center">
                 <Skeleton width="w-4" height="h-4" bgColor="bg-pink-200" shineColor="bg-pink-100" />
