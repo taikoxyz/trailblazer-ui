@@ -13,6 +13,7 @@
   import { usdcAddress, usdtAddress } from '../../generated/abi';
   import type { IChainId } from '../../types/types';
   import BridgeHeader from './Header/BridgeHeader.svelte';
+  import { getAddress } from 'viem/utils';
 
   const { selectedNetworkId } = web3modal.getState();
   $: chainId = (selectedNetworkId as IChainId) || 160000;
@@ -69,9 +70,9 @@
             {#each thing.bridged as bridge}
               <div class="flex gap-[10px] my-1 justify-between text-right">
                 <div class="w-full">{bridge.score > 0 ? formatNumbers(Math.round(bridge.score)) : '-'}</div>
-                {#if bridge.token.toLowerCase() === usdcAddress[chainId].toLowerCase()}
+                {#if getAddress(bridge.token) === getAddress(usdcAddress[chainId])}
                   <Usdc />
-                {:else if bridge.token.toLowerCase() === usdtAddress[chainId].toLowerCase()}
+                {:else if getAddress(bridge.token) === getAddress(usdtAddress[chainId])}
                   <Usdt />
                 {:else}
                   <EthIcon />
