@@ -62,6 +62,56 @@ export const claimGalxePointsConfig = {
 } as const;
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// USDC
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/**
+ * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.network/address/0x07d83526730c7438048D55A4fc0b850e2aaB6f0b)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x07d83526730c7438048D55A4fc0b850e2aaB6f0b)
+ */
+export const usdcAbi = [] as const;
+
+/**
+ * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.network/address/0x07d83526730c7438048D55A4fc0b850e2aaB6f0b)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x07d83526730c7438048D55A4fc0b850e2aaB6f0b)
+ */
+export const usdcAddress = {
+  167000: '0x07d83526730c7438048D55A4fc0b850e2aaB6f0b',
+  167009: '0x07d83526730c7438048D55A4fc0b850e2aaB6f0b',
+} as const;
+
+/**
+ * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.network/address/0x07d83526730c7438048D55A4fc0b850e2aaB6f0b)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x07d83526730c7438048D55A4fc0b850e2aaB6f0b)
+ */
+export const usdcConfig = { address: usdcAddress, abi: usdcAbi } as const;
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// USDT
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/**
+ * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.network/address/0x2DEF195713CF4a606B49D07E520e22C17899a736)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x2DEF195713CF4a606B49D07E520e22C17899a736)
+ */
+export const usdtAbi = [] as const;
+
+/**
+ * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.network/address/0x2DEF195713CF4a606B49D07E520e22C17899a736)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x2DEF195713CF4a606B49D07E520e22C17899a736)
+ */
+export const usdtAddress = {
+  167000: '0x2DEF195713CF4a606B49D07E520e22C17899a736',
+  167009: '0x2DEF195713CF4a606B49D07E520e22C17899a736',
+} as const;
+
+/**
+ * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.network/address/0x2DEF195713CF4a606B49D07E520e22C17899a736)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x2DEF195713CF4a606B49D07E520e22C17899a736)
+ */
+export const usdtConfig = { address: usdtAddress, abi: usdtAbi } as const;
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // TrailblazersBadges
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
