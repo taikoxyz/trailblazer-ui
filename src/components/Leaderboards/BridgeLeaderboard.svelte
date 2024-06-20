@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { ZeroAddress } from 'ethers';
   import { onMount } from 'svelte';
   import { getAddress } from 'viem/utils';
 
@@ -66,9 +67,9 @@
             {#each thing.bridged as bridge}
               <div class="flex gap-[10px] my-1 justify-between text-right">
                 <div class="w-full">{bridge.score > 0 ? formatNumbers(Math.round(bridge.score)) : '-'}</div>
-                {#if getAddress(bridge.token) === getAddress(usdcAddress[chainId])}
+                {#if getAddress(bridge.token || ZeroAddress) === getAddress(usdcAddress[chainId])}
                   <Usdc />
-                {:else if getAddress(bridge.token) === getAddress(usdtAddress[chainId])}
+                {:else if getAddress(bridge.token || ZeroAddress) === getAddress(usdtAddress[chainId])}
                   <Usdt />
                 {:else}
                   <EthIcon />
