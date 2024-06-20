@@ -67,7 +67,7 @@
 
   async function claimPreflight() {
     if (isClaiming || !$account || !$account.address) return;
-    if (getAddress($account.address) !== getAddress(address.toLowerCase())) return;
+    if (getAddress($account.address) !== getAddress(address)) return;
     claimable = await canClaimPreflight(address, FACTIONS[name]);
   }
 

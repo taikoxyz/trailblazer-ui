@@ -113,6 +113,11 @@ export class Leaderboard {
         twitter: 'layerswap',
         icon: 'layerswap.jpeg',
       },
+      Minibridge: {
+        name: 'Minibridge',
+        twitter: 'Chaineye_tools',
+        icon: 'minibridge.jpeg',
+      },
     };
 
     // loop through the items in page and add data to page

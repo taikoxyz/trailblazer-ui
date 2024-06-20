@@ -1,14 +1,22 @@
 <script lang="ts">
   import { onMount } from 'svelte';
+  import { getAddress } from 'viem/utils';
 
   import { EthIcon } from '$components/Icon';
   import Usdc from '$components/Icon/USDC.svelte';
+  import Usdt from '$components/Icon/USDT.svelte';
   import { Skeleton } from '$components/Mock';
+  import { web3modal } from '$libs/connect';
   import { Leaderboard } from '$libs/leaderboard';
   import { formatNumbers } from '$libs/util/formatNumbers';
   import { currentBridgeLeaderboard } from '$stores/leaderboard';
 
+  import { usdcAddress, usdtAddress } from '../../generated/abi';
+  import type { IChainId } from '../../types/types';
   import BridgeHeader from './Header/BridgeHeader.svelte';
+
+  const { selectedNetworkId } = web3modal.getState();
+  $: chainId = (selectedNetworkId as IChainId) || 160000;
 
   onMount(async () => {
     await Leaderboard.getBridgeLeaderboard();
@@ -62,8 +70,10 @@
             {#each thing.bridged as bridge}
               <div class="flex gap-[10px] my-1 justify-between text-right">
                 <div class="w-full">{bridge.score > 0 ? formatNumbers(Math.round(bridge.score)) : '-'}</div>
-                {#if bridge.token === '0x07d83526730c7438048D55A4fc0b850e2aaB6f0b'}
+                {#if getAddress(bridge.token) === getAddress(usdcAddress[chainId])}
                   <Usdc />
+                {:else if getAddress(bridge.token) === getAddress(usdtAddress[chainId])}
+                  <Usdt />
                 {:else}
                   <EthIcon />
                 {/if}
