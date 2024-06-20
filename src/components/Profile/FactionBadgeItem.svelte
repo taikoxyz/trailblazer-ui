@@ -44,7 +44,7 @@
     } catch (e: any) {
       errorToast({
         title: 'Badge Claim Error',
-        message: e.message,
+        message: e.shortMessage,
       });
       console.error(e);
     } finally {
