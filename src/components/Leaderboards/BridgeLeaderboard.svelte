@@ -16,7 +16,7 @@
   import BridgeHeader from './Header/BridgeHeader.svelte';
 
   const { selectedNetworkId } = web3modal.getState();
-  $: chainId = (selectedNetworkId as IChainId) || 160000;
+  $: chainId = (selectedNetworkId as IChainId) != 167009 && (selectedNetworkId as IChainId) != 167000 ? 167000 : 167009;
 
   onMount(async () => {
     await Leaderboard.getBridgeLeaderboard();
