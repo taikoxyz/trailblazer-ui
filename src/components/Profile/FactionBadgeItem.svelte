@@ -82,7 +82,14 @@
     <div class="w-full f-col items-center {blur}">
       <FactionImage {movement} {unlocked} type={name} />
     </div>
-    {#if !unlocked}
+
+    {#if unlocked}
+      <div class="absolute top-4 right-4">
+        <div class="badge py-[15px] px-[12px] text-[14px]/[20px] font-[700] border-transparent bg-[rgba(0,0,0,.4)]">
+          Week {movement + 1}
+        </div>
+      </div>
+    {:else}
       <div class="absolute bottom-8 place-self-center w-full px-6">
         <ActionButton
           priority="primary"

@@ -43,7 +43,7 @@
   }
 </script>
 
-<div class="relative w-full h-full">
+<div class="relative w-full h-full z-0">
   {#if videoSrc}
     <video poster={videoPoster} loop autoplay={unlocked} class="rounded-[20px] absolute left-0 top-0 z-20">
       <track kind="captions" />

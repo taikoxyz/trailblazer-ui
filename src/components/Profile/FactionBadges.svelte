@@ -10,7 +10,7 @@
 
   import FactionBadgeItem from './FactionBadgeItem.svelte';
 
-  let factions = Object.keys(FactionNames) as FactionNames[];
+  let factions = Object.keys(FactionNames).reverse() as FactionNames[];
   $: userFactions = {} as Record<FactionNames, boolean>;
 
   $: profile = $currentProfile;
