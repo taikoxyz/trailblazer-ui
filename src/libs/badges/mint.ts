@@ -2,19 +2,15 @@ import { waitForTransactionReceipt, writeContract } from '@wagmi/core';
 import { type Address } from 'viem';
 
 import { FACTIONS } from '$configs/badges';
-import { web3modal } from '$libs/connect';
+import { chainId } from '$libs/chain';
 import calculateGasPrice from '$libs/util/calculateGasPrice';
 import { wagmiConfig } from '$libs/wagmi';
-import type { IChainId, IContractData } from '$types';
+import type { IContractData } from '$types';
 
 import { trailblazersBadgesAbi, trailblazersBadgesAddress } from '../../generated/abi';
 import isSignatureValid from './isSignatureValid';
 
 export default async function mint(address: Address, factionId: FACTIONS, signature: IContractData) {
-  const { selectedNetworkId } = web3modal.getState();
-  if (!selectedNetworkId) return;
-
-  const chainId = selectedNetworkId as IChainId;
   // ensure locally that the signature is valid before calling metamask
   const signatureValid = await isSignatureValid(signature, address, factionId);
 

@@ -2,10 +2,10 @@ import { readContract, signMessage } from '@wagmi/core';
 import { type Address } from 'viem';
 
 import type { FACTIONS } from '$configs/badges';
-import { web3modal } from '$libs/connect';
+import { chainId } from '$libs/chain';
 import { isDevelopmentEnv } from '$libs/util/isDevelopmentEnv';
 import { wagmiConfig } from '$libs/wagmi';
-import type { IChainId, IContractData } from '$types';
+import type { IContractData } from '$types';
 
 import { trailblazersBadgesAbi, trailblazersBadgesAddress } from '../../generated/abi';
 import { mockSignHash } from './getMockMintSignature';
@@ -51,10 +51,6 @@ export default async function getMintSignature(
   address: Address,
   factionId: FACTIONS,
 ): Promise<{ signature: IContractData; hash: IContractData }> {
-  const { selectedNetworkId } = web3modal.getState();
-  if (!selectedNetworkId) return { signature: '0x0', hash: '0x0' };
-
-  const chainId = selectedNetworkId as IChainId;
   const contractAddress = trailblazersBadgesAddress[chainId];
 
   const hash = await readContract(wagmiConfig, {
