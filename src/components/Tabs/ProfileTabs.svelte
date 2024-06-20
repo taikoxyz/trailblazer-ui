@@ -2,7 +2,13 @@
   import { LeaderboardTransactions } from '$components/Leaderboards';
   import { ProfileFactions } from '$components/Profile';
 
-  export let tabs = [
+  type TabContent = {
+    name: string;
+    content: typeof LeaderboardTransactions | typeof ProfileFactions;
+    checked: boolean;
+  };
+
+  export let tabs: TabContent[] = [
     {
       name: 'Transactions',
       content: LeaderboardTransactions,
