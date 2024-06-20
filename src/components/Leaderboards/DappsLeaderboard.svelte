@@ -1,9 +1,6 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
-
   import ExplorerLink from '$components/Links/ExplorerLink.svelte';
   import { Skeleton } from '$components/Mock';
-  import { Leaderboard } from '$libs/leaderboard';
   import { formatNumbers } from '$libs/util/formatNumbers';
   import { currentLeaderboard } from '$stores/leaderboard';
 
@@ -77,9 +74,6 @@
       handle: '',
     },
   };
-  onMount(async () => {
-    await Leaderboard.getLeaderboard();
-  });
 </script>
 
 <div class="overflow-x-auto lg:w-full px-8 mt-[18%] lg:mt-0 space-y-[60px]">
