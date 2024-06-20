@@ -11,6 +11,7 @@
   import { isMintDisclaimerAccepted, mintDisclaimerModal } from '$stores/modal';
 
   import FactionImage from './FactionImage.svelte';
+  import { slide } from 'svelte/transition';
 
   export let name: FactionNames;
   export let unlocked: boolean = false;
@@ -19,6 +20,7 @@
   let blur = '';
   let shadow = '';
   let claimable: boolean = false;
+  let showTooltip: boolean = false;
 
   $: if (unlocked) {
     blur = '';
@@ -74,22 +76,37 @@
   $: buttonText = isClaiming ? $t('common.claiming') : claimable ? $t('common.claim') : $t('common.not_eligible');
 </script>
 
-<div
-  class="{shadow} flex w-full min-h-[306px] max-w-[306px] border-2 border-primary-border-hover rounded-[20px] bg-[#310E2F]">
-  <div class="w-full relative flex flex-col justify-between overflow-hidden">
-    <div class="w-full f-col items-center {blur}">
-      <FactionImage {unlocked} type={name} />
-    </div>
-    {#if !unlocked}
-      <div class="absolute bottom-8 place-self-center w-full px-6">
-        <ActionButton
-          priority="primary"
-          on:click={handleClaimClick}
-          disabled={isClaiming || !claimable}
-          loading={isClaiming}>
-          {buttonText}
-        </ActionButton>
+<div class="flex flex-col">
+  <div
+    role="button"
+    class="{shadow} flex w-full min-h-[306px] max-w-[306px] border-2 border-primary-border-hover rounded-[20px] bg-[#310E2F] z-10"
+    on:mouseover={() => (showTooltip = true)}
+    on:focus={() => (showTooltip = true)}
+    on:mouseleave={() => (showTooltip = false)}
+    on:blur={() => (showTooltip = false)}
+    on:click={() => (showTooltip = !showTooltip)}>
+    <div class="w-full relative flex flex-col justify-between overflow-hidden">
+      <div class="w-full f-col items-center {blur}">
+        <FactionImage {unlocked} type={name} />
       </div>
-    {/if}
+      {#if !unlocked}
+        <div class="absolute bottom-8 place-self-center w-full px-6">
+          <ActionButton
+            priority="primary"
+            on:click={handleClaimClick}
+            disabled={isClaiming || !claimable}
+            loading={isClaiming}>
+            {buttonText}
+          </ActionButton>
+        </div>
+      {/if}
+    </div>
   </div>
+  {#if showTooltip}
+    <div class="place-self-center w-full px-6 bg-[#310E2F] rounded-b-[20px] py-4 -mt-2 z-0" transition:slide>
+      <ul class="list-disc list-inside">
+        <li>Requirements</li>
+      </ul>
+    </div>
+  {/if}
 </div>
