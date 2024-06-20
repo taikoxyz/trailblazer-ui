@@ -3,10 +3,12 @@ import { type Address } from 'viem';
 
 import type { FACTIONS } from '$configs/badges';
 import { web3modal } from '$libs/connect';
+import { isDevelopmentEnv } from '$libs/util/isDevelopmentEnv';
 import { wagmiConfig } from '$libs/wagmi';
 import type { IChainId, IContractData } from '$types';
 
 import { trailblazersBadgesAbi, trailblazersBadgesAddress } from '../../generated/abi';
+import { mockSignHash } from './getMockMintSignature';
 
 async function signHash(
   config: typeof wagmiConfig,
@@ -63,6 +65,11 @@ export default async function getMintSignature(
     chainId,
   });
 
+  // sign with the dev account instead of the API
+  if (isDevelopmentEnv) {
+    const signature = await mockSignHash(hash);
+    return { signature, hash };
+  }
   const signature = await signHash(wagmiConfig, address, factionId, chainId);
   return { signature, hash };
 }

@@ -1,7 +1,7 @@
 import type { Chain } from 'viem';
 import { taiko, taikoHekla } from 'viem/chains';
 
-import { PUBLIC_ENV } from '$env/static/public';
+import { isDevelopmentEnv } from '$libs/util/isDevelopmentEnv';
 
 export const getChainImages = (): Record<number, string> => {
   const map = {
@@ -23,4 +23,4 @@ export const isSupportedChain = (chainId: number) => {
   return chains.some((chain) => chain.id === chainId);
 };
 
-export const chains: [Chain, ...Chain[]] = PUBLIC_ENV === 'development' ? [taikoHekla, taiko] : [taiko];
+export const chains: [Chain, ...Chain[]] = isDevelopmentEnv ? [taikoHekla] : [taiko];
