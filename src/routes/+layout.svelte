@@ -10,7 +10,6 @@
   import { Header } from '$components/Header';
   import { NotificationToast } from '$components/NotificationToast';
   import { SwitchChainModal } from '$components/SwitchChainModal';
-  import { stopWatching as stopWatchingSupabase } from '$libs/supabase';
   import {
     desktopQuery,
     initializeMediaQueries,
@@ -47,7 +46,6 @@
 
   onDestroy(() => {
     stopWatching();
-    stopWatchingSupabase();
     if (browser) {
       document.body.removeEventListener('pointermove', syncPointer);
     }
