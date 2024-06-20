@@ -88,5 +88,11 @@
       "connecting": "Connecting",
       "disconnected": "Disconnected"
     }
+  },
+  "badges": {
+    "movement": {
+      "banner": "Shape your journey, influence your rewards. Pick a side!",
+      "selectButton": "Select your movement"
+    }
   }
 }

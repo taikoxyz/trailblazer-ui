@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { t } from 'svelte-i18n';
   import { type Address, getAddress, zeroAddress } from 'viem';
 
   import { page } from '$app/stores';
@@ -53,15 +54,21 @@
   const buttonWrapperClasses = classNames('min-w-[250px]');
 </script>
 
-<div class={wrapperClasses}>
-  <img class={iconClasses} src="/factions/group.svg" alt="Group Icon" />
+{#if isSelfProfile}
+  <div class={wrapperClasses}>
+    <img class={iconClasses} src="/factions/group.svg" alt="Group Icon" />
 
-  <div class={movementTextClasses}>Shape your journey, influence your rewards. Pick a side!</div>
+    <div class={movementTextClasses}>
+      {$t('badges.movement.banner')}
+    </div>
 
-  <div class={buttonWrapperClasses}>
-    <ActionButton priority="primary">Select Your Movement</ActionButton>
+    <div class={buttonWrapperClasses}>
+      <ActionButton priority="primary">
+        {$t('badges.movement.selectButton')}
+      </ActionButton>
+    </div>
   </div>
-</div>
+{/if}
 
 <div class="box gap-4">
   {#each factions as faction}
