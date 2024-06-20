@@ -30,14 +30,14 @@
       name: 'Masters',
       description:
         'The old Taiko Masters have heard the new beats on the streets and recognise their origins as their own, they’re intrigued to learn what the new kids are up to, and so bring their depth of knowledge of the genre as both mentors and masters.',
-      locked: true,
+      locked: false,
     },
     {
       image: '/factions/gallery/monk.png',
       name: 'Monks',
       description:
         "The city's Monks and Postulants have been blessing the dance floor with their arcane knowledge and sacred rhythms bringing sacrament to the rave.",
-      locked: true,
+      locked: false,
     },
     {
       image: '/factions/gallery/drummer.png',
@@ -45,21 +45,21 @@
       description:
         'Our drum leaders bring the very latest patterns to the rave to have us all beating in unison along with the DJ drumming up a frenzy as the ravers ‘Get Boosted’.',
 
-      locked: true,
+      locked: false,
     },
     {
       image: '/factions/gallery/android.png',
       name: 'Androids',
       description:
         'Dealers in underground boosted technology the Androids are constantly updating their kernel and neural vapourware, they’ll help you keep the vibe alive.',
-      locked: true,
+      locked: false,
     },
     {
       image: '/factions/gallery/shinto.png',
       name: 'Shinto',
       description:
         'Ethereal beings have been spotted around the city temples drawn into Neo Nakuza by the call of taiko. Will you answer the call?',
-      locked: true,
+      locked: false,
     },
   ];
 </script>
