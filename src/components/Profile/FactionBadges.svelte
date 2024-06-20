@@ -13,7 +13,7 @@
   import { currentProfile } from '$stores/profile';
 
   import FactionBadgeItem from './FactionBadgeItem.svelte';
-  import {default as MovementSelection} from './MovementSelection.modal.svelte';
+  import { default as MovementSelection } from './MovementSelection.modal.svelte';
 
   let factions = Object.keys(FactionNames).reverse() as FactionNames[];
   $: userFactions = {} as Record<FactionNames, boolean>;
@@ -66,9 +66,7 @@
     </div>
 
     <div class={buttonWrapperClasses}>
-      <ActionButton priority="primary"
-      on:click={() => movementModalVisible = true}
-      >
+      <ActionButton priority="primary" on:click={() => (movementModalVisible = true)}>
         {$t('badges.movement.selectButton')}
       </ActionButton>
     </div>
@@ -86,6 +84,8 @@
   {/each}
 </div>
 
+<MovementSelection bind:visible={movementModalVisible} />
+
 <style>
   /* 306px is the size of the card bg */
   .box {
@@ -94,8 +94,3 @@
     gap: 25px;
   }
 </style>
-
-
-<MovementSelection
-bind:visible={movementModalVisible}
-/>

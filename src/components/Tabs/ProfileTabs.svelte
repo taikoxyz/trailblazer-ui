@@ -1,6 +1,5 @@
 <script lang="ts">
   import { LeaderboardTransactions } from '$components/Leaderboards';
-  import { MovementSelector } from '$components/MovementSelector';
   import { ProfileFactions } from '$components/Profile';
   import { classNames } from '$libs/util/classNames';
 
@@ -19,11 +18,6 @@
     {
       name: 'Faction Badges',
       content: ProfileFactions,
-      checked: false,
-    },
-    {
-      name: 'Movement Selector',
-      content: MovementSelector,
       checked: false,
     },
     // {
