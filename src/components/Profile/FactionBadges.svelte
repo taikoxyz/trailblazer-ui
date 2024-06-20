@@ -13,6 +13,7 @@
   import { currentProfile } from '$stores/profile';
 
   import FactionBadgeItem from './FactionBadgeItem.svelte';
+  import {default as MovementSelection} from './MovementSelection.modal.svelte';
 
   let factions = Object.keys(FactionNames).reverse() as FactionNames[];
   $: userFactions = {} as Record<FactionNames, boolean>;
@@ -32,6 +33,8 @@
   $: address = zeroAddress as Address;
   $: $account, load();
   $: profile, load();
+
+  $: movementModalVisible = false;
 
   // CSS Classes
   const wrapperClasses = classNames(
@@ -63,7 +66,9 @@
     </div>
 
     <div class={buttonWrapperClasses}>
-      <ActionButton priority="primary">
+      <ActionButton priority="primary"
+      on:click={() => movementModalVisible = true}
+      >
         {$t('badges.movement.selectButton')}
       </ActionButton>
     </div>
@@ -89,3 +94,8 @@
     gap: 25px;
   }
 </style>
+
+
+<MovementSelection
+bind:visible={movementModalVisible}
+/>
