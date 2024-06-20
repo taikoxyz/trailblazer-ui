@@ -3,11 +3,10 @@
   import { MovementSelector } from '$components/MovementSelector';
   import { ProfileFactions } from '$components/Profile';
   import { classNames } from '$libs/util/classNames';
-  import type { IToDo } from '$types';
 
   type TabContent = {
     name: string;
-    content: IToDo;
+    content: typeof LeaderboardTransactions | typeof ProfileFactions;
     checked: boolean;
   };
 

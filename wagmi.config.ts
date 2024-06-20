@@ -36,6 +36,7 @@ export default defineConfig({
     {
       name: 'ClaimGalxePoints',
       address: {
+        167009: '0x7Db9D3533704675Cb2BCc672E5F702cc46f6EdDC',
         167000: '0xD68BF51E2d73A7c7D023f1fd58e2F66F602A8088',
       },
       abi: [
@@ -53,7 +54,7 @@ export default defineConfig({
           inputs: [{ name: 'registrant', type: 'address', indexed: false, internalType: 'address' }],
           anonymous: false,
         },
-      ],
+      ] as Abi,
     },
   ],
   plugins: [actions()],

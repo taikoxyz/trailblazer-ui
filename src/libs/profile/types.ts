@@ -7,7 +7,7 @@ export type UserProfile = GalxePoints & {
   pointsToNextLevel: number;
   rank: string;
   title: string;
-  level: string;
+  level: number;
   total: string;
   leaderboardPosition: string;
   faction: UserFaction;
