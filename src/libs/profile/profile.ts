@@ -3,14 +3,16 @@ import axios from 'axios';
 import { get } from 'svelte/store';
 
 import { PUBLIC_TRAILBLAZER_API_URL } from '$env/static/public';
+import { isDevelopmentEnv } from '$libs/util/isDevelopmentEnv';
 import { getLogger } from '$libs/util/logger';
 import { wagmiConfig } from '$libs/wagmi';
 import { currentProfile } from '$stores/profile';
-import type { IToDo } from '$types';
 
 import type { UserLevel, UserPointHistoryPage, UserProfile } from './types';
 
 const log = getLogger('Profile');
+
+const baseApiUrl = isDevelopmentEnv ? '/mock-api' : PUBLIC_TRAILBLAZER_API_URL;
 
 export class Profile {
   static getLevel(percentile: number): UserLevel {
@@ -96,8 +98,8 @@ export class Profile {
       },
     ];
     // 0-20 percentile will have the Beginner Title
-    const level = levelTiers.find((tier) => percentile <= tier.percentileCap) as UserLevel;
-    return { level: level.level, title: level.title };
+    const { level, title } = levelTiers.find((tier) => percentile <= tier.percentileCap) as UserLevel;
+    return { level, title };
   }
 
   static async getProfile(address?: string) {
@@ -112,8 +114,8 @@ export class Profile {
 
     if (address) {
       // TOOO: Update this
-      const response = await axios.get(`${PUBLIC_TRAILBLAZER_API_URL}/user?address=${address}`);
-      // const response = await fetch(`${PUBLIC_TRAILBLAZER_API_URL}/user?user=0x8626f6940E2eb28930eFb4CeF49B2d1F2C9C1199`)
+      const response = await axios.get(`${baseApiUrl}/user?address=${address}`);
+      // const response = await fetch(`${baseApiUrl}/user?user=0x8626f6940E2eb28930eFb4CeF49B2d1F2C9C1199`)
       const userProfile: UserProfile = (await response.data) as UserProfile;
 
       log('User Profile: ', userProfile);
@@ -147,7 +149,7 @@ export class Profile {
       log('Formatted', formattedRankPercentile);
 
       // Update Profile
-      currentProfile.update((current: IToDo) => {
+      currentProfile.update((current) => {
         return { ...current, ...level, rankPercentile: formattedRankPercentile };
       });
       log('Final Profile: ', get(currentProfile));
@@ -167,7 +169,7 @@ export class Profile {
     }
 
     if (address) {
-      const response = await fetch(`${PUBLIC_TRAILBLAZER_API_URL}/userhistory?user=${address}`);
+      const response = await fetch(`${baseApiUrl}/userhistory?user=${address}`);
       const pointsHistory: UserPointHistoryPage = (await response.json()) as UserPointHistoryPage;
 
       // Safely update the currentProfile with userProfile details
@@ -187,6 +189,6 @@ export class Profile {
     const rank = profile.rank;
     const total = profile.total;
     const percentile = (1 - Number(rank) / Number(total)) * 100;
-    return percentile;
+    return percentile || 0;
   }
 }

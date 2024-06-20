@@ -1,7 +1,5 @@
 import { error } from '@sveltejs/kit';
 
-import type { IToDo } from '$types';
-
 const bannedCountries: Record<string, string> = {
   AF: 'Afghanistan',
   AS: 'American Samoa', // United States Territory
@@ -49,7 +47,7 @@ const bannedCountries: Record<string, string> = {
 };
 
 const bannedCountryCodes = Object.keys(bannedCountries);
-export function load(event: IToDo) {
+export function load(event) {
   const country = event.request.headers.get('x-vercel-ip-country') ?? false;
   const isDev = event.url.hostname === 'localhost';
   if (!isDev && (!country || bannedCountryCodes.includes(country))) {

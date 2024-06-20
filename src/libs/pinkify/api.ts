@@ -1,7 +1,10 @@
 import { PUBLIC_TRAILBLAZER_API_URL } from '$env/static/public';
+import { isDevelopmentEnv } from '$libs/util/isDevelopmentEnv';
+
+const baseApiUrl = isDevelopmentEnv ? '/mock-api' : PUBLIC_TRAILBLAZER_API_URL;
 
 export async function postSignature(address: string, signature: string, message: string) {
-  const response = await fetch(`${PUBLIC_TRAILBLAZER_API_URL}/sign`, {
+  const response = await fetch(`${baseApiUrl}/sign`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
