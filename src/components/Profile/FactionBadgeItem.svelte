@@ -40,11 +40,11 @@
       unlocked = true;
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (e: any) {
+      console.error(e);
       errorToast({
         title: 'Badge Claim Error',
-        message: e.message,
+        message: e.shortMessage,
       });
-      console.error(e);
     } finally {
       isClaiming = false;
     }
