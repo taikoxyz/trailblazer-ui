@@ -43,7 +43,7 @@
       console.error(e);
       errorToast({
         title: 'Badge Claim Error',
-        message: e.shortMessage,
+        message: e.shortMessage || e.message,
       });
     } finally {
       isClaiming = false;
