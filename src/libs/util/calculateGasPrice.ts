@@ -4,9 +4,8 @@ import { parseGwei } from 'viem';
 import { wagmiConfig } from '$libs/wagmi';
 
 export default async function calculateGasPrice(): Promise<bigint> {
-  const currentGasPrice = parseInt((await getGasPrice(wagmiConfig)).toString());
-  const minGasPrice = parseInt(parseGwei('0.01').toString());
-  const out = Math.max(currentGasPrice, minGasPrice);
-
-  return BigInt(out);
+  const currentGasPrice = await getGasPrice(wagmiConfig);
+  const minGasPrice = parseGwei('0.01');
+  // return max value
+  return currentGasPrice > minGasPrice ? currentGasPrice : minGasPrice;
 }
