@@ -1,6 +1,5 @@
 <script lang="ts">
-  import { ZeroAddress } from 'ethers';
-  import { onMount } from 'svelte';
+  import type { Address } from 'viem';
   import { getAddress } from 'viem/utils';
 
   import { EthIcon } from '$components/Icon';
@@ -8,7 +7,6 @@
   import Usdt from '$components/Icon/USDT.svelte';
   import { Skeleton } from '$components/Mock';
   import { web3modal } from '$libs/connect';
-  import { Leaderboard } from '$libs/leaderboard';
   import { formatNumbers } from '$libs/util/formatNumbers';
   import { currentBridgeLeaderboard } from '$stores/leaderboard';
 
@@ -17,11 +15,18 @@
   import BridgeHeader from './Header/BridgeHeader.svelte';
 
   const { selectedNetworkId } = web3modal.getState();
-  $: chainId = (selectedNetworkId as IChainId) || 167000;
+  $: chainId = selectedNetworkId as IChainId;
 
-  onMount(async () => {
-    await Leaderboard.getBridgeLeaderboard();
-  });
+  $: usdc = getValidatedAddress(usdcAddress[chainId] as Address);
+  $: usdt = getValidatedAddress(usdtAddress[chainId] as Address);
+
+  function getValidatedAddress(address: string): Address | null {
+    try {
+      return getAddress(address);
+    } catch {
+      return null;
+    }
+  }
 </script>
 
 <div class="overflow-x-auto lg:w-full px-8 mt-[18%] lg:mt-0 space-y-[60px]">
@@ -69,11 +74,12 @@
           </td>
           <td class="lg:px-10 body-regular flex-col">
             {#each thing.bridged as bridge}
+              {@const tokenAddress = getValidatedAddress(bridge.token)}
               <div class="flex gap-[10px] my-1 justify-between text-right">
                 <div class="w-full">{bridge.score > 0 ? formatNumbers(Math.round(bridge.score)) : '-'}</div>
-                {#if getAddress(bridge.token || ZeroAddress) === getAddress(usdcAddress[chainId])}
+                {#if tokenAddress === usdc}
                   <Usdc />
-                {:else if getAddress(bridge.token || ZeroAddress) === getAddress(usdtAddress[chainId])}
+                {:else if tokenAddress === usdt}
                   <Usdt />
                 {:else}
                   <EthIcon />

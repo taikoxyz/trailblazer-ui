@@ -1,6 +1,6 @@
 import type { Address } from 'viem';
 
-import { PUBLIC_PREFLIGHT_CLAIM_ENDPOINT } from '$env/static/public';
+import { PUBLIC_TRAILBLAZER_API_URL } from '$env/static/public';
 import { isDevelopmentEnv } from '$libs/util/isDevelopmentEnv';
 
 export default async function canClaimPreflight(address: Address, badgeId: number): Promise<boolean> {
@@ -8,7 +8,7 @@ export default async function canClaimPreflight(address: Address, badgeId: numbe
     return true;
   }
   try {
-    const baseUrl = `${PUBLIC_PREFLIGHT_CLAIM_ENDPOINT}?address=`;
+    const baseUrl = `${PUBLIC_TRAILBLAZER_API_URL}/whitelist?address=`;
     const res = await fetch(`${baseUrl}${address}&badgeId=${badgeId}`);
     const json = await res.json();
 
