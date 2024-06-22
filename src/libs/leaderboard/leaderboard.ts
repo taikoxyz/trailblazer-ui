@@ -1,16 +1,22 @@
+import { type Address, zeroAddress } from 'viem';
+
 import { PUBLIC_TRAILBLAZER_API_URL } from '$env/static/public';
 import { isDevelopmentEnv } from '$libs/util/isDevelopmentEnv';
+import { getLogger } from '$libs/util/logger';
 import { setBridgeLeaderboard, setLeaderboard, setUserLeaderboard } from '$stores/leaderboard';
 
 import type { BridgeData, BridgeLeaderboardPage, LeaderboardPage } from './types';
 
 const baseApiUrl = isDevelopmentEnv ? '/mock-api' : PUBLIC_TRAILBLAZER_API_URL;
 
+const log = getLogger('Leaderboard');
+
 export class Leaderboard {
   static async getLeaderboard() {
     const response = await fetch(`${baseApiUrl}/leaderboard`);
     const leaderboardPage: LeaderboardPage = (await response.json()) as LeaderboardPage;
     setLeaderboard(leaderboardPage);
+    log('Leaderboard page: ', leaderboardPage);
   }
 
   static async getUserLeaderboard() {
@@ -33,8 +39,8 @@ export class Leaderboard {
 
     leaderboardPage.items.forEach((item) => {
       // if its WETH
-      if (item.token === '0xA51894664A773981C6C112C43ce576f315d5b1B6') {
-        item.token = '0x0000000000000000000000000000000000000000';
+      if (item.token === ('0xA51894664A773981C6C112C43ce576f315d5b1B6' as Address)) {
+        item.token = '0x0000000000000000000000000000000000000000' as Address;
       }
       if (i[item.address]) {
         if (i[item.address].bridged.map((v) => v.token).includes(item.token)) {
@@ -141,7 +147,7 @@ export class Leaderboard {
     // append meson
     page.push({
       address: 'Meson',
-      bridged: [{ token: '', score: 0 }],
+      bridged: [{ token: zeroAddress, score: 0 }],
       value: 0,
       name: 'mesonfi',
       twitter: 'mesonfi',
