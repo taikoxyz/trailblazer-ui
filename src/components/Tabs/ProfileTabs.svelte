@@ -1,11 +1,10 @@
 <script lang="ts">
   import { LeaderboardTransactions } from '$components/Leaderboards';
   import { ProfileFactions } from '$components/Profile';
-  import type { IToDo } from '$types';
 
   type TabContent = {
     name: string;
-    content: IToDo;
+    content: typeof LeaderboardTransactions | typeof ProfileFactions;
     checked: boolean;
   };
 

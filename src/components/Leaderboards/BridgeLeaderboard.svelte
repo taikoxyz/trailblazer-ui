@@ -1,18 +1,32 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
+  import type { Address } from 'viem';
+  import { getAddress } from 'viem/utils';
 
   import { EthIcon } from '$components/Icon';
   import Usdc from '$components/Icon/USDC.svelte';
+  import Usdt from '$components/Icon/USDT.svelte';
   import { Skeleton } from '$components/Mock';
-  import { Leaderboard } from '$libs/leaderboard';
+  import { web3modal } from '$libs/connect';
   import { formatNumbers } from '$libs/util/formatNumbers';
   import { currentBridgeLeaderboard } from '$stores/leaderboard';
 
+  import { usdcAddress, usdtAddress } from '../../generated/abi';
+  import type { IChainId } from '../../types/types';
   import BridgeHeader from './Header/BridgeHeader.svelte';
 
-  onMount(async () => {
-    await Leaderboard.getBridgeLeaderboard();
-  });
+  const { selectedNetworkId } = web3modal.getState();
+  $: chainId = selectedNetworkId as IChainId;
+
+  $: usdc = getValidatedAddress(usdcAddress[chainId] as Address);
+  $: usdt = getValidatedAddress(usdtAddress[chainId] as Address);
+
+  function getValidatedAddress(address: string): Address | null {
+    try {
+      return getAddress(address);
+    } catch {
+      return null;
+    }
+  }
 </script>
 
 <div class="overflow-x-auto lg:w-full px-8 mt-[18%] lg:mt-0 space-y-[60px]">
@@ -60,10 +74,13 @@
           </td>
           <td class="lg:px-10 body-regular flex-col">
             {#each thing.bridged as bridge}
+              {@const tokenAddress = getValidatedAddress(bridge.token)}
               <div class="flex gap-[10px] my-1 justify-between text-right">
                 <div class="w-full">{bridge.score > 0 ? formatNumbers(Math.round(bridge.score)) : '-'}</div>
-                {#if bridge.token === '0x07d83526730c7438048D55A4fc0b850e2aaB6f0b'}
+                {#if tokenAddress === usdc}
                   <Usdc />
+                {:else if tokenAddress === usdt}
+                  <Usdt />
                 {:else}
                   <EthIcon />
                 {/if}
