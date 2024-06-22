@@ -7,14 +7,14 @@
   export let carouselItems: CarouselItem[] = [
     {
       id: '1',
-      title: 'Zypher Games',
+      title: 'Zypher z2048',
       description:
-        'Zypher Network is building the next-generation infrastructure for FOCGs and Autonomous Worlds, featuring a suite of ZKP-powered game engines from Sovereign/Layer 3 Rollups to ZK-as-a-service SDKs.',
+        'Immerse yourself in an evolutionary gaming journey with z2048, seamlessly integrating the quintessential mechanics of the classic 2048 puzzle with an autonomous fully on-chain methodology. Powered by Zypher Game’s UZKGE (Universal ZK Game Engine), this venture welcomes players into a domain that is not only provably fair and scalable but also addresses trust issues while embedding deeply entwined strategic elements. Experience casual, strategic gameplay, now fully transported on-chain, marking a pioneering step in web3 gaming.',
       image: '/zyphergames.png',
       publishDate: new Date(),
       readTime: 1,
       tag: '',
-      link: 'https://taiko.mirror.xyz/MghuAEQKsqS5Y3hNtq8-9Jv93NEE_1duZKmBE6HKHRQ',
+      link: 'https://zypher.game/2048/',
     },
     {
       id: '2',
@@ -25,7 +25,7 @@
       publishDate: new Date(),
       readTime: 1,
       tag: '',
-      link: 'https://taiko.mirror.xyz/MghuAEQKsqS5Y3hNtq8-9Jv93NEE_1duZKmBE6HKHRQ',
+      link: 'https://swnd.io/',
     },
     {
       id: '3',
@@ -36,7 +36,7 @@
       publishDate: new Date(),
       readTime: 1,
       tag: '',
-      link: 'https://taiko.mirror.xyz/MghuAEQKsqS5Y3hNtq8-9Jv93NEE_1duZKmBE6HKHRQ',
+      link: 'https://www.stupidmonkeys.co/',
     },
     {
       id: '4',
@@ -47,7 +47,7 @@
       publishDate: new Date(),
       readTime: 1,
       tag: '',
-      link: 'https://taiko.mirror.xyz/MghuAEQKsqS5Y3hNtq8-9Jv93NEE_1duZKmBE6HKHRQ',
+      link: 'https://looperlands.io/',
     },
     {
       id: '5',
@@ -58,7 +58,7 @@
       publishDate: new Date(),
       readTime: 1,
       tag: '',
-      link: 'https://taiko.mirror.xyz/MghuAEQKsqS5Y3hNtq8-9Jv93NEE_1duZKmBE6HKHRQ',
+      link: 'https://evmwarfare.com/',
     },
     {
       id: '6',
@@ -69,7 +69,7 @@
       publishDate: new Date(),
       readTime: 1,
       tag: '',
-      link: 'https://taiko.mirror.xyz/MghuAEQKsqS5Y3hNtq8-9Jv93NEE_1duZKmBE6HKHRQ',
+      link: 'https://crackandstack.com/',
     },
     {
       id: '7',
@@ -80,7 +80,7 @@
       publishDate: new Date(),
       readTime: 1,
       tag: '',
-      link: 'https://taiko.mirror.xyz/MghuAEQKsqS5Y3hNtq8-9Jv93NEE_1duZKmBE6HKHRQ',
+      link: 'https://21bj.io/',
     },
     {
       id: '8',
@@ -91,7 +91,7 @@
       publishDate: new Date(),
       readTime: 1,
       tag: '',
-      link: 'https://taiko.mirror.xyz/MghuAEQKsqS5Y3hNtq8-9Jv93NEE_1duZKmBE6HKHRQ',
+      link: 'https://0xastra.xyz/',
     },
   ];
 </script>
