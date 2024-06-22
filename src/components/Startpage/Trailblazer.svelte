@@ -14,7 +14,6 @@
   <TrailblazerGuide />
   <Factions />
   <DividerElement />
-  <TrailblazerOngoingTrails />
   <GamingPartners />
   <RankUp />
   <ExploreEcosystem />
