@@ -4,7 +4,6 @@
   import Factions from './Factions/Factions.svelte';
   import { GamingPartners } from './GamingPartners';
   import { TrailblazerGuide } from './Guide';
-  import TrailblazerOngoingTrails from './OngoingTrails/TrailblazerOngoingTrails.svelte';
   import { RankUp } from './RankUp';
   import TrailblazerMain from './TrailblazerMain.svelte';
 </script>

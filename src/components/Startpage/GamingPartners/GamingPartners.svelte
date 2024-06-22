@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { TrailsCarousel } from '$components/Carousel';
   import GamingCarousel from '$components/Carousel/GamingCarousel/GamingCarousel.svelte';
   import { Icon } from '$components/Icon';
 

@@ -1,9 +1,9 @@
 <script lang="ts">
   import { ActionButton } from '$components/Button';
-  import { Icon } from '$components/Icon';
+
   import type { CarouselItem } from '../types';
   export let carouselItem: CarouselItem;
-  const { title, image, description, publishDate, readTime, link, tag } = carouselItem;
+  const { title, image, description, link, tag } = carouselItem;
 </script>
 
 <a class="carousel-item h-[465px] w-[350px]" href={link}>
