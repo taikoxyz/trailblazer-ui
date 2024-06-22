@@ -64,9 +64,9 @@
   ];
 </script>
 
-<div class="max-w-full h-[700px] xl:h-auto">
+<div class="max-w-full h-[500px] xl:h-auto">
   <div
-    class="flex gap-[25px] xl:ml-0 w-full overflow-x-scroll xl:overflow-scroll xl:overflow-y-visible py-20 px-0 hide-scrollbar xl:px-0 xl:py-4">
+    class="flex gap-[25px] xl:ml-0 w-full overflow-x-scroll xl:overflow-scroll xl:overflow-y-visible py-0 px-0 hide-scrollbar xl:px-0 xl:py-4">
     <!-- Cards -->
     {#each items as item, i}
       {#if i == 0}

@@ -6,10 +6,21 @@
 
   export let carouselItems: CarouselItem[] = [
     {
+      id: '6',
+      title: 'Crack & Stack',
+      description:
+        'Top-down multiplayer game. Enter the Ethereum mines, set traps, mine ores, escape the goblins and escape with your loot.',
+      image: '/crackandstack.svg',
+      publishDate: new Date(),
+      readTime: 1,
+      tag: '',
+      link: 'https://crackandstack.com/',
+    },
+    {
       id: '1',
       title: 'Zypher z2048',
       description:
-        'Immerse yourself in an evolutionary gaming journey with z2048, seamlessly integrating the quintessential mechanics of the classic 2048 puzzle with an autonomous fully on-chain methodology. Powered by Zypher Game’s UZKGE (Universal ZK Game Engine), this venture welcomes players into a domain that is not only provably fair and scalable but also addresses trust issues while embedding deeply entwined strategic elements. Experience casual, strategic gameplay, now fully transported on-chain, marking a pioneering step in web3 gaming.',
+        'Immerse in z2048, a strategic on-chain game blending classic 2048 with fair, scalable gameplay via Zypher’s UZKGE.',
       image: '/zyphergames.png',
       publishDate: new Date(),
       readTime: 1,
@@ -61,17 +72,6 @@
       link: 'https://evmwarfare.com/',
     },
     {
-      id: '6',
-      title: 'Crack & Stack',
-      description:
-        'Top-down multiplayer game. Enter the Ethereum mines, set traps, mine ores, escape the goblins and escape with your loot.',
-      image: '/crackandstack.svg',
-      publishDate: new Date(),
-      readTime: 1,
-      tag: '',
-      link: 'https://crackandstack.com/',
-    },
-    {
       id: '7',
       title: '21BJ',
       description:
@@ -96,7 +96,7 @@
   ];
 </script>
 
-<div class="flex w-full justify-center items-center gap-[12.25px]">
+<div class="flex w-full justify-center items-center gap-[12.25px] pl-4 xl:pl-0">
   <div bind:this={carouselElement} class="carousel w-full overflow-scroll rounded-box gap-8">
     {#each carouselItems as carouselItem}
       <GamingCarouselItem {carouselItem} />
