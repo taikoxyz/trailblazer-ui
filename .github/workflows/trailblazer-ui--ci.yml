@@ -1,0 +1,46 @@
+# env:
+#   VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+#   VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID_TRAILBLAZER}}
+#   VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN}}
+#   PUBLIC_TRAILBLAZER_API_URL: ${{ secrets.PUBLIC_TRAILBLAZER_API_URL}}
+#   PUBLIC_WALLETCONNECT_PROJECT_ID: ${{ secrets.PUBLIC_WALLETCONNECT_PROJECT_ID}}
+#   PUBLIC_ENV: preview
+
+name: Trailblazer UI Build and Checks
+
+on: workflow_call
+
+jobs:
+  Deploy-Preview:
+    runs-on: [taiko-runner]
+    steps:
+      - name: Cancel previous runs
+        uses: styfle/cancel-workflow-action@0.12.1
+        with:
+          access_token: ${{ github.token }}
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install pnpm dependencies
+        uses: ./.github/actions/install-pnpm-dependencies
+
+      - name: Build Svelte app
+        env:
+          SKIP_ENV_VALIDATION: 'true'
+        working-directory: ./packages/bridge-ui
+        run: pnpm build
+
+      - name: Svelte check
+        working-directory: ./packages/bridge-ui
+        run: pnpm svelte:check
+
+      - name: Linting
+        working-directory: ./packages/bridge-ui
+        run: pnpm lint
+
+      - name: Unit tests
+        env:
+          SKIP_ENV_VALIDATION: 'true'
+        working-directory: ./packages/bridge-ui
+        run: pnpm test:unit

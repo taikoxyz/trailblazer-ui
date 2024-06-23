@@ -1,0 +1,64 @@
+name: Vercel Build and Deploy
+
+on:
+  workflow_call:
+    inputs:
+      environment:
+        type: string
+        required: true
+      flags:
+        type: string
+        required: true
+    secrets:
+      vercel_project_id:
+        description: 'Vercel Project ID'
+        required: true
+      vercel_org_id:
+        description: 'Vercel ORG ID'
+        required: true
+      vercel_token:
+        description: 'Vercel TOKEN'
+        required: true
+      PUBLIC_TRAILBLAZER_API_URL:
+        description: 'Public Trailblazer API URL'
+        required: true
+      PUBLIC_WALLETCONNECT_PROJECT_ID:
+        description: 'Public WalletConnect Project ID'
+        required: true
+
+env:
+  VERCEL_ORG_ID: ${{ secrets.vercel_org_id }}
+  VERCEL_PROJECT_ID: ${{ secrets.vercel_project_id }}
+
+jobs:
+  build-deploy:
+    runs-on: [taiko-runner]
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install pnpm dependencies
+        uses: ./.github/actions/install-pnpm-dependencies
+
+      - name: Install Vercel CLI
+        run: pnpm add --global vercel@latest
+
+      - name: Remove Vercel Environment Variables
+        continue-on-error: true
+        run: |
+          echo "y" | vercel env rm PUBLIC_TRAILBLAZER_API_URL ${{ inputs.environment }} --token=${{ secrets.vercel_token }}
+          echo "y" | vercel env rm PUBLIC_WALLETCONNECT_PROJECT_ID ${{ inputs.environment }} --token=${{ secrets.vercel_token }}
+          echo "y" | vercel env rm PUBLIC_ENV ${{ inputs.environment }} --token=${{ secrets.vercel_token }}
+
+      - name: Set Vercel Environment Variables
+        continue-on-error: true
+        run: |
+          echo "${{ secrets.PUBLIC_TRAILBLAZER_API_URL }}" | vercel env add PUBLIC_TRAILBLAZER_API_URL ${{ inputs.environment }} --token=${{ secrets.vercel_token }}
+          echo "${{ secrets.PUBLIC_WALLETCONNECT_PROJECT_ID }}" | vercel env add PUBLIC_WALLETCONNECT_PROJECT_ID ${{ inputs.environment }} --token=${{ secrets.vercel_token }}
+          echo "${{ inputs.environment }}" | vercel env add PUBLIC_ENV ${{ inputs.environment }} --token=${{ secrets.vercel_token }}
+
+      - name: Build Project Artifacts
+        run: vercel build ${{ inputs.flags }} --token=${{ secrets.vercel_token }}
+
+      - name: Deploy Project Artifacts to Vercel
+        run: vercel deploy --prebuilt ${{ inputs.flags }} --token=${{ secrets.vercel_token }}
