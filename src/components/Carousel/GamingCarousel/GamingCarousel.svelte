@@ -10,7 +10,7 @@
       title: 'Crack & Stack',
       description:
         'Top-down multiplayer game. Enter the Ethereum mines, set traps, mine ores, escape the goblins and escape with your loot.',
-      image: '/crackandstack.svg',
+      image: '/games/crackandstack.svg',
       publishDate: new Date(),
       readTime: 1,
       tag: '',
@@ -21,7 +21,7 @@
       title: 'Zypher z2048',
       description:
         'Immerse in z2048, a strategic on-chain game blending classic 2048 with fair, scalable gameplay via Zypher’s UZKGE.',
-      image: '/zyphergames.png',
+      image: '/games/zyphergames.png',
       publishDate: new Date(),
       readTime: 1,
       tag: '',
@@ -32,7 +32,7 @@
       title: 'Swords and Dungeons',
       description:
         'Swords and Dungeons is the first multi-chain MMORPG. It is a vast world with rich gameplay, NFTs, and dynamic economic models.',
-      image: '/swordsanddungeons.png',
+      image: '/games/swordsanddungeons.png',
       publishDate: new Date(),
       readTime: 1,
       tag: '',
@@ -43,7 +43,7 @@
       title: 'Stupid Monkeys',
       description:
         'Welcome to StupidMonkeys Realm Hero, where dynamic NFTs bring your monkeys to life! Level up, evolve, and conquer in thrilling PvP battles to claim your title as the Hero of the MonkeyRealm!',
-      image: '/stupidmonkeys.png',
+      image: '/games/stupidmonkeys.png',
       publishDate: new Date(),
       readTime: 1,
       tag: '',
@@ -54,7 +54,7 @@
       title: 'Looper Lands',
       description:
         'LooperLands is a free-to-play community-pixelverse. Traverse between captivating creator made worlds, each with its own complete stories and unique minigames.',
-      image: '/looperlands.svg',
+      image: '/games/looperlands.svg',
       publishDate: new Date(),
       readTime: 1,
       tag: '',
@@ -65,7 +65,7 @@
       title: 'EVM Warfare',
       description:
         'Fight, Earn, Dominate. Thrilling third-person shooter powered by Unreal Engine 5. Dominate deathmatches, claim instant rewards based on performance.',
-      image: '/evmwarfare.png',
+      image: '/games/evmwarfare.png',
       publishDate: new Date(),
       readTime: 1,
       tag: '',
@@ -76,7 +76,7 @@
       title: '21BJ',
       description:
         '21BJ is a free-to-play Fantasy Casino Mobile Game, merging the thrill of casino games with the immersive elements of a strategic RPG-influenced journey.',
-      image: '/21bj.png',
+      image: '/games/21bj.png',
       publishDate: new Date(),
       readTime: 1,
       tag: '',
@@ -87,7 +87,7 @@
       title: '0xAstra',
       description:
         '0xAstra is an onchain SLG game, where you harness cross-chain resources with bridge technology to build and defend your cosmic homeland. Strategize, expand, and dominate in this interstellar conquest.',
-      image: '/0xastra.svg',
+      image: '/games/0xastra.svg',
       publishDate: new Date(),
       readTime: 1,
       tag: '',
