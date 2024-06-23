@@ -1,17 +1,9 @@
-# env:
-#   VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-#   VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID_TRAILBLAZER}}
-#   VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN}}
-#   PUBLIC_TRAILBLAZER_API_URL: ${{ secrets.PUBLIC_TRAILBLAZER_API_URL}}
-#   PUBLIC_WALLETCONNECT_PROJECT_ID: ${{ secrets.PUBLIC_WALLETCONNECT_PROJECT_ID}}
-#   PUBLIC_ENV: preview
-
 name: Trailblazer UI Build and Checks
 
 on: workflow_call
 
 jobs:
-  Deploy-Preview:
+  Build-and-checks:
     runs-on: [taiko-runner]
     steps:
       - name: Cancel previous runs
@@ -26,21 +18,17 @@ jobs:
         uses: ./.github/actions/install-pnpm-dependencies
 
       - name: Build Svelte app
-        env:
-          SKIP_ENV_VALIDATION: 'true'
-        working-directory: ./packages/bridge-ui
+        working-directory: .
         run: pnpm build
 
       - name: Svelte check
-        working-directory: ./packages/bridge-ui
+        working-directory: .
         run: pnpm svelte:check
 
       - name: Linting
-        working-directory: ./packages/bridge-ui
+        working-directory: .
         run: pnpm lint
 
       - name: Unit tests
-        env:
-          SKIP_ENV_VALIDATION: 'true'
-        working-directory: ./packages/bridge-ui
+        working-directory: .
         run: pnpm test:unit
