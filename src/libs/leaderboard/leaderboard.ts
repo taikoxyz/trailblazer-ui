@@ -30,8 +30,6 @@ export class Leaderboard {
   static async getBridgeLeaderboard() {
     const response = await axios.get(`${baseApiUrl}/leaderboard/bridge`);
     const result: BridgeLeaderboardPage = response.data as BridgeLeaderboardPage;
-    console.log('🚀 | Leaderboard | getBridgeLeaderboard | result:', result);
-
     setBridgeLeaderboard(this.appendBridgeAdditionalData(result.bridgingEntries));
   }
 
