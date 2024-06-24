@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { type Address, zeroAddress } from 'viem';
+import { zeroAddress } from 'viem';
 
 import { PUBLIC_TRAILBLAZER_API_URL } from '$env/static/public';
 import { isDevelopmentEnv } from '$libs/util/isDevelopmentEnv';
@@ -29,42 +29,10 @@ export class Leaderboard {
 
   static async getBridgeLeaderboard() {
     const response = await axios.get(`${baseApiUrl}/leaderboard/bridge`);
-    const leaderboardPage: BridgeLeaderboardPage = response.data as BridgeLeaderboardPage;
-    type intermediate = {
-      [name: string]: BridgeData;
-    };
-    const i: intermediate = {};
-    const tokenPrices: { [key: string]: number } = {
-      '0x07d83526730c7438048D55A4fc0b850e2aaB6f0b': 1.0, // Example price
-      '0x0000000000000000000000000000000000000000': 3500.0, // Example price
-    };
+    const result: BridgeLeaderboardPage = response.data as BridgeLeaderboardPage;
+    console.log('🚀 | Leaderboard | getBridgeLeaderboard | result:', result);
 
-    leaderboardPage.items.forEach((item) => {
-      // if its WETH
-      if (item.token === ('0xA51894664A773981C6C112C43ce576f315d5b1B6' as Address)) {
-        item.token = '0x0000000000000000000000000000000000000000' as Address;
-      }
-      if (i[item.address]) {
-        if (i[item.address].bridged.map((v) => v.token).includes(item.token)) {
-          i[item.address].bridged[i[item.address].bridged.map((v) => v.token).indexOf(item.token)].score += item.score;
-        } else {
-          i[item.address].bridged.push({ token: item.token, score: item.score });
-        }
-        i[item.address].value = i[item.address].value + item.score * (tokenPrices[item.token] || 0);
-      } else {
-        i[item.address] = {
-          bridged: [{ token: item.token, score: item.score }],
-          address: item.address,
-          value: item.score * (tokenPrices[item.token] || 0),
-        };
-      }
-    });
-
-    const result: BridgeData[] = Object.values(i).sort(
-      (a: BridgeData, b: BridgeData) => b.value - a.value,
-    ) as BridgeData[];
-
-    setBridgeLeaderboard(this.appendBridgeAdditionalData(result));
+    setBridgeLeaderboard(this.appendBridgeAdditionalData(result.bridgingEntries));
   }
 
   static appendBridgeAdditionalData(page: BridgeData[]) {
@@ -138,7 +106,7 @@ export class Leaderboard {
 
     // loop through the items in page and add data to page
     page.map((item) => {
-      const additionalData = data[item.address];
+      const additionalData = data[item.name];
       if (additionalData) {
         item.name = additionalData.name;
         item.twitter = additionalData.twitter;
@@ -148,10 +116,9 @@ export class Leaderboard {
 
     // append meson
     page.push({
-      address: 'Meson',
-      bridged: [{ token: zeroAddress, score: 0 }],
-      value: 0,
-      name: 'mesonfi',
+      name: 'Meson',
+      scores: [{ token: zeroAddress, score: 0 }],
+      volume: 0,
       twitter: 'mesonfi',
       icon: 'mesonfi.jpg',
     });
