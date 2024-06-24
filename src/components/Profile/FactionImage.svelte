@@ -43,7 +43,7 @@
   function setVideoSrc() {
     if (movement < 0) return '';
     videoPoster = getVideoPoster();
-    return `https://gateway.pinata.cloud/ipfs/${sources[type][movement]}`;
+    return `https://trailblazers.4everland.link/ipfs/${sources[type][movement]}`;
   }
 
   function getVideoPoster() {
