@@ -32,6 +32,14 @@
       // boosted
       'QmeorHG4XnnCZSxQgn7rSc5YkHf96xkn4oe6v4bCEJ4UGC',
     ],
+    [FactionNames.Masters]: [
+      // neutral
+      'QmU2toFjYeHTsUf7o7t9UoANQ1BMuCTqrZ1L6WZuSHemcX',
+      // based
+      'QmdzTvJE1tHDgFbzpGV2zNeuTP9r39Y8mLi6BcS3eBrTPV',
+      // boosted
+      'QmPBhQjBaRzDfoWgNTpatSYuKhxpEkffoLDC6ZX24iWXzV',
+    ],
   };
 
   let videoSrc = '';
