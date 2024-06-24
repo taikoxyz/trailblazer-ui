@@ -31,14 +31,6 @@
     '0xa20a8856e00F5ad024a55A663F06DCc419FFc4d5': 'Trailblazer Badges',
   };
 
-  // These are all orbiter
-  // 0x80c67432656d59144ceff962e8faf8926599bcf8 - ETH
-  // 0xe4edb277e41dc89ab076a1f049f4a3efa700bce8 - ETH
-  // 0xee73323912a4e3772b74ed0ca1595a152b0ef282 - ETH
-  // 0x34723B92aE9708BA33843120A86035D049dA7dfA - ETH
-  // 0x41d3d33156ae7c62c094aae2995003ae63f587b3 - USDC
-  // 0xd7aa9ba6caac7b0436c91396f22ca5a7f31664fc - USDT
-
   const mapping: Mapping = {
     '0xE4eDb277e41dc89aB076a1F049f4a3EfA700bCE8': {
       name: 'Orbiter Finance',
