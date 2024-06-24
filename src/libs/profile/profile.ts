@@ -155,20 +155,13 @@ export class Profile {
   }
 
   static async getUserPointsHistory(address?: string) {
-    // Mock Data
-    // setInterval(() => {
-    //   userPointHistory.set(MOCK_USER_POINT_HISTORY);
-    // }, 100)
-
-    // Get current page for user transactions
-
     if (!address) {
       address = getAccount(wagmiConfig).address;
     }
 
     if (address) {
-      const response = await fetch(`${baseApiUrl}/userhistory?user=${address}`);
-      const pointsHistory: UserPointHistoryPage = (await response.json()) as UserPointHistoryPage;
+      const response = await axios.get(`${baseApiUrl}/userhistory`, { params: { user: address } });
+      const pointsHistory: UserPointHistoryPage = response.data as UserPointHistoryPage;
 
       // Safely update the currentProfile with userProfile details
       currentProfile.update((current) => {
@@ -176,7 +169,6 @@ export class Profile {
       });
     }
   }
-
   static async getStatistics() {
     // fetches statistics from backend
   }
