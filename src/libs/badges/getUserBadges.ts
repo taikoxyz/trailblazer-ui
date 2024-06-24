@@ -12,7 +12,7 @@ export async function getUserBadges(address: Address): Promise<Record<FactionNam
   const out = {
     [FactionNames.Ravers]: false,
     [FactionNames.Robots]: false,
-    // [FactionNames.Bouncers]: false,
+    [FactionNames.Bouncers]: false,
     // [FactionNames.Masters]: false,
     // [FactionNames.Monks]: false,
     // [FactionNames.Drummers]: false,
