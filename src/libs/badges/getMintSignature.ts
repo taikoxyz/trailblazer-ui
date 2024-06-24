@@ -1,7 +1,9 @@
 import { readContract, signMessage } from '@wagmi/core';
+import axios from 'axios';
 import { type Address } from 'viem';
 
 import type { FACTIONS } from '$configs/badges';
+import { PUBLIC_TRAILBLAZER_API_URL } from '$env/static/public';
 import { web3modal } from '$libs/connect';
 import { isDevelopmentEnv } from '$libs/util/isDevelopmentEnv';
 import { wagmiConfig } from '$libs/wagmi';
@@ -19,27 +21,24 @@ async function signHash(
   const challenge = Date.now().toString();
   const signature = await signMessage(config, { message: challenge });
 
-  const baseUrl = 'https://qa.trailblazer.taiko.xyz/mint';
   try {
-    const res = await fetch(baseUrl, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
+    const res = await axios.post(
+      `${PUBLIC_TRAILBLAZER_API_URL}/faction/mint`,
+      {
         address,
         signature,
         message: challenge,
         badgeId,
         chainId,
-      }),
-    });
+      },
+      {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      },
+    );
 
-    if (!res.ok) {
-      throw new Error(`Failed to fetch mint signature: ${res.statusText}`);
-    }
-
-    const mintSignature = await res.json();
+    const mintSignature = res.data;
 
     return `0x${mintSignature}`;
   } catch (error) {
