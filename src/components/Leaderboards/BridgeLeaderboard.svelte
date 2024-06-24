@@ -7,18 +7,11 @@
   import Usdt from '$components/Icon/USDT.svelte';
   import { Skeleton } from '$components/Mock';
   import { chainId } from '$libs/chain';
-  import { Leaderboard } from '$libs/leaderboard';
-  import { web3modal } from '$libs/connect';
   import { formatNumbers } from '$libs/util/formatNumbers';
   import { currentBridgeLeaderboard } from '$stores/leaderboard';
 
   import { usdcAddress, usdtAddress } from '../../generated/abi';
   import BridgeHeader from './Header/BridgeHeader.svelte';
-  import { onMount } from 'svelte';
-
-  onMount(async () => {
-    await Leaderboard.getBridgeLeaderboard();
-  });
 
   $: usdc = getValidatedAddress(usdcAddress[chainId] as Address);
   $: usdt = getValidatedAddress(usdtAddress[chainId] as Address);
