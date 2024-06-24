@@ -40,7 +40,6 @@
         title: 'Badge Claim Error',
         message: e.shortMessage,
       });
-      console.error(e);
     } finally {
       isClaiming = false;
     }
