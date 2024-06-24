@@ -58,18 +58,18 @@
                   shineColor="bg-pink-100" />
               {/if}
               <div class="flex flex-col justify-around">
-                <div class="body-bold">{thing.name ? thing.name : thing.address}</div>
+                <div class="body-bold">{thing.name ? thing.name : thing.name}</div>
                 {#if thing.twitter}
                   <a
                     class="text-primary-link underline text-[14px]/[20px]"
                     target="_blank"
-                    href="https://twitter.com/{thing.twitter}">@{thing.twitter ? thing.twitter : thing.address}</a>
+                    href="https://twitter.com/{thing.twitter}">@{thing.twitter ? thing.twitter : thing.name}</a>
                 {/if}
               </div>
             </div>
           </td>
           <td class="lg:px-10 body-regular flex-col">
-            {#each thing.bridged as bridge}
+            {#each thing.scores as bridge}
               {@const tokenAddress = getValidatedAddress(bridge.token)}
               <div class="flex gap-[10px] my-1 justify-between text-right">
                 <div class="w-full">{bridge.score > 0 ? formatNumbers(Math.round(bridge.score)) : '-'}</div>
