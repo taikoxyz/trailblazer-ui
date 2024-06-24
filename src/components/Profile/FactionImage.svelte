@@ -26,11 +26,11 @@
     ],
     [FactionNames.Bouncers]: [
       // neutral
-      '',
+      'https://gateway.pinata.cloud/ipfs/QmcHDMMuSbYKXUdbLAfttcm5mMamtYKRUfXSVzp1SqsFGK',
       // based
-      '',
+      'https://gateway.pinata.cloud/ipfs/QmQHHbqZGLnqxigHLRAdUP4FA5LoxyY3i2mjr8ojrXPRwj',
       // boosted
-      '',
+      'https://gateway.pinata.cloud/ipfs/QmeorHG4XnnCZSxQgn7rSc5YkHf96xkn4oe6v4bCEJ4UGC',
     ],
   };
 
