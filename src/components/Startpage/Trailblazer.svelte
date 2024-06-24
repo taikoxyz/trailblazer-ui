@@ -2,6 +2,7 @@
   import DividerElement from './DividerElement/DividerElement.svelte';
   import ExploreEcosystem from './ExploreEcosystem.svelte';
   import Factions from './Factions/Factions.svelte';
+  import { GamingPartners } from './GamingPartners';
   import { TrailblazerGuide } from './Guide';
   import { RankUp } from './RankUp';
   import TrailblazerMain from './TrailblazerMain.svelte';
@@ -10,10 +11,9 @@
 <div class="f-center container flex-col w-full overflow-visible gap-[100px] mb-[130px]">
   <TrailblazerMain />
   <TrailblazerGuide />
-  <!-- <TrailblazerOngoingTrails /> -->
   <Factions />
-
   <DividerElement />
+  <GamingPartners />
   <RankUp />
   <ExploreEcosystem />
 </div>
