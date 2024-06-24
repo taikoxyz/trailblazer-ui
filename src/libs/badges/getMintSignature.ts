@@ -23,7 +23,7 @@ async function signHash(
 
   try {
     const res = await axios.post(
-      `${PUBLIC_TRAILBLAZER_API_URL}/mint`,
+      `${PUBLIC_TRAILBLAZER_API_URL}/faction/mint`,
       {
         address,
         signature,

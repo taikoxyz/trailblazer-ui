@@ -113,7 +113,7 @@ export class Profile {
     }
 
     if (address) {
-      const { data } = await axios.get(`${baseApiUrl}/user`, { params: { address } });
+      const { data } = await axios.get(`${baseApiUrl}/user/rank`, { params: { address } });
       const userProfile: UserProfile = data as UserProfile;
 
       log('User Profile: ', userProfile);
