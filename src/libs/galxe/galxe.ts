@@ -1,4 +1,5 @@
 import { getAccount } from '@wagmi/core';
+import axios from 'axios';
 
 import { PUBLIC_TRAILBLAZER_API_URL } from '$env/static/public';
 import { chainId } from '$libs/chain';
@@ -36,11 +37,12 @@ export class Galxe {
     }
 
     if (address) {
-      // TOOO: Update this
       let galxePoints: GalxePointsResponse = { address, value: 0 };
       try {
-        const response = await fetch(`${baseApiUrl}/api/galxe?address=${address}`);
-        galxePoints = (await response.json()) as GalxePointsResponse;
+        const response = await axios.get(`${baseApiUrl}/user/galxe`, {
+          params: { address },
+        });
+        galxePoints = response.data as GalxePointsResponse;
       } catch (e) {
         console.warn(e);
       }
