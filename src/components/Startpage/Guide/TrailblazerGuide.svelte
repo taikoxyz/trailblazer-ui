@@ -6,7 +6,7 @@
   import TrailblazerGuideStep from './TrailblazerGuideStep.svelte';
 </script>
 
-<div class="container f-center f-col xl:flex-row h-auto px-[57px]">
+<div class="container f-center f-col xl:flex-row h-auto px-[20px] xl:px-[57px]">
   <TrailblazerGuideStep
     icon="semi-circle-reversed"
     title={$t('trailblazer_guide.step_1.title')}

@@ -1,15 +1,8 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
-
   import { ExplorerLink } from '$components/Links';
-  import { Leaderboard } from '$libs/leaderboard';
   import { formatNumbers } from '$libs/util/formatNumbers';
   import { currentUserLeaderboard } from '$stores/leaderboard';
   let headers = ['Rank', 'Address', 'Points'];
-
-  onMount(async () => {
-    await Leaderboard.getUserLeaderboard();
-  });
 </script>
 
 <div class="overflow-x-auto lg:w-full px-8 mt-[18%] lg:mt-0">

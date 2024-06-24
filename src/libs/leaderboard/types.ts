@@ -1,3 +1,5 @@
+import type { Address } from 'viem';
+
 export type LeaderboardPage = {
   items: LeaderboardRow[];
   page: number;
@@ -15,7 +17,7 @@ export type LeaderboardRow = {
   score: number;
 };
 
-export type BridgedTokenData = { token: string; score: number };
+export type BridgedTokenData = { token: Address; score: number };
 
 export type GroupedData = {
   address: string;
@@ -53,7 +55,7 @@ export type BridgeLeaderboardTotal = {
 };
 
 export type BridgeLeaderboardRow = {
-  address: string;
-  token: string;
+  address: Address;
+  token: Address;
   score: number;
 };
