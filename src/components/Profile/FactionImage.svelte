@@ -10,27 +10,27 @@
   const sources: Record<string, string[]> = {
     [FactionNames.Ravers]: [
       // neutral
-      'bafybeiadil4qdxhe4v72qp5x72wnqctqp4fzjcambcllmy3jj7giksvawe',
+      'QmR16KhiFMBaK7oL4B15ADDiKsVdpE73biQec4814Nk9q6',
       // based
-      'bafybeidyhv3nhtcrsqvk3qmpu565pvog3zy5mtqi5cje6p4uk7ztup2hcu',
+      'QmWMmnLnVhXFw32zdY3thpkp1YHioHaj2hT9LDqjYZ7dKA',
       // boosted
-      'bafybeif5a6a3f7clbiwobf45yv3mwaspmq33diwiges3spy5deoaj7fcsu',
+      'QmZR8eVG8htKacdgiMiwTQR9hVRoxfVQ92t6m6UHgfPaVe',
     ],
     [FactionNames.Robots]: [
       // neutral
-      'bafybeibapxclpevtmdiy6loojskeplfhge54pqbtfl35amglwppqi2p5wm',
+      'QmTXxmsjCrE5rpnvX2c8TB8rJ3zFWFkD7KDpbnGrdMTb5S',
       // based
-      'bafybeihfr65edgndtxtbvwuo6pfjrgouhwc5vd3yypeav4luu24zpduzie',
+      'QmYjwqtz2JqPoEgxM8UBCG3adTfVTA9PgEdUPQFCBxMSp2',
       // boosted
-      'bafybeibquskpksahxffzfkuk5ivd45vgqhfyhynl225wlnuckn3nju5f5i',
+      'QmbZDdauwFP9fUbji7vb2xsxzdCB4cCBPyq1bpTkc1AJYL',
     ],
     [FactionNames.Bouncers]: [
       // neutral
-      'https://gateway.pinata.cloud/ipfs/QmcHDMMuSbYKXUdbLAfttcm5mMamtYKRUfXSVzp1SqsFGK',
+      'QmcHDMMuSbYKXUdbLAfttcm5mMamtYKRUfXSVzp1SqsFGK',
       // based
-      'https://gateway.pinata.cloud/ipfs/QmQHHbqZGLnqxigHLRAdUP4FA5LoxyY3i2mjr8ojrXPRwj',
+      'QmQHHbqZGLnqxigHLRAdUP4FA5LoxyY3i2mjr8ojrXPRwj',
       // boosted
-      'https://gateway.pinata.cloud/ipfs/QmeorHG4XnnCZSxQgn7rSc5YkHf96xkn4oe6v4bCEJ4UGC',
+      'QmeorHG4XnnCZSxQgn7rSc5YkHf96xkn4oe6v4bCEJ4UGC',
     ],
   };
 
@@ -43,7 +43,7 @@
   function setVideoSrc() {
     if (movement < 0) return '';
     videoPoster = getVideoPoster();
-    return `https://nftstorage.link/ipfs/${sources[type][movement]}`;
+    return `https://gateway.pinata.cloud/ipfs/${sources[type][movement]}`;
   }
 
   function getVideoPoster() {
