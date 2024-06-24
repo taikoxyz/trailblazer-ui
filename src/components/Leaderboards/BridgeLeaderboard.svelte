@@ -6,16 +6,12 @@
   import Usdc from '$components/Icon/USDC.svelte';
   import Usdt from '$components/Icon/USDT.svelte';
   import { Skeleton } from '$components/Mock';
-  import { web3modal } from '$libs/connect';
+  import { chainId } from '$libs/chain';
   import { formatNumbers } from '$libs/util/formatNumbers';
   import { currentBridgeLeaderboard } from '$stores/leaderboard';
 
   import { usdcAddress, usdtAddress } from '../../generated/abi';
-  import type { IChainId } from '../../types/types';
   import BridgeHeader from './Header/BridgeHeader.svelte';
-
-  const { selectedNetworkId } = web3modal.getState();
-  $: chainId = selectedNetworkId as IChainId;
 
   $: usdc = getValidatedAddress(usdcAddress[chainId] as Address);
   $: usdt = getValidatedAddress(usdtAddress[chainId] as Address);

@@ -1,6 +1,7 @@
 <script lang="ts">
   import { LeaderboardTransactions } from '$components/Leaderboards';
   import { ProfileFactions } from '$components/Profile';
+  import { classNames } from '$libs/util/classNames';
 
   type TabContent = {
     name: string;
@@ -35,20 +36,40 @@
     //   checked: false,
     // },
   ];
+
+  const tabPanelClasses = classNames(
+    'tab-content',
+    'p-6',
+    'bg-elevated-background',
+    'max-w-full',
+    'overflow-hidden',
+    'rounded-[30px]',
+    'min-h-64',
+  );
+
+  const tabSelectorItemClasses = classNames(
+    'tab',
+    'hover:cursor-pointer',
+    'hover:bg-[#e81899]',
+    'hover:bg-opacity-20',
+    'whitespace-nowrap',
+    '[--tab-bg:#e81899]',
+    '[--tab-radius:0]',
+    '[--tab-border-color:transparent]',
+    'body-bold',
+  );
 </script>
 
 <div role="tablist" class="tabs tabs-lifted w-full px-4 lg:px-0">
   {#each tabs as tab}
     <input
       type="radio"
-      name="my_tabs_2"
+      name="profile-tabs"
       role="tab"
-      class="tab hover:cursor-pointer hover:bg-[#e81899] hover:bg-opacity-20 whitespace-nowrap [--tab-bg:#e81899] [--tab-radius:0] [--tab-border-color:transparent] body-bold"
+      class={tabSelectorItemClasses}
       aria-label={tab.name}
       checked={tab.checked} />
-    <div
-      role="tabpanel"
-      class="tab-content p-6 bg-elevated-background max-w-full overflow-hidden rounded-r-[30px] rounded-b-[30px] min-h-64">
+    <div role="tabpanel" class={tabPanelClasses}>
       <svelte:component this={tab.content} />
     </div>
   {/each}
