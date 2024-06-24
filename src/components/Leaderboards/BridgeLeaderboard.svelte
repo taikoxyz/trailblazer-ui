@@ -6,16 +6,12 @@
   import Usdc from '$components/Icon/USDC.svelte';
   import Usdt from '$components/Icon/USDT.svelte';
   import { Skeleton } from '$components/Mock';
-  import { web3modal } from '$libs/connect';
+  import { chainId } from '$libs/chain';
   import { formatNumbers } from '$libs/util/formatNumbers';
   import { currentBridgeLeaderboard } from '$stores/leaderboard';
 
   import { usdcAddress, usdtAddress } from '../../generated/abi';
-  import type { IChainId } from '../../types/types';
   import BridgeHeader from './Header/BridgeHeader.svelte';
-
-  const { selectedNetworkId } = web3modal.getState();
-  $: chainId = selectedNetworkId as IChainId;
 
   $: usdc = getValidatedAddress(usdcAddress[chainId] as Address);
   $: usdt = getValidatedAddress(usdtAddress[chainId] as Address);
@@ -62,18 +58,18 @@
                   shineColor="bg-pink-100" />
               {/if}
               <div class="flex flex-col justify-around">
-                <div class="body-bold">{thing.name ? thing.name : thing.address}</div>
+                <div class="body-bold">{thing.name ? thing.name : thing.name}</div>
                 {#if thing.twitter}
                   <a
                     class="text-primary-link underline text-[14px]/[20px]"
                     target="_blank"
-                    href="https://twitter.com/{thing.twitter}">@{thing.twitter ? thing.twitter : thing.address}</a>
+                    href="https://twitter.com/{thing.twitter}">@{thing.twitter ? thing.twitter : thing.name}</a>
                 {/if}
               </div>
             </div>
           </td>
           <td class="lg:px-10 body-regular flex-col">
-            {#each thing.bridged as bridge}
+            {#each thing.scores as bridge}
               {@const tokenAddress = getValidatedAddress(bridge.token)}
               <div class="flex gap-[10px] my-1 justify-between text-right">
                 <div class="w-full">{bridge.score > 0 ? formatNumbers(Math.round(bridge.score)) : '-'}</div>

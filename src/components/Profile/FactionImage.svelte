@@ -1,52 +1,66 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
-
   import { FactionNames } from '$configs/badges';
+  import { MovementNames, type Movements } from '$libs/badges/const';
   import type { Faction } from '$libs/profile';
 
   export let type: Faction;
   export let unlocked: boolean = false;
+  export let movement: Movements = 0;
 
   const sources: Record<string, string[]> = {
     [FactionNames.Ravers]: [
       // neutral
-      'bafybeiadil4qdxhe4v72qp5x72wnqctqp4fzjcambcllmy3jj7giksvawe',
+      'QmR16KhiFMBaK7oL4B15ADDiKsVdpE73biQec4814Nk9q6',
       // based
-      'bafybeidyhv3nhtcrsqvk3qmpu565pvog3zy5mtqi5cje6p4uk7ztup2hcu',
+      'QmWMmnLnVhXFw32zdY3thpkp1YHioHaj2hT9LDqjYZ7dKA',
       // boosted
-      'bafybeif5a6a3f7clbiwobf45yv3mwaspmq33diwiges3spy5deoaj7fcsu',
+      'QmZR8eVG8htKacdgiMiwTQR9hVRoxfVQ92t6m6UHgfPaVe',
     ],
     [FactionNames.Robots]: [
       // neutral
-      'bafybeibapxclpevtmdiy6loojskeplfhge54pqbtfl35amglwppqi2p5wm',
+      'QmTXxmsjCrE5rpnvX2c8TB8rJ3zFWFkD7KDpbnGrdMTb5S',
       // based
-      'bafybeihfr65edgndtxtbvwuo6pfjrgouhwc5vd3yypeav4luu24zpduzie',
+      'QmYjwqtz2JqPoEgxM8UBCG3adTfVTA9PgEdUPQFCBxMSp2',
       // boosted
-      'bafybeibquskpksahxffzfkuk5ivd45vgqhfyhynl225wlnuckn3nju5f5i',
+      'QmbZDdauwFP9fUbji7vb2xsxzdCB4cCBPyq1bpTkc1AJYL',
+    ],
+    [FactionNames.Bouncers]: [
+      // neutral
+      'QmcHDMMuSbYKXUdbLAfttcm5mMamtYKRUfXSVzp1SqsFGK',
+      // based
+      'QmQHHbqZGLnqxigHLRAdUP4FA5LoxyY3i2mjr8ojrXPRwj',
+      // boosted
+      'QmeorHG4XnnCZSxQgn7rSc5YkHf96xkn4oe6v4bCEJ4UGC',
     ],
   };
 
   let videoSrc = '';
-  const fallBackImage = `/factions/${type.toLowerCase()}/badge/fallback.png`;
+  $: movement, (videoSrc = setVideoSrc());
+  $: type, (videoSrc = setVideoSrc());
 
-  onMount(() => {
-    if (sources[type]) {
-      videoSrc = `https://nftstorage.link/ipfs/${sources[type][0]}`;
-    } else {
-      console.warn('Unrecognized badge type', type);
-      videoSrc = '';
-    }
-  });
+  $: videoPoster = '';
+
+  function setVideoSrc() {
+    if (movement < 0) return '';
+    videoPoster = getVideoPoster();
+    return `https://gateway.pinata.cloud/ipfs/${sources[type][movement]}`;
+  }
+
+  function getVideoPoster() {
+    return `/factions/${type.toLowerCase()}/${MovementNames[movement].toLowerCase()}.png`;
+  }
 </script>
 
-<div class="relative w-full h-full">
-  <img src={fallBackImage} alt="faction badge" class="rounded absolute left-0 top-0 rounded-[20px] z-10" />
-
+<div class="relative w-full h-full z-0">
   {#if videoSrc}
-    <video loop autoplay={unlocked} class="rounded-[20px] absolute left-0 top-0 z-20">
+    <video poster={videoPoster} loop autoplay={unlocked} class="rounded-[20px] absolute left-0 top-0 z-20">
       <track kind="captions" />
-      <source src={videoSrc} type="video/mp4" />
+      {#if videoSrc}
+        <source src={videoSrc} type="video/mp4" />
+      {/if}
       Your browser does not support the video tag.
     </video>
+  {:else}
+    <img alt={`${MovementNames[movement]} Badge`} src={videoPoster} />
   {/if}
 </div>

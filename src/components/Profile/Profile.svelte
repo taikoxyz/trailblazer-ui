@@ -8,17 +8,11 @@
   import { Tooltip } from '$components/Tooltip';
   import { Galxe } from '$libs/galxe';
   import type { UserProfile } from '$libs/profile';
-  import { account } from '$stores/account';
   import { galxeLoading } from '$stores/load';
   import { currentProfile } from '$stores/profile';
 
   import ProfileCard from './ProfileCard.svelte';
   import ProfileSubCard from './ProfileSubCard.svelte';
-
-  $: if ($account) {
-    let address = $account.address;
-    console.info('🚀 | address:', address);
-  }
 
   let profile: UserProfile;
   $: profile = $currentProfile;

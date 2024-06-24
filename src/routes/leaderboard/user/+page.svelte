@@ -5,6 +5,10 @@
   import { ActionButton } from '$components/Button';
   import UserLeaderboard from '$components/Leaderboards/UserLeaderboard.svelte';
   import { Page } from '$components/Page';
+
+  const handleClick = () => {
+    goto('/leaderboard/bridge');
+  };
 </script>
 
 <svelte:head>
@@ -15,7 +19,7 @@
   <UserLeaderboard />
 
   <div class="w-full flex justify-center mt-[58px]">
-    <ActionButton class="max-w-[280px]" priority="primary" on:click={() => goto('/leaderboard/user')} withArrow>
+    <ActionButton class="max-w-[280px]" priority="primary" on:click={handleClick} withArrow>
       {$t('buttons.leaderboard.bridge')}
     </ActionButton>
   </div>

@@ -11,9 +11,9 @@
 <div class="f-center container flex-col w-full overflow-visible gap-[100px] mb-[130px]">
   <TrailblazerMain />
   <TrailblazerGuide />
+  <GamingPartners />
   <Factions />
   <DividerElement />
-  <GamingPartners />
   <RankUp />
   <ExploreEcosystem />
 </div>

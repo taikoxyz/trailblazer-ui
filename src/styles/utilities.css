@@ -25,6 +25,11 @@
     @apply backdrop-filter backdrop-blur-sm;
   }
 
+  .glassy-background-lg {
+    background-color: rgba(11, 16, 27, 0.6);
+    @apply backdrop-filter backdrop-blur-lg;
+  }
+
   .dark-glass-background-gradient {
     background: linear-gradient(226deg, rgba(93, 99, 111, 0.1) 1.26%, rgba(25, 30, 40, 0.2) 100%);
   }

@@ -1,3 +1,5 @@
+import type { Movements } from '$libs/badges/const';
+
 export type UserProfile = GalxePoints & {
   address: string;
   pointsHistory?: UserPointHistoryPage;
@@ -15,6 +17,7 @@ export type UserProfile = GalxePoints & {
   experience?: number;
   rankPercentile?: string;
   isLoading: boolean;
+  movement: Movements;
 };
 
 export type GalxePoints = {

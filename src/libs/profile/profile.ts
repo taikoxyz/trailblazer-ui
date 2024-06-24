@@ -2,7 +2,9 @@ import { getAccount } from '@wagmi/core';
 import axios from 'axios';
 import { get } from 'svelte/store';
 
+// import type { Address } from 'viem';
 import { PUBLIC_TRAILBLAZER_API_URL } from '$env/static/public';
+// import getMovement from '$libs/badges/getMovement';
 import { isDevelopmentEnv } from '$libs/util/isDevelopmentEnv';
 import { getLogger } from '$libs/util/logger';
 import { wagmiConfig } from '$libs/wagmi';
@@ -113,10 +115,8 @@ export class Profile {
     }
 
     if (address) {
-      // TOOO: Update this
-      const response = await axios.get(`${baseApiUrl}/user?address=${address}`);
-      // const response = await fetch(`${baseApiUrl}/user?user=0x8626f6940E2eb28930eFb4CeF49B2d1F2C9C1199`)
-      const userProfile: UserProfile = (await response.data) as UserProfile;
+      const { data } = await axios.get(`${baseApiUrl}/user/rank`, { params: { address } });
+      const userProfile: UserProfile = data as UserProfile;
 
       log('User Profile: ', userProfile);
 
@@ -133,8 +133,18 @@ export class Profile {
         });
         return { ...current, ...updates };
       });
-
       log('Updated Profile: ', get(currentProfile));
+
+      /* re-enable when movements (based vs boosted) becomes available
+      // Get the movement (neutral vs based vs boosted)
+      const movement = await getMovement(address as Address);
+
+      // update the movement
+      currentProfile.update((current) => {
+        return { ...current, movement };
+      });
+      log('Updated Profile with Movement: ', get(currentProfile));
+      */
 
       // Calculate Percentile
       const rankPercentile = this.calculatePercentile();
@@ -157,20 +167,15 @@ export class Profile {
   }
 
   static async getUserPointsHistory(address?: string) {
-    // Mock Data
-    // setInterval(() => {
-    //   userPointHistory.set(MOCK_USER_POINT_HISTORY);
-    // }, 100)
-
-    // Get current page for user transactions
-
     if (!address) {
       address = getAccount(wagmiConfig).address;
     }
 
     if (address) {
-      const response = await fetch(`${baseApiUrl}/userhistory?user=${address}`);
-      const pointsHistory: UserPointHistoryPage = (await response.json()) as UserPointHistoryPage;
+      const response = await axios.get(`${baseApiUrl}/user/history`, {
+        params: { address: address },
+      });
+      const pointsHistory: UserPointHistoryPage = response.data as UserPointHistoryPage;
 
       // Safely update the currentProfile with userProfile details
       currentProfile.update((current) => {
@@ -178,7 +183,6 @@ export class Profile {
       });
     }
   }
-
   static async getStatistics() {
     // fetches statistics from backend
   }
