@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { type Address, zeroAddress } from 'viem';
 
 import { PUBLIC_TRAILBLAZER_API_URL } from '$env/static/public';
@@ -12,22 +13,23 @@ const baseApiUrl = isDevelopmentEnv ? '/mock-api' : PUBLIC_TRAILBLAZER_API_URL;
 const log = getLogger('Leaderboard');
 
 export class Leaderboard {
+  // dapp leaderboard
   static async getLeaderboard() {
-    const response = await fetch(`${baseApiUrl}/leaderboard`);
-    const leaderboardPage: LeaderboardPage = (await response.json()) as LeaderboardPage;
+    const response = await axios.get(`${baseApiUrl}/leaderboard/dapp`);
+    const leaderboardPage: LeaderboardPage = response.data as LeaderboardPage;
     setLeaderboard(leaderboardPage);
     log('Leaderboard page: ', leaderboardPage);
   }
 
   static async getUserLeaderboard() {
-    const response = await fetch(`${baseApiUrl}/user/leaderboard`);
-    const leaderboardPage: LeaderboardPage = (await response.json()) as LeaderboardPage;
+    const response = await axios.get(`${baseApiUrl}/leaderboard/user`);
+    const leaderboardPage: LeaderboardPage = response.data as LeaderboardPage;
     setUserLeaderboard(leaderboardPage);
   }
 
   static async getBridgeLeaderboard() {
-    const response = await fetch(`${baseApiUrl}/bridge`);
-    const leaderboardPage: BridgeLeaderboardPage = (await response.json()) as BridgeLeaderboardPage;
+    const response = await axios.get(`${baseApiUrl}/leaderboard/bridge`);
+    const leaderboardPage: BridgeLeaderboardPage = response.data as BridgeLeaderboardPage;
     type intermediate = {
       [name: string]: BridgeData;
     };

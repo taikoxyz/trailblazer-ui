@@ -113,10 +113,8 @@ export class Profile {
     }
 
     if (address) {
-      // TOOO: Update this
-      const response = await axios.get(`${baseApiUrl}/user?address=${address}`);
-      // const response = await fetch(`${baseApiUrl}/user?user=0x8626f6940E2eb28930eFb4CeF49B2d1F2C9C1199`)
-      const userProfile: UserProfile = (await response.data) as UserProfile;
+      const { data } = await axios.get(`${baseApiUrl}/user`, { params: { address } });
+      const userProfile: UserProfile = data as UserProfile;
 
       log('User Profile: ', userProfile);
 

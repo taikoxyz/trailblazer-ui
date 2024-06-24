@@ -1,3 +1,4 @@
+import axios from 'axios';
 import type { Address } from 'viem';
 
 import { PUBLIC_TRAILBLAZER_API_URL } from '$env/static/public';
@@ -8,9 +9,14 @@ export default async function canClaimPreflight(address: Address, badgeId: numbe
     return true;
   }
   try {
-    const baseUrl = `${PUBLIC_TRAILBLAZER_API_URL}/whitelist?address=`;
-    const res = await fetch(`${baseUrl}${address}&badgeId=${badgeId}`);
-    const json = await res.json();
+    const url = `${PUBLIC_TRAILBLAZER_API_URL}/faction/whitelist`;
+    const res = await axios.get(url, {
+      params: {
+        address: address,
+        badgeId: badgeId,
+      },
+    });
+    const json = res.data;
 
     return json && json.whitelisted;
   } catch (e) {
