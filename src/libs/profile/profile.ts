@@ -160,7 +160,7 @@ export class Profile {
     }
 
     if (address) {
-      const response = await axios.get(`${baseApiUrl}/userhistory`, { params: { user: address } });
+      const response = await axios.get(`${baseApiUrl}/user/history`, { params: { user: address } });
       const pointsHistory: UserPointHistoryPage = response.data as UserPointHistoryPage;
 
       // Safely update the currentProfile with userProfile details
