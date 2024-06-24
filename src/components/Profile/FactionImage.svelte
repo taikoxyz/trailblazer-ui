@@ -24,6 +24,14 @@
       // boosted
       'bafybeibquskpksahxffzfkuk5ivd45vgqhfyhynl225wlnuckn3nju5f5i',
     ],
+    [FactionNames.Bouncers]: [
+      // neutral
+      '',
+      // based
+      '',
+      // boosted
+      '',
+    ],
   };
 
   let videoSrc = '';

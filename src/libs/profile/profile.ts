@@ -1,10 +1,10 @@
 import { getAccount } from '@wagmi/core';
 import axios from 'axios';
 import { get } from 'svelte/store';
-import type { Address } from 'viem';
 
+// import type { Address } from 'viem';
 import { PUBLIC_TRAILBLAZER_API_URL } from '$env/static/public';
-import getMovement from '$libs/badges/getMovement';
+// import getMovement from '$libs/badges/getMovement';
 import { isDevelopmentEnv } from '$libs/util/isDevelopmentEnv';
 import { getLogger } from '$libs/util/logger';
 import { wagmiConfig } from '$libs/wagmi';
@@ -137,6 +137,7 @@ export class Profile {
       });
       log('Updated Profile: ', get(currentProfile));
 
+      /* re-enable when movements (based vs boosted) becomes available
       // Get the movement (neutral vs based vs boosted)
       const movement = await getMovement(address as Address);
 
@@ -145,6 +146,7 @@ export class Profile {
         return { ...current, movement };
       });
       log('Updated Profile with Movement: ', get(currentProfile));
+      */
 
       // Calculate Percentile
       const rankPercentile = this.calculatePercentile();
