@@ -7,7 +7,7 @@ const baseApiUrl = isDevelopmentEnv ? '/mock-api' : PUBLIC_TRAILBLAZER_API_URL;
 
 export async function postSignature(address: string, signature: string, message: string) {
   const response = await axios.post(
-    `${baseApiUrl}/sign`,
+    `${baseApiUrl}/sign`, // NOTE: API Deprecated
     {
       address: address,
       signature: signature,
