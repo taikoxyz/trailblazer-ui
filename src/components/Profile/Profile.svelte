@@ -17,7 +17,6 @@
 
   $: if ($account) {
     let address = $account.address;
-    console.info('🚀 | address:', address);
   }
 
   let profile: UserProfile;
