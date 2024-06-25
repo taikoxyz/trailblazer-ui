@@ -15,7 +15,7 @@ export default async function claimBadge(address: Address, factionId: FACTIONS) 
     signature = res.signature;
   } catch (e: any) {
     console.error('getMintSignature Error', e);
-    throw new Error('Failed to fetch mint signature');
+    throw new Error('Failed to fetch mint signature.');
   }
 
   const isValidSigner = await isSignatureValid(signature, address, factionId);
