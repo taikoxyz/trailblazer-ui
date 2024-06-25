@@ -16,7 +16,7 @@ export async function getUserBadges(address: Address): Promise<Record<FactionNam
     // [FactionNames.Monks]: false,
     // [FactionNames.Drummers]: false,
     // [FactionNames.Androids]: false,
-    // [FactionNames.Shinto]: false,*/
+    // [FactionNames.Shinto]: false,
   };
 
   const contractAddress = trailblazersBadgesAddress[chainId];

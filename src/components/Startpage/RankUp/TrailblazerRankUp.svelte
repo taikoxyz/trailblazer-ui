@@ -1,4 +1,5 @@
 <script>
+  import { goto } from '$app/navigation';
   import ActionButton from '$components/Button/ActionButton.svelte';
   import Card from '$components/Card/Card.svelte';
 </script>
@@ -18,8 +19,16 @@
         </div>
 
         <div class="flex flex-row gap-[15px]">
-          <ActionButton priority="primary">User leaderboard</ActionButton>
-          <ActionButton priority="secondary">Dapps leaderboard</ActionButton>
+          <ActionButton
+            priority="primary"
+            on:click={() => {
+              goto('./leaderboard/user');
+            }}>User leaderboard</ActionButton>
+          <ActionButton
+            priority="secondary"
+            on:click={() => {
+              goto('./leaderboard/dapp');
+            }}>Dapps leaderboard</ActionButton>
         </div>
       </div>
     </div>
