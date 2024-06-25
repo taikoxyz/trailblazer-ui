@@ -4,6 +4,7 @@ import { type Address } from 'viem';
 
 import type { FACTIONS } from '$configs/badges';
 import { PUBLIC_TRAILBLAZER_API_URL } from '$env/static/public';
+import { globalAxiosConfig } from '$libs/api/axiosConfig';
 import { chainId } from '$libs/chain';
 import { isDevelopmentEnv } from '$libs/util/isDevelopmentEnv';
 import { wagmiConfig } from '$libs/wagmi';
@@ -35,6 +36,7 @@ async function signHash(
         headers: {
           'Content-Type': 'application/json',
         },
+        ...globalAxiosConfig,
       },
     );
 

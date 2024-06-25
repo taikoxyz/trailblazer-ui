@@ -85,6 +85,11 @@
           </td>
         </tr>
       {/each}
+      {#if $currentBridgeLeaderboard.items.length === 0}
+        <tr class="row h-12">
+          <td class="lg:px-10" colspan="3">No data available</td>
+        </tr>
+      {/if}
     </tbody>
   </table>
 </div>

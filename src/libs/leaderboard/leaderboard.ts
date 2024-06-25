@@ -2,6 +2,7 @@ import axios from 'axios';
 import { zeroAddress } from 'viem';
 
 import { PUBLIC_TRAILBLAZER_API_URL } from '$env/static/public';
+import { globalAxiosConfig } from '$libs/api/axiosConfig';
 import { isDevelopmentEnv } from '$libs/util/isDevelopmentEnv';
 import { getLogger } from '$libs/util/logger';
 import { setBridgeLeaderboard, setLeaderboard, setUserLeaderboard } from '$stores/leaderboard';
@@ -15,22 +16,34 @@ const log = getLogger('Leaderboard');
 export class Leaderboard {
   // dapp leaderboard
   static async getLeaderboard() {
-    const response = await axios.get(`${baseApiUrl}/leaderboard/dapp`);
-    const leaderboardPage: LeaderboardPage = response.data as LeaderboardPage;
-    setLeaderboard(leaderboardPage);
-    log('Leaderboard page: ', leaderboardPage);
+    try {
+      const response = await axios.get(`${baseApiUrl}/leaderboard/dapp`, globalAxiosConfig);
+      const leaderboardPage: LeaderboardPage = response.data as LeaderboardPage;
+      setLeaderboard(leaderboardPage);
+      log('Leaderboard page: ', leaderboardPage);
+    } catch (error) {
+      console.error('Error fetching leaderboard:', error);
+    }
   }
 
   static async getUserLeaderboard() {
-    const response = await axios.get(`${baseApiUrl}/leaderboard/user`);
-    const leaderboardPage: LeaderboardPage = response.data as LeaderboardPage;
-    setUserLeaderboard(leaderboardPage);
+    try {
+      const response = await axios.get(`${baseApiUrl}/leaderboard/user`, globalAxiosConfig);
+      const leaderboardPage: LeaderboardPage = response.data as LeaderboardPage;
+      setUserLeaderboard(leaderboardPage);
+    } catch (error) {
+      console.error('Error fetching leaderboard:', error);
+    }
   }
 
   static async getBridgeLeaderboard() {
-    const response = await axios.get(`${baseApiUrl}/leaderboard/bridge`);
-    const result: BridgeLeaderboardPage = response.data as BridgeLeaderboardPage;
-    setBridgeLeaderboard(this.appendBridgeAdditionalData(result.bridgingEntries));
+    try {
+      const response = await axios.get(`${baseApiUrl}/leaderboard/bridge`, globalAxiosConfig);
+      const result: BridgeLeaderboardPage = response.data as BridgeLeaderboardPage;
+      setBridgeLeaderboard(this.appendBridgeAdditionalData(result.bridgingEntries));
+    } catch (error) {
+      console.error('Error fetching leaderboard:', error);
+    }
   }
 
   static appendBridgeAdditionalData(page: BridgeData[]) {
