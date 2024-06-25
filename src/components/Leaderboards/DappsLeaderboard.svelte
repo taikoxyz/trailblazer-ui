@@ -75,6 +75,21 @@
       handle: '@Orbiter_Finance',
       icon: 'orbiter.png',
     },
+    '0x4D1E2145082d0AB0fDa4a973dC4887C7295e21aB': {
+      name: 'RubyScore',
+      handle: '@RubyScore',
+      icon: 'dapps/rubyscore.svg',
+    },
+    '0x019D7bA2E124799Feef405133FE62371108745d6': {
+      name: 'DTX.TRADE',
+      handle: '@0xdtx',
+      icon: 'dapps/dtx-trade.svg',
+    },
+    '0x34723B92aE9708BA33843120A86035D049dA7dfA': {
+      name: '0xAstra',
+      handle: '@0xAstra_xyz',
+      icon: 'dapps/0xastra.svg',
+    },
   };
 
   $: itemsToDisplay = $currentLeaderboard.items.filter((entry) => !filterList[entry.address]);
@@ -131,6 +146,11 @@
           <td class="lg:px-10 body-regular">{formatNumbers(Math.round(entry.score))}</td>
         </tr>
       {/each}
+      {#if itemsToDisplay.length === 0}
+        <tr class="row h-12">
+          <td class="lg:px-10" colspan="3">No data available</td>
+        </tr>
+      {/if}
     </tbody>
   </table>
 </div>
