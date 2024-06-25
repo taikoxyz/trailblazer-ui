@@ -2,12 +2,12 @@ import axios from 'axios';
 import { zeroAddress } from 'viem';
 
 import { PUBLIC_TRAILBLAZER_API_URL } from '$env/static/public';
+import { globalAxiosConfig } from '$libs/api/axiosConfig';
 import { isDevelopmentEnv } from '$libs/util/isDevelopmentEnv';
 import { getLogger } from '$libs/util/logger';
 import { setBridgeLeaderboard, setLeaderboard, setUserLeaderboard } from '$stores/leaderboard';
 
 import type { BridgeData, BridgeLeaderboardPage, LeaderboardPage } from './types';
-import { globalAxiosConfig } from '$libs/api/axiosConfig';
 
 const baseApiUrl = isDevelopmentEnv ? '/mock-api' : PUBLIC_TRAILBLAZER_API_URL;
 

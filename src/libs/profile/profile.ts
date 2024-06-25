@@ -4,6 +4,7 @@ import { get } from 'svelte/store';
 
 // import type { Address } from 'viem';
 import { PUBLIC_TRAILBLAZER_API_URL } from '$env/static/public';
+import { globalAxiosConfig } from '$libs/api/axiosConfig';
 // import getMovement from '$libs/badges/getMovement';
 import { isDevelopmentEnv } from '$libs/util/isDevelopmentEnv';
 import { getLogger } from '$libs/util/logger';
@@ -11,7 +12,6 @@ import { wagmiConfig } from '$libs/wagmi';
 import { currentProfile } from '$stores/profile';
 
 import type { UserLevel, UserPointHistoryPage, UserProfile } from './types';
-import { globalAxiosConfig } from '$libs/api/axiosConfig';
 
 const log = getLogger('Profile');
 
