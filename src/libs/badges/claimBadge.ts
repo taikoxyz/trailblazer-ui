@@ -9,20 +9,17 @@ import isSignatureValid from './isSignatureValid';
 import mint from './mint';
 
 export default async function claimBadge(address: Address, factionId: FACTIONS) {
-  let signature: IContractData;
+  let signature: IContractData | undefined;
   try {
     const res = await getMintSignature(address, factionId);
     signature = res.signature;
   } catch (e: any) {
-    if (e.message === 'invalid BigInt syntax') {
-      throw new Error('Invalid mint signature');
-    } else {
-      throw new Error('Failed to fetch mint signature');
-    }
+    console.error('getMintSignature Error', e);
+    throw new Error('Failed to fetch mint signature');
   }
 
-  const isValid = await isSignatureValid(signature, address, factionId);
-  if (!isValid) throw new Error('Invalid mint signature');
+  const isValidSigner = await isSignatureValid(signature, address, factionId);
+  if (!isValidSigner) throw new Error('Cannot verify signature origin.');
 
   try {
     await mint(address, factionId, signature);
