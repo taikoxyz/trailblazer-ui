@@ -6,7 +6,7 @@
 
   export let carouselItems: CarouselItem[] = [
     {
-      id: '6',
+      id: '1',
       title: 'Crack & Stack',
       description:
         'Top-down multiplayer game. Enter the Ethereum mines, set traps, mine ores, escape the goblins and escape with your loot.',
@@ -17,40 +17,7 @@
       link: 'https://crackandstack.com/',
     },
     {
-      id: '1',
-      title: 'Zypher z2048',
-      description:
-        'Immerse in z2048, a strategic on-chain game blending classic 2048 with fair, scalable gameplay via Zypher’s UZKGE.',
-      image: '/games/zyphergames.png',
-      publishDate: new Date(),
-      readTime: 1,
-      tag: '',
-      link: 'https://zypher.game/2048/',
-    },
-    {
       id: '2',
-      title: 'Swords and Dungeons',
-      description:
-        'Swords and Dungeons is the first multi-chain MMORPG. It is a vast world with rich gameplay, NFTs, and dynamic economic models.',
-      image: '/games/swordsanddungeons.png',
-      publishDate: new Date(),
-      readTime: 1,
-      tag: '',
-      link: 'https://swnd.io/',
-    },
-    {
-      id: '3',
-      title: 'Stupid Monkeys',
-      description:
-        'Welcome to StupidMonkeys Realm Hero, where dynamic NFTs bring your monkeys to life! Level up, evolve, and conquer in thrilling PvP battles to claim your title as the Hero of the MonkeyRealm!',
-      image: '/games/stupidmonkeys.png',
-      publishDate: new Date(),
-      readTime: 1,
-      tag: '',
-      link: 'https://www.stupidmonkeys.co/',
-    },
-    {
-      id: '4',
       title: 'Looper Lands',
       description:
         'LooperLands is a free-to-play community-pixelverse. Traverse between captivating creator made worlds, each with its own complete stories and unique minigames.',
@@ -61,7 +28,40 @@
       link: 'https://looperlands.io/',
     },
     {
+      id: '3',
+      title: 'Ultiverse',
+      description:
+        'Ulti-Pilot is envisioned to be the immersive gateway to the diverse gaming experiences within Ultiverse, all powered by the advanced AI technology of the Bodhi Protocol. Users will create an agent and get to explore different Micro World scenes in Ulti-Pilot, earning random/exclusive rewards. Each Micro World scene can be explored once per day. Currently it is free to explore on Ulti-Pilot.',
+      image: '/games/ultiverse.png',
+      publishDate: new Date(),
+      readTime: 1,
+      tag: '',
+      link: 'https://pilot.ultiverse.io/',
+    },
+    {
+      id: '4',
+      title: 'Zypher z2048',
+      description:
+        'Immerse in z2048, a strategic on-chain game blending classic 2048 with fair, scalable gameplay via Zypher’s UZKGE.',
+      image: '/games/zyphergames.png',
+      publishDate: new Date(),
+      readTime: 1,
+      tag: '',
+      link: 'https://zypher.game/2048/',
+    },
+    {
       id: '5',
+      title: '0xAstra',
+      description:
+        '0xAstra is an onchain SLG game, where you harness cross-chain resources with bridge technology to build and defend your cosmic homeland. Strategize, expand, and dominate in this interstellar conquest.',
+      image: '/games/0xastra.svg',
+      publishDate: new Date(),
+      readTime: 1,
+      tag: '',
+      link: 'https://0xastra.xyz/',
+    },
+    {
+      id: '6',
       title: 'EVM Warfare',
       description:
         'Fight, Earn, Dominate. Thrilling third-person shooter powered by Unreal Engine 5. Dominate deathmatches, claim instant rewards based on performance.',
@@ -73,6 +73,17 @@
     },
     {
       id: '7',
+      title: 'Stupid Monkeys',
+      description:
+        'Welcome to StupidMonkeys Realm Hero, where dynamic NFTs bring your monkeys to life! Level up, evolve, and conquer in thrilling PvP battles to claim your title as the Hero of the MonkeyRealm!',
+      image: '/games/stupidmonkeys.png',
+      publishDate: new Date(),
+      readTime: 1,
+      tag: '',
+      link: 'https://www.stupidmonkeys.co/',
+    },
+    {
+      id: '8',
       title: '21BJ',
       description:
         '21BJ is a free-to-play Fantasy Casino Mobile Game, merging the thrill of casino games with the immersive elements of a strategic RPG-influenced journey.',
@@ -82,16 +93,17 @@
       tag: '',
       link: 'https://21bj.io/',
     },
+
     {
-      id: '8',
-      title: '0xAstra',
+      id: '9',
+      title: 'Swords and Dungeons',
       description:
-        '0xAstra is an onchain SLG game, where you harness cross-chain resources with bridge technology to build and defend your cosmic homeland. Strategize, expand, and dominate in this interstellar conquest.',
-      image: '/games/0xastra.svg',
+        'Swords and Dungeons is the first multi-chain MMORPG. It is a vast world with rich gameplay, NFTs, and dynamic economic models.',
+      image: '/games/swordsanddungeons.png',
       publishDate: new Date(),
       readTime: 1,
       tag: '',
-      link: 'https://0xastra.xyz/',
+      link: 'https://swnd.io/',
     },
   ];
 </script>
