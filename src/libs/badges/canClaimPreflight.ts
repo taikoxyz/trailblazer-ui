@@ -3,6 +3,7 @@ import type { Address } from 'viem';
 
 import { PUBLIC_TRAILBLAZER_API_URL } from '$env/static/public';
 import { isDevelopmentEnv } from '$libs/util/isDevelopmentEnv';
+import { globalAxiosConfig } from '$libs/api/axiosConfig';
 
 export default async function canClaimPreflight(address: Address, badgeId: number): Promise<boolean> {
   if (isDevelopmentEnv) {
@@ -15,6 +16,7 @@ export default async function canClaimPreflight(address: Address, badgeId: numbe
         address: address,
         badgeId: badgeId,
       },
+      ...globalAxiosConfig,
     });
     const json = res.data;
 

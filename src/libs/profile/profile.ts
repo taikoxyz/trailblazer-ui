@@ -11,6 +11,7 @@ import { wagmiConfig } from '$libs/wagmi';
 import { currentProfile } from '$stores/profile';
 
 import type { UserLevel, UserPointHistoryPage, UserProfile } from './types';
+import { globalAxiosConfig } from '$libs/api/axiosConfig';
 
 const log = getLogger('Profile');
 
@@ -115,7 +116,7 @@ export class Profile {
     }
 
     if (address) {
-      const { data } = await axios.get(`${baseApiUrl}/user/rank`, { params: { address } });
+      const { data } = await axios.get(`${baseApiUrl}/user/rank`, { params: { address }, ...globalAxiosConfig });
       const userProfile: UserProfile = data as UserProfile;
 
       log('User Profile: ', userProfile);

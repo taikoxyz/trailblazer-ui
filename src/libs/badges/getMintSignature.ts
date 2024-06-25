@@ -11,6 +11,7 @@ import type { IContractData } from '$types';
 
 import { trailblazersBadgesAbi, trailblazersBadgesAddress } from '../../generated/abi';
 import { mockSignHash } from './getMockMintSignature';
+import { globalAxiosConfig } from '$libs/api/axiosConfig';
 
 async function signHash(
   config: typeof wagmiConfig,
@@ -35,6 +36,7 @@ async function signHash(
         headers: {
           'Content-Type': 'application/json',
         },
+        ...globalAxiosConfig,
       },
     );
 
