@@ -9,7 +9,7 @@ import isSignatureValid from './isSignatureValid';
 import mint from './mint';
 
 export default async function claimBadge(address: Address, factionId: FACTIONS) {
-  let signature: IContractData | undefined;
+  let signature: IContractData;
   try {
     const res = await getMintSignature(address, factionId);
     signature = res.signature;
