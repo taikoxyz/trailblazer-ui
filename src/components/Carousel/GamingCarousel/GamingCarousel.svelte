@@ -29,9 +29,9 @@
     },
     {
       id: '3',
-      title: 'Ultiverse',
+      title: 'Ulti-Pilot',
       description:
-        'Ulti-Pilot is envisioned to be the immersive gateway to the diverse gaming experiences within Ultiverse, all powered by the advanced AI technology of the Bodhi Protocol. Users will create an agent and get to explore different Micro World scenes in Ulti-Pilot, earning random/exclusive rewards. Each Micro World scene can be explored once per day. Currently it is free to explore on Ulti-Pilot.',
+        'Explore Ultiverse with Ulti-Pilot, powered by Bodhi AI. Create agents, explore daily, and earn rewards. Free access now.',
       image: '/games/ultiverse.png',
       publishDate: new Date(),
       readTime: 1,
