@@ -41,7 +41,7 @@
   </div>
 
   <div class="mb-[80px]">
-    <div class="flex gap-4 justify-end h-full bottom-0">
+    <div class="flex gap-4 justify-center xl:justify-end h-full bottom-0">
       <button class="f-center btn-circle border border-primary-brand" on:click={scrollLeft}>
         <Icon class="-translate-x-[2px]" type="chevron-left" />
       </button>
