@@ -5,12 +5,20 @@
   import { currentLeaderboard } from '$stores/leaderboard';
 
   import DappsHeader from './Header/DappsHeader.svelte';
+
+  import Paginator from '$components/Paginator/Paginator.svelte';
+  // import { getLogger } from '$libs/util/logger';
+  import { Leaderboard, type PaginationInfo } from '$libs/leaderboard';
+
+  // const log = getLogger('BridgeLeaderboard');
+
+  export let pageInfo: PaginationInfo;
+
+  $: pageSize = pageInfo?.size || 10;
+  $: totalItems = pageInfo?.total || 0;
+
   let headers = ['Dapp', 'Address', 'Points'];
-  // 0xE4eDb277e41dc89aB076a1F049f4a3EfA700bCE8 orbiter finance
-  // 0x5e809A85Aa182A9921EDD10a4163745bb3e36284 owlto finance
-  // 0xD57b9EE8f597801e82018ed44e07E9065645B0c1 snaefell nft
-  // 0x07d83526730c7438048D55A4fc0b850e2aaB6f0b usdc
-  // 0xA9d23408b9bA935c230493c40C73824Df71A0975 TAIKO
+
   interface MappingValue {
     name: string;
     handle: string;
@@ -92,11 +100,26 @@
     },
   };
 
+  function handlePageChange(selectedPage: number) {
+    loadLeaderboardData(selectedPage);
+  }
+
+  async function loadLeaderboardData(page: number) {
+    // Fetch the leaderboard data for the given page
+    const args: PaginationInfo = {
+      page,
+      size: pageSize,
+    };
+    const pageInfo = await Leaderboard.getDappLeaderboard(args);
+    totalItems = pageInfo.total || $currentLeaderboard.items.length;
+  }
+
   $: itemsToDisplay = $currentLeaderboard.items.filter((entry) => !filterList[entry.address]);
 </script>
 
 <div class="overflow-x-auto lg:w-full px-8 mt-[18%] lg:mt-0 space-y-[60px]">
   <DappsHeader />
+
   <table class="table-lg w-full body-regular text-white rounded-3xl" style="background: rgba(25, 30, 40, .50)">
     <!-- head -->
     <thead>
@@ -111,6 +134,7 @@
         {@const hasName = mapping[entry.address] && mapping[entry.address].name}
         {@const hasHandle = mapping[entry.address] && mapping[entry.address].handle}
         {@const hasIcon = mapping[entry.address] && mapping[entry.address].icon}
+
         <tr class="row h-12">
           <td class="lg:px-10">
             <div class="flex gap-[20px] align-center">
@@ -153,4 +177,5 @@
       {/if}
     </tbody>
   </table>
+  <Paginator {pageSize} bind:totalItems on:pageChange={({ detail: selectedPage }) => handlePageChange(selectedPage)} />
 </div>
