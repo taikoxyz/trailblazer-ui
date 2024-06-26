@@ -126,11 +126,7 @@
       </div>
     {:else if canClick}
       <div class={buttonWrapperClasses}>
-        <ActionButton
-          priority="primary"
-          on:click={handleClaimClick}
-          disabled={isClaiming || !claimable}
-          loading={isClaiming}>
+        <ActionButton priority="primary" on:click={handleClaimClick} disabled={!claimable} loading={isClaiming}>
           {buttonText}
         </ActionButton>
       </div>
