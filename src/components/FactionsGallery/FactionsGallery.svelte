@@ -3,6 +3,8 @@
 
   import { type GalleryItem } from './types';
 
+  export let carouselElement: HTMLDivElement;
+
   export let items: GalleryItem[] = [
     {
       image: '/factions/gallery/raver.png',
@@ -66,7 +68,8 @@
 
 <div class="max-w-full h-[500px] xl:h-auto">
   <div
-    class="flex gap-[25px] xl:ml-0 w-full overflow-x-scroll xl:overflow-scroll xl:overflow-y-visible py-0 px-0 hide-scrollbar xl:px-0 xl:py-4">
+    bind:this={carouselElement}
+    class="carousel flex gap-[25px] xl:ml-0 w-full overflow-x-scroll xl:overflow-scroll xl:overflow-y-visible py-0 px-0 hide-scrollbar xl:px-0 xl:py-[60px]">
     <!-- Cards -->
     {#each items as item, i}
       {#if i == 0}
