@@ -3,7 +3,7 @@
   import { type Address } from 'viem';
 
   import ActionButton from '$components/Button/ActionButton.svelte';
-  import { errorToast } from '$components/NotificationToast';
+  import { errorToast, successToast } from '$components/NotificationToast';
   import { type FactionNames, FACTIONS } from '$configs/badges';
   import canClaimPreflight from '$libs/badges/canClaimPreflight';
   import claimBadge from '$libs/badges/claimBadge';
@@ -32,7 +32,11 @@
 
   async function safeClaimBadge() {
     try {
-      await claimBadge(address, FACTIONS[name]);
+      const txHash = await claimBadge(address, FACTIONS[name]);
+      successToast({
+        title: 'Badge Claimed',
+        message: $t('common.badge_claimed', { values: { txHash } }),
+      });
       unlocked = true;
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (e: any) {

@@ -17,7 +17,8 @@
     "claim": "Claim",
     "claiming": "Claiming",
     "locked": "Locked",
-    "not_eligible": "Not eligible"
+    "not_eligible": "Not eligible",
+    "badge_claimed": "<a target=\"_blank\" href=\"https://taikoscan.io/tx/{txHash}\">Click here to see your transaction on Taikoscan</a>"
   },
   "factions": {
     "gallery": {
