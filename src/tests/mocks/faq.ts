@@ -41,8 +41,8 @@ export const MOCK_FAQS: FAQType[] = [
     answer: 'Transaction Value points can be earned for transactions involving USDC, WETH, TAIKO, and USDT.',
   },
   {
-    question: 'Why are my Galaxe points not showing on Trailblazers?',
+    question: 'Why are my Galxe points not showing on Trailblazers?',
     answer:
-      'There could be a delay in syncing points from Galaxe to Trailblazers. Ensure you have linked your accounts correctly and wait for the synchronization process to complete.',
+      'There could be a delay in syncing points from Galxe to Trailblazers. Ensure you have linked your accounts correctly and wait for the synchronization process to complete.',
   },
 ];
