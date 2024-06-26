@@ -1,6 +1,7 @@
 <script lang="ts">
   import { goto } from '$app/navigation';
   import Icon from '$components/Icon/Icon.svelte';
+  import { slide } from 'svelte/transition';
 
   import type { NavigationData } from './types';
 
@@ -14,6 +15,7 @@
 
 {#if Object.keys(children).length > 0}
   <div class="dropdown dropdown-hover dropdown-bottom rounded-full lg:bg-container">
+    <!-- Check if parent has a URL -->
     {#if navigation.url}
       <a
         class="hover:cursor-pointer rounded-full lg:bg-neutral-background lg:hover:bg-elevated-background px-[20px] py-[12px] f-center"
@@ -28,15 +30,21 @@
       </button>
     {/if}
     <ul
-      class="dropdown-delay dropdown-content bg-overlay-background opacity-100 -left-1/3 z-[1] menu p-4 mt-2 shadow rounded-box w-52 body-regular">
+      class="dropdown-delay dropdown-content bg-overlay-background opacity-100 z-[1] menu p-4 mt-2 shadow rounded-box w-52 body-regular">
       <!-- eslint-disable-next-line @typescript-eslint/no-unused-vars -->
       {#each Object.entries(children) as [key, value]}
         <li>
           {#if value.url}
+            {#if value.icon}
+              <Icon type={value.icon} />
+            {/if}
             <a href={value.url} class="flex items-center gap-4">{value.name}</a>
           {:else if value.route !== undefined}
             {@const route = value.route || ''}
             <button on:click={() => goto(route)} class="flex items-center gap-4 hover:cursor-pointer">
+              {#if value.icon}
+                <Icon type={value.icon} />
+              {/if}
               {value.name}
             </button>
           {/if}

@@ -41,10 +41,16 @@
           <NavigationItem
             navigation={{ name: 'Leaderboards', route: '/leaderboard/dapp' }}
             children={[
-              { name: 'Bridge', route: '/leaderboard/bridge' },
-              { name: 'Dapp', route: '/leaderboard/dapp' },
+              { name: 'Bridge', route: '/leaderboard/bridge', icon: 'quad-circles' },
+              { name: 'Dapp', route: '/leaderboard/dapp', icon: 'semi-circle-reversed' },
             ]}></NavigationItem>
-          <NavigationItem navigation={{ name: 'Discover', url: 'https://taiko.xyz/ecosystem' }}></NavigationItem>
+          <NavigationItem
+            navigation={{ name: 'Discover' }}
+            children={[
+              { name: 'About', route: '/about', icon: 'nav-about' },
+              { name: 'Ecosystem', route: 'https://taiko.xyz/ecosystem', icon: 'nav-ecosystem' },
+              { name: 'Bridge', route: 'https://bridge.taiko.xyz', icon: 'nav-bridge' },
+            ]}></NavigationItem>
         </div>
       </div>
       <div class="hidden xl:flex">
