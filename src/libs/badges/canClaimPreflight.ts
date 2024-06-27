@@ -5,10 +5,16 @@ import { PUBLIC_TRAILBLAZER_API_URL } from '$env/static/public';
 import { globalAxiosConfig } from '$libs/api/axiosConfig';
 import { isDevelopmentEnv } from '$libs/util/isDevelopmentEnv';
 
+import { estimateClaimGas } from './estimateClaimGas';
+
 export default async function canClaimPreflight(address: Address, badgeId: number): Promise<boolean> {
   if (isDevelopmentEnv) {
     return true;
   }
+
+  const gasCost = estimateClaimGas(address);
+  console.log({gasCost})
+
   try {
     const url = `${PUBLIC_TRAILBLAZER_API_URL}/faction/whitelist`;
     const res = await axios.get(url, {

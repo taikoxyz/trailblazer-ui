@@ -14,7 +14,8 @@
   import { isMintDisclaimerAccepted, mintDisclaimerModal } from '$stores/modal';
 
   import FactionImage from './FactionImage.svelte';
-
+  import { fade } from 'svelte/transition';
+  import { claimGalxePointsAbi } from '../../generated/abi';
   export let name: FactionNames;
   export let unlocked: boolean = false;
   export let address: Address;
@@ -74,6 +75,7 @@
 
   // CSS classes
   $: wrapperClasses = classNames(
+    'relative',
     'overflow-hidden',
     'flex',
     'w-full',
@@ -94,41 +96,97 @@
     'overflow-hidden',
   );
 
-  $: imageWrapperClasses = classNames(
-    'w-full',
-    'f-col',
-    'items-center',
+  $: imageWrapperClasses = classNames('w-full', 'f-col', 'items-center', !unlocked ? 'blur-md' : null);
 
-    !unlocked ? 'blur-md' : null,
-  );
 
-  const weekBadgeClasses = classNames(
-    'absolute',
-    'top-4',
-    'right-4',
+  const badgeClasses = classNames(
+'absolute',
+
     'badge',
     'py-[15px]',
     'px-[12px]',
-    'text-[14px]/[20px]',
+    'text-[16px]/[24px]',
     'font-[700]',
     'border-transparent',
     'bg-[rgba(0,0,0,.4)]',
+  )
+  const weekBadgeClasses = classNames(
+    badgeClasses,
+    'top-6',
+    'right-4',
+  );
+
+  const lockedBadgeNameClasses = classNames(
+    badgeClasses,
+    'top-6',
+    'left-4'
   );
 
   const buttonWrapperClasses = classNames('absolute bottom-8 place-self-center w-full px-6');
+
+  $: hovered = false;
+  const tooltipClasses = classNames(
+    'absolute',
+    'w-full',
+    'h-full',
+    'top-0',
+    'left-0',
+    'flex',
+    'justify-center',
+    'items-center',
+  );
+
+  const hoveredDescriptionClasses = classNames(
+    'w-full',
+    'h-full',
+    'flex',
+    'justify-center',
+    'items-center',
+    'text-center',
+    'flex-col',
+    'px-4',
+    'text-white',
+    'absolute'
+  )
 </script>
 
-<div class={wrapperClasses}>
+<!-- svelte-ignore a11y-interactive-supports-focus -->
+<div
+  class={wrapperClasses}
+  on:mouseenter={() => (hovered = true)}
+  on:mouseleave={() => (hovered = false)}
+  role="button">
   <div class={contentWrapperClasses}>
     <div class={imageWrapperClasses}>
       <FactionImage {movement} {unlocked} type={name} />
     </div>
+    {#if hovered}
+      <div transition:fade class={tooltipClasses}>
+        <div class={classNames('absolute', 'top-0', 'left-0', 'w-full', 'h-full', 'bg-secondary', 'opacity-60')}></div>
 
-    {#if unlocked}
-      <div class={weekBadgeClasses}>
-        Week {FACTIONS[name] + 1}
+          {#if !unlocked}
+          <div class={lockedBadgeNameClasses}>
+
+            {name}
+          </div>
+
+          {/if}
+
+        <div class={hoveredDescriptionClasses}>
+          {#if !unlocked && claimable}
+            This is a locked and claimable badge. Click claim to proceed.
+          {:else if unlocked}
+            This is the description for the {name} badge.
+          {:else}
+            You are not eligible to claim this badge.
+          {/if}
+        </div>
       </div>
-    {:else if canClick}
+    {/if}
+    <div class={weekBadgeClasses}>
+      Week {FACTIONS[name] + 1}
+    </div>
+    {#if canClick}
       <div class={buttonWrapperClasses}>
         <ActionButton priority="primary" on:click={handleClaimClick} disabled={!claimable} loading={isClaiming}>
           {buttonText}
