@@ -1,6 +1,7 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
   import { t } from 'svelte-i18n';
+
   import { Icon } from '$components/Icon';
 
   export let currentPage = 1;

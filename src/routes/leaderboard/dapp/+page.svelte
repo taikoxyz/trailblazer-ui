@@ -1,11 +1,12 @@
 <script lang="ts">
   import { t } from 'svelte-i18n';
+
   import { goto } from '$app/navigation';
+  import { page } from '$app/stores';
   import { ActionButton } from '$components/Button';
   import { DappsLeaderboard } from '$components/Leaderboards';
   import { Page } from '$components/Page';
   import type { PaginationInfo } from '$libs/leaderboard';
-  import { page } from '$app/stores';
 
   let pageInfo: PaginationInfo = $page.data.pageInfo;
 

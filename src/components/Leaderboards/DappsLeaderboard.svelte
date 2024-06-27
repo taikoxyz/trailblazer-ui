@@ -1,14 +1,13 @@
 <script lang="ts">
   import ExplorerLink from '$components/Links/ExplorerLink.svelte';
   import { Skeleton } from '$components/Mock';
+  import Paginator from '$components/Paginator/Paginator.svelte';
+  // import { getLogger } from '$libs/util/logger';
+  import { Leaderboard, type PaginationInfo } from '$libs/leaderboard';
   import { formatNumbers } from '$libs/util/formatNumbers';
   import { currentLeaderboard } from '$stores/leaderboard';
 
   import DappsHeader from './Header/DappsHeader.svelte';
-
-  import Paginator from '$components/Paginator/Paginator.svelte';
-  // import { getLogger } from '$libs/util/logger';
-  import { Leaderboard, type PaginationInfo } from '$libs/leaderboard';
 
   // const log = getLogger('BridgeLeaderboard');
 
