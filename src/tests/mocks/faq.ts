@@ -41,8 +41,36 @@ export const MOCK_FAQS: FAQType[] = [
     answer: 'Transaction Value points can be earned for transactions involving USDC, WETH, TAIKO, and USDT.',
   },
   {
-    question: 'Why are my Galxe points not showing on Trailblazers?',
+    question: 'Why are my Galaxe points not showing on Trailblazers?',
     answer:
-      'There could be a delay in syncing points from Galxe to Trailblazers. Ensure you have linked your accounts correctly and wait for the synchronization process to complete.',
+      'There could be a delay in syncing points from Galaxe to Trailblazers. Ensure you have linked your accounts correctly and wait for the synchronization process to complete.',
+  },
+  {
+    question: 'What are the point limits?',
+    answer:
+      'To enhance your experience and add excitement, we have chosen not to disclose the daily XP limits for each activity. We encourage you to participate in the activities and discover the XP limits on your own.',
+  },
+  {
+    question: 'If I provide liquidity, how will my points be calculated? (daily, just once?)',
+    answer:
+      'See Mirror article (https://taiko.mirror.xyz/589CthdX0Qw-hRBeZarEQpjck-v4lJ-gtKz3SZvovt8), we will consider the following activities to help you collect XPs:\n\n- Bridging (ETH)\n- Bridging (ERC20)\n- Transaction Volume\n- Transaction Count (any kind of transaction counts)\n- Block Proposals.\n\nThis means that providing liquidity will not give you any XPs.',
+  },
+  {
+    question: 'What are level quotas?',
+    answer: 'Our leaderboard is based on percentiles which change based on participants.',
+  },
+  {
+    question: 'Does WETH/ETH unwrap give points?',
+    answer: 'Give it a shot—it only costs a few cents to check and see for yourself! :)',
+  },
+  {
+    question: 'Are the multipliers active?',
+    answer:
+      'No, multipliers are not active yet, but they will be implemented in the future, and your points will be multiplied according to the NFTs you hold.',
+  },
+  {
+    question: 'Where can I buy NFTs which give multipliers?',
+    answer:
+      'Taikoons - https://www.okx.com/web3/marketplace/nft/collection/taiko/taikoon\n\nFaction Badges - https://www.okx.com/ua/web3/marketplace/nft/collection/taiko/trailblazers-badges\n\nSnaefell are SBTs, meaning you can neither buy nor sell them.',
   },
 ];
