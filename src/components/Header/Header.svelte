@@ -42,7 +42,7 @@
             navigation={{ name: 'Leaderboards', route: '/leaderboard/dapp' }}
             children={[
               { name: 'Bridge', route: '/leaderboard/bridge', icon: 'quad-circles' },
-              { name: 'Dapp', route: '/leaderboard/dapp', icon: 'semi-circle-reversed' },
+              { name: 'Dapp', route: '/leaderboard/dapp', icon: 'star2' },
             ]}></NavigationItem>
           <NavigationItem
             navigation={{ name: 'Discover' }}
