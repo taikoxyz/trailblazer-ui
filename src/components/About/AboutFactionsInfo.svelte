@@ -1,10 +1,8 @@
-<script lang="ts">
-  import FactionStack from '$images/faction-stack.png';
-</script>
+<script lang="ts"></script>
 
 <div class="flex flex-col xl:flex-row gap-3 w-full px-5">
   <!-- Image -->
-  <img class="-mt-24 xl:m-0" src={FactionStack} alt="{FactionStack}/" />
+  <img class="-mt-24 xl:m-0" src="/faction-stack.png" alt="faction-stack" />
   <!-- Details -->
   <div class="flex flex-col rounded-[30px] bg-purple w-full px-[24px] py-[30px] xl:px-[40px] xl:py-[32px]">
     <div class="text-secondary-content flex flex-col w-fit gap-3 pb-[20px] xl:pb-[55px]">

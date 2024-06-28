@@ -1,5 +1,4 @@
 <script lang="ts">
-  import MediumIcon from '$images/medium-icon.svg';
 </script>
 
 <div class="w-full flex justify-center pb-[30px]">
@@ -36,7 +35,7 @@
         class="text-secondary-content hover:text-primary-content flex items-center justify-center gap-4 px-auto lg:py-7 rounded-2xl bg-neutral border border-transparent hover:border-primary-brand"
         href="https://taiko.mirror.xyz/"
         target="_blank">
-        <img class="size-[25px] lg:scale-100" src={MediumIcon} alt="mirror" />
+        <img class="size-[25px] lg:scale-100" src="/medium-icon.svg" alt="mirror" />
         <div class="social-media-text hidden lg:flex text-primary-content">mirror</div>
       </a>
       <a

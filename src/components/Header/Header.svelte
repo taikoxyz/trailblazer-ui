@@ -2,8 +2,6 @@
   import { ConnectButton } from '$components/ConnectButton';
   import { LogoWithText, TaikoTrailblazersLogo } from '$components/Logo';
   import { MobileNavigation } from '$components/MobileNavigation';
-  import HamburgerIcon from '$images/hamburger.svg';
-  import XIcon from '$images/x.svg';
 
   import NavigationItem from './NavigationItem.svelte';
 
@@ -23,9 +21,9 @@
         on:click={toggleMobileMenu}>
         <!-- <span class="indicator-item badge badge-xs {$account?.isConnected ? 'badge-primary' : 'badge-accent'}"></span> -->
         {#if !mobileMenu}
-          <img src={HamburgerIcon} alt="menu" />
+          <img src="/hamburger.svg" alt="menu" />
         {:else}
-          <img src={XIcon} alt="menu" />
+          <img src="/x.svg" alt="menu" />
         {/if}
       </button>
       <div class="f-center hidden lg:flex gap-2">
