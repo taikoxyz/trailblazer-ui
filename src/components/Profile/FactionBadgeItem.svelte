@@ -16,6 +16,7 @@
   import FactionImage from './FactionImage.svelte';
   import { fade } from 'svelte/transition';
   import { claimGalxePointsAbi } from '../../generated/abi';
+  import { estimateClaimGas } from '$libs/badges/estimateClaimGas';
   export let name: FactionNames;
   export let unlocked: boolean = false;
   export let address: Address;
@@ -66,6 +67,9 @@
 
   async function claimPreflight() {
     if (!connectedAddress) return;
+    console.log('claimPreflight', address, FACTIONS[name])
+    const gasCost = await estimateClaimGas(FACTIONS[name])
+    console.log({gasCost})
     claimable = await canClaimPreflight(address, FACTIONS[name]);
   }
 
