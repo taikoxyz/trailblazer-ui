@@ -4,8 +4,8 @@
   import { goto } from '$app/navigation';
   import { ActionButton } from '$components/Button';
   import { FactionsGallery } from '$components/FactionsGallery';
-  import Title from '$components/Title/Title.svelte';
   import { Icon } from '$components/Icon';
+  import Title from '$components/Title/Title.svelte';
 
   const handleFactionsButton = () => {
     goto('/about');
