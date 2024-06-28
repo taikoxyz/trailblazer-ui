@@ -1,7 +1,6 @@
 <script lang="ts">
   import { goto } from '$app/navigation';
   import Icon from '$components/Icon/Icon.svelte';
-  import { slide } from 'svelte/transition';
 
   import type { NavigationData } from './types';
 
