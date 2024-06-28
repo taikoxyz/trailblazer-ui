@@ -41,7 +41,7 @@
 {#if $account?.isConnected}
   <button
     on:click={connectWallet}
-    class="rounded-full flex items-center pl-[8px] pr-[3px] md:max-h-[48px] max-h-[40px] min-h-[40px] wc-parent-glass !border-solid gap-2 font-bold">
+    class="rounded-full w-fit flex items-center pl-[8px] pr-[3px] md:max-h-[48px] max-h-[40px] min-h-[40px] wc-parent-glass !border-solid gap-2 font-bold py-1">
     <img
       alt="chain icon"
       class="w-[24px]"

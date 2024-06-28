@@ -1,9 +1,12 @@
 <script>
+  import { createEventDispatcher } from 'svelte';
   import { fly } from 'svelte/transition';
 
   import ConnectButton from '$components/ConnectButton/ConnectButton.svelte';
 
   import MobileNavigationLink from './MobileNavigationLink.svelte';
+
+  const dispatch = createEventDispatcher();
 </script>
 
 <!-- Overlay -->
@@ -18,15 +21,27 @@
     <!-- Links -->
 
     <div class="flex flex-col w-full gap-2">
-      <div class="collapse collapse-plus bg-neutral w-full rounded-box px-4">
-        <input type="radio" name="my-accordion-3" checked />
-        <div class="collapse-title title-subsection-bold">Trailblazers</div>
-        <div class="collapse-content bg-neutral w-full rounded-box flex flex-col gap-4">
-          <MobileNavigationLink on:navigate url="/" label="Home" />
-          <MobileNavigationLink on:navigate url="/profile" label="Profile" />
-          <MobileNavigationLink on:navigate url="/leaderboard/bridge" label="Leaderboard - Bridge" />
-          <MobileNavigationLink on:navigate url="/leaderboard/dapp" label="Leaderboard - Dapp" />
-        </div>
+      <button
+        class="bg-neutral w-full rounded-box p-[24px] hover:cursor-pointer text-start"
+        on:click={() => dispatch('navigate', { url: '/profile' })}>
+        <a href="/profile" class="font-clash-grotesk title-subsection-medium text-[22px]">Profile</a>
+      </button>
+    </div>
+    <div class="collapse collapse-plus bg-neutral w-full rounded-box px-4">
+      <input type="radio" name="my-accordion-1" />
+      <div class="collapse-title font-clash-grotesk title-subsection-medium text-[22px]">Leaderboard</div>
+      <div class="collapse-content bg-neutral w-full rounded-box flex flex-col gap-4">
+        <MobileNavigationLink on:navigate url="/leaderboard/bridge" label="Bridge" icon="quad-circles" />
+        <MobileNavigationLink on:navigate url="/leaderboard/dapp" label="Dapp" icon="star2" />
+      </div>
+    </div>
+    <div class="collapse collapse-plus bg-neutral w-full rounded-box px-4">
+      <input type="radio" name="my-accordion-1" />
+      <div class="collapse-title font-clash-grotesk title-subsection-medium text-[22px]">Discover</div>
+      <div class="collapse-content bg-neutral w-full rounded-box flex flex-col gap-4">
+        <MobileNavigationLink on:navigate url="/about" label="About" icon="nav-about" />
+        <MobileNavigationLink on:navigate url="https://taiko.xyz/ecosystem" label="Ecosystem" icon="nav-ecosystem" />
+        <MobileNavigationLink on:navigate url="https://bridge.taiko.xyz" label="Bridge" icon="nav-bridge" />
       </div>
     </div>
   </div>
