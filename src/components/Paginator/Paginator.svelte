@@ -7,12 +7,19 @@
   export let currentPage = 1;
   export let totalItems = 0;
   export let pageSize = 5;
+  export let maxPages = 1;
+  export let limitPages = false;
 
-  $: totalPages = Math.ceil(totalItems / pageSize);
+  $: totalPages = limitPages ? maxPages : Math.ceil(totalItems / pageSize);
 
   const dispatch = createEventDispatcher<{ pageChange: number }>();
 
   function goToPage(page: number) {
+    if (page < 1) {
+      page = 1;
+    } else if (page > totalPages) {
+      page = totalPages;
+    }
     currentPage = page;
     dispatch('pageChange', page);
   }
@@ -26,7 +33,7 @@
   const btnClass = 'btn btn-xs btn-ghost';
 </script>
 
-<div class="pagination btn-group pt-4">
+<div class="pagination btn-group">
   {#if currentPage !== 1}
     <button class={btnClass} on:click={() => goToPage(currentPage - 1)}> <Icon type="chevron-left" /></button>
   {/if}

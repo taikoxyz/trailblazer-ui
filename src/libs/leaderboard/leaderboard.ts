@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { zeroAddress } from 'viem';
 
+import bridgeAdditionalData from '$data/dapps/bridgeAdditionalData.json';
 import { PUBLIC_TRAILBLAZER_API_URL } from '$env/static/public';
 import { globalAxiosConfig } from '$libs/api/axiosConfig';
 import { isDevelopmentEnv } from '$libs/util/isDevelopmentEnv';
@@ -17,6 +18,7 @@ export class Leaderboard {
   // dapp leaderboard
   static async getDappLeaderboard(args: PaginationInfo): Promise<PaginationInfo> {
     try {
+      args.page = args.page - 1;
       const response = await axios.get<LeaderboardPage>(`${baseApiUrl}/leaderboard/dapp`, {
         ...globalAxiosConfig,
         params: args,
@@ -25,6 +27,7 @@ export class Leaderboard {
       setLeaderboard(leaderboardPage);
       log('Leaderboard page: ', leaderboardPage);
       const { page, size, total, total_pages, max_page } = leaderboardPage;
+
       return {
         first: page === 0,
         last: page === max_page,
@@ -60,73 +63,7 @@ export class Leaderboard {
   }
 
   static appendBridgeAdditionalData(page: BridgeData[]) {
-    const data: { [key: string]: { name: string; twitter: string; icon: string } } = {
-      Orbiter: {
-        name: 'Orbiter',
-        twitter: 'Orbiter_Finance',
-        icon: 'orbiter.png',
-      },
-      Owlto: {
-        name: 'Owlto',
-        twitter: 'Owlto_Finance',
-        icon: 'owlto.png',
-      },
-      Rhino: {
-        name: 'Rhino.Fi',
-        twitter: 'rhinofi',
-        icon: 'rhinofi.png',
-      },
-      Retrobridge: {
-        name: 'Retro Bridge',
-        twitter: 'Retro_bridge',
-        icon: 'retro.png',
-      },
-      XY: {
-        name: 'XY Finance',
-        twitter: 'Xyfinance',
-        icon: 'xy.svg',
-      },
-      Router: {
-        name: 'Router Protocol',
-        twitter: 'Routerprotocol',
-        icon: 'router.svg',
-      },
-      Pheasant: {
-        name: 'Pheasant Network',
-        twitter: 'pheasantnetwork',
-        icon: 'pheasant.png',
-      },
-      Comet: {
-        name: 'Comet',
-        twitter: 'Comet_Protocol',
-        icon: 'comet.svg',
-      },
-      Symbiosis: {
-        name: 'Symbiosis Finance',
-        twitter: 'Symbiosis_fi',
-        icon: 'symbiosis.svg',
-      },
-      BunnyFi: {
-        name: 'BunnyFi',
-        twitter: 'BunnyfiLabs',
-        icon: 'bunnyfi.svg',
-      },
-      Layerswap: {
-        name: 'Layerswap',
-        twitter: 'layerswap',
-        icon: 'layerswap.jpeg',
-      },
-      Minibridge: {
-        name: 'Minibridge',
-        twitter: 'Chaineye_tools',
-        icon: 'minibridge.jpeg',
-      },
-      Stargate: {
-        name: 'Stargate',
-        twitter: 'StargateFinance',
-        icon: 'stargate.jpeg',
-      },
-    };
+    const data: { [key: string]: { name: string; twitter: string; icon: string } } = bridgeAdditionalData;
 
     // loop through the items in page and add data to page
     page.map((item) => {
