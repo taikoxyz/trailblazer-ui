@@ -2,8 +2,6 @@
   import { ConnectButton } from '$components/ConnectButton';
   import { LogoWithText, TaikoTrailblazersLogo } from '$components/Logo';
   import { MobileNavigation } from '$components/MobileNavigation';
-  import HamburgerIcon from '$images/hamburger.svg';
-  import XIcon from '$images/x.svg';
 
   import NavigationItem from './NavigationItem.svelte';
 
@@ -23,9 +21,9 @@
         on:click={toggleMobileMenu}>
         <!-- <span class="indicator-item badge badge-xs {$account?.isConnected ? 'badge-primary' : 'badge-accent'}"></span> -->
         {#if !mobileMenu}
-          <img src={HamburgerIcon} alt="menu" />
+          <img src="/hamburger.svg" alt="menu" />
         {:else}
-          <img src={XIcon} alt="menu" />
+          <img src="/x.svg" alt="menu" />
         {/if}
       </button>
       <div class="f-center hidden lg:flex gap-2">
@@ -41,10 +39,16 @@
           <NavigationItem
             navigation={{ name: 'Leaderboards', route: '/leaderboard/dapp' }}
             children={[
-              { name: 'Bridge', route: '/leaderboard/bridge' },
-              { name: 'Dapp', route: '/leaderboard/dapp' },
+              { name: 'Bridge', route: '/leaderboard/bridge', icon: 'quad-circles' },
+              { name: 'Dapp', route: '/leaderboard/dapp', icon: 'star2' },
             ]}></NavigationItem>
-          <NavigationItem navigation={{ name: 'Discover', url: 'https://taiko.xyz/ecosystem' }}></NavigationItem>
+          <NavigationItem
+            navigation={{ name: 'Discover' }}
+            children={[
+              { name: 'About', route: '/about', icon: 'nav-about' },
+              { name: 'Ecosystem', route: 'https://taiko.xyz/ecosystem', icon: 'nav-ecosystem' },
+              { name: 'Bridge', route: 'https://bridge.taiko.xyz', icon: 'nav-bridge' },
+            ]}></NavigationItem>
         </div>
       </div>
       <div class="hidden xl:flex">
