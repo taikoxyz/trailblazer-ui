@@ -10,7 +10,11 @@ const config = {
   kit: {
     // https://kit.svelte.dev/docs/single-page-apps
     adapter: adapter(),
+    files: {
+      assets: 'src/static',
+    },
     alias: {
+      $data: './src/static/json/',
       '$components/*': './src/components/*',
       '$stores/*': './src/stores/*',
       $stores: './src/stores/index.ts',
@@ -21,7 +25,6 @@ const config = {
       $types: './src/types/index.ts',
       $mocks: './src/tests/mocks/index.ts',
       $abi: './src/abi/index.ts',
-      '$images/*': './src/public/images/*',
       '$fonts/*': './src/public/fonts/*',
       $chainConfig: './src/generated/chainConfig.ts',
       $customToken: './src/generated/customTokenConfig.ts',

@@ -1,8 +1,6 @@
 <script lang="ts">
   import { fade } from 'svelte/transition';
 
-  import PlayButton from '$images/play-button.svg';
-
   let time: number = 0;
   let duration: number | undefined;
   let paused: boolean = true;
@@ -57,7 +55,7 @@
     class="{showControls
       ? 'opacity-100 cursor-pointer'
       : 'opacity-50'} hover:opacity-100 absolute self-center justify-center left-[50%] z-10 {paused || 'hidden'}">
-    <img src={PlayButton} alt={PlayButton} />
+    <img src="/play-button.svg" alt="play-button" />
   </div>
 
   <div class="controls" style="opacity: {duration && showControls ? 1 : 0}">
