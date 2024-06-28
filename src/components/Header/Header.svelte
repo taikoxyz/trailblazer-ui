@@ -46,8 +46,8 @@
             navigation={{ name: 'Discover' }}
             children={[
               { name: 'About', route: '/about', icon: 'nav-about' },
-              { name: 'Ecosystem', route: 'https://taiko.xyz/ecosystem', icon: 'nav-ecosystem' },
-              { name: 'Bridge', route: 'https://bridge.taiko.xyz', icon: 'nav-bridge' },
+              { name: 'Ecosystem', url: 'https://taiko.xyz/ecosystem', icon: 'nav-ecosystem' },
+              { name: 'Bridge', url: 'https://bridge.taiko.xyz', icon: 'nav-bridge' },
             ]}></NavigationItem>
         </div>
       </div>
