@@ -1,9 +1,9 @@
 <script lang="ts">
-  import { LockIcon } from '$components/Icon';
+  import { Icon, LockIcon } from '$components/Icon';
 
   import { type GalleryItem } from './types';
 
-  export let carouselElement: HTMLDivElement;
+  let carouselElement: HTMLDivElement;
 
   export let items: GalleryItem[] = [
     {
@@ -64,7 +64,26 @@
       locked: false,
     },
   ];
+
+  function scrollLeft() {
+    carouselElement.scrollBy({ left: -1200, behavior: 'smooth' }); // Adjust -300 to the size of your carousel items or desired scroll amount
+  }
+
+  function scrollRight() {
+    carouselElement.scrollBy({ left: 1200, behavior: 'smooth' }); // Adjust 300 similarly
+  }
 </script>
+
+<div class="flex gap-4 justify-center xl:justify-end h-full bottom-0">
+  <button class="f-center btn-circle border border-primary-brand" on:click={scrollLeft}>
+    <Icon class="-translate-x-[2px]" type="chevron-left" />
+  </button>
+  <button
+    class="f-center btn-circle bg-primary-brand border-primary-brand hover:bg-primary-interactive-hover"
+    on:click={scrollRight}>
+    <Icon class="translate-x-[2px]" type="chevron-right" />
+  </button>
+</div>
 
 <div class="max-w-full h-[500px] xl:h-auto">
   <div

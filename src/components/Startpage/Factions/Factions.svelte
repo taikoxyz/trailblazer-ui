@@ -4,22 +4,11 @@
   import { goto } from '$app/navigation';
   import { ActionButton } from '$components/Button';
   import { FactionsGallery } from '$components/FactionsGallery';
-  import { Icon } from '$components/Icon';
   import Title from '$components/Title/Title.svelte';
 
   const handleFactionsButton = () => {
     goto('/about');
   };
-
-  let carouselElement: HTMLDivElement;
-
-  function scrollLeft() {
-    carouselElement.scrollBy({ left: -1200, behavior: 'smooth' }); // Adjust -300 to the size of your carousel items or desired scroll amount
-  }
-
-  function scrollRight() {
-    carouselElement.scrollBy({ left: 1200, behavior: 'smooth' }); // Adjust 300 similarly
-  }
 </script>
 
 <!-- Taiko Faction -->
@@ -40,19 +29,7 @@
     </div>
   </div>
 
-  <div class="mb-[80px]">
-    <div class="flex gap-4 justify-center xl:justify-end h-full bottom-0">
-      <button class="f-center btn-circle border border-primary-brand" on:click={scrollLeft}>
-        <Icon class="-translate-x-[2px]" type="chevron-left" />
-      </button>
-      <button
-        class="f-center btn-circle bg-primary-brand border-primary-brand hover:bg-primary-interactive-hover"
-        on:click={scrollRight}>
-        <Icon class="translate-x-[2px]" type="chevron-right" />
-      </button>
-    </div>
-    <FactionsGallery bind:carouselElement />
-  </div>
+  <FactionsGallery />
   <div class="f-center flex-col mb-[47px] space-y-[40px] xl:space-x-[88px]">
     <div class="max-w-[700px]">
       <div class="w-full">
