@@ -10,27 +10,27 @@
   const sources: Record<string, string[]> = {
     [FactionNames.Ravers]: [
       // neutral
-      'QmR16KhiFMBaK7oL4B15ADDiKsVdpE73biQec4814Nk9q6',
+      'bafybeib5k7vqni6iigzrldhq7emfansogqdg2lniaev7ha2qsj433puuay',
       // based
-      'QmWMmnLnVhXFw32zdY3thpkp1YHioHaj2hT9LDqjYZ7dKA',
+      'bafybeiantdftlxhy64zmsf522npqmd2ur3fvvbudy5o6vgmkw3kmlsdqxy',
       // boosted
-      'QmZR8eVG8htKacdgiMiwTQR9hVRoxfVQ92t6m6UHgfPaVe',
+      'bafybeieqjpwmheoxvngt7634a5p7zsvv74gn2i5ddyk7b4xkgeybcc7uuy',
     ],
     [FactionNames.Robots]: [
       // neutral
-      'QmTXxmsjCrE5rpnvX2c8TB8rJ3zFWFkD7KDpbnGrdMTb5S',
+      'bafybeigc73i4i5f3drbwhrztpy2tyhxpriduhae5ic7voqy7l5ngezucs4',
       // based
-      'QmYjwqtz2JqPoEgxM8UBCG3adTfVTA9PgEdUPQFCBxMSp2',
+      'bafybeihv6xsjtwybbumibwa6rimhd57ar2qy25etlk64d4k37m4xdaqeom',
       // boosted
-      'QmbZDdauwFP9fUbji7vb2xsxzdCB4cCBPyq1bpTkc1AJYL',
+      'bafybeigh6ow5366rf42l2wb5xcvgxxytuty4qcski47rhqtyfrs6l633jq',
     ],
     [FactionNames.Bouncers]: [
       // neutral
-      'QmcHDMMuSbYKXUdbLAfttcm5mMamtYKRUfXSVzp1SqsFGK',
+      'bafybeidjzeiwovs62xna36bpwjwc6kfku2yoemsqxomq3vvalz7sr4e7uq',
       // based
-      'QmQHHbqZGLnqxigHLRAdUP4FA5LoxyY3i2mjr8ojrXPRwj',
+      'bafybeieetylyaze564l4dqg64os73dgi2njvum5akzrh4pfisp3yorlwlm',
       // boosted
-      'QmeorHG4XnnCZSxQgn7rSc5YkHf96xkn4oe6v4bCEJ4UGC',
+      'bafybeib6afcp2ll26fww4okjvs6j6oldme6kitxygibx46bj2huuqwefmy',
     ],
   };
 
@@ -43,7 +43,7 @@
   function setVideoSrc() {
     if (movement < 0) return '';
     videoPoster = getVideoPoster();
-    return `https://trailblazers.4everland.link/ipfs/${sources[type][movement]}`;
+    return `https://taikonfts.4everland.link/ipfs/${sources[type][movement]}`;
   }
 
   function getVideoPoster() {
