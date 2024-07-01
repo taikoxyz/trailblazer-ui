@@ -1,5 +1,5 @@
 import { browser } from '$app/environment';
-import filterList from '$data/dapps/filter.json';
+import filterList from '$libs/leaderboard/json/filter.json';
 import { Leaderboard, type PaginationInfo } from '$libs/leaderboard';
 
 export const load = async () => {
