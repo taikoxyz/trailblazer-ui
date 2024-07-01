@@ -14,7 +14,6 @@ const config = {
       assets: 'src/static',
     },
     alias: {
-      $data: './src/static/json/',
       '$components/*': './src/components/*',
       '$stores/*': './src/stores/*',
       $stores: './src/stores/index.ts',

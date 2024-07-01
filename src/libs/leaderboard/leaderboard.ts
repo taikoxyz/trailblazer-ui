@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { zeroAddress } from 'viem';
 
-import bridgeAdditionalData from '$data/dapps/bridgeAdditionalData.json';
+import bridgeAdditionalData from '$libs/leaderboard/json/bridgeAdditionalData.json';
 import { PUBLIC_TRAILBLAZER_API_URL } from '$env/static/public';
 import { globalAxiosConfig } from '$libs/api/axiosConfig';
 import { isDevelopmentEnv } from '$libs/util/isDevelopmentEnv';
