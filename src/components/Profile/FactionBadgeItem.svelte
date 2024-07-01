@@ -14,9 +14,6 @@
   import { isMintDisclaimerAccepted, mintDisclaimerModal } from '$stores/modal';
 
   import FactionImage from './FactionImage.svelte';
-  import { fade } from 'svelte/transition';
-  import { claimGalxePointsAbi } from '../../generated/abi';
-  import { estimateClaimGas } from '$libs/badges/estimateClaimGas';
   export let name: FactionNames;
   export let unlocked: boolean = false;
   export let address: Address;
@@ -67,10 +64,7 @@
 
   async function claimPreflight() {
     if (!connectedAddress) return;
-    console.log('claimPreflight', address, FACTIONS[name])
-    const gasCost = await estimateClaimGas(FACTIONS[name])
-    console.log({gasCost})
-    claimable = await canClaimPreflight(address, FACTIONS[name]);
+    claimable = await canClaimPreflight(connectedAddress, FACTIONS[name]);
   }
 
   $: $account, claimPreflight();
@@ -87,8 +81,13 @@
     'max-w-[306px]',
     'rounded-[20px]',
     'bg-[#310E2F]',
+    'border-2',
+    'transition-all',
+    unlocked ? 'border-transparent' : 'border-primary-border-hover',
     // claimable shadow
-    claimable && !unlocked ? 'shadow-primary shadow-[0_0px_20px] border-2 border-primary-border-hover' : null,
+    claimable && !unlocked
+      ? classNames('hover:shadow-primary', 'hover:shadow-[0_0px_50px]', 'hover:border-primary-border-hover')
+      : null,
   );
 
   const contentWrapperClasses = classNames(
@@ -102,9 +101,8 @@
 
   $: imageWrapperClasses = classNames('w-full', 'f-col', 'items-center', !unlocked ? 'blur-md' : null);
 
-
   const badgeClasses = classNames(
-'absolute',
+    'absolute',
 
     'badge',
     'py-[15px]',
@@ -113,22 +111,13 @@
     'font-[700]',
     'border-transparent',
     'bg-[rgba(0,0,0,.4)]',
-  )
-  const weekBadgeClasses = classNames(
-    badgeClasses,
-    'top-6',
-    'right-4',
   );
+  const weekBadgeClasses = classNames(badgeClasses, 'top-6', 'right-4');
 
-  const lockedBadgeNameClasses = classNames(
-    badgeClasses,
-    'top-6',
-    'left-4'
-  );
+  const lockedBadgeNameClasses = classNames(badgeClasses, 'top-6', 'left-4');
 
-  const buttonWrapperClasses = classNames('absolute bottom-8 place-self-center w-full px-6');
+  const buttonWrapperClasses = classNames('absolute', 'bottom-8', 'place-self-center', 'w-full', 'px-6');
 
-  $: hovered = false;
   const tooltipClasses = classNames(
     'absolute',
     'w-full',
@@ -140,7 +129,7 @@
     'items-center',
   );
 
-  const hoveredDescriptionClasses = classNames(
+  $: hoveredDescriptionClasses = classNames(
     'w-full',
     'h-full',
     'flex',
@@ -150,43 +139,38 @@
     'flex-col',
     'px-4',
     'text-white',
-    'absolute'
-  )
+    'absolute',
+    'opacity-0',
+    'transition-all',
+    !unlocked ? 'hover:opacity-100' : null,
+  );
 </script>
 
-<!-- svelte-ignore a11y-interactive-supports-focus -->
-<div
-  class={wrapperClasses}
-  on:mouseenter={() => (hovered = true)}
-  on:mouseleave={() => (hovered = false)}
-  role="button">
+<div class={wrapperClasses} role="button">
   <div class={contentWrapperClasses}>
     <div class={imageWrapperClasses}>
       <FactionImage {movement} {unlocked} type={name} />
     </div>
-    {#if hovered}
-      <div transition:fade class={tooltipClasses}>
-        <div class={classNames('absolute', 'top-0', 'left-0', 'w-full', 'h-full', 'bg-secondary', 'opacity-60')}></div>
+    <div class={tooltipClasses}>
+      <div class={classNames('absolute', 'top-0', 'left-0', 'w-full', 'h-full', 'bg-secondary', 'opacity-10')}></div>
 
-          {#if !unlocked}
-          <div class={lockedBadgeNameClasses}>
-
-            {name}
-          </div>
-
-          {/if}
-
-        <div class={hoveredDescriptionClasses}>
-          {#if !unlocked && claimable}
-            This is a locked and claimable badge. Click claim to proceed.
-          {:else if unlocked}
-            This is the description for the {name} badge.
-          {:else}
-            You are not eligible to claim this badge.
-          {/if}
+      <div class={hoveredDescriptionClasses}>
+        <div class={lockedBadgeNameClasses}>
+          {name}
         </div>
+        {#if claimable}
+          {$t('badges.claimable')}
+        {:else}
+          <!-- eslint-disable  svelte/no-at-html-tags-->
+          {@html $t('badges.nonClaimable', {
+            values: {
+              requirements: `<a style="color:#FF6FC8;text-decoration:underline;">${$t('badges.nonClaimableLinkText')}</a>`,
+            },
+          })}
+        {/if}
       </div>
-    {/if}
+    </div>
+
     <div class={weekBadgeClasses}>
       Week {FACTIONS[name] + 1}
     </div>

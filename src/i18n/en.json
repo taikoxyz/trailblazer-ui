@@ -91,6 +91,9 @@
     }
   },
   "badges": {
+    "claimable": "You have a claimable badge. Unlock now!",
+    "nonClaimable": "You are not eligible to claim this badge. Please read {requirements} about eligibility.",
+    "nonClaimableLinkText": "the requirements",
     "movement": {
       "banner": "Shape your journey, influence your rewards. Pick a side!",
       "selectButton": "Select your movement",
