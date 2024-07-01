@@ -12,8 +12,8 @@
 </script>
 
 <!-- Taiko Faction -->
-<div class="flex flex-col container xl:px-[57px]">
-  <div class="f-center flex-col md:flex-row mb-[47px] space-y-[40px] xl:space-x-[88px] px-[20px] xl:px-0">
+<div class="flex flex-col container">
+  <div class="f-center flex-col md:flex-row mb-[47px] space-y-[40px] xl:space-x-[88px] px-[20px] xl:px-0 xl:px-[57px]">
     <!-- Title text: Taiko Factions -->
     <Title>
       Taiko<br /><span class="text-base-content">Factions</span>
@@ -29,9 +29,7 @@
     </div>
   </div>
 
-  <div class="mb-[80px]">
-    <FactionsGallery />
-  </div>
+  <FactionsGallery />
   <div class="f-center flex-col mb-[47px] space-y-[40px] xl:space-x-[88px]">
     <div class="max-w-[700px]">
       <div class="w-full">
