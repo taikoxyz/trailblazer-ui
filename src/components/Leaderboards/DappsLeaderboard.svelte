@@ -2,9 +2,9 @@
   import ExplorerLink from '$components/Links/ExplorerLink.svelte';
   import { Skeleton } from '$components/Mock';
   import Paginator from '$components/Paginator/Paginator.svelte';
-  import mapping from '$libs/leaderboard/json/mapping.json';
-  import filterList from '$libs/leaderboard/json/filter.json';
   import { Leaderboard, type LeaderboardRow, type PaginationInfo } from '$libs/leaderboard';
+  import filterList from '$libs/leaderboard/json/filter.json';
+  import mapping from '$libs/leaderboard/json/mapping.json';
   import { formatNumbers } from '$libs/util/formatNumbers';
   import { getLogger } from '$libs/util/logger';
   import { currentLeaderboard } from '$stores/leaderboard';

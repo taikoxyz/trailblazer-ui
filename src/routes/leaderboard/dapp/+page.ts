@@ -1,6 +1,6 @@
 import { browser } from '$app/environment';
-import filterList from '$libs/leaderboard/json/filter.json';
 import { Leaderboard, type PaginationInfo } from '$libs/leaderboard';
+import filterList from '$libs/leaderboard/json/filter.json';
 
 export const load = async () => {
   let pageInfo: PaginationInfo = {
