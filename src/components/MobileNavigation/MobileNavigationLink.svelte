@@ -14,5 +14,6 @@
 </script>
 
 <button on:click={handleClick}>
-  <a href={url} class="flex items-center gap-4"> <Icon class="flex size-4" type={icon}></Icon>{label}</a>
+  <a href={url} class="flex items-center gap-4">
+    <Icon class="size-[14px]" vWidth={14} vHeight={14} type={icon}></Icon>{label}</a>
 </button>

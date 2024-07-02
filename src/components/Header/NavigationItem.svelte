@@ -29,14 +29,14 @@
       </button>
     {/if}
     <ul
-      class="dropdown-content flex flex-col items-center p-[24px] gap-[22px] bg-neutral-background opacity-100 z-[1] shadow rounded-box w-fit body-regular">
+      class="dropdown-content flex flex-col items-start p-[24px] gap-[22px] bg-neutral-background opacity-100 z-[1] shadow rounded-box w-fit body-regular">
       <!-- eslint-disable-next-line @typescript-eslint/no-unused-vars -->
       {#each Object.entries(children) as [key, value]}
         <li>
           {#if value.url}
-            <div class="flex items-center gap-4 hover:cursor-pointer">
+            <div class="f-center items-center gap-4 hover:cursor-pointer">
               {#if value.icon}
-                <Icon type={value.icon} />
+                <Icon class="size-[14px]" vWidth={14} vHeight={14} type={value.icon} />
               {/if}
               <a href={value.url} class="flex items-center gap-4">{value.name}</a>
             </div>
@@ -44,7 +44,7 @@
             {@const route = value.route || ''}
             <button on:click={() => goto(route)} class="flex items-center gap-4 hover:cursor-pointer">
               {#if value.icon}
-                <Icon type={value.icon} />
+                <Icon class="size-[14px]" vWidth={14} vHeight={14} type={value.icon} />
               {/if}
               {value.name}
             </button>

@@ -14,10 +14,10 @@
 
 <div class="absolute w-full f-center top-0 z-50">
   <div class="container f-center w-full px-[20px] lg:px-[75px]">
-    <div class="flex body-regular items-center justify-between box-border w-full mt-8 py-2 rounded-full lg:bg-none">
+    <div class="flex body-regular items-center justify-between box-border w-full mt-[30.75px] rounded-full lg:bg-none">
       <!-- Mobile Burger Button -->
       <button
-        class="flex xl:hidden indicator btn bg-neutral-background border-none size-[50px] btn-circle fixed z-30 right-7"
+        class="flex xl:hidden indicator btn bg-neutral-background border-none size-[50px] btn-circle fixed z-30 right-5"
         on:click={toggleMobileMenu}>
         <!-- <span class="indicator-item badge badge-xs {$account?.isConnected ? 'badge-primary' : 'badge-accent'}"></span> -->
         {#if !mobileMenu}
