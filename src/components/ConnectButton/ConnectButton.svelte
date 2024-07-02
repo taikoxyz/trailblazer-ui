@@ -49,7 +49,7 @@
     <span class="flex items-center text-secondary-content justify-self-start gap-4 md:text-normal text-sm"
       >{renderEthBalance(balance, 6)}
       <span
-        class="flex items-center text-tertiary-content btn-glass-bg rounded-full px-[10px] py-[4px] md:min-h-[38px] bg-tertiary-background">
+        class="flex items-center text-tertiary-content btn-glass-bg rounded-full px-[10px] py-[4px] md:min-h-[38px] bg-interactive-primary">
         {shortenAddress(accountAddress, 4, 6)}
       </span>
     </span>
@@ -57,14 +57,14 @@
 {:else}
   <ActionButton
     priority="primary"
-    class="!max-w-[215px] !min-h-[32px] !max-h-[48px] !f-items-center !py-0"
+    class="!max-w-[215px] !min-h-[32px] !max-h-[48px] !f-items-center font-clash-grotesk py-6 w-full"
     loading={web3modalOpen}
     on:click={connectWallet}>
     <div class="flex items-center body-regular space-x-2">
       {#if web3modalOpen}
         <span>{$t('wallet.status.connecting')}</span>
       {:else}
-        <Icon type="user-circle" class="md-show-block" fillClass="fill-white" />
+        <Icon type="user-circle" class="" fillClass="fill-white" />
         <span>{$t('wallet.connect')}</span>
       {/if}
     </div>
