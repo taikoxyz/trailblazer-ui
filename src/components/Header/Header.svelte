@@ -34,7 +34,7 @@
       </div>
       <!--  Desktop Only -->
       <div class="hidden xl:flex gap-2">
-        <div class="flex gap-2">
+        <div class="f-center gap-2">
           <NavigationItem navigation={{ name: 'Profile', route: '/profile' }}></NavigationItem>
           <NavigationItem
             navigation={{ name: 'Leaderboards', route: '/leaderboard/dapp' }}
