@@ -154,7 +154,7 @@
     'https://taiko.mirror.xyz/AH77sZK6ZW_SqY_BDOxheYFJORo1WJfVu7A88jwZ2BA',
   ];
 
-  $: requirementsUrl = requirementsUrls[FACTIONS[name]];
+  $: requirementsUrl = requirementsUrls[FACTIONS[name]] || '';
 </script>
 
 <div class={wrapperClasses} role="button">
