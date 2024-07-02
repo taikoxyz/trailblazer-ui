@@ -144,6 +144,17 @@
     'transition-all',
     !unlocked ? 'hover:opacity-100' : null,
   );
+
+  const requirementsUrls = [
+    // week 1 - Ravers
+    'https://taiko.mirror.xyz/uySYTWEA0dJa4D8ObK9FXeEjhL2zsWRh2i2EhkFZWxQ',
+    // week 2 - Robots
+    'https://taiko.mirror.xyz/_StXfEC1rD9gTv96IEOM0PM1b0YkSvkk-xY_sX8UMgc',
+    // week 3 - Bouncers
+    'https://taiko.mirror.xyz/AH77sZK6ZW_SqY_BDOxheYFJORo1WJfVu7A88jwZ2BA',
+  ];
+
+  $: requirementsUrl = requirementsUrls[FACTIONS[name]];
 </script>
 
 <div class={wrapperClasses} role="button">
@@ -164,7 +175,7 @@
           <!-- eslint-disable  svelte/no-at-html-tags-->
           {@html $t('badges.nonClaimable', {
             values: {
-              requirements: `<a style="color:#FF6FC8;text-decoration:underline;">${$t('badges.nonClaimableLinkText')}</a>`,
+              requirements: `<a href="${requirementsUrl}" style="color:#FF6FC8;text-decoration:underline;">${$t('badges.nonClaimableLinkText')}</a>`,
             },
           })}
         {/if}
