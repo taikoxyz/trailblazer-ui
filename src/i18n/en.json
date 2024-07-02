@@ -1,4 +1,18 @@
 {
+  "badges": {
+    "claimable": "You have a claimable badge. Unlock now!",
+    "nonClaimable": "You are not eligible to claim this badge. Please read {requirements} about eligibility.",
+    "nonClaimableLinkText": "the requirements",
+    "movement": {
+      "banner": "Shape your journey, influence your rewards. Pick a side!",
+      "selectButton": "Select your movement",
+      "modal": {
+        "title": "Choose your path!",
+        "description": "Starting Week 3, step out of neutral and join a side. Battle it out and amplify your impact. Which will you champion—stability or acceleration?",
+        "continueButton": "Continue"
+      }
+    }
+  },
   "buttons": {
     "connect_wallet": "Connect",
     "explore_more": "Explore more",
@@ -59,6 +73,10 @@
       "switching": "Switching network"
     }
   },
+  "paginator": {
+    "of": "of",
+    "page": "Page"
+  },
   "switch_modal": {
     "description": "Your current network is not supported. Please connect to the Taiko Mainnet to continue.",
     "title": "Incorrect network detected"
@@ -88,20 +106,6 @@
       "connected": "Connected",
       "connecting": "Connecting",
       "disconnected": "Disconnected"
-    }
-  },
-  "badges": {
-    "claimable": "You have a claimable badge. Unlock now!",
-    "nonClaimable": "You are not eligible to claim this badge. Please read {requirements} about eligibility.",
-    "nonClaimableLinkText": "the requirements",
-    "movement": {
-      "banner": "Shape your journey, influence your rewards. Pick a side!",
-      "selectButton": "Select your movement",
-      "modal": {
-        "title": "Choose your path!",
-        "description": "Starting Week 3, step out of neutral and join a side. Battle it out and amplify your impact. Which will you champion—stability or acceleration?",
-        "continueButton": "Continue"
-      }
     }
   }
 }

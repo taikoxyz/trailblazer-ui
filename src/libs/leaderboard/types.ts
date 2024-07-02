@@ -51,6 +51,16 @@ export type BridgeLeaderboardTotal = {
   visible: number;
 };
 
+export type PaginationInfo = {
+  first?: boolean;
+  last?: boolean;
+  max_page?: number;
+  total?: number;
+  total_pages?: number;
+  page: number;
+  size: number;
+};
+
 export type BridgeTokenScore = {
   token: Address;
   score: number;
