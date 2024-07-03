@@ -1,5 +1,5 @@
 import { waitForTransactionReceipt, writeContract } from '@wagmi/core';
-import { type Address, type TransactionReceipt } from 'viem';
+import { type Address } from 'viem';
 
 import { FACTIONS } from '$configs/badges';
 import { chainId } from '$libs/chain';
@@ -10,11 +10,7 @@ import type { IContractData } from '$types';
 import { trailblazersBadgesAbi, trailblazersBadgesAddress } from '../../generated/abi';
 import isSignatureValid from './isSignatureValid';
 
-export default async function mint(
-  address: Address,
-  factionId: FACTIONS,
-  signature: IContractData,
-): Promise<TransactionReceipt> {
+export default async function mint(address: Address, factionId: FACTIONS, signature: IContractData): Promise<string> {
   // ensure locally that the signature is valid before calling metamask
   const signatureValid = await isSignatureValid(signature, address, factionId);
 
@@ -33,7 +29,6 @@ export default async function mint(
     gasPrice,
   });
 
-  const receipt = await waitForTransactionReceipt(wagmiConfig, { hash: tx });
-
-  return receipt;
+  await waitForTransactionReceipt(wagmiConfig, { hash: tx });
+  return tx;
 }
