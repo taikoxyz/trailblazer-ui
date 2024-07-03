@@ -75,15 +75,6 @@ export class Leaderboard {
       }
     });
 
-    // append meson
-    page.push({
-      name: 'Meson',
-      scores: [{ token: zeroAddress, score: 0 }],
-      volume: 0,
-      twitter: 'mesonfi',
-      icon: 'mesonfi.jpg',
-    });
-
     return page;
   }
 }
