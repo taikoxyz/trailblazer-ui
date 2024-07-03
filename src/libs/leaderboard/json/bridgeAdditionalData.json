@@ -63,5 +63,10 @@
     "name": "Stargate",
     "twitter": "StargateFinance",
     "icon": "stargate.jpeg"
+  },
+  "Meson": {
+    "name": "Meson",
+    "twitter": "mesonfi",
+    "icon": "mesonfi.jpg"
   }
 }
