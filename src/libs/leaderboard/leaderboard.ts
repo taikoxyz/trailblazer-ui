@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { zeroAddress } from 'viem';
 
 import { PUBLIC_TRAILBLAZER_API_URL } from '$env/static/public';
 import { globalAxiosConfig } from '$libs/api/axiosConfig';
