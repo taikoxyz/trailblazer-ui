@@ -1,4 +1,4 @@
-import { waitForTransactionReceipt, writeContract } from '@wagmi/core';
+import { getTransaction, waitForTransactionReceipt, writeContract } from '@wagmi/core';
 import { type Address } from 'viem';
 
 import { FACTIONS } from '$configs/badges';
@@ -8,6 +8,7 @@ import { wagmiConfig } from '$libs/wagmi';
 import type { IContractData } from '$types';
 
 import { trailblazersBadgesAbi, trailblazersBadgesAddress } from '../../generated/abi';
+import { canMint } from './canMint';
 import isSignatureValid from './isSignatureValid';
 
 export default async function mint(address: Address, factionId: FACTIONS, signature: IContractData) {
@@ -16,6 +17,26 @@ export default async function mint(address: Address, factionId: FACTIONS, signat
 
   if (!signatureValid) {
     throw new Error('Invalid signature');
+  }
+  const previousTxStorageKey = 'trailblazersBadgesMintTx';
+  const previousTxHash = localStorage.getItem(previousTxStorageKey);
+
+  if (previousTxHash) {
+    const { blockHash } = await getTransaction(wagmiConfig, {
+      hash: previousTxHash as Address,
+    });
+
+    if (!blockHash) {
+      throw new Error('Previous claim transaction is still pending');
+    } else {
+      localStorage.removeItem(previousTxStorageKey);
+
+      // if not minting anymore, resolve!
+      const isMinting = await canMint(signature, address, factionId);
+      if (!isMinting) {
+        return previousTxHash;
+      }
+    }
   }
 
   const gasPrice = await calculateGasPrice();
@@ -28,6 +49,9 @@ export default async function mint(address: Address, factionId: FACTIONS, signat
     chainId,
     gasPrice,
   });
+  localStorage.setItem(previousTxStorageKey, tx);
+
   const receipt = await waitForTransactionReceipt(wagmiConfig, { hash: tx });
+
   return receipt;
 }
