@@ -3,7 +3,6 @@ import { type Address } from 'viem';
 
 import { FACTIONS } from '$configs/badges';
 import { chainId } from '$libs/chain';
-import calculateGasPrice from '$libs/util/calculateGasPrice';
 import { wagmiConfig } from '$libs/wagmi';
 import type { IContractData } from '$types';
 
@@ -18,15 +17,12 @@ export default async function mint(address: Address, factionId: FACTIONS, signat
     throw new Error('Invalid signature');
   }
 
-  const gasPrice = await calculateGasPrice();
-
   const tx = await writeContract(wagmiConfig, {
     abi: trailblazersBadgesAbi,
     address: trailblazersBadgesAddress[chainId],
     functionName: 'mint',
     args: [signature, BigInt(factionId)],
     chainId,
-    gasPrice,
   });
 
   await waitForTransactionReceipt(wagmiConfig, { hash: tx });
