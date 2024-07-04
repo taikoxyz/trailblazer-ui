@@ -8,7 +8,7 @@ import getMintSignature from './getMintSignature';
 import isSignatureValid from './isSignatureValid';
 import mint from './mint';
 
-export default async function claimBadge(address: Address, factionId: FACTIONS) {
+export default async function claimBadge(address: Address, factionId: FACTIONS): Promise<string> {
   let signature: IContractData;
   try {
     const res = await getMintSignature(address, factionId);
@@ -22,7 +22,7 @@ export default async function claimBadge(address: Address, factionId: FACTIONS) 
   if (!isValidSigner) throw new Error('Cannot verify signature origin.');
 
   try {
-    await mint(address, factionId, signature);
+    return await mint(address, factionId, signature);
   } catch (e: any) {
     const { shortMessage } = e;
     if (

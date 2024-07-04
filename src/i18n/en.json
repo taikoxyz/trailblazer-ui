@@ -1,13 +1,16 @@
 {
   "badges": {
+    "claimable": "You have a claimable badge. Unlock now!",
+    "nonClaimable": "You are not eligible to claim this badge. Please read {requirements} about eligibility.",
+    "nonClaimableLinkText": "the requirements",
     "movement": {
       "banner": "Shape your journey, influence your rewards. Pick a side!",
+      "selectButton": "Select your movement",
       "modal": {
-        "continueButton": "Continue",
+        "title": "Choose your path!",
         "description": "Starting Week 3, step out of neutral and join a side. Battle it out and amplify your impact. Which will you champion—stability or acceleration?",
-        "title": "Choose your path!"
-      },
-      "selectButton": "Select your movement"
+        "continueButton": "Continue"
+      }
     }
   },
   "buttons": {
@@ -28,7 +31,8 @@
     "claim": "Claim",
     "claiming": "Claiming",
     "locked": "Locked",
-    "not_eligible": "Not eligible"
+    "not_eligible": "Not eligible",
+    "badge_claimed": "<a target=\"_blank\" href=\"https://taikoscan.io/tx/{txHash}\">Click here to see your transaction on Taikoscan</a>"
   },
   "factions": {
     "gallery": {
