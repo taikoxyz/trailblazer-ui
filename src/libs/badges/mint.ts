@@ -1,9 +1,10 @@
-import { getTransaction, waitForTransactionReceipt, writeContract } from '@wagmi/core';
+import { getTransaction, writeContract } from '@wagmi/core';
 import { type Address } from 'viem';
 
 import { FACTIONS } from '$configs/badges';
 import { chainId } from '$libs/chain';
 import { wagmiConfig } from '$libs/wagmi';
+import { pendingTransactions } from '$stores/pendingTransactions';
 import type { IContractData } from '$types';
 
 import { trailblazersBadgesAbi, trailblazersBadgesAddress } from '../../generated/abi';
@@ -45,8 +46,7 @@ export default async function mint(address: Address, factionId: FACTIONS, signat
     args: [signature, BigInt(factionId)],
     chainId,
   });
-  localStorage.setItem(previousTxStorageKey, tx);
+  await pendingTransactions.add(tx);
 
-  await waitForTransactionReceipt(wagmiConfig, { hash: tx });
   return tx;
 }
