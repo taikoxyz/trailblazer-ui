@@ -26,7 +26,7 @@
       </button>
     </div>
     <div class="collapse collapse-plus bg-neutral w-full rounded-[30px] pl-6 py-2">
-      <input type="radio" name="my-accordion-1" />
+      <input type="checkbox" name="my-accordion-1" checked />
       <div class="collapse-title flex items-center w-full p-0 font-clash-grotesk title-subsection-medium text-[22px]">
         Leaderboard
       </div>
@@ -36,7 +36,7 @@
       </div>
     </div>
     <div class="collapse collapse-plus bg-neutral w-full rounded-[30px] pl-6 py-2">
-      <input type="radio" name="my-accordion-1" />
+      <input type="checkbox" name="my-accordion-2" checked />
       <div class="collapse-title flex items-center w-full p-0 font-clash-grotesk title-subsection-medium text-[22px]">
         Discover
       </div>
