@@ -34,11 +34,11 @@
     ],
     [FactionNames.Masters]: [
       // neutral
-      'QmU2toFjYeHTsUf7o7t9UoANQ1BMuCTqrZ1L6WZuSHemcX',
+      'bafybeigtpmucvju4ip3h6lkdfbu4maxqtzeolnjv5zrsrjdkww2wcjikhi',
       // based
-      'QmdzTvJE1tHDgFbzpGV2zNeuTP9r39Y8mLi6BcS3eBrTPV',
+      'bafybeiam7pmx2agypdherm4huekdougmejoufc3hry3qtr5zmgqzwundsi',
       // boosted
-      'QmPBhQjBaRzDfoWgNTpatSYuKhxpEkffoLDC6ZX24iWXzV',
+      'bafybeibxuki7nfn3aexscl7xslyfifqwu2klblmf4s2lb5fvcjsh2vmepi',
     ],
   };
 
