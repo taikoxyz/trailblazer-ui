@@ -1,0 +1,59 @@
+{
+  "0xE4eDb277e41dc89aB076a1F049f4a3EfA700bCE8": {
+    "name": "Orbiter Finance",
+    "handle": "@Orbiter_Finance",
+    "icon": "orbiter.png"
+  },
+  "0x5e809A85Aa182A9921EDD10a4163745bb3e36284": {
+    "name": "Owlto Finance",
+    "handle": "@Owlto_Finance",
+    "icon": "owlto.png"
+  },
+  "0x1Df2De291F909baA50C1456C87C71Edf9Fb199D5": {
+    "name": "rhino.fi",
+    "handle": "@rhinofi",
+    "icon": "rhinofi.png"
+  },
+  "0x04830cfCED9772b8ACbAF76Cfc7A630Ad82c9148": {
+    "name": "izumi",
+    "handle": "@izumi_Finance",
+    "icon": "dapps/izumi.svg"
+  },
+  "0x2c301eBfB0bb42Af519377578099b63E921515B7": {
+    "name": "Crack And Stack",
+    "handle": "@crackandstack"
+  },
+  "0xe071D7974F882933C9A40fFe8F56Bb76dF61563F": {
+    "name": "Taiko Flamenco",
+    "handle": ""
+  },
+  "0x953096A53b50776Ee3571aA7C6277F84C00947F3": {
+    "name": "Taiko Farm (Morkie)",
+    "handle": ""
+  },
+  "0x7160570BB153Edd0Ea1775EC2b2Ac9b65F1aB61B": {
+    "name": "Ritsu Swap",
+    "handle": "@ritsuprotocol",
+    "icon": "dapps/ritsu-protocol.jpg"
+  },
+  "0xee73323912a4e3772B74eD0ca1595a152b0ef282": {
+    "name": "Orbiter Finance",
+    "handle": "@Orbiter_Finance",
+    "icon": "orbiter.png"
+  },
+  "0x4D1E2145082d0AB0fDa4a973dC4887C7295e21aB": {
+    "name": "RubyScore",
+    "handle": "@RubyScore",
+    "icon": "dapps/rubyscore.svg"
+  },
+  "0x019D7bA2E124799Feef405133FE62371108745d6": {
+    "name": "DTX.TRADE",
+    "handle": "@0xdtx",
+    "icon": "dapps/dtx-trade.svg"
+  },
+  "0x34723B92aE9708BA33843120A86035D049dA7dfA": {
+    "name": "0xAstra",
+    "handle": "@0xAstra_xyz",
+    "icon": "dapps/0xastra.svg"
+  }
+}

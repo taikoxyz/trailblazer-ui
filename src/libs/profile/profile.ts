@@ -4,6 +4,7 @@ import { get } from 'svelte/store';
 
 // import type { Address } from 'viem';
 import { PUBLIC_TRAILBLAZER_API_URL } from '$env/static/public';
+import { globalAxiosConfig } from '$libs/api/axiosConfig';
 // import getMovement from '$libs/badges/getMovement';
 import { isDevelopmentEnv } from '$libs/util/isDevelopmentEnv';
 import { getLogger } from '$libs/util/logger';
@@ -115,7 +116,7 @@ export class Profile {
     }
 
     if (address) {
-      const { data } = await axios.get(`${baseApiUrl}/user/rank`, { params: { address } });
+      const { data } = await axios.get(`${baseApiUrl}/user/rank`, { params: { address }, ...globalAxiosConfig });
       const userProfile: UserProfile = data as UserProfile;
 
       log('User Profile: ', userProfile);

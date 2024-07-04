@@ -1,6 +1,5 @@
 <script lang="ts">
   import { Icon } from '$components/Icon';
-  import Placeholder from '$images/placeholder.png';
 
   let carousel: HTMLDivElement;
 
@@ -21,7 +20,7 @@
   </button>
   <div bind:this={carousel} class="carousel w-full overflow-scroll rounded-box gap-8 max-w-[1362px]">
     <div class="min-w-[364px] bg-orange-400 rounded-3xl">
-      <img src={Placeholder} alt="avatar" />
+      <img src="/placeholder.png" alt="avatar" />
     </div>
     <div class="skeleton size-[364px] min-w-[364px]"></div>
     <div class="skeleton size-[364px] min-w-[364px]"></div>
