@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { onDestroy,onMount } from 'svelte';
+  import { onDestroy, onMount } from 'svelte';
 
   import { Icon } from '$components/Icon';
   import { isMobile } from '$libs/util/responsiveCheck';
