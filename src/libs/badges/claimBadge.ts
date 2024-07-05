@@ -31,7 +31,7 @@ export default async function claimBadge(address: Address, factionId: FACTIONS):
     ) {
       throw new Error('You do not have enough ETH to cover the minting cost, please bridge some ETH to Taiko.');
     } else {
-      throw new Error(e.shortMessage);
+      throw new Error(e.shortMessage || e.message);
     }
   }
 }

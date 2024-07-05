@@ -12,6 +12,7 @@
   import getConnectedAddress from '$libs/util/getConnectedAddress';
   import { account } from '$stores/account';
   import { isMintDisclaimerAccepted, mintDisclaimerModal } from '$stores/modal';
+  import { pendingTransactions } from '$stores/pendingTransactions';
 
   import FactionImage from './FactionImage.svelte';
   export let name: FactionNames;
@@ -58,6 +59,7 @@
         return;
       }
       await safeClaimBadge();
+      canClick = false;
     }
     isClaiming = false;
   }
@@ -169,7 +171,10 @@
         <div class={lockedBadgeNameClasses}>
           {name}
         </div>
-        {#if claimable}
+
+        {#if $pendingTransactions.length > 0}
+          {$t('badges.pendingTx')}
+        {:else if claimable}
           {$t('badges.claimable')}
         {:else}
           <!-- eslint-disable  svelte/no-at-html-tags-->
@@ -187,7 +192,11 @@
     </div>
     {#if canClick}
       <div class={buttonWrapperClasses}>
-        <ActionButton priority="primary" on:click={handleClaimClick} disabled={!claimable} loading={isClaiming}>
+        <ActionButton
+          priority="primary"
+          on:click={handleClaimClick}
+          disabled={!claimable || $pendingTransactions.length > 0}
+          loading={isClaiming}>
           {buttonText}
         </ActionButton>
       </div>
