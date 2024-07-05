@@ -17,7 +17,7 @@
   "0x04830cfCED9772b8ACbAF76Cfc7A630Ad82c9148": {
     "name": "izumi",
     "handle": "@izumi_Finance",
-    "icon": "dapps/izumi.svg"
+    "icon": "dapps/defi/izumi_finance.png"
   },
   "0x2c301eBfB0bb42Af519377578099b63E921515B7": {
     "name": "Crack And Stack",
@@ -34,7 +34,7 @@
   "0x7160570BB153Edd0Ea1775EC2b2Ac9b65F1aB61B": {
     "name": "Ritsu Swap",
     "handle": "@ritsuprotocol",
-    "icon": "dapps/ritsu-protocol.jpg"
+    "icon": "dapps/defi/ritsu-protocol.jpg"
   },
   "0xee73323912a4e3772B74eD0ca1595a152b0ef282": {
     "name": "Orbiter Finance",
@@ -49,7 +49,7 @@
   "0x019D7bA2E124799Feef405133FE62371108745d6": {
     "name": "DTX.TRADE",
     "handle": "@0xdtx",
-    "icon": "dapps/dtx-trade.svg"
+    "icon": "dapps/defi/dtx-trade.png"
   },
   "0x34723B92aE9708BA33843120A86035D049dA7dfA": {
     "name": "0xAstra",
