@@ -39,6 +39,26 @@ export type BridgeLeaderboardPage = {
   bridgingEntries: BridgeLeaderboardRow[];
 };
 
+export type DefiDappData = DefiDappLeaderboardRow & {
+  twitter?: string;
+  icon?: string;
+};
+
+export type DefiDappLeaderboardPage = {
+  defiDappEntries: DefiDappLeaderboardRow[];
+};
+
+export type DefiDappLeaderboardRow = {
+  name: string;
+  volume: number;
+  scores: DefiDappTokenScore[];
+};
+
+export type DefiDappTokenScore = {
+  token: Address;
+  score: number;
+};
+
 export type BridgeLeaderboardTotal = {
   items: BridgeData[];
   page: number;
