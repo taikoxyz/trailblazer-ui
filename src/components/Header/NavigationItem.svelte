@@ -58,7 +58,7 @@
 {:else if navigation.url}
   <a href={navigation.url} target="_blank">
     <div
-      class="hover:text-primary-brand hover:cursor-pointer rounded-full h-fit lg:bg-neutral-background lg:hover:bg-elevated-background py-[12px] f-center">
+      class=" hover:cursor-pointer rounded-full h-fit lg:bg-neutral-background lg:hover:bg-elevated-background py-[12px] f-center">
       {navigation.name}
       <div class="flex flex-grow justify-end">
         <Icon type="arrow-top-right" class="justify-self-end" />
@@ -69,7 +69,7 @@
   {@const route = navigation.route || ''}
   <button
     on:click={() => goto(route)}
-    class="min-w-[140px] hover:cursor-pointer hover:text-primary-brand rounded-full h-fit lg:bg-neutral-background lg:hover:bg-elevated-background py-[12px] f-center mb-2">
+    class="min-w-[140px] hover:cursor-pointer rounded-full h-fit lg:bg-neutral-background lg:hover:bg-elevated-background py-[12px] f-center mb-2">
     {navigation.name}
   </button>
 {/if}
