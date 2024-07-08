@@ -3,7 +3,7 @@
 
   import { type GalleryItem } from './types';
 
-  export let hideArrows = false
+  export let hideArrows = false;
 
   let carouselElement: HTMLDivElement;
 
@@ -77,16 +77,16 @@
 </script>
 
 {#if !hideArrows}
-<div class="flex gap-4 justify-center xl:justify-end h-full bottom-0">
-  <button class="f-center btn-circle border border-primary-brand" on:click={scrollLeft}>
-    <Icon class="-translate-x-[2px]" type="chevron-left" />
-  </button>
-  <button
-    class="f-center btn-circle bg-primary-brand border-primary-brand hover:bg-primary-interactive-hover"
-    on:click={scrollRight}>
-    <Icon class="translate-x-[2px]" type="chevron-right" />
-  </button>
-</div>
+  <div class="flex gap-4 justify-center xl:justify-end h-full bottom-0">
+    <button class="f-center btn-circle border border-primary-brand" on:click={scrollLeft}>
+      <Icon class="-translate-x-[2px]" type="chevron-left" />
+    </button>
+    <button
+      class="f-center btn-circle bg-primary-brand border-primary-brand hover:bg-primary-interactive-hover"
+      on:click={scrollRight}>
+      <Icon class="translate-x-[2px]" type="chevron-right" />
+    </button>
+  </div>
 {/if}
 <div class="max-w-full h-[500px] xl:h-auto">
   <div

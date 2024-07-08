@@ -52,7 +52,7 @@
 <div class={wrapperClasses}>
   <div class={rowClasses}>
     <div class={panelClasses}>
-      <img src="/how-it-works.png" alt="How it works"/>
+      <img src="/how-it-works.png" alt="How it works" />
     </div>
     <div class={panelClasses}>
       <div class={titleClasses}>

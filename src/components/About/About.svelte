@@ -7,15 +7,9 @@
   import AboutFactionsInfo from './AboutFactionsInfo.svelte';
   import AboutHero from './AboutHero.svelte';
   import AboutInfoPanels from './AboutInfoPanels.svelte';
+  import RewardsAndUtility from './RewardsAndUtility.svelte';
 
-
-  const wrapperClasses = classNames(
-    'f-cl',
-    'w-full',
-    'flex',
-    'flex-col',
-    'gap-12',
-  )
+  const wrapperClasses = classNames('f-cl', 'w-full', 'flex', 'flex-col', 'gap-24');
   const imageClasses = classNames(
     'rounded-[30px]',
     'w-full',
@@ -23,8 +17,6 @@
     'transition-transform',
     'object-cover',
   );
-
-
 </script>
 
 <div class={wrapperClasses}>
@@ -32,7 +24,8 @@
   <img class={imageClasses} src="/about-illustration.png" alt="gallery" />
   <TrailblazerGuide />
   <AboutInfoPanels />
-  <FactionsGallery hideArrows/>
+  <FactionsGallery hideArrows />
   <AboutFactionsInfo />
+  <RewardsAndUtility />
   <FAQ />
 </div>
