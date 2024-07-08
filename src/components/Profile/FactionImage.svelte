@@ -32,6 +32,14 @@
       // boosted
       'bafybeib6afcp2ll26fww4okjvs6j6oldme6kitxygibx46bj2huuqwefmy',
     ],
+    [FactionNames.Masters]: [
+      // neutral
+      'bafybeigtpmucvju4ip3h6lkdfbu4maxqtzeolnjv5zrsrjdkww2wcjikhi',
+      // based
+      'bafybeiam7pmx2agypdherm4huekdougmejoufc3hry3qtr5zmgqzwundsi',
+      // boosted
+      'bafybeibxuki7nfn3aexscl7xslyfifqwu2klblmf4s2lb5fvcjsh2vmepi',
+    ],
   };
 
   let videoSrc = '';

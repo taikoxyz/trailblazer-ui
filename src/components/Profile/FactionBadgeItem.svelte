@@ -154,6 +154,8 @@
     'https://taiko.mirror.xyz/_StXfEC1rD9gTv96IEOM0PM1b0YkSvkk-xY_sX8UMgc',
     // week 3 - Bouncers
     'https://taiko.mirror.xyz/AH77sZK6ZW_SqY_BDOxheYFJORo1WJfVu7A88jwZ2BA',
+    // week 4 - Masters
+    'https://taiko.mirror.xyz/D7Z7y46WRHBoT2wb-dujgEtCz4YWCXvKXT8Gize_PeM',
   ];
 
   $: requirementsUrl = requirementsUrls[FACTIONS[name]] || '';
