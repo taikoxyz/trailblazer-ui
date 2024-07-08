@@ -2,13 +2,20 @@
   import { FactionsGallery } from '$components/FactionsGallery';
   import { FAQ } from '$components/FAQ';
   import { TrailblazerGuide } from '$components/Startpage/Guide';
+  import { classNames } from '$libs/util/classNames';
 
   import AboutFactionsInfo from './AboutFactionsInfo.svelte';
-  import AboutGallery from './AboutGallery.svelte';
   import AboutHero from './AboutHero.svelte';
-  import { classNames } from '$libs/util/classNames';
   import AboutInfoPanels from './AboutInfoPanels.svelte';
 
+
+  const wrapperClasses = classNames(
+    'f-cl',
+    'w-full',
+    'flex',
+    'flex-col',
+    'gap-12',
+  )
   const imageClasses = classNames(
     'rounded-[30px]',
     'w-full',
@@ -16,24 +23,16 @@
     'transition-transform',
     'object-cover',
   );
+
+
 </script>
 
-<div class="f-cl w-full flex flex-col gap-12">
-  <!-- Hero -->
+<div class={wrapperClasses}>
   <AboutHero />
-
   <img class={imageClasses} src="/about-illustration.png" alt="gallery" />
-  <!-- Steps -->
   <TrailblazerGuide />
-
   <AboutInfoPanels />
-
-  <!-- Factions Gallery -->
-  <FactionsGallery />
-  <!-- About Factions -->
+  <FactionsGallery hideArrows/>
   <AboutFactionsInfo />
-  <!-- Video -->
-  <!-- <ResponsiveVideo /> -->
-  <!-- FAQ -->
   <FAQ />
 </div>

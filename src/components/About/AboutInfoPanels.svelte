@@ -1,22 +1,31 @@
 <script lang="ts">
   import ActionButton from '$components/Button/ActionButton.svelte';
-import { classNames } from '$libs/util/classNames';
+  import { classNames } from '$libs/util/classNames';
 
   const wrapperClasses = classNames('flex', 'flex-col', 'items-center', 'justify-center', 'gap-24');
 
-  const rowClasses = classNames('flex',
-  'px-12',
-  'flex-row', 'w-full', 'gap-12', 'justify-between', 'items-center', 'w-[80%]');
+  const rowClasses = classNames(
+    'flex',
+    'px-12',
+    'flex-row',
+    'w-full',
+    'gap-12',
+    'justify-between',
+    'items-center',
+    'w-[80%]',
+  );
 
-  const boxedRowClasses = classNames(rowClasses, 'border',
-'border-[#444A55]',
-  'bg-gradient-to-b',
-  //'from-[rgba(93, 99, 111, 0.1)]',
-  'to-[rgba(25,30,40,0.2)]',
-  'from-[rgba(93,99,111,0.1)]',
-  'rounded-[30px]',
-  'py-16',
-  )
+  const boxedRowClasses = classNames(
+    rowClasses,
+    'border',
+    'border-[#444A55]',
+    'bg-gradient-to-b',
+    //'from-[rgba(93, 99, 111, 0.1)]',
+    'to-[rgba(25,30,40,0.2)]',
+    'from-[rgba(93,99,111,0.1)]',
+    'rounded-[30px]',
+    'py-16',
+  );
 
   const panelClasses = classNames('w-1/2', 'h-full', 'flex', 'flex-col', 'items-center', 'justify-center', 'gap-8');
 
@@ -35,21 +44,15 @@ import { classNames } from '$libs/util/classNames';
     'gap-4',
   );
 
-  const buttonsWrapperClasses = classNames(
-    'flex',
-    'flex-row',
-    'gap-4',
-    'justify-center',
-    'items-center',
-    'w-full',
-  );
+  const buttonsWrapperClasses = classNames('flex', 'flex-row', 'gap-4', 'justify-center', 'items-center', 'w-full');
 
+  const buttonLinkWrapperClasses = classNames('w-1/2');
 </script>
 
 <div class={wrapperClasses}>
   <div class={rowClasses}>
     <div class={panelClasses}>
-      <img src="/how-it-works.png" />
+      <img src="/how-it-works.png" alt="How it works"/>
     </div>
     <div class={panelClasses}>
       <div class={titleClasses}>
@@ -88,14 +91,13 @@ import { classNames } from '$libs/util/classNames';
     </div>
 
     <div class={panelClasses}>
-      <img src="/level-up.png" alt="Level Up"/>
+      <img src="/level-up.png" alt="Level Up" />
     </div>
   </div>
 
   <div class={boxedRowClasses}>
-
     <div class={panelClasses}>
-      <img src="/leaderboard.svg" alt="Leaderboard"/>
+      <img src="/leaderboard.svg" alt="Leaderboard" />
     </div>
     <div class={panelClasses}>
       <div class={titleClasses}>
@@ -104,17 +106,19 @@ import { classNames } from '$libs/util/classNames';
 
       <div class={contentClasses}>
         <p class="text-left">
-          Earn Experience Points (XP) and climb from beginner to legend. Every action moves you to closer exclusive rewards and elite status.
+          Earn Experience Points (XP) and climb from beginner to legend. Every action moves you to closer exclusive
+          rewards and elite status.
         </p>
       </div>
 
       <div class={buttonsWrapperClasses}>
-        <ActionButton priority="primary">User leaderboard</ActionButton>
-        <ActionButton priority="secondary">Dapps leaderboard</ActionButton>
-
+        <a class={buttonLinkWrapperClasses} href="/leaderboard/user">
+          <ActionButton priority="primary">User leaderboard</ActionButton></a>
+        <a class={buttonLinkWrapperClasses} href="/leaderboard/dapp">
+          <ActionButton priority="secondary">Dapps leaderboard</ActionButton>
+        </a>
       </div>
     </div>
-
   </div>
 
   <div class={rowClasses}>
@@ -124,15 +128,15 @@ import { classNames } from '$libs/util/classNames';
       </div>
     </div>
     <div class={panelClasses}>
-    <div class={contentClasses}>
+      <div class={contentClasses}>
         <p class="text-left">
-        If you're feeling competitive, there's even more to discover. Each season brings a fresh start with XP
-        reset, but don't worry—previous season participants receive a bonus, a percentage of their last season's XP,
-        giving you a head start. We also spice up your journey with special timed events offering significant
-        one-time bonuses.
+          If you're feeling competitive, there's even more to discover. Each season brings a fresh start with XP reset,
+          but don't worry—previous season participants receive a bonus, a percentage of their last season's XP, giving
+          you a head start. We also spice up your journey with special timed events offering significant one-time
+          bonuses.
         </p>
         <p class="text-left">Are you ready to seize opportunities that will propel you up the leaderboard?</p>
+      </div>
     </div>
-    </div>
-</div>
+  </div>
 </div>

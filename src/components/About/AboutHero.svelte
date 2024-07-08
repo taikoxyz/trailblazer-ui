@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { ActionButton, Button } from '$components/Button';
+  import { ActionButton } from '$components/Button';
   import { classNames } from '$libs/util/classNames';
 
   const heroWrapperClasses = classNames('hero', 'h-max');
