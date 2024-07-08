@@ -24,7 +24,7 @@
   $: disabledColor = onPopup && $$restProps.disabled ? '!bg-dialog-interactive-disabled' : '';
 
   $: commonClasses = classNames(
-    'btn size-[56px] px-[20px] py-[8px] rounded-full flex-1  items-center body-medium',
+    'btn size-[56px] px-[20px] py-[8px] rounded-full flex-1 items-center body-medium',
     $$restProps.disabled ? 'cursor-not-allowed' : 'cursor-pointer',
     withArrow ? 'min-w-[180px]' : 'w-full',
     disabledColor,

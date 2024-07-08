@@ -34,7 +34,7 @@
       {#each Object.entries(children) as [key, value]}
         <li>
           {#if value.url}
-            <div class="f-center items-center gap-4 hover:cursor-pointer">
+            <div class="f-center items-center gap-4 hover:cursor-pointer hover:text-primary-brand">
               {#if value.icon}
                 <Icon class="size-[14px]" vWidth={14} vHeight={14} type={value.icon} />
               {/if}
@@ -42,7 +42,9 @@
             </div>
           {:else if value.route !== undefined}
             {@const route = value.route || ''}
-            <button on:click={() => goto(route)} class="flex items-center gap-4 hover:cursor-pointer">
+            <button
+              on:click={() => goto(route)}
+              class="flex items-center gap-4 hover:cursor-pointer hover:text-primary-brand">
               {#if value.icon}
                 <Icon class="size-[14px]" vWidth={14} vHeight={14} type={value.icon} />
               {/if}
@@ -56,7 +58,7 @@
 {:else if navigation.url}
   <a href={navigation.url} target="_blank">
     <div
-      class="hover:cursor-pointer rounded-full h-fit lg:bg-neutral-background lg:hover:bg-elevated-background py-[12px] f-center">
+      class=" hover:cursor-pointer rounded-full h-fit lg:bg-neutral-background lg:hover:bg-elevated-background py-[12px] f-center">
       {navigation.name}
       <div class="flex flex-grow justify-end">
         <Icon type="arrow-top-right" class="justify-self-end" />
