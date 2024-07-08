@@ -74,17 +74,6 @@
   }
 </script>
 
-<div class="flex gap-4 justify-center xl:justify-end h-full bottom-0">
-  <button class="f-center btn-circle border border-primary-brand" on:click={scrollLeft}>
-    <Icon class="-translate-x-[2px]" type="chevron-left" />
-  </button>
-  <button
-    class="f-center btn-circle bg-primary-brand border-primary-brand hover:bg-primary-interactive-hover"
-    on:click={scrollRight}>
-    <Icon class="translate-x-[2px]" type="chevron-right" />
-  </button>
-</div>
-
 <div class="max-w-full h-[500px] xl:h-auto">
   <div
     bind:this={carouselElement}
@@ -153,9 +142,9 @@
     border-radius: 30px;
   }
 
-  .card-contents:hover {
+  .card-contents:active {
     opacity: 1;
     border-radius: 30px;
-    background-color: rgba(0, 0, 0, 0.5); /* Darken background */
+    background-color: rgba(0, 0, 0, 0.6); /* Darken background */
   }
 </style>

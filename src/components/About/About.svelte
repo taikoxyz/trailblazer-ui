@@ -28,8 +28,6 @@
 
   <AboutInfoPanels />
 
-  <!-- About Gallery -->
-  <AboutGallery />
   <!-- Factions Gallery -->
   <FactionsGallery />
   <!-- About Factions -->
