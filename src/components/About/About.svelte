@@ -12,8 +12,12 @@
   const wrapperClasses = classNames('f-cl', 'w-full', 'flex', 'flex-col', 'gap-24');
   const imageClasses = classNames(
     'rounded-[30px]',
-    'w-full',
-    'hover:scale-105',
+    'md:w-full',
+    'relative',
+    'left-[2.5%]',
+    'md:left-0',
+    'w-[95%]',
+    'md:hover:scale-105',
     'transition-transform',
     'object-cover',
   );

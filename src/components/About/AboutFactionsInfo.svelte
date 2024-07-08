@@ -4,9 +4,18 @@
 
   const wrapperClasses = classNames('flex', 'flex-col', 'gap-8', 'px-5', 'w-full', 'justify-center', 'items-center');
 
-  const contentClasses = classNames('flex', 'flex-col', 'w-1/2', 'gap-8');
+  const contentClasses = classNames('flex', 'flex-col', 'w-[80%]', 'lg:w-1/2', 'gap-8');
 
-  const titleWrapperClasses = classNames('text-secondary-content', 'flex', 'flex-col', 'w-fit', 'gap-4');
+  const titleWrapperClasses = classNames(
+    'text-secondary-content',
+    'flex',
+    'flex-col',
+    'justify-center',
+    'items-center',
+    'lg:items-start',
+    'w-full',
+    'gap-4',
+  );
 
   const titleContentClasses = classNames(
     'font-clash-grotesk',
@@ -15,6 +24,8 @@
     'text-primary-content',
   );
 
+  const barClasses = classNames('border-b-2 border-primary-brand w-[15%]');
+
   const contentWrapperClasses = classNames(
     'text-[18px]/[24px]',
     'text-secondary-content',
@@ -22,19 +33,29 @@
     'flex',
     'flex-col',
     'gap-4',
-    'w-[60%]',
+    'lg:w-[80%]',
+    'w-full',
+    'lg:text-left',
+    'text-center',
   );
 
-  const sectionTitleClasses = classNames('font-clash-grotesk', 'text-content', 'text-[75px]/[75px]', 'font-[500]');
+  const sectionTitleClasses = classNames(
+    'lg:text-left',
+    'text-center',
+    'font-clash-grotesk',
+    'text-content',
+    'text-[75px]/[75px]',
+    'font-[500]',
+  );
 
-  const buttonWrapperClasses = classNames('w-[200px]');
+  const buttonWrapperClasses = classNames('w-[200px]', 'relative', 'lg:left-0', 'left-[calc(50%-100px)]');
 </script>
 
 <div class={wrapperClasses}>
   <div class={contentClasses}>
     <div class={titleWrapperClasses}>
       <div class={titleContentClasses}>Collect exclusive Faction badges</div>
-      <div class="border-b-2 border-primary-brand w-[40%]"></div>
+      <div class={barClasses}></div>
     </div>
     <!-- Title text: Will you answer the call -->
     <div class={sectionTitleClasses}>
