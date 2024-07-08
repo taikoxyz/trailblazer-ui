@@ -4,7 +4,7 @@
   import ActionButton from '$components/Button/ActionButton.svelte';
 </script>
 
-<div class="container h-auto px-[20px] xl:px-[57px] relative">
+<div class="container h-auto px-[20px] xl:px-[57px] relative hidden lg:flex">
   <div
     class="container w-full relative rounded-[30px] h-[250px] bg-[url('/trailbanner/defi/defi-banner-bg.svg')] overflow-hidden">
     <div class="flex justify-center items-center space-x-[60px] h-full">
@@ -19,7 +19,8 @@
           class="f-col justify-center text-center pill center3pill max-w-[77px] min-h-[35px] px-[12spx] px-[5px] borde fill0">
           <span class="line-height-[150%]">{$t('common.week')} 4</span>
         </div>
-        <span class="text-[65px] leading-[65px] font-clash-grotesk font-bold">{$t('trailbanner.defi.title')}</span>
+        <span class="text-[45px] xl:text-[65px] leading-[65px] font-clash-grotesk font-bold"
+          >{$t('trailbanner.defi.title')}</span>
       </div>
       <div class="flex flex-col w-1/3 space-y-[32px] py-[32px] pr-[100px]">
         <span>{$t('trailbanner.defi.description')}</span>
