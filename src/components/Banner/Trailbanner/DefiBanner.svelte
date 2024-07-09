@@ -6,7 +6,7 @@
 
 <div class="container h-auto px-[20px] xl:px-[57px] relative xl:flex hidden">
   <div
-    class="w-full relative rounded-[30px] h-[250px] bg-[url('/trailbanner/defi/xl/defi-banner-bg.svg')] bg-cover overflow-hidden">
+    class="w-full relative rounded-[30px] h-[250px] bg-[url('/trailbanner/defi/xl/defi-banner-bg-xl.svg')] bg-cover overflow-hidden">
     <div class="flex justify-center items-center space-x-[60px] h-full">
       <div class="flex flex-col h-full grow w-1/3 relative">
         <img
@@ -36,7 +36,7 @@
 
 <div class="container h-auto px-[20px] xl:px-[57px] relative md:flex xl:hidden hidden">
   <div
-    class="w-full relative rounded-[30px] h-[427px] bg-[url('/trailbanner/defi/lg/defi-banner-bg.svg')] bg-cover overflow-hidden">
+    class="w-full relative rounded-[30px] h-[427px] bg-[url('/trailbanner/defi/lg/defi-banner-bg-lg.svg')] bg-cover overflow-hidden">
     <div class="flex justify-center items-center h-full space-x-[72px]">
       <div class="f-col h-full grow w-1/4 relative">
         <img
@@ -64,11 +64,11 @@
 <!-- Mobile -->
 <div class="container h-auto px-[20px] xl:px-[57px] relative sm:flex md:hidden">
   <div
-    class=" w-full relative rounded-[30px] h-[702px] bg-[url('/trailbanner/defi/sm/defi-banner-bg.svg')] bg-cover overflow-hidden">
+    class=" w-full relative rounded-[30px] h-[702px] bg-[url('/trailbanner/defi/sm/defi-banner-bg-sm.svg')] bg-cover overflow-hidden">
     <div class="f-col items-center px-[30px] h-full">
       <div class="f-col h-[260px] w-full relative">
         <img
-          src="/trailbanner/defi/defi-banner-icons-sm.png"
+          src="/trailbanner/defi/sm/defi-banner-icons-sm.png"
           alt="DeFi Banner"
           class="min-w-[422px] min-h-[302px] max-h-[302px] absolute left-[-40px] top-[-80px]" />
       </div>
