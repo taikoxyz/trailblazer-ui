@@ -19,27 +19,24 @@ export type LeaderboardRow = {
 
 export type BridgedTokenData = { token: Address; score: number };
 
+// Deprecated
 export type GroupedData = {
   address: string;
   bridged: BridgedTokenData[];
   value: number;
 };
-export type BridgeData = GroupedData & {
-  name?: string;
+export type BridgeData = BridgeLeaderboardRow & {
   twitter?: string;
   icon?: string;
 };
+export type BridgeLeaderboardRow = {
+  name: string;
+  volume: number;
+  scores: BridgeTokenScore[];
+};
 
 export type BridgeLeaderboardPage = {
-  items: BridgeLeaderboardRow[];
-  page: number;
-  size: number;
-  max_page: number;
-  total_pages: number;
-  total: number;
-  last: number;
-  first: number;
-  visible: number;
+  bridgingEntries: BridgeLeaderboardRow[];
 };
 
 export type BridgeLeaderboardTotal = {
@@ -54,8 +51,17 @@ export type BridgeLeaderboardTotal = {
   visible: number;
 };
 
-export type BridgeLeaderboardRow = {
-  address: Address;
+export type PaginationInfo = {
+  first?: boolean;
+  last?: boolean;
+  max_page?: number;
+  total?: number;
+  total_pages?: number;
+  page: number;
+  size: number;
+};
+
+export type BridgeTokenScore = {
   token: Address;
   score: number;
 };

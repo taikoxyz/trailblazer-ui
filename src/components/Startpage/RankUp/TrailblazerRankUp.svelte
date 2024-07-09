@@ -1,4 +1,5 @@
 <script>
+  import { goto } from '$app/navigation';
   import ActionButton from '$components/Button/ActionButton.svelte';
   import Card from '$components/Card/Card.svelte';
 </script>
@@ -9,7 +10,7 @@
       <img class="xl:w-1/2 w-full" src="/leaderboard.svg" alt="leaderboard" />
       <div class="flex flex-col xl:w-1/2 w-full">
         <div
-          class="max-w-[434px] font-clash-grotesk text-secondary-brand tracking-[-1.5px] text-[75px]/[70px] text-center md:text-left">
+          class="max-w-[434px] font-clash-grotesk text-secondary-brand tracking-[-1.5px] text-[60px]/[57px] xl:text-[75px]/[70px] text-center md:text-left">
           Rank up<br /><span class="text-base-content">on the leaderboard</span>
         </div>
         <div class="mt-[50px] mb-[40px]">
@@ -18,8 +19,16 @@
         </div>
 
         <div class="flex flex-row gap-[15px]">
-          <ActionButton priority="primary">User leaderboard</ActionButton>
-          <ActionButton priority="secondary">Dapps leaderboard</ActionButton>
+          <ActionButton
+            priority="primary"
+            on:click={() => {
+              goto('./leaderboard/user');
+            }}>User leaderboard</ActionButton>
+          <ActionButton
+            priority="secondary"
+            on:click={() => {
+              goto('./leaderboard/dapp');
+            }}>Dapps leaderboard</ActionButton>
         </div>
       </div>
     </div>

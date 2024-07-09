@@ -1,83 +1,62 @@
 <script lang="ts">
   import ExplorerLink from '$components/Links/ExplorerLink.svelte';
   import { Skeleton } from '$components/Mock';
+  import Paginator from '$components/Paginator/Paginator.svelte';
+  import { Leaderboard, type LeaderboardRow, type PaginationInfo } from '$libs/leaderboard';
+  import filterList from '$libs/leaderboard/json/filter.json';
+  import mapping from '$libs/leaderboard/json/mapping.json';
   import { formatNumbers } from '$libs/util/formatNumbers';
+  import { getLogger } from '$libs/util/logger';
   import { currentLeaderboard } from '$stores/leaderboard';
 
   import DappsHeader from './Header/DappsHeader.svelte';
+
+  const log = getLogger('BridgeLeaderboard');
+
+  export let pageInfo: PaginationInfo;
+
+  $: pageSize = pageInfo?.size || 10;
+  $: totalItems = pageInfo?.total || 0;
+  // $: currentPage = pageInfo?.page || 1;
+
   let headers = ['Dapp', 'Address', 'Points'];
-  // 0xE4eDb277e41dc89aB076a1F049f4a3EfA700bCE8 orbiter finance
-  // 0x5e809A85Aa182A9921EDD10a4163745bb3e36284 owlto finance
-  // 0xD57b9EE8f597801e82018ed44e07E9065645B0c1 snaefell nft
-  // 0x07d83526730c7438048D55A4fc0b850e2aaB6f0b usdc
-  // 0xA9d23408b9bA935c230493c40C73824Df71A0975 TAIKO
+
   interface MappingValue {
     name: string;
     handle: string;
+    icon?: string;
   }
 
   interface Mapping {
     [key: string]: MappingValue;
   }
 
-  const mapping: Mapping = {
-    '0xE4eDb277e41dc89aB076a1F049f4a3EfA700bCE8': {
-      name: 'Orbiter Finance',
-      handle: '@Orbiter_Finance',
-    },
-    '0x5e809A85Aa182A9921EDD10a4163745bb3e36284': {
-      name: 'Owlto Finance',
-      handle: '@Owlto_Finance',
-    },
-    '0x1Df2De291F909baA50C1456C87C71Edf9Fb199D5': {
-      name: 'rhino.fi',
-      handle: '@rhinofi',
-    },
-    '0x07d83526730c7438048D55A4fc0b850e2aaB6f0b': {
-      name: 'USDC',
-      handle: '@circle',
-    },
-    '0xA9d23408b9bA935c230493c40C73824Df71A0975': {
-      name: 'TAIKO',
-      handle: '@taikoxyz',
-    },
-    '0xD57b9EE8f597801e82018ed44e07E9065645B0c1': {
-      name: 'Snaefell NFT',
-      handle: '@taikoxyz',
-    },
-    '0x04830cfCED9772b8ACbAF76Cfc7A630Ad82c9148': {
-      name: 'izumi',
-      handle: '@izumi_Finance',
-    },
-    '0xA51894664A773981C6C112C43ce576f315d5b1B6': {
-      name: 'WETH',
-      handle: '',
-    },
-    '0x1670000000000000000000000000000000000001': {
-      name: 'Taiko Bridge',
-      handle: '@taikoxyz',
-    },
-    '0x30A0EE3f0F2C76Ad9f0731a4C1c89d9e2cB10930': {
-      name: 'Taiko Airdrop',
-      handle: '@taikoxyz',
-    },
-    '0x2c301eBfB0bb42Af519377578099b63E921515B7': {
-      name: 'Crack And Stack',
-      handle: '@crackandstack',
-    },
-    '0x1670000000000000000000000000000000010001': {
-      name: 'TaikoL2',
-      handle: '@taikoxyz',
-    },
-    '0xe071D7974F882933C9A40fFe8F56Bb76dF61563F': {
-      name: 'Taiko Flamenco',
-      handle: '',
-    },
-  };
+  const detailMapping: Mapping = mapping;
+
+  function handlePageChange(selectedPage: number) {
+    log('handlePageChange', selectedPage);
+    loadLeaderboardData(selectedPage);
+  }
+
+  async function loadLeaderboardData(page: number) {
+    // Fetch the leaderboard data for the given page
+    const args: PaginationInfo = {
+      page,
+      size: pageSize,
+    };
+    const pageInfo = await Leaderboard.getDappLeaderboard(args);
+    totalItems = pageInfo.total || $currentLeaderboard.items.length;
+    // currentPage = pageInfo.page;
+  }
+
+  $: itemsToDisplay = $currentLeaderboard.items.filter((entry: LeaderboardRow) => {
+    return !(entry.address in filterList);
+  });
 </script>
 
 <div class="overflow-x-auto lg:w-full px-8 mt-[18%] lg:mt-0 space-y-[60px]">
   <DappsHeader />
+
   <table class="table-lg w-full body-regular text-white rounded-3xl" style="background: rgba(25, 30, 40, .50)">
     <!-- head -->
     <thead>
@@ -88,36 +67,58 @@
       </tr>
     </thead>
     <tbody class="rounded-lg">
-      {#each $currentLeaderboard.items as thing}
-        <tr class="row h-12">
+      {#each itemsToDisplay as entry, index}
+        {@const hasName = detailMapping[entry.address] && detailMapping[entry.address].name}
+        {@const hasHandle = detailMapping[entry.address] && detailMapping[entry.address].handle}
+        {@const hasIcon = detailMapping[entry.address] && detailMapping[entry.address].icon}
+
+        <tr id={index.toString()} class="row h-12">
           <td class="lg:px-10">
             <div class="flex gap-[20px] align-center">
-              <Skeleton
-                class="hidden lg:table-cell"
-                width="w-12"
-                height="h-12"
-                bgColor="bg-pink-200"
-                shineColor="bg-pink-100" />
+              {#if hasIcon}
+                <div class="avatar">
+                  <div class="w-12 rounded-full">
+                    <img alt="icon" src="/{detailMapping[entry.address].icon}" />
+                  </div>
+                </div>
+              {:else}
+                <Skeleton
+                  class="hidden lg:table-cell"
+                  width="w-12"
+                  height="h-12"
+                  bgColor="bg-pink-200"
+                  shineColor="bg-pink-100" />
+              {/if}
               <div class="flex flex-col justify-around">
-                {#if mapping[thing.address] && mapping[thing.address].name}
-                  <div class="body-bold">{mapping[thing.address].name}</div>
+                {#if hasName}
+                  <div class="body-bold">{detailMapping[entry.address].name}</div>
                 {:else}
-                  <div class="skeleton w-24 h-5 mb-2"></div>
+                  <div class="body-bold">tbd</div>
                 {/if}
-                {#if mapping[thing.address] && mapping[thing.address].handle}
-                  <div class="body-small-regular">{mapping[thing.address].handle}</div>
-                {:else}
-                  <div class="skeleton w-24 h-5"></div>
+                {#if hasHandle}
+                  <div class="body-small-regular">{detailMapping[entry.address].handle}</div>
                 {/if}
               </div>
             </div>
           </td>
-          <td class="lg:table-cell hidden lg:px-10 body-regular"><ExplorerLink address={thing.address} /></td>
+          <td class="lg:table-cell hidden lg:px-10 body-regular"><ExplorerLink address={entry.address} /></td>
           <td class="text-start lg:hidden table-cell lg:px-10 body-regular"
-            ><ExplorerLink address={thing.address} shorten={true} /></td>
-          <td class="lg:px-10 body-regular">{formatNumbers(Math.round(thing.score))}</td>
+            ><ExplorerLink address={entry.address} shorten={true} /></td>
+          <td class="lg:px-10 body-regular">{formatNumbers(Math.round(entry.score))}</td>
         </tr>
       {/each}
+      {#if itemsToDisplay.length === 0}
+        <tr class="row h-12">
+          <td class="lg:px-10" colspan="3">No data available</td>
+        </tr>
+      {/if}
     </tbody>
   </table>
+
+  <Paginator
+    {pageSize}
+    limitPages={true}
+    maxPages={100}
+    bind:totalItems
+    on:pageChange={({ detail: selectedPage }) => handlePageChange(selectedPage)} />
 </div>

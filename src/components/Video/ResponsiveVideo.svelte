@@ -1,7 +1,7 @@
 <script lang="ts">
   import { fade } from 'svelte/transition';
 
-  import PlayButton from '$images/play-button.svg';
+  import PlayButton from '/play-button.svg';
 
   let time: number = 0;
   let duration: number | undefined;

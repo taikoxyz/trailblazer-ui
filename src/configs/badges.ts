@@ -12,8 +12,8 @@ export enum FACTIONS {
 export enum FactionNames {
   Ravers = 'Ravers',
   Robots = 'Robots',
-  // Bouncers = 'Bouncers',
-  // Masters = 'Masters',
+  Bouncers = 'Bouncers',
+  Masters = 'Masters',
   // Monks = 'Monks',
   // Drummers = 'Drummers',
   // Androids = 'Androids',

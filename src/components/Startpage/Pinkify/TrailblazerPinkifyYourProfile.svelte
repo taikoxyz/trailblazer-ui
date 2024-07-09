@@ -1,5 +1,4 @@
 <script lang="ts">
-  import PinkifyYourProfile from '$images/pinkify-your-profile.svg';
 </script>
 
 <div
@@ -22,7 +21,7 @@
     </div>
   </div>
   <div class="overflow-visible xl:top-0 xl:right-[52px] order-0 xl:order-1">
-    <img class="w-full" src={PinkifyYourProfile} alt="pinkify" />
+    <img class="w-full" src="/pinkify-your-profile.svg" alt="pinkify" />
   </div>
 </div>
 

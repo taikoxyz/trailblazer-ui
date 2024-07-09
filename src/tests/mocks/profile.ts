@@ -1,10 +1,9 @@
 import { zeroAddress } from 'viem';
 
-import Placeholder from '$images/avatar.png';
 import type { UserProfile } from '$libs/profile';
 
 export const MOCK_PROFILE: UserProfile = {
-  avatar: Placeholder,
+  avatar: '/avatar.png',
   name: 'Jane',
   address: zeroAddress,
   ens: 'jane.eth',
@@ -22,10 +21,11 @@ export const MOCK_PROFILE: UserProfile = {
   pointsToNextLevel: 1000,
   total: '0',
   rank: '0',
+  movement: 0,
 };
 
 export const MOCK_PROFILE_2: UserProfile = {
-  avatar: Placeholder,
+  avatar: '/avatar.png',
   name: 'Jane',
   address: zeroAddress,
   ens: 'jane2.eth',
@@ -43,4 +43,5 @@ export const MOCK_PROFILE_2: UserProfile = {
   pointsToNextLevel: 1000,
   total: '0',
   rank: '0',
+  movement: 1,
 };

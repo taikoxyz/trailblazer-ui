@@ -1,10 +1,10 @@
-export type CarouselItem = {
+export type CarouselItemType = {
   id: string;
   title: string;
   description: string;
   image: string;
-  publishDate: Date;
-  readTime: number;
   link: string;
+  cta?: string;
+  publishDate?: Date;
   tag?: string;
 };

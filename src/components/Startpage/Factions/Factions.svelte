@@ -12,10 +12,9 @@
 </script>
 
 <!-- Taiko Faction -->
-<div class="flex flex-col container px-[57px]">
-  <div class="f-center flex-col md:flex-row mb-[47px] space-y-[40px] xl:space-x-[88px]">
+<div class="flex flex-col container">
+  <div class="f-center flex-col md:flex-row mb-[47px] space-y-[40px] xl:space-x-[88px] px-[20px] xl:px-0 xl:px-[57px]">
     <!-- Title text: Taiko Factions -->
-
     <Title>
       Taiko<br /><span class="text-base-content">Factions</span>
     </Title>
@@ -25,27 +24,25 @@
       <div class="title-body-regular text-secondary-content text-center xl:self-end max-w-[505px] md:text-left">
         {$t('factions.gallery.description')}
       </div>
-      <ActionButton priority="primary" class="md:w-[240px] w-full" withArrow on:click={handleFactionsButton}
+      <ActionButton priority="primary" class="md:w-[240px] w-full" on:click={handleFactionsButton}
         >{$t('buttons.factions.learn_about')}</ActionButton>
     </div>
   </div>
 
-  <div class="mb-[80px]">
-    <FactionsGallery />
-  </div>
+  <FactionsGallery />
   <div class="f-center flex-col mb-[47px] space-y-[40px] xl:space-x-[88px]">
     <div class="max-w-[700px]">
       <div class="w-full">
-        <div class="text-left f-col">
+        <div class="xl:text-left text-center f-col items-center xl:items-start">
           <span class="text-xl font-clash-grotesk">Unlock your potential</span>
-          <span class="border border-bottom border-2 border-primary w-[66px] mt-[20px]"></span>
+          <span class=" border-bottom border-2 border-primary w-[66px] mt-[20px]"></span>
         </div>
       </div>
       <Title class=" my-[40px] !max-w-full !w-full">
         <span class="text-base-content">Earn</span> factions
         <span class="text-base-content">through weekly trails</span>
       </Title>
-      <div class="text-left text-secondary-content">
+      <div class="xl:text-left text-secondary-content max-w-[482px] text-center">
         To earn Taiko Faction Badges, participants must complete specific weekly challenges outlined in the
         Trailblazers: Call of Taiko campaign.
       </div>
