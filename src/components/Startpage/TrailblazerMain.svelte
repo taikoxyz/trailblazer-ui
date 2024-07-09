@@ -20,16 +20,16 @@
 </script>
 
 <div
-  class="f-center relative flex-col w-dvw rounded-[30px] overflow-hidden
+  class="f-center relative flex-col w-dvw rounded-[30px] overflow-hidden background-overlay
   
   xl:bg-[url(/desktop.png)]
-  md:bg-[url(/pad.png)
+  md:bg-[url(/pad.png)]
   sm:bg-[url(/mobile.png)]
   xs:bg-[url(/small.png)]
   
   hidden xl:block w-full h-full bg-cover mt-[18px] xl:px-[57px]">
   <div class="f-center flex-col xl:flex-row h-dvh md:h-[815px] w-[90%]">
-    <div class="f-center flex-col w-full">
+    <div class="f-center flex-col w-full z-10">
       <!-- Title -->
       <div
         class="xl:self-start font-clash-grotesk text-[23px]/[28px] tracking-[10px] xl:text-[45px]/[45px] xl:tracking-[22.5px] mb-[30px] md:mb-[60px]">
@@ -60,3 +60,18 @@
   <div class="absolute -z-20 bg-[url(/mobile.png)] hidden md:block lg:hidden w-full h-full bg-cover" />
   <div class="absolute -z-20 bg-[url(/small.png)] block md:hidden w-full h-full bg-cover" />
 </div>
+
+<style>
+  .background-overlay::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* background: linear-gradient(180deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)); */
+    background: url('/splash-gradient.svg') no-repeat center center;
+
+    z-index: 0;
+  }
+</style>
