@@ -35,6 +35,7 @@
     "learn_more": "Learn more",
     "locked": "Locked",
     "not_eligible": "Not eligible",
+    "trail": "Trail",
     "week": "Week"
   },
   "factions": {
@@ -86,8 +87,8 @@
   },
   "trailbanner": {
     "defi": {
-      "description": "Engage with our trusted DeFi protocols and complete tasks to earn exclusive Drummer Faction Badges and more.",
-      "title": "Swap & Stake TAIKO"
+      "description": "Engage with our trusted DeFi protocols and complete tasks to earn exclusive Masters Faction badges and more.",
+      "title": "Create a position with any of the Defi protocol"
     }
   },
   "trailblazer_guide": {
