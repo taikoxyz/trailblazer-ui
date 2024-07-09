@@ -29,6 +29,8 @@ on:
 env:
   VERCEL_ORG_ID: ${{ secrets.vercel_org_id }}
   VERCEL_PROJECT_ID: ${{ secrets.vercel_project_id }}
+  PUBLIC_TRAILBLAZER_API_URL: ${{ secrets.PUBLIC_TRAILBLAZER_API_URL}}
+  PUBLIC_WALLETCONNECT_PROJECT_ID: ${{ secrets.PUBLIC_WALLETCONNECT_PROJECT_ID}}
 
 jobs:
   build-deploy:
