@@ -36,7 +36,7 @@
   $: secondaryClasses = classNames(
     $$restProps.disabled
       ? 'border-none'
-      : 'border-primary-brand dark:text-white hover:bg-primary-interactive-hover btn-secondary bg-transparent light:text-black',
+      : 'border-primary-brand text-white  hover:bg-primary-interactive-hover btn-secondary bg-transparent ',
   );
 
   $: priorityToClassMap = {
