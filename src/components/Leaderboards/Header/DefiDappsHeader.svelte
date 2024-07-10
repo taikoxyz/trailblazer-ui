@@ -1,9 +1,49 @@
 <div class="relative w-full bg-primary-link-hover px-8 py-8 rounded-[21.6px] overflow-hidden">
-  <div class="font-clash-grotesk lg:text-[45px]/[45px] text-[40px] leading-none text-primary-base-content">
+  <div class="font-clash-grotesk text-[45px]/[45px] leading-none text-primary-base-content">
     <span class="text-secondary">Defi<br /></span> Leaderboard
   </div>
 
-  <svg class="absolute top-5 right-0" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <svg
+    class="absolute -top-[48px] left-[444px] lg:left-auto lg:right-0 h-[234px] w-[234px]"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg">
+    <ellipse
+      opacity="0.3"
+      cx="117"
+      cy="117"
+      rx="117"
+      ry="117"
+      transform="matrix(1 -8.74228e-08 -8.74228e-08 -1 0 234)"
+      fill="#FF6FC8" />
+    <ellipse
+      opacity="0.3"
+      cx="82.5531"
+      cy="82.4637"
+      rx="82.5531"
+      ry="82.4637"
+      transform="matrix(1 -8.74228e-08 -8.74228e-08 -1 34.1642 199.138)"
+      fill="url(#paint0_linear_226_23)" />
+    <defs>
+      <linearGradient
+        id="paint0_linear_226_23"
+        x1="-56.5884"
+        y1="-74.9547"
+        x2="269.776"
+        y2="51.4667"
+        gradientUnits="userSpaceOnUse">
+        <stop stop-color="#E81899" />
+        <stop offset="1" stop-color="white" />
+      </linearGradient>
+    </defs>
+  </svg>
+  <svg class="absolute -bottom-2 left-0 w-full h-[30px]" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect width="100%" height="30" fill="#E81899" />
+  </svg>
+
+  <svg
+    class="absolute w-[88px] h-[124px] top-[24.9px] left-[517.2px] lg:left-auto lg:right-[73.95px]"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg">
     <g style="mix-blend-mode:multiply" opacity="0.48">
       <ellipse cx="44.3054" cy="121.154" rx="31.9402" ry="2.58974" fill="#9A0060" />
     </g>
@@ -43,39 +83,5 @@
         <stop offset="0.925484" stop-color="#C8047D" />
       </linearGradient>
     </defs>
-  </svg>
-
-  <svg class="absolute -top-5 right-0 h-[234px]" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <ellipse
-      opacity="0.3"
-      cx="117"
-      cy="117"
-      rx="117"
-      ry="117"
-      transform="matrix(1 -8.74228e-08 -8.74228e-08 -1 0 234)"
-      fill="#FF6FC8" />
-    <ellipse
-      opacity="0.3"
-      cx="82.5531"
-      cy="82.4637"
-      rx="82.5531"
-      ry="82.4637"
-      transform="matrix(1 -8.74228e-08 -8.74228e-08 -1 34.1642 199.138)"
-      fill="url(#paint0_linear_226_23)" />
-    <defs>
-      <linearGradient
-        id="paint0_linear_226_23"
-        x1="-56.5884"
-        y1="-74.9547"
-        x2="269.776"
-        y2="51.4667"
-        gradientUnits="userSpaceOnUse">
-        <stop stop-color="#E81899" />
-        <stop offset="1" stop-color="white" />
-      </linearGradient>
-    </defs>
-  </svg>
-  <svg class="absolute -bottom-2 left-0 w-full h-[30px]" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <rect width="100%" height="30" fill="#E81899" />
   </svg>
 </div>
