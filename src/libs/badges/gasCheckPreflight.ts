@@ -17,12 +17,12 @@ export default async function gasCheckPreflight(address: Address): Promise<boole
 
   const currentBlockNumber = await publicClient.getBlockNumber();
 
-  const logs = (await publicClient.getContractEvents({
+  const logs = await publicClient.getContractEvents({
     address: trailblazersBadgesAddress[chainId],
     abi: trailblazersBadgesAbi,
     eventName: 'BadgeCreated',
     fromBlock: currentBlockNumber - 1000n,
-  }))
+  });
 
   const balance = await getBalance(wagmiConfig, {
     address,

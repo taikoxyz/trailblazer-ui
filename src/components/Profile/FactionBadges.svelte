@@ -3,7 +3,7 @@
 
   import { page } from '$app/stores';
   import { FactionNames } from '$configs/badges';
-  import gasCheckPreflight from '$libs/badges/estimateGasCost';
+  import gasCheckPreflight from '$libs/badges/gasCheckPreflight';
   //import getMovement from '$libs/badges/getMovement';
   import { getUserBadges } from '$libs/badges/getUserBadges';
   import getConnectedAddress from '$libs/util/getConnectedAddress';
