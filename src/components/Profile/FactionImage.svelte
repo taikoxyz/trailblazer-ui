@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { FactionNames } from '$configs/badges';
   import { MovementNames, type Movements } from '$libs/badges/const';
   import type { Faction } from '$libs/profile';
 
