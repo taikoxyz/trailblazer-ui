@@ -7,7 +7,7 @@ import { chainId } from '$libs/chain';
 import { isDevelopmentEnv } from '$libs/util/isDevelopmentEnv';
 import { wagmiConfig } from '$libs/wagmi';
 
-import { trailblazersBadgesAbi, trailblazersBadgesAddress } from '../../generated/abi/';
+import { trailblazersBadgesAbi, trailblazersBadgesAddress } from '../../generated/abi';
 
 export default async function gasCheckPreflight(address: Address): Promise<boolean> {
   const publicClient = createPublicClient({
@@ -17,12 +17,12 @@ export default async function gasCheckPreflight(address: Address): Promise<boole
 
   const currentBlockNumber = await publicClient.getBlockNumber();
 
-  const logs = await publicClient.getContractEvents({
+  const logs = (await publicClient.getContractEvents({
     address: trailblazersBadgesAddress[chainId],
     abi: trailblazersBadgesAbi,
     eventName: 'BadgeCreated',
     fromBlock: currentBlockNumber - 1000n,
-  });
+  }))
 
   const balance = await getBalance(wagmiConfig, {
     address,
