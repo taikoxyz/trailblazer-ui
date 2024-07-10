@@ -4,6 +4,8 @@ on:
   push:
     tags:
       - 'trailblazer-ui*'
+    branches:
+      - main
   pull_request:
     paths:
       - '.'
@@ -14,7 +16,7 @@ jobs:
 
   # Internal Staging
   deploy_trailblazer-ui_staging_preview:
-    if: ${{ github.ref_type != 'tag' }}
+    if: ${{ github.event_name == 'pull_request' || (github.event_name == 'push' && github.ref_type != 'branch' && github.ref != 'refs/heads/main') }}
     needs: build-and-test
     uses: ./.github/workflows/repo--vercel-deploy.yml
     with:
@@ -28,7 +30,7 @@ jobs:
       PUBLIC_WALLETCONNECT_PROJECT_ID: ${{ secrets.PUBLIC_WALLETCONNECT_PROJECT_ID }}
 
   deploy_trailblazer-ui_staging_production:
-    if: ${{ github.ref_type != 'tag' }}
+    if: ${{ github.event_name == 'pull_request' || (github.event_name == 'push' && github.ref_type != 'branch' && github.ref != 'refs/heads/main') }}
     needs: build-and-test
     uses: ./.github/workflows/repo--vercel-deploy.yml
     with:
@@ -43,7 +45,7 @@ jobs:
 
   # Mainnet
   deploy_trailblazer-ui_mainnet_preview:
-    if: ${{ github.ref_type != 'tag' }}
+    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
     needs: build-and-test
     uses: ./.github/workflows/repo--vercel-deploy.yml
     with:
