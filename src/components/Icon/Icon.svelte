@@ -533,7 +533,7 @@
       </clipPath>
     </defs>
   {:else if type === 'semi-circle-reversed'}
-    <g clip-path="url(#clip0_257_2071)">
+    <g clip-path="url(#clip0_1323_12678)">
       <path
         fill-rule="evenodd"
         clip-rule="evenodd"
@@ -541,26 +541,18 @@
         fill="#E81899" />
     </g>
     <defs>
-      <clipPath id="clip0_257_2071">
-        <rect width="14" height="14" fill="white" />
+      <clipPath id="clip0_1323_12678">
+        <rect width="20" height="20" fill="white" />
       </clipPath>
     </defs>
   {:else if type === 'quad-circles'}
-    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <g id="Shape" clip-path="url(#clip0_1009_8997)">
-        <path
-          id="Vector"
-          fill-rule="evenodd"
-          clip-rule="evenodd"
-          d="M3.5 7C5.43299 7 7 5.43299 7 3.5C7 5.43299 8.56702 7 10.5 7C8.56702 7 7 8.56702 7 10.5C7 8.56702 5.43299 7 3.5 7ZM3.5 7C1.56701 7 0 8.56702 0 10.5C0 12.433 1.56701 14 3.5 14C5.43299 14 7 12.433 7 10.5C7 12.433 8.56702 14 10.5 14C12.433 14 14 12.433 14 10.5C14 8.56702 12.433 7 10.5 7C12.433 7 14 5.43299 14 3.5C14 1.56701 12.433 0 10.5 0C8.56702 0 7 1.56701 7 3.5C7 1.56701 5.43299 0 3.5 0C1.56701 0 0 1.56701 0 3.5C0 5.43299 1.56701 7 3.5 7Z"
-          fill="#E81899" />
-      </g>
-      <defs>
-        <clipPath id="clip0_1009_8997">
-          <rect width="14" height="14" fill="white" />
-        </clipPath>
-      </defs>
-    </svg>
+    <g clip-path="url(#clip0_1323_12682)">
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="M5 10C7.76142 10 10 7.76142 10 5C10 7.76142 12.2386 10 15 10C12.2386 10 10 12.2386 10 15C10 12.2386 7.76142 10 5 10ZM5 10C2.23858 10 0 12.2386 0 15C0 17.7614 2.23858 20 5 20C7.76142 20 10 17.7614 10 15C10 17.7614 12.2386 20 15 20C17.7614 20 20 17.7614 20 15C20 12.2386 17.7614 10 15 10C17.7614 10 20 7.76142 20 5C20 2.23858 17.7614 0 15 0C12.2386 0 10 2.23858 10 5C10 2.23858 7.76142 0 5 0C2.23858 0 0 2.23858 0 5C0 7.76142 2.23858 10 5 10Z"
+        fill="#E81899" />
+    </g>
   {:else if type === 'diamond'}
     <g clip-path="url(#clip0_257_2079)">
       <path

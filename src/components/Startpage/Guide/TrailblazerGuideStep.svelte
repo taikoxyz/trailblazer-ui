@@ -11,32 +11,27 @@
     'flex',
     'flex-col',
     'w-full',
-    'min-h-[100%]',
+    'h-full',
     'px-[35px]',
     'py-[38px]',
     'bg-purple',
     'rounded-[30px]',
     'gap-[20px]',
+    'min-h-[258px]',
   );
 
-  const titleClasses = classNames(
-    'flex',
-    'flex-row',
-    'w-full',
-    'justify-center',
-    'lg:justify-start',
-    'items-center',
-    'gap-3',
-    'display-small-medium',
-  );
+  const titleClasses = classNames('flex', 'items-center', 'gap-3');
 
   const contentClasses = classNames('text-secondary-content', 'lg:max-w-[340px]');
 </script>
 
 <div class={wrapperClasses}>
   <div class={titleClasses}>
-    <Icon type={icon} fillClass="fill-primary-brand" />
-    <div>{title}</div>
+    <Icon type={icon} vWidth={20} vHeight={20} class="w-[20px]" fillClass="fill-primary-brand" />
+
+    <div class="display-small-medium">
+      {title}
+    </div>
   </div>
   <div class={contentClasses}>
     {description}
