@@ -10,8 +10,8 @@
       },
       "selectButton": "Select your movement"
     },
-    "nonClaimable": "You are not eligible to claim this badge. Please read {requirements} about eligibility.",
-    "nonClaimableLinkText": "the requirements",
+    "nonClaimable": "You are not eligible to claim this badge. Please read the {requirements}",
+    "nonClaimableLinkText": "eligibility requirements",
     "pendingTx": "Your transaction is pending. Please wait for confirmation."
   },
   "buttons": {
