@@ -79,9 +79,10 @@
     'overflow-hidden',
     'flex',
     'w-full',
+
     'min-h-[306px]',
     'max-w-[306px]',
-    'rounded-[20px]',
+    'rounded-[30px]',
     'bg-[#310E2F]',
     'border-2',
     'transition-all',
@@ -114,11 +115,11 @@
     'border-transparent',
     'bg-[rgba(0,0,0,.4)]',
   );
-  const weekBadgeClasses = classNames(badgeClasses, 'top-6', 'right-4');
+  const weekBadgeClasses = classNames(badgeClasses, 'top-[20px]', 'right-[20px]');
 
-  const lockedBadgeNameClasses = classNames(badgeClasses, 'top-6', 'left-4');
+  const lockedBadgeNameClasses = classNames(badgeClasses, 'top-[20px]', 'left-[20px]');
 
-  const buttonWrapperClasses = classNames('absolute', 'bottom-8', 'place-self-center', 'w-full', 'px-6');
+  const buttonWrapperClasses = classNames('absolute', 'bottom-[20px]', 'place-self-center', 'w-full', 'px-[20px]');
 
   const tooltipClasses = classNames(
     'absolute',
