@@ -15,6 +15,8 @@
   import { pendingTransactions } from '$stores/pendingTransactions';
 
   import FactionImage from './FactionImage.svelte';
+  import { onMount } from 'svelte';
+  import gasCheckPreflight from '$libs/badges/estimateGasCost';
   export let name: FactionNames;
   export let unlocked: boolean = false;
   export let address: Address;

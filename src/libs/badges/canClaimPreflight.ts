@@ -6,8 +6,8 @@ import { globalAxiosConfig } from '$libs/api/axiosConfig';
 import { isDevelopmentEnv } from '$libs/util/isDevelopmentEnv';
 
 export default async function canClaimPreflight(address: Address, badgeId: number): Promise<boolean> {
-  if (isDevelopmentEnv) {
-    return false;
+   if (isDevelopmentEnv) {
+    return true;
   }
 
   try {
