@@ -39,26 +39,6 @@ export type BridgeLeaderboardPage = {
   bridgingEntries: BridgeLeaderboardRow[];
 };
 
-export type DefiDappData = DefiDappLeaderboardRow & {
-  twitter?: string;
-  icon?: string;
-};
-
-export type DefiDappLeaderboardPage = {
-  defiDappEntries: DefiDappLeaderboardRow[];
-};
-
-export type DefiDappLeaderboardRow = {
-  name: string;
-  volume: number;
-  scores: DefiDappTokenScore[];
-};
-
-export type DefiDappTokenScore = {
-  token: Address;
-  score: number;
-};
-
 export type BridgeLeaderboardTotal = {
   items: BridgeData[];
   page: number;
@@ -69,6 +49,42 @@ export type BridgeLeaderboardTotal = {
   last: number;
   first: number;
   visible: number;
+};
+
+export type DefiDappLeaderboardPage = {
+  defiDappEntries: DefiDappLeaderboardRow[];
+};
+
+export type DefiDappLeaderboardRow = {
+  id: string;
+  name: string;
+  address: string;
+  symbol: string;
+  url: string;
+  description: string;
+  chain: string;
+  logo: string;
+  audits: string;
+  audit_note: string | null;
+  gecko_id: string;
+  cmcId: string;
+  category: string;
+  chains: string[];
+  module: string;
+  twitter: string;
+  forkedFrom: string | null;
+  oracles: string | null;
+  listedAt: number;
+  slug: string;
+  tvl: number;
+  chainTvls: {
+    [key: string]: number;
+  };
+  taikoTvl?: number;
+  change_1h: number;
+  change_1d: number;
+  change_7d: number;
+  tokenBreakdowns: Record<string, unknown>;
 };
 
 export type PaginationInfo = {

@@ -5,9 +5,16 @@ import { globalAxiosConfig } from '$libs/api/axiosConfig';
 import bridgeAdditionalData from '$libs/leaderboard/json/bridgeAdditionalData.json';
 import { isDevelopmentEnv } from '$libs/util/isDevelopmentEnv';
 import { getLogger } from '$libs/util/logger';
-import { setBridgeLeaderboard, setLeaderboard, setUserLeaderboard } from '$stores/leaderboard';
+import { setBridgeLeaderboard, setDefiDappLeaderboard, setLeaderboard, setUserLeaderboard } from '$stores/leaderboard';
 
-import type { BridgeData, BridgeLeaderboardPage, LeaderboardPage, PaginationInfo } from './types';
+import type {
+  BridgeData,
+  BridgeLeaderboardPage,
+  DefiDappLeaderboardPage,
+  DefiDappLeaderboardRow,
+  LeaderboardPage,
+  PaginationInfo,
+} from './types';
 
 const baseApiUrl = isDevelopmentEnv ? '/mock-api' : PUBLIC_TRAILBLAZER_API_URL;
 
@@ -61,6 +68,18 @@ export class Leaderboard {
     }
   }
 
+  static async getDefiDappLeaderboard() {
+    try {
+      const response = await axios.get(`${baseApiUrl}/leaderboard/tvl`, globalAxiosConfig);
+      const result: DefiDappLeaderboardRow[] = response.data as DefiDappLeaderboardRow[];
+      console.log('🚀 | Leaderboard | getDefiDappLeaderboard | result:', result);
+      const defiDappEntries = this.appendDefiDappAdditionalData(result);
+      setDefiDappLeaderboard({ defiDappEntries });
+    } catch (error) {
+      console.error('Error fetching leaderboard:', error);
+    }
+  }
+
   static appendBridgeAdditionalData(page: BridgeData[]) {
     const data: { [key: string]: { name: string; twitter: string; icon: string } } = bridgeAdditionalData;
 
@@ -75,5 +94,18 @@ export class Leaderboard {
     });
 
     return page;
+  }
+
+  // Modifies the rows to add the taikoTvl property and sort in descending taikoTvl
+  static appendDefiDappAdditionalData(rows: DefiDappLeaderboardRow[]): DefiDappLeaderboardRow[] {
+    // Save chainTvls.Taiko as taikoTvl for each row
+    rows.map((row) => {
+      row.taikoTvl = row.chainTvls.Taiko;
+    });
+
+    // Sort descending taikoTvl
+    rows.sort((a, b) => (b.taikoTvl || 0) - (a.taikoTvl || 0));
+
+    return rows;
   }
 }

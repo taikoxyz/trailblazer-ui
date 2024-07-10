@@ -3,16 +3,16 @@
 
   import { goto } from '$app/navigation';
   import { ActionButton } from '$components/Button';
-  import { BridgeLeaderboard } from '$components/Leaderboards';
+  import { DeFiDappLeaderboard } from '$components/Leaderboards';
   import { Page } from '$components/Page';
 </script>
 
 <svelte:head>
-  <title>Taiko Trailblazer - DeFi Dapp Leaderboard</title>
+  <title>Taiko Trailblazer - Bridge Leaderboard</title>
 </svelte:head>
 
 <Page>
-  <BridgeLeaderboard />
+  <DeFiDappLeaderboard />
 
   <div class="w-full flex justify-center mt-[58px]">
     <ActionButton class="max-w-[280px]" priority="primary" on:click={() => goto('/leaderboard/dapp')} withArrow>
