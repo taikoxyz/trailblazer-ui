@@ -45,7 +45,8 @@ jobs:
 
   # Mainnet
   deploy_trailblazer-ui_mainnet_preview:
-    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+    if: ${{ (github.event_name == 'push' && github.ref == 'refs/heads/main') || github.ref_type == 'tag' && startsWith(github.ref, 'refs/tags/trailblazer-ui') }}
+
     needs: build-and-test
     uses: ./.github/workflows/repo--vercel-deploy.yml
     with:
