@@ -1,10 +1,9 @@
 <div class="relative w-full bg-primary-link-hover px-8 py-8 rounded-[21.6px] overflow-hidden">
-  <div class="font-clash-grotesk text-[45px]/[45px] leading-none text-primary-base-content">
+  <div class="font-clash-grotesk text-[45px]/[45px] leading-none text-primary-base-content z-50 relative">
     <span class="text-secondary">Defi<br /></span> Leaderboard
   </div>
-
   <svg
-    class="absolute -top-[48px] left-[444px] lg:left-auto lg:right-0 h-[234px] w-[234px]"
+    class="absolute -top-[48px] left-[243px] sm:left-[444px] lg:left-auto lg:right-0 h-[234px] w-[234px] -z-[0]"
     fill="none"
     xmlns="http://www.w3.org/2000/svg">
     <ellipse
@@ -36,12 +35,13 @@
       </linearGradient>
     </defs>
   </svg>
+
   <svg class="absolute -bottom-2 left-0 w-full h-[30px]" fill="none" xmlns="http://www.w3.org/2000/svg">
     <rect width="100%" height="30" fill="#E81899" />
   </svg>
 
   <svg
-    class="absolute w-[88px] h-[124px] top-[24.9px] left-[517.2px] lg:left-auto lg:right-[73.95px]"
+    class="absolute w-[88px] h-[124px] top-[24.9px] left-[310px] sm:left-[517.2px] lg:left-auto lg:right-[73.95px]"
     fill="none"
     xmlns="http://www.w3.org/2000/svg">
     <g style="mix-blend-mode:multiply" opacity="0.48">
