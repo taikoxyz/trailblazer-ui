@@ -1,25 +1,9 @@
 <script lang="ts">
-  import type { Address } from 'viem';
-  import { getAddress } from 'viem/utils';
-
   import { Skeleton } from '$components/Mock';
-  import { chainId } from '$libs/chain';
+  import { formatNumbers } from '$libs/util/formatNumbers';
   import { currentDefiDappLeaderboard } from '$stores/leaderboard';
 
-  import { usdcAddress, usdtAddress } from '../../generated/abi';
   import DefiDappsHeader from './Header/DefiDappsHeader.svelte';
-  import { formatNumbers } from '$libs/util/formatNumbers';
-
-  $: usdc = getValidatedAddress(usdcAddress[chainId] as Address);
-  $: usdt = getValidatedAddress(usdtAddress[chainId] as Address);
-
-  function getValidatedAddress(address: string): Address | null {
-    try {
-      return getAddress(address);
-    } catch {
-      return null;
-    }
-  }
 </script>
 
 <div class="lg:w-full px-8 mt-[18%] lg:mt-0 space-y-[60px]">

@@ -1,5 +1,5 @@
 // tokenInfoStore.ts
-import { get, writable } from 'svelte/store';
+import { writable } from 'svelte/store';
 
 import type {
   BridgeData,

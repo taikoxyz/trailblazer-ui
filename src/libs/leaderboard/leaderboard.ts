@@ -10,7 +10,6 @@ import { setBridgeLeaderboard, setDefiDappLeaderboard, setLeaderboard, setUserLe
 import type {
   BridgeData,
   BridgeLeaderboardPage,
-  DefiDappLeaderboardPage,
   DefiDappLeaderboardRow,
   LeaderboardPage,
   PaginationInfo,
@@ -72,7 +71,6 @@ export class Leaderboard {
     try {
       const response = await axios.get(`${baseApiUrl}/leaderboard/tvl`, globalAxiosConfig);
       const result: DefiDappLeaderboardRow[] = response.data as DefiDappLeaderboardRow[];
-      console.log('🚀 | Leaderboard | getDefiDappLeaderboard | result:', result);
       const defiDappEntries = this.appendDefiDappAdditionalData(result);
       setDefiDappLeaderboard({ defiDappEntries });
     } catch (error) {
