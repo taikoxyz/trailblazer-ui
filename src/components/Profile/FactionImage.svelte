@@ -15,7 +15,7 @@
   function setVideoSrc() {
     if (movement < 0) return '';
     videoPoster = getVideoPoster();
-    return `/factions/${type.toLowerCase()}/${MovementNames[movement].toLowerCase()}.mp4`;
+    return `/factions/${type.toLowerCase()}/${MovementNames[movement].toLowerCase()}.webm`;
   }
 
   function getVideoPoster() {
@@ -28,7 +28,9 @@
     <video poster={videoPoster} loop autoplay={unlocked} class="rounded-[20px] absolute left-0 top-0 z-20">
       <track kind="captions" />
       {#if videoSrc}
-        <source src={videoSrc} type="video/mp4" />
+        <source
+          src={`/factions/${type.toLowerCase()}/${MovementNames[movement].toLowerCase()}.webm`}
+          type="video/webm" />
       {/if}
       Your browser does not support the video tag.
     </video>
