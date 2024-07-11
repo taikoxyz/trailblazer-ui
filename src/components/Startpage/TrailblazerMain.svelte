@@ -50,7 +50,7 @@
         <div class="gap-4 self-center xl:self-start f-col md:f-row">
           <ActionButton
             priority="primary"
-            class="md:min-w-[150px] md:max-w-[150px] w-full"
+            class="md:min-w-[180px] md:max-w-[180px] w-full"
             on:click={handlePrimaryAction}
             withArrow>
             {primaryButtonText}
@@ -58,7 +58,7 @@
 
           <ActionButton
             priority="secondary"
-            class="md:min-w-[150px] md:max-w-[150px] w-full"
+            class="md:min-w-[180px] md:max-w-[180px] w-full"
             on:click={handleSecondaryAction}>{$t('buttons.learn_more')}</ActionButton>
         </div>
       </div>

@@ -15,11 +15,11 @@
 </script>
 
 <div class="absolute w-full f-center top-[16px] z-50">
-  <div class="container f-center w-full px-[20px] lg:px-[75px]">
+  <div class="container f-center w-full px-[20px] lg:px-0">
     <div class="flex body-regular items-center justify-between box-border w-full rounded-full lg:bg-none">
       <!-- Mobile Burger Button -->
       <label
-        class="btn xl:hidden btn-circle bg-neutral-background border-none swap swap-rotate fixed z-30 right-5 md: top-[12px]">
+        class="btn xl:hidden btn-circle bg-neutral-background border-none swap swap-rotate fixed md:relative z-30 right-5 top-[12px] md:top-[22px]">
         <!-- this hidden checkbox controls the state -->
         <input type="checkbox" checked={mobileMenu} on:click={toggleMobileMenu} />
 
@@ -27,34 +27,35 @@
         <img src="/x.svg" alt="menu open" class="swap-on" />
       </label>
 
-      <div class="f-center hidden lg:flex gap-2 mt-[5px] xs:fixed left-[22px] top-[12px] md:top-0 md:right-0">
+      <div
+        class="f-between-center w-full hidden lg:flex gap-2 mt-[5px] fixed md:relative left-[22px] top-[12px] md:top-[22px] md:right-0 md:px-[57px]">
         <a class="f-center gap-2" href="/">
           <Logo width={27} class="md:hidden" />
           <LogoWithText class="hidden md:flex" />
           <TaikoTrailblazersLogo class="w-[125px]" />
         </a>
-      </div>
-      <!--  Desktop Only -->
-      <div class="hidden xl:flex gap-2">
-        <div class="f-center gap-2">
-          <NavigationItem navigation={{ name: 'Profile', route: '/profile' }}></NavigationItem>
-          <NavigationItem
-            navigation={{ name: 'Leaderboards', route: '/leaderboard/dapp' }}
-            children={[
-              { name: 'Bridge', route: '/leaderboard/bridge', icon: 'quad-circles' },
-              { name: 'Dapp', route: '/leaderboard/dapp', icon: 'star2' },
-            ]}></NavigationItem>
-          <NavigationItem
-            navigation={{ name: 'Discover' }}
-            children={[
-              { name: 'About', route: '/about', icon: 'nav-about' },
-              { name: 'Ecosystem', url: 'https://taiko.xyz/ecosystem', icon: 'nav-ecosystem' },
-              { name: 'Bridge', url: 'https://bridge.taiko.xyz', icon: 'nav-bridge' },
-            ]}></NavigationItem>
+        <!--  Desktop Only -->
+        <div class="hidden xl:flex gap-2">
+          <div class="f-center gap-2">
+            <NavigationItem navigation={{ name: 'Profile', route: '/profile' }}></NavigationItem>
+            <NavigationItem
+              navigation={{ name: 'Leaderboards', route: '/leaderboard/dapp' }}
+              children={[
+                { name: 'Bridge', route: '/leaderboard/bridge', icon: 'quad-circles' },
+                { name: 'Dapp', route: '/leaderboard/dapp', icon: 'star2' },
+              ]}></NavigationItem>
+            <NavigationItem
+              navigation={{ name: 'Discover' }}
+              children={[
+                { name: 'About', route: '/about', icon: 'nav-about' },
+                { name: 'Ecosystem', url: 'https://taiko.xyz/ecosystem', icon: 'nav-ecosystem' },
+                { name: 'Bridge', url: 'https://bridge.taiko.xyz', icon: 'nav-bridge' },
+              ]}></NavigationItem>
+          </div>
         </div>
-      </div>
-      <div class="hidden xl:flex">
-        <ConnectButton />
+        <div class="hidden xl:flex">
+          <ConnectButton />
+        </div>
       </div>
     </div>
   </div>
