@@ -42,7 +42,7 @@
   <!-- Connected State -->
   <button
     on:click={connectWallet}
-    class="rounded-full flex justify-between items-center pl-[24px] lg:pl-[8px] pr-[3px] py-1 lg:max-h-[44px] lg:min-h-[40px] wc-parent-glass !border-solid gap-2 font-bold font-clash-grotesk lg:font-public-sans">
+    class="rounded-full flex justify-between items-center pl-[24px] lg:pl-[8px] pr-[3px] py-1 lg:max-h-[44px] lg:min-h-[40px] wc-parent-glass !border-solid gap-2 font-bold font-clash-grotesk lg:font-public-sans {$$props.class}">
     <div class="flex gap-2">
       <img
         alt="chain icon"
@@ -62,7 +62,7 @@
   <!-- Disconnected State -->
   <ActionButton
     priority="primary"
-    class="lg:!max-w-[215px] lg:!min-h-[32px] lg:!max-h-[48px] lg:!f-items-center font-clash-grotesk py-[24px] px-[24px] lg:py-[0px] w-full justify-start"
+    class="lg:!max-w-[215px] {$$props.class} lg:!f-items-center font-clash-grotesk py-[24px] px-[24px] lg:py-[0px] w-full justify-start"
     loading={web3modalOpen}
     on:click={connectWallet}>
     <div class="flex items-center lg:body-regular text-[22px] font-medium space-x-2">

@@ -7,6 +7,17 @@
   import MobileNavigationLink from './MobileNavigationLink.svelte';
 
   const dispatch = createEventDispatcher();
+
+  const handleClick1 = () => {
+    menu1Checked = !menu1Checked;
+  };
+
+  const handleClick2 = () => {
+    menu2Checked = !menu2Checked;
+  };
+
+  let menu1Checked = false;
+  let menu2Checked = false;
 </script>
 
 <!-- Overlay -->
@@ -15,18 +26,21 @@
     <a class="flex gap-2 pb-20" href="/"> </a>
 
     <!-- wallet -->
-    <ConnectButton />
+    <ConnectButton class="min-h-[75px]" />
     <!-- Links -->
 
     <div class="flex flex-col w-full gap-2">
       <button
-        class="bg-neutral w-full rounded-[30px] p-[24px] hover:cursor-pointer text-start"
+        class="bg-neutral w-full rounded-full p-[24px] hover:cursor-pointer text-start h-[75px]"
         on:click={() => dispatch('navigate', { url: '/profile' })}>
         <a href="/profile" class="font-clash-grotesk title-subsection-medium text-[22px]/[24px]">Profile</a>
       </button>
     </div>
-    <div class="collapse collapse-plus bg-neutral w-full rounded-[30px] pl-6 py-2">
-      <input type="checkbox" checked />
+    <div
+      class="collapse collapse-plus bg-neutral w-full {menu1Checked
+        ? 'rounded-[30px]'
+        : 'rounded-full'} pl-6 py-2 min-h-[75px]">
+      <input type="checkbox" checked={menu1Checked} on:click={handleClick1} />
       <div class="collapse-title flex items-center w-full p-0 font-clash-grotesk title-subsection-medium text-[22px]">
         Leaderboard
       </div>
@@ -35,8 +49,11 @@
         <MobileNavigationLink on:navigate url="/leaderboard/dapp" label="Dapp" icon="star2" />
       </div>
     </div>
-    <div class="collapse collapse-plus bg-neutral w-full rounded-[30px] pl-6 py-2">
-      <input type="checkbox" checked />
+    <div
+      class="collapse collapse-plus bg-neutral w-full {menu2Checked
+        ? 'rounded-[30px]'
+        : 'rounded-full'} pl-6 py-2 min-h-[75px]">
+      <input type="checkbox" checked={menu2Checked} on:click={handleClick2} />
       <div class="collapse-title flex items-center w-full p-0 font-clash-grotesk title-subsection-medium text-[22px]">
         Discover
       </div>

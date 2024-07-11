@@ -19,48 +19,54 @@
   $: primaryButtonText = $account?.isConnected ? $t('buttons.get_started') : $t('buttons.connect_wallet');
 </script>
 
-<div
-  class="f-center relative flex-col w-dvw rounded-[30px] overflow-hidden background-overlay
+<div class="w-full flex px-[12px] mt-[5px] md:max-h-[700px] lg:max-h-[814px] h-dvh">
+  <div
+    class="f-center md:f-left relative flex-col w-dvw rounded-[30px] overflow-hidden background-overlay
   
-  xl:bg-[url(/desktop.png)]
-  md:bg-[url(/pad.png)]
-  sm:bg-[url(/mobile.png)]
-  xs:bg-[url(/small.png)]
+  xl:bg-[url(/splash/xl/splash.png)]
+  lg:bg-[url(/splash/lg/splash.png)]
+  md:bg-[url(/splash/md/splash.png)]
+  bg-[url(/splash/sm/splash.png)]
   
-  hidden xl:block w-full h-full bg-cover mt-[18px] xl:px-[57px]">
-  <div class="f-center flex-col xl:flex-row h-dvh md:h-[815px] w-[90%]">
-    <div class="f-center flex-col w-full z-10">
-      <!-- Title -->
-      <div
-        class="xl:self-start font-clash-grotesk text-[23px]/[28px] tracking-[10px] xl:text-[45px]/[45px] xl:tracking-[22.5px] mb-[30px] md:mb-[60px]">
-        <div class="f-center w-full flex-col gap-5">
-          <TaikoTrailblazersLogo class="w-[335px] xl:w-[558px] rounded-[20px]" />
+  w-full h-full bg-cover lg:mt-[18px] px-[57px]">
+    <div class="md:f-center flex justify-end mb-[8px] flex-col xl:flex-row h-dvh md:h-[815px]">
+      <div class="flex-col w-full z-10">
+        <!-- Title -->
+        <div
+          class="self-start font-clash-grotesk text-[23px]/[28px] tracking-[10px] xl:text-[45px]/[45px] xl:tracking-[22.5px] mb-[30px] md:mb-[60px]">
+          <div class="w-full flex-col gap-5">
+            <TaikoTrailblazersLogo class="w-[335px] md:w-[558px] rounded-[20px]" />
+          </div>
         </div>
-      </div>
-      <!-- Description -->
-      <div class="xl:self-start f-center flex-col pb-10 xl:pb-10">
-        <PlusIcon class="xl:self-start hidden xl:block md:mb-[40px]" />
-        <div class="max-w-[262px] xl:max-w-[343px] text-center xl:text-left lg:title-subsection-regular body-regular">
-          Embark on the Trailblazers Journey: Unleash your potential in the Taiko universe!
+        <!-- Description -->
+        <div class="flex-col f-center md:f-left xl:self-start pb-10 xl:pb-10">
+          <PlusIcon class="md:self-start hidden md:block md:mb-[40px]" />
+          <div
+            class="max-w-[262px] md:max-w-[343px] text-[22px] text-center md:text-left lg:title-subsection-regular body-regular">
+            Embark on the Trailblazers Journey: Unleash your potential in the Taiko universe!
+          </div>
         </div>
-      </div>
 
-      <div class="gap-4 self-center xl:self-start f-col md:f-row">
-        <ActionButton priority="primary" class="min-w-[150px] max-w-[150px]" on:click={handlePrimaryAction} withArrow>
-          {primaryButtonText}
-        </ActionButton>
+        <div class="gap-4 self-center xl:self-start f-col md:f-row">
+          <ActionButton
+            priority="primary"
+            class="md:min-w-[150px] md:max-w-[150px] w-full"
+            on:click={handlePrimaryAction}
+            withArrow>
+            {primaryButtonText}
+          </ActionButton>
 
-        <ActionButton priority="secondary" class="min-w-[180px] max-w-[180px]" on:click={handleSecondaryAction}
-          >{$t('buttons.learn_more')}</ActionButton>
+          <ActionButton
+            priority="secondary"
+            class="md:min-w-[150px] md:max-w-[150px] w-full"
+            on:click={handleSecondaryAction}>{$t('buttons.learn_more')}</ActionButton>
+        </div>
       </div>
     </div>
+    <!-- Image -->
   </div>
-  <!-- Image -->
-  <div class="absolute -z-20 bg-[url(/pad.png)] hidden lg:block xl:hidden w-full h-full bg-cover" />
-  <div class="absolute -z-20 bg-[url(/mobile.png)] hidden md:block lg:hidden w-full h-full bg-cover" />
-  <div class="absolute -z-20 bg-[url(/small.png)] block md:hidden w-full h-full bg-cover" />
 </div>
-
+<!-- 
 <style>
   .background-overlay::after {
     content: '';
@@ -74,4 +80,4 @@
 
     z-index: 0;
   }
-</style>
+</style> -->
