@@ -41,6 +41,7 @@
             children={[
               { name: 'Bridge', route: '/leaderboard/bridge', icon: 'quad-circles' },
               { name: 'Dapp', route: '/leaderboard/dapp', icon: 'star2' },
+              { name: 'DeFi', route: '/leaderboard/defi', icon: 'star2' },
             ]}></NavigationItem>
           <NavigationItem
             navigation={{ name: 'Discover' }}

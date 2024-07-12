@@ -33,6 +33,7 @@
       <div class="collapse-content bg-neutral w-full rounded-full flex flex-col gap-4">
         <MobileNavigationLink on:navigate url="/leaderboard/bridge" label="Bridge" icon="quad-circles" />
         <MobileNavigationLink on:navigate url="/leaderboard/dapp" label="Dapp" icon="star2" />
+        <MobileNavigationLink on:navigate url="/leaderboard/defi" label="DeFi" icon="star2" />
       </div>
     </div>
     <div class="collapse collapse-plus bg-neutral w-full rounded-[30px] pl-6 py-2">
