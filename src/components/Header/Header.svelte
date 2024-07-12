@@ -17,23 +17,23 @@
 <div class="absolute w-full f-center top-[16px] z-50">
   <div class="container f-center w-full px-[20px] lg:px-0">
     <div class="flex body-regular items-center justify-between box-border w-full rounded-full lg:bg-none">
-      <!-- Mobile Burger Button -->
-      <label
-        class="btn xl:hidden btn-circle bg-neutral-background border-none swap swap-rotate fixed md:relative z-30 right-5 top-[12px] md:top-[22px]">
-        <!-- this hidden checkbox controls the state -->
-        <input type="checkbox" checked={mobileMenu} on:click={toggleMobileMenu} />
-
-        <img src="/hamburger.svg" alt="menu closed" class="swap-off" />
-        <img src="/x.svg" alt="menu open" class="swap-on" />
-      </label>
-
       <div
-        class="f-between-center w-full hidden lg:flex gap-2 mt-[5px] fixed md:relative left-[22px] top-[12px] md:top-[22px] md:right-0 md:px-[57px]">
+        class="f-between-center w-full gap-2 mt-[5px] relative top-[12px] xl:top-[12px] lg:top-[9px] md:top-[22px] md:pl-[57px] md:pr-[20px] xl:pr-[57px] top-[22px] pl-[8px]">
         <a class="f-center gap-2" href="/">
           <Logo width={27} class="md:hidden" />
           <LogoWithText class="hidden md:flex" />
           <TaikoTrailblazersLogo class="w-[125px]" />
         </a>
+
+        <!-- Mobile Burger Button -->
+        <label class="btn xl:hidden btn-circle bg-neutral-background border-none swap swap-rotate z-30">
+          <!-- this hidden checkbox controls the state -->
+          <input type="checkbox" checked={mobileMenu} on:click={toggleMobileMenu} />
+
+          <img src="/hamburger.svg" alt="menu closed" class="swap-off" />
+          <img src="/x.svg" alt="menu open" class="swap-on" />
+        </label>
+
         <!--  Desktop Only -->
         <div class="hidden xl:flex gap-2">
           <div class="f-center gap-2">
