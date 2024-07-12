@@ -1,4 +1,4 @@
-name: Trailblazer UI Build and Checks
+name: Build and Checks
 
 on: workflow_call
 
