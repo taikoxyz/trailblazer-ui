@@ -5,6 +5,7 @@ import type {
   BridgeData,
   BridgeLeaderboardTotal,
   DefiDappLeaderboardPage,
+  DefiDappLeaderboardRow,
   LeaderboardPage,
 } from '$libs/leaderboard/types';
 
@@ -44,7 +45,8 @@ export const currentBridgeLeaderboard = writable<BridgeLeaderboardTotal>({
 });
 
 export const currentDefiDappLeaderboard = writable<DefiDappLeaderboardPage>({
-  defiDappEntries: [],
+  protocols: [],
+  lastUpdated: 0,
 });
 
 export const setLeaderboard = (leaderboard: LeaderboardPage) => {
@@ -72,9 +74,16 @@ export const setBridgeLeaderboard = (leaderboard: BridgeData[]) => {
   });
 };
 
-export const setDefiDappLeaderboard = (leaderboard: DefiDappLeaderboardPage) => {
+export const setDefiDappLeaderboardProtocols = (leaderboard: DefiDappLeaderboardRow[]) => {
   currentDefiDappLeaderboard.update((store) => {
-    store = leaderboard;
+    store.protocols = leaderboard;
+    return store;
+  });
+};
+
+export const setDefiDappLeaderboardLastUpdated = (lastUpdated: number) => {
+  currentDefiDappLeaderboard.update((store) => {
+    store.lastUpdated = lastUpdated;
     return store;
   });
 };

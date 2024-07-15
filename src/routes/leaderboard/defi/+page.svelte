@@ -13,7 +13,6 @@
 
 <Page>
   <DeFiDappLeaderboard />
-
   <div class="w-full flex justify-center mt-[58px]">
     <ActionButton class="max-w-[280px]" priority="primary" on:click={() => goto('/leaderboard/dapp')} withArrow>
       {$t('buttons.leaderboard.dapp')}

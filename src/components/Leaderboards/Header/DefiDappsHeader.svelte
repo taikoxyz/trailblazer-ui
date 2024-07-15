@@ -1,5 +1,6 @@
-<div class="relative w-full bg-primary-link-hover px-8 py-8 rounded-[21.6px] overflow-hidden">
-  <div class="font-clash-grotesk text-[45px]/[45px] leading-none text-primary-base-content z-1 relative">
+<div class="relative w-full bg-primary-link-hover p-8 lg:p-12 rounded-[21.6px] lg:rounded-[30px] overflow-hidden">
+  <div
+    class="font-clash-grotesk text-[45px]/[45px] lg:text-[60px]/[60px] leading-none text-primary-base-content z-1 relative">
     <span class="text-secondary">Defi<br /></span> Leaderboard
   </div>
   <svg

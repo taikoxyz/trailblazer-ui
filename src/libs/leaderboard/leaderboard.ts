@@ -1,11 +1,18 @@
 import axios from 'axios';
 
+import { errorToast } from '$components/NotificationToast';
 import { PUBLIC_TRAILBLAZER_API_URL } from '$env/static/public';
 import { globalAxiosConfig } from '$libs/api/axiosConfig';
 import bridgeAdditionalData from '$libs/leaderboard/json/bridgeAdditionalData.json';
 import { isDevelopmentEnv } from '$libs/util/isDevelopmentEnv';
 import { getLogger } from '$libs/util/logger';
-import { setBridgeLeaderboard, setDefiDappLeaderboard, setLeaderboard, setUserLeaderboard } from '$stores/leaderboard';
+import {
+  setBridgeLeaderboard,
+  setDefiDappLeaderboardLastUpdated,
+  setDefiDappLeaderboardProtocols,
+  setLeaderboard,
+  setUserLeaderboard,
+} from '$stores/leaderboard';
 
 import type {
   BridgeData,
@@ -28,6 +35,7 @@ export class Leaderboard {
         ...globalAxiosConfig,
         params: args,
       });
+
       const leaderboardPage: LeaderboardPage = response.data;
       setLeaderboard(leaderboardPage);
       log('Leaderboard page: ', leaderboardPage);
@@ -43,6 +51,10 @@ export class Leaderboard {
       } satisfies PaginationInfo;
     } catch (error) {
       console.error('Error fetching leaderboard:', error);
+      errorToast({
+        title: 'Error fetching leaderboard',
+        message: `${error}`,
+      });
     }
     return args;
   }
@@ -70,11 +82,18 @@ export class Leaderboard {
   static async getDefiDappLeaderboard() {
     try {
       const response = await axios.get(`${baseApiUrl}/leaderboard/tvl`, globalAxiosConfig);
-      const result: DefiDappLeaderboardRow[] = response.data as DefiDappLeaderboardRow[];
-      const defiDappEntries = this.appendDefiDappAdditionalData(result);
-      setDefiDappLeaderboard({ defiDappEntries });
+
+      const result: DefiDappLeaderboardRow[] = response.data.protocols as DefiDappLeaderboardRow[];
+      console.log('🚀 | Leaderboard | getDefiDappLeaderboard | result:', response);
+      const protocols = this.appendDefiDappAdditionalData(result);
+      setDefiDappLeaderboardProtocols(protocols);
+      setDefiDappLeaderboardLastUpdated(response.data.lastUpdated);
     } catch (error) {
       console.error('Error fetching leaderboard:', error);
+      errorToast({
+        title: 'Error fetching leaderboard',
+        message: `${error}`,
+      });
     }
   }
 

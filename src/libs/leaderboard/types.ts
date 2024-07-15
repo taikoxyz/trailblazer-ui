@@ -52,7 +52,8 @@ export type BridgeLeaderboardTotal = {
 };
 
 export type DefiDappLeaderboardPage = {
-  defiDappEntries: DefiDappLeaderboardRow[];
+  protocols: DefiDappLeaderboardRow[];
+  lastUpdated: number;
 };
 
 export type DefiDappLeaderboardRow = {
