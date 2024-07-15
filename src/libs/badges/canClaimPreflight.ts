@@ -7,8 +7,9 @@ import { isDevelopmentEnv } from '$libs/util/isDevelopmentEnv';
 
 export default async function canClaimPreflight(address: Address, badgeId: number): Promise<boolean> {
   if (isDevelopmentEnv) {
-    return true;
+    return false;
   }
+
   try {
     const url = `${PUBLIC_TRAILBLAZER_API_URL}/faction/whitelist`;
     const res = await axios.get(url, {

@@ -39,32 +39,37 @@
 </script>
 
 {#if $account?.isConnected}
+  <!-- Connected State -->
   <button
     on:click={connectWallet}
-    class="rounded-full w-fit flex items-center pl-[8px] pr-[3px] md:max-h-[48px] max-h-[40px] min-h-[40px] wc-parent-glass !border-solid gap-2 font-bold py-1">
-    <img
-      alt="chain icon"
-      class="w-[24px]"
-      src={(currentChainId && getChainImage(currentChainId)) || '/chains/ethereum.svg'} />
-    <span class="flex items-center text-secondary-content justify-self-start gap-4 md:text-normal text-sm"
-      >{renderEthBalance(balance, 6)}
+    class="rounded-full flex justify-between items-center pl-[24px] lg:pl-[8px] pr-[3px] py-1 lg:max-h-[44px] lg:min-h-[40px] wc-parent-glass !border-solid gap-2 font-bold font-clash-grotesk lg:font-public-sans">
+    <div class="flex gap-2">
+      <img
+        alt="chain icon"
+        class="w-[24px]"
+        src={(currentChainId && getChainImage(currentChainId)) || '/chains/ethereum.svg'} />
       <span
-        class="flex items-center text-tertiary-content btn-glass-bg rounded-full px-[10px] py-[4px] md:min-h-[38px] bg-tertiary-background">
-        {shortenAddress(accountAddress, 4, 6)}
+        class="flex items-center text-primary-content lg:text-secondary-content justify-self-start gap-4 font-normal lg:font-bold text-[22px] lg:text-sm"
+        >{renderEthBalance(balance, 6)}
       </span>
+    </div>
+    <span
+      class="flex items-center text-secondary-content lg:text-tertiary-content btn-glass-bg rounded-full px-[10px] py-[19px] lg:py-[4px] md:min-h-[38px] bg-interactive-primary font-normal lg:font-bold text-[22px] lg:text-sm">
+      {shortenAddress(accountAddress, 4, 6)}
     </span>
   </button>
 {:else}
+  <!-- Disconnected State -->
   <ActionButton
     priority="primary"
-    class="!max-w-[215px] !min-h-[32px] !max-h-[48px] !f-items-center !py-0"
+    class="lg:!max-w-[215px] lg:!min-h-[32px] lg:!max-h-[48px] lg:!f-items-center font-clash-grotesk py-[24px] px-[24px] lg:py-[0px] w-full justify-start"
     loading={web3modalOpen}
     on:click={connectWallet}>
-    <div class="flex items-center body-regular space-x-2">
+    <div class="flex items-center lg:body-regular text-[22px] font-medium space-x-2">
       {#if web3modalOpen}
         <span>{$t('wallet.status.connecting')}</span>
       {:else}
-        <Icon type="user-circle" class="md-show-block" fillClass="fill-white" />
+        <Icon type="user-circle" class="size-[24px] lg:size-[20px]" fillClass="fill-white" />
         <span>{$t('wallet.connect')}</span>
       {/if}
     </div>

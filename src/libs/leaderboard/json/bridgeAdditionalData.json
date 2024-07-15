@@ -1,0 +1,72 @@
+{
+  "Orbiter": {
+    "name": "Orbiter",
+    "twitter": "Orbiter_Finance",
+    "icon": "orbiter.png"
+  },
+  "Owlto": {
+    "name": "Owlto",
+    "twitter": "Owlto_Finance",
+    "icon": "owlto.png"
+  },
+  "Rhino": {
+    "name": "Rhino.Fi",
+    "twitter": "rhinofi",
+    "icon": "rhinofi.png"
+  },
+  "Retrobridge": {
+    "name": "Retro Bridge",
+    "twitter": "Retro_bridge",
+    "icon": "retro.png"
+  },
+  "XY": {
+    "name": "XY Finance",
+    "twitter": "Xyfinance",
+    "icon": "xy.svg"
+  },
+  "Router": {
+    "name": "Router Protocol",
+    "twitter": "Routerprotocol",
+    "icon": "router.svg"
+  },
+  "Pheasant": {
+    "name": "Pheasant Network",
+    "twitter": "pheasantnetwork",
+    "icon": "pheasant.png"
+  },
+  "Comet": {
+    "name": "Comet",
+    "twitter": "Comet_Protocol",
+    "icon": "comet.svg"
+  },
+  "Symbiosis": {
+    "name": "Symbiosis Finance",
+    "twitter": "Symbiosis_fi",
+    "icon": "symbiosis.svg"
+  },
+  "BunnyFi": {
+    "name": "BunnyFi",
+    "twitter": "BunnyfiLabs",
+    "icon": "bunnyfi.svg"
+  },
+  "Layerswap": {
+    "name": "Layerswap",
+    "twitter": "layerswap",
+    "icon": "layerswap.jpeg"
+  },
+  "Minibridge": {
+    "name": "Minibridge",
+    "twitter": "Chaineye_tools",
+    "icon": "minibridge.jpeg"
+  },
+  "Stargate": {
+    "name": "Stargate",
+    "twitter": "StargateFinance",
+    "icon": "stargate.jpeg"
+  },
+  "Meson": {
+    "name": "Meson",
+    "twitter": "mesonfi",
+    "icon": "mesonfi.jpg"
+  }
+}

@@ -4,7 +4,7 @@
 
   export let address: string;
   export let shorten: boolean = false;
-  let url = `https://taikoscan.io/address/${address}`;
+  $: url = `https://taikoscan.io/address/${address}`;
 </script>
 
 <a class="underline body-bold flex align-center" target="_blank" href={url}

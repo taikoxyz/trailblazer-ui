@@ -1,9 +1,8 @@
 import axios from 'axios';
-import { zeroAddress } from 'viem';
 
-import bridgeAdditionalData from '$data/dapps/bridgeAdditionalData.json';
 import { PUBLIC_TRAILBLAZER_API_URL } from '$env/static/public';
 import { globalAxiosConfig } from '$libs/api/axiosConfig';
+import bridgeAdditionalData from '$libs/leaderboard/json/bridgeAdditionalData.json';
 import { isDevelopmentEnv } from '$libs/util/isDevelopmentEnv';
 import { getLogger } from '$libs/util/logger';
 import { setBridgeLeaderboard, setLeaderboard, setUserLeaderboard } from '$stores/leaderboard';
@@ -73,15 +72,6 @@ export class Leaderboard {
         item.twitter = additionalData.twitter;
         item.icon = additionalData.icon;
       }
-    });
-
-    // append meson
-    page.push({
-      name: 'Meson',
-      scores: [{ token: zeroAddress, score: 0 }],
-      volume: 0,
-      twitter: 'mesonfi',
-      icon: 'mesonfi.jpg',
     });
 
     return page;
