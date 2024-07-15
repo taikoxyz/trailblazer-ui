@@ -98,6 +98,7 @@
         <!-- spacer -->
         <div class="flex min-w-[10px] xl:min-w-0"></div>
       {/if}
+
       {#if item.locked}
         <div class="avatar relative xl:max-w-full xl:min-w-[312px] xl:w-full max-w-full min-w-[277px] w-full">
           <div class="rounded-[30px] h-[502px]">
@@ -120,6 +121,10 @@
             </div>
           </div>
         </div>
+      {/if}
+      {#if i == items.length - 1}
+        <!-- spacer -->
+        <div class="flex min-w-[10px] xl:min-w-0"></div>
       {/if}
     {/each}
   </div>
