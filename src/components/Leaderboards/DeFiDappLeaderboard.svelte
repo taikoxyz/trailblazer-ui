@@ -2,6 +2,7 @@
   import { Skeleton } from '$components/Mock';
   import { formatNumbers } from '$libs/util/formatNumbers';
   import { currentDefiDappLeaderboard } from '$stores/leaderboard';
+
   import DefiDappsHeader from './Header/DefiDappsHeader.svelte';
   import LastUpdated from './LastUpdated.svelte';
 </script>

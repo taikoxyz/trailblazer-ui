@@ -84,7 +84,6 @@ export class Leaderboard {
       const response = await axios.get(`${baseApiUrl}/leaderboard/tvl`, globalAxiosConfig);
 
       const result: DefiDappLeaderboardRow[] = response.data.protocols as DefiDappLeaderboardRow[];
-      console.log('🚀 | Leaderboard | getDefiDappLeaderboard | result:', response);
       const protocols = this.appendDefiDappAdditionalData(result);
       setDefiDappLeaderboardProtocols(protocols);
       setDefiDappLeaderboardLastUpdated(response.data.lastUpdated);
