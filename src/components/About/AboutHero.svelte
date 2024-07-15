@@ -15,16 +15,27 @@
     'gap-16',
     'my-20',
   );
-  const h1Classes = classNames('text-[60px]/[60px]', 'w-full', 'font-clash-grotesk');
+  const h1Classes = classNames(
+    'md:text-[60px]/[60px]',
+    'text-[40px]/[40px]',
+    'w-full',
+    'max-w-[90%]',
+    'font-clash-grotesk',
+    'text-medium',
+    'tracking-[-2%]',
+  );
 
   const pinkSpanClasses = classNames('text-secondary');
 
   const subHeadingClasses = classNames(
     'font-[400]',
     'text-secondary-content',
-    'max-w-[60%]',
+    'md:max-w-[60%]',
+    'max-w-[85%]',
     'text-center',
     'text-[18px]/[24px]',
+    'tracking-0',
+    'font-public-sans',
   );
 
   const buttonWrapperClasses = classNames('w-[300px]');
@@ -33,14 +44,14 @@
 <div class={heroWrapperClasses}>
   <div class={heroContentClasses}>
     <div class={contentWrapperClasses}>
-      <div class={h1Classes}>
+      <h1 class={h1Classes}>
         Embark on the <span class={pinkSpanClasses}>Trailblazers</span> journey — Unleash your potential in the Taiko universe!
-      </div>
+      </h1>
 
-      <div class={subHeadingClasses}>
+      <h2 class={subHeadingClasses}>
         Dive into the Trailblazers Program, a vibrant new adventure within the Taiko universe designed to deepen
         community ties and enhance your experience.
-      </div>
+      </h2>
 
       <div class={buttonWrapperClasses}>
         <ActionButton priority="primary">Start your trail</ActionButton>

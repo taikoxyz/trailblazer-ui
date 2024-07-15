@@ -2,12 +2,22 @@
   import ActionButton from '$components/Button/ActionButton.svelte';
   import { classNames } from '$libs/util/classNames';
 
-  const wrapperClasses = classNames('flex', 'flex-col', 'items-center', 'justify-center', 'gap-24', 'px-8', 'md:px-0');
+  const wrapperClasses = classNames(
+    'flex',
+    'flex-col',
+    'items-center',
+    'justify-center',
+    'gap-24',
+    'px-4',
+    'md:px-8',
+    'md:px-0',
+  );
 
   const rowClasses = classNames(
     'flex',
     'lg:px-12',
     'md:px-24',
+    'px-3',
     'flex-col',
     'lg:flex-row',
     'w-full',
@@ -44,13 +54,22 @@
 
   const pinkSpanClasses = classNames('text-secondary');
 
-  const titleClasses = classNames('font-clash-grotesk', 'text-[75px]/[75px]', 'font-[500]');
+  const titleClasses = classNames(
+    'font-clash-grotesk',
+
+    'lg:text-[75px]/[75px]',
+    'text-[60px]/[60px]',
+    'tracking-[-2%]',
+    'font-[500]',
+  );
 
   const contentClasses = classNames(
     'font-[400]',
+    'font-public-sans',
     'text-secondary-content',
     'text-center',
-    'text-[18px]/[24px]',
+    'lg:text-[18px]/[24px]',
+    'md:text-[16px]/[24px]',
     'text-left',
     'flex',
     'flex-col',

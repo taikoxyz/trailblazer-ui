@@ -11,9 +11,13 @@
     'items-center',
     'flex',
     'flex-col',
-    'lg:flex-row',
+    'md:flex-row',
     'px-[20px]',
     'lg:px-[57px]',
+    'py-12',
+    'lg:h-[450px]',
+    'xl:h-[375px]',
+    'md:h-[525px]',
   );
   const unionClasses = classNames('rotate-90', 'lg:rotate-0');
 </script>
@@ -23,9 +27,11 @@
     icon="semi-circle-reversed"
     title={$t('trailblazer_guide.step_1.title')}
     description={$t('trailblazer_guide.step_1.description')} />
+
   <div class={unionClasses}>
     <Connector class="fill-purple min-w-[32px]" />
   </div>
+
   <TrailblazerGuideStep
     icon="quad-circles"
     title={$t('trailblazer_guide.step_2.title')}
@@ -33,6 +39,7 @@
   <div class={unionClasses}>
     <Connector class="fill-purple min-w-[32px]" />
   </div>
+
   <TrailblazerGuideStep
     icon="diamond"
     title={$t('trailblazer_guide.step_3.title')}

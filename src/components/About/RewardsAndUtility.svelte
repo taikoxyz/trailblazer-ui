@@ -19,7 +19,7 @@
     'md:-1/3',
     'flex',
     'flex-col',
-    'md:flex-row',
+    // 'md:flex-row',
     'gap-4',
     'md:gap-0',
     'justify-center',
@@ -27,8 +27,21 @@
     'w-[90vw]',
   );
 
-  const titleClasses = classNames('font-clash-grotesk', 'text-[60px]/[60px]', 'font-[500]');
-  const textClasses = classNames('text-secondary-content', 'md:text-left', 'text-center');
+  const titleClasses = classNames(
+    'font-clash-grotesk',
+    'text-[60px]/[60px]',
+    'md:text-left',
+    'text-center',
+    'w-full',
+    'font-[500]',
+  );
+  const textClasses = classNames(
+    'text-secondary-content',
+    'text-[16px]/[24px]',
+    'md:text-[18px]/[24px]',
+    'md:text-left',
+    'text-center',
+  );
 
   const rowClasses = classNames(
     'gap-4',

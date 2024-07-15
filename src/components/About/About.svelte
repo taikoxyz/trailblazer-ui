@@ -9,7 +9,7 @@
   import AboutInfoPanels from './AboutInfoPanels.svelte';
   import RewardsAndUtility from './RewardsAndUtility.svelte';
 
-  const wrapperClasses = classNames('f-cl', 'w-full', 'flex', 'flex-col', 'gap-24');
+  const wrapperClasses = classNames('f-cl', 'relative', 'w-full', 'flex', 'flex-col', 'gap-24');
   const imageClasses = classNames(
     'rounded-[30px]',
     'md:w-full',

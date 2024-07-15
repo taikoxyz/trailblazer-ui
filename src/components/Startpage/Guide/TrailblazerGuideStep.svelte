@@ -12,17 +12,46 @@
     'flex-col',
     'w-full',
     'h-full',
-    'px-[35px]',
-    'py-[38px]',
+    'px-4',
+    'py-6',
+    'lg:py-[38px]',
+    'md:py-[38px]',
+    'lg:px-[35px]',
+    'md:px-[20px]',
     'bg-purple',
     'rounded-[30px]',
     'gap-[20px]',
-    'min-h-[258px]',
+
+    'justify-center',
+    'items-center',
+
+    'md:justify-start',
   );
 
-  const titleClasses = classNames('flex', 'items-center', 'gap-3');
+  const titleClasses = classNames(
+    'flex',
+    'w-full',
+    'justify-center',
+    'items-center',
+    'font-medium',
+    'font-clash-grotesk',
+    'text-[35px]/[42px]',
+    'lg:justify-start',
+    'flex-row',
+    'md:flex-col',
+    'lg:flex-row',
+    'gap-3',
+  );
 
-  const contentClasses = classNames('text-secondary-content', 'lg:max-w-[340px]');
+  const contentClasses = classNames(
+    'text-secondary-content',
+    'font-public-sans',
+    'text-[16px]/[24px]',
+    'text-center',
+    'md:text-left',
+    'h-max',
+    'lg:max-w-[340px]',
+  );
 </script>
 
 <div class={wrapperClasses}>

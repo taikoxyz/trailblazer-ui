@@ -18,13 +18,22 @@
   );
 
   const titleContentClasses = classNames(
-    'font-clash-grotesk',
-    'text-[20px]/[24px]',
+    'font-public-sans',
+    'text-[20px]/[25px]',
     'font-[500]',
     'text-primary-content',
   );
 
   const barClasses = classNames('border-b-2 border-primary-brand w-[15%]');
+  const sectionTitleClasses = classNames(
+    'lg:text-left',
+    'text-center',
+    'font-clash-grotesk',
+    'text-content',
+    'lg:text-[75px]/[75px]',
+    'text-[60px]/[60px]',
+    'font-[500]',
+  );
 
   const contentWrapperClasses = classNames(
     'text-[18px]/[24px]',
@@ -37,15 +46,7 @@
     'w-full',
     'lg:text-left',
     'text-center',
-  );
-
-  const sectionTitleClasses = classNames(
-    'lg:text-left',
-    'text-center',
-    'font-clash-grotesk',
-    'text-content',
-    'text-[75px]/[75px]',
-    'font-[500]',
+    'font-public-sans',
   );
 
   const buttonWrapperClasses = classNames('w-[200px]', 'relative', 'lg:left-0', 'left-[calc(50%-100px)]');

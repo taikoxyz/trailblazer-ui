@@ -1,5 +1,6 @@
 <script lang="ts">
   import { Icon, LockIcon } from '$components/Icon';
+  import { classNames } from '$libs/util/classNames';
 
   import { type GalleryItem } from './types';
 
@@ -74,24 +75,64 @@
   function scrollRight() {
     carouselElement.scrollBy({ left: 1200, behavior: 'smooth' }); // Adjust 300 similarly
   }
+
+  const navButtonsWrapperClasses = classNames(
+    'flex',
+    'gap-4',
+    'justify-center',
+    'xl:justify-end',
+    'h-full',
+    'bottom-0',
+  );
+
+  const leftButtonClasses = classNames('f-center', 'btn-circle', 'border', 'border-primary-brand');
+  const rightButtonClasses = classNames(
+    'f-center',
+    'btn-circle',
+    'bg-primary-brand',
+    'border-primary-brand',
+    'hover:bg-primary-interactive-hover',
+  );
+
+  const carouselWrapperClasses = classNames(
+    //'max-w-full',
+    'relative',
+    'w-[100vw]',
+    'flex',
+    'justify-center',
+    'items-center',
+    'h-[500px]',
+  );
+  const carouselClasses = classNames(
+    'absolute',
+    'carousel',
+    'flex',
+    'gap-[25px]',
+    'xl:ml-0',
+    'w-full',
+    'overflow-x-scroll',
+    'xl:overflow-scroll',
+    'xl:overflow-y-visible',
+    'px-0',
+    'hide-scrollbar',
+    'xl:px-0',
+    'xl:py-[60px]',
+    'py-4',
+  );
 </script>
 
 {#if !hideArrows}
-  <div class="flex gap-4 justify-center xl:justify-end h-full bottom-0">
-    <button class="f-center btn-circle border border-primary-brand" on:click={scrollLeft}>
+  <div class={navButtonsWrapperClasses}>
+    <button class={leftButtonClasses} on:click={scrollLeft}>
       <Icon class="-translate-x-[2px]" type="chevron-left" />
     </button>
-    <button
-      class="f-center btn-circle bg-primary-brand border-primary-brand hover:bg-primary-interactive-hover"
-      on:click={scrollRight}>
+    <button class={rightButtonClasses} on:click={scrollRight}>
       <Icon class="translate-x-[2px]" type="chevron-right" />
     </button>
   </div>
 {/if}
-<div class="max-w-full h-[500px] xl:h-auto">
-  <div
-    bind:this={carouselElement}
-    class="carousel flex gap-[25px] xl:ml-0 w-full overflow-x-scroll xl:overflow-scroll xl:overflow-y-visible px-0 hide-scrollbar xl:px-0 xl:py-[60px] py-4">
+<div class={carouselWrapperClasses}>
+  <div bind:this={carouselElement} class={carouselClasses}>
     <!-- Cards -->
     {#each items as item, i}
       {#if i == 0}
