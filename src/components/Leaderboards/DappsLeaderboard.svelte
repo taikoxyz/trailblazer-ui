@@ -68,9 +68,6 @@
     </thead>
     <tbody class="rounded-lg">
       {#each itemsToDisplay as entry, index}
-        {@const rank = index + 1}
-        {@const fillClass =
-          rank === 1 ? 'fill-[#EBB222]' : rank === 2 ? 'fill-[#91969F]' : rank === 3 ? 'fill-[#775602]' : ''}
         {@const hasName = detailMapping[entry.address] && detailMapping[entry.address].name}
         {@const hasHandle = detailMapping[entry.address] && detailMapping[entry.address].handle}
         {@const hasIcon = detailMapping[entry.address] && detailMapping[entry.address].icon}
