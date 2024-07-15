@@ -88,7 +88,7 @@
     'w-full',
   );
 
-  const buttonLinkWrapperClasses = classNames('md:w-1/2', 'w-full');
+  const buttonLinkWrapperClasses = classNames('w-[210px]', 'h-[48px]', 'min-w-max');
 
   const textClasses = classNames('lg:text-left', 'text-center');
 </script>

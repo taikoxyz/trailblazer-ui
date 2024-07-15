@@ -38,7 +38,7 @@
     'font-public-sans',
   );
 
-  const buttonWrapperClasses = classNames('w-[300px]');
+  const buttonWrapperClasses = classNames('w-[180px]', 'h-[48px]');
 </script>
 
 <div class={heroWrapperClasses}>
