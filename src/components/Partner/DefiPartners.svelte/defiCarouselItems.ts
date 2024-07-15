@@ -7,7 +7,7 @@ export const defiCarouselItems: CarouselItemType[] = [
     description:
       'A based decentralized exchange #DEX on Taiko @taikoxyz Swap and earn with hyper efficiency and seamless experience.',
     image: '/dapps/defi/ritsu-protocol.png',
-    link: '',
+    link: 'https://ritsu.xyz/',
     cta: 'Trade now',
   },
   {
@@ -16,7 +16,7 @@ export const defiCarouselItems: CarouselItemType[] = [
     description:
       'Oku Trade is a non-custodial DEX trading platform and bridge aggregator offering the best rates and analytics across 16 EVM chains.',
     image: '/dapps/defi/oku_trade.png',
-    link: '',
+    link: 'https://oku.trade/',
     cta: 'Trade now',
   },
   {
@@ -24,7 +24,7 @@ export const defiCarouselItems: CarouselItemType[] = [
     title: 'iZUMi Finance',
     description: 'Liquidity Redefined - A multi-chain DeFi protocol providing One-Stop Liquidity as a Service (LaaS).',
     image: '/dapps/defi/izumi_finance.png',
-    link: '',
+    link: 'https://izumi.finance/trade/swap',
     cta: 'Swap now',
   },
   {
@@ -33,7 +33,7 @@ export const defiCarouselItems: CarouselItemType[] = [
     description:
       'Minterest captures more fees than any other lending protocol and redistributes them as rewards back to users who contribute to its governance with the highest long term yields.',
     image: '/dapps/defi/minterest.png',
-    link: '',
+    link: 'https://taiko.minterest.com/',
     cta: 'Lend now',
   },
   {
@@ -41,7 +41,7 @@ export const defiCarouselItems: CarouselItemType[] = [
     title: 'Henjin DEX',
     description: 'Henjin is an ecosystem-focused, community-driven DEX and Launchpad built on Taiko.',
     image: '/dapps/defi/henjin_dex.png',
-    link: '',
+    link: 'https://app.henjin.xyz/',
   },
   {
     id: '6',
@@ -49,7 +49,7 @@ export const defiCarouselItems: CarouselItemType[] = [
     description:
       'Elevate your financial strategy with Hana Finance. Lend, borrow, and earn competitive yields in a dynamic liquidity environment designed for growth.',
     image: '/dapps/defi/hana_finance.png',
-    link: '',
+    link: 'https://www.hana.finance/market',
   },
   {
     id: '7',
@@ -57,7 +57,7 @@ export const defiCarouselItems: CarouselItemType[] = [
     description:
       'DTX is a decentralized trading and liquidity protocol deployed across multiple chains, crafted by seasoned traders for the community.',
     image: '/dapps/defi/dtx-trade.png',
-    link: '',
+    link: 'https://dtx.trade/trade',
   },
   {
     id: '8',
@@ -65,6 +65,6 @@ export const defiCarouselItems: CarouselItemType[] = [
     description:
       'Decentralized exchange blending speed and simplicity. Enjoy lightning-fast trades, real-time market insights, and an intuitive interface for traders, alongside secure, LP-friendly solutions for liquidity providers.',
     image: '/dapps/defi/kiloex.png',
-    link: '',
+    link: 'https://app.kiloex.io/trade',
   },
 ];
