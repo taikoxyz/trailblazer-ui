@@ -3,6 +3,7 @@
 
   import { page } from '$app/stores';
   import { FactionNames } from '$configs/badges';
+  import gasCheckPreflight from '$libs/badges/gasCheckPreflight';
   //import getMovement from '$libs/badges/getMovement';
   import { getUserBadges } from '$libs/badges/getUserBadges';
   import getConnectedAddress from '$libs/util/getConnectedAddress';
@@ -19,6 +20,7 @@
   $: movement = 0;
 
   $: isSelfProfile = false;
+  $: hasEnoughGas = false;
 
   async function load() {
     const urlAddress = $page.url.pathname.split('/').pop();
@@ -26,6 +28,7 @@
     //movement = await getMovement(address);
     userFactions = await getUserBadges(address);
     isSelfProfile = getAddress(address) === getAddress(getConnectedAddress());
+    hasEnoughGas = await gasCheckPreflight(address);
   }
   $: address = zeroAddress as Address;
   $: $account, load();
@@ -37,6 +40,7 @@
 <div class="box gap-4">
   {#each factions as faction}
     <FactionBadgeItem
+      enoughGas={hasEnoughGas}
       {address}
       {movement}
       canClick={isSelfProfile && !userFactions[faction]}
