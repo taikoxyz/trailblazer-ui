@@ -8,7 +8,7 @@
 </script>
 
 <svelte:head>
-  <title>Taiko Trailblazer - Bridge Leaderboard</title>
+  <title>Taiko Trailblazer - DeFi Leaderboard</title>
 </svelte:head>
 
 <Page>
