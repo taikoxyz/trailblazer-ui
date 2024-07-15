@@ -26,22 +26,22 @@
       </button>
     </div>
     <div class="collapse collapse-plus bg-neutral w-full rounded-[30px] pl-6 py-2">
-      <input type="radio" name="my-accordion-1" />
+      <input type="checkbox" checked />
       <div class="collapse-title flex items-center w-full p-0 font-clash-grotesk title-subsection-medium text-[22px]">
         Leaderboard
       </div>
-      <div class="collapse-content bg-neutral w-full rounded-full flex flex-col gap-4">
+      <div class="collapse-content bg-neutral w-full rounded-full flex flex-col gap-4 pl-0">
         <MobileNavigationLink on:navigate url="/leaderboard/bridge" label="Bridge" icon="quad-circles" />
         <MobileNavigationLink on:navigate url="/leaderboard/dapp" label="Dapp" icon="star2" />
         <MobileNavigationLink on:navigate url="/leaderboard/defi" label="DeFi" icon="butterfly-cross" />
       </div>
     </div>
     <div class="collapse collapse-plus bg-neutral w-full rounded-[30px] pl-6 py-2">
-      <input type="radio" name="my-accordion-1" />
+      <input type="checkbox" checked />
       <div class="collapse-title flex items-center w-full p-0 font-clash-grotesk title-subsection-medium text-[22px]">
         Discover
       </div>
-      <div class="collapse-content bg-neutral w-full rounded-full flex flex-col gap-4">
+      <div class="collapse-content bg-neutral w-full rounded-full flex flex-col gap-4 pl-0">
         <MobileNavigationLink on:navigate url="/about" label="About" icon="nav-about" />
         <MobileNavigationLink on:navigate url="https://taiko.xyz/ecosystem" label="Ecosystem" icon="nav-ecosystem" />
         <MobileNavigationLink on:navigate url="https://bridge.taiko.xyz" label="Bridge" icon="nav-bridge" />
