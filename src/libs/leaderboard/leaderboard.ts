@@ -16,12 +16,15 @@ const log = getLogger('Leaderboard');
 export class Leaderboard {
   // dapp leaderboard
   static async getDappLeaderboard(args: PaginationInfo): Promise<PaginationInfo> {
+    log('baseApiUrl', baseApiUrl);
+
     try {
-      args.page = args.page - 1;
+      log('args', args);
       const response = await axios.get<LeaderboardPage>(`${baseApiUrl}/leaderboard/dapp`, {
         ...globalAxiosConfig,
         params: args,
       });
+      log('response', response);
       const leaderboardPage: LeaderboardPage = response.data;
       setLeaderboard(leaderboardPage);
       log('Leaderboard page: ', leaderboardPage);

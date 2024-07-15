@@ -15,6 +15,16 @@ export type LeaderboardPage = {
 export type LeaderboardRow = {
   address: string;
   score: number;
+  slug: string;
+};
+
+export type ProtocolApiResponse = {
+  protocols: ProtocolData[];
+};
+
+export type ProtocolData = {
+  address: Address;
+  score: number;
 };
 
 export type BridgedTokenData = { token: Address; score: number };
