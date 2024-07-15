@@ -1,17 +1,20 @@
 <script lang="ts">
+  import { Icon } from '$components/Icon';
   import { Skeleton } from '$components/Mock';
   import { formatNumbers } from '$libs/util/formatNumbers';
   import { currentDefiDappLeaderboard } from '$stores/leaderboard';
 
   import DefiDappsHeader from './Header/DefiDappsHeader.svelte';
   import LastUpdated from './LastUpdated.svelte';
+
+  let headers = ['No.', 'Dapp', 'TVL'];
 </script>
 
 <div class="lg:w-full px-8 mt-[18%] lg:mt-0 space-y-[50px]">
   <DefiDappsHeader />
 
   <div class="space-y-[20px]">
-    <div class="flex justify-end m-0">
+    <div class="flex justify-center lg:justify-end m-0">
       <LastUpdated class="w-fit" lastUpdated={new Date($currentDefiDappLeaderboard.lastUpdated * 1000)} />
     </div>
     <div class="overflow-x-auto">
@@ -19,15 +22,24 @@
         <!-- head -->
         <thead class="border-b-2 border-gray-800 ;">
           <tr>
-            <th class="body-regular text-secondary-content text-start pt-8 lg:px-10">No.</th>
-            <th class="body-regular text-secondary-content text-start pt-8 lg:px-10">Dapp</th>
-            <th class="body-regular text-secondary-content text-start pt-8 lg:px-10">TVL</th>
+            {#each headers as header}
+              <th class="body-regular text-secondary-content text-start pt-8 lg:px-10">{header}</th>
+            {/each}
           </tr>
         </thead>
         <tbody class="rounded-lg">
           {#each $currentDefiDappLeaderboard.protocols as entry, i}
-            <tr class="row h-12">
-              <td class="lg:px-10 w-2">{i + 1}</td>
+            {@const rank = i + 1}
+            {@const fillClass =
+              rank === 1 ? 'fill-[#EBB222]' : rank === 2 ? 'fill-[#91969F]' : rank === 3 ? 'fill-[#775602]' : ''}
+
+            <tr class="row h-12 hover:bg-neutral-background">
+              <td class=" h-full table-cell body-bold">
+                <div class="flex gap-[12px]">
+                  <Icon type="trophy" {fillClass} />
+                  {rank}
+                </div>
+              </td>
               <td class="lg:px-10">
                 <div class="flex gap-[20px] align-center">
                   {#if entry.logo}
@@ -51,7 +63,7 @@
                   </div>
                 </div>
               </td>
-              <td class="lg:px-10 body-regular flex-col"> ${formatNumbers(Number(entry.taikoTvl).toFixed(2))} </td>
+              <td class="lg:px-10 body-bold flex-col"> ${formatNumbers(Number(entry.taikoTvl).toFixed(2))} </td>
             </tr>
           {/each}
           {#if $currentDefiDappLeaderboard.protocols.length === 0}
