@@ -51,6 +51,43 @@ export type BridgeLeaderboardTotal = {
   visible: number;
 };
 
+export type DefiDappLeaderboardPage = {
+  protocols: DefiDappLeaderboardRow[];
+  lastUpdated: number;
+};
+
+export type DefiDappLeaderboardRow = {
+  id: string;
+  name: string;
+  address: string;
+  symbol: string;
+  url: string;
+  description: string;
+  chain: string;
+  logo: string;
+  audits: string;
+  audit_note: string | null;
+  gecko_id: string;
+  cmcId: string;
+  category: string;
+  chains: string[];
+  module: string;
+  twitter: string;
+  forkedFrom: string | null;
+  oracles: string | null;
+  listedAt: number;
+  slug: string;
+  tvl: number;
+  chainTvls: {
+    [key: string]: number;
+  };
+  taikoTvl?: number;
+  change_1h: number;
+  change_1d: number;
+  change_7d: number;
+  tokenBreakdowns: Record<string, unknown>;
+};
+
 export type PaginationInfo = {
   first?: boolean;
   last?: boolean;

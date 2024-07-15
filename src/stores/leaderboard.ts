@@ -1,7 +1,13 @@
 // tokenInfoStore.ts
 import { writable } from 'svelte/store';
 
-import type { BridgeData, BridgeLeaderboardTotal, LeaderboardPage } from '$libs/leaderboard/types';
+import type {
+  BridgeData,
+  BridgeLeaderboardTotal,
+  DefiDappLeaderboardPage,
+  DefiDappLeaderboardRow,
+  LeaderboardPage,
+} from '$libs/leaderboard/types';
 
 export const currentLeaderboard = writable<LeaderboardPage>({
   items: [],
@@ -38,6 +44,11 @@ export const currentBridgeLeaderboard = writable<BridgeLeaderboardTotal>({
   visible: 0,
 });
 
+export const currentDefiDappLeaderboard = writable<DefiDappLeaderboardPage>({
+  protocols: [],
+  lastUpdated: 0,
+});
+
 export const setLeaderboard = (leaderboard: LeaderboardPage) => {
   currentLeaderboard.update((store) => {
     store = leaderboard;
@@ -59,6 +70,20 @@ export const setUserLeaderboard = (leaderboard: LeaderboardPage) => {
 export const setBridgeLeaderboard = (leaderboard: BridgeData[]) => {
   currentBridgeLeaderboard.update((store) => {
     store.items = leaderboard;
+    return store;
+  });
+};
+
+export const setDefiDappLeaderboardProtocols = (leaderboard: DefiDappLeaderboardRow[]) => {
+  currentDefiDappLeaderboard.update((store) => {
+    store.protocols = leaderboard;
+    return store;
+  });
+};
+
+export const setDefiDappLeaderboardLastUpdated = (lastUpdated: number) => {
+  currentDefiDappLeaderboard.update((store) => {
+    store.lastUpdated = lastUpdated;
     return store;
   });
 };
