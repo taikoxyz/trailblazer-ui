@@ -2,17 +2,17 @@
   "Orbiter": {
     "name": "Orbiter",
     "twitter": "Orbiter_Finance",
-    "icon": "orbiter.png"
+    "icon": "dapps/orbiter.png"
   },
   "Owlto": {
     "name": "Owlto",
     "twitter": "Owlto_Finance",
-    "icon": "owlto.png"
+    "icon": "dapps/owlto.png"
   },
   "Rhino": {
     "name": "Rhino.Fi",
     "twitter": "rhinofi",
-    "icon": "rhinofi.png"
+    "icon": "dapps/rhinofi.png"
   },
   "Retrobridge": {
     "name": "Retro Bridge",

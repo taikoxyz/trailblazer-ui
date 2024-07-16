@@ -13,7 +13,6 @@
   import { shortenAddress } from '$libs/util/shortenAddress';
   import { t } from 'svelte-i18n';
   import Spinner from '$components/Spinner/Spinner.svelte';
-  import { Skeleton } from '$components/Mock';
 
   const log = getLogger('BridgeLeaderboard');
 
