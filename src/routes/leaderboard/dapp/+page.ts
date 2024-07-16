@@ -1,10 +1,10 @@
 import { browser } from '$app/environment';
 import { Leaderboard, type PaginationInfo } from '$libs/leaderboard';
-// import filterList from '$libs/leaderboard/json/filter.json';
 
 export const load = async () => {
+  let loading = true;
   let pageInfo: PaginationInfo = {
-    page: 1,
+    page: 0,
     size: 20,
     first: true,
     last: false,
@@ -15,9 +15,12 @@ export const load = async () => {
       pageInfo = await Leaderboard.getDappLeaderboard(pageInfo);
     } catch (error) {
       console.error('Error loading leaderboard data:', error);
+    } finally {
+      loading = false;
     }
   }
   return {
     pageInfo,
+    loading,
   };
 };

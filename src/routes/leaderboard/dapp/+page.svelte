@@ -8,7 +8,10 @@
   import { Page } from '$components/Page';
   import type { PaginationInfo } from '$libs/leaderboard';
 
-  let pageInfo: PaginationInfo = $page.data.pageInfo;
+  let pageInfo: PaginationInfo;
+  let loading: boolean;
+
+  $: ({ pageInfo, loading } = $page.data);
 
   const handleClick = () => {
     goto('/leaderboard/bridge');
@@ -20,7 +23,7 @@
 </svelte:head>
 
 <Page>
-  <DappsLeaderboard {pageInfo} />
+  <DappsLeaderboard {pageInfo} {loading} />
 
   <div class="w-full flex justify-center mt-[58px]">
     <ActionButton class="max-w-[280px]" priority="primary" on:click={handleClick} withArrow>

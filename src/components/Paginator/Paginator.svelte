@@ -4,7 +4,7 @@
 
   import { Icon } from '$components/Icon';
 
-  export let currentPage = 1;
+  export let currentPage = 1; // UI starts with page 1
   export let totalItems = 0;
   export let pageSize = 5;
   export let maxPages = 1;
@@ -21,7 +21,7 @@
       page = totalPages;
     }
     currentPage = page;
-    dispatch('pageChange', page);
+    dispatch('pageChange', page - 1);
   }
 
   function handleKeydown(event: KeyboardEvent) {

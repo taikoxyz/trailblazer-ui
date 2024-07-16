@@ -5,9 +5,18 @@ import { globalAxiosConfig } from '$libs/api/axiosConfig';
 import bridgeAdditionalData from '$libs/leaderboard/json/bridgeAdditionalData.json';
 import { isDevelopmentEnv } from '$libs/util/isDevelopmentEnv';
 import { getLogger } from '$libs/util/logger';
-import { setBridgeLeaderboard, setLeaderboard, setUserLeaderboard } from '$stores/leaderboard';
+import { setBridgeLeaderboard, setDappLeaderboard, setUserLeaderboard } from '$stores/leaderboard';
 
-import type { BridgeData, BridgeLeaderboardPage, LeaderboardPage, PaginationInfo } from './types';
+import type {
+  BridgeData,
+  BridgeLeaderboardPage,
+  LeaderboardPage,
+  LeaderboardPageApiResponse,
+  LeaderboardRow,
+  PaginationInfo,
+  ProtocolApiResponse,
+} from './types';
+import { isAddress } from 'viem';
 
 const baseApiUrl = isDevelopmentEnv ? '/mock-api' : PUBLIC_TRAILBLAZER_API_URL;
 
@@ -20,15 +29,51 @@ export class Leaderboard {
 
     try {
       log('args', args);
-      const response = await axios.get<LeaderboardPage>(`${baseApiUrl}/leaderboard/dapp`, {
+      const response = await axios.get<LeaderboardPageApiResponse>(`${baseApiUrl}/leaderboard/dapp`, {
         ...globalAxiosConfig,
         params: args,
       });
       log('response', response);
-      const leaderboardPage: LeaderboardPage = response.data;
-      setLeaderboard(leaderboardPage);
+      const leaderboardPageApiResponse: LeaderboardPageApiResponse = response.data;
+
+      const leaderboardPage: LeaderboardPage = { items: [] };
+
+      // Process each item concurrently and await all results
+      const items = await Promise.all(
+        leaderboardPageApiResponse.items.map(async (item) => {
+          log('item', item.slug);
+          let entry: LeaderboardRow;
+
+          if (isAddress(item.slug)) {
+            entry = {
+              address: item.address,
+              data: [],
+              totalScore: item.score,
+            };
+          } else {
+            const details = await axios.get<ProtocolApiResponse>(`${baseApiUrl}/protocol/details`, {
+              ...globalAxiosConfig,
+              params: { slug: item.slug },
+            });
+            const protocolDetails = details.data;
+            log('data', protocolDetails);
+
+            entry = {
+              address: item.address,
+              data: protocolDetails.protocols,
+              totalScore: item.score,
+            };
+          }
+
+          return entry;
+        }),
+      );
+
+      leaderboardPage.items = items;
+
+      setDappLeaderboard(leaderboardPage);
       log('Leaderboard page: ', leaderboardPage);
-      const { page, size, total, total_pages, max_page } = leaderboardPage;
+      const { page, size, total, total_pages, max_page } = leaderboardPageApiResponse;
 
       return {
         first: page === 0,

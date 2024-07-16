@@ -5,26 +5,26 @@ import type { BridgeData, BridgeLeaderboardTotal, LeaderboardPage } from '$libs/
 
 export const currentLeaderboard = writable<LeaderboardPage>({
   items: [],
-  page: 0,
-  size: 20,
-  max_page: 0,
-  total_pages: 0,
-  total: 0,
-  last: 1,
-  first: 0,
-  visible: 0,
+  // page: 0,
+  // size: 20,
+  // max_page: 0,
+  // total_pages: 0,
+  // total: 0,
+  // last: 1,
+  // first: 0,
+  // visible: 0,
 });
 
 export const currentUserLeaderboard = writable<LeaderboardPage>({
   items: [],
-  page: 0,
-  size: 20,
-  max_page: 0,
-  total_pages: 0,
-  total: 0,
-  last: 1,
-  first: 0,
-  visible: 0,
+  // page: 0,
+  // size: 20,
+  // max_page: 0,
+  // total_pages: 0,
+  // total: 0,
+  // last: 1,
+  // first: 0,
+  // visible: 0,
 });
 export const currentBridgeLeaderboard = writable<BridgeLeaderboardTotal>({
   items: [],
@@ -38,7 +38,7 @@ export const currentBridgeLeaderboard = writable<BridgeLeaderboardTotal>({
   visible: 0,
 });
 
-export const setLeaderboard = (leaderboard: LeaderboardPage) => {
+export const setDappLeaderboard = (leaderboard: LeaderboardPage) => {
   currentLeaderboard.update((store) => {
     store = leaderboard;
     store.items = leaderboard.items.filter((item) => !!item.address);
@@ -51,7 +51,7 @@ export const setUserLeaderboard = (leaderboard: LeaderboardPage) => {
     store = leaderboard;
     store.items = leaderboard.items
       .filter((item) => !!item.address)
-      .map((item) => ({ ...item, score: +item.score.toFixed(1) }));
+      .map((item) => ({ ...item, score: +item.totalScore.toFixed(1) }));
     return store;
   });
 };

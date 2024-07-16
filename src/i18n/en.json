@@ -32,6 +32,7 @@
     "badge_claimed": "<a target=\"_blank\" href=\"https://taikoscan.io/tx/{txHash}\">Click here to see your transaction on Taikoscan</a>",
     "claim": "Claim",
     "claiming": "Claiming",
+    "explorer": "Explorer",
     "learn_more": "Learn more",
     "locked": "Locked",
     "not_eligible": "Not eligible",
