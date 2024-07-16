@@ -120,7 +120,7 @@
                       {:else}
                         <div class="hidden lg:table-cell w-12 h-12 bg-pink-200 rounded-full" />
                       {/if}
-                      <div class="f-col">
+                      <div class="f-col justify-center">
                         {#if nameIsAddress}
                           <div class="body-bold">{shortenAddress(entry.address, 8, 4)}</div>
                         {:else}
