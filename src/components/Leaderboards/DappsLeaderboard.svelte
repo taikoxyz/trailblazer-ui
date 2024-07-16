@@ -6,7 +6,7 @@
   import filterList from '$libs/leaderboard/json/filter.json';
   import { formatNumbers } from '$libs/util/formatNumbers';
   import { getLogger } from '$libs/util/logger';
-  import { currentLeaderboard } from '$stores/leaderboard';
+  import { currentDappLeaderboard } from '$stores/leaderboard';
   import { isAddress } from 'ethereum-address';
 
   import DappsHeader from './Header/DappsHeader.svelte';
@@ -39,11 +39,11 @@
       size: pageSize,
     };
     const pageInfo = await Leaderboard.getDappLeaderboard(args);
-    totalItems = pageInfo.total || $currentLeaderboard.items.length;
+    totalItems = pageInfo.total || $currentDappLeaderboard.items.length;
     loading = false;
   }
 
-  $: itemsToDisplay = $currentLeaderboard.items.filter((entry: LeaderboardRow) => {
+  $: itemsToDisplay = $currentDappLeaderboard.items.filter((entry: LeaderboardRow) => {
     return !(entry.address in filterList);
   });
 

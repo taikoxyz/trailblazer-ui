@@ -1,30 +1,19 @@
 // tokenInfoStore.ts
 import { writable } from 'svelte/store';
 
-import type { BridgeData, BridgeLeaderboardTotal, LeaderboardPage } from '$libs/leaderboard/types';
+import type {
+  BridgeData,
+  BridgeLeaderboardTotal,
+  DappLeaderboardPage,
+  UserLeaderboardPage,
+} from '$libs/leaderboard/types';
 
-export const currentLeaderboard = writable<LeaderboardPage>({
+export const currentDappLeaderboard = writable<DappLeaderboardPage>({
   items: [],
-  // page: 0,
-  // size: 20,
-  // max_page: 0,
-  // total_pages: 0,
-  // total: 0,
-  // last: 1,
-  // first: 0,
-  // visible: 0,
 });
 
-export const currentUserLeaderboard = writable<LeaderboardPage>({
+export const currentUserLeaderboard = writable<UserLeaderboardPage>({
   items: [],
-  // page: 0,
-  // size: 20,
-  // max_page: 0,
-  // total_pages: 0,
-  // total: 0,
-  // last: 1,
-  // first: 0,
-  // visible: 0,
 });
 export const currentBridgeLeaderboard = writable<BridgeLeaderboardTotal>({
   items: [],
@@ -38,20 +27,20 @@ export const currentBridgeLeaderboard = writable<BridgeLeaderboardTotal>({
   visible: 0,
 });
 
-export const setDappLeaderboard = (leaderboard: LeaderboardPage) => {
-  currentLeaderboard.update((store) => {
+export const setDappLeaderboard = (leaderboard: DappLeaderboardPage) => {
+  currentDappLeaderboard.update((store) => {
     store = leaderboard;
     store.items = leaderboard.items.filter((item) => !!item.address);
     return store;
   });
 };
 
-export const setUserLeaderboard = (leaderboard: LeaderboardPage) => {
+export const setUserLeaderboard = (leaderboard: UserLeaderboardPage) => {
   currentUserLeaderboard.update((store) => {
     store = leaderboard;
     store.items = leaderboard.items
       .filter((item) => !!item.address)
-      .map((item) => ({ ...item, score: +item.totalScore.toFixed(1) }));
+      .map((item) => ({ ...item, score: +item.score.toFixed(1) }));
     return store;
   });
 };

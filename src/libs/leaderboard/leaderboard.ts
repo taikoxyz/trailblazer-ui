@@ -10,11 +10,13 @@ import { setBridgeLeaderboard, setDappLeaderboard, setUserLeaderboard } from '$s
 import type {
   BridgeData,
   BridgeLeaderboardPage,
-  LeaderboardPage,
-  LeaderboardPageApiResponse,
+  DappLeaderboardPageApiResponse,
+  DappLeaderboardPage,
   LeaderboardRow,
   PaginationInfo,
   ProtocolApiResponse,
+  UserLeaderboardPageApiResponse,
+  UserLeaderboardPage,
 } from './types';
 import { isAddress } from 'viem';
 
@@ -29,14 +31,14 @@ export class Leaderboard {
 
     try {
       log('args', args);
-      const response = await axios.get<LeaderboardPageApiResponse>(`${baseApiUrl}/leaderboard/dapp`, {
+      const response = await axios.get<DappLeaderboardPageApiResponse>(`${baseApiUrl}/leaderboard/dapp`, {
         ...globalAxiosConfig,
         params: args,
       });
       log('response', response);
-      const leaderboardPageApiResponse: LeaderboardPageApiResponse = response.data;
+      const leaderboardPageApiResponse: DappLeaderboardPageApiResponse = response.data;
 
-      const leaderboardPage: LeaderboardPage = { items: [] };
+      const leaderboardPage: DappLeaderboardPage = { items: [] };
 
       // Process each item concurrently and await all results
       const items = await Promise.all(
@@ -91,8 +93,11 @@ export class Leaderboard {
 
   static async getUserLeaderboard() {
     try {
-      const response = await axios.get(`${baseApiUrl}/leaderboard/user`, globalAxiosConfig);
-      const leaderboardPage: LeaderboardPage = response.data as LeaderboardPage;
+      const response = await axios.get<UserLeaderboardPageApiResponse>(
+        `${baseApiUrl}/leaderboard/user`,
+        globalAxiosConfig,
+      );
+      const leaderboardPage: UserLeaderboardPage = response.data as UserLeaderboardPage;
       setUserLeaderboard(leaderboardPage);
     } catch (error) {
       console.error('Error fetching leaderboard:', error);
