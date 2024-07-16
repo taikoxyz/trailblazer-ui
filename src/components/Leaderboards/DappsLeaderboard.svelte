@@ -127,7 +127,15 @@
                           <div class="body-bold">{entry.address}</div>
                         {/if}
                         {#if hasHandle}
-                          <div class="body-small-regular">{entry?.handle}</div>
+                          <div class="body-small-regular">
+                            <a
+                              href={'https://twitter.com/' + entry?.handle}
+                              class="f-row text-primary-link underline text-[14px]/[20px] gap-1"
+                              target="_blank">
+                              {entry?.handle}
+                              <Icon size={10} type="arrow-top-right" />
+                            </a>
+                          </div>
                         {/if}
                       </div>
                     </div>
