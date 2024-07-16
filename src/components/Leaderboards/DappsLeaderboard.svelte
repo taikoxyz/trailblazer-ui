@@ -50,10 +50,29 @@
   // State for expanded rows
   let expandedRow = -1;
 
+
   function toggleRow(index: number) {
     expandedRow = expandedRow === index ? -1 : index;
   }
 </script>
+
+<table class="table-lg w-full body-regular text-white rounded-3xl" style="background: rgba(25, 30, 40, .50)">
+  <!-- head -->
+  <thead>
+    <tr>
+      {#each headers as header}
+        <th class="body-regular text-secondary-content text-start pt-8 lg:px-10">{header}</th>
+      {/each}
+    </tr>
+  </thead>
+  <tbody class="rounded-lg">
+    {#each itemsToDisplay as entry, index}
+      {@const rank = index + 1}
+      {@const fillClass =
+        rank === 1 ? 'fill-[#EBB222]' : rank === 2 ? 'fill-[#91969F]' : rank === 3 ? 'fill-[#775602]' : ''}
+      {@const hasName = detailMapping[entry.address] && detailMapping[entry.address].name}
+      {@const hasHandle = detailMapping[entry.address] && detailMapping[entry.address].handle}
+      {@const hasIcon = detailMapping[entry.address] && detailMapping[entry.address].icon}
 
 <div class="overflow-x-auto lg:w-full px-5 lg:px-8 mt-[18%] lg:mt-0 space-y-[60px]">
   <DappsHeader />

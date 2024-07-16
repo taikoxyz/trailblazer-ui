@@ -6,6 +6,9 @@ import type {
   BridgeLeaderboardTotal,
   DappLeaderboardPage,
   UserLeaderboardPage,
+  DefiDappLeaderboardPage,
+  DefiDappLeaderboardRow,
+  LeaderboardPage,
 } from '$libs/leaderboard/types';
 
 export const currentDappLeaderboard = writable<DappLeaderboardPage>({
@@ -34,6 +37,11 @@ export const setDappLeaderboard = (leaderboard: DappLeaderboardPage) => {
     return store;
   });
 };
+    
+export const currentDefiDappLeaderboard = writable<DefiDappLeaderboardPage>({
+  protocols: [],
+  lastUpdated: 0,
+});
 
 export const setUserLeaderboard = (leaderboard: UserLeaderboardPage) => {
   currentUserLeaderboard.update((store) => {
@@ -48,6 +56,20 @@ export const setUserLeaderboard = (leaderboard: UserLeaderboardPage) => {
 export const setBridgeLeaderboard = (leaderboard: BridgeData[]) => {
   currentBridgeLeaderboard.update((store) => {
     store.items = leaderboard;
+    return store;
+  });
+};
+
+export const setDefiDappLeaderboardProtocols = (leaderboard: DefiDappLeaderboardRow[]) => {
+  currentDefiDappLeaderboard.update((store) => {
+    store.protocols = leaderboard;
+    return store;
+  });
+};
+
+export const setDefiDappLeaderboardLastUpdated = (lastUpdated: number) => {
+  currentDefiDappLeaderboard.update((store) => {
+    store.lastUpdated = lastUpdated;
     return store;
   });
 };

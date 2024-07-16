@@ -20,6 +20,7 @@
   export let address: Address;
   export let movement: Movements;
   export let canClick: boolean;
+  export let enoughGas: boolean;
 
   let claimable: boolean = false;
 
@@ -66,7 +67,7 @@
 
   async function claimPreflight() {
     if (!connectedAddress) return;
-    claimable = await canClaimPreflight(connectedAddress, FACTIONS[name]);
+    claimable = enoughGas && (await canClaimPreflight(connectedAddress, FACTIONS[name]));
   }
 
   $: $account, claimPreflight();
@@ -177,6 +178,8 @@
 
         {#if $pendingTransactions.length > 0}
           {$t('badges.pendingTx')}
+        {:else if !enoughGas}
+          {$t('badges.notEnoughGas')}
         {:else if claimable}
           {$t('badges.claimable')}
         {:else}
