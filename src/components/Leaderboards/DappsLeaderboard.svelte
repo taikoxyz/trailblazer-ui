@@ -13,6 +13,7 @@
   import { shortenAddress } from '$libs/util/shortenAddress';
   import { t } from 'svelte-i18n';
   import Spinner from '$components/Spinner/Spinner.svelte';
+  import { Skeleton } from '$components/Mock';
 
   const log = getLogger('BridgeLeaderboard');
 
@@ -50,29 +51,10 @@
   // State for expanded rows
   let expandedRow = -1;
 
-
   function toggleRow(index: number) {
     expandedRow = expandedRow === index ? -1 : index;
   }
 </script>
-
-<table class="table-lg w-full body-regular text-white rounded-3xl" style="background: rgba(25, 30, 40, .50)">
-  <!-- head -->
-  <thead>
-    <tr>
-      {#each headers as header}
-        <th class="body-regular text-secondary-content text-start pt-8 lg:px-10">{header}</th>
-      {/each}
-    </tr>
-  </thead>
-  <tbody class="rounded-lg">
-    {#each itemsToDisplay as entry, index}
-      {@const rank = index + 1}
-      {@const fillClass =
-        rank === 1 ? 'fill-[#EBB222]' : rank === 2 ? 'fill-[#91969F]' : rank === 3 ? 'fill-[#775602]' : ''}
-      {@const hasName = detailMapping[entry.address] && detailMapping[entry.address].name}
-      {@const hasHandle = detailMapping[entry.address] && detailMapping[entry.address].handle}
-      {@const hasIcon = detailMapping[entry.address] && detailMapping[entry.address].icon}
 
 <div class="overflow-x-auto lg:w-full px-5 lg:px-8 mt-[18%] lg:mt-0 space-y-[60px]">
   <DappsHeader />
@@ -93,6 +75,8 @@
             rank === 1 ? 'fill-[#EBB222]' : rank === 2 ? 'fill-[#91969F]' : rank === 3 ? 'fill-[#775602]' : ''}
           {@const nameIsAddress = isAddress(entry.address)}
           {@const hasDetails = entry.data.length > 0}
+          {@const hasIcon = entry.icon}
+          {@const hasHandle = entry.handle}
           {#if loading}
             <tr class="row h-12">
               <td class="h-full table-cell body-bold w-1/12">
@@ -127,11 +111,27 @@
               <td class="lg:px-10 w-6/12">
                 <div class="flex gap-[20px] align-center">
                   <div class="flex flex-col justify-around">
-                    {#if nameIsAddress}
-                      <div class="body-bold">{shortenAddress(entry.address, 8, 4)}</div>
-                    {:else}
-                      <div class="body-bold">{entry.address}</div>
-                    {/if}
+                    <div class="flex gap-[20px] align-center">
+                      {#if hasIcon}
+                        <div class="avatar">
+                          <div class="w-12 rounded-full">
+                            <img alt="icon" src={entry.icon} />
+                          </div>
+                        </div>
+                      {:else}
+                        <div class="hidden lg:table-cell w-12 h-12 bg-pink-200 rounded-full" />
+                      {/if}
+                      <div class="f-col">
+                        {#if nameIsAddress}
+                          <div class="body-bold">{shortenAddress(entry.address, 8, 4)}</div>
+                        {:else}
+                          <div class="body-bold">{entry.address}</div>
+                        {/if}
+                        {#if hasHandle}
+                          <div class="body-small-regular">{entry?.handle}</div>
+                        {/if}
+                      </div>
+                    </div>
                   </div>
                 </div>
               </td>

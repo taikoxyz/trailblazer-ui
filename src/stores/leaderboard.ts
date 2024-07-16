@@ -8,7 +8,6 @@ import type {
   UserLeaderboardPage,
   DefiDappLeaderboardPage,
   DefiDappLeaderboardRow,
-  LeaderboardPage,
 } from '$libs/leaderboard/types';
 
 export const currentDappLeaderboard = writable<DappLeaderboardPage>({
@@ -37,7 +36,7 @@ export const setDappLeaderboard = (leaderboard: DappLeaderboardPage) => {
     return store;
   });
 };
-    
+
 export const currentDefiDappLeaderboard = writable<DefiDappLeaderboardPage>({
   protocols: [],
   lastUpdated: 0,

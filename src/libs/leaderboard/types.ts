@@ -45,6 +45,8 @@ export type UserLeaderboardItem = {
 
 export type LeaderboardRow = {
   address: string;
+  icon?: string;
+  handle?: string;
   data: ProtocolData[];
   totalScore: number;
 };

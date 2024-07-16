@@ -6,17 +6,14 @@ import { globalAxiosConfig } from '$libs/api/axiosConfig';
 import bridgeAdditionalData from '$libs/leaderboard/json/bridgeAdditionalData.json';
 import { isDevelopmentEnv } from '$libs/util/isDevelopmentEnv';
 import { getLogger } from '$libs/util/logger';
-
-import { setBridgeLeaderboard, setDappLeaderboard, setUserLeaderboard } from '$stores/leaderboard';
+import dappIconMapping from '$libs/leaderboard/json/dappIconMapping.json';
+import { setBridgeLeaderboard, setDappLeaderboard } from '$stores/leaderboard';
 
 import {
-  setBridgeLeaderboard,
   setDefiDappLeaderboardLastUpdated,
   setDefiDappLeaderboardProtocols,
-  setLeaderboard,
   setUserLeaderboard,
 } from '$stores/leaderboard';
-
 
 import type {
   BridgeData,
@@ -32,10 +29,17 @@ import type {
 } from './types';
 import { isAddress } from 'viem';
 
-
 const baseApiUrl = isDevelopmentEnv ? '/mock-api' : PUBLIC_TRAILBLAZER_API_URL;
 
 const log = getLogger('Leaderboard');
+
+interface DetailsMapping {
+  [slug: string]: {
+    name?: string;
+    icon?: string;
+    handle?: string;
+  };
+}
 
 export class Leaderboard {
   // dapp leaderboard
@@ -54,10 +58,10 @@ export class Leaderboard {
 
       const leaderboardPage: DappLeaderboardPage = { items: [] };
 
-      // Process each item concurrently and await all results
+      const iconMapping: DetailsMapping = dappIconMapping;
+
       const items = await Promise.all(
         leaderboardPageApiResponse.items.map(async (item) => {
-          log('item', item.slug);
           let entry: LeaderboardRow;
 
           if (isAddress(item.slug)) {
@@ -72,7 +76,6 @@ export class Leaderboard {
               params: { slug: item.slug },
             });
             const protocolDetails = details.data;
-            log('data', protocolDetails);
 
             entry = {
               address: item.address,
@@ -80,7 +83,12 @@ export class Leaderboard {
               totalScore: item.score,
             };
           }
-
+          if (iconMapping[item.slug]?.icon) {
+            entry.icon = iconMapping[item.slug].icon;
+          }
+          if (iconMapping[item.slug]?.handle) {
+            entry.handle = iconMapping[item.slug].handle;
+          }
           return entry;
         }),
       );
