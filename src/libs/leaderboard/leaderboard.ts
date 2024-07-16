@@ -48,7 +48,7 @@ export class Leaderboard {
 
     try {
       log('args', args);
-      const response = await axios.get<DappLeaderboardPageApiResponse>(`${baseApiUrl}/leaderboard/dapp`, {
+      const response = await axios.get<DappLeaderboardPageApiResponse>(`${baseApiUrl}/v1/leaderboard/dapp`, {
         ...globalAxiosConfig,
         params: args,
       });
