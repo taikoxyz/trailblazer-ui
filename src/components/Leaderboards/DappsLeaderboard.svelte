@@ -1,18 +1,19 @@
 <script lang="ts">
+  import { isAddress } from 'ethereum-address';
+  import { t } from 'svelte-i18n';
+
   import { Icon } from '$components/Icon';
   import ExplorerLink from '$components/Links/ExplorerLink.svelte';
   import Paginator from '$components/Paginator/Paginator.svelte';
+  import Spinner from '$components/Spinner/Spinner.svelte';
   import { Leaderboard, type LeaderboardRow, type PaginationInfo } from '$libs/leaderboard';
   import filterList from '$libs/leaderboard/json/filter.json';
   import { formatNumbers } from '$libs/util/formatNumbers';
   import { getLogger } from '$libs/util/logger';
+  import { shortenAddress } from '$libs/util/shortenAddress';
   import { currentDappLeaderboard } from '$stores/leaderboard';
-  import { isAddress } from 'ethereum-address';
 
   import DappsHeader from './Header/DappsHeader.svelte';
-  import { shortenAddress } from '$libs/util/shortenAddress';
-  import { t } from 'svelte-i18n';
-  import Spinner from '$components/Spinner/Spinner.svelte';
 
   const log = getLogger('BridgeLeaderboard');
 

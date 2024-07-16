@@ -1,14 +1,14 @@
 import axios from 'axios';
+import { isAddress } from 'viem';
 
 import { errorToast } from '$components/NotificationToast';
 import { PUBLIC_TRAILBLAZER_API_URL } from '$env/static/public';
 import { globalAxiosConfig } from '$libs/api/axiosConfig';
 import bridgeAdditionalData from '$libs/leaderboard/json/bridgeAdditionalData.json';
+import dappDetailsMapping from '$libs/leaderboard/json/dappDetailsMapping.json';
 import { isDevelopmentEnv } from '$libs/util/isDevelopmentEnv';
 import { getLogger } from '$libs/util/logger';
-import dappDetailsMapping from '$libs/leaderboard/json/dappDetailsMapping.json';
 import { setBridgeLeaderboard, setDappLeaderboard } from '$stores/leaderboard';
-
 import {
   setDefiDappLeaderboardLastUpdated,
   setDefiDappLeaderboardProtocols,
@@ -18,16 +18,15 @@ import {
 import type {
   BridgeData,
   BridgeLeaderboardPage,
+  DappLeaderboardPage,
   DappLeaderboardPageApiResponse,
   DefiDappLeaderboardRow,
-  DappLeaderboardPage,
   LeaderboardRow,
   PaginationInfo,
   ProtocolApiResponse,
-  UserLeaderboardPageApiResponse,
   UserLeaderboardPage,
+  UserLeaderboardPageApiResponse,
 } from './types';
-import { isAddress } from 'viem';
 
 const baseApiUrl = isDevelopmentEnv ? '/mock-api' : PUBLIC_TRAILBLAZER_API_URL;
 
