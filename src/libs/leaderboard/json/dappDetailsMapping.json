@@ -1,0 +1,60 @@
+{
+  "orbiter": {
+    "icon": "/dapps/orbiter.png",
+    "handle": "@Orbiter_Finance"
+  },
+  "owlto-finance": {
+    "icon": "/dapps/owlto.png",
+    "handle": "@Owlto_Finance"
+  },
+  "rhino-fi": {
+    "icon": "/dapps/rhinofi.png",
+    "handle": "@RhinoFi"
+  },
+  "izumi": {
+    "handle": "@izumi_Finance",
+    "icon": "/dapps/defi/izumi_finance.png"
+  },
+  "crack-stack": {
+    "handle": "@crackandstack"
+  },
+  "ritsu": {
+    "icon": "/dapps/defi/ritsu-protocol.png",
+    "handle": "@ritsuprotocol"
+  },
+  "hana-finance": {
+    "icon": "/dapps/defi/hana_finance.png",
+    "handle": "@Hana_Finance"
+  },
+  "ruby-score": {
+    "icon": "/dapps/rubyscore.svg",
+    "handle": "@rubyscore_io"
+  },
+  "dtx": {
+    "handle": "@0xdtx",
+    "icon": "/dapps/defi/dtx-trade.png"
+  },
+  "0xastra": {
+    "handle": "@0xAstra_xyz",
+    "icon": "/dapps/0xastra.svg"
+  },
+  "kiloex": {
+    "icon": "/dapps/defi/kiloex.png"
+  },
+  "henjin": {
+    "icon": "/dapps/defi/henjin_dex.png"
+  },
+  "oku": {},
+  "stargate": {},
+  "micro-3": {},
+  "kodo-exchange": {},
+  "pheasant": {},
+  "symbiosis-finance": {},
+  "retrobridge": {},
+  "zns": {},
+  "stupid-monkeys": {},
+  "minibridge": {},
+  "nfts-2-me": {},
+  "bunnyfi": {},
+  "taiko-town": {}
+}

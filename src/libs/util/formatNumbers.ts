@@ -5,7 +5,7 @@
  * @param num - The number to be formatted
  * @returns The formatted string with dots and a comma for the decimal part
  */
-export function formatNumbers(num: number): string {
+export function formatNumbers(num: number | string): string {
   const [integerPart, decimalPart] = num.toString().split('.');
 
   const formattedIntegerPart = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, ',');

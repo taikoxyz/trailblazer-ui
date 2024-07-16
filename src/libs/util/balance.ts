@@ -5,10 +5,16 @@ import { truncateString } from '$libs/util/truncateString';
 import { wagmiConfig } from '$libs/wagmi';
 import { ethBalance } from '$stores/balance';
 
-export function renderBalance(balance: Maybe<GetBalanceReturnType | bigint>, maxlength = 8) {
+export function renderBalance(balance: Maybe<GetBalanceReturnType>): string {
   if (!balance) return '0.00';
-  if (typeof balance === 'bigint') return balance.toString();
-  return `${truncateString(balance.value.toString(), maxlength, '')}`;
+
+  const [integerPart, decimalPart] = balance.formatted.split('.');
+  const maxlength = Number(balance.formatted) < 0.000001 ? balance.decimals : 6;
+
+  const truncatedDecimal = decimalPart ? truncateString(decimalPart, maxlength, '') : '';
+  const formattedBalance = decimalPart ? `${integerPart}.${truncatedDecimal}` : integerPart;
+
+  return `${formattedBalance} ${truncateString(balance.symbol, 7)}`;
 }
 
 export function renderEthBalance(balance: bigint, maxlength = 8): string {
