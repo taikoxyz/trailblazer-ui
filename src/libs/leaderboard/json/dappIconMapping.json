@@ -23,11 +23,12 @@
     "handle": "@ritsuprotocol"
   },
   "hana-finance": {
-    "icon": "/dapps/defi/hana_finance.png"
+    "icon": "/dapps/defi/hana_finance.png",
+    "handle": "@Hana_Finance"
   },
   "ruby-score": {
     "icon": "/dapps/rubyscore.svg",
-    "handle": "@RubyScore"
+    "handle": "@rubyscore_io"
   },
   "dtx": {
     "handle": "@0xdtx",
