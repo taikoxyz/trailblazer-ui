@@ -5,9 +5,9 @@ import type {
   BridgeData,
   BridgeLeaderboardTotal,
   DappLeaderboardPage,
-  UserLeaderboardPage,
   DefiDappLeaderboardPage,
   DefiDappLeaderboardRow,
+  UserLeaderboardPage,
 } from '$libs/leaderboard/types';
 
 export const currentDappLeaderboard = writable<DappLeaderboardPage>({

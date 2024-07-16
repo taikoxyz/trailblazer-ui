@@ -1,6 +1,5 @@
 import { createWeb3Modal } from '@web3modal/wagmi';
 
-import { browser } from '$app/environment';
 import { PUBLIC_WALLETCONNECT_PROJECT_ID } from '$env/static/public';
 import { getChainImages } from '$libs/chain';
 import { wagmiConfig } from '$libs/wagmi';
@@ -23,5 +22,4 @@ export const web3modal = createWeb3Modal({
     '--w3m-border-radius-master': '9999px',
     '--w3m-accent': 'var(--primary-brand)',
   },
-  themeMode: browser ? (localStorage.getItem('theme') as 'dark' | 'light') ?? 'dark' : 'dark',
 });
