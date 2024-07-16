@@ -6,7 +6,7 @@ import { globalAxiosConfig } from '$libs/api/axiosConfig';
 import bridgeAdditionalData from '$libs/leaderboard/json/bridgeAdditionalData.json';
 import { isDevelopmentEnv } from '$libs/util/isDevelopmentEnv';
 import { getLogger } from '$libs/util/logger';
-import dappIconMapping from '$libs/leaderboard/json/dappIconMapping.json';
+import dappDetailsMapping from '$libs/leaderboard/json/dappDetailsMapping.json';
 import { setBridgeLeaderboard, setDappLeaderboard } from '$stores/leaderboard';
 
 import {
@@ -58,7 +58,7 @@ export class Leaderboard {
 
       const leaderboardPage: DappLeaderboardPage = { items: [] };
 
-      const iconMapping: DetailsMapping = dappIconMapping;
+      const detailMapping: DetailsMapping = dappDetailsMapping;
 
       const items = await Promise.all(
         leaderboardPageApiResponse.items.map(async (item) => {
@@ -83,11 +83,11 @@ export class Leaderboard {
               totalScore: item.score,
             };
           }
-          if (iconMapping[item.slug]?.icon) {
-            entry.icon = iconMapping[item.slug].icon;
+          if (detailMapping[item.slug]?.icon) {
+            entry.icon = detailMapping[item.slug].icon;
           }
-          if (iconMapping[item.slug]?.handle) {
-            entry.handle = iconMapping[item.slug].handle;
+          if (detailMapping[item.slug]?.handle) {
+            entry.handle = detailMapping[item.slug].handle;
           }
           return entry;
         }),
