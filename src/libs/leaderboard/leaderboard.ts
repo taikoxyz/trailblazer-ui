@@ -6,40 +6,99 @@ import { globalAxiosConfig } from '$libs/api/axiosConfig';
 import bridgeAdditionalData from '$libs/leaderboard/json/bridgeAdditionalData.json';
 import { isDevelopmentEnv } from '$libs/util/isDevelopmentEnv';
 import { getLogger } from '$libs/util/logger';
+import dappDetailsMapping from '$libs/leaderboard/json/dappDetailsMapping.json';
+import { setBridgeLeaderboard, setDappLeaderboard } from '$stores/leaderboard';
+
 import {
-  setBridgeLeaderboard,
   setDefiDappLeaderboardLastUpdated,
   setDefiDappLeaderboardProtocols,
-  setLeaderboard,
   setUserLeaderboard,
 } from '$stores/leaderboard';
 
 import type {
   BridgeData,
   BridgeLeaderboardPage,
+  DappLeaderboardPageApiResponse,
   DefiDappLeaderboardRow,
-  LeaderboardPage,
+  DappLeaderboardPage,
+  LeaderboardRow,
   PaginationInfo,
+  ProtocolApiResponse,
+  UserLeaderboardPageApiResponse,
+  UserLeaderboardPage,
 } from './types';
+import { isAddress } from 'viem';
 
 const baseApiUrl = isDevelopmentEnv ? '/mock-api' : PUBLIC_TRAILBLAZER_API_URL;
 
 const log = getLogger('Leaderboard');
 
+interface DetailsMapping {
+  [slug: string]: {
+    name?: string;
+    icon?: string;
+    handle?: string;
+  };
+}
+
 export class Leaderboard {
   // dapp leaderboard
   static async getDappLeaderboard(args: PaginationInfo): Promise<PaginationInfo> {
+    log('baseApiUrl', baseApiUrl);
+
     try {
-      args.page = args.page - 1;
-      const response = await axios.get<LeaderboardPage>(`${baseApiUrl}/leaderboard/dapp`, {
+      log('args', args);
+      const response = await axios.get<DappLeaderboardPageApiResponse>(`${baseApiUrl}/v1/leaderboard/dapp`, {
         ...globalAxiosConfig,
         params: args,
       });
 
-      const leaderboardPage: LeaderboardPage = response.data;
-      setLeaderboard(leaderboardPage);
+      log('response', response);
+      const leaderboardPageApiResponse: DappLeaderboardPageApiResponse = response.data;
+
+      const leaderboardPage: DappLeaderboardPage = { items: [] };
+
+      const detailMapping: DetailsMapping = dappDetailsMapping;
+
+      const items = await Promise.all(
+        leaderboardPageApiResponse.items.map(async (item) => {
+          let entry: LeaderboardRow;
+
+          if (isAddress(item.slug)) {
+            entry = {
+              address: item.address,
+              data: [],
+              totalScore: item.score,
+            };
+          } else {
+            const details = await axios.get<ProtocolApiResponse>(`${baseApiUrl}/protocol/details`, {
+              ...globalAxiosConfig,
+              params: { slug: item.slug },
+            });
+            const protocolDetails = details.data;
+
+            entry = {
+              address: item.address,
+              data: protocolDetails.protocols,
+              totalScore: item.score,
+            };
+          }
+          if (detailMapping[item.slug]?.icon) {
+            entry.icon = detailMapping[item.slug].icon;
+          }
+          if (detailMapping[item.slug]?.handle) {
+            entry.handle = detailMapping[item.slug].handle;
+          }
+          return entry;
+        }),
+      );
+
+      leaderboardPage.items = items;
+
+      setDappLeaderboard(leaderboardPage);
+
       log('Leaderboard page: ', leaderboardPage);
-      const { page, size, total, total_pages, max_page } = leaderboardPage;
+      const { page, size, total, total_pages, max_page } = leaderboardPageApiResponse;
 
       return {
         first: page === 0,
@@ -61,8 +120,11 @@ export class Leaderboard {
 
   static async getUserLeaderboard() {
     try {
-      const response = await axios.get(`${baseApiUrl}/leaderboard/user`, globalAxiosConfig);
-      const leaderboardPage: LeaderboardPage = response.data as LeaderboardPage;
+      const response = await axios.get<UserLeaderboardPageApiResponse>(
+        `${baseApiUrl}/leaderboard/user`,
+        globalAxiosConfig,
+      );
+      const leaderboardPage: UserLeaderboardPage = response.data as UserLeaderboardPage;
       setUserLeaderboard(leaderboardPage);
     } catch (error) {
       console.error('Error fetching leaderboard:', error);

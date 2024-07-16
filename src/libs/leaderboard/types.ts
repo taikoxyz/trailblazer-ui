@@ -1,7 +1,7 @@
 import type { Address } from 'viem';
 
-export type LeaderboardPage = {
-  items: LeaderboardRow[];
+export type DappLeaderboardPageApiResponse = {
+  items: DappLeaderboardItem[];
   page: number;
   size: number;
   max_page: number;
@@ -12,8 +12,51 @@ export type LeaderboardPage = {
   visible: number;
 };
 
+export type UserLeaderboardPageApiResponse = {
+  items: UserLeaderboardItem[];
+  page: number;
+  size: number;
+  max_page: number;
+  total_pages: number;
+  total: number;
+  last: number;
+  first: number;
+  visible: number;
+};
+
+export type DappLeaderboardPage = {
+  items: LeaderboardRow[];
+};
+
+export type UserLeaderboardPage = {
+  items: UserLeaderboardItem[];
+};
+
+export type DappLeaderboardItem = {
+  address: Address;
+  score: number;
+  slug: string;
+};
+
+export type UserLeaderboardItem = {
+  address: Address;
+  score: number;
+};
+
 export type LeaderboardRow = {
   address: string;
+  icon?: string;
+  handle?: string;
+  data: ProtocolData[];
+  totalScore: number;
+};
+
+export type ProtocolApiResponse = {
+  protocols: ProtocolData[];
+};
+
+export type ProtocolData = {
+  address: Address;
   score: number;
 };
 

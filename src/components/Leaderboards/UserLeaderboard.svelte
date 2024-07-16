@@ -1,6 +1,8 @@
 <script lang="ts">
+  import { Icon } from '$components/Icon';
   import { ExplorerLink } from '$components/Links';
   import { formatNumbers } from '$libs/util/formatNumbers';
+  import { shortenAddress } from '$libs/util/shortenAddress';
   import { currentUserLeaderboard } from '$stores/leaderboard';
   let headers = ['Rank', 'Address', 'Points'];
 </script>
@@ -25,13 +27,19 @@
       </tr>
     </thead>
     <tbody class="rounded-lg">
-      {#each $currentUserLeaderboard.items as thing, i}
+      {#each $currentUserLeaderboard.items as entry, index}
+        {@const rank = index + 1}
+        {@const fillClass =
+          rank === 1 ? 'fill-[#EBB222]' : rank === 2 ? 'fill-[#91969F]' : rank === 3 ? 'fill-[#775602]' : ''}
         <tr class="row h-12">
-          <td class="lg:px-10">{i + 1}</td>
-          <td class="lg:table-cell hidden lg:px-10 body-regular"><ExplorerLink address={thing.address} /></td>
-          <td class="text-start lg:hidden table-cell lg:px-10 body-regular"
-            ><ExplorerLink address={thing.address} shorten={true} /></td>
-          <td>{formatNumbers(Math.round(thing.score))}</td>
+          <td class="">
+            <div class="f-center gap-[12px]">
+              <Icon type="trophy" {fillClass} />{rank}
+            </div>
+          </td>
+          <td class="text-start table-cell lg:px-10 body-regular"
+            ><ExplorerLink address={entry.address} linkText={shortenAddress(entry.address, 8, 16)} /></td>
+          <td>{formatNumbers(Math.round(entry.score))}</td>
         </tr>
       {/each}
     </tbody>
