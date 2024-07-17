@@ -22,7 +22,7 @@ jobs:
     uses: ./.github/workflows/repo--vercel-deploy.yml
     with:
       environment: 'production'
-      flags: '--qa'
+      flags: '--prod'
     secrets:
       vercel_project_id: ${{ secrets.VERCEL_PROJECT_ID_TRAILBLAZER_UI_QA }}
       vercel_org_id: ${{ secrets.VERCEL_ORG_ID }}
