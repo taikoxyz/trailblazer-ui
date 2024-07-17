@@ -6,6 +6,7 @@ on:
       - 'trailblazer-ui*'
     branches:
       - main
+      - qa
   pull_request:
     paths:
       - '.'
@@ -13,6 +14,21 @@ on:
 jobs:
   build-and-test:
     uses: ./.github/workflows/trailblazer-ui--ci.yml
+
+  # QA - will always deploy to prod
+  deploy_trailblazer-ui_qa_production:
+    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/qa' }}
+    needs: build-and-test
+    uses: ./.github/workflows/repo--vercel-deploy.yml
+    with:
+      environment: 'production'
+      flags: ''
+    secrets:
+      vercel_project_id: ${{ secrets.VERCEL_PROJECT_ID_TRAILBLAZER_UI_QA }}
+      vercel_org_id: ${{ secrets.VERCEL_ORG_ID }}
+      vercel_token: ${{ secrets.VERCEL_TOKEN }}
+      PUBLIC_TRAILBLAZER_API_URL: ${{ secrets.PUBLIC_TRAILBLAZER_API_URL }}
+      PUBLIC_WALLETCONNECT_PROJECT_ID: ${{ secrets.PUBLIC_WALLETCONNECT_PROJECT_ID }}
 
   # Internal Staging
   deploy_trailblazer-ui_staging_preview:
