@@ -2,7 +2,7 @@
   import type { Address } from 'viem';
   import { getAddress } from 'viem/utils';
 
-  import { EthIcon } from '$components/Icon';
+  import { EthIcon, Icon } from '$components/Icon';
   import Usdc from '$components/Icon/USDC.svelte';
   import Usdt from '$components/Icon/USDT.svelte';
   import { Skeleton } from '$components/Mock';
@@ -38,9 +38,16 @@
       </tr>
     </thead>
     <tbody class="rounded-lg">
-      {#each $currentBridgeLeaderboard.items as entry, i}
+      {#each $currentBridgeLeaderboard.items as entry, index}
+        {@const rank = index + 1}
+        {@const fillClass =
+          rank === 1 ? 'fill-[#EBB222]' : rank === 2 ? 'fill-[#91969F]' : rank === 3 ? 'fill-[#775602]' : ''}
         <tr class="row h-12">
-          <td class="lg:px-10 w-2">{i + 1}</td>
+          <td class="">
+            <div class="f-center gap-[12px]">
+              <Icon type="trophy" {fillClass} />{rank}
+            </div>
+          </td>
           <td class="lg:px-10">
             <div class="flex gap-[20px] align-center">
               {#if entry.icon}
