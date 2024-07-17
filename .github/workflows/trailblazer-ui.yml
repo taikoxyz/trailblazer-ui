@@ -6,6 +6,7 @@ on:
       - 'trailblazer-ui*'
     branches:
       - main
+      - qa
   pull_request:
     paths:
       - '.'
