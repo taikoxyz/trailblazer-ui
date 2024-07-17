@@ -1,3 +1,3 @@
-import { PUBLIC_ENV } from '$env/static/public';
+const { MODE } = import.meta.env;
 
-export const isDevelopmentEnv = PUBLIC_ENV === 'development';
+export const isDevelopmentEnv = MODE === 'development';
