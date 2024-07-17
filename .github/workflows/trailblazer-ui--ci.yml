@@ -17,10 +17,18 @@ jobs:
       - name: Install pnpm dependencies
         uses: ./.github/actions/install-pnpm-dependencies
 
+      - name: Linting
+        working-directory: .
+        run: pnpm lint
+  
+      - name: Unit tests
+        working-directory: .
+        run: pnpm test:unit
+  
       - name: Copy .env.example to .env
         working-directory: .
         run: cp .env.example .env
-
+        
       - name: Build Svelte app
         working-directory: .
         run: pnpm build
@@ -28,11 +36,3 @@ jobs:
       - name: Svelte check
         working-directory: .
         run: pnpm svelte:check
-
-      - name: Linting
-        working-directory: .
-        run: pnpm lint
-
-      - name: Unit tests
-        working-directory: .
-        run: pnpm test:unit
