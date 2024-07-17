@@ -27,8 +27,6 @@ jobs:
       vercel_project_id: ${{ secrets.VERCEL_PROJECT_ID_TRAILBLAZER_UI_QA }}
       vercel_org_id: ${{ secrets.VERCEL_ORG_ID }}
       vercel_token: ${{ secrets.VERCEL_TOKEN }}
-      PUBLIC_TRAILBLAZER_API_URL: ${{ secrets.PUBLIC_TRAILBLAZER_API_URL }}
-      PUBLIC_WALLETCONNECT_PROJECT_ID: ${{ secrets.PUBLIC_WALLETCONNECT_PROJECT_ID }}
 
   # Internal Staging
   deploy_trailblazer-ui_staging_preview:
@@ -42,8 +40,6 @@ jobs:
       vercel_project_id: ${{ secrets.VERCEL_PROJECT_ID_TRAILBLAZER_UI_INTERNAL }}
       vercel_org_id: ${{ secrets.VERCEL_ORG_ID }}
       vercel_token: ${{ secrets.VERCEL_TOKEN }}
-      PUBLIC_TRAILBLAZER_API_URL: ${{ secrets.PUBLIC_TRAILBLAZER_API_URL }}
-      PUBLIC_WALLETCONNECT_PROJECT_ID: ${{ secrets.PUBLIC_WALLETCONNECT_PROJECT_ID }}
 
   deploy_trailblazer-ui_staging_production:
     if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
@@ -56,8 +52,6 @@ jobs:
       vercel_project_id: ${{ secrets.VERCEL_PROJECT_ID_TRAILBLAZER_UI_INTERNAL }}
       vercel_org_id: ${{ secrets.VERCEL_ORG_ID }}
       vercel_token: ${{ secrets.VERCEL_TOKEN }}
-      PUBLIC_TRAILBLAZER_API_URL: ${{ secrets.PUBLIC_TRAILBLAZER_API_URL }}
-      PUBLIC_WALLETCONNECT_PROJECT_ID: ${{ secrets.PUBLIC_WALLETCONNECT_PROJECT_ID }}
 
   # Mainnet
   deploy_trailblazer-ui_mainnet_preview:
@@ -71,8 +65,6 @@ jobs:
       vercel_project_id: ${{ secrets.VERCEL_PROJECT_ID_TRAILBLAZER_UI_MAINNET }}
       vercel_org_id: ${{ secrets.VERCEL_ORG_ID }}
       vercel_token: ${{ secrets.VERCEL_TOKEN }}
-      PUBLIC_TRAILBLAZER_API_URL: ${{ secrets.PUBLIC_TRAILBLAZER_API_URL }}
-      PUBLIC_WALLETCONNECT_PROJECT_ID: ${{ secrets.PUBLIC_WALLETCONNECT_PROJECT_ID }}
 
   deploy_trailblazer-ui_mainnet_production:
     if: ${{ startsWith(github.ref, 'refs/tags/trailblazer-ui-v') }}
@@ -85,5 +77,3 @@ jobs:
       vercel_project_id: ${{ secrets.VERCEL_PROJECT_ID_TRAILBLAZER_UI_MAINNET }}
       vercel_org_id: ${{ secrets.VERCEL_ORG_ID }}
       vercel_token: ${{ secrets.VERCEL_TOKEN }}
-      PUBLIC_TRAILBLAZER_API_URL: ${{ secrets.PUBLIC_TRAILBLAZER_API_URL }}
-      PUBLIC_WALLETCONNECT_PROJECT_ID: ${{ secrets.PUBLIC_WALLETCONNECT_PROJECT_ID }}
