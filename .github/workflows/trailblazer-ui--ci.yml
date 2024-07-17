@@ -29,10 +29,10 @@ jobs:
         working-directory: .
         run: cp .env.example .env
 
-      - name: Build Svelte app
-        working-directory: .
-        run: pnpm build
-
       - name: Svelte check
         working-directory: .
         run: pnpm svelte:check
+
+      - name: Build Svelte app
+        working-directory: .
+        run: pnpm build
