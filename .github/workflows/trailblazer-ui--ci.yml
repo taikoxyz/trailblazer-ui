@@ -20,15 +20,15 @@ jobs:
       - name: Linting
         working-directory: .
         run: pnpm lint
-  
+
       - name: Unit tests
         working-directory: .
         run: pnpm test:unit
-  
+
       - name: Copy .env.example to .env
         working-directory: .
         run: cp .env.example .env
-        
+
       - name: Build Svelte app
         working-directory: .
         run: pnpm build
