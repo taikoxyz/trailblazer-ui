@@ -40,6 +40,9 @@ jobs:
       - name: Pull Vercel Environment Information
         run: vercel pull --yes --environment=${{ inputs.environment }} --token=${{ secrets.vercel_token }}
 
+      - name: Sync and check sveltekit
+        run: pnpm svelte:check
+
       - name: Build Project Artifacts
         run: vercel build ${{ inputs.flags }} --token=${{ secrets.vercel_token }}
 
