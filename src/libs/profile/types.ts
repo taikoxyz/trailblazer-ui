@@ -1,29 +1,36 @@
 import type { Movements } from '$libs/badges/const';
 
-export type UserProfile = GalxePoints & {
-  address: string;
-  pointsHistory?: UserPointHistoryPage;
-  score: number;
-  pointsToNextLevel: number;
-  rank: string;
-  title: string;
-  level: number;
-  total: string;
-  leaderboardPosition: string;
-  faction: UserFaction;
-  avatar?: string;
-  name?: string;
-  ens?: string;
-  experience?: number;
-  rankPercentile?: string;
-  isLoading: boolean;
-  movement: Movements;
-};
+export type UserProfile = GalxePoints &
+  DomainNames & {
+    address: string;
+    pointsHistory?: UserPointHistoryPage;
+    score: number;
+    pointsToNextLevel: number;
+    rank: string;
+    title: string;
+    level: number;
+    total: string;
+    leaderboardPosition: string;
+    faction: UserFaction;
+    avatar?: string;
+    name?: string;
+    ens?: string;
+    experience?: number;
+    rankPercentile?: string;
+    isLoading: boolean;
+    movement: Movements;
+  };
 
 export type GalxePoints = {
   galxePoints?: number;
   trailblazerPoints?: number;
   galxePointsClaimed?: boolean;
+};
+
+export type DomainNames = {
+  selected?: string;
+  dotTaiko?: string;
+  zns?: string;
 };
 
 export type UserBooster = {
