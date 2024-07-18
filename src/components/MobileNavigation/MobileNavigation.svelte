@@ -26,7 +26,7 @@
     <a class="flex gap-2 pb-20" href="/"> </a>
 
     <!-- wallet -->
-    <ConnectButton class="min-h-[75px]" />
+    <ConnectButton class="min-h-[75px] min-w-full" />
     <!-- Links -->
 
     <div class="flex flex-col w-full gap-2">

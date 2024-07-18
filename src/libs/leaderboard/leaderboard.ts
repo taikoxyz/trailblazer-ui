@@ -21,9 +21,9 @@ import type {
   DappLeaderboardPage,
   DappLeaderboardPageApiResponse,
   DefiDappLeaderboardRow,
-  LeaderboardRow,
   PaginationInfo,
   ProtocolApiResponse,
+  UnifiedLeaderboardRow,
   UserLeaderboardPage,
   UserLeaderboardPageApiResponse,
 } from './types';
@@ -55,13 +55,13 @@ export class Leaderboard {
       log('response', response);
       const leaderboardPageApiResponse: DappLeaderboardPageApiResponse = response.data;
 
-      const leaderboardPage: DappLeaderboardPage = { items: [] };
+      const leaderboardPage: DappLeaderboardPage = { items: [], lastUpdated: 0 };
 
       const detailMapping: DetailsMapping = dappDetailsMapping;
 
       const items = await Promise.all(
         leaderboardPageApiResponse.items.map(async (item) => {
-          let entry: LeaderboardRow;
+          let entry: UnifiedLeaderboardRow;
 
           if (isAddress(item.slug)) {
             entry = {
@@ -95,6 +95,7 @@ export class Leaderboard {
       leaderboardPage.items = items;
 
       setDappLeaderboard(leaderboardPage);
+      setDefiDappLeaderboardLastUpdated(response.data.lastUpdated);
 
       log('Leaderboard page: ', leaderboardPage);
       const { page, size, total, total_pages, max_page } = leaderboardPageApiResponse;
@@ -173,15 +174,15 @@ export class Leaderboard {
     return page;
   }
 
-  // Modifies the rows to add the taikoTvl property and sort in descending taikoTvl
+  // Modifies the rows to add the totalScore property and sort in descending totalScore
   static appendDefiDappAdditionalData(rows: DefiDappLeaderboardRow[]): DefiDappLeaderboardRow[] {
-    // Save chainTvls.Taiko as taikoTvl for each row
+    // Save chainTvls.Taiko as totalScore for each row
     rows.map((row) => {
-      row.taikoTvl = row.chainTvls.Taiko;
+      row.totalScore = row.chainTvls.Taiko;
     });
 
     // Sort descending taikoTvl
-    rows.sort((a, b) => (b.taikoTvl || 0) - (a.taikoTvl || 0));
+    rows.sort((a, b) => (b.totalScore || 0) - (a.totalScore || 0));
 
     return rows;
   }

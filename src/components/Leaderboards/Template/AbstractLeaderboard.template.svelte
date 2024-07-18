@@ -1,0 +1,94 @@
+<script lang="ts">
+  import TableHeader from './TableHeader.svelte';
+  import TableRow from './TableRow.svelte';
+  import LoadingRow from './LoadingRow.svelte';
+  import Paginator from '$components/Paginator/Paginator.svelte';
+  import type { ComponentType } from 'svelte';
+  import type { DappLeaderboardRow } from '$libs/leaderboard';
+  import { leaderboardConfig } from '$config';
+  import LastUpdated from '$components/Leaderboards/LastUpdated.svelte';
+
+  export let headers: string[];
+  export let data: DappLeaderboardRow[];
+  export let showTrophy: boolean = true;
+  export let isLoading: boolean = false;
+  export let handlePageChange: (page: number) => void;
+  export let currentPage: number = 1;
+  export let totalItems: number = 0;
+  export let headerComponent: ComponentType;
+  export let lastUpdated: Date | null = null;
+  export let showLastUpdated: boolean = false;
+  export let scoreComponent: ComponentType;
+
+  export let showPagination: boolean = true;
+  export let showDetailsColumn: boolean = true;
+
+  $: pageSize = leaderboardConfig.pageSize;
+
+  // State for expanded rows
+  let expandedRow = -1;
+
+  function toggleRow(index: number) {
+    expandedRow = expandedRow === index ? -1 : index;
+  }
+</script>
+
+<div class="overflow-x-auto lg:w-full px-8 mt-[18%] lg:mt-0">
+  <svelte:component this={headerComponent} />
+
+  {#if showLastUpdated && lastUpdated}
+    <div class="flex justify-center lg:justify-end mt-[50px] mb-[30px]">
+      <LastUpdated class="w-fit" {lastUpdated} />
+    </div>
+  {/if}
+
+  <div class="overflow-x-auto rounded-3xl">
+    <table class="table-lg w-full body-regular text-white rounded-3xl" style="background: rgba(25, 30, 40, .50)">
+      <TableHeader {headers} />
+      <tbody class="rounded-lg">
+        {#if isLoading}
+          <!-- eslint-disable-next-line @typescript-eslint/no-unused-vars -->
+          {#each Array(pageSize) as _, index}
+            {@const rank = index + 1 + (currentPage - 1) * pageSize}
+            {@const fillClass =
+              rank === 1 ? 'fill-[#EBB222]' : rank === 2 ? 'fill-[#91969F]' : rank === 3 ? 'fill-[#775602]' : ''}
+            <LoadingRow {rank} {fillClass} {showTrophy} />
+          {/each}
+        {:else}
+          {#each data as entry, index}
+            {@const rank = index + 1 + (currentPage - 1) * pageSize}
+            {@const fillClass =
+              rank === 1 ? 'fill-[#EBB222]' : rank === 2 ? 'fill-[#91969F]' : rank === 3 ? 'fill-[#775602]' : ''}
+            <TableRow
+              {entry}
+              {index}
+              {rank}
+              {fillClass}
+              {showTrophy}
+              {expandedRow}
+              {toggleRow}
+              {scoreComponent}
+              {showDetailsColumn} />
+          {/each}
+        {/if}
+        {#if data.length === 0 && !isLoading}
+          <tr class="row h-12">
+            <td class="lg:px-10" colspan="3">No data available</td>
+          </tr>
+        {/if}
+      </tbody>
+    </table>
+  </div>
+
+  {#if showPagination}
+    <div class="mt-[38px]">
+      <Paginator
+        {pageSize}
+        bind:currentPage
+        limitPages={true}
+        maxPages={100}
+        bind:totalItems
+        on:pageChange={({ detail: selectedPage }) => handlePageChange(selectedPage)} />
+    </div>
+  {/if}
+</div>
