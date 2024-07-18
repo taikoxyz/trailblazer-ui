@@ -1,12 +1,14 @@
 <script lang="ts">
+  import type { ComponentType } from 'svelte';
+
+  import LastUpdated from '$components/Leaderboards/LastUpdated.svelte';
+  import Paginator from '$components/Paginator/Paginator.svelte';
+  import { leaderboardConfig } from '$config';
+  import type { DappLeaderboardRow } from '$libs/leaderboard';
+
+  import LoadingRow from './LoadingRow.svelte';
   import TableHeader from './TableHeader.svelte';
   import TableRow from './TableRow.svelte';
-  import LoadingRow from './LoadingRow.svelte';
-  import Paginator from '$components/Paginator/Paginator.svelte';
-  import type { ComponentType } from 'svelte';
-  import type { DappLeaderboardRow } from '$libs/leaderboard';
-  import { leaderboardConfig } from '$config';
-  import LastUpdated from '$components/Leaderboards/LastUpdated.svelte';
 
   export let headers: string[];
   export let data: DappLeaderboardRow[];

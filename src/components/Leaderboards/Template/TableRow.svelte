@@ -1,10 +1,11 @@
 <script lang="ts">
-  import { Icon } from '$components/Icon';
-  import { Skeleton } from '$components/Mock';
-  import ExplorerLink from '$components/Links/ExplorerLink.svelte';
   import { isAddress } from 'ethereum-address';
-  import type { UnifiedLeaderboardRow } from '$libs/leaderboard/types';
   import type { ComponentType } from 'svelte';
+
+  import { Icon } from '$components/Icon';
+  import ExplorerLink from '$components/Links/ExplorerLink.svelte';
+  import { Skeleton } from '$components/Mock';
+  import type { UnifiedLeaderboardRow } from '$libs/leaderboard/types';
   import { shortenAddress } from '$libs/util/shortenAddress';
 
   export let entry: UnifiedLeaderboardRow;

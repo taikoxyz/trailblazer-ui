@@ -1,8 +1,9 @@
 <script lang="ts">
   import { mapDefiDappLeaderboardRow } from '$libs/leaderboard';
   import { currentDefiDappLeaderboard } from '$stores/leaderboard';
-  import AbstractLeaderboard from './Template/AbstractLeaderboard.template.svelte';
+
   import DefiDappsHeader from './Header/DefiDappsHeader.svelte';
+  import AbstractLeaderboard from './Template/AbstractLeaderboard.template.svelte';
   import DollarScore from './Template/DollarScore.template.svelte';
 
   let headers = ['No.', 'Dapp', 'TVL'];

@@ -1,9 +1,9 @@
 <script lang="ts">
-  import DappsHeader from './Header/DappsHeader.svelte';
+  import { Leaderboard, type PaginationInfo } from '$libs/leaderboard';
+  import { getLogger } from '$libs/util/logger';
   import { currentDappLeaderboard } from '$stores/leaderboard';
 
-  import { getLogger } from '$libs/util/logger';
-  import { Leaderboard, type PaginationInfo } from '$libs/leaderboard';
+  import DappsHeader from './Header/DappsHeader.svelte';
   import AbstractLeaderboard from './Template/AbstractLeaderboard.template.svelte';
   import PointScore from './Template/PointScore.template.svelte';
 

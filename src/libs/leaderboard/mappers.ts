@@ -1,4 +1,4 @@
-import type { DappLeaderboardRow, UnifiedLeaderboardRow, DefiDappLeaderboardRow } from './types';
+import type { DappLeaderboardRow, DefiDappLeaderboardRow,UnifiedLeaderboardRow } from './types';
 
 export function mapDappLeaderboardRow(row: DappLeaderboardRow): UnifiedLeaderboardRow {
   return {

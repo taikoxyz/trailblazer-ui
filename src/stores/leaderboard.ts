@@ -1,6 +1,7 @@
 // tokenInfoStore.ts
 import { writable } from 'svelte/store';
 
+import { leaderboardConfig } from '$config';
 import type {
   BridgeData,
   BridgeLeaderboardTotal,
@@ -9,7 +10,6 @@ import type {
   DefiDappLeaderboardRow,
   UserLeaderboardPage,
 } from '$libs/leaderboard/types';
-import { leaderboardConfig } from '$config';
 
 // Dapp Leaderboard
 export const currentDappLeaderboard = writable<DappLeaderboardPage>({

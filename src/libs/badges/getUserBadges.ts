@@ -28,7 +28,6 @@ export async function getUserBadges(address: Address): Promise<Record<FactionNam
     args: [address],
     chainId,
   });
-  console.log('faction balances', result);
 
   const factionNames = Object.keys(FactionNames);
 
