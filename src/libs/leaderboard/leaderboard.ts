@@ -55,9 +55,7 @@ export class Leaderboard {
       log('response', response);
       const leaderboardPageApiResponse: DappLeaderboardPageApiResponse = response.data;
 
-
       const leaderboardPage: DappLeaderboardPage = { items: [], lastUpdated: 0 };
-
 
       const detailMapping: DetailsMapping = dappDetailsMapping;
 
@@ -97,7 +95,6 @@ export class Leaderboard {
 
       setDappLeaderboard(leaderboardPage);
       setDefiDappLeaderboardLastUpdated(response.data.lastUpdated);
-
 
       log('Leaderboard page: ', leaderboardPage);
       const { page, size, total, total_pages, max_page } = leaderboardPageApiResponse;

@@ -71,7 +71,6 @@ export const currentDefiDappLeaderboard = writable<DefiDappLeaderboardPage>({
   lastUpdated: 0,
 });
 
-
 export const setDefiDappLeaderboardProtocols = (leaderboard: DefiDappLeaderboardRow[]) => {
   currentDefiDappLeaderboard.update((store) => {
     store.protocols = leaderboard;

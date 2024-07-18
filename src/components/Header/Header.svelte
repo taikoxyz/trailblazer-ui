@@ -56,7 +56,6 @@
         </div>
         <div class="hidden xl:flex">
           <ConnectButton />
-
         </div>
       </div>
     </div>
