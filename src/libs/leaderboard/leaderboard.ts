@@ -174,15 +174,15 @@ export class Leaderboard {
     return page;
   }
 
-  // Modifies the rows to add the totalScore property and sort in descending totalScore
+  // Modifies the rows to add the taikoTvl property and sort in descending taikoTvl
   static appendDefiDappAdditionalData(rows: DefiDappLeaderboardRow[]): DefiDappLeaderboardRow[] {
-    // Save chainTvls.Taiko as totalScore for each row
+    // Save chainTvls.Taiko as taikoTvl for each row
     rows.map((row) => {
-      row.totalScore = row.chainTvls.Taiko;
+      row.taikoTvl = row.chainTvls.Taiko;
     });
 
     // Sort descending taikoTvl
-    rows.sort((a, b) => (b.totalScore || 0) - (a.totalScore || 0));
+    rows.sort((a, b) => (b.taikoTvl || 0) - (a.taikoTvl || 0));
 
     return rows;
   }

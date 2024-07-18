@@ -126,7 +126,7 @@ export type DefiDappLeaderboardRow = {
   chainTvls: {
     [key: string]: number;
   };
-  totalScore?: number;
+  taikoTvl?: number;
   change_1h: number;
   change_1d: number;
   change_7d: number;

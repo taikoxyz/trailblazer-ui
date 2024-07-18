@@ -11,7 +11,7 @@ export function mapDappLeaderboardRow(row: DappLeaderboardRow): UnifiedLeaderboa
 }
 
 export function mapDefiDappLeaderboardRow(row: DefiDappLeaderboardRow): UnifiedLeaderboardRow {
-  const totalScore = row?.totalScore ? row.totalScore : 0;
+  const totalScore = row?.taikoTvl ? row.taikoTvl : 0;
   return {
     address: row.name ? row.name : row.address,
     icon: row.logo,
