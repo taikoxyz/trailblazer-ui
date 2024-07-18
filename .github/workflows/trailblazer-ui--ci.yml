@@ -21,10 +21,6 @@ jobs:
         working-directory: .
         run: pnpm lint
 
-      - name: Unit tests
-        working-directory: .
-        run: pnpm test:unit
-
       - name: Copy .env.example to .env
         working-directory: .
         run: cp .env.example .env
@@ -32,6 +28,10 @@ jobs:
       - name: Svelte check
         working-directory: .
         run: pnpm svelte:check
+
+      - name: Unit tests
+        working-directory: .
+        run: pnpm test:unit
 
       - name: Build Svelte app
         working-directory: .
