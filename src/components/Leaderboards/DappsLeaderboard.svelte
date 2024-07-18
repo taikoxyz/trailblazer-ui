@@ -1,6 +1,7 @@
 <script lang="ts">
   import { Leaderboard, type PaginationInfo } from '$libs/leaderboard';
   import { getLogger } from '$libs/util/logger';
+
   import { currentDappLeaderboard } from '$stores/leaderboard';
 
   import DappsHeader from './Header/DappsHeader.svelte';
@@ -11,6 +12,9 @@
   export let loading = false;
 
   export let pageInfo: PaginationInfo;
+  export let loading: boolean;
+
+  let currentPage = 1;
 
   $: totalItems = pageInfo?.total || 0;
   $: pageSize = pageInfo?.size || 10;
@@ -31,6 +35,7 @@
     totalItems = pageInfo.total || $currentDappLeaderboard.items.length;
     loading = false;
   }
+
 </script>
 
 <AbstractLeaderboard
@@ -44,3 +49,4 @@
   {totalItems}
   headerComponent={DappsHeader}
   scoreComponent={PointScore} />
+

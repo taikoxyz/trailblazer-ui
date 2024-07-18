@@ -8,7 +8,6 @@
 
   let headers = ['No.', 'Dapp', 'TVL'];
 
-  // Map the data to align with the expected types in AbstractLeaderboard
   $: data = $currentDefiDappLeaderboard.protocols.map(mapDefiDappLeaderboardRow);
 </script>
 

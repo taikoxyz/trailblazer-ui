@@ -28,6 +28,7 @@ export type UserLeaderboardPageApiResponse = {
 export type DappLeaderboardPage = {
   items: DappLeaderboardRow[];
   lastUpdated: number;
+
 };
 
 export type UserLeaderboardPage = {

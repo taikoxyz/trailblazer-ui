@@ -1,6 +1,4 @@
-// tokenInfoStore.ts
 import { writable } from 'svelte/store';
-
 import { leaderboardConfig } from '$config';
 import type {
   BridgeData,
@@ -72,6 +70,7 @@ export const currentDefiDappLeaderboard = writable<DefiDappLeaderboardPage>({
   protocols: [],
   lastUpdated: 0,
 });
+
 
 export const setDefiDappLeaderboardProtocols = (leaderboard: DefiDappLeaderboardRow[]) => {
   currentDefiDappLeaderboard.update((store) => {
