@@ -91,6 +91,10 @@
     "defi": {
       "description": "Engage with our trusted DeFi protocols and complete tasks to earn exclusive Masters Faction badges and more.",
       "title": "Create a position with any of the Defi protocol"
+    },
+    "domain": {
+      "description": "Earn your Drummer Faction badge by minting a domain on any partner protocol!",
+      "title": "Mint a domain name"
     }
   },
   "trailblazer_guide": {
