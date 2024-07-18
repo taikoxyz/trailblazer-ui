@@ -1,7 +1,6 @@
 <script lang="ts">
   import { Leaderboard, type PaginationInfo } from '$libs/leaderboard';
   import { getLogger } from '$libs/util/logger';
-
   import { currentDappLeaderboard } from '$stores/leaderboard';
 
   import DappsHeader from './Header/DappsHeader.svelte';
