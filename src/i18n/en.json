@@ -132,18 +132,16 @@
       },
       "prize_breakdown": {
         "first": {
-          "title": "100K",
-          "prize": "TAIKO Tokens"
+          "amount": "100K"
         },
         "second": {
-          "title": "50K",
-          "prize": "TAIKO Tokens"
+          "amount": "50K"
         },
         "third": {
-          "title": "25K",
-          "prize": "TAIKO Tokens"
+          "amount": "25K"
         }
-      }
+      },
+      "tokenName": "TAIKO Tokens"
     }
   }
 }

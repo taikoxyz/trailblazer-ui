@@ -36,22 +36,22 @@
       <div class="f-center gap-4 w-fit">
         <img src="/leaderboard/defi/first.svg" alt="100K TAIKO Tokens" class="size-[48px]" />
         <div class="flex flex-col">
-          <span class="title-section-bold">{$t('leaderboard.defi.prize_breakdown.first.title')}</span>
-          <span class="body-regular">{$t('leaderboard.defi.prize_breakdown.first.prize')}</span>
+          <span class="title-section-bold">{$t('leaderboard.defi.prize_breakdown.first.amount')}</span>
+          <span class="body-regular">{$t('leaderboard.defi.tokenName')}</span>
         </div>
       </div>
       <div class="f-center gap-4 w-fit">
         <img src="/leaderboard/defi/second.svg" alt="50K TAIKO Tokens" class="size-[48px]" />
         <div class="flex flex-col">
-          <span class="title-section-bold">{$t('leaderboard.defi.prize_breakdown.second.title')}</span>
-          <span class="body-regular">{$t('leaderboard.defi.prize_breakdown.second.prize')}</span>
+          <span class="title-section-bold">{$t('leaderboard.defi.prize_breakdown.second.amount')}</span>
+          <span class="body-regular">{$t('leaderboard.defi.tokenName')}</span>
         </div>
       </div>
       <div class="f-center gap-4 w-fit">
         <img src="/leaderboard/defi/third.svg" alt="25K TAIKO Tokens" class="size-[48px]" />
         <div class="flex flex-col">
-          <span class="title-section-bold">{$t('leaderboard.defi.prize_breakdown.third.title')}</span>
-          <span class="body-regular">{$t('leaderboard.defi.prize_breakdown.third.prize')}</span>
+          <span class="title-section-bold">{$t('leaderboard.defi.prize_breakdown.third.amount')}</span>
+          <span class="body-regular">{$t('leaderboard.defi.tokenName')}</span>
         </div>
       </div>
     </div>
