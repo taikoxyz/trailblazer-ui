@@ -12,8 +12,8 @@
     },
     "nonClaimable": "You are not eligible to claim this badge. Please read the {requirements}",
     "nonClaimableLinkText": "eligibility requirements",
-    "pendingTx": "Your transaction is pending. Please wait for confirmation.",
-    "notEnoughGas": "Not enough gas to claim the badge. Please fund your wallet and try again."
+    "notEnoughGas": "Not enough gas to claim the badge. Please fund your wallet and try again.",
+    "pendingTx": "Your transaction is pending. Please wait for confirmation."
   },
   "buttons": {
     "connect_wallet": "Connect",
@@ -90,7 +90,7 @@
   "trailbanner": {
     "defi": {
       "description": "Engage with our trusted DeFi protocols and complete tasks to earn exclusive Masters Faction badges and more.",
-      "title": "Create a position with any of the Defi protocol"
+      "title": "Create a position with any of the Defi protocols"
     },
     "domain": {
       "description": "Earn your Drummer Faction badge by minting a domain on any partner protocol!",
