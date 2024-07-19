@@ -1,5 +1,4 @@
 <script lang="ts">
-  import DefiBanner from '$components/Banner/Trailbanner/DefiBanner.svelte';
   import DomainBanner from '$components/Banner/Trailbanner/DomainBanner.svelte';
   import DefiPartners from '$components/Partner/DefiPartners.svelte/DefiPartners.svelte';
   import { GamingPartners } from '$components/Partner/GamingPartners';
@@ -16,7 +15,6 @@
   <TrailblazerMain />
   <TrailblazerGuide />
   <DomainBanner />
-  <DefiBanner />
   <Factions />
   <DividerElement />
 
