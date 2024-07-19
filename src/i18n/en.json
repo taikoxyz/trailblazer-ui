@@ -119,5 +119,31 @@
       "connecting": "Connecting",
       "disconnected": "Disconnected"
     }
+  },
+  "leaderboard": {
+    "defi": {
+      "banner": {
+        "title": "Join the DeFi competition starting July 15th!",
+        "description": "Compete for a month-long jackpot by increasing your TVL on DeFiLlama. Rewards will be based on performance throughout the competition, ending August 9th."
+      },
+      "prize": {
+        "1": "Prize Pool",
+        "2": "175K TAIKO Tokens"
+      },
+      "prize_breakdown": {
+        "first": {
+          "title": "100K",
+          "prize": "TAIKO Tokens"
+        },
+        "second": {
+          "title": "50K",
+          "prize": "TAIKO Tokens"
+        },
+        "third": {
+          "title": "25K",
+          "prize": "TAIKO Tokens"
+        }
+      }
+    }
   }
 }
