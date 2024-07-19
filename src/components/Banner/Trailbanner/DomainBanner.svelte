@@ -1,5 +1,6 @@
 <script lang="ts">
   import { t } from 'svelte-i18n';
+
   import AbstractBanner from './AbstractBanner.template.svelte';
 </script>
 

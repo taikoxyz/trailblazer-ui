@@ -1,5 +1,6 @@
 <script lang="ts">
   import { t } from 'svelte-i18n';
+
   import ActionButton from '$components/Button/ActionButton.svelte';
 
   export let trailNumber: string;
