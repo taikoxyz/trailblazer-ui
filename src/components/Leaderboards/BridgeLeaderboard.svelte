@@ -5,6 +5,7 @@
   import { EthIcon, Icon } from '$components/Icon';
   import Usdc from '$components/Icon/USDC.svelte';
   import Usdt from '$components/Icon/USDT.svelte';
+  import DisabledMask from '$components/Masks/DisabledMask/DisabledMask.svelte';
   import { Skeleton } from '$components/Mock';
   import { chainId } from '$libs/chain';
   import { formatNumbers } from '$libs/util/formatNumbers';
@@ -25,10 +26,10 @@
   }
 </script>
 
-<div class="overflow-x-auto lg:w-full px-8 mt-[18%] lg:mt-0 space-y-[60px]">
+<div class="relative overflow-x-auto lg:w-full px-8 mt-[18%] lg:mt-0 space-y-[60px]">
   <BridgeHeader />
 
-  <table class="table-lg w-full body-regular text-white rounded-3xl" style="background: rgba(25, 30, 40, .50)">
+  <table class="relative table-lg w-full body-regular text-white rounded-3xl" style="background: rgba(25, 30, 40, .50)">
     <!-- head -->
     <thead class="border-b-2 border-gray-800 ;">
       <tr>
@@ -96,6 +97,9 @@
         <tr class="row h-12">
           <td class="lg:px-10" colspan="3">No data available</td>
         </tr>
+      {/if}
+      {#if $currentBridgeLeaderboard.items.length > 0}
+        <DisabledMask text="finished" description="Last day was 12th June 2024" />
       {/if}
     </tbody>
   </table>
