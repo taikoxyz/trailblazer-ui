@@ -6,7 +6,6 @@ on:
       - 'trailblazer-ui*'
     branches:
       - main
-      - qa
   pull_request:
 
 jobs:
@@ -28,7 +27,7 @@ jobs:
 
   # Internal Staging
   deploy_trailblazer-ui_staging_preview:
-    if: ${{ github.event_name == 'pull_request' || (github.event_name == 'push' && github.ref_type != 'branch' && github.ref != 'refs/heads/main') }}
+    if: ${{ github.event_name == 'pull_request' || (github.event_name == 'push' && github.ref_type != 'branch' && github.ref != 'refs/heads/main' && !startsWith(github.ref, 'refs/tags/trailblazer-ui-v')) }}
     needs: build-and-test
     uses: ./.github/workflows/repo--vercel-deploy.yml
     with:
@@ -53,7 +52,7 @@ jobs:
 
   # Mainnet
   deploy_trailblazer-ui_mainnet_preview:
-    if: ${{ (github.event_name == 'push' && github.ref == 'refs/heads/main') || (github.event_name == 'push' && github.ref_type == 'tag' && startsWith(github.ref, 'refs/tags/trailblazer-ui')) }}
+    if: ${{ (github.event_name == 'push' && github.ref == 'refs/heads/main' && !startsWith(github.ref, 'refs/tags/trailblazer-ui-v')) || (github.event_name == 'push' && github.ref_type == 'tag' && startsWith(github.ref, 'refs/tags/trailblazer-ui') && !startsWith(github.ref, 'refs/tags/trailblazer-ui-v')) }}
     needs: build-and-test
     uses: ./.github/workflows/repo--vercel-deploy.yml
     with:
