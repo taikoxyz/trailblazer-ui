@@ -1,5 +1,6 @@
 <script lang="ts">
   import { t } from 'svelte-i18n';
+
   import { Icon } from '$components/Icon';
   import { Skeleton } from '$components/Mock';
   import { formatNumbers } from '$libs/util/formatNumbers';
