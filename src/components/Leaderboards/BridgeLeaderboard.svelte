@@ -30,6 +30,9 @@
   <BridgeHeader />
 
   <table class="relative table-lg w-full body-regular text-white rounded-3xl" style="background: rgba(25, 30, 40, .50)">
+    {#if $currentBridgeLeaderboard.items.length > 0}
+      <DisabledMask text="finished" description="Last day was 12th June 2024" />
+    {/if}
     <!-- head -->
     <thead class="border-b-2 border-gray-800 ;">
       <tr>
@@ -38,7 +41,7 @@
         <th class="body-regular text-secondary-content text-end pt-8 lg:px-10">Volume</th>
       </tr>
     </thead>
-    <tbody class="rounded-lg">
+    <tbody class="rounded-lg blur-[2px]">
       {#each $currentBridgeLeaderboard.items as entry, index}
         {@const rank = index + 1}
         {@const fillClass =
@@ -93,14 +96,13 @@
           </td>
         </tr>
       {/each}
-      {#if $currentBridgeLeaderboard.items.length === 0}
+    </tbody>
+    {#if $currentBridgeLeaderboard.items.length === 0}
+      <tbody class="rounded-lg">
         <tr class="row h-12">
           <td class="lg:px-10" colspan="3">No data available</td>
         </tr>
-      {/if}
-      {#if $currentBridgeLeaderboard.items.length > 0}
-        <DisabledMask text="finished" description="Last day was 12th June 2024" />
-      {/if}
-    </tbody>
+      </tbody>
+    {/if}
   </table>
 </div>

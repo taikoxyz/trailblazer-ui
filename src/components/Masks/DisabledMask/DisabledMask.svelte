@@ -14,9 +14,8 @@
     'overflow-hidden',
     'bg-primary-brand',
     'text-white',
-    'opacity-80',
-    'md:mask md:mask-parallelogram',
-    'md:blur-3xl',
+    'mask',
+    'opacity-60',
     'rounded-[30px]',
     $$props.class,
   );
@@ -26,7 +25,7 @@
   let textClasses = classNames('body-regular text-center text-[20px] max-w-[400px]', textClass);
 </script>
 
-<div class={classes}></div>
+<div class={classes} style="mask-image=url(favicon.svg)"></div>
 <div class="f-center f-col space-y-[35px] z-10 absolute top-0 bottom-0 left-0 right-0 text-white">
   <span class={headline}>{text}</span>
   <span class={textClasses}>{description}</span>
