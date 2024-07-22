@@ -1,5 +1,6 @@
 <script lang="ts">
   import { t } from 'svelte-i18n';
+
   import CompetitionInformation from '../CompetitionInformation.template.svelte';
   import type { CompetitionInfo } from '../types';
 

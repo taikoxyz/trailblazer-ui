@@ -1,5 +1,6 @@
 <script lang="ts">
   import { t } from 'svelte-i18n';
+
   import type { CompetitionInfo } from './types';
 
   export let competitionInfo: CompetitionInfo;
@@ -32,7 +33,7 @@
       <span class="text-primary-brand">{prizeSubtitle}</span>
     </div>
 
-    {#each prizes as prize, index}
+    {#each prizes as prize, _}
       <div class="f-center gap-4 w-fit">
         <img src={prize.image} alt="{prize.amount} TAIKO Tokens" class="size-[48px]" />
         <div class="flex flex-col">

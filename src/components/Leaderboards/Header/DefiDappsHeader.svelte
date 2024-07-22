@@ -1,6 +1,6 @@
 <script>
-  import CirclesSVG from './CirclesSVG.svelte';
   import BottomPinkSVG from './BottomPinkSVG.svelte';
+  import CirclesSVG from './CirclesSVG.svelte';
 </script>
 
 <div class="relative w-full bg-primary-link-hover p-8 lg:p-12 rounded-[21.6px] lg:rounded-[30px] overflow-hidden">

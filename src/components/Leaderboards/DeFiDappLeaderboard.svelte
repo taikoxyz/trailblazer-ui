@@ -1,9 +1,9 @@
 <script lang="ts">
   import { Icon } from '$components/Icon';
+  import { DefiCompetitionInformation } from '$components/Leaderboards/Competition/DefiCompetition';
   import { Skeleton } from '$components/Mock';
   import { formatNumbers } from '$libs/util/formatNumbers';
   import { currentDefiDappLeaderboard } from '$stores/leaderboard';
-  import { DefiCompetitionInformation } from '$components/Leaderboards/Competition/DefiCompetition';
 
   import DefiDappsHeader from './Header/DefiDappsHeader.svelte';
   import LastUpdated from './LastUpdated.svelte';

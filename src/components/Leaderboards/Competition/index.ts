@@ -1,1 +1,1 @@
-export { default as CompetitionInformation } from './CompetitionInformation.svelte';
+export { default as CompetitionInformation } from './CompetitionInformation.template.svelte';
