@@ -1,14 +1,12 @@
 <script lang="ts">
-  import { t } from 'svelte-i18n';
-
   import { Icon } from '$components/Icon';
+  import { CompetitionInformation } from '$components/Leaderboards/Competition';
   import { Skeleton } from '$components/Mock';
   import { formatNumbers } from '$libs/util/formatNumbers';
   import { currentDefiDappLeaderboard } from '$stores/leaderboard';
 
   import DefiDappsHeader from './Header/DefiDappsHeader.svelte';
   import LastUpdated from './LastUpdated.svelte';
-  import { CompetitionInformation } from '$components/Leaderboards/Competition';
 
   let headers = ['No.', 'Dapp', 'TVL'];
 </script>
