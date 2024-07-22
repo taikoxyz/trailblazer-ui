@@ -13,9 +13,9 @@ export async function getUserBadges(address: Address): Promise<Record<FactionNam
     [FactionNames.Robots]: false,
     [FactionNames.Bouncers]: false,
     [FactionNames.Masters]: false,
-    [FactionNames.Monks]: false,
     [FactionNames.Drummers]: false,
     [FactionNames.Androids]: false,
+    [FactionNames.Monks]: false,
     [FactionNames.Shinto]: false,
   };
 
