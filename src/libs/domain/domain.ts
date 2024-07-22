@@ -41,12 +41,41 @@ export class Domain {
   }
 
   private static updateCurrentProfile(domain: DomainResponse) {
+    const selectedDomain = this.determineSelectedDomain(domain);
     currentProfile.update((current) => ({
       ...current,
-      selected: localStorage.getItem('domain') as DomainType,
+      selected: selectedDomain,
       dotTaiko: domain.dotTaiko,
       zns: domain.zns,
     }));
+  }
+
+  private static determineSelectedDomain(domain: DomainResponse): DomainType {
+    const { dotTaiko, zns } = domain;
+    const storedDomain = localStorage.getItem('domain') as DomainType | null;
+
+    if (storedDomain === DomainType.DOTTAIKO && dotTaiko) {
+      return DomainType.DOTTAIKO;
+    }
+
+    if (storedDomain === DomainType.ZNS && zns) {
+      return DomainType.ZNS;
+    }
+
+    if (dotTaiko && zns) {
+      // Randomly select either dotTaiko or zns
+      return Math.random() < 0.5 ? DomainType.DOTTAIKO : DomainType.ZNS;
+    }
+
+    if (dotTaiko) {
+      return DomainType.DOTTAIKO;
+    }
+
+    if (zns) {
+      return DomainType.ZNS;
+    }
+
+    return DomainType.ADDRESS;
   }
 
   static setSelectedDomain(selectedDomain: DomainType) {
