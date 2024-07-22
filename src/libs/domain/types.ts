@@ -1,3 +1,5 @@
-export type DotTaikoResponse = {
-  data: string;
+export type DomainResponse = {
+  zns: string;
+  dotTaiko: string;
+  address: string;
 };

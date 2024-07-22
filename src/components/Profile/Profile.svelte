@@ -13,7 +13,6 @@
 
   import ProfileCard from './ProfileCard.svelte';
   import ProfileSubCard from './ProfileSubCard.svelte';
-  import { Domain } from '$libs/domain';
 
   let profile: UserProfile;
   $: profile = $currentProfile;
@@ -26,7 +25,6 @@
 
   onMount(async () => {
     await Galxe.refreshData();
-    await Domain.getData();
   });
 </script>
 

@@ -27,8 +27,14 @@ export type GalxePoints = {
   galxePointsClaimed?: boolean;
 };
 
+export enum DomainType {
+  ADDRESS = 'ADDRESS',
+  DOTTAIKO = 'DOTTAIKO',
+  ZNS = 'ZNS',
+}
+
 export type DomainNames = {
-  selected?: string;
+  selected?: DomainType;
   dotTaiko?: string;
   zns?: string;
 };
