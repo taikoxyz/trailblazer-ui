@@ -51,11 +51,17 @@
             <summary class="btn p-1 h-[20px] w-[20px] min-h-0 bg-secondary-icon border-secondary-icon"
               ><Icon class="-translate-x-[1px] h-[6px] w-[10px]" type="chevron-down" /></summary>
             <ul class="menu dropdown-content bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
-              {#if profile?.dotTaiko}
+              {#if profile?.dotTaiko && profile?.selected != DomainType.DOTTAIKO}
                 <li><button on:click={() => handleSetDomain(DomainType.DOTTAIKO)}>{profile.dotTaiko}</button></li>
               {/if}
-              {#if profile?.zns}
+              {#if profile?.zns && profile?.selected != DomainType.ZNS}
                 <li><button on:click={() => handleSetDomain(DomainType.ZNS)}>{profile.zns}</button></li>
+              {/if}
+              {#if profile?.address && profile?.selected != DomainType.ADDRESS}
+                <li>
+                  <button on:click={() => handleSetDomain(DomainType.ADDRESS)}
+                    >{shortenAddress(profile?.address)}</button>
+                </li>
               {/if}
             </ul>
           </details>
