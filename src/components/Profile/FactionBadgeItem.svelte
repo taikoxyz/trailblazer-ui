@@ -159,6 +159,8 @@
     'https://taiko.mirror.xyz/AH77sZK6ZW_SqY_BDOxheYFJORo1WJfVu7A88jwZ2BA',
     // week 4 - Masters
     'https://taiko.mirror.xyz/D7Z7y46WRHBoT2wb-dujgEtCz4YWCXvKXT8Gize_PeM',
+    // week 5 - Monks
+    'https://taiko.mirror.xyz/7L-lnL1ab24Q9XmCgpQtVOmfxoNCTb_RGEbS7w4E3io',
   ];
 
   $: requirementsUrl = requirementsUrls[FACTIONS[name]] || '';
