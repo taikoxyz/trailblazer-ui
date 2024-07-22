@@ -22,12 +22,13 @@
   export let canClick: boolean;
   export let enoughGas: boolean;
 
-  let claimable: boolean = false;
-
   $: isClaiming = false;
   $: isAwaitingDisclaimer = false;
 
   $: $mintDisclaimerModal, isAwaitingDisclaimer && !$mintDisclaimerModal && safeClaimBadge();
+
+  $: isWhitelisted = false;
+  $: claimable = isWhitelisted && enoughGas;
 
   $: connectedAddress = getConnectedAddress();
 
@@ -67,7 +68,7 @@
 
   async function claimPreflight() {
     if (!connectedAddress) return;
-    claimable = enoughGas && (await canClaimPreflight(connectedAddress, FACTIONS[name]));
+    isWhitelisted = await canClaimPreflight(connectedAddress, FACTIONS[name]);
   }
 
   $: $account, claimPreflight();

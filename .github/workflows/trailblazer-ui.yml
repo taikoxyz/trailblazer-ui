@@ -7,16 +7,27 @@ on:
     branches:
       - main
   pull_request:
-    paths:
-      - '.'
 
 jobs:
   build-and-test:
     uses: ./.github/workflows/trailblazer-ui--ci.yml
 
+  # QA - will always deploy to prod
+  deploy_trailblazer-ui_qa_production:
+    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/qa' }}
+    needs: build-and-test
+    uses: ./.github/workflows/repo--vercel-deploy.yml
+    with:
+      environment: 'production'
+      flags: '--prod'
+    secrets:
+      vercel_project_id: ${{ secrets.VERCEL_PROJECT_ID_TRAILBLAZER_UI_QA }}
+      vercel_org_id: ${{ secrets.VERCEL_ORG_ID }}
+      vercel_token: ${{ secrets.VERCEL_TOKEN }}
+
   # Internal Staging
   deploy_trailblazer-ui_staging_preview:
-    if: ${{ github.event_name == 'pull_request' || (github.event_name == 'push' && github.ref_type != 'branch' && github.ref != 'refs/heads/main') }}
+    if: ${{ github.event_name == 'pull_request' || (github.event_name == 'push' && github.ref_type != 'branch' && github.ref != 'refs/heads/main' && !startsWith(github.ref, 'refs/tags/trailblazer-ui-v')) }}
     needs: build-and-test
     uses: ./.github/workflows/repo--vercel-deploy.yml
     with:
@@ -26,8 +37,6 @@ jobs:
       vercel_project_id: ${{ secrets.VERCEL_PROJECT_ID_TRAILBLAZER_UI_INTERNAL }}
       vercel_org_id: ${{ secrets.VERCEL_ORG_ID }}
       vercel_token: ${{ secrets.VERCEL_TOKEN }}
-      PUBLIC_TRAILBLAZER_API_URL: ${{ secrets.PUBLIC_TRAILBLAZER_API_URL }}
-      PUBLIC_WALLETCONNECT_PROJECT_ID: ${{ secrets.PUBLIC_WALLETCONNECT_PROJECT_ID }}
 
   deploy_trailblazer-ui_staging_production:
     if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
@@ -35,17 +44,15 @@ jobs:
     uses: ./.github/workflows/repo--vercel-deploy.yml
     with:
       environment: 'production'
-      flags: ''
+      flags: '--prod'
     secrets:
       vercel_project_id: ${{ secrets.VERCEL_PROJECT_ID_TRAILBLAZER_UI_INTERNAL }}
       vercel_org_id: ${{ secrets.VERCEL_ORG_ID }}
       vercel_token: ${{ secrets.VERCEL_TOKEN }}
-      PUBLIC_TRAILBLAZER_API_URL: ${{ secrets.PUBLIC_TRAILBLAZER_API_URL }}
-      PUBLIC_WALLETCONNECT_PROJECT_ID: ${{ secrets.PUBLIC_WALLETCONNECT_PROJECT_ID }}
 
   # Mainnet
   deploy_trailblazer-ui_mainnet_preview:
-    if: ${{ (github.event_name == 'push' && github.ref == 'refs/heads/main') || (github.event_name == 'push' && github.ref_type == 'tag' && startsWith(github.ref, 'refs/tags/trailblazer-ui')) }}
+    if: ${{ (github.event_name == 'push' && github.ref == 'refs/heads/main' && !startsWith(github.ref, 'refs/tags/trailblazer-ui-v')) || (github.event_name == 'push' && github.ref_type == 'tag' && startsWith(github.ref, 'refs/tags/trailblazer-ui') && !startsWith(github.ref, 'refs/tags/trailblazer-ui-v')) }}
     needs: build-and-test
     uses: ./.github/workflows/repo--vercel-deploy.yml
     with:
@@ -55,8 +62,6 @@ jobs:
       vercel_project_id: ${{ secrets.VERCEL_PROJECT_ID_TRAILBLAZER_UI_MAINNET }}
       vercel_org_id: ${{ secrets.VERCEL_ORG_ID }}
       vercel_token: ${{ secrets.VERCEL_TOKEN }}
-      PUBLIC_TRAILBLAZER_API_URL: ${{ secrets.PUBLIC_TRAILBLAZER_API_URL }}
-      PUBLIC_WALLETCONNECT_PROJECT_ID: ${{ secrets.PUBLIC_WALLETCONNECT_PROJECT_ID }}
 
   deploy_trailblazer-ui_mainnet_production:
     if: ${{ startsWith(github.ref, 'refs/tags/trailblazer-ui-v') }}
@@ -69,5 +74,3 @@ jobs:
       vercel_project_id: ${{ secrets.VERCEL_PROJECT_ID_TRAILBLAZER_UI_MAINNET }}
       vercel_org_id: ${{ secrets.VERCEL_ORG_ID }}
       vercel_token: ${{ secrets.VERCEL_TOKEN }}
-      PUBLIC_TRAILBLAZER_API_URL: ${{ secrets.PUBLIC_TRAILBLAZER_API_URL }}
-      PUBLIC_WALLETCONNECT_PROJECT_ID: ${{ secrets.PUBLIC_WALLETCONNECT_PROJECT_ID }}

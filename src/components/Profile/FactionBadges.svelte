@@ -30,6 +30,7 @@
     isSelfProfile = getAddress(address) === getAddress(getConnectedAddress());
     hasEnoughGas = await gasCheckPreflight(address);
   }
+
   $: address = zeroAddress as Address;
   $: $account, load();
   $: profile, load();
