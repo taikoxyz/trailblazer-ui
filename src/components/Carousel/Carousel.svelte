@@ -13,7 +13,7 @@
   let carouselWrapper: HTMLDivElement;
   let atStart = true;
   let atEnd = false;
-  let showControls = false;
+  let showControls = true;
   let itemWidth = '350px';
 
   function scrollLeft() {
@@ -59,24 +59,22 @@
   });
 </script>
 
-{#if showControls}
-  <div class="flex gap-4 justify-center xl:justify-end h-full bottom-0">
-    <div class="flex gap-4">
-      <button
-        class={`f-center btn-circle border border-primary-brand ${atStart ? '' : 'bg-primary-brand  hover:bg-primary-interactive-hover'}`}
-        on:click={scrollLeft}
-        disabled={atStart}>
-        <Icon class="-translate-x-[2px]" type="chevron-left" />
-      </button>
-      <button
-        class={`f-center btn-circle border border-primary-brand ${atEnd ? '' : ' bg-primary-brand hover:bg-primary-interactive-hover'}`}
-        on:click={scrollRight}
-        disabled={atEnd}>
-        <Icon class="translate-x-[2px]" type="chevron-right" />
-      </button>
-    </div>
+<div class="flex gap-4 justify-center xl:justify-end h-full bottom-0 my-[40px]">
+  <div class="flex gap-4">
+    <button
+      class={`f-center btn-circle border border-primary-brand ${atStart ? '' : 'bg-primary-brand  hover:bg-primary-interactive-hover'}`}
+      on:click={scrollLeft}
+      disabled={atStart}>
+      <Icon class="-translate-x-[2px]" type="chevron-left" />
+    </button>
+    <button
+      class={`f-center btn-circle border border-primary-brand ${atEnd ? '' : ' bg-primary-brand hover:bg-primary-interactive-hover'}`}
+      on:click={scrollRight}
+      disabled={atEnd}>
+      <Icon class="translate-x-[2px]" type="chevron-right" />
+    </button>
   </div>
-{/if}
+</div>
 
 <div bind:this={carouselWrapper} class="w-full px-[20px]">
   <div bind:this={carouselElement} class="flex carousel w-full overflow-scroll rounded-box gap-4 lg:gap-8">
