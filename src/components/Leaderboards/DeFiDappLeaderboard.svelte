@@ -1,9 +1,9 @@
 <script lang="ts">
   import { Icon } from '$components/Icon';
-  import { CompetitionInformation } from '$components/Leaderboards/Competition';
   import { Skeleton } from '$components/Mock';
   import { formatNumbers } from '$libs/util/formatNumbers';
   import { currentDefiDappLeaderboard } from '$stores/leaderboard';
+  import { DefiCompetitionInformation } from '$components/Leaderboards/Competition/DefiCompetition';
 
   import DefiDappsHeader from './Header/DefiDappsHeader.svelte';
   import LastUpdated from './LastUpdated.svelte';
@@ -13,7 +13,7 @@
 
 <div class="lg:w-full px-8 mt-[18%] lg:mt-0 space-y-[50px]">
   <DefiDappsHeader />
-  <CompetitionInformation />
+  <DefiCompetitionInformation />
 
   <div class="space-y-[20px]">
     <div class="flex justify-center lg:justify-end m-0">

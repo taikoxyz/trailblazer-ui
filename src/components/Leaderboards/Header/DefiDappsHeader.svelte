@@ -4,10 +4,10 @@
 </script>
 
 <div class="relative w-full bg-primary-link-hover p-8 lg:p-12 rounded-[21.6px] lg:rounded-[30px] overflow-hidden">
-  <h1
+  <div
     class="font-clash-grotesk text-[45px]/[45px] lg:text-[60px]/[60px] leading-none text-primary-base-content z-10 relative">
     <span class="text-secondary">Defi<br /></span> Leaderboard
-  </h1>
+  </div>
 
   <CirclesSVG />
   <BottomPinkSVG />
