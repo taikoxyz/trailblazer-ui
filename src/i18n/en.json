@@ -83,6 +83,12 @@
     "of": "of",
     "page": "Page"
   },
+  "partners": {
+    "ens": {
+      "subtitle": "Explore <span class=\"text-base-content\">our featured domain name projects!<span>",
+      "title": "Our domain name partners"
+    }
+  },
   "switch_modal": {
     "description": "Your current network is not supported. Please connect to the Taiko Mainnet to continue.",
     "title": "Incorrect network detected"
