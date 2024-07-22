@@ -1,6 +1,8 @@
+<!-- Carousel.svelte -->
 <script lang="ts">
   import { onDestroy, onMount } from 'svelte';
 
+  import { browser } from '$app/environment';
   import { Icon } from '$components/Icon';
   import { isMobile } from '$libs/util/responsiveCheck';
 
@@ -10,8 +12,10 @@
   export let carouselItems: CarouselItemType[] = [];
 
   let carouselElement: HTMLDivElement;
+  let carouselWrapper: HTMLDivElement;
   let atStart = true;
   let atEnd = false;
+  let itemWidth = '350px';
 
   function scrollLeft() {
     const scrollAmount = isMobile ? -200 : -600;
@@ -25,22 +29,37 @@
 
   function checkScrollPosition() {
     atStart = carouselElement?.scrollLeft === 0;
-    atEnd = carouselElement?.scrollLeft + carouselElement?.clientWidth >= carouselElement?.scrollWidth;
+    atEnd = carouselElement?.scrollLeft + carouselElement?.offsetWidth >= carouselElement?.scrollWidth;
+  }
+
+  function updateItemWidth() {
+    if (carouselWrapper && carouselItems.length > 0) {
+      const availableWidth = carouselWrapper.offsetWidth - 100;
+      if (carouselItems.length <= 3) {
+        const calculatedWidth = Math.floor(availableWidth / carouselItems.length);
+        itemWidth = `${Math.max(350, calculatedWidth)}px`;
+      } else {
+        itemWidth = '350px';
+      }
+    }
   }
 
   $: checkScrollPosition();
 
   onMount(() => {
     carouselElement?.addEventListener('scroll', checkScrollPosition);
+    if (browser) window.addEventListener('resize', updateItemWidth);
     checkScrollPosition();
+    updateItemWidth();
   });
 
   onDestroy(() => {
     carouselElement?.removeEventListener('scroll', checkScrollPosition);
+    if (browser) window.removeEventListener('resize', updateItemWidth);
   });
 </script>
 
-<div class="flex gap-4 justify-center xl:justify-end h-full bottom-0">
+<div class="flex gap-4 justify-center xl:justify-end h-full bottom-0 my-[40px]">
   <div class="flex gap-4">
     <button
       class={`f-center btn-circle border border-primary-brand ${atStart ? '' : 'bg-primary-brand  hover:bg-primary-interactive-hover'}`}
@@ -57,10 +76,10 @@
   </div>
 </div>
 
-<div class="flex w-full justify-center items-center gap-[12.25px] pl-4 xl:pl-0">
-  <div bind:this={carouselElement} class="carousel w-full overflow-scroll rounded-box gap-8">
+<div bind:this={carouselWrapper} class="w-full px-[20px]">
+  <div bind:this={carouselElement} class="flex carousel w-full overflow-scroll rounded-box gap-4 lg:gap-8">
     {#each carouselItems as carouselItem}
-      <CarouselItem {carouselItem} />
+      <CarouselItem {carouselItem} width={itemWidth} />
     {/each}
   </div>
 </div>

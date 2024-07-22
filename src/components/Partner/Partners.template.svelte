@@ -17,7 +17,7 @@
     </div>
     <div class="flex justify-between w-full xl:items-end flex-col xl:flex-row items-center gap-4">
       <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-      <Title>{@html subtitle}</Title>
+      <Title class="xl:max-w-[640px] xl:min-w-[640px]">{@html subtitle}</Title>
     </div>
   </div>
   <Carousel {carouselItems} />

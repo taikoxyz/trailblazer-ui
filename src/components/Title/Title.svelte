@@ -1,7 +1,7 @@
 <script lang="ts">
   import { classNames } from '$libs/util/classNames';
 
-  export let width = classNames($$props.class, 'xl:max-w-[434px] md:w-1/2');
+  export let width = classNames('xl:max-w-[434px] md:w-1/2', $$props.class);
 </script>
 
 <div

@@ -7,9 +7,12 @@
   const { title, image, description, link, tag, cta } = carouselItem;
 
   export let defaultCtaText = cta ? cta : 'Learn More';
+  export let width = '350px';
 </script>
 
-<div class="carousel-item max-h-[465px] min-h-[465px] w-[350px]">
+<div
+  class="carousel-item max-h-[465px] min-h-[465px] max-w-[306px] min-w-[306px] lg:max-w-[100%] lg:min-w-[350px]"
+  style="width: {width};">
   <div class="flex flex-col p-[35px] bg-neutral-background rounded-[33px] w-full">
     <!-- image -->
     <div class="avatar mb-[30px]">
