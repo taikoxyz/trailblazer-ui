@@ -1,11 +1,13 @@
 <!-- Carousel.svelte -->
 <script lang="ts">
   import { onDestroy, onMount } from 'svelte';
+
+  import { browser } from '$app/environment';
   import { Icon } from '$components/Icon';
   import { isMobile } from '$libs/util/responsiveCheck';
+
   import { CarouselItem } from '.';
   import type { CarouselItemType } from './types';
-  import { browser } from '$app/environment';
 
   export let carouselItems: CarouselItemType[] = [];
 
@@ -13,7 +15,6 @@
   let carouselWrapper: HTMLDivElement;
   let atStart = true;
   let atEnd = false;
-  let showControls = true;
   let itemWidth = '350px';
 
   function scrollLeft() {
@@ -29,7 +30,6 @@
   function checkScrollPosition() {
     atStart = carouselElement?.scrollLeft === 0;
     atEnd = carouselElement?.scrollLeft + carouselElement?.offsetWidth >= carouselElement?.scrollWidth;
-    showControls = carouselElement?.scrollWidth > carouselElement?.offsetWidth;
   }
 
   function updateItemWidth() {
