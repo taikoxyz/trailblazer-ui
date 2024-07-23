@@ -13,6 +13,8 @@
 
   import { usdcAddress, usdtAddress } from '../../generated/abi';
   import BridgeHeader from './Header/BridgeHeader.svelte';
+  import { t } from 'svelte-i18n';
+  import CampaignEndedInfoBox from './CampaignEndedInfoBox/CampaignEndedInfoBox.svelte';
 
   $: usdc = getValidatedAddress(usdcAddress[chainId] as Address);
   $: usdt = getValidatedAddress(usdtAddress[chainId] as Address);
@@ -29,9 +31,19 @@
 <div class="relative overflow-x-auto lg:w-full px-8 mt-[18%] lg:mt-0 space-y-[60px]">
   <BridgeHeader />
 
+  {#if $currentBridgeLeaderboard.items.length > 0}
+    <div class="block xl:hidden">
+      <CampaignEndedInfoBox
+        title={$t('leaderboard.bridge.ended.title')}
+        description={$t('leaderboard.bridge.ended.description')} />
+    </div>
+  {/if}
+
   <table class="relative table-lg w-full body-regular text-white rounded-3xl" style="background: rgba(25, 30, 40, .50)">
     {#if $currentBridgeLeaderboard.items.length > 0}
-      <DisabledMask text="finished" description="Last day was 12th June 2024" />
+      <DisabledMask
+        title={$t('leaderboard.bridge.ended.title')}
+        description={$t('leaderboard.bridge.ended.description')} />
     {/if}
     <!-- head -->
     <thead class="border-b-2 border-gray-800 ;">

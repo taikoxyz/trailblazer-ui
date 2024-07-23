@@ -45,6 +45,14 @@
       "description": "A groundbreaking cast of characters emerges to enrich our community and deepen the immersive experience. Meet eight distinct factions, each with its own unique character and flair."
     }
   },
+  "leaderboard": {
+    "bridge": {
+      "ended": {
+        "description": "Our journey concluded on June 12th, 2024. Thanks to everyone who participated and earned their Robot Faction Badge by bridging to the Taiko mainnet.",
+        "title": "Campaign ended"
+      }
+    }
+  },
   "legal": {
     "confirm": "Confirm",
     "link": "terms and conditions",

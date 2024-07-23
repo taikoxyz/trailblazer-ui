@@ -1,7 +1,7 @@
 <script lang="ts">
   import { classNames } from '$libs/util/classNames';
 
-  export let text = 'Finished.';
+  export let title = 'Finished.';
   export let description = '';
   export let textClass = '';
 
@@ -14,19 +14,21 @@
     'overflow-hidden',
     'bg-primary-brand',
     'text-white',
+    'opacity-20',
     'mask',
-    'opacity-60',
     'rounded-[30px]',
     $$props.class,
   );
 
-  let headline = classNames('body-bold', 'font-clash-grotesk', 'text-[55px]', 'uppercase', textClass);
+  let headline = classNames('body-bold', 'font-clash-grotesk', 'text-[55px]', textClass);
 
-  let textClasses = classNames('body-regular text-center text-[20px] max-w-[400px]', textClass);
+  let textClasses = classNames('body-regular text-base text-center text-[20px] max-w-[610px]', textClass);
 </script>
 
 <div class={classes} style="mask-image=url(favicon.svg)"></div>
-<div class="f-center f-col space-y-[35px] z-10 absolute top-0 bottom-0 left-0 right-0 text-white">
-  <span class={headline}>{text}</span>
-  <span class={textClasses}>{description}</span>
+<div class="hidden xl:block">
+  <div class="f-center w-full f-col space-y-[35px] z-10 absolute top-0 bottom-0 left-0 right-0 text-white">
+    <span class={headline}>{title}</span>
+    <span class={textClasses}>{description}</span>
+  </div>
 </div>
