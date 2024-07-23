@@ -145,3 +145,8 @@ export type BridgeTokenScore = {
   token: Address;
   score: number;
 };
+
+export type TvlLeaderboardResponse = {
+  lastUpdated: number;
+  protocols: DefiDappLeaderboardRow[];
+};

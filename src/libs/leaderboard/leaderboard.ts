@@ -24,6 +24,7 @@ import type {
   LeaderboardRow,
   PaginationInfo,
   ProtocolApiResponse,
+  TvlLeaderboardResponse,
   UserLeaderboardPage,
   UserLeaderboardPageApiResponse,
 } from './types';
@@ -142,7 +143,7 @@ export class Leaderboard {
 
   static async getDefiDappLeaderboard() {
     try {
-      const response = await axios.get(`${baseApiUrl}/leaderboard/tvl`, globalAxiosConfig);
+      const response = await axios.get<TvlLeaderboardResponse>(`${baseApiUrl}/leaderboard/tvl`, globalAxiosConfig);
 
       const result: DefiDappLeaderboardRow[] = response.data.protocols as DefiDappLeaderboardRow[];
       const protocols = this.appendDefiDappAdditionalData(result);
