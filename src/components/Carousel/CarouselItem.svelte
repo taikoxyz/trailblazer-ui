@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { t } from 'svelte-i18n';
+
   import { ActionButton } from '$components/Button';
 
   import type { CarouselItemType } from './types';
@@ -21,7 +23,7 @@
         {#if tag}
           <div
             class="absolute top-[16px] left-[22px] bg-white px-[10px] py-[4px] rounded-full text-primary-base-content w-auto h-auto">
-            {tag}
+            {$t(tag)}
           </div>
         {/if}
       </div>
@@ -29,17 +31,18 @@
     <!-- title and description -->
     <div class="flex flex-col h-full">
       <div class="font-clash-grotesk text-[28px]/[32px] font-medium tracking-[-0.28px] pb-[5px]">
-        <!-- eslint-disable  svelte/no-at-html-tags-->
-        {@html title}
+        {@html $t(title)}
       </div>
-      <div class="text-secondary-content body-regular pb-[20px]">{description}</div>
+      <div class="text-secondary-content body-regular pb-[20px]">{$t(description)}</div>
     </div>
     <div class="flex justify-start">
       <a class="w-fit" href={link} target="_blank">
         <ActionButton
           href={link}
           class="max-w-[109px] border-2 body-bold text-nowrap py-[2px] h-fit"
-          priority="secondary">{defaultCtaText}</ActionButton>
+          priority="secondary">
+          {$t(cta)}
+        </ActionButton>
       </a>
     </div>
   </div>

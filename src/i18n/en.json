@@ -29,6 +29,7 @@
     },
     "learn_more": "Learn more"
   },
+
   "common": {
     "badge_claimed": "<a target=\"_blank\" href=\"https://taikoscan.io/tx/{txHash}\">Click here to see your transaction on Taikoscan</a>",
     "claim": "Claim",
@@ -87,6 +88,37 @@
     "ens": {
       "subtitle": "Explore <span class=\"text-base-content\">our featured domain name projects!<span>",
       "title": "Our domain name partners"
+    },
+    "nft": {
+      "subtitle": "Explore <span class=\"text-base-content\">our featured NFT projects!<span>",
+      "title": "Our NFT partners",
+      "okx": {
+        "title": "OKX NFT Marketplace",
+        "description": "OKX NFT marketplace is a decentralized NFT exchange to create, collect and trade extraordinary NFTs on Taiko"
+      },
+      "mintpad": {
+        "title": "Mintpad.co",
+        "description": "The easiest way to launch an NFT on Taiko!"
+      },
+      "conft": {
+        "title": "CoNFT",
+        "description": "CoNFT"
+      },
+      "loopex": {
+        "title": "Loopex",
+        "description": "A next-gen community-first NFT marketplace."
+      },
+      "nfts2me": {
+        "title": "NFTs2me",
+        "description": "NFTs2Me is a multichain user-friendly comprehensive platform to create, deploy and manage your NFT collection and community, 100% free with advanced functionalities."
+      },
+      "omnihub": {
+        "title": "Omnihub",
+        "description": "OmniHub NFT launchpad invites you to explore the boundless realms of creativity. Create your own collection in just a few clicks. This is where the future of art is born."
+      }
+    },
+    "common": {
+      "useNow": "Use now"
     }
   },
   "switch_modal": {
