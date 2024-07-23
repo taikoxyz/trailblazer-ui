@@ -1,5 +1,6 @@
 <script lang="ts">
   import { Icon } from '$components/Icon';
+  import { DefiCompetitionInformation } from '$components/Leaderboards/Competition/DefiCompetition';
   import { Skeleton } from '$components/Mock';
   import { formatNumbers } from '$libs/util/formatNumbers';
   import { currentDefiDappLeaderboard } from '$stores/leaderboard';
@@ -12,6 +13,7 @@
 
 <div class="lg:w-full px-8 mt-[18%] lg:mt-0 space-y-[50px]">
   <DefiDappsHeader />
+  <DefiCompetitionInformation />
 
   <div class="space-y-[20px]">
     <div class="flex justify-center lg:justify-end m-0">
