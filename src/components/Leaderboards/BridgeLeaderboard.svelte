@@ -16,6 +16,8 @@
   import { CampaignEndedInfoBox } from './CampaignEndedInfoBox';
   import BridgeHeader from './Header/BridgeHeader.svelte';
 
+  let leaderboardDisabled = true;
+
   $: usdc = getValidatedAddress(usdcAddress[chainId] as Address);
   $: usdt = getValidatedAddress(usdtAddress[chainId] as Address);
 
@@ -28,7 +30,7 @@
   }
 </script>
 
-<div class="relative overflow-x-auto lg:w-full px-8 mt-[18%] lg:mt-0 space-y-[60px]">
+<div class="relative overflow-x-auto lg:w-full px-5 mt-[18%] lg:mt-0 space-y-[60px]">
   <BridgeHeader />
 
   {#if $currentBridgeLeaderboard.items.length > 0}
@@ -39,21 +41,23 @@
     </div>
   {/if}
 
-  <table class="relative table-lg w-full body-regular text-white rounded-3xl" style="background: rgba(25, 30, 40, .50)">
+  <table
+    class="relative table-auto w-full body-regular text-white rounded-3xl"
+    style="background: rgba(25, 30, 40, .50)">
     {#if $currentBridgeLeaderboard.items.length > 0}
       <DisabledMask
         title={$t('leaderboard.bridge.ended.title')}
         description={$t('leaderboard.bridge.ended.description')} />
     {/if}
     <!-- head -->
-    <thead class="border-b-2 border-gray-800 ;">
+    <thead class="border-b-2 border-gray-800">
       <tr>
-        <th class="body-regular text-secondary-content text-start pt-8 lg:px-10">No.</th>
-        <th class="body-regular text-secondary-content text-start pt-8 lg:px-10">Dapp</th>
-        <th class="body-regular text-secondary-content text-end pt-8 lg:px-10">Volume</th>
+        <th class="body-regular text-secondary-content text-start pt-8 px-10">No.</th>
+        <th class="body-regular text-secondary-content text-start pt-8 px-10">Name</th>
+        <th class="body-regular text-secondary-content text-end pt-8 px-10">Volume</th>
       </tr>
     </thead>
-    <tbody class="rounded-lg blur-[2px]">
+    <tbody class="rounded-lg {leaderboardDisabled ? 'blur-[1.5px]' : ''}  ">
       {#each $currentBridgeLeaderboard.items as entry, index}
         {@const rank = index + 1}
         {@const fillClass =
@@ -64,19 +68,19 @@
               <Icon type="trophy" {fillClass} />{rank}
             </div>
           </td>
-          <td class="lg:px-10">
-            <div class="flex gap-[20px] align-center">
+          <td class="px-10">
+            <div class="flex gap-[10px] lg:gap-[20px] align-center items-center">
               {#if entry.icon}
                 <div class="avatar">
-                  <div class="w-12 rounded-full">
+                  <div class="lg:size-12 size-[24px] rounded-full">
                     <img alt="icon" src="/{entry.icon}" />
                   </div>
                 </div>
               {:else}
                 <Skeleton
                   class="hidden lg:table-cell"
-                  width="w-12"
-                  height="h-12"
+                  width="lg:w-12 w-[24px]"
+                  height="lg:h-12 h-[24px]"
                   bgColor="bg-pink-200"
                   shineColor="bg-pink-100" />
               {/if}
@@ -91,7 +95,7 @@
               </div>
             </div>
           </td>
-          <td class="lg:px-10 body-regular flex-col">
+          <td class="px-10 body-regular flex-col">
             {#each entry.scores as bridge}
               {@const tokenAddress = getValidatedAddress(bridge.token)}
               <div class="flex gap-[10px] my-1 justify-between text-right">
@@ -107,12 +111,13 @@
             {/each}
           </td>
         </tr>
+        <div class="row h-3"></div>
       {/each}
     </tbody>
     {#if $currentBridgeLeaderboard.items.length === 0}
       <tbody class="rounded-lg">
         <tr class="row h-12">
-          <td class="lg:px-10" colspan="3">No data available</td>
+          <td class="px-10" colspan="3">No data available</td>
         </tr>
       </tbody>
     {/if}

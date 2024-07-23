@@ -13,9 +13,9 @@
     class="absolute z-10"
     style="width: {iconSize}px; height: {iconSize}px; top: -{iconOffset}px; left: calc(50% - {iconOffset}px);" />
   <div class="outer-border">
-    <div class="gradient-border f-between-center text-center f-col rounded-[30px] pt-[49px] px-[38px] pb-[28px]">
+    <div class="gradient-border f-between-center text-center f-col rounded-[30px] pt-[42px] px-[32px] pb-[27px]">
       <div class="space-y-[10px]">
-        <h1 class="leading-8 font-font-clash-grotesk">{title}</h1>
+        <h1 class="font-font-clash-grotesk !text-[30px]">{title}</h1>
         <p>{description}</p>
       </div>
     </div>
