@@ -11,15 +11,15 @@
     prizeSubtitle: $t('leaderboard.defi.prize.2'),
     prizes: [
       {
-        image: '/leaderboard/defi/first.svg',
+        image: '/first.svg',
         amount: $t('leaderboard.defi.prize_breakdown.first.amount'),
       },
       {
-        image: '/leaderboard/defi/second.svg',
+        image: '/second.svg',
         amount: $t('leaderboard.defi.prize_breakdown.second.amount'),
       },
       {
-        image: '/leaderboard/defi/third.svg',
+        image: '/third.svg',
         amount: $t('leaderboard.defi.prize_breakdown.third.amount'),
       },
     ],

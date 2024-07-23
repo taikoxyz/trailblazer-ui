@@ -10,16 +10,13 @@
 <!-- Competition Information -->
 <div class="f-center flex-col">
   <div class="flex gap-5">
-    <img src="/leaderboard/defi/left-laser-small.svg" alt="left laser" class="hidden size-[150px] lg:block xl:hidden" />
-    <img src="/leaderboard/defi/left-laser.svg" alt="left laser" class="hidden xl:block" />
+    <img src="/left-laser-small.svg" alt="left laser" class="hidden size-[150px] lg:block xl:hidden" />
+    <img src="/left-laser.svg" alt="left laser" class="hidden xl:block" />
     <div class="display-medium-medium text-center pb-[30px] text-[32px]/[38px] lg:text-[45px]/[52px]">
       {title}
     </div>
-    <img src="/leaderboard/defi/right-laser.svg" alt="right laser" class="hidden xl:block" />
-    <img
-      src="/leaderboard/defi/right-laser-small.svg"
-      alt="right laser"
-      class="hidden size-[150px] lg:block xl:hidden" />
+    <img src="/right-laser.svg" alt="right laser" class="hidden xl:block" />
+    <img src="/right-laser-small.svg" alt="right laser" class="hidden size-[150px] lg:block xl:hidden" />
   </div>
   <div class="text-secondary-content body-regular text-center max-w-[485px] pb-[80px]">
     {description}
@@ -33,7 +30,7 @@
       <span class="text-primary-brand">{prizeSubtitle}</span>
     </div>
 
-    {#each prizes as prize, _}
+    {#each prizes as prize}
       <div class="f-center gap-4 w-fit">
         <img src={prize.image} alt="{prize.amount} TAIKO Tokens" class="size-[48px]" />
         <div class="flex flex-col">
