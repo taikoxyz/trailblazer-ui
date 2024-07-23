@@ -91,6 +91,12 @@
     "of": "of",
     "page": "Page"
   },
+  "partners": {
+    "ens": {
+      "subtitle": "Explore <span class=\"text-base-content\">our featured domain name projects!<span>",
+      "title": "Our domain name partners"
+    }
+  },
   "switch_modal": {
     "description": "Your current network is not supported. Please connect to the Taiko Mainnet to continue.",
     "title": "Incorrect network detected"
@@ -130,6 +136,30 @@
       "connected": "Connected",
       "connecting": "Connecting",
       "disconnected": "Disconnected"
+    }
+  },
+  "leaderboard": {
+    "defi": {
+      "banner": {
+        "title": "Join the DeFi competition starting July 15th!",
+        "description": "Compete for a month-long jackpot by increasing your TVL on DeFiLlama. Rewards will be based on performance throughout the competition, ending August 9th."
+      },
+      "prize": {
+        "1": "Prize Pool",
+        "2": "175K TAIKO Tokens"
+      },
+      "prize_breakdown": {
+        "first": {
+          "amount": "100K"
+        },
+        "second": {
+          "amount": "50K"
+        },
+        "third": {
+          "amount": "25K"
+        }
+      },
+      "tokenName": "TAIKO Tokens"
     }
   }
 }
