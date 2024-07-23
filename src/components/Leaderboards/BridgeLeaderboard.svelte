@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { t } from 'svelte-i18n';
   import type { Address } from 'viem';
   import { getAddress } from 'viem/utils';
 
@@ -12,9 +13,8 @@
   import { currentBridgeLeaderboard } from '$stores/leaderboard';
 
   import { usdcAddress, usdtAddress } from '../../generated/abi';
-  import BridgeHeader from './Header/BridgeHeader.svelte';
-  import { t } from 'svelte-i18n';
   import CampaignEndedInfoBox from './CampaignEndedInfoBox/CampaignEndedInfoBox.svelte';
+  import BridgeHeader from './Header/BridgeHeader.svelte';
 
   $: usdc = getValidatedAddress(usdcAddress[chainId] as Address);
   $: usdt = getValidatedAddress(usdtAddress[chainId] as Address);
