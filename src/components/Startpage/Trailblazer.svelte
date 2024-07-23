@@ -1,6 +1,7 @@
 <script lang="ts">
-  import DefiBanner from '$components/Banner/Trailbanner/DefiBanner.svelte';
-  import DefiPartners from '$components/Partner/DefiPartners.svelte/DefiPartners.svelte';
+  import DomainBanner from '$components/Banner/Trailbanner/DomainBanner.svelte';
+  import DefiPartners from '$components/Partner/DefiPartners/DefiPartners.svelte';
+  import { ENSPartners } from '$components/Partner/ENSPartners';
   import { GamingPartners } from '$components/Partner/GamingPartners';
 
   import DividerElement from './DividerElement/DividerElement.svelte';
@@ -14,11 +15,12 @@
 <div class="f-center container flex-col w-full overflow-visible gap-[100px] md:mb-[130px]">
   <TrailblazerMain />
   <TrailblazerGuide />
-  <DefiBanner />
-  <DefiPartners />
-  <GamingPartners />
+  <DomainBanner />
+  <ENSPartners />
   <Factions />
   <DividerElement />
+  <DefiPartners />
+  <GamingPartners />
   <RankUp />
   <ExploreEcosystem />
 </div>

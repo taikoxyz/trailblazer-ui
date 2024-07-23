@@ -12,8 +12,8 @@
     },
     "nonClaimable": "You are not eligible to claim this badge. Please read the {requirements}",
     "nonClaimableLinkText": "eligibility requirements",
-    "pendingTx": "Your transaction is pending. Please wait for confirmation.",
-    "notEnoughGas": "Not enough gas to claim the badge. Please fund your wallet and try again."
+    "notEnoughGas": "Not enough gas to claim the badge. Please fund your wallet and try again.",
+    "pendingTx": "Your transaction is pending. Please wait for confirmation."
   },
   "buttons": {
     "connect_wallet": "Connect",
@@ -83,6 +83,12 @@
     "of": "of",
     "page": "Page"
   },
+  "partners": {
+    "ens": {
+      "subtitle": "Explore <span class=\"text-base-content\">our featured domain name projects!<span>",
+      "title": "Our domain name partners"
+    }
+  },
   "switch_modal": {
     "description": "Your current network is not supported. Please connect to the Taiko Mainnet to continue.",
     "title": "Incorrect network detected"
@@ -90,7 +96,11 @@
   "trailbanner": {
     "defi": {
       "description": "Engage with our trusted DeFi protocols and complete tasks to earn exclusive Masters Faction badges and more.",
-      "title": "Create a position with any of the Defi protocol"
+      "title": "Create a position with any of the Defi protocols"
+    },
+    "domain": {
+      "description": "Earn your Drummer Faction badge by minting a domain on any partner protocol!",
+      "title": "Mint a domain name"
     }
   },
   "trailblazer_guide": {
@@ -118,6 +128,30 @@
       "connected": "Connected",
       "connecting": "Connecting",
       "disconnected": "Disconnected"
+    }
+  },
+  "leaderboard": {
+    "defi": {
+      "banner": {
+        "title": "Join the DeFi competition starting July 15th!",
+        "description": "Compete for a month-long jackpot by increasing your TVL on DeFiLlama. Rewards will be based on performance throughout the competition, ending August 9th."
+      },
+      "prize": {
+        "1": "Prize Pool",
+        "2": "175K TAIKO Tokens"
+      },
+      "prize_breakdown": {
+        "first": {
+          "amount": "100K"
+        },
+        "second": {
+          "amount": "50K"
+        },
+        "third": {
+          "amount": "25K"
+        }
+      },
+      "tokenName": "TAIKO Tokens"
     }
   }
 }

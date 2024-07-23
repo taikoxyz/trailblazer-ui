@@ -85,7 +85,7 @@
   </button>
 </div>
 
-<div class="max-w-full h-[500px] xl:h-auto">
+<div class="max-w-full h-auto">
   <div
     bind:this={carouselElement}
     class="carousel flex gap-[25px] xl:ml-0 w-full overflow-x-scroll xl:overflow-scroll xl:overflow-y-visible px-0 hide-scrollbar xl:px-0 xl:py-[60px] py-4">

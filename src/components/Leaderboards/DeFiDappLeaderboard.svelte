@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { mapDefiDappLeaderboardRow } from '$libs/leaderboard';
+
   import { currentDefiDappLeaderboard } from '$stores/leaderboard';
 
   import DefiDappsHeader from './Header/DefiDappsHeader.svelte';

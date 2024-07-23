@@ -2,6 +2,7 @@ import { redirect } from '@sveltejs/kit';
 import { isAddress } from 'viem';
 
 import { browser } from '$app/environment';
+import { Domain } from '$libs/domain';
 import { Profile } from '$libs/profile';
 import { getLogger } from '$libs/util/logger.js';
 
@@ -20,7 +21,8 @@ export const load = async ({ params }) => {
     try {
       const loadProfile = Profile.getProfile(address);
       const loadHistory = Profile.getUserPointsHistory(address);
-      await Promise.all([loadProfile, loadHistory]);
+      const loadDomain = Domain.getDomain(address);
+      await Promise.all([loadProfile, loadHistory, loadDomain]);
     } catch (e) {
       console.error(e);
     }

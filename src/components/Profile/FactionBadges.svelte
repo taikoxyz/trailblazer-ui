@@ -2,7 +2,7 @@
   import { type Address, getAddress, zeroAddress } from 'viem';
 
   import { page } from '$app/stores';
-  import { FactionNames } from '$configs/badges';
+  import { FactionNames, maxBadgeId } from '$configs/badges';
   import gasCheckPreflight from '$libs/badges/gasCheckPreflight';
   //import getMovement from '$libs/badges/getMovement';
   import { getUserBadges } from '$libs/badges/getUserBadges';
@@ -13,7 +13,7 @@
   import FactionBadgeItem from './FactionBadgeItem.svelte';
   // import { default as MovementSelection } from './MovementSelection.modal.svelte';
 
-  let factions = Object.keys(FactionNames).reverse() as FactionNames[];
+  let factions = Object.keys(FactionNames).splice(0, maxBadgeId).reverse() as FactionNames[];
   $: userFactions = {} as Record<FactionNames, boolean>;
 
   $: profile = $currentProfile;
@@ -30,6 +30,7 @@
     isSelfProfile = getAddress(address) === getAddress(getConnectedAddress());
     hasEnoughGas = await gasCheckPreflight(address);
   }
+
   $: address = zeroAddress as Address;
   $: $account, load();
   $: profile, load();
