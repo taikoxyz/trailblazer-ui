@@ -1,7 +1,8 @@
 <script lang="ts">
-
+  import { mapDefiDappLeaderboardRow } from '$libs/leaderboard';
   import { currentDefiDappLeaderboard } from '$stores/leaderboard';
 
+  import DefiCompetitionInformation from './Competition/DefiCompetition/DefiCompetitionInformation.svelte';
   import DefiDappsHeader from './Header/DefiDappsHeader.svelte';
   import AbstractLeaderboard from './Template/AbstractLeaderboard.template.svelte';
   import DollarScore from './Template/DollarScore.template.svelte';
@@ -21,7 +22,8 @@
   handlePageChange={() => {}}
   currentPage={1}
   totalItems={$currentDefiDappLeaderboard.protocols.length}
-  headerComponent={DefiDappsHeader}
   showLastUpdated={true}
   lastUpdated={new Date($currentDefiDappLeaderboard.lastUpdated * 1000)}
-  scoreComponent={DollarScore} />
+  headerComponent={DefiDappsHeader}
+  scoreComponent={DollarScore}
+  additionalInfoComponent={DefiCompetitionInformation} />

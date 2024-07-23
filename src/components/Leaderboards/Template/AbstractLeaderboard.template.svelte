@@ -21,6 +21,7 @@
   export let lastUpdated: Date | null = null;
   export let showLastUpdated: boolean = false;
   export let scoreComponent: ComponentType;
+  export let additionalInfoComponent: ComponentType;
 
   export let showPagination: boolean = true;
   export let showDetailsColumn: boolean = true;
@@ -35,11 +36,17 @@
   }
 </script>
 
-<div class="overflow-x-auto lg:w-full px-8 mt-[18%] lg:mt-0">
+<div class="overflow-x-auto lg:w-full px-8 mt-[116px] lg:mt-0">
   <svelte:component this={headerComponent} />
 
+  {#if additionalInfoComponent}
+    <div class="mt-[60px] lg:mt-[80px]">
+      <svelte:component this={additionalInfoComponent} />
+    </div>
+  {/if}
+
   {#if showLastUpdated && lastUpdated}
-    <div class="flex justify-center lg:justify-end mt-[50px] mb-[30px]">
+    <div class="flex justify-center lg:justify-end mt-[60px] lg:mt-[77px] mb-[30px]">
       <LastUpdated class="w-fit" {lastUpdated} />
     </div>
   {/if}
