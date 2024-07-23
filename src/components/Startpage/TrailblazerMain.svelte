@@ -22,7 +22,7 @@
 <div class="w-full flex px-[12px] mt-[5px] md:max-h-[700px] lg:max-h-[814px] h-dvh">
   <div
     class="f-center md:f-left relative flex-col w-dvw rounded-[30px] overflow-hidden background-overlay
-  
+  bg-center
   xl:bg-[url(/splash/xl/splash.png)]
   lg:bg-[url(/splash/lg/splash.png)]
   md:bg-[url(/splash/md/splash.png)]
@@ -30,12 +30,12 @@
   
   w-full h-full bg-cover lg:mt-[18px] px-[57px]">
     <div class="md:f-center flex justify-end mb-[8px] flex-col xl:flex-row h-dvh md:h-[815px]">
-      <div class="flex-col w-full z-10">
+      <div class="flex-col w-full z-10 md:mt-[180px]">
         <!-- Title -->
         <div
           class="self-start font-clash-grotesk text-[23px]/[28px] tracking-[10px] xl:text-[45px]/[45px] xl:tracking-[22.5px] mb-[30px] md:mb-[60px]">
           <div class="w-full flex-col gap-5">
-            <TaikoTrailblazersLogo class="w-[335px] md:w-[558px] rounded-[20px]" />
+            <TaikoTrailblazersLogo class="w-[335px] md:w-[471px] lg:w-[558px] rounded-[20px]" />
           </div>
         </div>
         <!-- Description -->
