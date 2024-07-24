@@ -4,8 +4,8 @@ export enum FACTIONS {
   Bouncers,
   Masters,
   Monks,
-  Drummers,
   Androids,
+  Drummers,
   Shinto,
 }
 
@@ -19,7 +19,7 @@ export enum FactionNames {
   Bouncers = 'Bouncers',
   Masters = 'Masters',
   Monks = 'Monks',
-  Drummers = 'Drummers',
   Androids = 'Androids',
+  Drummers = 'Drummers',
   Shinto = 'Shinto',
 }
