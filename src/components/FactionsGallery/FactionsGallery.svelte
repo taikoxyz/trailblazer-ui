@@ -93,19 +93,8 @@
     'hover:bg-primary-interactive-hover',
   );
 
-  const carouselWrapperClasses = classNames(
-    //'max-w-full',
-    'relative',
-    'w-[100vw]',
-    'flex',
-    'justify-center',
-    'items-center',
-    'h-[500px]',
-
-    // main: "max-w-full h-auto"
-  );
+  const carouselWrapperClasses = classNames('max-w-full', 'h-auto');
   const carouselClasses = classNames(
-    'absolute',
     'carousel',
     'flex',
     'gap-[25px]',
@@ -119,8 +108,6 @@
     'xl:px-0',
     'xl:py-[60px]',
     'py-4',
-
-    // main: "carousel flex gap-[25px] xl:ml-0 w-full overflow-x-scroll xl:overflow-scroll xl:overflow-y-visible px-0 hide-scrollbar xl:px-0 xl:py-[60px] py-4"
   );
 </script>
 
@@ -133,10 +120,8 @@
   </button>
 </div>
 
-<div class="max-w-full h-auto">
-  <div
-    bind:this={carouselElement}
-    class="carousel flex gap-[25px] xl:ml-0 w-full overflow-x-scroll xl:overflow-scroll xl:overflow-y-visible px-0 hide-scrollbar xl:px-0 xl:py-[60px] py-4">
+<div class={carouselWrapperClasses}>
+  <div bind:this={carouselElement} class={carouselClasses}>
     <!-- Cards -->
     {#each items as item, i}
       {#if i == 0}
