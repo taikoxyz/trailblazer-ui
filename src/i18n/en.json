@@ -45,14 +45,6 @@
       "description": "A groundbreaking cast of characters emerges to enrich our community and deepen the immersive experience. Meet eight distinct factions, each with its own unique character and flair."
     }
   },
-  "leaderboard": {
-    "bridge": {
-      "ended": {
-        "description": "Our journey concluded on June 12th, 2024. Thanks to everyone who participated and earned their Robot Faction Badge by bridging to the Taiko mainnet.",
-        "title": "Campaign ended"
-      }
-    }
-  },
   "legal": {
     "confirm": "Confirm",
     "link": "terms and conditions",
@@ -199,7 +191,7 @@
       "question": "Where can I buy NFTs which give multipliers?",
       "answer": "Taikoons - https://www.okx.com/web3/marketplace/nft/collection/taiko/taikoon\n\nFaction Badges - https://www.okx.com/ua/web3/marketplace/nft/collection/taiko/trailblazers-badges\n\nSnaefell are SBTs, meaning you can neither buy nor sell them."
     }
-  ]
+  ],
   "leaderboard": {
     "defi": {
       "banner": {
