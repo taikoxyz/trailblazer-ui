@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { leaderboardConfig } from '$config';
   import { Leaderboard, type PaginationInfo } from '$libs/leaderboard';
   import { getLogger } from '$libs/util/logger';
   import { currentDappLeaderboard } from '$stores/leaderboard';
@@ -13,7 +14,7 @@
   export let pageInfo: PaginationInfo;
 
   $: totalItems = pageInfo?.total || 0;
-  $: pageSize = pageInfo?.size || 10;
+  $: pageSize = pageInfo?.size || leaderboardConfig.pageSize;
 
   function handlePageChange(page: number) {
     log('handlePageChange', page);
