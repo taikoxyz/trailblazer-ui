@@ -4,14 +4,15 @@
 
   const wrapperClasses = classNames(
     'flex',
-    'flex-col-reverse',
+    'flex-col',
     'justify-center',
     'md:justify-start',
     'items-center',
     'md:items-start',
     'md:flex-row',
     'gap-4',
-    'w-[100vw]',
+    'md:w-[100vw]',
+    'w-full',
   );
 
   const itemClasses = classNames(
@@ -19,7 +20,6 @@
     'md:-1/3',
     'flex',
     'flex-col',
-    // 'md:flex-row',
     'gap-4',
     'md:gap-0',
     'justify-center',
@@ -34,6 +34,7 @@
     'text-center',
     'w-full',
     'font-[500]',
+    'mb-[30px]',
   );
   const textClasses = classNames(
     'text-secondary-content',
@@ -54,7 +55,7 @@
 
   const windowSizesToFrames = {
     sm: 1,
-    md: 2,
+    md: 3,
     lg: 4,
   };
   $: frameCount = windowSizesToFrames[windowSize];

@@ -6,9 +6,6 @@
     'overflow-x-hidden',
     'f-center',
     'w-full',
-    'px-[20px]',
-    'md:px-[65px]',
-    'lg:px-[75px]',
     'lg:pt-[158px]',
     'pt-[12px]',
     'pb-[135px]',
@@ -20,7 +17,5 @@
 </svelte:head>
 
 <div class={wrapperClasses}>
-  <div class="container w-full">
-    <About />
-  </div>
+  <About />
 </div>

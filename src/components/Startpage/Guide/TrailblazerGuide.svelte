@@ -12,14 +12,13 @@
     'flex',
     'flex-col',
     'md:flex-row',
-    'px-[20px]',
-    'lg:px-[57px]',
-    'py-12',
-    'lg:h-[450px]',
+    'md:py-12',
+    'py-[30px]',
+    'lg:h-[475px]',
     'xl:h-[375px]',
     'md:h-[525px]',
   );
-  const unionClasses = classNames('rotate-90', 'lg:rotate-0');
+  const unionClasses = classNames('rotate-90', 'w-[30px]', 'flex', 'items-center', 'justify-center', 'md:rotate-0');
 </script>
 
 <div class={wrapperClasses}>

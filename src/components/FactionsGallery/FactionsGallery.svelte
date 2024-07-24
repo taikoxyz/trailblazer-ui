@@ -4,8 +4,7 @@
 
   import { type GalleryItem } from './types';
 
-  export let hideArrows = false;
-
+  export let arrowClasses: string = '';
   let carouselElement: HTMLDivElement;
 
   export let items: GalleryItem[] = [
@@ -76,13 +75,13 @@
     carouselElement.scrollBy({ left: 1200, behavior: 'smooth' }); // Adjust 300 similarly
   }
 
-  const navButtonsWrapperClasses = classNames(
+  $: navButtonsWrapperClasses = classNames(
     'flex',
     'gap-4',
-    'justify-center',
-    'xl:justify-end',
+
     'h-full',
     'bottom-0',
+    arrowClasses ? arrowClasses : classNames('justify-center', 'xl:justify-end'),
   );
 
   const leftButtonClasses = classNames('f-center', 'btn-circle', 'border', 'border-primary-brand');
@@ -121,16 +120,14 @@
   );
 </script>
 
-{#if !hideArrows}
-  <div class={navButtonsWrapperClasses}>
-    <button class={leftButtonClasses} on:click={scrollLeft}>
-      <Icon class="-translate-x-[2px]" type="chevron-left" />
-    </button>
-    <button class={rightButtonClasses} on:click={scrollRight}>
-      <Icon class="translate-x-[2px]" type="chevron-right" />
-    </button>
-  </div>
-{/if}
+<div class={navButtonsWrapperClasses}>
+  <button class={leftButtonClasses} on:click={scrollLeft}>
+    <Icon class="-translate-x-[2px]" type="chevron-left" />
+  </button>
+  <button class={rightButtonClasses} on:click={scrollRight}>
+    <Icon class="translate-x-[2px]" type="chevron-right" />
+  </button>
+</div>
 <div class={carouselWrapperClasses}>
   <div bind:this={carouselElement} class={carouselClasses}>
     <!-- Cards -->

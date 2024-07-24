@@ -13,7 +13,9 @@
     'items-center',
     'justify-center',
     'gap-16',
-    'my-20',
+    'md:mb-20',
+    'mt-[160px]',
+    'md:mt-20',
   );
   const h1Classes = classNames(
     'md:text-[60px]/[60px]',
@@ -44,9 +46,9 @@
 <div class={heroWrapperClasses}>
   <div class={heroContentClasses}>
     <div class={contentWrapperClasses}>
-      <h1 class={h1Classes}>
+      <div class={h1Classes}>
         Embark on the <span class={pinkSpanClasses}>Trailblazers</span> journey — Unleash your potential in the Taiko universe!
-      </h1>
+      </div>
 
       <h2 class={subHeadingClasses}>
         Dive into the Trailblazers Program, a vibrant new adventure within the Taiko universe designed to deepen

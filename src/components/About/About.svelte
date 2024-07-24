@@ -9,26 +9,50 @@
   import AboutInfoPanels from './AboutInfoPanels.svelte';
   import RewardsAndUtility from './RewardsAndUtility.svelte';
 
-  const wrapperClasses = classNames('f-cl', 'relative', 'w-full', 'flex', 'flex-col', 'gap-24');
+  const wrapperClasses = classNames(
+    'lg:px-[75px]',
+    'md:px-[65px]',
+    'px-[20px]',
+    'w-full',
+    'flex',
+    'flex-col',
+    'md:gap-24',
+    'gap-[80px]',
+  );
   const imageClasses = classNames(
     'rounded-[30px]',
     'md:w-full',
     'relative',
-    'left-[2.5%]',
-    'md:left-0',
-    'w-[95%]',
     'md:hover:scale-105',
     'transition-transform',
     'object-cover',
+    'w-full',
+    'h-[350px]',
+  );
+
+  const arrowClasses = classNames(
+    'md:w-[calc(50%*6/8)]',
+    'ml-6',
+    'flex',
+    'flex-row',
+    'md:justify-start',
+    'md:items-start',
+    'justify-center',
+    'items-center',
+    'relative',
+    'md:left-[50%]',
   );
 </script>
 
 <div class={wrapperClasses}>
   <AboutHero />
-  <img class={imageClasses} src="/about-illustration.png" alt="gallery" />
-  <TrailblazerGuide />
+  <div class={classNames('w-full')}>
+    <img class={imageClasses} src="/about-illustration.png" alt="gallery" />
+    <TrailblazerGuide />
+  </div>
+
   <AboutInfoPanels />
-  <FactionsGallery hideArrows />
+  <FactionsGallery {arrowClasses} />
   <AboutFactionsInfo />
   <RewardsAndUtility />
   <FAQ />

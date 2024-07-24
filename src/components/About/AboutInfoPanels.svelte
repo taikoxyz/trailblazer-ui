@@ -2,43 +2,47 @@
   import ActionButton from '$components/Button/ActionButton.svelte';
   import { classNames } from '$libs/util/classNames';
 
-  const wrapperClasses = classNames(
-    'flex',
-    'flex-col',
-    'items-center',
-    'justify-center',
-    'gap-24',
-    'px-4',
-    'md:px-8',
-    'md:px-0',
-  );
+  const wrapperClasses = classNames('flex', 'flex-col', 'items-center', 'justify-center', 'gap-24');
 
   const rowClasses = classNames(
     'flex',
     'lg:px-12',
-    'md:px-24',
-    'px-3',
     'flex-col',
     'lg:flex-row',
-    'w-full',
     'gap-12',
     'justify-between',
     'items-center',
-    'w-[80%]',
+    'lg:w-[calc(100%*6/8)]',
     'lg:mx-0',
     'text-center',
     'lg:text-left',
+    'md:w-2/3',
   );
 
   const boxedRowClasses = classNames(
-    rowClasses,
+    'flex',
+    'lg:px-12',
+    'flex-col',
+    'lg:flex-row',
+    'gap-12',
+    'justify-between',
+    'items-center',
+    'lg:w-[calc(100%*6/8)]',
+    'lg:mx-0',
+    'text-center',
+    'lg:text-left',
     'border',
     'border-[#444A55]',
     'bg-gradient-to-b',
     'to-[rgba(25,30,40,0.2)]',
     'from-[rgba(93,99,111,0.1)]',
     'rounded-[30px]',
-    'py-16',
+    'pt-[38px]',
+    'pb-[21px]',
+    'md:py-16',
+    'md:w-full',
+    'md:px-[calc(100%/6)]',
+    'px-[21px]',
   );
 
   const panelClasses = classNames(
@@ -56,9 +60,9 @@
 
   const titleClasses = classNames(
     'font-clash-grotesk',
-
+    'text-[40px]/[40px]',
     'lg:text-[75px]/[75px]',
-    'text-[60px]/[60px]',
+    'md:text-[60px]/[60px]',
     'tracking-[-2%]',
     'font-[500]',
   );
@@ -69,7 +73,7 @@
     'text-secondary-content',
     'text-center',
     'lg:text-[18px]/[24px]',
-    'md:text-[16px]/[24px]',
+    'text-[16px]/[24px]',
     'text-left',
     'flex',
     'flex-col',
@@ -80,7 +84,6 @@
     'flex',
     'flex-col',
     'md:flex-row',
-    'px-4',
     'md:px-0',
     'gap-4',
     'justify-center',
@@ -88,7 +91,7 @@
     'w-full',
   );
 
-  const buttonLinkWrapperClasses = classNames('w-[210px]', 'h-[48px]', 'min-w-max');
+  const buttonLinkWrapperClasses = classNames('w-full', 'md:w-[210px]', 'h-[48px]', 'min-w-max');
 
   const textClasses = classNames('lg:text-left', 'text-center');
 </script>

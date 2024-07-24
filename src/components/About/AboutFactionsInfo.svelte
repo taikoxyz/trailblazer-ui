@@ -2,9 +2,25 @@
   import { ActionButton } from '$components/Button';
   import { classNames } from '$libs/util/classNames';
 
-  const wrapperClasses = classNames('flex', 'flex-col', 'gap-8', 'w-full', 'justify-center', 'items-center');
+  const wrapperClasses = classNames(
+    'flex',
 
-  const contentClasses = classNames('flex', 'flex-col', 'w-[80%]', 'lg:w-1/2', 'gap-8');
+    'flex-col',
+    'gap-8',
+    'w-full',
+    'justify-center',
+    'items-center',
+  );
+
+  const contentClasses = classNames(
+    'flex',
+    'w-full',
+    'md:w-[calc(100%*6/8)]',
+    'flex-col',
+    'lg:w-[80%]',
+    'lg:w-1/2',
+    'gap-8',
+  );
 
   const titleWrapperClasses = classNames(
     'text-secondary-content',
@@ -22,6 +38,7 @@
     'text-[20px]/[25px]',
     'font-[500]',
     'text-primary-content',
+    'text-center',
   );
 
   const barClasses = classNames('border-b-2 border-primary-brand w-[15%]');
