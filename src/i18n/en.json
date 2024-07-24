@@ -51,6 +51,28 @@
         "description": "Our journey concluded on June 12th, 2024. Thanks to everyone who participated and earned their Robot Faction Badge by bridging to the Taiko mainnet.",
         "title": "Campaign ended"
       }
+    },
+    "defi": {
+      "banner": {
+        "description": "Compete for a month-long jackpot by increasing your TVL on DeFiLlama. Rewards will be based on performance throughout the competition, ending August 9th.",
+        "title": "Join the DeFi competition starting July 15th!"
+      },
+      "prize": {
+        "1": "Prize Pool",
+        "2": "175K TAIKO Tokens"
+      },
+      "prize_breakdown": {
+        "first": {
+          "amount": "100K"
+        },
+        "second": {
+          "amount": "50K"
+        },
+        "third": {
+          "amount": "25K"
+        }
+      },
+      "tokenName": "TAIKO Tokens"
     }
   },
   "legal": {
@@ -136,30 +158,6 @@
       "connected": "Connected",
       "connecting": "Connecting",
       "disconnected": "Disconnected"
-    }
-  },
-  "leaderboard": {
-    "defi": {
-      "banner": {
-        "title": "Join the DeFi competition starting July 15th!",
-        "description": "Compete for a month-long jackpot by increasing your TVL on DeFiLlama. Rewards will be based on performance throughout the competition, ending August 9th."
-      },
-      "prize": {
-        "1": "Prize Pool",
-        "2": "175K TAIKO Tokens"
-      },
-      "prize_breakdown": {
-        "first": {
-          "amount": "100K"
-        },
-        "second": {
-          "amount": "50K"
-        },
-        "third": {
-          "amount": "25K"
-        }
-      },
-      "tokenName": "TAIKO Tokens"
     }
   }
 }
