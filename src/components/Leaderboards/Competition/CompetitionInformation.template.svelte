@@ -66,7 +66,7 @@
     height: 100%;
     border-radius: 100000px;
     padding: 2px;
-    background: linear-gradient(135deg, #ff6fc8 0%, #0b0b0b 40%, #0b0b0b 60%, #ff6fc8 100%);
+    background: linear-gradient(135deg, #ff6fc8 0%, #0b101b 40%, #0b101b 60%, #ff6fc8 100%);
     -webkit-mask:
       linear-gradient(#fff 0 0) content-box,
       linear-gradient(#fff 0 0);
