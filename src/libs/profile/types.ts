@@ -1,4 +1,5 @@
 import type { Movements } from '$libs/badges/const';
+import type { DomainNames } from '$libs/domain/types';
 
 export type UserProfile = GalxePoints &
   DomainNames & {

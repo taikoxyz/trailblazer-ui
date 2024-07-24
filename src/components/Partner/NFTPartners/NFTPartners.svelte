@@ -3,10 +3,10 @@
 
   import { PartnersTemplate } from '$components/Partner';
 
-  import { nftCarouselItems } from './nftPartnersItems.svelte';
+  import { nftPartnersItems } from './nftPartnersItems.svelte';
 </script>
 
 <PartnersTemplate
-  title={$t('partners.nft.omnihub.title')}
+  title={$t('partners.nft.title')}
   subtitle={$t('partners.nft.subtitle')}
-  carouselItems={nftCarouselItems} />
+  carouselItems={nftPartnersItems} />

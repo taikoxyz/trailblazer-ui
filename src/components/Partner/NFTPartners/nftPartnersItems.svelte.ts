@@ -1,6 +1,6 @@
 import type { CarouselItemType } from '$components/Carousel/types';
 
-export const nftCarouselItems: CarouselItemType[] = [
+export const nftPartnersItems: CarouselItemType[] = [
   {
     id: '1',
     title: 'partners.nft.okx.title',

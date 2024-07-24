@@ -8,7 +8,6 @@
   export let carouselItem: CarouselItemType;
   const { title, image, description, link, tag, cta } = carouselItem;
 
-  export let defaultCtaText = cta ? cta : 'Learn More';
   export let width = '350px';
 </script>
 
