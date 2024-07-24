@@ -93,8 +93,17 @@
     'hover:bg-primary-interactive-hover',
   );
 
-  const carouselWrapperClasses = classNames('max-w-full', 'h-auto');
+  const carouselWrapperClasses = classNames(
+    //'max-w-full',
+    'relative',
+    'w-[100vw]',
+    'flex',
+    'justify-center',
+    'items-center',
+    'h-[500px]',
+  );
   const carouselClasses = classNames(
+    'absolute',
     'carousel',
     'flex',
     'gap-[25px]',
