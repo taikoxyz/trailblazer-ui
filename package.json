@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "vite dev",
-    "dev:a3": "vite dev --mode a3",
+    "dev:prod": "vite dev --mode production",
     "build": "vite build",
     "preview": "vite preview",
     "test:pw": "playwright test",

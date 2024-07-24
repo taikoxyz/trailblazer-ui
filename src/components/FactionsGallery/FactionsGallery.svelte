@@ -101,6 +101,8 @@
     'justify-center',
     'items-center',
     'h-[500px]',
+
+    // main: "max-w-full h-auto"
   );
   const carouselClasses = classNames(
     'absolute',
@@ -117,6 +119,8 @@
     'xl:px-0',
     'xl:py-[60px]',
     'py-4',
+
+    // main: "carousel flex gap-[25px] xl:ml-0 w-full overflow-x-scroll xl:overflow-scroll xl:overflow-y-visible px-0 hide-scrollbar xl:px-0 xl:py-[60px] py-4"
   );
 </script>
 
@@ -128,8 +132,11 @@
     <Icon class="translate-x-[2px]" type="chevron-right" />
   </button>
 </div>
-<div class={carouselWrapperClasses}>
-  <div bind:this={carouselElement} class={carouselClasses}>
+
+<div class="max-w-full h-auto">
+  <div
+    bind:this={carouselElement}
+    class="carousel flex gap-[25px] xl:ml-0 w-full overflow-x-scroll xl:overflow-scroll xl:overflow-y-visible px-0 hide-scrollbar xl:px-0 xl:py-[60px] py-4">
     <!-- Cards -->
     {#each items as item, i}
       {#if i == 0}

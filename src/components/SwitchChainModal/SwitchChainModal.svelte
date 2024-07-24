@@ -3,7 +3,7 @@
   import { t } from 'svelte-i18n';
   import { type Chain, SwitchChainError, UserRejectedRequestError } from 'viem';
 
-  import { LoadingMask } from '$components/LoadingMask';
+  import { LoadingMask } from '$components/Masks';
   import { warningToast } from '$components/NotificationToast';
   import { chains, getChainImage } from '$libs/chain';
   import { wagmiConfig } from '$libs/wagmi';

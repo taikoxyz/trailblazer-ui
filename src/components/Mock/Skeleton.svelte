@@ -8,7 +8,7 @@
 <div class="relative overflow-hidden {width} {height} {bgColor} {$$props.class} rounded-full">
   <div
     class="absolute inset-0 transform {shineColor} "
-    style="background: linear-gradient(to right, transparent 0%, rgba(255,255,255,0.5) 50%, transparent 100%); animation: skeleton 1s once; background-size: 200% 100%;">
+    style="background: linear-gradient(to right, transparent 0%, rgba(255,255,255,0.5) 50%, transparent 100%); animation: skeleton 1s repeat; background-size: 200% 100%;">
   </div>
 </div>
 
