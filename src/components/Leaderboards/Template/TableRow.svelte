@@ -35,8 +35,8 @@
       <div class="flex flex-col justify-around">
         <div class="flex gap-[20px] align-center">
           {#if entry.icon}
-            <div class="avatar">
-              <div class="w-12 rounded-full">
+            <div class="avatar flex items-center">
+              <div class="w-12 h-12 rounded-full">
                 <img alt="icon" src={entry.icon} />
               </div>
             </div>

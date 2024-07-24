@@ -7,7 +7,7 @@
   export let showTrophy: boolean;
 </script>
 
-<tr class="row h-12">
+<tr class="row h-[88px] hover:bg-neutral-background">
   <td class="h-full table-cell body-bold w-1/12">
     <div class="f-center gap-[12px]">
       {#if showTrophy}
@@ -26,8 +26,11 @@
             height="h-12"
             bgColor="bg-pink-200"
             shineColor="bg-pink-100" />
-          <Spinner class="!size-4" />
+          <div class="f-col justify-center">
+            <Spinner />
+          </div>
         </div>
       </div>
     </div>
-  </td></tr>
+  </td>
+</tr>

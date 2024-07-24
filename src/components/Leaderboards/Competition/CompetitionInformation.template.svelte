@@ -74,10 +74,4 @@
     mask-composite: exclude;
     pointer-events: none;
   }
-
-  .bordered-content {
-    position: relative;
-    z-index: 1;
-    text-align: center;
-  }
 </style>

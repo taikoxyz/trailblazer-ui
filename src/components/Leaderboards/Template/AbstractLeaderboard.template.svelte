@@ -21,7 +21,7 @@
   export let lastUpdated: Date | null = null;
   export let showLastUpdated: boolean = false;
   export let scoreComponent: ComponentType;
-  export let additionalInfoComponent: ComponentType;
+  export let additionalInfoComponent: ComponentType | null = null;
 
   export let showPagination: boolean = true;
   export let showDetailsColumn: boolean = true;
@@ -45,11 +45,11 @@
     </div>
   {/if}
 
-  {#if showLastUpdated && lastUpdated}
-    <div class="flex justify-center lg:justify-end mt-[60px] lg:mt-[77px] mb-[30px]">
+  <div class="flex justify-center lg:justify-end mt-[60px] lg:mt-[77px] mb-[30px]">
+    {#if showLastUpdated && lastUpdated}
       <LastUpdated class="w-fit" {lastUpdated} />
-    </div>
-  {/if}
+    {/if}
+  </div>
 
   <div class="overflow-x-auto rounded-3xl">
     <table class="table-lg w-full body-regular text-white rounded-3xl" style="background: rgba(25, 30, 40, .50)">
