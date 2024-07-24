@@ -28,7 +28,7 @@ import type {
   UserLeaderboardPageApiResponse,
 } from './types';
 
-const baseApiUrl = isDevelopmentEnv ? '/mock-api' : PUBLIC_TRAILBLAZER_API_URL;
+const baseApiUrl = isDevelopmentEnv ? '/api/mock-api' : PUBLIC_TRAILBLAZER_API_URL;
 
 const log = getLogger('Leaderboard');
 
@@ -113,8 +113,8 @@ export class Leaderboard {
         title: 'Error fetching leaderboard',
         message: `${error}`,
       });
+      return args;
     }
-    return args;
   }
 
   static async getUserLeaderboard() {
