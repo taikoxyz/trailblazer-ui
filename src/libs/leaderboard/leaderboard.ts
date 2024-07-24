@@ -21,9 +21,9 @@ import type {
   DappLeaderboardPage,
   DappLeaderboardPageApiResponse,
   DefiDappLeaderboardRow,
-  LeaderboardRow,
   PaginationInfo,
   ProtocolApiResponse,
+  UnifiedLeaderboardRow,
   UserLeaderboardPage,
   UserLeaderboardPageApiResponse,
 } from './types';
@@ -55,14 +55,13 @@ export class Leaderboard {
       log('response', response);
       const leaderboardPageApiResponse: DappLeaderboardPageApiResponse = response.data;
 
-      const leaderboardPage: DappLeaderboardPage = { items: [] };
+      const leaderboardPage: DappLeaderboardPage = { items: [], lastUpdated: 0 };
 
       const detailMapping: DetailsMapping = dappDetailsMapping;
 
       const items = await Promise.all(
         leaderboardPageApiResponse.items.map(async (item) => {
-          let entry: LeaderboardRow;
-
+          let entry: UnifiedLeaderboardRow;
           if (isAddress(item.slug)) {
             entry = {
               address: item.address,
@@ -95,6 +94,7 @@ export class Leaderboard {
       leaderboardPage.items = items;
 
       setDappLeaderboard(leaderboardPage);
+      setDefiDappLeaderboardLastUpdated(response.data.lastUpdated);
 
       log('Leaderboard page: ', leaderboardPage);
       const { page, size, total, total_pages, max_page } = leaderboardPageApiResponse;

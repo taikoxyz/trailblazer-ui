@@ -43,6 +43,10 @@
     @apply flex justify-between items-center;
   }
 
+  .f-left {
+    @apply flex justify-start items-start;
+  }
+
   .f-center {
     @apply flex justify-center items-center;
   }

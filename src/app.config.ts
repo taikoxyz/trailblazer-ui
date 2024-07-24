@@ -10,3 +10,7 @@ export const apiConfig = {
 export const claimPreflightConfig = {
   maxGasUsed: 240_000n,
 };
+
+export const leaderboardConfig = {
+  pageSize: 10,
+};
