@@ -1,5 +1,6 @@
 <script lang="ts">
-  import { DomainBanner, DefiBanner } from '$components/Banner';
+  import DomainBanner from '$components/Banner/Trailbanner/DomainBanner.svelte';
+  import NFTBanner from '$components/Banner/Trailbanner/NFTBanner.svelte';
   import DefiPartners from '$components/Partner/DefiPartners/DefiPartners.svelte';
   import { ENSPartners } from '$components/Partner/ENSPartners';
   import { GamingPartners } from '$components/Partner/GamingPartners';
@@ -16,7 +17,7 @@
   <TrailblazerMain />
   <TrailblazerGuide />
   <DomainBanner />
-  <DefiBanner />
+  <NFTBanner />
   <ENSPartners />
   <Factions />
   <DividerElement />

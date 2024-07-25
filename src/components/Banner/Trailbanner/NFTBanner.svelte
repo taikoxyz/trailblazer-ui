@@ -5,23 +5,23 @@
 </script>
 
 <AbstractBanner
-  trailNumber="5"
-  title={$t('trailbanner.defi.title')}
-  description={$t('trailbanner.defi.description')}
-  href="https://taiko.mirror.xyz/"
+  trailNumber="6"
+  title={$t('trailbanner.nft.title')}
+  description={$t('trailbanner.nft.description')}
+  href="https://taiko.mirror.xyz/D7Z7y46WRHBoT2wb-dujgEtCz4YWCXvKXT8Gize_PeM"
   buttonText={$t('common.learn_more')}
   style="double"
   images={{
     content: {
-      xl: 'trailbanner/defi/xl/defi-banner-icons-xl.png', //TODO
-      lg: 'trailbanner/defi/lg/defi-banner-icons-lg.png', //TODO
-      md: 'trailbanner/defi/md/defi-banner-icons-md.png', //TODO
-      sm: 'trailbanner/defi/sm/defi-banner-icons-sm.png', //TODO
+      xl: 'trailbanner/nft/xl/icons.png',
+      lg: 'trailbanner/nft/xl/icons.png',
+      md: 'trailbanner/nft/xl/icons.png',
+      sm: 'trailbanner/nft/xl/icons.png',
     },
     background: {
-      xl: 'trailbanner/defi/xl/defi-banner-bg-xl.svg', //TODO
-      lg: 'trailbanner/defi/lg/defi-banner-bg-lg.svg', //TODO
-      md: 'trailbanner/defi/md/defi-banner-bg-lg.svg', //TODO
-      sm: 'trailbanner/defi/sm/defi-banner-bg-sm.svg', //TODO
+      xl: 'trailbanner/nft/xl/bg.svg',
+      lg: 'trailbanner/nft/xl/bg.svg',
+      md: 'trailbanner/nft/xl/bg.svg',
+      sm: 'trailbanner/nft/xl/bg.svg',
     },
   }} />
