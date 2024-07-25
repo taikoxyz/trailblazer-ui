@@ -64,7 +64,7 @@
 </script>
 
 <div class={wrapperClasses}>
-  <div class={classNames(itemClasses, 'md:mr-6', 'md:max-w-[30%]')}>
+  <div class={classNames(itemClasses, 'md:mr-6', 'md:max-w-[30%]', 'mb-[50px]', 'md:mb-0')}>
     <div class={titleClasses}>
       Rewards<br />
       & Utility

@@ -53,7 +53,8 @@
   );
 
   const contentWrapperClasses = classNames(
-    'text-[18px]/[24px]',
+    'lg:text-[18px]/[24px]',
+    'text-[16px]/[22px]',
     'text-secondary-content',
     'font-[400]',
     'flex',

@@ -122,7 +122,7 @@
 
   <div class={classNames(rowClasses, 'lg:flex-row', 'flex-col-reverse')}>
     <div class={panelClasses}>
-      <div class={titleClasses}>
+      <div class={classNames(titleClasses, 'w-1/2', 'md:w-full')}>
         Level up and <span class={pinkSpanClasses}>compete</span>
       </div>
 

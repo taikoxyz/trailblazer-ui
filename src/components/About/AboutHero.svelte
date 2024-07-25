@@ -56,7 +56,7 @@
       </h2>
 
       <div class={buttonWrapperClasses}>
-        <ActionButton priority="primary">Start your trail</ActionButton>
+        <ActionButton href="/profile" priority="primary">Start your trail</ActionButton>
       </div>
     </div>
   </div>

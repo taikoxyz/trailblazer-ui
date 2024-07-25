@@ -31,16 +31,16 @@
   );
 
   const arrowClasses = classNames(
-    'md:w-[calc(50%*6/8)]',
+    'lg:w-[calc(50%*6/8)]',
     'ml-6',
     'flex',
     'flex-row',
-    'md:justify-start',
-    'md:items-start',
+    'lg:justify-start',
+    'lg:items-start',
     'justify-center',
     'items-center',
     'relative',
-    'md:left-[50%]',
+    'lg:left-[50%]',
   );
 </script>
 
