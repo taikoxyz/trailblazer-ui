@@ -81,7 +81,6 @@
     'overflow-hidden',
     'flex',
     'w-full',
-
     'min-h-[306px]',
     'max-w-[306px]',
     'rounded-[30px]',
@@ -161,6 +160,8 @@
     'https://taiko.mirror.xyz/D7Z7y46WRHBoT2wb-dujgEtCz4YWCXvKXT8Gize_PeM',
     // week 5 - Monks
     'https://taiko.mirror.xyz/7L-lnL1ab24Q9XmCgpQtVOmfxoNCTb_RGEbS7w4E3io',
+    // week 6 - Androids
+    'https://taiko.mirror.xyz/n9G_VMf2ShNhx-6eHbLTTE5BwRP1JKHkCDxZQTk0nrY',
   ];
 
   $: requirementsUrl = requirementsUrls[FACTIONS[name]] || '';
