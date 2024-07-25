@@ -21,15 +21,15 @@ import type {
   DappLeaderboardPage,
   DappLeaderboardPageApiResponse,
   DefiDappLeaderboardRow,
-  LeaderboardRow,
   PaginationInfo,
   ProtocolApiResponse,
-  TvlLeaderboardResponse,
+  UnifiedLeaderboardResponse,
+  UnifiedLeaderboardRow,
   UserLeaderboardPage,
   UserLeaderboardPageApiResponse,
 } from './types';
 
-const baseApiUrl = isDevelopmentEnv ? '/mock-api' : PUBLIC_TRAILBLAZER_API_URL;
+const baseApiUrl = isDevelopmentEnv ? '/api/mock-api' : PUBLIC_TRAILBLAZER_API_URL;
 
 const log = getLogger('Leaderboard');
 
@@ -56,14 +56,13 @@ export class Leaderboard {
       log('response', response);
       const leaderboardPageApiResponse: DappLeaderboardPageApiResponse = response.data;
 
-      const leaderboardPage: DappLeaderboardPage = { items: [] };
+      const leaderboardPage: DappLeaderboardPage = { items: [], lastUpdated: 0 };
 
       const detailMapping: DetailsMapping = dappDetailsMapping;
 
       const items = await Promise.all(
         leaderboardPageApiResponse.items.map(async (item) => {
-          let entry: LeaderboardRow;
-
+          let entry: UnifiedLeaderboardRow;
           if (isAddress(item.slug)) {
             entry = {
               address: item.address,
@@ -96,6 +95,7 @@ export class Leaderboard {
       leaderboardPage.items = items;
 
       setDappLeaderboard(leaderboardPage);
+      setDefiDappLeaderboardLastUpdated(response.data.lastUpdated);
 
       log('Leaderboard page: ', leaderboardPage);
       const { page, size, total, total_pages, max_page } = leaderboardPageApiResponse;
@@ -114,8 +114,8 @@ export class Leaderboard {
         title: 'Error fetching leaderboard',
         message: `${error}`,
       });
+      return args;
     }
-    return args;
   }
 
   static async getUserLeaderboard() {
@@ -143,7 +143,7 @@ export class Leaderboard {
 
   static async getDefiDappLeaderboard() {
     try {
-      const response = await axios.get<TvlLeaderboardResponse>(`${baseApiUrl}/leaderboard/tvl`, globalAxiosConfig);
+      const response = await axios.get<UnifiedLeaderboardResponse>(`${baseApiUrl}/leaderboard/tvl`, globalAxiosConfig);
 
       const result: DefiDappLeaderboardRow[] = response.data.protocols as DefiDappLeaderboardRow[];
       const protocols = this.appendDefiDappAdditionalData(result);

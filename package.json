@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "NODE_ENV=production vite dev",
-    "dev:a3": "vite dev --mode a3",
+    "dev": "vite dev",
+    "dev:prod": "vite dev --mode production",
     "build": "vite build",
     "preview": "vite preview",
     "test:pw": "playwright test",

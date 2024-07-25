@@ -10,6 +10,7 @@ export type DappLeaderboardPageApiResponse = {
   last: number;
   first: number;
   visible: number;
+  lastUpdated: number;
 };
 
 export type UserLeaderboardPageApiResponse = {
@@ -25,7 +26,8 @@ export type UserLeaderboardPageApiResponse = {
 };
 
 export type DappLeaderboardPage = {
-  items: LeaderboardRow[];
+  items: DappLeaderboardRow[];
+  lastUpdated: number;
 };
 
 export type UserLeaderboardPage = {
@@ -43,7 +45,7 @@ export type UserLeaderboardItem = {
   score: number;
 };
 
-export type LeaderboardRow = {
+export type DappLeaderboardRow = {
   address: string;
   icon?: string;
   handle?: string;
@@ -149,4 +151,12 @@ export type BridgeTokenScore = {
 export type TvlLeaderboardResponse = {
   lastUpdated: number;
   protocols: DefiDappLeaderboardRow[];
+};
+
+export type UnifiedLeaderboardRow = {
+  address: string;
+  icon?: string;
+  handle?: string;
+  data: ProtocolData[];
+  totalScore: number;
 };
