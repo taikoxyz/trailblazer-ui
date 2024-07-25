@@ -131,6 +131,10 @@
     "domain": {
       "description": "Earn your Monk Faction badge by minting a domain on any partner protocol!",
       "title": "Mint a domain name"
+    },
+    "nft": {
+      "description": "TODO.",
+      "title": "TODO."
     }
   },
   "trailblazer_guide": {
