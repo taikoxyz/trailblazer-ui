@@ -27,16 +27,17 @@
     'btn size-[56px] px-[20px] py-[8px] rounded-full flex-1 items-center body-medium',
     $$restProps.disabled ? 'cursor-not-allowed' : 'cursor-pointer',
     withArrow ? 'min-w-[180px]' : 'w-full',
+    'h-full',
     disabledColor,
     $$props.class,
   );
 
-  $: primaryClasses = classNames('btn-primary text-white border-none');
+  $: primaryClasses = classNames('btn-primary', 'text-white', 'border-none', 'hover:bg-secondary');
 
   $: secondaryClasses = classNames(
     $$restProps.disabled
       ? 'border-none'
-      : 'border-primary-brand text-white  hover:bg-primary-interactive-hover btn-secondary bg-transparent ',
+      : 'border-primary-brand text-white hover:bg-secondary btn-secondary bg-transparent ',
   );
 
   $: priorityToClassMap = {
