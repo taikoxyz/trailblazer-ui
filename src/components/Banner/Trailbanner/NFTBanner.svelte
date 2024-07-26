@@ -2,9 +2,10 @@
   import { t } from 'svelte-i18n';
 
   import AbstractBanner from './AbstractBanner.template.svelte';
+  import AbstractBannerDouble from './AbstractBannerDouble.template.svelte';
 </script>
 
-<AbstractBanner
+<AbstractBannerDouble
   trailNumber="6"
   title={$t('trailbanner.nft.title')}
   description={$t('trailbanner.nft.description')}
@@ -13,15 +14,15 @@
   style="double"
   images={{
     content: {
-      xl: 'trailbanner/nft/xl/icons.png',
-      lg: 'trailbanner/nft/xl/icons.png',
-      md: 'trailbanner/nft/xl/icons.png',
-      sm: 'trailbanner/nft/xl/icons.png',
+      xl: '/trailbanner/nft/xl/icons.png',
+      lg: '/trailbanner/nft/lg/icons.png',
+      md: '/trailbanner/nft/md/icons.png',
+      sm: '/trailbanner/nft/sm/icons.png',
     },
     background: {
-      xl: 'trailbanner/nft/xl/bg.svg',
-      lg: 'trailbanner/nft/xl/bg.svg',
-      md: 'trailbanner/nft/xl/bg.svg',
-      sm: 'trailbanner/nft/xl/bg.svg',
+      xl: '/trailbanner/nft/xl/bg.svg',
+      lg: '/trailbanner/nft/lg/bg.svg',
+      md: '/trailbanner/nft/md/bg.svg',
+      sm: '/trailbanner/nft/sm/bg.svg',
     },
   }} />
