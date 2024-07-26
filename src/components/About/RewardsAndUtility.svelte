@@ -39,7 +39,7 @@
   const textClasses = classNames(
     'text-secondary-content',
     'text-[16px]/[24px]',
-    'md:text-[18px]/[24px]',
+    'lg:text-[18px]/[24px]',
     'md:text-left',
     'text-center',
   );
