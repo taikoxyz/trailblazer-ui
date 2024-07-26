@@ -1,6 +1,6 @@
 <script lang="ts">
-  import ResponsiveController from '$components/ResponsiveController/ResponsiveController.svelte';
   import { classNames } from '$libs/util/classNames';
+  import { isMobile, isTablet } from '$libs/util/responsiveCheck';
 
   const wrapperClasses = classNames(
     'flex',
@@ -53,14 +53,15 @@
     'flex-row',
   );
 
-  const windowSizesToFrames = {
+  const windowSizesToFrames: Record<string, number> = {
     sm: 1,
     md: 3,
     lg: 4,
   };
+
   $: frameCount = windowSizesToFrames[windowSize];
 
-  let windowSize: 'sm' | 'md' | 'lg';
+  $: windowSize = $isMobile ? 'sm' : $isTablet ? 'md' : 'lg';
 </script>
 
 <div class={wrapperClasses}>
@@ -83,5 +84,3 @@
     {/each}
   </div>
 </div>
-
-<ResponsiveController bind:windowSize />
