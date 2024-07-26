@@ -45,6 +45,36 @@
       "description": "A groundbreaking cast of characters emerges to enrich our community and deepen the immersive experience. Meet eight distinct factions, each with its own unique character and flair."
     }
   },
+  "bridge": {
+    "ended": {
+      "description": "Our journey concluded on June 12th, 2024. Thanks to everyone who participated and earned their Robot Faction Badge by bridging to the Taiko mainnet.",
+      "title": "Campaign ended"
+    }
+  },
+  "leaderboard": {
+    "defi": {
+      "banner": {
+        "description": "Compete for a month-long jackpot by increasing your TVL on DeFiLlama. Rewards will be based on performance throughout the competition, ending August 9th.",
+        "title": "Join the DeFi competition starting July 15th!"
+      },
+      "prize": {
+        "1": "Prize Pool",
+        "2": "175K TAIKO Tokens"
+      },
+      "prize_breakdown": {
+        "first": {
+          "amount": "100K"
+        },
+        "second": {
+          "amount": "50K"
+        },
+        "third": {
+          "amount": "25K"
+        }
+      },
+      "tokenName": "TAIKO Tokens"
+    }
+  },
   "legal": {
     "confirm": "Confirm",
     "link": "terms and conditions",
@@ -191,29 +221,5 @@
       "question": "Where can I buy NFTs which give multipliers?",
       "answer": "Taikoons - https://www.okx.com/web3/marketplace/nft/collection/taiko/taikoon\n\nFaction Badges - https://www.okx.com/ua/web3/marketplace/nft/collection/taiko/trailblazers-badges\n\nSnaefell are SBTs, meaning you can neither buy nor sell them."
     }
-  ],
-  "leaderboard": {
-    "defi": {
-      "banner": {
-        "title": "Join the DeFi competition starting July 15th!",
-        "description": "Compete for a month-long jackpot by increasing your TVL on DeFiLlama. Rewards will be based on performance throughout the competition, ending August 9th."
-      },
-      "prize": {
-        "1": "Prize Pool",
-        "2": "175K TAIKO Tokens"
-      },
-      "prize_breakdown": {
-        "first": {
-          "amount": "100K"
-        },
-        "second": {
-          "amount": "50K"
-        },
-        "third": {
-          "amount": "25K"
-        }
-      },
-      "tokenName": "TAIKO Tokens"
-    }
-  }
+  ]
 }
