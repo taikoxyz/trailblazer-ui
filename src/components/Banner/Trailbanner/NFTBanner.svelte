@@ -18,9 +18,9 @@
       sm: '/trailbanner/nft/sm/icons.png',
     },
     background: {
-      xl: '/trailbanner/nft/xl/bg.svg',
-      lg: '/trailbanner/nft/lg/bg.svg',
-      md: '/trailbanner/nft/md/bg.svg',
-      sm: '/trailbanner/nft/sm/bg.svg',
+      xl: '/trailbanner/common/xl/bg.svg',
+      lg: '/trailbanner/common/lg/bg.svg',
+      md: '/trailbanner/common/md/bg.svg',
+      sm: '/trailbanner/common/sm/bg.svg',
     },
   }} />
