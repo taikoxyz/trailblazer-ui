@@ -1,7 +1,6 @@
 export * from './addresses';
 export * from './blocks';
 export * from './chains';
-export * from './faq';
 export * from './leaderboard';
 export * from './profile';
 export * from './proofs';

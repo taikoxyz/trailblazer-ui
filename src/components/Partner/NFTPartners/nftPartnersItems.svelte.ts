@@ -1,7 +1,7 @@
-import type { CarouselItemType } from '$components/Carousel/types';
-
-import { t } from 'svelte-i18n';
 import { get } from 'svelte/store';
+import { t } from 'svelte-i18n';
+
+import type { CarouselItemType } from '$components/Carousel/types';
 
 export const nftPartnersItems: CarouselItemType[] = [
   {
