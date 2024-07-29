@@ -1,7 +1,6 @@
 <script lang="ts">
   import { t } from 'svelte-i18n';
 
-  import AbstractBanner from './AbstractBanner.template.svelte';
   import AbstractBannerDouble from './AbstractBannerDouble.template.svelte';
 </script>
 
@@ -11,7 +10,6 @@
   description={$t('trailbanner.nft.description')}
   href="https://taiko.mirror.xyz/D7Z7y46WRHBoT2wb-dujgEtCz4YWCXvKXT8Gize_PeM"
   buttonText={$t('common.learn_more')}
-  style="double"
   images={{
     content: {
       xl: '/trailbanner/nft/xl/icons.png',

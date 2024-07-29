@@ -1,16 +1,14 @@
 <script lang="ts">
+  import { onMount } from 'svelte';
   import { t } from 'svelte-i18n';
 
   import ActionButton from '$components/Button/ActionButton.svelte';
-  import { onMount } from 'svelte';
 
   export let trailNumber: string;
   export let title: string;
   export let description: string;
   export let href: string;
   export let buttonText: string;
-
-  export let style: 'single' | 'double' = 'double';
 
   export let images: {
     content: {
