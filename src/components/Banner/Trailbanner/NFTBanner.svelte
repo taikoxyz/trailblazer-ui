@@ -8,7 +8,7 @@
   trailNumber="6"
   title={$t('trailbanner.nft.title')}
   description={$t('trailbanner.nft.description')}
-  href="https://taiko.mirror.xyz/D7Z7y46WRHBoT2wb-dujgEtCz4YWCXvKXT8Gize_PeM"
+  href="https://taiko.mirror.xyz/BRPO4OzcnPanyhyfa80yzvpidt8etBS2QwNdP0TVk8o"
   buttonText={$t('common.learn_more')}
   images={{
     content: {
