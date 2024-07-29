@@ -1,15 +1,25 @@
 <script lang="ts">
-  import { FAQDropdown } from '$components/Dropdown';
+  import { json } from 'svelte-i18n';
 
-  import { MOCK_FAQS } from '../../tests/mocks/faq';
+  import { FAQDropdown } from '$components/Dropdown';
+  import { classNames } from '$libs/util/classNames';
+
+  interface IFaqOption {
+    question: string;
+    answer: string;
+  }
+
+  $: faqOptions = $json('faq') as IFaqOption[];
+
+  const wrapperClasses = classNames('w-full', 'px-5', 'xl:p-0');
+  const titleClasses = classNames('pb-[30px]', 'display-large-medium');
+  const faqWrapperClasses = classNames('flex', 'flex-col', 'w-full', 'gap-4');
 </script>
 
-<div class="w-full px-5 xl:p-0">
-  <div class="pb-[30px]">
-    <div class="display-large-medium">FAQs</div>
-  </div>
-  <div class="flex flex-col w-full gap-4">
-    {#each MOCK_FAQS as { question, answer }}
+<div class={wrapperClasses}>
+  <div class={titleClasses}>FAQs</div>
+  <div class={faqWrapperClasses}>
+    {#each faqOptions as { question, answer }}
       <FAQDropdown {question} {answer}></FAQDropdown>
     {/each}
   </div>

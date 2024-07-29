@@ -15,6 +15,12 @@
     "notEnoughGas": "Not enough gas to claim the badge. Please fund your wallet and try again.",
     "pendingTx": "Your transaction is pending. Please wait for confirmation."
   },
+  "bridge": {
+    "ended": {
+      "description": "Our journey concluded on July 12th, 2024. Thanks to everyone who participated and earned their Robot Faction Badge by bridging to the Taiko mainnet.",
+      "title": "Campaign ended"
+    }
+  },
   "buttons": {
     "connect_wallet": "Connect",
     "explore_more": "Explore more",
@@ -46,13 +52,69 @@
       "description": "A groundbreaking cast of characters emerges to enrich our community and deepen the immersive experience. Meet eight distinct factions, each with its own unique character and flair."
     }
   },
-  "leaderboard": {
-    "bridge": {
-      "ended": {
-        "description": "Our journey concluded on June 12th, 2024. Thanks to everyone who participated and earned their Robot Faction Badge by bridging to the Taiko mainnet.",
-        "title": "Campaign ended"
-      }
+  "faq": [
+    {
+      "answer": "Each season lasts about 12 weeks.",
+      "question": "How long does a season last?"
     },
+    {
+      "answer": "The daily cap resets at 00:00 UTC every day.",
+      "question": "When does the daily cap reset?"
+    },
+    {
+      "answer": "Whitelisting criteria are based on specific activities or qualifications. Ensure you have met all the requirements and participated in the necessary events.",
+      "question": "Why am I not whitelisted to mint a badge?"
+    },
+    {
+      "answer": "Each faction badge gives a 1.1x booster multiplier. Snaefel NFT holders get a 1.1x points boost, and Taikoons holders get a 2x points boost. If you sell your Faction badge(s) before the end of the season, you will lose the accumulated multiplied Experience Points by the number of Faction badges sold or moved from your wallet. For example, if you’ve collected 8 badges, you have a 2.14x multiplier, but if you sell one, you will have a 1.95x XP multiplier. These multipliers will last for the entire Trailblazer program duration.",
+      "question": "How do the Faction badge multipliers work?"
+    },
+    {
+      "answer": "Points can be earned through interactions with designated decentralized applications (Dapps). The list of eligible Dapps will be provided in the campaign guidelines.",
+      "question": "What Dapps will I get points for?"
+    },
+    {
+      "answer": "The daily reset is calculated based on a fixed reset time at 00:00 UTC each day, not from the time you hit the cap.",
+      "question": "How is the daily reset calculated? Is it 24 hours from hitting the cap?"
+    },
+    {
+      "answer": "Yes, L2 bridging activities are included in the point calculation. Ensure you follow the specific instructions provided.",
+      "question": "Do we count L2 bridging, such as from Linea to Taiko, for points?"
+    },
+    {
+      "answer": "Transaction Value points can be earned for transactions involving USDC, WETH, TAIKO, and USDT.",
+      "question": "What tokens do I get Transaction Value points for?"
+    },
+    {
+      "answer": "There could be a delay in syncing points from Galaxe to Trailblazers. Ensure you have linked your accounts correctly and wait for the synchronization process to complete.",
+      "question": "Why are my Galaxe points not showing on Trailblazers?"
+    },
+    {
+      "answer": "To enhance your experience and add excitement, we have chosen not to disclose the daily XP limits for each activity. We encourage you to participate in the activities and discover the XP limits on your own.",
+      "question": "What are the point limits?"
+    },
+    {
+      "answer": "See Mirror article (https://taiko.mirror.xyz/589CthdX0Qw-hRBeZarEQpjck-v4lJ-gtKz3SZvovt8), we will consider the following activities to help you collect XPs:\n\n- Bridging (ETH)\n- Bridging (ERC20)\n- Transaction Volume\n- Transaction Count (any kind of transaction counts)\n- Block Proposals.\n\nThis means that providing liquidity will not give you any XPs.",
+      "question": "If I provide liquidity, how will my points be calculated? (daily, just once?)"
+    },
+    {
+      "answer": "Our leaderboard is based on percentiles which change based on participants.",
+      "question": "What are level quotas?"
+    },
+    {
+      "answer": "Give it a shot—it only costs a few cents to check and see for yourself! :)",
+      "question": "Does WETH/ETH unwrap give points?"
+    },
+    {
+      "answer": "No, multipliers are not active yet, but they will be implemented in the future, and your points will be multiplied according to the NFTs you hold.",
+      "question": "Are the multipliers active?"
+    },
+    {
+      "answer": "Taikoons - https://www.okx.com/web3/marketplace/nft/collection/taiko/taikoon\n\nFaction Badges - https://www.okx.com/ua/web3/marketplace/nft/collection/taiko/trailblazers-badges\n\nSnaefell are SBTs, meaning you can neither buy nor sell them.",
+      "question": "Where can I buy NFTs which give multipliers?"
+    }
+  ],
+  "leaderboard": {
     "defi": {
       "banner": {
         "description": "Compete for a month-long jackpot by increasing your TVL on DeFiLlama. Rewards will be based on performance throughout the competition, ending August 9th.",
@@ -74,6 +136,9 @@
         }
       },
       "tokenName": "TAIKO Tokens"
+    },
+    "whitelist": {
+      "cta": "Is your dapp not yet listed? Get it whitelisted <a href=\"https://github.com/taikoxyz/trailblazer-adapters\" target=\"_blank\" class=\"font-bold link text-lg\">now</a> !"
     }
   },
   "legal": {
@@ -161,7 +226,7 @@
       "title": "Create a position with any of the Defi protocols"
     },
     "domain": {
-      "description": "Earn your Drummer Faction badge by minting a domain on any partner protocol!",
+      "description": "Earn your Monk Faction badge by minting a domain on any partner protocol!",
       "title": "Mint a domain name"
     }
   },

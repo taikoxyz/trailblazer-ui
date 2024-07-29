@@ -1,20 +1,59 @@
 <script lang="ts">
   import { FactionsGallery } from '$components/FactionsGallery';
   import { FAQ } from '$components/FAQ';
+  import { TrailblazerGuide } from '$components/Startpage/Guide';
+  import { classNames } from '$libs/util/classNames';
 
   import AboutFactionsInfo from './AboutFactionsInfo.svelte';
-  import AboutGallery from './AboutGallery.svelte';
+  import AboutHero from './AboutHero.svelte';
+  import AboutInfoPanels from './AboutInfoPanels.svelte';
+  import RewardsAndUtility from './RewardsAndUtility.svelte';
+
+  const wrapperClasses = classNames(
+    'lg:px-[75px]',
+    'md:px-[65px]',
+    'px-[20px]',
+    'w-full',
+    'flex',
+    'flex-col',
+    'md:gap-24',
+    'gap-[80px]',
+  );
+  const imageClasses = classNames(
+    'rounded-[30px]',
+    'md:w-full',
+    'relative',
+    'md:hover:scale-105',
+    'transition-transform',
+    'object-cover',
+    'w-full',
+    'h-[350px]',
+  );
+
+  const arrowClasses = classNames(
+    'lg:w-[calc(50%*6/8)]',
+    'ml-6',
+    'flex',
+    'flex-row',
+    'lg:justify-start',
+    'lg:items-start',
+    'justify-center',
+    'items-center',
+    'relative',
+    'lg:left-[50%]',
+  );
 </script>
 
-<div class="f-cl w-full container">
-  <!-- About Gallery -->
-  <AboutGallery />
-  <!-- Factions Gallery -->
-  <FactionsGallery />
-  <!-- About Factions -->
+<div class={wrapperClasses}>
+  <AboutHero />
+  <div class={classNames('w-full')}>
+    <img class={imageClasses} src="/about-illustration.png" alt="gallery" />
+    <TrailblazerGuide />
+  </div>
+
+  <AboutInfoPanels />
+  <FactionsGallery {arrowClasses} />
   <AboutFactionsInfo />
-  <!-- Video -->
-  <!-- <ResponsiveVideo /> -->
-  <!-- FAQ -->
+  <RewardsAndUtility />
   <FAQ />
 </div>
