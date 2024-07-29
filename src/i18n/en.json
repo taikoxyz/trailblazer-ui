@@ -228,6 +228,10 @@
     "domain": {
       "description": "Earn your Monk Faction badge by minting a domain on any partner protocol!",
       "title": "Mint a domain name"
+    },
+    "nft": {
+      "description": "Use any wallet on Taiko to buy and trade NFTs, showcasing your skills in the digital collectibles market.",
+      "title": "Buy & trade NFTs with any wallet on Taiko"
     }
   },
   "trailblazer_guide": {
