@@ -1,16 +1,15 @@
 <script lang="ts">
   import { t } from 'svelte-i18n';
 
-  import AbstractBanner from './AbstractBanner.template.svelte';
+  import AbstractBannerSingle from './AbstractBannerSingle.template.svelte';
 </script>
 
-<AbstractBanner
+<AbstractBannerSingle
   trailNumber="4"
   title={$t('trailbanner.defi.title')}
   description={$t('trailbanner.defi.description')}
   href="https://taiko.mirror.xyz/D7Z7y46WRHBoT2wb-dujgEtCz4YWCXvKXT8Gize_PeM"
   buttonText={$t('common.learn_more')}
-  style="double"
   images={{
     content: {
       xl: 'trailbanner/defi/xl/defi-banner-icons-xl.png',

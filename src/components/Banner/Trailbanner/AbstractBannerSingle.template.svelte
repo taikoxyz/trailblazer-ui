@@ -9,8 +9,6 @@
   export let href: string;
   export let buttonText: string;
 
-  export let style: 'single' | 'double' = 'single';
-
   export let images: {
     content: {
       xl: string;

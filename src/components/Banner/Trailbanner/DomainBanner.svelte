@@ -1,10 +1,10 @@
 <script lang="ts">
   import { t } from 'svelte-i18n';
 
-  import AbstractBanner from './AbstractBanner.template.svelte';
+  import AbstractBannerSingle from './AbstractBannerSingle.template.svelte';
 </script>
 
-<AbstractBanner
+<AbstractBannerSingle
   trailNumber="5"
   title={$t('trailbanner.domain.title')}
   description={$t('trailbanner.domain.description')}
