@@ -1,7 +1,7 @@
 import type { DappLeaderboardPageApiResponse } from '$libs/leaderboard';
 
 export const MOCK_DAPP_LEADERBOARD: DappLeaderboardPageApiResponse = {
-  lastUpdated: 1707076708,
+  lastUpdated: 1709294400,
   items: [
     {
       address: '0x1234567890abcdef1234567890abcdef12345678',

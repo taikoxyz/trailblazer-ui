@@ -22,7 +22,7 @@
         {#if tag}
           <div
             class="absolute top-[16px] left-[22px] bg-white px-[10px] py-[4px] rounded-full text-primary-base-content w-auto h-auto">
-            {$t(tag)}
+            {tag}
           </div>
         {/if}
       </div>
@@ -31,7 +31,7 @@
     <div class="flex flex-col h-full">
       <div class="font-clash-grotesk text-[28px]/[32px] font-medium tracking-[-0.28px] pb-[5px]">
         <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-        {@html $t(title)}
+        {@html title}
       </div>
       <div class="text-secondary-content body-regular pb-[20px]">{$t(description)}</div>
     </div>
@@ -41,7 +41,7 @@
           href={link}
           class="max-w-[109px] border-2 body-bold text-nowrap py-[2px] h-fit"
           priority="secondary">
-          {$t(cta)}
+          {cta}
         </ActionButton>
       </a>
     </div>
