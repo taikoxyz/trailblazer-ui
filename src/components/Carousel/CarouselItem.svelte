@@ -30,6 +30,7 @@
     <!-- title and description -->
     <div class="flex flex-col h-full">
       <div class="font-clash-grotesk text-[28px]/[32px] font-medium tracking-[-0.28px] pb-[5px]">
+        <!-- eslint-disable-next-line svelte/no-at-html-tags -->
         {@html $t(title)}
       </div>
       <div class="text-secondary-content body-regular pb-[20px]">{$t(description)}</div>
