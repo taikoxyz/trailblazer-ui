@@ -17,12 +17,12 @@
   <TrailblazerMain />
   <TrailblazerGuide />
   <DomainBanner />
-  <ENSPartners />
+  <NFTPartners />
   <Factions />
   <DividerElement />
   <DefiPartners />
   <GamingPartners />
-  <NFTPartners />
+  <ENSPartners />
   <RankUp />
   <ExploreEcosystem />
 </div>
