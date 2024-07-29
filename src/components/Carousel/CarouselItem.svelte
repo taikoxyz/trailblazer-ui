@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { t } from 'svelte-i18n';
+
   import { ActionButton } from '$components/Button';
 
   import type { CarouselItemType } from './types';
@@ -6,7 +8,6 @@
   export let carouselItem: CarouselItemType;
   const { title, image, description, link, tag, cta } = carouselItem;
 
-  export let defaultCtaText = cta ? cta : 'Learn More';
   export let width = '350px';
 </script>
 
@@ -29,17 +30,19 @@
     <!-- title and description -->
     <div class="flex flex-col h-full">
       <div class="font-clash-grotesk text-[28px]/[32px] font-medium tracking-[-0.28px] pb-[5px]">
-        <!-- eslint-disable  svelte/no-at-html-tags-->
+        <!-- eslint-disable-next-line svelte/no-at-html-tags -->
         {@html title}
       </div>
-      <div class="text-secondary-content body-regular pb-[20px]">{description}</div>
+      <div class="text-secondary-content body-regular pb-[20px]">{$t(description)}</div>
     </div>
     <div class="flex justify-start">
       <a class="w-fit" href={link} target="_blank">
         <ActionButton
           href={link}
           class="max-w-[109px] border-2 body-bold text-nowrap py-[2px] h-fit"
-          priority="secondary">{defaultCtaText}</ActionButton>
+          priority="secondary">
+          {cta}
+        </ActionButton>
       </a>
     </div>
   </div>

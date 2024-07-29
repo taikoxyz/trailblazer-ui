@@ -1,8 +1,8 @@
 <script lang="ts">
   import { Icon } from '$components/Icon';
   import CountUp from '$components/Numbers/CountUp.svelte';
-  import { Domain } from '$libs/domain';
-  import { DomainType, type UserProfile } from '$libs/profile';
+  import { Domain, DomainType } from '$libs/domain';
+  import { type UserProfile } from '$libs/profile';
   import { shortenAddress } from '$libs/util/shortenAddress';
   import { currentProfile } from '$stores/profile';
 
