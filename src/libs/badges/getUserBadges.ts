@@ -24,7 +24,7 @@ export async function getUserBadges(address: Address): Promise<Record<FactionNam
   const result = await readContract(wagmiConfig, {
     abi: trailblazersBadgesAbi,
     address: contractAddress,
-    functionName: 'badgeBalances',
+    functionName: 'badgeBalancesV2',
     args: [address],
     chainId,
   });

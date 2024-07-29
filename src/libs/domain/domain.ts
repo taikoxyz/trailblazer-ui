@@ -2,7 +2,7 @@ import { getAccount } from '@wagmi/core';
 import axios from 'axios';
 
 import { PUBLIC_TRAILBLAZER_API_URL } from '$env/static/public';
-import { DomainType } from '$libs/profile';
+import { DomainType } from '$libs/domain';
 import { isDevelopmentEnv } from '$libs/util/isDevelopmentEnv';
 import { wagmiConfig } from '$libs/wagmi';
 import { domainLoading } from '$stores/load';

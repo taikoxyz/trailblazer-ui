@@ -148,6 +148,11 @@ export type BridgeTokenScore = {
   score: number;
 };
 
+export type TvlLeaderboardResponse = {
+  lastUpdated: number;
+  protocols: DefiDappLeaderboardRow[];
+};
+
 export type UnifiedLeaderboardRow = {
   address: string;
   icon?: string;

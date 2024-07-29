@@ -1,4 +1,5 @@
 import type { Movements } from '$libs/badges/const';
+import type { DomainNames } from '$libs/domain/types';
 
 export type UserProfile = GalxePoints &
   DomainNames & {
@@ -25,18 +26,6 @@ export type GalxePoints = {
   galxePoints?: number;
   trailblazerPoints?: number;
   galxePointsClaimed?: boolean;
-};
-
-export enum DomainType {
-  ADDRESS = 'ADDRESS',
-  DOTTAIKO = 'DOTTAIKO',
-  ZNS = 'ZNS',
-}
-
-export type DomainNames = {
-  selected?: DomainType;
-  dotTaiko?: string;
-  zns?: string;
 };
 
 export type UserBooster = {
