@@ -2,6 +2,7 @@
   import { t } from 'svelte-i18n';
 
   import ActionButton from '$components/Button/ActionButton.svelte';
+  import { onMount } from 'svelte';
 
   export let trailNumber: string;
   export let title: string;
@@ -25,14 +26,35 @@
       sm: string;
     };
   };
+
+  let backgroundImageUrl = images.background.sm;
+
+  function updateBackgroundImage() {
+    if (window.innerWidth >= 1440) {
+      backgroundImageUrl = images.background.xl;
+    } else if (window.innerWidth >= 1280) {
+      backgroundImageUrl = images.background.lg;
+    } else if (window.innerWidth >= 1024) {
+      backgroundImageUrl = images.background.md;
+    } else {
+      backgroundImageUrl = images.background.sm;
+    }
+  }
+
+  onMount(() => {
+    updateBackgroundImage();
+    window.addEventListener('resize', updateBackgroundImage);
+    return () => {
+      window.removeEventListener('resize', updateBackgroundImage);
+    };
+  });
 </script>
 
 <!-- Desktop -->
 <div class="container w-full h-auto px-[20px] xl:px-[57px] relative">
   <div
-    class="w-full relative rounded-[30px] bg-cover overflow-hidden bg-[url('{images.background
-      .sm}')] md:bg-[url('{images.background.md}')] lg:bg-[url('{images.background.lg}')] xl:bg-[url('{images.background
-      .xl}')]">
+    class="w-full relative rounded-3xl bg-cover overflow-hidden"
+    style="background-image: url({backgroundImageUrl});">
     <div class="flex flex-col w-full md:flex-row items-center h-full">
       <!-- Desktop -->
       <div class="min-h-[250px] w-3/12 min-w-[430px] relative justify-center items-left hidden lg:hidden xl:block">
