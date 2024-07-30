@@ -1,4 +1,4 @@
 pre-push:
   commands:
     lint:
-      run: pnpm svelte:check && lint:fix && git add {staged_files}
+      run: pnpm svelte:check && format && lint:fix && git add {staged_files}
