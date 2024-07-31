@@ -170,7 +170,7 @@
 <div class={wrapperClasses} role="button">
   <div class={contentWrapperClasses}>
     <div class={imageWrapperClasses}>
-      <FactionImage {movement} {unlocked} type={name} />
+      <FactionImage {movement} type={name} />
     </div>
     <div class={tooltipClasses}>
       <div class={classNames('absolute', 'top-0', 'left-0', 'w-full', 'h-full', 'bg-secondary', 'opacity-10')}></div>
