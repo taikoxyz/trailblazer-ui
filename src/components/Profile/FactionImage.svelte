@@ -16,8 +16,11 @@
     autoplay={unlocked}
     class="pointer-events-none rounded-[20px] absolute left-0 top-0 z-20">
     <track kind="captions" />
-    <source src="{baseUrl}.webm" type="video/webm" />
     <source src="{baseUrl}.mp4" type="video/mp4" />
+    <source src="{baseUrl}.webm" type="video/webm" />
     Your browser does not support the video tag.
   </video>
 </div>
+
+
+git push origin TB-150-FE-Badge-videos-not-consistently-displaying:qa --force
