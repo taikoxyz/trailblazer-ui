@@ -22,6 +22,3 @@
     Your browser does not support the video tag.
   </video>
 </div>
-
-
-git push origin TB-150-FE-Badge-videos-not-consistently-displaying:qa --force
