@@ -1,14 +1,49 @@
-<div class="carousel-item">
-  <div class="flex flex-col py-[20px] px-[15px] bg-grey-10 rounded-[20px] gap-[47px] pb-[46.03px]">
-    <div class="skeleton w-[295.83px] h-[174.72px] rounded-[20px]"></div>
-    <div class="flex flex-col bg-grey-10 rounded-[20px] gap-[21px]">
-      <div class="skeleton w-[186.729px] h-[38.563px] rounded-none"></div>
-      <div class="flex flex-col bg-grey-10 rounded-[20px] gap-2">
-        <div class="skeleton w-[265px] h-[14.48px] rounded-none"></div>
-        <div class="skeleton w-[265px] h-[14.48px] rounded-none"></div>
-        <div class="skeleton w-[265px] h-[14.48px] rounded-none"></div>
-        <div class="skeleton w-[136px] h-[14.48px] rounded-none"></div>
+<script lang="ts">
+  import { t } from 'svelte-i18n';
+
+  import { ActionButton } from '$components/Button';
+
+  import type { CarouselItemType } from './types';
+
+  export let carouselItem: CarouselItemType;
+  const { title, image, description, link, tag, cta } = carouselItem;
+
+  export let width = '350px';
+</script>
+
+<div
+  class="carousel-item max-h-[465px] min-h-[465px] max-w-[306px] min-w-[306px] lg:max-w-[100%] lg:min-w-[350px]"
+  style="width: {width};">
+  <div class="flex flex-col p-[35px] bg-neutral-background rounded-[33px] w-full">
+    <!-- image -->
+    <div class="avatar mb-[30px]">
+      <div class="size-[100px] rounded-[20px]">
+        <img src={image} alt={image} class="w-full h-full object-cover object-center rounded-[25px]" />
+        {#if tag}
+          <div
+            class="absolute top-[16px] left-[22px] bg-white px-[10px] py-[4px] rounded-full text-primary-base-content w-auto h-auto">
+            {tag}
+          </div>
+        {/if}
       </div>
+    </div>
+    <!-- title and description -->
+    <div class="flex flex-col h-full">
+      <div class="font-clash-grotesk text-[28px]/[32px] font-medium tracking-[-0.28px] pb-[5px]">
+        <!-- eslint-disable-next-line svelte/no-at-html-tags -->
+        {@html title}
+      </div>
+      <div class="text-secondary-content body-regular pb-[20px]">{$t(description)}</div>
+    </div>
+    <div class="flex justify-start">
+      <a class="w-fit" href={link} target="_blank">
+        <ActionButton
+          href={link}
+          class="max-w-[109px] border-2 body-bold text-nowrap py-[2px] h-fit"
+          priority="secondary">
+          {cta}
+        </ActionButton>
+      </a>
     </div>
   </div>
 </div>

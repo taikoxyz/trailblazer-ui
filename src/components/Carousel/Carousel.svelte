@@ -1,78 +1,85 @@
+<!-- Carousel.svelte -->
 <script lang="ts">
+  import { onDestroy, onMount } from 'svelte';
+
+  import { browser } from '$app/environment';
   import { Icon } from '$components/Icon';
+  import { isMobile } from '$libs/util/responsiveCheck';
 
-  import CarouselItem from './CarouselItem.svelte';
+  import { CarouselItem } from '.';
+  import type { CarouselItemType } from './types';
 
-  type CarouselItem = {
-    id: string;
-    title: string;
-    description: string;
-    image: string;
-  };
+  export let carouselItems: CarouselItemType[] = [];
 
-  let carousel: HTMLDivElement;
+  let carouselElement: HTMLDivElement;
+  let carouselWrapper: HTMLDivElement;
+  let atStart = true;
+  let atEnd = false;
+  let itemWidth = '350px';
 
   function scrollLeft() {
-    // Scrolls the carousel to the left
-    carousel.scrollBy({ left: -600, behavior: 'smooth' }); // Adjust -300 to the size of your carousel items or desired scroll amount
+    const scrollAmount = isMobile ? -200 : -600;
+    carouselElement.scrollBy({ left: scrollAmount, behavior: 'smooth' });
   }
 
   function scrollRight() {
-    // Scrolls the carousel to the right
-    carousel.scrollBy({ left: 600, behavior: 'smooth' }); // Adjust 300 similarly
+    const scrollAmount = isMobile ? 200 : 600;
+    carouselElement.scrollBy({ left: scrollAmount, behavior: 'smooth' });
   }
 
-  export let carouselItems: CarouselItem[] = [
-    {
-      id: '1',
-      title: 'Title 1',
-      description: 'Description 1',
-      image: 'https://via.placeholder.com/300',
-    },
-    {
-      id: '2',
-      title: 'Title 2',
-      description: 'Description 2',
-      image: 'https://via.placeholder.com/300',
-    },
-    {
-      id: '3',
-      title: 'Title 3',
-      description: 'Description 3',
-      image: 'https://via.placeholder.com/300',
-    },
-    {
-      id: '4',
-      title: 'Title 4',
-      description: 'Description 4',
-      image: 'https://via.placeholder.com/300',
-    },
-    {
-      id: '5',
-      title: 'Title 5',
-      description: 'Description 5',
-      image: 'https://via.placeholder.com/300',
-    },
-    {
-      id: '6',
-      title: 'Title 6',
-      description: 'Description 6',
-      image: 'https://via.placeholder.com/300',
-    },
-  ];
+  function checkScrollPosition() {
+    atStart = carouselElement?.scrollLeft === 0;
+    atEnd = carouselElement?.scrollLeft + carouselElement?.offsetWidth >= carouselElement?.scrollWidth;
+  }
+
+  function updateItemWidth() {
+    if (carouselWrapper && carouselItems.length > 0) {
+      const availableWidth = carouselWrapper.offsetWidth - 100;
+      if (carouselItems.length <= 3) {
+        const calculatedWidth = Math.floor(availableWidth / carouselItems.length);
+        itemWidth = `${Math.max(350, calculatedWidth)}px`;
+      } else {
+        itemWidth = '350px';
+      }
+    }
+  }
+
+  $: checkScrollPosition();
+
+  onMount(() => {
+    carouselElement?.addEventListener('scroll', checkScrollPosition);
+    if (browser) window.addEventListener('resize', updateItemWidth);
+    checkScrollPosition();
+    updateItemWidth();
+  });
+
+  onDestroy(() => {
+    carouselElement?.removeEventListener('scroll', checkScrollPosition);
+    if (browser) window.removeEventListener('resize', updateItemWidth);
+  });
 </script>
 
-<div class="flex w-full justify-center items-center gap-[12.25px]">
-  <button on:click={scrollLeft} class="btn btn-circle bg-elevated-background">
-    <Icon type="chevron-left" class="-translate-x-[2px]"></Icon>
-  </button>
-  <div bind:this={carousel} class="carousel w-full overflow-scroll rounded-box gap-8 max-w-[1362px]">
-    <!-- eslint-disable-next-line @typescript-eslint/no-unused-vars -->
+<div class="flex gap-4 justify-center xl:justify-end h-full bottom-0 my-[40px]">
+  <div class="flex gap-4">
+    <button
+      class={`f-center btn-circle border border-primary-brand ${atStart ? '' : 'bg-primary-brand  hover:bg-primary-interactive-hover'}`}
+      on:click={scrollLeft}
+      disabled={atStart}>
+      <Icon class="-translate-x-[2px]" type="chevron-left" />
+    </button>
+    <button
+      class={`f-center btn-circle border border-primary-brand ${atEnd ? '' : ' bg-primary-brand hover:bg-primary-interactive-hover'}`}
+      on:click={scrollRight}
+      disabled={atEnd}>
+      <Icon class="translate-x-[2px]" type="chevron-right" />
+    </button>
+  </div>
+</div>
+
+<div bind:this={carouselWrapper} class="w-full px-[20px]">
+  <div bind:this={carouselElement} class="flex carousel w-full overflow-scroll rounded-box gap-4 lg:gap-8">
     {#each carouselItems as carouselItem}
-      <CarouselItem />
+      <CarouselItem {carouselItem} width={itemWidth} />
     {/each}
   </div>
-  <button on:click={scrollRight} class="btn btn-circle bg-elevated-background flex items-center justify-center">
-    <Icon type="chevron-right" class="translate-x-[2px]"></Icon>
-  </button>
 </div>

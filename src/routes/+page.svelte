@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { Trailblazer } from '$components/Startpage';
 </script>
 

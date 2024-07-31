@@ -1,7 +1,20 @@
 import type { Address } from 'viem';
 
-export type LeaderboardPage = {
-  items: LeaderboardRow[];
+export type DappLeaderboardPageApiResponse = {
+  items: DappLeaderboardItem[];
+  page: number;
+  size: number;
+  max_page: number;
+  total_pages: number;
+  total: number;
+  last: number;
+  first: number;
+  visible: number;
+  lastUpdated: number;
+};
+
+export type UserLeaderboardPageApiResponse = {
+  items: UserLeaderboardItem[];
   page: number;
   size: number;
   max_page: number;
@@ -12,8 +25,40 @@ export type LeaderboardPage = {
   visible: number;
 };
 
-export type LeaderboardRow = {
+export type DappLeaderboardPage = {
+  items: DappLeaderboardRow[];
+  lastUpdated: number;
+};
+
+export type UserLeaderboardPage = {
+  items: UserLeaderboardItem[];
+};
+
+export type DappLeaderboardItem = {
+  address: Address;
+  score: number;
+  slug: string;
+};
+
+export type UserLeaderboardItem = {
+  address: Address;
+  score: number;
+};
+
+export type DappLeaderboardRow = {
   address: string;
+  icon?: string;
+  handle?: string;
+  data: ProtocolData[];
+  totalScore: number;
+};
+
+export type ProtocolApiResponse = {
+  protocols: ProtocolData[];
+};
+
+export type ProtocolData = {
+  address: Address;
   score: number;
 };
 
@@ -51,7 +96,67 @@ export type BridgeLeaderboardTotal = {
   visible: number;
 };
 
+export type DefiDappLeaderboardPage = {
+  protocols: DefiDappLeaderboardRow[];
+  lastUpdated: number;
+};
+
+export type DefiDappLeaderboardRow = {
+  id: string;
+  name: string;
+  address: string;
+  symbol: string;
+  url: string;
+  description: string;
+  chain: string;
+  logo: string;
+  audits: string;
+  audit_note: string | null;
+  gecko_id: string;
+  cmcId: string;
+  category: string;
+  chains: string[];
+  module: string;
+  twitter: string;
+  forkedFrom: string | null;
+  oracles: string | null;
+  listedAt: number;
+  slug: string;
+  tvl: number;
+  chainTvls: {
+    [key: string]: number;
+  };
+  taikoTvl?: number;
+  change_1h: number;
+  change_1d: number;
+  change_7d: number;
+  tokenBreakdowns: Record<string, unknown>;
+};
+
+export type PaginationInfo = {
+  first?: boolean;
+  last?: boolean;
+  max_page?: number;
+  total?: number;
+  total_pages?: number;
+  page: number;
+  size: number;
+};
+
 export type BridgeTokenScore = {
   token: Address;
   score: number;
+};
+
+export type TvlLeaderboardResponse = {
+  lastUpdated: number;
+  protocols: DefiDappLeaderboardRow[];
+};
+
+export type UnifiedLeaderboardRow = {
+  address: string;
+  icon?: string;
+  handle?: string;
+  data: ProtocolData[];
+  totalScore: number;
 };

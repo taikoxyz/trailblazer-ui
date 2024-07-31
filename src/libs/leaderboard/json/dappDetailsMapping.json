@@ -1,0 +1,114 @@
+{
+  "orbiter": {
+    "icon": "/dapps/orbiter.png",
+    "handle": "@Orbiter_Finance"
+  },
+  "owlto-finance": {
+    "icon": "/dapps/owlto.png",
+    "handle": "@Owlto_Finance"
+  },
+  "rhino-fi": {
+    "icon": "/dapps/rhinofi.png",
+    "handle": "@RhinoFi"
+  },
+  "izumi-iziswap": {
+    "handle": "@izumi_Finance",
+    "icon": "/dapps/defi/izumi_finance.png"
+  },
+  "crack-stack": {
+    "handle": "@crackandstack",
+    "icon": "/dapps/gaming/crack_stack.jpg"
+  },
+  "ritsu": {
+    "icon": "/dapps/defi/ritsu-protocol.png",
+    "handle": "@ritsuprotocol"
+  },
+  "hana-finance": {
+    "icon": "/dapps/defi/hana_finance.png",
+    "handle": "@Hana_Finance"
+  },
+  "ruby-score": {
+    "icon": "/dapps/rubyscore.svg",
+    "handle": "@rubyscore_io"
+  },
+  "dtx": {
+    "handle": "@0xdtx",
+    "icon": "/dapps/defi/dtx-trade.png"
+  },
+  "0xastra": {
+    "handle": "@0xAstra_xyz",
+    "icon": "/dapps/0xastra.svg"
+  },
+  "kiloex": {
+    "icon": "/dapps/defi/kiloex.png",
+    "handle": "@KiloEex_perp"
+  },
+  "henjin": {
+    "icon": "/dapps/defi/henjin_dex.png",
+    "handle": "@HenjinDex"
+  },
+  "oku": {
+    "icon": "/dapps/defi/oku.jpg",
+    "handle": "@okutrade"
+  },
+  "stargate": {
+    "icon": "/dapps/defi/stargate.jpg",
+    "handle": "@stargatefinance"
+  },
+  "micro-3": {
+    "handle": "@micro3io",
+    "icon": "/dapps/micro3.jpg"
+  },
+  "kodo-exchange": {
+    "handle": "@kodohq",
+    "icon": "/dapps/kodo.jpg"
+  },
+  "pheasant": {
+    "handle": "@PheasantNetwork",
+    "icon": "/dapps/pheasant.png"
+  },
+  "symbiosis-finance": {
+    "handle": "@symbiosis_fi",
+    "icon": "/dapps/symbiosis.svg"
+  },
+  "retrobridge": {
+    "handle": "@Retro_Bridge",
+    "icon": "/dapps/retrobridge.jpg"
+  },
+  "zns": {
+    "handle": "@ZNSConnect",
+    "icon": "/dapps/ens/zns.png"
+  },
+  "stupid-monkeys": {
+    "handle": "@StupidMonkeysRH",
+    "icon": "/dapps/gaming/stupid_monkeys.jpg"
+  },
+  "minibridge": {
+    "handle": "@Chaineye_tools",
+    "icon": "/dapps/minibridge.jpeg"
+  },
+  "nfts-2-me": {
+    "handle": "@NFTs2Me",
+    "icon": "/dapps/nfts2me.png"
+  },
+  "bunnyfi": {
+    "handle": "@bunnyfilabs",
+    "icon": "/dapps/bunnyfi.svg"
+  },
+  "taiko-town": {
+    "handle": "@LooperLands",
+    "icon": "/dapps/gaming/looperlands.jpg"
+  },
+  "xy-finance": {
+    "handle": "@xyfinance",
+    "icon": "/dapps/xy_finance.svg"
+  },
+  "comet-protocol": {
+    "handle": "@Comet_Protocol",
+    "icon": "/dapps/comet.svg"
+  },
+  "co-nft": {
+    "handle": "@ConftApp",
+    "icon": "/dapps/conft.png"
+  }
+}

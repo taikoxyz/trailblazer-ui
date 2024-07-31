@@ -12,11 +12,11 @@ export async function getUserBadges(address: Address): Promise<Record<FactionNam
     [FactionNames.Ravers]: false,
     [FactionNames.Robots]: false,
     [FactionNames.Bouncers]: false,
-    // [FactionNames.Masters]: false,
-    // [FactionNames.Monks]: false,
-    // [FactionNames.Drummers]: false,
-    // [FactionNames.Androids]: false,
-    // [FactionNames.Shinto]: false,
+    [FactionNames.Masters]: false,
+    [FactionNames.Monks]: false,
+    [FactionNames.Drummers]: false,
+    [FactionNames.Androids]: false,
+    [FactionNames.Shinto]: false,
   };
 
   const contractAddress = trailblazersBadgesAddress[chainId];
@@ -24,7 +24,7 @@ export async function getUserBadges(address: Address): Promise<Record<FactionNam
   const result = await readContract(wagmiConfig, {
     abi: trailblazersBadgesAbi,
     address: contractAddress,
-    functionName: 'badgeBalances',
+    functionName: 'badgeBalancesV2',
     args: [address],
     chainId,
   });
