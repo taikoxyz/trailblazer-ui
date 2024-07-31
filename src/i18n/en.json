@@ -35,7 +35,6 @@
     },
     "learn_more": "Learn more"
   },
-
   "common": {
     "badge_claimed": "<a target=\"_blank\" href=\"https://taikoscan.io/tx/{txHash}\">Click here to see your transaction on Taikoscan</a>",
     "claim": "Claim",
@@ -115,6 +114,12 @@
     }
   ],
   "leaderboard": {
+    "bridge": {
+      "ended": {
+        "description": "Our journey concluded on June 12th, 2024. Thanks to everyone who participated and earned their Robot Faction Badge by bridging to the Taiko mainnet.",
+        "title": "Campaign ended"
+      }
+    },
     "defi": {
       "banner": {
         "description": "Compete for a month-long jackpot by increasing your TVL on DeFiLlama. Rewards will be based on performance throughout the competition, ending August 9th.",
