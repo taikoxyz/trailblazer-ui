@@ -13,6 +13,7 @@
   <video
     poster="{baseUrl}.png"
     loop
+    playsinline
     autoplay={unlocked}
     class="pointer-events-none rounded-[20px] absolute left-0 top-0 z-20">
     <track kind="captions" />
