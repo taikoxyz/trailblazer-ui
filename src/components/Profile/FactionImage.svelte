@@ -6,35 +6,24 @@
   export let unlocked: boolean = false;
   export let movement: Movements = 0;
 
-  let videoSrc = '';
-  $: movement, (videoSrc = setVideoSrc());
-  $: type, (videoSrc = setVideoSrc());
-
-  $: videoPoster = '';
-
-  function setVideoSrc() {
-    if (movement < 0) return '';
-    videoPoster = getVideoPoster();
-    return `/factions/${type.toLowerCase()}/${MovementNames[movement].toLowerCase()}.webm`;
-  }
-
-  function getVideoPoster() {
-    return `/factions/${type.toLowerCase()}/${MovementNames[movement].toLowerCase()}.png`;
-  }
+  $: dirName = `/factions/${type.toLowerCase()}`;
+  $: fileName = MovementNames[movement].toLowerCase();
+  $: posterUrl = `${dirName}/${fileName}.png`;
+  $: mp4Url = `${dirName}/${fileName}.mp4`;
+  $: webmUrl = `${dirName}/${fileName}.webm`;
 </script>
 
 <div class="relative w-full h-full z-0">
-  {#if videoSrc}
-    <video poster={videoPoster} loop autoplay={unlocked} class="rounded-[20px] absolute left-0 top-0 z-20">
-      <track kind="captions" />
-      {#if videoSrc}
-        <source
-          src={`/factions/${type.toLowerCase()}/${MovementNames[movement].toLowerCase()}.webm`}
-          type="video/webm" />
-      {/if}
-      Your browser does not support the video tag.
-    </video>
-  {:else}
-    <img alt={`${MovementNames[movement]} Badge`} src={videoPoster} />
-  {/if}
+  <video
+    poster={posterUrl}
+    loop
+    autoplay={unlocked}
+    class="pointer-events-none rounded-[20px] absolute left-0 top-0 z-20">
+    <track kind="captions" />
+
+    <source src={webmUrl} type="video/webm" />
+
+    <source src={mp4Url} type="video/mp4" />
+    Your browser does not support the video tag.
+  </video>
 </div>
