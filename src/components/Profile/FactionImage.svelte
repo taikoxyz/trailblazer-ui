@@ -3,7 +3,6 @@
   import type { Faction } from '$libs/profile';
 
   export let type: Faction;
-  export let unlocked: boolean = false;
   export let movement: Movements = 0;
 
   $: baseUrl = `/factions/${type.toLowerCase()}/${MovementNames[movement].toLowerCase()}`;
@@ -14,8 +13,8 @@
     poster="{baseUrl}.png"
     loop
     muted
+    autoplay
     playsinline
-    autoplay={unlocked}
     class="pointer-events-none rounded-[20px] absolute left-0 top-0 z-20">
     <track kind="captions" />
     <source src="{baseUrl}.mp4" type="video/mp4" />
