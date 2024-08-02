@@ -13,6 +13,7 @@
 
   import ProfileCard from './ProfileCard.svelte';
   import ProfileSubCard from './ProfileSubCard.svelte';
+  import BoosterCard from './BoosterCard.svelte';
 
   let profile: UserProfile;
   $: profile = $currentProfile;
@@ -53,9 +54,9 @@
           </div>
         </div> -->
       <!-- </ProfileSubCard> -->
-
       <!-- Booster Card -->
-      <ProfileSubCard>
+      <BoosterCard />
+      <!-- <ProfileSubCard>
         <div class="flex flex-col gap-6 items-center justify-center w-full">
           <div class="f-center gap-2">
             <div class="title-subsection-bold">Booster</div>
@@ -65,7 +66,7 @@
             <div class="display-small-medium text-tertiary-content">Coming Soon</div>
           </div>
         </div>
-      </ProfileSubCard>
+      </ProfileSubCard> -->
 
       <!-- Claim Galxe -->
       {#if profile.galxePoints && profile.galxePoints > 0}

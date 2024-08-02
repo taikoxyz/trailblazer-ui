@@ -6,18 +6,16 @@
   export let title: string = 'Booster';
   export let status: string = 'Coming Soon';
   export let showInfoIcon: boolean = true;
-  export let background: string = 'bg-gray-800';
 
   export let tooltip: typeof Tooltip = Tooltip;
 
   $: classes = classNames(
-    'f-center flex-col justify-start w-full h-full rounded-[30px] pt-[18px] pb-5 h-[100%]',
-    background,
+    'flex flex-col items-center justify-start  w-full h-auto rounded-[30px] pt-[18px] pb-5 h-[100%]',
     $$props.class,
   );
 </script>
 
-<div class={classes}>
+<div class={`${classes}`}>
   <div class="flex gap-2 pb-3">
     <slot name="title">
       <div class="title-subsection-bold">title</div>
@@ -29,10 +27,12 @@
     {/if}
   </div>
   <div class="divider m-0"></div>
-  <div class="f-center flex-col px-6 gap-4 pt-2 w-full justify-between">
-    <slot name="status">
-      <p class="text-ellipsis whitespace-nowrap overflow-hidden">status</p>
-    </slot>
+  <div class="flex items-center flex-col px-6 gap-4 py-2 w-full h-full">
+    <div class="f-center h-full">
+      <slot name="status">
+        <p class="text-ellipsis whitespace-nowrap overflow-hidden">status</p>
+      </slot>
+    </div>
     <slot name="cta">
       <Button type="primary" block class="px-4 py-2 truncate">cta</Button>
     </slot>
