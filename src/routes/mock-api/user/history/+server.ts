@@ -50,10 +50,10 @@ export function GET({ url }) {
       },
       {
         address: address,
-        points: 1,
+        points: 5000,
         event: 'Transaction',
         date: 1721641979,
-        multiplier: 1,
+        multiplier: 5,
       },
       {
         address: address,
