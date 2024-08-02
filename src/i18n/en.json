@@ -122,6 +122,7 @@
         "bridged": "Bridged"
       },
       "points": "+ {value}",
+      "booster": "{multiplier}x boosted",
       "rank": "Rank",
       "dailyMaxReached": "Daily Max Reached"
     },
