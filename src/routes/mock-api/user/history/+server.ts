@@ -1,5 +1,7 @@
 import { json } from '@sveltejs/kit';
 
+import type { UserPointHistory } from '$libs/profile';
+
 type APIResponse<T> = {
   items: T[];
   page: number;
@@ -10,13 +12,6 @@ type APIResponse<T> = {
   last: boolean;
   first: boolean;
   visible: number;
-};
-
-type TransactionHistoryItem = {
-  address: string;
-  points: number;
-  event: string;
-  date: number;
 };
 
 export function GET({ url }) {
@@ -30,78 +25,91 @@ export function GET({ url }) {
         points: 0,
         event: 'TransactionValue',
         date: 1721642099,
+        multiplier: 4,
       },
       {
         address: address,
         points: 0,
         event: 'Transaction',
         date: 1721642099,
+        multiplier: 1,
       },
       {
         address: address,
         points: 0,
         event: 'Bridged',
         date: 1721642039,
+        multiplier: 1,
       },
       {
         address: address,
         points: 0,
         event: 'BlockProposed',
         date: 1721642039,
+        multiplier: 1,
       },
       {
         address: address,
         points: 1,
         event: 'Transaction',
         date: 1721641979,
+        multiplier: 1,
       },
       {
         address: address,
         points: 1234,
         event: 'Transaction',
         date: 1721641943,
+        multiplier: 1,
       },
       {
         address: address,
         points: 12345678,
         event: 'Transaction',
         date: 1721641907,
+        multiplier: 1,
       },
       {
         address: address,
         points: 123456789,
         event: 'Bridged',
         date: 1721571479,
+        multiplier: 1,
       },
       {
         address: address,
         points: 123456789,
         event: 'Transaction',
         date: 1721571431,
+        multiplier: 1,
       },
       {
         address: address,
         points: 123456789,
         event: 'TransactionValue',
         date: 1721571431,
+        multiplier: 1,
       },
       {
         address: address,
         points: 1234567890,
         event: 'Transaction',
         date: 1721571263,
+        multiplier: 1,
       },
       {
         address: address,
         points: 123.456789,
         event: 'TransactionValue',
         date: 1721571263,
+        multiplier: 1,
       },
       {
         address: address,
         points: 1.23456789,
         event: 'Transaction',
         date: 1721571155,
+        multiplier: 1,
       },
     ],
     page: 0,
@@ -112,5 +120,5 @@ export function GET({ url }) {
     last: false,
     first: true,
     visible: 20,
-  } satisfies APIResponse<TransactionHistoryItem>);
+  } satisfies APIResponse<UserPointHistory>);
 }

@@ -1,6 +1,8 @@
 <script lang="ts">
   import Skeleton from '$components/Mock/Skeleton.svelte';
+  import { Pill } from '$components/Pill';
   import { currentProfile } from '$stores/profile';
+  import { t } from 'svelte-i18n';
 
   $: pointsHistory = $currentProfile.pointsHistory;
   $: hasPointHistory = pointsHistory && pointsHistory.items && pointsHistory.items.length > 0;
@@ -27,22 +29,29 @@
       <tbody class="border-none pt-6 overflow-scroll">
         {#if pointsHistory && hasPointHistory}
           {#each pointsHistory.items as pointHistory}
-            <tr class="border-2 border-transparent hover:border-2">
+            <tr class="border-2 border-transparent hover:border-2 body-bold">
               <td class="flex gap-2 items-center">
                 <Skeleton width="w-4" height="h-4" bgColor="bg-pink-200" shineColor="bg-pink-100" />
-                {pointHistory?.event === 'TransactionValue'
-                  ? 'Transaction Value'
-                  : pointHistory?.event === 'BlockProposed'
-                    ? 'Block Proposed'
-                    : pointHistory?.event === 'Bridged'
-                      ? 'Bridged'
-                      : 'Transaction'}
+                {#if pointHistory?.event === 'TransactionValue'}
+                  {$t('leaderboard.user.event.transaction_value')}
+                {:else if pointHistory?.event === 'BlockProposed'}
+                  {$t('leaderboard.user.event.block_proposed')}
+                {:else if pointHistory?.event === 'Bridged'}
+                  {$t('leaderboard.user.event.bridged')}
+                {:else}
+                  {$t('leaderboard.user.event.transaction')}
+                {/if}
               </td>
               <td>
                 {#if pointHistory?.points === 0}
-                  <span class="text-negative-sentiment">Daily Max Reached</span>
+                  <span class="text-negative-sentiment">{$t('leaderboard.user.dailyMaxReached')}</span>
                 {:else}
-                  + {pointHistory?.points}
+                  <div class="flex gap-2 z-50">
+                    {@html $t('leaderboard.user.points', { values: { value: pointHistory?.points } })}
+                    <Pill
+                      class="bg-gradient-to-r from-[#5d08c8] from-10% via-[#9f00b8] via-33% via-[#ca00a8] via-66% to-[#e81899]"
+                      >x50 boosted</Pill>
+                  </div>
                 {/if}
               </td>
               <td>{new Date(pointHistory?.date * 1000).toLocaleString()}</td>
