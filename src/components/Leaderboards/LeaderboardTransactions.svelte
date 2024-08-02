@@ -1,6 +1,7 @@
 <script lang="ts">
   import Skeleton from '$components/Mock/Skeleton.svelte';
   import { Pill } from '$components/Pill';
+  import { formatDate } from '$libs/util/formatDate';
   import { currentProfile } from '$stores/profile';
   import { t } from 'svelte-i18n';
 
@@ -56,7 +57,7 @@
                   </div>
                 {/if}
               </td>
-              <td>{new Date(pointHistory?.date * 1000).toLocaleString()}</td>
+              <td>{formatDate(pointHistory?.date)}</td>
             </tr>
           {/each}
         {/if}
