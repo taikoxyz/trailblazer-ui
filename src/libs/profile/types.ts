@@ -82,4 +82,5 @@ export type UserPointHistory = {
   event: Event;
   points: number;
   date: number;
+  multiplier: number;
 };
