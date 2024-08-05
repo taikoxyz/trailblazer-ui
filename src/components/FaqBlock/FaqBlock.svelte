@@ -22,8 +22,9 @@
     'h-max',
     'md:justify-between',
     'md:items-start',
-    'max-w-[1600px]',
+    'max-w-[1512px]',
     'items-center',
+    'px-6',
     'justify-center',
   );
 
