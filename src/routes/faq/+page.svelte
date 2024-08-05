@@ -18,6 +18,8 @@
     'w-full',
     'flex',
     'flex-col',
+    'justify-center',
+    'items-center',
     'md:gap-24',
     'gap-[80px]',
   );
@@ -31,6 +33,8 @@
     'flex-col',
     'justify-center',
     'items-start',
+    'max-w-[1600px]',
+    'bg-cover',
     'pl-[75px]',
     'text-[500]',
     'font-clash-grotesk',

@@ -48,6 +48,8 @@
     'relative',
     'lg:left-[50%]',
   );
+
+  const faqWrapperClasses = classNames('w-full', 'flex', 'flex-col', 'justify-center', 'items-center');
 </script>
 
 <div class={wrapperClasses}>
@@ -61,5 +63,7 @@
   <FactionsGallery {arrowClasses} />
   <AboutFactionsInfo />
   <RewardsAndUtility />
-  <FaqBlock entries={faqMini} />
+  <div class={faqWrapperClasses}>
+    <FaqBlock entries={faqMini} />
+  </div>
 </div>

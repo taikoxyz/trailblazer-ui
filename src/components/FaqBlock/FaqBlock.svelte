@@ -18,9 +18,11 @@
     'flex-col',
     'gap-6',
     'w-full',
+    'lg:w-[calc(100%*6/8)]',
     'h-max',
     'md:justify-between',
     'md:items-start',
+    'max-w-[1600px]',
     'items-center',
     'justify-center',
   );

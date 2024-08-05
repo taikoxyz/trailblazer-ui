@@ -64,5 +64,13 @@
         <MobileNavigationLink on:navigate url="https://bridge.taiko.xyz" label="Bridge" icon="nav-bridge" />
       </div>
     </div>
+
+    <div class="flex flex-col w-full gap-2">
+      <button
+        class="bg-neutral w-full rounded-full p-[24px] hover:cursor-pointer text-start h-[75px]"
+        on:click={() => dispatch('navigate', { url: '/faq' })}>
+        <a href="/faq" class="font-clash-grotesk title-subsection-medium text-[22px]/[24px]">FAQs</a>
+      </button>
+    </div>
   </div>
 </div>
