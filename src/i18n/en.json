@@ -51,28 +51,6 @@
       "description": "A groundbreaking cast of characters emerges to enrich our community and deepen the immersive experience. Meet eight distinct factions, each with its own unique character and flair."
     }
   },
-  "faq_mini": [
-    {
-      "answer": "Each season lasts about 12 weeks.",
-      "question": "How long does a season last?"
-    },
-    {
-      "answer": "To enhance your experience and add excitement, we have chosen not to disclose the daily XP limits for each activity. We encourage you to participate in the activities and discover the XP limits on your own.",
-      "question": "What are the point limits?"
-    },
-    {
-      "answer": "Our leaderboard is based on percentiles which change based on participants.",
-      "question": "What are level quotas?"
-    },
-    {
-      "answer": "The daily cap resets at 00:00 UTC every day.",
-      "question": "When does the daily cap reset?"
-    },
-    {
-      "answer": "The daily reset is calculated based on a fixed reset time at 00:00 UTC each day, not from the time you hit the cap.",
-      "question": "How is the daily reset calculated? Is it 24 hours from hitting the cap?"
-    }
-  ],
   "faq": [
     {
       "section": "General Information",

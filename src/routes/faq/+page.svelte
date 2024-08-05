@@ -1,8 +1,8 @@
 <script lang="ts">
   import { json } from 'svelte-i18n';
 
-  import type { IFaqEntry } from '$components/FAQ/FaqBlock.svelte';
-  import FaqBlock from '$components/FAQ/FaqBlock.svelte';
+  import type { IFaqEntry } from '$components/FaqBlock/FaqBlock.svelte';
+  import { FaqBlock } from '$components/FaqBlock';
   import { classNames } from '$libs/util/classNames';
 
   $: faqEntries = $json('faq') as { section: string; items: IFaqEntry[] }[];
