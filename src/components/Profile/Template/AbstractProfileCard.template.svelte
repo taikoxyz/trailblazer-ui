@@ -3,10 +3,6 @@
   import { Tooltip } from '$components/Tooltip';
   import { classNames } from '$libs/util/classNames';
 
-  export let title: string = 'Booster';
-  export let status: string = 'Coming Soon';
-  export let showInfoIcon: boolean = true;
-
   export let tooltip: typeof Tooltip = Tooltip;
 
   $: classes = classNames(
