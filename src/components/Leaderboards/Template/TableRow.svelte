@@ -20,7 +20,7 @@
 </script>
 
 <tr
-  class="row h-12 hover:bg-neutral-background {entry.data.length ? 'cursor-pointer' : ''}"
+  class="row h-12 hover:bg-neutral-background {entry.data?.length ? 'cursor-pointer' : ''}"
   on:click={() => toggleRow(index)}>
   <td class="h-full table-cell body-bold w-1/12">
     <div class="f-center gap-[12px]">
@@ -86,7 +86,7 @@
   </td>
 </tr>
 
-{#if expandedRow === index && entry.data.length > 0}
+{#if expandedRow === index && entry.data?.length > 0}
   {#each entry.data as detail}
     <tr id={(index + 0.5).toString()} class="row border-y-2 border-neutral-background h-12 hover:bg-neutral-background">
       <td class=""></td>
