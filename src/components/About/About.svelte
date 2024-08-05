@@ -2,7 +2,6 @@
   import { json } from 'svelte-i18n';
 
   import { FactionsGallery } from '$components/FactionsGallery';
-  import { FAQ } from '$components/FAQ';
   import { default as FaqBlock, type IFaqEntry } from '$components/FAQ/FaqBlock.svelte';
   import { TrailblazerGuide } from '$components/Startpage/Guide';
   import { classNames } from '$libs/util/classNames';
@@ -62,5 +61,4 @@
   <AboutFactionsInfo />
   <RewardsAndUtility />
   <FaqBlock entries={faqMini} />
-  <FAQ />
 </div>
