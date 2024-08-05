@@ -71,7 +71,7 @@
     </div>
   </td>
   {#if showDetailsColumn}
-    {#if entry.data.length > 0}
+    {#if entry.data?.length > 0}
       <td class="text-start table-cell lg:px-10 body-regular w-3/12">
         <button class="link">Details</button>
       </td>
