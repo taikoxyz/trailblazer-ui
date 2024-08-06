@@ -20,6 +20,7 @@
     "generate:abi": "cd ../taiko-mono.git/packages/nfts && pnpm compile && cd - && wagmi generate"
   },
   "devDependencies": {
+    "@apollo/client": "^3.11.3",
     "@playwright/test": "^1.44.1",
     "@sveltejs/adapter-auto": "^3.2.1",
     "@sveltejs/adapter-static": "^3.0.1",
@@ -40,6 +41,7 @@
     "eslint-plugin-simple-import-sort": "^12.1.0",
     "eslint-plugin-svelte": "^2.35.1",
     "ethereum-address": "^0.0.4",
+    "graphql": "^16.9.0",
     "jsdom": "^24.1.0",
     "lokijs": "^1.5.12",
     "postcss": "^8.4.38",
@@ -75,6 +77,7 @@
     "object-hash": "^3.0.0",
     "postcss-import": "^16.1.0",
     "stores": "link:@zerodevx/svelte-toast/stores",
+    "svelte-apollo": "^0.5.0",
     "svelte-i18n": "^4.0.0",
     "viem": "^2.15.1"
   }
