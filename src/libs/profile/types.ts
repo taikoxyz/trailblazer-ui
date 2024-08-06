@@ -20,6 +20,8 @@ export type UserProfile = GalxePoints &
     rankPercentile?: string;
     isLoading: boolean;
     movement: Movements;
+    multipliers: UserMultiplier;
+    nfts: UserNFT[];
   };
 
 export type GalxePoints = {
@@ -83,4 +85,18 @@ export type UserPointHistory = {
   points: number;
   date: number;
   multiplier: number;
+};
+
+export type UserNFT = {
+  name: string;
+  tokenId: string;
+  uri?: string;
+};
+
+export type UserMultiplier = {
+  totalMultiplier: number;
+  nftMultiplier: number;
+  taikoonMultiplier: number;
+  factionMultiplier: number;
+  snaefellMultiplier: number;
 };
