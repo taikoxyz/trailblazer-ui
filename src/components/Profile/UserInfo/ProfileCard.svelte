@@ -6,7 +6,7 @@
   import { shortenAddress } from '$libs/util/shortenAddress';
   import { currentProfile } from '$stores/profile';
 
-  import RankDisplay from './RankDisplay.svelte';
+  import RankDisplay from '../RankDisplay.svelte';
 
   let profile: UserProfile;
   let dropdown: HTMLDetailsElement | null = null;

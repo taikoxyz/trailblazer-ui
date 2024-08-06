@@ -10,8 +10,9 @@
   import { account } from '$stores/account';
   import { currentProfile } from '$stores/profile';
 
-  import FactionBadgeItem from './FactionBadgeItem.svelte';
-  import FactionBadges from './FactionBadges.svelte';
+  import FactionBadgeItem from './FactionBadges/FactionBadgeItem.svelte';
+  import FactionBadges from './FactionBadges/FactionBadges.svelte';
+  import { UserNFTs } from './TaikoNFTs';
   // import { default as MovementSelection } from './MovementSelection.modal.svelte';
 
   let factions = Object.keys(FactionNames).splice(0, maxBadgeId).reverse() as FactionNames[];
@@ -41,7 +42,7 @@
 
 <div>
   <FactionBadges />
-  <UserNfts />
+  <UserNFTs />
 </div>
 
 <!--<MovementSelection bind:visible={movementModalVisible} />-->

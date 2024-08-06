@@ -2,6 +2,7 @@
   import { ActionButton } from '$components/Button';
   import { classNames } from '$libs/util/classNames';
   import { t } from 'svelte-i18n';
+  import UserNftImage from './UserNFTImage.svelte';
 
   // CSS classes
   $: wrapperClasses = classNames(
@@ -13,7 +14,6 @@
     'max-w-[306px]',
     'rounded-[30px]',
     'bg-[#310E2F]',
-    'border-2',
     'transition-all',
   );
 
@@ -71,23 +71,22 @@
     'transition-all',
   );
 
-  export let imageUrl: string;
-  export let explorerLink: string;
+  export let imageUrl: string | undefined;
+  export let explorerLink: string | undefined;
 </script>
 
 <div class={wrapperClasses} role="button">
   <div class={contentWrapperClasses}>
     <div class={imageWrapperClasses}>
       <!-- NFT Image -->
+      <!-- {#if imageUrl} -->
+      <UserNftImage src={imageUrl || 'https://placehold.co/200x200'} />
+      <!-- {/if} -->
     </div>
+    asd
+
     <div class={tooltipClasses}>
       <div class={classNames('absolute', 'top-0', 'left-0', 'w-full', 'h-full', 'bg-secondary', 'opacity-10')}></div>
-
-      <div class={hoveredDescriptionClasses}>
-        <div class={lockedBadgeNameClasses}>
-          {name}
-        </div>
-      </div>
     </div>
   </div>
 </div>
