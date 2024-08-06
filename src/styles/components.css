@@ -140,8 +140,6 @@
     @apply rounded-[10px]
       w-[283px]
       p-[24px]
-      bg-neutral-background
-      text-primary-content
       box-shadow-small;
 
     letter-spacing: 0.14px;
