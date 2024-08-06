@@ -91,11 +91,11 @@ export type UserNFT = {
   name: string;
   tokenId: string;
   uri?: string;
+  explorerLink?: string;
 };
 
 export type UserMultiplier = {
   totalMultiplier: number;
-  nftMultiplier: number;
   taikoonMultiplier: number;
   factionMultiplier: number;
   snaefellMultiplier: number;

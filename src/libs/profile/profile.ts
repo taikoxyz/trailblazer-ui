@@ -5,13 +5,15 @@ import { get } from 'svelte/store';
 // import type { Address } from 'viem';
 import { PUBLIC_TRAILBLAZER_API_URL } from '$env/static/public';
 import { globalAxiosConfig } from '$libs/api/axiosConfig';
+import { graphqlClient } from '$libs/graphql/client';
+import { USER_NFTS_QUERY } from '$libs/graphql/queries';
 // import getMovement from '$libs/badges/getMovement';
 import { isDevelopmentEnv } from '$libs/util/isDevelopmentEnv';
 import { getLogger } from '$libs/util/logger';
 import { wagmiConfig } from '$libs/wagmi';
 import { currentProfile } from '$stores/profile';
 
-import type { UserLevel, UserPointHistoryPage, UserProfile } from './types';
+import type { UserLevel, UserMultiplier, UserNFT, UserPointHistoryPage, UserProfile } from './types';
 
 const log = getLogger('Profile');
 
@@ -135,6 +137,29 @@ export class Profile {
         return { ...current, ...updates };
       });
       log('Updated Profile: ', get(currentProfile));
+
+      // Get Multipliers and NFT Inventory
+      const graphqlResponse = await graphqlClient.query({
+        query: USER_NFTS_QUERY,
+        variables: { address: address.toLocaleLowerCase() },
+      });
+
+      const userMultiplier: UserMultiplier = {
+        totalMultiplier: Number(graphqlResponse.data.owner.totalMultiplier),
+        taikoonMultiplier: Number(graphqlResponse.data.owner.taikoonMultiplier),
+        factionMultiplier: Number(graphqlResponse.data.owner.factionMultiplier),
+        snaefellMultiplier: Number(graphqlResponse.data.owner.snaefellMultiplier),
+      };
+
+      const userNFTs: UserNFT[] = graphqlResponse.data.owner.ownedTokens.map((token: any) => ({
+        name: token.contract.name,
+        tokenId: token.tokenId,
+      }));
+
+      // Update profile
+      currentProfile.update((current) => {
+        return { ...current, multipliers: userMultiplier, nfts: userNFTs };
+      });
 
       /* re-enable when movements (based vs boosted) becomes available
       // Get the movement (neutral vs based vs boosted)
