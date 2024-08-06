@@ -196,4 +196,6 @@ export class Profile {
     const percentile = (1 - Number(rank) / Number(total)) * 100;
     return percentile || 0;
   }
+
+  static async getUserMultipliers() {}
 }

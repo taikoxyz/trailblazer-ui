@@ -11,7 +11,7 @@
   import { currentProfile } from '$stores/profile';
 
   import FactionBadgeItem from './FactionBadgeItem.svelte';
-  import AbstractNftDisplay from './Template/AbstractNftDisplay.template.svelte';
+  import FactionBadges from './FactionBadges.svelte';
   // import { default as MovementSelection } from './MovementSelection.modal.svelte';
 
   let factions = Object.keys(FactionNames).splice(0, maxBadgeId).reverse() as FactionNames[];
@@ -39,17 +39,12 @@
   //$: movementModalVisible = false;
 </script>
 
-<div class="box gap-4">
-  {#each factions as faction}
-    <FactionBadgeItem
-      enoughGas={hasEnoughGas}
-      {address}
-      {movement}
-      canClick={isSelfProfile && !userFactions[faction]}
-      name={faction}
-      unlocked={userFactions[faction]} />
-  {/each}
+<div>
+  <FactionBadges />
+  <UserNfts />
 </div>
+
+<!--<MovementSelection bind:visible={movementModalVisible} />-->
 
 <style>
   /* 306px is the size of the card bg */

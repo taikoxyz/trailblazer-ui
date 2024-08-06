@@ -16,7 +16,7 @@
       checked: true,
     },
     {
-      name: 'Faction Badges',
+      name: 'NFT Collection',
       content: ProfileFactions,
       checked: false,
     },
