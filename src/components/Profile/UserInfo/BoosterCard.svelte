@@ -6,6 +6,7 @@
   import { Tooltip } from '$components/Tooltip';
   import { boosterLoading } from '$stores/load';
   import { currentProfile } from '$stores/profile';
+  import { _ } from 'svelte-i18n';
 
   let showBreakdown = false;
   let factionMultiplier = 1;
@@ -35,13 +36,13 @@
     }}>
     <Icon class="justify-self-start item {!showBreakdown ? 'hidden' : ''}" type="chevron-left" />
   </button>
-  <div slot="title" class="booster-card-title flex justify-center w-full">Multipliers</div>
+  <div slot="title" class="booster-card-title flex justify-center w-full">{$_('booster.title')}</div>
 
   <Tooltip class="absolute right-4" slot="tooltip" position="bottom">
     <div class="bg-white text-black">
-      <h2 class=" text-black">Earn more with multipliers</h2>
+      <h2 class=" text-black">{$_('booster.tooltip.title')}</h2>
       <div class="body-regular text-black">
-        Boost your earnings! Participate in trails, hold badges, and join our 4x DeFi campaign.
+        {$_('booster.tooltip.description')}
       </div>
     </div>
   </Tooltip>
@@ -55,13 +56,13 @@
     {:else}
       <div class="flex flex-col gap-2 w-full">
         <div class="flex items-center justify-between w-full">
-          Faction Badges <span class="body-bold">{factionMultiplier}x</span>
+          {$_('booster.breakdown.factionBadges')} <span class="body-bold">{factionMultiplier}x</span>
         </div>
         <div class="flex items-center justify-between w-full">
-          Snaefell NFT <span class="body-bold">{snaefellMultiplier}x</span>
+          {$_('booster.breakdown.snaefellNft')} <span class="body-bold">{snaefellMultiplier}x</span>
         </div>
         <div class="flex items-center justify-between w-full">
-          Taikoon NFT <span class="body-bold">{taikoonMultiplier}x</span>
+          {$_('booster.breakdown.taikoonNft')} <span class="body-bold">{taikoonMultiplier}x</span>
         </div>
       </div>
     {/if}
@@ -74,14 +75,14 @@
         on:click={() => {
           showBreakdown = true;
         }}
-        >Your multipliers <Icon type="chevron-right"></Icon>
+        >{$_('booster.cta.yourMultipliers')} <Icon type="chevron-right"></Icon>
       </button>
     {/if}
     <a
       class="flex items-center justify-between gap-2 hover:cursor-pointer"
       href="https://taiko.mirror.xyz/589CthdX0Qw-hRBeZarEQpjck-v4lJ-gtKz3SZvovt8"
       target="_blank"
-      >How to earn multipliers <Icon type="chevron-right"></Icon>
+      >{$_('booster.cta.howToEarn')} <Icon type="chevron-right"></Icon>
     </a>
   </div>
 </AbstractProfileCard>

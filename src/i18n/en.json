@@ -21,6 +21,22 @@
       "title": "Campaign ended"
     }
   },
+  "booster": {
+    "title": "Multipliers",
+    "tooltip": {
+      "title": "Earn more with multipliers",
+      "description": "Boost your earnings! Participate in trails, hold badges, and join our 4x DeFi campaign."
+    },
+    "breakdown": {
+      "factionBadges": "Faction Badges",
+      "snaefellNft": "Snaefell NFT",
+      "taikoonNft": "Taikoon NFT"
+    },
+    "cta": {
+      "yourMultipliers": "Your multipliers",
+      "howToEarn": "How to earn multipliers"
+    }
+  },
   "buttons": {
     "connect_wallet": "Connect",
     "explore_more": "Explore more",
