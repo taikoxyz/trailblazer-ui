@@ -94,6 +94,10 @@
     @apply font-clash-grotesk font-[500] text-2xl/7;
   }
 
+  .booster-card-title {
+    @apply font-clash-grotesk font-[500] text-[20px]/[24.6px];
+  }
+
   /* Form Controls */
   .input-box {
     /* Using shadows to increase border size without impacting the surroundings */

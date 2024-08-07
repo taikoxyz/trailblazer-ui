@@ -2,7 +2,9 @@
   import { Button } from '$components/Button';
   import { Icon } from '$components/Icon';
   import { AbstractProfileCard } from '$components/Profile/Template';
+  import { Spinner } from '$components/Spinner';
   import { Tooltip } from '$components/Tooltip';
+  import { boosterLoading } from '$stores/load';
   import { currentProfile } from '$stores/profile';
 
   let showBreakdown = false;
@@ -33,7 +35,7 @@
     }}>
     <Icon class="justify-self-start item {!showBreakdown ? 'hidden' : ''}" type="chevron-left" />
   </button>
-  <div slot="title" class="title-subsection-bold flex justify-center w-full">Multipliers</div>
+  <div slot="title" class="booster-card-title flex justify-center w-full">Multipliers</div>
 
   <Tooltip class="absolute right-4" slot="tooltip" position="bottom">
     <div class="bg-white text-black">
@@ -44,18 +46,22 @@
     </div>
   </Tooltip>
   <div slot="status" class="w-full">
-    {#if !showBreakdown}
+    {#if $boosterLoading}
+      <div class="flex items-center justify-center display-medium-medium">
+        <Spinner />
+      </div>
+    {:else if !showBreakdown}
       <div class="flex items-center justify-center display-medium-medium">{totalMultiplier}x</div>
     {:else}
       <div class="flex flex-col gap-2 w-full">
         <div class="flex items-center justify-between w-full">
-          Faction Badges <span>{factionMultiplier}x</span>
+          Faction Badges <span class="body-bold">{factionMultiplier}x</span>
         </div>
         <div class="flex items-center justify-between w-full">
-          Snaefell NFT <span>{snaefellMultiplier}x</span>
+          Snaefell NFT <span class="body-bold">{snaefellMultiplier}x</span>
         </div>
         <div class="flex items-center justify-between w-full">
-          Taikoon NFT <span>{taikoonMultiplier}x</span>
+          Taikoon NFT <span class="body-bold">{taikoonMultiplier}x</span>
         </div>
       </div>
     {/if}

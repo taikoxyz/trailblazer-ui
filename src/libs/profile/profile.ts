@@ -11,6 +11,7 @@ import { USER_NFTS_QUERY } from '$libs/graphql/queries';
 import { isDevelopmentEnv } from '$libs/util/isDevelopmentEnv';
 import { getLogger } from '$libs/util/logger';
 import { wagmiConfig } from '$libs/wagmi';
+import { boosterLoading } from '$stores/load';
 import { currentProfile } from '$stores/profile';
 
 import type { UserLevel, UserMultiplier, UserNFT, UserPointHistoryPage, UserProfile } from './types';
@@ -160,6 +161,8 @@ export class Profile {
       currentProfile.update((current) => {
         return { ...current, multipliers: userMultiplier, nfts: userNFTs };
       });
+
+      boosterLoading.set(false);
 
       /* re-enable when movements (based vs boosted) becomes available
       // Get the movement (neutral vs based vs boosted)
