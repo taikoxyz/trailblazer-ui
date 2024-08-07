@@ -1,5 +1,6 @@
 <script lang="ts">
   import { currentProfile } from '$stores/profile';
+
   import UserNftItem from './UserNFTItem.svelte';
 </script>
 

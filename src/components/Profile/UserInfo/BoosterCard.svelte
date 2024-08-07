@@ -1,12 +1,12 @@
 <script lang="ts">
-  import { Button } from '$components/Button';
+  import { t } from 'svelte-i18n';
+
   import { Icon } from '$components/Icon';
   import { AbstractProfileCard } from '$components/Profile/Template';
   import { Spinner } from '$components/Spinner';
   import { Tooltip } from '$components/Tooltip';
   import { boosterLoading } from '$stores/load';
   import { currentProfile } from '$stores/profile';
-  import { _ } from 'svelte-i18n';
 
   let showBreakdown = false;
   let factionMultiplier = 1;
@@ -36,13 +36,13 @@
     }}>
     <Icon class="justify-self-start item {!showBreakdown ? 'hidden' : ''}" type="chevron-left" />
   </button>
-  <div slot="title" class="booster-card-title flex justify-center w-full">{$_('booster.title')}</div>
+  <div slot="title" class="booster-card-title flex justify-center w-full">{$t('booster.title')}</div>
 
   <Tooltip class="absolute right-4" slot="tooltip" position="bottom">
     <div class="bg-white text-black">
-      <h2 class=" text-black">{$_('booster.tooltip.title')}</h2>
+      <h2 class=" text-black">{$t('booster.tooltip.title')}</h2>
       <div class="body-regular text-black">
-        {$_('booster.tooltip.description')}
+        {$t('booster.tooltip.description')}
       </div>
     </div>
   </Tooltip>
@@ -56,13 +56,13 @@
     {:else}
       <div class="flex flex-col gap-2 w-full">
         <div class="flex items-center justify-between w-full">
-          {$_('booster.breakdown.factionBadges')} <span class="body-bold">{factionMultiplier}x</span>
+          {$t('booster.breakdown.factionBadges')} <span class="body-bold">{factionMultiplier}x</span>
         </div>
         <div class="flex items-center justify-between w-full">
-          {$_('booster.breakdown.snaefellNft')} <span class="body-bold">{snaefellMultiplier}x</span>
+          {$t('booster.breakdown.snaefellNft')} <span class="body-bold">{snaefellMultiplier}x</span>
         </div>
         <div class="flex items-center justify-between w-full">
-          {$_('booster.breakdown.taikoonNft')} <span class="body-bold">{taikoonMultiplier}x</span>
+          {$t('booster.breakdown.taikoonNft')} <span class="body-bold">{taikoonMultiplier}x</span>
         </div>
       </div>
     {/if}
@@ -75,14 +75,14 @@
         on:click={() => {
           showBreakdown = true;
         }}
-        >{$_('booster.cta.yourMultipliers')} <Icon type="chevron-right"></Icon>
+        >{$t('booster.cta.yourMultipliers')} <Icon type="chevron-right"></Icon>
       </button>
     {/if}
     <a
       class="flex items-center justify-between gap-2 hover:cursor-pointer"
       href="https://taiko.mirror.xyz/589CthdX0Qw-hRBeZarEQpjck-v4lJ-gtKz3SZvovt8"
       target="_blank"
-      >{$_('booster.cta.howToEarn')} <Icon type="chevron-right"></Icon>
+      >{$t('booster.cta.howToEarn')} <Icon type="chevron-right"></Icon>
     </a>
   </div>
 </AbstractProfileCard>

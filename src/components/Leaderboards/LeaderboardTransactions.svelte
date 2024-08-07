@@ -1,9 +1,11 @@
 <script lang="ts">
+  import { t } from 'svelte-i18n';
+
   import Skeleton from '$components/Mock/Skeleton.svelte';
   import { Pill } from '$components/Pill';
   import { formatDate } from '$libs/util/formatDate';
   import { currentProfile } from '$stores/profile';
-  import { t } from 'svelte-i18n';
+  import { ActivityIcon } from '$components/Icon';
 
   $: pointsHistory = $currentProfile.pointsHistory;
   $: hasPointHistory = pointsHistory && pointsHistory.items && pointsHistory.items.length > 0;
@@ -31,14 +33,17 @@
           {#each pointsHistory.items as pointHistory}
             <tr class="border-2 border-transparent hover:border-2 body-bold">
               <td class="flex gap-2 items-center">
-                <Skeleton width="w-4" height="h-4" bgColor="bg-pink-200" shineColor="bg-pink-100" />
                 {#if pointHistory?.event === 'TransactionValue'}
+                  <ActivityIcon type="double-coin" />
                   {$t('leaderboard.user.event.transaction_value')}
                 {:else if pointHistory?.event === 'BlockProposed'}
+                  <ActivityIcon type="cube" />
                   {$t('leaderboard.user.event.block_proposed')}
                 {:else if pointHistory?.event === 'Bridged'}
+                  <ActivityIcon type="double-diamond" />
                   {$t('leaderboard.user.event.bridged')}
                 {:else}
+                  <ActivityIcon type="triple-coin-stacked" />
                   {$t('leaderboard.user.event.transaction')}
                 {/if}
               </td>
@@ -47,11 +52,11 @@
                   <span class="text-negative-sentiment">{$t('leaderboard.user.dailyMaxReached')}</span>
                 {:else}
                   <div class="flex gap-2 z-50">
-                    {@html $t('leaderboard.user.points', { values: { value: pointHistory?.points } })}
+                    {$t('leaderboard.user.points', { values: { value: pointHistory?.points } })}
                     {#if pointHistory?.multiplier && pointHistory?.multiplier > 1}
                       <Pill
                         class="bg-gradient-to-r from-[#5d08c8] from-10% via-[#9f00b8] via-33% via-[#ca00a8] via-66% to-[#e81899]">
-                        {@html $t('leaderboard.user.booster', { values: { multiplier: pointHistory?.multiplier } })}
+                        {$t('leaderboard.user.booster', { values: { multiplier: pointHistory?.multiplier } })}
                       </Pill>
                     {/if}
                   </div>

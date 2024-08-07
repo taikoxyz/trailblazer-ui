@@ -13,6 +13,7 @@
   import { account } from '$stores/account';
   import { isMintDisclaimerAccepted, mintDisclaimerModal } from '$stores/modal';
   import { pendingTransactions } from '$stores/pendingTransactions';
+
   import FactionImage from './FactionImage.svelte';
 
   export let name: FactionNames;

@@ -152,10 +152,12 @@ export class Profile {
         snaefellMultiplier: Number(graphqlResponse.data.owner.snaefellMultiplier),
       };
 
-      const userNFTs: UserNFT[] = graphqlResponse.data.owner.ownedTokens.map((token: any) => ({
-        name: token.contract.name,
-        tokenId: token.tokenId,
-      }));
+      const userNFTs: UserNFT[] = graphqlResponse.data.owner.ownedTokens.map(
+        (token: { contract: { name: string }; tokenId: string }) => ({
+          name: token.contract.name,
+          tokenId: token.tokenId,
+        }),
+      );
 
       // Update profile
       currentProfile.update((current) => {

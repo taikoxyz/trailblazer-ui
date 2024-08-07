@@ -22,6 +22,13 @@ export const MOCK_PROFILE: UserProfile = {
   total: '0',
   rank: '0',
   movement: 0,
+  multipliers: {
+    factionMultiplier: 2,
+    snaefellMultiplier: 2,
+    taikoonMultiplier: 2,
+    totalMultiplier: 3,
+  },
+  nfts: [],
 };
 
 export const MOCK_PROFILE_2: UserProfile = {
@@ -44,4 +51,11 @@ export const MOCK_PROFILE_2: UserProfile = {
   total: '0',
   rank: '0',
   movement: 1,
+  multipliers: {
+    factionMultiplier: 1,
+    snaefellMultiplier: 1,
+    taikoonMultiplier: 1,
+    totalMultiplier: 1,
+  },
+  nfts: [],
 };

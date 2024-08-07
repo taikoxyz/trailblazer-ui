@@ -1,7 +1,6 @@
 <script lang="ts">
-  import { ActionButton } from '$components/Button';
   import { classNames } from '$libs/util/classNames';
-  import { t } from 'svelte-i18n';
+
   import UserNftImage from './UserNFTImage.svelte';
 
   // CSS classes
@@ -28,22 +27,21 @@
 
   $: imageWrapperClasses = classNames('w-full', 'f-col', 'items-center');
 
-  const badgeClasses = classNames(
-    'absolute',
+  // const badgeClasses = classNames(
+  //   'absolute',
+  //   'badge',
+  //   'py-[15px]',
+  //   'px-[12px]',
+  //   'text-[16px]/[24px]',
+  //   'font-[700]',
+  //   'border-transparent',
+  //   'bg-[rgba(0,0,0,.4)]',
+  // );
+  // const weekBadgeClasses = classNames(badgeClasses, 'top-[20px]', 'right-[20px]');
 
-    'badge',
-    'py-[15px]',
-    'px-[12px]',
-    'text-[16px]/[24px]',
-    'font-[700]',
-    'border-transparent',
-    'bg-[rgba(0,0,0,.4)]',
-  );
-  const weekBadgeClasses = classNames(badgeClasses, 'top-[20px]', 'right-[20px]');
+  // const lockedBadgeNameClasses = classNames(badgeClasses, 'top-[20px]', 'left-[20px]');
 
-  const lockedBadgeNameClasses = classNames(badgeClasses, 'top-[20px]', 'left-[20px]');
-
-  const buttonWrapperClasses = classNames('absolute', 'bottom-[20px]', 'place-self-center', 'w-full', 'px-[20px]');
+  // const buttonWrapperClasses = classNames('absolute', 'bottom-[20px]', 'place-self-center', 'w-full', 'px-[20px]');
 
   const tooltipClasses = classNames(
     'absolute',
@@ -56,26 +54,26 @@
     'items-center',
   );
 
-  $: hoveredDescriptionClasses = classNames(
-    'w-full',
-    'h-full',
-    'flex',
-    'justify-center',
-    'items-center',
-    'text-center',
-    'flex-col',
-    'px-4',
-    'text-white',
-    'absolute',
-    'opacity-0',
-    'transition-all',
-  );
+  // $: hoveredDescriptionClasses = classNames(
+  //   'w-full',
+  //   'h-full',
+  //   'flex',
+  //   'justify-center',
+  //   'items-center',
+  //   'text-center',
+  //   'flex-col',
+  //   'px-4',
+  //   'text-white',
+  //   'absolute',
+  //   'opacity-0',
+  //   'transition-all',
+  // );
 
   export let imageUrl: string | undefined;
   export let explorerLink: string | undefined;
 </script>
 
-<div class={wrapperClasses} role="button">
+<a class={wrapperClasses} role="button" href={explorerLink} target="_blank">
   <div class={contentWrapperClasses}>
     <div class={imageWrapperClasses}>
       <!-- NFT Image -->
@@ -89,4 +87,4 @@
       <div class={classNames('absolute', 'top-0', 'left-0', 'w-full', 'h-full', 'bg-secondary', 'opacity-10')}></div>
     </div>
   </div>
-</div>
+</a>

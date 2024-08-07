@@ -1,24 +1,11 @@
 <script lang="ts">
   import { onMount } from 'svelte';
 
-  import ActionButton from '$components/Button/ActionButton.svelte';
   import { MintDisclaimerModal } from '$components/MintDisclaimerModal';
   import { ProfileTabs } from '$components/Tabs';
-  import { Tooltip } from '$components/Tooltip';
   import { Galxe } from '$libs/galxe';
-  import type { UserProfile } from '$libs/profile';
-  import { galxeLoading } from '$stores/load';
-  import { currentProfile } from '$stores/profile';
-  import { BoosterCard, ProfileCard, GalxeCard } from './UserInfo';
 
-  let profile: UserProfile;
-  $: profile = $currentProfile;
-
-  async function handleGalxeClaim() {
-    $galxeLoading = true;
-    await Galxe.claim();
-    $galxeLoading = false;
-  }
+  import { BoosterCard, GalxeCard, ProfileCard } from './UserInfo';
 
   onMount(async () => {
     await Galxe.refreshData();

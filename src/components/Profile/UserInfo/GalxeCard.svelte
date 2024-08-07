@@ -1,12 +1,13 @@
 <script lang="ts">
-  import { ActionButton, Button } from '$components/Button';
+  import { onMount } from 'svelte';
+
+  import { ActionButton } from '$components/Button';
   import { AbstractProfileCard } from '$components/Profile/Template';
   import { Tooltip } from '$components/Tooltip';
-  import type { UserProfile } from '$libs/profile';
-  import { currentProfile } from '$stores/profile';
-  import { galxeLoading } from '$stores/load';
   import { Galxe } from '$libs/galxe';
-  import { onMount } from 'svelte';
+  import type { UserProfile } from '$libs/profile';
+  import { galxeLoading } from '$stores/load';
+  import { currentProfile } from '$stores/profile';
 
   let profile: UserProfile;
   $: profile = $currentProfile;

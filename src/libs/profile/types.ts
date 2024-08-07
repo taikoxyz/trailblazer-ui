@@ -78,6 +78,7 @@ export type UserPointHistoryPage = {
 };
 
 export type Event = 'Transaction' | 'TransactionValue' | 'BlockProposed' | 'Bridged';
+export type ActivityType = Event;
 
 export type UserPointHistory = {
   address: string;
