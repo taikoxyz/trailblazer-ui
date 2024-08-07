@@ -1,11 +1,10 @@
 <script lang="ts">
   import { t } from 'svelte-i18n';
 
-  import Skeleton from '$components/Mock/Skeleton.svelte';
+  import { ActivityIcon } from '$components/Icon';
   import { Pill } from '$components/Pill';
   import { formatDate } from '$libs/util/formatDate';
   import { currentProfile } from '$stores/profile';
-  import { ActivityIcon } from '$components/Icon';
 
   $: pointsHistory = $currentProfile.pointsHistory;
   $: hasPointHistory = pointsHistory && pointsHistory.items && pointsHistory.items.length > 0;
