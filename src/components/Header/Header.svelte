@@ -52,6 +52,8 @@
                 { name: 'Ecosystem', url: 'https://taiko.xyz/ecosystem', icon: 'nav-ecosystem' },
                 { name: 'Bridge', url: 'https://bridge.taiko.xyz', icon: 'nav-bridge' },
               ]}></NavigationItem>
+
+            <NavigationItem navigation={{ name: 'FAQs', route: '/faq' }}></NavigationItem>
           </div>
         </div>
         <div class="hidden xl:flex">
