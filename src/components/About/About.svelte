@@ -1,6 +1,9 @@
 <script lang="ts">
+  import { json } from 'svelte-i18n';
+
   import { FactionsGallery } from '$components/FactionsGallery';
-  import { FAQ } from '$components/FAQ';
+  import { FaqBlock } from '$components/FaqBlock';
+  import { type IFaqEntry } from '$components/FaqBlock/FaqBlock.svelte';
   import { TrailblazerGuide } from '$components/Startpage/Guide';
   import { classNames } from '$libs/util/classNames';
 
@@ -8,6 +11,9 @@
   import AboutHero from './AboutHero.svelte';
   import AboutInfoPanels from './AboutInfoPanels.svelte';
   import RewardsAndUtility from './RewardsAndUtility.svelte';
+
+  $: faqEntries = $json('faq') as { items: IFaqEntry[] }[];
+  $: faqMini = faqEntries[0].items as IFaqEntry[];
 
   const wrapperClasses = classNames(
     'lg:px-[75px]',
@@ -42,6 +48,8 @@
     'relative',
     'lg:left-[50%]',
   );
+
+  const faqWrapperClasses = classNames('w-full', 'flex', 'flex-col', 'justify-center', 'items-center');
 </script>
 
 <div class={wrapperClasses}>
@@ -55,5 +63,7 @@
   <FactionsGallery {arrowClasses} />
   <AboutFactionsInfo />
   <RewardsAndUtility />
-  <FAQ />
+  <div class={faqWrapperClasses}>
+    <FaqBlock entries={faqMini} />
+  </div>
 </div>
