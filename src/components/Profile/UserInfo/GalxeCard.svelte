@@ -23,9 +23,10 @@
 </script>
 
 {#if profile.galxePoints && profile.galxePoints > 0}
-  <AbstractProfileCard class="bg-[#310E2F]">
-    <div slot="title" class="title-subsection-bold">Galxe</div>
-    <Tooltip slot="tooltip" position="bottom">
+  <AbstractProfileCard class="bg-[#310E2F] relative">
+    <div slot="back-icon"></div>
+    <div slot="title" class="title-subsection-bold flex justify-center w-full">Galxe</div>
+    <Tooltip class="absolute right-4" slot="tooltip" position="bottom">
       <div class="bg-white text-black">
         <h2 class=" text-black">Are you a Galxe user?</h2>
         <div class="body-regular text-black">
