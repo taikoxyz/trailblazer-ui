@@ -42,7 +42,7 @@
 
 <div>
   <FactionBadges />
-  <UserNFTs />
+  <!-- <UserNFTs /> -->
 </div>
 
 <!--<MovementSelection bind:visible={movementModalVisible} />-->
