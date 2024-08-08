@@ -268,6 +268,10 @@
     "nft": {
       "description": "Use any wallet on Taiko to buy and trade NFTs, showcasing your skills in the digital collectibles market.",
       "title": "Buy & trade NFTs with any wallet on Taiko"
+    },
+    "gaming": {
+      "description": "Use any wallet on Taiko to buy and trade NFTs, showcasing your skills in the digital collectibles market.",
+      "title": "Play any game and earn rewards!"
     }
   },
   "trailblazer_guide": {
