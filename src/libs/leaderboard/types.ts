@@ -1,16 +1,19 @@
 import type { Address } from 'viem';
 
 export type DappLeaderboardPageApiResponse = {
-  items: DappLeaderboardItem[];
-  page: number;
-  size: number;
-  max_page: number;
-  total_pages: number;
-  total: number;
-  last: number;
-  first: number;
-  visible: number;
   lastUpdated: number;
+  data: {
+    items: DappLeaderboardItem[];
+    page: number;
+    size: number;
+    max_page: number;
+    total_pages: number;
+    total: number;
+    last: number;
+    first: number;
+    visible: number;
+    lastUpdated: number;
+  };
 };
 
 export type UserLeaderboardPageApiResponse = {

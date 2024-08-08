@@ -38,7 +38,7 @@
   headers={['No.', 'Dapp', '', 'Volume']}
   data={$currentDappLeaderboard.items}
   showTrophy={true}
-  showLastUpdated={false}
+  showLastUpdated={true}
   lastUpdated={new Date($currentDappLeaderboard.lastUpdated * 1000)}
   isLoading={loading}
   {handlePageChange}

@@ -8,7 +8,7 @@ import bridgeAdditionalData from '$libs/leaderboard/json/bridgeAdditionalData.js
 import dappDetailsMapping from '$libs/leaderboard/json/dappDetailsMapping.json';
 import { isDevelopmentEnv } from '$libs/util/isDevelopmentEnv';
 import { getLogger } from '$libs/util/logger';
-import { setBridgeLeaderboard, setDappLeaderboard } from '$stores/leaderboard';
+import { setBridgeLeaderboard, setDappLeaderboard, setDappLeaderboardLastUpdated } from '$stores/leaderboard';
 import {
   setDefiDappLeaderboardLastUpdated,
   setDefiDappLeaderboardProtocols,
@@ -47,7 +47,7 @@ export class Leaderboard {
 
     try {
       log('args', args);
-      const response = await axios.get<DappLeaderboardPageApiResponse>(`${baseApiUrl}/v1/leaderboard/dapp`, {
+      const response = await axios.get<DappLeaderboardPageApiResponse>(`${baseApiUrl}/v2/leaderboard/dapp`, {
         ...globalAxiosConfig,
         params: args,
       });
@@ -60,7 +60,7 @@ export class Leaderboard {
       const detailMapping: DetailsMapping = dappDetailsMapping;
 
       const items = await Promise.all(
-        leaderboardPageApiResponse.items.map(async (item) => {
+        leaderboardPageApiResponse.data.items.map(async (item) => {
           let entry: UnifiedLeaderboardRow;
           if (isAddress(item.slug)) {
             entry = {
@@ -94,10 +94,10 @@ export class Leaderboard {
       leaderboardPage.items = items;
 
       setDappLeaderboard(leaderboardPage);
-      setDefiDappLeaderboardLastUpdated(response.data.lastUpdated);
+      setDappLeaderboardLastUpdated(response.data.lastUpdated);
 
       log('Leaderboard page: ', leaderboardPage);
-      const { page, size, total, total_pages, max_page } = leaderboardPageApiResponse;
+      const { page, size, total, total_pages, max_page } = leaderboardPageApiResponse.data;
 
       return {
         first: page === 0,
