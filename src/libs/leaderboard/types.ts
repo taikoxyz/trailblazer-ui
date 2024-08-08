@@ -12,7 +12,6 @@ export type DappLeaderboardPageApiResponse = {
     last: number;
     first: number;
     visible: number;
-    lastUpdated: number;
   };
 };
 
