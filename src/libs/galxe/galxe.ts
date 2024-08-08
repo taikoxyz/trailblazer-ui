@@ -12,7 +12,7 @@ import { currentProfile } from '$stores/profile';
 import { readClaimGalxePointsAlreadyRegistered, writeClaimGalxePointsRegister } from '../../generated/abi';
 import type { GalxePointsResponse } from './types';
 
-const baseApiUrl = isDevelopmentEnv ? '/mock-api' : PUBLIC_TRAILBLAZER_API_URL;
+const baseApiUrl = isDevelopmentEnv ? '/api/mock-api' : PUBLIC_TRAILBLAZER_API_URL;
 
 export class Galxe {
   static async checkClaimed() {

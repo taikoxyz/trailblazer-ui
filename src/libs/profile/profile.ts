@@ -15,7 +15,7 @@ import type { UserLevel, UserPointHistoryPage, UserProfile } from './types';
 
 const log = getLogger('Profile');
 
-const baseApiUrl = isDevelopmentEnv ? '/mock-api' : PUBLIC_TRAILBLAZER_API_URL;
+const baseApiUrl = isDevelopmentEnv ? '/api/mock-api' : PUBLIC_TRAILBLAZER_API_URL;
 
 export class Profile {
   static getLevel(percentile: number): UserLevel {

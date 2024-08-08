@@ -1,7 +1,5 @@
 import type { Address } from 'viem';
 
-export type
-
 export type DappLeaderboardPageApiResponse = CommonPageApiResponse & {
   items: DappLeaderboardItem[];
   lastUpdated: number;
