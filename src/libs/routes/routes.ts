@@ -15,7 +15,6 @@ export const routes: NavigationItem[] = [
   },
   {
     name: 'Leaderboards',
-    route: '/leaderboard/dapp',
     children: [
       { name: 'Bridge', route: '/leaderboard/bridge', icon: 'quad-circles' },
       { name: 'Dapp', route: '/leaderboard/dapp', icon: 'star2' },

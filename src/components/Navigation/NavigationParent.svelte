@@ -1,7 +1,7 @@
 <script lang="ts">
   import { derived } from 'svelte/store';
+
   import { page } from '$app/stores';
-  import NavigationChild from './NavigationChild.svelte';
   import type { NavigationItem } from '$libs/routes';
 
   export let navigation: NavigationItem;
@@ -13,6 +13,7 @@
 <div class="dropdown dropdown-hover dropdown-bottom rounded-full lg:bg-container">
   {#if navigation.route}
     <a
+      class:text-primary-brand={$currentPath.split('/').includes(navigation.route.split('/')[1])}
       class="btn btn-ghost text-base hover:cursor-pointer rounded-full h-fit lg:bg-neutral-background lg:hover:bg-elevated-background py-[12px] f-center min-w-[140px] mb-2"
       href={navigation.route}>
       <div tabindex="0" role="button">{navigation.name} {children.length > 0 ? '+' : ''}</div>

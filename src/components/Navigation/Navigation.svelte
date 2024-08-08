@@ -1,5 +1,6 @@
 <script lang="ts">
   import { routes } from '$libs/routes';
+
   import NavigationChild from './NavigationChild.svelte';
   import NavigationParent from './NavigationParent.svelte';
 </script>
