@@ -6,8 +6,6 @@
   import { MobileNavigation } from '$components/MobileNavigation';
   import Navigation from '$components/Navigation/Navigation.svelte';
 
-  import NavigationItem from './NavigationItem.svelte';
-
   let mobileMenu = false;
 
   function toggleMobileMenu() {

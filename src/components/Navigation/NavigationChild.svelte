@@ -11,24 +11,12 @@
 </script>
 
 <!--  Desktop Only -->
-{#if navigation.route}
-  <div class="f-center items-center gap-4 hover:cursor-pointer hover:text-primary-brand">
-    {#if navigation.icon}
-      <Icon size={15} type={navigation.icon} />
-    {/if}
-    <a
-      href={navigation.route}
-      class:text-primary-brand={$currentPath === navigation.route}
-      class="flex items-center gap-4">{navigation.name}</a>
-  </div>
-{:else if navigation.route}
-  <button
-    on:click={() => goto(navigation.route || '')}
+<div class="f-center items-center gap-4 hover:cursor-pointer hover:text-primary-brand">
+  {#if navigation.icon}
+    <Icon size={15} type={navigation.icon} />
+  {/if}
+  <a
+    href={navigation.route}
     class:text-primary-brand={$currentPath === navigation.route}
-    class="flex items-center gap-4 hover:cursor-pointer hover:text-primary-brand">
-    {#if navigation.icon}
-      <Icon size={15} type={navigation.icon} />
-    {/if}
-    {navigation.name}
-  </button>
-{/if}
+    class="flex items-center gap-4">{navigation.name}</a>
+</div>
