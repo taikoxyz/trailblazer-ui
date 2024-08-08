@@ -4,6 +4,7 @@
   import Logo from '$components/Logo/Logo.svelte';
   import LogoWithText from '$components/Logo/LogoWithText.svelte';
   import { MobileNavigation } from '$components/MobileNavigation';
+  import Navigation from '$components/Navigation/Navigation.svelte';
 
   import NavigationItem from './NavigationItem.svelte';
 
@@ -35,27 +36,7 @@
         </label>
 
         <!--  Desktop Only -->
-        <div class="hidden xl:flex gap-2">
-          <div class="f-center gap-2">
-            <NavigationItem navigation={{ name: 'Profile', route: '/profile' }}></NavigationItem>
-            <NavigationItem
-              navigation={{ name: 'Leaderboards', route: '/leaderboard/dapp' }}
-              children={[
-                { name: 'Bridge', route: '/leaderboard/bridge', icon: 'quad-circles' },
-                { name: 'Dapp', route: '/leaderboard/dapp', icon: 'star2' },
-                { name: 'DeFi', route: '/leaderboard/defi', icon: 'butterfly-cross' },
-              ]}></NavigationItem>
-            <NavigationItem
-              navigation={{ name: 'Discover' }}
-              children={[
-                { name: 'About', route: '/about', icon: 'nav-about' },
-                { name: 'Ecosystem', url: 'https://taiko.xyz/ecosystem', icon: 'nav-ecosystem' },
-                { name: 'Bridge', url: 'https://bridge.taiko.xyz', icon: 'nav-bridge' },
-              ]}></NavigationItem>
-
-            <NavigationItem navigation={{ name: 'FAQs', route: '/faq' }}></NavigationItem>
-          </div>
-        </div>
+        <Navigation />
         <div class="hidden xl:flex">
           <ConnectButton />
         </div>
