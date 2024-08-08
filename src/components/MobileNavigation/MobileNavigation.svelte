@@ -1,8 +1,10 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
   import { fly } from 'svelte/transition';
-  import { routes } from '$libs/routes';
+
   import ConnectButton from '$components/ConnectButton/ConnectButton.svelte';
+  import { routes } from '$libs/routes';
+
   import MobileNavigationLink from './MobileNavigationLink.svelte';
 
   const dispatch = createEventDispatcher();
@@ -37,7 +39,7 @@
             </div>
             <div class="collapse-content bg-neutral w-full rounded-full flex flex-col gap-4 pl-0">
               {#each route.children as child}
-                <MobileNavigationLink on:navigate url={child.route} label={child.name} icon={child.icon} />
+                <MobileNavigationLink on:navigate navigation={child} />
               {/each}
             </div>
           </div>

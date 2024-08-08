@@ -1,7 +1,6 @@
 <script lang="ts">
   import { derived } from 'svelte/store';
 
-  import { goto } from '$app/navigation';
   import { page } from '$app/stores';
   import { Icon } from '$components/Icon';
   import type { NavigationItem } from '$libs/routes';
