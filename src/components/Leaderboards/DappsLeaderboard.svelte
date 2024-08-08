@@ -32,10 +32,12 @@
     totalItems = pageInfo.total || $currentDappLeaderboard.items.length;
     loading = false;
   }
+
+  let headers = ['No.', 'Dapp', '', 'Volume'];
 </script>
 
 <AbstractLeaderboard
-  headers={['No.', 'Dapp', '', 'Volume']}
+  {headers}
   data={$currentDappLeaderboard.items}
   showTrophy={true}
   showLastUpdated={false}
@@ -45,3 +47,19 @@
   {totalItems}
   headerComponent={DappsHeader}
   scoreComponent={PointScore} />
+
+<!-- <AbstractLeaderboard
+  {headers}
+  {data}
+  showPagination={false}
+  showDetailsColumn={false}
+  showTrophy={true}
+  isLoading={false}
+  handlePageChange={() => {}}
+  currentPage={1}
+  totalItems={$currentDefiDappLeaderboard.protocols.length}
+  showLastUpdated={true}
+  lastUpdated={new Date($currentDefiDappLeaderboard.lastUpdated * 1000)}
+  headerComponent={DefiDappsHeader}
+  scoreComponent={DollarScore}
+  additionalInfoComponent={DefiCompetitionInformation} /> -->

@@ -5,14 +5,14 @@
   import LastUpdated from '$components/Leaderboards/LastUpdated.svelte';
   import Paginator from '$components/Paginator/Paginator.svelte';
   import { leaderboardConfig } from '$config';
-  import type { DappLeaderboardRow } from '$libs/leaderboard';
+  import type { UnifiedLeaderboardRow } from '$libs/leaderboard';
 
   import LoadingRow from './LoadingRow.svelte';
   import TableHeader from './TableHeader.svelte';
   import TableRow from './TableRow.svelte';
 
   export let headers: string[];
-  export let data: DappLeaderboardRow[];
+  export let data: UnifiedLeaderboardRow[];
   export let showTrophy: boolean = true;
   export let isLoading: boolean = false;
   export let handlePageChange: (page: number) => void;

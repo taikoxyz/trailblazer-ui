@@ -16,7 +16,7 @@
 <AbstractLeaderboard
   {headers}
   {data}
-  showPagination={false}
+  showPagination={true}
   showDetailsColumn={false}
   showTrophy={true}
   isLoading={false}
