@@ -1,28 +1,15 @@
 import type { Address } from 'viem';
 
-export type DappLeaderboardPageApiResponse = {
+export type
+
+export type DappLeaderboardPageApiResponse = CommonPageApiResponse & {
   items: DappLeaderboardItem[];
-  page: number;
-  size: number;
-  max_page: number;
-  total_pages: number;
-  total: number;
-  last: number;
-  first: number;
-  visible: number;
   lastUpdated: number;
 };
 
-export type UserLeaderboardPageApiResponse = {
+export type UserLeaderboardPageApiResponse = CommonPageApiResponse & {
   items: UserLeaderboardItem[];
-  page: number;
-  size: number;
-  max_page: number;
-  total_pages: number;
-  total: number;
-  last: number;
-  first: number;
-  visible: number;
+  lastUpdated: number;
 };
 
 export type DappLeaderboardPage = {
@@ -142,6 +129,8 @@ export type PaginationInfo = {
   page: number;
   size: number;
 };
+
+export type CommonPageApiResponse = PaginationInfo;
 
 export type BridgeTokenScore = {
   token: Address;

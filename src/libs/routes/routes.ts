@@ -16,6 +16,7 @@ export const routes: NavigationItem[] = [
   {
     name: 'Leaderboards',
     children: [
+      { name: 'Users', route: '/leaderboard/user', icon: 'star' },
       { name: 'Bridge', route: '/leaderboard/bridge', icon: 'quad-circles' },
       { name: 'Dapp', route: '/leaderboard/dapp', icon: 'star2' },
       { name: 'DeFi', route: '/leaderboard/defi', icon: 'butterfly-cross' },

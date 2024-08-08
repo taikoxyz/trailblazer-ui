@@ -124,6 +124,7 @@ export class Leaderboard {
         globalAxiosConfig,
       );
       const leaderboardPage: UserLeaderboardPage = response.data as UserLeaderboardPage;
+      console.log('🚀 | Leaderboard | getUserLeaderboard | leaderboardPage:', leaderboardPage);
       setUserLeaderboard(leaderboardPage);
     } catch (error) {
       console.error('Error fetching leaderboard:', error);
