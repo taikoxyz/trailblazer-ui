@@ -5,9 +5,9 @@
   import { AbstractProfileCard } from '$components/Profile/Template';
   import { Spinner } from '$components/Spinner';
   import { Tooltip } from '$components/Tooltip';
+  import { formatMultiplier } from '$libs/util/formatMultiplier';
   import { boosterLoading } from '$stores/load';
   import { currentProfile } from '$stores/profile';
-  import { formatMultiplier } from '$libs/util/formatMultiplier';
 
   let showBreakdown = false;
   let factionMultiplier = 1;

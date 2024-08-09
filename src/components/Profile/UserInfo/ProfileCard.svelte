@@ -1,27 +1,18 @@
 <script lang="ts">
   import CountUp from '$components/Numbers/CountUp.svelte';
   import { Tooltip } from '$components/Tooltip';
-  import { Domain, DomainType } from '$libs/domain';
   import { type UserProfile } from '$libs/profile';
   import { formatMultiplier } from '$libs/util/formatMultiplier';
   import { currentProfile } from '$stores/profile';
-  import { ProfileName } from '.';
 
   import RankDisplay from '../RankDisplay.svelte';
+  import { ProfileName } from '.';
 
   let profile: UserProfile;
-  let dropdown: HTMLDetailsElement | null = null;
   let multipliedView = true;
   $: profile = $currentProfile;
   $: totalMultiplier = formatMultiplier(profile?.multipliers.totalMultiplier);
   $: displayedScore = multipliedView ? $currentProfile?.boostedPoints : profile?.score;
-
-  function handleSetDomain(selectedDomain: DomainType) {
-    Domain.setSelectedDomain(selectedDomain);
-    if (dropdown) {
-      dropdown.removeAttribute('open');
-    }
-  }
 </script>
 
 <div
@@ -41,7 +32,7 @@
     <!-- Points -->
     <div class="flex flex-col items-start lg:mb-2 gap-2 w-full">
       <div class="flex items-center gap-2">
-        <CountUp class="font-clash-grotesk font-semibold text-[45px] leading-none" value={displayedScore} />
+        <CountUp class="font-clash-grotesk font-semibold text-[45px] leading-none" value={Number(displayedScore)} />
         <div class="body-regular">points</div>
       </div>
       <div
@@ -72,7 +63,7 @@
           <div
             class="flex w-full items-center gap-2 py-1 px-2 body-small-bold rounded-full transition-all duration-300 ease-in-out">
             <span>≈</span>
-            <CountUp class="body-regular" value={$currentProfile?.boostedPoints} />
+            <CountUp class="body-regular" value={Number($currentProfile?.boostedPoints)} />
             <Tooltip position="bottom" class="">
               <div class="bg-white text-black p-3 rounded-lg">
                 <h2 class="text-black font-bold mb-2">Your Final Score</h2>

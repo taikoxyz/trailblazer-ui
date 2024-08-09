@@ -35,7 +35,7 @@ export type UserProfile = GalxePoints &
     address: string;
     pointsHistory?: UserPointHistoryPage;
     score: number;
-    boostedPoints: number;
+    boostedPoints: string;
     pointsToNextLevel: number;
     rank: string;
     title: string;
