@@ -36,16 +36,16 @@
       <div class="text-secondary-content body-regular pb-[20px]">{$t(description)}</div>
     </div>
     {#if cta && link}
-    <div class="flex justify-start">
-      <a class="w-fit" href={link} target="_blank">
-        <ActionButton
-          href={link}
-          class="max-w-[109px] border-2 body-bold text-nowrap py-[2px] h-fit"
-          priority="secondary">
-          {cta}
-        </ActionButton>
-      </a>
-    </div>
+      <div class="flex justify-start">
+        <a class="w-fit" href={link} target="_blank">
+          <ActionButton
+            href={link}
+            class="max-w-[109px] border-2 body-bold text-nowrap py-[2px] h-fit"
+            priority="secondary">
+            {cta}
+          </ActionButton>
+        </a>
+      </div>
     {/if}
   </div>
 </div>

@@ -1,17 +1,16 @@
 <script lang="ts">
   import { json } from 'svelte-i18n';
 
-  import { FactionsGallery } from '$components/FactionsGallery';
   import { FaqBlock } from '$components/FaqBlock';
   import { type IFaqEntry } from '$components/FaqBlock/FaqBlock.svelte';
   import { TrailblazerGuide } from '$components/Startpage/Guide';
   import { classNames } from '$libs/util/classNames';
 
+  import AboutFactionsGallery from './AboutFactionsGallery.svelte';
   import AboutFactionsInfo from './AboutFactionsInfo.svelte';
   import AboutHero from './AboutHero.svelte';
   import AboutInfoPanels from './AboutInfoPanels.svelte';
   import RewardsAndUtility from './RewardsAndUtility.svelte';
-  import AboutFactionsGallery from '$components/FactionsGallery/AboutFactionsGallery.svelte';
 
   $: faqEntries = $json('faq') as { items: IFaqEntry[] }[];
   $: faqMini = faqEntries[0].items as IFaqEntry[];
