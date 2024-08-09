@@ -37,7 +37,7 @@
       </div>
     </Tooltip>
     <div slot="status" class="f-center flex-col px-6 w-full justify-between">
-      <div class="f-center flex-col py-[28px]">
+      <div class="f-center flex-col">
         <div class="body-bold">{profile.galxePoints} Galxe Points =</div>
         <div class="display-medium-medium">{profile.trailblazerPoints}</div>
         <div>Trailblazer Points</div>
