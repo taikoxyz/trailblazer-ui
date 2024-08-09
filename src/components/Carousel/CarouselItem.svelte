@@ -35,6 +35,7 @@
       </div>
       <div class="text-secondary-content body-regular pb-[20px]">{$t(description)}</div>
     </div>
+    {#if cta && link}
     <div class="flex justify-start">
       <a class="w-fit" href={link} target="_blank">
         <ActionButton
@@ -45,5 +46,6 @@
         </ActionButton>
       </a>
     </div>
+    {/if}
   </div>
 </div>

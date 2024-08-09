@@ -11,6 +11,7 @@
   import AboutHero from './AboutHero.svelte';
   import AboutInfoPanels from './AboutInfoPanels.svelte';
   import RewardsAndUtility from './RewardsAndUtility.svelte';
+  import AboutFactionsGallery from '$components/FactionsGallery/AboutFactionsGallery.svelte';
 
   $: faqEntries = $json('faq') as { items: IFaqEntry[] }[];
   $: faqMini = faqEntries[0].items as IFaqEntry[];
@@ -60,7 +61,7 @@
   </div>
 
   <AboutInfoPanels />
-  <FactionsGallery {arrowClasses} />
+  <AboutFactionsGallery {arrowClasses} />
   <AboutFactionsInfo />
   <RewardsAndUtility />
   <div class={faqWrapperClasses}>
