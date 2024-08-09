@@ -12,7 +12,7 @@
   let multipliedView = true;
   $: profile = $currentProfile;
   $: totalMultiplier = formatMultiplier(profile?.multipliers.totalMultiplier);
-  $: displayedScore = multipliedView ? $currentProfile?.boostedPoints : profile?.score;
+  $: displayedScore = profile?.score;
 </script>
 
 <div
@@ -35,48 +35,37 @@
         <CountUp class="font-clash-grotesk font-semibold text-[45px] leading-none" value={Number(displayedScore)} />
         <div class="body-regular">points</div>
       </div>
-      <div
-        class="relative w-full"
-        role="button"
-        tabindex="0"
-        on:mouseover={() => (multipliedView = false)}
-        on:mouseleave={() => (multipliedView = true)}
-        on:focus={() => (multipliedView = false)}
-        on:blur={() => (multipliedView = true)}
-        aria-label="Toggle score view">
-        {#if multipliedView}
-          <div
-            class="w-fit flex items-center gap-1 py-1 px-2 body-small-bold border border-divider-border bg-neutral-background rounded-full transition-all duration-300 ease-in-out hover:bg-neutral-hover">
-            <span class="body-small-bold tracking-wide">{totalMultiplier}x boosted</span>
-            <Tooltip position="bottom" class="">
-              <div class="bg-white text-black p-3 rounded-lg">
-                <h2 class="text-black font-bold mb-2">Your Final Score</h2>
-                <div class="text-black body-regular">
-                  Your end of season rewards will be determined by your final score:
-                  <br />
-                  <span class="font-semibold">Base Score × Multipliers = Final Score</span>
-                </div>
+      {#if multipliedView}
+        <div
+          class="w-fit max-w-[150px] h-[24px] flex items-center gap-1 py-2 pl-2 pr-1 body-small-bold border border-divider-border bg-neutral-background rounded-full transition-all duration-300 ease-in-out hover:bg-neutral-hover">
+          <span class="body-small-bold tracking-wide w-[100px]">{totalMultiplier}x boosted</span>
+          <Tooltip on:mouseenter={() => (multipliedView = false)} position="bottom" class="">
+            <div class="bg-white text-black rounded-lg">
+              <h2 class="text-black font-bold mb-2">Your final score</h2>
+              <div class="text-black body-regular">
+                Your end of season rewards will be determined by your final score:
+                <br />
+                <span class="font-semibold">Base score × multipliers = final score</span>
               </div>
-            </Tooltip>
-          </div>
-        {:else}
-          <div
-            class="flex w-full items-center gap-2 py-1 px-2 body-small-bold rounded-full transition-all duration-300 ease-in-out">
-            <span>≈</span>
-            <CountUp class="body-regular" value={Number($currentProfile?.boostedPoints)} />
-            <Tooltip position="bottom" class="">
-              <div class="bg-white text-black p-3 rounded-lg">
-                <h2 class="text-black font-bold mb-2">Your Final Score</h2>
-                <div class="text-black body-regular">
-                  Your end of season rewards will be determined by your final score:
-                  <br />
-                  <span class="font-semibold">Base Score × Multipliers = Final Score</span>
-                </div>
+            </div>
+          </Tooltip>
+        </div>
+      {:else}
+        <div
+          class="flex w-fit max-w-[150px] h-[24px] items-center gap-1 py-2 pl-2 pr-1 body-small-bold border border-transparent rounded-full transition-all duration-300 ease-in-out">
+          <span class="w-[100px]">≈ {Number($currentProfile?.boostedPoints)} points</span>
+          <Tooltip on:mouseleave={() => (multipliedView = true)} position="bottom" class="">
+            <div class="bg-white text-black rounded-lg">
+              <h2 class="text-black font-bold mb-2">Your final score</h2>
+              <div class="text-black body-regular">
+                Your end of season rewards will be determined by your final score:
+                <br />
+                <span class="font-semibold">Base score × multipliers = final score</span>
               </div>
-            </Tooltip>
-          </div>
-        {/if}
-      </div>
+            </div>
+          </Tooltip>
+        </div>
+      {/if}
     </div>
     <!-- Faction -->
     <!-- <div class="flex gap-2 items-center">
