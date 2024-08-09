@@ -18,7 +18,7 @@ import type { UserLevel, UserMultiplier, UserNFT, UserPointHistoryPage, UserProf
 
 const log = getLogger('Profile');
 
-const baseApiUrl = isDevelopmentEnv ? '/mock-api' : PUBLIC_TRAILBLAZER_API_URL;
+const baseApiUrl = isDevelopmentEnv ? '/api/mock-api' : PUBLIC_TRAILBLAZER_API_URL;
 
 export class Profile {
   static getLevel(percentile: number): UserLevel {
@@ -140,30 +140,37 @@ export class Profile {
       log('Updated Profile: ', get(currentProfile));
 
       // Get Multipliers and NFT Inventory
-      const graphqlResponse = await graphqlClient.query({
-        query: USER_NFTS_QUERY,
-        variables: { address: address.toLocaleLowerCase() },
-      });
+      let graphqlResponse;
+      if (!isDevelopmentEnv) {
+        graphqlResponse = await graphqlClient.query({
+          query: USER_NFTS_QUERY,
+          variables: { address: address.toLocaleLowerCase() },
+        });
+      } else {
+        const { data } = await axios.get(`${baseApiUrl}/user/graphql`, { params: { address }, ...globalAxiosConfig });
+        graphqlResponse = data;
+      }
 
-      const userMultiplier: UserMultiplier = {
-        totalMultiplier: Number(graphqlResponse.data.owner.totalMultiplier),
-        taikoonMultiplier: Number(graphqlResponse.data.owner.taikoonMultiplier),
-        factionMultiplier: Number(graphqlResponse.data.owner.factionMultiplier),
-        snaefellMultiplier: Number(graphqlResponse.data.owner.snaefellMultiplier),
-      };
+      if (graphqlResponse?.data?.owner) {
+        const userMultiplier: UserMultiplier = {
+          totalMultiplier: Number(graphqlResponse?.data?.owner?.totalMultiplier || 1),
+          taikoonMultiplier: Number(graphqlResponse?.data?.owner?.taikoonMultiplier || 1),
+          factionMultiplier: Number(graphqlResponse?.data?.owner?.factionMultiplier || 1),
+          snaefellMultiplier: Number(graphqlResponse?.data?.owner?.snaefellMultiplier || 1),
+        };
 
-      const userNFTs: UserNFT[] = graphqlResponse.data.owner.ownedTokens.map(
-        (token: { contract: { name: string }; tokenId: string }) => ({
-          name: token.contract.name,
-          tokenId: token.tokenId,
-        }),
-      );
+        const userNFTs: UserNFT[] = graphqlResponse.data.owner.ownedTokens.map(
+          (token: { contract: { name: string }; tokenId: string }) => ({
+            name: token.contract.name,
+            tokenId: token.tokenId,
+          }),
+        );
 
-      // Update profile
-      currentProfile.update((current) => {
-        return { ...current, multipliers: userMultiplier, nfts: userNFTs };
-      });
-
+        // Update profile
+        currentProfile.update((current) => {
+          return { ...current, multipliers: userMultiplier, nfts: userNFTs };
+        });
+      }
       boosterLoading.set(false);
 
       /* re-enable when movements (based vs boosted) becomes available
@@ -189,9 +196,12 @@ export class Profile {
       const formattedRankPercentile = `${(100 - rankPercentile).toFixed(2)}%`;
       log('Formatted', formattedRankPercentile);
 
+      // Calculate Boosted Points
+      const boostedPoints = this.calculateBoostedPoints();
+
       // Update Profile
       currentProfile.update((current) => {
-        return { ...current, ...level, rankPercentile: formattedRankPercentile };
+        return { ...current, ...level, rankPercentile: formattedRankPercentile, boostedPoints: boostedPoints };
       });
       log('Final Profile: ', get(currentProfile));
     }
@@ -227,5 +237,11 @@ export class Profile {
     return percentile || 0;
   }
 
-  static async getUserMultipliers() {}
+  static calculateBoostedPoints() {
+    const profile = get(currentProfile);
+    const totalMultiplier = profile.multipliers.totalMultiplier;
+    const points = profile.score;
+    const boostedPoints = ((points * (totalMultiplier + 1000)) / 1000).toFixed(0);
+    return boostedPoints;
+  }
 }

@@ -7,6 +7,7 @@
   import { Tooltip } from '$components/Tooltip';
   import { boosterLoading } from '$stores/load';
   import { currentProfile } from '$stores/profile';
+  import { formatMultiplier } from '$libs/util/formatMultiplier';
 
   let showBreakdown = false;
   let factionMultiplier = 1;
@@ -14,16 +15,12 @@
   let taikoonMultiplier = 1;
   let totalMultiplier = 1;
 
-  function getMultiplier(multiplier: number): number {
-    return Number(((multiplier + 1000) / 1000).toFixed(2));
-  }
-
   $: profile = $currentProfile;
   $: {
-    totalMultiplier = getMultiplier(profile.multipliers?.totalMultiplier);
-    factionMultiplier = getMultiplier(profile.multipliers?.factionMultiplier);
-    snaefellMultiplier = getMultiplier(profile.multipliers?.snaefellMultiplier);
-    taikoonMultiplier = getMultiplier(profile.multipliers?.taikoonMultiplier);
+    totalMultiplier = formatMultiplier(profile.multipliers?.totalMultiplier);
+    factionMultiplier = formatMultiplier(profile.multipliers?.factionMultiplier);
+    snaefellMultiplier = formatMultiplier(profile.multipliers?.snaefellMultiplier);
+    taikoonMultiplier = formatMultiplier(profile.multipliers?.taikoonMultiplier);
   }
 </script>
 

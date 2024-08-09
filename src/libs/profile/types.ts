@@ -1,11 +1,41 @@
 import type { Movements } from '$libs/badges/const';
 import type { DomainNames } from '$libs/domain/types';
 
+export type GraphQLResponse = {
+  loading: boolean;
+  networkStatus: number;
+};
+
+export type UserProfileGQL = GraphQLResponse & {
+  data: {
+    owner: {
+      __typename: 'Owner';
+      id: string;
+      totalMultiplier: string;
+      factionMultiplier: string;
+      snaefellMultiplier: string;
+      taikoonMultiplier: string;
+      ownedTokens: {
+        __typename: 'Token';
+        contract: {
+          __typename: 'Contract';
+          name: string;
+        };
+        id: string;
+        tokenId: string;
+        badgeId: string | null;
+        uri: string;
+      }[];
+    };
+  };
+};
+
 export type UserProfile = GalxePoints &
   DomainNames & {
     address: string;
     pointsHistory?: UserPointHistoryPage;
     score: number;
+    boostedPoints: number;
     pointsToNextLevel: number;
     rank: string;
     title: string;

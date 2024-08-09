@@ -1,16 +1,23 @@
 <script lang="ts">
   import { Icon } from '$components/Icon';
   import CountUp from '$components/Numbers/CountUp.svelte';
+  import { Pill } from '$components/Pill';
+  import { Tooltip } from '$components/Tooltip';
   import { Domain, DomainType } from '$libs/domain';
   import { type UserProfile } from '$libs/profile';
+  import { formatMultiplier } from '$libs/util/formatMultiplier';
   import { shortenAddress } from '$libs/util/shortenAddress';
   import { currentProfile } from '$stores/profile';
+  import { ProfileName } from '.';
 
   import RankDisplay from '../RankDisplay.svelte';
 
   let profile: UserProfile;
   let dropdown: HTMLDetailsElement | null = null;
+  let multipliedView = true;
   $: profile = $currentProfile;
+  $: totalMultiplier = formatMultiplier(profile?.multipliers.totalMultiplier);
+  $: displayedScore = multipliedView ? $currentProfile?.boostedPoints : profile?.score;
 
   function handleSetDomain(selectedDomain: DomainType) {
     Domain.setSelectedDomain(selectedDomain);
@@ -29,52 +36,59 @@
     </div>
   </div>
   <!-- <ProfileMultipliers /> -->
-
   <div class="flex lg:items-start items-center flex-col gap-2 self-center lg:min-w-[300px] w-full">
     <div class="flex align-start justify-between items-center gap-2 mt-5 lg:mt-0">
-      <div class="flex items-center gap-1">
-        <Icon type="user-circle"></Icon>
-        <a
-          href={`https://taikoscan.io/address/${profile?.address}`}
-          target="_blank"
-          class="body-bold hover:cursor-pointer underline text-primary-link">
-          {#if profile?.selected == DomainType.DOTTAIKO && profile?.dotTaiko}
-            {profile.dotTaiko}
-          {:else if profile?.selected == DomainType.ZNS && profile?.zns}
-            {profile.zns}
-          {:else}
-            {shortenAddress(profile?.address)}
-          {/if}
-        </a>
-        {#if profile?.dotTaiko || profile?.zns}
-          <details bind:this={dropdown} class="dropdown dropdown-end ml-1 flex">
-            <summary class="btn p-1 h-[20px] w-[20px] min-h-0 bg-secondary-icon border-secondary-icon"
-              ><Icon class="-translate-x-[1px] h-[6px] w-[10px]" type="chevron-down" /></summary>
-            <ul class="menu dropdown-content bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
-              {#if profile?.dotTaiko && profile?.selected != DomainType.DOTTAIKO}
-                <li><button on:click={() => handleSetDomain(DomainType.DOTTAIKO)}>{profile.dotTaiko}</button></li>
-              {/if}
-              {#if profile?.zns && profile?.selected != DomainType.ZNS}
-                <li><button on:click={() => handleSetDomain(DomainType.ZNS)}>{profile.zns}</button></li>
-              {/if}
-              {#if profile?.address && profile?.selected != DomainType.ADDRESS}
-                <li>
-                  <button on:click={() => handleSetDomain(DomainType.ADDRESS)}
-                    >{shortenAddress(profile?.address)}</button>
-                </li>
-              {/if}
-            </ul>
-          </details>
-        {/if}
-      </div>
-
-      <!-- <div>{shortenAddress(profile?.address)} / {profile?.ens}</div> -->
+      <ProfileName {profile} />
     </div>
 
     <!-- Points -->
-    <div class="flex items-center gap-2 lg:mb-4">
-      <CountUp class="font-clash-grotesk font-semibold text-[45px] leading-none" value={$currentProfile?.score} />
-      <div>Points</div>
+    <div class="flex flex-col items-start lg:mb-2 gap-2 w-full">
+      <div class="flex items-center gap-2">
+        <CountUp class="font-clash-grotesk font-semibold text-[45px] leading-none" value={displayedScore} />
+        <div class="body-regular">points</div>
+      </div>
+      <div
+        class="relative w-full"
+        role="button"
+        tabindex="0"
+        on:mouseover={() => (multipliedView = false)}
+        on:mouseleave={() => (multipliedView = true)}
+        on:focus={() => (multipliedView = false)}
+        on:blur={() => (multipliedView = true)}
+        aria-label="Toggle score view">
+        {#if multipliedView}
+          <div
+            class="w-fit flex items-center gap-1 py-1 px-2 body-small-bold border border-divider-border bg-neutral-background rounded-full transition-all duration-300 ease-in-out hover:bg-neutral-hover">
+            <span class="body-small-bold tracking-wide">{totalMultiplier}x boosted</span>
+            <Tooltip position="bottom" class="">
+              <div class="bg-white text-black p-3 rounded-lg">
+                <h2 class="text-black font-bold mb-2">Your Final Score</h2>
+                <div class="text-black body-regular">
+                  Your end of season rewards will be determined by your final score:
+                  <br />
+                  <span class="font-semibold">Base Score × Multipliers = Final Score</span>
+                </div>
+              </div>
+            </Tooltip>
+          </div>
+        {:else}
+          <div
+            class="flex w-full items-center gap-2 py-1 px-2 body-small-bold rounded-full transition-all duration-300 ease-in-out">
+            <span>≈</span>
+            <CountUp class="body-regular" value={$currentProfile?.boostedPoints} />
+            <Tooltip position="bottom" class="">
+              <div class="bg-white text-black p-3 rounded-lg">
+                <h2 class="text-black font-bold mb-2">Your Final Score</h2>
+                <div class="text-black body-regular">
+                  Your end of season rewards will be determined by your final score:
+                  <br />
+                  <span class="font-semibold">Base Score × Multipliers = Final Score</span>
+                </div>
+              </div>
+            </Tooltip>
+          </div>
+        {/if}
+      </div>
     </div>
     <!-- Faction -->
     <!-- <div class="flex gap-2 items-center">

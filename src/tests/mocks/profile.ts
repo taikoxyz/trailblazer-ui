@@ -29,6 +29,7 @@ export const MOCK_PROFILE: UserProfile = {
     totalMultiplier: 3,
   },
   nfts: [],
+  boostedPoints: 0,
 };
 
 export const MOCK_PROFILE_2: UserProfile = {
@@ -58,4 +59,5 @@ export const MOCK_PROFILE_2: UserProfile = {
     totalMultiplier: 1,
   },
   nfts: [],
+  boostedPoints: 0,
 };
