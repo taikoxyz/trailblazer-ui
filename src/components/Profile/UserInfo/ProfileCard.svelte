@@ -1,12 +1,9 @@
 <script lang="ts">
-  import { Icon } from '$components/Icon';
   import CountUp from '$components/Numbers/CountUp.svelte';
-  import { Pill } from '$components/Pill';
   import { Tooltip } from '$components/Tooltip';
   import { Domain, DomainType } from '$libs/domain';
   import { type UserProfile } from '$libs/profile';
   import { formatMultiplier } from '$libs/util/formatMultiplier';
-  import { shortenAddress } from '$libs/util/shortenAddress';
   import { currentProfile } from '$stores/profile';
   import { ProfileName } from '.';
 

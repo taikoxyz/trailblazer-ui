@@ -17,7 +17,6 @@
     <div class="flex px-4 lg:px-0 gap-8 h-full box-content flex-col lg:flex-row justify-center">
       <!-- Profile Card -->
       <ProfileCard />
-
       <!-- Bridged Card -->
       <!-- <ProfileSubCard> -->
       <!-- <div class="flex flex-col gap-8 items-center w-full">
