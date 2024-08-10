@@ -1,8 +1,8 @@
 <script lang="ts">
-  import { formatNumbers } from '$libs/util/formatNumbers';
-
   // Count up to value using svelte spring
   import { spring } from 'svelte/motion';
+
+  import { formatNumbers } from '$libs/util/formatNumbers';
 
   export let value = 0;
   let countSpring = spring(0, { stiffness: 0.04, damping: 1, precision: 0.001 });

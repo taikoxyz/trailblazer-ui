@@ -3,11 +3,11 @@
   import { Tooltip } from '$components/Tooltip';
   import { type UserProfile } from '$libs/profile';
   import { formatMultiplier } from '$libs/util/formatMultiplier';
+  import { formatNumbers } from '$libs/util/formatNumbers';
   import { currentProfile } from '$stores/profile';
 
   import RankDisplay from '../RankDisplay.svelte';
   import { ProfileName } from '.';
-  import { formatNumbers } from '$libs/util/formatNumbers';
 
   let profile: UserProfile;
   let multipliedView = true;
