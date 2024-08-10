@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { formatNumbers } from '$libs/util/formatNumbers';
+
   // Count up to value using svelte spring
   import { spring } from 'svelte/motion';
 
@@ -7,4 +9,4 @@
   $: countSpring.update(() => value);
 </script>
 
-<div class={$$props.class}>{$countSpring.toFixed(0)}</div>
+<div class={$$props.class}>{formatNumbers($countSpring.toFixed(0))}</div>
