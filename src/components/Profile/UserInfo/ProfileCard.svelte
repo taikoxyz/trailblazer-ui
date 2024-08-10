@@ -7,6 +7,7 @@
 
   import RankDisplay from '../RankDisplay.svelte';
   import { ProfileName } from '.';
+  import { formatNumbers } from '$libs/util/formatNumbers';
 
   let profile: UserProfile;
   let multipliedView = true;
@@ -53,7 +54,7 @@
       {:else}
         <div
           class="flex w-fit max-w-[150px] h-[24px] items-center gap-1 py-2 pl-2 pr-1 body-small-bold border border-transparent rounded-full transition-all duration-300 ease-in-out">
-          <span class="w-[100px]">≈ {Number($currentProfile?.boostedPoints)} points</span>
+          <span class="w-[100px]">≈ {formatNumbers(Number($currentProfile?.boostedPoints))} points</span>
           <Tooltip on:mouseleave={() => (multipliedView = true)} position="bottom" class="">
             <div class="bg-white text-black rounded-lg">
               <h2 class="text-black font-bold mb-2">Your final score</h2>
