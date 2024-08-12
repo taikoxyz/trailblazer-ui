@@ -163,6 +163,8 @@
     'https://taiko.mirror.xyz/7L-lnL1ab24Q9XmCgpQtVOmfxoNCTb_RGEbS7w4E3io',
     // week 6 - Androids
     'https://taiko.mirror.xyz/n9G_VMf2ShNhx-6eHbLTTE5BwRP1JKHkCDxZQTk0nrY',
+    // week 7 - Drummers
+    'https://taiko.mirror.xyz/8-8mdHJKlP0sZACfEb666CTctTHbhbV47U4b2-5DHpQ',
   ];
 
   $: requirementsUrl = requirementsUrls[FACTIONS[name]] || '';
