@@ -14,6 +14,7 @@ import {
   setDefiDappLeaderboardProtocols,
   setUserLeaderboard,
 } from '$stores/leaderboard';
+import { setGamingLeaderboard, setGamingLeaderboardLastUpdated } from '$stores/leaderboards/gamingLeaderboard';
 
 import type {
   BridgeData,
@@ -95,6 +96,81 @@ export class Leaderboard {
 
       setDappLeaderboard(leaderboardPage);
       setDappLeaderboardLastUpdated(response.data.lastUpdated);
+
+      log('Leaderboard page: ', leaderboardPage);
+      const { page, size, total, total_pages, max_page } = leaderboardPageApiResponse.data;
+
+      return {
+        first: page === 0,
+        last: page === max_page,
+        total,
+        size,
+        total_pages,
+        page,
+      } satisfies PaginationInfo;
+    } catch (error) {
+      console.error('Error fetching leaderboard:', error);
+      errorToast({
+        title: 'Error fetching leaderboard',
+        message: `${error}`,
+      });
+      return args;
+    }
+  }
+
+  static async getGamingLeaderboard(args: PaginationInfo): Promise<PaginationInfo> {
+    log('baseApiUrl', baseApiUrl);
+
+    try {
+      log('args', args);
+      const response = await axios.get<DappLeaderboardPageApiResponse>(`${baseApiUrl}/v2/leaderboard/gaming`, {
+        ...globalAxiosConfig,
+        params: args,
+      });
+
+      log('response', response);
+      const leaderboardPageApiResponse: DappLeaderboardPageApiResponse = response.data;
+
+      const leaderboardPage: DappLeaderboardPage = { items: [], lastUpdated: 0 };
+
+      const detailMapping: DetailsMapping = dappDetailsMapping;
+
+      const items = await Promise.all(
+        leaderboardPageApiResponse.data.items.map(async (item) => {
+          let entry: UnifiedLeaderboardRow;
+          if (isAddress(item.slug)) {
+            entry = {
+              address: item.address,
+              data: [],
+              totalScore: item.score,
+            };
+          } else {
+            const details = await axios.get<ProtocolApiResponse>(`${baseApiUrl}/protocol/details`, {
+              ...globalAxiosConfig,
+              params: { slug: item.slug },
+            });
+            const protocolDetails = details.data;
+
+            entry = {
+              address: item.address,
+              data: protocolDetails.protocols,
+              totalScore: item.score,
+            };
+          }
+          if (detailMapping[item.slug]?.icon) {
+            entry.icon = detailMapping[item.slug].icon;
+          }
+          if (detailMapping[item.slug]?.handle) {
+            entry.handle = detailMapping[item.slug].handle;
+          }
+          return entry;
+        }),
+      );
+
+      leaderboardPage.items = items;
+
+      setGamingLeaderboard(leaderboardPage);
+      setGamingLeaderboardLastUpdated(response.data.lastUpdated);
 
       log('Leaderboard page: ', leaderboardPage);
       const { page, size, total, total_pages, max_page } = leaderboardPageApiResponse.data;

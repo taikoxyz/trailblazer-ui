@@ -4,7 +4,7 @@
   import { goto } from '$app/navigation';
   import { page } from '$app/stores';
   import { ActionButton } from '$components/Button';
-  import { DappsLeaderboard } from '$components/Leaderboards';
+  import GamingLeaderboard from '$components/Leaderboards/GamingLeaderboard.svelte';
   import { Page } from '$components/Page';
   import type { PaginationInfo } from '$libs/leaderboard';
 
@@ -14,7 +14,7 @@
   $: ({ pageInfo, loading } = $page.data);
 
   const handleClick = () => {
-    goto('/leaderboard/bridge');
+    goto('/leaderboard/gaming');
   };
 </script>
 
@@ -23,11 +23,11 @@
 </svelte:head>
 
 <Page>
-  <DappsLeaderboard {pageInfo} {loading} />
+  <GamingLeaderboard {pageInfo} {loading} />
 
   <div class="w-full flex justify-center mt-[58px]">
     <ActionButton class="max-w-[280px]" priority="primary" on:click={handleClick} withArrow>
-      {$t('buttons.leaderboard.gaming')}
+      {$t('buttons.leaderboard.dapp')}
     </ActionButton>
   </div>
 </Page>
