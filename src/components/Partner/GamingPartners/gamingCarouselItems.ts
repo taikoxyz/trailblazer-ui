@@ -57,30 +57,37 @@ export const gamingCarouselItems: CarouselItemType[] = [
   },
   {
     id: '7',
-    title: 'Stupid Monkeys',
+    title: 'Robots.Farm',
     description:
-      'Welcome to StupidMonkeys Realm Hero, where dynamic NFTs bring your monkeys to life! Level up, evolve, and conquer in thrilling PvP battles to claim your title as the Hero of the MonkeyRealm!',
-    image: '/games/stupidmonkeys.png',
-    link: 'https://www.stupidmonkeys.co/',
+      'Engage in burn to play game, swap tokens, farm rewards, and enhance your profile with XP points while collecting unique items to unlock special features!',
+    image: '/games/robotsfarm.jpg',
+    link: 'https://robots.farm/',
     cta: 'Play Now',
   },
   {
     id: '8',
-    title: '21BJ',
-    description:
-      '21BJ is a free-to-play Fantasy Casino Mobile Game, merging the thrill of casino games with the immersive elements of a strategic RPG-influenced journey.',
-    image: '/games/21bj.png',
-    link: 'https://21bj.io/',
+    title: 'Bullish',
+    description: 'The First Seamless Transaction Tech in Omni Layer2 Cross-Rollup Game. Play to earn.',
+    image: '/games/bullish.jpg',
+    link: 'https://bullishs.io/',
     cta: 'Play Now',
   },
-
   {
     id: '9',
-    title: 'Swords and Dungeons',
+    title: 'Brigade',
     description:
-      'Swords and Dungeons is the first multi-chain MMORPG. It is a vast world with rich gameplay, NFTs, and dynamic economic models.',
-    image: '/games/swordsanddungeons.png',
-    link: 'https://swnd.io/',
+      'Fight, Earn, Dominate. Thrilling third-person shooter powered by Unreal Engine 5. Dominate deathmatches, claim instant rewards based on performance.',
+    image: '/games/brigade.jpg',
+    link: 'https://brigadegame.io/',
+    cta: 'Play Now',
+  },
+  {
+    id: '10',
+    title: 'World of Dypians',
+    description:
+      'World of Dypians (WoD) is a revolutionary MMORPG available on Epic Games, set in a connected virtual world, featuring advanced AI, stunning graphics, and immersive gameplay.',
+    image: '/games/dypians.png',
+    link: 'https://www.worldofdypians.com/',
     cta: 'Play Now',
   },
 ];
