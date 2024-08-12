@@ -8,7 +8,7 @@
   trailNumber="7"
   title={$t('trailbanner.gaming.title')}
   description={$t('trailbanner.gaming.description')}
-  href="https://taiko.mirror.xyz/BRPO4OzcnPanyhyfa80yzvpidt8etBS2QwNdP0TVk8o"
+  href="https://taiko.mirror.xyz/8-8mdHJKlP0sZACfEb666CTctTHbhbV47U4b2-5DHpQ"
   buttonText={$t('common.learn_more')}
   images={{
     content: {
