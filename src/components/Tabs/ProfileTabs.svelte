@@ -1,11 +1,11 @@
 <script lang="ts">
   import { LeaderboardTransactions } from '$components/Leaderboards';
-  import { ProfileFactions } from '$components/Profile';
+  import { NFTCollection } from '$components/Profile/UserNFTs';
   import { classNames } from '$libs/util/classNames';
 
   type TabContent = {
     name: string;
-    content: typeof LeaderboardTransactions | typeof ProfileFactions;
+    content: typeof LeaderboardTransactions | typeof NFTCollection;
     checked: boolean;
   };
 
@@ -16,8 +16,8 @@
       checked: true,
     },
     {
-      name: 'Faction Badges',
-      content: ProfileFactions,
+      name: 'NFT Collection',
+      content: NFTCollection,
       checked: false,
     },
     // {

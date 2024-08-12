@@ -5,17 +5,20 @@ import { get } from 'svelte/store';
 // import type { Address } from 'viem';
 import { PUBLIC_TRAILBLAZER_API_URL } from '$env/static/public';
 import { globalAxiosConfig } from '$libs/api/axiosConfig';
+import { graphqlClient } from '$libs/graphql/client';
+import { USER_NFTS_QUERY } from '$libs/graphql/queries';
 // import getMovement from '$libs/badges/getMovement';
 import { isDevelopmentEnv } from '$libs/util/isDevelopmentEnv';
 import { getLogger } from '$libs/util/logger';
 import { wagmiConfig } from '$libs/wagmi';
+import { boosterLoading } from '$stores/load';
 import { currentProfile } from '$stores/profile';
 
-import type { UserLevel, UserPointHistoryPage, UserProfile } from './types';
+import type { UserLevel, UserMultiplier, UserNFT, UserPointHistoryPage, UserProfile } from './types';
 
 const log = getLogger('Profile');
 
-const baseApiUrl = isDevelopmentEnv ? '/mock-api' : PUBLIC_TRAILBLAZER_API_URL;
+const baseApiUrl = isDevelopmentEnv ? '/api/mock-api' : PUBLIC_TRAILBLAZER_API_URL;
 
 export class Profile {
   static getLevel(percentile: number): UserLevel {
@@ -136,6 +139,40 @@ export class Profile {
       });
       log('Updated Profile: ', get(currentProfile));
 
+      // Get Multipliers and NFT Inventory
+      let graphqlResponse;
+      if (!isDevelopmentEnv) {
+        graphqlResponse = await graphqlClient.query({
+          query: USER_NFTS_QUERY,
+          variables: { address: address.toLocaleLowerCase() },
+        });
+      } else {
+        const { data } = await axios.get(`${baseApiUrl}/user/graphql`, { params: { address }, ...globalAxiosConfig });
+        graphqlResponse = data;
+      }
+
+      if (graphqlResponse?.data?.owner) {
+        const userMultiplier: UserMultiplier = {
+          totalMultiplier: Number(graphqlResponse?.data?.owner?.totalMultiplier || 1),
+          taikoonMultiplier: Number(graphqlResponse?.data?.owner?.taikoonMultiplier || 1),
+          factionMultiplier: Number(graphqlResponse?.data?.owner?.factionMultiplier || 1),
+          snaefellMultiplier: Number(graphqlResponse?.data?.owner?.snaefellMultiplier || 1),
+        };
+
+        const userNFTs: UserNFT[] = graphqlResponse.data.owner.ownedTokens.map(
+          (token: { contract: { name: string }; tokenId: string }) => ({
+            name: token.contract.name,
+            tokenId: token.tokenId,
+          }),
+        );
+
+        // Update profile
+        currentProfile.update((current) => {
+          return { ...current, multipliers: userMultiplier, nfts: userNFTs };
+        });
+      }
+      boosterLoading.set(false);
+
       /* re-enable when movements (based vs boosted) becomes available
       // Get the movement (neutral vs based vs boosted)
       const movement = await getMovement(address as Address);
@@ -159,9 +196,12 @@ export class Profile {
       const formattedRankPercentile = `${(100 - rankPercentile).toFixed(2)}%`;
       log('Formatted', formattedRankPercentile);
 
+      // Calculate Boosted Points
+      const boostedPoints = this.calculateBoostedPoints();
+
       // Update Profile
       currentProfile.update((current) => {
-        return { ...current, ...level, rankPercentile: formattedRankPercentile };
+        return { ...current, ...level, rankPercentile: formattedRankPercentile, boostedPoints: boostedPoints };
       });
       log('Final Profile: ', get(currentProfile));
     }
@@ -195,5 +235,13 @@ export class Profile {
     const total = profile.total;
     const percentile = (1 - Number(rank) / Number(total)) * 100;
     return percentile || 0;
+  }
+
+  static calculateBoostedPoints() {
+    const profile = get(currentProfile);
+    const totalMultiplier = profile.multipliers.totalMultiplier;
+    const points = profile.score;
+    const boostedPoints = ((points * (totalMultiplier + 1000)) / 1000).toFixed(0);
+    return boostedPoints;
   }
 }

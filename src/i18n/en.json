@@ -21,6 +21,22 @@
       "title": "Campaign ended"
     }
   },
+  "booster": {
+    "title": "Multipliers",
+    "tooltip": {
+      "title": "Earn more with multipliers",
+      "description": "Boost your earnings! Participate in trails, hold badges, and join our 4x DeFi campaign."
+    },
+    "breakdown": {
+      "factionBadges": "Faction Badges",
+      "snaefellNft": "Snaefell NFT",
+      "taikoonNft": "Taikoon NFT"
+    },
+    "cta": {
+      "yourMultipliers": "Your multipliers",
+      "howToEarn": "How to earn multipliers"
+    }
+  },
   "buttons": {
     "connect_wallet": "Connect",
     "explore_more": "Explore more",
@@ -145,6 +161,18 @@
     }
   ],
   "leaderboard": {
+    "user": {
+      "event": {
+        "transaction": "Transaction",
+        "transaction_value": "Transaction Value",
+        "block_proposed": "Block Proposed",
+        "bridged": "Bridged"
+      },
+      "points": "+ {value}",
+      "booster": "{multiplier}x boosted",
+      "rank": "Rank",
+      "dailyMaxReached": "Daily Max Reached"
+    },
     "bridge": {
       "ended": {
         "description": "Our journey concluded on June 12th, 2024. Thanks to everyone who participated and earned their Robot Faction Badge by bridging to the Taiko mainnet.",

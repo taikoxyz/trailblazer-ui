@@ -1,11 +1,41 @@
 import type { Movements } from '$libs/badges/const';
 import type { DomainNames } from '$libs/domain/types';
 
+export type GraphQLResponse = {
+  loading: boolean;
+  networkStatus: number;
+};
+
+export type UserProfileGQL = GraphQLResponse & {
+  data: {
+    owner: {
+      __typename: 'Owner';
+      id: string;
+      totalMultiplier: string;
+      factionMultiplier: string;
+      snaefellMultiplier: string;
+      taikoonMultiplier: string;
+      ownedTokens: {
+        __typename: 'Token';
+        contract: {
+          __typename: 'Contract';
+          name: string;
+        };
+        id: string;
+        tokenId: string;
+        badgeId: string | null;
+        uri: string;
+      }[];
+    };
+  };
+};
+
 export type UserProfile = GalxePoints &
   DomainNames & {
     address: string;
     pointsHistory?: UserPointHistoryPage;
     score: number;
+    boostedPoints: string;
     pointsToNextLevel: number;
     rank: string;
     title: string;
@@ -20,6 +50,8 @@ export type UserProfile = GalxePoints &
     rankPercentile?: string;
     isLoading: boolean;
     movement: Movements;
+    multipliers: UserMultiplier;
+    nfts: UserNFT[];
   };
 
 export type GalxePoints = {
@@ -76,10 +108,26 @@ export type UserPointHistoryPage = {
 };
 
 export type Event = 'Transaction' | 'TransactionValue' | 'BlockProposed' | 'Bridged';
+export type ActivityType = Event;
 
 export type UserPointHistory = {
   address: string;
   event: Event;
   points: number;
   date: number;
+  multiplier: number;
+};
+
+export type UserNFT = {
+  name: string;
+  tokenId: string;
+  uri?: string;
+  explorerLink?: string;
+};
+
+export type UserMultiplier = {
+  totalMultiplier: number;
+  taikoonMultiplier: number;
+  factionMultiplier: number;
+  snaefellMultiplier: number;
 };

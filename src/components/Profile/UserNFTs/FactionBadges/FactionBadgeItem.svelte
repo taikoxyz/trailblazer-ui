@@ -15,6 +15,7 @@
   import { pendingTransactions } from '$stores/pendingTransactions';
 
   import FactionImage from './FactionImage.svelte';
+
   export let name: FactionNames;
   export let unlocked: boolean = false;
   export let address: Address;

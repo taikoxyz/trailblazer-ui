@@ -138,10 +138,6 @@ export default {
           1000: '#050912',
         },
 
-        purple: {
-          DEFAULT: '#1B0E3E',
-        },
-
         /*******************
          * Semantic colors *
          *******************/

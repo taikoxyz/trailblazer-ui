@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { Page } from '$components/Page';
   import { Profile } from '$components/Profile';
 </script>
