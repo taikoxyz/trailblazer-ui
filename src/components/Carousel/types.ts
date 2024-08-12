@@ -3,8 +3,8 @@ export type CarouselItemType = {
   title: string;
   description: string;
   image: string;
-  link: string;
-  cta: string;
+  link?: string;
+  cta?: string;
   publishDate?: Date;
   tag?: string;
 };

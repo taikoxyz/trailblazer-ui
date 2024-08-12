@@ -1,12 +1,12 @@
 <script lang="ts">
   import { json } from 'svelte-i18n';
 
-  import { FactionsGallery } from '$components/FactionsGallery';
   import { FaqBlock } from '$components/FaqBlock';
   import { type IFaqEntry } from '$components/FaqBlock/FaqBlock.svelte';
   import { TrailblazerGuide } from '$components/Startpage/Guide';
   import { classNames } from '$libs/util/classNames';
 
+  import AboutFactionsGallery from './AboutFactionsGallery.svelte';
   import AboutFactionsInfo from './AboutFactionsInfo.svelte';
   import AboutHero from './AboutHero.svelte';
   import AboutInfoPanels from './AboutInfoPanels.svelte';
@@ -60,7 +60,7 @@
   </div>
 
   <AboutInfoPanels />
-  <FactionsGallery {arrowClasses} />
+  <AboutFactionsGallery {arrowClasses} />
   <AboutFactionsInfo />
   <RewardsAndUtility />
   <div class={faqWrapperClasses}>

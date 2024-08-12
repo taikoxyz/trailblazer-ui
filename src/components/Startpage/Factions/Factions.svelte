@@ -30,7 +30,7 @@
   </div>
 
   <FactionsGallery />
-  <div class="f-center flex-col mb-[47px] space-y-[40px] xl:space-x-[88px]">
+  <div class="mt-[50px] f-center flex-col mb-[47px] space-y-[40px] xl:space-x-[88px]">
     <div class="max-w-[700px]">
       <div class="w-full">
         <div class="xl:text-left text-center f-col items-center xl:items-start">
