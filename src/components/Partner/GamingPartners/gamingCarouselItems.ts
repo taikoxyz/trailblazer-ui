@@ -59,7 +59,7 @@ export const gamingCarouselItems: CarouselItemType[] = [
     id: '7',
     title: 'Robots.Farm',
     description:
-      'Engage in burn to play game, swap tokens, farm rewards, and enhance your profile with XP points while collecting unique items to unlock special features!',
+      'Robot.farms is a gamified trading platform that seamlessly merges decentralized finance with a captivating gaming experience.',
     image: '/games/robotsfarm.jpg',
     link: 'https://robots.farm/',
     cta: 'Play Now',
@@ -67,8 +67,8 @@ export const gamingCarouselItems: CarouselItemType[] = [
   {
     id: '8',
     title: 'Bullish',
-    description: 'The First Seamless Transaction Tech in Omni Layer2 Cross-Rollup Game. Play to earn.',
-    image: '/games/bullish.jpg',
+    description: 'Bullish is the first seamless transaction tech in Omni Layer2 cross-rollup game.',
+    image: '/games/bullish.png',
     link: 'https://bullishs.io/',
     cta: 'Play Now',
   },
@@ -76,8 +76,8 @@ export const gamingCarouselItems: CarouselItemType[] = [
     id: '9',
     title: 'Brigade',
     description:
-      'Fight, Earn, Dominate. Thrilling third-person shooter powered by Unreal Engine 5. Dominate deathmatches, claim instant rewards based on performance.',
-    image: '/games/brigade.jpg',
+      'Brigade is a play-to-earn game that you can start completely free. It is the perfect opportunity to immerse yourself in the Taco Studios world.',
+    image: '/games/brigade.png',
     link: 'https://brigadegame.io/',
     cta: 'Play Now',
   },
@@ -85,7 +85,7 @@ export const gamingCarouselItems: CarouselItemType[] = [
     id: '10',
     title: 'World of Dypians',
     description:
-      'World of Dypians (WoD) is a revolutionary MMORPG available on Epic Games, set in a connected virtual world, featuring advanced AI, stunning graphics, and immersive gameplay.',
+      'Experience unique gameplay and explore a world without end in a quest to form your destiny. The opportunities are endless ensuring infinite playability.',
     image: '/games/dypians.png',
     link: 'https://www.worldofdypians.com/',
     cta: 'Play Now',
