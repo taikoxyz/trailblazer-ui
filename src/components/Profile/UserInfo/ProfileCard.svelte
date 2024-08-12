@@ -68,15 +68,7 @@
         </div>
       {/if}
     </div>
-    <!-- Faction -->
-    <!-- <div class="flex gap-2 items-center">
-      <div class="flex rounded-full border border-divider-border p-0.5 pl-[15px] gap-2 items-center w-fit">
-        <div class="flex text-secondary-content">Faction</div>
-        <div class="flex rounded-full px-[10px] py-[6px] bg-primary-brand items-center body-bold">Ravers</div>
-      </div>
 
-      <div class="flex rounded-full px-[10px] py-[6px] bg-purple-600 items-center body-bold">Boosted</div>
-    </div> -->
     <!-- Rank & Experience -->
     <div class="flex lg:items-start items-center flex-col gap-[10px] w-full">
       <!-- <div class="flex justify-between body-bold"> -->
@@ -87,10 +79,4 @@
       <RankDisplay rank={Number(profile.rank)} total={Number(profile.total)} percentile={profile.rankPercentile} />
     </div>
   </div>
-
-  <!-- Battle and Explore Buttons -->
-  <!-- <div class="flex gap-4">
-      <button class="btn btn-primary min-w-[156px] body-bold"> Battle </button>
-      <button class="btn btn-primary min-w-[156px] body-bold bg-transparent"> Explore </button>
-    </div> -->
 </div>
