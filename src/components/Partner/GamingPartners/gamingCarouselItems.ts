@@ -57,30 +57,37 @@ export const gamingCarouselItems: CarouselItemType[] = [
   },
   {
     id: '7',
-    title: 'Stupid Monkeys',
+    title: 'Robots.Farm',
     description:
-      'Welcome to StupidMonkeys Realm Hero, where dynamic NFTs bring your monkeys to life! Level up, evolve, and conquer in thrilling PvP battles to claim your title as the Hero of the MonkeyRealm!',
-    image: '/games/stupidmonkeys.png',
-    link: 'https://www.stupidmonkeys.co/',
+      'Robot.farms is a gamified trading platform that seamlessly merges decentralized finance with a captivating gaming experience.',
+    image: '/games/robotsfarm.jpg',
+    link: 'https://robots.farm/',
     cta: 'Play Now',
   },
   {
     id: '8',
-    title: '21BJ',
-    description:
-      '21BJ is a free-to-play Fantasy Casino Mobile Game, merging the thrill of casino games with the immersive elements of a strategic RPG-influenced journey.',
-    image: '/games/21bj.png',
-    link: 'https://21bj.io/',
+    title: 'Bullish',
+    description: 'Bullish is the first seamless transaction tech in Omni Layer2 cross-rollup game.',
+    image: '/games/bullish.png',
+    link: 'https://bullishs.io/',
     cta: 'Play Now',
   },
-
   {
     id: '9',
-    title: 'Swords and Dungeons',
+    title: 'Brigade',
     description:
-      'Swords and Dungeons is the first multi-chain MMORPG. It is a vast world with rich gameplay, NFTs, and dynamic economic models.',
-    image: '/games/swordsanddungeons.png',
-    link: 'https://swnd.io/',
+      'Brigade is a play-to-earn game that you can start completely free. It is the perfect opportunity to immerse yourself in the Taco Studios world.',
+    image: '/games/brigade.png',
+    link: 'https://brigadegame.io/',
+    cta: 'Play Now',
+  },
+  {
+    id: '10',
+    title: 'World of Dypians',
+    description:
+      'Experience unique gameplay and explore a world without end in a quest to form your destiny. The opportunities are endless ensuring infinite playability.',
+    image: '/games/dypians.png',
+    link: 'https://www.worldofdypians.com/',
     cta: 'Play Now',
   },
 ];

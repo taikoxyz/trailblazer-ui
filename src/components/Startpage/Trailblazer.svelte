@@ -1,9 +1,8 @@
 <script lang="ts">
-  import NFTBanner from '$components/Banner/Trailbanner/NFTBanner.svelte';
+  import GamingBanner from '$components/Banner/Trailbanner/GamingBanner.svelte';
   import DefiPartners from '$components/Partner/DefiPartners/DefiPartners.svelte';
   import { ENSPartners } from '$components/Partner/ENSPartners';
   import { GamingPartners } from '$components/Partner/GamingPartners';
-  import { NFTPartners } from '$components/Partner/NFTPartners';
 
   import DividerElement from './DividerElement/DividerElement.svelte';
   import ExploreEcosystem from './ExploreEcosystem.svelte';
@@ -16,8 +15,8 @@
 <div class="f-center container flex-col w-full overflow-visible gap-[100px] md:mb-[130px]">
   <TrailblazerMain />
   <TrailblazerGuide />
-  <NFTBanner />
-  <NFTPartners />
+  <GamingBanner />
+  <GamingPartners />
   <Factions />
   <DividerElement />
   <DefiPartners />
