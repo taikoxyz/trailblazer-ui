@@ -4,9 +4,9 @@
   import { MintDisclaimerModal } from '$components/MintDisclaimerModal';
   import { ProfileTabs } from '$components/Tabs';
   import { Galxe } from '$libs/galxe';
+  import { profileLoading } from '$stores/load';
 
   import { BoosterCard, GalxeCard, ProfileCard } from './UserInfo';
-  import { profileLoading } from '$stores/load';
 
   onMount(async () => {
     await Galxe.refreshData();
@@ -23,7 +23,7 @@
       <!-- Booster Card -->
       <BoosterCard />
       <!-- Galxe Card -->
-      <!-- <GalxeCard /> -->
+      <GalxeCard />
     </div>
 
     <ProfileTabs />

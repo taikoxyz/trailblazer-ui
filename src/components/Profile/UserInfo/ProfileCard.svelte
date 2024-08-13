@@ -1,5 +1,6 @@
 <script lang="ts">
   import CountUp from '$components/Numbers/CountUp.svelte';
+  import Spinner from '$components/Spinner/Spinner.svelte';
   import { Tooltip } from '$components/Tooltip';
   import { type UserProfile } from '$libs/profile';
   import { formatMultiplier } from '$libs/util/formatMultiplier';
@@ -8,7 +9,6 @@
 
   import RankDisplay from '../RankDisplay.svelte';
   import { ProfileName } from '.';
-  import Spinner from '$components/Spinner/Spinner.svelte';
 
   export let loading;
 

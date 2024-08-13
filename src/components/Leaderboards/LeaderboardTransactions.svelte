@@ -21,7 +21,7 @@
         {/each}
       </tr>
     </thead>
-    <div class="divider m-0"></div>
+    <div class="divider m-0 w-full"></div>
     <tbody class="border-none pt-6">
       {#if pointsHistory && hasPointHistory}
         {#each pointsHistory.items as pointHistory}
