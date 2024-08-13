@@ -11,7 +11,7 @@ import { USER_NFTS_QUERY } from '$libs/graphql/queries';
 import { isDevelopmentEnv } from '$libs/util/isDevelopmentEnv';
 import { getLogger } from '$libs/util/logger';
 import { wagmiConfig } from '$libs/wagmi';
-import { boosterLoading } from '$stores/load';
+import { boosterLoading, profileLoading } from '$stores/load';
 import { currentProfile } from '$stores/profile';
 
 import type { UserLevel, UserMultiplier, UserNFT, UserPointHistoryPage, UserProfile } from './types';
@@ -109,6 +109,7 @@ export class Profile {
   }
 
   static async getProfile(address?: string) {
+    profileLoading.set(true);
     // Mock Data
     // setInterval(() => {
     //   currentProfile.set(MOCK_PROFILE_2);
@@ -137,6 +138,7 @@ export class Profile {
         });
         return { ...current, ...updates };
       });
+      profileLoading.set(false);
       log('Updated Profile: ', get(currentProfile));
 
       // Get Multipliers and NFT Inventory
@@ -152,19 +154,20 @@ export class Profile {
       }
 
       if (graphqlResponse?.data?.owner) {
-        const userMultiplier: UserMultiplier = {
-          totalMultiplier: Math.min(Number(graphqlResponse?.data?.owner?.totalMultiplier || 1), 2000), // max of 3x
-          taikoonMultiplier: Number(graphqlResponse?.data?.owner?.taikoonMultiplier || 1),
-          factionMultiplier: Number(graphqlResponse?.data?.owner?.factionMultiplier || 1),
-          snaefellMultiplier: Number(graphqlResponse?.data?.owner?.snaefellMultiplier || 1),
-        };
-
         const userNFTs: UserNFT[] = graphqlResponse.data.owner.ownedTokens.map(
           (token: { contract: { name: string }; tokenId: string }) => ({
             name: token.contract.name,
             tokenId: token.tokenId,
           }),
         );
+
+        // Get Count of Taikoons, where token,contract.name === "Taikoon"
+        const userMultiplier: UserMultiplier = {
+          totalMultiplier: Math.min(Number(graphqlResponse?.data?.owner?.totalMultiplier || 1), 2000), // max of 3x
+          taikoonMultiplier: Number(graphqlResponse?.data?.owner?.taikoonMultiplier || 1),
+          factionMultiplier: Number(graphqlResponse?.data?.owner?.factionMultiplier || 1),
+          snaefellMultiplier: Number(graphqlResponse?.data?.owner?.snaefellMultiplier || 1),
+        };
 
         // Update profile
         currentProfile.update((current) => {

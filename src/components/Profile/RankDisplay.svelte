@@ -1,6 +1,6 @@
 <script lang="ts">
-  export let rank: number;
-  export let total: number;
+  export let rank: number = 0;
+  export let total: number = 0;
   export let percentile: string = '0%';
 
   function getOrdinalSuffix(rank: number): string {

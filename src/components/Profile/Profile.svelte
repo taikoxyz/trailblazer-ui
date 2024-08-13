@@ -6,6 +6,7 @@
   import { Galxe } from '$libs/galxe';
 
   import { BoosterCard, GalxeCard, ProfileCard } from './UserInfo';
+  import { profileLoading } from '$stores/load';
 
   onMount(async () => {
     await Galxe.refreshData();
@@ -16,13 +17,13 @@
   <div class="flex flex-col max-w-section w-full lg:gap-8">
     <div class="flex px-4 lg:px-0 gap-8 h-full box-content flex-col lg:flex-row justify-center">
       <!-- Profile Card -->
-      <ProfileCard />
+      <ProfileCard loading={$profileLoading} />
       <!-- Bridged Card -->
       <!-- <BridgedCard /> -->
       <!-- Booster Card -->
       <BoosterCard />
       <!-- Galxe Card -->
-      <GalxeCard />
+      <!-- <GalxeCard /> -->
     </div>
 
     <ProfileTabs />
