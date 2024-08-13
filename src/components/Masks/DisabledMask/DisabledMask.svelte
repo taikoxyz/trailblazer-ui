@@ -26,7 +26,7 @@
 </script>
 
 <div class={classes} style="mask-image=url(favicon.svg)"></div>
-<div class="hidden xl:block">
+<div class="hidden lg:block">
   <div class="f-center w-full f-col space-y-[35px] z-10 absolute top-0 bottom-0 left-0 right-0 text-white">
     <span class={headline}>{title}</span>
     <span class={textClasses}>{description}</span>
