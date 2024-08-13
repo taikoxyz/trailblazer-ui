@@ -155,18 +155,49 @@ export class Profile {
 
       if (graphqlResponse?.data?.owner) {
         const userNFTs: UserNFT[] = graphqlResponse.data.owner.ownedTokens.map(
-          (token: { contract: { name: string }; tokenId: string }) => ({
+          (token: { contract: { name: string }; tokenId: string; badgeId: string }) => ({
             name: token.contract.name,
             tokenId: token.tokenId,
+            badgeId: token.badgeId,
           }),
         );
 
-        // Get Count of Taikoons, where token,contract.name === "Taikoon"
+        // Get Count of Taikoons, where userNFTs.name === "Taikoon"
+        const taikoonCount = userNFTs.filter((nft) => nft.name === 'Taikoon').length;
+        // If count of taikoon >= 1, taikoonMultiplier = 1000, else 0
+        const taikoonMultiplier = taikoonCount >= 1 ? 1000 : 0;
+        // Get Count of snaefell tokens, where userNFTs.name === "SnaefellToken"
+        const snaefellCount = userNFTs.filter((nft) => nft.name === 'SnaefellToken').length;
+        // If count of snaefell >= 1, snaefellMultiplier = 100, else 0
+        const snaefellMultiplier = snaefellCount >= 1 ? 100 : 0;
+
+        // Get Count of Faction Token per badge id, where userNFTs.name === "Trailblazers Badges"
+        // Group faction badge according to badge id in a Record
+        const factionBadges = userNFTs
+          .filter((nft) => nft.name === 'Trailblazers Badges')
+          .reduce(
+            (acc, nft) => {
+              if (nft.badgeId) {
+                acc[nft.badgeId] = (acc[nft.badgeId] || 0) + 1;
+              }
+              return acc;
+            },
+            {} as Record<string, number>,
+          );
+
+        const multiplierTable = [0, 100, 210, 331, 464, 611, 772, 949, 1144];
+        // Calculate faction multiplier based on unique faction badges
+        const uniqueFactionBadgesCount = Object.keys(factionBadges).length;
+        const factionMultiplier = multiplierTable[uniqueFactionBadgesCount] || 0;
+
+        // Calculate total multiplier (sum of all multipliers)
+        const totalMultiplier = taikoonMultiplier + snaefellMultiplier + factionMultiplier;
+
         const userMultiplier: UserMultiplier = {
-          totalMultiplier: Math.min(Number(graphqlResponse?.data?.owner?.totalMultiplier || 1), 2000), // max of 3x
-          taikoonMultiplier: Number(graphqlResponse?.data?.owner?.taikoonMultiplier || 1),
-          factionMultiplier: Number(graphqlResponse?.data?.owner?.factionMultiplier || 1),
-          snaefellMultiplier: Number(graphqlResponse?.data?.owner?.snaefellMultiplier || 1),
+          totalMultiplier: Math.min(Number(totalMultiplier || 0), 2000), // max of 3x
+          taikoonMultiplier: Number(taikoonMultiplier || 0),
+          factionMultiplier: Number(factionMultiplier || 0),
+          snaefellMultiplier: Number(snaefellMultiplier || 0),
         };
 
         // Update profile
