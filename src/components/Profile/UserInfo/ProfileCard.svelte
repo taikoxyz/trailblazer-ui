@@ -25,22 +25,23 @@
     </div>
   </div>
   <!-- <ProfileMultipliers /> -->
-  <div class="flex lg:items-start items-center flex-col gap-2 self-center lg:min-w-[300px] w-full">
-    <div class="flex align-start justify-between items-center gap-2 mt-5 lg:mt-0">
+  <div class="flex lg:items-start items-center flex-col self-center lg:min-w-[300px] w-full">
+    <div class="flex align-start justify-between items-center gap-2 mt-5 lg:mt-0 mb-[20px]">
       <ProfileName {profile} />
     </div>
 
     <!-- Points -->
-    <div class="flex flex-col items-center lg:items-start lg:mb-2 gap-2 w-full">
+    <div class="flex flex-col items-center lg:items-start gap-2 w-full mb-[20px]">
       <div class="flex items-center gap-2">
         <CountUp class="font-clash-grotesk font-semibold text-[45px] leading-none" value={Number(displayedScore)} />
         <div class="body-regular">points</div>
       </div>
       {#if multipliedView}
-        <div
-          class="w-fit max-w-[150px] h-[24px] flex items-center gap-1 py-2 pl-2 pr-1 body-small-bold border border-divider-border bg-neutral-background rounded-full transition-all duration-300 ease-in-out hover:bg-neutral-hover">
+        <button
+          on:click={() => (multipliedView = false)}
+          class="w-fit max-w-[150px] h-[24px] flex items-center gap-1 py-2 pl-2 pr-1 body-small-bold border border-divider-border bg-neutral-background rounded-full transition-all duration-300 ease-in-out hover:bg-neutral-hover hover:cursor-pointer">
           <span class="body-small-bold tracking-wide w-[120px]">{totalMultiplier}x boosted</span>
-          <Tooltip on:mouseenter={() => (multipliedView = false)} position="bottom" class="">
+          <Tooltip position="bottom" class="">
             <div class="bg-white text-black rounded-lg">
               <h2 class="text-black font-bold mb-2">Your final score</h2>
               <div class="text-black body-regular">
@@ -50,12 +51,13 @@
               </div>
             </div>
           </Tooltip>
-        </div>
+        </button>
       {:else}
-        <div
-          class="flex w-fit max-w-[150px] h-[24px] items-center gap-1 py-2 pl-2 pr-1 body-small-bold border border-transparent rounded-full transition-all duration-300 ease-in-out">
+        <button
+          on:click={() => (multipliedView = true)}
+          class="flex w-fit max-w-[150px] h-[24px] items-center gap-1 py-2 pl-2 pr-1 body-small-bold border border-transparent rounded-full transition-all duration-300 ease-in-out hover:cursor-pointer">
           <span class="w-[120px]">≈ {formatNumbers(Number($currentProfile?.boostedPoints))} points</span>
-          <Tooltip on:mouseleave={() => (multipliedView = true)} position="bottom" class="">
+          <Tooltip position="bottom" class="">
             <div class="bg-white text-black rounded-lg">
               <h2 class="text-black font-bold mb-2">Your final score</h2>
               <div class="text-black body-regular">
@@ -65,7 +67,7 @@
               </div>
             </div>
           </Tooltip>
-        </div>
+        </button>
       {/if}
     </div>
 
