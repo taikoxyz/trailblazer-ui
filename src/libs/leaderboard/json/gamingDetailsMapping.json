@@ -1,0 +1,38 @@
+{
+  "Crack&Stack": {
+    "handle": "@crackandstack",
+    "icon": "/dapps/gaming/crackandstack.svg"
+  },
+  "0xAstra": {
+    "handle": "@0xAstra_xyz",
+    "icon": "/dapps/0xastra.svg"
+  },
+  "Robots.Farm": {
+    "handle": "",
+    "icon": "/dapps/gaming/robotsfarm.jpg"
+  },
+  "Brigade": {
+    "handle": "@tacowax",
+    "icon": "/dapps/gaming/brigade.png"
+  },
+  "ZypherNetwork": {
+    "handle": "@Zypher_Network",
+    "icon": "/dapps/gaming/zyphergames.png"
+  },
+  "Ultiverse": {
+    "handle": "/dapps/gaming/ultiverse.png",
+    "icon": "@UltiverseDAO"
+  },
+  "LooperLands": {
+    "handle": "@LooperLands",
+    "icon": "/dapps/gaming/looperlands.svg"
+  },
+  "WorldOfDypians": {
+    "handle": "@worldofdypians",
+    "icon": "/dapps/gaming/dypians.png"
+  },
+  "21Blackjack": {
+    "handle": "@21BJgame",
+    "icon": "/dapps/gaming/21bj.png"
+  }
+}

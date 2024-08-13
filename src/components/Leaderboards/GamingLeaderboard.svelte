@@ -41,6 +41,7 @@
   showLastUpdated={true}
   lastUpdated={new Date($currentGamingLeaderboard.lastUpdated * 1000)}
   isLoading={loading}
+  showPagination={false}
   {handlePageChange}
   {totalItems}
   headerComponent={GamingHeader}

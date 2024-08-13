@@ -6,6 +6,7 @@ import { PUBLIC_TRAILBLAZER_API_URL } from '$env/static/public';
 import { globalAxiosConfig } from '$libs/api/axiosConfig';
 import bridgeAdditionalData from '$libs/leaderboard/json/bridgeAdditionalData.json';
 import dappDetailsMapping from '$libs/leaderboard/json/dappDetailsMapping.json';
+import gamingDetailsMapping from '$libs/leaderboard/json/gamingDetailsMapping.json';
 import { isDevelopmentEnv } from '$libs/util/isDevelopmentEnv';
 import { getLogger } from '$libs/util/logger';
 import { setBridgeLeaderboard, setDappLeaderboard, setDappLeaderboardLastUpdated } from '$stores/leaderboard';
@@ -133,7 +134,7 @@ export class Leaderboard {
 
       const leaderboardPage: DappLeaderboardPage = { items: [], lastUpdated: 0 };
 
-      const detailMapping: DetailsMapping = dappDetailsMapping;
+      const detailMapping: DetailsMapping = gamingDetailsMapping;
 
       const items = await Promise.all(
         leaderboardPageApiResponse.data.items.map(async (item) => {
@@ -145,7 +146,7 @@ export class Leaderboard {
               totalScore: item.score,
             };
           } else {
-            const details = await axios.get<ProtocolApiResponse>(`${baseApiUrl}/protocol/details`, {
+            const details = await axios.get<ProtocolApiResponse>(`${baseApiUrl}/protocol/gaming`, {
               ...globalAxiosConfig,
               params: { slug: item.slug },
             });
