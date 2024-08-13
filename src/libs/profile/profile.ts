@@ -153,7 +153,7 @@ export class Profile {
 
       if (graphqlResponse?.data?.owner) {
         const userMultiplier: UserMultiplier = {
-          totalMultiplier: Number(graphqlResponse?.data?.owner?.totalMultiplier || 1),
+          totalMultiplier: Math.min(Number(graphqlResponse?.data?.owner?.totalMultiplier || 1), 2000), // max of 3x
           taikoonMultiplier: Number(graphqlResponse?.data?.owner?.taikoonMultiplier || 1),
           factionMultiplier: Number(graphqlResponse?.data?.owner?.factionMultiplier || 1),
           snaefellMultiplier: Number(graphqlResponse?.data?.owner?.snaefellMultiplier || 1),
