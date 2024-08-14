@@ -21,9 +21,9 @@ export const gamingCarouselItems: CarouselItemType[] = [
   },
   {
     id: '3',
-    title: 'Bullish',
-    description: 'Bullish is the first seamless transaction tech in Omni Layer2 cross-rollup game.',
-    image: '/dapps/gaming/bullish.png',
+    title: 'Bullishs',
+    description: 'Bullishs is the first seamless transaction tech in Omni Layer2 cross-rollup game.',
+    image: '/dapps/gaming/bullishs.png',
     link: 'https://bullishs.io/',
     cta: 'Play Now',
   },
@@ -38,6 +38,15 @@ export const gamingCarouselItems: CarouselItemType[] = [
   },
   {
     id: '5',
+    title: 'Swords and Dungeons',
+    description:
+      'Swords and Dungeons is the first multi-chain MMORPG. It is a vast world with rich gameplay, NFTs, and dynamic economic models.',
+    image: '/dapps/gaming/swordsanddungeons.png',
+    link: 'https://swnd.io/',
+    cta: 'Play Now',
+  },
+  {
+    id: '6',
     title: 'World of Dypians',
     description:
       'Experience unique gameplay and explore a world without end in a quest to form your destiny. The opportunities are endless ensuring infinite playability.',
@@ -46,7 +55,7 @@ export const gamingCarouselItems: CarouselItemType[] = [
     cta: 'Play Now',
   },
   {
-    id: '6',
+    id: '7',
     title: 'Crack & Stack',
     description:
       'Top-down multiplayer game. Enter the Ethereum mines, set traps, mine ores, escape the goblins and escape with your loot.',
@@ -55,7 +64,7 @@ export const gamingCarouselItems: CarouselItemType[] = [
     cta: 'Play Now',
   },
   {
-    id: '7',
+    id: '8',
     title: 'Looper Lands',
     description:
       'LooperLands is a free-to-play community-pixelverse. Traverse between captivating creator made worlds, each with its own complete stories and unique minigames.',
@@ -64,7 +73,7 @@ export const gamingCarouselItems: CarouselItemType[] = [
     cta: 'Play Now',
   },
   {
-    id: '8',
+    id: '9',
     title: 'Ulti-Pilot',
     description:
       'Explore Ultiverse with Ulti-Pilot, powered by Bodhi AI. Create agents, explore daily, and earn rewards. Free access now.',
@@ -73,7 +82,7 @@ export const gamingCarouselItems: CarouselItemType[] = [
     cta: 'Play Now',
   },
   {
-    id: '9',
+    id: '10',
     title: 'Zypher z2048',
     description:
       'Immerse in z2048, a strategic on-chain game blending classic 2048 with fair, scalable gameplay via Zypher’s UZKGE.',
@@ -82,7 +91,7 @@ export const gamingCarouselItems: CarouselItemType[] = [
     cta: 'Play Now',
   },
   {
-    id: '10',
+    id: '11',
     title: '0xAstra',
     description:
       '0xAstra is an onchain SLG game, where you harness cross-chain resources with bridge technology to build and defend your cosmic homeland. Strategize, expand, and dominate in this interstellar conquest.',

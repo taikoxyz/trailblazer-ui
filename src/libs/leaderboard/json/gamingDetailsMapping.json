@@ -8,7 +8,7 @@
     "icon": "/dapps/0xastra.svg"
   },
   "Robots.Farm": {
-    "handle": "",
+    "handle": "@robotsfarm",
     "icon": "/dapps/gaming/robotsfarm.jpg"
   },
   "Brigade": {
@@ -34,5 +34,17 @@
   "21Blackjack": {
     "handle": "@21BJgame",
     "icon": "/dapps/gaming/21bj.png"
+  },
+  "bullishs": {
+    "handle": "@bullishs_io",
+    "icon": "/dapps/gaming/bullishs.png"
+  },
+  "EVMWarfare": {
+    "handle": "@evmwarfare",
+    "icon": "/dapps/gaming/evmwarfare.png"
+  },
+  "SwordsAndDungeons": {
+    "handle": "@SwordsnDungeons",
+    "icon": "/dapps/gaming/swordsanddungeons.png"
   }
 }
