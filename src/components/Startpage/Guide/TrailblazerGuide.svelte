@@ -28,7 +28,7 @@
     description={$t('trailblazer_guide.step_1.description')} />
 
   <div class={unionClasses}>
-    <Connector class="fill-purple min-w-[32px]" />
+    <Connector class="fill-purple-1000 min-w-[32px]" />
   </div>
 
   <TrailblazerGuideStep
@@ -36,7 +36,7 @@
     title={$t('trailblazer_guide.step_2.title')}
     description={$t('trailblazer_guide.step_2.description')} />
   <div class={unionClasses}>
-    <Connector class="fill-purple min-w-[32px]" />
+    <Connector class="fill-purple-1000 min-w-[32px]" />
   </div>
 
   <TrailblazerGuideStep

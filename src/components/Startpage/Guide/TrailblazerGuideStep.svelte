@@ -18,7 +18,7 @@
     'md:py-[38px]',
     'lg:px-[35px]',
     'md:px-[20px]',
-    'bg-purple',
+    'bg-purple-1000',
     'rounded-[30px]',
     'gap-[20px]',
 
