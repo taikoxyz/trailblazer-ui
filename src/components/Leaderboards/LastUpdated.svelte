@@ -1,7 +1,7 @@
 <script lang="ts">
   import { Icon } from '$components/Icon';
 
-  export let lastUpdated;
+  export let lastUpdated: Date;
   $: lastUpdatedFormatted = formatLastUpdated(lastUpdated);
 
   function formatLastUpdated(date: Date) {
