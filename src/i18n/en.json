@@ -16,6 +16,11 @@
     "pendingTx": "Your transaction is pending. Please wait for confirmation."
   },
   "booster": {
+    "title": "Multipliers",
+    "tooltip": {
+      "title": "Earn more with multipliers",
+      "description": "Boost your earnings! Collect faction badges and Taikoons to receive point multipliers"
+    },
     "breakdown": {
       "factionBadges": "Faction Badges",
       "snaefellNft": "Snaefell NFT",

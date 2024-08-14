@@ -8,7 +8,7 @@ export function GET({ url }) {
       owner: {
         __typename: 'Owner',
         id: address?.toLowerCase() || '',
-        totalMultiplier: '1310',
+        totalMultiplier: '1220',
         factionMultiplier: '210',
         snaefellMultiplier: '100',
         taikoonMultiplier: '1000',
