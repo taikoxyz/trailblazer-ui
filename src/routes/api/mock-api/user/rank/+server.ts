@@ -1,13 +1,9 @@
 import { json } from '@sveltejs/kit';
 
-import type { DomainResponse } from '$libs/domain';
-import { MOCK_USER_POINT_HISTORY } from '$mocks';
-
-export function GET({ url }) {
-  const address = url.searchParams.get('address');
-  if (!address) throw new Error('address is required');
-
+export function GET() {
   return json({
-    ...MOCK_USER_POINT_HISTORY,
+    rank: 2,
+    score: 1000,
+    total: 694200,
   });
 }

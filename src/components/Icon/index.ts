@@ -1,3 +1,4 @@
+export { default as ActivityIcon } from './ActivityIcon.svelte';
 export { default as BllIcon } from './BLL.svelte';
 export { default as DiscordIcon } from './DiscordIcon.svelte';
 export { default as EthIcon } from './ETH.svelte';
