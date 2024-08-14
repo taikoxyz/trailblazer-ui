@@ -58,7 +58,7 @@
         {:else}
           <button
             on:click={() => (multipliedView = true)}
-            class="flex w-fit max-w-[150px] h-[24px] items-center gap-1 py-2 pl-2 pr-1 body-small-bold border border-transparent rounded-full transition-all duration-300 ease-in-out hover:cursor-pointer">
+            class="flex w-fit h-[24px] items-center gap-1 py-2 pl-2 pr-1 body-small-bold border border-transparent rounded-full transition-all duration-300 ease-in-out hover:cursor-pointer">
             <span>≈ {formatNumbers(Number($currentProfile?.boostedPoints))} points</span>
             <Tooltip position="bottom" class="">
               <div class="bg-white text-black rounded-lg">
