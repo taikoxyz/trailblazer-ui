@@ -41,8 +41,7 @@
     'tab-content',
     'p-6',
     'bg-elevated-background',
-    'max-w-full',
-    'overflow-hidden',
+    'overflow-x-scroll',
     'rounded-[30px]',
     'min-h-64',
   );
@@ -60,7 +59,7 @@
   );
 </script>
 
-<div role="tablist" class="tabs tabs-lifted w-full px-4 lg:px-0">
+<div role="tablist" class="tabs tabs-lifted w-full px-4 py-6 lg:px-0 lg:py-0">
   {#each tabs as tab}
     <input
       type="radio"

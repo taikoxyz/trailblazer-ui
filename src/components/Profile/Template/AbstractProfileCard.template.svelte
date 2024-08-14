@@ -5,7 +5,7 @@
   import { classNames } from '$libs/util/classNames';
 
   $: classes = classNames(
-    'flex flex-col items-center justify-start w-full max-w-[312px] h-auto rounded-[30px] pt-[18px] pb-5',
+    'flex flex-col items-center justify-start w-full lg:max-w-[312px] h-auto rounded-[30px] pt-[18px] pb-5',
     $$props.class,
   );
 </script>

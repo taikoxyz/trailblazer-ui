@@ -121,6 +121,7 @@ export type UserPointHistory = {
 export type UserNFT = {
   name: string;
   tokenId: string;
+  badgeId?: string;
   uri?: string;
   explorerLink?: string;
 };
