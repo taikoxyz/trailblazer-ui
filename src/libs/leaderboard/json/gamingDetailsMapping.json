@@ -20,8 +20,8 @@
     "icon": "/dapps/gaming/zyphergames.png"
   },
   "Ultiverse": {
-    "handle": "/dapps/gaming/ultiverse.png",
-    "icon": "@UltiverseDAO"
+    "handle": "@UltiverseDAO",
+    "icon": "/dapps/gaming/ultiverse.png"
   },
   "LooperLands": {
     "handle": "@LooperLands",
