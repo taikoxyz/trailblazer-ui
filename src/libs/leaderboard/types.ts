@@ -15,6 +15,25 @@ export type DappLeaderboardPageApiResponse = {
   };
 };
 
+export type DappLeaderboardItem = {
+  address: Address;
+  score: number;
+  slug: string;
+};
+
+export type DappLeaderboardPage = {
+  items: DappLeaderboardRow[];
+  lastUpdated: number;
+};
+
+export type DappLeaderboardRow = {
+  address: string;
+  icon?: string;
+  handle?: string;
+  data: ProtocolData[];
+  totalScore: number;
+};
+
 export type UserLeaderboardPageApiResponse = {
   items: UserLeaderboardItem[];
   page: number;
@@ -27,32 +46,13 @@ export type UserLeaderboardPageApiResponse = {
   visible: number;
 };
 
-export type DappLeaderboardPage = {
-  items: DappLeaderboardRow[];
-  lastUpdated: number;
-};
-
 export type UserLeaderboardPage = {
   items: UserLeaderboardItem[];
-};
-
-export type DappLeaderboardItem = {
-  address: Address;
-  score: number;
-  slug: string;
 };
 
 export type UserLeaderboardItem = {
   address: Address;
   score: number;
-};
-
-export type DappLeaderboardRow = {
-  address: string;
-  icon?: string;
-  handle?: string;
-  data: ProtocolData[];
-  totalScore: number;
 };
 
 export type ProtocolApiResponse = {
@@ -98,6 +98,26 @@ export type BridgeLeaderboardTotal = {
   visible: number;
 };
 
+export type PaginationInfo = {
+  first?: boolean;
+  last?: boolean;
+  max_page?: number;
+  total?: number;
+  total_pages?: number;
+  page: number;
+  size: number;
+};
+
+export type BridgeTokenScore = {
+  token: Address;
+  score: number;
+};
+
+export type TvlLeaderboardResponse = {
+  lastUpdated: number;
+  protocols: DefiDappLeaderboardRow[];
+};
+
 export type DefiDappLeaderboardPage = {
   protocols: DefiDappLeaderboardRow[];
   lastUpdated: number;
@@ -133,26 +153,6 @@ export type DefiDappLeaderboardRow = {
   change_1d: number;
   change_7d: number;
   tokenBreakdowns: Record<string, unknown>;
-};
-
-export type PaginationInfo = {
-  first?: boolean;
-  last?: boolean;
-  max_page?: number;
-  total?: number;
-  total_pages?: number;
-  page: number;
-  size: number;
-};
-
-export type BridgeTokenScore = {
-  token: Address;
-  score: number;
-};
-
-export type TvlLeaderboardResponse = {
-  lastUpdated: number;
-  protocols: DefiDappLeaderboardRow[];
 };
 
 export type UnifiedLeaderboardRow = {

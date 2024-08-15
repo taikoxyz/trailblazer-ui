@@ -45,7 +45,7 @@
         Leaderboard
       </div>
       <div class="collapse-content bg-neutral w-full rounded-full flex flex-col gap-4 pl-0">
-        <MobileNavigationLink on:navigate url="/leaderboard/bridge" label="Bridge" icon="quad-circles" />
+        <MobileNavigationLink on:navigate url="/leaderboard/gaming" label="Gaming" icon="quad-circles" />
         <MobileNavigationLink on:navigate url="/leaderboard/dapp" label="Dapp" icon="star2" />
         <MobileNavigationLink on:navigate url="/leaderboard/defi" label="DeFi" icon="butterfly-cross" />
       </div>

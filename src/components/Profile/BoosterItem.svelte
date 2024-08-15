@@ -23,7 +23,7 @@
   <div class="flex w-full h-full {bg} bg-no-repeat bg-cover">
     <div class="w-full pt-[28px] pb-[20px] px-[20px] flex flex-col justify-between">
       <div class="w-full flex flex-col justify-between {blur}">
-        <div class="absolute z-10 px-[10px] py-[5px] body-bold rounded-full bg-purple-600 place-self-start">
+        <div class="absolute z-10 px-[10px] py-[5px] body-bold rounded-full bg-purple-1000 place-self-start">
           {data.boost}x Boost
         </div>
         <div class="flex flex-col w-full h-full items-center justify-between pb-[20px]">

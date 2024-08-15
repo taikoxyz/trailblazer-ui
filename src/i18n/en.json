@@ -15,12 +15,6 @@
     "notEnoughGas": "Not enough gas to claim the badge. Please fund your wallet and try again.",
     "pendingTx": "Your transaction is pending. Please wait for confirmation."
   },
-  "bridge": {
-    "ended": {
-      "description": "Our journey concluded on July 12th, 2024. Thanks to everyone who participated and earned their Robot Faction Badge by bridging to the Taiko mainnet.",
-      "title": "Campaign ended"
-    }
-  },
   "booster": {
     "title": "Multipliers",
     "tooltip": {
@@ -33,8 +27,19 @@
       "taikoonNft": "Taikoon NFT"
     },
     "cta": {
-      "yourMultipliers": "Your multipliers",
-      "howToEarn": "How to earn multipliers"
+      "howToEarn": "How to earn multipliers",
+      "yourMultipliers": "Your multipliers"
+    },
+    "title": "Multipliers",
+    "tooltip": {
+      "description": "Boost your earnings! Participate in trails, hold badges, and join our 4x DeFi campaign.",
+      "title": "Earn more with multipliers"
+    }
+  },
+  "bridge": {
+    "ended": {
+      "description": "Our journey concluded on July 12th, 2024. Thanks to everyone who participated and earned their Robot Faction Badge by bridging to the Taiko mainnet.",
+      "title": "Campaign ended"
     }
   },
   "buttons": {
@@ -47,7 +52,8 @@
     "home": "Back to the homepage",
     "leaderboard": {
       "bridge": "Go to Bridge leaderboard",
-      "dapp": "Go to Dapps leaderboard"
+      "dapp": "Go to Dapps leaderboard",
+      "gaming": "Go to Gaming leaderboard"
     },
     "learn_more": "Learn more"
   },
@@ -69,7 +75,6 @@
   },
   "faq": [
     {
-      "section": "General Information",
       "items": [
         {
           "answer": "Each season lasts about 12 weeks.",
@@ -91,16 +96,15 @@
           "answer": "The daily reset is calculated based on a fixed reset time at 00:00 UTC each day, not from the time you hit the cap.",
           "question": "How is the daily reset calculated? Is it 24 hours from hitting the cap?"
         }
-      ]
+      ],
+      "section": "General Information"
     },
     {
-      "section": "Points and scoring",
       "items": [
         {
           "answer": "Points can be earned through interactions with designated decentralized applications (Dapps). The list of eligible Dapps will be provided in the campaign guidelines.",
           "question": "What Dapps will I get points for?"
         },
-
         {
           "answer": "Yes, L2 bridging activities are included in the point calculation. Ensure you follow the specific instructions provided.",
           "question": "Do we count L2 bridging, such as from Linea to Taiko, for points?"
@@ -109,7 +113,6 @@
           "answer": "Transaction Value points can be earned for transactions involving USDC, WETH, TAIKO, and USDT.",
           "question": "What tokens do I get Transaction Value points for?"
         },
-
         {
           "answer": "See Mirror article (https://taiko.mirror.xyz/589CthdX0Qw-hRBeZarEQpjck-v4lJ-gtKz3SZvovt8), we will consider the following activities to help you collect XPs:\n\n- Bridging (ETH)\n- Bridging (ERC20)\n- Transaction Volume\n- Transaction Count (any kind of transaction counts)\n- Block Proposals.\n\nThis means that providing liquidity will not give you any XPs.",
           "question": "If I provide liquidity, how will my points be calculated? (daily, just once?)"
@@ -122,28 +125,28 @@
           "answer": "Give it a shot—it only costs a few cents to check and see for yourself! :)",
           "question": "Does WETH/ETH unwrap give points?"
         }
-      ]
+      ],
+      "section": "Points and scoring"
     },
     {
-      "section": "Technical Issues",
       "items": [
         {
           "answer": "There could be a delay in syncing points from Galaxe to Trailblazers. Ensure you have linked your accounts correctly and wait for the synchronization process to complete.",
           "question": "Why are my Galaxe points not showing on Trailblazers?"
         }
-      ]
+      ],
+      "section": "Technical Issues"
     },
     {
-      "section": "Access and eligibility",
       "items": [
         {
           "answer": "Whitelisting criteria are based on specific activities or qualifications. Ensure you have met all the requirements and participated in the necessary events.",
           "question": "Why am I not whitelisted to mint a badge?"
         }
-      ]
+      ],
+      "section": "Access and eligibility"
     },
     {
-      "section": "Multipliers and rewards",
       "items": [
         {
           "answer": "Each faction badge gives a 1.1x booster multiplier. Snaefel NFT holders get a 1.1x points boost, and Taikoons holders get a 2x points boost. If you sell your Faction badge(s) before the end of the season, you will lose the accumulated multiplied Experience Points by the number of Faction badges sold or moved from your wallet. For example, if you’ve collected 8 badges, you have a 2.14x multiplier, but if you sell one, you will have a 1.95x XP multiplier. These multipliers will last for the entire Trailblazer program duration.",
@@ -157,22 +160,11 @@
           "answer": "Taikoons - https://www.okx.com/web3/marketplace/nft/collection/taiko/taikoon\n\nFaction Badges - https://www.okx.com/ua/web3/marketplace/nft/collection/taiko/trailblazers-badges\n\nSnaefell are SBTs, meaning you can neither buy nor sell them.",
           "question": "Where can I buy NFTs which give multipliers?"
         }
-      ]
+      ],
+      "section": "Multipliers and rewards"
     }
   ],
   "leaderboard": {
-    "user": {
-      "event": {
-        "transaction": "Transaction",
-        "transaction_value": "Transaction Value",
-        "block_proposed": "Block Proposed",
-        "bridged": "Bridged"
-      },
-      "points": "+ {value}",
-      "booster": "{multiplier}x boosted",
-      "rank": "Rank",
-      "dailyMaxReached": "Daily Max Reached"
-    },
     "bridge": {
       "ended": {
         "description": "Our journey concluded on June 12th, 2024. Thanks to everyone who participated and earned their Robot Faction Badge by bridging to the Taiko mainnet.",
@@ -183,6 +175,10 @@
       "banner": {
         "description": "Compete for a month-long jackpot by increasing your TVL on DeFiLlama. Rewards will be based on performance throughout the competition, ending August 9th.",
         "title": "Join the DeFi competition starting July 15th!"
+      },
+      "ended": {
+        "description": "Our journey concluded on August 12th, 2024. Congratulations to the winners!",
+        "title": "Campaign ended"
       },
       "prize": {
         "1": "Prize Pool",
@@ -201,8 +197,42 @@
       },
       "tokenName": "TAIKO Tokens"
     },
+    "gaming": {
+      "banner": {
+        "description": "Compete for a month-long jackpot by providing the best gaming experience for your users! Rewards will be based on performance throughout the competition, ending Sept 12th.",
+        "title": "Join the Gaming competition starting Aug 12th!"
+      },
+      "prize": {
+        "1": "Prize Pool",
+        "2": "175K TAIKO Tokens"
+      },
+      "prize_breakdown": {
+        "first": {
+          "amount": "100K"
+        },
+        "second": {
+          "amount": "50K"
+        },
+        "third": {
+          "amount": "25K"
+        }
+      },
+      "tokenName": "TAIKO Tokens"
+    },
+    "user": {
+      "booster": "{multiplier}x boosted",
+      "dailyMaxReached": "Daily Max Reached",
+      "event": {
+        "block_proposed": "Block Proposed",
+        "bridged": "Bridged",
+        "transaction": "Transaction",
+        "transaction_value": "Transaction Value"
+      },
+      "points": "+ {value}",
+      "rank": "Rank"
+    },
     "whitelist": {
-      "cta": "Is your dapp not yet listed? Get it whitelisted <a href=\"https://github.com/taikoxyz/trailblazer-adapters\" target=\"_blank\" class=\"font-bold link text-lg\">now</a> !"
+      "cta": "Is your dapp not yet listed? Get it whitelisted <a href=\"https://github.com/taikoxyz/trailblazer-adapters\" target=\"_blank\" class=\"font-bold text-xl link\">now</a> !"
     }
   },
   "legal": {
@@ -244,40 +274,40 @@
     "page": "Page"
   },
   "partners": {
+    "common": {
+      "useNow": "Use now"
+    },
     "ens": {
       "subtitle": "Explore <span class=\"text-base-content\">our featured domain name projects!<span>",
       "title": "Our domain name partners"
     },
     "nft": {
-      "subtitle": "Explore <span class=\"text-base-content\">our featured NFT projects!<span>",
-      "title": "Our NFT partners",
-      "okx": {
-        "title": "OKX NFT Marketplace",
-        "description": "OKX NFT marketplace is a decentralized NFT exchange to create, collect and trade extraordinary NFTs on Taiko"
-      },
-      "mintpad": {
-        "title": "Mintpad.co",
-        "description": "The easiest way to launch an NFT on Taiko!"
-      },
       "conft": {
-        "title": "CoNFT",
-        "description": "A Multi-Chain Web3 Utility Hub offering comprehensive services such as Web3 Name Service, NFT Aggregator, Launchpad, Bridges, and Swaps."
+        "description": "A Multi-Chain Web3 Utility Hub offering comprehensive services such as Web3 Name Service, NFT Aggregator, Launchpad, Bridges, and Swaps.",
+        "title": "CoNFT"
       },
       "loopex": {
-        "title": "Loopex",
-        "description": "A next-gen community-first NFT marketplace."
+        "description": "A next-gen community-first NFT marketplace.",
+        "title": "Loopex"
+      },
+      "mintpad": {
+        "description": "The easiest way to launch an NFT on Taiko!",
+        "title": "Mintpad.co"
       },
       "nfts2me": {
-        "title": "NFTs2me",
-        "description": "NFTs2Me is a multichain user-friendly comprehensive platform to create, deploy and manage your NFT collection and community, 100% free with advanced functionalities."
+        "description": "NFTs2Me is a multichain user-friendly comprehensive platform to create, deploy and manage your NFT collection and community, 100% free with advanced functionalities.",
+        "title": "NFTs2me"
+      },
+      "okx": {
+        "description": "OKX NFT marketplace is a decentralized NFT exchange to create, collect and trade extraordinary NFTs on Taiko",
+        "title": "OKX NFT Marketplace"
       },
       "omnihub": {
-        "title": "Omnihub",
-        "description": "OmniHub NFT launchpad invites you to explore the boundless realms of creativity. Create your own collection in just a few clicks. This is where the future of art is born."
-      }
-    },
-    "common": {
-      "useNow": "Use now"
+        "description": "OmniHub NFT launchpad invites you to explore the boundless realms of creativity. Create your own collection in just a few clicks. This is where the future of art is born.",
+        "title": "Omnihub"
+      },
+      "subtitle": "Explore <span class=\"text-base-content\">our featured NFT projects!<span>",
+      "title": "Our NFT partners"
     }
   },
   "switch_modal": {
@@ -293,13 +323,13 @@
       "description": "Earn your Monk Faction badge by minting a domain on any partner protocol!",
       "title": "Mint a domain name"
     },
-    "nft": {
-      "description": "Use any wallet on Taiko to buy and trade NFTs, showcasing your skills in the digital collectibles market.",
-      "title": "Buy & trade NFTs with any wallet on Taiko"
-    },
     "gaming": {
       "description": "Play engaging games, earn exclusive rewards, mint unique NFTs, and trade valuable in-game assets.",
       "title": "Play any game and earn rewards!"
+    },
+    "nft": {
+      "description": "Use any wallet on Taiko to buy and trade NFTs, showcasing your skills in the digital collectibles market.",
+      "title": "Buy & trade NFTs with any wallet on Taiko"
     }
   },
   "trailblazer_guide": {

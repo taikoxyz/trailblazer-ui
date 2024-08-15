@@ -3,6 +3,7 @@
   import { t } from 'svelte-i18n';
 
   import LastUpdated from '$components/Leaderboards/LastUpdated.svelte';
+  import { DisabledMask } from '$components/Masks';
   import Paginator from '$components/Paginator/Paginator.svelte';
   import { leaderboardConfig } from '$config';
   import type { DappLeaderboardRow } from '$libs/leaderboard';
@@ -21,8 +22,15 @@
   export let headerComponent: ComponentType;
   export let lastUpdated: Date | null = null;
   export let showLastUpdated: boolean = false;
+  export let ended: boolean = false;
   export let scoreComponent: ComponentType;
+
   export let additionalInfoComponent: ComponentType | null = null;
+
+  // End info and components
+  export let endedComponent: ComponentType | null = null;
+  export let endTitleText: string = '';
+  export let endDescriptionText: string = '';
 
   export let showPagination: boolean = true;
   export let showDetailsColumn: boolean = true;
@@ -39,8 +47,12 @@
 
 <div class="overflow-x-auto lg:w-full px-8 mt-[116px] lg:mt-0">
   <svelte:component this={headerComponent} />
-
-  {#if additionalInfoComponent}
+  {#if ended && endedComponent}
+    <div class="mt-[60px] lg:mt-[80px] block lg:hidden">
+      <svelte:component this={endedComponent} title={endTitleText} description={endDescriptionText} />
+    </div>
+  {/if}
+  {#if additionalInfoComponent && !ended}
     <div class="mt-[60px] lg:mt-[80px]">
       <svelte:component this={additionalInfoComponent} />
     </div>
@@ -59,9 +71,14 @@
   </div>
 
   <div class="overflow-x-auto rounded-3xl">
-    <table class="table-lg w-full body-regular text-white rounded-3xl" style="background: rgba(25, 30, 40, .50)">
+    <table
+      class="relative table-lg w-full body-regular text-white rounded-3xl"
+      style="background: rgba(25, 30, 40, .50)">
       <TableHeader {headers} />
-      <tbody class="rounded-lg">
+      {#if ended && data.length > 0}
+        <DisabledMask title={endTitleText} description={endDescriptionText} />
+      {/if}
+      <tbody class="rounded-lg {ended ? 'blur-[1.5px]' : ''}  ">
         {#if isLoading}
           <!-- eslint-disable-next-line @typescript-eslint/no-unused-vars -->
           {#each Array(pageSize) as _, index}

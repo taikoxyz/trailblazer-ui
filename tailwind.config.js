@@ -87,6 +87,10 @@ export default {
           1000: '#050912',
         },
 
+        purple: {
+          1000: 'rgb(27 14 62)',
+        },
+
         red: {
           0: '#FFFFFF',
           5: '#FEF5F5',
