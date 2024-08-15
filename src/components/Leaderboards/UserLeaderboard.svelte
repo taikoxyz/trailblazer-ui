@@ -1,15 +1,14 @@
 <script lang="ts">
-  import { mapDefiDappLeaderboardRow } from '$libs/leaderboard';
-  import { currentDefiDappLeaderboard, currentUserLeaderboard } from '$stores/leaderboard';
+  import { mapUserLeaderboardRow } from '$libs/leaderboard';
+  import { currentUserLeaderboard } from '$stores/leaderboard';
 
-  import DefiCompetitionInformation from './Competition/DefiCompetition/DefiCompetitionInformation.svelte';
-  import DefiDappsHeader from './Header/DefiDappsHeader.svelte';
+  import { UserLeaderboardHeader } from './Header';
   import AbstractLeaderboard from './Template/AbstractLeaderboard.template.svelte';
-  import DollarScore from './Template/DollarScore.template.svelte';
+  import PointScore from './Template/PointScore.template.svelte';
 
-  let headers = ['No.', 'Name', 'Address', 'Level', 'Title', 'Points'];
+  let headers = ['No.', 'Address', 'Level', 'Title', 'Points'];
 
-  $: data = $currentUserLeaderboard;
+  $: data = $currentUserLeaderboard.items.map(mapUserLeaderboardRow);
   console.log('🚀 | data:', data);
 </script>
 
@@ -19,12 +18,11 @@
   showPagination={true}
   showDetailsColumn={false}
   showTrophy={true}
+  showCTA={false}
   isLoading={false}
   handlePageChange={() => {}}
   currentPage={1}
-  totalItems={$currentDefiDappLeaderboard.protocols.length}
-  showLastUpdated={true}
-  lastUpdated={new Date($currentDefiDappLeaderboard.lastUpdated * 1000)}
-  headerComponent={DefiDappsHeader}
-  scoreComponent={DollarScore}
-  additionalInfoComponent={DefiCompetitionInformation} />
+  totalItems={$currentUserLeaderboard.items.length}
+  showLastUpdated={false}
+  headerComponent={UserLeaderboardHeader}
+  scoreComponent={PointScore} />

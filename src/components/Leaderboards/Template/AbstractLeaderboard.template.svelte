@@ -23,6 +23,7 @@
   export let showLastUpdated: boolean = false;
   export let scoreComponent: ComponentType;
   export let additionalInfoComponent: ComponentType | null = null;
+  export let showCTA: boolean = true;
 
   export let showPagination: boolean = true;
   export let showDetailsColumn: boolean = true;
@@ -38,7 +39,7 @@
 </script>
 
 <div class="overflow-x-auto lg:w-full px-8 mt-[116px] lg:mt-0">
-  <svelte:component this={headerComponent} />
+  <svelte:component this={headerComponent} {lastUpdated} {showLastUpdated} />
 
   {#if additionalInfoComponent}
     <div class="mt-[60px] lg:mt-[80px]">
@@ -49,10 +50,13 @@
 
   <div
     class="f-col lg:f-row lg:f-between-center items-center content-center mt-[60px] lg:mt-[77px] mb-[30px] space-y-[30px] lg:space-y-0">
-    <div class="text-xl font-bold">
-      <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-      {@html $t('leaderboard.whitelist.cta')}
-    </div>
+    {#if showCTA}
+      <div class="text-xl font-bold">
+        <!-- eslint-disable-next-line svelte/no-at-html-tags -->
+        {@html $t('leaderboard.whitelist.cta')}
+      </div>
+    {/if}
+
     {#if showLastUpdated && lastUpdated}
       <LastUpdated class="w-fit" {lastUpdated} />
     {/if}

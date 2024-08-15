@@ -185,7 +185,10 @@ export class Profile {
       */
 
       // Calculate Percentile
-      const rankPercentile = this.calculatePercentile();
+      const profile = get(currentProfile);
+      const rank = profile.rank;
+      const total = profile.total;
+      const rankPercentile = this.calculatePercentile(rank, total);
       log('Rank Percentile: ', rankPercentile);
 
       // Calculate Level
@@ -228,11 +231,9 @@ export class Profile {
     // fetches statistics from backend
   }
 
-  static calculatePercentile() {
+  static calculatePercentile(rank: string | number, total: string | number) {
     // Take current rank over total
-    const profile = get(currentProfile);
-    const rank = profile.rank;
-    const total = profile.total;
+
     const percentile = (1 - Number(rank) / Number(total)) * 100;
     return percentile || 0;
   }

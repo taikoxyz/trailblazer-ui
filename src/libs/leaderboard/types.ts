@@ -16,7 +16,8 @@ export type DappLeaderboardPageApiResponse = {
 };
 
 export type UserLeaderboardPageApiResponse = CommonPageApiResponse & {
-  items: UserLeaderboardItem[];
+  items: UserLeaderboardRow[];
+  totalUsers: number;
   lastUpdated: number;
 };
 
@@ -26,7 +27,9 @@ export type DappLeaderboardPage = {
 };
 
 export type UserLeaderboardPage = {
-  items: UserLeaderboardItem[];
+  items: UserLeaderboardRow[];
+  totalUsers: number;
+  lastUpdated: number;
 };
 
 export type DappLeaderboardItem = {
@@ -35,9 +38,12 @@ export type DappLeaderboardItem = {
   slug: string;
 };
 
-export type UserLeaderboardItem = {
+export type UserLeaderboardRow = {
   address: Address;
   score: number;
+  level: number;
+  title: string;
+  name: string;
 };
 
 export type DappLeaderboardRow = {
@@ -156,4 +162,7 @@ export type UnifiedLeaderboardRow = {
   handle?: string;
   data: ProtocolData[];
   totalScore: number;
+  level?: number;
+  title?: string;
+  name?: string;
 };

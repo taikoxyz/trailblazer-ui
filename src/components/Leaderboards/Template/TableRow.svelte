@@ -17,6 +17,8 @@
   export let toggleRow: (index: number) => void;
   export let showDetailsColumn: boolean;
   export let scoreComponent: ComponentType;
+  export let level: number;
+  export let title: string;
 </script>
 
 <tr
@@ -80,6 +82,18 @@
         <ExplorerLink address={entry.address} linkText="Explorer" shorten />
       </td>
     {/if}
+  {/if}
+
+  {#if entry.level}
+    <td class="lg:px-10 body-regular w-3/12 text-right">
+      {entry.level}
+    </td>
+  {/if}
+
+  {#if entry.title}
+    <td class="lg:px-10 body-regular w-3/12 text-right">
+      {entry.title}
+    </td>
   {/if}
   <td class="lg:px-10 body-regular w-3/12 text-right">
     <svelte:component this={scoreComponent} score={entry.totalScore} data={entry.data} />

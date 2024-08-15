@@ -33,17 +33,21 @@ export const setDappLeaderboardLastUpdated = (lastUpdated: number) => {
 
 // User Leaderboard
 export const setUserLeaderboard = (leaderboard: UserLeaderboardPage) => {
-  currentUserLeaderboard.update((store) => {
-    store = leaderboard;
-    store.items = leaderboard.items
-      .filter((item) => !!item.address)
-      .map((item) => ({ ...item, score: +item.score.toFixed(1) }));
-    return store;
-  });
+  // currentUserLeaderboard.update((store) => {
+  //   store = leaderboard;
+  //   store.items = leaderboard.items
+  //     .filter((item) => !!item.address)
+  //     .map((item) => ({ ...item, score: +item.score.toFixed(1) }));
+  //   return store;
+  // });
+
+  currentUserLeaderboard.set(leaderboard);
 };
 
 export const currentUserLeaderboard = writable<UserLeaderboardPage>({
   items: [],
+  totalUsers: 0,
+  lastUpdated: 0,
 });
 
 // Bridge Leaderboard

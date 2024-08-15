@@ -1,4 +1,7 @@
-import type { DappLeaderboardRow, DefiDappLeaderboardRow, UnifiedLeaderboardRow } from './types';
+import type { UserLeaderboard } from '$components/Leaderboards';
+import { Profile } from '$libs/profile';
+
+import type { DappLeaderboardRow, DefiDappLeaderboardRow, UnifiedLeaderboardRow, UserLeaderboardRow } from './types';
 
 export function mapDappLeaderboardRow(row: DappLeaderboardRow): UnifiedLeaderboardRow {
   return {
@@ -16,6 +19,21 @@ export function mapDefiDappLeaderboardRow(row: DefiDappLeaderboardRow): UnifiedL
     address: row.name ? row.name : row.address,
     icon: row.logo,
     handle: row.twitter,
+    data: [],
+    totalScore,
+  };
+}
+
+export function mapUserLeaderboardRow(row: UserLeaderboardRow): UnifiedLeaderboardRow {
+  const totalScore = row.score ? row.score : 0;
+  const percentile = Profile.calculatePercentile();
+  const level = Profile.getLevel();
+
+  const rank;
+  return {
+    address: row.address ? row.address : row.address,
+    icon: '',
+    handle: '',
     data: [],
     totalScore,
   };
