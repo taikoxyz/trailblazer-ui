@@ -330,6 +330,10 @@
     "nft": {
       "description": "Use any wallet on Taiko to buy and trade NFTs, showcasing your skills in the digital collectibles market.",
       "title": "Buy & trade NFTs with any wallet on Taiko"
+    },
+    "stargate": {
+      "description": "Cap off the season with a dual trail extravaganza starting August 19th! Choose your path—DeFi or Gaming—and earn your Faction badges.",
+      "title": "Taiko & Stargate Unite for the Ultimate Trail!"
     }
   },
   "trailblazer_guide": {

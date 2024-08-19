@@ -29,8 +29,8 @@
     {#each Array.from({ length: count + 2 }, (_, i) => i) as _}
       <!-- Add whatever repeating content here -->
       <div bind:this={innerRibbon} class="min-w-fit flex flex-nowrap break-keep overflow-visible">
-        <div class="body-bold mr-[10px] text-secondary-warm-yellow">JOIN THE REVOLUTION</div>
-        <div class="body-bold">PINKIFY YOUR PROFILE</div>
+        <div class="body-bold mr-[10px] text-secondary-warm-yellow">EARN 4X MULTIPLIER</div>
+        <div class="body-bold">TRAIL 8 HAPPENING NOW</div>
       </div>
     {/each}
   </div>

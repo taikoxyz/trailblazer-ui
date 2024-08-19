@@ -49,7 +49,7 @@
 </script>
 
 <!-- Desktop -->
-<div class="container w-full h-auto px-[20px] xl:px-[57px] relative">
+<div class="container w-full h-auto relative">
   <div
     class="w-full relative rounded-3xl bg-cover overflow-hidden"
     style="background-image: url({backgroundImageUrl});">
@@ -67,7 +67,7 @@
         <img src={images.content.md} alt={title} class="hidden sm:hidden md:block lg:hidden xl:hidden" />
       </div>
       <!-- Mobile (sm) -->
-      <div class="f-col h-full relative block sm:hidden">
+      <div class="f-col h-full relative block md:hidden">
         <img src={images.content.sm} alt={title} />
       </div>
 

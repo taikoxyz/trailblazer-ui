@@ -6,7 +6,4 @@
   import { nftPartnersItems } from './nftPartnersItems.svelte';
 </script>
 
-<PartnersTemplate
-  title={$t('partners.nft.title')}
-  subtitle={$t('partners.nft.subtitle')}
-  carouselItems={nftPartnersItems} />
+<PartnersTemplate title={$t('partners.nft.title')} carouselItems={nftPartnersItems} />
