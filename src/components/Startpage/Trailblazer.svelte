@@ -15,13 +15,15 @@
   import TrailblazerMain from './TrailblazerMain.svelte';
 
   const separatorClasses = classNames('w-full', 'h-[1px]', 'bg-[#444A55]');
-
+  const guideWrapperClasses = classNames('w-full', 'relative', 'top-[-40px]');
   const paddingWrapperClasses = classNames('w-full', 'px-[40px]', 'lg:px-[57px]', 'md:px-[47px]');
 </script>
 
 <div class="f-center container flex-col w-full overflow-visible gap-[100px] md:mb-[130px]">
   <TrailblazerMain />
-  <TrailblazerGuide />
+  <div class={guideWrapperClasses}>
+    <TrailblazerGuide />
+  </div>
   <div class={paddingWrapperClasses}>
     <StargateBanner />
   </div>

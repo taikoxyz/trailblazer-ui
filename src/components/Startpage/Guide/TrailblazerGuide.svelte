@@ -18,7 +18,6 @@
     'xl:h-[375px]',
     'md:h-[525px]',
     'relative',
-    'top-[-40px]',
     'w-full',
     'px-[20px]',
     'lg:px-[57px]',
