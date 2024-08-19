@@ -119,13 +119,18 @@
     'font-bold',
     'max-w-[316px]',
     'max-w-[360px]',
+    'text-[white]',
   );
 
   const descriptionColClasses = classNames('f-col', 'h-full', 'justify-center');
 
   const descriptionWrapperClasses = classNames('f-col', 'w-full', 'space-y-[32px]', 'items-center', 'md:items-start');
 
-  const descriptionClasses = classNames('text-body-regular', 'max-w-[315px]');
+  const descriptionClasses = classNames(
+    'text-[white]',
+
+    'max-w-[315px]',
+  );
 
   const actionButtonClasses = classNames(
     '!w-[140px]',
