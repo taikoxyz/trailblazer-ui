@@ -61,6 +61,6 @@
   ];
 </script>
 
-<div class={classNames('w-full', 'px-[20px]', 'lg:px-[57px]', 'md:px-[47px]')}>
+<div class={classNames('w-full', 'relative', 'px-[20px]', 'lg:px-[57px]', 'md:px-[47px]')}>
   <PartnersTemplate title="Featured projects" carouselItems={gamingCarouselItems} />
 </div>

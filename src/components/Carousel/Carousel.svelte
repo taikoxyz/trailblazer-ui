@@ -63,17 +63,19 @@
 </script>
 
 <div class={classNames('flex', 'flex-col', 'justify-center', 'items-center', 'w-full')}>
-  <div class="w-full flex gap-4 justify-between items-between h-full bottom-0 mb-[40px]">
+  <div class="w-fullflex gap-4 justify-between items-between h-full bottom-0 mb-[40px]">
     <div
       class={classNames(
-        'w-full',
+        'absolute',
+        'left-0',
         'flex-row',
         'flex',
-        'pr-[40px]',
-        'lg:pr-[114px]',
-        'md:pr-[96px]',
         'justify-between',
         'items-center',
+        'w-[calc(100vw-40px)]',
+        'md:w-[calc(100vw-200px)]',
+        'lg:w-[calc(100vw-300px)]',
+        'xl:w-[calc(100vw-195px)]',
       )}>
       {#if title}
         <div class="flex flex-col justify-start gap-[40px]">
@@ -100,7 +102,7 @@
       </div>
     </div>
   </div>
-  <div bind:this={carouselWrapper} class="w-full">
+  <div bind:this={carouselWrapper} class="w-full pt-[100px] md:pt-[70px]">
     <div bind:this={carouselElement} class="flex carousel w-full overflow-scroll rounded-box gap-4 lg:gap-8">
       {#each carouselItems as carouselItem}
         <CarouselItem {carouselItem} width={itemWidth} />

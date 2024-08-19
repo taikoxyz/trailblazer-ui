@@ -13,9 +13,8 @@
     'flex-col',
     'gap-6',
     'xl:gap-[60px]',
-    'w-[calc(100vw-20px)]',
-    'md:w-[calc(100vw-47px)]',
-    'lg:w-[calc(100vw-57px)]',
+
+    'w-[100vw]',
     'relative',
     'top-[-20px]',
     'h-[calc(100%-40px)]',
