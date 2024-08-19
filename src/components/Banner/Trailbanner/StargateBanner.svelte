@@ -26,7 +26,7 @@
     },
   };
 
-  const wrapperClasses = classNames('container', 'w-full', 'h-auto', 'relative');
+  const wrapperClasses = classNames('container', '!text-[#ffffff]', 'w-full', 'h-auto', 'relative');
   const innerWrapperClasses = classNames(
     'w-full',
     'bg-secondary',
@@ -119,7 +119,7 @@
     'font-bold',
     'max-w-[316px]',
     'max-w-[360px]',
-    'text-[white]',
+    'text-[#ffffff]',
   );
 
   const descriptionColClasses = classNames('f-col', 'h-full', 'justify-center');
@@ -127,7 +127,7 @@
   const descriptionWrapperClasses = classNames('f-col', 'w-full', 'space-y-[32px]', 'items-center', 'md:items-start');
 
   const descriptionClasses = classNames(
-    'text-[white]',
+    'text-[#ffffff]',
 
     'max-w-[315px]',
   );
