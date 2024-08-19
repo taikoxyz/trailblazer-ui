@@ -26,13 +26,7 @@
     },
   };
 
-  const wrapperClasses = classNames(
-    'container',
-    'w-full',
-    'h-auto',
-
-    'relative',
-  );
+  const wrapperClasses = classNames('container', 'w-full', 'h-auto', 'relative');
   const innerWrapperClasses = classNames(
     'w-full',
     'bg-secondary',
@@ -162,7 +156,7 @@
       </div>
       <!-- Mobile (sm) -->
       <div class={smImageWrapperClasses}>
-        <img src={images.content.sm} alt={title} />
+        <img src={images.content.sm} alt={title} class="w-full" />
       </div>
 
       <div class={contentGridClasses}>
