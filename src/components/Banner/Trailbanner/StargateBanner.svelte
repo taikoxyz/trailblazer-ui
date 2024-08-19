@@ -26,7 +26,13 @@
     },
   };
 
-  const wrapperClasses = classNames('container', 'w-full', 'h-auto', 'px-[20px]', 'xl:px-[57px]', 'relative');
+  const wrapperClasses = classNames(
+    'container',
+    'w-full',
+    'h-auto',
+
+    'relative',
+  );
   const innerWrapperClasses = classNames(
     'w-full',
     'bg-secondary',

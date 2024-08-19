@@ -4,6 +4,8 @@
   import DefiPartners from '$components/Partner/DefiPartners/DefiPartners.svelte';
   import { ENSPartners } from '$components/Partner/ENSPartners';
   import { GamingPartners } from '$components/Partner/GamingPartners';
+  import { StargatePartners } from '$components/Partner/StargatePartners';
+  import { classNames } from '$libs/util/classNames';
 
   import DividerElement from './DividerElement/DividerElement.svelte';
   import ExploreEcosystem from './ExploreEcosystem.svelte';
@@ -11,19 +13,39 @@
   import { TrailblazerGuide } from './Guide';
   import { RankUp } from './RankUp';
   import TrailblazerMain from './TrailblazerMain.svelte';
+
+  const separatorClasses = classNames('w-full', 'h-[1px]', 'bg-[#444A55]');
+
+  const paddingWrapperClasses = classNames('w-full', 'px-[40px]', 'lg:px-[57px]', 'md:px-[47px]');
 </script>
 
 <div class="f-center container flex-col w-full overflow-visible gap-[100px] md:mb-[130px]">
   <TrailblazerMain />
   <TrailblazerGuide />
-  <StargateBanner />
-  <GamingBanner />
-  <GamingPartners />
+  <div class={paddingWrapperClasses}>
+    <StargateBanner />
+  </div>
+  <StargatePartners />
+  <div class={paddingWrapperClasses}>
+    <div class={separatorClasses} />
+  </div>
+  <div class={paddingWrapperClasses}>
+    <GamingBanner />
+  </div>
+  <div class={paddingWrapperClasses}>
+    <GamingPartners />
+  </div>
   <Factions />
   <DividerElement />
-  <DefiPartners />
-  <GamingPartners />
-  <ENSPartners />
+  <div class={paddingWrapperClasses}>
+    <DefiPartners />
+  </div>
+  <div class={paddingWrapperClasses}>
+    <GamingPartners />
+  </div>
+  <div class={paddingWrapperClasses}>
+    <ENSPartners />
+  </div>
   <RankUp />
   <ExploreEcosystem />
 </div>

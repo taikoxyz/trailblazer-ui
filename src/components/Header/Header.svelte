@@ -14,7 +14,7 @@
   }
 </script>
 
-<div class="absolute w-full f-center lg:top-[16px] top-[-10px] z-50">
+<div class="absolute w-full f-center lg:top-[56px] top-[40px] z-50">
   <div class="container f-center w-full px-[20px] lg:px-0">
     <div class="flex body-regular items-center justify-between box-border w-full rounded-full lg:bg-none">
       <div

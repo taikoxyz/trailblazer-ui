@@ -6,7 +6,4 @@
   import { ensCarouselItems } from './ensCarouselItems';
 </script>
 
-<PartnersTemplate
-  title={$t('partners.ens.title')}
-  subtitle={$t('partners.ens.subtitle')}
-  carouselItems={ensCarouselItems} />
+<PartnersTemplate title={$t('partners.ens.title')} carouselItems={ensCarouselItems} />

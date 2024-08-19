@@ -63,7 +63,9 @@
 </script>
 
 <!-- App components -->
+
 <Ribbon />
+
 <Header />
 
 <slot />
