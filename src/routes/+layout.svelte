@@ -9,6 +9,7 @@
   import { Footer } from '$components/Footer';
   import { Header } from '$components/Header';
   import { NotificationToast } from '$components/NotificationToast';
+  import { Ribbon } from '$components/Ribbon';
   import { SwitchChainModal } from '$components/SwitchChainModal';
   import {
     desktopQuery,
@@ -62,6 +63,7 @@
 </script>
 
 <!-- App components -->
+<Ribbon />
 <Header />
 
 <slot />
