@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { StargateBanner } from '$components/Banner';
   import GamingBanner from '$components/Banner/Trailbanner/GamingBanner.svelte';
   import DefiPartners from '$components/Partner/DefiPartners/DefiPartners.svelte';
   import { ENSPartners } from '$components/Partner/ENSPartners';
@@ -15,6 +16,7 @@
 <div class="f-center container flex-col w-full overflow-visible gap-[100px] md:mb-[130px]">
   <TrailblazerMain />
   <TrailblazerGuide />
+  <StargateBanner />
   <GamingBanner />
   <GamingPartners />
   <Factions />
