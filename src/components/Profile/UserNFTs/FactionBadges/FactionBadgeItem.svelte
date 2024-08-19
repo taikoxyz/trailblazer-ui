@@ -165,6 +165,8 @@
     'https://taiko.mirror.xyz/n9G_VMf2ShNhx-6eHbLTTE5BwRP1JKHkCDxZQTk0nrY',
     // week 7 - Drummers
     'https://taiko.mirror.xyz/8-8mdHJKlP0sZACfEb666CTctTHbhbV47U4b2-5DHpQ',
+    // week 8 - Shinto
+    'https://taiko.mirror.xyz/ATc_7eMuHPR9blYDAOIT2DM0OA2e-kfft1I5ZDLieTY',
   ];
 
   $: requirementsUrl = requirementsUrls[FACTIONS[name]] || '';
