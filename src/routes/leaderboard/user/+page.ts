@@ -1,8 +1,27 @@
 import { browser } from '$app/environment';
-import { Leaderboard } from '$libs/leaderboard';
+import { leaderboardConfig } from '$config';
+import { Leaderboard, type PaginationInfo } from '$libs/leaderboard';
 
 export const load = async () => {
+  let loading = true;
+  let pageInfo: PaginationInfo = {
+    page: 0,
+    size: leaderboardConfig.pageSize,
+    first: true,
+    last: false,
+  };
+
   if (browser) {
-    await Leaderboard.getUserLeaderboard();
+    try {
+      pageInfo = await Leaderboard.getUserLeaderboard(pageInfo);
+    } catch (error) {
+      console.error('Error loading leaderboard data:', error);
+    } finally {
+      loading = false;
+    }
   }
+  return {
+    pageInfo,
+    loading,
+  };
 };
