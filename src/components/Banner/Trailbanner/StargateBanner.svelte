@@ -43,6 +43,7 @@
     'relative',
     'rounded-3xl',
     'bg-cover',
+
     'overflow-hidden',
   );
   const bannerWrapperClasses = classNames(
@@ -135,11 +136,11 @@
   const actionButtonClasses = classNames(
     '!w-[140px]',
     'bg-white',
-    'text-[#181e28]',
+    '!text-[#191E28]',
     'border-transparent',
-    'hover:bg-transparent',
+    'hover:bg-primary',
     'hover:border-white',
-    'hover:text-white',
+    'hover:!text-white',
   );
 </script>
 
