@@ -10,15 +10,21 @@
 <!-- Competition Information -->
 <div class="f-center flex-col">
   <!-- Title -->
-  <div class="f-between-center md:space-x-[40px] mb-[30px] w-full">
+  <div class="flex justify-center lg:space-x-[40px] mb-[30px] w-full">
     <img src="/competitionInfo/laser.svg" alt="left laser" class="hidden xl:block" />
-    <img src="/competitionInfo/laser-sm.svg" alt="left laser" class="block xl:hidden md:max-w-[150px]" />
+    <img
+      src="/competitionInfo/laser-sm.svg"
+      alt="left laser"
+      class="block xl:hidden lg:max-w-[150px] hidden lg:block" />
     <div
-      class="max-w-[494px] font-normal font-medium leading-[52px] tracking-[-0.45px] font-clash-grotesk text-center text-[32px]/[38px] lg:text-[45px]/[52px]">
+      class="flex w-full max-w-[494px] font-normal font-medium leading-[52px] tracking-[-0.45px] font-clash-grotesk text-center text-[32px]/[38px] lg:text-[45px]/[52px]">
       {title}
     </div>
     <img src="/competitionInfo/laser.svg" alt="right laser" class="hidden rotate-180 xl:block" />
-    <img src="/competitionInfo/laser-sm.svg" alt="right laser" class="block rotate-180 xl:hidden md:max-w-[150px]" />
+    <img
+      src="/competitionInfo/laser-sm.svg"
+      alt="right laser"
+      class="block rotate-180 xl:hidden lg:max-w-[150px] hidden lg:block" />
   </div>
   <div class="text-secondary-content body-regular text-center max-w-[485px] pb-[80px]">
     {description}

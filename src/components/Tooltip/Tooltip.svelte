@@ -57,7 +57,7 @@
   </button>
   <dialog id={tooltipId} class={tooltipClass} class:block-hidden={!tooltipOpen} bind:this={dialogElem}>
     <svg
-      class="absolute left-1/2 top-0 -translate-y-[100%]"
+      class="absolute left-1/2 top-0 -translate-y-[100%] -translate-x-[50%]"
       xmlns="http://www.w3.org/2000/svg"
       width="20"
       height="10"

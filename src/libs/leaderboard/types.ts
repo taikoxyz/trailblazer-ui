@@ -5,9 +5,10 @@ export type DappLeaderboardPageApiResponse = {
   data: CommonPageApiResponse<DappLeaderboardItem>;
 };
 
-export type UserLeaderboardPageApiResponse = {
-  lastUpdated: number;
-  data: CommonPageApiResponse<UserLeaderboardItem>;
+export type DappLeaderboardItem = {
+  address: Address;
+  score: number;
+  slug: string;
 };
 
 export type DappLeaderboardPage = {
@@ -15,17 +16,16 @@ export type DappLeaderboardPage = {
   lastUpdated: number;
 };
 
+export type UserLeaderboardPageApiResponse = {
+  lastUpdated: number;
+  data: CommonPageApiResponse<UserLeaderboardItem>;
+};
+
 export type UserLeaderboardPage = {
   items: UserLeaderboardRow[];
   totalUsers: number;
   pageNumber: number;
   lastUpdated: number;
-};
-
-export type DappLeaderboardItem = {
-  address: Address;
-  score: number;
-  slug: string;
 };
 
 export type UserLeaderboardItem = {
@@ -91,6 +91,11 @@ export type BridgeLeaderboardTotal = {
   visible: number;
 };
 
+export type TvlLeaderboardResponse = {
+  lastUpdated: number;
+  protocols: DefiDappLeaderboardRow[];
+};
+
 export type DefiDappLeaderboardPage = {
   protocols: DefiDappLeaderboardRow[];
   lastUpdated: number;
@@ -145,11 +150,6 @@ export type CommonPageApiResponse<T> = PaginationInfo<T>;
 export type BridgeTokenScore = {
   token: Address;
   score: number;
-};
-
-export type TvlLeaderboardResponse = {
-  lastUpdated: number;
-  protocols: DefiDappLeaderboardRow[];
 };
 
 export type UnifiedLeaderboardRow = {

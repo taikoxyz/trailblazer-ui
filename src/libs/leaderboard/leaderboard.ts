@@ -6,6 +6,7 @@ import { PUBLIC_TRAILBLAZER_API_URL } from '$env/static/public';
 import { globalAxiosConfig } from '$libs/api/axiosConfig';
 import bridgeAdditionalData from '$libs/leaderboard/json/bridgeAdditionalData.json';
 import dappDetailsMapping from '$libs/leaderboard/json/dappDetailsMapping.json';
+import gamingDetailsMapping from '$libs/leaderboard/json/gamingDetailsMapping.json';
 import { isDevelopmentEnv } from '$libs/util/isDevelopmentEnv';
 import { getLogger } from '$libs/util/logger';
 import { setBridgeLeaderboard, setDappLeaderboard, setDappLeaderboardLastUpdated } from '$stores/leaderboard';
@@ -14,6 +15,7 @@ import {
   setDefiDappLeaderboardProtocols,
   setUserLeaderboard,
 } from '$stores/leaderboard';
+import { setGamingLeaderboard, setGamingLeaderboardLastUpdated } from '$stores/leaderboards/gamingLeaderboard';
 
 import type {
   BridgeData,
@@ -109,8 +111,89 @@ export class Leaderboard {
       const { page, size, total, total_pages, max_page } = leaderboardPageApiResponse.data;
 
       return {
-        first: page === 0,
-        last: page === max_page,
+        first: 0,
+        last: max_page,
+        total,
+        size,
+        total_pages,
+        page,
+      } satisfies PaginationInfo<DappLeaderboardItem>;
+    } catch (error) {
+      console.error('Error fetching leaderboard:', error);
+      errorToast({
+        title: 'Error fetching leaderboard',
+        message: `${error}`,
+      });
+      return args;
+    }
+  }
+
+  static async getGamingLeaderboard(
+    args: PaginationInfo<DappLeaderboardItem>,
+  ): Promise<PaginationInfo<DappLeaderboardItem>> {
+    log('baseApiUrl', baseApiUrl);
+
+    try {
+      log('args', args);
+      const response = await axios.get<DappLeaderboardPageApiResponse>(`${baseApiUrl}/v2/leaderboard/gaming`, {
+        ...globalAxiosConfig,
+        params: args,
+      });
+
+      log('response', response);
+      const leaderboardPageApiResponse: DappLeaderboardPageApiResponse = response.data;
+
+      const leaderboardPage: DappLeaderboardPage = { items: [], lastUpdated: 0 };
+
+      const detailMapping: DetailsMapping = gamingDetailsMapping;
+
+      if (!leaderboardPageApiResponse.data.items) {
+        throw new Error('No Items found');
+      }
+
+      const items = await Promise.all(
+        leaderboardPageApiResponse.data.items.map(async (item) => {
+          let entry: UnifiedLeaderboardRow;
+          if (isAddress(item.slug)) {
+            entry = {
+              address: item.address,
+              data: [],
+              totalScore: item.score,
+            };
+          } else {
+            const details = await axios.get<ProtocolApiResponse>(`${baseApiUrl}/protocol/gaming`, {
+              ...globalAxiosConfig,
+              params: { slug: item.slug },
+            });
+            const protocolDetails = details.data;
+
+            entry = {
+              address: item.address,
+              data: protocolDetails.protocols,
+              totalScore: item.score,
+            };
+          }
+          if (detailMapping[item.slug]?.icon) {
+            entry.icon = detailMapping[item.slug].icon;
+          }
+          if (detailMapping[item.slug]?.handle) {
+            entry.handle = detailMapping[item.slug].handle;
+          }
+          return entry;
+        }),
+      );
+
+      leaderboardPage.items = items;
+
+      setGamingLeaderboard(leaderboardPage);
+      setGamingLeaderboardLastUpdated(response.data.lastUpdated);
+
+      log('Leaderboard page: ', leaderboardPage);
+      const { page, size, total, total_pages, max_page } = leaderboardPageApiResponse.data;
+
+      return {
+        first: 0,
+        last: max_page,
         total,
         size,
         total_pages,
@@ -146,8 +229,8 @@ export class Leaderboard {
 
       return {
         items: [],
-        first: page === 0,
-        last: page === max_page,
+        first: 0,
+        last: max_page,
         total,
         size,
         total_pages,

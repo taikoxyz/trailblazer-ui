@@ -74,6 +74,7 @@
     "buffer": "^6.0.3",
     "debug": "^4.3.5",
     "events": "^3.3.0",
+    "lefthook": "^1.7.12",
     "object-hash": "^3.0.0",
     "postcss-import": "^16.1.0",
     "stores": "link:@zerodevx/svelte-toast/stores",
