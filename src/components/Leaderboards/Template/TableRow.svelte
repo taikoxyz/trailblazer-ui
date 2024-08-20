@@ -17,8 +17,6 @@
   export let toggleRow: (index: number) => void;
   export let showDetailsColumn: boolean;
   export let scoreComponent: ComponentType;
-  export let level: number;
-  export let title: string;
 </script>
 
 <tr
@@ -85,13 +83,13 @@
   {/if}
 
   {#if entry.level}
-    <td class="lg:px-10 body-regular w-3/12 text-right">
+    <td class="lg:px-10 body-regular w-3/12 text-left">
       {entry.level}
     </td>
   {/if}
 
   {#if entry.title}
-    <td class="lg:px-10 body-regular w-3/12 text-right">
+    <td class="lg:px-10 body-regular w-3/12 text-left">
       {entry.title}
     </td>
   {/if}

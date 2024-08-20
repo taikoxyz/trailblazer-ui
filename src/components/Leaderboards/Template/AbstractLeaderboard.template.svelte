@@ -48,19 +48,21 @@
   {/if}
   <div class="text-center mt-[30px] text-xl"></div>
 
-  <div
-    class="f-col lg:f-row lg:f-between-center items-center content-center mt-[60px] lg:mt-[77px] mb-[30px] space-y-[30px] lg:space-y-0">
-    {#if showCTA}
-      <div class="text-xl font-bold">
-        <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-        {@html $t('leaderboard.whitelist.cta')}
-      </div>
-    {/if}
+  {#if showCTA && showLastUpdated}
+    <div
+      class="f-col lg:f-row lg:f-between-center items-center content-center mt-[60px] lg:mt-[77px] mb-[30px] space-y-[30px] lg:space-y-0">
+      {#if showCTA}
+        <div class="text-xl font-bold">
+          <!-- eslint-disable-next-line svelte/no-at-html-tags -->
+          {@html $t('leaderboard.whitelist.cta')}
+        </div>
+      {/if}
 
-    {#if showLastUpdated && lastUpdated}
-      <LastUpdated class="w-fit" {lastUpdated} />
-    {/if}
-  </div>
+      {#if showLastUpdated && lastUpdated}
+        <LastUpdated class="w-fit" {lastUpdated} />
+      {/if}
+    </div>
+  {/if}
 
   <div class="overflow-x-auto rounded-3xl">
     <table class="table-lg w-full body-regular text-white rounded-3xl" style="background: rgba(25, 30, 40, .50)">

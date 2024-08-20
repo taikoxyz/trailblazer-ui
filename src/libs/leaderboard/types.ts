@@ -2,23 +2,12 @@ import type { Address } from 'viem';
 
 export type DappLeaderboardPageApiResponse = {
   lastUpdated: number;
-  data: {
-    items: DappLeaderboardItem[];
-    page: number;
-    size: number;
-    max_page: number;
-    total_pages: number;
-    total: number;
-    last: number;
-    first: number;
-    visible: number;
-  };
+  data: CommonPageApiResponse<DappLeaderboardItem>;
 };
 
-export type UserLeaderboardPageApiResponse = CommonPageApiResponse & {
-  items: UserLeaderboardRow[];
-  totalUsers: number;
+export type UserLeaderboardPageApiResponse = {
   lastUpdated: number;
+  data: CommonPageApiResponse<UserLeaderboardItem>;
 };
 
 export type DappLeaderboardPage = {
@@ -29,6 +18,7 @@ export type DappLeaderboardPage = {
 export type UserLeaderboardPage = {
   items: UserLeaderboardRow[];
   totalUsers: number;
+  pageNumber: number;
   lastUpdated: number;
 };
 
@@ -38,12 +28,16 @@ export type DappLeaderboardItem = {
   slug: string;
 };
 
-export type UserLeaderboardRow = {
+export type UserLeaderboardItem = {
   address: Address;
   score: number;
-  level: number;
-  title: string;
-  name: string;
+};
+
+export type UserLeaderboardRow = UserLeaderboardItem & {
+  position?: number;
+  level?: string;
+  title?: string;
+  name?: string;
 };
 
 export type DappLeaderboardRow = {
@@ -134,17 +128,19 @@ export type DefiDappLeaderboardRow = {
   tokenBreakdowns: Record<string, unknown>;
 };
 
-export type PaginationInfo = {
-  first?: boolean;
-  last?: boolean;
-  max_page?: number;
-  total?: number;
-  total_pages?: number;
+export type PaginationInfo<T> = {
+  items?: T[];
   page: number;
   size: number;
+  max_page?: number;
+  total_pages?: number;
+  total?: number;
+  last?: number;
+  first?: number;
+  visible?: number;
 };
 
-export type CommonPageApiResponse = PaginationInfo;
+export type CommonPageApiResponse<T> = PaginationInfo<T>;
 
 export type BridgeTokenScore = {
   token: Address;
@@ -162,7 +158,7 @@ export type UnifiedLeaderboardRow = {
   handle?: string;
   data: ProtocolData[];
   totalScore: number;
-  level?: number;
+  level?: string;
   title?: string;
   name?: string;
 };

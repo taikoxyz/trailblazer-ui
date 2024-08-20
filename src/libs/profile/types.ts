@@ -75,7 +75,7 @@ export type UserFaction = {
 };
 
 export type UserLevel = {
-  level: number;
+  level: string;
   title: string;
 };
 

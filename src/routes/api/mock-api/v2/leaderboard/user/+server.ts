@@ -1,5 +1,7 @@
 import type { RequestHandler } from '@sveltejs/kit';
 
+import type { UserLeaderboardPageApiResponse } from '$libs/leaderboard';
+
 export const GET: RequestHandler = async () => {
   return new Response(JSON.stringify(mockData), {
     status: 200,
@@ -9,7 +11,7 @@ export const GET: RequestHandler = async () => {
   });
 };
 
-const mockData = {
+const mockData: UserLeaderboardPageApiResponse = {
   data: {
     items: [
       {

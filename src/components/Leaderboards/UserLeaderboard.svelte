@@ -1,5 +1,6 @@
 <script lang="ts">
-  import { mapUserLeaderboardRow } from '$libs/leaderboard';
+  import { leaderboardConfig } from '$config';
+  import { Leaderboard, mapUserLeaderboardRow, type PaginationInfo, type UserLeaderboardItem } from '$libs/leaderboard';
   import { currentUserLeaderboard } from '$stores/leaderboard';
 
   import { UserLeaderboardHeader } from './Header';
@@ -8,8 +9,28 @@
 
   let headers = ['No.', 'Address', 'Level', 'Title', 'Points'];
 
+  export let loading = false;
+  export let pageInfo: PaginationInfo<UserLeaderboardItem>;
+
   $: data = $currentUserLeaderboard.items.map(mapUserLeaderboardRow);
-  console.log('🚀 | data:', data);
+  $: totalItems = pageInfo?.total || 0;
+  $: pageSize = pageInfo?.size || leaderboardConfig.pageSize;
+
+  function handlePageChange(page: number) {
+    loadLeaderboardData(page);
+  }
+
+  async function loadLeaderboardData(page: number) {
+    loading = true;
+    // Fetch the leaderboard data for the given page
+    const args: PaginationInfo<UserLeaderboardItem> = {
+      page,
+      size: pageSize,
+    };
+    const pageInfo = await Leaderboard.getUserLeaderboard(args);
+    totalItems = pageInfo.total || $currentUserLeaderboard.items.length;
+    loading = false;
+  }
 </script>
 
 <AbstractLeaderboard
@@ -19,10 +40,9 @@
   showDetailsColumn={false}
   showTrophy={true}
   showCTA={false}
-  isLoading={false}
-  handlePageChange={() => {}}
-  currentPage={1}
-  totalItems={$currentUserLeaderboard.items.length}
+  isLoading={loading}
+  {handlePageChange}
+  {totalItems}
   showLastUpdated={false}
   headerComponent={UserLeaderboardHeader}
   scoreComponent={PointScore} />

@@ -1,6 +1,6 @@
 <script lang="ts">
   import { leaderboardConfig } from '$config';
-  import { Leaderboard, type PaginationInfo } from '$libs/leaderboard';
+  import { Leaderboard, type DappLeaderboardItem, type PaginationInfo } from '$libs/leaderboard';
   import { getLogger } from '$libs/util/logger';
   import { currentDappLeaderboard } from '$stores/leaderboard';
 
@@ -9,9 +9,11 @@
   import PointScore from './Template/PointScore.template.svelte';
 
   const log = getLogger('DappsLeaderboard');
-  export let loading = false;
 
-  export let pageInfo: PaginationInfo;
+  let headers = ['No.', 'Dapp', '', 'Volume'];
+
+  export let loading = false;
+  export let pageInfo: PaginationInfo<DappLeaderboardItem>;
 
   $: totalItems = pageInfo?.total || 0;
   $: pageSize = pageInfo?.size || leaderboardConfig.pageSize;
@@ -24,7 +26,7 @@
   async function loadLeaderboardData(page: number) {
     loading = true;
     // Fetch the leaderboard data for the given page
-    const args: PaginationInfo = {
+    const args: PaginationInfo<DappLeaderboardItem> = {
       page,
       size: pageSize,
     };
@@ -32,8 +34,6 @@
     totalItems = pageInfo.total || $currentDappLeaderboard.items.length;
     loading = false;
   }
-
-  let headers = ['No.', 'Dapp', '', 'Volume'];
 </script>
 
 <AbstractLeaderboard

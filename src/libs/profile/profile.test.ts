@@ -44,8 +44,9 @@ describe('Profile', () => {
   describe('calculatePercentile', () => {
     it('should calculate percentile correctly', async () => {
       // Given
+      const mockProfile = MOCK_PROFILE;
+
       vi.mock('$stores/profile', async () => {
-        const mockProfile = MOCK_PROFILE;
         mockProfile.rank = '20';
         mockProfile.total = '100';
 
@@ -59,7 +60,7 @@ describe('Profile', () => {
       });
 
       // When
-      const actual = Profile.calculatePercentile();
+      const actual = Profile.calculatePercentile(mockProfile.rank, mockProfile.total);
 
       // Then
       expect(actual).toBe(80);

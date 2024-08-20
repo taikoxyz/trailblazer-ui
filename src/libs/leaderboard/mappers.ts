@@ -1,5 +1,7 @@
-import type { UserLeaderboard } from '$components/Leaderboards';
+import { get } from 'svelte/store';
+
 import { Profile } from '$libs/profile';
+import { currentUserLeaderboard } from '$stores/leaderboard';
 
 import type { DappLeaderboardRow, DefiDappLeaderboardRow, UnifiedLeaderboardRow, UserLeaderboardRow } from './types';
 
@@ -25,16 +27,24 @@ export function mapDefiDappLeaderboardRow(row: DefiDappLeaderboardRow): UnifiedL
 }
 
 export function mapUserLeaderboardRow(row: UserLeaderboardRow): UnifiedLeaderboardRow {
+  if (!row.position) {
+    throw new Error('');
+  }
   const totalScore = row.score ? row.score : 0;
-  const percentile = Profile.calculatePercentile();
-  const level = Profile.getLevel();
+  const totalUsers = get(currentUserLeaderboard).totalUsers;
+  const percentile = Profile.calculatePercentile(row.position, totalUsers);
+  const level = Profile.getLevel(percentile);
 
-  const rank;
-  return {
+  const out = {
     address: row.address ? row.address : row.address,
+    level: level.level || '1',
+    title: level.title || 'Drummer',
     icon: '',
     handle: '',
     data: [],
     totalScore,
   };
+
+  // const rank = 1;
+  return out;
 }

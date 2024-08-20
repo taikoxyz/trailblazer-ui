@@ -18,14 +18,17 @@ import {
 import type {
   BridgeData,
   BridgeLeaderboardPage,
+  DappLeaderboardItem,
   DappLeaderboardPage,
   DappLeaderboardPageApiResponse,
   DefiDappLeaderboardRow,
   PaginationInfo,
   ProtocolApiResponse,
   UnifiedLeaderboardRow,
+  UserLeaderboardItem,
   UserLeaderboardPage,
   UserLeaderboardPageApiResponse,
+  UserLeaderboardRow,
 } from './types';
 
 const baseApiUrl = isDevelopmentEnv ? '/api/mock-api' : PUBLIC_TRAILBLAZER_API_URL;
@@ -42,7 +45,9 @@ interface DetailsMapping {
 
 export class Leaderboard {
   // dapp leaderboard
-  static async getDappLeaderboard(args: PaginationInfo): Promise<PaginationInfo> {
+  static async getDappLeaderboard(
+    args: PaginationInfo<DappLeaderboardItem>,
+  ): Promise<PaginationInfo<DappLeaderboardItem>> {
     log('baseApiUrl', baseApiUrl);
 
     try {
@@ -58,6 +63,10 @@ export class Leaderboard {
       const leaderboardPage: DappLeaderboardPage = { items: [], lastUpdated: 0 };
 
       const detailMapping: DetailsMapping = dappDetailsMapping;
+
+      if (!leaderboardPageApiResponse.data.items) {
+        throw new Error('No Items found');
+      }
 
       const items = await Promise.all(
         leaderboardPageApiResponse.data.items.map(async (item) => {
@@ -106,7 +115,7 @@ export class Leaderboard {
         size,
         total_pages,
         page,
-      } satisfies PaginationInfo;
+      } satisfies PaginationInfo<DappLeaderboardItem>;
     } catch (error) {
       console.error('Error fetching leaderboard:', error);
       errorToast({
@@ -117,17 +126,36 @@ export class Leaderboard {
     }
   }
 
-  static async getUserLeaderboard() {
+  static async getUserLeaderboard(
+    args: PaginationInfo<UserLeaderboardItem>,
+  ): Promise<PaginationInfo<UserLeaderboardItem>> {
     try {
-      const response = await axios.get<UserLeaderboardPageApiResponse>(
-        `${baseApiUrl}/leaderboard/user`,
-        globalAxiosConfig,
-      );
-      const leaderboardPage: UserLeaderboardPage = response.data as UserLeaderboardPage;
-      leaderboardPage.totalUsers = response.data.total || 0;
+      const response = await axios.get<UserLeaderboardPageApiResponse>(`${baseApiUrl}/v2/leaderboard/user`, {
+        ...globalAxiosConfig,
+        params: args,
+      });
+
+      const leaderboardPage: UserLeaderboardPage = { items: [], totalUsers: 0, pageNumber: 0, lastUpdated: 0 };
+      leaderboardPage.lastUpdated = response.data.lastUpdated;
+      leaderboardPage.totalUsers = response.data.data.total || 0;
+      leaderboardPage.pageNumber = response.data.data.page;
+      leaderboardPage.items = response.data.data.items as UserLeaderboardRow[];
       setUserLeaderboard(leaderboardPage);
+
+      const { page, size, total, total_pages, max_page } = response.data.data;
+
+      return {
+        items: [],
+        first: page === 0,
+        last: page === max_page,
+        total,
+        size,
+        total_pages,
+        page,
+      } satisfies PaginationInfo<DappLeaderboardItem>;
     } catch (error) {
       console.error('Error fetching leaderboard:', error);
+      return args;
     }
   }
 

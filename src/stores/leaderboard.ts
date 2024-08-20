@@ -1,4 +1,4 @@
-import { writable } from 'svelte/store';
+import { get, writable } from 'svelte/store';
 
 import { leaderboardConfig } from '$config';
 import type {
@@ -9,12 +9,6 @@ import type {
   DefiDappLeaderboardRow,
   UserLeaderboardPage,
 } from '$libs/leaderboard/types';
-
-// Dapp Leaderboard
-export const currentDappLeaderboard = writable<DappLeaderboardPage>({
-  items: [],
-  lastUpdated: 0,
-});
 
 export const setDappLeaderboard = (leaderboard: DappLeaderboardPage) => {
   currentDappLeaderboard.update((store) => {
@@ -33,22 +27,38 @@ export const setDappLeaderboardLastUpdated = (lastUpdated: number) => {
 
 // User Leaderboard
 export const setUserLeaderboard = (leaderboard: UserLeaderboardPage) => {
-  // currentUserLeaderboard.update((store) => {
-  //   store = leaderboard;
-  //   store.items = leaderboard.items
-  //     .filter((item) => !!item.address)
-  //     .map((item) => ({ ...item, score: +item.score.toFixed(1) }));
-  //   return store;
-  // });
+  currentUserLeaderboard.update((store) => {
+    // Map the leaderboard items and add an index property
+    store.items = leaderboard.items.map((item, index) => ({
+      ...item,
+      // Calculate the index based on the current page number
+      position: index + 1 + leaderboard.pageNumber * 20,
+    }));
 
-  currentUserLeaderboard.set(leaderboard);
+    // Update the total number of users
+    store.totalUsers = leaderboard.totalUsers;
+
+    // Update the last updated timestamp
+    store.lastUpdated = leaderboard.lastUpdated;
+
+    return store;
+  });
+  console.log(get(currentUserLeaderboard));
 };
 
-export const currentUserLeaderboard = writable<UserLeaderboardPage>({
-  items: [],
-  totalUsers: 0,
-  lastUpdated: 0,
-});
+export const setDefiDappLeaderboardProtocols = (leaderboard: DefiDappLeaderboardRow[]) => {
+  currentDefiDappLeaderboard.update((store) => {
+    store.protocols = leaderboard;
+    return store;
+  });
+};
+
+export const setDefiDappLeaderboardLastUpdated = (lastUpdated: number) => {
+  currentDefiDappLeaderboard.update((store) => {
+    store.lastUpdated = lastUpdated;
+    return store;
+  });
+};
 
 // Bridge Leaderboard
 export const setBridgeLeaderboard = (leaderboard: BridgeData[]) => {
@@ -57,6 +67,13 @@ export const setBridgeLeaderboard = (leaderboard: BridgeData[]) => {
     return store;
   });
 };
+
+export const currentUserLeaderboard = writable<UserLeaderboardPage>({
+  items: [],
+  totalUsers: 0,
+  pageNumber: 0,
+  lastUpdated: 0,
+});
 
 export const currentBridgeLeaderboard = writable<BridgeLeaderboardTotal>({
   items: [],
@@ -76,16 +93,8 @@ export const currentDefiDappLeaderboard = writable<DefiDappLeaderboardPage>({
   lastUpdated: 0,
 });
 
-export const setDefiDappLeaderboardProtocols = (leaderboard: DefiDappLeaderboardRow[]) => {
-  currentDefiDappLeaderboard.update((store) => {
-    store.protocols = leaderboard;
-    return store;
-  });
-};
-
-export const setDefiDappLeaderboardLastUpdated = (lastUpdated: number) => {
-  currentDefiDappLeaderboard.update((store) => {
-    store.lastUpdated = lastUpdated;
-    return store;
-  });
-};
+// Dapp Leaderboard
+export const currentDappLeaderboard = writable<DappLeaderboardPage>({
+  items: [],
+  lastUpdated: 0,
+});
