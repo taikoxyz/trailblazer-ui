@@ -1,5 +1,4 @@
 <script lang="ts">
-  import CountUp from '$components/Numbers/CountUp.svelte';
   import Spinner from '$components/Spinner/Spinner.svelte';
   import { Tooltip } from '$components/Tooltip';
   import { type UserProfile } from '$libs/profile';
