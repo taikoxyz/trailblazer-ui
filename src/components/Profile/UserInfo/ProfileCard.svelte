@@ -20,7 +20,7 @@
 </script>
 
 <div
-  class="flex bg-elevated-background p-5 pt-[84px] lg:pt-5 rounded-3xl w-full flex-col lg:flex-row items-center xl:w-1/2 xl:max-w-[630px]">
+  class="flex bg-elevated-background p-5 pt-[84px] lg:pt-5 rounded-3xl w-full flex-col lg:flex-row items-center xl:w-1/2 xl:max-w-[680px]">
   {#if !loading}
     <div class="avatar lg:size-[258px] size-[250px] items-center lg:mr-8">
       <div class="h-full bg-orange-400 rounded-3xl">
@@ -36,7 +36,10 @@
       <!-- Points -->
       <div class="flex flex-col items-center lg:items-start gap-2 w-full mb-[20px]">
         <div class="flex items-center gap-2">
-          <CountUp class="font-clash-grotesk font-semibold text-[45px] leading-none" value={Number(displayedScore)} />
+          <div class="font-clash-grotesk font-semibold text-[45px] leading-none">
+            {formatNumbers(displayedScore.toFixed(0))}
+          </div>
+          <!-- <CountUp class="font-clash-grotesk font-semibold text-[45px] leading-none" value={Number(displayedScore)} /> -->
           <div class="body-regular">points</div>
         </div>
         {#if multipliedView}
