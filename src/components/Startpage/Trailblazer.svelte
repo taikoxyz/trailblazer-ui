@@ -22,11 +22,10 @@
 
 <div class="f-center container flex-col w-full overflow-visible gap-[100px] md:mb-[130px]">
   <TrailblazerMain />
-
-  <Countdown countdown={new Date('2024-09-16')} />
   <div class={guideWrapperClasses}>
     <TrailblazerGuide />
   </div>
+  <Countdown countdown={new Date('2024-09-16')} />
   <div class={paddingWrapperClasses}>
     <StargateBanner />
   </div>
