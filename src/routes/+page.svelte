@@ -15,6 +15,6 @@
   <meta name="twitter:description" content="Will you answer the call?" />
 </svelte:head>
 
-<div class="f-center w-full">
+<div class="f-center w-[100vw] overflow-hidden">
   <Trailblazer />
 </div>
