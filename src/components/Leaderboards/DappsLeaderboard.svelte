@@ -1,6 +1,6 @@
 <script lang="ts">
   import { leaderboardConfig } from '$config';
-  import { Leaderboard, type DappLeaderboardItem, type PaginationInfo } from '$libs/leaderboard';
+  import { type DappLeaderboardItem, Leaderboard, type PaginationInfo } from '$libs/leaderboard';
   import { getLogger } from '$libs/util/logger';
   import { currentDappLeaderboard } from '$stores/leaderboard';
 

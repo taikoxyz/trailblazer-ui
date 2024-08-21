@@ -7,8 +7,8 @@ export const load = async () => {
   let pageInfo: PaginationInfo<UserLeaderboardItem> = {
     page: 0,
     size: leaderboardConfig.pageSize,
-    first: true,
-    last: false,
+    first: 0,
+    last: 1,
   };
 
   if (browser) {

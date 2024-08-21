@@ -2,11 +2,11 @@
   import { t } from 'svelte-i18n';
 
   import { goto } from '$app/navigation';
-  import { ActionButton } from '$components/Button';
   import { page } from '$app/stores';
+  import { ActionButton } from '$components/Button';
   import { UserLeaderboard } from '$components/Leaderboards';
   import { Page } from '$components/Page';
-  import type { UserLeaderboardItem, PaginationInfo } from '$libs/leaderboard';
+  import type { PaginationInfo,UserLeaderboardItem } from '$libs/leaderboard';
 
   let pageInfo: PaginationInfo<UserLeaderboardItem>;
   let loading: boolean;

@@ -43,7 +43,6 @@ export const setUserLeaderboard = (leaderboard: UserLeaderboardPage) => {
 
     return store;
   });
-  console.log(get(currentUserLeaderboard));
 };
 
 export const setDefiDappLeaderboardProtocols = (leaderboard: DefiDappLeaderboardRow[]) => {
