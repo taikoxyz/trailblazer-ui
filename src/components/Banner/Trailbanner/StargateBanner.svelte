@@ -3,6 +3,7 @@
 
   import ActionButton from '$components/Button/ActionButton.svelte';
   import { classNames } from '$libs/util/classNames';
+  import { isDesktop, isMobile, isTablet } from '$libs/util/responsiveCheck';
 
   export let trailNumber = '8';
   export let title = $t('trailbanner.stargate.title');
@@ -26,13 +27,7 @@
     },
   };
 
-  const wrapperClasses = classNames(
-    'container',
-    'w-full',
-    'h-auto',
-
-    'relative',
-  );
+  const wrapperClasses = classNames('container', '!text-[#ffffff]', 'w-full', 'h-auto', 'relative');
   const innerWrapperClasses = classNames(
     'w-full',
     'bg-secondary',
@@ -43,78 +38,51 @@
     'relative',
     'rounded-3xl',
     'bg-cover',
-
     'overflow-hidden',
   );
   const bannerWrapperClasses = classNames(
     'flex',
     'flex-col',
     'w-full',
-    'md:px-[30px]',
     'lg:px-0',
     'md:flex-row',
     'items-center',
-    'h-full',
+    'h-min',
+    'md:pl-[30px]',
+    'flex',
+    'justify-start',
+
+    'lg:h-fit',
   );
-
-  const xlImageWrapperClasses = classNames(
-    'h-full',
-    'relative',
-    'justify-end',
-    'items-left',
-    'hidden',
-    'lg:hidden',
-    'xl:block',
-  );
-
-  const xlImageClasses = classNames('h-full', 'hidden', 'sm:hidden', 'md:hidden', 'lg:hidden', 'xl:block');
-
-  const lgImageWrapperClasses = classNames(
-    'f-col',
-    'h-full',
-    'relative',
-    'hidden',
-    'sm:hidden',
-    'md:hidden',
-    'lg:block',
-    'xl:hidden',
-  );
-
-  const lgImageClasses = classNames('hidden', 'sm:hidden', 'md:hidden', 'lg:block', 'xl:hidden');
-
-  const mdImageWrapperClasses = classNames(
-    'f-col',
-    'h-full',
-    'relative',
-    'hidden',
-    'sm:hidden',
-    'md:block',
-    'lg:hidden',
-  );
-
-  const mdImageClasses = classNames('hidden', 'sm:hidden', 'md:block', 'lg:hidden', 'xl:hidden');
-
-  const smImageWrapperClasses = classNames('f-col', 'w-full', 'relative', 'block', 'md:hidden');
 
   const contentGridClasses = classNames(
-    'grid',
-    'grid-cols-1',
-    'lg:grid-cols-2',
+    'flex',
+    'flex-col',
+    'lg:flex-row',
     'lg:gap-[34px]',
-    'md:pl-[61px]',
-    'pt-[40px]',
     'pb-[15px]',
     'md:py-5',
-    'w-fit',
+    'md:w-fit',
+    'w-full',
     'justify-self-start',
     'items-center',
     'space-y-[32px]',
     'lg:space-y-0',
     'text-center',
     'md:text-start',
+    'md:p-[44px]',
+    'xl:py-0',
+    'xl:gap-[59px]',
+    'pt-[32px]',
+    'md:pt-0',
+
+    'px-[29px]',
+    'md:px-0',
+    'md:pl-[61px]',
+    'lg:pl-[37px]',
   );
 
-  const titleColClasses = classNames('f-col', 'h-full', 'gap-4', 'items-center', 'md:items-start');
+  const titleColClasses = classNames('f-col', 'w-full', 'h-full', 'gap-4', 'items-center', 'md:items-start');
 
   const trailWrapperClasses = classNames('f-col', 'justify-center', 'text-center', 'pill', 'min-h-[35px]', 'px-[5px]');
 
@@ -123,15 +91,16 @@
     'xl:text-[45px]/[45px]',
     'font-clash-grotesk',
     'font-bold',
-    'max-w-[316px]',
-    'max-w-[360px]',
+    'w-full',
+    'md:max-w-[316px]',
+    'text-[#ffffff]',
   );
 
-  const descriptionColClasses = classNames('f-col', 'h-full', 'justify-center');
+  const descriptionColClasses = classNames('f-col', 'w-full', 'h-full', 'justify-center');
 
   const descriptionWrapperClasses = classNames('f-col', 'w-full', 'space-y-[32px]', 'items-center', 'md:items-start');
 
-  const descriptionClasses = classNames('text-body-regular', 'max-w-[315px]');
+  const descriptionClasses = classNames('text-[#ffffff]', 'md:max-w-[315px]');
 
   const actionButtonClasses = classNames(
     '!w-[140px]',
@@ -142,27 +111,26 @@
     'hover:border-white',
     'hover:!text-white',
   );
+
+  const imageWrapperClasses = classNames('md:h-full', 'w-full', 'md:w-auto');
+
+  const imageClasses = classNames('md:object-contain', 'w-full', 'md:w-auto', 'lg:h-full');
 </script>
 
-<!-- Desktop -->
 <div class={wrapperClasses}>
   <div class={innerWrapperClasses}>
     <div class={bannerWrapperClasses}>
-      <!-- Desktop -->
-      <div class={xlImageWrapperClasses}>
-        <img src={images.content.xl} alt={title} class={xlImageClasses} />
-      </div>
-      <!-- Laptop (lg) -->
-      <div class={lgImageWrapperClasses}>
-        <img src={images.content.lg} alt={title} class={lgImageClasses} />
-      </div>
-      <!-- Tablet (md) -->
-      <div class={mdImageWrapperClasses}>
-        <img src={images.content.md} alt={title} class={mdImageClasses} />
-      </div>
-      <!-- Mobile (sm) -->
-      <div class={smImageWrapperClasses}>
-        <img src={images.content.sm} alt={title} />
+      <div class={imageWrapperClasses}>
+        <img
+          src={$isMobile
+            ? images.content.sm
+            : $isTablet
+              ? images.content.md
+              : $isDesktop
+                ? images.content.lg
+                : images.content.xl}
+          alt={title}
+          class={imageClasses} />
       </div>
 
       <div class={contentGridClasses}>
