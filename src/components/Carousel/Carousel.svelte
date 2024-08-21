@@ -72,10 +72,10 @@
         'flex',
         'justify-between',
         'items-center',
-        'w-[calc(100vw-40px)]',
-        'md:w-[calc(100vw-200px)]',
-        'lg:w-[calc(100vw-300px)]',
-        'xl:w-[calc(100vw-195px)]',
+        'w-[85vw]',
+        'md:w-[80vw]',
+        'lg:w-[80vw]',
+        'xl:w-[90vw]',
       )}>
       {#if title}
         <div class="flex flex-col justify-start gap-[40px]">

@@ -34,8 +34,8 @@ export const isMobile = derived(isMobileQuery, ($isMobileQuery) => $isMobileQuer
 // Function to initialize media queries only on the client side
 export function initializeMediaQueries() {
   if (typeof window !== 'undefined') {
-    desktopQuery = window.matchMedia('(min-width: 1200px)');
-    tabletQuery = window.matchMedia('(min-width: 768px) and (max-width: 1199px)');
+    desktopQuery = window.matchMedia('(min-width: 1024px) and (max-width: 1279px)');
+    tabletQuery = window.matchMedia('(min-width: 768px) and (max-width: 1023px)');
     mobileQuery = window.matchMedia('(max-width: 767px)');
 
     // Set initial values
