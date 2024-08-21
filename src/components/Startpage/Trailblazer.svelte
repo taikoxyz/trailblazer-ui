@@ -25,7 +25,10 @@
   <div class={guideWrapperClasses}>
     <TrailblazerGuide />
   </div>
-  <Countdown countdown={new Date('2024-09-16')} />
+  <div class={guideWrapperClasses}>
+    <Countdown countdown={new Date('2024-09-16')} />
+  </div>
+
   <div class={paddingWrapperClasses}>
     <StargateBanner />
   </div>
