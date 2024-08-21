@@ -59,6 +59,9 @@ importers:
       svelte-apollo:
         specifier: ^0.5.0
         version: 0.5.0(@apollo/client@3.11.4(graphql@16.9.0)(react@18.3.1))(graphql@16.9.0)(svelte@4.2.18)
+      svelte-countdown:
+        specifier: ^1.1.2
+        version: 1.1.2
       svelte-i18n:
         specifier: ^4.0.0
         version: 4.0.0(svelte@4.2.18)
@@ -3053,6 +3056,9 @@ packages:
     resolution: {integrity: sha512-fnULvOpxnC5/Vg3NCiWelDsLiUc9bRwAPs/+LfTLNvetFCtCTN+yQz15C/fs4AwX1R9K5GLtLfn8QW+dWisaAw==}
     engines: {node: '>=0.11'}
 
+  dayjs@1.10.1:
+    resolution: {integrity: sha512-2xg7JrHQeLBQFkvTumLoy62x1siyeocc98QwjtURgvRqOPYmAkMUdmSjrOA+MlmL6QMQn5MUhDf6rNZNuPc1LQ==}
+
   dayjs@1.11.10:
     resolution: {integrity: sha512-vjAczensTgRcqDERK0SR2XMwsF/tSvnvlv6VcF2GIhg6Sx4yOIt/irsr1RDJsKiIyBzJDpCoXiWWq28MqH2cnQ==}
 
@@ -5602,6 +5608,9 @@ packages:
     hasBin: true
     peerDependencies:
       svelte: ^3.55.0 || ^4.0.0-next.0 || ^4.0.0 || ^5.0.0-next.0
+
+  svelte-countdown@1.1.2:
+    resolution: {integrity: sha512-datUfbRtGCp+7OwIRcbW9tbIwlkN7KiJp9Mg01Na9HgSQrLG0knsD/xjaIVKPovxY8xF0yOrbPEz+bT/BS9EBQ==}
 
   svelte-eslint-parser@0.37.0:
     resolution: {integrity: sha512-AXd5ar7dcOK+H86JomxcSaWevhs2J7o/xOwg+kDQu98uuATpm+tE5Twp7u8UQCdbWKB34Idu/CZyHmTOxfSQMw==}
@@ -10146,6 +10155,8 @@ snapshots:
     dependencies:
       '@babel/runtime': 7.24.7
 
+  dayjs@1.10.1: {}
+
   dayjs@1.11.10: {}
 
   dayjs@1.11.11: {}
@@ -12974,6 +12985,10 @@ snapshots:
       - sass
       - stylus
       - sugarss
+
+  svelte-countdown@1.1.2:
+    dependencies:
+      dayjs: 1.10.1
 
   svelte-eslint-parser@0.37.0(svelte@4.2.18):
     dependencies:
