@@ -241,14 +241,18 @@ export class Profile {
     }
   }
 
-  static async getUserPointsHistory(address?: string) {
+  static async getUserPointsHistory(address?: string, page?: number) {
     if (!address) {
       address = getAccount(wagmiConfig).address;
     }
 
+    if (!page) {
+      page = 0;
+    }
+
     if (address) {
       const response = await axios.get(`${baseApiUrl}/user/history`, {
-        params: { address: address },
+        params: { address, page },
       });
       const pointsHistory: UserPointHistoryPage = response.data as UserPointHistoryPage;
 
