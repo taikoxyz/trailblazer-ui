@@ -223,6 +223,7 @@ export class Leaderboard {
       leaderboardPage.totalUsers = response.data.data.total || 0;
       leaderboardPage.pageNumber = response.data.data.page;
       leaderboardPage.items = response.data.data.items as UserLeaderboardRow[];
+      console.log('🚀 | Leaderboard | response:', response);
       setUserLeaderboard(leaderboardPage);
 
       const { page, size, total, total_pages, max_page } = response.data.data;

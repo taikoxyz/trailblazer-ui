@@ -32,7 +32,9 @@ export function mapUserLeaderboardRow(row: UserLeaderboardRow): UnifiedLeaderboa
   }
   const totalScore = row.score ? row.score : 0;
   const totalUsers = get(currentUserLeaderboard).totalUsers;
+  console.log('🚀 | mapUserLeaderboardRow | totalUsers:', totalUsers);
   const percentile = Profile.calculatePercentile(row.position, totalUsers);
+  console.log('🚀 | mapUserLeaderboardRow | percentile:', percentile);
   const level = Profile.getLevel(percentile);
 
   const out = {
