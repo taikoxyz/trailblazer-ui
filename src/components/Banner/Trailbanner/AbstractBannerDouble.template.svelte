@@ -72,7 +72,7 @@
       </div>
 
       <div
-        class="grid grid-cols-1 lg:grid-cols-2 lg:gap-[34px] xl:gap-[59px] md:px-[60px] pt-[40px] pb-[15px] md:py-5 w-fit justify-self-start items-center space-y-[32px] lg:space-y-0 text-center md:text-start">
+        class="flex flex-col lg:flex-row lg:gap-[34px] xl:gap-[59px] md:px-[60px] pt-[40px] pb-[15px] md:py-5 w-fit justify-self-start items-center space-y-[32px] lg:space-y-0 text-center md:text-start">
         <!-- Column 1 -->
         <div class="f-col h-full gap-4 items-center md:items-start">
           <div class="f-col justify-center text-center pill min-h-[35px] px-[5px]">
