@@ -7,6 +7,8 @@
 
   const timerWrapperClasses = classNames(
     'grid',
+    'relative',
+    'h-min',
     'auto-cols-max',
     'grid-flow-col',
     'gap-[24px]',
