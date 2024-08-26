@@ -2,7 +2,11 @@
   import { t } from 'svelte-i18n';
 
   import { ActivityIcon } from '$components/Icon';
+  import { Paginator } from '$components/Paginator';
   import { Pill } from '$components/Pill';
+  import { Spinner } from '$components/Spinner';
+  import { Profile } from '$libs/profile';
+  import { classNames } from '$libs/util/classNames';
   import { formatDate } from '$libs/util/formatDate';
   import { currentProfile } from '$stores/profile';
 
@@ -10,6 +14,18 @@
   $: hasPointHistory = pointsHistory && pointsHistory.items && pointsHistory.items.length > 0;
 
   let headers = ['Activity', 'Points', 'Time'];
+
+  const pageSize = 10;
+  $: currentPage = 1;
+  $: totalItems = 100;
+
+  $: isLoading = false;
+
+  async function handlePageChange(selectedPage: number) {
+    isLoading = true;
+    await Profile.getUserPointsHistory(undefined, selectedPage);
+    isLoading = false;
+  }
 </script>
 
 <div class="border-collapse w-full border-none bg-elevated-background">
@@ -64,7 +80,35 @@
       {/if}
     </tbody>
   </table>
+
+  <div class="mt-[38px]">
+    <Paginator
+      {pageSize}
+      bind:currentPage
+      limitPages={true}
+      maxPages={3}
+      bind:totalItems
+      on:pageChange={({ detail: selectedPage }) => handlePageChange(selectedPage)} />
+  </div>
 </div>
+
+{#if isLoading}
+  <div
+    class={classNames(
+      'w-full',
+      'h-full',
+      'bg-[black]',
+      'bg-opacity-60',
+      'absolute',
+      'top-0',
+      'left-0',
+      'flex',
+      'items-center',
+      'justify-center',
+    )}>
+    <Spinner size="lg" />
+  </div>
+{/if}
 
 <style>
   th,

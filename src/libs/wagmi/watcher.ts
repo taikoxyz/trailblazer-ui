@@ -1,4 +1,4 @@
-import { watchAccount } from '@wagmi/core';
+import { getAccount, watchAccount } from '@wagmi/core';
 
 import { isSupportedChain } from '$libs/chain';
 import { Galxe } from '$libs/galxe';
@@ -8,13 +8,17 @@ import { switchChainModal } from '$stores/modal';
 
 import { wagmiConfig } from '.';
 
-let isWatching = false;
-let unWatchAccount: () => void = () => {};
+let unWatchAccount: (() => void) | null = null;
 
 const log = getLogger('wagmi:watcher');
 
 export async function startWatching() {
-  if (!isWatching) {
+  // Set account if exists
+  const currentAccount = getAccount(wagmiConfig);
+  account.set(currentAccount);
+
+  if (!unWatchAccount) {
+    log('Starting account watcher');
     unWatchAccount = watchAccount(wagmiConfig, {
       async onChange(data) {
         log('Account changed', data);
@@ -22,27 +26,29 @@ export async function startWatching() {
 
         const { chainId, address } = data;
         if (chainId && address) {
-          // We need to check if the chain is supported, and if not
-          // we present the user with a modal to switch networks.
-          if (chainId && !isSupportedChain(Number(chainId))) {
+          if (!isSupportedChain(Number(chainId))) {
             log('Unsupported chain', chainId);
             switchChainModal.set(true);
-            return;
-          } else if (chainId) {
+          } else {
             await Galxe.refreshData();
             switchChainModal.set(false);
           }
         }
       },
     });
-
-    isWatching = true;
+  } else {
+    // return current account with wagmiConfig
+    log('Account watcher already running, returning current account');
+    const currentAccount = getAccount(wagmiConfig);
+    account.set(currentAccount);
+    return currentAccount;
   }
 }
 
 export function stopWatching() {
-  if (typeof unWatchAccount === 'function') {
+  if (unWatchAccount) {
     unWatchAccount();
+    unWatchAccount = null;
+    log('Stopped account watcher');
   }
-  isWatching = false;
 }

@@ -19,7 +19,7 @@
   $: movement = 0;
 
   $: isSelfProfile = false;
-  $: hasEnoughGas = false;
+  $: hasEnoughGas = true;
 
   async function load() {
     const urlAddress = $page.url.pathname.split('/').pop();

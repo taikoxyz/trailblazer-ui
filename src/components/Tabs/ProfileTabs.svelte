@@ -40,6 +40,7 @@
   const tabPanelClasses = classNames(
     'tab-content',
     'p-6',
+    'relative',
     'bg-elevated-background',
     'overflow-x-scroll',
     'rounded-[30px]',

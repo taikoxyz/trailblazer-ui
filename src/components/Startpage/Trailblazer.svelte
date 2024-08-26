@@ -1,6 +1,7 @@
 <script lang="ts">
   import { StargateBanner } from '$components/Banner';
   import GamingBanner from '$components/Banner/Trailbanner/GamingBanner.svelte';
+  import { Countdown } from '$components/Countdown';
   import DefiPartners from '$components/Partner/DefiPartners/DefiPartners.svelte';
   import { ENSPartners } from '$components/Partner/ENSPartners';
   import { GamingPartners } from '$components/Partner/GamingPartners';
@@ -24,6 +25,10 @@
   <div class={guideWrapperClasses}>
     <TrailblazerGuide />
   </div>
+  <div class={guideWrapperClasses}>
+    <Countdown countdown={new Date('2024-09-16')} />
+  </div>
+
   <div class={paddingWrapperClasses}>
     <StargateBanner />
   </div>
