@@ -22,7 +22,7 @@
   export let scoreComponent: ComponentType;
 
   export let additionalInfoComponent: ComponentType | null = null;
-  export let showCTA: boolean = true;
+  // export let showCTA: boolean = true;
 
   // End info and components
   export let endedComponent: ComponentType | null = null;

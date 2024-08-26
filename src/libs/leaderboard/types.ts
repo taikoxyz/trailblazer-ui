@@ -143,6 +143,7 @@ export type PaginationInfo<T> = {
   last?: number;
   first?: number;
   visible?: number;
+  name?: string;
 };
 
 export type CommonPageApiResponse<T> = PaginationInfo<T>;

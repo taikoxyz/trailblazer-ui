@@ -39,10 +39,8 @@
   showPagination={true}
   showDetailsColumn={false}
   showTrophy={true}
-  showCTA={false}
   isLoading={loading}
   {handlePageChange}
   {totalItems}
-  showLastUpdated={false}
   headerComponent={UserLeaderboardHeader}
   scoreComponent={PointScore} />
