@@ -96,7 +96,7 @@
             to defining the future of Ethereum.
           </div>
 
-          <ActionButton priority="primary">Join our ecosystem</ActionButton>
+          <ActionButton class="w-max" withArrow priority="primary">Join our ecosystem</ActionButton>
         </div>
       </div>
     </div>

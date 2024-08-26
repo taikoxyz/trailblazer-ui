@@ -127,14 +127,6 @@ const EcosystemPartners: IEcosystemPartner[] = [
     category: 'DEX', // comes from StargatePartners.svelte
   },
   {
-    name: 'KiloEx',
-    description:
-      'Decentralized exchange blending speed and simplicity. Enjoy lightning-fast trades, real-time market insights, and an intuitive interface for traders, alongside secure, LP-friendly solutions for liquidity providers.',
-    logo: '/dapps/stargate/kilo-ex.png',
-    url: 'https://www.kiloex.io/',
-    category: 'DEX', // comes from StargatePartners.svelte
-  },
-  {
     name: 'Stargate',
     description:
       'Top-down multiplayer game. Enter the Ethereum mines, set traps, mine ores, escape the goblins and escape with your loot.',
@@ -149,14 +141,6 @@ const EcosystemPartners: IEcosystemPartner[] = [
       'A based decentralized exchange #DEX on Taiko @taikoxyz Swap and earn with hyper efficiency and seamless experience.',
     logo: '/dapps/defi/ritsu-protocol.png',
     url: 'https://ritsu.xyz/',
-    category: 'DeFi', // from defiCarouselItems.ts
-  },
-  {
-    name: 'OKU Trade<br/>(Uniswap V3)',
-    description:
-      'Oku Trade is a non-custodial DEX trading platform and bridge aggregator offering the best rates and analytics across 16 EVM chains.',
-    logo: '/dapps/defi/oku_trade.png',
-    url: 'https://oku.trade/',
     category: 'DeFi', // from defiCarouselItems.ts
   },
   {

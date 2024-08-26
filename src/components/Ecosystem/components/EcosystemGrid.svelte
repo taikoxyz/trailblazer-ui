@@ -30,14 +30,12 @@
     'md:w-1/2',
     'w-full',
     'relative',
-
     'flex',
     'items-center',
     'justify-center',
   );
   const filterInputClasses = classNames(
     'border',
-    //'text-[#5D636F]',
     'text-[12px]/[16px]',
     'font-[600]',
     'bg-[#191E28]',

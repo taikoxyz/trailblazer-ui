@@ -2,6 +2,7 @@
   import { StargateBanner } from '$components/Banner';
   import GamingBanner from '$components/Banner/Trailbanner/GamingBanner.svelte';
   import { Countdown } from '$components/Countdown';
+  import EcosystemSection from '$components/Ecosystem/EcosystemSection.svelte';
   import DefiPartners from '$components/Partner/DefiPartners/DefiPartners.svelte';
   import { ENSPartners } from '$components/Partner/ENSPartners';
   import { GamingPartners } from '$components/Partner/GamingPartners';
@@ -44,6 +45,8 @@
   </div>
   <Factions />
   <DividerElement />
+
+  <EcosystemSection />
   <div class={paddingWrapperClasses}>
     <DefiPartners />
   </div>

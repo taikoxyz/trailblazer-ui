@@ -79,7 +79,7 @@
     'right-[35px]',
   );
 
-  const urlRowClasses = classNames('w-full', 'h-[45px]', 'mt-[20px]');
+  const urlRowClasses = classNames('w-full', 'flex', 'md:justify-start', 'justify-center', 'h-[45px]', 'mt-[20px]');
 </script>
 
 <div class={wrapperClasses}>
