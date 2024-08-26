@@ -119,7 +119,6 @@ export class Leaderboard {
         page,
       } satisfies PaginationInfo<DappLeaderboardItem>;
     } catch (error) {
-      console.error('Error fetching leaderboard:', error);
       errorToast({
         title: 'Error fetching leaderboard',
         message: `${error}`,
@@ -200,7 +199,6 @@ export class Leaderboard {
         page,
       } satisfies PaginationInfo<DappLeaderboardItem>;
     } catch (error) {
-      console.error('Error fetching leaderboard:', error);
       errorToast({
         title: 'Error fetching leaderboard',
         message: `${error}`,
@@ -223,7 +221,6 @@ export class Leaderboard {
       leaderboardPage.totalUsers = response.data.data.total || 0;
       leaderboardPage.pageNumber = response.data.data.page;
       leaderboardPage.items = response.data.data.items as UserLeaderboardRow[];
-      console.log('🚀 | Leaderboard | response:', response);
       setUserLeaderboard(leaderboardPage);
 
       const { page, size, total, total_pages, max_page } = response.data.data;
