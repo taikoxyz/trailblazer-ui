@@ -7,6 +7,8 @@
 
   const timerWrapperClasses = classNames(
     'grid',
+    'relative',
+    'h-min',
     'auto-cols-max',
     'grid-flow-col',
     'gap-[24px]',
@@ -15,24 +17,18 @@
     'text-center',
   );
 
-  const colClasses = classNames(
-    'flex flex-col',
-
-    'md:gap-[16px]',
-    'gap-[8px]',
-  );
+  const colClasses = classNames('flex flex-col', 'md:gap-[16px]', 'gap-[8px]');
   const counterClasses = classNames(
     'countdown',
     'md:text-[100px]/[85px]',
     'text-[45px]/[52px]',
-
     'font-clash-grotesk',
     'text-[#F3F3F3]',
   );
 
   const labelClasses = classNames('text-[#ADB1B8]', 'md:text-[22px]/[26px]', 'text-[14px]/[20px]');
 
-  const dividerClasses = classNames('h-2/3', 'w-[1px]', 'bg-[#444A55]');
+  const dividerClasses = classNames('md:h-[75px]', 'h-[35px]', 'w-[1px]', 'bg-[#444A55]');
   export let countdown: Date;
 
   let now = Date.now();

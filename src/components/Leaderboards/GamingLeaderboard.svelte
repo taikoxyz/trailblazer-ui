@@ -6,6 +6,7 @@
 
   import GamingCompetitionInformation from './Competition/GamingCompetition/GamingCompetitionInformation.svelte';
   import GamingHeader from './Header/GamingHeader.svelte';
+  import LastUpdatedHeader from './LastUpdatedHeader.svelte';
   import AbstractLeaderboard from './Template/AbstractLeaderboard.template.svelte';
   import PointScore from './Template/PointScore.template.svelte';
 
@@ -16,6 +17,7 @@
 
   $: totalItems = pageInfo?.total || 0;
   $: pageSize = pageInfo?.size || leaderboardConfig.pageSize;
+  $: lastUpdated = new Date($currentGamingLeaderboard.lastUpdated * 1000);
 
   function handlePageChange(page: number) {
     log('handlePageChange', page);
@@ -38,12 +40,12 @@
   headers={['No.', 'Game', '', 'Points']}
   data={$currentGamingLeaderboard.items}
   showTrophy={true}
-  showLastUpdated={true}
-  lastUpdated={new Date($currentGamingLeaderboard.lastUpdated * 1000)}
   isLoading={loading}
   showPagination={false}
   {handlePageChange}
   {totalItems}
   headerComponent={GamingHeader}
   scoreComponent={PointScore}
-  additionalInfoComponent={GamingCompetitionInformation} />
+  additionalInfoComponent={GamingCompetitionInformation}>
+  <LastUpdatedHeader {lastUpdated} />
+</AbstractLeaderboard>
