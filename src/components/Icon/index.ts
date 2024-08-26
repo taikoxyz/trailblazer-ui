@@ -7,4 +7,5 @@ export { default as Icon, type IconType } from './Icon.svelte';
 export { default as IconFlipper } from './IconFlipper.svelte';
 export { default as LockIcon } from './LockIcon.svelte';
 export { default as PlusIcon } from './PlusIcon.svelte';
+export { default as SearchIcon } from './SearchIcon.svelte';
 export { default as TTKOIcon } from './TTKO.svelte';
