@@ -76,7 +76,7 @@
     <div class={rowClasses}>
       <div class={colClasses}>
         <div class={titleClasses}>
-          Explore the <span class="text-[#E81899]">Taiko</span> Ecosystem
+          Explore the <span class="text-[#E81899]">Trailblazers</span> Ecosystem
         </div>
         <div class={dappsWrapperClasses}>
           <img src="ecosystem/dapps.svg" class="h-full" alt="Dapps" />
