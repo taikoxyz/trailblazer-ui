@@ -3,8 +3,6 @@
   import GamingBanner from '$components/Banner/Trailbanner/GamingBanner.svelte';
   import { Countdown } from '$components/Countdown';
   import EcosystemSection from '$components/Ecosystem/EcosystemSection.svelte';
-  import DefiPartners from '$components/Partner/DefiPartners/DefiPartners.svelte';
-  import { ENSPartners } from '$components/Partner/ENSPartners';
   import { GamingPartners } from '$components/Partner/GamingPartners';
   import { StargatePartners } from '$components/Partner/StargatePartners';
   import { classNames } from '$libs/util/classNames';
@@ -47,15 +45,7 @@
   <DividerElement />
 
   <EcosystemSection />
-  <div class={paddingWrapperClasses}>
-    <DefiPartners />
-  </div>
-  <div class={paddingWrapperClasses}>
-    <GamingPartners />
-  </div>
-  <div class={paddingWrapperClasses}>
-    <ENSPartners />
-  </div>
+
   <RankUp />
   <ExploreEcosystem />
 </div>
