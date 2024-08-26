@@ -28,6 +28,7 @@
   export let endedComponent: ComponentType | null = null;
   export let endTitleText: string = '';
   export let endDescriptionText: string = '';
+  export let lastUpdated: Date = new Date();
 
   export let showPagination: boolean = true;
   export let showDetailsColumn: boolean = true;
@@ -43,7 +44,7 @@
 </script>
 
 <div class="overflow-x-auto lg:w-full px-8 mt-[116px] lg:mt-0">
-  <svelte:component this={headerComponent} />
+  <svelte:component this={headerComponent} {lastUpdated} />
   {#if ended && endedComponent}
     <div class="mt-[60px] lg:mt-[80px] block lg:hidden">
       <svelte:component this={endedComponent} title={endTitleText} description={endDescriptionText} />
