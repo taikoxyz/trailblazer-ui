@@ -6,9 +6,9 @@
   import { ActionButton } from '$components/Button';
   import { DappsLeaderboard } from '$components/Leaderboards';
   import { Page } from '$components/Page';
-  import type { PaginationInfo } from '$libs/leaderboard';
+  import type { DappLeaderboardItem, PaginationInfo } from '$libs/leaderboard';
 
-  let pageInfo: PaginationInfo;
+  let pageInfo: PaginationInfo<DappLeaderboardItem>;
   let loading: boolean;
 
   $: ({ pageInfo, loading } = $page.data);
@@ -19,7 +19,7 @@
 </script>
 
 <svelte:head>
-  <title>Taiko Trailblazer - Leaderboard</title>
+  <title>Taiko Trailblazer - Dapp Leaderboard</title>
 </svelte:head>
 
 <Page>

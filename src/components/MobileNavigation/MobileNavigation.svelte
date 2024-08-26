@@ -1,23 +1,19 @@
-<script>
+<script lang="ts">
   import { createEventDispatcher } from 'svelte';
   import { fly } from 'svelte/transition';
 
   import ConnectButton from '$components/ConnectButton/ConnectButton.svelte';
+  import { routes } from '$libs/routes';
 
   import MobileNavigationLink from './MobileNavigationLink.svelte';
 
   const dispatch = createEventDispatcher();
 
-  const handleClick1 = () => {
-    menu1Checked = !menu1Checked;
-  };
+  let expandedMenus: { [key: string]: boolean } = {};
 
-  const handleClick2 = () => {
-    menu2Checked = !menu2Checked;
+  const toggleMenu = (menuName: string) => {
+    expandedMenus[menuName] = !expandedMenus[menuName];
   };
-
-  let menu1Checked = false;
-  let menu2Checked = false;
 </script>
 
 <!-- Overlay -->
@@ -27,50 +23,34 @@
 
     <!-- wallet -->
     <ConnectButton class="min-h-[75px] min-w-full" />
+
     <!-- Links -->
-
     <div class="flex flex-col w-full gap-2">
-      <button
-        class="bg-neutral w-full rounded-full p-[24px] hover:cursor-pointer text-start h-[75px]"
-        on:click={() => dispatch('navigate', { url: '/profile' })}>
-        <a href="/profile" class="font-clash-grotesk title-subsection-medium text-[22px]/[24px]">Profile</a>
-      </button>
-    </div>
-    <div
-      class="collapse collapse-plus bg-neutral w-full {menu1Checked
-        ? 'rounded-[30px]'
-        : 'rounded-full'} pl-6 py-2 min-h-[75px]">
-      <input type="checkbox" checked={menu1Checked} on:click={handleClick1} />
-      <div class="collapse-title flex items-center w-full p-0 font-clash-grotesk title-subsection-medium text-[22px]">
-        Leaderboard
-      </div>
-      <div class="collapse-content bg-neutral w-full rounded-full flex flex-col gap-4 pl-0">
-        <MobileNavigationLink on:navigate url="/leaderboard/gaming" label="Gaming" icon="quad-circles" />
-        <MobileNavigationLink on:navigate url="/leaderboard/dapp" label="Dapp" icon="star2" />
-        <MobileNavigationLink on:navigate url="/leaderboard/defi" label="DeFi" icon="butterfly-cross" />
-      </div>
-    </div>
-    <div
-      class="collapse collapse-plus bg-neutral w-full {menu2Checked
-        ? 'rounded-[30px]'
-        : 'rounded-full'} pl-6 py-2 min-h-[75px]">
-      <input type="checkbox" checked={menu2Checked} on:click={handleClick2} />
-      <div class="collapse-title flex items-center w-full p-0 font-clash-grotesk title-subsection-medium text-[22px]">
-        Discover
-      </div>
-      <div class="collapse-content bg-neutral w-full rounded-full flex flex-col gap-4 pl-0">
-        <MobileNavigationLink on:navigate url="/about" label="About" icon="nav-about" />
-        <MobileNavigationLink on:navigate url="https://taiko.xyz/ecosystem" label="Ecosystem" icon="nav-ecosystem" />
-        <MobileNavigationLink on:navigate url="https://bridge.taiko.xyz" label="Bridge" icon="nav-bridge" />
-      </div>
-    </div>
-
-    <div class="flex flex-col w-full gap-2">
-      <button
-        class="bg-neutral w-full rounded-full p-[24px] hover:cursor-pointer text-start h-[75px]"
-        on:click={() => dispatch('navigate', { url: '/faq' })}>
-        <a href="/faq" class="font-clash-grotesk title-subsection-medium text-[22px]/[24px]">FAQs</a>
-      </button>
+      {#each routes as route}
+        {#if route.children}
+          <div
+            class="collapse collapse-plus bg-neutral w-full {expandedMenus[route.name]
+              ? 'rounded-[30px]'
+              : 'rounded-full'} pl-6 py-2 min-h-[75px]">
+            <input type="checkbox" checked={expandedMenus[route.name]} on:click={() => toggleMenu(route.name)} />
+            <div
+              class="collapse-title flex items-center w-full p-0 font-clash-grotesk title-subsection-medium text-[22px]">
+              {route.name}
+            </div>
+            <div class="collapse-content bg-neutral w-full rounded-full flex flex-col gap-4 pl-0">
+              {#each route.children as child}
+                <MobileNavigationLink on:navigate navigation={child} />
+              {/each}
+            </div>
+          </div>
+        {:else}
+          <button
+            class="bg-neutral w-full rounded-full p-[24px] hover:cursor-pointer text-start h-[75px]"
+            on:click={() => dispatch('navigate', { url: route.route })}>
+            <a href={route.route} class="font-clash-grotesk title-subsection-medium text-[22px]/[24px]">{route.name}</a>
+          </button>
+        {/if}
+      {/each}
     </div>
   </div>
 </div>

@@ -1,10 +1,14 @@
 <script lang="ts">
   import { Icon } from '$components/Icon';
 
-  export let lastUpdated;
+  export let lastUpdated: Date;
   $: lastUpdatedFormatted = formatLastUpdated(lastUpdated);
 
   function formatLastUpdated(date: Date) {
+    if (!date || isNaN(date.getTime())) {
+      return;
+    }
+
     const now = new Date();
     const diffMs = now.getTime() - date.getTime();
     const diffMins = Math.floor(diffMs / 60000);
@@ -22,5 +26,5 @@
 
 <div class="{$$props.class} f-center gap-[6px] rounded-full bg-elevated-background p-[10px]">
   <Icon type="clock"></Icon>
-  <span>Last updated {lastUpdatedFormatted}</span>
+  <span>Last updated {lastUpdatedFormatted || 'N/A'} </span>
 </div>

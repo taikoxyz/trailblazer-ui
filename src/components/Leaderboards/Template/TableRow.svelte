@@ -81,6 +81,18 @@
       </td>
     {/if}
   {/if}
+
+  {#if entry.level}
+    <td class="lg:px-10 body-regular w-3/12 text-left">
+      {entry.level}
+    </td>
+  {/if}
+
+  {#if entry.title}
+    <td class="lg:px-10 body-regular w-3/12 text-left">
+      {entry.title}
+    </td>
+  {/if}
   <td class="lg:px-10 body-regular w-3/12 text-right">
     <svelte:component this={scoreComponent} score={entry.totalScore} data={entry.data} />
   </td>

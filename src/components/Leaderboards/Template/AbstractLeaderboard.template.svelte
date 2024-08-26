@@ -4,14 +4,14 @@
   import { DisabledMask } from '$components/Masks';
   import Paginator from '$components/Paginator/Paginator.svelte';
   import { leaderboardConfig } from '$config';
-  import type { DappLeaderboardRow } from '$libs/leaderboard';
+  import type { UnifiedLeaderboardRow } from '$libs/leaderboard';
 
   import LoadingRow from './LoadingRow.svelte';
   import TableHeader from './TableHeader.svelte';
   import TableRow from './TableRow.svelte';
 
   export let headers: string[];
-  export let data: DappLeaderboardRow[];
+  export let data: UnifiedLeaderboardRow[];
   export let showTrophy: boolean = true;
   export let isLoading: boolean = false;
   export let handlePageChange: (page: number) => void;
@@ -22,11 +22,13 @@
   export let scoreComponent: ComponentType;
 
   export let additionalInfoComponent: ComponentType | null = null;
+  // export let showCTA: boolean = true;
 
   // End info and components
   export let endedComponent: ComponentType | null = null;
   export let endTitleText: string = '';
   export let endDescriptionText: string = '';
+  export let lastUpdated: Date = new Date();
 
   export let showPagination: boolean = true;
   export let showDetailsColumn: boolean = true;
@@ -42,7 +44,7 @@
 </script>
 
 <div class="overflow-x-auto lg:w-full px-8 mt-[116px] lg:mt-0">
-  <svelte:component this={headerComponent} />
+  <svelte:component this={headerComponent} {lastUpdated} />
   {#if ended && endedComponent}
     <div class="mt-[60px] lg:mt-[80px] block lg:hidden">
       <svelte:component this={endedComponent} title={endTitleText} description={endDescriptionText} />
@@ -55,7 +57,6 @@
   {/if}
   <div class="text-center mt-[30px] text-xl"></div>
   <slot />
-
   <div class="overflow-x-auto rounded-3xl">
     <table
       class="relative table-lg w-full body-regular text-white rounded-3xl"
