@@ -104,6 +104,7 @@ export type PaginationInfo = {
   max_page?: number;
   total?: number;
   total_pages?: number;
+  name?: string;
   page: number;
   size: number;
 };

@@ -1,8 +1,6 @@
 <script lang="ts">
   import type { ComponentType } from 'svelte';
-  import { t } from 'svelte-i18n';
 
-  import LastUpdated from '$components/Leaderboards/LastUpdated.svelte';
   import { DisabledMask } from '$components/Masks';
   import Paginator from '$components/Paginator/Paginator.svelte';
   import { leaderboardConfig } from '$config';
@@ -20,8 +18,6 @@
   export let currentPage: number = 1;
   export let totalItems: number = 0;
   export let headerComponent: ComponentType;
-  export let lastUpdated: Date | null = null;
-  export let showLastUpdated: boolean = false;
   export let ended: boolean = false;
   export let scoreComponent: ComponentType;
 
@@ -58,17 +54,7 @@
     </div>
   {/if}
   <div class="text-center mt-[30px] text-xl"></div>
-
-  <div
-    class="f-col lg:f-row lg:f-between-center items-center content-center mt-[60px] lg:mt-[77px] mb-[30px] space-y-[30px] lg:space-y-0">
-    <div class="text-xl font-bold">
-      <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-      {@html $t('leaderboard.whitelist.cta')}
-    </div>
-    {#if showLastUpdated && lastUpdated}
-      <LastUpdated class="w-fit" {lastUpdated} />
-    {/if}
-  </div>
+  <slot />
 
   <div class="overflow-x-auto rounded-3xl">
     <table
