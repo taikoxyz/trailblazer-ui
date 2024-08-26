@@ -142,6 +142,140 @@ const EcosystemPartners: IEcosystemPartner[] = [
     url: 'https://stargate.finance/',
     category: 'DEX', // comes from StargatePartners.svelte
   },
+
+  {
+    name: 'Ritsu',
+    description:
+      'A based decentralized exchange #DEX on Taiko @taikoxyz Swap and earn with hyper efficiency and seamless experience.',
+    logo: '/dapps/defi/ritsu-protocol.png',
+    url: 'https://ritsu.xyz/',
+    category: 'DeFi', // from defiCarouselItems.ts
+  },
+  {
+    name: 'OKU Trade<br/>(Uniswap V3)',
+    description:
+      'Oku Trade is a non-custodial DEX trading platform and bridge aggregator offering the best rates and analytics across 16 EVM chains.',
+    logo: '/dapps/defi/oku_trade.png',
+    url: 'https://oku.trade/',
+    category: 'DeFi', // from defiCarouselItems.ts
+  },
+  {
+    name: 'iZUMi Finance',
+    description: 'Liquidity Redefined - A multi-chain DeFi protocol providing One-Stop Liquidity as a Service (LaaS).',
+    logo: '/dapps/defi/izumi_finance.png',
+    url: 'https://izumi.finance/trade/swap',
+    category: 'DeFi', // from defiCarouselItems.ts
+  },
+  {
+    name: 'Minterest',
+    description:
+      'Minterest captures more fees than any other lending protocol and redistributes them as rewards back to users who contribute to its governance with the highest long term yields.',
+    logo: '/dapps/defi/minterest.png',
+    url: 'https://taiko.minterest.com/',
+    category: 'DeFi', // from defiCarouselItems.ts
+  },
+  {
+    name: 'Henjin DEX',
+    description: 'Henjin is an ecosystem-focused, community-driven DEX and Launchpad built on Taiko.',
+    logo: '/dapps/defi/henjin_dex.png',
+    url: 'https://app.henjin.xyz/',
+    category: 'DeFi', // from defiCarouselItems.ts
+  },
+  {
+    name: 'Hana Finance',
+    description:
+      'Elevate your financial strategy with Hana Finance. Lend, borrow, and earn competitive yields in a dynamic liquidity environment designed for growth.',
+    logo: '/dapps/defi/hana_finance.png',
+    url: 'https://www.hana.finance/market',
+    category: 'DeFi', // from defiCarouselItems.ts
+  },
+  {
+    name: 'DTX',
+    description:
+      'DTX is a decentralized trading and liquidity protocol deployed across multiple chains, crafted by seasoned traders for the community.',
+    logo: '/dapps/defi/dtx-trade.png',
+    url: 'https://dtx.trade/trade',
+    category: 'DeFi', // from defiCarouselItems.ts
+  },
+  {
+    name: 'KiloEx',
+    description:
+      'Decentralized exchange blending speed and simplicity. Enjoy lightning-fast trades, real-time market insights, and an intuitive interface for traders, alongside secure, LP-friendly solutions for liquidity providers.',
+    logo: '/dapps/defi/kiloex.png',
+    url: 'https://app.kiloex.io/trade',
+    category: 'DeFi', // from defiCarouselItems.ts
+  },
+
+  {
+    name: 'DotTaiko (SpaceID)',
+    description: 'DotTaiko is the web3 domain naming service built for the Taiko blockchain community. ',
+    logo: '/dapps/ens/dottaiko.svg',
+    url: 'https://dottaiko.me/',
+    category: 'ENS', // from ensCarouselItems.ts
+  },
+  {
+    name: 'ZNS',
+    description:
+      'ZNS Connect decentralized ID platform powered by decentralized addresses with unique domain names on Taiko.',
+    logo: '/dapps/ens/zns.svg',
+    url: 'https://www.znsconnect.io/',
+    category: 'ENS', // from ensCarouselItems.ts
+  },
+  {
+    name: 'PoP Planet',
+    description:
+      'Connect with millions through an AI & Social Plugin, crafted to reshape the social narrative of the digital age. Join the Influence-to-Earn Platform and transform your online interactions into opportunities.',
+    logo: '/dapps/ens/pop-planet.svg',
+    url: 'https://socialsummer.ai/',
+    category: 'ENS', // from ensCarouselItems.ts
+  },
+
+  {
+    name: 'OKX NFT Marketplace',
+    description:
+      'OKX NFT marketplace is a decentralized NFT exchange to create, collect and trade extraordinary NFTs on Taiko',
+    logo: '/dapps/nft/okx-marketplace.webp',
+    url: 'https://www.okx.com/web3/marketplace/nft',
+    category: 'NFT', // from nftPartnersItems.svelte.ts
+  },
+  {
+    name: 'Mintpad.co',
+    description: 'The easiest way to launch an NFT on Taiko!',
+    logo: '/dapps/nft/mintpad.jpeg',
+    url: 'https://www.mintpad.co/',
+    category: 'NFT', // from nftPartnersItems.svelte.ts
+  },
+  {
+    name: 'CoNFT',
+    description:
+      'A Multi-Chain Web3 Utility Hub offering comprehensive services such as Web3 Name Service, NFT Aggregator, Launchpad, Bridges, and Swaps.',
+    logo: '/dapps/nft/conft.jpg',
+    url: 'https://conft.app/',
+    category: 'NFT', // from nftPartnersItems.svelte.ts
+  },
+  {
+    name: 'Loopex',
+    description: 'A next-gen community-first NFT marketplace.',
+    logo: '/dapps/nft/loopex.jpg',
+    url: 'https://taiko.loopexchange.io/',
+    category: 'NFT', // from nftPartnersItems.svelte.ts
+  },
+  {
+    name: 'NFTs2me',
+    description:
+      'NFTs2Me is a multichain user-friendly comprehensive platform to create, deploy and manage your NFT collection and community, 100% free with advanced functionalities.',
+    logo: '/dapps/nft/nfts2me.png',
+    url: 'https://nfts2me.com/app/',
+    category: 'NFT', // from nftPartnersItems.svelte.ts
+  },
+  {
+    name: 'Omnihub',
+    description:
+      'OmniHub NFT launchpad invites you to explore the boundless realms of creativity. Create your own collection in just a few clicks. This is where the future of art is born.',
+    logo: '/dapps/nft/omnihub.png',
+    url: 'https://omnihub.xyz/',
+    category: 'NFT', // from nftPartnersItems.svelte.ts
+  },
 ].sort((a, b) => a.name.localeCompare(b.name));
 
 export default EcosystemPartners;
