@@ -72,7 +72,7 @@
 </script>
 
 <div class={wrapperClasses}>
-  <div class={absoluteWrapperClasses} style="background-image:url('ecosystem/header-lg.svg')">
+  <div class={absoluteWrapperClasses} style="background-image:url('ecosystem/header-lg.png')">
     <div class={rowClasses}>
       <div class={colClasses}>
         <div class={titleClasses}>
