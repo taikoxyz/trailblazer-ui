@@ -104,13 +104,6 @@ const EcosystemPartners: IEcosystemPartner[] = [
     category: 'DEX', // comes from StargatePartners.svelte
   },
   {
-    name: 'Izumi Finance',
-    description: 'Liquidity Redefined - A multi-chain DeFi protocol providing One-Stop Liquidity as a Service (LaaS).',
-    logo: '/dapps/stargate/izumi.png',
-    url: 'https://izumi.finance/',
-    category: 'DEX', // comes from StargatePartners.svelte
-  },
-  {
     name: 'Ritsu',
     description:
       'A based decentralized exchange #DEX on Taiko @taikoxyz Swap and earn with hyper efficiency and seamless experience.',
@@ -148,14 +141,6 @@ const EcosystemPartners: IEcosystemPartner[] = [
     description: 'Liquidity Redefined - A multi-chain DeFi protocol providing One-Stop Liquidity as a Service (LaaS).',
     logo: '/dapps/defi/izumi_finance.png',
     url: 'https://izumi.finance/trade/swap',
-    category: 'DeFi', // from defiCarouselItems.ts
-  },
-  {
-    name: 'Minterest',
-    description:
-      'Minterest captures more fees than any other lending protocol and redistributes them as rewards back to users who contribute to its governance with the highest long term yields.',
-    logo: '/dapps/defi/minterest.png',
-    url: 'https://taiko.minterest.com/',
     category: 'DeFi', // from defiCarouselItems.ts
   },
   {
