@@ -4,7 +4,6 @@
   import { page } from '$app/stores';
   import { FactionNames, maxBadgeId } from '$configs/badges';
   import gasCheckPreflight from '$libs/badges/gasCheckPreflight';
-  //import getMovement from '$libs/badges/getMovement';
   import { getUserBadges } from '$libs/badges/getUserBadges';
   import getConnectedAddress from '$libs/util/getConnectedAddress';
   import { account } from '$stores/account';
@@ -21,20 +20,24 @@
   $: isSelfProfile = false;
   $: hasEnoughGas = true;
 
+  $: isLoading = false;
+  $: isReady = false;
+
   async function load() {
+    if (isLoading || isReady) return;
+    isLoading = true;
     const urlAddress = $page.url.pathname.split('/').pop();
     address = urlAddress as Address;
-    //movement = await getMovement(address);
     userFactions = await getUserBadges(address);
     isSelfProfile = getAddress(address) === getAddress(getConnectedAddress());
     hasEnoughGas = await gasCheckPreflight(address);
+    isLoading = false;
+    isReady = true;
   }
 
   $: address = zeroAddress as Address;
   $: $account, load();
   $: profile, load();
-
-  //$: movementModalVisible = false;
 </script>
 
 <div class="mb-4">

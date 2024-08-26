@@ -7,12 +7,14 @@
   import { DefiEndedComponent } from './Competition/DefiCompetition';
   import DefiCompetitionInformation from './Competition/DefiCompetition/DefiCompetitionInformation.svelte';
   import DefiDappsHeader from './Header/DefiDappsHeader.svelte';
+  import LastUpdatedHeader from './LastUpdatedHeader.svelte';
   import AbstractLeaderboard from './Template/AbstractLeaderboard.template.svelte';
   import DollarScore from './Template/DollarScore.template.svelte';
 
   let headers = ['No.', 'Dapp', 'TVL'];
 
   $: data = $currentDefiDappLeaderboard.protocols.map(mapDefiDappLeaderboardRow);
+  $: lastUpdated = new Date($currentDefiDappLeaderboard.lastUpdated * 1000);
 </script>
 
 <AbstractLeaderboard
@@ -25,12 +27,12 @@
   handlePageChange={() => {}}
   currentPage={1}
   totalItems={$currentDefiDappLeaderboard.protocols.length}
-  showLastUpdated={true}
-  lastUpdated={new Date($currentDefiDappLeaderboard.lastUpdated * 1000)}
   headerComponent={DefiDappsHeader}
   scoreComponent={DollarScore}
   additionalInfoComponent={DefiCompetitionInformation}
   ended={true}
   endedComponent={DefiEndedComponent}
   endTitleText={$t('leaderboard.defi.ended.title')}
-  endDescriptionText={$t('leaderboard.defi.ended.description')} />
+  endDescriptionText={$t('leaderboard.defi.ended.description')}>
+  <LastUpdatedHeader {lastUpdated} />
+</AbstractLeaderboard>
