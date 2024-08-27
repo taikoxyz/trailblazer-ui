@@ -5,6 +5,9 @@ export function positionElementByTarget(
   position: Position = 'top',
   gap = 10,
 ) {
+  if (!elementToPosition || !targetElement) {
+    return;
+  }
   const { style } = elementToPosition;
 
   // Reset styles.
