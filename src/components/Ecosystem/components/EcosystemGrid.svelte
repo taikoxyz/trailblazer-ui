@@ -43,6 +43,9 @@
     'px-[24px]',
     'py-[30px]',
     'w-full',
+    'focus:text-[16px]/[20px]',
+    'focus:outline-none',
+    'focus:shadow-none',
   );
 
   const filterIconClasses = classNames('absolute', 'right-[30px]');

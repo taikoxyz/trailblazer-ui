@@ -22,8 +22,11 @@
     'items-center',
     'lg:flex-row',
     'flex-col',
-    'w-full',
+    'w-[100vw]',
     'gap-[20px]',
+    'px-[40px]',
+    'lg:px-[57px]',
+    'md:px-[47px]',
   );
   const colClasses = classNames(
     'flex',
@@ -31,13 +34,22 @@
     'gap-[48px]',
     'justify-center',
     'items-center',
-    'lg:items-start',
     'text-center',
     'lg:text-left',
-    'lg:w-1/4',
+    'xl:w-1/4',
+    'lg:w-1/3',
   );
   const titleClasses = classNames('text-[60px]/[54px]', 'font-clash-grotesk', 'font-[500]');
-  const aboutWrapperClasses = classNames('bg-[white]', 'p-[24px]', 'flex', 'flex-col', 'gap-[20px]', 'rounded-[27px]');
+  const aboutWrapperClasses = classNames(
+    'bg-[white]',
+    'w-full',
+    'lg:max-w-[309px]',
+    'p-[24px]',
+    'flex',
+    'flex-col',
+    'gap-[20px]',
+    'rounded-[27px]',
+  );
   const aboutTitleClasses = classNames('text-[14px]/[16.8px]', 'text-[#C8047D]', 'uppercase', 'font-[600]');
 
   const aboutContentClasses = classNames('text-[#444A55]');
@@ -74,7 +86,7 @@
 <div class={wrapperClasses}>
   <div class={absoluteWrapperClasses} style="background-image:url('ecosystem/header-lg.png')">
     <div class={rowClasses}>
-      <div class={colClasses}>
+      <div class={classNames(colClasses, 'lg:items-start')}>
         <div class={titleClasses}>
           Explore the <span class="text-[#E81899]">Trailblazers</span> Ecosystem
         </div>
@@ -87,7 +99,7 @@
         </div>
       </div>
 
-      <div class={colClasses}>
+      <div class={classNames(colClasses, 'lg:items-end')}>
         <div class={aboutWrapperClasses}>
           <div class={aboutTitleClasses}>about ecosystem</div>
 
