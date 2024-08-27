@@ -132,7 +132,7 @@ const EcosystemPartners: IEcosystemPartner[] = [
     description: 'Liquidity Redefined - A multi-chain DeFi protocol providing One-Stop Liquidity as a Service (LaaS).',
     logo: '/dapps/defi/izumi_finance.png',
     url: 'https://izumi.finance/trade/swap',
-    category: 'DeFi', // from defiCarouselItems.ts
+    category: 'DEX', // from defiCarouselItems.ts
   },
   {
     name: 'Henjin DEX',
