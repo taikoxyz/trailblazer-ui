@@ -13,6 +13,7 @@
     'flex-col',
     'items-center',
     'justify-end',
+    'w-full',
   );
 
   const rowClasses = classNames(
@@ -22,11 +23,8 @@
     'items-center',
     'lg:flex-row',
     'flex-col',
-    'w-[100vw]',
     'gap-[20px]',
-    'px-[40px]',
-    'lg:px-[57px]',
-    'md:px-[47px]',
+    'w-full',
   );
   const colClasses = classNames(
     'flex',
@@ -84,32 +82,31 @@
 </script>
 
 <div class={wrapperClasses}>
-  <div class={absoluteWrapperClasses} style="background-image:url('ecosystem/header-lg.png')">
-    <div class={rowClasses}>
-      <div class={classNames(colClasses, 'lg:items-start')}>
-        <div class={titleClasses}>
-          Explore the <span class="text-[#E81899]">Trailblazers</span> Ecosystem
-        </div>
-        <div class={dappsWrapperClasses}>
-          <img src="ecosystem/dapps.svg" class="h-full" alt="Dapps" />
-          <div>
-            <div class={dappsCountClasses}>+100</div>
-            Dapps
-          </div>
+  <div class={absoluteWrapperClasses} style="background-image:url('ecosystem/header-lg.png')"></div>
+  <div class={rowClasses}>
+    <div class={classNames(colClasses, 'lg:items-start')}>
+      <div class={titleClasses}>
+        Explore the <span class="text-[#E81899]">Trailblazers</span> Ecosystem
+      </div>
+      <div class={dappsWrapperClasses}>
+        <img src="ecosystem/dapps.svg" class="h-full" alt="Dapps" />
+        <div>
+          <div class={dappsCountClasses}>+100</div>
+          Dapps
         </div>
       </div>
+    </div>
 
-      <div class={classNames(colClasses, 'lg:items-end')}>
-        <div class={aboutWrapperClasses}>
-          <div class={aboutTitleClasses}>about ecosystem</div>
+    <div class={classNames(colClasses, 'lg:items-end')}>
+      <div class={aboutWrapperClasses}>
+        <div class={aboutTitleClasses}>about ecosystem</div>
 
-          <div class={aboutContentClasses}>
-            Join a supportive, collaborative ecosystem with a greater purpose – permissionless, flexible, and dedicated
-            to defining the future of Ethereum.
-          </div>
-
-          <ActionButton class="w-max" withArrow priority="primary">Join our ecosystem</ActionButton>
+        <div class={aboutContentClasses}>
+          Join a supportive, collaborative ecosystem with a greater purpose – permissionless, flexible, and dedicated to
+          defining the future of Ethereum.
         </div>
+
+        <ActionButton class="w-max" withArrow priority="primary">Join our ecosystem</ActionButton>
       </div>
     </div>
   </div>

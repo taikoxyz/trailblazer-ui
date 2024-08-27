@@ -5,7 +5,7 @@
   import EcosystemPartners from '../partners';
   import EcosystemItem from './EcosystemItem.svelte';
 
-  const wrapperClasses = classNames('flex', 'flex-col', 'gap-[20px]');
+  const wrapperClasses = classNames('flex', 'w-full', 'flex-col', 'gap-[20px]');
 
   const gridClasses = classNames(
     'grid',
@@ -35,7 +35,6 @@
     'justify-center',
   );
   const filterInputClasses = classNames(
-    'border',
     'text-[12px]/[16px]',
     'font-[600]',
     'bg-[#191E28]',
