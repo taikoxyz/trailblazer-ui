@@ -106,7 +106,11 @@
           defining the future of Ethereum.
         </div>
 
-        <ActionButton class="w-max" withArrow priority="primary">Join our ecosystem</ActionButton>
+        <ActionButton
+          href="https://github.com/taikoxyz/website-v2/issues/new?assignees=&labels=category.enhancement%2Cstatus.needs-triage&projects=&template=add_project.yml"
+          class="w-max"
+          withArrow
+          priority="primary">Join our ecosystem</ActionButton>
       </div>
     </div>
   </div>

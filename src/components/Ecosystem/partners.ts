@@ -117,7 +117,7 @@ const EcosystemPartners: IEcosystemPartner[] = [
       'A non-custodial, decentralised financial trading platform that offers interest-free stable coin borrowing, leverage trading and zero slippage swaps all in one place.',
     logo: '/dapps/stargate/meridian.png',
     url: 'https://www.meridianfinance.net/',
-    category: 'DEX', // comes from StargatePartners.svelte
+    category: 'Lending', // comes from StargatePartners.svelte
   },
   {
     name: 'Stargate',
@@ -126,15 +126,6 @@ const EcosystemPartners: IEcosystemPartner[] = [
     logo: '/dapps/stargate/stargate.png',
     url: 'https://stargate.finance/',
     category: 'DEX', // comes from StargatePartners.svelte
-  },
-
-  {
-    name: 'Ritsu',
-    description:
-      'A based decentralized exchange #DEX on Taiko @taikoxyz Swap and earn with hyper efficiency and seamless experience.',
-    logo: '/dapps/defi/ritsu-protocol.png',
-    url: 'https://ritsu.xyz/',
-    category: 'DeFi', // from defiCarouselItems.ts
   },
   {
     name: 'iZUMi Finance',
@@ -244,6 +235,91 @@ const EcosystemPartners: IEcosystemPartner[] = [
     logo: '/dapps/nft/omnihub.png',
     url: 'https://omnihub.xyz/',
     category: 'NFT', // from nftPartnersItems.svelte.ts
+  },
+  {
+    name: 'IceCreamSwap',
+    category: 'DEX',
+    description:
+      'IceCreamSwap allows direct bridging between many chains with its audited and battle tested smart contracts.',
+    url: 'https://icecreamswap.com/',
+    logo: '/dapps/icecream.png',
+  },
+  {
+    name: 'XY Finance',
+    description:
+      'XY Finance is a leading cross-chain bridge aggregator that operates on 17+ EVM chains including zkSync, Linea, Arbitrum & Optimism',
+    logo: '/dapps/xyfinance.png',
+    category: 'Cross-chain',
+    url: 'https://xy.finance/',
+  },
+  {
+    name: 'Swing',
+    description:
+      'Access all of DeFi liquidity through a single entry point. Swing securely connects many protocols and chains today and is built to connect thousands.',
+    logo: '/dapps/swing.jpeg',
+    category: 'Cross-chain',
+    url: 'https://swing.xyz/',
+  },
+  {
+    name: 'Magpie Finance',
+    description:
+      'Swap crypto assets efficiently between any chains, without the need to bridge. Magpie is fast, secure and easy-to-use.',
+    logo: '/dapps/magpie.png',
+    category: 'Cross-Chain',
+    url: 'https://www.magpiefi.xyz/',
+  },
+  {
+    name: 'Deri Protocol',
+    description: 'Trade futures, options, powers, and other derivatives on the best multi-chain platform in DeFi.',
+    logo: '/dapps/deri.png',
+    category: 'Derivatives',
+    url: 'https://deri.io/#/index',
+  },
+  {
+    name: 'Rhino Fi',
+    description: 'Buy, trade and invest across all of your favourite blockchains from a single layer 2 wallet. ',
+    logo: '/dapps/rhino.jpeg',
+    category: 'Bridge',
+    url: 'https://app.rhino.fi/bridge',
+  },
+  {
+    name: 'Kodo',
+    description:
+      'Enjoy trading with minimal fees across a diverse range of stable and volatile pools, designed for optimal efficiency.',
+    logo: '/dapps/kodo.png',
+    category: 'DEX',
+    url: 'https://www.kodo.exchange/',
+  },
+  {
+    name: 'LogX',
+    description:
+      'LogX uses charts that are powered By TradingView. A comprehensive trading and investment platform, offering an exceptional charting solution',
+    logo: '/dapps/logx.jpg',
+    category: 'Derivatives',
+    url: 'https://www.logx.trade/',
+  },
+  {
+    name: 'Tanuki',
+    description:
+      'TanukiX is purpose-built to support the backbone assets of the Taiko ecosystem: Stablecoins and RWAs.  ',
+    logo: '/dapps/tanuki.svg',
+    category: 'DEX',
+    url: 'https://www.tanukix.com/',
+  },
+  {
+    name: 'Rubic',
+    description:
+      'The benefits of using Rubic as a DEX and Bridge Aggregator include access to 80+ major blockchains, 220+ DEXs and bridges, one-click swapping of 15,500+ assets ',
+    logo: '/dapps/rubic.png',
+    category: 'Bridge Aggregator',
+    url: 'https://rubic.exchange',
+  },
+  {
+    name: 'Meson',
+    description: 'Meson provides minute-fast swaps with almost-zero fee & slippage across all major blockchains. ',
+    logo: '/dapps/mesonfi.jpg',
+    category: 'Cross-chain',
+    url: 'https://meson.fi',
   },
 ].sort((a, b) => a.name.localeCompare(b.name));
 

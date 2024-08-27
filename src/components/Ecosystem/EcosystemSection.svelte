@@ -28,7 +28,6 @@
     'Brigade',
     'OKU Trade (Uniswap V3)',
     'iZUMi Finance',
-    'Minterest',
     'Henjin DEX',
     'Hana Finance',
     'DTX',

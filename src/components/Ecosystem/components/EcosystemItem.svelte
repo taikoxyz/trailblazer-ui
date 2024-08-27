@@ -27,7 +27,7 @@
   $: category = data.category;
 
   function getButtonText() {
-    if (category === 'defi') {
+    if (category === 'DeFi') {
       return 'Learn more';
     }
 
@@ -42,9 +42,7 @@
     'text-[#F3F3F3]',
     'text-[32px]/[39.36px]',
     'font-clash-grotesk',
-    // 'w-full',
     'font-[500]',
-    // 'text-left',
     'mt-[30px]',
   );
   const logoClasses = classNames('w-[100px]', 'h-[100px]', 'rounded-[20px]');
