@@ -10,7 +10,7 @@ import { currentProfile } from '$stores/profile';
 
 import type { DomainResponse } from './types';
 
-const baseApiUrl = isDevelopmentEnv ? '/mock-api' : PUBLIC_TRAILBLAZER_API_URL;
+const baseApiUrl = isDevelopmentEnv ? '/api/mock-api' : PUBLIC_TRAILBLAZER_API_URL;
 
 export class Domain {
   static async getDomain(address?: string) {

@@ -6,9 +6,9 @@
   import { ActionButton } from '$components/Button';
   import GamingLeaderboard from '$components/Leaderboards/GamingLeaderboard.svelte';
   import { Page } from '$components/Page';
-  import type { PaginationInfo } from '$libs/leaderboard';
+  import type { DappLeaderboardItem, PaginationInfo } from '$libs/leaderboard';
 
-  let pageInfo: PaginationInfo;
+  let pageInfo: PaginationInfo<DappLeaderboardItem>;
   let loading: boolean;
 
   $: ({ pageInfo, loading } = $page.data);

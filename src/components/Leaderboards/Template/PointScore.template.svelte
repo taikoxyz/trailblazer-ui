@@ -6,4 +6,4 @@
 
 <!-- <span>{score.toLocaleString()}</span> -->
 
-<td class="lg:px-10 body-regular w-3/12 text-right">{formatNumbers(Math.round(score))}</td>
+<div class=" body-regular text-right">{formatNumbers(Math.round(score))}</div>

@@ -1,6 +1,6 @@
 <script lang="ts">
   import { leaderboardConfig } from '$config';
-  import { Leaderboard, type PaginationInfo } from '$libs/leaderboard';
+  import { type DappLeaderboardItem, Leaderboard, type PaginationInfo } from '$libs/leaderboard';
   import { getLogger } from '$libs/util/logger';
   import { currentGamingLeaderboard } from '$stores/leaderboards/gamingLeaderboard';
 
@@ -13,7 +13,7 @@
   const log = getLogger('DappsLeaderboard');
   export let loading = false;
 
-  export let pageInfo: PaginationInfo;
+  export let pageInfo: PaginationInfo<DappLeaderboardItem>;
 
   $: totalItems = pageInfo?.total || 0;
   $: pageSize = pageInfo?.size || leaderboardConfig.pageSize;
@@ -26,7 +26,7 @@
 
   async function loadLeaderboardData(page: number) {
     loading = true;
-    const args: PaginationInfo = {
+    const args: PaginationInfo<DappLeaderboardItem> = {
       page,
       size: pageSize,
     };

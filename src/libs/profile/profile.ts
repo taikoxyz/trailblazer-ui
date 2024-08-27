@@ -23,89 +23,89 @@ const baseApiUrl = isDevelopmentEnv ? '/api/mock-api' : PUBLIC_TRAILBLAZER_API_U
 export class Profile {
   static getLevel(percentile: number): UserLevel {
     if (percentile < 0 || percentile > 100) {
-      return { level: 0, title: 'Beginner' };
+      return { level: '0', title: 'Beginner' };
     }
 
     const levelTiers = [
       {
         percentileCap: 50,
-        level: 0,
+        level: '0',
         title: 'Beginner',
       },
       {
         percentileCap: 58,
-        level: 1,
+        level: '1',
         title: 'Initiate',
       },
       {
         percentileCap: 66,
-        level: 2,
+        level: '2',
         title: 'Senshi I',
       },
       {
         percentileCap: 74,
-        level: 3,
+        level: '3',
         title: 'Senshi II',
       },
       {
         percentileCap: 82,
-        level: 4,
+        level: '4',
         title: 'Samurai I',
       },
       {
         percentileCap: 90,
-        level: 5,
+        level: '5',
         title: 'Samurai II',
       },
       {
         percentileCap: 92,
-        level: 6,
+        level: '6',
         title: 'Sensei I',
       },
       {
         percentileCap: 94,
-        level: 7,
+        level: '7',
         title: 'Sensei II',
       },
       {
         percentileCap: 96,
-        level: 8,
+        level: '8',
         title: 'Taichou I',
       },
       {
         percentileCap: 98,
-        level: 9,
+        level: '9',
         title: 'Taichou II',
       },
       {
         percentileCap: 99,
-        level: 10,
+        level: '10',
         title: 'Shogun',
       },
       {
         percentileCap: 99.5,
-        level: 11,
+        level: '11',
         title: 'Hashira',
       },
       {
         percentileCap: 99.9,
-        level: 12,
+        level: '12',
         title: 'Kodai',
       },
       {
         percentileCap: 99.99,
-        level: 13,
+        level: '13',
         title: 'Densetsu',
       },
       {
         percentileCap: 100,
-        level: 14,
+        level: '14',
         title: 'Legend',
       },
     ];
     // 0-20 percentile will have the Beginner Title
     const { level, title } = levelTiers.find((tier) => percentile <= tier.percentileCap) as UserLevel;
-    return { level, title };
+    return { level: String(level), title };
   }
 
   static async getProfile(address?: string) {
@@ -219,7 +219,10 @@ export class Profile {
       */
 
       // Calculate Percentile
-      const rankPercentile = this.calculatePercentile();
+      const profile = get(currentProfile);
+      const rank = profile.rank;
+      const total = profile.total;
+      const rankPercentile = this.calculatePercentile(rank, total);
       log('Rank Percentile: ', rankPercentile);
 
       // Calculate Level
@@ -266,11 +269,9 @@ export class Profile {
     // fetches statistics from backend
   }
 
-  static calculatePercentile() {
+  static calculatePercentile(rank: string | number, total: string | number) {
     // Take current rank over total
-    const profile = get(currentProfile);
-    const rank = profile.rank;
-    const total = profile.total;
+
     const percentile = (1 - Number(rank) / Number(total)) * 100;
     return percentile || 0;
   }

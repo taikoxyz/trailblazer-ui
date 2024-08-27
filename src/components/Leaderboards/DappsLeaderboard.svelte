@@ -4,7 +4,7 @@
   import SearchIcon from '$components/Icon/SearchIcon.svelte';
   import InputBox from '$components/InputBox/InputBox.svelte';
   import { leaderboardConfig } from '$config';
-  import { Leaderboard, type PaginationInfo } from '$libs/leaderboard';
+  import { type DappLeaderboardItem, Leaderboard, type PaginationInfo } from '$libs/leaderboard';
   import { debounce } from '$libs/util/debounce';
   import { getLogger } from '$libs/util/logger';
   import { currentDappLeaderboard } from '$stores/leaderboard';
@@ -15,9 +15,11 @@
   import PointScore from './Template/PointScore.template.svelte';
 
   const log = getLogger('DappsLeaderboard');
-  export let loading = false;
 
-  export let pageInfo: PaginationInfo;
+  let headers = ['No.', 'Dapp', '', 'Volume'];
+
+  export let loading = false;
+  export let pageInfo: PaginationInfo<DappLeaderboardItem>;
 
   $: totalItems = pageInfo?.total || 0;
   $: pageSize = pageInfo?.size || leaderboardConfig.pageSize;
@@ -33,7 +35,7 @@
   async function loadLeaderboardData(page: number, name = '') {
     loading = true;
     // Fetch the leaderboard data for the given page
-    const args: PaginationInfo = {
+    const args: PaginationInfo<DappLeaderboardItem> = {
       page,
       size: pageSize,
       name,
@@ -55,7 +57,7 @@
 </script>
 
 <AbstractLeaderboard
-  headers={['No.', 'Dapp', '', 'Volume']}
+  {headers}
   data={$currentDappLeaderboard.items}
   showTrophy={true}
   isLoading={loading}

@@ -2,17 +2,7 @@ import type { Address } from 'viem';
 
 export type DappLeaderboardPageApiResponse = {
   lastUpdated: number;
-  data: {
-    items: DappLeaderboardItem[];
-    page: number;
-    size: number;
-    max_page: number;
-    total_pages: number;
-    total: number;
-    last: number;
-    first: number;
-    visible: number;
-  };
+  data: CommonPageApiResponse<DappLeaderboardItem>;
 };
 
 export type DappLeaderboardItem = {
@@ -26,33 +16,36 @@ export type DappLeaderboardPage = {
   lastUpdated: number;
 };
 
+export type UserLeaderboardPageApiResponse = {
+  lastUpdated: number;
+  data: CommonPageApiResponse<UserLeaderboardItem>;
+};
+
+export type UserLeaderboardPage = {
+  items: UserLeaderboardRow[];
+  totalUsers: number;
+  pageNumber: number;
+  lastUpdated: number;
+};
+
+export type UserLeaderboardItem = {
+  address: Address;
+  score: number;
+};
+
+export type UserLeaderboardRow = UserLeaderboardItem & {
+  position?: number;
+  level?: string;
+  title?: string;
+  name?: string;
+};
+
 export type DappLeaderboardRow = {
   address: string;
   icon?: string;
   handle?: string;
   data: ProtocolData[];
   totalScore: number;
-};
-
-export type UserLeaderboardPageApiResponse = {
-  items: UserLeaderboardItem[];
-  page: number;
-  size: number;
-  max_page: number;
-  total_pages: number;
-  total: number;
-  last: number;
-  first: number;
-  visible: number;
-};
-
-export type UserLeaderboardPage = {
-  items: UserLeaderboardItem[];
-};
-
-export type UserLeaderboardItem = {
-  address: Address;
-  score: number;
 };
 
 export type ProtocolApiResponse = {
@@ -98,22 +91,6 @@ export type BridgeLeaderboardTotal = {
   visible: number;
 };
 
-export type PaginationInfo = {
-  first?: boolean;
-  last?: boolean;
-  max_page?: number;
-  total?: number;
-  total_pages?: number;
-  name?: string;
-  page: number;
-  size: number;
-};
-
-export type BridgeTokenScore = {
-  token: Address;
-  score: number;
-};
-
 export type TvlLeaderboardResponse = {
   lastUpdated: number;
   protocols: DefiDappLeaderboardRow[];
@@ -156,10 +133,33 @@ export type DefiDappLeaderboardRow = {
   tokenBreakdowns: Record<string, unknown>;
 };
 
+export type PaginationInfo<T> = {
+  items?: T[];
+  page: number;
+  size: number;
+  max_page?: number;
+  total_pages?: number;
+  total?: number;
+  last?: number;
+  first?: number;
+  visible?: number;
+  name?: string;
+};
+
+export type CommonPageApiResponse<T> = PaginationInfo<T>;
+
+export type BridgeTokenScore = {
+  token: Address;
+  score: number;
+};
+
 export type UnifiedLeaderboardRow = {
   address: string;
   icon?: string;
   handle?: string;
   data: ProtocolData[];
   totalScore: number;
+  level?: string;
+  title?: string;
+  name?: string;
 };
