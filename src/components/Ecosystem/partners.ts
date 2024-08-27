@@ -101,7 +101,7 @@ const EcosystemPartners: IEcosystemPartner[] = [
       'Oku Trade is a non-custodial DEX trading platform and bridge aggregator offering the best rates and analytics across 16 EVM chains.',
     logo: '/dapps/stargate/oku-trader.png',
     url: 'https://oku.trade/',
-    category: 'DEX', // comes from StargatePartners.svelte
+    category: 'Bridge', // comes from StargatePartners.svelte
   },
   {
     name: 'Ritsu',
@@ -139,15 +139,7 @@ const EcosystemPartners: IEcosystemPartner[] = [
     description: 'Henjin is an ecosystem-focused, community-driven DEX and Launchpad built on Taiko.',
     logo: '/dapps/defi/henjin_dex.png',
     url: 'https://app.henjin.xyz/',
-    category: 'DeFi', // from defiCarouselItems.ts
-  },
-  {
-    name: 'Hana Finance',
-    description:
-      'Elevate your financial strategy with Hana Finance. Lend, borrow, and earn competitive yields in a dynamic liquidity environment designed for growth.',
-    logo: '/dapps/defi/hana_finance.png',
-    url: 'https://www.hana.finance/market',
-    category: 'DeFi', // from defiCarouselItems.ts
+    category: 'DEX', // from defiCarouselItems.ts
   },
   {
     name: 'DTX',
@@ -155,7 +147,7 @@ const EcosystemPartners: IEcosystemPartner[] = [
       'DTX is a decentralized trading and liquidity protocol deployed across multiple chains, crafted by seasoned traders for the community.',
     logo: '/dapps/defi/dtx-trade.png',
     url: 'https://dtx.trade/trade',
-    category: 'DeFi', // from defiCarouselItems.ts
+    category: 'DEX', // from defiCarouselItems.ts
   },
   {
     name: 'KiloEx',
@@ -264,7 +256,7 @@ const EcosystemPartners: IEcosystemPartner[] = [
     name: 'Magpie Finance',
     description:
       'Swap crypto assets efficiently between any chains, without the need to bridge. Magpie is fast, secure and easy-to-use.',
-    logo: '/dapps/magpie.png',
+    logo: '/dapps/magpie.svg',
     category: 'Cross-Chain',
     url: 'https://www.magpiefi.xyz/',
   },
