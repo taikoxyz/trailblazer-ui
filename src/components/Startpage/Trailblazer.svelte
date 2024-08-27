@@ -2,8 +2,7 @@
   import { StargateBanner } from '$components/Banner';
   import GamingBanner from '$components/Banner/Trailbanner/GamingBanner.svelte';
   import { Countdown } from '$components/Countdown';
-  import DefiPartners from '$components/Partner/DefiPartners/DefiPartners.svelte';
-  import { ENSPartners } from '$components/Partner/ENSPartners';
+  import EcosystemSection from '$components/Ecosystem/EcosystemSection.svelte';
   import { GamingPartners } from '$components/Partner/GamingPartners';
   import { StargatePartners } from '$components/Partner/StargatePartners';
   import { classNames } from '$libs/util/classNames';
@@ -64,15 +63,9 @@
 
   <Factions />
   <DividerElement />
-  <div class={paddingWrapperClasses}>
-    <DefiPartners />
-  </div>
-  <div class={paddingWrapperClasses}>
-    <GamingPartners />
-  </div>
-  <div class={paddingWrapperClasses}>
-    <ENSPartners />
-  </div>
+
+  <EcosystemSection />
+
   <RankUp />
   <ExploreEcosystem />
 </div>
