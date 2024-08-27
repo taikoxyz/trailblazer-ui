@@ -12,7 +12,16 @@
   import FactionBadgeItem from './FactionBadgeItem.svelte';
 
   let factions = Object.keys(FactionNames).splice(0, maxBadgeId).reverse() as FactionNames[];
-  $: userFactions = {} as Record<FactionNames, boolean>;
+  $: userFactions = {
+    [FactionNames.Ravers]: false,
+    [FactionNames.Robots]: false,
+    [FactionNames.Bouncers]: false,
+    [FactionNames.Masters]: false,
+    [FactionNames.Monks]: false,
+    [FactionNames.Androids]: false,
+    [FactionNames.Drummers]: false,
+    [FactionNames.Shinto]: false,
+  } as Record<FactionNames, boolean>;
 
   $: profile = $currentProfile;
   $: movement = 0;
@@ -44,15 +53,17 @@
   <div class="body-bold">Faction Badges</div>
   <div class="divider mt-0" />
   <div class="box gap-4">
-    {#each factions as faction}
-      <FactionBadgeItem
-        enoughGas={hasEnoughGas}
-        {address}
-        {movement}
-        canClick={isSelfProfile && !userFactions[faction]}
-        name={faction}
-        unlocked={userFactions[faction]} />
-    {/each}
+    {#if factions.length}
+      {#each factions as faction}
+        <FactionBadgeItem
+          enoughGas={hasEnoughGas}
+          {address}
+          {movement}
+          canClick={isSelfProfile && !userFactions[faction]}
+          name={faction}
+          unlocked={userFactions[faction]} />
+      {/each}
+    {/if}
   </div>
 </div>
 
