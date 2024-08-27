@@ -6,6 +6,7 @@
   import { PlusIcon } from '$components/Icon';
   import { TaikoTrailblazersLogo } from '$components/Logo';
   import { web3modal } from '$libs/connect';
+  import { classNames } from '$libs/util/classNames';
   import { account } from '$stores/account';
 
   const handlePrimaryAction = () => {
@@ -17,18 +18,41 @@
   };
 
   $: primaryButtonText = $account?.isConnected ? $t('buttons.get_started') : $t('buttons.connect_wallet');
+
+  const wrapperClasses = classNames(
+    'w-full',
+    'flex',
+    'px-[12px]',
+    'pt-[23px]',
+    'md:max-h-[700px]',
+    'lg:max-h-[814px]',
+    'h-dvh',
+  );
+
+  const backgroundImageClasses = classNames(
+    'f-center',
+    'md:f-left',
+    'relative',
+    'flex-col',
+    'w-dvw',
+    'rounded-[30px]',
+    'overflow-hidden',
+    'background-overlay',
+    'bg-center',
+    'xl:bg-[url(/splash/xl/splash.png)]',
+    'lg:bg-[url(/splash/lg/splash.png)]',
+    'md:bg-[url(/splash/md/splash.png)]',
+    'bg-[url(/splash/sm/splash.png)]',
+
+    'w-full',
+    'h-full',
+    'bg-cover',
+    'px-[57px]',
+  );
 </script>
 
-<div class="w-full flex px-[12px] mt-[5px] md:max-h-[700px] lg:max-h-[814px] h-dvh">
-  <div
-    class="f-center md:f-left relative flex-col w-dvw rounded-[30px] overflow-hidden background-overlay
-  bg-center
-  xl:bg-[url(/splash/xl/splash.png)]
-  lg:bg-[url(/splash/lg/splash.png)]
-  md:bg-[url(/splash/md/splash.png)]
-  bg-[url(/splash/sm/splash.png)]
-  
-  w-full h-full bg-cover lg:mt-[18px] px-[57px]">
+<div class={wrapperClasses}>
+  <div class={backgroundImageClasses}>
     <div class="md:f-center flex justify-end mb-[8px] flex-col xl:flex-row h-dvh md:h-[815px]">
       <div class="flex-col w-full z-10 md:mt-[180px]">
         <!-- Title -->
@@ -66,7 +90,7 @@
     <!-- Image -->
   </div>
 </div>
-<!-- 
+<!--
 <style>
   .background-overlay::after {
     content: '';

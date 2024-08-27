@@ -15,23 +15,38 @@
   import { RankUp } from './RankUp';
   import TrailblazerMain from './TrailblazerMain.svelte';
 
+  const wrapperClasses = classNames(
+    'f-center',
+    'container',
+    'flex-col',
+    'w-full',
+    'overflow-visible',
+    'gap-[150px]',
+    'md:mb-[130px]',
+  );
   const separatorClasses = classNames('w-full', 'h-[1px]', 'bg-[#444A55]');
-  const guideWrapperClasses = classNames('w-full', 'relative', 'top-[-40px]');
   const paddingWrapperClasses = classNames('w-full', 'px-[40px]', 'lg:px-[57px]', 'md:px-[47px]');
+
+  const separatorBaseClasses = classNames('w-full', 'mt-[-150px]', 'mb-[-150px]');
+  const separator40pxClasses = classNames(separatorBaseClasses, 'h-[40px]');
+
+  const separator80pxClasses = classNames(separatorBaseClasses, 'h-[80px]');
+
+  const separator120pxClasses = classNames(separatorBaseClasses, 'h-[120px]');
 </script>
 
-<div class="f-center container flex-col w-full overflow-visible gap-[100px] md:mb-[130px]">
+<div class={wrapperClasses}>
   <TrailblazerMain />
-  <div class={guideWrapperClasses}>
-    <TrailblazerGuide />
-  </div>
-  <div class={guideWrapperClasses}>
-    <Countdown countdown={new Date('2024-09-16')} />
-  </div>
+  <div class={separator40pxClasses} />
+  <TrailblazerGuide />
+  <Countdown countdown={new Date('2024-09-16')} />
 
   <div class={paddingWrapperClasses}>
     <StargateBanner />
   </div>
+
+  <div class={separator80pxClasses} />
+
   <StargatePartners />
   <div class={paddingWrapperClasses}>
     <div class={separatorClasses} />
@@ -39,9 +54,14 @@
   <div class={paddingWrapperClasses}>
     <GamingBanner />
   </div>
+  <div class={separator80pxClasses} />
+
   <div class={paddingWrapperClasses}>
     <GamingPartners />
   </div>
+
+  <div class={separator120pxClasses} />
+
   <Factions />
   <DividerElement />
   <div class={paddingWrapperClasses}>
