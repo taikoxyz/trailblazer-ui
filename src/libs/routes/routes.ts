@@ -19,7 +19,8 @@ export const routes: NavigationItem[] = [
       { name: 'Users', route: '/leaderboard/user', icon: 'double-user' },
       { name: 'Bridge', route: '/leaderboard/bridge', icon: 'quad-circles' },
       { name: 'Dapp', route: '/leaderboard/dapp', icon: 'star2' },
-      { name: 'DeFi', route: '/leaderboard/defi', icon: 'butterfly-cross' },
+      { name: 'DeFi', route: '/leaderboard/defi', icon: 'flower-circle' },
+      { name: 'Gaming', route: '/leaderboard/gaming', icon: 'gaming' },
     ],
   },
   {
