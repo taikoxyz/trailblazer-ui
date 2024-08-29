@@ -2,8 +2,7 @@
   import { StargateBanner } from '$components/Banner';
   import GamingBanner from '$components/Banner/Trailbanner/GamingBanner.svelte';
   import { Countdown } from '$components/Countdown';
-  import DefiPartners from '$components/Partner/DefiPartners/DefiPartners.svelte';
-  import { ENSPartners } from '$components/Partner/ENSPartners';
+  import EcosystemSection from '$components/Ecosystem/EcosystemSection.svelte';
   import { GamingPartners } from '$components/Partner/GamingPartners';
   import { StargatePartners } from '$components/Partner/StargatePartners';
   import { classNames } from '$libs/util/classNames';
@@ -15,44 +14,58 @@
   import { RankUp } from './RankUp';
   import TrailblazerMain from './TrailblazerMain.svelte';
 
+  const wrapperClasses = classNames(
+    'f-center',
+    'container',
+    'flex-col',
+    'w-full',
+    'overflow-visible',
+    'gap-[150px]',
+    'md:mb-[130px]',
+  );
   const separatorClasses = classNames('w-full', 'h-[1px]', 'bg-[#444A55]');
-  const guideWrapperClasses = classNames('w-full', 'relative', 'top-[-40px]');
-  const paddingWrapperClasses = classNames('w-full', 'px-[40px]', 'lg:px-[57px]', 'md:px-[47px]');
+  const paddingWrapperClasses = classNames(
+    'w-full',
+    'px-[40px]',
+    'lg:px-[57px]',
+
+    'md:px-[47px]',
+  );
+
+  const separatorBaseClasses = classNames('w-full', 'mt-[-150px]', 'mb-[-150px]');
+  const separator40pxClasses = classNames(separatorBaseClasses, 'h-[40px]');
+
+  const separator80pxClasses = classNames(separatorBaseClasses, 'h-[80px]');
+
+  const separator120pxClasses = classNames(separatorBaseClasses, 'h-[120px]');
 </script>
 
-<div class="f-center container flex-col w-full overflow-visible gap-[100px] md:mb-[130px]">
+<div class={wrapperClasses}>
   <TrailblazerMain />
-  <div class={guideWrapperClasses}>
-    <TrailblazerGuide />
-  </div>
-  <div class={guideWrapperClasses}>
-    <Countdown countdown={new Date('2024-09-16')} />
-  </div>
+  <div class={separator40pxClasses} />
+  <TrailblazerGuide />
+  <Countdown countdown={new Date('2024-09-16')} />
 
-  <div class={paddingWrapperClasses}>
-    <StargateBanner />
-  </div>
+  <StargateBanner />
+
+  <div class={separator80pxClasses} />
+
   <StargatePartners />
   <div class={paddingWrapperClasses}>
     <div class={separatorClasses} />
   </div>
-  <div class={paddingWrapperClasses}>
-    <GamingBanner />
-  </div>
-  <div class={paddingWrapperClasses}>
-    <GamingPartners />
-  </div>
+  <GamingBanner />
+  <div class={separator80pxClasses} />
+
+  <GamingPartners />
+
+  <div class={separator120pxClasses} />
+
   <Factions />
   <DividerElement />
-  <div class={paddingWrapperClasses}>
-    <DefiPartners />
-  </div>
-  <div class={paddingWrapperClasses}>
-    <GamingPartners />
-  </div>
-  <div class={paddingWrapperClasses}>
-    <ENSPartners />
-  </div>
+
+  <EcosystemSection />
+
   <RankUp />
   <ExploreEcosystem />
 </div>

@@ -56,7 +56,9 @@
   <AboutHero />
   <div class={classNames('w-full')}>
     <img class={imageClasses} src="/about-illustration.png" alt="gallery" />
-    <TrailblazerGuide />
+    <div class="w-full pt-[60px]">
+      <TrailblazerGuide />
+    </div>
   </div>
 
   <AboutInfoPanels />
