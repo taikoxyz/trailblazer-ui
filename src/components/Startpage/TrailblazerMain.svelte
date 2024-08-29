@@ -20,7 +20,9 @@
   $: primaryButtonText = $account?.isConnected ? $t('buttons.get_started') : $t('buttons.connect_wallet');
 
   const wrapperClasses = classNames(
+    'md:w-[115%]',
     'w-full',
+    'max-w-[100vw]',
     'flex',
     'px-[12px]',
     'pt-[23px]',

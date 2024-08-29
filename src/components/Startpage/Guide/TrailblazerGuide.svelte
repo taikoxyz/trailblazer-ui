@@ -17,9 +17,6 @@
     'md:h-[465px]',
     'relative',
     'w-full',
-    'px-[20px]',
-    'lg:px-[57px]',
-    'md:px-[47px]',
   );
   const unionClasses = classNames('rotate-90', 'w-[30px]', 'flex', 'items-center', 'justify-center', 'md:rotate-0');
 </script>

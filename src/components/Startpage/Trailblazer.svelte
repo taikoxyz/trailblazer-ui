@@ -24,7 +24,13 @@
     'md:mb-[130px]',
   );
   const separatorClasses = classNames('w-full', 'h-[1px]', 'bg-[#444A55]');
-  const paddingWrapperClasses = classNames('w-full', 'px-[40px]', 'lg:px-[57px]', 'md:px-[47px]');
+  const paddingWrapperClasses = classNames(
+    'w-full',
+    'px-[40px]',
+    'lg:px-[57px]',
+
+    'md:px-[47px]',
+  );
 
   const separatorBaseClasses = classNames('w-full', 'mt-[-150px]', 'mb-[-150px]');
   const separator40pxClasses = classNames(separatorBaseClasses, 'h-[40px]');
@@ -40,9 +46,7 @@
   <TrailblazerGuide />
   <Countdown countdown={new Date('2024-09-16')} />
 
-  <div class={paddingWrapperClasses}>
-    <StargateBanner />
-  </div>
+  <StargateBanner />
 
   <div class={separator80pxClasses} />
 
@@ -50,14 +54,10 @@
   <div class={paddingWrapperClasses}>
     <div class={separatorClasses} />
   </div>
-  <div class={paddingWrapperClasses}>
-    <GamingBanner />
-  </div>
+  <GamingBanner />
   <div class={separator80pxClasses} />
 
-  <div class={paddingWrapperClasses}>
-    <GamingPartners />
-  </div>
+  <GamingPartners />
 
   <div class={separator120pxClasses} />
 
