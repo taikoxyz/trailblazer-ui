@@ -7,6 +7,7 @@
   import { profileLoading } from '$stores/load';
 
   import { BoosterCard, GalxeCard, ProfileCard } from './UserInfo';
+  import UserPfp from './UserPFP/UserPFP.modal.svelte';
 
   onMount(async () => {
     await Galxe.refreshData();
@@ -30,4 +31,5 @@
   </div>
 </div>
 
+<UserPfp />
 <MintDisclaimerModal />
