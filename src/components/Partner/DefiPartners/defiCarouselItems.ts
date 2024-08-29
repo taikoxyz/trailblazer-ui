@@ -29,15 +29,6 @@ export const defiCarouselItems: CarouselItemType[] = [
   },
   {
     id: '4',
-    title: 'Minterest',
-    description:
-      'Minterest captures more fees than any other lending protocol and redistributes them as rewards back to users who contribute to its governance with the highest long term yields.',
-    image: '/dapps/defi/minterest.png',
-    link: 'https://taiko.minterest.com/',
-    cta: 'Lend now',
-  },
-  {
-    id: '5',
     title: 'Henjin DEX',
     description: 'Henjin is an ecosystem-focused, community-driven DEX and Launchpad built on Taiko.',
     image: '/dapps/defi/henjin_dex.png',
@@ -45,7 +36,7 @@ export const defiCarouselItems: CarouselItemType[] = [
     cta: 'Swap now',
   },
   {
-    id: '6',
+    id: '5',
     title: 'Hana Finance',
     description:
       'Elevate your financial strategy with Hana Finance. Lend, borrow, and earn competitive yields in a dynamic liquidity environment designed for growth.',
@@ -54,7 +45,7 @@ export const defiCarouselItems: CarouselItemType[] = [
     cta: 'Lend now',
   },
   {
-    id: '7',
+    id: '6',
     title: 'DTX',
     description:
       'DTX is a decentralized trading and liquidity protocol deployed across multiple chains, crafted by seasoned traders for the community.',
@@ -63,7 +54,7 @@ export const defiCarouselItems: CarouselItemType[] = [
     cta: 'Swap now',
   },
   {
-    id: '8',
+    id: '7',
     title: 'KiloEx',
     description:
       'Decentralized exchange blending speed and simplicity. Enjoy lightning-fast trades, real-time market insights, and an intuitive interface for traders, alongside secure, LP-friendly solutions for liquidity providers.',
