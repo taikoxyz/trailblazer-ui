@@ -13,12 +13,12 @@
     {
       name: 'Transactions',
       content: LeaderboardTransactions,
-      checked: true,
+      checked: false,
     },
     {
       name: 'NFT Collection',
       content: NFTCollection,
-      checked: false,
+      checked: true,
     },
     // {
     //   name: 'Achievements',

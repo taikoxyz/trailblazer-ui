@@ -37,3 +37,33 @@ export async function getUserBadges(address: Address): Promise<Record<FactionNam
 
   return out;
 }
+
+/*
+
+import type { Address } from 'viem';
+
+import { FactionNames } from '$configs/badges';
+
+
+export async function getUserBadges(address?: Address): Promise<Record<FactionNames, boolean>> {
+  const out = {
+    [FactionNames.Ravers]: false,
+    [FactionNames.Robots]: false,
+    [FactionNames.Bouncers]: false,
+    [FactionNames.Masters]: false,
+    [FactionNames.Monks]: false,
+    [FactionNames.Drummers]: false,
+    [FactionNames.Androids]: false,
+    [FactionNames.Shinto]: false,
+  };
+
+  const factionNames = Object.keys(FactionNames);
+
+  factionNames.forEach((_, index) => {
+    out[factionNames[index] as FactionNames] = true// owned;
+  });
+
+  return out;
+}
+
+*/

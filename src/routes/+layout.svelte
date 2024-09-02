@@ -9,6 +9,7 @@
   import { Footer } from '$components/Footer';
   import { Header } from '$components/Header';
   import { NotificationToast } from '$components/NotificationToast';
+  import BadgeMigrationModal from '$components/Profile/UserNFTs/FactionBadges/BadgeMigrationModal.svelte';
   import { Ribbon } from '$components/Ribbon';
   import { SwitchChainModal } from '$components/SwitchChainModal';
   import {
@@ -64,14 +65,15 @@
 
 <!-- App components -->
 
-<Ribbon />
+<div class="relative z-10">
+  <Ribbon />
 
-<Header />
+  <Header />
 
-<slot />
+  <slot />
 
-<Footer />
-
+  <Footer />
+</div>
 <!--
   The following UI is global and should be rendered
   at the root of the app.
@@ -80,3 +82,7 @@
 <NotificationToast />
 <AccountConnectionToast />
 <SwitchChainModal />
+
+<div class="relative z-50">
+  <BadgeMigrationModal />
+</div>

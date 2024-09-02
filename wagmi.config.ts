@@ -5,6 +5,7 @@ import type { Abi, Address } from 'abitype';
 import * as HeklaDeployment from '../taiko-mono.git/packages/nfts/deployments/trailblazers-badges/hekla.json';
 import * as MainnetDeployment from '../taiko-mono.git/packages/nfts/deployments/trailblazers-badges/mainnet.json';
 import TrailblazersBadges from '../taiko-mono.git/packages/nfts/out/TrailblazersBadges.sol/TrailblazersBadges.json';
+import TrailblazersBadgesS2 from '../taiko-mono.git/packages/nfts/out/TrailblazersBadgesS2.sol/TrailblazersBadgesS2.json';
 
 export default defineConfig({
   out: 'src/generated/abi/index.ts',
@@ -16,6 +17,14 @@ export default defineConfig({
         167000: MainnetDeployment.TrailblazersBadges as Address,
       },
       abi: TrailblazersBadges.abi as Abi,
+    },
+    {
+      name: 'TrailblazersBadgesS2',
+      address: {
+        167009: HeklaDeployment.TrailblazersBadgesS2 as Address,
+        167000: '0x0000000000000000000000000000000000000000', //MainnetDeployment.TrailblazersBadgesS2 as Address,
+      },
+      abi: TrailblazersBadgesS2.abi as Abi,
     },
     {
       name: 'USDC',

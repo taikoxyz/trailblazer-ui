@@ -11,3 +11,5 @@ export const mintDisclaimerModal = writable<boolean>(false);
 export function isMintDisclaimerAccepted() {
   return browser && localStorage.getItem('acceptedLegal') === 'true';
 }
+
+export const badgeMigrationModal = writable<boolean>(false);

@@ -11,7 +11,8 @@
   import { classNames } from '$libs/util/classNames';
   import getConnectedAddress from '$libs/util/getConnectedAddress';
   import { account } from '$stores/account';
-  import { isMintDisclaimerAccepted, mintDisclaimerModal } from '$stores/modal';
+  import { badgeMigrationStore } from '$stores/badgeMigration';
+  import { badgeMigrationModal, isMintDisclaimerAccepted, mintDisclaimerModal } from '$stores/modal';
   import { pendingTransactions } from '$stores/pendingTransactions';
 
   import FactionImage from './FactionImage.svelte';
@@ -82,8 +83,7 @@
     'overflow-hidden',
     'flex',
     'w-full',
-    'min-h-[306px]',
-    'max-w-[306px]',
+    'aspect-square',
     'rounded-[30px]',
     'bg-[#310E2F]',
     'border-2',
@@ -121,7 +121,16 @@
 
   const lockedBadgeNameClasses = classNames(badgeClasses, 'top-[20px]', 'left-[20px]');
 
-  const buttonWrapperClasses = classNames('absolute', 'bottom-[20px]', 'place-self-center', 'w-full', 'px-[20px]');
+  const buttonWrapperClasses = classNames(
+    'absolute',
+    'flex',
+    'flex-col',
+    'gap-[10px]',
+    'bottom-[20px]',
+    'place-self-center',
+    'w-full',
+    'px-[20px]',
+  );
 
   const tooltipClasses = classNames(
     'absolute',
@@ -170,6 +179,17 @@
   ];
 
   $: requirementsUrl = requirementsUrls[FACTIONS[name]] || '';
+
+  function handleMigrateClick() {
+    // eslint-disable-next-line no-console
+    badgeMigrationStore.set({
+      ...$badgeMigrationStore,
+      s1BadgeId: FACTIONS[name],
+    });
+    $badgeMigrationModal = true;
+  }
+
+  $: canMigrate = unlocked;
 </script>
 
 <div class={wrapperClasses} role="button">
@@ -205,8 +225,11 @@
     <div class={weekBadgeClasses}>
       Week {FACTIONS[name] + 1}
     </div>
-    {#if canClick}
-      <div class={buttonWrapperClasses}>
+    <div class={buttonWrapperClasses}>
+      <ActionButton priority="primary" on:click={handleMigrateClick} disabled={!canMigrate} loading={isClaiming}>
+        {$t('common.migrate')}
+      </ActionButton>
+      {#if canClick}
         <ActionButton
           priority="primary"
           on:click={handleClaimClick}
@@ -214,7 +237,7 @@
           loading={isClaiming}>
           {buttonText}
         </ActionButton>
-      </div>
-    {/if}
+      {/if}
+    </div>
   </div>
 </div>
