@@ -24,7 +24,11 @@
 
 <div class="relative w-full h-full z-0">
   {#if imageUrl}
-    <img src={imageUrl} alt="NFT" class="pointer-events-none rounded-[20px] absolute left-0 top-0 z-20 w-full" />
+    <img
+      src={imageUrl}
+      alt="NFT"
+      class="pointer-events-none rounded-[20px] absolute left-0 top-0 z-20 w-full"
+      style="image-rendering: pixelated;" />
   {:else}
     <div
       class="pointer-events-none rounded-[20px] absolute left-0 top-0 z-20 w-full h-full bg-gray-200 flex items-center justify-center">
