@@ -50,7 +50,6 @@
       <UserNftImage src={imageUrl || 'https://placehold.co/200x200'} />
       <!-- {/if} -->
     </div>
-    asd
 
     <div class={tooltipClasses}>
       <div class={classNames('absolute', 'top-0', 'left-0', 'w-full', 'h-full', 'bg-secondary', 'opacity-10')}></div>

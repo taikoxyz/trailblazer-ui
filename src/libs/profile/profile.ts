@@ -155,10 +155,11 @@ export class Profile {
 
       if (graphqlResponse?.data?.owner) {
         const userNFTs: UserNFT[] = graphqlResponse.data.owner.ownedTokens.map(
-          (token: { contract: { name: string }; tokenId: string; badgeId: string }) => ({
+          (token: { contract: { name: string }; tokenId: string; badgeId: string; uri: string }) => ({
             name: token.contract.name,
             tokenId: token.tokenId,
             badgeId: token.badgeId,
+            uri: token.uri,
           }),
         );
 
@@ -185,6 +186,8 @@ export class Profile {
             {} as Record<string, number>,
           );
 
+        const otherNfts = userNFTs.filter((nft) => nft.name !== 'Trailblazers Badges');
+
         const multiplierTable = [0, 100, 210, 331, 464, 611, 772, 949, 1144];
         // Calculate faction multiplier based on unique faction badges
         const uniqueFactionBadgesCount = Object.keys(factionBadges).length;
@@ -202,7 +205,7 @@ export class Profile {
 
         // Update profile
         currentProfile.update((current) => {
-          return { ...current, multipliers: userMultiplier, nfts: userNFTs };
+          return { ...current, multipliers: userMultiplier, nfts: otherNfts };
         });
       }
       boosterLoading.set(false);
