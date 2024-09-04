@@ -367,12 +367,13 @@
     "modal": {
       "title": "Edit profile picture",
       "yourNfts": "Your NFTs",
-      "item_singular": "item",
-      "item_plural": "items",
+      "item_singular": "item)",
+      "item_plural": "items)",
       "buttons": {
         "save": "Save",
         "scan": "Scan for NFTs",
         "cancel": "Cancel",
+        "go_back": "Go back",
         "apply": "Apply"
       },
       "success": {

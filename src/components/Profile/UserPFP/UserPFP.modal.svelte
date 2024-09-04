@@ -25,7 +25,8 @@
     'rounded-[20px]',
     'bg-[#2B303B]',
     'md:w-[500px]',
-    'max-w-[90vw]',
+    'lg:w-[700px]',
+    'w-[90vw]',
   );
 
   const modalHeaderClasses = classNames(
@@ -297,7 +298,7 @@
   const noNftsClasses = classNames('absolute', 'w-full', 'h-full', 'flex', 'justify-center', 'items-center');
 </script>
 
-<dialog bind:this={modal} id="legal-disclaimer-modal" class="modal">
+<dialog bind:this={modal} class="modal">
   <div class={modalContentWrapperClasses}>
     <div class={modalHeaderClasses}>
       <div class={modalTitleClasses}>
@@ -321,13 +322,14 @@
               </div>
               {#if possiblePFPs.length > 0}
                 <div class={selectorCounterClasses}>
-                  {possiblePFPs.length}
+                  ({possiblePFPs.length}
                   {#if possiblePFPs.length > 1}
                     {$t('pfp.modal.item_plural')}
                   {:else}
                     {$t('pfp.modal.item_singular')}
                   {/if}
-                </div>{/if}
+                </div>
+              {/if}
               <button on:click={refreshPFPSources} class={refreshButtonClasses}>
                 <img src="/refresh.svg" class="w-[14px] h-[14px]" alt="refresh" />
               </button>
@@ -363,12 +365,12 @@
     {#if previewVisible}
       <div class={modalFooterClasses}>
         {#if previewVisible}
-          <ActionButton on:click={handleCancelClick} priority="secondary">
-            {$t('pfp.modal.buttons.cancel')}
+          <ActionButton on:click={handleCancelClick} disabled={isLoading} onPopup priority="secondary">
+            {$t('pfp.modal.buttons.go_back')}
           </ActionButton>
         {/if}
 
-        <ActionButton on:click={handleButtonClick} priority="primary" disabled={isLoading} loading={isLoading}>
+        <ActionButton on:click={handleButtonClick} priority="primary" disabled={isLoading} onPopup loading={isLoading}>
           {$t('pfp.modal.buttons.save')}
         </ActionButton>
       </div>

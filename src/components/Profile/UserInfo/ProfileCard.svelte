@@ -1,10 +1,15 @@
 <script lang="ts">
+  import { onMount } from 'svelte';
+  import { type Address, getAddress } from 'viem';
+
+  import { page } from '$app/stores';
   import Spinner from '$components/Spinner/Spinner.svelte';
   import { Tooltip } from '$components/Tooltip';
   import { type UserProfile } from '$libs/profile';
   import { classNames } from '$libs/util/classNames';
   import { formatMultiplier } from '$libs/util/formatMultiplier';
   import { formatNumbers } from '$libs/util/formatNumbers';
+  import getConnectedAddress from '$libs/util/getConnectedAddress';
   import { pfpModal } from '$stores/modal';
   import { currentProfile } from '$stores/profile';
 
@@ -12,13 +17,13 @@
   import { ProfileName } from '.';
 
   export let loading;
-  export let isSelfProfile: boolean;
 
   let profile: UserProfile;
   let multipliedView = true;
   $: profile = $currentProfile;
   $: totalMultiplier = formatMultiplier(profile?.multipliers.totalMultiplier);
   $: displayedScore = profile?.score;
+  $: isSelfProfile = false;
 
   const editAvatarButtonClasses = classNames(
     'absolute',
@@ -31,6 +36,11 @@
     'p-[8px]',
     'bg-opacity-70',
   );
+
+  onMount(async () => {
+    const urlAddress = $page.url.pathname.split('/').pop() as Address;
+    isSelfProfile = getAddress(urlAddress) === getAddress(getConnectedAddress());
+  });
 </script>
 
 <div
