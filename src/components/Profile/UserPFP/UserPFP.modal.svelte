@@ -211,47 +211,53 @@
   async function refreshPFPSources() {
     possiblePFPs = [];
 
-    //
     if (!$account || !$account.address) {
       possiblePFPs = [];
 
       return;
     }
-    const s1Badges = [
-      '/factions/ravers/neutral.png',
-      '/factions/robots/neutral.png',
-      '/factions/bouncers/neutral.png',
-      '/factions/masters/neutral.png',
-      '/factions/monks/neutral.png',
-      '/factions/androids/neutral.png',
-      '/factions/drummers/neutral.png',
-      '/factions/shinto/neutral.png',
-    ];
-    const badgeBalances = await getUserBadges($account.address);
+    isLoading = true;
+    try {
+      const s1Badges = [
+        '/factions/ravers/neutral.png',
+        '/factions/robots/neutral.png',
+        '/factions/bouncers/neutral.png',
+        '/factions/masters/neutral.png',
+        '/factions/monks/neutral.png',
+        '/factions/androids/neutral.png',
+        '/factions/drummers/neutral.png',
+        '/factions/shinto/neutral.png',
+      ];
+      const badgeBalances = await getUserBadges($account.address);
 
-    const ownedBadgeNames = Object.keys(badgeBalances).filter(
-      (factionName) => badgeBalances[factionName as FactionNames],
-    );
+      const ownedBadgeNames = Object.keys(badgeBalances).filter(
+        (factionName) => badgeBalances[factionName as FactionNames],
+      );
 
-    // call async getTokenId on every owned badge id
-    const ownedPfps: IPfp[] = await Promise.all(
-      ownedBadgeNames.map(async (badgeName) => {
-        const badgeId = FACTIONS[badgeName as FactionNames];
-        if (!$account || !$account.address) {
-          throw new Error('No account');
-        }
-        const tokenId = await getTokenId($account.address, badgeId);
-        return {
-          badgeId,
-          address: trailblazersBadgesAddress[chainId],
+      // call async getTokenId on every owned badge id
+      const ownedPfps: IPfp[] = await Promise.all(
+        ownedBadgeNames.map(async (badgeName) => {
+          const badgeId = FACTIONS[badgeName as FactionNames];
+          if (!$account || !$account.address) {
+            throw new Error('No account');
+          }
+          const tokenId = await getTokenId($account.address, badgeId);
+          return {
+            badgeId,
+            address: trailblazersBadgesAddress[chainId],
 
-          tokenId,
-          src: s1Badges[badgeId],
-        } satisfies IPfp;
-      }),
-    );
+            tokenId,
+            src: s1Badges[badgeId],
+          } satisfies IPfp;
+        }),
+      );
 
-    possiblePFPs = ownedPfps;
+      possiblePFPs = ownedPfps;
+      isLoading = false;
+    } catch (error) {
+      console.warn(error);
+      isLoading = false;
+    }
   }
 
   $: isLoading = false;
@@ -287,6 +293,8 @@
       previewVisible = false;
     }
   }
+
+  const noNftsClasses = classNames('absolute', 'w-full', 'h-full', 'flex', 'justify-center', 'items-center');
 </script>
 
 <dialog bind:this={modal} id="legal-disclaimer-modal" class="modal">
@@ -332,10 +340,12 @@
                     <img src={pfp.src} alt="pfp" />
                   </button>
                 {/each}
-              {:else}
+              {:else if isLoading}
                 <div class={spinnerWrapperClasses}>
                   <Spinner size="lg" />
                 </div>
+              {:else}
+                <div class={noNftsClasses}>You don't have any eligible NFTs</div>
               {/if}
             </div>
           </div>
