@@ -4,11 +4,12 @@
   import Spinner from '$components/Spinner/Spinner.svelte';
   import { FACTIONS } from '$configs/badges';
   import approve from '$libs/badges/approve';
+  import { getMigrationStatus, isApprovedToMigrate } from '$libs/badges/badgesSubGraph';
   import { Movements } from '$libs/badges/const';
   import { getTokenId } from '$libs/badges/getTokenId';
-  import isApprovedToMigrate from '$libs/badges/isApprovedToMigrate';
   import setApprovalForAll from '$libs/badges/setApprovalForAll';
   import startMigration from '$libs/badges/startMigration';
+  import tamperMigration from '$libs/badges/tamperMigration';
   import { chainId } from '$libs/chain';
   import type { Faction } from '$libs/profile';
   import { classNames } from '$libs/util/classNames';
@@ -18,6 +19,37 @@
 
   import { trailblazersBadgesS2Address } from '../../../../generated/abi';
   import MigrationBadgeItem from './MigrationBadgeItem.svelte';
+
+  function timeUntil(targetDate: Date): string {
+    const now = new Date();
+
+    // Calculate the difference in milliseconds
+    const difference = targetDate.getTime() - now.getTime();
+
+    // If the difference is negative, the target date is in the past
+    if (difference <= 0) {
+      return '00min 00s';
+    }
+
+    // Calculate hours, minutes, and seconds
+    const hours = Math.floor(difference / (1000 * 60 * 60));
+    const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+    // Format minutes and seconds to mm:ss
+    const formattedMinutes = String(minutes).padStart(2, '0');
+    const formattedSeconds = String(seconds).padStart(2, '0');
+
+    // Return the appropriate format based on the values of hours and minutes
+    if (hours > 0) {
+      const formattedHours = String(hours).padStart(2, '0');
+      return `${formattedHours}h ${formattedMinutes}min ${formattedSeconds}s`;
+    } else if (minutes > 0) {
+      return `${formattedMinutes}min ${formattedSeconds}s`;
+    } else {
+      return `${formattedSeconds} seconds`;
+    }
+  }
 
   const wrapperClasses = classNames(
     'z-100',
@@ -71,26 +103,49 @@
     'flex-col',
   );
 
-  $: isMigrationStarted = false;
+  // $: isMigrationStarted = false;
   // $: isMigrationCompleted = false;
   $: isApproved = false;
   $: isLoading = false;
 
   $: $badgeMigrationModal, load();
 
+  $: isStarted = false;
+  $: isCompleted = false;
+
+  $: isActive = false;
+
+  $: pinkTampers = 0;
+  $: purpleTampers = 0;
+
+  $: claimExpiration = undefined as Date | undefined;
+  $: tamperExpiration = undefined as Date | undefined;
+
   async function load() {
     if (!$account || !$account.address) return;
 
     if (!$badgeMigrationModal) {
       // closing modal, reset
-      isMigrationStarted = false;
+      //  isMigrationStarted = false;
       // isMigrationCompleted = false;
       isApproved = false;
       isLoading = false;
       return;
     }
+    isLoading = true;
 
     isApproved = await isApprovedToMigrate($account.address, s1BadgeId);
+
+    const status = await getMigrationStatus($account.address);
+    isStarted = status.isStarted;
+    isCompleted = status.isCompleted;
+    pinkTampers = status.pinkTampers;
+    purpleTampers = status.purpleTampers;
+    claimExpiration = status.claimExpiration;
+    tamperExpiration = status.tamperExpiration;
+    isActive = isStarted && !isCompleted && status.s1BadgeId === s1BadgeId;
+
+    isLoading = false;
   }
 
   async function beginMigration() {
@@ -98,7 +153,7 @@
     isLoading = true;
     await startMigration($account.address, s1BadgeId);
     isLoading = false;
-    isMigrationStarted = true;
+    //isMigrationStarted = true;
   }
 
   async function setApproveSeason2() {
@@ -117,8 +172,6 @@
     isLoading = false;
     isApproved = true;
   }
-
-  function tamperMigration() {}
 
   function completeMigration() {}
 
@@ -160,42 +213,130 @@
     'max-w-[900px]',
   );
 
+  async function activateTamper(type: 'pink' | 'purple') {
+    isTampering = true;
+    await tamperMigration(type);
+    isTampering = false;
+  }
+
+  $: isTampering = false;
+
   $: badgeLabel = `#${s1BadgeId + 1} - ${s1BadgeName}`;
+
+  const badgeWrapperClasses = classNames('flex-col', 'flex', 'justify-center', 'items-center', 'gap-[25px]');
+
+  const tamperButtonClasses = classNames(
+    'rounded-full',
+    'px-[75px]',
+    'py-[15px]',
+    'font-clash-grotesk',
+    'text-[#fff]',
+    'font-[700]',
+    'transition-all',
+    'disabled:border-neutral',
+    'disabled:text-neutral',
+    'border',
+    'disabled:bg-transparent',
+    'disabled:shadow-none',
+    'bg-opacity-60',
+    'hover:bg-opacity-100',
+    'bg-transparent',
+    'w-full',
+  );
+
+  const pinkTamperButtonClasses = classNames(
+    tamperButtonClasses,
+    'shadow-[0_0px_30px_0px_#E81899]',
+    'border-[#E81899]',
+    'bg-[#E81899]',
+    'hover:shadow-[0_0px_50px_0px_#E81899]',
+  );
+
+  const purpleTamperButtonClasses = classNames(
+    tamperButtonClasses,
+    'shadow-[0_0px_30px_0px_#5D08C8]',
+    'border-[#5D08C8]',
+
+    'bg-[#5D08C8]',
+    'hover:shadow-[0_0px_50px_0px_#5D08C8]',
+  );
 </script>
 
 {#if $badgeMigrationModal}
   <div class={wrapperClasses}>
     <div class={textWrapperClasses}>
-      <div class={titleClasses}>Choose your path!</div>
+      <div class={titleClasses}>
+        {#if isActive}
+          {#if tamperExpiration && new Date() < tamperExpiration}
+            Tamper available in {timeUntil(tamperExpiration)}
+          {:else}
+            Migration in progress
+          {/if}
+        {:else}
+          Choose your path!{/if}
+      </div>
 
       <div class={descriptionClasses}>
-        Migrate your Season 1 Trailblazer Badges to Season 2. Choose your path wisely!
+        {#if isActive}
+          {#if claimExpiration}
+            Migration claimable in {timeUntil(claimExpiration)}
+          {/if}
+        {:else}
+          Migrate your Season 1 Trailblazer Badges to Season 2. Choose your path wisely!
+        {/if}
       </div>
     </div>
     <div class={tokenCardWrapperClasses}>
-      <MigrationBadgeItem badgeMovement={Movements.Based} badgeId={s1BadgeId} badgeName={s1BadgeName} />
-      <MigrationBadgeItem unlocked badgeMovement={Movements.Neutral} badgeId={s1BadgeId} badgeName={s1BadgeName} />
-      <MigrationBadgeItem badgeMovement={Movements.Boosted} badgeId={s1BadgeId} badgeName={s1BadgeName} />
+      <div class={badgeWrapperClasses}>
+        <MigrationBadgeItem
+          unlocked={isActive}
+          value={pinkTampers}
+          badgeMovement={Movements.Based}
+          badgeId={s1BadgeId}
+          badgeName={s1BadgeName} />
+
+        {#if tamperExpiration && new Date() > tamperExpiration}
+          <button disabled={isTampering} on:click={() => activateTamper('pink')} class={pinkTamperButtonClasses}>
+            Tamper</button>
+        {/if}
+      </div>
+      {#if !isActive}
+        <MigrationBadgeItem unlocked badgeMovement={Movements.Neutral} badgeId={s1BadgeId} badgeName={s1BadgeName} />
+      {/if}
+
+      <div class={badgeWrapperClasses}>
+        <MigrationBadgeItem
+          unlocked={isActive}
+          badgeMovement={Movements.Boosted}
+          badgeId={s1BadgeId}
+          value={purpleTampers}
+          badgeName={s1BadgeName} />
+        {#if tamperExpiration && new Date() > tamperExpiration}
+          <button disabled={isTampering} on:click={() => activateTamper('purple')} class={purpleTamperButtonClasses}>
+            Tamper</button>
+        {/if}
+      </div>
     </div>
 
     <div class={buttonWrapperClasses}>
       {#if isLoading}
         <Spinner size="lg" />
       {:else}
-        <div class={instructionsClasses}>
-          {#if isApproved}
-            The migration for <b>{badgeLabel}</b> is ready.
-          {:else}
-            You must approve the Season 2 contract to proceed.
-          {/if}
-        </div>
+        {#if !isActive}
+          <div class={instructionsClasses}>
+            {#if isApproved}
+              The migration for <b>{badgeLabel}</b> is ready.
+            {:else}
+              You must approve the Season 2 contract to proceed.
+            {/if}
+          </div>{/if}
         {#if isApproved}
-          {#if isMigrationStarted}
-            <ActionButton on:click={tamperMigration} priority="primary">Tamper Migration</ActionButton>
-
+          {#if isCompleted}
             <ActionButton on:click={completeMigration} priority="primary">Complete Migration</ActionButton>
-          {:else}
+          {:else if !isStarted}
             <ActionButton on:click={beginMigration} priority="primary">Start Migration</ActionButton>
+          {:else if !isActive}
+            another migration is in progress
           {/if}
         {:else}
           <ActionButton on:click={setApproveToken} priority="primary"

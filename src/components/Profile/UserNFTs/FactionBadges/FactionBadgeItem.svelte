@@ -226,16 +226,17 @@
       Week {FACTIONS[name] + 1}
     </div>
     <div class={buttonWrapperClasses}>
-      <ActionButton priority="primary" on:click={handleMigrateClick} disabled={!canMigrate} loading={isClaiming}>
-        {$t('common.migrate')}
-      </ActionButton>
       {#if canClick}
         <ActionButton
-          priority="primary"
+          priority="secondary"
           on:click={handleClaimClick}
           disabled={!claimable || $pendingTransactions.length > 0}
           loading={isClaiming}>
           {buttonText}
+        </ActionButton>
+      {:else}
+        <ActionButton priority="primary" on:click={handleMigrateClick} disabled={!canMigrate} loading={isClaiming}>
+          {$t('common.migrate')}
         </ActionButton>
       {/if}
     </div>

@@ -12,6 +12,7 @@
   export let badgeName: Faction;
   export let badgeMovement: Movements;
   export let unlocked: boolean = false;
+  export let value: number = 0;
 
   $: wrapperClasses = classNames(
     'bg-white',
@@ -30,7 +31,6 @@
     'justify-center',
     'pb-0',
     'transition-all',
-
     badgeMovement === Movements.Based ? 'border-[#E81899] hover:shadow hover:shadow-[0_0px_50px_0px_#E81899]' : null,
     badgeMovement === Movements.Boosted ? 'border-[#5D08C8] hover:shadow hover:shadow-[0_0px_50px_0px_#5D08C8]' : null,
   );
@@ -59,22 +59,7 @@
 
   const lockImageOverlayClasses = classNames('absolute', 'w-full', 'h-full', 'glassy-background');
 
-  const baseOverlayLayerClasses = classNames(
-    'absolute',
-    'top-[-3px]',
-    'left-[-3px]',
-    'w-[calc(100%+6px)]',
-    'md:rounded-[30px]',
-    'rounded-[15px]',
-    'bg-opacity-30',
-    'h-[calc(100%+6px)]',
-  );
-  const pinkLayerClasses = classNames(baseOverlayLayerClasses, 'bg-[#F03BAA]');
-
-  const purpleLayerClasses = classNames(baseOverlayLayerClasses, 'bg-[#6D1CE3]');
-
-  $: max = 3;
-  $: value = badgeMovement === Movements.Based ? 2 : 3;
+  const max = 3;
 </script>
 
 <div class={wrapperClasses}>
@@ -94,12 +79,4 @@
   {#if badgeMovement !== Movements.Neutral}
     <TamperRings {value} color={badgeMovement === Movements.Based ? 'pink' : 'purple'} />
   {/if}
-  <!-- eslint-disable-next-line @typescript-eslint/no-unused-vars -->
-  {#each Array.from({ length: 1 + max - value }, (_, i) => i) as i}
-    {#if badgeMovement === Movements.Based}
-      <div class={pinkLayerClasses} />
-    {:else if badgeMovement === Movements.Boosted}
-      <div class={purpleLayerClasses} />
-    {/if}
-  {/each}
 </div>

@@ -73,6 +73,7 @@
     "@zerodevx/svelte-toast": "^0.9.5",
     "axios": "^1.7.2",
     "buffer": "^6.0.3",
+    "dayjs": "^1.11.13",
     "debug": "^4.3.5",
     "events": "^3.3.0",
     "lefthook": "^1.7.12",

@@ -38,6 +38,9 @@ importers:
       buffer:
         specifier: ^6.0.3
         version: 6.0.3
+      dayjs:
+        specifier: ^1.11.13
+        version: 1.11.13
       debug:
         specifier: ^4.3.5
         version: 4.3.5
@@ -59,6 +62,9 @@ importers:
       svelte-apollo:
         specifier: ^0.5.0
         version: 0.5.0(@apollo/client@3.11.4(graphql@16.9.0)(react@18.3.1))(graphql@16.9.0)(svelte@4.2.18)
+      svelte-countdown:
+        specifier: ^1.1.2
+        version: 1.1.2
       svelte-i18n:
         specifier: ^4.0.0
         version: 4.0.0(svelte@4.2.18)
@@ -3056,11 +3062,14 @@ packages:
     resolution: {integrity: sha512-fnULvOpxnC5/Vg3NCiWelDsLiUc9bRwAPs/+LfTLNvetFCtCTN+yQz15C/fs4AwX1R9K5GLtLfn8QW+dWisaAw==}
     engines: {node: '>=0.11'}
 
+  dayjs@1.10.1:
+    resolution: {integrity: sha512-2xg7JrHQeLBQFkvTumLoy62x1siyeocc98QwjtURgvRqOPYmAkMUdmSjrOA+MlmL6QMQn5MUhDf6rNZNuPc1LQ==}
+
   dayjs@1.11.10:
     resolution: {integrity: sha512-vjAczensTgRcqDERK0SR2XMwsF/tSvnvlv6VcF2GIhg6Sx4yOIt/irsr1RDJsKiIyBzJDpCoXiWWq28MqH2cnQ==}
 
-  dayjs@1.11.11:
-    resolution: {integrity: sha512-okzr3f11N6WuqYtZSvm+F776mB41wRZMhKP+hc34YdW+KmtYYK9iqvHSwo2k9FEH3fhGXvOPV6yz2IcSrfRUDg==}
+  dayjs@1.11.13:
+    resolution: {integrity: sha512-oaMBel6gjolK862uaPQOVTA7q3TZhuSvuMQAAglQDOWYO9A91IrAOUJEyKVlqJlHE0vq5p5UXxzdPfMH/x6xNg==}
 
   debug@2.6.9:
     resolution: {integrity: sha512-bC7ElrdJaJnPbAP+1EotYvqZsb3ecl5wi6Bfi6BJTUcNowp6cvspg0jXznRTKDjm/E7AdgFBVeAPVMNcKGsHMA==}
@@ -5610,6 +5619,9 @@ packages:
     resolution: {integrity: sha512-B0woNwpsFGwhkEoP48BIDQgvW0bMxPhavLVD+E+tsTWevlpr1aiz1S2wA8ArIXX957BiaZWHRHKmI5/pFRDbdg==}
     peerDependencies:
       svelte: ^4.0.0
+
+  svelte-countdown@1.1.2:
+    resolution: {integrity: sha512-datUfbRtGCp+7OwIRcbW9tbIwlkN7KiJp9Mg01Na9HgSQrLG0knsD/xjaIVKPovxY8xF0yOrbPEz+bT/BS9EBQ==}
 
   svelte-eslint-parser@0.37.0:
     resolution: {integrity: sha512-AXd5ar7dcOK+H86JomxcSaWevhs2J7o/xOwg+kDQu98uuATpm+tE5Twp7u8UQCdbWKB34Idu/CZyHmTOxfSQMw==}
@@ -10154,9 +10166,11 @@ snapshots:
     dependencies:
       '@babel/runtime': 7.24.7
 
+  dayjs@1.10.1: {}
+
   dayjs@1.11.10: {}
 
-  dayjs@1.11.11: {}
+  dayjs@1.11.13: {}
 
   debug@2.6.9:
     dependencies:
@@ -11555,7 +11569,7 @@ snapshots:
   logkitty@0.7.1:
     dependencies:
       ansi-fragments: 0.2.1
-      dayjs: 1.11.11
+      dayjs: 1.11.13
       yargs: 15.4.1
 
   loglevel-colored-level-prefix@1.0.0:
@@ -12986,6 +13000,10 @@ snapshots:
   svelte-confetti@1.4.0(svelte@4.2.18):
     dependencies:
       svelte: 4.2.18
+
+  svelte-countdown@1.1.2:
+    dependencies:
+      dayjs: 1.10.1
 
   svelte-eslint-parser@0.37.0(svelte@4.2.18):
     dependencies:
