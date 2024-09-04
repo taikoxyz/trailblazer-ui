@@ -1,3 +1,4 @@
+// Temporary fix: won't need once the s2 subgraph lands
 import type { RequestHandler } from '@sveltejs/kit';
 
 export const GET: RequestHandler = async ({ url }) => {
