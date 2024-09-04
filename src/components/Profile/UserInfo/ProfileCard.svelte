@@ -12,6 +12,7 @@
   import { ProfileName } from '.';
 
   export let loading;
+  export let isSelfProfile: boolean;
 
   let profile: UserProfile;
   let multipliedView = true;
@@ -38,10 +39,10 @@
     <div class="avatar lg:size-[258px] size-[250px] items-center lg:mr-8">
       <div class="relative h-full bg-orange-400 rounded-3xl">
         <img src={profile?.avatar} alt="avatar" />
-
-        <button on:click={() => ($pfpModal = true)} class={editAvatarButtonClasses}>
-          <img alt="Edit avatar" src="/edit.svg" />
-        </button>
+        {#if isSelfProfile}
+          <button on:click={() => ($pfpModal = true)} class={editAvatarButtonClasses}>
+            <img alt="Edit avatar" src="/edit.svg" />
+          </button>{/if}
       </div>
     </div>
     <!-- <ProfileMultipliers /> -->

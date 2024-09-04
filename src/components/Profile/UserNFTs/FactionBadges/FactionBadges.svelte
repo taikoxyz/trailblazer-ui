@@ -26,11 +26,11 @@
   $: profile = $currentProfile;
   $: movement = 0;
 
-  $: isSelfProfile = false;
   $: hasEnoughGas = true;
 
   $: isLoading = false;
   $: isReady = false;
+  $: isSelfProfile = false;
 
   async function load() {
     if (isLoading || isReady) return;
