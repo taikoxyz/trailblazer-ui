@@ -1,12 +1,14 @@
 import { getAccount } from '@wagmi/core';
 import axios from 'axios';
 import { get } from 'svelte/store';
+import type { Address } from 'viem';
 
 // import type { Address } from 'viem';
 import { PUBLIC_TRAILBLAZER_API_URL } from '$env/static/public';
 import { globalAxiosConfig } from '$libs/api/axiosConfig';
 import { graphqlClient } from '$libs/graphql/client';
 import { USER_NFTS_QUERY } from '$libs/graphql/queries';
+import Pfp from '$libs/pfp';
 // import getMovement from '$libs/badges/getMovement';
 import { isDevelopmentEnv } from '$libs/util/isDevelopmentEnv';
 import { getLogger } from '$libs/util/logger';
@@ -200,9 +202,12 @@ export class Profile {
           snaefellMultiplier: Number(snaefellMultiplier || 0),
         };
 
+        // PFP/Avatar time
+        const avatar = await Pfp.get(address as Address);
+
         // Update profile
         currentProfile.update((current) => {
-          return { ...current, multipliers: userMultiplier, nfts: userNFTs };
+          return { ...current, avatar, multipliers: userMultiplier, nfts: userNFTs };
         });
       }
       boosterLoading.set(false);
@@ -240,6 +245,7 @@ export class Profile {
       currentProfile.update((current) => {
         return { ...current, ...level, rankPercentile: formattedRankPercentile, boostedPoints: boostedPoints };
       });
+
       log('Final Profile: ', get(currentProfile));
     }
   }

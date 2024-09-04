@@ -1,12 +1,22 @@
 <script lang="ts">
   import { t } from 'svelte-i18n';
+  import type { Address } from 'viem';
 
   import { ActionButton } from '$components/Button';
   import { Icon } from '$components/Icon';
+  import { errorToast, successToast } from '$components/NotificationToast';
   import Spinner from '$components/Spinner/Spinner.svelte';
+  import { type FactionNames, FACTIONS } from '$configs/badges';
+  import { getTokenId } from '$libs/badges/getTokenId';
+  import { getUserBadges } from '$libs/badges/getUserBadges';
+  import { chainId } from '$libs/chain';
+  import Pfp from '$libs/pfp';
   import { classNames } from '$libs/util/classNames';
+  import { account } from '$stores/account';
   import { pfpModal } from '$stores/modal';
   import { currentProfile } from '$stores/profile';
+
+  import { trailblazersBadgesAddress } from '../../../generated/abi';
 
   $: profile = $currentProfile;
 
@@ -164,7 +174,13 @@
     }
   }
 
-  $: possiblePFPs = [] as string[];
+  type IPfp = {
+    address: Address;
+    badgeId: number;
+    tokenId: number;
+    src: string;
+  };
+  $: possiblePFPs = [] as IPfp[];
 
   $: selectorVisible = false;
   async function togglePfpSelector() {
@@ -173,8 +189,8 @@
   }
 
   $: previewVisible = false;
-  $: selectedPfp = profile.avatar || '';
-  function selectPfp(pfp: string) {
+  $: selectedPfp = null as IPfp | null;
+  function selectPfp(pfp: IPfp) {
     selectedPfp = pfp;
     previewVisible = true;
   }
@@ -194,24 +210,76 @@
 
   async function refreshPFPSources() {
     possiblePFPs = [];
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    possiblePFPs = [
+
+    //
+    if (!$account || !$account.address) {
+      possiblePFPs = [];
+
+      return;
+    }
+    const s1Badges = [
       '/factions/ravers/neutral.png',
       '/factions/robots/neutral.png',
       '/factions/bouncers/neutral.png',
       '/factions/masters/neutral.png',
       '/factions/monks/neutral.png',
-      '/factions/drummers/neutral.png',
       '/factions/androids/neutral.png',
+      '/factions/drummers/neutral.png',
       '/factions/shinto/neutral.png',
     ];
+    const badgeBalances = await getUserBadges($account.address);
+
+    const ownedBadgeNames = Object.keys(badgeBalances).filter(
+      (factionName) => badgeBalances[factionName as FactionNames],
+    );
+
+    // call async getTokenId on every owned badge id
+    const ownedPfps: IPfp[] = await Promise.all(
+      ownedBadgeNames.map(async (badgeName) => {
+        const badgeId = FACTIONS[badgeName as FactionNames];
+        if (!$account || !$account.address) {
+          throw new Error('No account');
+        }
+        const tokenId = await getTokenId($account.address, badgeId);
+        return {
+          badgeId,
+          address: trailblazersBadgesAddress[chainId],
+
+          tokenId,
+          src: s1Badges[badgeId],
+        } satisfies IPfp;
+      }),
+    );
+
+    possiblePFPs = ownedPfps;
   }
 
+  $: isLoading = false;
   async function handleButtonClick() {
-    profile.avatar = selectedPfp;
-    currentProfile.set(profile);
-    closeModal();
-    // TODO: make it an on-chain action
+    try {
+      if (!selectedPfp) {
+        return;
+      }
+      isLoading = true;
+      await Pfp.set(selectedPfp.address, selectedPfp.tokenId);
+
+      profile.avatar = selectedPfp.src;
+      currentProfile.set(profile);
+      isLoading = false;
+      successToast({
+        title: $t('pfp.modal.success.title'),
+        message: $t('pfp.modal.success.message'),
+      });
+      closeModal();
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      console.warn(error);
+      errorToast({
+        title: $t('pfp.modal.error.title'),
+        message: error.message,
+      });
+      isLoading = false;
+    }
   }
 
   async function handleCancelClick() {
@@ -234,18 +302,24 @@
 
     <div class={modalBodyClasses}>
       {#if selectorVisible}
-        {#if previewVisible}
+        {#if previewVisible && selectedPfp}
           <!-- svelte-ignore a11y-img-redundant-alt -->
-          <img alt="Profile picture preview" class={pfpPreviewClasses} src={selectedPfp} />
+          <img alt="Profile picture preview" class={pfpPreviewClasses} src={selectedPfp.src} />
         {:else}
           <div class={selectorWrapperClasses}>
             <div class={selectorTitleRowClasses}>
               <div class={selectorTitleClasses}>
                 {$t('pfp.modal.yourNfts')}
               </div>
-              <div class={selectorCounterClasses}>
-                (35 {$t('pfp.modal.item_singular')})
-              </div>
+              {#if possiblePFPs.length > 0}
+                <div class={selectorCounterClasses}>
+                  {possiblePFPs.length}
+                  {#if possiblePFPs.length > 1}
+                    {$t('pfp.modal.item_plural')}
+                  {:else}
+                    {$t('pfp.modal.item_singular')}
+                  {/if}
+                </div>{/if}
               <button on:click={refreshPFPSources} class={refreshButtonClasses}>
                 <img src="/refresh.svg" class="w-[14px] h-[14px]" alt="refresh" />
               </button>
@@ -255,7 +329,7 @@
               {#if possiblePFPs.length}
                 {#each possiblePFPs as pfp}
                   <button on:click={() => selectPfp(pfp)} class={selectorGridItemClasses}>
-                    <img src={pfp} alt="pfp" />
+                    <img src={pfp.src} alt="pfp" />
                   </button>
                 {/each}
               {:else}
@@ -284,7 +358,7 @@
           </ActionButton>
         {/if}
 
-        <ActionButton on:click={handleButtonClick} priority="primary">
+        <ActionButton on:click={handleButtonClick} priority="primary" disabled={isLoading} loading={isLoading}>
           {$t('pfp.modal.buttons.save')}
         </ActionButton>
       </div>

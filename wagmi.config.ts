@@ -2,8 +2,11 @@ import { defineConfig } from '@wagmi/cli';
 import { actions } from '@wagmi/cli/plugins';
 import type { Abi, Address } from 'abitype';
 
-import * as HeklaDeployment from '../taiko-mono.git/packages/nfts/deployments/trailblazers-badges/hekla.json';
-import * as MainnetDeployment from '../taiko-mono.git/packages/nfts/deployments/trailblazers-badges/mainnet.json';
+import * as ProfilePictureHeklaDeployment from '../taiko-mono.git/packages/nfts/deployments/profile/hekla.json';
+import * as ProfilePictureMainnetDeployment from '../taiko-mono.git/packages/nfts/deployments/profile/mainnet.json';
+import * as S1BadgesHeklaDeployment from '../taiko-mono.git/packages/nfts/deployments/trailblazers-badges/hekla.json';
+import * as S1BadgesMainnetDeployment from '../taiko-mono.git/packages/nfts/deployments/trailblazers-badges/mainnet.json';
+import RegisterProfilePicture from '../taiko-mono.git/packages/nfts/out/RegisterProfilePicture.sol/RegisterProfilePicture.json';
 import TrailblazersBadges from '../taiko-mono.git/packages/nfts/out/TrailblazersBadges.sol/TrailblazersBadges.json';
 
 export default defineConfig({
@@ -12,8 +15,8 @@ export default defineConfig({
     {
       name: 'TrailblazersBadges',
       address: {
-        167009: HeklaDeployment.TrailblazersBadges as Address,
-        167000: MainnetDeployment.TrailblazersBadges as Address,
+        167009: S1BadgesHeklaDeployment.TrailblazersBadges as Address,
+        167000: S1BadgesMainnetDeployment.TrailblazersBadges as Address,
       },
       abi: TrailblazersBadges.abi as Abi,
     },
@@ -55,6 +58,14 @@ export default defineConfig({
           anonymous: false,
         },
       ] as Abi,
+    },
+    {
+      name: 'RegisterProfilePicture',
+      address: {
+        167009: ProfilePictureHeklaDeployment.RegisterProfilePicture as Address,
+        167000: ProfilePictureMainnetDeployment.RegisterProfilePicture as Address,
+      },
+      abi: RegisterProfilePicture.abi as Abi,
     },
   ],
   plugins: [actions()],

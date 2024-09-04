@@ -374,6 +374,13 @@
         "scan": "Scan for NFTs",
         "cancel": "Cancel",
         "apply": "Apply"
+      },
+      "success": {
+        "title": "Profile picture updated",
+        "message": "Your profile picture has been successfully updated."
+      },
+      "error": {
+        "title": "Error updating profile picture"
       }
     }
   }
