@@ -3,13 +3,13 @@
 
   import { page } from '$app/stores';
   import { FactionNames, maxBadgeId } from '$configs/badges';
+  import { getUserBadges } from '$libs/badges/badgesSubGraph';
   import gasCheckPreflight from '$libs/badges/gasCheckPreflight';
-  import { getUserBadges } from '$libs/badges/getUserBadges';
   import getConnectedAddress from '$libs/util/getConnectedAddress';
   import { account } from '$stores/account';
   import { currentProfile } from '$stores/profile';
 
-  import FactionBadgeItem from './FactionBadgeItem.svelte';
+  import FactionBadgeItem from './Season1FactionBadgeItem.svelte';
 
   let factions = Object.keys(FactionNames).splice(0, maxBadgeId).reverse() as FactionNames[];
   $: userFactions = {
