@@ -1,7 +1,7 @@
 <script lang="ts">
   import { t } from 'svelte-i18n';
-  import type { Address } from 'viem';
 
+  //  import type { Address } from 'viem';
   import { ActionButton } from '$components/Button';
   import { Icon } from '$components/Icon';
   import { errorToast, successToast } from '$components/NotificationToast';
@@ -11,6 +11,8 @@
   import { getUserBadges } from '$libs/badges/getUserBadges';
   import { chainId } from '$libs/chain';
   import Pfp from '$libs/pfp';
+  // import getUserNFTs from '$libs/pfp/getUserNFTs';
+  import type { IPfp } from '$libs/pfp/types';
   import { classNames } from '$libs/util/classNames';
   import { account } from '$stores/account';
   import { pfpModal } from '$stores/modal';
@@ -175,12 +177,6 @@
     }
   }
 
-  type IPfp = {
-    address: Address;
-    badgeId: number;
-    tokenId: number;
-    src: string;
-  };
   $: possiblePFPs = [] as IPfp[];
 
   $: selectorVisible = false;
@@ -235,6 +231,8 @@
         (factionName) => badgeBalances[factionName as FactionNames],
       );
 
+      //const possibles = await getUserNFTs($account.address);
+      //console.log({ possibles });
       // call async getTokenId on every owned badge id
       const ownedPfps: IPfp[] = await Promise.all(
         ownedBadgeNames.map(async (badgeName) => {
