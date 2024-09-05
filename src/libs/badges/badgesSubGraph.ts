@@ -1,15 +1,20 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+// boilerplate file for migration and subgraph methods
 import { ApolloClient, InMemoryCache } from '@apollo/client/core';
 import { gql } from '@apollo/client/core';
 import type { Address } from 'viem';
 
 import { FactionNames, FACTIONS } from '$configs/badges';
+import { isDevelopmentEnv } from '$libs/util/isDevelopmentEnv';
 import { badgeMigrationStore, type IBadgeMigration } from '$stores/badgeMigration';
 
 import { getTokenId } from './getTokenId';
 
+const subGraphEndpoint = isDevelopmentEnv
+  ? 'https://api.goldsky.com/api/public/project_clz85cxrvng3n01ughcv5e7hg/subgraphs/tbz-hekla/0.0.1/gn'
+  : '';
 export const badgesSubGraph = new ApolloClient({
-  uri: 'http://localhost:8000/subgraphs/name/localNode/',
+  uri: subGraphEndpoint,
   cache: new InMemoryCache(),
 });
 
