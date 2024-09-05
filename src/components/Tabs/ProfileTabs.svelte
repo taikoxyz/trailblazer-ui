@@ -1,23 +1,26 @@
 <script lang="ts">
   import { LeaderboardTransactions } from '$components/Leaderboards';
   import { NFTCollection } from '$components/Profile/UserNFTs';
+  import { default as BadgeMigration } from '$components/Profile/UserNFTs/FactionBadges/BadgeMigration.svelte';
   import { classNames } from '$libs/util/classNames';
-
   type TabContent = {
     name: string;
     content: typeof LeaderboardTransactions | typeof NFTCollection;
-    checked: boolean;
+    checked?: boolean;
   };
 
   export let tabs: TabContent[] = [
     {
       name: 'Transactions',
       content: LeaderboardTransactions,
-      checked: false,
     },
     {
       name: 'NFT Collection',
       content: NFTCollection,
+    },
+    {
+      name: 'Badge Migration',
+      content: BadgeMigration,
       checked: true,
     },
     // {

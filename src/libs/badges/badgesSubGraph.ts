@@ -6,6 +6,8 @@ import type { Address } from 'viem';
 import { FactionNames, FACTIONS } from '$configs/badges';
 import { badgeMigrationStore, type IBadgeMigration } from '$stores/badgeMigration';
 
+import { getTokenId } from './getTokenId';
+
 export const badgesSubGraph = new ApolloClient({
   uri: 'http://localhost:8000/subgraphs/name/localNode/',
   cache: new InMemoryCache(),
@@ -22,13 +24,13 @@ interface IUserBadges {
   [FactionNames.Shinto]: boolean;
 }
 
-export async function isApprovedToMigrate(address: Address, tokenId: number): Promise<boolean> {
+export async function isApprovedToMigrate(address: Address, badgeId: number): Promise<boolean> {
   try {
     const query = gql`
       query IsApproved($address: String) {
         account(id: $address) {
           approvedForAll
-          approvedS1Badges {
+          approvedS1Tokens {
             id
           }
         }
@@ -44,14 +46,14 @@ export async function isApprovedToMigrate(address: Address, tokenId: number): Pr
       return false;
     }
 
-    const { approvedForAll, approvedS1Badges } = result.data.account;
+    const { approvedForAll, approvedS1Tokens } = result.data.account;
 
     if (approvedForAll) {
       return true;
     }
-
-    for (const badge of approvedS1Badges) {
-      if (parseInt(badge.id) === tokenId) {
+    const tokenId = await getTokenId(address, badgeId);
+    for (const token of approvedS1Tokens) {
+      if (parseInt(token.id) === tokenId) {
         return true;
       }
     }

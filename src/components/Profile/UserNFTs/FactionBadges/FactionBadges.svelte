@@ -9,7 +9,7 @@
   import { account } from '$stores/account';
   import { currentProfile } from '$stores/profile';
 
-  import FactionBadgeItem from './FactionBadgeItem.svelte';
+  import FactionBadgeItem from './Season1FactionBadgeItem.svelte';
 
   let factions = Object.keys(FactionNames).splice(0, maxBadgeId).reverse() as FactionNames[];
   $: userFactions = {

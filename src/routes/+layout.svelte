@@ -9,7 +9,7 @@
   import { Footer } from '$components/Footer';
   import { Header } from '$components/Header';
   import { NotificationToast } from '$components/NotificationToast';
-  import BadgeMigrationModal from '$components/Profile/UserNFTs/FactionBadges/BadgeMigrationModal.svelte';
+  import MigrationApprovalModal from '$components/Profile/UserNFTs/FactionBadges/MigrationApprovalModal.svelte';
   import { Ribbon } from '$components/Ribbon';
   import { SwitchChainModal } from '$components/SwitchChainModal';
   import {
@@ -84,5 +84,5 @@
 <SwitchChainModal />
 
 <div class="relative z-50">
-  <BadgeMigrationModal />
+  <MigrationApprovalModal />
 </div>
