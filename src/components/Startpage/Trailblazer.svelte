@@ -44,7 +44,7 @@
   <TrailblazerMain />
   <div class={separator40pxClasses} />
   <TrailblazerGuide />
-  <Countdown countdown={new Date('2024-09-16')} />
+  <Countdown countdown={new Date(Date.UTC(2024, 8, 16, 23, 59, 59))} />
 
   <StargateBanner />
 
