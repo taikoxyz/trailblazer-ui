@@ -2,21 +2,13 @@
   import { classNames } from '$libs/util/classNames';
 </script>
 
-<div
-  class={classNames(
-    'w-[100vw]',
-    'relative',
-    /*
-'xl:top-[-200px]', 'lg:top-[-250px]', 'top-[-300px]'
-*/
-  )}>
+<div class={classNames('w-[100vw]', 'relative')}>
   <div
     style="background-image:url('/pink-divider.svg');"
     class={classNames(
       'overflow-hidden',
-      // 'absolute',
       'h-[500px]',
-      'bg-cover',
+      'bg-no-repeat	',
       'bg-center',
       'z-0',
       'flex',
