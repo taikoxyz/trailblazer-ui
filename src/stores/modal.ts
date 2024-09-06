@@ -13,3 +13,6 @@ export function isMintDisclaimerAccepted() {
 }
 
 export const pfpModal = writable<boolean>(false);
+export const badgeMigrationModal = writable<boolean>(false);
+
+export const migrationApprovalModal = writable<boolean>(false);

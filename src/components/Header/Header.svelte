@@ -13,7 +13,7 @@
   }
 </script>
 
-<div class="absolute w-full f-center lg:top-[56px] top-[40px] z-50">
+<div class="absolute w-full f-center lg:top-[56px] top-[40px] z-10">
   <div class="container f-center w-full px-[20px] lg:px-0">
     <div class="flex body-regular items-center justify-between box-border w-full rounded-full lg:bg-none">
       <div
@@ -25,7 +25,7 @@
         </a>
 
         <!-- Mobile Burger Button -->
-        <label class="btn xl:hidden btn-circle bg-neutral-background border-none swap swap-rotate z-30">
+        <label class="btn xl:hidden btn-circle bg-neutral-background border-none swap swap-rotate">
           <!-- this hidden checkbox controls the state -->
           <input type="checkbox" checked={mobileMenu} on:click={toggleMobileMenu} />
 

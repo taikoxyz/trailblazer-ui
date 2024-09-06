@@ -29,11 +29,6 @@
     "cta": {
       "howToEarn": "How to earn multipliers",
       "yourMultipliers": "Your multipliers"
-    },
-    "title": "Multipliers",
-    "tooltip": {
-      "description": "Boost your earnings! Participate in trails, hold badges, and join our 4x DeFi campaign.",
-      "title": "Earn more with multipliers"
     }
   },
   "bridge": {
@@ -66,7 +61,8 @@
     "locked": "Locked",
     "not_eligible": "Not eligible",
     "trail": "Trail",
-    "week": "Week"
+    "week": "Week",
+    "migrate": "Migration"
   },
   "factions": {
     "gallery": {
