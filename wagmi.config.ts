@@ -4,9 +4,12 @@ import type { Abi, Address } from 'abitype';
 
 import * as ProfilePictureHeklaDeployment from '../taiko-mono.git/packages/nfts/deployments/profile/hekla.json';
 import * as ProfilePictureMainnetDeployment from '../taiko-mono.git/packages/nfts/deployments/profile/mainnet.json';
+import * as TaikoonHeklaDeployment from '../taiko-mono.git/packages/nfts/deployments/taikoon/hekla.json';
+import * as TaikoonMainnetDeployment from '../taiko-mono.git/packages/nfts/deployments/taikoon/mainnet.json';
 import * as S1BadgesHeklaDeployment from '../taiko-mono.git/packages/nfts/deployments/trailblazers-badges/hekla.json';
 import * as S1BadgesMainnetDeployment from '../taiko-mono.git/packages/nfts/deployments/trailblazers-badges/mainnet.json';
 import RegisterProfilePicture from '../taiko-mono.git/packages/nfts/out/RegisterProfilePicture.sol/RegisterProfilePicture.json';
+import TaikoonToken from '../taiko-mono.git/packages/nfts/out/TaikoonToken.sol/TaikoonToken.json';
 import TrailblazersBadges from '../taiko-mono.git/packages/nfts/out/TrailblazersBadges.sol/TrailblazersBadges.json';
 
 export default defineConfig({
@@ -66,6 +69,14 @@ export default defineConfig({
         167000: ProfilePictureMainnetDeployment.RegisterProfilePicture as Address,
       },
       abi: RegisterProfilePicture.abi as Abi,
+    },
+    {
+      name: 'TaikoonToken',
+      address: {
+        167009: TaikoonHeklaDeployment.TaikoonToken as Address,
+        167000: TaikoonMainnetDeployment.TaikoonToken as Address,
+      },
+      abi: TaikoonToken.abi as Abi,
     },
   ],
   plugins: [actions()],

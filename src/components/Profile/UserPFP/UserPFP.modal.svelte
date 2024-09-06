@@ -1,24 +1,17 @@
 <script lang="ts">
   import { t } from 'svelte-i18n';
 
-  //  import type { Address } from 'viem';
   import { ActionButton } from '$components/Button';
   import { Icon } from '$components/Icon';
   import { errorToast, successToast } from '$components/NotificationToast';
   import Spinner from '$components/Spinner/Spinner.svelte';
-  import { type FactionNames, FACTIONS } from '$configs/badges';
-  import { getTokenId } from '$libs/badges/getTokenId';
-  import { getUserBadges } from '$libs/badges/getUserBadges';
-  import { chainId } from '$libs/chain';
   import Pfp from '$libs/pfp';
-  // import getUserNFTs from '$libs/pfp/getUserNFTs';
+  import getUserNFTs from '$libs/pfp/getUserNFTs';
   import type { IPfp } from '$libs/pfp/types';
   import { classNames } from '$libs/util/classNames';
   import { account } from '$stores/account';
   import { pfpModal } from '$stores/modal';
   import { currentProfile } from '$stores/profile';
-
-  import { trailblazersBadgesAddress } from '../../../generated/abi';
 
   $: profile = $currentProfile;
 
@@ -62,7 +55,6 @@
     'h-[24px]',
     'w-[24px]',
     'focus:outline-none',
-
     'flex',
     'items-center',
     'justify-center',
@@ -215,43 +207,7 @@
     }
     isLoading = true;
     try {
-      const s1Badges = [
-        '/factions/ravers/neutral.png',
-        '/factions/robots/neutral.png',
-        '/factions/bouncers/neutral.png',
-        '/factions/masters/neutral.png',
-        '/factions/monks/neutral.png',
-        '/factions/androids/neutral.png',
-        '/factions/drummers/neutral.png',
-        '/factions/shinto/neutral.png',
-      ];
-      const badgeBalances = await getUserBadges($account.address);
-
-      const ownedBadgeNames = Object.keys(badgeBalances).filter(
-        (factionName) => badgeBalances[factionName as FactionNames],
-      );
-
-      //const possibles = await getUserNFTs($account.address);
-      //console.log({ possibles });
-      // call async getTokenId on every owned badge id
-      const ownedPfps: IPfp[] = await Promise.all(
-        ownedBadgeNames.map(async (badgeName) => {
-          const badgeId = FACTIONS[badgeName as FactionNames];
-          if (!$account || !$account.address) {
-            throw new Error('No account');
-          }
-          const tokenId = await getTokenId($account.address, badgeId);
-          return {
-            badgeId,
-            address: trailblazersBadgesAddress[chainId],
-
-            tokenId,
-            src: s1Badges[badgeId],
-          } satisfies IPfp;
-        }),
-      );
-
-      possiblePFPs = ownedPfps;
+      possiblePFPs = await getUserNFTs($account.address);
       isLoading = false;
     } catch (error) {
       console.warn(error);
