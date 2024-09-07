@@ -9,7 +9,7 @@
   export let movement: Movements;
   export let blurred: boolean = false;
   export let disabled: boolean = false;
-
+  export let showWeek: boolean = true;
   // CSS classes
   $: wrapperClasses = classNames(
     'relative',
@@ -58,7 +58,8 @@
   </div>
   <slot />
 
-  <div class={weekBadgeClasses}>
-    Week {FACTIONS[name] + 1}
-  </div>
+  {#if showWeek}
+    <div class={weekBadgeClasses}>
+      Week {FACTIONS[name] + 1}
+    </div>{/if}
 </div>

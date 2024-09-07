@@ -3,12 +3,10 @@
   import { NFTCollection } from '$components/Profile/UserNFTs';
   import { default as BadgeMigration } from '$components/Profile/UserNFTs/FactionBadges/BadgeMigration.svelte';
   import { classNames } from '$libs/util/classNames';
-  type TabContent = {
-    name: string;
-    content: typeof LeaderboardTransactions | typeof NFTCollection;
-    checked?: boolean;
-  };
 
+  import type { TabContent } from './types';
+
+  export let noPadding: boolean = false;
   export let tabs: TabContent[] = [
     {
       name: 'Transactions',
@@ -42,7 +40,7 @@
 
   const tabPanelClasses = classNames(
     'tab-content',
-    'p-6',
+    noPadding ? null : 'p-6',
     'relative',
     'bg-elevated-background',
     'overflow-x-scroll',

@@ -11,14 +11,15 @@ import { badgeMigrationStore, type IBadgeMigration } from '$stores/badgeMigratio
 import { getTokenId } from './getTokenId';
 
 const subGraphEndpoint = isDevelopmentEnv
-  ? 'https://api.goldsky.com/api/public/project_clz85cxrvng3n01ughcv5e7hg/subgraphs/tbz-hekla/0.0.1/gn'
+  ? //? 'https://api.goldsky.com/api/public/project_clz85cxrvng3n01ughcv5e7hg/subgraphs/tbz-hekla/0.0.1/gn'
+    'http://localhost:8000/subgraphs/name/localNode'
   : '';
 export const badgesSubGraph = new ApolloClient({
   uri: subGraphEndpoint,
   cache: new InMemoryCache(),
 });
 
-interface IUserBadges {
+export interface IUserBadges {
   [FactionNames.Ravers]: boolean;
   [FactionNames.Robots]: boolean;
   [FactionNames.Bouncers]: boolean;
