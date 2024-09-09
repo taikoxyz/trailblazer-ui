@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { t } from 'svelte-i18n';
+
   import { Spinner } from '$components/Spinner';
   import TokenClaim from '$libs/token-claim';
   import { classNames } from '$libs/util/classNames';
@@ -67,39 +69,38 @@
 
   const panels = [
     {
-      title: 'Are you ready to claim your tokens?',
-      text: 'You are eligible to claim the token. Click to review your token amount and proceed with your claim.',
+      title: $t('claim.panels.review.title'),
+      text: $t('claim.panels.review.text'),
       type: 'claim' as IClaimPanelType,
       button: {
         priority: 'primary',
-        label: 'Review amount',
+        label: $t('claim.panels.review.button'),
       } satisfies IClaimButton,
     },
     {
-      title: 'Are you ready to claim your tokens?',
-      text: '',
+      title: $t('claim.panels.claim.title'),
       type: 'claim' as IClaimPanelType,
       button: {
         priority: 'primary',
-        label: 'Claim now',
+        label: $t('claim.panels.claim.button'),
       } satisfies IClaimButton,
     },
     {
-      title: 'Claim Successful',
-      text: "Congratulations! You've successfully claimed your tokens. You can now add them to your wallet.",
+      title: $t('claim.panels.success.title'),
+      text: $t('claim.panels.success.text'),
       type: 'success' as IClaimPanelType,
       button: {
         priority: 'primary',
-        label: 'Claimed',
+        label: $t('claim.panels.success.button'),
       } satisfies IClaimButton,
     },
     {
-      title: 'Claim Unsuccessful',
-      text: 'Your attempt to claim the tokens was not successful. Try claiming your tokens again when you are ready.',
+      title: $t('claim.panels.error.title'),
+      text: $t('claim.panels.error.text'),
       type: 'error' as IClaimPanelType,
       button: {
         priority: 'secondary',
-        label: 'Try again',
+        label: $t('claim.panels.error.button'),
       } satisfies IClaimButton,
     },
   ];
@@ -117,7 +118,7 @@
         (currentStep === 2 && isClaimSuccessful)}
       title={panels[currentStep].title}
       amount={currentStep > 0 ? { value: claimAmount, label: claimLabel } : null}
-      text={panels[currentStep].text}
+      text={panels[currentStep].text || ''}
       type={panels[currentStep].type}
       button={panels[currentStep].button}
       on:click={handlePanelButtonClick}>
@@ -129,7 +130,7 @@
         <div class={checkboxWrapperClasses}>
           <label class={checkboxLabelClasses}>
             <input type="checkbox" bind:checked={$tokenClaimTermsAccepted} class={checkboxClasses} />
-            <span>I agree to the terms and conditions mentioned above.</span>
+            <span>{$t('claim.terms_agree')}</span>
           </label>
         </div>
       {/if}
