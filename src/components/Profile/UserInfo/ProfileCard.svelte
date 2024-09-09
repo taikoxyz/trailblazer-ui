@@ -32,7 +32,7 @@
     'top-[10px]',
     'right-[10px]',
     'rounded-full',
-    'bg-[#2B303B]',
+    'bg-dialog-background',
     'p-[8px]',
     'bg-opacity-70',
   );
