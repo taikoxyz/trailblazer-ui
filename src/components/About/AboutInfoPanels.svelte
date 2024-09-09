@@ -32,7 +32,7 @@
     'text-center',
     'lg:text-left',
     'border',
-    'border-[#444A55]',
+    'border-divider-border',
     'bg-gradient-to-b',
     'to-[rgba(25,30,40,0.2)]',
     'from-[rgba(93,99,111,0.1)]',

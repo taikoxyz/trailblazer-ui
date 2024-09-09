@@ -48,12 +48,12 @@
     'gap-[20px]',
     'rounded-[27px]',
   );
-  const aboutTitleClasses = classNames('text-[14px]/[16.8px]', 'text-[#C8047D]', 'uppercase', 'font-[600]');
+  const aboutTitleClasses = classNames('text-[14px]/[16.8px]', 'text-primary', 'uppercase', 'font-[600]');
 
-  const aboutContentClasses = classNames('text-[#444A55]');
+  const aboutContentClasses = classNames('text-divider-border');
 
   const dappsWrapperClasses = classNames(
-    'text-[#ADB1B8]',
+    'text-secondary-content',
     'text-[12px]/[15px]',
     'font-[600]',
     'uppercase',
@@ -64,7 +64,12 @@
     'justify-start',
     'gap-[11px]',
   );
-  const dappsCountClasses = classNames('text-[26px]/[32px]', 'text-[#F3F3F3]', 'font-clash-grotesk', 'font-[500]');
+  const dappsCountClasses = classNames(
+    'text-[26px]/[32px]',
+    'text-primary-content',
+    'font-clash-grotesk',
+    'font-[500]',
+  );
 
   const absoluteWrapperClasses = classNames(
     'w-[100vw]',
@@ -86,7 +91,7 @@
   <div class={rowClasses}>
     <div class={classNames(colClasses, 'lg:items-start')}>
       <div class={titleClasses}>
-        Explore the <span class="text-[#E81899]">Trailblazers</span> Ecosystem
+        Explore the <span class="text-secondary">Trailblazers</span> Ecosystem
       </div>
       <div class={dappsWrapperClasses}>
         <img src="ecosystem/dapps.svg" class="h-full" alt="Dapps" />

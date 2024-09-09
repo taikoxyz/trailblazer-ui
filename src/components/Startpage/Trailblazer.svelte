@@ -23,7 +23,7 @@
     'gap-[150px]',
     'md:mb-[130px]',
   );
-  const separatorClasses = classNames('w-full', 'h-[1px]', 'bg-[#444A55]');
+  const separatorClasses = classNames('w-full', 'h-[1px]', 'bg-divider-border');
   const paddingWrapperClasses = classNames(
     'w-full',
     'px-[40px]',

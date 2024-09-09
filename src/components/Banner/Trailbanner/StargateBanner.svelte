@@ -27,7 +27,7 @@
     },
   };
 
-  const wrapperClasses = classNames('container', '!text-[#ffffff]', 'w-full', 'h-auto', 'relative');
+  const wrapperClasses = classNames('container', '!text-grey-0', 'w-full', 'h-auto', 'relative');
   const innerWrapperClasses = classNames(
     'w-full',
     'bg-secondary',
@@ -93,19 +93,19 @@
     'font-bold',
     'w-full',
     'md:max-w-[316px]',
-    'text-[#ffffff]',
+    'text-grey-0',
   );
 
   const descriptionColClasses = classNames('f-col', 'w-full', 'h-full', 'justify-center');
 
   const descriptionWrapperClasses = classNames('f-col', 'w-full', 'space-y-[32px]', 'items-center', 'md:items-start');
 
-  const descriptionClasses = classNames('text-[#ffffff]', 'md:max-w-[315px]');
+  const descriptionClasses = classNames('text-grey-0', 'md:max-w-[315px]');
 
   const actionButtonClasses = classNames(
     '!w-[140px]',
     'bg-white',
-    '!text-[#191E28]',
+    '!text-elevated-background',
     'border-transparent',
     'hover:bg-primary',
     'hover:border-white',
