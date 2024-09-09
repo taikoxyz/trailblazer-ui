@@ -16,9 +16,8 @@
   $: profile = $currentProfile;
 
   const modalContentWrapperClasses = classNames(
-    'bg-[#2B303B]',
     'rounded-[20px]',
-    'bg-[#2B303B]',
+    'bg-neutral-background',
     'md:w-[500px]',
     'lg:w-[700px]',
     'w-[90vw]',
@@ -48,7 +47,7 @@
     'border-l-0',
     'border-r-0',
     'border-b-0',
-    'border-[#444A55]',
+    'border-divider-border',
   );
 
   const closeButtonClasses = classNames(
@@ -67,7 +66,7 @@
     'border-r-0',
     'border-b-0',
     'w-full',
-    'border-[#444A55]',
+    'border-divider-border',
     'py-[20px]',
     'px-[24px]',
     'flex',
@@ -79,7 +78,7 @@
   const pfpWrapperClasses = classNames(
     'border',
     'border-[3px]',
-    'border-[#E81899]',
+    'border-primary-focus',
     'rounded-[20px]',
     'w-[250px]',
     'h-[250px]',
@@ -119,7 +118,7 @@
   const selectorTitleClasses = classNames('font-[700]');
   const selectorCounterClasses = classNames('pl-[5px]');
   const refreshButtonClasses = classNames(
-    'bg-[#444A55]',
+    'bg-divider-border',
     'w-[38px]',
     'h-[38px]',
     'aspect-square',
@@ -129,20 +128,22 @@
     'flex',
     'justify-center',
     'items-center',
-    'hover:bg-[#5D636F]',
+    'hover:bg-primary-icon',
     'transition-colors',
-    'active:bg-[#444A55]',
+    'active:bg-divider-border',
   );
 
   const selectorGridClasses = classNames(
     'rounded-[20px]',
     'w-full',
     'grid',
-    'grid-cols-3',
+    'grid-cols-2',
+    'md:grid-cols-3',
+    'lg:grid-cols-4',
     'gap-[20px]',
     'h-[350px]',
     'transition-all',
-    'bg-[#191E28]',
+    'bg-elevated-background',
     'p-[20px]',
     'overflow-y-scroll',
     'relative',
@@ -152,7 +153,7 @@
     'border',
     'border-[3px]',
     'border-transparent',
-    'hover:border-[#E81899]',
+    'hover:border-primary-focus',
     'transition-all',
     'w-[124px]',
     'h-[124px]',
