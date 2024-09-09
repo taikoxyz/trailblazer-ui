@@ -1,5 +1,6 @@
 <script lang="ts">
   import { LeaderboardTransactions } from '$components/Leaderboards';
+  import TokenClaim from '$components/Profile/TokenClaim/TokenClaim.svelte';
   import { NFTCollection } from '$components/Profile/UserNFTs';
   import { default as BadgeMigration } from '$components/Profile/UserNFTs/FactionBadges/BadgeMigration.svelte';
   import { classNames } from '$libs/util/classNames';
@@ -21,6 +22,10 @@
     {
       name: 'Badge Migration',
       content: BadgeMigration,
+    },
+    {
+      name: 'Claim',
+      content: TokenClaim,
       checked: true,
     },
     // {
