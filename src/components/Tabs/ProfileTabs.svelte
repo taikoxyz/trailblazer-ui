@@ -29,6 +29,11 @@
       name: 'Badge Migration',
       content: BadgeMigration,
     },
+    {
+      name: 'Claim',
+      content: TokenClaim,
+      checked: true,
+    },
     ...(isSelfProfile
       ? [
           {
