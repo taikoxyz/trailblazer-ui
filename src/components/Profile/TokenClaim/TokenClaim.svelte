@@ -1,6 +1,8 @@
 <script lang="ts">
   import { Spinner } from '$components/Spinner';
+  import TokenClaim from '$libs/token-claim';
   import { classNames } from '$libs/util/classNames';
+  import { account } from '$stores/account';
   import { tokenClaimTermsAccepted } from '$stores/tokenClaim';
 
   import ClaimPanel from './ClaimPanel.svelte';
@@ -18,14 +20,21 @@
   $: currentStep = 0;
   $: claimAmount = -1;
   $: claimLabel = '';
+  // $: claimProof = '';
   $: isClaimSuccessful = false;
 
   async function handlePanelButtonClick() {
+    if (!$account || !$account.address) return;
+    const address = $account.address;
     if (currentStep === 0) {
       // load claim amount
       isLoading = true;
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-      claimAmount = 12345;
+      const {
+        value,
+        // proof
+      } = await TokenClaim.preflight(address);
+      claimAmount = value;
+      // claimProof = proof;
       claimLabel = 'You will receive';
       isLoading = false;
     }
@@ -103,7 +112,9 @@
     <Spinner size="lg" />
   {:else}
     <ClaimPanel
-      disableButton={(currentStep === 1 && !$tokenClaimTermsAccepted) || (currentStep === 2 && isClaimSuccessful)}
+      disableButton={(currentStep === 1 && !$tokenClaimTermsAccepted) ||
+        claimAmount === 0 ||
+        (currentStep === 2 && isClaimSuccessful)}
       title={panels[currentStep].title}
       amount={currentStep > 0 ? { value: claimAmount, label: claimLabel } : null}
       text={panels[currentStep].text}
