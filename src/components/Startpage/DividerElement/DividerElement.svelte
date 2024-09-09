@@ -11,10 +11,11 @@
 */
   )}>
   <div
-    style="background-image:url('/pink-divider.svg');"
+    style="background-image:url('/pink-divider-mirror.svg');"
     class={classNames(
       'overflow-hidden',
-      // 'absolute',
+      'absolute',
+      'bottom-[-250px]',
       'h-[500px]',
       'bg-cover',
       'bg-center',

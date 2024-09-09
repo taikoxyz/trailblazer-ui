@@ -7,7 +7,7 @@
   import { StargatePartners } from '$components/Partner/StargatePartners';
   import { classNames } from '$libs/util/classNames';
 
-  import DividerElement from './DividerElement/DividerElement.svelte';
+  // import DividerElement from './DividerElement/DividerElement.svelte';
   import ExploreEcosystem from './ExploreEcosystem.svelte';
   import Factions from './Factions/Factions.svelte';
   import { TrailblazerGuide } from './Guide';
@@ -62,7 +62,7 @@
   <div class={separator120pxClasses} />
 
   <Factions />
-  <DividerElement />
+  <!-- <DividerElement /> -->
 
   <EcosystemSection />
 
