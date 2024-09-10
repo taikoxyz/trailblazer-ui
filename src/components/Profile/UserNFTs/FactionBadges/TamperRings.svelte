@@ -22,7 +22,7 @@
         //'top-[0px]',
         //'right-[0px]',
 
-        color === 'pink' ? 'text-[#E81899] right-[-50%]' : null,
+        color === 'pink' ? 'text-secondary right-[-50%]' : null,
         color === 'purple' ? 'text-[#5D08C8] left-[-50%]' : null,
       )}>
       {i}

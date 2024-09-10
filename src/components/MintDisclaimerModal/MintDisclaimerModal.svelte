@@ -6,7 +6,7 @@
   import { classNames } from '$libs/util/classNames';
   import { mintDisclaimerModal } from '$stores/modal';
 
-  const modalContentWrapperClasses = classNames('modal-box', 'p-0', 'bg-[#2B303B]', 'md:w-[40vw]');
+  const modalContentWrapperClasses = classNames('modal-box', 'p-0', 'bg-secondary-icon', 'md:w-[40vw]');
   const modalTitleClasses = classNames('pt-6', 'w-full', 'm-0', 'text-[35px]/[42px]');
   const bodyWrapperClasses = classNames('text-content-primary', 'py-4');
   const footerWrapperClasses = classNames('w-full', 'flex', 'flex-row', 'items-center', 'justify-center', 'gap-4');

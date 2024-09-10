@@ -107,6 +107,10 @@
     "handle": "@Comet_Protocol",
     "icon": "/dapps/comet.svg"
   },
+  "okx-nft-market": {
+    "handle": "@okxweb3",
+    "icon": "/dapps/okx.jpg"
+  },
   "co-nft": {
     "handle": "@ConftApp",
     "icon": "/dapps/conft.png"

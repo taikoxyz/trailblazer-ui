@@ -1,54 +1,48 @@
 <script lang="ts">
   import { onMount } from 'svelte';
 
-  let outerRibbon: HTMLElement;
-  let innerRibbon: HTMLElement;
-  let ribbonGroup: HTMLElement;
+  let repetitions: number = 5; // Start with an estimated initial value
+  let marqueeContent: HTMLDivElement;
 
-  let count = 0;
+  const updateRepetitions = () => {
+    if (marqueeContent) {
+      const contentWidth = marqueeContent.offsetWidth;
+      const viewportWidth = window.innerWidth;
+      repetitions = Math.ceil(viewportWidth / contentWidth) + 1;
+    }
+  };
 
   onMount(() => {
-    // Calculate the width of one innerRibbon including the gap
-    const innerRibbonWidth = innerRibbon.getBoundingClientRect().width + 15;
-    // Calculate how many ribbons fit in the outerRibbon
-    const outerRibbonWidth = outerRibbon.getBoundingClientRect().width;
-    count = Math.floor(outerRibbonWidth / innerRibbonWidth) + 1; // Adding extra for full coverage
+    // Estimate initial repetitions as soon as the component is mounted
+    updateRepetitions();
 
-    // Set CSS variable for use in keyframes
-    ribbonGroup.style.setProperty('--move-distance', `${innerRibbonWidth}px`);
-    ribbonGroup.style.setProperty('--initial-offset', `-${innerRibbonWidth}px`);
+    // Attach event listener to handle window resize
+    window.addEventListener('resize', updateRepetitions);
 
-    // Apply animation duration proportional to the width of one ribbon
-    ribbonGroup.style.animationDuration = `${innerRibbonWidth / 100}s`; // Adjust speed by changing divisor
+    return () => window.removeEventListener('resize', updateRepetitions);
   });
 </script>
 
-<div bind:this={outerRibbon} class="max-w-screen bg-pink-400 overflow-hidden h-6 f-center py-5">
-  <div bind:this={ribbonGroup} class="w-full flex gap-[50px] animate-move">
-    <!-- eslint-disable-next-line @typescript-eslint/no-unused-vars -->
-    {#each Array.from({ length: count + 2 }, (_, i) => i) as _}
-      <!-- Add whatever repeating content here -->
-      <div bind:this={innerRibbon} class="min-w-fit flex flex-nowrap break-keep overflow-visible">
-        <div class="body-bold mr-[10px] text-secondary-warm-yellow">EARN 4X MULTIPLIER</div>
-        <div class="body-bold">TRAIL 8 HAPPENING NOW</div>
-      </div>
-    {/each}
+<div class="bg-pink-400 h-6 py-5 f-center">
+  <div class="relative flex overflow-x-hidden w-full">
+    <div class="f-row animate-marquee whitespace-nowrap" bind:this={marqueeContent}>
+      <!-- eslint-disable-next-line @typescript-eslint/no-unused-vars -->
+      {#each Array(repetitions).fill(0) as _}
+        <span class="f-row mx-4 text-4xl">
+          <div class="body-bold mr-[10px] text-secondary-warm-yellow">EARN 4X MULTIPLIER</div>
+          <div class="body-bold">TRAIL 8 HAPPENING NOW</div>
+        </span>
+      {/each}
+    </div>
+
+    <div class="absolute f-row top-0 animate-marquee2 whitespace-nowrap">
+      <!-- eslint-disable-next-line @typescript-eslint/no-unused-vars -->
+      {#each Array(repetitions).fill(0) as _}
+        <span class="f-row mx-4 text-4xl">
+          <div class="body-bold mr-[10px] text-secondary-warm-yellow">EARN 4X MULTIPLIER</div>
+          <div class="body-bold">TRAIL 8 HAPPENING NOW</div>
+        </span>
+      {/each}
+    </div>
   </div>
 </div>
-
-<style>
-  @keyframes moveRight {
-    0% {
-      transform: translateX(var(--initial-offset));
-    }
-    100% {
-      transform: translateX(0);
-    }
-  }
-
-  .animate-move {
-    animation-name: moveRight;
-    animation-timing-function: linear;
-    animation-iteration-count: infinite;
-  }
-</style>

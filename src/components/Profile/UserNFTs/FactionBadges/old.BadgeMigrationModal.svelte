@@ -81,12 +81,12 @@
     'right-[40px]',
     'w-[50px]',
     'h-[50px]',
-    'bg-[#2b303b]',
+    'bg-secondary-icon',
     'rounded-full',
     'flex',
     'items-center',
     'justify-center',
-    'hover:bg-[#0b101b]',
+    'hover:bg-grey-900',
     'transition-all',
   );
 
@@ -190,16 +190,16 @@
     'font-clash-grotesk',
     'font-[500]',
 
-    'text-[#f3f3f3]',
+    'text-primary-content',
   );
 
-  const descriptionClasses = classNames('text-[#ADB1B8]', 'text-center', 'text-[16px]/[24px]');
+  const descriptionClasses = classNames('text-secondary-content', 'text-center', 'text-[16px]/[24px]');
 
   const instructionsClasses = classNames(
     'text-[24px]/[32px]',
     'font-clash-grotesk',
     'pb-[40px]',
-    'text-[#ADB1B8]',
+    'text-secondary-content',
     'text-center',
   );
 
@@ -247,8 +247,8 @@
   const pinkTamperButtonClasses = classNames(
     tamperButtonClasses,
     'shadow-[0_0px_30px_0px_#E81899]',
-    'border-[#E81899]',
-    'bg-[#E81899]',
+    'border-secondary',
+    'bg-secondary',
     'hover:shadow-[0_0px_50px_0px_#E81899]',
   );
 
