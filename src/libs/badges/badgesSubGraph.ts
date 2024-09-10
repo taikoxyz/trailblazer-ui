@@ -74,29 +74,6 @@ export async function isApprovedToMigrate(address: Address, badgeId: number): Pr
   }
 }
 
-const USER_BADGES_GQL = gql`
-  query UserBadges($address: String) {
-    account(id: $address) {
-      id
-      s1Badges {
-        id
-        badgeId
-      }
-    }
-    badgeMigration(id: $address) {
-      s1Badge {
-        id
-        badgeId
-      }
-      s2Badge {
-        id
-        badgeId
-      }
-      isStarted
-      isCompleted
-    }
-  }
-`;
 export async function getUserBadges(address: Address): Promise<IUserBadges> {
   const out = {
     [FactionNames.Ravers]: false,
@@ -110,12 +87,35 @@ export async function getUserBadges(address: Address): Promise<IUserBadges> {
   };
 
   try {
+    const gqlQuery = gql`
+      query UserBadges($address: String) {
+        account(id: $address) {
+          id
+          s1Badges {
+            id
+            badgeId
+          }
+        }
+        badgeMigration(id: $address) {
+          s1Badge {
+            id
+            badgeId
+          }
+          s2Badge {
+            id
+            badgeId
+          }
+          isStarted
+          isCompleted
+        }
+      }
+    `;
     const graphqlResponse = await badgesSubGraph.query({
-      query: USER_BADGES_GQL,
+      query: gqlQuery,
       variables: { address: address.toLocaleLowerCase() },
     });
 
-    if (!graphqlResponse.data.account) {
+    if (!graphqlResponse || !graphqlResponse.data || !graphqlResponse.data.account) {
       // account does not exist, skip
       return out;
     }
