@@ -65,8 +65,13 @@
     "migrate": "Migration"
   },
   "factions": {
+    "subtitle": "Unlock your potential",
     "gallery": {
       "description": "A groundbreaking cast of characters emerges to enrich our community and deepen the immersive experience. Meet eight distinct factions, each with its own unique character and flair."
+    },
+    "earn": {
+      "title": "Start earning factions through weekly trails",
+      "description": "To earn Taiko Faction Badges, participants must complete specific weekly challenges outlined in the Trailblazers: Call of Taiko campaign."
     }
   },
   "faq": [

@@ -30,7 +30,7 @@
       <!-- Title text: Unlock your potential -->
       <div class="lg:w-[562px] md:w-[402px] md:pt-10 flex flex-col justify-between">
         <div class="w-full xl:text-left mb-[40px] md:pt-10 md:w-[189px] pt-8 w-[100px]">
-          <span class="text-primary-base-content font-clash-grotesk text-[20px]">Unlock your potential</span>
+          <span class="text-primary-base-content font-clash-grotesk text-[20px]">{$t('factions.subtitle')}</span>
           <!-- Underline -->
           <div class="w-[60px] h-[3px] bg-primary-brand mt-[10px]"></div>
         </div>
@@ -43,8 +43,7 @@
         <!-- Sub text: Updated to match the new description styling -->
         <div class="w-full f-col mt-12">
           <div class="body-regular text-primary-base-content text-left">
-            A groundbreaking cast of characters emerges to enrich our community and deepen the immersive experience.
-            Meet eight distinct factions, each with its own unique character and flair.
+            {$t('factions.gallery.description')}
           </div>
         </div>
       </div>
@@ -65,18 +64,24 @@
   </div>
 
   <FactionsGallery bind:this={carouselRef} />
-  <div class="mt-[50px] f-center flex-col mb-[47px] xl:w-[504px] m-auto xl:ml-56 px-8">
-    <div class="max-w-[700px]">
-      <Title class="my-[40px] !max-w-full !w-full" center="left">
-        <span class="text-primary-base-content text-[40px] !leading-4 md:text-[57px]"
-          >Start earning factions through weekly trails</span>
-      </Title>
-      <div class="xl:text-left text-secondary-content max-w-[482px] mb-[40px]">
-        To earn Taiko Faction Badges, participants must complete specific weekly challenges outlined in the
-        Trailblazers: Call of Taiko campaign.
+  <div class="flex flex-col w-screen justify-center">
+    <div class="f-center flex-col lg:flex-row gap-[100px] px-8">
+      <!-- Title text: Unlock your potential -->
+      <div class="lg:w-[562px] md:w-[402px] pb-12 flex flex-col justify-between">
+        <Title class="my-[40px] !max-w-full !w-full" center="left">
+          <span class="text-primary-base-content text-[40px] !leading-4 md:text-[57px]"
+            >{$t('factions.earn.title')}</span>
+        </Title>
+        <div class="xl:text-left text-secondary-content max-w-[482px] mb-[40px]">
+          {$t('factions.earn.description')}
+        </div>
+        <ActionButton priority="primary" class="w-[240px] w-full" on:click={handleFactionsButton}>
+          {$t('buttons.factions.learn_about')}</ActionButton>
       </div>
-      <ActionButton priority="primary" class="w-[240px] w-full" on:click={handleFactionsButton}
-        >{$t('buttons.factions.learn_about')}</ActionButton>
+
+      <div
+        class="flex gap-4 md:w-[402px] md:justify-start md:mb-2 justify-center xl:justify-end h-full bottom-0 items-end">
+      </div>
     </div>
   </div>
   <div class="w-full">
