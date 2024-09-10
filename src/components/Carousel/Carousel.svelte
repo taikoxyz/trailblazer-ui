@@ -63,20 +63,8 @@
 </script>
 
 <div class={classNames('flex', 'flex-col', 'justify-center', 'items-center', 'w-full')}>
-  <div class="w-fullflex gap-4 justify-between items-between h-full bottom-0 mb-[40px]">
-    <div
-      class={classNames(
-        'absolute',
-        'left-0',
-        'flex-row',
-        'flex',
-        'justify-between',
-        'items-center',
-        'w-[85vw]',
-        'md:w-[80vw]',
-        'lg:w-[80vw]',
-        'xl:w-[90vw]',
-      )}>
+  <div class="w-full flex gap-4 justify-between items-between h-full bottom-0 mb-[40px]">
+    <div class={classNames('absolute', 'left-0', 'flex-row', 'flex', 'justify-between', 'items-center', 'w-full')}>
       {#if title}
         <div class="flex flex-col justify-start gap-[40px]">
           <div class="flex flex-col gap-[20px] items-start xl:items-start">

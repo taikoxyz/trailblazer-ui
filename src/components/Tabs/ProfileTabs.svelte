@@ -63,7 +63,7 @@
   const tabSelectorItemClasses = classNames(
     'tab',
     'hover:cursor-pointer',
-    'hover:bg-[#e81899]',
+    'hover:bg-secondary',
     'hover:bg-opacity-20',
     'whitespace-nowrap',
     '[--tab-bg:#e81899]',
