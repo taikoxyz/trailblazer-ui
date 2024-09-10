@@ -65,7 +65,7 @@
   </div>
 
   <FactionsGallery bind:this={carouselRef} />
-  <div class="mt-[50px] f-center flex-col mb-[47px] xl:w-[504px] m-auto xl:ml-72 px-8">
+  <div class="mt-[50px] f-center flex-col mb-[47px] xl:w-[504px] m-auto xl:ml-56 px-8">
     <div class="max-w-[700px]">
       <Title class="my-[40px] !max-w-full !w-full" center="left">
         <span class="text-primary-base-content text-[40px] !leading-4 md:text-[57px]"
