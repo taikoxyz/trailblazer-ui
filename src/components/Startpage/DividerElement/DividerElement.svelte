@@ -4,7 +4,6 @@
 
 <div
   class={classNames(
-    'w-[100vw]',
     'relative',
     /*
 'xl:top-[-200px]', 'lg:top-[-250px]', 'top-[-300px]'
