@@ -39,38 +39,38 @@
   }
 
   const nameClasses = classNames(
-    'text-[#F3F3F3]',
+    'text-primary-content',
     'text-[32px]/[39.36px]',
     'font-clash-grotesk',
     'font-[500]',
     'mt-[30px]',
   );
   const logoClasses = classNames('w-[100px]', 'h-[100px]', 'rounded-[20px]');
-  const descriptionClasses = classNames('text-[#ADB1B8]', 'text-[14px]/[20px]');
+  const descriptionClasses = classNames('text-secondary-content', 'text-[14px]/[20px]');
   const urlClasses = classNames(
     'border',
     'border-[2px]',
     'rounded-full',
     'font-[700]',
-    'text-[#f3f3f3]',
+    'text-primary-content',
     'text-[16px]/[24px]',
     'w-fit',
-    'border-[#C8047D]',
+    'border-primary',
     'px-[20px]',
     'py-[8px]',
-    'hover:bg-[#C8047D]',
+    'hover:bg-primary',
     'transition-colors',
 
     'absolute',
     'bottom-[35px]',
   );
   const categoryClasses = classNames(
-    'bg-[#FFC6E9]',
+    'bg-primary-link-hover',
     'absolute',
     'rounded-full',
     'px-[10px]',
     'py-[5px]',
-    'text-[#191E28]',
+    'text-elevated-background',
     'font-[700]',
     'text-[14px]/[20px]',
     'top-[35px]',

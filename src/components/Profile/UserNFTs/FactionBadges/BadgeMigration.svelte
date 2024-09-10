@@ -22,7 +22,7 @@
     'font-[700]',
     'border-b',
     'w-full',
-    'border-[#444A55]',
+    'border-divider-border',
     'pb-[10px]',
   );
 
