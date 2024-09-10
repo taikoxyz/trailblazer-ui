@@ -2,8 +2,14 @@ import { defineConfig } from '@wagmi/cli';
 import { actions } from '@wagmi/cli/plugins';
 import type { Abi, Address } from 'abitype';
 
-import * as HeklaDeployment from '../taiko-mono.git/packages/nfts/deployments/trailblazers-badges/hekla.json';
-import * as MainnetDeployment from '../taiko-mono.git/packages/nfts/deployments/trailblazers-badges/mainnet.json';
+import * as ProfilePictureHeklaDeployment from '../taiko-mono.git/packages/nfts/deployments/profile/hekla.json';
+import * as ProfilePictureMainnetDeployment from '../taiko-mono.git/packages/nfts/deployments/profile/mainnet.json';
+import * as TaikoonHeklaDeployment from '../taiko-mono.git/packages/nfts/deployments/taikoon/hekla.json';
+import * as TaikoonMainnetDeployment from '../taiko-mono.git/packages/nfts/deployments/taikoon/mainnet.json';
+import * as TrailblazerBadgesHeklaDeployment from '../taiko-mono.git/packages/nfts/deployments/trailblazers-badges/hekla.json';
+import * as TrailblazerBadgesMainnetDeployment from '../taiko-mono.git/packages/nfts/deployments/trailblazers-badges/mainnet.json';
+import RegisterProfilePicture from '../taiko-mono.git/packages/nfts/out/RegisterProfilePicture.sol/RegisterProfilePicture.json';
+import TaikoonToken from '../taiko-mono.git/packages/nfts/out/TaikoonToken.sol/TaikoonToken.json';
 import TrailblazersBadges from '../taiko-mono.git/packages/nfts/out/TrailblazersBadges.sol/TrailblazersBadges.json';
 import TrailblazersBadgesS2 from '../taiko-mono.git/packages/nfts/out/TrailblazersBadgesS2.sol/TrailblazersBadgesS2.json';
 
@@ -13,15 +19,15 @@ export default defineConfig({
     {
       name: 'TrailblazersBadges',
       address: {
-        167009: HeklaDeployment.TrailblazersBadges as Address,
-        167000: MainnetDeployment.TrailblazersBadges as Address,
+        167009: TrailblazerBadgesHeklaDeployment.TrailblazersBadges as Address,
+        167000: TrailblazerBadgesMainnetDeployment.TrailblazersBadges as Address,
       },
       abi: TrailblazersBadges.abi as Abi,
     },
     {
       name: 'TrailblazersBadgesS2',
       address: {
-        167009: HeklaDeployment.TrailblazersBadgesS2 as Address,
+        167009: TrailblazerBadgesHeklaDeployment.TrailblazersBadgesS2 as Address,
         167000: '0x0000000000000000000000000000000000000000', //MainnetDeployment.TrailblazersBadgesS2 as Address,
       },
       abi: TrailblazersBadgesS2.abi as Abi,
@@ -64,6 +70,22 @@ export default defineConfig({
           anonymous: false,
         },
       ] as Abi,
+    },
+    {
+      name: 'RegisterProfilePicture',
+      address: {
+        167009: ProfilePictureHeklaDeployment.RegisterProfilePicture as Address,
+        167000: ProfilePictureMainnetDeployment.RegisterProfilePicture as Address,
+      },
+      abi: RegisterProfilePicture.abi as Abi,
+    },
+    {
+      name: 'TaikoonToken',
+      address: {
+        167009: TaikoonHeklaDeployment.TaikoonToken as Address,
+        167000: TaikoonMainnetDeployment.TaikoonToken as Address,
+      },
+      abi: TaikoonToken.abi as Abi,
     },
   ],
   plugins: [actions()],
