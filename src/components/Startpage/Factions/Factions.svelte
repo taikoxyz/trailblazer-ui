@@ -42,7 +42,7 @@
 
         <!-- Sub text: Updated to match the new description styling -->
         <div class="w-full f-col mt-12">
-          <div class="body-regular text-primary-base-content text-left">
+          <div class="body-regular text-primary-base-content text-left text-[16px]">
             {$t('factions.gallery.description')}
           </div>
         </div>
@@ -50,7 +50,7 @@
 
       <!-- Carousel buttons -->
       <div
-        class="flex gap-4 md:w-[402px] md:justify-start md:mb-2 justify-center xl:justify-end h-full bottom-0 items-end">
+        class="flex gap-4 md:w-[402px] md:justify-start md:mb-2 justify-center xl:justify-end h-full bottom-0 items-end self-start">
         <button class="f-center btn-circle border border-primary-brand" on:click={scrollLeft}>
           <Icon class="-translate-x-[2px]" type="chevron-left" />
         </button>
@@ -68,14 +68,14 @@
     <div class="f-center flex-col lg:flex-row gap-[100px] px-8">
       <!-- Title text: Unlock your potential -->
       <div class="lg:w-[562px] md:w-[402px] pb-12 flex flex-col justify-between">
-        <Title class="my-[40px] !max-w-full !w-full" center="left">
-          <span class="text-primary-base-content text-[40px] !leading-4 md:text-[57px]"
+        <Title class="my-[40px] !max-w-full !w-full !mb-[16px]" center="left">
+          <span class="text-primary-base-content !text-[45px] !leading-4 md:!text-[57px]"
             >{$t('factions.earn.title')}</span>
         </Title>
-        <div class="xl:text-left text-secondary-content max-w-[482px] mb-[40px]">
+        <div class="xl:text-left text-secondary-content max-w-[482px] mb-[40px] text-[16px]">
           {$t('factions.earn.description')}
         </div>
-        <ActionButton priority="primary" class="w-[240px] w-full" on:click={handleFactionsButton}>
+        <ActionButton priority="primary" class="!w-[210px] w-full" on:click={handleFactionsButton}>
           {$t('buttons.factions.learn_about')}</ActionButton>
       </div>
 
