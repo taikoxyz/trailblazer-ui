@@ -50,7 +50,7 @@
 
       <!-- Carousel buttons -->
       <div
-        class="flex gap-4 md:w-[402px] md:justify-start md:mb-2 justify-center xl:justify-end h-full bottom-0 items-end self-start">
+        class="md:m-auto lg:m-0 flex gap-4 md:w-[402px] md:justify-start lg:justify-center md:mb-2 justify-center xl:justify-end h-full bottom-0 items-end self-start">
         <button class="f-center btn-circle border border-primary-brand" on:click={scrollLeft}>
           <Icon class="-translate-x-[2px]" type="chevron-left" />
         </button>
