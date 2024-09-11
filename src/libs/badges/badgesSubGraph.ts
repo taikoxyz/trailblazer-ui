@@ -4,10 +4,10 @@ import { ApolloClient, InMemoryCache } from '@apollo/client/core';
 import { gql } from '@apollo/client/core';
 import type { Address } from 'viem';
 
-import { FactionNames, FACTIONS } from '$configs/badges';
 import { isDevelopmentEnv } from '$libs/util/isDevelopmentEnv';
 import { badgeMigrationStore, type IBadgeMigration } from '$stores/badgeMigration';
 
+import { FactionNames, FACTIONS } from '../../configs/badges';
 import { getTokenId } from './getTokenId';
 
 const subGraphEndpoint = isDevelopmentEnv
