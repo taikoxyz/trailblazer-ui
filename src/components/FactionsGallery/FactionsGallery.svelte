@@ -66,11 +66,11 @@
   ];
 
   export function scrollLeft() {
-    carouselElement.scrollBy({ left: -1200, behavior: 'smooth' }); // Adjust -300 to the size of your carousel items or desired scroll amount
+    carouselElement.scrollBy({ left: -600, behavior: 'smooth' }); // Adjust -300 to the size of your carousel items or desired scroll amount
   }
 
   export function scrollRight() {
-    carouselElement.scrollBy({ left: 1200, behavior: 'smooth' }); // Adjust 300 similarly
+    carouselElement.scrollBy({ left: 600, behavior: 'smooth' }); // Adjust 300 similarly
   }
 </script>
 
