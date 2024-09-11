@@ -33,6 +33,6 @@ export async function get(address: Address): Promise<string> {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (e: any) {
     console.warn(e);
-    return '';
+    return '/avatar.png';
   }
 }
