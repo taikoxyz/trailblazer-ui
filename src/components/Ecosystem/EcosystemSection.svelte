@@ -82,7 +82,6 @@
 
   const headerShadowClasses = classNames('absolute', 'top-[0%]', 'left-0', 'h-full', 'w-1/2', 'bg-cover', 'bg-right');
 
-  // Additional constants for other classes
   const titleWrapperClasses = classNames('lg:text-left', 'text-center', 'f-col', 'items-center', 'lg:items-start');
 
   const titleTextClasses = classNames('text-xl', 'font-clash-grotesk', 'text-[#191E28]');
@@ -106,7 +105,6 @@
   const contentBackgroundClasses = classNames('absolute', 'top-0', 'h-full', 'bg-white', 'w-[100vw]', 'rounded-[30px]');
 
   const partnersWrapperClasses = classNames(
-    // 'mb-[50px]',
     'w-[100vw]',
     'px-[48px]',
     'relative',
