@@ -75,36 +75,6 @@
     'items-center',
   );
 
-  const pfpWrapperClasses = classNames(
-    'border',
-    'border-[3px]',
-    'border-primary-focus',
-    'rounded-[20px]',
-    'w-[250px]',
-    'h-[250px]',
-    'overflow-hidden',
-    'relative',
-  );
-
-  const editOverlayClasses = classNames(
-    'absolute',
-    'top-0',
-    'left-0',
-    'w-full',
-    'h-full',
-    'bg-black',
-    'opacity-0',
-    'bg-opacity-0',
-    'hover:opacity-100',
-    'hover:bg-opacity-30',
-    'transition-opacity',
-    'flex',
-    'justify-center',
-    'items-center',
-  );
-
-  const editIconClasses = classNames('w-[36px]', 'h-[36px]');
-
   const selectorWrapperClasses = classNames('w-full', 'flex', 'flex-col', 'gap-[20px]');
 
   const selectorTitleRowClasses = classNames(
@@ -164,19 +134,14 @@
 
   $: $pfpModal, load();
 
-  function load() {
+  async function load() {
     if ($pfpModal && modal) {
       modal.showModal();
+      await refreshPFPSources();
     }
   }
 
   $: possiblePFPs = [] as IPfp[];
-
-  $: selectorVisible = false;
-  async function togglePfpSelector() {
-    selectorVisible = !selectorVisible;
-    await refreshPFPSources();
-  }
 
   $: previewVisible = false;
   $: selectedPfp = null as IPfp | null;
@@ -190,7 +155,6 @@
 
     modal?.close();
 
-    selectorVisible = false;
     previewVisible = false;
   }
 
@@ -265,54 +229,45 @@
     </div>
 
     <div class={modalBodyClasses}>
-      {#if selectorVisible}
-        {#if previewVisible && selectedPfp}
-          <!-- svelte-ignore a11y-img-redundant-alt -->
-          <img alt="Profile picture preview" class={pfpPreviewClasses} src={selectedPfp.src} />
-        {:else}
-          <div class={selectorWrapperClasses}>
-            <div class={selectorTitleRowClasses}>
-              <div class={selectorTitleClasses}>
-                {$t('pfp.modal.yourNfts')}
-              </div>
-              {#if possiblePFPs.length > 0}
-                <div class={selectorCounterClasses}>
-                  ({possiblePFPs.length}
-                  {#if possiblePFPs.length > 1}
-                    {$t('pfp.modal.item_plural')}
-                  {:else}
-                    {$t('pfp.modal.item_singular')}
-                  {/if}
-                </div>
-              {/if}
-              <button on:click={refreshPFPSources} class={refreshButtonClasses}>
-                <img src="/refresh.svg" class="w-[14px] h-[14px]" alt="refresh" />
-              </button>
-            </div>
-
-            <div class={selectorGridClasses}>
-              {#if possiblePFPs.length}
-                {#each possiblePFPs as pfp}
-                  <button on:click={() => selectPfp(pfp)} class={selectorGridItemClasses}>
-                    <img src={pfp.src} alt="pfp" />
-                  </button>
-                {/each}
-              {:else if isLoading}
-                <div class={spinnerWrapperClasses}>
-                  <Spinner size="lg" />
-                </div>
-              {:else}
-                <div class={noNftsClasses}>You don't have any eligible NFTs</div>
-              {/if}
-            </div>
-          </div>
-        {/if}
+      {#if previewVisible && selectedPfp}
+        <!-- svelte-ignore a11y-img-redundant-alt -->
+        <img alt="Profile picture preview" class={pfpPreviewClasses} src={selectedPfp.src} />
       {:else}
-        <div class={pfpWrapperClasses}>
-          <img alt="Avatar" src={profile.avatar || ''} />
-          <button on:click={togglePfpSelector} class={editOverlayClasses}>
-            <img class={editIconClasses} src="/edit.svg" alt="edit" />
-          </button>
+        <div class={selectorWrapperClasses}>
+          <div class={selectorTitleRowClasses}>
+            <div class={selectorTitleClasses}>
+              {$t('pfp.modal.yourNfts')}
+            </div>
+            {#if possiblePFPs.length > 0}
+              <div class={selectorCounterClasses}>
+                ({possiblePFPs.length}
+                {#if possiblePFPs.length > 1}
+                  {$t('pfp.modal.item_plural')}
+                {:else}
+                  {$t('pfp.modal.item_singular')}
+                {/if}
+              </div>
+            {/if}
+            <button on:click={refreshPFPSources} class={refreshButtonClasses}>
+              <img src="/refresh.svg" class="w-[14px] h-[14px]" alt="refresh" />
+            </button>
+          </div>
+
+          <div class={selectorGridClasses}>
+            {#if possiblePFPs.length}
+              {#each possiblePFPs as pfp}
+                <button on:click={() => selectPfp(pfp)} class={selectorGridItemClasses}>
+                  <img src={pfp.src} alt="pfp" />
+                </button>
+              {/each}
+            {:else if isLoading}
+              <div class={spinnerWrapperClasses}>
+                <Spinner size="lg" />
+              </div>
+            {:else}
+              <div class={noNftsClasses}>You don't have any eligible NFTs</div>
+            {/if}
+          </div>
         </div>
       {/if}
     </div>
