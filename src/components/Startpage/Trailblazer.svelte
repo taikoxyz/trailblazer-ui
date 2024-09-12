@@ -62,8 +62,9 @@
 
   <Factions />
 
+  <RankUp />
+
   <EcosystemSection />
 
-  <RankUp />
   <ExploreEcosystem />
 </div>
