@@ -110,7 +110,7 @@ export class Profile {
     return { level: String(level), title };
   }
 
-  static async getProfile(address?: string) {
+  static async getProfile(address?: Address) {
     profileLoading.set(true);
     // Mock Data
     // setInterval(() => {

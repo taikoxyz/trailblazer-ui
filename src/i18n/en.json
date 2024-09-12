@@ -15,12 +15,13 @@
     "notEnoughGas": "Not enough gas to claim the badge. Please fund your wallet and try again.",
     "pendingTx": "Your transaction is pending. Please wait for confirmation."
   },
+  "blackist_modal": {
+    "title": "Blacklisted"
+  },
+  "blacklist_modal": {
+    "description": "Your previous interactions were deemed to have<br><span class=\"font-bold text-primary-link \">severely violated our rules</span>.<br><br>Therefore your address will no longer be able to participate in Trailblazers. This decision is permanent and you may not appeal to this decision."
+  },
   "booster": {
-    "title": "Multipliers",
-    "tooltip": {
-      "title": "Earn more with multipliers",
-      "description": "Boost your earnings! Collect faction badges and Taikoons to receive point multipliers"
-    },
     "breakdown": {
       "factionBadges": "Faction Badges",
       "snaefellNft": "Snaefell NFT",
@@ -29,6 +30,11 @@
     "cta": {
       "howToEarn": "How to earn multipliers",
       "yourMultipliers": "Your multipliers"
+    },
+    "title": "Multipliers",
+    "tooltip": {
+      "description": "Boost your earnings! Collect faction badges and Taikoons to receive point multipliers",
+      "title": "Earn more with multipliers"
     }
   },
   "bridge": {
@@ -59,10 +65,10 @@
     "explorer": "Explorer",
     "learn_more": "Learn more",
     "locked": "Locked",
+    "migrate": "Migration",
     "not_eligible": "Not eligible",
     "trail": "Trail",
-    "week": "Week",
-    "migrate": "Migration"
+    "week": "Week"
   },
   "factions": {
     "gallery": {
@@ -306,6 +312,28 @@
       "title": "Our NFT partners"
     }
   },
+  "pfp": {
+    "modal": {
+      "buttons": {
+        "apply": "Apply",
+        "cancel": "Cancel",
+        "go_back": "Go back",
+        "save": "Save",
+        "scan": "Scan for NFTs"
+      },
+      "error": {
+        "title": "Error updating profile picture"
+      },
+      "item_plural": "items)",
+      "item_singular": "item)",
+      "success": {
+        "message": "Your profile picture has been successfully updated.",
+        "title": "Profile picture updated"
+      },
+      "title": "Edit profile picture",
+      "yourNfts": "Your NFTs"
+    }
+  },
   "switch_modal": {
     "description": "Your current network is not supported. Please connect to the Taiko Mainnet to continue.",
     "title": "Incorrect network detected"
@@ -357,28 +385,6 @@
       "connected": "Connected",
       "connecting": "Connecting",
       "disconnected": "Disconnected"
-    }
-  },
-  "pfp": {
-    "modal": {
-      "title": "Edit profile picture",
-      "yourNfts": "Your NFTs",
-      "item_singular": "item)",
-      "item_plural": "items)",
-      "buttons": {
-        "save": "Save",
-        "scan": "Scan for NFTs",
-        "cancel": "Cancel",
-        "go_back": "Go back",
-        "apply": "Apply"
-      },
-      "success": {
-        "title": "Profile picture updated",
-        "message": "Your profile picture has been successfully updated."
-      },
-      "error": {
-        "title": "Error updating profile picture"
-      }
     }
   }
 }

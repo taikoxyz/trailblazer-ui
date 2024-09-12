@@ -6,6 +6,7 @@
 
   import { browser } from '$app/environment';
   import { AccountConnectionToast } from '$components/AccountConnectionToast';
+  import BlacklistModal from '$components/BlacklistModal/BlacklistModal.svelte';
   import { Footer } from '$components/Footer';
   import { Header } from '$components/Header';
   import { NotificationToast } from '$components/NotificationToast';
@@ -82,6 +83,7 @@
 <NotificationToast />
 <AccountConnectionToast />
 <SwitchChainModal />
+<BlacklistModal />
 
 <div class="relative z-50">
   <MigrationApprovalModal />
