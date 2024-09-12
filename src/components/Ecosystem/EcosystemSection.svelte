@@ -17,7 +17,15 @@
     'gap-[18px]',
   );
 
-  const buttonRowClasses = classNames('w-[210px]', 'max-w-full', 'flex', 'justify-center', 'items-center', 'pt-[40px]');
+  const buttonRowClasses = classNames(
+    'w-[210px]',
+    'relative',
+    'max-w-full',
+    'flex',
+    'justify-center',
+    'items-center',
+    'pt-[50px]',
+  );
 
   const mainPartnerNames = [
     'Zypher z2048',
@@ -46,18 +54,20 @@
     'flex',
     'flex-col',
     'justify-end',
-    'items-start',
+    'items-center',
   );
 
-  const headerWrapperClasses = classNames(
-    'bg-[blue]',
-    'ml-[278px]',
+  const headerGridClasses = classNames(
     'relative',
     'pb-[60px]',
-    'w-[30vw]',
-    'flex-col',
-    'flex',
+    'w-full',
+    'px-[48px]',
+    'grid',
+    'md:grid-cols-6',
+    'grid-cols-4',
   );
+
+  const headerWrapperClasses = classNames('lg:col-span-3', 'lg:col-start-2', 'md:col-start-2', 'col-span-4');
 
   const headerTitleClasses = classNames(
     'text-content-primary',
@@ -68,20 +78,20 @@
 
   const headerTextClasses = classNames('text-[16px]/[24px]', 'text-content-primary', 'pt-[16px]');
 
-  const headerButtonWrapperClasses = classNames('pt-[30px]', 'w-1/2');
+  const headerButtonWrapperClasses = classNames('pt-[30px]', 'w-full', 'max-w-[225px]');
 
-  const headerShadowClasses = classNames('absolute', 'top-[0%]', 'left-0', 'h-full', 'w-1/2', 'bg-cover');
+  const headerShadowClasses = classNames('absolute', 'top-[0%]', 'left-0', 'h-full', 'w-1/2', 'bg-cover', 'bg-right');
 
   // Additional constants for other classes
   const titleWrapperClasses = classNames('lg:text-left', 'text-center', 'f-col', 'items-center', 'lg:items-start');
 
-  const titleTextClasses = classNames('text-xl', 'font-clash-grotesk');
+  const titleTextClasses = classNames('text-xl', 'font-clash-grotesk', 'text-[#191E28]');
 
   const borderBottomClasses = classNames('border-bottom', 'border-2', 'border-primary', 'w-[66px]', 'mt-[20px]');
 
   const maxWidthClasses = classNames('my-[40px]', '!max-w-full', '!w-full');
 
-  const partnersTitleClasses = classNames('text-base-content');
+  const partnersTitleClasses = classNames('text-[#191E28]');
 
   const contentWrapperClasses = classNames(
     'relative',
@@ -89,49 +99,41 @@
     'flex-col',
     'justify-center',
     'items-center',
-    'border',
-    'border-primary',
     'pt-[36px]',
+    'pb-[100px]',
   );
 
-  const contentBackgroundClasses = classNames(
-    'absolute',
-    //'left-0',
-    'top-0',
-
-    'bg-opacity-50',
-    'h-full',
-    'bg-white',
-    'w-[100vw]',
-    'rounded-[30px]',
-  );
+  const contentBackgroundClasses = classNames('absolute', 'top-0', 'h-full', 'bg-white', 'w-[100vw]', 'rounded-[30px]');
 
   const partnersWrapperClasses = classNames(
-    'mb-[60px]',
-    'w-[30vw]',
-
-    'flex',
-    'flex-col',
-    'text-[purple]',
+    // 'mb-[50px]',
+    'w-[100vw]',
+    'px-[48px]',
     'relative',
-    'ml-[278px]',
-    'border',
+    'pt-[64px]',
+    'grid',
+    'md:grid-cols-6',
+    'grid-cols-4',
   );
+
+  const partnersClasses = classNames('lg:col-span-3', 'lg:col-start-2', 'md:col-start-2', 'col-span-4');
 </script>
 
 <div class={wrapperClasses}>
   <div class={headerClasses} style="background-image:url('/ecosystem/header.png')">
     <div class={headerShadowClasses} style="background-image:url('/ecosystem/header-shadow.png')"></div>
-    <div class={headerWrapperClasses}>
-      <div class={headerTitleClasses}>
-        Our<br />Ecosystem
-      </div>
-      <div class={headerTextClasses}>
-        Explore more, earn more: Dive into leading dapps and maximize your points in an accessible, open and inclusive
-        ecosystem.
-      </div>
-      <div class={headerButtonWrapperClasses}>
-        <ActionButton priority="primary" href="/ecosystem">Explore the ecosystem</ActionButton>
+    <div class={headerGridClasses}>
+      <div class={headerWrapperClasses}>
+        <div class={headerTitleClasses}>
+          Our<br />Ecosystem
+        </div>
+        <div class={headerTextClasses}>
+          Explore more, earn more: Dive into leading dapps and maximize your points in an accessible, open and inclusive
+          ecosystem.
+        </div>
+        <div class={headerButtonWrapperClasses}>
+          <ActionButton priority="primary" href="/ecosystem">Explore the ecosystem</ActionButton>
+        </div>
       </div>
     </div>
   </div>
@@ -140,15 +142,17 @@
     <div class={contentBackgroundClasses}></div>
 
     <div class={partnersWrapperClasses}>
-      <div class="w-full">
-        <div class={titleWrapperClasses}>
-          <span class={titleTextClasses}>Trailblazer's ecosystem</span>
-          <span class={borderBottomClasses}></span>
+      <div class={partnersClasses}>
+        <div class="w-full">
+          <div class={titleWrapperClasses}>
+            <span class={titleTextClasses}>Trailblazer's ecosystem</span>
+            <span class={borderBottomClasses}></span>
+          </div>
         </div>
+        <Title class={maxWidthClasses}>
+          <span class={partnersTitleClasses}>Our Partners</span>
+        </Title>
       </div>
-      <Title class={maxWidthClasses}>
-        <span class={partnersTitleClasses}>Our Partners bla</span>
-      </Title>
     </div>
 
     <div class={gridClasses}>
