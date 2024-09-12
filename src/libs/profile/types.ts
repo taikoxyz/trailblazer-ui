@@ -1,3 +1,5 @@
+import type { Address } from 'viem';
+
 import type { Movements } from '$libs/badges/const';
 import type { DomainNames } from '$libs/domain/types';
 
@@ -30,17 +32,24 @@ export type UserProfileGQL = GraphQLResponse & {
   };
 };
 
-export type UserProfile = GalxePoints &
+export type RankApiResponse = {
+  rank: number;
+  address: Address;
+  score: number;
+  multiplier: number;
+  totalScore: number;
+  total: number;
+  blacklisted?: boolean;
+};
+
+export type UserProfile = RankApiResponse &
+  GalxePoints &
   DomainNames & {
-    address: string;
     pointsHistory?: UserPointHistoryPage;
-    score: number;
     boostedPoints: string;
     pointsToNextLevel: number;
-    rank: string;
     title: string;
     level: string;
-    total: string;
     leaderboardPosition: string;
     faction: UserFaction;
     avatar?: string;

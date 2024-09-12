@@ -1,10 +1,11 @@
 import { getAccount, watchAccount } from '@wagmi/core';
 
+import { isBlacklisted } from '$libs/blacklist/isBlacklisted';
 import { isSupportedChain } from '$libs/chain';
 import { Galxe } from '$libs/galxe';
 import { getLogger } from '$libs/util/logger';
 import { account } from '$stores/account';
-import { switchChainModal } from '$stores/modal';
+import { blacklistModal, switchChainModal } from '$stores/modal';
 
 import { wagmiConfig } from '.';
 
@@ -23,7 +24,6 @@ export async function startWatching() {
       async onChange(data) {
         log('Account changed', data);
         account.set(data);
-
         const { chainId, address } = data;
         if (chainId && address) {
           if (!isSupportedChain(Number(chainId))) {
@@ -32,6 +32,13 @@ export async function startWatching() {
           } else {
             await Galxe.refreshData();
             switchChainModal.set(false);
+          }
+          if (await isBlacklisted(address)) {
+            console.warn('Account is blacklisted');
+            blacklistModal.set(true);
+            return;
+          } else {
+            blacklistModal.set(false);
           }
         }
       },

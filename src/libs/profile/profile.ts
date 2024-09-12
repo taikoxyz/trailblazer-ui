@@ -1,6 +1,7 @@
 import { getAccount } from '@wagmi/core';
 import axios from 'axios';
 import { get } from 'svelte/store';
+import type { Address } from 'viem';
 
 // import type { Address } from 'viem';
 import { PUBLIC_TRAILBLAZER_API_URL } from '$env/static/public';
@@ -108,7 +109,7 @@ export class Profile {
     return { level: String(level), title };
   }
 
-  static async getProfile(address?: string) {
+  static async getProfile(address?: Address) {
     profileLoading.set(true);
     // Mock Data
     // setInterval(() => {
