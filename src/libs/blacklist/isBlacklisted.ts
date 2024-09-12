@@ -6,7 +6,6 @@ import { globalAxiosConfig } from '$libs/api/axiosConfig';
 import type { RankApiResponse } from '$libs/profile';
 import { isDevelopmentEnv } from '$libs/util/isDevelopmentEnv';
 import { getLogger } from '$libs/util/logger';
-import { address } from '$stores/account';
 
 const baseApiUrl = isDevelopmentEnv ? '/api/mock-api' : PUBLIC_TRAILBLAZER_API_URL;
 
@@ -17,7 +16,7 @@ export const isBlacklisted = async (user: Address) => {
 
   try {
     const { data } = await axios.get<RankApiResponse>(`${baseApiUrl}/user/rank`, {
-      params: { address },
+      params: { address: user },
       ...globalAxiosConfig,
     });
     if (data.blacklisted) {
