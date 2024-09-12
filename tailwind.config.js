@@ -1,5 +1,5 @@
 import daisyuiPlugin from 'daisyui';
-
+import { ThemePlugin } from 'taiko-ui-v1/theme';
 /** @type {import('tailwindcss').Config} */
 export default {
   darkMode: ['class', '[data-theme="dark"]'],
@@ -42,6 +42,7 @@ export default {
         marquee2: 'marquee2 25s linear infinite',
       },
       colors: {
+        ...ThemePlugin.colors,
         /***************
          * Base colors *
          ***************/
