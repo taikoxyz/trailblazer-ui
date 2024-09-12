@@ -20,7 +20,7 @@
     'bg-neutral-background',
     'md:w-[500px]',
     'lg:w-[700px]',
-    'w-[90vw]',
+    'w-[calc(100vw-96px)]',
   );
 
   const modalHeaderClasses = classNames(
