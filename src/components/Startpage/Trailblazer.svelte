@@ -63,9 +63,9 @@
 
   <Factions />
   <DividerElement />
+  <RankUp />
 
   <EcosystemSection />
 
-  <RankUp />
   <ExploreEcosystem />
 </div>
