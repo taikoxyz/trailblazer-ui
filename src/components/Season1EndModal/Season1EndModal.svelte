@@ -6,10 +6,6 @@
   import { classNames } from '$libs/util/classNames';
   import { acceptSeason1EndModal, season1EndModal } from '$stores/modal';
 
-  const handleButton = () => {
-    window.open('https://taiko.xyz', '_blank'); // TODO: Add the correct URL
-  };
-
   const modalClasses = classNames('modal', 'modal-bottom', 'md:modal-middle');
 
   const modalContentClasses = classNames(
@@ -37,7 +33,6 @@
     'right-[10px]',
     'top-[10px]',
   );
-  //$season1EndModal = false
 
   $: modal = undefined as HTMLDialogElement | undefined;
   onMount(() => {
@@ -53,6 +48,8 @@
     acceptSeason1EndModal();
     modal.close();
   }
+
+  const blogPostUrl = 'pending';
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
@@ -65,7 +62,7 @@
     </h3>
     <img src="/banner/taiko-coin.svg" alt="Blacklisted" class="mx-auto mb-[20px] w-[200px]" />
     <p class={modalTextClasses}>{$t('season1_end.content')}</p>
-    <ActionButton priority="primary" on:click={handleButton}>{$t('common.learn_more')}</ActionButton>
+    <ActionButton priority="primary" href={blogPostUrl}>{$t('common.learn_more')}</ActionButton>
   </div>
 
   <form method="dialog" class="modal-backdrop">
