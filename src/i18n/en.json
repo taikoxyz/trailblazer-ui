@@ -204,6 +204,10 @@
         "description": "Compete for a month-long jackpot by providing the best gaming experience for your users! Rewards will be based on performance throughout the competition, ending Sept 16th.",
         "title": "Join the Gaming competition starting Aug 12th!"
       },
+      "ended": {
+        "description": "Our journey concluded on September 16th, 2024. Congratulations to the winners!",
+        "title": "Campaign ended"
+      },
       "prize": {
         "1": "Prize Pool",
         "2": "175K TAIKO Tokens"
