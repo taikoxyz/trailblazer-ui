@@ -3,7 +3,8 @@ name: Sync Folder to GCS Bucket
 on:
   push:
     branches:
-      - main # Run the action when there is a push to the main branch
+      - main
+      - cdn-pipeline
   workflow_dispatch: # Allow the action to be triggered manually
 
 jobs:
