@@ -33,10 +33,11 @@
     'rounded-b-none',
   );
 
-  const sectionClasses = classNames('flex', 'flex-col', 'w-screen', 'lg:h-[413px]', 'justify-center', 'lg:mb-12');
+  const sectionClasses = classNames('flex', 'flex-col', 'w-screen', 'lg:h-[413px]', 'justify-center');
+  const earnSectionClasses = classNames(sectionClasses, 'lg:mb-28');
   const contentClasses = classNames('f-center', 'flex-col', 'lg:flex-row', 'gap-24', 'px-8');
   const titleContainerClasses = classNames(
-    'lg:w-[562px]',
+    'xl:w-[562px]',
     'md:w-[402px]',
     'md:pt-10',
     'flex',
@@ -47,9 +48,10 @@
   const buttonContainerClasses = classNames(
     'md:m-auto',
     'lg:m-0',
+    'lg:w-[116px]',
+    'md:w-[402px]',
     'flex',
     'gap-4',
-    'md:w-[402px]',
     'md:justify-start',
     'lg:justify-center',
     'md:mb-2',
@@ -71,8 +73,15 @@
   const titleClasses = classNames('text-primary', '!text-6xl');
   const descriptionWrapperClasses = classNames('w-full', 'f-col', 'mt-12');
   const descriptionClasses = classNames('body-regular', 'text-primary-base-content', 'text-left', 'text-base');
-
-  const earnTitleClasses = classNames('my-8', '!max-w-full', '!w-full', '!mb-4');
+  const earnTitleContainerClasses = classNames(
+    'lg:w-[504px]',
+    'md:w-[440px]',
+    'md:pt-10',
+    'flex',
+    'flex-col',
+    'justify-between',
+  );
+  const earnTitleClasses = classNames('my-8', '!w-full', '!mb-4', 'lg:w-[504px]');
   const earnTitleSpanClasses = classNames('text-primary-base-content', '!text-5xl', '!leading-4', 'md:!text-6xl');
   const earnDescriptionClasses = classNames(
     'xl:text-left',
@@ -117,9 +126,9 @@
 
   <FactionsGallery bind:this={carouselRef} />
 
-  <div class={sectionClasses}>
+  <div class={earnSectionClasses}>
     <div class={contentClasses}>
-      <div class={titleContainerClasses}>
+      <div class={earnTitleContainerClasses}>
         <Title class={earnTitleClasses} center="left">
           <span class={earnTitleSpanClasses}>
             {$t('factions.earn.title')}
