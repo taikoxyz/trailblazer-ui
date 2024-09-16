@@ -25,9 +25,10 @@
     'rounded-b-none',
   );
 
-  const sectionClasses = classNames('grid', 'grid-cols-12', 'gap-6', 'w-screen', 'lg:h-[413px]', 'justify-center');
-  const earnSectionClasses = classNames(sectionClasses, 'lg:mb-28');
-  const contentClasses = classNames('col-span-12', 'f-center', 'flex-col', 'lg:flex-row', 'gap-24', 'px-8');
+  const sectionClasses = classNames('w-[100vw]', 'px-[48px]', 'relative', 'grid', 'md:grid-cols-6', 'grid-cols-4');
+  const earnSectionClasses = classNames(sectionClasses, 'mb-20');
+  const contentClasses = classNames('lg:col-span-4', 'lg:col-start-2', 'md:col-start-2', 'col-span-4');
+
   const titleContainerClasses = classNames(
     'xl:w-[562px]',
     'md:w-[402px]',
@@ -36,12 +37,11 @@
     'flex-col',
     'justify-between',
   );
+
   const subtitleClasses = classNames('w-full', 'xl:text-left', 'mb-8', 'md:pt-10', 'md:w-[189px]', 'pt-8', 'w-[100px]');
   const buttonContainerClasses = classNames(
     'md:m-auto',
     'lg:m-0',
-    'lg:w-[116px]',
-    'md:w-[402px]',
     'flex',
     'gap-4',
     'md:justify-start',
@@ -134,7 +134,6 @@
           {$t('buttons.factions.learn_about')}
         </ActionButton>
       </div>
-      <div class={buttonContainerClasses}></div>
     </div>
   </div>
 
