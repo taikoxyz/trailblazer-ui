@@ -14,7 +14,14 @@ export function isMintDisclaimerAccepted() {
   return browser && localStorage.getItem('acceptedLegal') === 'true';
 }
 
+export const Season1EndDateUTC = new Date(Date.UTC(2023, 8, 16, 23, 59, 59));
+
 export function isSeason1EndModalAccepted() {
+  // ignore while s1 still runs
+  if (new Date() < Season1EndDateUTC) {
+    return true;
+  }
+
   return browser && localStorage.getItem('acceptedS1End') === 'true';
 }
 

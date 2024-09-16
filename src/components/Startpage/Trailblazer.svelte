@@ -6,6 +6,7 @@
   import { GamingPartners } from '$components/Partner/GamingPartners';
   import { StargatePartners } from '$components/Partner/StargatePartners';
   import { classNames } from '$libs/util/classNames';
+  import { Season1EndDateUTC } from '$stores/modal';
 
   import DividerElement from './DividerElement/DividerElement.svelte';
   import ExploreEcosystem from './ExploreEcosystem.svelte';
@@ -24,13 +25,7 @@
     'md:mb-[130px]',
   );
   const separatorClasses = classNames('w-full', 'h-[1px]', 'bg-[#444A55]');
-  const paddingWrapperClasses = classNames(
-    'w-full',
-    'px-[40px]',
-    'lg:px-[57px]',
-
-    'md:px-[47px]',
-  );
+  const paddingWrapperClasses = classNames('w-full', 'px-[40px]', 'lg:px-[57px]', 'md:px-[47px]');
 
   const separatorBaseClasses = classNames('w-full', 'mt-[-150px]', 'mb-[-150px]');
   const separator40pxClasses = classNames(separatorBaseClasses, 'h-[40px]');
@@ -44,7 +39,7 @@
   <TrailblazerMain />
   <div class={separator40pxClasses} />
   <TrailblazerGuide />
-  <Countdown countdown={new Date(Date.UTC(2024, 8, 16, 23, 59, 59))} />
+  <Countdown countdown={Season1EndDateUTC} />
 
   <StargateBanner />
 

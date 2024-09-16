@@ -74,6 +74,8 @@
     'font-clash-grotesk',
     'text-[#f3f3f3]',
     'font-[500]',
+    'w-full',
+    'text-center',
   );
 
   const contentTextClasses = classNames(
@@ -84,6 +86,8 @@
     'max-w-[505px]',
     'md:text-left',
   );
+
+  const buttonClasses = classNames('w-[350px]', 'max-w-[90vw]');
 </script>
 
 <div class={wrapperClasses}>
@@ -129,7 +133,7 @@
       {$t('season1_end.content')}
     </div>
 
-    <ActionButton class="w-[350px]" priority="primary" href="google.com">
+    <ActionButton class={buttonClasses} priority="primary" href="google.com">
       {$t('common.learn_more')}</ActionButton>
   {/if}
 </div>
