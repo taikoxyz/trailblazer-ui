@@ -74,6 +74,7 @@
   const descriptionWrapperClasses = classNames('w-full', 'f-col', 'mt-12');
   const descriptionClasses = classNames('body-regular', 'text-primary-base-content', 'text-left', 'text-base');
   const earnTitleContainerClasses = classNames(
+    'xl:w-[562px]',
     'lg:w-[504px]',
     'md:w-[440px]',
     'md:pt-10',
