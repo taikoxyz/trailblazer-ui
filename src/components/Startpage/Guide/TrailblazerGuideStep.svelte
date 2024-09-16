@@ -16,13 +16,14 @@
     // 'py-6',
     // 'lg:py-[38px]',
     // 'md:py-[38px]',
-    'lg:px-[35px]',
+    'lg:pl-[20px]',
     'md:pl-[20px]',
     'gap-[20px]',
 
     'w-[359px]',
     'md:w-[293px]',
     'lg:w-[400px]',
+    'lg:h-[158px]',
 
     'justify-center',
     'items-center',
