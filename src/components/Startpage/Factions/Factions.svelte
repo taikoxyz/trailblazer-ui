@@ -34,7 +34,7 @@
   );
 
   const sectionClasses = classNames('flex', 'flex-col', 'w-screen', 'lg:h-[413px]', 'justify-center', 'lg:mb-12');
-  const contentClasses = classNames('f-center', 'flex-col', 'lg:flex-row', 'gap-[100px]', 'px-8');
+  const contentClasses = classNames('f-center', 'flex-col', 'lg:flex-row', 'gap-24', 'px-8');
   const titleContainerClasses = classNames(
     'lg:w-[562px]',
     'md:w-[402px]',
@@ -43,15 +43,7 @@
     'flex-col',
     'justify-between',
   );
-  const subtitleClasses = classNames(
-    'w-full',
-    'xl:text-left',
-    'mb-[40px]',
-    'md:pt-10',
-    'md:w-[189px]',
-    'pt-8',
-    'w-[100px]',
-  );
+  const subtitleClasses = classNames('w-full', 'xl:text-left', 'mb-8', 'md:pt-10', 'md:w-[189px]', 'pt-8', 'w-[100px]');
   const buttonContainerClasses = classNames(
     'md:m-auto',
     'lg:m-0',
@@ -74,20 +66,20 @@
     'bg-secondary-brand',
     'hover:bg-primary-interactive-hover',
   );
-  const subtitleHeaderClasses = classNames('text-primary-base-content', 'font-clash-grotesk', 'text-[20px]');
-  const subtitleLineClasses = classNames('w-[60px]', 'h-[3px]', 'bg-primary-brand', 'mt-[10px]');
-  const titleClasses = classNames('text-primary', '!text-[57px]');
+  const subtitleHeaderClasses = classNames('text-primary-base-content', 'font-clash-grotesk', 'text-xl');
+  const subtitleLineClasses = classNames('w-[60px]', 'h-[3px]', 'bg-primary-brand', 'mt-4');
+  const titleClasses = classNames('text-primary', '!text-6xl');
   const descriptionWrapperClasses = classNames('w-full', 'f-col', 'mt-12');
-  const descriptionClasses = classNames('body-regular', 'text-primary-base-content', 'text-left', 'text-[16px]');
+  const descriptionClasses = classNames('body-regular', 'text-primary-base-content', 'text-left', 'text-base');
 
-  const earnTitleClasses = classNames('my-[40px]', '!max-w-full', '!w-full', '!mb-[16px]');
-  const earnTitleSpanClasses = classNames('text-primary-base-content', '!text-[45px]', '!leading-4', 'md:!text-[57px]');
+  const earnTitleClasses = classNames('my-8', '!max-w-full', '!w-full', '!mb-4');
+  const earnTitleSpanClasses = classNames('text-primary-base-content', '!text-5xl', '!leading-4', 'md:!text-6xl');
   const earnDescriptionClasses = classNames(
     'xl:text-left',
     'text-secondary-content',
     'max-w-[482px]',
-    'mb-[40px]',
-    'text-[16px]',
+    'mb-8',
+    'text-base',
   );
   const actionButtonClasses = classNames('!w-[210px]', 'w-full');
 </script>
