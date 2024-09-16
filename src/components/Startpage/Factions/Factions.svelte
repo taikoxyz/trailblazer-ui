@@ -33,7 +33,7 @@
     'rounded-b-none',
   );
 
-  const sectionClasses = classNames('flex', 'flex-col', 'w-screen', 'lg:h-[413px]', 'justify-center');
+  const sectionClasses = classNames('flex', 'flex-col', 'w-screen', 'lg:h-[413px]', 'justify-center', 'lg:mb-12');
 
   const contentClasses = classNames('f-center', 'flex-col', 'lg:flex-row', 'gap-[100px]', 'px-8');
 
@@ -134,7 +134,5 @@
     </div>
   </div>
 
-  <div class="w-full">
-    <DividerElement />
-  </div>
+  <DividerElement />
 </div>
