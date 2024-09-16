@@ -11,6 +11,7 @@
   import { Header } from '$components/Header';
   import { NotificationToast } from '$components/NotificationToast';
   import { Ribbon } from '$components/Ribbon';
+  import { Season1EndModal } from '$components/Season1EndModal';
   import { SwitchChainModal } from '$components/SwitchChainModal';
   import {
     desktopQuery,
@@ -81,5 +82,5 @@
 <NotificationToast />
 <AccountConnectionToast />
 <SwitchChainModal />
-
+<Season1EndModal />
 <BlacklistModal />
