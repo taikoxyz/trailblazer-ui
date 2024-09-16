@@ -73,11 +73,11 @@
     'self-start',
   );
 
-  const scrollButtonClasses = classNames('f-center', 'btn-circle', 'border', 'border-primary-brand');
+  const scrollButtonClasses = classNames('f-center', 'btn-circle', 'border', 'border-secondary');
 
   const scrollRightButtonClasses = classNames(
     scrollButtonClasses,
-    'bg-primary-brand',
+    'bg-secondary-brand',
     'hover:bg-primary-interactive-hover',
   );
 </script>
@@ -104,10 +104,10 @@
 
       <div class={buttonContainerClasses}>
         <button class={scrollButtonClasses} on:click={scrollLeft}>
-          <Icon class="-translate-x-[2px]" type="chevron-left" />
+          <Icon class="-translate-x-[2px]" fillClass="fill-secondary-brand" type="chevron-left" />
         </button>
         <button class={scrollRightButtonClasses} on:click={scrollRight}>
-          <Icon class="translate-x-[2px]" type="chevron-right" />
+          <Icon class="translate-x-[2px]" fillClass="fill-white" type="chevron-right" />
         </button>
       </div>
     </div>
