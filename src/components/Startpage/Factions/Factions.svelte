@@ -34,9 +34,7 @@
   );
 
   const sectionClasses = classNames('flex', 'flex-col', 'w-screen', 'lg:h-[413px]', 'justify-center', 'lg:mb-12');
-
   const contentClasses = classNames('f-center', 'flex-col', 'lg:flex-row', 'gap-[100px]', 'px-8');
-
   const titleContainerClasses = classNames(
     'lg:w-[562px]',
     'md:w-[402px]',
@@ -45,7 +43,6 @@
     'flex-col',
     'justify-between',
   );
-
   const subtitleClasses = classNames(
     'w-full',
     'xl:text-left',
@@ -55,7 +52,6 @@
     'pt-8',
     'w-[100px]',
   );
-
   const buttonContainerClasses = classNames(
     'md:m-auto',
     'lg:m-0',
@@ -72,14 +68,28 @@
     'items-end',
     'self-start',
   );
-
   const scrollButtonClasses = classNames('f-center', 'btn-circle', 'border', 'border-secondary');
-
   const scrollRightButtonClasses = classNames(
     scrollButtonClasses,
     'bg-secondary-brand',
     'hover:bg-primary-interactive-hover',
   );
+  const subtitleHeaderClasses = classNames('text-primary-base-content', 'font-clash-grotesk', 'text-[20px]');
+  const subtitleLineClasses = classNames('w-[60px]', 'h-[3px]', 'bg-primary-brand', 'mt-[10px]');
+  const titleClasses = classNames('text-primary', '!text-[57px]');
+  const descriptionWrapperClasses = classNames('w-full', 'f-col', 'mt-12');
+  const descriptionClasses = classNames('body-regular', 'text-primary-base-content', 'text-left', 'text-[16px]');
+
+  const earnTitleClasses = classNames('my-[40px]', '!max-w-full', '!w-full', '!mb-[16px]');
+  const earnTitleSpanClasses = classNames('text-primary-base-content', '!text-[45px]', '!leading-4', 'md:!text-[57px]');
+  const earnDescriptionClasses = classNames(
+    'xl:text-left',
+    'text-secondary-content',
+    'max-w-[482px]',
+    'mb-[40px]',
+    'text-[16px]',
+  );
+  const actionButtonClasses = classNames('!w-[210px]', 'w-full');
 </script>
 
 <div class={containerClasses}>
@@ -87,16 +97,16 @@
     <div class={contentClasses}>
       <div class={titleContainerClasses}>
         <div class={subtitleClasses}>
-          <span class="text-primary-base-content font-clash-grotesk text-[20px]">{$t('factions.subtitle')}</span>
-          <div class="w-[60px] h-[3px] bg-primary-brand mt-[10px]"></div>
+          <span class={subtitleHeaderClasses}>{$t('factions.subtitle')}</span>
+          <div class={subtitleLineClasses}></div>
         </div>
 
-        <Title class="text-primary !text-[57px]" center="left" width="full">
+        <Title class={titleClasses} center="left" width="full">
           Taiko <span class="text-primary-base-content">Factions</span>
         </Title>
 
-        <div class="w-full f-col mt-12">
-          <div class="body-regular text-primary-base-content text-left text-[16px]">
+        <div class={descriptionWrapperClasses}>
+          <div class={descriptionClasses}>
             {$t('factions.gallery.description')}
           </div>
         </div>
@@ -118,15 +128,15 @@
   <div class={sectionClasses}>
     <div class={contentClasses}>
       <div class={titleContainerClasses}>
-        <Title class="my-[40px] !max-w-full !w-full !mb-[16px]" center="left">
-          <span class="text-primary-base-content !text-[45px] !leading-4 md:!text-[57px]">
+        <Title class={earnTitleClasses} center="left">
+          <span class={earnTitleSpanClasses}>
             {$t('factions.earn.title')}
           </span>
         </Title>
-        <div class="xl:text-left text-secondary-content max-w-[482px] mb-[40px] text-[16px]">
+        <div class={earnDescriptionClasses}>
           {$t('factions.earn.description')}
         </div>
-        <ActionButton priority="primary" class="!w-[210px] w-full" on:click={handleFactionsButton}>
+        <ActionButton priority="primary" class={actionButtonClasses} on:click={handleFactionsButton}>
           {$t('buttons.factions.learn_about')}
         </ActionButton>
       </div>
