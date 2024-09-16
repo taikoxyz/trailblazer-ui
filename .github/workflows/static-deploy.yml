@@ -30,4 +30,4 @@ jobs:
 
       - name: Sync Folder to GCS Bucket
         run: |
-          gsutil rsync -r ./static gs://trailblazer-cdn
+          gsutil rsync -r ./static gs://trailblazer-cdn/ui
