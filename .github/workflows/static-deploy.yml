@@ -21,10 +21,13 @@ jobs:
         uses: google-github-actions/setup-gcloud@v1
         with:
           version: 'latest'
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
           service_account_key: ${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}
           export_default_credentials: true
 
-      # Step 3: Sync local folder to GCS Bucket
+      - name: Authenticate to Google Cloud
+        run: gcloud auth activate-service-account --key-file=${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}
+
       - name: Sync Folder to GCS Bucket
         run: |
           gsutil rsync -r ./static gs://trailblazer-cdn
