@@ -228,6 +228,10 @@
     "user": {
       "booster": "{multiplier}x boosted",
       "dailyMaxReached": "Daily Max Reached",
+      "ended": {
+        "description": "Stay tuned for the claiming and start of Season 2!",
+        "title": "Season has ended"
+      },
       "event": {
         "block_proposed": "Block Proposed",
         "bridged": "Bridged",
