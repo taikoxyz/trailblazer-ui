@@ -24,11 +24,11 @@
     'rounded-full',
     'overflow-hidden',
     'h-[32px]',
-    'border-[#191E28]',
+    'border-elevated-background',
     'bg-gradient-to-b',
     'from-[#1D2027]',
-    'via-[#2B303B]',
-    'to-[#2B303B]',
+    'via-secondary-icon',
+    'to-secondary-icon',
   );
 
   const emptyBulletClasses = classNames('w-full');
@@ -36,7 +36,7 @@
   $: fullBulletClasses = classNames(
     'w-full',
     'h-full',
-    color === 'pink' ? 'bg-gradient-to-b from-[#F03BAA] via-[#E81899] to-[#C0147E]' : null,
+    color === 'pink' ? 'bg-gradient-to-b from-[#F03BAA] via-secondary to-[#C0147E]' : null,
     color === 'purple' ? 'bg-gradient-to-b from-[#6D1CE3] via-[#5D08C8] to-[#4C07A7]' : null,
   );
 </script>

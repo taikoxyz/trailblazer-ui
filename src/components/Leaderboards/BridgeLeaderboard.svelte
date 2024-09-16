@@ -61,7 +61,7 @@
       {#each $currentBridgeLeaderboard.items as entry, index}
         {@const rank = index + 1}
         {@const fillClass =
-          rank === 1 ? 'fill-[#EBB222]' : rank === 2 ? 'fill-[#91969F]' : rank === 3 ? 'fill-[#775602]' : ''}
+          rank === 1 ? 'fill-warning-sentiment' : rank === 2 ? 'fill-grey-300' : rank === 3 ? 'fill-[#775602]' : ''}
         <tr class="row h-12">
           <td class="">
             <div class="f-center gap-[12px]">

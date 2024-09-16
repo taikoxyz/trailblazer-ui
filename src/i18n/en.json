@@ -363,5 +363,27 @@
       "connecting": "Connecting",
       "disconnected": "Disconnected"
     }
+  },
+  "pfp": {
+    "modal": {
+      "title": "Edit profile picture",
+      "yourNfts": "Your NFTs",
+      "item_singular": "item)",
+      "item_plural": "items)",
+      "buttons": {
+        "save": "Save",
+        "scan": "Scan for NFTs",
+        "cancel": "Cancel",
+        "go_back": "Go back",
+        "apply": "Apply"
+      },
+      "success": {
+        "title": "Profile picture updated",
+        "message": "Your profile picture has been successfully updated."
+      },
+      "error": {
+        "title": "Error updating profile picture"
+      }
+    }
   }
 }

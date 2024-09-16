@@ -1,9 +1,16 @@
 <script lang="ts">
+  import { onMount } from 'svelte';
+  import { type Address, getAddress } from 'viem';
+
+  import { page } from '$app/stores';
   import Spinner from '$components/Spinner/Spinner.svelte';
   import { Tooltip } from '$components/Tooltip';
   import { type UserProfile } from '$libs/profile';
+  import { classNames } from '$libs/util/classNames';
   import { formatMultiplier } from '$libs/util/formatMultiplier';
   import { formatNumbers } from '$libs/util/formatNumbers';
+  import getConnectedAddress from '$libs/util/getConnectedAddress';
+  import { pfpModal } from '$stores/modal';
   import { currentProfile } from '$stores/profile';
 
   import RankDisplay from '../RankDisplay.svelte';
@@ -16,14 +23,36 @@
   $: profile = $currentProfile;
   $: totalMultiplier = formatMultiplier(profile?.multipliers.totalMultiplier);
   $: displayedScore = profile?.score;
+  $: isSelfProfile = false;
+
+  const editAvatarButtonClasses = classNames(
+    'absolute',
+    'w-[32px]',
+    'h-[32px]',
+    'top-[10px]',
+    'right-[10px]',
+    'rounded-full',
+    'bg-dialog-background',
+    'p-[8px]',
+    'bg-opacity-70',
+  );
+
+  onMount(async () => {
+    const urlAddress = $page.url.pathname.split('/').pop() as Address;
+    isSelfProfile = getAddress(urlAddress) === getAddress(getConnectedAddress());
+  });
 </script>
 
 <div
   class="flex bg-elevated-background p-5 pt-[84px] lg:pt-5 rounded-3xl w-full flex-col lg:flex-row items-center xl:w-1/2 xl:max-w-[680px]">
   {#if !loading}
     <div class="avatar lg:size-[258px] size-[250px] items-center lg:mr-8">
-      <div class="h-full bg-orange-400 rounded-3xl">
+      <div class="relative h-full bg-orange-400 rounded-3xl">
         <img src={profile?.avatar} alt="avatar" />
+        {#if isSelfProfile}
+          <button on:click={() => ($pfpModal = true)} class={editAvatarButtonClasses}>
+            <img alt="Edit avatar" src="/edit.svg" />
+          </button>{/if}
       </div>
     </div>
     <!-- <ProfileMultipliers /> -->

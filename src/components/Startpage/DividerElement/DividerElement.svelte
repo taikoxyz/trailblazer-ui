@@ -16,7 +16,7 @@
       'absolute',
       'bottom-[-250px]',
       'h-[500px]',
-      'bg-cover',
+      'bg-no-repeat	',
       'bg-center',
       'z-0',
       'flex',
