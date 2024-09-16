@@ -29,8 +29,8 @@
       <!-- eslint-disable-next-line @typescript-eslint/no-unused-vars -->
       {#each Array(repetitions).fill(0) as _}
         <span class="f-row mx-4 text-4xl">
-          <div class="body-bold mr-[10px] text-secondary-warm-yellow">EARN 4X MULTIPLIER</div>
-          <div class="body-bold">TRAIL 8 HAPPENING NOW</div>
+          <div class="body-bold mr-[10px] text-secondary-warm-yellow">SEASON 1 HAS ENDED</div>
+          <div class="body-bold">STAY TUNED FOR S2!</div>
         </span>
       {/each}
     </div>
@@ -39,8 +39,8 @@
       <!-- eslint-disable-next-line @typescript-eslint/no-unused-vars -->
       {#each Array(repetitions).fill(0) as _}
         <span class="f-row mx-4 text-4xl">
-          <div class="body-bold mr-[10px] text-secondary-warm-yellow">EARN 4X MULTIPLIER</div>
-          <div class="body-bold">TRAIL 8 HAPPENING NOW</div>
+          <div class="body-bold mr-[10px] text-secondary-warm-yellow">SEASON 1 HAS ENDED</div>
+          <div class="body-bold">STAY TUNED FOR S2!</div>
         </span>
       {/each}
     </div>
