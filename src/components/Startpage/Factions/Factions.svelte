@@ -16,46 +16,74 @@
   const scrollLeft = () => carouselRef.scrollLeft();
   const scrollRight = () => carouselRef.scrollRight();
 
-  const containerClasses = classNames('flex flex-col w-screen bg-base-200 rounded-t-[30px] rounded-b-none');
+  const containerClasses = classNames(
+    'flex',
+    'flex-col',
+    'w-screen',
+    'bg-base-200',
+    'rounded-t-[30px]',
+    'rounded-b-none',
+  );
 
-  const sectionClasses = classNames('flex flex-col w-screen lg:h-[413px] justify-center');
+  const sectionClasses = classNames('grid', 'grid-cols-12', 'gap-6', 'w-screen', 'lg:h-[413px]', 'justify-center');
   const earnSectionClasses = classNames(sectionClasses, 'lg:mb-28');
-
-  const contentClasses = classNames('f-center flex-col lg:flex-row gap-24 px-8');
-
-  const titleContainerClasses = classNames('flex flex-col justify-between md:pt-10 md:w-[402px] xl:w-[562px]');
-
-  const subtitleClasses = classNames('w-full xl:text-left mb-8 pt-8 md:pt-10 w-[100px] md:w-[189px]');
-
+  const contentClasses = classNames('col-span-12', 'f-center', 'flex-col', 'lg:flex-row', 'gap-24', 'px-8');
+  const titleContainerClasses = classNames(
+    'xl:w-[562px]',
+    'md:w-[402px]',
+    'md:pt-10',
+    'flex',
+    'flex-col',
+    'justify-between',
+  );
+  const subtitleClasses = classNames('w-full', 'xl:text-left', 'mb-8', 'md:pt-10', 'md:w-[189px]', 'pt-8', 'w-[100px]');
   const buttonContainerClasses = classNames(
-    'flex gap-4 justify-center items-end self-start h-full bottom-0',
-    'md:m-auto md:w-[402px] md:justify-start md:mb-2',
-    'lg:m-0 lg:w-[116px] lg:justify-center',
+    'md:m-auto',
+    'lg:m-0',
+    'lg:w-[116px]',
+    'md:w-[402px]',
+    'flex',
+    'gap-4',
+    'md:justify-start',
+    'lg:justify-center',
+    'md:mb-2',
+    'justify-center',
     'xl:justify-end',
+    'h-full',
+    'bottom-0',
+    'items-end',
+    'self-start',
   );
-
-  const scrollButtonBaseClasses = classNames('f-center btn-circle border border-secondary');
-  const scrollButtonClasses = scrollButtonBaseClasses;
+  const scrollButtonClasses = classNames('f-center', 'btn-circle', 'border', 'border-secondary');
   const scrollRightButtonClasses = classNames(
-    scrollButtonBaseClasses,
-    'bg-secondary-brand hover:bg-primary-interactive-hover',
+    scrollButtonClasses,
+    'bg-secondary-brand',
+    'hover:bg-primary-interactive-hover',
   );
-
-  const subtitleHeaderClasses = classNames('text-primary-base-content font-clash-grotesk text-xl');
-  const subtitleLineClasses = classNames('w-[60px] h-[3px] bg-primary-brand mt-4');
-
-  const titleClasses = classNames('text-primary !text-6xl');
-  const descriptionClasses = classNames('body-regular text-primary-base-content text-left text-base');
-
+  const subtitleHeaderClasses = classNames('text-primary-base-content', 'font-clash-grotesk', 'text-xl');
+  const subtitleLineClasses = classNames('w-[60px]', 'h-[3px]', 'bg-primary-brand', 'mt-4');
+  const titleClasses = classNames('text-primary', '!text-6xl');
+  const descriptionWrapperClasses = classNames('w-full', 'f-col', 'mt-12');
+  const descriptionClasses = classNames('body-regular', 'text-primary-base-content', 'text-left', 'text-base');
   const earnTitleContainerClasses = classNames(
-    'flex flex-col justify-between md:pt-10',
-    'md:w-[440px] lg:w-[504px] xl:w-[562px]',
+    'xl:w-[562px]',
+    'lg:w-[504px]',
+    'md:w-[440px]',
+    'md:pt-10',
+    'flex',
+    'flex-col',
+    'justify-between',
   );
-
-  const earnTitleClasses = classNames('my-8 !w-full !mb-4 lg:w-[504px]');
-  const earnTitleSpanClasses = classNames('text-primary-base-content !text-5xl !leading-4 md:!text-6xl');
-  const earnDescriptionClasses = classNames('xl:text-left text-secondary-content max-w-[482px] mb-8 text-base');
-  const actionButtonClasses = classNames('!w-[210px] w-full');
+  const earnTitleClasses = classNames('my-8', '!w-full', '!mb-4', 'lg:w-[504px]');
+  const earnTitleSpanClasses = classNames('text-primary-base-content', '!text-5xl', '!leading-4', 'md:!text-6xl');
+  const earnDescriptionClasses = classNames(
+    'xl:text-left',
+    'text-secondary-content',
+    'max-w-[482px]',
+    'mb-8',
+    'text-base',
+  );
+  const actionButtonClasses = classNames('!w-[210px]', 'w-full');
 </script>
 
 <div class={containerClasses}>
@@ -71,7 +99,7 @@
           Taiko <span class="text-primary-base-content">Factions</span>
         </Title>
 
-        <div class="w-full f-col mt-12">
+        <div class={descriptionWrapperClasses}>
           <div class={descriptionClasses}>
             {$t('factions.gallery.description')}
           </div>
