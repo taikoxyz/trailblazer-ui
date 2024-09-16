@@ -84,13 +84,13 @@
 
   const titleWrapperClasses = classNames('lg:text-left', 'text-center', 'f-col', 'items-center', 'lg:items-start');
 
-  const titleTextClasses = classNames('text-xl', 'font-clash-grotesk', 'text-[#191E28]');
+  const titleTextClasses = classNames('text-xl', 'font-clash-grotesk', 'text-grey-800');
 
   const borderBottomClasses = classNames('border-bottom', 'border-2', 'border-primary', 'w-[66px]', 'mt-[20px]');
 
   const maxWidthClasses = classNames('my-[40px]', '!max-w-full', '!w-full');
 
-  const partnersTitleClasses = classNames('text-[#191E28]');
+  const partnersTitleClasses = classNames('text-grey-800');
 
   const contentWrapperClasses = classNames(
     'relative',
