@@ -1,6 +1,8 @@
 <script lang="ts">
   import { onDestroy, onMount } from 'svelte';
+  import { t } from 'svelte-i18n';
 
+  import { ActionButton } from '$components/Button';
   import { classNames } from '$libs/util/classNames';
 
   const wrapperClasses = classNames('flex', 'flex-col', 'w-full', 'items-center', 'justify-center', 'gap-[30px]');
@@ -33,6 +35,7 @@
 
   let now = Date.now();
   let end = countdown.getTime();
+  $: enabled = end > now;
 
   $: count = Math.round((end - now) / 1000);
   $: d = Math.floor(count / 86400);
@@ -42,12 +45,17 @@
 
   function updateTimer() {
     now = Date.now();
+    if (now >= end) {
+      clearInterval(interval);
+      return;
+    }
   }
 
   let interval = setInterval(updateTimer, 1000);
   $: if (count === 0) clearInterval(interval);
 
   function handleStart() {
+    if (!enabled) return;
     now = Date.now();
     end = now + count * 1000;
     interval = setInterval(updateTimer, 1000);
@@ -67,41 +75,61 @@
     'text-[#f3f3f3]',
     'font-[500]',
   );
+
+  const contentTextClasses = classNames(
+    'title-body-regular',
+    'text-secondary-content',
+    'text-center',
+    'xl:self-end',
+    'max-w-[505px]',
+    'md:text-left',
+  );
 </script>
 
 <div class={wrapperClasses}>
-  <div class={titleClasses}>Season 1 ends in</div>
+  {#if enabled}
+    <div class={titleClasses}>Season 1 ends in</div>
 
-  <div class={timerWrapperClasses}>
-    <div class={colClasses}>
-      <span class={counterClasses}>
-        <span style="--value:{d};"></span>
-      </span>
-      <div class={labelClasses}>Days</div>
+    <div class={timerWrapperClasses}>
+      <div class={colClasses}>
+        <span class={counterClasses}>
+          <span style="--value:{d};"></span>
+        </span>
+        <div class={labelClasses}>Days</div>
+      </div>
+
+      <div class={dividerClasses} />
+      <div class={colClasses}>
+        <span class={counterClasses}>
+          <span style="--value:{h};"></span>
+        </span>
+        <div class={labelClasses}>Hours</div>
+      </div>
+      <div class={dividerClasses} />
+
+      <div class={colClasses}>
+        <span class={counterClasses}>
+          <span style="--value:{m};"></span>
+        </span>
+        <div class={labelClasses}>Minutes</div>
+      </div>
+      <div class={dividerClasses} />
+
+      <div class={colClasses}>
+        <span class={counterClasses}>
+          <span style="--value:{s};"></span>
+        </span>
+        <div class={labelClasses}>Seconds</div>
+      </div>
+    </div>
+  {:else}
+    <div class={titleClasses}>{$t('season1_end.title')}</div>
+
+    <div class={contentTextClasses}>
+      {$t('season1_end.content')}
     </div>
 
-    <div class={dividerClasses} />
-    <div class={colClasses}>
-      <span class={counterClasses}>
-        <span style="--value:{h};"></span>
-      </span>
-      <div class={labelClasses}>Hours</div>
-    </div>
-    <div class={dividerClasses} />
-
-    <div class={colClasses}>
-      <span class={counterClasses}>
-        <span style="--value:{m};"></span>
-      </span>
-      <div class={labelClasses}>Minutes</div>
-    </div>
-    <div class={dividerClasses} />
-
-    <div class={colClasses}>
-      <span class={counterClasses}>
-        <span style="--value:{s};"></span>
-      </span>
-      <div class={labelClasses}>Seconds</div>
-    </div>
-  </div>
+    <ActionButton class="w-[350px]" priority="primary" href="google.com">
+      {$t('common.learn_more')}</ActionButton>
+  {/if}
 </div>
