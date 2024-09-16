@@ -64,6 +64,5 @@
 
   <EcosystemSection />
 
-  <RankUp />
   <ExploreEcosystem />
 </div>
