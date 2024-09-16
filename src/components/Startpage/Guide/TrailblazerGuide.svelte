@@ -12,6 +12,8 @@
     'flex',
     'flex-col',
     'md:flex-row',
+    'gap-[40px]',
+    'md:gap-[0px]',
     'lg:h-[379px]',
     'xl:h-[279px]',
     'md:h-[465px]',

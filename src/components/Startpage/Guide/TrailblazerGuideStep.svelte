@@ -11,25 +11,17 @@
     'flex',
     'flex-col',
     'w-full',
-    // 'h-full',
     'pl-4',
-    // 'py-6',
-    // 'lg:py-[38px]',
-    // 'md:py-[38px]',
     'lg:pl-[20px]',
     'md:pl-[20px]',
     'gap-[20px]',
-
     'w-[359px]',
     'md:w-[293px]',
     'lg:w-[400px]',
     'lg:h-[158px]',
-
     'justify-center',
     'items-center',
-
     'md:justify-start',
-
     'border-l-2',
     'border-gray-500',
   );
@@ -37,7 +29,6 @@
   const titleClasses = classNames(
     'flex',
     'w-full',
-    // 'justify-center',
     'items-center',
     'font-medium',
     'font-clash-grotesk',
@@ -58,12 +49,15 @@
     'h-max',
     'lg:max-w-[340px]',
   );
+
+  const iconClasses = classNames('w-[20px]');
+
+  const iconFillClasses = classNames('fill-primary-brand');
 </script>
 
 <div class={wrapperClasses}>
   <div class={titleClasses}>
-    <Icon type={icon} vWidth={20} vHeight={20} class="w-[20px]" fillClass="fill-primary-brand" />
-
+    <Icon type={icon} vWidth={20} vHeight={20} class={iconClasses} fillClass={iconFillClasses} />
     <div class="display-small-medium">
       {title}
     </div>
