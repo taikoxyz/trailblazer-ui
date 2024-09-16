@@ -25,9 +25,26 @@
     'rounded-b-none',
   );
 
-  const sectionClasses = classNames('w-[100vw]', 'px-[48px]', 'relative', 'grid', 'md:grid-cols-6', 'grid-cols-4');
+  const sectionClasses = classNames(
+    'w-[100vw]',
+    'px-[48px]',
+    'relative',
+    'grid',
+    'md:grid-cols-6',
+    'grid-cols-4',
+    'mb-8',
+  );
   const earnSectionClasses = classNames(sectionClasses, 'mb-20');
-  const contentClasses = classNames('lg:col-span-4', 'lg:col-start-2', 'md:col-start-2', 'col-span-4');
+  const contentClasses = classNames(
+    'lg:col-span-4',
+    'lg:col-start-2',
+    'md:col-start-2',
+    'col-span-4',
+    'flex',
+    'flex-col',
+    'justify-between',
+    'md:flex-row',
+  );
 
   const titleContainerClasses = classNames(
     'xl:w-[562px]',
@@ -42,6 +59,7 @@
   const buttonContainerClasses = classNames(
     'md:m-auto',
     'lg:m-0',
+    'mt-20',
     'flex',
     'gap-4',
     'md:justify-start',

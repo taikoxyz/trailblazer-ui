@@ -6,6 +6,6 @@
 </script>
 
 <div
-  class="{width} font-clash-grotesk text-secondary-brand tracking-[-1.5px] text-[75px]/[70px] md:text-[57px]/[64px] {center} md:text-left leading-12 md:leading-none">
+  class="{width} font-clash-grotesk text-secondary-brand tracking-[-1.5px] md:text-[75px]/[70px] text-[57px]/[52px] {center} md:text-left leading-12 md:leading-none">
   <slot />
 </div>
