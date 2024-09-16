@@ -1,6 +1,4 @@
 <script lang="ts">
-  import { StargateBanner } from '$components/Banner';
-  import GamingBanner from '$components/Banner/Trailbanner/GamingBanner.svelte';
   import { Countdown } from '$components/Countdown';
   import EcosystemSection from '$components/Ecosystem/EcosystemSection.svelte';
   import { GamingPartners } from '$components/Partner/GamingPartners';
@@ -41,15 +39,12 @@
   <TrailblazerGuide />
   <Countdown countdown={Season1EndDateUTC} />
 
-  <StargateBanner />
-
   <div class={separator80pxClasses} />
 
   <StargatePartners />
   <div class={paddingWrapperClasses}>
     <div class={separatorClasses} />
   </div>
-  <GamingBanner />
   <div class={separator80pxClasses} />
 
   <GamingPartners />

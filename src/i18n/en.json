@@ -338,6 +338,10 @@
       "yourNfts": "Your NFTs"
     }
   },
+  "season1_end": {
+    "content": "But Season 2 has already begun indexing behind the scenes! You will see an updated UI coming very soon that will reflect all the updates and your points.<br/><br/>Read more in the full article below.",
+    "title": "Season 1 has ended"
+  },
   "switch_modal": {
     "description": "Your current network is not supported. Please connect to the Taiko Mainnet to continue.",
     "title": "Incorrect network detected"
@@ -390,9 +394,5 @@
       "connecting": "Connecting",
       "disconnected": "Disconnected"
     }
-  },
-  "season1_end": {
-    "title": "Season 1 has ended",
-    "content": "...and Season 2 has begun! The site is currently under maintenance, but we will retroactively be awarding points when it is back up. Read more in the full article below."
   }
 }

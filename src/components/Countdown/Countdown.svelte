@@ -74,20 +74,13 @@
     'font-clash-grotesk',
     'text-[#f3f3f3]',
     'font-[500]',
-    'w-full',
-    'text-center',
-  );
-
-  const contentTextClasses = classNames(
-    'title-body-regular',
-    'text-secondary-content',
-    'text-center',
-    'xl:self-end',
     'max-w-[505px]',
-    'md:text-left',
+    'text-center',
   );
 
-  const buttonClasses = classNames('w-[350px]', 'max-w-[90vw]');
+  const contentTextClasses = classNames('title-body-regular', 'text-secondary-content', 'text-center', 'max-w-[505px]');
+
+  const buttonClasses = classNames('w-[350px]', 'max-w-[350px]');
 </script>
 
 <div class={wrapperClasses}>
@@ -130,10 +123,14 @@
     <div class={titleClasses}>{$t('season1_end.title')}</div>
 
     <div class={contentTextClasses}>
-      {$t('season1_end.content')}
+      <!-- eslint-disable-next-line svelte/no-at-html-tags -->
+      {@html $t('season1_end.content')}
     </div>
 
-    <ActionButton class={buttonClasses} priority="primary" href="google.com">
+    <ActionButton
+      class={buttonClasses}
+      priority="primary"
+      href="https://taiko.mirror.xyz/IcZCVH0501eFNKmRlro3SPd4onneBH2RutoxwBneyj0">
       {$t('common.learn_more')}</ActionButton>
   {/if}
 </div>
