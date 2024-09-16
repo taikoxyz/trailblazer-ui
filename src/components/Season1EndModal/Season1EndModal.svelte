@@ -49,7 +49,7 @@
     modal.close();
   }
 
-  const blogPostUrl = 'pending';
+  const blogPostUrl = 'https://taiko.mirror.xyz/IcZCVH0501eFNKmRlro3SPd4onneBH2RutoxwBneyj0';
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
