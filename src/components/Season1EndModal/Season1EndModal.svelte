@@ -52,16 +52,15 @@
   const blogPostUrl = 'https://taiko.mirror.xyz/IcZCVH0501eFNKmRlro3SPd4onneBH2RutoxwBneyj0';
 </script>
 
-<!-- svelte-ignore a11y-click-events-have-key-events -->
-<!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
-<dialog on:click={closeModal} class={modalClasses} bind:this={modal}>
+<dialog class={modalClasses} bind:this={modal}>
   <div class={modalContentClasses}>
     <button on:click={closeModal} class={closeButtonClasses}>✕</button>
     <h3 class={modalTitleClasses}>
       {$t('season1_end.title')}
     </h3>
     <img src="/banner/taiko-coin.svg" alt="Blacklisted" class="mx-auto mb-[20px] w-[200px]" />
-    <p class={modalTextClasses}>{$t('season1_end.content')}</p>
+    <!-- eslint-disable-next-line svelte/no-at-html-tags -->
+    <p class={modalTextClasses}>{@html $t('season1_end.content')}</p>
     <ActionButton priority="primary" href={blogPostUrl}>{$t('common.learn_more')}</ActionButton>
   </div>
 

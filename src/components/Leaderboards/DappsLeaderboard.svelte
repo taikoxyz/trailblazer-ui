@@ -63,6 +63,9 @@
   isLoading={loading}
   {handlePageChange}
   {totalItems}
+  ended={true}
+  endTitleText={$t('leaderboard.user.ended.title')}
+  endDescriptionText={$t('leaderboard.user.ended.description')}
   headerComponent={DappsHeader}
   scoreComponent={PointScore}>
   <div class="f-col lg:f-row lg:f-between-center items-center content-center mb-[30px] space-y-[30px] lg:space-y-0">

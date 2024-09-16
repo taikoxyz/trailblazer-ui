@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { t } from 'svelte-i18n';
+
   import { leaderboardConfig } from '$config';
   import { Leaderboard, mapUserLeaderboardRow, type PaginationInfo, type UserLeaderboardItem } from '$libs/leaderboard';
   import { currentUserLeaderboard } from '$stores/leaderboard';
@@ -42,5 +44,8 @@
   isLoading={loading}
   {handlePageChange}
   {totalItems}
+  ended={true}
+  endTitleText={$t('leaderboard.user.ended.title')}
+  endDescriptionText={$t('leaderboard.user.ended.description')}
   headerComponent={UserLeaderboardHeader}
   scoreComponent={PointScore} />

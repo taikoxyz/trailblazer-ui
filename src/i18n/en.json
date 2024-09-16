@@ -204,6 +204,10 @@
         "description": "Compete for a month-long jackpot by providing the best gaming experience for your users! Rewards will be based on performance throughout the competition, ending Sept 16th.",
         "title": "Join the Gaming competition starting Aug 12th!"
       },
+      "ended": {
+        "description": "Our journey concluded on September 16th, 2024. Congratulations to the winners!",
+        "title": "Campaign ended"
+      },
       "prize": {
         "1": "Prize Pool",
         "2": "175K TAIKO Tokens"
@@ -224,6 +228,10 @@
     "user": {
       "booster": "{multiplier}x boosted",
       "dailyMaxReached": "Daily Max Reached",
+      "ended": {
+        "description": "Stay tuned for the claiming and start of Season 2!",
+        "title": "Season has ended"
+      },
       "event": {
         "block_proposed": "Block Proposed",
         "bridged": "Bridged",
@@ -334,6 +342,10 @@
       "yourNfts": "Your NFTs"
     }
   },
+  "season1_end": {
+    "content": "Season 2 has already begun indexing behind the scenes! You will see an updated UI coming very soon that will reflect all the updates and your points.<br/><br/>Read more in the full article below.",
+    "title": "Season 1 has ended"
+  },
   "switch_modal": {
     "description": "Your current network is not supported. Please connect to the Taiko Mainnet to continue.",
     "title": "Incorrect network detected"
@@ -386,9 +398,5 @@
       "connecting": "Connecting",
       "disconnected": "Disconnected"
     }
-  },
-  "season1_end": {
-    "title": "Season 1 has ended",
-    "content": "...and Season 2 has begun! The site is currently under maintenance, but we will retroactively be awarding points when it is back up. Read more in the full article below."
   }
 }

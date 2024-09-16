@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { t } from 'svelte-i18n';
+
   import { leaderboardConfig } from '$config';
   import { type DappLeaderboardItem, Leaderboard, type PaginationInfo } from '$libs/leaderboard';
   import { getLogger } from '$libs/util/logger';
@@ -46,6 +48,9 @@
   {totalItems}
   headerComponent={GamingHeader}
   scoreComponent={PointScore}
-  additionalInfoComponent={GamingCompetitionInformation}>
+  additionalInfoComponent={GamingCompetitionInformation}
+  ended={true}
+  endTitleText={$t('leaderboard.gaming.ended.title')}
+  endDescriptionText={$t('leaderboard.gaming.ended.description')}>
   <LastUpdatedHeader {lastUpdated} />
 </AbstractLeaderboard>
