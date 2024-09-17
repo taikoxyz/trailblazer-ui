@@ -23,12 +23,12 @@
     'md:text-[100px]/[85px]',
     'text-[45px]/[52px]',
     'font-clash-grotesk',
-    'text-[#F3F3F3]',
+    'text-primary-content',
   );
 
-  const labelClasses = classNames('text-[#ADB1B8]', 'md:text-[22px]/[26px]', 'text-[14px]/[20px]');
+  const labelClasses = classNames('text-secondary-content', 'md:text-[22px]/[26px]', 'text-[14px]/[20px]');
 
-  const dividerClasses = classNames('md:h-[75px]', 'h-[35px]', 'w-[1px]', 'bg-[#444A55]');
+  const dividerClasses = classNames('md:h-[75px]', 'h-[35px]', 'w-[1px]', 'bg-divider-border');
   export let countdown: Date;
 
   let now = Date.now();
@@ -64,7 +64,7 @@
     'md:text-[57px]/[64px]',
     'text-[45px]/[52px]',
     'font-clash-grotesk',
-    'text-[#f3f3f3]',
+    'text-primary-content',
     'font-[500]',
   );
 </script>

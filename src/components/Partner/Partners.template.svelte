@@ -7,6 +7,6 @@
   export let carouselItems: CarouselItemType[] = [];
 </script>
 
-<div class={classNames('flex', 'flex-col', 'gap-6', 'xl:gap-[60px]', 'w-[100vw]', 'h-full')}>
+<div class={classNames('flex', 'flex-col', 'gap-6', 'xl:gap-[60px]', 'h-full')}>
   <Carousel {title} {carouselItems} />
 </div>

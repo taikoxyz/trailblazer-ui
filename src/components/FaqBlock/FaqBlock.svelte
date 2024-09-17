@@ -39,7 +39,7 @@
     'collapse',
     'collapse-arrow',
     'join-item',
-    'border-[#5D636F]',
+    'border-tertiary-content',
     'p-0',
     'm-0',
     'py-[12px]',
@@ -51,7 +51,7 @@
   );
   const questionClasses = classNames('collapse-title');
   const answerClasses = classNames('collapse-content');
-  const linkClasses = classNames('text-[#FF6FC8]', 'hover:text-primary', 'underline');
+  const linkClasses = classNames('text-primary-link', 'hover:text-primary', 'underline');
 
   const defaultSlotWrapperClasses = classNames(
     'flex',
@@ -94,7 +94,7 @@
   );
 
   const titleClasses = classNames(
-    'text-[#E81899]',
+    'text-secondary',
     'text-[16px]/[24px]',
     'uppercase',
     'md:w-min',

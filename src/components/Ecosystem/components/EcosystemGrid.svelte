@@ -37,7 +37,7 @@
   const filterInputClasses = classNames(
     'text-[12px]/[16px]',
     'font-[600]',
-    'bg-[#191E28]',
+    'bg-elevated-background',
     'rounded-full',
     'px-[24px]',
     'py-[30px]',
@@ -55,7 +55,7 @@
     'lg:w-max',
     'md:w-1/2',
     'rounded-full',
-    'bg-[#191E28]',
+    'bg-elevated-background',
     'h-full',
     'py-[24px]',
     'px-[27px]',

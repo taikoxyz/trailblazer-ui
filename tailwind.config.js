@@ -27,11 +27,23 @@ export default {
           '0%': { transform: 'translateX(-14px)' },
           '100%': { transform: 'translateX(14px)' },
         },
+        marquee: {
+          '0%': { transform: 'translateX(0%)' },
+          '100%': { transform: 'translateX(-100%)' },
+        },
+        marquee2: {
+          '0%': { transform: 'translateX(100%)' },
+          '100%': { transform: 'translateX(0%)' },
+        },
       },
       animation: {
         'slide-right': 'slide-right 0.3s ease-in-out',
+        marquee: 'marquee 25s linear infinite',
+        marquee2: 'marquee2 25s linear infinite',
       },
       colors: {
+        'partner-light': '#FFE7F6',
+        'partner-dark': '#310e2f',
         /***************
          * Base colors *
          ***************/
@@ -326,88 +338,6 @@ export default {
           'error-content': '#F15C5D', // red-300
           warning: '#382800', // yellow-800
           'warning-content': '#EBB222', // yellow-400
-        },
-
-        light: {
-          'color-scheme': 'light',
-          '--btn-text-case': 'capitalize',
-
-          '--primary-brand': '#C8047D', // pink-500
-          '--primary-content': '#191E28', // grey-800
-          '--primary-link': '#C8047D', // pink-500
-          '--primary-link-hover': '#E81899', // pink-400
-          '--primary-icon': '#5D636F', // grey-500
-          '--primary-background': '#FAFAFA', // grey-5
-          '--primary-interactive': '#C8047D', // pink-500
-          '--primary-interactive-accent': '#E81899', // pink-400
-          '--primary-interactive-hover': '#E3E3E3', //grey-50
-          '--primary-border-hover': '#FF6FC8', // pink-200
-          '--primary-border-accent': '#E81899', // pink-400
-
-          // TODO: these two are yet to be decided
-          '--primary-base-background': '#FFFFFF', // grey-0
-          '--primary-base-content': '#191E28', // grey-800
-
-          '--secondary-brand': '#E81899', // pink-400
-          '--secondary-content': '#444A55', // grey-600
-          '--secondary-icon': '#2B303B', // grey-700
-          '--secondary-interactive-accent': '#E3E3E3', // grey-50
-          '--secondary-interactive-hover': '##F3F3F3', // grey-10
-          '--secondary-warm-yellow': '#FFE2A0', // grey-700
-
-          '--tertiary-content': '#91969F', // grey-300
-
-          // TODO: these two are missing. Remain the same as dark theme
-          '--tertiary-interactive-hover': '#444A55', // grey-600
-          '--tertiary-interactive-accent': '#5D636F', // grey-500
-
-          '--positive-sentiment': '#005E36', // green-700
-          '--positive-background': '#BFFFE4', // green-50
-
-          '--negative-sentiment': '#BB1A1B', // red-600
-          '--negative-background': '#FFE7E7', // red-10
-
-          '--warning-sentiment': '#775602', // yellow-700
-          '--warning-background': '#FFF6DE', // yellow-10
-
-          '--elevated-background': '#F3F3F3', // grey-5
-          '--neutral-background': '#FFFFFF', //  grey-0
-          '--neutral-content': '#191E28', // grey-800
-          '--neutral-accent': '#e3e3e3', // grey-50
-          '--overlay-background': 'rgba(12, 17, 28, 0.2)', // grey-900|20%
-          '--overlay-dialog': 'rgba(12, 17, 28, 0.9)', // grey-900|20
-
-          '--dialog-background': '#FFFFFF', // grey-0
-          '--dialog-dialog-interactive-disabled': '#E3E3E3', // grey-50
-
-          '--divider-border': '#CACBCE', // grey-100
-          '--gradient-pink': 'linear-gradient(to right, #EA36A4 0%, #F997D0 100%)',
-
-          // ================================ //
-
-          primary: '#C8047D', // pink-500,
-          'primary-focus': '#E81899', // pink-400
-          'primary-content': '#191E28', // grey-800
-
-          secondary: '#E81899', // pink-400
-          // 'secondary-focus': '',
-          'secondary-content': '#444A55', // grey-600
-
-          neutral: '#E3E3E3', // grey-50
-          'neutral-focus': '#CACBCE', // grey-100
-          'neutral-content': '#191E28', // grey-800
-
-          'base-100': '#FAFAFA', // grey-5
-          // 'base-200': '',
-          // 'base-300': '',
-          'base-content': '#191E28', // grey-800
-
-          success: '#BFFFE4', // green-50
-          'success-content': '#005E36', // green-700
-          error: '#FFE7E7', // red-10
-          'error-content': '#BB1A1B', // red-600
-          warning: '#FFF6DE', // yellow-10
-          'warning-content': '#775602', // yellow-700
         },
       },
     ],
