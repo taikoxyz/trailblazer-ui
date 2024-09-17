@@ -1,10 +1,5 @@
 <script lang="ts">
-  import { StargateBanner } from '$components/Banner';
-  import GamingBanner from '$components/Banner/Trailbanner/GamingBanner.svelte';
-  import { Countdown } from '$components/Countdown';
   import EcosystemSection from '$components/Ecosystem/EcosystemSection.svelte';
-  import { GamingPartners } from '$components/Partner/GamingPartners';
-  import { StargatePartners } from '$components/Partner/StargatePartners';
   import { classNames } from '$libs/util/classNames';
 
   import ExploreEcosystem from './ExploreEcosystem.svelte';
@@ -36,29 +31,21 @@
 
   const separator80pxClasses = classNames(separatorBaseClasses, 'h-[80px]');
 
-  const separator120pxClasses = classNames(separatorBaseClasses, 'h-[120px]');
+  // const separator120pxClasses = classNames(separatorBaseClasses, 'h-[120px]');
 </script>
 
 <div class={wrapperClasses}>
   <TrailblazerMain />
   <div class={separator40pxClasses} />
   <TrailblazerGuide />
-  <Countdown countdown={new Date(Date.UTC(2024, 8, 16, 23, 59, 59))} />
-
-  <StargateBanner />
 
   <div class={separator80pxClasses} />
 
-  <StargatePartners />
   <div class={paddingWrapperClasses}>
     <div class={separatorClasses} />
   </div>
-  <GamingBanner />
+
   <div class={separator80pxClasses} />
-
-  <GamingPartners />
-
-  <div class={separator120pxClasses} />
 
   <Factions />
 

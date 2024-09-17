@@ -19,7 +19,7 @@
     await loadLeaderboardData(pageInfo.page, value);
   };
 
-  const wrapperClasses = classNames('space-y-[40px]');
+  const wrapperClasses = classNames('space-y-[40px]', 'mt-[52px]');
 
   const bannerBackgroundClasses = classNames(
     'relative',

@@ -5,9 +5,10 @@
 
   export let lastUpdated: Date;
 
-  const wrapperClasses = classNames(
-    'f-col',
-    'md:f-row',
+  const containerClasses = classNames(
+    'flex',
+    'flex-col',
+    'md:flex-row',
     'md:max-h-[100px]',
     'lg:max-h-[120px]',
     'gap-[20px]',
@@ -15,11 +16,11 @@
     'md:text-left',
     'justify-between',
     'w-full',
-
+    'mt-[52px]',
     'overflow-hidden',
   );
 
-  const headlineWrapperClasses = classNames(
+  const headlineContainerClasses = classNames(
     'font-clash-grotesk',
     'text-[45px]/[45px]',
     'lg:text-[60px]/[60px]',
@@ -28,7 +29,10 @@
     'z-10',
     'relative',
   );
-  const lastUpdatedWrapperClasses = classNames(
+
+  const headlineHighlightClasses = classNames('text-secondary');
+
+  const infoContainerClasses = classNames(
     'flex',
     'flex-col',
     'md:max-w-[286px]',
@@ -38,17 +42,17 @@
     'md:gap-[20px]',
     'mt-0',
   );
+
+  const descriptionTextClasses = classNames('text-sm', 'lg:text-base', 'text-secondary-content');
 </script>
 
-<div class={wrapperClasses}>
-  <div class={headlineWrapperClasses}>
-    <span class="text-secondary">User<br /></span> Leaderboard
+<div class={containerClasses}>
+  <div class={headlineContainerClasses}>
+    <span class={headlineHighlightClasses}>User<br /></span> Leaderboard
   </div>
 
-  <div class={lastUpdatedWrapperClasses}>
-    <div class="text-sm lg:text-base text-secondary-content">
-      Explore our ecosystem and stay tuned for competitions to rank up.
-    </div>
+  <div class={infoContainerClasses}>
+    <div class={descriptionTextClasses}>Explore our ecosystem and stay tuned for competitions to rank up.</div>
     <LastUpdated {lastUpdated} />
   </div>
 </div>
