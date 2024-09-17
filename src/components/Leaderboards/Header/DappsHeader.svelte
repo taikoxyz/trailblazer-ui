@@ -13,7 +13,6 @@
   type LoadLeaderboardDataType = (page: number, name?: string) => Promise<void>;
 
   const loadLeaderboardData = getContext<LoadLeaderboardDataType>('loadDappsLeaderboardData');
-
   const pageInfo = getContext<PaginationInfo<DappLeaderboardItem>>('dappsPageInfo');
 
   const handleSearch = async (value: string) => {
@@ -22,28 +21,7 @@
 
   const wrapperClasses = classNames('space-y-[40px]');
 
-  const secondaryWrapperClasses = classNames(
-    'f-col',
-    'lg:f-row',
-    'lg:f-between-center',
-    'items-center',
-    'content-center',
-    'text-center',
-    'mb-[40px]',
-    'lg:space-y-0',
-  );
-
-  const headlineWrapperClasses = classNames(
-    'font-clash-grotesk',
-    'text-[45px]/[45px]',
-    'lg:text-[60px]/[60px]',
-    'leading-none',
-    'text-primary-content',
-    'z-10',
-    'relative',
-  );
-
-  const backgroundClasses = classNames(
+  const bannerBackgroundClasses = classNames(
     'relative',
     'bg-[#1B0E3E]',
     'rounded-[30px]',
@@ -58,20 +36,51 @@
     'md:bg-contain',
     'bg-no-repeat',
   );
+
+  const headlineClasses = classNames(
+    'font-clash-grotesk',
+    'text-[45px]/[45px]',
+    'lg:text-[60px]/[60px]',
+    'leading-none',
+    'text-primary-content',
+  );
+
+  const headlineSpanClasses = classNames('text-secondary');
+
+  const secondaryContentClasses = classNames(
+    'flex',
+    'flex-col',
+    'lg:flex-row',
+    'lg:justify-between',
+    'items-center',
+    'content-center',
+    'text-center',
+    'mb-[40px]',
+    'lg:space-y-0',
+  );
+
+  const ctaWrapperClasses = classNames('flex', 'flex-col', 'order-2');
+
+  const ctaTextClasses = classNames('text-secondary-content');
+
+  const lastUpdatedClasses = classNames('mt-[30px]', 'mb-[40px]', 'md:my-[20px]', 'lg:my-[10px]', 'lg:order-1');
+
+  const searchClasses = classNames('w-full', 'lg:w-[400px]', 'lg:order-1', 'order-last');
 </script>
 
 <div class={wrapperClasses}>
-  <div class={backgroundClasses}>
-    <div class={headlineWrapperClasses}>
-      <span class="text-secondary">Dapps<br /></span> Leaderboard
+  <div class={bannerBackgroundClasses}>
+    <div class={headlineClasses}>
+      <span class={headlineSpanClasses}>Dapps<br /></span> Leaderboard
     </div>
   </div>
 
-  <div class={secondaryWrapperClasses}>
-    <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-    <div class="text-secondary-content">{@html $t('leaderboard.whitelist.cta')}</div>
-    <LastUpdated class="mt-[30px] mb-[40px]" {lastUpdated} />
-
-    <Search onSearch={handleSearch} placeholder="Search Dapps..." className="w-full lg:w-[400px]" />
+  <div class={secondaryContentClasses}>
+    <div class={ctaWrapperClasses}>
+      <!-- eslint-disable-next-line svelte/no-at-html-tags -->
+      <div class={ctaTextClasses}>{@html $t('leaderboard.whitelist.cta')}</div>
+      <LastUpdated class={lastUpdatedClasses} {lastUpdated} />
+    </div>
+    <Search className={searchClasses} onSearch={handleSearch} placeholder="Search Dapps..." />
   </div>
 </div>
