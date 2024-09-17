@@ -66,9 +66,8 @@
     'lg:w-auto',
     'grid',
     'grid-cols-4',
-    'md:grid-cols-6',
+    'md:grid-cols-8',
     'lg:grid-cols-none',
-    'gap-4',
   );
 
   const titleContainerClasses = classNames(
@@ -76,7 +75,7 @@
     'flex-col',
     'col-span-4',
     'md:col-start-2',
-    'md:col-span-4',
+    'md:col-span-6',
     'lg:col-span-auto',
   );
 
@@ -100,12 +99,13 @@
     'text-primary-base-content',
     'tracking-[-1.5px]',
     'text-[45px]',
+    'leading-[52px]',
     'md:text-[57px]',
     'text-left',
-    'leading-[64px]',
+    'md:leading-[64px]',
   );
 
-  const titleBreakClasses = classNames('hidden', 'lg:block');
+  const titleBreakClasses = classNames('hidden', 'md:block');
 
   const descriptionClasses = classNames('mt-[16px]', 'mb-[89px]', 'md:mb-[65px]', 'text-secondary-content');
 
