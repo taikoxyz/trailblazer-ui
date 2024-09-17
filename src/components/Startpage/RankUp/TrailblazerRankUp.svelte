@@ -59,9 +59,26 @@
     'w-full',
   );
 
-  const contentInnerClasses = classNames('flex', 'flex-col', 'xl:flex-row', 'w-full');
+  const contentInnerClasses = classNames(
+    'flex',
+    'flex-col',
+    'w-full',
+    'lg:w-auto',
+    'grid',
+    'grid-cols-4',
+    'md:grid-cols-6',
+    'lg:grid-cols-none',
+    'gap-4',
+  );
 
-  const titleContainerClasses = classNames('flex', 'flex-col', 'w-[270px]', 'md:w-[506px]', 'lg:w-[368px]');
+  const titleContainerClasses = classNames(
+    'flex',
+    'flex-col',
+    'col-span-4',
+    'md:col-start-2',
+    'md:col-span-4',
+    'lg:col-span-auto',
+  );
 
   const subtitleClasses = classNames(
     'w-full',
