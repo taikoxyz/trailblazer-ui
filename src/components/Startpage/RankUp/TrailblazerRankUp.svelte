@@ -55,7 +55,7 @@
     'items-start',
     'gap-[89px]',
     'rounded-[30px]',
-    'bg-[#F8F8F8]',
+    'bg-base-200',
     'w-full',
   );
 
