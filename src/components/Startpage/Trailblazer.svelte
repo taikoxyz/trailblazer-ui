@@ -61,7 +61,9 @@
   <div class={separator120pxClasses} />
 
   <Factions />
+
   <RankUp />
+
   <EcosystemSection />
 
   <ExploreEcosystem />
