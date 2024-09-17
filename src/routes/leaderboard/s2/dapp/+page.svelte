@@ -4,30 +4,30 @@
   import { goto } from '$app/navigation';
   import { page } from '$app/stores';
   import { ActionButton } from '$components/Button';
-  import { UserLeaderboard } from '$components/Leaderboards';
+  import DappsLeaderboard from '$components/Leaderboards/s2/DappsLeaderboard.svelte';
   import { Page } from '$components/Page';
-  import type { PaginationInfo, UserLeaderboardItem } from '$libs/leaderboard';
+  import type { DappLeaderboardItem, PaginationInfo } from '$libs/leaderboard';
 
-  let pageInfo: PaginationInfo<UserLeaderboardItem>;
+  let pageInfo: PaginationInfo<DappLeaderboardItem>;
   let loading: boolean;
 
   $: ({ pageInfo, loading } = $page.data);
 
   const handleClick = () => {
-    goto('/leaderboard/s2/user');
+    goto('/leaderboard/bridge');
   };
 </script>
 
 <svelte:head>
-  <title>Taiko Trailblazer - User Leaderboard</title>
+  <title>Taiko Trailblazer - Dapp Leaderboard</title>
 </svelte:head>
 
 <Page>
-  <UserLeaderboard {pageInfo} {loading} />
+  <DappsLeaderboard {pageInfo} {loading} />
 
   <div class="w-full flex justify-center mt-[58px]">
     <ActionButton class="max-w-[280px]" priority="primary" on:click={handleClick} withArrow>
-      {$t('buttons.leaderboard.user')}
+      {$t('buttons.leaderboard.gaming')}
     </ActionButton>
   </div>
 </Page>
