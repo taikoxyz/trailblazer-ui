@@ -13,21 +13,27 @@
     goto('./leaderboard/dapp');
   };
 
-  const containerClasses = classNames('md:px-[56px]', 'w-full', 'flex', 'flex-col', 'lg:flex-row');
+  const containerClasses = classNames(
+    'w-[100vw]',
+    'mt-0',
+    'md:mt-20',
+    'lg:mt-0',
+    'md:px-12',
+    'px-6',
+    'gap-8',
+    'flex',
+    'flex-col',
+    'lg:flex-row',
+  );
 
   const leaderboardImageClasses = classNames(
     'lg:w-full',
     'flex',
-    'mx-9',
     'rounded-[30px]',
     'h-[300px]',
     'lg:h-auto',
     'border-2',
-    'border-[#444A55]',
-    'bg-gradient-to-br',
-    'from-[rgba(93,99,111,0.1)]',
-    'to-[rgba(25,30,40,0.2)]',
-    'backdrop-blur-[10px]',
+    'border-grey-600',
   );
 
   const leaderboardImageContentClasses = classNames('object-contain', 'm-auto');
@@ -37,7 +43,7 @@
   const lgImageClasses = classNames(leaderboardImageContentClasses, 'hidden', 'md:block', 'lg:hidden');
   const xlImageClasses = classNames(leaderboardImageContentClasses, 'hidden', 'lg:block');
 
-  const contentContainerClasses = classNames('w-full', 'p-9', 'lg:p-0', 'lg:w-fit', 'lg:z-10');
+  const contentContainerClasses = classNames('w-full', 'lg:w-fit', 'lg:z-10');
 
   const contentClasses = classNames(
     'lg:w-[432px]',
@@ -77,7 +83,7 @@
     'text-primary-base-content',
     'tracking-[-1.5px]',
     'text-[45px]',
-    'lg:text-[57px]',
+    'md:text-[57px]',
     'text-left',
     'leading-[64px]',
   );
