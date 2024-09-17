@@ -107,7 +107,7 @@
 
   const titleBreakClasses = classNames('hidden', 'md:block');
 
-  const descriptionClasses = classNames('mt-[16px]', 'mb-[89px]', 'md:mb-[65px]', 'text-secondary-content');
+  const descriptionClasses = classNames('mt-[16px]', 'mb-[89px]', 'md:mb-[65px]', 'text-grey-600');
 
   const buttonContainerClasses = classNames(
     'm-auto',
