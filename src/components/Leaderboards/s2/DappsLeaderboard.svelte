@@ -2,7 +2,7 @@
   import { setContext } from 'svelte';
 
   import DappsHeader from '$components/Leaderboards/Header/DappsHeader.svelte';
-  import { AbstractLeaderboard, PointScore } from '$components/Leaderboards/Template';
+  import { AbstractLeaderboard, PointScore } from '$components/Leaderboards/Template/';
   import { leaderboardConfig } from '$config';
   import { type DappLeaderboardItem, type PaginationInfo } from '$libs/leaderboard';
   import { DappsLeaderboardS2 } from '$libs/leaderboard/season-2/dapps/dappsLeaderboard';
@@ -50,6 +50,6 @@
   isLoading={loading}
   {handlePageChange}
   {totalItems}
-  showPagination={false}
+  showPagination={true}
   headerComponent={DappsHeader}
   scoreComponent={PointScore} />

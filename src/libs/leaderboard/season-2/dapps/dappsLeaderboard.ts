@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { isAddress } from 'ethereum-address';
 
 import { errorToast } from '$components/NotificationToast';
 import { PUBLIC_TRAILBLAZER_API_URL } from '$env/static/public';
@@ -30,8 +29,6 @@ export class DappsLeaderboardS2 {
     try {
       log('args', args);
 
-      // Temporary fetch 200 items at once instead of just 10
-      args.size = 200; // TODO: remove after filter is handled by BE
       const response = await axios.get<DappLeaderboardPageApiResponse>(`${baseApiUrl}/s2/v2/leaderboard/dapp`, {
         ...globalAxiosConfig,
         params: args,
@@ -49,31 +46,28 @@ export class DappsLeaderboardS2 {
       }
 
       const items = await Promise.all(
-        leaderboardPageApiResponse.data.items
-          // TODO: remove filter after its handled by BE
-          .filter((item) => !isAddress(item.slug)) // filter out non whitelisted
-          .map(async (item) => {
-            const details = await axios.get<ProtocolApiResponse>(`${baseApiUrl}/protocol/details`, {
-              ...globalAxiosConfig,
-              params: { slug: item.slug },
-            });
-            const protocolDetails = details.data;
+        leaderboardPageApiResponse.data.items.map(async (item) => {
+          const details = await axios.get<ProtocolApiResponse>(`${baseApiUrl}/s2/protocol/details`, {
+            ...globalAxiosConfig,
+            params: { slug: item.slug },
+          });
+          const protocolDetails = details.data;
 
-            const entry: UnifiedLeaderboardRow = {
-              address: item.address,
-              data: protocolDetails.protocols,
-              totalScore: item.score,
-            };
+          const entry: UnifiedLeaderboardRow = {
+            address: item.address,
+            data: protocolDetails.protocols,
+            totalScore: item.score,
+          };
 
-            if (detailMapping[item.slug]?.icon) {
-              entry.icon = detailMapping[item.slug].icon;
-            }
-            if (detailMapping[item.slug]?.handle) {
-              entry.handle = detailMapping[item.slug].handle;
-            }
+          if (detailMapping[item.slug]?.icon) {
+            entry.icon = detailMapping[item.slug].icon;
+          }
+          if (detailMapping[item.slug]?.handle) {
+            entry.handle = detailMapping[item.slug].handle;
+          }
 
-            return entry;
-          }),
+          return entry;
+        }),
       );
       leaderboardPage.items = items;
 
