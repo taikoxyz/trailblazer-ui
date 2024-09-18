@@ -48,7 +48,6 @@
   const mobileLogoClasses = classNames('md:hidden');
   const desktopLogoClasses = classNames('hidden', 'md:flex', 'h-[25px]', 'w-[90px]');
   const trailblazersLogoClasses = classNames('max-w-[125px]', 'pb-[2px]', 'max-h-[25px]', 'min-h-[25px]');
-
   const burgerButtonClasses = classNames(
     'btn',
     'xl:hidden',
