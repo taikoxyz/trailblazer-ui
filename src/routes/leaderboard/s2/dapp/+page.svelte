@@ -7,14 +7,18 @@
   import DappsLeaderboard from '$components/Leaderboards/s2/DappsLeaderboard.svelte';
   import { Page } from '$components/Page';
   import type { DappLeaderboardItem, PaginationInfo } from '$libs/leaderboard';
+  import { classNames } from '$libs/util/classNames';
 
   let pageInfo: PaginationInfo<DappLeaderboardItem>;
   let loading: boolean;
 
   $: ({ pageInfo, loading } = $page.data);
 
+  const wrapperClasses = classNames('w-full', 'flex', 'justify-center', 'mt-[58px]');
+  const buttonClasses = classNames('max-w-[280px]');
+
   const handleClick = () => {
-    goto('/leaderboard/bridge');
+    goto('/leaderboard/s2/user');
   };
 </script>
 
@@ -25,9 +29,9 @@
 <Page>
   <DappsLeaderboard {pageInfo} {loading} />
 
-  <div class="w-full flex justify-center mt-[58px]">
-    <ActionButton class="max-w-[280px]" priority="primary" on:click={handleClick} withArrow>
-      {$t('buttons.leaderboard.gaming')}
+  <div class={wrapperClasses}>
+    <ActionButton class={buttonClasses} priority="primary" on:click={handleClick} withArrow>
+      {$t('buttons.leaderboard.user')}
     </ActionButton>
   </div>
 </Page>

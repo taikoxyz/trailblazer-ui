@@ -24,7 +24,7 @@
   }
 </script>
 
-<AbstractProfileCard class="bg-[#1B0E3E] relative">
+<AbstractProfileCard class="bg-purple-900 relative">
   <button
     class="absolute"
     slot="back-icon"

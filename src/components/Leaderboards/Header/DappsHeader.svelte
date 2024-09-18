@@ -23,7 +23,7 @@
 
   const bannerBackgroundClasses = classNames(
     'relative',
-    'bg-[#1B0E3E]',
+    'bg-purple-900',
     'rounded-[30px]',
     'w-full',
     'p-12',
