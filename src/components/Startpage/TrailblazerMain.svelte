@@ -13,24 +13,9 @@
     $account.isConnected ? goto('/profile') : web3modal.open();
   };
 
-  const handleSecondaryAction = () => {
-    goto('/about');
-  };
-
   $: primaryButtonText = $account?.isConnected ? $t('buttons.get_started') : $t('buttons.connect_wallet');
 
-  const wrapperClasses = classNames(
-    'md:w-[115%]',
-    'w-full',
-    'max-w-[100vw]',
-    'flex',
-    'px-[12px]',
-    'pt-[23px]',
-    'md:max-h-[700px]',
-    'lg:max-h-[814px]',
-    'h-dvh',
-  );
-
+  const wrapperClasses = classNames('w-full', 'flex', 'px-[48px]', 'h-[746px]');
   const backgroundImageClasses = classNames(
     'f-center',
     'md:f-left',
@@ -45,54 +30,69 @@
     'lg:bg-[url(/splash/lg/splash.png)]',
     'md:bg-[url(/splash/md/splash.png)]',
     'bg-[url(/splash/sm/splash.png)]',
-
     'w-full',
     'h-full',
     'bg-cover',
     'px-[57px]',
   );
+  const contentWrapperClasses = classNames(
+    'flex',
+    'flex-col',
+    'xl:flex-row',
+    'h-full',
+    'justify-end',
+    'items-end',
+    'mb-12',
+  );
+  const innerContentClasses = classNames('flex-col', 'w-full', 'z-10');
+  const titleClasses = classNames(
+    'self-start',
+    'font-clash-grotesk',
+    'text-[23px]/[28px]',
+    'tracking-[10px]',
+    'xl:text-[45px]/[45px]',
+    'xl:tracking-[22.5px]',
+    'mb-[30px]',
+  );
+  const logoWrapperClasses = classNames('w-full', 'flex-col', 'gap-5');
+  const logoClasses = classNames('w-[242px]', 'md:w-[395px]', 'rounded-[20px]');
+  const descriptionWrapperClasses = classNames('flex-col', 'f-left', 'xl:self-start', 'pb-6');
+  const plusIconClasses = classNames('md:self-start', 'block', 'mb-6');
+  const descriptionTextClasses = classNames(
+    'max-w-[262px]',
+    'md:max-w-[343px]',
+    'text-left',
+    'lg:title-subsection-regular',
+    'body-regular',
+  );
+  const buttonWrapperClasses = classNames('gap-4', 'self-center', 'xl:self-start', 'f-col', 'md:f-row', 'w-[150px]');
 </script>
 
 <div class={wrapperClasses}>
   <div class={backgroundImageClasses}>
-    <div class="md:f-center flex justify-end mb-[8px] flex-col xl:flex-row h-dvh md:h-[815px]">
-      <div class="flex-col w-full z-10 md:mt-[180px]">
-        <!-- Title -->
-        <div
-          class="self-start font-clash-grotesk text-[23px]/[28px] tracking-[10px] xl:text-[45px]/[45px] xl:tracking-[22.5px] mb-[30px] md:mb-[60px]">
-          <div class="w-full flex-col gap-5">
-            <TaikoTrailblazersLogo class="w-[335px] md:w-[471px] lg:w-[558px] rounded-[20px]" />
+    <div class={contentWrapperClasses}>
+      <div class={innerContentClasses}>
+        <div class={titleClasses}>
+          <div class={logoWrapperClasses}>
+            <TaikoTrailblazersLogo class={logoClasses} />
           </div>
         </div>
-        <!-- Description -->
-        <div class="flex-col f-center md:f-left xl:self-start pb-10 xl:pb-10">
-          <PlusIcon class="md:self-start hidden md:block md:mb-[40px]" />
-          <div
-            class="max-w-[262px] md:max-w-[343px] text-[22px] text-center md:text-left lg:title-subsection-regular body-regular">
+        <div class={descriptionWrapperClasses}>
+          <PlusIcon class={plusIconClasses} />
+          <div class={descriptionTextClasses}>
             Embark on the Trailblazers Journey: Unleash your potential in the Taiko universe!
           </div>
         </div>
-
-        <div class="gap-4 self-center xl:self-start f-col md:f-row">
-          <ActionButton
-            priority="primary"
-            class="md:min-w-[180px] md:max-w-[180px] w-full"
-            on:click={handlePrimaryAction}
-            withArrow>
+        <div class={buttonWrapperClasses}>
+          <ActionButton priority="primary" on:click={handlePrimaryAction}>
             {primaryButtonText}
           </ActionButton>
-
-          <ActionButton
-            priority="secondary"
-            class="md:min-w-[180px] md:max-w-[180px] w-full"
-            on:click={handleSecondaryAction}>{$t('buttons.learn_more')}</ActionButton>
         </div>
       </div>
     </div>
-    <!-- Image -->
   </div>
 </div>
-<!--
+
 <style>
   .background-overlay::after {
     content: '';
@@ -101,9 +101,8 @@
     left: 0;
     width: 100%;
     height: 100%;
-    /* background: linear-gradient(180deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)); */
-    background: url('/splash-gradient.svg') no-repeat center center;
-
-    z-index: 0;
+    opacity: 0.5;
+    background: #0c111c;
+    z-index: 2;
   }
-</style> -->
+</style>

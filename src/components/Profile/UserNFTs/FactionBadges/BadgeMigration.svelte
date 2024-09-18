@@ -3,9 +3,11 @@
 
   import { ActionButton } from '$components/Button';
   import { FactionNames, FACTIONS } from '$configs/badges';
-  import { getUserBadges, isApprovedToMigrate, updateMigrationStatus } from '$libs/badges/badgesSubGraph';
   import { Movements } from '$libs/badges/const';
+  import { getUserBadges } from '$libs/badges/getUserBadges';
+  import isApprovedToMigrate from '$libs/badges/isApprovedToMigrate';
   import getEnabledMigrationIds from '$libs/badges/migration/getEnabledMigrationIds';
+  import updateMigrationStatus from '$libs/badges/migration/updateMigrationStatus';
   import startMigration from '$libs/badges/startMigration';
   import { classNames } from '$libs/util/classNames';
   import { account } from '$stores/account';
@@ -22,7 +24,7 @@
     'font-[700]',
     'border-b',
     'w-full',
-    'border-[#444A55]',
+    'border-divider-border',
     'pb-[10px]',
   );
 

@@ -180,7 +180,7 @@
 
   /* Links and buttons */
   .link {
-    @apply link-regular text-primary-link underline hover:text-primary-link-hover;
+    @apply text-primary-link underline hover:text-primary-link-hover;
   }
 
   .status-btn {

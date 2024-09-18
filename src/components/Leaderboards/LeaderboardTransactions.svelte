@@ -67,7 +67,7 @@
                   <span class="">{$t('leaderboard.user.points', { values: { value: pointHistory?.points } })}</span>
                   {#if pointHistory?.multiplier && pointHistory?.multiplier > 1}
                     <Pill
-                      class="bg-gradient-to-r from-[#5d08c8] from-10% via-[#9f00b8] via-33% via-[#ca00a8] via-66% to-[#e81899] ">
+                      class="bg-gradient-to-r from-[#5d08c8] from-10% via-[#9f00b8] via-33% via-[#ca00a8] via-66% to-secondary ">
                       {$t('leaderboard.user.booster', { values: { multiplier: pointHistory?.multiplier } })}
                     </Pill>
                   {/if}

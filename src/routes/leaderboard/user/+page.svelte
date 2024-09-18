@@ -14,7 +14,7 @@
   $: ({ pageInfo, loading } = $page.data);
 
   const handleClick = () => {
-    goto('/leaderboard/bridge');
+    goto('/leaderboard/s2/user');
   };
 </script>
 
@@ -27,7 +27,7 @@
 
   <div class="w-full flex justify-center mt-[58px]">
     <ActionButton class="max-w-[280px]" priority="primary" on:click={handleClick} withArrow>
-      {$t('buttons.leaderboard.bridge')}
+      {$t('buttons.leaderboard.user')}
     </ActionButton>
   </div>
 </Page>

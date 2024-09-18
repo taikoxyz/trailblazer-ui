@@ -31,7 +31,7 @@
     'justify-center',
     'pb-0',
     'transition-all',
-    badgeMovement === Movements.Based ? 'border-[#E81899] hover:shadow hover:shadow-[0_0px_50px_0px_#E81899]' : null,
+    badgeMovement === Movements.Based ? 'border-secondary hover:shadow hover:shadow-[0_0px_50px_0px_#E81899]' : null,
     badgeMovement === Movements.Boosted ? 'border-[#5D08C8] hover:shadow hover:shadow-[0_0px_50px_0px_#5D08C8]' : null,
   );
 
@@ -47,7 +47,7 @@
 
   const badgeTextClasses = classNames(
     'w-full',
-    'text-[#191E28]',
+    'text-elevated-background',
     'md:text-[26px]/[32px]',
     'sm:text-[20px]/[26px]',
     'font-[500]',

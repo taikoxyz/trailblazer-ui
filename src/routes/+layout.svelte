@@ -10,7 +10,6 @@
   import { Header } from '$components/Header';
   import { NotificationToast } from '$components/NotificationToast';
   import MigrationApprovalModal from '$components/Profile/UserNFTs/FactionBadges/MigrationApprovalModal.svelte';
-  import { Ribbon } from '$components/Ribbon';
   import { SwitchChainModal } from '$components/SwitchChainModal';
   import {
     desktopQuery,
@@ -66,7 +65,7 @@
 <!-- App components -->
 
 <div class="relative z-10">
-  <Ribbon />
+  <!-- <Ribbon /> -->
 
   <Header />
 

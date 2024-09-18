@@ -71,14 +71,14 @@
           {#each Array(pageSize) as _, index}
             {@const rank = index + 1 + (currentPage - 1) * pageSize}
             {@const fillClass =
-              rank === 1 ? 'fill-[#EBB222]' : rank === 2 ? 'fill-[#91969F]' : rank === 3 ? 'fill-[#775602]' : ''}
+              rank === 1 ? 'fill-warning-sentiment' : rank === 2 ? 'fill-grey-300' : rank === 3 ? 'fill-[#775602]' : ''}
             <LoadingRow {rank} {fillClass} {showTrophy} />
           {/each}
         {:else}
           {#each data as entry, index}
             {@const rank = index + 1 + (currentPage - 1) * pageSize}
             {@const fillClass =
-              rank === 1 ? 'fill-[#EBB222]' : rank === 2 ? 'fill-[#91969F]' : rank === 3 ? 'fill-[#775602]' : ''}
+              rank === 1 ? 'fill-warning-sentiment' : rank === 2 ? 'fill-grey-300' : rank === 3 ? 'fill-[#775602]' : ''}
             <TableRow
               {entry}
               {index}
@@ -106,7 +106,7 @@
         {pageSize}
         bind:currentPage
         limitPages={true}
-        maxPages={100}
+        maxPages={Math.ceil(totalItems / pageSize)}
         bind:totalItems
         on:pageChange={({ detail: selectedPage }) => handlePageChange(selectedPage)} />
     </div>

@@ -16,11 +16,6 @@
     "pendingTx": "Your transaction is pending. Please wait for confirmation."
   },
   "booster": {
-    "title": "Multipliers",
-    "tooltip": {
-      "title": "Earn more with multipliers",
-      "description": "Boost your earnings! Collect faction badges and Taikoons to receive point multipliers"
-    },
     "breakdown": {
       "factionBadges": "Faction Badges",
       "snaefellNft": "Snaefell NFT",
@@ -29,6 +24,11 @@
     "cta": {
       "howToEarn": "How to earn multipliers",
       "yourMultipliers": "Your multipliers"
+    },
+    "title": "Multipliers",
+    "tooltip": {
+      "description": "Boost your earnings! Collect faction badges and Taikoons to receive point multipliers",
+      "title": "Earn more with multipliers"
     }
   },
   "bridge": {
@@ -48,7 +48,8 @@
     "leaderboard": {
       "bridge": "Go to Bridge leaderboard",
       "dapp": "Go to Dapps leaderboard",
-      "gaming": "Go to Gaming leaderboard"
+      "gaming": "Go to Gaming leaderboard",
+      "user": "Go to User leaderboard"
     },
     "learn_more": "Learn more"
   },
@@ -59,20 +60,20 @@
     "explorer": "Explorer",
     "learn_more": "Learn more",
     "locked": "Locked",
+    "migrate": "Migration",
     "not_eligible": "Not eligible",
     "trail": "Trail",
-    "week": "Week",
-    "migrate": "Migration"
+    "week": "Week"
   },
   "factions": {
-    "subtitle": "Unlock your potential",
+    "earn": {
+      "description": "To earn Taiko Faction Badges, participants must complete specific weekly challenges outlined in the Trailblazers: Call of Taiko campaign.",
+      "title": "Start earning factions through weekly trails"
+    },
     "gallery": {
       "description": "A groundbreaking cast of characters emerges to enrich our community and deepen the immersive experience. Meet eight distinct factions, each with its own unique character and flair."
     },
-    "earn": {
-      "title": "Start earning factions through weekly trails",
-      "description": "To earn Taiko Faction Badges, participants must complete specific weekly challenges outlined in the Trailblazers: Call of Taiko campaign."
-    }
+    "subtitle": "Unlock your potential"
   },
   "faq": [
     {
@@ -233,7 +234,7 @@
       "rank": "Rank"
     },
     "whitelist": {
-      "cta": "Is your dapp not yet listed? Get it whitelisted <a href=\"https://github.com/taikoxyz/trailblazer-adapters\" target=\"_blank\" class=\"font-bold text-xl link\">now</a> !"
+      "cta": "Is your dapp not yet listed? Get it whitelisted <a href=\"https://github.com/taikoxyz/trailblazer-adapters\" target=\"_blank\" class=\" link\">now</a> !"
     }
   },
   "legal": {
@@ -309,6 +310,28 @@
       },
       "subtitle": "Explore <span class=\"text-base-content\">our featured NFT projects!<span>",
       "title": "Our NFT partners"
+    }
+  },
+  "pfp": {
+    "modal": {
+      "buttons": {
+        "apply": "Apply",
+        "cancel": "Cancel",
+        "go_back": "Go back",
+        "save": "Save",
+        "scan": "Scan for NFTs"
+      },
+      "error": {
+        "title": "Error updating profile picture"
+      },
+      "item_plural": "items)",
+      "item_singular": "item)",
+      "success": {
+        "message": "Your profile picture has been successfully updated.",
+        "title": "Profile picture updated"
+      },
+      "title": "Edit profile picture",
+      "yourNfts": "Your NFTs"
     }
   },
   "switch_modal": {
