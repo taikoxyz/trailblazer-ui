@@ -13,10 +13,6 @@
     $account.isConnected ? goto('/profile') : web3modal.open();
   };
 
-  const handleSecondaryAction = () => {
-    goto('/about');
-  };
-
   $: primaryButtonText = $account?.isConnected ? $t('buttons.get_started') : $t('buttons.connect_wallet');
 
   const wrapperClasses = classNames('w-full', 'flex', 'px-[48px]', 'h-[746px]');
@@ -45,37 +41,27 @@
 
 <div class={wrapperClasses}>
   <div class={backgroundImageClasses}>
-    <div class="md:f-center flex justify-end mb-[8px] flex-col xl:flex-row h-dvh md:h-[815px]">
-      <div class="flex-col w-full z-10 md:mt-[180px]">
+    <div class="flex mb-[8px] flex-col xl:flex-row h-full justify-end items-end mb-8">
+      <div class="flex-col w-full z-10">
         <!-- Title -->
         <div
-          class="self-start font-clash-grotesk text-[23px]/[28px] tracking-[10px] xl:text-[45px]/[45px] xl:tracking-[22.5px] mb-[30px] md:mb-[60px]">
+          class="self-start font-clash-grotesk text-[23px]/[28px] tracking-[10px] xl:text-[45px]/[45px] xl:tracking-[22.5px] mb-[30px]">
           <div class="w-full flex-col gap-5">
             <TaikoTrailblazersLogo class="w-[335px] md:w-[471px] lg:w-[558px] rounded-[20px]" />
           </div>
         </div>
         <!-- Description -->
-        <div class="flex-col f-center md:f-left xl:self-start pb-10 xl:pb-10">
-          <PlusIcon class="md:self-start hidden md:block md:mb-[40px]" />
-          <div
-            class="max-w-[262px] md:max-w-[343px] text-[22px] text-center md:text-left lg:title-subsection-regular body-regular">
+        <div class="flex-col f-left xl:self-start pb-6">
+          <PlusIcon class="md:self-start block mb-6" />
+          <div class="max-w-[262px] md:max-w-[343px] text-left lg:title-subsection-regular body-regular">
             Embark on the Trailblazers Journey: Unleash your potential in the Taiko universe!
           </div>
         </div>
 
-        <div class="gap-4 self-center xl:self-start f-col md:f-row">
-          <ActionButton
-            priority="primary"
-            class="md:min-w-[180px] md:max-w-[180px] w-full"
-            on:click={handlePrimaryAction}
-            withArrow>
+        <div class="gap-4 self-center xl:self-start f-col md:f-row w-[150px]">
+          <ActionButton priority="primary" on:click={handlePrimaryAction}>
             {primaryButtonText}
           </ActionButton>
-
-          <ActionButton
-            priority="secondary"
-            class="md:min-w-[180px] md:max-w-[180px] w-full"
-            on:click={handleSecondaryAction}>{$t('buttons.learn_more')}</ActionButton>
         </div>
       </div>
     </div>
