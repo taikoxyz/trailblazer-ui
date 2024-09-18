@@ -4,48 +4,156 @@
   import { goto } from '$app/navigation';
   import { ActionButton } from '$components/Button';
   import { FactionsGallery } from '$components/FactionsGallery';
+  import Icon from '$components/Icon/Icon.svelte';
   import Title from '$components/Title/Title.svelte';
+  import { classNames } from '$libs/util/classNames';
 
-  const handleFactionsButton = () => {
-    goto('/about');
-  };
+  import { DividerElement } from '../DividerElement';
+
+  let carouselRef: InstanceType<typeof FactionsGallery>;
+
+  const handleFactionsButton = () => goto('/about');
+  const scrollLeft = () => carouselRef.scrollLeft();
+  const scrollRight = () => carouselRef.scrollRight();
+
+  const containerClasses = classNames(
+    'flex',
+    'flex-col',
+    'w-screen',
+    'bg-base-200',
+    'rounded-t-[30px]',
+    'rounded-b-none',
+  );
+
+  const sectionClasses = classNames(
+    'w-[100vw]',
+    'px-[48px]',
+    'relative',
+    'grid',
+    'md:grid-cols-6',
+    'grid-cols-4',
+    'mb-8',
+  );
+  const earnSectionClasses = classNames(sectionClasses, 'mb-20');
+  const contentClasses = classNames(
+    'lg:col-span-4',
+    'lg:col-start-2',
+    'md:col-start-2',
+    'col-span-4',
+    'flex',
+    'flex-col',
+    'justify-between',
+    'md:flex-row',
+  );
+
+  const titleContainerClasses = classNames(
+    'xl:w-[562px]',
+    'md:w-[402px]',
+    'md:pt-10',
+    'flex',
+    'flex-col',
+    'justify-between',
+  );
+
+  const subtitleClasses = classNames('w-full', 'xl:text-left', 'mb-8', 'md:pt-10', 'md:w-[189px]', 'pt-8', 'w-[100px]');
+  const buttonContainerClasses = classNames(
+    'md:m-auto',
+    'lg:m-0',
+    'mt-20',
+    'flex',
+    'gap-4',
+    'md:justify-start',
+    'lg:justify-center',
+    'md:mb-2',
+    'justify-center',
+    'xl:justify-end',
+    'h-full',
+    'bottom-0',
+    'items-end',
+    'self-start',
+  );
+  const scrollButtonClasses = classNames('f-center', 'btn-circle', 'border', 'border-secondary');
+  const scrollRightButtonClasses = classNames(
+    scrollButtonClasses,
+    'bg-secondary-brand',
+    'hover:bg-primary-interactive-hover',
+  );
+  const subtitleHeaderClasses = classNames('text-primary-base-content', 'font-clash-grotesk', 'text-xl');
+  const subtitleLineClasses = classNames('w-[60px]', 'h-[3px]', 'bg-primary-brand', 'mt-4');
+  const titleClasses = classNames('text-primary', '!text-6xl');
+  const descriptionWrapperClasses = classNames('w-full', 'f-col', 'mt-12');
+  const descriptionClasses = classNames('body-regular', 'text-primary-base-content', 'text-left', 'text-base');
+  const earnTitleContainerClasses = classNames(
+    'xl:w-[562px]',
+    'lg:w-[504px]',
+    'md:w-[440px]',
+    'md:pt-10',
+    'flex',
+    'flex-col',
+    'justify-between',
+  );
+  const earnTitleClasses = classNames('my-8', '!w-full', '!mb-4', 'lg:w-[504px]');
+  const earnTitleSpanClasses = classNames('text-primary-base-content', '!text-5xl', '!leading-4', 'md:!text-6xl');
+  const earnDescriptionClasses = classNames(
+    'xl:text-left',
+    'text-secondary-content',
+    'max-w-[482px]',
+    'mb-8',
+    'text-base',
+  );
+  const actionButtonClasses = classNames('!w-[210px]', 'w-full');
 </script>
 
-<!-- Taiko Faction -->
-<div class="flex flex-col container">
-  <div class="f-center flex-col md:flex-row mb-[47px] space-y-[40px] xl:space-x-[88px] px-[20px] xl:px-0 xl:px-[57px]">
-    <!-- Title text: Taiko Factions -->
-    <Title>
-      Taiko<br /><span class="text-base-content">Factions</span>
-    </Title>
+<div class={containerClasses}>
+  <div class={sectionClasses}>
+    <div class={contentClasses}>
+      <div class={titleContainerClasses}>
+        <div class={subtitleClasses}>
+          <span class={subtitleHeaderClasses}>{$t('factions.subtitle')}</span>
+          <div class={subtitleLineClasses}></div>
+        </div>
 
-    <!-- Sub text: In the vibrant world of Neo Nakuz, a groundbreaking cast of characters is emerging, centered around the electrifying ecosystem of Taiko Radio and its dynamic cast of characters: ravers, drummers, masters and more. -->
-    <div class="xl:max-w-[434px] md:w-1/2 f-col space-y-[40px]">
-      <div class="title-body-regular text-secondary-content text-center xl:self-end max-w-[505px] md:text-left">
-        {$t('factions.gallery.description')}
-      </div>
-      <ActionButton priority="primary" class="md:w-[240px] w-full" on:click={handleFactionsButton}
-        >{$t('buttons.factions.learn_about')}</ActionButton>
-    </div>
-  </div>
+        <Title class={titleClasses} center="left" width="full">
+          Taiko <span class="text-primary-base-content">Factions</span>
+        </Title>
 
-  <FactionsGallery />
-  <div class="mt-[50px] f-center flex-col mb-[47px] space-y-[40px] xl:space-x-[88px]">
-    <div class="max-w-[700px]">
-      <div class="w-full">
-        <div class="xl:text-left text-center f-col items-center xl:items-start">
-          <span class="text-xl font-clash-grotesk">Unlock your potential</span>
-          <span class=" border-bottom border-2 border-primary w-[66px] mt-[20px]"></span>
+        <div class={descriptionWrapperClasses}>
+          <div class={descriptionClasses}>
+            {$t('factions.gallery.description')}
+          </div>
         </div>
       </div>
-      <Title class=" my-[40px] !max-w-full !w-full">
-        <span class="text-base-content">Earn</span> factions
-        <span class="text-base-content">through weekly trails</span>
-      </Title>
-      <div class="xl:text-left text-secondary-content max-w-[482px] text-center">
-        To earn Taiko Faction Badges, participants must complete specific weekly challenges outlined in the
-        Trailblazers: Call of Taiko campaign.
+
+      <div class={buttonContainerClasses}>
+        <button class={scrollButtonClasses} on:click={scrollLeft}>
+          <Icon class="-translate-x-[2px]" fillClass="fill-secondary-brand" type="chevron-left" />
+        </button>
+        <button class={scrollRightButtonClasses} on:click={scrollRight}>
+          <Icon class="translate-x-[2px]" fillClass="fill-white" type="chevron-right" />
+        </button>
       </div>
     </div>
   </div>
+
+  <FactionsGallery bind:this={carouselRef} />
+
+  <div class={earnSectionClasses}>
+    <div class={contentClasses}>
+      <div class={earnTitleContainerClasses}>
+        <Title class={earnTitleClasses} center="left">
+          <span class={earnTitleSpanClasses}>
+            {$t('factions.earn.title')}
+          </span>
+        </Title>
+        <div class={earnDescriptionClasses}>
+          {$t('factions.earn.description')}
+        </div>
+        <ActionButton priority="primary" class={actionButtonClasses} on:click={handleFactionsButton}>
+          {$t('buttons.factions.learn_about')}
+        </ActionButton>
+      </div>
+    </div>
+  </div>
+
+  <DividerElement />
 </div>
