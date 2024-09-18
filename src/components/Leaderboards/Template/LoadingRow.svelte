@@ -7,7 +7,7 @@
   export let showTrophy: boolean;
 </script>
 
-<tr class="row h-[88px] hover:bg-neutral-background">
+<tr class="row h-[80px] hover:bg-neutral-background">
   <td class="h-full table-cell body-bold w-1/12">
     <div class="f-center gap-[12px]">
       {#if showTrophy}

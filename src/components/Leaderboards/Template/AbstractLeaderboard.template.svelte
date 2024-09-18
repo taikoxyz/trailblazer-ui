@@ -106,7 +106,7 @@
         {pageSize}
         bind:currentPage
         limitPages={true}
-        maxPages={100}
+        maxPages={Math.ceil(totalItems / pageSize)}
         bind:totalItems
         on:pageChange={({ detail: selectedPage }) => handlePageChange(selectedPage)} />
     </div>
