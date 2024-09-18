@@ -55,6 +55,7 @@
   const headerClasses = classNames(
     'absolute',
     'top-0',
+    'w-full',
     'h-[700px]',
     'bg-cover',
     'bg-center',
