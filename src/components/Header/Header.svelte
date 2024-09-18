@@ -56,8 +56,13 @@
     'border-none',
     'swap',
     'swap-rotate',
+
     'z-30',
   );
+
+  );
+  const desktopNavClasses = classNames('hidden', 'xl:flex');
+
 </script>
 
 <div class={wrapperClasses}>
@@ -71,6 +76,7 @@
         </a>
 
         <!-- Mobile Burger Button -->
+
         <label class={burgerButtonClasses}>
           <input type="checkbox" checked={mobileMenu} on:click={toggleMobileMenu} />
           <img src="/hamburger.svg" alt="menu closed" class="swap-off" />
@@ -81,6 +87,7 @@
         <Navigation />
 
         <div class="hidden xl:flex">
+
           <ConnectButton />
         </div>
       </div>
