@@ -4,9 +4,10 @@
   import Spinner from '$components/Spinner/Spinner.svelte';
   import { FACTIONS } from '$configs/badges';
   import approve from '$libs/badges/approve';
-  import { getMigrationStatus, isApprovedToMigrate } from '$libs/badges/badgesSubGraph';
   import { Movements } from '$libs/badges/const';
   import { getTokenId } from '$libs/badges/getTokenId';
+  import isApprovedToMigrate from '$libs/badges/isApprovedToMigrate';
+  import getMigrationStatus from '$libs/badges/migration/getMigrationStatus';
   import setApprovalForAll from '$libs/badges/setApprovalForAll';
   import startMigration from '$libs/badges/startMigration';
   import { chainId } from '$libs/chain';

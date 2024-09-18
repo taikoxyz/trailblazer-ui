@@ -42,6 +42,8 @@ export default {
         marquee2: 'marquee2 25s linear infinite',
       },
       colors: {
+        'partner-light': '#FFE7F6',
+        'partner-dark': '#310e2f',
         /***************
          * Base colors *
          ***************/
@@ -326,7 +328,7 @@ export default {
           'neutral-content': '#F3F3F3', // grey-10
 
           'base-100': '#0B101B', // grey-900
-          // 'base-200': '',
+          'base-200': '#F8F8F8',
           // 'base-300': '',
           'base-content': '#F3F3F3', // grey-10
 

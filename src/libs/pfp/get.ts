@@ -1,27 +1,37 @@
-import { readContract } from '@wagmi/core';
+import { gql } from '@apollo/client/core';
 import axios from 'axios';
 import { type Address } from 'viem';
 
 import { globalAxiosConfig } from '$libs/api/axiosConfig';
-import { chainId } from '$libs/chain';
-import { wagmiConfig } from '$libs/wagmi';
-
-import { registerProfilePictureAbi, registerProfilePictureAddress } from '../../generated/abi';
+import { badgesSubGraph } from '$libs/badges/badgesSubGraph';
+import { isDevelopmentEnv } from '$libs/util/isDevelopmentEnv';
 
 export async function get(address: Address): Promise<string> {
   try {
-    const metadataUrl = await readContract(wagmiConfig, {
-      abi: registerProfilePictureAbi,
-      address: registerProfilePictureAddress[chainId],
-      functionName: 'getProfilePicture',
-      args: [address],
-      chainId,
-    });
-    const proxyUrl = `/api/proxy?url=${encodeURIComponent(metadataUrl)}`;
-    const result = await axios.get(proxyUrl, globalAxiosConfig);
+    const query = gql`
+      query PfpTokenURI($address: String) {
+        profilePicture(id: $address) {
+          tokenURI
+        }
+      }
+    `;
 
-    return result.data.image;
-  } catch (e) {
+    const result = await badgesSubGraph.query({
+      query,
+      variables: { address: address.toLocaleLowerCase() },
+    });
+
+    if (!result.data.profilePicture) {
+      throw new Error('GraphQL: No profile picture found');
+    }
+
+    const { tokenURI } = result.data.profilePicture;
+
+    const tokenUriUrl = isDevelopmentEnv ? `/api/proxy?url=${encodeURIComponent(tokenURI)}` : tokenURI;
+    const src = await axios.get(tokenUriUrl, globalAxiosConfig);
+    return src.data.image;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (e: any) {
     console.warn(e);
     return '/avatar.png';
   }
