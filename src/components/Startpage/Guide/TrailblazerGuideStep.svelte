@@ -18,6 +18,7 @@
     'w-[359px]',
     'lg:h-[204px]',
     'lg:w-[398px]',
+    'md:w-[440px]',
     'xl:h-[158px]',
     'justify-center',
     'items-center',
