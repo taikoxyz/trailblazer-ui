@@ -16,7 +16,6 @@
   $: primaryButtonText = $account?.isConnected ? $t('buttons.get_started') : $t('buttons.connect_wallet');
 
   const wrapperClasses = classNames('w-full', 'flex', 'px-[48px]', 'h-[746px]');
-
   const backgroundImageClasses = classNames(
     'f-center',
     'md:f-left',
@@ -31,47 +30,60 @@
     'lg:bg-[url(/splash/lg/splash.png)]',
     'md:bg-[url(/splash/md/splash.png)]',
     'bg-[url(/splash/sm/splash.png)]',
-
     'w-full',
     'h-full',
     'bg-cover',
     'px-[57px]',
   );
+  const contentWrapperClasses = classNames(
+    'flex',
+    'flex-col',
+    'xl:flex-row',
+    'h-full',
+    'justify-end',
+    'items-end',
+    'mb-12',
+  );
+  const innerContentClasses = classNames('flex-col', 'w-full', 'z-10');
+  const titleClasses = classNames(
+    'self-start',
+    'font-clash-grotesk',
+    'text-[23px]/[28px]',
+    'tracking-[10px]',
+    'xl:text-[45px]/[45px]',
+    'xl:tracking-[22.5px]',
+    'mb-[30px]',
+  );
+  const logoWrapperClasses = classNames('w-full', 'flex-col', 'gap-5');
+  const logoClasses = classNames('w-[242px]', 'md:w-[395px]', 'rounded-[20px]');
+  const descriptionWrapperClasses = classNames('flex-col', 'f-left', 'xl:self-start', 'pb-6');
+  const plusIconClasses = classNames('md:self-start', 'block', 'mb-6');
+  const descriptionTextClasses = classNames(
+    'max-w-[262px]',
+    'md:max-w-[343px]',
+    'text-left',
+    'lg:title-subsection-regular',
+    'body-regular',
+  );
+  const buttonWrapperClasses = classNames('gap-4', 'self-center', 'xl:self-start', 'f-col', 'md:f-row', 'w-[150px]');
 </script>
 
 <div class={wrapperClasses}>
   <div class={backgroundImageClasses}>
-    <!-- <video autoplay muted playsinline loop={false} class="absolute w-full left-0 xl:block hidden">
-      <source src="/splash/xl/splash.mp4" type="video/mp4" />
-    </video>
-    <video autoplay muted playsinline loop={false} class="absolute left-0 xl:hidden lg:block hidden">
-      <source src="/splash/lg/splash.mp4" type="video/mp4" />
-    </video>
-    <video autoplay muted playsinline loop={false} class="absolute left-0 lg:hidden md:block hidden">
-      <source src="/splash/md/splash.mp4" type="video/mp4" />
-    </video>
-    <video autoplay muted playsinline loop={false} class="absolute left-0 block md:hidden">
-      <source src="/splash/sm/splash.mp4" type="video/mp4" />
-    </video> -->
-
-    <div class="flex flex-col xl:flex-row h-full justify-end items-end mb-12">
-      <div class="flex-col w-full z-10">
-        <!-- Title -->
-        <div
-          class="self-start font-clash-grotesk text-[23px]/[28px] tracking-[10px] xl:text-[45px]/[45px] xl:tracking-[22.5px] mb-[30px]">
-          <div class="w-full flex-col gap-5">
-            <TaikoTrailblazersLogo class="w-[242px] md:w-[395px] rounded-[20px]" />
+    <div class={contentWrapperClasses}>
+      <div class={innerContentClasses}>
+        <div class={titleClasses}>
+          <div class={logoWrapperClasses}>
+            <TaikoTrailblazersLogo class={logoClasses} />
           </div>
         </div>
-        <!-- Description -->
-        <div class="flex-col f-left xl:self-start pb-6">
-          <PlusIcon class="md:self-start block mb-6" />
-          <div class="max-w-[262px] md:max-w-[343px] text-left lg:title-subsection-regular body-regular">
+        <div class={descriptionWrapperClasses}>
+          <PlusIcon class={plusIconClasses} />
+          <div class={descriptionTextClasses}>
             Embark on the Trailblazers Journey: Unleash your potential in the Taiko universe!
           </div>
         </div>
-
-        <div class="gap-4 self-center xl:self-start f-col md:f-row w-[150px]">
+        <div class={buttonWrapperClasses}>
           <ActionButton priority="primary" on:click={handlePrimaryAction}>
             {primaryButtonText}
           </ActionButton>
