@@ -29,15 +29,7 @@
     'rounded-b-none',
   );
 
-  const sectionClasses = classNames(
-    'w-[100vw]',
-    'px-[48px]',
-    'relative',
-    'grid',
-    'md:grid-cols-6',
-    'grid-cols-4',
-    'mb-8',
-  );
+  const sectionClasses = classNames('w-full', 'px-[48px]', 'relative', 'grid', 'md:grid-cols-6', 'grid-cols-4', 'mb-8');
   const earnSectionClasses = classNames(sectionClasses, 'mb-20');
   const contentClasses = classNames(
     'lg:col-span-4',

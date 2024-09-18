@@ -59,10 +59,6 @@
 
     'z-30',
   );
-
-  );
-  const desktopNavClasses = classNames('hidden', 'xl:flex');
-
 </script>
 
 <div class={wrapperClasses}>
@@ -87,7 +83,6 @@
         <Navigation />
 
         <div class="hidden xl:flex">
-
           <ConnectButton />
         </div>
       </div>

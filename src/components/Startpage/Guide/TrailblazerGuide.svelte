@@ -6,6 +6,7 @@
   import TrailblazerGuideStep from './TrailblazerGuideStep.svelte';
 
   const wrapperClasses = classNames(
+    'container',
     'justify-center',
     'items-center',
     'px-[48px]',
