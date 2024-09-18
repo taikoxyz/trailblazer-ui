@@ -7,14 +7,7 @@
 
   const wrapperClasses = classNames('flex', 'w-full', 'flex-col', 'gap-[20px]');
 
-  const gridClasses = classNames(
-    'grid',
-    'grid-cols-1',
-    'md:grid-cols-2',
-    'lg:grid-cols-3',
-    'xl:grid-cols-4',
-    'gap-[18px]',
-  );
+  const gridClasses = classNames('grid', 'grid-cols-1', 'md:grid-cols-2', 'xl:grid-cols-4', 'gap-[18px]');
 
   const filterRowClasses = classNames(
     'flex',

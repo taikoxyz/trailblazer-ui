@@ -13,31 +13,42 @@
     mobileMenu = !mobileMenu;
   }
 
-  const wrapperClasses = classNames('w-full', 'f-center', 'z-10');
-  const containerClasses = classNames('container', 'f-center', 'w-full', 'px-[20px]', 'lg:px-0');
+  const wrapperClasses = classNames('h-[104px]', 'justify-center', 'flex', 'lg:top-[16px]', 'z-50', 'bg-[#0c0f1b]');
+
+  const containerClasses = classNames(
+    'f-center',
+    'xl:container',
+    'w-full',
+    'fixed',
+    'px-[24px]',
+
+    'xl:relative',
+    'lg:px-0',
+    'bg-[#0c0f1b]',
+    'z-50',
+  );
+
   const headerClasses = classNames(
     'flex',
+    'container',
+    'lg:px-[48px]',
     'body-regular',
     'items-center',
-    'justify-between',
     'box-border',
-    'w-full',
-    'rounded-full',
     'lg:bg-none',
-  );
-  const innerHeaderClasses = classNames(
-    'f-between-center',
+    'z-[100]',
+    'h-[104px]',
     'w-full',
-    'gap-2',
-    'relative',
-    'md:px-[48px]',
-    'px-[24px]',
-    'py-[30px]',
+    'justify-center',
   );
+
+  const innerHeaderClasses = classNames('f-between-center', 'w-full', 'gap-2', 'xl:top-[12px]', 'pl-[8px]');
+
   const logoLinkClasses = classNames('flex', 'gap-2', 'items-end');
   const mobileLogoClasses = classNames('md:hidden');
   const desktopLogoClasses = classNames('hidden', 'md:flex', 'h-[25px]', 'w-[90px]');
   const trailblazersLogoClasses = classNames('max-w-[125px]', 'pb-[2px]', 'max-h-[25px]', 'min-h-[25px]');
+
   const burgerButtonClasses = classNames(
     'btn',
     'xl:hidden',
@@ -46,8 +57,8 @@
     'border-none',
     'swap',
     'swap-rotate',
+    'z-30',
   );
-  const desktopNavClasses = classNames('hidden', 'xl:flex');
 </script>
 
 <div class={wrapperClasses}>
@@ -60,14 +71,17 @@
           <TaikoTrailblazersLogo class={trailblazersLogoClasses} />
         </a>
 
+        <!-- Mobile Burger Button -->
         <label class={burgerButtonClasses}>
           <input type="checkbox" checked={mobileMenu} on:click={toggleMobileMenu} />
           <img src="/hamburger.svg" alt="menu closed" class="swap-off" />
           <img src="/x.svg" alt="menu open" class="swap-on" />
         </label>
 
+        <!-- Desktop Navigation -->
         <Navigation />
-        <div class={desktopNavClasses}>
+
+        <div class="hidden xl:flex">
           <ConnectButton />
         </div>
       </div>

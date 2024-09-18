@@ -138,7 +138,7 @@
   .card:hover {
     box-shadow: 0 0 10px 5px #e81899;
     border: 3px solid var(--border-dark-hover, #ff6fc8);
-    z-index: 100;
+    z-index: 20;
   }
 
   .card-contents {

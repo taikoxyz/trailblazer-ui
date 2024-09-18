@@ -16,7 +16,7 @@
     'md:text-left',
     'justify-between',
     'w-full',
-    'mt-[52px]',
+    'md:mt-[52px]',
     'overflow-hidden',
   );
 
