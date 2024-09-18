@@ -265,7 +265,10 @@
                 <Spinner size="lg" />
               </div>
             {:else}
-              <div class={noNftsClasses}>You don't have any eligible NFTs</div>
+              <div class={noNftsClasses}>
+                You don't have any eligible NFTs. Currently only Season 1 badges can be used. But we will enable more
+                soon!
+              </div>
             {/if}
           </div>
         </div>

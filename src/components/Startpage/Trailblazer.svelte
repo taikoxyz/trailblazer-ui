@@ -30,7 +30,7 @@
 <div class={wrapperClasses}>
   <TrailblazerMain />
   <div class={separator40pxClasses} />
-  <TrailblazerGuide />
+  <TrailblazerGuide class="container" />
 
   <div class={separator80pxClasses} />
 

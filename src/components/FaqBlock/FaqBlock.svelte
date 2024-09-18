@@ -13,25 +13,24 @@
   export let entries: IFaqEntry[] = [];
 
   const wrapperClasses = classNames(
-    'flex',
-    'md:flex-row',
-    'flex-col',
+    'container',
+    'md:f-row',
+    'f-col',
     'gap-6',
     'w-full',
-    'lg:w-[calc(100%*6/8)]',
     'h-max',
+
     'md:justify-between',
     'md:items-start',
-    'max-w-[1512px]',
-    'items-center',
     'px-6',
     'justify-center',
   );
 
-  const slotClasses = classNames('w-[30%]', 'h-full');
+  const slotClasses = classNames('h-full md:w-2/6', 'flex lg:justify-end');
 
   const blockWrapperClasses = classNames(
-    'join join-vertical w-full',
+    'join join-vertical ',
+    'md:w-4/6',
     'rounded-[20px]',
     'bg-gradient-to-b from-[rgba(93,99,111,.1)] to-[rgba(25,30,40,.2)]',
   );
@@ -54,13 +53,12 @@
   const linkClasses = classNames('text-primary-link', 'hover:text-primary', 'underline');
 
   const defaultSlotWrapperClasses = classNames(
-    'flex',
-    'flex-col',
+    'f-col',
     'gap-4',
     'justify-center',
     'items-center',
     'h-full',
-    'pr-[60px]',
+    // 'pr-[60px]',
     'mb-[50px]',
     'md:mb-0',
   );
@@ -85,16 +83,12 @@
 
   const readMoreWrapperClasses = classNames('w-full', 'pt-[30px]');
 
-  const readMoreButtonClasses = classNames(
-    'w-full',
-    'min-w-[200px]',
-
-    'py-[8px]',
-    'px-[20px]',
-  );
+  const readMoreButtonClasses = classNames('w-full', 'min-w-[200px]', 'py-[8px]', 'px-[20px]');
 
   const titleClasses = classNames(
     'text-secondary',
+    'min-w-[146px]',
+    'lg:mr-[24px]',
     'text-[16px]/[24px]',
     'uppercase',
     'md:w-min',

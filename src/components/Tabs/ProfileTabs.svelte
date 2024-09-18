@@ -5,6 +5,7 @@
   import { default as BadgeMigration } from '$components/Profile/UserNFTs/FactionBadges/BadgeMigration.svelte';
   import { classNames } from '$libs/util/classNames';
   import { isDevelopmentEnv } from '$libs/util/isDevelopmentEnv';
+
   type TabContent = {
     name: string;
     content: typeof LeaderboardTransactions | typeof NFTCollection;
@@ -15,6 +16,7 @@
     {
       name: 'Transactions',
       content: LeaderboardTransactions,
+      checked: true,
     },
     {
       name: 'NFT Collection',
@@ -23,7 +25,6 @@
     {
       name: 'Badge Migration',
       content: BadgeMigration,
-      checked: true,
     },
     ...(isDevelopmentEnv
       ? [

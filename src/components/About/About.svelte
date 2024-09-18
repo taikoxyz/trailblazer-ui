@@ -3,68 +3,61 @@
 
   import { FaqBlock } from '$components/FaqBlock';
   import { type IFaqEntry } from '$components/FaqBlock/FaqBlock.svelte';
+  import Factions from '$components/Startpage/Factions/Factions.svelte';
   import { TrailblazerGuide } from '$components/Startpage/Guide';
   import { classNames } from '$libs/util/classNames';
 
-  import AboutFactionsGallery from './AboutFactionsGallery.svelte';
-  import AboutFactionsInfo from './AboutFactionsInfo.svelte';
   import AboutHero from './AboutHero.svelte';
   import AboutInfoPanels from './AboutInfoPanels.svelte';
-  import RewardsAndUtility from './RewardsAndUtility.svelte';
 
   $: faqEntries = $json('faq') as { items: IFaqEntry[] }[];
   $: faqMini = faqEntries[0].items as IFaqEntry[];
 
-  const wrapperClasses = classNames(
-    'lg:px-[75px]',
-    'md:px-[65px]',
-    'px-[20px]',
-    'w-full',
-    'flex',
-    'flex-col',
-    'md:gap-24',
-    'gap-[80px]',
-  );
+  const wrapperClasses = classNames('lg:px-[75px]', 'md:px-[65px]', 'px-[20px]', 'w-full', 'f-col');
+
   const imageClasses = classNames(
     'rounded-[30px]',
     'md:w-full',
     'relative',
     'md:hover:scale-105',
     'transition-transform',
-    'object-cover',
     'w-full',
-    'h-[350px]',
+    'h-[600px]',
+    'bg-cover',
+    'bg-center',
+    'xl:bg-[url(/about/xl/about-illustration-s2.png)]',
+    'lg:bg-[url(/about/lg/about-illustration-s2.png)]',
+    'md:bg-[url(/about/md/about-illustration-s2.png)]',
+    'bg-[url(/about/sm/about-illustration-s2.png)]',
+    // style="background-image: url('/about-illustration-s2.png');"
   );
 
-  const arrowClasses = classNames(
-    'lg:w-[calc(50%*6/8)]',
-    'ml-6',
+  const faqWrapperClasses = classNames(
+    'w-full',
     'flex',
-    'flex-row',
-    'lg:justify-start',
-    'lg:items-start',
+    'flex-col',
     'justify-center',
     'items-center',
-    'relative',
-    'lg:left-[50%]',
+    'max-w-[100vw]',
+    'mt-[80px]',
   );
-
-  const faqWrapperClasses = classNames('w-full', 'flex', 'flex-col', 'justify-center', 'items-center');
 </script>
 
-<div class={wrapperClasses}>
-  <AboutHero />
-  <div class={classNames('w-full')}>
-    <img class={imageClasses} src="/about-illustration.png" alt="gallery" />
-    <div class="w-full pt-[60px]">
-      <TrailblazerGuide />
+<div class="f-col w-full">
+  <div class={wrapperClasses}>
+    <AboutHero />
+    <div class={classNames('w-full')}>
+      <div class={imageClasses} role="img" aria-label="Gallery image"></div>
     </div>
   </div>
-
+  <div class=" f-col w-full items-center justify-center">
+    <TrailblazerGuide />
+  </div>
   <AboutInfoPanels />
-  <AboutFactionsGallery {arrowClasses} />
-  <AboutFactionsInfo />
-  <RewardsAndUtility />
+  <div class="f-col f-center px-[24px] w-full">
+    <Factions noDivider />
+  </div>
+  <!-- <RewardsAndUtility /> -->
   <div class={faqWrapperClasses}>
     <FaqBlock entries={faqMini} />
   </div>

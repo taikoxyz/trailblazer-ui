@@ -11,6 +11,7 @@
   import { DividerElement } from '../DividerElement';
 
   let carouselRef: InstanceType<typeof FactionsGallery>;
+  export let noDivider = false;
 
   const handleFactionsButton = () => goto('/about');
   const scrollLeft = () => carouselRef.scrollLeft();
@@ -26,7 +27,7 @@
     'sm:max-w-[640px]',
     'bg-base-200',
     'rounded-t-[30px]',
-    'rounded-b-none',
+    noDivider ? 'rounded-b-[30px]' : 'rounded-b-0',
   );
 
   const sectionClasses = classNames('w-full', 'px-[48px]', 'relative', 'grid', 'md:grid-cols-6', 'grid-cols-4', 'mb-8');
@@ -150,6 +151,7 @@
       </div>
     </div>
   </div>
-
-  <DividerElement />
+  {#if !noDivider}
+    <DividerElement />
+  {/if}
 </div>
