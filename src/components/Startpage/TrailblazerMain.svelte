@@ -19,17 +19,7 @@
 
   $: primaryButtonText = $account?.isConnected ? $t('buttons.get_started') : $t('buttons.connect_wallet');
 
-  const wrapperClasses = classNames(
-    'md:w-[115%]',
-    'w-full',
-    'max-w-[100vw]',
-    'flex',
-    'px-[12px]',
-    'pt-[23px]',
-    'md:max-h-[700px]',
-    'lg:max-h-[814px]',
-    'h-dvh',
-  );
+  const wrapperClasses = classNames('w-full', 'flex', 'px-[48px]', 'h-[746px]');
 
   const backgroundImageClasses = classNames(
     'f-center',
@@ -92,7 +82,7 @@
     <!-- Image -->
   </div>
 </div>
-<!--
+
 <style>
   .background-overlay::after {
     content: '';
@@ -101,9 +91,9 @@
     left: 0;
     width: 100%;
     height: 100%;
-    /* background: linear-gradient(180deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)); */
-    background: url('/splash-gradient.svg') no-repeat center center;
+    opacity: 0.5;
+    background: #0c111c;
 
     z-index: 0;
   }
-</style> -->
+</style>
