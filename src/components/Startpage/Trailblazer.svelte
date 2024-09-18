@@ -10,7 +10,6 @@
 
   const wrapperClasses = classNames(
     'f-center',
-    'container',
     'flex-col',
     'w-full',
     'overflow-visible',
