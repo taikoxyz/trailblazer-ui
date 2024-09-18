@@ -60,7 +60,7 @@
         <div
           class="self-start font-clash-grotesk text-[23px]/[28px] tracking-[10px] xl:text-[45px]/[45px] xl:tracking-[22.5px] mb-[30px]">
           <div class="w-full flex-col gap-5">
-            <TaikoTrailblazersLogo class="w-[335px] md:w-[471px] lg:w-[558px] rounded-[20px]" />
+            <TaikoTrailblazersLogo class="w-[242px] md:w-[395px] rounded-[20px]" />
           </div>
         </div>
         <!-- Description -->
