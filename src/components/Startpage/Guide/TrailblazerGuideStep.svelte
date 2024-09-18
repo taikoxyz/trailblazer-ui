@@ -16,14 +16,14 @@
     'md:pl-[20px]',
     'gap-[20px]',
     'w-[359px]',
-    'md:w-[293px]',
-    'lg:w-[400px]',
-    'lg:h-[158px]',
+    'lg:h-[204px]',
+    'lg:w-[398px]',
+    'xl:h-[158px]',
     'justify-center',
     'items-center',
     'md:justify-start',
     'border-l-2',
-    'border-gray-500',
+    'border-gray-600',
   );
 
   const titleClasses = classNames(
@@ -35,8 +35,7 @@
     'text-[35px]/[42px]',
     'lg:justify-start',
     'flex-row',
-    'md:flex-col',
-    'lg:flex-row',
+    'flex-row',
     'gap-3',
   );
 
@@ -47,7 +46,7 @@
     'text-left',
     'md:text-left',
     'h-max',
-    'lg:max-w-[340px]',
+    // 'lg:max-w-[340px]',
   );
 
   const iconClasses = classNames('w-[20px]');
