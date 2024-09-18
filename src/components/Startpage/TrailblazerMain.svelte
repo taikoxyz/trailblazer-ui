@@ -41,7 +41,7 @@
 
 <div class={wrapperClasses}>
   <div class={backgroundImageClasses}>
-    <video autoplay muted playsinline loop={false} class="absolute w-full left-0 xl:block hidden">
+    <!-- <video autoplay muted playsinline loop={false} class="absolute w-full left-0 xl:block hidden">
       <source src="/splash/xl/splash.mp4" type="video/mp4" />
     </video>
     <video autoplay muted playsinline loop={false} class="absolute left-0 xl:hidden lg:block hidden">
@@ -52,7 +52,7 @@
     </video>
     <video autoplay muted playsinline loop={false} class="absolute left-0 block md:hidden">
       <source src="/splash/sm/splash.mp4" type="video/mp4" />
-    </video>
+    </video> -->
 
     <div class="flex flex-col xl:flex-row h-full justify-end items-end mb-12">
       <div class="flex-col w-full z-10">
@@ -92,10 +92,5 @@
     opacity: 0.5;
     background: #0c111c;
     z-index: 2;
-  }
-  video {
-    z-index: 1;
-    height: 100%;
-    object-fit: cover;
   }
 </style>
