@@ -6,14 +6,23 @@
   import EcosystemItem from './components/EcosystemItem.svelte';
   import EcosystemPartners from './partners';
 
-  const wrapperClasses = classNames('relative', 'pt-[664px]', 'flex', 'flex-col', 'items-center', 'justify-center');
+  const wrapperClasses = classNames(
+    'relative',
+    'pt-[664px]',
+    'flex',
+    'flex-col',
+    'items-center',
+    'justify-center',
+    'xl:max-w-[1440px] lg:max-w-[1024px] md:max-w-[768px] sm:max-w-[640px]',
+  );
 
   const gridClasses = classNames(
     'grid',
     'grid-cols-1',
     'md:grid-cols-2',
-    'lg:grid-cols-3',
+    'lg:grid-cols-2',
     'xl:grid-cols-4',
+    'px-[48px]',
     'gap-[18px]',
   );
 
@@ -46,7 +55,7 @@
   const headerClasses = classNames(
     'absolute',
     'top-0',
-    'w-[100vw]',
+    'w-full',
     'h-[700px]',
     'bg-cover',
     'bg-center',
@@ -82,7 +91,7 @@
 
   const headerShadowClasses = classNames('absolute', 'top-[0%]', 'left-0', 'h-full', 'w-1/2', 'bg-cover', 'bg-right');
 
-  const titleWrapperClasses = classNames('lg:text-left', 'text-center', 'f-col', 'items-center', 'lg:items-start');
+  const titleWrapperClasses = classNames('text-center', 'md:text-left', 'f-col', 'items-center', 'md:items-start');
 
   const titleTextClasses = classNames('text-xl', 'font-clash-grotesk', 'text-grey-800');
 
@@ -102,10 +111,18 @@
     'pb-[100px]',
   );
 
-  const contentBackgroundClasses = classNames('absolute', 'top-0', 'h-full', 'bg-white', 'w-[100vw]', 'rounded-[30px]');
+  const contentBackgroundClasses = classNames(
+    'absolute',
+    'top-0',
+    'h-full',
+    'bg-white',
+    'xl:max-w-[1440px] lg:max-w-[1024px] md:max-w-[768px] sm:max-w-[640px]',
+    'w-full',
+    'rounded-[30px]',
+  );
 
   const partnersWrapperClasses = classNames(
-    'w-[100vw]',
+    'w-full',
     'px-[48px]',
     'relative',
     'pt-[64px]',

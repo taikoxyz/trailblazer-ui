@@ -5,7 +5,7 @@
   import { Paginator } from '$components/Paginator';
   import { Pill } from '$components/Pill';
   import { Spinner } from '$components/Spinner';
-  import { ProfileS2 } from '$libs/profile/season-2/profile';
+  import { Profile } from '$libs/profile';
   import { classNames } from '$libs/util/classNames';
   import { formatDate } from '$libs/util/formatDate';
   import { currentProfile } from '$stores/profile';
@@ -23,7 +23,7 @@
 
   async function handlePageChange(selectedPage: number) {
     isLoading = true;
-    await ProfileS2.getUserPointsHistory(undefined, selectedPage);
+    await Profile.getUserPointsHistory(undefined, selectedPage);
     isLoading = false;
   }
 </script>

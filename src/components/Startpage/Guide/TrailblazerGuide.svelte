@@ -12,13 +12,13 @@
     'lg:mt-[12px]',
     'mt-[80px]',
     'justify-between',
-    'flex',
-    'flex-col',
+    'f-col',
     'lg:flex-row',
     'relative',
     'w-full',
     'lg:gap-4',
     'gap-[100px]',
+    $$props.class,
   );
 </script>
 

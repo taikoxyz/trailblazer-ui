@@ -6,7 +6,7 @@
 
 <div class={classNames('relative', className)}>
   <svg
-    class={classNames('absolute', 'left-0', 'bottom-0', 'w-full', 'h-auto', 'translate-y-1/2')}
+    class={classNames('absolute', 'left-0', 'bottom-0', 'w-full', 'h-auto', 'translate-y-1/2', 'z-30')}
     viewBox="0 0 390 481"
     preserveAspectRatio="xMidYMid slice"
     fill="none"

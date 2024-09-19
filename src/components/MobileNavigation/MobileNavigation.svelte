@@ -17,7 +17,7 @@
 </script>
 
 <!-- Overlay -->
-<div class="z-20 fixed top-0 left-0 h-full w-full bg-elevated-background" transition:fly={{ x: '600' }}>
+<div class="z-40 fixed top-0 left-0 h-full w-full bg-elevated-background" transition:fly={{ x: '600' }}>
   <div class="z-21 flex flex-col gap-2 p-5">
     <a class="flex gap-2 pb-20" href="/"> </a>
 

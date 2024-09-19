@@ -19,7 +19,7 @@
     await loadLeaderboardData(pageInfo.page, value);
   };
 
-  const wrapperClasses = classNames('space-y-[40px]', 'mt-[52px]');
+  const wrapperClasses = classNames('space-y-[40px]');
 
   const bannerBackgroundClasses = classNames(
     'relative',
@@ -65,7 +65,7 @@
 
   const lastUpdatedClasses = classNames('mt-[30px]', 'mb-[40px]', 'md:my-[20px]', 'lg:my-[10px]', 'lg:order-1');
 
-  const searchClasses = classNames('w-full', 'lg:w-[400px]', 'lg:order-1', 'order-last');
+  const searchClasses = classNames('w-full', 'lg:w-[400px]', 'lg:order-1', 'order-last', 'z-0');
 </script>
 
 <div class={wrapperClasses}>

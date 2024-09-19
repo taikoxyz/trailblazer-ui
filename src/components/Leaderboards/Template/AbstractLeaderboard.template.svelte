@@ -43,7 +43,7 @@
   }
 </script>
 
-<div class="overflow-x-auto lg:w-full px-8 mt-[116px] lg:mt-0">
+<div class="overflow-x-auto lg:w-full px-8 lg:mt-0">
   <svelte:component this={headerComponent} {lastUpdated} />
   {#if ended && endedComponent}
     <div class="mt-[60px] lg:mt-[80px] block lg:hidden">
