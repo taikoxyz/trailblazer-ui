@@ -38,7 +38,7 @@
     'bg-opacity-70',
   );
 
-  $: pfp = '/avatar.png';
+  $: pfp = '';
   onMount(async () => {
     const urlAddress = $page.url.pathname.split('/').pop() as Address;
     isSelfProfile = getAddress(urlAddress) === getAddress(getConnectedAddress());
@@ -50,7 +50,7 @@
   class="flex bg-elevated-background p-5 pt-[84px] lg:pt-5 rounded-3xl w-full flex-col lg:flex-row items-center xl:w-1/2 xl:max-w-[680px]">
   {#if !loading}
     <div class="avatar lg:size-[258px] size-[250px] items-center lg:mr-8">
-      <div class="relative h-full bg-orange-400 rounded-3xl">
+      <div class="relative h-full skeleton rounded-3xl">
         <img src={pfp} alt="avatar" />
         {#if isSelfProfile}
           <button on:click={() => ($pfpModal = true)} class={editAvatarButtonClasses}>
