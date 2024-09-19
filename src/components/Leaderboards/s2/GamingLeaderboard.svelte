@@ -39,12 +39,18 @@
 
 <AbstractLeaderboard
   headers={['No.', 'Game', '', 'Points']}
-  data={$currentGamingLeaderboard.items}
+  data={$currentGamingLeaderboard.items.map((item) => ({
+    address: item.address,
+    icon: item.icon,
+    data: item.data,
+    handle: item.handle,
+    totalScore: -1,
+  }))}
   showTrophy={true}
   isLoading={loading}
   {handlePageChange}
   {totalItems}
-  showPagination={true}
+  showPagination={false}
   additionalInfoComponent={GamingCompetitionInformation}
   headerComponent={GamingHeader}
   scoreComponent={PointScore} />
