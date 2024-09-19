@@ -41,7 +41,8 @@
     "connect_wallet": "Connect",
     "explore_more": "Explore more",
     "factions": {
-      "learn_about": "Learn about factions"
+      "learn_about": "Learn about factions",
+      "get_yours": "Get yours now"
     },
     "get_started": "Get started",
     "home": "Back to the homepage",
@@ -66,9 +67,13 @@
     "week": "Week"
   },
   "factions": {
-    "earn": {
+    "landing": {
       "description": "To earn Taiko Faction Badges, participants must complete specific weekly challenges outlined in the Trailblazers: Call of Taiko campaign.",
       "title": "Start earning factions through weekly trails"
+    },
+    "about": {
+      "title": "How to earn Badges?",
+      "description": "Collect Faction Badges as you engage with the Taiko universe. These limited-edition NFTs are not just collectibles—they're a testament to your dedication and milestones achieved on your journey.\n\nBe swift, as these badges disappear once their trail window closes."
     },
     "gallery": {
       "description": "A groundbreaking cast of characters emerges to enrich our community and deepen the immersive experience. Meet eight distinct factions, each with its own unique character and flair."
