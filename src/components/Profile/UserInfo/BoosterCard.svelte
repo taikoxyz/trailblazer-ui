@@ -1,38 +1,39 @@
 <script lang="ts">
   import { t } from 'svelte-i18n';
 
-  import { Icon } from '$components/Icon';
+  // import { Icon } from '$components/Icon';
   import { AbstractProfileCard } from '$components/Profile/Template';
-  import { Spinner } from '$components/Spinner';
+  // import { Spinner } from '$components/Spinner';
   import { Tooltip } from '$components/Tooltip';
-  import { formatMultiplier } from '$libs/util/formatMultiplier';
-  import { boosterLoading } from '$stores/load';
-  import { currentProfile } from '$stores/profile';
+  // import { formatMultiplier } from '$libs/util/formatMultiplier';
+  // import { boosterLoading } from '$stores/load';
+  // import { currentProfile } from '$stores/profile';
 
-  let showBreakdown = false;
-  let factionMultiplier = 1;
-  let snaefellMultiplier = 1;
-  let taikoonMultiplier = 1;
-  let totalMultiplier = 1;
+  // let showBreakdown = false;
 
-  $: profile = $currentProfile;
-  $: {
-    totalMultiplier = formatMultiplier(profile.multipliers?.totalMultiplier);
-    factionMultiplier = formatMultiplier(profile.multipliers?.factionMultiplier);
-    snaefellMultiplier = formatMultiplier(profile.multipliers?.snaefellMultiplier);
-    taikoonMultiplier = formatMultiplier(profile.multipliers?.taikoonMultiplier);
-  }
+  // let factionMultiplier = 1;
+  // let snaefellMultiplier = 1;
+  // let taikoonMultiplier = 1;
+  // let totalMultiplier = 1;
+
+  // $: profile = $currentProfile;
+  // $: {
+  //   totalMultiplier = formatMultiplier(profile.multipliers?.totalMultiplier);
+  //   factionMultiplier = formatMultiplier(profile.multipliers?.factionMultiplier);
+  //   snaefellMultiplier = formatMultiplier(profile.multipliers?.snaefellMultiplier);
+  //   taikoonMultiplier = formatMultiplier(profile.multipliers?.taikoonMultiplier);
+  // }
 </script>
 
 <AbstractProfileCard class="bg-purple-900 relative">
-  <button
+  <!-- <button
     class="absolute"
     slot="back-icon"
     on:click={() => {
       showBreakdown = false;
     }}>
-    <Icon class="justify-self-start item {!showBreakdown ? 'hidden' : ''}" type="chevron-left" />
-  </button>
+    <Icon class="justify-self-start item {!showBreakdown ? 'hidden' : ''}" type="chevron-left" /> 
+  </button>-->
   <div slot="title" class="booster-card-title flex justify-center w-full">{$t('booster.title')}</div>
 
   <Tooltip class="absolute right-4" slot="tooltip" position="bottom">
@@ -44,7 +45,8 @@
     </div>
   </Tooltip>
   <div slot="status" class="w-full">
-    {#if $boosterLoading}
+    <h1>Coming soon!</h1>
+    <!-- {#if $boosterLoading}
       <div class="flex items-center justify-center display-medium-medium">
         <Spinner />
       </div>
@@ -62,10 +64,10 @@
           {$t('booster.breakdown.taikoonNft')} <span class="body-bold">{taikoonMultiplier}x</span>
         </div>
       </div>
-    {/if}
+    {/if} -->
   </div>
 
-  <div slot="cta" class="flex flex-col gap-2 w-full">
+  <!-- <div slot="cta" class="flex flex-col gap-2 w-full">
     {#if !showBreakdown}
       <button
         class="flex items-center justify-between gap-2"
@@ -81,5 +83,5 @@
       target="_blank"
       >{$t('booster.cta.howToEarn')} <Icon type="chevron-right"></Icon>
     </a>
-  </div>
+  </div> -->
 </AbstractProfileCard>

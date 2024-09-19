@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { Button } from '$components/Button';
   import { Icon } from '$components/Icon';
   import { Tooltip } from '$components/Tooltip';
   import { classNames } from '$libs/util/classNames';
@@ -29,8 +28,6 @@
         <p class="text-ellipsis whitespace-nowrap overflow-hidden">status</p>
       </slot>
     </div>
-    <slot name="cta">
-      <Button type="primary" block class="px-4 py-2 truncate">cta</Button>
-    </slot>
+    <slot name="cta"></slot>
   </div>
 </div>
