@@ -202,14 +202,20 @@ export class Profile {
           snaefellMultiplier: Number(snaefellMultiplier || 0),
         };
 
-        // PFP/Avatar time
-        const avatar = await Pfp.get(address as Address);
-
         // Update profile
         currentProfile.update((current) => {
-          return { ...current, avatar, multipliers: userMultiplier, nfts: userNFTs };
+          return { ...current, multipliers: userMultiplier, nfts: userNFTs };
         });
       }
+
+      // PFP/Avatar time
+      const avatar = await Pfp.get(address as Address);
+
+      // Update profile
+      currentProfile.update((current) => {
+        return { ...current, avatar };
+      });
+
       boosterLoading.set(false);
 
       /* re-enable when movements (based vs boosted) becomes available

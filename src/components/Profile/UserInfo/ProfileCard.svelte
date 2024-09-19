@@ -4,6 +4,7 @@
 
   import { page } from '$app/stores';
   import Spinner from '$components/Spinner/Spinner.svelte';
+  import Pfp from '$libs/pfp';
   // import { Tooltip } from '$components/Tooltip';
   import { type UserProfile } from '$libs/profile';
   import { classNames } from '$libs/util/classNames';
@@ -37,9 +38,11 @@
     'bg-opacity-70',
   );
 
+  $: pfp = '';
   onMount(async () => {
     const urlAddress = $page.url.pathname.split('/').pop() as Address;
     isSelfProfile = getAddress(urlAddress) === getAddress(getConnectedAddress());
+    pfp = await Pfp.get(urlAddress);
   });
 </script>
 
@@ -47,8 +50,8 @@
   class="flex bg-elevated-background p-5 pt-[84px] lg:pt-5 rounded-3xl w-full flex-col lg:flex-row items-center xl:w-1/2 xl:max-w-[680px]">
   {#if !loading}
     <div class="avatar lg:size-[258px] size-[250px] items-center lg:mr-8">
-      <div class="relative h-full bg-orange-400 rounded-3xl">
-        <img src={profile?.avatar} alt="avatar" />
+      <div class="relative h-full skeleton rounded-3xl">
+        <img src={pfp} alt="avatar" />
         {#if isSelfProfile}
           <button on:click={() => ($pfpModal = true)} class={editAvatarButtonClasses}>
             <img alt="Edit avatar" src="/edit.svg" />
@@ -70,7 +73,7 @@
           <!-- <CountUp class="font-clash-grotesk font-semibold text-[45px] leading-none" value={Number(displayedScore)} /> -->
           <div class="body-regular">points</div>
         </div>
-        <!-- {#if multipliedView} 
+        <!-- {#if multipliedView}
           <button
             on:click={() => (multipliedView = false)}
             class="w-fit max-w-[150px] h-[24px] flex items-center gap-1 py-2 pl-2 pr-1 body-small-bold border border-divider-border bg-neutral-background rounded-full transition-all duration-300 ease-in-out hover:bg-neutral-hover hover:cursor-pointer">
