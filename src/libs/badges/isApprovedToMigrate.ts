@@ -1,8 +1,8 @@
 import type { Address } from 'viem';
 
+import { trailblazersBadgesS2Address } from '$generated/abi';
 import { chainId } from '$libs/chain';
 
-import { trailblazersBadgesS2Address } from '../../generated/abi';
 import { getApproved } from './getApproved';
 import { isApprovedForAllS2 } from './isApprovedForAllS2';
 

@@ -3,6 +3,7 @@
   import { Icon } from '$components/Icon';
   import Spinner from '$components/Spinner/Spinner.svelte';
   import { FACTIONS } from '$configs/badges';
+  import { trailblazersBadgesS2Address } from '$generated/abi';
   import approve from '$libs/badges/approve';
   import { Movements } from '$libs/badges/const';
   import { getTokenId } from '$libs/badges/getTokenId';
@@ -17,7 +18,6 @@
   import { badgeMigrationStore, type IBadgeMigration } from '$stores/badgeMigration';
   import { migrationApprovalModal } from '$stores/modal';
 
-  import { trailblazersBadgesS2Address } from '../../../../generated/abi';
   import MigrationBadgeItem from './MigrationBadgeItem.svelte';
 
   const wrapperClasses = classNames(

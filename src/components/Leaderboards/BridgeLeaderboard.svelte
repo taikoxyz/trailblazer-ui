@@ -8,11 +8,11 @@
   import Usdt from '$components/Icon/USDT.svelte';
   import { DisabledMask } from '$components/Masks';
   import { Skeleton } from '$components/Mock';
+  import { usdcAddress, usdtAddress } from '$generated/abi';
   import { chainId } from '$libs/chain';
   import { formatNumbers } from '$libs/util/formatNumbers';
   import { currentBridgeLeaderboard } from '$stores/leaderboard';
 
-  import { usdcAddress, usdtAddress } from '../../generated/abi';
   import { CampaignEndedInfoBox } from './CampaignEndedInfoBox';
   import BridgeHeader from './Header/BridgeHeader.svelte';
 
