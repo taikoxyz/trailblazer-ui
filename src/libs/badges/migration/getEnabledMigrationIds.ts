@@ -2,7 +2,7 @@
 
 import { gql } from '@apollo/client/core';
 
-import { badgesSubGraph } from '../badgesSubGraph';
+import { graphqlClient } from '$libs/graphql/client';
 
 export default async function getEnabledMigrationIds(): Promise<number[]> {
   try {
@@ -14,7 +14,7 @@ export default async function getEnabledMigrationIds(): Promise<number[]> {
       }
     `;
 
-    const result = await badgesSubGraph.query({
+    const result = await graphqlClient.query({
       query,
       // variables: { address: address.toLocaleLowerCase() },
     });
