@@ -6,18 +6,19 @@
   import TrailblazerGuideStep from './TrailblazerGuideStep.svelte';
 
   const wrapperClasses = classNames(
-    'justify-center',
-    'items-center',
-    'px-[48px]',
+    'items-start',
     'lg:mt-[12px]',
     'mt-[80px]',
     'justify-between',
-    'f-col',
+    'flex',
+    'flex-col',
     'lg:flex-row',
     'relative',
     'w-full',
-    'lg:gap-4',
+    'lg:gap-[68px]',
     'gap-[100px]',
+    'md:px-[116px]',
+    'lg:px-0',
     $$props.class,
   );
 </script>
