@@ -11,16 +11,19 @@
 <div class="f-center flex-col">
   <!-- Title -->
   <div class="flex justify-center lg:space-x-[40px] mb-[30px] w-full">
-    <img src="/competitionInfo/laser.svg" alt="left laser" class="hidden xl:block" />
+    <img src="/competitionInfo/laser.svg" alt="left laser" class="hidden xl:block max-w-[300px]" />
     <img
       src="/competitionInfo/laser-sm.svg"
       alt="left laser"
       class="block xl:hidden lg:max-w-[150px] hidden lg:block" />
     <div
-      class="flex w-full max-w-[494px] font-normal font-medium leading-[52px] tracking-[-0.45px] font-clash-grotesk text-center text-[32px]/[38px] lg:text-[45px]/[52px]">
+      class="flex w-full max-w-[494px]
+      font-normal font-medium leading-[52px]
+      tracking-[-0.45px] font-clash-grotesk
+      text-center text-[32px]/[38px] lg:text-[45px]/[52px]">
       {title}
     </div>
-    <img src="/competitionInfo/laser.svg" alt="right laser" class="hidden rotate-180 xl:block" />
+    <img src="/competitionInfo/laser.svg" alt="right laser" class="hidden rotate-180 xl:block max-w-[300px]" />
     <img
       src="/competitionInfo/laser-sm.svg"
       alt="right laser"
@@ -35,11 +38,9 @@
     class="flex flex-col sm:flex-col lg:flex-row relative border-2 border-primary-border-hover rounded-3xl px-[90px] lg:px-[46px] pt-[90px] lg:pt-[58px] pb-[51px] gap-[30px] lg:gap-[83px]">
     <div
       class="f-col lg:block absolute border-2 body-bold bordered-wrap top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 px-5 py-4 min-w-[209px] rounded-full text-center bg-primary-background">
-      <div class="bordered-conten">
-        <span>{prizeTitle}</span>
-        <span>-</span>
-        <span class="text-primary-brand">{prizeSubtitle}</span>
-      </div>
+      <span>{prizeTitle}</span>
+      <span>-</span>
+      <span class="text-primary-brand">{prizeSubtitle}</span>
     </div>
 
     {#each prizes as prize}

@@ -207,21 +207,21 @@
     "gaming": {
       "banner": {
         "description": "Compete for a month-long jackpot by providing the best gaming experience for your users! Rewards will be based on performance throughout the competition, ending Sept 12th.",
-        "title": "Join the Gaming competition starting Aug 12th!"
+        "title": "Join the Gaming competition starting Sep 17th!"
       },
       "prize": {
         "1": "Prize Pool",
-        "2": "175K TAIKO Tokens"
+        "2": "150K TAIKO Tokens"
       },
       "prize_breakdown": {
         "first": {
           "amount": "100K"
         },
         "second": {
-          "amount": "50K"
+          "amount": "35K"
         },
         "third": {
-          "amount": "25K"
+          "amount": "15K"
         }
       },
       "tokenName": "TAIKO Tokens"
