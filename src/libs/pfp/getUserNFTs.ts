@@ -7,7 +7,6 @@ import { getTokenId } from '$libs/badges/getTokenId';
 import { getUserBadges } from '$libs/badges/getUserBadges';
 import { chainId } from '$libs/chain';
 import Taikoon from '$libs/taikoon';
-import { isDevelopmentEnv } from '$libs/util/isDevelopmentEnv';
 
 import type { IPfp } from './types';
 
@@ -32,7 +31,7 @@ async function getUserTaikoons(address: Address): Promise<IPfp[]> {
     const uri = await Taikoon.tokenURI(tokenId);
 
     const metadata = await axios({
-      url: isDevelopmentEnv ? `/api/proxy?url=${uri}` : uri,
+      url: `/api/proxy?url=${uri}`,
     });
 
     const src = metadata.data.image;

@@ -4,7 +4,6 @@ import { type Address } from 'viem';
 
 import { globalAxiosConfig } from '$libs/api/axiosConfig';
 import { graphqlClient } from '$libs/graphql/client';
-import { isDevelopmentEnv } from '$libs/util/isDevelopmentEnv';
 
 export async function get(address: Address): Promise<string> {
   try {
@@ -27,7 +26,7 @@ export async function get(address: Address): Promise<string> {
 
     const { tokenURI } = result.data.profilePicture;
 
-    const tokenUriUrl = isDevelopmentEnv ? `/api/proxy?url=${encodeURIComponent(tokenURI)}` : tokenURI;
+    const tokenUriUrl = `/api/proxy?url=${encodeURIComponent(tokenURI)}`;
     const src = await axios.get(tokenUriUrl, globalAxiosConfig);
     return src.data.image;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any

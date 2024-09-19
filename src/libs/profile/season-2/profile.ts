@@ -154,8 +154,8 @@ export class ProfileS2 {
         graphqlResponse = data;
       }
 
-      if (graphqlResponse?.data?.owner) {
-        const userNFTs: UserNFT[] = graphqlResponse.data.owner.ownedTokens.map(
+      if (graphqlResponse?.data?.account) {
+        const userNFTs: UserNFT[] = graphqlResponse.data.account.s1MultiplierNfts.map(
           (token: { contract: { name: string }; tokenId: string; badgeId: string }) => ({
             name: token.contract.name,
             tokenId: token.tokenId,
