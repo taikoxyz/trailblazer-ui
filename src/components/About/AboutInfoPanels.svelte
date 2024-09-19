@@ -88,7 +88,7 @@
     </div>
   </div>
 
-  <div class="mb-[100px]">
+  <div class="mb-[100px] mt-[30px]">
     <TrailblazerRankUp />
   </div>
 </div>

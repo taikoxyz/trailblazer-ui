@@ -13,7 +13,16 @@
   $: faqEntries = $json('faq') as { items: IFaqEntry[] }[];
   $: faqMini = faqEntries[0].items as IFaqEntry[];
 
-  const wrapperClasses = classNames('lg:px-[75px]', 'md:px-[65px]', 'px-[20px]', 'w-full', 'f-col');
+  const wrapperClasses = classNames(
+    'h-full',
+    'md:px-[48px]',
+    'px-[24px]',
+    'justify-center',
+    'items-center',
+    'flex',
+    'flex-col',
+    'w-full',
+  );
 
   const imageClasses = classNames(
     'rounded-[30px]',
@@ -29,7 +38,6 @@
     'lg:bg-[url(/about/lg/about-illustration-s2.png)]',
     'md:bg-[url(/about/md/about-illustration-s2.png)]',
     'bg-[url(/about/sm/about-illustration-s2.png)]',
-    // style="background-image: url('/about-illustration-s2.png');"
   );
 
   const faqWrapperClasses = classNames(
@@ -41,22 +49,24 @@
     'max-w-[100vw]',
     'mt-[80px]',
   );
+
+  const fullWidthClasses = classNames('w-full');
+  const separator50pxClasses = classNames(fullWidthClasses, 'h-[50px]');
+  const separator150pxClasses = classNames(fullWidthClasses, 'h-[150px]');
 </script>
 
-<div class="f-col w-full">
-  <div class={wrapperClasses}>
-    <AboutHero />
-    <div class={classNames('w-full')}>
-      <div class={imageClasses} role="img" aria-label="Gallery image"></div>
-    </div>
+<div class={wrapperClasses}>
+  <AboutHero />
+  <div class={fullWidthClasses}>
+    <div class={imageClasses} role="img" aria-label="Gallery image"></div>
   </div>
-  <div class=" f-col w-full items-center justify-center">
-    <TrailblazerGuide />
-  </div>
+  <div class={separator50pxClasses} />
+  <TrailblazerGuide />
+  <div class={separator150pxClasses} />
+
   <AboutInfoPanels />
-  <div class="f-col f-center px-[24px] w-full">
-    <Factions noDivider />
-  </div>
+
+  <Factions />
   <!-- <RewardsAndUtility /> -->
   <div class={faqWrapperClasses}>
     <FaqBlock entries={faqMini} />
