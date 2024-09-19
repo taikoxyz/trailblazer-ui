@@ -1,20 +1,10 @@
 <script lang="ts">
   import { t } from 'svelte-i18n';
 
-  import { goto } from '$app/navigation';
   import ActionButton from '$components/Button/ActionButton.svelte';
   import { classNames } from '$libs/util/classNames';
 
-  const handleUserLeaderboard = () => {
-    goto('./leaderboard/user');
-  };
-
-  const handleDappsLeaderboard = () => {
-    goto('./leaderboard/dapp');
-  };
-
   const containerClasses = classNames(
-    'xl:max-w-[1440px] lg:max-w-[1024px] md:max-w-[768px] sm:max-w-[640px]',
     'w-full',
     'mt-0',
     'md:mt-20',
@@ -148,10 +138,10 @@
 
           <div class={buttonContainerClasses}>
             <div class={buttonClasses}>
-              <ActionButton priority="primary" on:click={handleUserLeaderboard}>User leaderboard</ActionButton>
+              <ActionButton priority="primary" href="/leaderboard/user">User leaderboard</ActionButton>
             </div>
             <div class={buttonClasses}>
-              <ActionButton priority="secondary" on:click={handleDappsLeaderboard}>
+              <ActionButton priority="secondary" href="/leaderboard/dapp">
                 <span class={secondaryButtonTextClasses}>Dapps leaderboard</span>
               </ActionButton>
             </div>
