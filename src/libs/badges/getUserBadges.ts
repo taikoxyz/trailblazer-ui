@@ -2,8 +2,7 @@ import { gql } from '@apollo/client/core';
 import type { Address } from 'viem';
 
 import { FactionNames, FACTIONS } from '$configs/badges';
-
-import { badgesSubGraph } from './badgesSubGraph';
+import { graphqlClient } from '$libs/graphql/client';
 
 export interface IUserBadges {
   [FactionNames.Ravers]: boolean;
@@ -40,7 +39,7 @@ export async function getUserBadges(address: Address): Promise<IUserBadges> {
         }
       }
     `;
-    const graphqlResponse = await badgesSubGraph.query({
+    const graphqlResponse = await graphqlClient.query({
       query: gqlQuery,
       variables: { address: address.toLocaleLowerCase() },
     });

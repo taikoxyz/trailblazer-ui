@@ -1,7 +1,8 @@
 import { gql } from '@apollo/client/core';
 import type { Address } from 'viem';
 
-import { badgesSubGraph } from '../badgesSubGraph';
+import { graphqlClient } from '$libs/graphql/client';
+
 import { getTokenId } from '../getTokenId';
 
 export default async function isApprovedToMigrate(address: Address, badgeId: number): Promise<boolean> {
@@ -17,7 +18,7 @@ export default async function isApprovedToMigrate(address: Address, badgeId: num
       }
     `;
 
-    const result = await badgesSubGraph.query({
+    const result = await graphqlClient.query({
       query,
       variables: { address: address.toLocaleLowerCase() },
     });
