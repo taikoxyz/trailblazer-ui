@@ -3,7 +3,7 @@ import { isAddress } from 'viem';
 
 import { browser } from '$app/environment';
 import { Domain } from '$libs/domain';
-import { Profile } from '$libs/profile';
+import { ProfileS2 } from '$libs/profile/season-2/profile';
 import { getLogger } from '$libs/util/logger.js';
 
 const log = getLogger('profile:page');
@@ -19,8 +19,8 @@ export const load = async ({ params }) => {
   log('Fetching profile data', address);
   if (browser) {
     try {
-      const loadProfile = Profile.getProfile(address);
-      const loadHistory = Profile.getUserPointsHistory(address);
+      const loadProfile = ProfileS2.getProfile(address);
+      const loadHistory = ProfileS2.getUserPointsHistory(address);
       const loadDomain = Domain.getDomain(address);
       await Promise.all([loadProfile, loadHistory, loadDomain]);
     } catch (e) {

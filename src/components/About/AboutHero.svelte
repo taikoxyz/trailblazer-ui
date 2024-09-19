@@ -14,8 +14,6 @@
     'justify-center',
     'gap-16',
     'md:mb-20',
-    'mt-[160px]',
-    'md:mt-20',
   );
   const h1Classes = classNames(
     'md:text-[60px]/[60px]',

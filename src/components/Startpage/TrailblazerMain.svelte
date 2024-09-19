@@ -15,7 +15,8 @@
 
   $: primaryButtonText = $account?.isConnected ? $t('buttons.get_started') : $t('buttons.connect_wallet');
 
-  const wrapperClasses = classNames('w-full', 'flex', 'px-[48px]', 'h-[746px]');
+  const wrapperClasses = classNames('container', 'w-full', 'flex', 'lg:px-[48px]', 'h-[746px]');
+
   const backgroundImageClasses = classNames(
     'f-center',
     'md:f-left',

@@ -17,15 +17,9 @@
     'md:mb-[130px]',
   );
   const separatorClasses = classNames('w-full', 'h-[1px]', 'bg-divider-border');
-  const paddingWrapperClasses = classNames(
-    'w-full',
-    'px-[40px]',
-    'lg:px-[57px]',
+  const paddingWrapperClasses = classNames('w-full', 'px-[40px]', 'lg:px-[57px]', 'container', 'md:px-[47px]');
 
-    'md:px-[47px]',
-  );
-
-  const separatorBaseClasses = classNames('w-full', 'mt-[-150px]', 'mb-[-150px]');
+  const separatorBaseClasses = classNames('container', 'w-full', 'mt-[-150px]', 'mb-[-150px]');
   const separator40pxClasses = classNames(separatorBaseClasses, 'h-[40px]');
 
   const separator80pxClasses = classNames(separatorBaseClasses, 'h-[80px]');
@@ -36,7 +30,7 @@
 <div class={wrapperClasses}>
   <TrailblazerMain />
   <div class={separator40pxClasses} />
-  <TrailblazerGuide />
+  <TrailblazerGuide class="container" />
 
   <div class={separator80pxClasses} />
 

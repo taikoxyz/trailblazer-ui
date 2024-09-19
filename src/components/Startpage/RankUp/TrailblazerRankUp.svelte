@@ -14,12 +14,11 @@
   };
 
   const containerClasses = classNames(
-    'w-[100vw]',
+    'xl:max-w-[1440px] lg:max-w-[1024px] md:max-w-[768px] sm:max-w-[640px]',
+    'w-full',
     'mt-0',
     'md:mt-20',
     'lg:mt-0',
-    'md:px-12',
-    'px-6',
     'gap-8',
     'flex',
     'flex-col',
