@@ -4,12 +4,12 @@
 
   import { browser } from '$app/environment';
   import { Spinner } from '$components/Spinner';
+  import { trailblazersBadgesAddress } from '$generated/abi';
   import { chainId } from '$libs/chain';
   import getUserNFTs from '$libs/pfp/getUserNFTs';
   import type { IPfp } from '$libs/pfp/types';
   import { classNames } from '$libs/util/classNames';
 
-  import { trailblazersBadgesAddress } from '../../../../generated/abi';
   import { UserNFTsSection } from '.';
 
   $: nfts = [] as IPfp[];

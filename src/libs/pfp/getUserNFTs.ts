@@ -2,13 +2,13 @@ import axios from 'axios';
 import type { Address } from 'viem';
 
 import { FactionNames } from '$configs/badges';
+import { taikoonTokenAddress, trailblazersBadgesAddress } from '$generated/abi';
 import { getTokenId } from '$libs/badges/getTokenId';
 import { getUserBadges } from '$libs/badges/getUserBadges';
 import { chainId } from '$libs/chain';
 import Taikoon from '$libs/taikoon';
 import { isDevelopmentEnv } from '$libs/util/isDevelopmentEnv';
 
-import { taikoonTokenAddress, trailblazersBadgesAddress } from '../../generated/abi';
 import type { IPfp } from './types';
 
 function getS1BadgeURI(badgeId: number): string {
