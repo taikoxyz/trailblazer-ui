@@ -98,7 +98,7 @@
     'mb-8',
     'text-base',
   );
-  const actionButtonClasses = classNames('!w-[210px]', 'w-full');
+  const actionButtonClasses = classNames('!w-[210px]', 'w-full', 'z-[32]');
 </script>
 
 <div class={containerClasses}>
