@@ -5,7 +5,7 @@
 
   import FactionImage from './FactionImage.svelte';
 
-  export let name: FactionNames;
+  export let name: string;
   export let movement: Movements;
   export let blurred: boolean = false;
   export let disabled: boolean = false;
@@ -19,10 +19,8 @@
     'aspect-square',
     'rounded-[30px]',
     'bg-[#310E2F]',
-    'border-2',
     'transition-all',
     disabled ? 'grayscale' : 'grayscale-0',
-    blurred ? 'border-primary-border-hover' : 'border-transparent',
   );
 
   const contentWrapperClasses = classNames(
@@ -48,17 +46,19 @@
     'top-[20px]',
     'right-[20px]',
   );
+
+  $: typedNamed = name as FactionNames;
 </script>
 
 <div class={wrapperClasses} role="button">
   <div class={contentWrapperClasses}>
     <div class={imageWrapperClasses}>
-      <FactionImage {movement} type={name} />
+      <FactionImage {movement} type={typedNamed} />
     </div>
   </div>
   <slot />
 
   <div class={weekBadgeClasses}>
-    Week {FACTIONS[name] + 1}
+    Trail {FACTIONS[typedNamed] + 1}
   </div>
 </div>

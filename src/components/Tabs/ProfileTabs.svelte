@@ -15,21 +15,22 @@
     {
       name: 'Transactions',
       content: LeaderboardTransactions,
+      checked: true,
     },
     {
       name: 'NFT Collection',
       content: NFTCollection,
     },
-    {
-      name: 'Badge Migration',
-      content: BadgeMigration,
-      checked: true,
-    },
+
     ...(isDevelopmentEnv
       ? [
           {
             name: 'Dev Room',
             content: DevRoom,
+          },
+          {
+            name: 'Badge Migration',
+            content: BadgeMigration,
           },
         ]
       : []),
