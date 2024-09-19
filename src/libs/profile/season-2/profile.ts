@@ -154,8 +154,8 @@ export class ProfileS2 {
         graphqlResponse = data;
       }
 
-      if (graphqlResponse?.data?.owner) {
-        const userNFTs: UserNFT[] = graphqlResponse.data.owner.ownedTokens.map(
+      if (graphqlResponse?.data?.account) {
+        const userNFTs: UserNFT[] = graphqlResponse.data.account.s1MultiplierNfts.map(
           (token: { contract: { name: string }; tokenId: string; badgeId: string }) => ({
             name: token.contract.name,
             tokenId: token.tokenId,
@@ -201,14 +201,19 @@ export class ProfileS2 {
           snaefellMultiplier: Number(snaefellMultiplier || 0),
         };
 
-        // PFP/Avatar time
-        const avatar = await Pfp.get(address as Address);
-
         // Update profile
         currentProfile.update((current) => {
-          return { ...current, avatar, multipliers: userMultiplier, nfts: userNFTs };
+          return { ...current, multipliers: userMultiplier, nfts: userNFTs };
         });
       }
+
+      // PFP/Avatar time
+      const avatar = await Pfp.get(address as Address);
+
+      // Update profile
+      currentProfile.update((current) => {
+        return { ...current, avatar };
+      });
       boosterLoading.set(false);
 
       /* re-enable when movements (based vs boosted) becomes available

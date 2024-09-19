@@ -1,9 +1,8 @@
 import { gql } from '@apollo/client/core';
 import type { Address } from 'viem';
 
+import { graphqlClient } from '$libs/graphql/client';
 import type { IBadgeMigration } from '$stores/badgeMigration';
-
-import { badgesSubGraph } from '../badgesSubGraph';
 
 export default async function getMigrationStatus(address: Address): Promise<IBadgeMigration> {
   const query = gql`
@@ -30,7 +29,7 @@ export default async function getMigrationStatus(address: Address): Promise<IBad
     }
   `;
 
-  const result = await badgesSubGraph.query({
+  const result = await graphqlClient.query({
     query,
     variables: { address: address.toLocaleLowerCase() },
   });

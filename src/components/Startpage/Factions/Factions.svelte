@@ -106,9 +106,9 @@
     'flex-col',
     'gap-[40px]',
   );
-  const actionButtonClasses = classNames('relative', 'z-40', '!w-[210px]', 'w-full');
 
   const dividerWrapperClasses = classNames('bg-[green]', 'absolute', 'w-full', 'h-auto', 'bottom-0');
+  const actionButtonClasses = classNames('!w-[210px]', 'w-full', 'z-[32]');
 </script>
 
 <div class={containerClasses}>

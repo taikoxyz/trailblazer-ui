@@ -30,7 +30,7 @@
 
   const sectionWrapperClasses = classNames('w-full', 'flex', 'flex-col', 'gap-[30px]');
 
-  const gridClasses = classNames('grid', 'grid-cols-4', 'gap-[24px]');
+  const gridClasses = classNames('grid', 'grid-cols-4', 'gap-[24px]', 'relative');
   $: enabledBadgeIds = [] as number[];
 
   $: displayActiveMigration = false;
@@ -75,7 +75,7 @@
   }
 
   const migrateButtonWrapperClasses = classNames('absolute', 'bottom-[10px]', 'w-full', 'px-[10px]');
-
+  const infoTextClasses = classNames('absolute', 'w-full', 'text-center');
   async function handleStartMigration(badgeId: number) {
     if (!$account || !$account.address) return;
     const isApproved = await isApprovedToMigrate($account.address, badgeId);
@@ -115,7 +115,7 @@
           </FactionBadgeItem>
         {/each}
       {:else}
-        No migrations are currently enabled
+        <div class={infoTextClasses}>No migrations are currently enabled. Stay tuned!</div>
       {/if}
     </div>
   </div>

@@ -4,10 +4,11 @@
 
   import { page } from '$app/stores';
   import Spinner from '$components/Spinner/Spinner.svelte';
-  import { Tooltip } from '$components/Tooltip';
+  import Pfp from '$libs/pfp';
+  // import { Tooltip } from '$components/Tooltip';
   import { type UserProfile } from '$libs/profile';
   import { classNames } from '$libs/util/classNames';
-  import { formatMultiplier } from '$libs/util/formatMultiplier';
+  // import { formatMultiplier } from '$libs/util/formatMultiplier';
   import { formatNumbers } from '$libs/util/formatNumbers';
   import getConnectedAddress from '$libs/util/getConnectedAddress';
   import { pfpModal } from '$stores/modal';
@@ -19,9 +20,9 @@
   export let loading;
 
   let profile: UserProfile;
-  let multipliedView = true;
+  // let multipliedView = true;
   $: profile = $currentProfile;
-  $: totalMultiplier = formatMultiplier(profile?.multipliers.totalMultiplier);
+  // $: totalMultiplier = formatMultiplier(profile?.multipliers.totalMultiplier);
   $: displayedScore = profile?.score;
   $: isSelfProfile = false;
 
@@ -37,9 +38,11 @@
     'bg-opacity-70',
   );
 
+  $: pfp = '';
   onMount(async () => {
     const urlAddress = $page.url.pathname.split('/').pop() as Address;
     isSelfProfile = getAddress(urlAddress) === getAddress(getConnectedAddress());
+    pfp = await Pfp.get(urlAddress);
   });
 </script>
 
@@ -47,8 +50,8 @@
   class="flex bg-elevated-background p-5 pt-[84px] lg:pt-5 rounded-3xl w-full flex-col lg:flex-row items-center xl:w-1/2 xl:max-w-[680px]">
   {#if !loading}
     <div class="avatar lg:size-[258px] size-[250px] items-center lg:mr-8">
-      <div class="relative h-full bg-orange-400 rounded-3xl">
-        <img src={profile?.avatar} alt="avatar" />
+      <div class="relative h-full skeleton rounded-3xl">
+        <img src={pfp} alt="avatar" />
         {#if isSelfProfile}
           <button on:click={() => ($pfpModal = true)} class={editAvatarButtonClasses}>
             <img alt="Edit avatar" src="/edit.svg" />
@@ -70,7 +73,7 @@
           <!-- <CountUp class="font-clash-grotesk font-semibold text-[45px] leading-none" value={Number(displayedScore)} /> -->
           <div class="body-regular">points</div>
         </div>
-        {#if multipliedView}
+        <!-- {#if multipliedView}
           <button
             on:click={() => (multipliedView = false)}
             class="w-fit max-w-[150px] h-[24px] flex items-center gap-1 py-2 pl-2 pr-1 body-small-bold border border-divider-border bg-neutral-background rounded-full transition-all duration-300 ease-in-out hover:bg-neutral-hover hover:cursor-pointer">
@@ -86,7 +89,7 @@
               </div>
             </Tooltip>
           </button>
-        {:else}
+         {:else}
           <button
             on:click={() => (multipliedView = true)}
             class="flex w-fit h-[24px] items-center gap-1 py-2 pl-2 pr-1 body-small-bold border border-transparent rounded-full transition-all duration-300 ease-in-out hover:cursor-pointer">
@@ -102,7 +105,7 @@
               </div>
             </Tooltip>
           </button>
-        {/if}
+        {/if} -->
       </div>
 
       <!-- Rank & Experience -->

@@ -114,5 +114,13 @@
   "co-nft": {
     "handle": "@ConftApp",
     "icon": "/dapps/conft.png"
+  },
+  "world-of-dypians": {
+    "handle": "@worldofdypians",
+    "icon": "/dapps/gaming/dypians.png"
+  },
+  "brigade": {
+    "handle": "@tacowax",
+    "icon": "/dapps/gaming/brigade.png"
   }
 }

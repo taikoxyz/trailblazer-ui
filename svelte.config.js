@@ -23,6 +23,7 @@ const config = {
       '$fonts/*': './src/public/fonts/*',
       $chainConfig: './src/generated/chainConfig.ts',
       $customToken: './src/generated/customTokenConfig.ts',
+      '$generated/*': './src/generated/*',
     },
   },
 };
