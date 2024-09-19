@@ -58,6 +58,7 @@ async function getUserS1Badges(address: Address): Promise<IPfp[]> {
         address: trailblazersBadgesAddress[chainId],
         src: getS1BadgeURI(badgeId),
         tokenId,
+        badgeId,
       } satisfies IPfp);
     }
     badgeId += 1;
