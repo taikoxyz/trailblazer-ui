@@ -14,7 +14,7 @@
   $: faqMini = faqEntries[0].items as IFaqEntry[];
 
   const wrapperClasses = classNames('lg:px-[75px]', 'md:px-[65px]', 'px-[20px]', 'w-full', 'f-col');
-
+  const overWrapperClasses = classNames('f-col', 'w-full');
   const imageClasses = classNames(
     'rounded-[30px]',
     'md:w-full',
@@ -29,7 +29,6 @@
     'lg:bg-[url(/about/lg/about-illustration-s2.png)]',
     'md:bg-[url(/about/md/about-illustration-s2.png)]',
     'bg-[url(/about/sm/about-illustration-s2.png)]',
-    // style="background-image: url('/about-illustration-s2.png');"
   );
 
   const faqWrapperClasses = classNames(
@@ -41,21 +40,27 @@
     'max-w-[100vw]',
     'mt-[80px]',
   );
+
+  const imageWrapperClasses = classNames('w-full');
+
+  const guideWrapperClasses = classNames('f-col', 'w-full', 'items-center', 'justify-center');
+
+  const factionsWrapperClasses = classNames('f-col', 'f-center', 'px-[24px]', 'w-full');
 </script>
 
-<div class="f-col w-full">
+<div class={overWrapperClasses}>
   <div class={wrapperClasses}>
     <AboutHero />
-    <div class={classNames('w-full')}>
+    <div class={imageWrapperClasses}>
       <div class={imageClasses} role="img" aria-label="Gallery image"></div>
     </div>
   </div>
-  <div class=" f-col w-full items-center justify-center">
+  <div class={guideWrapperClasses}>
     <TrailblazerGuide />
   </div>
   <AboutInfoPanels />
-  <div class="f-col f-center px-[24px] w-full">
-    <Factions noDivider />
+  <div class={factionsWrapperClasses}>
+    <Factions />
   </div>
   <!-- <RewardsAndUtility /> -->
   <div class={faqWrapperClasses}>
