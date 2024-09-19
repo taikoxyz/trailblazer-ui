@@ -38,18 +38,6 @@ export async function getUserBadges(address: Address): Promise<IUserBadges> {
             badgeId
           }
         }
-        badgeMigration(id: $address) {
-          s1Badge {
-            id
-            badgeId
-          }
-          s2Badge {
-            id
-            badgeId
-          }
-          isStarted
-          isCompleted
-        }
       }
     `;
     const graphqlResponse = await badgesSubGraph.query({
@@ -64,16 +52,11 @@ export async function getUserBadges(address: Address): Promise<IUserBadges> {
 
     const { s1Badges } = graphqlResponse.data.account;
 
-    let migrationBadgeId = -1;
-    if (graphqlResponse.data.badgeMigration) {
-      migrationBadgeId = parseInt(graphqlResponse.data.badgeMigration.s1Badge.badgeId);
-    }
-
     for (const badgeId of Object.values(FACTIONS)) {
       for (const badge of s1Badges) {
         const currentBadgeId = parseInt(badge.badgeId);
 
-        if (currentBadgeId === badgeId || badgeId === migrationBadgeId) {
+        if (currentBadgeId === badgeId) {
           const key = Object.values(FactionNames)[badgeId];
           out[key] = true;
         }
