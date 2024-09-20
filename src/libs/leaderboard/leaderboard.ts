@@ -6,7 +6,7 @@ import { PUBLIC_TRAILBLAZER_API_URL } from '$env/static/public';
 import { globalAxiosConfig } from '$libs/api/axiosConfig';
 import bridgeAdditionalData from '$libs/leaderboard/json/bridgeAdditionalData.json';
 import dappDetailsMapping from '$libs/leaderboard/json/dappDetailsMapping.json';
-import gamingDetailsMapping from '$libs/leaderboard/json/gamingDetailsMapping.json';
+// import gamingDetailsMapping from '$libs/leaderboard/json/gamingDetailsMapping.json';
 import { isDevelopmentEnv } from '$libs/util/isDevelopmentEnv';
 import { getLogger } from '$libs/util/logger';
 import { setBridgeLeaderboard, setDappLeaderboard, setDappLeaderboardLastUpdated } from '$stores/leaderboard';
@@ -144,7 +144,7 @@ export class Leaderboard {
 
       const leaderboardPage: DappLeaderboardPage = { items: [], lastUpdated: 0 };
 
-      const detailMapping: DetailsMapping = gamingDetailsMapping;
+      // const detailMapping: DetailsMapping = gamingDetailsMapping;
 
       if (!leaderboardPageApiResponse.data.items) {
         throw new Error('No Items found');
@@ -152,6 +152,12 @@ export class Leaderboard {
 
       const items = await Promise.all(
         leaderboardPageApiResponse.data.items.map(async (item) => {
+          return {
+            address: item.address,
+            data: [],
+            totalScore: item.score,
+          };
+          /*
           let entry: UnifiedLeaderboardRow;
           if (isAddress(item.slug)) {
             entry = {
@@ -178,7 +184,7 @@ export class Leaderboard {
           if (detailMapping[item.slug]?.handle) {
             entry.handle = detailMapping[item.slug].handle;
           }
-          return entry;
+          return entry;*/
         }),
       );
 

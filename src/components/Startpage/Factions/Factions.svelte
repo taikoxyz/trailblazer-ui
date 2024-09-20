@@ -1,7 +1,7 @@
 <script lang="ts">
   import { t } from 'svelte-i18n';
 
-  import { goto } from '$app/navigation';
+  import { browser } from '$app/environment';
   import { ActionButton } from '$components/Button';
   import { FactionsGallery } from '$components/FactionsGallery';
   import Icon from '$components/Icon/Icon.svelte';
@@ -11,20 +11,14 @@
   import { DividerElement } from '../DividerElement';
 
   let carouselRef: InstanceType<typeof FactionsGallery>;
-  export let noDivider = false;
 
-  const handleFactionsButton = () => goto('/about');
+  $: isLandingPage = browser && window.location.pathname === '/';
+
+  $: noDivider = !isLandingPage;
   const scrollLeft = () => carouselRef.scrollLeft();
   const scrollRight = () => carouselRef.scrollRight();
 
-  const containerClasses = classNames(
-    'flex',
-    'flex-col',
-    'w-screen',
-    'bg-base-200',
-    'rounded-t-[30px]',
-    noDivider ? 'rounded-b-[30px]' : 'rounded-b-0',
-  );
+  const containerClasses = classNames('flex', 'flex-col', 'w-screen', 'bg-base-200', 'rounded-[30px]', 'relative');
 
   const sectionClasses = classNames('w-full', 'px-[48px]', 'relative', 'grid', 'md:grid-cols-6', 'grid-cols-4', 'mb-8');
   const earnSectionClasses = classNames(sectionClasses, 'mb-20');
@@ -37,6 +31,7 @@
     'flex-col',
     'justify-between',
     'md:flex-row',
+    'relative',
   );
 
   const titleContainerClasses = classNames(
@@ -73,28 +68,36 @@
   );
   const subtitleHeaderClasses = classNames('text-primary-base-content', 'font-clash-grotesk', 'text-xl');
   const subtitleLineClasses = classNames('w-[60px]', 'h-[3px]', 'bg-primary-brand', 'mt-4');
-  const titleClasses = classNames('text-primary', '!text-6xl');
+  const titleClasses = classNames('text-primary', '!text-[57px]/[64px]');
   const descriptionWrapperClasses = classNames('w-full', 'f-col', 'mt-12');
   const descriptionClasses = classNames('body-regular', 'text-primary-base-content', 'text-left', 'text-base');
-  const earnTitleContainerClasses = classNames(
-    'xl:w-[562px]',
-    'lg:w-[504px]',
-    'md:w-[440px]',
+  $: earnTitleContainerClasses = classNames(
+    isLandingPage ? 'xl:w-[562px]' : null,
+    isLandingPage ? 'lg:w-[504px]' : null,
+    isLandingPage ? 'md:w-[440px]' : null,
     'md:pt-10',
     'flex',
+    !isLandingPage ? 'w-full' : null,
     'flex-col',
-    'justify-between',
+    !isLandingPage ? 'xl:flex-row' : null,
+    'justify-start',
+    'items-start',
   );
-  const earnTitleClasses = classNames('my-8', '!w-full', '!mb-4', 'lg:w-[504px]');
+  const earnTitleClasses = classNames('!w-full', '!mb-4');
   const earnTitleSpanClasses = classNames('text-primary-base-content', '!text-5xl', '!leading-4', 'md:!text-6xl');
   const earnDescriptionClasses = classNames(
     'xl:text-left',
-    'text-secondary-content',
+    'text-grey-600',
     'max-w-[482px]',
     'mb-8',
     'text-base',
+    'flex',
+    'flex-col',
+    'gap-[40px]',
   );
-  const actionButtonClasses = classNames('!w-[210px]', 'w-full');
+
+  const dividerWrapperClasses = classNames('bg-[green]', 'absolute', 'w-full', 'h-auto', 'bottom-0');
+  const actionButtonClasses = classNames('!w-[210px]', 'w-full', 'z-[32]');
 </script>
 
 <div class={containerClasses}>
@@ -129,25 +132,44 @@
   </div>
 
   <FactionsGallery bind:this={carouselRef} />
-
+  {#if !noDivider}
+    <div class={dividerWrapperClasses}>
+      <DividerElement />
+    </div>
+  {/if}
   <div class={earnSectionClasses}>
     <div class={contentClasses}>
       <div class={earnTitleContainerClasses}>
         <Title class={earnTitleClasses} center="left">
           <span class={earnTitleSpanClasses}>
-            {$t('factions.earn.title')}
+            {#if isLandingPage}
+              {$t('factions.landing.title')}
+            {:else}
+              {$t('factions.about.title')}
+            {/if}
           </span>
         </Title>
         <div class={earnDescriptionClasses}>
-          {$t('factions.earn.description')}
+          {#if isLandingPage}
+            {$t('factions.landing.description')}
+          {:else}
+            {$t('factions.about.description')}
+          {/if}
+
+          {#if isLandingPage}
+            <ActionButton priority="primary" class={actionButtonClasses} href="/about">
+              {$t('buttons.factions.learn_about')}
+            </ActionButton>
+          {:else}
+            <ActionButton
+              href="https://www.okx.com/web3/marketplace/nft/collection/taiko/trailblazers-badges"
+              priority="primary"
+              class={actionButtonClasses}>
+              {$t('buttons.factions.get_yours')}
+            </ActionButton>
+          {/if}
         </div>
-        <ActionButton priority="primary" class={actionButtonClasses} on:click={handleFactionsButton}>
-          {$t('buttons.factions.learn_about')}
-        </ActionButton>
       </div>
     </div>
   </div>
-  {#if !noDivider}
-    <DividerElement />
-  {/if}
 </div>

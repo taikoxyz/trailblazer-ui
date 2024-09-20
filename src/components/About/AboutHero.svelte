@@ -54,7 +54,7 @@
       </h2>
 
       <div class={buttonWrapperClasses}>
-        <ActionButton href="/profile" priority="primary">Start your trail</ActionButton>
+        <ActionButton href="/profile" priority="primary">Become a Legend</ActionButton>
       </div>
     </div>
   </div>

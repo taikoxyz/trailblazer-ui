@@ -20,7 +20,7 @@ export const routes: NavigationItem[] = [
       // { name: 'Bridge', route: '/leaderboard/bridge', icon: 'quad-circles' },
       { name: 'Dapp', route: '/leaderboard/s2/dapp', icon: 'star2' },
       // { name: 'DeFi', route: '/leaderboard/defi', icon: 'flower-circle' },
-      // { name: 'Gaming', route: '/leaderboard/gaming', icon: 'gaming' },
+      { name: 'Gaming', route: '/leaderboard/s2/gaming', icon: 'gaming' },
     ],
   },
   {

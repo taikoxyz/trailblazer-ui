@@ -41,7 +41,8 @@
     "connect_wallet": "Connect",
     "explore_more": "Explore more",
     "factions": {
-      "learn_about": "Learn about factions"
+      "learn_about": "Learn about factions",
+      "get_yours": "Get yours now"
     },
     "get_started": "Get started",
     "home": "Back to the homepage",
@@ -66,9 +67,13 @@
     "week": "Week"
   },
   "factions": {
-    "earn": {
+    "landing": {
       "description": "To earn Taiko Faction Badges, participants must complete specific weekly challenges outlined in the Trailblazers: Call of Taiko campaign.",
       "title": "Start earning factions through weekly trails"
+    },
+    "about": {
+      "title": "How to earn Badges?",
+      "description": "Collect Faction Badges as you engage with the Taiko universe. These limited-edition NFTs are not just collectibles—they're a testament to your dedication and milestones achieved on your journey.\n\nBe swift, as these badges disappear once their trail window closes."
     },
     "gallery": {
       "description": "A groundbreaking cast of characters emerges to enrich our community and deepen the immersive experience. Meet eight distinct factions, each with its own unique character and flair."
@@ -202,21 +207,21 @@
     "gaming": {
       "banner": {
         "description": "Compete for a month-long jackpot by providing the best gaming experience for your users! Rewards will be based on performance throughout the competition, ending Sept 12th.",
-        "title": "Join the Gaming competition starting Aug 12th!"
+        "title": "Join the Gaming competition starting Sep 17th!"
       },
       "prize": {
         "1": "Prize Pool",
-        "2": "175K TAIKO Tokens"
+        "2": "150K TAIKO Tokens"
       },
       "prize_breakdown": {
         "first": {
           "amount": "100K"
         },
         "second": {
-          "amount": "50K"
+          "amount": "35K"
         },
         "third": {
-          "amount": "25K"
+          "amount": "15K"
         }
       },
       "tokenName": "TAIKO Tokens"

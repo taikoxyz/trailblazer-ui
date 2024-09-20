@@ -2,6 +2,7 @@ import { getAccount } from '@wagmi/core';
 import axios from 'axios';
 
 import { PUBLIC_TRAILBLAZER_API_URL } from '$env/static/public';
+import { readClaimGalxePointsAlreadyRegistered, writeClaimGalxePointsRegister } from '$generated/abi';
 import { chainId } from '$libs/chain';
 import type { GalxePoints } from '$libs/profile';
 import { isDevelopmentEnv } from '$libs/util/isDevelopmentEnv';
@@ -9,7 +10,6 @@ import { wagmiConfig } from '$libs/wagmi';
 import { galxeLoading } from '$stores/load';
 import { currentProfile } from '$stores/profile';
 
-import { readClaimGalxePointsAlreadyRegistered, writeClaimGalxePointsRegister } from '../../generated/abi';
 import type { GalxePointsResponse } from './types';
 
 const baseApiUrl = isDevelopmentEnv ? '/api/mock-api' : PUBLIC_TRAILBLAZER_API_URL;

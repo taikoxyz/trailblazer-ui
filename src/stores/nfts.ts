@@ -2,9 +2,8 @@ import { writable } from 'svelte/store';
 import type { Address } from 'viem';
 
 import { FactionNames } from '$configs/badges';
+import { trailblazersBadgesAddress } from '$generated/abi';
 import { chainId } from '$libs/chain';
-
-import { trailblazersBadgesAddress } from '../generated/abi';
 
 export interface INftStore {
   season1: {

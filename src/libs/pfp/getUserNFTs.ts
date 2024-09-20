@@ -2,13 +2,12 @@ import axios from 'axios';
 import type { Address } from 'viem';
 
 import { FactionNames } from '$configs/badges';
+import { taikoonTokenAddress, trailblazersBadgesAddress } from '$generated/abi';
 import { getTokenId } from '$libs/badges/getTokenId';
 import { getUserBadges } from '$libs/badges/getUserBadges';
 import { chainId } from '$libs/chain';
 import Taikoon from '$libs/taikoon';
-import { isDevelopmentEnv } from '$libs/util/isDevelopmentEnv';
 
-import { taikoonTokenAddress, trailblazersBadgesAddress } from '../../generated/abi';
 import type { IPfp } from './types';
 
 function getS1BadgeURI(badgeId: number): string {
@@ -32,7 +31,7 @@ async function getUserTaikoons(address: Address): Promise<IPfp[]> {
     const uri = await Taikoon.tokenURI(tokenId);
 
     const metadata = await axios({
-      url: isDevelopmentEnv ? `/api/proxy?url=${uri}` : uri,
+      url: `/api/proxy?url=${uri}`,
     });
 
     const src = metadata.data.image;
@@ -58,6 +57,7 @@ async function getUserS1Badges(address: Address): Promise<IPfp[]> {
         address: trailblazersBadgesAddress[chainId],
         src: getS1BadgeURI(badgeId),
         tokenId,
+        badgeId,
       } satisfies IPfp);
     }
     badgeId += 1;

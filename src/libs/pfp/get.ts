@@ -3,8 +3,7 @@ import axios from 'axios';
 import { type Address } from 'viem';
 
 import { globalAxiosConfig } from '$libs/api/axiosConfig';
-import { badgesSubGraph } from '$libs/badges/badgesSubGraph';
-import { isDevelopmentEnv } from '$libs/util/isDevelopmentEnv';
+import { graphqlClient } from '$libs/graphql/client';
 
 export async function get(address: Address): Promise<string> {
   try {
@@ -16,7 +15,7 @@ export async function get(address: Address): Promise<string> {
       }
     `;
 
-    const result = await badgesSubGraph.query({
+    const result = await graphqlClient.query({
       query,
       variables: { address: address.toLocaleLowerCase() },
     });
@@ -27,7 +26,7 @@ export async function get(address: Address): Promise<string> {
 
     const { tokenURI } = result.data.profilePicture;
 
-    const tokenUriUrl = isDevelopmentEnv ? `/api/proxy?url=${encodeURIComponent(tokenURI)}` : tokenURI;
+    const tokenUriUrl = `/api/proxy?url=${encodeURIComponent(tokenURI)}`;
     const src = await axios.get(tokenUriUrl, globalAxiosConfig);
     return src.data.image;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any

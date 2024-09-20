@@ -93,8 +93,13 @@
       {entry.title}
     </td>
   {/if}
+
   <td class="lg:px-10 body-regular w-3/12 text-right">
-    <svelte:component this={scoreComponent} score={entry.totalScore} data={entry.data} />
+    {#if entry.totalScore >= 0}
+      <svelte:component this={scoreComponent} score={entry.totalScore} data={entry.data} />
+    {:else}
+      Indexing...
+    {/if}
   </td>
 </tr>
 
