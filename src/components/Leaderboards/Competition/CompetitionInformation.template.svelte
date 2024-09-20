@@ -35,7 +35,7 @@
 
   <!-- Price box -->
   <div
-    class="flex flex-col sm:flex-col lg:flex-row relative border-2 border-primary-border-hover rounded-3xl px-[90px] lg:px-[46px] pt-[90px] lg:pt-[58px] pb-[51px] gap-[30px] lg:gap-[83px]">
+    class="f-col lg:flex-row relative border-2 border-primary-border-hover rounded-3xl items-center justify-center w-full max-w-[764px] pt-[90px] lg:pt-[58px] pb-[51px] gap-[30px] lg:gap-[83px]">
     <div
       class="f-col lg:block absolute border-2 body-bold bordered-wrap top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 px-5 py-4 min-w-[209px] rounded-full text-center bg-primary-background">
       <span>{prizeTitle}</span>

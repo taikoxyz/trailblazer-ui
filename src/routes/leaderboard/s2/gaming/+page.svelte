@@ -14,7 +14,7 @@
   $: ({ pageInfo, loading } = $page.data);
 
   const handleClick = () => {
-    goto('/leaderboard/gaming');
+    goto('/s2/leaderboard/dapps');
   };
 </script>
 

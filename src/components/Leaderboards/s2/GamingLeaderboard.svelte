@@ -5,7 +5,8 @@
   import { default as GamingHeader } from '$components/Leaderboards/Header/GamingHeader.svelte';
   import { AbstractLeaderboard, PointScore } from '$components/Leaderboards/Template/';
   import { leaderboardConfig } from '$config';
-  import { type DappLeaderboardItem, Leaderboard, type PaginationInfo } from '$libs/leaderboard';
+  import { type DappLeaderboardItem, type PaginationInfo } from '$libs/leaderboard';
+  import { GamingLeaderboard } from '$libs/leaderboard/season-2/competitions/gaming/gamingLeaderboard';
   import { getLogger } from '$libs/util/logger';
   import { currentGamingLeaderboard } from '$stores/leaderboards/gamingLeaderboard';
 
@@ -28,7 +29,7 @@
       page,
       size: pageSize,
     };
-    const pageInfo = await Leaderboard.getGamingLeaderboard(args);
+    const pageInfo = await GamingLeaderboard.getGamingLeaderboard(args);
     totalItems = pageInfo.total || $currentGamingLeaderboard.items.length;
     loading = false;
   }
@@ -39,13 +40,7 @@
 
 <AbstractLeaderboard
   headers={['No.', 'Game', '', 'Points']}
-  data={$currentGamingLeaderboard.items.map((item) => ({
-    address: item.address,
-    icon: item.icon,
-    data: item.data,
-    handle: item.handle,
-    totalScore: -1,
-  }))}
+  data={$currentGamingLeaderboard.items}
   showTrophy={true}
   isLoading={loading}
   {handlePageChange}
