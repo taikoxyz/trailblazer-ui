@@ -38,15 +38,13 @@
   const contentClasses = classNames(
     'lg:w-[432px]',
     'lg:h-full',
-    'inline-flex',
-    'p-9',
-    'flex-col',
     'justify-center',
     'items-start',
-    'gap-[89px]',
     'rounded-[30px]',
     'bg-base-200',
     'w-full',
+    'grid',
+    'grid-cols-6',
   );
 
   const contentInnerClasses = classNames(
@@ -54,30 +52,17 @@
     'flex-col',
     'w-full',
     'lg:w-auto',
-    'grid',
-    'grid-cols-4',
-    'md:grid-cols-8',
-    'lg:grid-cols-none',
-  );
-
-  const titleContainerClasses = classNames(
-    'flex',
-    'flex-col',
-    'col-span-4',
+    'md:col-span-4',
     'md:col-start-2',
-    'md:col-span-6',
-    'lg:col-span-auto',
+    'lg:col-span-6',
+    'lg:col-start-1',
+    'col-span-6',
+    'p-[36px]',
   );
 
-  const subtitleClasses = classNames(
-    'w-full',
-    'xl:text-left',
-    'mb-[40px]',
-    'md:pt-2',
-    'md:w-[189px]',
-    'pt-8',
-    'w-[100px]',
-  );
+  const titleContainerClasses = classNames('flex', 'flex-col');
+
+  const subtitleClasses = classNames('w-full', 'xl:text-left', 'mb-[40px]', 'md:pt-2', 'pt-8');
 
   const subtitleTextClasses = classNames('text-primary-base-content', 'font-clash-grotesk', 'text-[20px]');
 
