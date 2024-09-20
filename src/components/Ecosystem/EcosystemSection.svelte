@@ -23,6 +23,7 @@
     'lg:grid-cols-3',
     'xl:grid-cols-4',
     'px-[48px]',
+    'xl:max-w-[1440px]',
     'gap-[18px]',
   );
 
@@ -74,6 +75,7 @@
     'grid',
     'md:grid-cols-6',
     'grid-cols-4',
+    'xl:max-w-[1440px]',
   );
 
   const headerWrapperClasses = classNames('lg:col-span-3', 'lg:col-start-2', 'md:col-start-2', 'col-span-4');
@@ -122,6 +124,7 @@
     'grid',
     'md:grid-cols-6',
     'grid-cols-4',
+    'xl:max-w-[1440px]',
   );
 
   const partnersClasses = classNames('lg:col-span-3', 'lg:col-start-2', 'md:col-start-2', 'col-span-4');

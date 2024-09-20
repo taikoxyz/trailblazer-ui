@@ -13,25 +13,30 @@
     mobileMenu = !mobileMenu;
   }
 
-  const wrapperClasses = classNames('h-[104px]', 'justify-center', 'flex', 'lg:top-[16px]', 'z-50', 'bg-[#0c0f1b]');
+  const wrapperClasses = classNames(
+    'w-[100vw]',
+    'px-[24px]',
+    'md:px-[48px]',
+    'h-[104px]',
+    'relative',
+    'justify-center',
+    'flex',
+    'z-50',
+    'bg-[#0c0f1b]',
+  );
 
   const containerClasses = classNames(
     'f-center',
-    'xl:container',
     'w-full',
     'fixed',
-    'px-[24px]',
-
-    'xl:relative',
-    'lg:px-0',
+    'relative',
     'bg-[#0c0f1b]',
     'z-50',
+    'xl:max-w-[1440px]',
   );
 
   const headerClasses = classNames(
     'flex',
-    'container',
-    'lg:px-[48px]',
     'body-regular',
     'items-center',
     'box-border',
@@ -56,7 +61,6 @@
     'border-none',
     'swap',
     'swap-rotate',
-
     'z-30',
   );
 </script>

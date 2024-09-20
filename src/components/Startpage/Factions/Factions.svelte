@@ -18,9 +18,27 @@
   const scrollLeft = () => carouselRef.scrollLeft();
   const scrollRight = () => carouselRef.scrollRight();
 
-  const containerClasses = classNames('flex', 'flex-col', 'w-screen', 'bg-base-200', 'rounded-[30px]', 'relative');
+  const containerClasses = classNames(
+    'flex',
+    'justify-center',
+    'items-center',
+    'flex-col',
+    'w-screen',
+    'bg-base-200',
+    'rounded-[30px]',
+    'relative',
+  );
 
-  const sectionClasses = classNames('w-full', 'px-[48px]', 'relative', 'grid', 'md:grid-cols-6', 'grid-cols-4', 'mb-8');
+  const sectionClasses = classNames(
+    'w-full',
+    'xl:max-w-[1440px]',
+    'px-[48px]',
+    'relative',
+    'grid',
+    'md:grid-cols-6',
+    'grid-cols-4',
+    'mb-8',
+  );
   const earnSectionClasses = classNames(sectionClasses, 'mb-20');
   const contentClasses = classNames(
     'lg:col-span-4',
@@ -32,6 +50,7 @@
     'justify-between',
     'md:flex-row',
     'relative',
+    'xl:max-w-[1440px]',
   );
 
   const titleContainerClasses = classNames(
@@ -96,7 +115,7 @@
     'gap-[40px]',
   );
 
-  const dividerWrapperClasses = classNames('bg-[green]', 'absolute', 'w-full', 'h-auto', 'bottom-0');
+  const dividerWrapperClasses = classNames('absolute', 'w-full', 'h-auto', 'bottom-0');
   const actionButtonClasses = classNames('!w-[210px]', 'w-full', 'z-[32]');
 </script>
 
@@ -132,6 +151,7 @@
   </div>
 
   <FactionsGallery bind:this={carouselRef} />
+
   {#if !noDivider}
     <div class={dividerWrapperClasses}>
       <DividerElement />

@@ -6,6 +6,7 @@
 
   const containerClasses = classNames(
     'w-full',
+    'xl:max-w-[1440px]',
     'mt-0',
     'md:mt-20',
     'lg:mt-0',
