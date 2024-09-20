@@ -30,7 +30,8 @@ export type UserProfileGQL = GraphQLResponse & {
   };
 };
 
-export type UserProfile = GalxePoints &
+export type UserProfile = SeasonBonusPoints &
+  GalxePoints &
   DomainNames & {
     address: string;
     pointsHistory?: UserPointHistoryPage;
@@ -58,6 +59,12 @@ export type GalxePoints = {
   galxePoints?: number;
   trailblazerPoints?: number;
   galxePointsClaimed?: boolean;
+};
+
+export type SeasonBonusPoints = {
+  seasonBonusPoints?: number;
+  trailblazerPoints?: number;
+  bonusPointsClaimed?: boolean;
 };
 
 export type UserBooster = {

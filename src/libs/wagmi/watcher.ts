@@ -1,7 +1,7 @@
 import { getAccount, watchAccount } from '@wagmi/core';
 
+import { Season1Bonus } from '$libs/bonus/s1/season1';
 import { isSupportedChain } from '$libs/chain';
-import { Galxe } from '$libs/galxe';
 import { getLogger } from '$libs/util/logger';
 import { account } from '$stores/account';
 import { switchChainModal } from '$stores/modal';
@@ -30,7 +30,7 @@ export async function startWatching() {
             log('Unsupported chain', chainId);
             switchChainModal.set(true);
           } else {
-            await Galxe.refreshData();
+            await Season1Bonus.refreshData();
             switchChainModal.set(false);
           }
         }
