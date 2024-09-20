@@ -23,7 +23,7 @@
   const titleClasses = classNames(
     'flex',
     'w-full',
-    'max-w-[494px]',
+    'max-w-[570px]',
     'font-normal',
     'font-medium',
     'leading-[52px]',
