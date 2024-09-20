@@ -163,3 +163,11 @@ export type UnifiedLeaderboardRow = {
   title?: string;
   name?: string;
 };
+
+export type DetailsMapping = {
+  [slug: string]: {
+    name?: string;
+    icon?: string;
+    handle?: string;
+  };
+};

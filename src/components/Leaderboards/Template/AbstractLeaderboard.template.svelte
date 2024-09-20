@@ -93,7 +93,7 @@
         {/if}
         {#if data.length === 0 && !isLoading}
           <tr class="row h-12">
-            <td class="lg:px-10" colspan="3">No data available</td>
+            <td class="lg:px-10" colspan="3">No data available yet</td>
           </tr>
         {/if}
       </tbody>

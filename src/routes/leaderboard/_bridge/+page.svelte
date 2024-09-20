@@ -8,7 +8,7 @@
 </script>
 
 <svelte:head>
-  <title>Taiko Trailblazer - Bridge Leaderboard</title>
+  <title>Taiko Trailblazer - Gaming Leaderboard</title>
 </svelte:head>
 
 <Page>
