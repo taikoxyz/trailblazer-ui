@@ -5,7 +5,6 @@
   import { ProfileTabs } from '$components/Tabs';
   import { Season1Bonus } from '$libs/bonus/s1/season1';
   import { profileLoading } from '$stores/load';
-
   import { BoosterCard, ProfileCard } from './UserInfo';
   import SeasonBonusCard from './UserInfo/SeasonBonusCard.svelte';
   import UserPfp from './UserPFP/UserPFP.modal.svelte';
@@ -20,7 +19,9 @@
     <div class="flex px-4 lg:px-0 gap-8 h-full box-content flex-col lg:flex-row justify-center">
       <ProfileCard loading={$profileLoading} />
       <BoosterCard />
+
       <SeasonBonusCard />
+
     </div>
 
     <ProfileTabs />
