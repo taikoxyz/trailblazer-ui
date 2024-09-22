@@ -1,11 +1,9 @@
 import { getAccount } from '@wagmi/core';
-import axios from 'axios';
 import { get } from 'svelte/store';
 import type { Address } from 'viem';
 
-import { PUBLIC_TRAILBLAZER_API_URL } from '$env/static/public';
+import { getUserPointsAndRank } from '$libs/api/endpoints/user/user';
 import type { SeasonBonusPoints } from '$libs/profile';
-import { isDevelopmentEnv } from '$libs/util/isDevelopmentEnv';
 import { getLogger } from '$libs/util/logger';
 import { wagmiConfig } from '$libs/wagmi';
 import { bonusLoading } from '$stores/load';
@@ -15,8 +13,6 @@ import type { SeasonBonusRewards } from '../types';
 
 const log = getLogger('Season1BonusRewards');
 class Season1BonusRewards implements SeasonBonusRewards {
-  baseApiUrl = isDevelopmentEnv ? '/api/mock-api' : PUBLIC_TRAILBLAZER_API_URL;
-
   async refreshData(): Promise<void> {
     bonusLoading.set(true);
     await Promise.all([this.updatePoints(), this.checkClaimStatus()]);
@@ -56,18 +52,15 @@ class Season1BonusRewards implements SeasonBonusRewards {
     }
 
     if (address) {
-      const previousSeasonPoints = { address, totalScore: 0 };
       try {
-        const response = await axios.get(`${this.baseApiUrl}/user/rank`, {
-          params: { address },
-        });
-        previousSeasonPoints.totalScore = response.data.totalScore;
-        log('previousSeasonPoints', previousSeasonPoints);
+        const { score: baseScore } = await getUserPointsAndRank({ address, season: 1 });
+
+        log('previousSeasonPoints', baseScore);
         currentProfile.update((current) => {
           const updates: Partial<SeasonBonusPoints> = {};
 
-          updates.seasonBonusPoints = Math.round(previousSeasonPoints.totalScore);
-          const scaled = Math.round(previousSeasonPoints.totalScore * 0.7);
+          updates.seasonBonusPoints = Math.round(baseScore);
+          const scaled = Math.round(baseScore * 0.7);
           // cap to 150k if it is higher than 150k otherwise keep the value
           const capped = Math.min(scaled, 150000);
           updates.trailblazerPoints = capped;

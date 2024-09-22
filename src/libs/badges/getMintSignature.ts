@@ -5,7 +5,7 @@ import { type Address } from 'viem';
 import type { FACTIONS } from '$configs/badges';
 import { PUBLIC_TRAILBLAZER_API_URL } from '$env/static/public';
 import { trailblazersBadgesAbi, trailblazersBadgesAddress } from '$generated/abi';
-import { globalAxiosConfig } from '$libs/api/axiosConfig';
+import { globalAxiosConfig } from '$libs/api/config/axiosConfig';
 import { chainId } from '$libs/chain';
 import { isDevelopmentEnv } from '$libs/util/isDevelopmentEnv';
 import { wagmiConfig } from '$libs/wagmi';

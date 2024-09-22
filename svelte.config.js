@@ -24,6 +24,8 @@ const config = {
       $chainConfig: './src/generated/chainConfig.ts',
       $customToken: './src/generated/customTokenConfig.ts',
       '$generated/*': './src/generated/*',
+      $dto: './src/libs/dto/*',
+      '$graphql/*': './src/libs/graphql/*',
     },
   },
 };

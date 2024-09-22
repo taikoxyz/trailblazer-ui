@@ -1,0 +1,23 @@
+diff --git a/package.json b/package.json
+index db0e90c754920eb5c71de87411a18398831b40ac..c2d0a6dfa20062fb8e7234aace7daa7e7984abb4 100644
+--- a/package.json
++++ b/package.json
+@@ -16,6 +16,18 @@
+   "main": "./main.cjs",
+   "module": "./index.js",
+   "types": "./index.d.ts",
++  "exports": {
++    ".": {
++      "import": "./index.js",
++      "require": {
++        "types": "./index.d.ts",
++        "default": "./main.cjs"
++      }
++    },
++    "./*": {
++      "import": "./*/index.js"
++    }
++  },
+   "sideEffects": false,
+   "react-native": {
+     "./dist/cache/inmemory/fixPolyfills.js": "./cache/inmemory/fixPolyfills.native.js",

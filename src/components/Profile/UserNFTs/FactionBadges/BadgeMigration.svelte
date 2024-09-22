@@ -4,9 +4,9 @@
   import { ActionButton } from '$components/Button';
   import { FactionNames, FACTIONS } from '$configs/badges';
   import { Movements } from '$libs/badges/const';
-  import { getUserBadges } from '$libs/badges/getUserBadges';
   import isApprovedToMigrate from '$libs/badges/isApprovedToMigrate';
   import getEnabledMigrationIds from '$libs/badges/migration/getEnabledMigrationIds';
+  import getUserBadges from '$libs/badges/migration/getUserBadges';
   import updateMigrationStatus from '$libs/badges/migration/updateMigrationStatus';
   import startMigration from '$libs/badges/startMigration';
   import { classNames } from '$libs/util/classNames';

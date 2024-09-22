@@ -5,7 +5,7 @@ import type { Address } from 'viem';
 
 // import type { Address } from 'viem';
 import { PUBLIC_TRAILBLAZER_API_URL } from '$env/static/public';
-import { globalAxiosConfig } from '$libs/api/axiosConfig';
+import { globalAxiosConfig } from '$libs/api/config/axiosConfig';
 import { graphqlClient } from '$libs/graphql/client';
 import { USER_NFTS_QUERY } from '$libs/graphql/queries';
 import Pfp from '$libs/pfp';

@@ -5,9 +5,8 @@ import type { Address } from 'viem';
 
 // import type { Address } from 'viem';
 import { PUBLIC_TRAILBLAZER_API_URL } from '$env/static/public';
-import { globalAxiosConfig } from '$libs/api/axiosConfig';
-import { graphqlClient } from '$libs/graphql/client';
-import { USER_NFTS_QUERY } from '$libs/graphql/queries';
+import { globalAxiosConfig } from '$libs/api/config/axiosConfig';
+import { fetchUserNFTs } from '$libs/graphql/services/userService';
 import Pfp from '$libs/pfp';
 // import getMovement from '$libs/badges/getMovement';
 import { isDevelopmentEnv } from '$libs/util/isDevelopmentEnv';
@@ -110,7 +109,7 @@ export class ProfileS2 {
     return { level: String(level), title };
   }
 
-  static async getProfile(address?: string) {
+  static async getProfile(address?: Address) {
     profileLoading.set(true);
 
     if (!address) {
@@ -142,10 +141,8 @@ export class ProfileS2 {
       // Get Multipliers and NFT Inventory
       let graphqlResponse;
       if (!isDevelopmentEnv) {
-        graphqlResponse = await graphqlClient.query({
-          query: USER_NFTS_QUERY,
-          variables: { address: address.toLocaleLowerCase() },
-        });
+        graphqlResponse = await fetchUserNFTs(address);
+        log('GraphQL Response: ', graphqlResponse);
       } else {
         const { data } = await axios.get(`${baseApiUrl}/s2/user/graphql`, {
           params: { address },

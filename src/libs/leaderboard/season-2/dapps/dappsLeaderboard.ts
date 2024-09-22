@@ -2,7 +2,7 @@ import axios from 'axios';
 
 import { errorToast } from '$components/NotificationToast';
 import { PUBLIC_TRAILBLAZER_API_URL } from '$env/static/public';
-import { globalAxiosConfig } from '$libs/api/axiosConfig';
+import { globalAxiosConfig } from '$libs/api/config/axiosConfig';
 import dappDetailsMapping from '$libs/leaderboard/json/dappDetailsMapping.json';
 import type { PaginationInfo, ProtocolApiResponse, UnifiedLeaderboardRow } from '$libs/leaderboard/types';
 import type { DappLeaderboardItem, DappLeaderboardPage, DappLeaderboardPageApiResponse } from '$libs/leaderboard/types';

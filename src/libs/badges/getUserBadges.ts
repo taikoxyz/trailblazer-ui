@@ -1,22 +1,17 @@
-import { gql } from '@apollo/client/core';
 import type { Address } from 'viem';
 
 import { FactionNames, FACTIONS } from '$configs/badges';
-import { graphqlClient } from '$libs/graphql/client';
+import { fetchUserBadges } from '$libs/graphql/services/userService';
 
-export interface IUserBadges {
-  [FactionNames.Ravers]: boolean;
-  [FactionNames.Robots]: boolean;
-  [FactionNames.Bouncers]: boolean;
-  [FactionNames.Masters]: boolean;
-  [FactionNames.Monks]: boolean;
-  [FactionNames.Drummers]: boolean;
-  [FactionNames.Androids]: boolean;
-  [FactionNames.Shinto]: boolean;
-}
+import type { IUserBadges } from './types';
 
+/**
+ * Processes raw Account data into a structured IUserBadges format.
+ * @param address - The Address type identifier.
+ * @returns A Promise resolving to IUserBadges.
+ */
 export async function getUserBadges(address: Address): Promise<IUserBadges> {
-  const out = {
+  const out: IUserBadges = {
     [FactionNames.Ravers]: false,
     [FactionNames.Robots]: false,
     [FactionNames.Bouncers]: false,
@@ -28,46 +23,34 @@ export async function getUserBadges(address: Address): Promise<IUserBadges> {
   };
 
   try {
-    const gqlQuery = gql`
-      query UserBadges($address: String) {
-        account(id: $address) {
-          id
-          s1Badges {
-            id
-            badgeId
-          }
-        }
+    // Fetch raw data using the service function
+    const account = await fetchUserBadges(address);
+
+    if (!account || !account.s1Badges) {
+      // Account does not exist or has no badges, return default
+      return out;
+    }
+
+    const { s1Badges } = account;
+
+    // Process each badge and update the output accordingly
+    s1Badges.forEach((badge) => {
+      const currentBadgeId = parseInt(badge.badgeId);
+      const factionName = Object.values(FactionNames)[currentBadgeId];
+
+      if (factionName && Object.values(FACTIONS).includes(currentBadgeId)) {
+        out[factionName] = true;
       }
-    `;
-    const graphqlResponse = await graphqlClient.query({
-      query: gqlQuery,
-      variables: { address: address.toLocaleLowerCase() },
     });
 
-    if (!graphqlResponse || !graphqlResponse.data || !graphqlResponse.data.account) {
-      // account does not exist, skip
-      return out;
-    }
-
-    const { s1Badges } = graphqlResponse.data.account;
-
-    for (const badgeId of Object.values(FACTIONS)) {
-      for (const badge of s1Badges) {
-        const currentBadgeId = parseInt(badge.badgeId);
-
-        if (currentBadgeId === badgeId) {
-          const key = Object.values(FactionNames)[badgeId];
-          out[key] = true;
-        }
-      }
-    }
     return out;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  } catch (e: any) {
-    if (e.message === 'graphqlResponse.data.account is null') {
-      // account does not exist, skip
+  } catch (error: any) {
+    if (error.message.includes('graphqlResponse.data.account is null')) {
+      // Account does not exist, return default
       return out;
     }
-    throw e;
+    // Re-throw other unexpected errors
+    throw error;
   }
 }

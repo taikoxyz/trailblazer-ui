@@ -17,10 +17,14 @@
     "format": "prettier --write .",
     "lint": "prettier --check . && eslint .",
     "lint:fix": "eslint . --fix",
-    "generate:abi": "cd ../taiko-mono.git/packages/nfts && pnpm compile && cd - && wagmi generate"
+    "generate:abi": "cd ../taiko-mono.git/packages/nfts && pnpm compile && cd - && wagmi generate",
+    "generate:graphql": "graphql-codegen --config scripts/codegen.cjs"
   },
   "devDependencies": {
     "@apollo/client": "^3.11.3",
+    "@graphql-codegen/cli": "^5.0.2",
+    "@graphql-codegen/typescript": "^4.0.9",
+    "@graphql-codegen/typescript-operations": "^4.2.3",
     "@playwright/test": "^1.44.1",
     "@sveltejs/adapter-auto": "^3.2.1",
     "@sveltejs/adapter-static": "^3.0.1",
@@ -83,5 +87,10 @@
     "svelte-apollo": "^0.5.0",
     "svelte-i18n": "^4.0.0",
     "viem": "^2.15.1"
+  },
+  "pnpm": {
+    "patchedDependencies": {
+      "@apollo/client@3.11.4": "patches/@apollo__client@3.11.4.patch"
+    }
   }
 }

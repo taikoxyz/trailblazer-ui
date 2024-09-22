@@ -3,7 +3,7 @@ import { isAddress } from 'viem';
 
 import { errorToast } from '$components/NotificationToast';
 import { PUBLIC_TRAILBLAZER_API_URL } from '$env/static/public';
-import { globalAxiosConfig } from '$libs/api/axiosConfig';
+import { globalAxiosConfig } from '$libs/api/config/axiosConfig';
 import bridgeAdditionalData from '$libs/leaderboard/json/bridgeAdditionalData.json';
 import dappDetailsMapping from '$libs/leaderboard/json/dappDetailsMapping.json';
 // import gamingDetailsMapping from '$libs/leaderboard/json/gamingDetailsMapping.json';
