@@ -14,7 +14,8 @@ import { ProfileApiAdapter } from '../adapter/ProfileAdapter';
 import UserRepository from '../repositories/UserRepository';
 import { multipliersLoading, profileLoading } from '../stores/profileStore';
 import { defaultUserProfile } from '../types/defaultUserProfile';
-import type { UserLevel, UserMultiplier, UserNFT } from '../types/types';
+import type { DomainInfo } from '../types/DomainInfo';
+import { DomainType, type UserMultiplier, type UserNFT } from '../types/types';
 import type { UserProfile } from '../types/UserProfile';
 
 const log = getLogger('ProfileService');
@@ -22,6 +23,8 @@ const log = getLogger('ProfileService');
 export class ProfileService {
   private apiAdapter: ProfileApiAdapter;
   private userRepository: UserRepository;
+
+  private localStorageKey = 'taikoENSdomain';
 
   constructor() {
     this.apiAdapter = new ProfileApiAdapter();
@@ -47,16 +50,9 @@ export class ProfileService {
       }
 
       // Fetch data from multiple endpoints
-      const [
-        pointsAndRank,
-        // userInfo,
-        // userActivity,
-        // userDomainInfo,
-      ] = await Promise.all([
+      const [pointsAndRank, userDomainInfo] = await Promise.all([
         this.apiAdapter.fetchUserPointsAndRank(address, season),
-        // this.apiAdapter.fetchUserInfo(address),
-        // this.apiAdapter.fetchUserActivity(address),
-        // this.apiAdapter.fetchUserDomainInfo(address),
+        this.apiAdapter.fetchUserDomainInfo(address),
       ]);
 
       // Assemble the complete UserProfile with default values
@@ -65,7 +61,6 @@ export class ProfileService {
         address,
         personalInfo: {
           ...defaultUserProfile.personalInfo,
-          // ...userInfo,
         },
         userStats: {
           ...defaultUserProfile.userStats,
@@ -75,9 +70,8 @@ export class ProfileService {
           title: '',
           level: '',
         },
-        // activityHistory: userActivity,
         multipliers: defaultUserProfile.multipliers,
-        // domainInfo: userDomainInfo,
+        domainInfo: userDomainInfo,
       };
 
       log('Assembled User Profile:', userProfile);
@@ -93,13 +87,92 @@ export class ProfileService {
       await this.fetchAndUpdateAvatar(address);
       await this.performAdditionalCalculations();
 
-      log('Final Profile!:', await this.userRepository.get());
+      log('Final Profile:', await this.userRepository.get());
+
+      const info: DomainInfo = {
+        domainInfo: {
+          dotTaiko: userDomainInfo.dotTaiko,
+          zns: userDomainInfo.zns,
+        },
+      };
+      // Handle Domain Selection
+      await this.handleDomainSelection(info);
     } catch (error) {
       profileLoading.set(false);
       multipliersLoading.set(false);
       log('Error in getProfile:', error);
-      // Optionally, handle errors by setting an error state in another store or notifying the user
     }
+  }
+
+  /**
+   * Handles domain selection logic.
+   * @param domainInfo - The fetched domain information.
+   */
+  async handleDomainSelection(domainInfo: DomainInfo): Promise<void> {
+    try {
+      const selectedDomain = this.determineSelectedDomain(domainInfo);
+      this.setSelectedDomain(selectedDomain);
+    } catch (error) {
+      log('Error in handleDomainSelection:', error);
+    }
+  }
+
+  /**
+   * Determines the selected domain based on fetched data and localStorage.
+   * @param domainInfo - The fetched domain information.
+   * @returns The selected domain type.
+   */
+  determineSelectedDomain(domainInfo: DomainInfo): DomainType {
+    const { dotTaiko, zns } = domainInfo.domainInfo;
+    const storedDomain = localStorage.getItem(this.localStorageKey) as DomainType | null;
+
+    if (storedDomain === DomainType.DOTTAIKO && dotTaiko) {
+      return DomainType.DOTTAIKO;
+    }
+
+    if (storedDomain === DomainType.ZNS && zns) {
+      return DomainType.ZNS;
+    }
+
+    if (dotTaiko && zns) {
+      // Randomly select either dotTaiko or zns
+      return Math.random() < 0.5 ? DomainType.DOTTAIKO : DomainType.ZNS;
+    }
+
+    if (dotTaiko) {
+      return DomainType.DOTTAIKO;
+    }
+
+    if (zns) {
+      return DomainType.ZNS;
+    }
+
+    return DomainType.ADDRESS;
+  }
+
+  /**
+   * Sets the selected domain and persists it in localStorage.
+   * @param selectedDomain - The domain type to set.
+   */
+  async setSelectedDomain(selectedDomain: DomainType): Promise<void> {
+    localStorage.setItem(this.localStorageKey, selectedDomain.toString());
+    const oldUser = await this.userRepository.get();
+    this.userRepository.update({
+      ...oldUser,
+      domainInfo: {
+        ...oldUser.domainInfo,
+        selected: selectedDomain,
+      },
+    });
+    log('updated user', await this.userRepository.get());
+  }
+
+  /**
+   * Allows the user to select a domain and updates the store and localStorage.
+   * @param selectedDomain - The domain type selected by the user.
+   */
+  setSelectedDomainExternally(selectedDomain: DomainType): void {
+    this.setSelectedDomain(selectedDomain);
   }
 
   /**
@@ -168,7 +241,6 @@ export class ProfileService {
       }
     } catch (error) {
       log('Error in fetchAndCalculateMultipliers:', error);
-      // Optionally, handle errors
     }
   }
 
@@ -189,80 +261,5 @@ export class ProfileService {
   /**
    * Performs additional calculations like percentile, level, and boosted points.
    */
-  private async performAdditionalCalculations(): Promise<void> {
-    // try {
-    //   const profile: UserProfile = await this.userRepository.get();
-    //   const rank = profile.userStats.rank;
-    //   const total = profile.userStats.total;
-    //   const rankPercentile = this.calculatePercentile(rank, total);
-    //   const level = this.getLevel(rankPercentile);
-    //   const formattedRankPercentile = `${(100 - rankPercentile).toFixed(2)}%`;
-    //   const boostedPoints = this.calculateBoostedPoints(profile);
-    //   await this.userRepository.update({
-    //     userStats: {
-    //       ...profile.userStats,
-    //       rankPercentile: formattedRankPercentile,
-    //       level: level.level,
-    //       title: level.title,
-    //       boostedPoints,
-    //     },
-    //   });
-    // } catch (error) {
-    //   log('Error in performAdditionalCalculations:', error);
-    //   // Optionally, handle errors
-    // }
-  }
-
-  /**
-   * Calculates the percentile based on rank and total.
-   * @param rank - The user's rank.
-   * @param total - The total number of users.
-   * @returns The calculated percentile.
-   */
-  private calculatePercentile(rank: string, total: string): number {
-    return (1 - Number(rank) / Number(total)) * 100;
-  }
-
-  /**
-   * Calculates the boosted points based on the profile.
-   * @param profile - The user's profile.
-   * @returns The boosted points as a string.
-   */
-  // private calculateBoostedPoints(profile: UserProfile): string {
-  //   // const totalMultiplier = profile.multipliers.totalMultiplier;
-  //   // const points = profile.userStats.score;
-  //   // return ((points * (totalMultiplier + 1000)) / 1000).toFixed(0);
-  // }
-
-  /**
-   * Determines the user's level based on their percentile.
-   * @param percentile - The user's percentile.
-   * @returns An object containing the level and title.
-   */
-  private getLevel(percentile: number): UserLevel {
-    if (percentile < 0 || percentile > 100) {
-      return { level: '0', title: 'Beginner' };
-    }
-
-    const levelTiers = [
-      { percentileCap: 50, level: '0', title: 'Beginner' },
-      { percentileCap: 58, level: '1', title: 'Initiate' },
-      { percentileCap: 66, level: '2', title: 'Senshi I' },
-      { percentileCap: 74, level: '3', title: 'Senshi II' },
-      { percentileCap: 82, level: '4', title: 'Samurai I' },
-      { percentileCap: 90, level: '5', title: 'Samurai II' },
-      { percentileCap: 92, level: '6', title: 'Sensei I' },
-      { percentileCap: 94, level: '7', title: 'Sensei II' },
-      { percentileCap: 96, level: '8', title: 'Taichou I' },
-      { percentileCap: 98, level: '9', title: 'Taichou II' },
-      { percentileCap: 99, level: '10', title: 'Shogun' },
-      { percentileCap: 99.5, level: '11', title: 'Hashira' },
-      { percentileCap: 99.9, level: '12', title: 'Kodai' },
-      { percentileCap: 99.99, level: '13', title: 'Densetsu' },
-      { percentileCap: 100, level: '14', title: 'Legend' },
-    ];
-
-    const tier = levelTiers.find((tier) => percentile <= tier.percentileCap);
-    return tier ? { level: String(tier.level), title: tier.title } : { level: '0', title: 'Beginner' };
-  }
+  private async performAdditionalCalculations(): Promise<void> {}
 }

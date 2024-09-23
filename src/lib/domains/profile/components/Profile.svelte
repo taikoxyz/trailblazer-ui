@@ -8,6 +8,7 @@
 
   import profileService from '../services/ProfileServiceInstance';
   import { profileLoading } from '../stores/profileStore';
+  import BoosterCard from './BoosterCard.svelte';
   import ProfileCard from './ProfileCard.svelte';
   import ProfileTabs from './ProfileTabs.svelte';
 
@@ -22,7 +23,7 @@
   <div class="flex flex-col max-w-section w-full lg:gap-8">
     <div class="flex px-4 lg:px-0 gap-8 h-full box-content flex-col lg:flex-row justify-center">
       <ProfileCard loading={$profileLoading} />
-      <!-- <BoosterCard /> -->
+      <BoosterCard />
     </div>
     <ProfileTabs />
   </div>
