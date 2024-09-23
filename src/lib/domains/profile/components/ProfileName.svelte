@@ -1,19 +1,30 @@
 <script lang="ts">
-  import { Icon } from '$components/Icon';
-  import { Domain, DomainType } from '$libs/domain';
+  import { Icon, IconFlipper } from '$components/Icon';
+  import { DomainType } from '$libs/domain';
   import { shortenAddress } from '$libs/util/shortenAddress';
 
+  import profileService from '../services/ProfileServiceInstance';
   import { userProfile } from '../stores/profileStore';
   import type { UserProfile } from '../types/UserProfile';
 
   export let profile: UserProfile;
-  let dropdown: HTMLDetailsElement | null = null;
+  let dropdown: HTMLDivElement;
+
   $: profile = $userProfile;
 
+  $: open = false;
+
   function handleSetDomain(selectedDomain: DomainType) {
-    Domain.setSelectedDomain(selectedDomain);
-    if (dropdown) dropdown.removeAttribute('open');
+    profileService.setSelectedDomain(selectedDomain);
+    closeDropdown();
   }
+
+  const closeDropdown = () => {
+    const elem = document.activeElement;
+    if (elem) {
+      (elem as HTMLElement)?.blur();
+    }
+  };
 
   function getDisplayName(profile: UserProfile): string {
     if (profile?.domainInfo?.selected === DomainType.DOTTAIKO && profile?.domainInfo.dotTaiko)
@@ -25,19 +36,27 @@
 </script>
 
 <div class="flex items-center gap-1">
-  <Icon type="user-circle" />
+  <Icon type="user-circle" fillClass="fill-base-content" />
   <a
     href={`https://taikoscan.io/address/${profile?.address}`}
     target="_blank"
-    class="body-bold hover:cursor-pointer underline text-primary-link">
+    class="body-bold hover:cursor-pointer underline text-base-content">
     {getDisplayName(profile)}
   </a>
 
   {#if profile?.domainInfo?.dotTaiko || profile?.domainInfo?.zns}
-    <details bind:this={dropdown} class="dropdown dropdown-end ml-1 flex">
-      <summary class="btn p-1 h-[20px] w-[20px] min-h-0 bg-secondary-icon border-secondary-icon">
-        <Icon class="-translate-x-[1px] h-[6px] w-[10px]" type="chevron-down" />
-      </summary>
+    <div class="dropdown dropdown-bottom" bind:this={dropdown}>
+      <div tabindex="0" role="button" class="btn btn-ghost btn-circle btn-sm p-0 items-center justify-center">
+        <IconFlipper
+          type="swap-rotate"
+          iconType1="chevron-left"
+          iconType2="chevron-down"
+          selectedDefault="chevron-left"
+          class="w-[24px] h-[24px] rounded-full"
+          size={20}
+          bind:flipped={open}
+          on:labelclick={() => (open = !open)} />
+      </div>
       <ul class="menu dropdown-content bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
         {#if profile?.domainInfo.dotTaiko && profile?.domainInfo.selected != DomainType.DOTTAIKO}
           <li><button on:click={() => handleSetDomain(DomainType.DOTTAIKO)}>{profile.domainInfo.dotTaiko}</button></li>
@@ -51,6 +70,6 @@
           </li>
         {/if}
       </ul>
-    </details>
+    </div>
   {/if}
 </div>

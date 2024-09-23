@@ -29,7 +29,7 @@
   // $: isDefault = selectedDefault === iconType1;
   $: isDefault = !flipped;
 
-  $: classes = classNames('swap  btn-neutral', type, $$props.class);
+  $: classes = classNames('swap  ', type, $$props.class);
 </script>
 
 <div role="button" tabindex="0" class={classes} on:click={handleLabelClick} on:keypress={handleLabelClick}>

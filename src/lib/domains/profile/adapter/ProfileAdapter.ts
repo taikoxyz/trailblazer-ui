@@ -1,6 +1,3 @@
-// src/lib/domains/profile/adapters/ProfileAdapter.ts
-
-import axios from 'axios';
 import type { Address } from 'viem';
 
 import { getAxiosInstance, globalAxiosConfig } from '$lib/shared/services/api/axiosClient';
@@ -45,7 +42,8 @@ export class ProfileApiAdapter {
    * Fetches user domain-specific data from the /user/domain endpoint.
    */
   async fetchUserDomainInfo(address: Address): Promise<DomainResponse> {
-    const response = await axios.get<DomainResponse>(`/user/domain`, {
+    const client = getAxiosInstance();
+    const response = await client.get<DomainResponse>(`/user/domain`, {
       params: { address },
       ...globalAxiosConfig,
     });
