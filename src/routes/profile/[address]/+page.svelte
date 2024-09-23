@@ -1,6 +1,7 @@
 <script lang="ts">
   import { Page } from '$components/Page';
-  import { Profile } from '$components/Profile';
+  import { Profile } from '$lib/domains/profile/components';
+  // import { Profile } from '$components/Profile';
 </script>
 
 <svelte:head>

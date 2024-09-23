@@ -1,0 +1,99 @@
+import type { Address } from 'viem';
+
+export type DomainResponse = {
+  zns: string;
+  dotTaiko: string;
+  address: Address;
+};
+
+export type DomainNames = {
+  selected?: DomainType;
+  dotTaiko?: string;
+  zns?: string;
+};
+
+export enum DomainType {
+  ADDRESS = 'ADDRESS',
+  DOTTAIKO = 'DOTTAIKO',
+  ZNS = 'ZNS',
+}
+
+export type GalxePoints = {
+  galxePoints?: number;
+  trailblazerPoints?: number;
+  galxePointsClaimed?: boolean;
+};
+
+export type UserPointHistoryPage = {
+  items: UserPointHistory[];
+  page: number;
+  size: number;
+  max_page: number;
+  total_pages: number;
+  total: number;
+  last: number;
+  first: number;
+  visible: number;
+};
+
+export type Event = 'Transaction' | 'TransactionValue' | 'BlockProposed' | 'Bridged';
+export type ActivityType = Event;
+
+export type UserPointHistory = {
+  address: Address;
+  event: Event;
+  points: number;
+  date: number;
+  multiplier: number;
+};
+
+export type UserNFT = {
+  name: string;
+  tokenId: string;
+  badgeId?: string;
+  uri?: string;
+  explorerLink?: string;
+};
+
+export type UserMultiplier = {
+  totalMultiplier: number;
+  taikoonMultiplier: number;
+  factionMultiplier: number;
+  snaefellMultiplier: number;
+};
+
+export type UserBooster = {
+  title: string;
+  boost: number;
+  type: BoosterType;
+  unlocked: boolean;
+};
+
+export type BoosterType = 'nft' | 'stake' | 'bridge';
+
+export type UserFaction = {
+  faction: Faction;
+  boostedOrBased: BoostedOrBased;
+};
+
+export type UserLevel = {
+  level: string;
+  title: string;
+};
+
+export type UserFactionBadge = UserFaction & {
+  unlocked: boolean;
+  claimable: boolean;
+};
+
+export type Faction = 'Ravers' | 'Robots' | 'Bouncers' | 'Masters' | 'Monks' | 'Drummers' | 'Androids' | 'Shinto';
+
+export type BoostedOrBased = 'Boosted' | 'Based';
+
+export enum Movements {
+  Neutral,
+  Based,
+  Boosted,
+}
+
+export const MovementNames: string[] = Object.keys(Movements).filter((key) => isNaN(Number(key)));
