@@ -1,8 +1,3 @@
-import { get } from 'svelte/store';
-
-import { Profile } from '$libs/profile';
-import { currentUserLeaderboard } from '$stores/leaderboard';
-
 import type { DappLeaderboardRow, DefiDappLeaderboardRow, UnifiedLeaderboardRow, UserLeaderboardRow } from './types';
 
 export function mapDappLeaderboardRow(row: DappLeaderboardRow): UnifiedLeaderboardRow {
@@ -27,24 +22,33 @@ export function mapDefiDappLeaderboardRow(row: DefiDappLeaderboardRow): UnifiedL
 }
 
 export function mapUserLeaderboardRow(row: UserLeaderboardRow): UnifiedLeaderboardRow {
-  if (!row.position) {
-    throw new Error('');
-  }
-  const totalScore = row.score ? row.score : 0;
-  const totalUsers = get(currentUserLeaderboard).totalUsers;
-  const percentile = Profile.calculatePercentile(row.position, totalUsers);
-  const level = Profile.getLevel(percentile);
+  // if (!row.position) {
+  //   throw new Error('');
+  // }
+  // const totalScore = row.score ? row.score : 0;
+  // const totalUsers = get(currentUserLeaderboard).totalUsers;
+  // const percentile = Profile.calculatePercentile(row.position, totalUsers);
+  // const level = Profile.getLevel(percentile);
 
-  const out = {
-    address: row.address ? row.address : row.address,
-    level: level.level || '1',
-    title: level.title || 'Drummer',
-    icon: row.icon,
+  // const out = {
+  //   address: row.address ? row.address : row.address,
+  //   level: level.level || '1',
+  //   title: level.title || 'Drummer',
+  //   icon: '',
+  //   handle: '',
+  //   data: [],
+  //   totalScore,
+  // };
+
+  // // const rank = 1;
+  // return out;
+  // empty
+
+  return {
+    address: row.address,
+    icon: '',
     handle: '',
     data: [],
-    totalScore,
+    totalScore: row.score,
   };
-
-  // const rank = 1;
-  return out;
 }
