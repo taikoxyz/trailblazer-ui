@@ -1,7 +1,6 @@
 import { browser } from '$app/environment';
 import { leaderboardConfig } from '$config';
-import { type DappLeaderboardItem, type PaginationInfo } from '$libs/leaderboard';
-import { DappsLeaderboardS2 } from '$libs/leaderboard/season-2/dapps/dappsLeaderboard';
+import { type DappLeaderboardItem, Leaderboard, type PaginationInfo } from '$libs/leaderboard';
 
 export const load = async () => {
   let loading = true;
@@ -14,7 +13,7 @@ export const load = async () => {
 
   if (browser) {
     try {
-      pageInfo = await DappsLeaderboardS2.getDappLeaderboard(pageInfo);
+      pageInfo = await Leaderboard.getDappLeaderboard(pageInfo);
     } catch (error) {
       console.error('Error loading leaderboard data:', error);
     } finally {
