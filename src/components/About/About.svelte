@@ -5,10 +5,12 @@
   import { type IFaqEntry } from '$components/FaqBlock/FaqBlock.svelte';
   import Factions from '$components/Startpage/Factions/Factions.svelte';
   import { TrailblazerGuide } from '$components/Startpage/Guide';
+  import TrailblazerRankUp from '$components/Startpage/RankUp/TrailblazerRankUp.svelte';
   import { classNames } from '$libs/util/classNames';
 
   import AboutHero from './AboutHero.svelte';
   import AboutInfoPanels from './AboutInfoPanels.svelte';
+  import RewardsAndUtility from './RewardsAndUtility.svelte';
 
   $: faqEntries = $json('faq') as { items: IFaqEntry[] }[];
   $: faqMini = faqEntries[0].items as IFaqEntry[];
@@ -32,6 +34,8 @@
     'transition-transform',
     'w-full',
     'h-[600px]',
+    'max-w-[100vw]',
+    'xl:max-w-[1440px]',
     'bg-cover',
     'bg-center',
     'xl:bg-[url(/about/xl/about-illustration-s2.png)]',
@@ -40,18 +44,9 @@
     'bg-[url(/about/sm/about-illustration-s2.png)]',
   );
 
-  const faqWrapperClasses = classNames(
-    'w-full',
-    'flex',
-    'flex-col',
-    'justify-center',
-    'items-center',
-    'max-w-[100vw]',
-    'mt-[80px]',
-  );
-
-  const fullWidthClasses = classNames('w-full');
+  const fullWidthClasses = classNames('w-full', 'flex', 'justify-center', 'items-center');
   const separator50pxClasses = classNames(fullWidthClasses, 'h-[50px]');
+  const separator100pxClasses = classNames(fullWidthClasses, 'h-[100px]');
   const separator150pxClasses = classNames(fullWidthClasses, 'h-[150px]');
 </script>
 
@@ -66,9 +61,17 @@
 
   <AboutInfoPanels />
 
+  <div class={separator150pxClasses} />
+
+  <TrailblazerRankUp />
+  <div class={separator100pxClasses} />
+
   <Factions />
-  <!-- <RewardsAndUtility /> -->
-  <div class={faqWrapperClasses}>
-    <FaqBlock entries={faqMini} />
-  </div>
+  <div class={separator100pxClasses} />
+
+  <RewardsAndUtility />
+
+  <div class={separator100pxClasses} />
+
+  <FaqBlock entries={faqMini} />
 </div>
