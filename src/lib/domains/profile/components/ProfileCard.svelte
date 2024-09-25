@@ -8,31 +8,17 @@
   import { classNames } from '$libs/util/classNames';
   import getConnectedAddress from '$libs/util/getConnectedAddress';
 
-  import { pfpModal, userProfile } from '../stores/profileStore';
+  import { userProfile } from '../stores/profileStore';
   import ProfileName from './ProfileName.svelte';
+  import ProfilePicture from './ProfilePicture.svelte';
 
   export let loading: boolean;
 
   let profile;
+  let isSelfProfile: boolean;
+
   $: profile = $userProfile;
   $: displayedScore = profile?.userStats?.score;
-  $: isSelfProfile = false;
-
-  const editAvatarButtonClasses = classNames(
-    'btn',
-    'btn-sm',
-    'btn-ghost',
-    'absolute',
-    'max-w-[32px]!',
-    'max-h-[32px]!',
-    'top-[10px]',
-    'right-[10px]',
-    'rounded-full',
-    'bg-dialog-background',
-    'p-[6px]',
-    'opacity-50',
-    'hover:opacity-100',
-  );
 
   const cardClasses = classNames(
     'relative',
@@ -51,8 +37,6 @@
     'xl:max-w-[680px]',
   );
 
-  $: pfp = profile?.personalInfo?.avatar || '';
-
   onMount(async () => {
     const urlAddress = $page.url.pathname.split('/').pop() as Address;
     isSelfProfile = getAddress(urlAddress) === getAddress(getConnectedAddress());
@@ -67,15 +51,7 @@
   </div>
 
   <div class="avatar md:size-[175px] size-[250px] md:mr-8 md:justify-self-start justify-self-center">
-    <div class=" h-full skeleton bg-neutral-background rounded-3xl">
-      <img src={pfp || '/avatar.png'} alt="avatar" />
-
-      {#if isSelfProfile}
-        <button on:click={() => ($pfpModal = true)} class={editAvatarButtonClasses}>
-          <img alt="Edit avatar" src="/edit.svg" class="size-[16px]" />
-        </button>
-      {/if}
-    </div>
+    <ProfilePicture {profile} {isSelfProfile} />
   </div>
   {#if !loading}
     <div class="flex md:items-start items-center flex-col self-center md:min-w-[300px] w-full">
