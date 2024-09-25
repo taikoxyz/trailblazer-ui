@@ -159,7 +159,6 @@ export class ProfileService {
     localStorage.setItem(this.localStorageKey, selectedDomain.toString());
     const oldUser = await this.userRepository.get();
     this.userRepository.update({
-      ...oldUser,
       domainInfo: {
         ...oldUser.domainInfo,
         selected: selectedDomain,
@@ -271,19 +270,16 @@ export class ProfileService {
     const percentile = ProfileService.calculatePercentile(rank, total);
     const { level, title } = ProfileService.getLevel(percentile);
     // const boostedPoints = this.calculateBoostedPoints(user);
-
+    log('new info', { percentile, level, title });
     await this.userRepository.update({
-      ...user,
       userStats: {
         ...user.userStats,
         rankPercentile: String(percentile),
-        level,
-        title,
-      },
-      personalInfo: {
-        ...user.personalInfo,
+        level: level,
+        title: title,
       },
     });
+    log('updated', await this.userRepository.get());
   }
 
   private static calculatePercentile(rank: string | number, total: string | number) {
@@ -293,6 +289,7 @@ export class ProfileService {
   }
 
   private static getLevel(percentile: number) {
+    log('Percentile:', percentile);
     if (percentile < 0 || percentile > 100) {
       return { level: '0', title: 'Beginner' };
     }
@@ -319,7 +316,8 @@ export class ProfileService {
       level: '0',
       title: 'Beginner',
     };
+    log('found tier', tier);
     const { level, title } = tier;
-    return { level: String(level), title };
+    return { level: level, title };
   }
 }
