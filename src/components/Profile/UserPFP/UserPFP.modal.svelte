@@ -5,12 +5,12 @@
   import { Icon } from '$components/Icon';
   import { errorToast, successToast } from '$components/NotificationToast';
   import Spinner from '$components/Spinner/Spinner.svelte';
+  import { pfpModal } from '$lib/domains/profile/stores/profileStore';
   import Pfp from '$libs/pfp';
   import getUserNFTs from '$libs/pfp/getUserNFTs';
   import type { IPfp } from '$libs/pfp/types';
   import { classNames } from '$libs/util/classNames';
   import { account } from '$stores/account';
-  import { pfpModal } from '$stores/modal';
   import { currentProfile } from '$stores/profile';
 
   $: profile = $currentProfile;
@@ -145,6 +145,7 @@
 
   $: previewVisible = false;
   $: selectedPfp = null as IPfp | null;
+
   function selectPfp(pfp: IPfp) {
     selectedPfp = pfp;
     previewVisible = true;

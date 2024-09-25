@@ -19,24 +19,18 @@ export class ProfileApiAdapter {
     return response.data;
   }
 
-  // /**
-  //  * Fetches user personal information from the api
-  //  */
-  // async fetchUserInfo(address: Address): Promise<UserInfo> {
+  /**
+   * Fetches user activity history from the api
+   */
+  async fetchUserActivity(address: Address, season: number) {
+    const client = getAxiosInstance(season);
 
-  //   return response.data;
-  // }
-
-  // /**
-  //  * Fetches user activity history from the api
-  //  */
-  // async fetchUserActivity(address: Address): Promise<UserActivity> {
-  //   const response = await axios.get<UserActivity>(`/user/activity`, {
-  //     params: { address },
-  //     ...globalAxiosConfig,
-  //   });
-  //   return response.data;
-  // }
+    const response = await client.get(`/user/history`, {
+      params: { address },
+      ...globalAxiosConfig,
+    });
+    return response.data;
+  }
 
   /**
    * Fetches user domain-specific data from the /user/domain endpoint.

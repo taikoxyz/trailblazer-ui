@@ -4,6 +4,7 @@
 
   import { page } from '$app/stores';
   import Spinner from '$components/Spinner/Spinner.svelte';
+  import { pfpModal } from '$lib/domains/profile/stores/profileStore';
   import Pfp from '$libs/pfp';
   // import { Tooltip } from '$components/Tooltip';
   import { type UserProfile } from '$libs/profile';
@@ -11,7 +12,6 @@
   // import { formatMultiplier } from '$libs/util/formatMultiplier';
   import { formatNumbers } from '$libs/util/formatNumbers';
   import getConnectedAddress from '$libs/util/getConnectedAddress';
-  import { pfpModal } from '$stores/modal';
   import { currentProfile } from '$stores/profile';
 
   import RankDisplay from '../RankDisplay.svelte';

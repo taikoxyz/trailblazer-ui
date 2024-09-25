@@ -4,7 +4,7 @@
   import { shortenAddress } from '$libs/util/shortenAddress';
 
   import profileService from '../services/ProfileServiceInstance';
-  import { userProfile } from '../stores/profileStore';
+  import { profileLoading, userProfile } from '../stores/profileStore';
   import type { UserProfile } from '../types/UserProfile';
 
   export let profile: UserProfile;
@@ -36,14 +36,15 @@
 </script>
 
 <div class="flex items-center gap-1">
-  <Icon type="user-circle" fillClass="fill-base-content" />
-  <a
-    href={`https://taikoscan.io/address/${profile?.address}`}
-    target="_blank"
-    class="body-bold hover:cursor-pointer underline text-base-content">
-    {getDisplayName(profile)}
-  </a>
-
+  {#if !$profileLoading}
+    <Icon type="user-circle" fillClass="fill-base-content" />
+    <a
+      href={`https://taikoscan.io/address/${profile?.address}`}
+      target="_blank"
+      class="body-bold hover:cursor-pointer underline text-base-content">
+      {getDisplayName(profile)}
+    </a>
+  {/if}
   {#if profile?.domainInfo?.dotTaiko || profile?.domainInfo?.zns}
     <div class="dropdown dropdown-bottom" bind:this={dropdown}>
       <div tabindex="0" role="button" class="btn btn-ghost btn-circle btn-sm p-0 items-center justify-center">
