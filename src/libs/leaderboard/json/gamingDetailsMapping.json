@@ -46,5 +46,9 @@
   "SwordsAndDungeons": {
     "handle": "@SwordsnDungeons",
     "icon": "/dapps/gaming/swordsanddungeons.png"
+  },
+  "StupidMonkeys": {
+    "handle": "@StupidMonkeysRH",
+    "icon": "/dapps/gaming/stupidmonkeys.png"
   }
 }
