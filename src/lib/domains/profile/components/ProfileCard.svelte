@@ -8,7 +8,7 @@
   import { classNames } from '$libs/util/classNames';
   import getConnectedAddress from '$libs/util/getConnectedAddress';
 
-  import { userProfile } from '../stores/profileStore';
+  import { pfpModal, userProfile } from '../stores/profileStore';
   import ProfileName from './ProfileName.svelte';
 
   export let loading: boolean;
@@ -18,65 +18,74 @@
   $: displayedScore = profile?.userStats?.score;
   $: isSelfProfile = false;
 
-  // const editAvatarButtonClasses = classNames(
-  //   'absolute',
-  //   'w-[32px]',
-  //   'h-[32px]',
-  //   'top-[10px]',
-  //   'right-[10px]',
-  //   'rounded-full',s
-  //   'bg-dialog-background',
-  //   'p-[8px]',
-  //   'bg-opacity-70',
-  // );
+  const editAvatarButtonClasses = classNames(
+    'btn',
+    'btn-sm',
+    'btn-ghost',
+    'absolute',
+    'max-w-[32px]!',
+    'max-h-[32px]!',
+    'top-[10px]',
+    'right-[10px]',
+    'rounded-full',
+    'bg-dialog-background',
+    'p-[6px]',
+    'opacity-50',
+    'hover:opacity-100',
+  );
 
   const cardClasses = classNames(
     'relative',
-    'flex',
     'bg-elevated-background',
     'p-[20px]',
     'overflow-hidden',
-    'lg:pt-5',
+    'md:pt-5',
     'rounded-3xl',
+    'f-col',
+    'md:f-row',
+    'md:items-start',
+    'items-center',
     'w-full',
-    'lg:h-[290px]',
-    'flex-col',
-    'lg:flex-row',
+    'md:h-[290px]',
     'xl:w-1/2',
     'xl:max-w-[680px]',
   );
 
-  let pfp = '';
+  $: pfp = profile?.personalInfo?.avatar || '';
 
   onMount(async () => {
     const urlAddress = $page.url.pathname.split('/').pop() as Address;
     isSelfProfile = getAddress(urlAddress) === getAddress(getConnectedAddress());
-    // pfp = await Pfp.get(urlAddress);
   });
 </script>
 
 <div class={cardClasses}>
   <div class="absolute h-[75px] w-full custom left-0 top-0">
-    <div class="flex pl-[218px] pt-[37px]">
+    <div class="hidden md:flex pl-[218px] pt-[37px]">
       <ProfileName {profile} />
     </div>
   </div>
-  {#if !loading}
-    <div class="avatar lg:size-[175px] lg:mr-8">
-      <div class=" h-full skeleton bg-neutral-background rounded-3xl">
-        <img src={pfp || '/avatar.png'} alt="avatar" />
 
-        {#if isSelfProfile}
-          <!-- <button on:click={() => ($pfpModal = true)} class={editAvatarButtonClasses}>
-            <img alt="Edit avatar" src="/edit.svg" />
-          </button> -->
-        {/if}
-      </div>
+  <div class="avatar md:size-[175px] size-[250px] md:mr-8 md:justify-self-start justify-self-center">
+    <div class=" h-full skeleton bg-neutral-background rounded-3xl">
+      <img src={pfp || '/avatar.png'} alt="avatar" />
+
+      {#if isSelfProfile}
+        <button on:click={() => ($pfpModal = true)} class={editAvatarButtonClasses}>
+          <img alt="Edit avatar" src="/edit.svg" class="size-[16px]" />
+        </button>
+      {/if}
     </div>
-    <div class="flex lg:items-start items-center flex-col self-center lg:min-w-[300px] w-full">
+  </div>
+  {#if !loading}
+    <div class="flex md:items-start items-center flex-col self-center md:min-w-[300px] w-full">
+      <!-- Name (mobile)-->
+      <div class="md:hidden flex items-center gap-1 py-[20px] md:py-0">
+        <ProfileName {profile} />
+      </div>
       <!-- Points -->
-      <div class="flex flex-col items-center lg:items-start gap-2 w-full mb-[20px]">
-        <div class="flex items-center gap-2">
+      <div class="flex flex-col items-center md:items-start gap-2 w-full mb-[20px]">
+        <div class="f-col md:f-row items-center gap-2">
           <div class="font-clash-grotesk font-semibold text-[45px] leading-none">
             {displayedScore?.toFixed(0) && formatNumbers(displayedScore?.toFixed(0))}
           </div>
@@ -85,7 +94,7 @@
       </div>
 
       <!-- Rank & Experience -->
-      <div class="flex lg:items-start items-center flex-col gap-[10px] w-full">
+      <div class="flex md:items-start items-center flex-col gap-[10px] w-full">
         <div class="flex gap-[10px] border border-divider-border rounded-full w-fit p-1">
           <div class="body-bold pl-[15px] py-1">Level {profile?.userStats?.level || 0}</div>
           <div class="f-center rounded-full body-bold bg-pink-400 w-fit px-[10px]">
