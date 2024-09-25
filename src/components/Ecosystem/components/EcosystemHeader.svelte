@@ -97,7 +97,7 @@
         Explore the <span class="text-secondary">Trailblazers</span> Ecosystem
       </div>
       <div class={dappsWrapperClasses}>
-        <img src="ecosystem/dapps.svg" class="h-full" alt="Dapps" />
+        <img src="/ecosystem/dapps.svg" class="h-full" alt="Dapps" />
         <div>
           <div class={dappsCountClasses}>+100</div>
           Dapps
