@@ -8,7 +8,8 @@
     'md:h-[70vh]',
     'h-[100vh]',
     'top-[-160px]',
-    'mb-[-160px]',
+    // 'mb-[-160px]',
+    'z-100',
     'flex',
     'flex-col',
     'items-center',
@@ -74,12 +75,15 @@
   const absoluteWrapperClasses = classNames(
     'w-[100vw]',
     'h-full',
+    'bg-[green]',
     'absolute',
+    'top-0',
     'flex',
     'flex-col',
     'items-center',
     'justify-end',
-    'bg-cover',
+    'bg-fit',
+    'bg-no-repeat',
     'bg-center',
     'lg:p-[20px]',
     'p-[50px]',
@@ -87,7 +91,7 @@
 </script>
 
 <div class={wrapperClasses}>
-  <div class={absoluteWrapperClasses} style="background-image:url('ecosystem/header-lg.png')"></div>
+  <div class={absoluteWrapperClasses} style="background-image:url('ecosystem/header-bg.png')"></div>
   <div class={rowClasses}>
     <div class={classNames(colClasses, 'lg:items-start')}>
       <div class={titleClasses}>
