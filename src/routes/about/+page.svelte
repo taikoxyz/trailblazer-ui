@@ -2,7 +2,7 @@
   import { About } from '$components/About';
   import { classNames } from '$libs/util/classNames';
 
-  const wrapperClasses = classNames('overflow-x-hidden', 'f-center', 'w-full', 'mt-[110px]', 'pb-[135px]');
+  const wrapperClasses = classNames('overflow-hidden', 'f-center', 'w-full', 'h-full', 'pb-[100px]');
 </script>
 
 <svelte:head>

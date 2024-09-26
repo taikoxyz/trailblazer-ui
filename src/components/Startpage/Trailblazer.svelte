@@ -16,30 +16,26 @@
     'overflow-visible',
     'gap-[150px]',
     'md:mb-[130px]',
+    'md:px-[48px]',
+    'px-[24px]',
   );
-  const separatorClasses = classNames('w-full', 'h-[1px]', 'bg-divider-border');
-  const paddingWrapperClasses = classNames('w-full', 'px-[40px]', 'lg:px-[57px]', 'container', 'md:px-[47px]');
 
   const separatorBaseClasses = classNames('container', 'w-full', 'mt-[-150px]', 'mb-[-150px]');
   const separator40pxClasses = classNames(separatorBaseClasses, 'h-[40px]');
 
-  const separator80pxClasses = classNames(separatorBaseClasses, 'h-[80px]');
+  // const separator80pxClasses = classNames(separatorBaseClasses, 'h-[80px]');
 
-  // const separator120pxClasses = classNames(separatorBaseClasses, 'h-[120px]');
+  const separator120pxClasses = classNames(separatorBaseClasses, 'h-[120px]');
 </script>
 
 <div class={wrapperClasses}>
   <TrailblazerMain />
   <div class={separator40pxClasses} />
-  <TrailblazerGuide class="container" />
+
+  <TrailblazerGuide />
   <S2StartBanner />
-  <div class={separator80pxClasses} />
 
-  <div class={paddingWrapperClasses}>
-    <div class={separatorClasses} />
-  </div>
-
-  <div class={separator80pxClasses} />
+  <div class={separator120pxClasses} />
 
   <Factions />
 

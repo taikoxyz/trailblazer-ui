@@ -20,29 +20,29 @@
 
   const containerClasses = classNames(
     'flex',
+    'justify-center',
+    'items-center',
     'flex-col',
     'w-screen',
-    'xl:max-w-[1440px]',
-    'lg:max-w-[1024px]',
-    'md:max-w-[768px]',
-    'sm:max-w-[640px]',
     'bg-base-200',
     'rounded-[30px]',
     'relative',
+    'xl:pb-[176px]',
+    'pb-[100px]',
+    'md:px-[48px]',
+    'px-[24px]',
   );
 
-  const sectionClasses = classNames('w-full', 'px-[48px]', 'relative', 'grid', 'md:grid-cols-6', 'grid-cols-4', 'mb-8');
+  const sectionClasses = classNames('w-full', 'xl:max-w-[1440px]', 'relative', 'flex', 'mb-8');
   const earnSectionClasses = classNames(sectionClasses, 'mb-20');
   const contentClasses = classNames(
-    'lg:col-span-4',
-    'lg:col-start-2',
-    'md:col-start-2',
-    'col-span-4',
     'flex',
     'flex-col',
     'justify-between',
     'md:flex-row',
     'relative',
+    'w-full',
+    'items-center',
   );
 
   const titleContainerClasses = classNames(
@@ -56,20 +56,18 @@
 
   const subtitleClasses = classNames('w-full', 'xl:text-left', 'mb-8', 'md:pt-10', 'md:w-[189px]', 'pt-8', 'w-[100px]');
   const buttonContainerClasses = classNames(
-    'md:m-auto',
     'lg:m-0',
-    'mt-20',
     'flex',
     'gap-4',
-    'md:justify-start',
-    'lg:justify-center',
     'md:mb-2',
     'justify-center',
-    'xl:justify-end',
+    'md:justify-end',
     'h-full',
     'bottom-0',
     'items-end',
     'self-start',
+    'pt-[100px]',
+    'lg:pt-0',
   );
   const scrollButtonClasses = classNames('f-center', 'btn-circle', 'border', 'border-secondary');
   const scrollRightButtonClasses = classNames(
@@ -99,16 +97,30 @@
   const earnDescriptionClasses = classNames(
     'xl:text-left',
     'text-grey-600',
-    'max-w-[482px]',
-    'mb-8',
     'text-base',
-    'flex',
-    'flex-col',
     'gap-[40px]',
+    'w-full',
+    'justify-end',
+    'items-end',
   );
 
-  const dividerWrapperClasses = classNames('bg-[green]', 'absolute', 'w-full', 'h-auto', 'bottom-0');
-  const actionButtonClasses = classNames('!w-[210px]', 'w-full', 'z-[32]');
+  const dividerWrapperClasses = classNames('absolute', 'w-full', 'h-auto', 'bottom-0');
+  const actionButtonClasses = classNames('!w-[210px]', 'max-w-[210px]', 'w-full', 'h-max', 'z-[32]');
+
+  const bottomRowClasses = classNames(
+    'flex',
+    'flex-row',
+    'justify-start',
+    'md:justify-end',
+    'w-full',
+    'md:w-min',
+    'items-end',
+    'h-full',
+    'pt-[40px]',
+    'md:pt-0',
+  );
+
+  const factionsWrapperClasses = classNames('w-[100vw]');
 </script>
 
 <div class={containerClasses}>
@@ -142,7 +154,10 @@
     </div>
   </div>
 
-  <FactionsGallery bind:this={carouselRef} />
+  <div class={factionsWrapperClasses}>
+    <FactionsGallery bind:this={carouselRef} />
+  </div>
+
   {#if !noDivider}
     <div class={dividerWrapperClasses}>
       <DividerElement />
@@ -160,26 +175,28 @@
             {/if}
           </span>
         </Title>
+
         <div class={earnDescriptionClasses}>
           {#if isLandingPage}
             {$t('factions.landing.description')}
           {:else}
             {$t('factions.about.description')}
           {/if}
-
-          {#if isLandingPage}
-            <ActionButton priority="primary" class={actionButtonClasses} href="/about">
-              {$t('buttons.factions.learn_about')}
-            </ActionButton>
-          {:else}
-            <ActionButton
-              href="https://www.okx.com/web3/marketplace/nft/collection/taiko/trailblazers-badges"
-              priority="primary"
-              class={actionButtonClasses}>
-              {$t('buttons.factions.get_yours')}
-            </ActionButton>
-          {/if}
         </div>
+      </div>
+      <div class={bottomRowClasses}>
+        {#if isLandingPage}
+          <ActionButton priority="primary" class={actionButtonClasses} href="/about">
+            {$t('buttons.factions.learn_about')}
+          </ActionButton>
+        {:else}
+          <ActionButton
+            href="https://www.okx.com/web3/marketplace/nft/collection/taiko/trailblazers-badges"
+            priority="primary"
+            class={actionButtonClasses}>
+            {$t('buttons.factions.get_yours')}
+          </ActionButton>
+        {/if}
       </div>
     </div>
   </div>

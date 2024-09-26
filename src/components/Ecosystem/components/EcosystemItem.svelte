@@ -14,7 +14,6 @@
     'relative',
     'p-[35px]',
     'flex',
-    'max-w-[350px]',
     'flex-col',
     'md:justify-start',
     'md:items-start',

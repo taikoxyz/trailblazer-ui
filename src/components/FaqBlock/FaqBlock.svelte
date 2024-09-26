@@ -13,16 +13,14 @@
   export let entries: IFaqEntry[] = [];
 
   const wrapperClasses = classNames(
-    'container',
     'md:f-row',
     'f-col',
     'gap-6',
     'w-full',
     'h-max',
-
+    'xl:max-w-[1440px]',
     'md:justify-between',
     'md:items-start',
-    'px-6',
     'justify-center',
   );
 
