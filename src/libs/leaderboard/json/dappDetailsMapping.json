@@ -122,5 +122,9 @@
   "brigade": {
     "handle": "@tacowax",
     "icon": "/dapps/gaming/brigade.png"
+  },
+  "xeno-bunny": {
+    "handle": "@XenobunnyX",
+    "icon": "/dapps/gaming/xenobunny.jpg"
   }
 }

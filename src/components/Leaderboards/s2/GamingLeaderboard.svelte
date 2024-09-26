@@ -45,7 +45,7 @@
   isLoading={loading}
   {handlePageChange}
   {totalItems}
-  showPagination={false}
+  showPagination={true}
   additionalInfoComponent={GamingCompetitionInformation}
   headerComponent={GamingHeader}
   scoreComponent={PointScore} />
