@@ -35,6 +35,8 @@
 
   // Inner Wrapper Classes
   const innerWrapperClasses = classNames(
+    'bg-[linear-gradient(180deg,rgba(25,30,40,0)_0%,#191e28_31.46%)]',
+    'md:bg-[linear-gradient(180deg,rgba(25,30,40,0)_100%,#191e28_0%)]',
     'absolute',
     'w-full',
     'bottom-0',
