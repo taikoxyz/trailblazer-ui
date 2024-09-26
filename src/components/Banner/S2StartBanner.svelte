@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { t } from 'svelte-i18n';
+
   import ActionButton from '$components/Button/ActionButton.svelte';
   import { classNames } from '$libs/util/classNames';
 
@@ -178,8 +180,8 @@
 
       <div class={innerContentClasses}>
         <div class={titleWrapperClasses}>
-          <h1 class={h1Classes}>Season 2</h1>
-          <h2 class={h2Classes}>NOW LIVE</h2>
+          <h1 class={h1Classes}>{$t('banner.s2startbanner.title_1')}</h1>
+          <h2 class={h2Classes}>{$t('banner.s2startbanner.title_2')}</h2>
 
           <div class="hidden xl:block w-[402px]">
             <div class={separatorClasses} />
@@ -188,7 +190,7 @@
         </div>
         <div class={subtextWrapperClasses}>
           <span class={subtextClasses}>
-            Get ready for an exciting journey with new features, challenges, and rewards!
+            {$t('banner.s2startbanner.subtext')}
           </span>
           <ActionButton priority="primary" class={actionButtonClasses}>Start now</ActionButton>
         </div>
