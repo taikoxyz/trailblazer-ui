@@ -1,8 +1,11 @@
 <script lang="ts">
   import { t } from 'svelte-i18n';
 
+  import { goto } from '$app/navigation';
   import ActionButton from '$components/Button/ActionButton.svelte';
+  import { web3modal } from '$libs/connect';
   import { classNames } from '$libs/util/classNames';
+  import { account } from '$stores/account';
 
   // Container Classes
   const containerClasses = classNames(
@@ -108,7 +111,7 @@
   );
 
   // Image Classes
-  const characterImageClassesSm = classNames('md:hidden', 'w-auto');
+  const characterImageClassesSm = classNames('md:hidden', 'w-auto', 'self-center', 'w-fit');
 
   const characterImageClassesMd = classNames('hidden', 'md:block', 'xl:hidden', 'h-full', 'w-auto', 'self-start');
 
@@ -162,6 +165,10 @@
   );
 
   const separatorClasses = classNames('h-sep', 'md:pt-[22px]', 'my-[12.5px]');
+
+  const handleClick = () => {
+    $account.isConnected ? goto('/profile') : web3modal.open();
+  };
 </script>
 
 <div class={containerClasses}>
@@ -194,7 +201,7 @@
           <span class={subtextClasses}>
             {$t('banner.s2startbanner.subtext')}
           </span>
-          <ActionButton priority="primary" class={actionButtonClasses}>Start now</ActionButton>
+          <ActionButton priority="primary" class={actionButtonClasses} on:click={handleClick}>Start now</ActionButton>
         </div>
 
         <div class="xl:hidden w-full f-col">
