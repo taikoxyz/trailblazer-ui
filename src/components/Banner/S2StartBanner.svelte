@@ -62,7 +62,7 @@
     'flex-col',
     'items-center',
     'md:items-start',
-    'mt-32.5',
+    'mt-[120px]',
     'md:mt-0',
     'gap-1.25',
     'xl:min-w-[402px]',
@@ -88,7 +88,7 @@
   const subtextClasses = classNames('w-64', 'md:w-[292px]', 'xl:w-[247px]', 'text-center', 'md:text-left');
 
   // Action Button Classes
-  const actionButtonClasses = classNames('max-w-[140px]', 'max-h-[48px]');
+  const actionButtonClasses = classNames('w-[140px]', 'max-h-[48px]');
 
   // Inner Content Classes
   const innerContentClasses = classNames(
@@ -131,7 +131,7 @@
     'xl:w-[97px]',
   );
 
-  const glyphsImageClasses = classNames('md:self-end');
+  const glyphsImageClasses = classNames('md:self-end', 'h-[17px]');
 
   const h1Classes = classNames(
     'relative',
@@ -161,7 +161,7 @@
     'tracking-[1.735px]',
   );
 
-  const separatorClasses = classNames('h-sep', 'md:pt-[22px]');
+  const separatorClasses = classNames('h-sep', 'md:pt-[22px]', 'my-[12.5px]');
 </script>
 
 <div class={containerClasses}>
@@ -197,7 +197,7 @@
           <ActionButton priority="primary" class={actionButtonClasses}>Start now</ActionButton>
         </div>
 
-        <div class="xl:hidden">
+        <div class="xl:hidden w-full f-col">
           <div class={separatorClasses} />
           <img class={glyphsImageClasses} src="/banner/s2startbanner/glyphs.svg" alt="glyphs" />
         </div>
