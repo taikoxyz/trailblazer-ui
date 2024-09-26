@@ -7,17 +7,6 @@
   export let description: string =
     'We believe that everyone, from web wizards to coding novices, should have a stake in our future. Trailblazer rewards steps both big and small, ensuring every participant gains from their involvement.';
 
-  const sectionClasses = classNames(
-    'w-[100vw]',
-    'px-[48px]',
-    'relative',
-    'grid',
-    'md:grid-cols-6',
-    'grid-cols-4',
-    'lg:block',
-    'mb-8',
-  );
-
   const wrapperClasses = classNames(
     'flex',
     'flex-col',
@@ -31,13 +20,7 @@
     'md:justify-start',
     'border-l-2',
     'border-gray-600',
-    'lg:col-span-4',
-    'lg:col-start-2',
-    'md:col-start-2',
-    'col-span-4',
     'pl-6',
-    'lg:h-[204px]', // Fixed height for lg screens
-    'xl:h-[158px]', // Fixed height for xl screens
   );
 
   const titleClasses = classNames(
@@ -66,16 +49,14 @@
   const iconFillClasses = classNames('fill-primary-brand');
 </script>
 
-<div class={sectionClasses}>
-  <div class={wrapperClasses}>
-    <div class={titleClasses}>
-      <Icon type={icon} vWidth={20} vHeight={20} class={iconClasses} fillClass={iconFillClasses} />
-      <div class="display-small-medium">
-        {title}
-      </div>
+<div class={wrapperClasses}>
+  <div class={titleClasses}>
+    <Icon type={icon} vWidth={20} vHeight={20} class={iconClasses} fillClass={iconFillClasses} />
+    <div class="display-small-medium">
+      {title}
     </div>
-    <div class={contentClasses}>
-      {description}
-    </div>
+  </div>
+  <div class={contentClasses}>
+    {description}
   </div>
 </div>

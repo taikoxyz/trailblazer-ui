@@ -13,16 +13,18 @@
     'flex-col',
     'items-center',
     'justify-center',
-    'xl:max-w-[1440px] lg:max-w-[1024px] md:max-w-[768px] sm:max-w-[640px]',
+    'w-full',
+    'px-[24px]',
+    'md:px-[48px]',
   );
 
   const gridClasses = classNames(
     'grid',
     'grid-cols-1',
     'md:grid-cols-2',
-    'lg:grid-cols-2',
+    'lg:grid-cols-3',
     'xl:grid-cols-4',
-    'px-[48px]',
+    'xl:max-w-[1440px]',
     'gap-[18px]',
   );
 
@@ -55,7 +57,7 @@
   const headerClasses = classNames(
     'absolute',
     'top-0',
-    'w-full',
+    'w-[100vw]',
     'h-[700px]',
     'bg-cover',
     'bg-center',
@@ -64,19 +66,21 @@
     'flex-col',
     'justify-end',
     'items-center',
+    'px-[24px]',
+    'md:px-[48px]',
   );
 
   const headerGridClasses = classNames(
     'relative',
     'pb-[60px]',
     'w-full',
-    'px-[48px]',
-    'grid',
+    'xl:max-w-[1440px]',
     'md:grid-cols-6',
     'grid-cols-4',
+    'grid',
   );
 
-  const headerWrapperClasses = classNames('lg:col-span-3', 'lg:col-start-2', 'md:col-start-2', 'col-span-4');
+  const headerWrapperClasses = classNames('lg:col-span-2', 'md:col-span-3', 'col-span-6');
 
   const headerTitleClasses = classNames(
     'text-content-primary',
@@ -109,27 +113,15 @@
     'items-center',
     'pt-[36px]',
     'pb-[100px]',
+    'w-[100vw]',
+
+    'px-[24px]',
+    'md:px-[48px]',
   );
 
-  const contentBackgroundClasses = classNames(
-    'absolute',
-    'top-0',
-    'h-full',
-    'bg-white',
-    'xl:max-w-[1440px] lg:max-w-[1024px] md:max-w-[768px] sm:max-w-[640px]',
-    'w-full',
-    'rounded-[30px]',
-  );
+  const contentBackgroundClasses = classNames('absolute', 'top-0', 'h-full', 'bg-white', 'w-full', 'rounded-[30px]');
 
-  const partnersWrapperClasses = classNames(
-    'w-full',
-    'px-[48px]',
-    'relative',
-    'pt-[64px]',
-    'grid',
-    'md:grid-cols-6',
-    'grid-cols-4',
-  );
+  const partnersWrapperClasses = classNames('w-full', 'relative', 'pt-[64px]', 'xl:max-w-[1440px]');
 
   const partnersClasses = classNames('lg:col-span-3', 'lg:col-start-2', 'md:col-start-2', 'col-span-4');
 </script>

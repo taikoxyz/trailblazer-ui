@@ -1,12 +1,15 @@
 <script lang="ts">
   import { routes } from '$libs/routes';
+  import { classNames } from '$libs/util/classNames';
 
   import NavigationChild from './NavigationChild.svelte';
   import NavigationParent from './NavigationParent.svelte';
+
+  const wrapperClasses = classNames('hidden xl:flex gap-2');
 </script>
 
 <!--  Desktop Only -->
-<div class="hidden xl:flex gap-2">
+<div class={wrapperClasses}>
   <div class="f-center gap-2">
     {#each routes as route}
       <NavigationParent navigation={route}>
