@@ -2,7 +2,7 @@ import { gql } from '@apollo/client/core';
 import type { Address } from 'viem';
 
 import { FactionNames, FACTIONS } from '$configs/badges';
-import { graphqlClient } from '$libs/graphql/client';
+import { graphqlClient } from '$lib/shared/services/graphql/client';
 
 export interface IUserBadges {
   [FactionNames.Ravers]: boolean;

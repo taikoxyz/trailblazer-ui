@@ -2,8 +2,8 @@ import { gql } from '@apollo/client/core';
 import axios from 'axios';
 import { type Address } from 'viem';
 
+import { graphqlClient } from '$lib/shared/services/graphql/client';
 import { globalAxiosConfig } from '$libs/api/axiosConfig';
-import { graphqlClient } from '$libs/graphql/client';
 
 export async function get(address: Address): Promise<string> {
   try {

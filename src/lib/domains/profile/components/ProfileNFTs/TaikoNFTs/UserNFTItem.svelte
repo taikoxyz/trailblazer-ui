@@ -5,6 +5,8 @@
 
   // CSS classes
   const wrapperClasses = classNames(
+    'w-[277px]',
+
     'relative',
     'overflow-hidden',
     'flex',

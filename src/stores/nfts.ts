@@ -3,8 +3,7 @@ import type { Address } from 'viem';
 
 import { FactionNames } from '$configs/badges';
 import { trailblazersBadgesAddress } from '$generated/abi';
-import { chainId } from '$libs/chain';
-
+import { chainId } from '$lib/shared/utils/chain';
 export interface INftStore {
   season1: {
     address: Address;

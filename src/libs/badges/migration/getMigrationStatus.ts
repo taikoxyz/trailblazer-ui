@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client/core';
 import type { Address } from 'viem';
 
-import { graphqlClient } from '$libs/graphql/client';
+import { graphqlClient } from '$lib/shared/services/graphql/client';
 import type { IBadgeMigration } from '$stores/badgeMigration';
 
 export default async function getMigrationStatus(address: Address): Promise<IBadgeMigration> {

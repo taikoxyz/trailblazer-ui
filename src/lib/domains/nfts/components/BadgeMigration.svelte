@@ -14,7 +14,7 @@
   import { badgeMigrationStore } from '$stores/badgeMigration';
   import { migrationApprovalModal } from '$stores/modal';
 
-  import { FactionBadgeItem } from '.';
+  import { FactionBadgeItem } from '../../profile/components/ProfileNFTs/FactionBadges';
 
   const wrapperClasses = classNames('w-full', 'flex', 'flex-col', 'items-center', 'justify-start', 'gap-[60px]');
 

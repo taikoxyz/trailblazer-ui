@@ -4,8 +4,8 @@
   import { activeSeason } from '$lib/shared/stores/activeSeason';
   import { classNames } from '$libs/util/classNames';
 
-  import profileService from '../services/ProfileServiceInstance';
-  import { profileLoading, userProfile } from '../stores/profileStore';
+  import profileService from '../../services/ProfileServiceInstance';
+  import { profileLoading, userProfile } from '../../stores/profileStore';
   import ActivityHistoryRow from './ActivityHistoryRow.svelte';
 
   $: pointsHistory = $userProfile?.activityHistory?.pointsHistory;

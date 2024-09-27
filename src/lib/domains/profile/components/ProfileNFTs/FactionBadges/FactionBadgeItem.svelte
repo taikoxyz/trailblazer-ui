@@ -12,6 +12,7 @@
 
   // CSS classes
   $: wrapperClasses = classNames(
+    'w-[277px]',
     'relative',
     'overflow-hidden',
     'flex',

@@ -2,11 +2,11 @@ import { waitForTransactionReceipt } from '@wagmi/core';
 import { writable } from 'svelte/store';
 import { type Hex, type TransactionReceipt, WaitForTransactionReceiptTimeoutError } from 'viem';
 
-import { chainId } from '$libs/chain';
+import { chainId } from '$lib/shared/utils/chain';
+import { wagmiConfig } from '$lib/shared/wagmi';
 import { refreshUserBalance } from '$libs/util/balance';
 import { getLogger } from '$libs/util/logger';
 import { noop } from '$libs/util/noop';
-import { wagmiConfig } from '$libs/wagmi';
 
 const pendingTransaction = {
   waitTimeout: 90_000,

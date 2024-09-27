@@ -5,14 +5,14 @@ import type { Address } from 'viem';
 
 // import type { Address } from 'viem';
 import { PUBLIC_TRAILBLAZER_API_URL } from '$env/static/public';
+import { graphqlClient } from '$lib/shared/services/graphql/client';
+import { USER_NFTS_QUERY } from '$lib/shared/services/graphql/queries';
+import { wagmiConfig } from '$lib/shared/wagmi';
 import { globalAxiosConfig } from '$libs/api/axiosConfig';
-import { graphqlClient } from '$libs/graphql/client';
-import { USER_NFTS_QUERY } from '$libs/graphql/queries';
 import Pfp from '$libs/pfp';
 // import getMovement from '$libs/badges/getMovement';
 import { isDevelopmentEnv } from '$libs/util/isDevelopmentEnv';
 import { getLogger } from '$libs/util/logger';
-import { wagmiConfig } from '$libs/wagmi';
 import { boosterLoading, profileLoading } from '$stores/load';
 import { currentProfile } from '$stores/profile';
 

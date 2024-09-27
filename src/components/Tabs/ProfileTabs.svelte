@@ -1,9 +1,8 @@
 <script lang="ts">
   import { LeaderboardTransactions } from '$components/Leaderboards';
   import DevRoom from '$components/Profile/DevRoom/DevRoom.svelte';
-  import TokenClaim from '$components/Profile/TokenClaim/TokenClaim.svelte';
-  import { NFTCollection } from '$components/Profile/UserNFTs';
-  import { default as BadgeMigration } from '$components/Profile/UserNFTs/FactionBadges/BadgeMigration.svelte';
+  import { default as BadgeMigration } from '$lib/domains/nfts/components/BadgeMigration.svelte';
+  import { NFTCollection } from '$lib/domains/profile/components/ProfileNFTs';
   import { classNames } from '$libs/util/classNames';
   import { isDevelopmentEnv } from '$libs/util/isDevelopmentEnv';
 
