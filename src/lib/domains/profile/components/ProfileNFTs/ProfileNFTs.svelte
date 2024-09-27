@@ -4,15 +4,15 @@
 
   import { browser } from '$app/environment';
   import { Spinner } from '$components/Spinner';
-  import type { IPfp } from '$libs/pfp/types';
+  import type { NFT } from '$lib/shared/types/NFT';
   import { classNames } from '$libs/util/classNames';
 
   import profileService from '../../services/ProfileServiceInstance';
-  // import { userProfile } from '../../stores/profileStore';
+  import { userProfile } from '../../stores/profileStore';
   import { UserNFTsSection } from './TaikoNFTs';
 
-  $: nfts = [] as IPfp[];
-  $: badges = [] as IPfp[];
+  $: nfts = [] as NFT[];
+  $: badges = [] as NFT[];
   $: isReady = false;
 
   onMount(async () => {
@@ -21,7 +21,7 @@
     if (!address) return;
     await profileService.getProfileWithNFTs(address as Address);
 
-    // const nfts = $userProfile.nfts;
+    nfts = $userProfile.nfts || [];
 
     // nfts = allNfts.filter((nft) => nft.address.toLowerCase() !== trailblazersBadgesAddress[chainId].toLowerCase());
     // badges = allNfts.filter((nft) => nft.address.toLowerCase() === trailblazersBadgesAddress[chainId].toLowerCase());
@@ -41,8 +41,6 @@
   );
   const spinnerWrapperClasses = classNames('w-full', 'flex', 'justify-center', 'items-center');
 </script>
-
-{JSON.stringify(nfts)}
 
 <div class={wrapperClasses}>
   {#if isReady}

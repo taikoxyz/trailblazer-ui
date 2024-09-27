@@ -7,10 +7,6 @@ import { getLogger } from '$libs/util/logger';
 const log = getLogger('TaikoonService');
 
 export class TaikoonService {
-  getTaikoonTokens(address: string): Promise<NFT[]> {
-    log('getTaikoonTokens', { address });
-    throw new Error('Method not implemented.');
-  }
   private adapter: TaikoonAdapter;
 
   constructor() {
@@ -18,6 +14,9 @@ export class TaikoonService {
   }
 
   async getTaikoons(user: Address): Promise<NFT[]> {
-    return this.adapter.fetchUserTaikoonNFTs(user);
+    log('getTaikoons', { user });
+    const taikoons = await this.adapter.fetchUserTaikoonNFTs(user);
+    log('getTaikoons result', { taikoons });
+    return taikoons;
   }
 }

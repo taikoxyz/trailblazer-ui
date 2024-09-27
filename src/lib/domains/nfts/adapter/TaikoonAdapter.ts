@@ -1,11 +1,14 @@
+import axios from 'axios';
 import type { Address } from 'viem';
 
 import { taikoonTokenAddress } from '$generated/abi';
 import Taikoon from '$lib/domains/nfts/types/taikoon';
-import { getAxiosInstance } from '$lib/shared/services/api/axiosClient';
 import type { NFT } from '$lib/shared/types/NFT';
 import { chainId } from '$lib/shared/utils/chain';
+import { globalAxiosConfig } from '$libs/api/axiosConfig';
+import { getLogger } from '$libs/util/logger';
 
+const log = getLogger('TaikoonAdapter');
 export class TaikoonAdapter {
   /**
    * Fetches user Taikoon NFTs from the Taikoon contract.
@@ -15,15 +18,17 @@ export class TaikoonAdapter {
    * @memberof TaikoonAdapter
    */
   async fetchUserTaikoonNFTs(address: Address): Promise<NFT[]> {
-    const client = getAxiosInstance();
     const tokenIds = await Taikoon.tokenOfOwner(address);
     const out: NFT[] = [];
     for (const tokenId of tokenIds) {
       const uri = await Taikoon.tokenURI(tokenId);
-
-      const metadata = await client({
+      log('fetchUserTaikoonNFTs', { uri });
+      const metadata = await axios({
+        ...globalAxiosConfig,
         url: `/api/proxy?url=${uri}`,
       });
+
+      log('fetchUserTaikoonNFTs', { metadata });
 
       const src = metadata.data.image;
       out.push({

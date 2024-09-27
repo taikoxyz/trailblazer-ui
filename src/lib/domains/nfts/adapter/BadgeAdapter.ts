@@ -1,8 +1,12 @@
 import { gql } from '@apollo/client/core';
+import { readContract } from '@wagmi/core';
 import type { Address } from 'viem';
 
+import { trailblazersBadgesAbi, trailblazersBadgesAddress } from '$generated/abi';
 import { FactionNames, FACTIONS } from '$lib/domains/nfts/types/badges/types';
 import { graphqlClient } from '$lib/shared/services/graphql/client';
+import { chainId } from '$lib/shared/utils/chain';
+import { wagmiConfig } from '$lib/shared/wagmi';
 import { getLogger } from '$libs/util/logger';
 
 const log = getLogger('BadgeAdapter');
@@ -72,5 +76,27 @@ export class BadgeAdapter {
       }
       throw e;
     }
+  }
+
+  /**
+   * Fetches the token id for a given address and faction id.
+   *
+   * @param {Address} address
+   * @param {number} factionId
+   * @return {*}  {Promise<number>}
+   * @memberof BadgeAdapter
+   */
+  async getTokenId(address: Address, factionId: number): Promise<number> {
+    const contractAddress = trailblazersBadgesAddress[chainId];
+
+    const result = await readContract(wagmiConfig, {
+      abi: trailblazersBadgesAbi,
+      address: contractAddress,
+      functionName: 'getTokenId',
+      args: [address, BigInt(factionId)],
+      chainId,
+    });
+
+    return parseInt(result.toString(16), 16);
   }
 }
