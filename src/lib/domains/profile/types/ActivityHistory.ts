@@ -1,4 +1,4 @@
-import type { UserPointHistoryPage } from './UserPointHistoryPage';
+import type { UserPointHistoryPage } from '../dto/profile.dto';
 
 export type ActivityHistory = {
   activityHistory: {

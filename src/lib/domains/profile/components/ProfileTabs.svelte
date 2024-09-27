@@ -6,6 +6,8 @@
   import { classNames } from '$libs/util/classNames';
   import { isDevelopmentEnv } from '$libs/util/isDevelopmentEnv';
 
+  import ProfileTransactions from './ProfileTransactions.svelte';
+
   type TabContent = {
     name: string;
     content: typeof LeaderboardTransactions | typeof NFTCollection;
@@ -15,7 +17,7 @@
   export let tabs: TabContent[] = [
     {
       name: 'Transactions',
-      content: LeaderboardTransactions,
+      content: ProfileTransactions,
       checked: true,
     },
     {

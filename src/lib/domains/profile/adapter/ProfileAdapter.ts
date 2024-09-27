@@ -1,9 +1,8 @@
 import type { Address } from 'viem';
 
 import { getAxiosInstance, globalAxiosConfig } from '$lib/shared/services/api/axiosClient';
-import type { DomainResponse } from '$libs/domain';
 
-import type { UserPointsAndRankResponse } from '../dto/profile.dto';
+import type { DomainResponse, UserPointHistoryPage, UserPointsAndRankResponse } from '../dto/profile.dto';
 
 export class ProfileApiAdapter {
   /**
@@ -22,11 +21,11 @@ export class ProfileApiAdapter {
   /**
    * Fetches user activity history from the api
    */
-  async fetchUserActivity(address: Address, season: number) {
+  async fetchUserActivity(address: Address, season: number, page?: number): Promise<UserPointHistoryPage> {
     const client = getAxiosInstance(season);
-
+    const params = page ? { address, page } : { address };
     const response = await client.get(`/user/history`, {
-      params: { address },
+      params,
       ...globalAxiosConfig,
     });
     return response.data;
