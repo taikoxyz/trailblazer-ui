@@ -28,7 +28,6 @@
     };
     const pageInfo = await UserLeaderboardS2.getUserLeaderboard(args);
     totalItems = pageInfo.total || $currentUserLeaderboard.items.length;
-
     loading = false;
   }
 </script>
