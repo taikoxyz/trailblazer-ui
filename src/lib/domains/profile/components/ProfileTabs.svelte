@@ -35,7 +35,7 @@
       : []),
   ];
 
-  let activeTab = 0;
+  let activeTab = 1;
 
   const tabPanelClasses = classNames('mx-4', 'lg:mx-0', 'relative', 'overflow-x-scroll', 'min-h-64');
 

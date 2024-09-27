@@ -359,10 +359,11 @@ export class ProfileService {
       // Fetch NFTs (badges, avatars, etc.)
       const nfts = await this.combinedNFTService.fetchAllNFTsForUser(address);
 
+      log('result of fetchAllNFTsForUser:', nfts);
       // Combine and update the profile with NFT data
       await this.userRepository.update({
         ...user,
-        nfts: nfts.taikoonNFTs,
+        nfts: [...nfts.taikoonNFTs, ...nfts.badgeNFTs],
       });
 
       log('Profile with NFTs:', await this.userRepository.get());

@@ -1,9 +1,12 @@
 import type { Address } from 'viem';
 
 import type { NFT } from '$lib/shared/types/NFT';
+import { getLogger } from '$libs/util/logger';
 
 import { BadgeService } from './BadgeService';
 import { TaikoonService } from './TaikoonService';
+
+const log = getLogger('CombinedNFTService');
 
 export class CombinedNFTService {
   private taikoonService: TaikoonService;
@@ -23,10 +26,10 @@ export class CombinedNFTService {
     badgeNFTs: NFT[];
   }> {
     const [taikoonNFTs, badgeNFTs] = await Promise.all([
-      this.taikoonService.getTaikoonTokens(address),
+      this.taikoonService.getTaikoons(address),
       this.badgeNFTService.getBadgesForUser(address),
     ]);
-
+    log('fetchAllNFTsForUser', { address, taikoonNFTs, badgeNFTs });
     return { taikoonNFTs, badgeNFTs };
   }
 }
