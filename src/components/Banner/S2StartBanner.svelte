@@ -8,15 +8,7 @@
   import { account } from '$stores/account';
 
   // Container Classes
-  const containerClasses = classNames(
-    'container',
-    'px-6',
-    'flex',
-    'justify-center',
-    'items-center',
-    'w-full',
-    'lg:px-[48px]',
-  );
+  const containerClasses = classNames('container', 'flex', 'justify-center', 'items-center', 'w-full');
 
   // Wrapper Classes
   const wrapperClasses = classNames(
@@ -30,6 +22,7 @@
     'overflow-hidden',
     'h-[732px]',
     'md:h-[427px]',
+    'lg:h-[300px]',
     'xl:h-[250px]',
     'min-w-[342px]',
     'bg-[url("/banner/s2startbanner/sm/bg.svg")]',
@@ -45,16 +38,18 @@
     'bottom-0',
     'h-[520px]',
     'md:h-[427px]',
+    'lg:h-[300px]',
     'xl:h-[250px]',
     'flex',
     'flex-col',
     'md:flex-row',
     'items-center',
     'space-y-7.5',
-    'xl:space-y-0',
+    'lg:space-y-0',
     'px-5',
     'md:px-6',
     'lg:px-[110px]',
+    'lg:py-0',
     'md:py-8.75',
     'xl:py-0',
   );
@@ -69,6 +64,7 @@
     'md:mt-0',
     'gap-1.25',
     'xl:min-w-[402px]',
+    'lg:mt-[20.5px]',
   );
 
   // Subtext Wrapper Classes
@@ -91,13 +87,14 @@
   const subtextClasses = classNames('w-64', 'md:w-[292px]', 'xl:w-[247px]', 'text-center', 'md:text-left');
 
   // Action Button Classes
-  const actionButtonClasses = classNames('w-[140px]', 'max-h-[48px]');
+  const actionButtonClasses = classNames('min-w-[140px]', 'max-h-[48px]');
 
   // Inner Content Classes
   const innerContentClasses = classNames(
     'f-col',
     'xl:f-row',
     'md:h-[385px]',
+    'lg:h-[300px]',
     'xl:h-[250px]',
     'justify-center',
     'items-center',
@@ -105,9 +102,11 @@
     'xl:items-center',
     'space-y-5',
     'md:ml-12.5',
-    'md:ml-[95px]',
-    'lg:ml-[80px]',
+    'md:ml-[70px]',
+    'lg:ml-[57px]',
     'xl:my-[93px]',
+    'md:min-w-[315px]',
+    'lg:min-w-[367px]',
   );
 
   // Image Classes
@@ -119,15 +118,24 @@
 
   const runesImageClassesSm = classNames('absolute', 'w-full', 'md:hidden');
 
-  const runesImageClassesMd = classNames('w-full', 'hidden', 'md:block', 'xl:hidden', 'h-[386.329px]', 'w-[241px]');
-  const runesImageClassesXl = classNames('w-full', 'hidden', 'xl:block', 'h-[250px]', 'w-[174px]', 'xl:ml-[130px]');
+  const runesImageClassesMd = classNames('w-full', 'hidden', 'md:block', 'lg:hidden', 'h-[386.329px]', 'w-[241px]');
+  const runesImageClassesLg = classNames(
+    'w-full',
+    'hidden',
+    'lg:block',
+    'xl:hidden',
+    'h-[289.481px]',
+    'w-[181.105px]',
+    'xl:ml-[130px]',
+  );
+  const runesImageClassesXl = classNames('w-full', 'hidden', 'xl:block', 'h-[250px]', 'max-w-[174px]', 'xl:ml-[130px]');
 
   const runesRightImageClasses = classNames(
     'absolute',
     'right-0',
     'top-0',
     'hidden',
-    'md:block',
+    'lg:block',
     'h-[183px]',
     'w-[101px]',
     'xl:h-[175px]',
@@ -138,6 +146,7 @@
 
   const h1Classes = classNames(
     'relative',
+    'md:text-left',
     'font-semibold',
     'font-["Clash_Grotesk"]',
     'text-[50px]',
@@ -164,7 +173,7 @@
     'tracking-[1.735px]',
   );
 
-  const separatorClasses = classNames('h-sep', 'md:pt-[22px]', 'my-[12.5px]');
+  const separatorClasses = classNames('h-sep', 'md:pt-[22px]', 'lg:pt-0', 'my-[12.5px]');
 
   const handleClick = () => {
     $account.isConnected ? goto('/profile') : web3modal.open();
@@ -182,8 +191,10 @@
     <img class={runesImageClassesSm} alt="runes" src="/banner/s2startbanner/sm/runes.svg" />
 
     <div class={innerWrapperClasses}>
-      <!-- Runes Image for Medium and large Screens -->
+      <!-- Runes Image for Medium  Screens -->
       <img class={runesImageClassesMd} alt="runes" src="/banner/s2startbanner/md/runes.svg" />
+      <!-- Runes Image for Large Screens -->
+      <img class={runesImageClassesLg} alt="runes" src="/banner/s2startbanner/lg/runes.svg" />
       <!-- Runes Image for X-Large and up Screens -->
       <img class={runesImageClassesXl} alt="runes" src="/banner/s2startbanner/xl/runes.svg" />
 
