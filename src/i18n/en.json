@@ -233,7 +233,7 @@
         "block_proposed": "Block Proposed",
         "bridged": "Bridged",
         "transaction": "Transaction",
-        "transaction_value": "Transaction Value"
+        "transaction_value": "Tx Value"
       },
       "points": "+ {value}",
       "rank": "Rank"
