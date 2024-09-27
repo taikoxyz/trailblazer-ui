@@ -1,11 +1,11 @@
 import { getAccount, watchAccount } from '@wagmi/core';
 
-import { isSupportedChain } from '$libs/chain';
 import { Galxe } from '$libs/galxe';
 import { getLogger } from '$libs/util/logger';
 import { account } from '$stores/account';
 import { switchChainModal } from '$stores/modal';
 
+import { isSupportedChain } from '../utils/chain';
 import { wagmiConfig } from '.';
 
 let unWatchAccount: (() => void) | null = null;

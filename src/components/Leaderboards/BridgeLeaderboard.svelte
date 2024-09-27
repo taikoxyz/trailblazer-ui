@@ -9,7 +9,7 @@
   import { DisabledMask } from '$components/Masks';
   import { Skeleton } from '$components/Mock';
   import { usdcAddress, usdtAddress } from '$generated/abi';
-  import { chainId } from '$libs/chain';
+  import { chainId } from '$lib/shared/utils/chain';
   import { formatNumbers } from '$libs/util/formatNumbers';
   import { currentBridgeLeaderboard } from '$stores/leaderboard';
 

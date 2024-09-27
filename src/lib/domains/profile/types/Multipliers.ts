@@ -1,6 +1,5 @@
-import type { UserMultiplier, UserNFT } from './types';
+import type { UserMultiplier } from './types';
 
 export type Multipliers = {
   multipliers: UserMultiplier;
-  nfts: UserNFT[];
 };

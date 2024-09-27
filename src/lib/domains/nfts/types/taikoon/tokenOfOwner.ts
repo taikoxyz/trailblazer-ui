@@ -1,10 +1,10 @@
 import { readContracts } from '@wagmi/core';
 import type { Address } from 'viem';
 
-import { chainId } from '$libs/chain';
-import { wagmiConfig } from '$libs/wagmi';
+import { taikoonTokenAbi, taikoonTokenAddress } from '$generated/abi';
+import { chainId } from '$lib/shared/utils/chain';
+import { wagmiConfig } from '$lib/shared/wagmi';
 
-import { taikoonTokenAbi, taikoonTokenAddress } from '../../generated/abi/';
 import { balanceOf } from './balanceOf';
 
 export async function tokenOfOwner(address: Address): Promise<number[]> {

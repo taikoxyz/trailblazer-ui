@@ -7,6 +7,11 @@ import type { DomainResponse, UserPointHistoryPage, UserPointsAndRankResponse } 
 export class ProfileApiAdapter {
   /**
    * Fetches user points and rank from the /user/rank endpoint.
+   *
+   * @param {Address} address the user's address
+   * @param {number} season the season the user's points and rank are being fetched for
+   * @return {*}
+   * @memberof ProfileApiAdapter
    */
   async fetchUserPointsAndRank(address: Address, season: number) {
     const client = getAxiosInstance(season);
@@ -19,7 +24,13 @@ export class ProfileApiAdapter {
   }
 
   /**
-   * Fetches user activity history from the api
+   * Fetches user activity from the /user/history endpoint.
+   *
+   * @param {Address} address the user's address
+   * @param {number} season the season the user's activity is being fetched for
+   * @param {number} [page] the page number of the activity
+   * @return {*}  {Promise<UserPointHistoryPage>}
+   * @memberof ProfileApiAdapter
    */
   async fetchUserActivity(address: Address, season: number, page?: number): Promise<UserPointHistoryPage> {
     const client = getAxiosInstance(season);
@@ -32,7 +43,11 @@ export class ProfileApiAdapter {
   }
 
   /**
-   * Fetches user domain-specific data from the /user/domain endpoint.
+   * Fetches user domain info from the /user/domain endpoint.
+   *
+   * @param {Address} address the user's address
+   * @return {*}  {Promise<DomainResponse>}
+   * @memberof ProfileApiAdapter
    */
   async fetchUserDomainInfo(address: Address): Promise<DomainResponse> {
     const client = getAxiosInstance();

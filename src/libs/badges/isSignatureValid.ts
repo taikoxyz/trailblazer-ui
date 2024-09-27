@@ -3,8 +3,8 @@ import { type Address, recoverAddress } from 'viem';
 
 import type { FACTIONS } from '$configs/badges';
 import { trailblazersBadgesAbi, trailblazersBadgesAddress } from '$generated/abi';
-import { chainId } from '$libs/chain';
-import { wagmiConfig } from '$libs/wagmi';
+import { chainId } from '$lib/shared/utils/chain';
+import { wagmiConfig } from '$lib/shared/wagmi';
 import type { IContractData } from '$types';
 
 export default async function isSignatureValid(signature: IContractData, address: Address, factionId: FACTIONS) {

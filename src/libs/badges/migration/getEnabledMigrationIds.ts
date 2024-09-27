@@ -2,7 +2,7 @@
 
 import { gql } from '@apollo/client/core';
 
-import { graphqlClient } from '$libs/graphql/client';
+import { graphqlClient } from '$lib/shared/services/graphql/client';
 
 export default async function getEnabledMigrationIds(): Promise<number[]> {
   try {

@@ -2,7 +2,7 @@ import { reconnect } from '@wagmi/core';
 import { defaultWagmiConfig } from '@web3modal/wagmi';
 
 import { PUBLIC_WALLETCONNECT_PROJECT_ID } from '$env/static/public';
-import { chains } from '$libs/chain';
+import { chains } from '$lib/shared/utils/chain';
 
 const projectId = PUBLIC_WALLETCONNECT_PROJECT_ID;
 

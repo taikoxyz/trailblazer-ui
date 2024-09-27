@@ -3,10 +3,10 @@ import type { Address } from 'viem';
 
 import { FactionNames } from '$configs/badges';
 import { taikoonTokenAddress, trailblazersBadgesAddress } from '$generated/abi';
+import Taikoon from '$lib/domains/nfts/types/taikoon';
+import { chainId } from '$lib/shared/utils/chain';
 import { getTokenId } from '$libs/badges/getTokenId';
 import { getUserBadges } from '$libs/badges/getUserBadges';
-import { chainId } from '$libs/chain';
-import Taikoon from '$libs/taikoon';
 
 import type { IPfp } from './types';
 

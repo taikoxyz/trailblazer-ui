@@ -1,15 +1,15 @@
 <script lang="ts">
   import DevRoom from '$components/Profile/DevRoom/DevRoom.svelte';
-  import { NFTCollection } from '$components/Profile/UserNFTs';
-  import BadgeMigration from '$components/Profile/UserNFTs/FactionBadges/BadgeMigration.svelte';
+  import BadgeMigration from '$lib/domains/nfts/components/BadgeMigration.svelte';
+  import { ProfileNFTs } from '$lib/domains/profile/components/ProfileNFTs';
   import { classNames } from '$libs/util/classNames';
   import { isDevelopmentEnv } from '$libs/util/isDevelopmentEnv';
 
-  import ProfileTransactions from './ProfileTransactions.svelte';
+  import ProfileTransactions from './ProfileActivity/ProfileTransactions.svelte';
 
   type TabContent = {
     name: string;
-    content: typeof ProfileTransactions | typeof NFTCollection | typeof BadgeMigration | typeof DevRoom;
+    content: typeof ProfileTransactions | typeof ProfileNFTs | typeof BadgeMigration | typeof DevRoom;
   };
 
   export let tabs: TabContent[] = [
@@ -19,7 +19,7 @@
     },
     {
       name: 'NFT Collection',
-      content: NFTCollection,
+      content: ProfileNFTs,
     },
     {
       name: 'Badge Migration',

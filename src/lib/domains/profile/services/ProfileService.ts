@@ -1,11 +1,10 @@
 import { getAccount } from '@wagmi/core';
-import axios from 'axios';
 import type { Address } from 'viem';
 
-import { globalAxiosConfig } from '$lib/shared/services/api/axiosClient';
+import { BadgeService } from '$lib/domains/nfts/services/BadgeService';
+import { CombinedNFTService } from '$lib/domains/nfts/services/CombinedNFTService';
+import type { NFT } from '$lib/shared/types/NFT';
 import { wagmiConfig } from '$lib/shared/wagmi';
-import { graphqlClient } from '$libs/graphql/client';
-import { USER_NFTS_QUERY } from '$libs/graphql/queries';
 import Pfp from '$libs/pfp';
 import { isDevelopmentEnv } from '$libs/util/isDevelopmentEnv';
 import { getLogger } from '$libs/util/logger';
@@ -15,20 +14,30 @@ import UserRepository from '../repositories/UserRepository';
 import { multipliersLoading, profileLoading } from '../stores/profileStore';
 import { defaultUserProfile } from '../types/defaultUserProfile';
 import type { DomainInfo } from '../types/DomainInfo';
-import { DomainType, type UserMultiplier, type UserNFT } from '../types/types';
+import { levelTiers } from '../types/LevelTiers';
+import { DomainType } from '../types/types';
 import type { UserProfile } from '../types/UserProfile';
 
 const log = getLogger('ProfileService');
 
 export class ProfileService {
+  // Adapters
   private apiAdapter: ProfileApiAdapter;
+
+  // Repositories
   private userRepository: UserRepository;
+
+  //Services
+  private combinedNFTService: CombinedNFTService;
+  private badgeService: BadgeService;
 
   private localStorageKey = 'taikoENSdomain';
 
   constructor() {
     this.apiAdapter = new ProfileApiAdapter();
     this.userRepository = new UserRepository();
+    this.combinedNFTService = new CombinedNFTService();
+    this.badgeService = new BadgeService();
   }
 
   /**
@@ -184,64 +193,70 @@ export class ProfileService {
    * @param address - The user's address.
    */
   private async fetchAndCalculateMultipliers(address: Address): Promise<void> {
+    const badges: NFT[] = [];
     try {
-      let graphqlResponse;
       if (!isDevelopmentEnv) {
-        graphqlResponse = await graphqlClient.query({
-          query: USER_NFTS_QUERY,
-          variables: { address: address.toLocaleLowerCase() },
-        });
+        const found = await this.badgeService.getBadgesForUser(address);
+        badges.push(...found);
+        // graphqlResponse = await graphqlClient.query({
+        //   query: USER_NFTS_QUERY,
+        //   variables: { address: address.toLocaleLowerCase() },
+        // });
       } else {
-        const { data } = await axios.get(`/user/graphql`, {
-          params: { address },
-          ...globalAxiosConfig,
-        });
-        graphqlResponse = data;
+        //TODO: implement again
+        // const { data } = await axios.get(`/user/graphql`, {
+        //   params: { address },
+        //   ...globalAxiosConfig,
+        // });
+        // graphqlResponse = data;
       }
 
-      if (graphqlResponse?.data?.account) {
-        const userNFTs: UserNFT[] = graphqlResponse.data.account.s1MultiplierNfts.map(
-          (token: { contract: { name: string }; tokenId: string; badgeId: string }) => ({
-            name: token.contract.name,
-            tokenId: token.tokenId,
-            badgeId: token.badgeId,
-          }),
-        );
+      if (badges) {
+        log('Found badges', badges);
 
-        // Calculate Multipliers
-        const taikoonCount = userNFTs.filter((nft) => nft.name === 'Taikoon').length;
-        const taikoonMultiplier = taikoonCount >= 1 ? 1000 : 0;
+        //TODO: implement again
+        // const userNFTs: UserNFT[] = graphqlResponse.data.account.s1MultiplierNfts.map(
+        //   (token: { contract: { name: string }; tokenId: string; badgeId: string }) => ({
+        //     name: token.contract.name,
+        //     tokenId: token.tokenId,
+        //     badgeId: token.badgeId,
+        //   }),
+        // );
 
-        const snaefellCount = userNFTs.filter((nft) => nft.name === 'SnaefellToken').length;
-        const snaefellMultiplier = snaefellCount >= 1 ? 100 : 0;
+        // // Calculate Multipliers
+        // const taikoonCount = userNFTs.filter((nft) => nft.name === 'Taikoon').length;
+        // const taikoonMultiplier = taikoonCount >= 1 ? 1000 : 0;
 
-        const factionBadges = userNFTs
-          .filter((nft) => nft.name === 'Trailblazers Badges')
-          .reduce(
-            (acc, nft) => {
-              if (nft.badgeId) {
-                acc[nft.badgeId] = (acc[nft.badgeId] || 0) + 1;
-              }
-              return acc;
-            },
-            {} as Record<string, number>,
-          );
+        // const snaefellCount = userNFTs.filter((nft) => nft.name === 'SnaefellToken').length;
+        // const snaefellMultiplier = snaefellCount >= 1 ? 100 : 0;
 
-        const multiplierTable = [0, 100, 210, 331, 464, 611, 772, 949, 1144];
-        const uniqueFactionBadgesCount = Object.keys(factionBadges).length;
-        const factionMultiplier = multiplierTable[uniqueFactionBadgesCount] || 0;
+        // const factionBadges = userNFTs
+        //   .filter((nft) => nft.name === 'Trailblazers Badges')
+        //   .reduce(
+        //     (acc, nft) => {
+        //       if (nft.badgeId) {
+        //         acc[nft.badgeId] = (acc[nft.badgeId] || 0) + 1;
+        //       }
+        //       return acc;
+        //     },
+        //     {} as Record<string, number>,
+        //   );
 
-        const totalMultiplier = taikoonMultiplier + snaefellMultiplier + factionMultiplier;
+        // const multiplierTable = [0, 100, 210, 331, 464, 611, 772, 949, 1144];
+        // const uniqueFactionBadgesCount = Object.keys(factionBadges).length;
+        // const factionMultiplier = multiplierTable[uniqueFactionBadgesCount] || 0;
 
-        const userMultiplier: UserMultiplier = {
-          totalMultiplier: Math.min(Number(totalMultiplier || 0), 2000), // max of 3x
-          taikoonMultiplier: Number(taikoonMultiplier || 0),
-          factionMultiplier: Number(factionMultiplier || 0),
-          snaefellMultiplier: Number(snaefellMultiplier || 0),
-        };
+        // const totalMultiplier = taikoonMultiplier + snaefellMultiplier + factionMultiplier;
 
-        // Update profile with multipliers and NFTs via UserRepository
-        await this.userRepository.update({ multipliers: userMultiplier, nfts: userNFTs });
+        // const userMultiplier: UserMultiplier = {
+        //   totalMultiplier: Math.min(Number(totalMultiplier || 0), 2000), // max of 3x
+        //   taikoonMultiplier: Number(taikoonMultiplier || 0),
+        //   factionMultiplier: Number(factionMultiplier || 0),
+        //   snaefellMultiplier: Number(snaefellMultiplier || 0),
+        // };
+
+        // // Update profile with multipliers and NFTs via UserRepository
+        // await this.userRepository.update({ multipliers: userMultiplier, nfts: userNFTs });
       }
     } catch (error) {
       log('Error in fetchAndCalculateMultipliers:', error);
@@ -314,25 +329,6 @@ export class ProfileService {
     if (percentile < 0 || percentile > 100) {
       return { level: '0', title: 'Beginner' };
     }
-
-    const levelTiers: { percentileCap: number; level: string; title: string }[] = [
-      { percentileCap: 50, level: '0', title: 'Beginner' },
-      { percentileCap: 58, level: '1', title: 'Initiate' },
-      { percentileCap: 66, level: '2', title: 'Senshi I' },
-      { percentileCap: 74, level: '3', title: 'Senshi II' },
-      { percentileCap: 82, level: '4', title: 'Samurai I' },
-      { percentileCap: 90, level: '5', title: 'Samurai II' },
-      { percentileCap: 92, level: '6', title: 'Sensei I' },
-      { percentileCap: 94, level: '7', title: 'Sensei II' },
-      { percentileCap: 96, level: '8', title: 'Taichou I' },
-      { percentileCap: 98, level: '9', title: 'Taichou II' },
-      { percentileCap: 99, level: '10', title: 'Shogun' },
-      { percentileCap: 99.5, level: '11', title: 'Hashira' },
-      { percentileCap: 99.9, level: '12', title: 'Kodai' },
-      { percentileCap: 99.99, level: '13', title: 'Densetsu' },
-      { percentileCap: 100, level: '14', title: 'Legend' },
-    ];
-
     const tier = levelTiers.find(({ percentileCap }) => percentile <= percentileCap) || {
       level: '0',
       title: 'Beginner',
@@ -346,5 +342,34 @@ export class ProfileService {
     log('Fetching user activity for address:', address, 'season:', season, 'page:', page);
     const activity = await this.apiAdapter.fetchUserActivity(address, season, page);
     return activity;
+  }
+
+  /**
+   * Fetches the user profile along with their NFTs and updates the store.
+   * @param address - The user's address.
+   * @param season - The season number for data fetching (default is 0).
+   */
+  async getProfileWithNFTs(address: Address, season: number = 0): Promise<void> {
+    log('Fetching profile with NFTs for address:', address, 'season:', season);
+    profileLoading.set(true);
+
+    try {
+      const user = await this.userRepository.get();
+
+      // Fetch NFTs (badges, avatars, etc.)
+      const nfts = await this.combinedNFTService.fetchAllNFTsForUser(address);
+
+      // Combine and update the profile with NFT data
+      await this.userRepository.update({
+        ...user,
+        nfts: nfts.taikoonNFTs,
+      });
+
+      log('Profile with NFTs:', await this.userRepository.get());
+    } catch (error) {
+      log('Error in getProfileWithNFTs:', error);
+    } finally {
+      profileLoading.set(false);
+    }
   }
 }

@@ -3,10 +3,10 @@ import axios from 'axios';
 
 import { PUBLIC_TRAILBLAZER_API_URL } from '$env/static/public';
 import { readClaimGalxePointsAlreadyRegistered, writeClaimGalxePointsRegister } from '$generated/abi';
-import { chainId } from '$libs/chain';
+import { chainId } from '$lib/shared/utils/chain';
+import { wagmiConfig } from '$lib/shared/wagmi';
 import type { GalxePoints } from '$libs/profile';
 import { isDevelopmentEnv } from '$libs/util/isDevelopmentEnv';
-import { wagmiConfig } from '$libs/wagmi';
 import { galxeLoading } from '$stores/load';
 import { currentProfile } from '$stores/profile';
 

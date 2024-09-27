@@ -1,8 +1,8 @@
 import { readContract } from '@wagmi/core';
 import type { Address } from 'viem';
 
-import { chainId } from '$libs/chain';
-import { wagmiConfig } from '$libs/wagmi';
+import { chainId } from '$lib/shared/utils/chain';
+import { wagmiConfig } from '$lib/shared/wagmi';
 
 import { trailblazersBadgesAbi, trailblazersBadgesAddress } from '../../generated/abi/';
 import { getTokenId } from './getTokenId';
