@@ -35,42 +35,32 @@
       : []),
   ];
 
-  // Active tab index, initialized to 0 to select the first tab by default
   let activeTab = 0;
 
   const tabPanelClasses = classNames('mx-4', 'lg:mx-0', 'relative', 'overflow-x-scroll', 'min-h-64');
 
-  /**
-   * Generates the appropriate class list for each tab based on its active state.
-   * Utilizes Tailwind CSS's aria-selected variants to apply styles.
-   *
-   * @param index - The index of the tab
-   * @returns A string of class names
-   */
-  function getTabClass() {
-    return classNames(
-      'text-center',
-      'rounded-full',
-      'md:rounded-none',
-      'md:rounded-t-[20px]',
-      'h-[44px]',
-      'btn',
-      'md:tab',
-      'md:w-[140px]',
-      'py-[8px]',
-      'px-[20px]',
-      'btn-ghost',
-      'border-primary-brand',
-      'hover:cursor-pointer',
-      'hover:bg-primary-interactive-hover',
-      'hover:text-white',
-      'hover:border-primary-brand',
-      'whitespace-nowrap',
-      'body-bold',
-      'md:bg-transparent',
-      'md:border-none',
-    );
-  }
+  const tabClasses = classNames(
+    'text-center',
+    'rounded-full',
+    'md:rounded-none',
+    'md:rounded-t-[20px]',
+    'h-[44px]',
+    'btn',
+    'md:tab',
+    'md:w-[140px]',
+    'py-[8px]',
+    'px-[20px]',
+    'btn-ghost',
+    'border-primary-brand',
+    'hover:cursor-pointer',
+    'hover:bg-primary-interactive-hover',
+    'hover:text-white',
+    'hover:border-primary-brand',
+    'whitespace-nowrap',
+    'body-bold',
+    'md:bg-transparent',
+    'md:border-none',
+  );
 
   const tablistClasses = classNames(
     'flex',
@@ -93,7 +83,7 @@
     <button
       type="button"
       role="tab"
-      class={getTabClass()}
+      class={tabClasses}
       aria-selected={index === activeTab}
       on:click={() => (activeTab = index)}
       aria-controls={`tabpanel-${index}`}
