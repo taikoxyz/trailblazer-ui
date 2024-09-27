@@ -16,6 +16,5 @@ export default async function preflight(address: Address): Promise<ITokenClaimPr
   });
 
   const { value, proof } = res.data;
-
   return { address, value: parseFloat(value || '0'), proof };
 }
