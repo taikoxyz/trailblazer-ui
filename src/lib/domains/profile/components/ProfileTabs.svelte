@@ -55,12 +55,12 @@
 
   const tabPanelClasses = classNames(
     'tab-content',
-    'p-6',
-    'relative',
-    'bg-elevated-background',
-    'overflow-x-scroll',
-    'rounded-[30px]',
-    'min-h-64',
+    // 'p-6',
+    // 'relative',
+    // 'bg-elevated-background',
+    // 'overflow-x-scroll',
+    // 'rounded-[30px]',
+    // 'min-h-64',
   );
 
   const tabSelectorItemClasses = classNames(

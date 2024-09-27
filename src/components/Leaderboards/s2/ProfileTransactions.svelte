@@ -29,7 +29,7 @@
 </script>
 
 <div class="border-collapse w-full border-none bg-elevated-background">
-  <table class="table w-full border-collapse px-[5px] min-w-[400px]">
+  <table class="table w-full border-collapse px-[5px]">
     <thead class="border-none bg-none w-full">
       <tr class="border-none body-bold">
         {#each headers as header}

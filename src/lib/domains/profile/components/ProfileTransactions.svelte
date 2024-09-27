@@ -1,25 +1,21 @@
 <script lang="ts">
-  import { t } from 'svelte-i18n';
-
-  import { ActivityIcon } from '$components/Icon';
   import { Paginator } from '$components/Paginator';
-  import { Pill } from '$components/Pill';
   import { Spinner } from '$components/Spinner';
   import { activeSeason } from '$lib/shared/stores/activeSeason';
   import { classNames } from '$libs/util/classNames';
-  import { formatDate } from '$libs/util/formatDate';
 
   import profileService from '../services/ProfileServiceInstance';
   import { userProfile } from '../stores/profileStore';
+  import ActivityHistoryRow from './ActivityHistoryRow.svelte';
 
   $: pointsHistory = $userProfile?.activityHistory?.pointsHistory;
   $: hasPointHistory = pointsHistory && pointsHistory.items && pointsHistory.items.length > 0;
 
-  let headers = ['Activity', 'Points', 'Time'];
+  let headers = ['Activity', 'Points', ''];
 
   const pageSize = 10;
   $: currentPage = 1;
-  $: totalItems = 10;
+  $: totalItems = pointsHistory?.total || 0;
   $: totalPages = pointsHistory?.total_pages || Math.ceil(totalItems / pageSize);
   $: isLoading = false;
 
@@ -32,110 +28,100 @@
         selectedPage,
       );
     }
-
     isLoading = false;
   }
+
+  // CSS classes
+  const containerClass = classNames(
+    'container',
+    'w-full',
+    'bg-elevated-background',
+    'xl:max-w-[1344px]',
+    'rounded-[30px]',
+    'relative',
+  );
+
+  const headerRowClass = classNames(
+    'grid',
+    'items-center',
+    'gap-x-[26px]',
+    'p-5',
+    'md:px-[54px]',
+    'h-[74px]',
+    'body-bold',
+    'text-sm',
+    'text-secondary-content',
+    'grid-cols-[minmax(135px,1fr)_minmax(10px,1fr)_30px]',
+    'lg:grid-cols-[minmax(135px,1fr)_minmax(135px,1fr)_minmax(135px,1fr)]',
+  );
+
+  const headerCellClass = classNames('font-normal', 'text-left');
+
+  const iconHeaderCellClass = classNames('text-center', 'block', 'lg:hidden', 'w-[30px]');
+
+  const timeHeaderCellClass = classNames('font-normal', 'text-left', 'hidden', 'lg:block');
+
+  const dividerClass = classNames('divider', '!my-0', 'mx-[24px]', 'h-1');
+
+  const loadingOverlayClass = classNames(
+    'w-full',
+    'h-full',
+    'bg-black',
+    'bg-opacity-60',
+    'absolute',
+    'top-0',
+    'left-0',
+    'flex',
+    'items-center',
+    'justify-center',
+    'rounded-[30px]', // Match the container's rounded corners
+  );
+
+  const paginatorClasses = classNames('!justify-center');
+  const paginatorWrapper = classNames('mt-[20px]', 'flex', 'justify-center', 'max-w-[342px]');
 </script>
 
-<div class="border-collapse w-full border-none bg-elevated-background">
-  <table class="table w-full border-collapse px-[5px] min-w-[400px]">
-    <thead class="border-none bg-none w-full">
-      <tr class="border-none body-bold">
-        {#each headers as header}
-          <th class="w-[200px]"> {header}</th>
-        {/each}
-      </tr>
-    </thead>
-
-    <div class="divider m-0 w-full"></div>
-    <tbody class="border-none pt-6">
-      {#if pointsHistory && hasPointHistory}
-        {#each pointsHistory.items as pointHistory}
-          <tr class="border-2 border-transparent hover:border-2 body-bold">
-            <td class="w-[200px]">
-              <div class="flex gap-2 items-center">
-                {#if pointHistory?.event === 'TransactionValue'}
-                  <ActivityIcon type="double-coin" />
-                  <span class="w-full">{$t('leaderboard.user.event.transaction_value')}</span>
-                {:else if pointHistory?.event === 'BlockProposed'}
-                  <ActivityIcon type="cube" />
-                  <span class="w-full">{$t('leaderboard.user.event.block_proposed')}</span>
-                {:else if pointHistory?.event === 'Bridged'}
-                  <ActivityIcon type="double-diamond" />
-                  <span class="w-full">{$t('leaderboard.user.event.bridged')}</span>
-                {:else}
-                  <ActivityIcon type="triple-coin-stacked" />
-                  <span class="w-full">{$t('leaderboard.user.event.transaction')}</span>
-                {/if}
-              </div>
-            </td>
-            <td class="whitespace-nowrap w-[200px]">
-              {#if pointHistory?.points === 0}
-                <span class="text-negative-sentiment truncate">{$t('leaderboard.user.dailyMaxReached')}</span>
-              {:else}
-                <div class="flex gap-2 z-50 items-center">
-                  <span class="">{$t('leaderboard.user.points', { values: { value: pointHistory?.points } })}</span>
-                  {#if pointHistory?.multiplier && pointHistory?.multiplier > 1}
-                    <Pill
-                      class="bg-gradient-to-r from-[#5d08c8] from-10% via-[#9f00b8] via-33% via-[#ca00a8] via-66% to-secondary ">
-                      {$t('leaderboard.user.booster', { values: { multiplier: pointHistory?.multiplier } })}
-                    </Pill>
-                  {/if}
-                </div>
-              {/if}
-            </td>
-            <td class="whitespace-nowrap w-[200px]">{formatDate(pointHistory?.date)}</td>
-          </tr>
-        {/each}
-      {/if}
-    </tbody>
-  </table>
-
-  <div class="mt-[38px]">
-    <Paginator
-      {pageSize}
-      bind:currentPage
-      limitPages={true}
-      maxPages={totalPages}
-      bind:totalItems
-      on:pageChange={({ detail: selectedPage }) => handlePageChange(selectedPage)} />
+<div class={containerClass}>
+  <!-- Header Row -->
+  <div class={headerRowClass}>
+    <!-- Activity Header -->
+    <div class={headerCellClass}>{headers[0]}</div>
+    <!-- Points Header -->
+    <div class={headerCellClass}>{headers[1]}</div>
+    <!-- Icon Header (Visible on mobile, hidden on large screens) -->
+    <div class={iconHeaderCellClass}></div>
+    <!-- Time Header (Hidden on mobile, visible on large screens) -->
+    <div class={timeHeaderCellClass}>{'Time'}</div>
   </div>
+
+  <!-- Divider -->
+  <div class={dividerClass}></div>
+
+  <!-- Activity History Rows -->
+  {#if pointsHistory && hasPointHistory}
+    {#each pointsHistory.items as pointHistory}
+      <ActivityHistoryRow {pointHistory} />
+    {/each}
+  {:else}
+    <div class="p-5 text-center">No activity history available.</div>
+  {/if}
+
+  <!-- Loading Overlay -->
+  {#if isLoading}
+    <div class={loadingOverlayClass}>
+      <Spinner size="lg" />
+    </div>
+  {/if}
 </div>
 
-{#if isLoading}
-  <div
-    class={classNames(
-      'w-full',
-      'h-full',
-      'bg-[black]',
-      'bg-opacity-60',
-      'absolute',
-      'top-0',
-      'left-0',
-      'flex',
-      'items-center',
-      'justify-center',
-    )}>
-    <Spinner size="lg" />
-  </div>
-{/if}
-
-<style>
-  th,
-  td {
-    min-height: 60px;
-    border: none;
-    text-align: left;
-  }
-
-  thead,
-  tbody,
-  tr {
-    display: table;
-    width: 100%;
-    table-layout: fixed; /* Helps in keeping column width consistent */
-  }
-  thead {
-    background-color: none;
-  }
-</style>
+<!-- Paginator -->
+<div class={paginatorWrapper}>
+  <Paginator
+    {pageSize}
+    bind:currentPage
+    class={paginatorClasses}
+    limitPages={true}
+    maxPages={totalPages}
+    bind:totalItems
+    on:pageChange={({ detail: selectedPage }) => handlePageChange(selectedPage)} />
+</div>
