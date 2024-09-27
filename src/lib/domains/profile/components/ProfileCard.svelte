@@ -62,7 +62,7 @@
       </div>
       <!-- Points -->
       <div class="flex flex-col items-center md:items-start gap-2 w-full mb-[20px]">
-        <div class="f-col md:f-row items-center gap-2">
+        <div class="f-col md:f-row items-center gap-2 md:mt-[14px]">
           <div class="font-clash-grotesk font-semibold text-[45px] leading-none">
             {displayedScore?.toFixed(0) && formatNumbers(displayedScore?.toFixed(0))}
           </div>

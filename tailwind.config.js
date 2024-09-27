@@ -249,7 +249,10 @@ export default {
   },
 
   plugins: [daisyuiPlugin],
-
+  extend: {
+    backgroundColor: ['aria-selected'],
+    textColor: ['aria-selected'],
+  },
   // https://daisyui.com/docs/config/
   daisyui: {
     darkTheme: 'dark', // name of one of the included themes for dark mode
