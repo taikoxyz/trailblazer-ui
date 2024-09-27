@@ -14,7 +14,6 @@
 
   onMount(async () => {
     const urlAddress = $page.url.pathname.split('/').pop() as Address;
-    // isSelfProfile = getAddress(urlAddress) === getAddress(getConnectedAddress());
     await profileService.getProfile(urlAddress, parseInt(activeSeason));
   });
 </script>
@@ -25,6 +24,7 @@
       <ProfileCard loading={$profileLoading} />
       <BoosterCard />
     </div>
+
     <div class="mt-[60px]">
       <ProfileTabs />
     </div>
