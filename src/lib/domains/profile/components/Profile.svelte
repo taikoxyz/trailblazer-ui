@@ -25,7 +25,9 @@
       <ProfileCard loading={$profileLoading} />
       <BoosterCard />
     </div>
-    <ProfileTabs />
+    <div class="mt-[60px]">
+      <ProfileTabs />
+    </div>
   </div>
 </div>
 

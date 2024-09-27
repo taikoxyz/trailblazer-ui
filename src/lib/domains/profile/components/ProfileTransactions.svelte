@@ -5,7 +5,7 @@
   import { classNames } from '$libs/util/classNames';
 
   import profileService from '../services/ProfileServiceInstance';
-  import { userProfile } from '../stores/profileStore';
+  import { profileLoading, userProfile } from '../stores/profileStore';
   import ActivityHistoryRow from './ActivityHistoryRow.svelte';
 
   $: pointsHistory = $userProfile?.activityHistory?.pointsHistory;
@@ -17,10 +17,8 @@
   $: currentPage = 1;
   $: totalItems = pointsHistory?.total || 0;
   $: totalPages = pointsHistory?.total_pages || Math.ceil(totalItems / pageSize);
-  $: isLoading = false;
 
   async function handlePageChange(selectedPage: number) {
-    isLoading = true;
     if ($userProfile.address) {
       pointsHistory = await profileService.getPointHistoryPage(
         $userProfile.address,
@@ -28,7 +26,6 @@
         selectedPage,
       );
     }
-    isLoading = false;
   }
 
   // CSS classes
@@ -37,6 +34,9 @@
     'w-full',
     'bg-elevated-background',
     'xl:max-w-[1344px]',
+    'sm:rounded-b-[30px]',
+    'rounded-t-[30px]',
+    'md:rounded-tl-none',
     'rounded-[30px]',
     'relative',
   );
@@ -63,22 +63,10 @@
 
   const dividerClass = classNames('divider', '!my-0', 'mx-[24px]', 'h-1');
 
-  const loadingOverlayClass = classNames(
-    'w-full',
-    'h-full',
-    'bg-black',
-    'bg-opacity-60',
-    'absolute',
-    'top-0',
-    'left-0',
-    'flex',
-    'items-center',
-    'justify-center',
-    'rounded-[30px]', // Match the container's rounded corners
-  );
+  const loadingOverlayClass = classNames('w-full', 'h-full', 'flex', 'mt-4', 'justify-center', 'items-center');
 
   const paginatorClasses = classNames('!justify-center');
-  const paginatorWrapper = classNames('mt-[20px]', 'flex', 'justify-center', 'max-w-[342px]');
+  const paginatorWrapper = classNames('w-full', 'mt-[20px]', 'flex', 'justify-center', 'lg:justify-end', 'max-w-full');
 </script>
 
 <div class={containerClass}>
@@ -97,20 +85,19 @@
   <!-- Divider -->
   <div class={dividerClass}></div>
 
-  <!-- Activity History Rows -->
-  {#if pointsHistory && hasPointHistory}
-    {#each pointsHistory.items as pointHistory}
-      <ActivityHistoryRow {pointHistory} />
-    {/each}
-  {:else}
-    <div class="p-5 text-center">No activity history available.</div>
-  {/if}
-
-  <!-- Loading Overlay -->
-  {#if isLoading}
+  {#if $profileLoading}
     <div class={loadingOverlayClass}>
       <Spinner size="lg" />
     </div>
+  {:else}
+    <!-- Activity History Rows -->
+    {#if pointsHistory && hasPointHistory}
+      {#each pointsHistory.items as pointHistory}
+        <ActivityHistoryRow {pointHistory} />
+      {/each}
+    {:else}
+      <div class="p-5 text-center">No activity history available.</div>
+    {/if}
   {/if}
 </div>
 
