@@ -22,7 +22,7 @@
   $: currentStep = 0;
   $: claimAmount = -1;
   $: claimLabel = '';
-  // $: claimProof = '';
+  $: claimProof = '';
   $: isClaimSuccessful = false;
 
   async function handlePanelButtonClick() {
@@ -31,12 +31,9 @@
     if (currentStep === 0) {
       // load claim amount
       isLoading = true;
-      const {
-        value,
-        // proof
-      } = await TokenClaim.preflight(address);
+      const { value, proof } = await TokenClaim.preflight(address);
       claimAmount = value;
-      // claimProof = proof;
+      claimProof = proof;
       claimLabel = 'You will receive';
       isLoading = false;
     }
@@ -45,7 +42,8 @@
       // make the actual claim call
       isLoading = true;
       try {
-        await new Promise((resolve) => setTimeout(resolve, 1000));
+        await TokenClaim.claim(address, claimAmount, claimProof);
+        //await new Promise((resolve) => setTimeout(resolve, 1000));
         currentStep = 2; // success
         claimLabel = 'You have claimed';
         isClaimSuccessful = true;
