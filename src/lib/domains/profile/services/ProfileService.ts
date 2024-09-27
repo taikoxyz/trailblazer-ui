@@ -50,9 +50,10 @@ export class ProfileService {
       }
 
       // Fetch data from multiple endpoints
-      const [pointsAndRank, userDomainInfo] = await Promise.all([
+      const [pointsAndRank, userDomainInfo, activity] = await Promise.all([
         this.apiAdapter.fetchUserPointsAndRank(address, season),
         this.apiAdapter.fetchUserDomainInfo(address),
+        this.apiAdapter.fetchUserActivity(address, season, 0),
       ]);
 
       // Assemble the complete UserProfile with default values
@@ -69,6 +70,9 @@ export class ProfileService {
           total: pointsAndRank.total.toString(),
           title: '',
           level: '',
+        },
+        activityHistory: {
+          pointsHistory: activity,
         },
         multipliers: defaultUserProfile.multipliers,
         domainInfo: userDomainInfo,
@@ -267,9 +271,26 @@ export class ProfileService {
       throw new Error('User stats are undefined');
     }
     const { rank, total } = user.userStats;
-    const percentile = ProfileService.calculatePercentile(rank, total);
+    log("User's rank and total:", { rank, total });
+    const numericRank = Number(rank);
+
+    // Handle cases where total is zero to avoid division by zero
+    if (numericRank === 0) {
+      log('Total is zero, setting percentile to 0');
+      await this.userRepository.update({
+        userStats: {
+          ...user.userStats,
+          rankPercentile: '0',
+          level: '0',
+          title: 'Beginner',
+        },
+      });
+      return;
+    }
+
+    const percentile = ProfileService.calculatePercentile(numericRank, total);
     const { level, title } = ProfileService.getLevel(percentile);
-    // const boostedPoints = this.calculateBoostedPoints(user);
+
     log('new info', { percentile, level, title });
     await this.userRepository.update({
       userStats: {
@@ -319,5 +340,11 @@ export class ProfileService {
     log('found tier', tier);
     const { level, title } = tier;
     return { level: level, title };
+  }
+
+  async getPointHistoryPage(address: Address, season: number, page: number) {
+    log('Fetching user activity for address:', address, 'season:', season, 'page:', page);
+    const activity = await this.apiAdapter.fetchUserActivity(address, season, page);
+    return activity;
   }
 }

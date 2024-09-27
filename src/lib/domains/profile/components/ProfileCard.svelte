@@ -11,6 +11,7 @@
   import { userProfile } from '../stores/profileStore';
   import ProfileName from './ProfileName.svelte';
   import ProfilePicture from './ProfilePicture.svelte';
+  import ProfileRank from './ProfileRank.svelte';
 
   export let loading: boolean;
 
@@ -77,7 +78,7 @@
             {profile?.userStats?.title || 'Beginner'}
           </div>
         </div>
-        <!-- <RankDisplay rank={Number(profile.rank)} total={Number(profile.total)} percentile={profile.rankPercentile} /> -->
+        <ProfileRank {profile} />
       </div>
     </div>
   {:else}
