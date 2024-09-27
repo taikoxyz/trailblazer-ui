@@ -18,6 +18,7 @@ export default defineProject({
       $abi: path.resolve(__dirname, './src/abi/index.ts'),
       $mocks: path.resolve(__dirname, './src/tests/mocks/index.ts'),
       $config: path.resolve(__dirname, './src/app.config.ts'),
+      $generated: path.resolve(__dirname, './src/generated'),
       '$app/environment': path.resolve(__dirname, './__mocks__/$app/environment/browser.ts'),
       '$env/static/public': path.resolve(__dirname, './__mocks__/$env/static/public.ts'),
     },

@@ -5,36 +5,87 @@
   import LogoWithText from '$components/Logo/LogoWithText.svelte';
   import { MobileNavigation } from '$components/MobileNavigation';
   import Navigation from '$components/Navigation/Navigation.svelte';
+  import { classNames } from '$libs/util/classNames';
 
   let mobileMenu = false;
 
   function toggleMobileMenu() {
     mobileMenu = !mobileMenu;
   }
+
+  const wrapperClasses = classNames(
+    'w-[100vw]',
+    'px-[24px]',
+    'md:px-[48px]',
+    'h-[104px]',
+    'relative',
+    'justify-center',
+    'flex',
+    'z-50',
+    'bg-[#0c0f1b]',
+  );
+
+  const containerClasses = classNames(
+    'f-center',
+    'w-full',
+    'fixed',
+    'relative',
+    'bg-[#0c0f1b]',
+    'z-50',
+    'xl:max-w-[1440px]',
+  );
+
+  const headerClasses = classNames(
+    'flex',
+    'body-regular',
+    'items-center',
+    'box-border',
+    'lg:bg-none',
+    'z-[100]',
+    'h-[104px]',
+    'w-full',
+    'justify-center',
+  );
+
+  const innerHeaderClasses = classNames('f-between-center', 'w-full', 'gap-2', 'xl:top-[12px]', 'pl-[8px]');
+
+  const logoLinkClasses = classNames('flex', 'gap-2', 'items-end');
+  const mobileLogoClasses = classNames('md:hidden');
+  const desktopLogoClasses = classNames('hidden', 'md:flex', 'h-[25px]', 'w-[90px]');
+  const trailblazersLogoClasses = classNames('max-w-[125px]', 'pb-[2px]', 'max-h-[25px]', 'min-h-[25px]');
+  const burgerButtonClasses = classNames(
+    'btn',
+    'xl:hidden',
+    'btn-circle',
+    'bg-neutral-background',
+    'border-none',
+    'swap',
+    'swap-rotate',
+    'z-30',
+  );
 </script>
 
-<div class="absolute w-full f-center lg:top-[56px] top-[40px] z-10">
-  <div class="container f-center w-full px-[20px] lg:px-0">
-    <div class="flex body-regular items-center justify-between box-border w-full rounded-full lg:bg-none">
-      <div
-        class="f-between-center w-full gap-2 mt-[5px] relative top-[12px] xl:top-[12px] lg:top-[9px] md:top-[22px] lg:pl-[57px] md:pr-[20px] xl:pr-[57px] top-[22px] pl-[8px]">
-        <a class="flex gap-2 items-end" href="/">
-          <Logo width={27} class="md:hidden" />
-          <LogoWithText class="hidden md:flex h-[25px] w-[90px]" />
-          <TaikoTrailblazersLogo class="max-w-[125px] pb-[2px] max-h-[25px] min-h-[25px]" />
+<div class={wrapperClasses}>
+  <div class={containerClasses}>
+    <div class={headerClasses}>
+      <div class={innerHeaderClasses}>
+        <a class={logoLinkClasses} href="/">
+          <Logo width={27} class={mobileLogoClasses} />
+          <LogoWithText class={desktopLogoClasses} />
+          <TaikoTrailblazersLogo class={trailblazersLogoClasses} />
         </a>
 
         <!-- Mobile Burger Button -->
-        <label class="btn xl:hidden btn-circle bg-neutral-background border-none swap swap-rotate">
-          <!-- this hidden checkbox controls the state -->
-          <input type="checkbox" checked={mobileMenu} on:click={toggleMobileMenu} />
 
+        <label class={burgerButtonClasses}>
+          <input type="checkbox" checked={mobileMenu} on:click={toggleMobileMenu} />
           <img src="/hamburger.svg" alt="menu closed" class="swap-off" />
           <img src="/x.svg" alt="menu open" class="swap-on" />
         </label>
 
-        <!--  Desktop Only -->
+        <!-- Desktop Navigation -->
         <Navigation />
+
         <div class="hidden xl:flex">
           <ConnectButton />
         </div>
@@ -42,6 +93,7 @@
     </div>
   </div>
 </div>
+
 {#if mobileMenu}
   <MobileNavigation on:navigate={toggleMobileMenu} />
 {/if}

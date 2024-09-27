@@ -3,10 +3,12 @@
   import { Icon } from '$components/Icon';
   import Spinner from '$components/Spinner/Spinner.svelte';
   import { FACTIONS } from '$configs/badges';
+  import { trailblazersBadgesS2Address } from '$generated/abi';
   import approve from '$libs/badges/approve';
-  import { getMigrationStatus, isApprovedToMigrate } from '$libs/badges/badgesSubGraph';
   import { Movements } from '$libs/badges/const';
   import { getTokenId } from '$libs/badges/getTokenId';
+  import isApprovedToMigrate from '$libs/badges/isApprovedToMigrate';
+  import getMigrationStatus from '$libs/badges/migration/getMigrationStatus';
   import setApprovalForAll from '$libs/badges/setApprovalForAll';
   import startMigration from '$libs/badges/startMigration';
   import tamperMigration from '$libs/badges/tamperMigration';
@@ -17,7 +19,6 @@
   import { badgeMigrationStore } from '$stores/badgeMigration';
   import { badgeMigrationModal } from '$stores/modal';
 
-  import { trailblazersBadgesS2Address } from '../../../../generated/abi';
   import MigrationBadgeItem from './MigrationBadgeItem.svelte';
 
   function timeUntil(targetDate: Date): string {
@@ -81,12 +82,12 @@
     'right-[40px]',
     'w-[50px]',
     'h-[50px]',
-    'bg-[#2b303b]',
+    'bg-secondary-icon',
     'rounded-full',
     'flex',
     'items-center',
     'justify-center',
-    'hover:bg-[#0b101b]',
+    'hover:bg-grey-900',
     'transition-all',
   );
 
@@ -190,16 +191,16 @@
     'font-clash-grotesk',
     'font-[500]',
 
-    'text-[#f3f3f3]',
+    'text-primary-content',
   );
 
-  const descriptionClasses = classNames('text-[#ADB1B8]', 'text-center', 'text-[16px]/[24px]');
+  const descriptionClasses = classNames('text-secondary-content', 'text-center', 'text-[16px]/[24px]');
 
   const instructionsClasses = classNames(
     'text-[24px]/[32px]',
     'font-clash-grotesk',
     'pb-[40px]',
-    'text-[#ADB1B8]',
+    'text-secondary-content',
     'text-center',
   );
 
@@ -247,8 +248,8 @@
   const pinkTamperButtonClasses = classNames(
     tamperButtonClasses,
     'shadow-[0_0px_30px_0px_#E81899]',
-    'border-[#E81899]',
-    'bg-[#E81899]',
+    'border-secondary',
+    'bg-secondary',
     'hover:shadow-[0_0px_50px_0px_#E81899]',
   );
 

@@ -1,13 +1,21 @@
-import { readContract } from '@wagmi/core';
+import { gql } from '@apollo/client/core';
 import type { Address } from 'viem';
 
-import { FactionNames } from '$configs/badges';
-import { chainId } from '$libs/chain';
-import { wagmiConfig } from '$libs/wagmi';
+import { FactionNames, FACTIONS } from '$configs/badges';
+import { graphqlClient } from '$libs/graphql/client';
 
-import { trailblazersBadgesAbi, trailblazersBadgesAddress } from '../../generated/abi/';
+export interface IUserBadges {
+  [FactionNames.Ravers]: boolean;
+  [FactionNames.Robots]: boolean;
+  [FactionNames.Bouncers]: boolean;
+  [FactionNames.Masters]: boolean;
+  [FactionNames.Monks]: boolean;
+  [FactionNames.Drummers]: boolean;
+  [FactionNames.Androids]: boolean;
+  [FactionNames.Shinto]: boolean;
+}
 
-export async function getUserBadges(address: Address): Promise<Record<FactionNames, boolean>> {
+export async function getUserBadges(address: Address): Promise<IUserBadges> {
   const out = {
     [FactionNames.Ravers]: false,
     [FactionNames.Robots]: false,
@@ -19,51 +27,47 @@ export async function getUserBadges(address: Address): Promise<Record<FactionNam
     [FactionNames.Shinto]: false,
   };
 
-  const contractAddress = trailblazersBadgesAddress[chainId];
+  try {
+    const gqlQuery = gql`
+      query UserBadges($address: String) {
+        account(id: $address) {
+          id
+          s1Badges {
+            id
+            badgeId
+          }
+        }
+      }
+    `;
+    const graphqlResponse = await graphqlClient.query({
+      query: gqlQuery,
+      variables: { address: address.toLocaleLowerCase() },
+    });
 
-  const result = await readContract(wagmiConfig, {
-    abi: trailblazersBadgesAbi,
-    address: contractAddress,
-    functionName: 'badgeBalancesV2',
-    args: [address],
-    chainId,
-  });
+    if (!graphqlResponse || !graphqlResponse.data || !graphqlResponse.data.account) {
+      // account does not exist, skip
+      return out;
+    }
 
-  const factionNames = Object.keys(FactionNames);
+    const { s1Badges } = graphqlResponse.data.account;
 
-  result.forEach((owned, index) => {
-    out[factionNames[index] as FactionNames] = owned;
-  });
+    for (const badgeId of Object.values(FACTIONS)) {
+      for (const badge of s1Badges) {
+        const currentBadgeId = parseInt(badge.badgeId);
 
-  return out;
+        if (currentBadgeId === badgeId) {
+          const key = Object.values(FactionNames)[badgeId];
+          out[key] = true;
+        }
+      }
+    }
+    return out;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (e: any) {
+    if (e.message === 'graphqlResponse.data.account is null') {
+      // account does not exist, skip
+      return out;
+    }
+    throw e;
+  }
 }
-
-/*
-
-import type { Address } from 'viem';
-
-import { FactionNames } from '$configs/badges';
-
-
-export async function getUserBadges(address?: Address): Promise<Record<FactionNames, boolean>> {
-  const out = {
-    [FactionNames.Ravers]: false,
-    [FactionNames.Robots]: false,
-    [FactionNames.Bouncers]: false,
-    [FactionNames.Masters]: false,
-    [FactionNames.Monks]: false,
-    [FactionNames.Drummers]: false,
-    [FactionNames.Androids]: false,
-    [FactionNames.Shinto]: false,
-  };
-
-  const factionNames = Object.keys(FactionNames);
-
-  factionNames.forEach((_, index) => {
-    out[factionNames[index] as FactionNames] = true// owned;
-  });
-
-  return out;
-}
-
-*/

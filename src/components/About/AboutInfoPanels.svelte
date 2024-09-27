@@ -1,16 +1,15 @@
 <script lang="ts">
-  import ActionButton from '$components/Button/ActionButton.svelte';
   import { classNames } from '$libs/util/classNames';
 
-  const wrapperClasses = classNames('flex', 'flex-col', 'items-center', 'justify-center', 'gap-24');
+  const wrapperClasses = classNames('f-col', 'w-full', 'items-center', 'justify-center', 'gap-24', 'px-[24px]');
 
   const rowClasses = classNames(
-    'flex',
+    'f-col',
     'lg:px-12',
     'flex-col',
-    'lg:flex-row',
-    'gap-12',
-    'justify-between',
+    'xl:flex-row',
+    'gap-[50px]',
+    'justify-center',
     'items-center',
     'lg:w-[calc(100%*6/8)]',
     'lg:mx-0',
@@ -19,44 +18,15 @@
     'md:w-2/3',
   );
 
-  const boxedRowClasses = classNames(
-    'flex',
-    'lg:px-12',
-    'flex-col',
-    'lg:flex-row',
-    'gap-12',
-    'justify-between',
-    'items-center',
-    'lg:w-[calc(100%*6/8)]',
-    'lg:mx-0',
-    'text-center',
-    'lg:text-left',
-    'border',
-    'border-[#444A55]',
-    'bg-gradient-to-b',
-    'to-[rgba(25,30,40,0.2)]',
-    'from-[rgba(93,99,111,0.1)]',
-    'rounded-[30px]',
-    'pt-[38px]',
-    'pb-[21px]',
-    'md:py-16',
-    'md:w-full',
-    'md:px-[calc(100%/6)]',
-    'px-[21px]',
-  );
-
   const panelClasses = classNames(
     'w-full',
-    'lg:w-1/2',
     'h-full',
-    'flex',
-    'flex-col',
+    'f-col',
+    'xl:max-w-[450px]',
     'items-center',
     'justify-center',
     'gap-8',
   );
-
-  const pinkSpanClasses = classNames('text-secondary');
 
   const titleClasses = classNames(
     'font-clash-grotesk',
@@ -65,6 +35,7 @@
     'md:text-[60px]/[60px]',
     'tracking-[-2%]',
     'font-[500]',
+    'text-center',
   );
 
   const contentClasses = classNames(
@@ -77,23 +48,11 @@
     'text-left',
     'flex',
     'flex-col',
+
     'gap-4',
   );
 
-  const buttonsWrapperClasses = classNames(
-    'flex',
-    'flex-col',
-    'md:flex-row',
-    'md:px-0',
-    'gap-4',
-    'justify-center',
-    'items-center',
-    'w-full',
-  );
-
-  const buttonLinkWrapperClasses = classNames('w-full', 'md:w-[210px]', 'h-[48px]', 'min-w-max');
-
-  const textClasses = classNames('lg:text-left', 'text-center');
+  const textClasses = classNames('xl:text-left', 'text-center');
 </script>
 
 <div class={wrapperClasses}>
@@ -102,9 +61,7 @@
       <img src="/how-it-works.png" alt="How it works" />
     </div>
     <div class={panelClasses}>
-      <div class={titleClasses}>
-        Transform your actions into rewards: <span class={pinkSpanClasses}>How it works</span>
-      </div>
+      <div class={titleClasses}>Transform your actions into rewards</div>
 
       <div class={contentClasses}>
         <p class={textClasses}>
@@ -120,11 +77,13 @@
     </div>
   </div>
 
-  <div class={classNames(rowClasses, 'lg:flex-row', 'flex-col-reverse')}>
+  <div class={classNames(rowClasses, 'xl:flex-row')}>
+    <div class={classNames(panelClasses, 'order-first', 'xl:order-last')}>
+      <img src="/level-up.png" alt="Level Up" />
+    </div>
+
     <div class={panelClasses}>
-      <div class={classNames(titleClasses, 'w-1/2', 'md:w-full')}>
-        Level up and <span class={pinkSpanClasses}>compete</span>
-      </div>
+      <div class={classNames(titleClasses, 'w-1/2', 'md:w-full')}>Level up and compete</div>
 
       <div class={contentClasses}>
         <p class={textClasses}>
@@ -134,59 +93,6 @@
           bonuses.
         </p>
         <p class={textClasses}>Are you ready to seize opportunities that will propel you up the leaderboard?</p>
-      </div>
-    </div>
-
-    <div class={panelClasses}>
-      <img src="/level-up.png" alt="Level Up" />
-    </div>
-  </div>
-
-  <div class={boxedRowClasses}>
-    <div class={panelClasses}>
-      <img src="/leaderboard.svg" alt="Leaderboard" />
-    </div>
-    <div class={panelClasses}>
-      <div class={titleClasses}>
-        <span class={pinkSpanClasses}>Rank up</span> on the leaderboard
-      </div>
-
-      <div class={contentClasses}>
-        <p class={textClasses}>
-          Earn Experience Points (XP) and climb from beginner to legend. Every action moves you to closer exclusive
-          rewards and elite status.
-        </p>
-      </div>
-
-      <div class={buttonsWrapperClasses}>
-        <a class={buttonLinkWrapperClasses} href="/leaderboard/user">
-          <ActionButton priority="primary">User leaderboard</ActionButton></a>
-        <a class={buttonLinkWrapperClasses} href="/leaderboard/dapp">
-          <ActionButton priority="secondary">Dapps leaderboard</ActionButton>
-        </a>
-      </div>
-    </div>
-  </div>
-
-  <div class={rowClasses}>
-    <div class={panelClasses}>
-      <div class={titleClasses}>
-        What are <span class={pinkSpanClasses}>Taiko Factions?</span>
-      </div>
-    </div>
-    <div class={panelClasses}>
-      <div class={contentClasses}>
-        <p class={textClasses}>
-          Taiko Factions are unique groups within the Taiko Trailblazers campaign, each representing a specific set of
-          skills, achievements, and contributions to the Taiko network. These factions are integral to the storyline set
-          in the futuristic city of Neo Nakuza, where a new music technology called BOOSTED has created an underground
-          dance music scene known as ‘BASED’.
-        </p>
-        <p class={textClasses}>
-          The factions embody different aspects of the Taiko community, from trading and staking to gaming and digital
-          identity, and are represented by various characters and roles within the campaign. There are 8 Taiko factions
-          in total:
-        </p>
       </div>
     </div>
   </div>

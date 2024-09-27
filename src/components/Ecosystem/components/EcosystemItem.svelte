@@ -4,11 +4,12 @@
   import type { IEcosystemPartner } from '../partners';
 
   export let data: IEcosystemPartner;
+  export let style: 'dark' | 'light' = 'dark';
 
   const wrapperClasses = classNames(
-    //   'min-h-[350px]',
     'w-full',
-    'bg-[#310e2f]',
+    style === 'dark' ? 'bg-partner-dark' : null,
+    style === 'light' ? 'bg-partner-light text-grey-800' : null,
     'rounded-[35px]',
     'relative',
     'p-[35px]',
@@ -39,38 +40,41 @@
   }
 
   const nameClasses = classNames(
-    'text-[#F3F3F3]',
+    style === 'dark' ? 'text-primary-content' : 'text-grey-800',
     'text-[32px]/[39.36px]',
     'font-clash-grotesk',
     'font-[500]',
     'mt-[30px]',
   );
   const logoClasses = classNames('w-[100px]', 'h-[100px]', 'rounded-[20px]');
-  const descriptionClasses = classNames('text-[#ADB1B8]', 'text-[14px]/[20px]');
+  const descriptionClasses = classNames(
+    style === 'dark' ? 'text-secondary-content' : 'text-grey-600',
+
+    'text-[14px]/[20px]',
+  );
   const urlClasses = classNames(
     'border',
     'border-[2px]',
     'rounded-full',
     'font-[700]',
-    'text-[#f3f3f3]',
+    style === 'dark' ? 'text-primary-content' : 'text-grey-800',
     'text-[16px]/[24px]',
     'w-fit',
-    'border-[#C8047D]',
+    'border-primary',
     'px-[20px]',
     'py-[8px]',
-    'hover:bg-[#C8047D]',
+    'hover:bg-primary',
     'transition-colors',
-
     'absolute',
     'bottom-[35px]',
   );
   const categoryClasses = classNames(
-    'bg-[#FFC6E9]',
+    style === 'dark' ? 'text-elevated-background' : 'text-grey-800',
+    style === 'dark' ? 'bg-primary-content' : 'bg-pink-50',
     'absolute',
     'rounded-full',
     'px-[10px]',
     'py-[5px]',
-    'text-[#191E28]',
     'font-[700]',
     'text-[14px]/[20px]',
     'top-[35px]',

@@ -1,9 +1,12 @@
 <script lang="ts">
   import { LeaderboardTransactions } from '$components/Leaderboards';
+  import DevRoom from '$components/Profile/DevRoom/DevRoom.svelte';
   import TokenClaim from '$components/Profile/TokenClaim/TokenClaim.svelte';
   import { NFTCollection } from '$components/Profile/UserNFTs';
   import { default as BadgeMigration } from '$components/Profile/UserNFTs/FactionBadges/BadgeMigration.svelte';
   import { classNames } from '$libs/util/classNames';
+  import { isDevelopmentEnv } from '$libs/util/isDevelopmentEnv';
+
   type TabContent = {
     name: string;
     content: typeof LeaderboardTransactions | typeof NFTCollection;
@@ -14,6 +17,7 @@
     {
       name: 'Transactions',
       content: LeaderboardTransactions,
+      checked: true,
     },
     {
       name: 'NFT Collection',
@@ -28,6 +32,14 @@
       content: TokenClaim,
       checked: true,
     },
+    ...(isDevelopmentEnv
+      ? [
+          {
+            name: 'Dev Room',
+            content: DevRoom,
+          },
+        ]
+      : []),
     // {
     //   name: 'Achievements',
     //   content: ProfileAchievements,
@@ -58,7 +70,7 @@
   const tabSelectorItemClasses = classNames(
     'tab',
     'hover:cursor-pointer',
-    'hover:bg-[#e81899]',
+    'hover:bg-secondary',
     'hover:bg-opacity-20',
     'whitespace-nowrap',
     '[--tab-bg:#e81899]',

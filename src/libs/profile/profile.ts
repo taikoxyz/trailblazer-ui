@@ -1,12 +1,14 @@
 import { getAccount } from '@wagmi/core';
 import axios from 'axios';
 import { get } from 'svelte/store';
+import type { Address } from 'viem';
 
 // import type { Address } from 'viem';
 import { PUBLIC_TRAILBLAZER_API_URL } from '$env/static/public';
 import { globalAxiosConfig } from '$libs/api/axiosConfig';
 import { graphqlClient } from '$libs/graphql/client';
 import { USER_NFTS_QUERY } from '$libs/graphql/queries';
+import Pfp from '$libs/pfp';
 // import getMovement from '$libs/badges/getMovement';
 import { isDevelopmentEnv } from '$libs/util/isDevelopmentEnv';
 import { getLogger } from '$libs/util/logger';
@@ -153,8 +155,8 @@ export class Profile {
         graphqlResponse = data;
       }
 
-      if (graphqlResponse?.data?.owner) {
-        const userNFTs: UserNFT[] = graphqlResponse.data.owner.ownedTokens.map(
+      if (graphqlResponse?.data?.account) {
+        const userNFTs: UserNFT[] = graphqlResponse.data.account.s1MultiplierNfts.map(
           (token: { contract: { name: string }; tokenId: string; badgeId: string }) => ({
             name: token.contract.name,
             tokenId: token.tokenId,
@@ -205,6 +207,15 @@ export class Profile {
           return { ...current, multipliers: userMultiplier, nfts: userNFTs };
         });
       }
+
+      // PFP/Avatar time
+      const avatar = await Pfp.get(address as Address);
+
+      // Update profile
+      currentProfile.update((current) => {
+        return { ...current, avatar };
+      });
+
       boosterLoading.set(false);
 
       /* re-enable when movements (based vs boosted) becomes available
@@ -240,6 +251,7 @@ export class Profile {
       currentProfile.update((current) => {
         return { ...current, ...level, rankPercentile: formattedRankPercentile, boostedPoints: boostedPoints };
       });
+
       log('Final Profile: ', get(currentProfile));
     }
   }

@@ -81,7 +81,7 @@
   },
   "stupid-monkeys": {
     "handle": "@StupidMonkeysRH",
-    "icon": "/dapps/gaming/stupid_monkeys.jpg"
+    "icon": "/dapps/gaming/stupidmonkeys.png"
   },
   "minibridge": {
     "handle": "@Chaineye_tools",
@@ -107,8 +107,24 @@
     "handle": "@Comet_Protocol",
     "icon": "/dapps/comet.svg"
   },
+  "okx-nft-market": {
+    "handle": "@okxweb3",
+    "icon": "/dapps/okx.png"
+  },
   "co-nft": {
     "handle": "@ConftApp",
     "icon": "/dapps/conft.png"
+  },
+  "world-of-dypians": {
+    "handle": "@worldofdypians",
+    "icon": "/dapps/gaming/dypians.png"
+  },
+  "brigade": {
+    "handle": "@tacowax",
+    "icon": "/dapps/gaming/brigade.png"
+  },
+  "xeno-bunny": {
+    "handle": "@XenobunnyX",
+    "icon": "/dapps/gaming/xenobunny.jpg"
   }
 }

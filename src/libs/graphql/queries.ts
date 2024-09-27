@@ -2,16 +2,14 @@ import { gql } from '@apollo/client/core';
 
 export const USER_NFTS_QUERY = gql`
   query UserNfts($address: String) {
-    owner(id: $address) {
+    account(id: $address) {
       id
       totalMultiplier
-      factionMultiplier
+      taikoonsMultiplier
       snaefellMultiplier
-      taikoonMultiplier
-      ownedTokens {
-        contract {
-          name
-        }
+      badgesMultiplier
+      s1MultiplierNfts {
+        contract
         id
         tokenId
         badgeId

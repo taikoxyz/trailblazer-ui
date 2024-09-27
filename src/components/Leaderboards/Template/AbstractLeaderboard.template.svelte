@@ -43,7 +43,7 @@
   }
 </script>
 
-<div class="overflow-x-auto lg:w-full px-8 mt-[116px] lg:mt-0">
+<div class="overflow-x-auto lg:w-full px-8 lg:mt-0">
   <svelte:component this={headerComponent} {lastUpdated} />
   {#if ended && endedComponent}
     <div class="mt-[60px] lg:mt-[80px] block lg:hidden">
@@ -71,14 +71,14 @@
           {#each Array(pageSize) as _, index}
             {@const rank = index + 1 + (currentPage - 1) * pageSize}
             {@const fillClass =
-              rank === 1 ? 'fill-[#EBB222]' : rank === 2 ? 'fill-[#91969F]' : rank === 3 ? 'fill-[#775602]' : ''}
+              rank === 1 ? 'fill-warning-sentiment' : rank === 2 ? 'fill-grey-300' : rank === 3 ? 'fill-[#775602]' : ''}
             <LoadingRow {rank} {fillClass} {showTrophy} />
           {/each}
         {:else}
           {#each data as entry, index}
             {@const rank = index + 1 + (currentPage - 1) * pageSize}
             {@const fillClass =
-              rank === 1 ? 'fill-[#EBB222]' : rank === 2 ? 'fill-[#91969F]' : rank === 3 ? 'fill-[#775602]' : ''}
+              rank === 1 ? 'fill-warning-sentiment' : rank === 2 ? 'fill-grey-300' : rank === 3 ? 'fill-[#775602]' : ''}
             <TableRow
               {entry}
               {index}
@@ -93,7 +93,7 @@
         {/if}
         {#if data.length === 0 && !isLoading}
           <tr class="row h-12">
-            <td class="lg:px-10" colspan="3">No data available</td>
+            <td class="lg:px-10" colspan="3">No data available yet</td>
           </tr>
         {/if}
       </tbody>
@@ -106,7 +106,7 @@
         {pageSize}
         bind:currentPage
         limitPages={true}
-        maxPages={100}
+        maxPages={Math.ceil(totalItems / pageSize)}
         bind:totalItems
         on:pageChange={({ detail: selectedPage }) => handlePageChange(selectedPage)} />
     </div>

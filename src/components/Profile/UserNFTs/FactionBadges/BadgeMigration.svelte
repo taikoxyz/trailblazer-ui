@@ -3,9 +3,11 @@
 
   import { ActionButton } from '$components/Button';
   import { FactionNames, FACTIONS } from '$configs/badges';
-  import { getUserBadges, isApprovedToMigrate, updateMigrationStatus } from '$libs/badges/badgesSubGraph';
   import { Movements } from '$libs/badges/const';
+  import { getUserBadges } from '$libs/badges/getUserBadges';
+  import isApprovedToMigrate from '$libs/badges/isApprovedToMigrate';
   import getEnabledMigrationIds from '$libs/badges/migration/getEnabledMigrationIds';
+  import updateMigrationStatus from '$libs/badges/migration/updateMigrationStatus';
   import startMigration from '$libs/badges/startMigration';
   import { classNames } from '$libs/util/classNames';
   import { account } from '$stores/account';
@@ -22,13 +24,13 @@
     'font-[700]',
     'border-b',
     'w-full',
-    'border-[#444A55]',
+    'border-divider-border',
     'pb-[10px]',
   );
 
   const sectionWrapperClasses = classNames('w-full', 'flex', 'flex-col', 'gap-[30px]');
 
-  const gridClasses = classNames('grid', 'grid-cols-4', 'gap-[24px]');
+  const gridClasses = classNames('grid', 'grid-cols-4', 'gap-[24px]', 'relative');
   $: enabledBadgeIds = [] as number[];
 
   $: displayActiveMigration = false;
@@ -73,7 +75,7 @@
   }
 
   const migrateButtonWrapperClasses = classNames('absolute', 'bottom-[10px]', 'w-full', 'px-[10px]');
-
+  const infoTextClasses = classNames('absolute', 'w-full', 'text-center');
   async function handleStartMigration(badgeId: number) {
     if (!$account || !$account.address) return;
     const isApproved = await isApprovedToMigrate($account.address, badgeId);
@@ -113,7 +115,7 @@
           </FactionBadgeItem>
         {/each}
       {:else}
-        No migrations are currently enabled
+        <div class={infoTextClasses}>No migrations are currently enabled. Stay tuned!</div>
       {/if}
     </div>
   </div>

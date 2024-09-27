@@ -5,7 +5,7 @@
   import { Paginator } from '$components/Paginator';
   import { Pill } from '$components/Pill';
   import { Spinner } from '$components/Spinner';
-  import { Profile } from '$libs/profile';
+  import { ProfileS2 } from '$libs/profile/season-2/profile';
   import { classNames } from '$libs/util/classNames';
   import { formatDate } from '$libs/util/formatDate';
   import { currentProfile } from '$stores/profile';
@@ -23,7 +23,7 @@
 
   async function handlePageChange(selectedPage: number) {
     isLoading = true;
-    await Profile.getUserPointsHistory(undefined, selectedPage);
+    await ProfileS2.getUserPointsHistory(undefined, selectedPage);
     isLoading = false;
   }
 </script>
@@ -67,7 +67,7 @@
                   <span class="">{$t('leaderboard.user.points', { values: { value: pointHistory?.points } })}</span>
                   {#if pointHistory?.multiplier && pointHistory?.multiplier > 1}
                     <Pill
-                      class="bg-gradient-to-r from-[#5d08c8] from-10% via-[#9f00b8] via-33% via-[#ca00a8] via-66% to-[#e81899] ">
+                      class="bg-gradient-to-r from-[#5d08c8] from-10% via-[#9f00b8] via-33% via-[#ca00a8] via-66% to-secondary ">
                       {$t('leaderboard.user.booster', { values: { multiplier: pointHistory?.multiplier } })}
                     </Pill>
                   {/if}

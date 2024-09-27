@@ -1,10 +1,9 @@
 import { readContract } from '@wagmi/core';
 import type { Address } from 'viem';
 
+import { trailblazersBadgesAbi, trailblazersBadgesAddress, trailblazersBadgesS2Address } from '$generated/abi';
 import { chainId } from '$libs/chain';
 import { wagmiConfig } from '$libs/wagmi';
-
-import { trailblazersBadgesAbi, trailblazersBadgesAddress, trailblazersBadgesS2Address } from '../../generated/abi';
 
 export async function isApprovedForAllS2(address: Address): Promise<boolean> {
   const contractAddress = trailblazersBadgesAddress[chainId];

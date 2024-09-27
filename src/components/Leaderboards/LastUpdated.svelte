@@ -24,7 +24,8 @@
   }
 </script>
 
-<div class="{$$props.class} f-center gap-[6px] rounded-full bg-elevated-background p-[10px]">
+<div
+  class="{$$props.class} flex justify-center items-center gap-[6px] rounded-full bg-elevated-background p-[10px] max-h-[40px]">
   <Icon type="clock"></Icon>
   <span>Last updated {lastUpdatedFormatted || 'N/A'} </span>
 </div>

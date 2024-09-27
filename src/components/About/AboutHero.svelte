@@ -2,7 +2,7 @@
   import { ActionButton } from '$components/Button';
   import { classNames } from '$libs/util/classNames';
 
-  const heroWrapperClasses = classNames('hero', 'h-max');
+  const heroWrapperClasses = classNames('hero', 'h-max', 'pt-[35px]', 'md:pt-[56px]', 'lg:pt-[80px]', 'xl:pt-[76px]');
 
   const heroContentClasses = classNames('hero-content', 'text-center');
 
@@ -14,8 +14,6 @@
     'justify-center',
     'gap-16',
     'md:mb-20',
-    'mt-[160px]',
-    'md:mt-20',
   );
   const h1Classes = classNames(
     'md:text-[60px]/[60px]',
@@ -56,7 +54,7 @@
       </h2>
 
       <div class={buttonWrapperClasses}>
-        <ActionButton href="/profile" priority="primary">Start your trail</ActionButton>
+        <ActionButton href="/profile" priority="primary">Become a Legend</ActionButton>
       </div>
     </div>
   </div>

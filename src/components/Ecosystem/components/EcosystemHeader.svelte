@@ -6,9 +6,10 @@
     'relative',
     'lg:h-[50vh]',
     'md:h-[70vh]',
-    'h-[100vh]',
-    'top-[-160px]',
-    'mb-[-160px]',
+    'h-[80vh]',
+    //'top-[-160px]',
+    // 'mb-[-160px]',
+    'z-100',
     'flex',
     'flex-col',
     'items-center',
@@ -48,12 +49,12 @@
     'gap-[20px]',
     'rounded-[27px]',
   );
-  const aboutTitleClasses = classNames('text-[14px]/[16.8px]', 'text-[#C8047D]', 'uppercase', 'font-[600]');
+  const aboutTitleClasses = classNames('text-[14px]/[16.8px]', 'text-primary', 'uppercase', 'font-[600]');
 
-  const aboutContentClasses = classNames('text-[#444A55]');
+  const aboutContentClasses = classNames('text-divider-border');
 
   const dappsWrapperClasses = classNames(
-    'text-[#ADB1B8]',
+    'text-secondary-content',
     'text-[12px]/[15px]',
     'font-[600]',
     'uppercase',
@@ -64,17 +65,24 @@
     'justify-start',
     'gap-[11px]',
   );
-  const dappsCountClasses = classNames('text-[26px]/[32px]', 'text-[#F3F3F3]', 'font-clash-grotesk', 'font-[500]');
+  const dappsCountClasses = classNames(
+    'text-[26px]/[32px]',
+    'text-primary-content',
+    'font-clash-grotesk',
+    'font-[500]',
+  );
 
   const absoluteWrapperClasses = classNames(
     'w-[100vw]',
     'h-full',
     'absolute',
+    'top-0',
     'flex',
     'flex-col',
     'items-center',
     'justify-end',
     'bg-cover',
+    'bg-no-repeat',
     'bg-center',
     'lg:p-[20px]',
     'p-[50px]',
@@ -82,14 +90,14 @@
 </script>
 
 <div class={wrapperClasses}>
-  <div class={absoluteWrapperClasses} style="background-image:url('ecosystem/header-lg.png')"></div>
+  <div class={absoluteWrapperClasses} style="background-image:url('ecosystem/header-bg.png')"></div>
   <div class={rowClasses}>
     <div class={classNames(colClasses, 'lg:items-start')}>
       <div class={titleClasses}>
-        Explore the <span class="text-[#E81899]">Trailblazers</span> Ecosystem
+        Explore the <span class="text-secondary">Trailblazers</span> Ecosystem
       </div>
       <div class={dappsWrapperClasses}>
-        <img src="ecosystem/dapps.svg" class="h-full" alt="Dapps" />
+        <img src="/ecosystem/dapps.svg" class="h-full" alt="Dapps" />
         <div>
           <div class={dappsCountClasses}>+100</div>
           Dapps
