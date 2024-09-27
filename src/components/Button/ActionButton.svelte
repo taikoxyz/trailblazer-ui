@@ -27,7 +27,6 @@
     'btn size-[56px] px-[20px] py-[8px] rounded-full flex-1 items-center body-medium',
     $$restProps.disabled ? 'cursor-not-allowed' : 'cursor-pointer',
     withArrow ? 'min-w-[180px]' : 'w-full',
-    'h-full',
     disabledColor,
     $$props.class,
   );
