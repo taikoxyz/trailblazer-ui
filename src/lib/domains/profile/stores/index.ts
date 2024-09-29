@@ -1,1 +1,1 @@
-export * as currentProfile from './profileStore';
+export * from './profileStore';

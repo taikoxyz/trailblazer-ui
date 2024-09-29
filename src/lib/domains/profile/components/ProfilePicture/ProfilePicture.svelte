@@ -1,8 +1,8 @@
 <script lang="ts">
+  import { pfpModal, profileLoading } from '$lib/domains/profile/stores/';
+  import type { UserProfile } from '$lib/domains/profile/types/UserProfile';
+  import type { NFT } from '$lib/shared/types/NFT';
   import { classNames } from '$libs/util/classNames';
-
-  import { pfpModal, profileLoading } from '../stores/profileStore';
-  import type { UserProfile } from '../types/UserProfile';
 
   export let profile: UserProfile;
   export let isSelfProfile: boolean;
@@ -23,12 +23,12 @@
     'hover:opacity-100',
   );
 
-  $: pfp = profile?.personalInfo?.avatar || '';
+  $: pfp = profile?.personalInfo?.avatar || ({} as NFT);
 </script>
 
 <div class=" h-full skeleton bg-neutral-background rounded-3xl">
   {#if !$profileLoading}
-    <img src={pfp || '/avatar.png'} alt="avatar" />
+    <img src={pfp.src || '/avatar.png'} alt="avatar" />
   {/if}
 
   {#if isSelfProfile}

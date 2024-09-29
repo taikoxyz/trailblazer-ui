@@ -10,6 +10,7 @@
   import { profileLoading } from '../stores/profileStore';
   import BoosterCard from './BoosterCard.svelte';
   import ProfileCard from './ProfileCard.svelte';
+  import ProfilePictureModal from './ProfilePicture/ProfilePictureModal.svelte';
   import ProfileTabs from './ProfileTabs.svelte';
 
   onMount(async () => {
@@ -31,5 +32,5 @@
   </div>
 </div>
 
-<!-- <UserPfp /> -->
+<ProfilePictureModal />
 <MintDisclaimerModal />

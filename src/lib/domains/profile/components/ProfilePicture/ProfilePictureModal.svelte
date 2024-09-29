@@ -5,15 +5,17 @@
   import { Icon } from '$components/Icon';
   import { errorToast, successToast } from '$components/NotificationToast';
   import Spinner from '$components/Spinner/Spinner.svelte';
-  import { pfpModal } from '$lib/domains/profile/stores/profileStore';
-  import Pfp from '$libs/pfp';
-  import getUserNFTs from '$libs/pfp/getUserNFTs';
-  import type { IPfp } from '$libs/pfp/types';
+  import { pfpModal, userProfile } from '$lib/domains/profile/stores';
+  import type { NFT } from '$lib/shared/types/NFT';
   import { classNames } from '$libs/util/classNames';
+  import { getLogger } from '$libs/util/logger';
   import { account } from '$stores/account';
-  import { currentProfile } from '$stores/profile';
 
-  $: profile = $currentProfile;
+  import profileService from '../../services/ProfileServiceInstance';
+
+  $: profile = $userProfile;
+
+  const log = getLogger('ProfilePictureModal');
 
   const modalContentWrapperClasses = classNames(
     'rounded-[20px]',
@@ -141,12 +143,12 @@
     }
   }
 
-  $: possiblePFPs = [] as IPfp[];
+  $: possiblePFPs = [] as NFT[];
 
   $: previewVisible = false;
-  $: selectedPfp = null as IPfp | null;
+  $: selectedPfp = null as NFT | null;
 
-  function selectPfp(pfp: IPfp) {
+  function selectPfp(pfp: NFT) {
     selectedPfp = pfp;
     previewVisible = true;
   }
@@ -173,7 +175,11 @@
     }
     isLoading = true;
     try {
-      possiblePFPs = await getUserNFTs($account.address);
+      await profileService.getProfileWithNFTs($account.address);
+      if (profile.nfts) {
+        possiblePFPs = profile.nfts;
+      }
+
       isLoading = false;
     } catch (error) {
       console.warn(error);
@@ -188,10 +194,11 @@
         return;
       }
       isLoading = true;
-      await Pfp.set(selectedPfp.address, selectedPfp.tokenId);
+      log('Setting profile picture', selectedPfp);
+      await profileService.setProfilePicture(selectedPfp);
 
-      profile.avatar = selectedPfp.src;
-      currentProfile.set(profile);
+      // profile.personalInfo?.avatar = selectedPfp;
+      // currentProfile.set(profile);
       isLoading = false;
       successToast({
         title: $t('pfp.modal.success.title'),

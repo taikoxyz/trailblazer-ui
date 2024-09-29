@@ -9,8 +9,8 @@
   import getConnectedAddress from '$libs/util/getConnectedAddress';
   import { profileLoading } from '$stores/load';
 
+  import UserPfp from '../../lib/domains/profile/components/ProfilePicture/ProfilePictureModal.svelte';
   import { BoosterCard, ProfileCard } from './UserInfo';
-  import UserPfp from './UserPFP/UserPFP.modal.svelte';
 
   $: isSelfProfile = false;
   setContext('isSelfProfile', isSelfProfile);

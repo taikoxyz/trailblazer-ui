@@ -1,9 +1,9 @@
 import { writeContract } from '@wagmi/core';
 
 import { trailblazersBadgesS2Abi, trailblazersBadgesS2Address } from '$generated/abi';
+import { pendingTransactions } from '$lib/shared/stores/pendingTransactions';
 import { chainId } from '$lib/shared/utils/chain';
 import { wagmiConfig } from '$lib/shared/wagmi';
-import { pendingTransactions } from '$stores/pendingTransactions';
 
 export default async function tamperMigration(type: 'pink' | 'purple'): Promise<void> {
   const tx = await writeContract(wagmiConfig, {
