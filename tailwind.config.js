@@ -275,11 +275,34 @@ export default {
     },
   },
 
-  plugins: [daisyuiPlugin],
   extend: {
     backgroundColor: ['aria-selected'],
     textColor: ['aria-selected'],
   },
+  plugins: [
+    daisyuiPlugin,
+    function ({ addUtilities }) {
+      const newUtilities = {
+        '.stroke-1': {
+          '-webkit-text-stroke-width': '1px',
+        },
+        '.stroke-2': {
+          '-webkit-text-stroke-width': '2px',
+        },
+        '.text-stroke-neon': {
+          '-webkit-text-stroke-color': 'var(--neon-green-color)',
+        },
+        '.drop-shadow-neon': {
+          filter: `drop-shadow(0 0 3px rgba(93, 222, 181, 0.4))
+                   drop-shadow(0 0 6px rgba(93, 222, 181, 0.4))
+                   drop-shadow(0 0 9px rgba(93, 222, 181, 0.1))`,
+        },
+      };
+
+      addUtilities(newUtilities);
+    },
+  ],
+
   // https://daisyui.com/docs/config/
   daisyui: {
     darkTheme: 'dark', // name of one of the included themes for dark mode
