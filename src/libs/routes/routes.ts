@@ -27,7 +27,7 @@ export const routes: NavigationItem[] = [
     name: 'Discover',
     children: [
       { name: 'About', route: '/about', icon: 'nav-about' },
-      { name: 'Ecosystem', route: 'https://taiko.xyz/ecosystem', icon: 'nav-ecosystem' },
+      { name: 'Ecosystem', route: '/ecosystem', icon: 'nav-ecosystem' },
       { name: 'Bridge', route: 'https://bridge.taiko.xyz', icon: 'nav-bridge' },
     ],
   },

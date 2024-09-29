@@ -1,21 +1,12 @@
 <script lang="ts">
   import { t } from 'svelte-i18n';
 
-  import { goto } from '$app/navigation';
   import ActionButton from '$components/Button/ActionButton.svelte';
   import { classNames } from '$libs/util/classNames';
 
-  const handleUserLeaderboard = () => {
-    goto('./leaderboard/user');
-  };
-
-  const handleDappsLeaderboard = () => {
-    goto('./leaderboard/dapp');
-  };
-
   const containerClasses = classNames(
-    'xl:max-w-[1440px] lg:max-w-[1024px] md:max-w-[768px] sm:max-w-[640px]',
     'w-full',
+    'xl:max-w-[1440px]',
     'mt-0',
     'md:mt-20',
     'lg:mt-0',
@@ -47,15 +38,13 @@
   const contentClasses = classNames(
     'lg:w-[432px]',
     'lg:h-full',
-    'inline-flex',
-    'p-9',
-    'flex-col',
     'justify-center',
     'items-start',
-    'gap-[89px]',
     'rounded-[30px]',
     'bg-base-200',
     'w-full',
+    'grid',
+    'grid-cols-6',
   );
 
   const contentInnerClasses = classNames(
@@ -63,30 +52,17 @@
     'flex-col',
     'w-full',
     'lg:w-auto',
-    'grid',
-    'grid-cols-4',
-    'md:grid-cols-8',
-    'lg:grid-cols-none',
-  );
-
-  const titleContainerClasses = classNames(
-    'flex',
-    'flex-col',
-    'col-span-4',
+    'md:col-span-4',
     'md:col-start-2',
-    'md:col-span-6',
-    'lg:col-span-auto',
+    'lg:col-span-6',
+    'lg:col-start-1',
+    'col-span-6',
+    'p-[36px]',
   );
 
-  const subtitleClasses = classNames(
-    'w-full',
-    'xl:text-left',
-    'mb-[40px]',
-    'md:pt-2',
-    'md:w-[189px]',
-    'pt-8',
-    'w-[100px]',
-  );
+  const titleContainerClasses = classNames('flex', 'flex-col');
+
+  const subtitleClasses = classNames('w-full', 'xl:text-left', 'mb-[40px]', 'md:pt-2', 'pt-8');
 
   const subtitleTextClasses = classNames('text-primary-base-content', 'font-clash-grotesk', 'text-[20px]');
 
@@ -148,10 +124,10 @@
 
           <div class={buttonContainerClasses}>
             <div class={buttonClasses}>
-              <ActionButton priority="primary" on:click={handleUserLeaderboard}>User leaderboard</ActionButton>
+              <ActionButton priority="primary" href="/leaderboard/user">User leaderboard</ActionButton>
             </div>
             <div class={buttonClasses}>
-              <ActionButton priority="secondary" on:click={handleDappsLeaderboard}>
+              <ActionButton priority="secondary" href="/leaderboard/dapp">
                 <span class={secondaryButtonTextClasses}>Dapps leaderboard</span>
               </ActionButton>
             </div>

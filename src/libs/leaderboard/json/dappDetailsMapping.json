@@ -81,7 +81,7 @@
   },
   "stupid-monkeys": {
     "handle": "@StupidMonkeysRH",
-    "icon": "/dapps/gaming/stupid_monkeys.jpg"
+    "icon": "/dapps/gaming/stupidmonkeys.png"
   },
   "minibridge": {
     "handle": "@Chaineye_tools",
@@ -122,5 +122,9 @@
   "brigade": {
     "handle": "@tacowax",
     "icon": "/dapps/gaming/brigade.png"
+  },
+  "xeno-bunny": {
+    "handle": "@XenobunnyX",
+    "icon": "/dapps/gaming/xenobunny.jpg"
   }
 }

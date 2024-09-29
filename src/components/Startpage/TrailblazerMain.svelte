@@ -15,7 +15,7 @@
 
   $: primaryButtonText = $account?.isConnected ? $t('buttons.get_started') : $t('buttons.connect_wallet');
 
-  const wrapperClasses = classNames('container', 'w-full', 'flex', 'lg:px-[48px]', 'h-[746px]');
+  const wrapperClasses = classNames('w-full', 'flex', 'h-[746px]', 'xl:max-w-[1440px]');
 
   const backgroundImageClasses = classNames(
     'f-center',
@@ -25,7 +25,6 @@
     'w-dvw',
     'rounded-[30px]',
     'overflow-hidden',
-    'background-overlay',
     'bg-center',
     'xl:bg-[url(/splash/xl/splash.png)]',
     'lg:bg-[url(/splash/lg/splash.png)]',
@@ -35,7 +34,16 @@
     'h-full',
     'bg-cover',
     'px-[57px]',
+    'after:absolute',
+    'after:top-0',
+    'after:left-0',
+    'after:w-full',
+    'after:h-full',
+    'after:opacity-50',
+    'after:bg-[#0c111c]',
+    'after:z-2',
   );
+
   const contentWrapperClasses = classNames(
     'flex',
     'flex-col',
@@ -93,17 +101,3 @@
     </div>
   </div>
 </div>
-
-<style>
-  .background-overlay::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    opacity: 0.5;
-    background: #0c111c;
-    z-index: 2;
-  }
-</style>

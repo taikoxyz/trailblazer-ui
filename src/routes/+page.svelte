@@ -1,5 +1,10 @@
 <script lang="ts">
+  import { inject } from '@vercel/analytics';
+
+  import { dev } from '$app/environment';
   import { Trailblazer } from '$components/Startpage';
+
+  inject({ mode: dev ? 'development' : 'production' });
 </script>
 
 <svelte:head>

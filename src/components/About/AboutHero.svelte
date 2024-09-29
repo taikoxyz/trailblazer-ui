@@ -2,7 +2,7 @@
   import { ActionButton } from '$components/Button';
   import { classNames } from '$libs/util/classNames';
 
-  const heroWrapperClasses = classNames('hero', 'h-max');
+  const heroWrapperClasses = classNames('hero', 'h-max', 'pt-[35px]', 'md:pt-[56px]', 'lg:pt-[80px]', 'xl:pt-[76px]');
 
   const heroContentClasses = classNames('hero-content', 'text-center');
 

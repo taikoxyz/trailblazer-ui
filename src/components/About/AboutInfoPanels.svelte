@@ -1,16 +1,15 @@
 <script lang="ts">
-  import TrailblazerRankUp from '$components/Startpage/RankUp/TrailblazerRankUp.svelte';
   import { classNames } from '$libs/util/classNames';
 
-  const wrapperClasses = classNames('f-col', 'items-center', 'justify-center', 'gap-24', 'px-[24px]');
+  const wrapperClasses = classNames('f-col', 'w-full', 'items-center', 'justify-center', 'gap-24', 'px-[24px]');
 
   const rowClasses = classNames(
     'f-col',
     'lg:px-12',
     'flex-col',
     'xl:flex-row',
-    'gap-12',
-    'justify-between',
+    'gap-[50px]',
+    'justify-center',
     'items-center',
     'lg:w-[calc(100%*6/8)]',
     'lg:mx-0',
@@ -19,7 +18,15 @@
     'md:w-2/3',
   );
 
-  const panelClasses = classNames('w-full', 'lg:w-1/2', 'h-full', 'f-col', 'items-center', 'justify-center', 'gap-8');
+  const panelClasses = classNames(
+    'w-full',
+    'h-full',
+    'f-col',
+    'xl:max-w-[450px]',
+    'items-center',
+    'justify-center',
+    'gap-8',
+  );
 
   const titleClasses = classNames(
     'font-clash-grotesk',
@@ -28,6 +35,7 @@
     'md:text-[60px]/[60px]',
     'tracking-[-2%]',
     'font-[500]',
+    'text-center',
   );
 
   const contentClasses = classNames(
@@ -40,10 +48,11 @@
     'text-left',
     'flex',
     'flex-col',
+
     'gap-4',
   );
 
-  const textClasses = classNames('lg:text-left', 'text-center');
+  const textClasses = classNames('xl:text-left', 'text-center');
 </script>
 
 <div class={wrapperClasses}>
@@ -86,9 +95,5 @@
         <p class={textClasses}>Are you ready to seize opportunities that will propel you up the leaderboard?</p>
       </div>
     </div>
-  </div>
-
-  <div class="mb-[100px]">
-    <TrailblazerRankUp />
   </div>
 </div>

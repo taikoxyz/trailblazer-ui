@@ -57,7 +57,7 @@ export class GamingLeaderboard {
               totalScore: item.score,
             };
           } else {
-            const details = await axios.get<ProtocolApiResponse>(`${baseApiUrl}/protocol/gaming`, {
+            const details = await axios.get<ProtocolApiResponse>(`${baseApiUrl}/s2/protocol/gaming`, {
               ...globalAxiosConfig,
               params: { slug: item.slug },
             });

@@ -5,16 +5,27 @@
   import { type IFaqEntry } from '$components/FaqBlock/FaqBlock.svelte';
   import Factions from '$components/Startpage/Factions/Factions.svelte';
   import { TrailblazerGuide } from '$components/Startpage/Guide';
+  import TrailblazerRankUp from '$components/Startpage/RankUp/TrailblazerRankUp.svelte';
   import { classNames } from '$libs/util/classNames';
 
   import AboutHero from './AboutHero.svelte';
   import AboutInfoPanels from './AboutInfoPanels.svelte';
+  import RewardsAndUtility from './RewardsAndUtility.svelte';
 
   $: faqEntries = $json('faq') as { items: IFaqEntry[] }[];
   $: faqMini = faqEntries[0].items as IFaqEntry[];
 
-  const wrapperClasses = classNames('lg:px-[75px]', 'md:px-[65px]', 'px-[20px]', 'w-full', 'f-col');
-  const overWrapperClasses = classNames('f-col', 'w-full');
+  const wrapperClasses = classNames(
+    'h-full',
+    'md:px-[48px]',
+    'px-[24px]',
+    'justify-center',
+    'items-center',
+    'flex',
+    'flex-col',
+    'w-full',
+  );
+
   const imageClasses = classNames(
     'rounded-[30px]',
     'md:w-full',
@@ -23,6 +34,8 @@
     'transition-transform',
     'w-full',
     'h-[600px]',
+    'max-w-[100vw]',
+    'xl:max-w-[1440px]',
     'bg-cover',
     'bg-center',
     'xl:bg-[url(/about/xl/about-illustration-s2.png)]',
@@ -31,39 +44,34 @@
     'bg-[url(/about/sm/about-illustration-s2.png)]',
   );
 
-  const faqWrapperClasses = classNames(
-    'w-full',
-    'flex',
-    'flex-col',
-    'justify-center',
-    'items-center',
-    'max-w-[100vw]',
-    'mt-[80px]',
-  );
-
-  const imageWrapperClasses = classNames('w-full');
-
-  const guideWrapperClasses = classNames('f-col', 'w-full', 'items-center', 'justify-center');
-
-  const factionsWrapperClasses = classNames('f-col', 'f-center', 'px-[24px]', 'w-full');
+  const fullWidthClasses = classNames('w-full', 'flex', 'justify-center', 'items-center');
+  const separator50pxClasses = classNames(fullWidthClasses, 'h-[50px]');
+  const separator100pxClasses = classNames(fullWidthClasses, 'h-[100px]');
+  const separator150pxClasses = classNames(fullWidthClasses, 'h-[150px]');
 </script>
 
-<div class={overWrapperClasses}>
-  <div class={wrapperClasses}>
-    <AboutHero />
-    <div class={imageWrapperClasses}>
-      <div class={imageClasses} role="img" aria-label="Gallery image"></div>
-    </div>
+<div class={wrapperClasses}>
+  <AboutHero />
+  <div class={fullWidthClasses}>
+    <div class={imageClasses} role="img" aria-label="Gallery image"></div>
   </div>
-  <div class={guideWrapperClasses}>
-    <TrailblazerGuide />
-  </div>
+  <div class={separator50pxClasses} />
+  <TrailblazerGuide />
+  <div class={separator150pxClasses} />
+
   <AboutInfoPanels />
-  <div class={factionsWrapperClasses}>
-    <Factions />
-  </div>
-  <!-- <RewardsAndUtility /> -->
-  <div class={faqWrapperClasses}>
-    <FaqBlock entries={faqMini} />
-  </div>
+
+  <div class={separator150pxClasses} />
+
+  <TrailblazerRankUp />
+  <div class={separator100pxClasses} />
+
+  <Factions />
+  <div class={separator100pxClasses} />
+
+  <RewardsAndUtility />
+
+  <div class={separator100pxClasses} />
+
+  <FaqBlock entries={faqMini} />
 </div>
