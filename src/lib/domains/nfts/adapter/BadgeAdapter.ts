@@ -37,7 +37,7 @@ export class BadgeAdapter {
         query UserBadges($address: String) {
           account(id: $address) {
             id
-            s1Badges {
+            s1MultiplierNfts {
               id
               badgeId
             }
@@ -54,10 +54,10 @@ export class BadgeAdapter {
         return out;
       }
 
-      const { s1Badges } = graphqlResponse.data.account;
-      log('fetchUserS1Badges', { s1Badges });
+      const { s1MultiplierNfts } = graphqlResponse.data.account;
+      log('fetchUserS1Badges result for s1MultiplierNfts', { s1MultiplierNfts });
       for (const badgeId of Object.values(FACTIONS)) {
-        for (const badge of s1Badges) {
+        for (const badge of s1MultiplierNfts) {
           const currentBadgeId = parseInt(badge.badgeId);
 
           if (currentBadgeId === badgeId) {

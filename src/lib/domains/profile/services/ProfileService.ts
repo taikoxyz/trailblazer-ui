@@ -5,7 +5,6 @@ import { BadgeService } from '$lib/domains/nfts/services/BadgeService';
 import { CombinedNFTService } from '$lib/domains/nfts/services/CombinedNFTService';
 import type { NFT } from '$lib/shared/types/NFT';
 import { wagmiConfig } from '$lib/shared/wagmi';
-import Pfp from '$libs/pfp';
 import { isDevelopmentEnv } from '$libs/util/isDevelopmentEnv';
 import { getLogger } from '$libs/util/logger';
 
@@ -103,7 +102,7 @@ export class ProfileService {
 
       // Proceed with fetching NFTs and further calculations
       const multiplier = this.fetchAndCalculateMultipliers(address);
-      const avatar = this.fetchAndUpdateAvatar(address);
+      const avatar = this.getProfilePicture(address);
       const rankName = this.performAdditionalCalculations();
       const domainInfo = this.handleDomainSelection(info);
 
@@ -269,9 +268,9 @@ export class ProfileService {
    */
   private async fetchAndUpdateAvatar(address: Address): Promise<void> {
     try {
-      const avatar = await Pfp.get(address as Address);
+      const avatar = await this.apiAdapter.getProfilePicture(address);
       log('Fetched Avatar:', avatar);
-      await this.userRepository.update({ personalInfo: { avatar } });
+      // await this.userRepository.update({ personalInfo: { avatar } });
     } catch (error) {
       log('Error in fetchAndUpdateAvatar:', error);
     }
@@ -371,6 +370,70 @@ export class ProfileService {
       log('Error in getProfileWithNFTs:', error);
     } finally {
       profileLoading.set(false);
+    }
+  }
+
+  /**
+   * Sets the user's profile picture to the given NFT.
+   *
+   * @param {NFT} nft the NFT to set as the user's profile picture
+   * @return {*}  {Promise<void>}
+   * @memberof ProfileService
+   */
+  async setProfilePicture(nft: NFT): Promise<void> {
+    try {
+      // Interact with the smart contract to set the profile picture
+      const txHash = await this.apiAdapter.setProfilePicture(nft);
+
+      if (txHash) {
+        log('Transaction hash for setting profile picture:', txHash);
+        await this.userRepository.update({
+          personalInfo: {
+            ...(await this.userRepository.get()).personalInfo,
+            avatar: nft,
+          },
+        });
+      }
+      log(`Profile picture set to NFT ${nft} `);
+    } catch (error) {
+      log('Error setting profile picture:', error);
+    }
+  }
+
+  /**
+   * Retrieves the user's selected NFT profile picture.
+   * @param address - The user's address.
+   * @returns The NFT used as the profile picture.
+   */
+  async getProfilePicture(address: Address): Promise<NFT | null> {
+    log('Retrieving profile picture for address:', address);
+    try {
+      const user = await this.userRepository.get();
+      if (!user) return null;
+
+      const pfp = await this.apiAdapter.getProfilePicture(address);
+      if (!pfp) return null;
+
+      log('Found profile picture:', pfp);
+
+      // Fetch the NFT details using CombinedNFTService
+      const allNFTs = await this.combinedNFTService.fetchAllNFTsForUser(address);
+
+      // Find the NFT with the given ID
+      const allNFTsFlat = [...allNFTs.taikoonNFTs, ...allNFTs.badgeNFTs];
+      const profilePicture = allNFTsFlat.find((nft) => nft === pfp);
+
+      if (profilePicture) {
+        const pfpUrl = await this.combinedNFTService.getNFTUrl(profilePicture);
+        log('Found profile picture URL:', pfpUrl);
+        return profilePicture;
+      } else {
+        log('Profile picture not found');
+        return null;
+      }
+    } catch (error) {
+      log('Error retrieving profile picture:', error);
+      return null;
     }
   }
 }

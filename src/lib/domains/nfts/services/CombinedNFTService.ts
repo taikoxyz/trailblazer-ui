@@ -1,5 +1,6 @@
 import type { Address } from 'viem';
 
+import { getAxiosInstance } from '$lib/shared/services/api/axiosClient';
 import type { NFT } from '$lib/shared/types/NFT';
 import { getLogger } from '$libs/util/logger';
 
@@ -31,5 +32,17 @@ export class CombinedNFTService {
     ]);
     log('fetchAllNFTsForUser', { address, taikoonNFTs, badgeNFTs });
     return { taikoonNFTs, badgeNFTs };
+  }
+
+  async getNFTUrl(nft: NFT): Promise<string | null> {
+    try {
+      const client = getAxiosInstance();
+      const tokenUriUrl = `/api/proxy?url=${encodeURIComponent(nft.src)}`;
+      const src = await client.get(tokenUriUrl);
+      return src.data;
+    } catch (error) {
+      log('getNFTUrl error', { error });
+      return null;
+    }
   }
 }

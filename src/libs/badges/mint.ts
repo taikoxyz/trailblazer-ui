@@ -3,9 +3,9 @@ import { type Address } from 'viem';
 
 import { FACTIONS } from '$configs/badges';
 import { trailblazersBadgesAbi, trailblazersBadgesAddress } from '$generated/abi';
+import { pendingTransactions } from '$lib/shared/stores/pendingTransactions';
 import { chainId } from '$lib/shared/utils/chain';
 import { wagmiConfig } from '$lib/shared/wagmi';
-import { pendingTransactions } from '$stores/pendingTransactions';
 import type { IContractData } from '$types';
 
 import isSignatureValid from './isSignatureValid';

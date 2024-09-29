@@ -6,8 +6,8 @@
   import { Galxe } from '$libs/galxe';
   import { profileLoading } from '$stores/load';
 
+  import UserPfp from '../../lib/domains/profile/components/ProfilePicture/ProfilePictureModal.svelte';
   import { BoosterCard, ProfileCard } from './UserInfo';
-  import UserPfp from './UserPFP/UserPFP.modal.svelte';
 
   onMount(async () => {
     await Galxe.refreshData();
