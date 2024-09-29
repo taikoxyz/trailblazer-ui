@@ -45,8 +45,10 @@
     'grid',
     'items-center',
     'gap-x-[26px]',
-    'p-5',
-    'md:px-[54px]',
+    'px-[16px] ',
+    'mx-[16px]',
+    'md:mx-[6px]',
+    'md:px-[47px]',
     'h-[74px]',
     'body-bold',
     'text-sm',
@@ -61,9 +63,17 @@
 
   const timeHeaderCellClass = classNames('font-normal', 'text-left', 'hidden', 'lg:block');
 
-  const dividerClass = classNames('divider', '!my-0', 'mx-[24px]', 'h-1');
+  const dividerClass = classNames('divider', '!my-0', 'mx-[16px]', 'md:mx-[24px]', 'h-1');
 
-  const loadingOverlayClass = classNames('w-full', 'h-full', 'flex', 'mt-4', 'justify-center', 'items-center');
+  const loadingOverlayClass = classNames(
+    'w-full',
+    'h-full',
+    'flex',
+    'mt-4',
+    'justify-center',
+    'items-center',
+    'h-[70px]',
+  );
 
   const paginatorClasses = classNames('!justify-center');
   const paginatorWrapper = classNames('w-full', 'mt-[20px]', 'flex', 'justify-center', 'lg:justify-end', 'max-w-full');
@@ -87,7 +97,7 @@
 
   {#if $profileLoading}
     <div class={loadingOverlayClass}>
-      <Spinner size="lg" />
+      <Spinner size="md" />
     </div>
   {:else}
     <!-- Activity History Rows -->
