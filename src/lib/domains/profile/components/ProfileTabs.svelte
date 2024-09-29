@@ -35,9 +35,9 @@
       : []),
   ];
 
-  let activeTab = 1;
+  let activeTab = 0;
 
-  const tabPanelClasses = classNames('mx-4', 'lg:mx-0', 'relative', 'overflow-x-scroll', 'min-h-64');
+  const tabPanelClasses = classNames('mx-4', 'md:mx-0', 'relative', 'min-h-64');
 
   const tabClasses = classNames(
     'text-center',
@@ -48,7 +48,6 @@
     'btn',
     'md:tab',
     'md:w-[140px]',
-    'py-[8px]',
     'px-[20px]',
     'btn-ghost',
     'border-primary-brand',
@@ -68,7 +67,6 @@
     'w-full',
     'justify-center',
     'md:justify-start',
-    'px-4',
     'lg:px-0',
     'tabs',
     'gap-[10px]',

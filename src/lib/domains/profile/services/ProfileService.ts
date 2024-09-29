@@ -102,11 +102,12 @@ export class ProfileService {
 
       // Proceed with fetching NFTs and further calculations
       const multiplier = this.fetchAndCalculateMultipliers(address);
+      const nfts = this.getProfileWithNFTs(address, season);
       const avatar = this.getProfilePicture(address);
       const rankName = this.performAdditionalCalculations();
       const domainInfo = this.handleDomainSelection(info);
 
-      await Promise.all([multiplier, avatar, rankName, domainInfo]);
+      await Promise.all([multiplier, avatar, rankName, domainInfo, nfts]);
 
       log('Final Profile:', await this.userRepository.get());
     } catch (error) {
@@ -353,15 +354,12 @@ export class ProfileService {
     profileLoading.set(true);
 
     try {
-      const user = await this.userRepository.get();
-
       // Fetch NFTs (badges, avatars, etc.)
       const nfts = await this.combinedNFTService.fetchAllNFTsForUser(address);
 
       log('result of fetchAllNFTsForUser:', nfts);
       // Combine and update the profile with NFT data
       await this.userRepository.update({
-        ...user,
         nfts: [...nfts.taikoonNFTs, ...nfts.badgeNFTs],
       });
 

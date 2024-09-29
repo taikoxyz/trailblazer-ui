@@ -3,8 +3,11 @@
 
   import { ActionButton } from '$components/Button';
   import { FactionNames, FACTIONS } from '$configs/badges';
+  import { trailblazersBadgesAddress } from '$generated/abi';
+  import { userProfile } from '$lib/domains/profile/stores';
+  import type { NFT } from '$lib/shared/types/NFT';
+  import { chainId } from '$lib/shared/utils/chain';
   import { Movements } from '$libs/badges/const';
-  import { getUserBadges } from '$libs/badges/getUserBadges';
   import isApprovedToMigrate from '$libs/badges/isApprovedToMigrate';
   import getEnabledMigrationIds from '$libs/badges/migration/getEnabledMigrationIds';
   import updateMigrationStatus from '$libs/badges/migration/updateMigrationStatus';
@@ -16,47 +19,76 @@
 
   import { FactionBadgeItem } from '../../profile/components/ProfileNFTs/FactionBadges';
 
-  const wrapperClasses = classNames('w-full', 'flex', 'flex-col', 'items-center', 'justify-start', 'gap-[60px]');
+  export let title: string = 'Badge Migration';
 
-  const sectionDividerClasses = classNames(
-    'text-[16px]/[24px]',
-    'text-white',
-    'font-[700]',
-    'border-b',
+  const containerClass = classNames(
+    'container',
     'w-full',
-    'border-divider-border',
-    'pb-[10px]',
+    'bg-elevated-background',
+    'xl:max-w-[1344px]',
+    'sm:rounded-b-[30px]',
+    'rounded-t-[30px]',
+    'md:rounded-tl-none',
+    'rounded-[30px]',
+    'relative',
   );
 
-  const sectionWrapperClasses = classNames('w-full', 'flex', 'flex-col', 'gap-[30px]');
+  const rowClass = classNames(
+    'relative',
+    'grid',
+    'items-center',
+    'gap-x-[26px]',
+    'px-[16px]',
+    'pt-[34px]',
+    'md:px-[47px]',
+    'body-bold',
+    'text-sm',
+  );
+  const boxClasses = classNames('w-full');
+  const nftGridClasses = classNames(
+    'grid',
+    'items-center',
+    'place-content-center',
+    'justify-items-center',
+    'grid-cols-[repeat(auto-fill,_minmax(277px,_1fr))]',
+    'gap-[24px]',
+  );
 
-  const gridClasses = classNames('grid', 'grid-cols-4', 'gap-[24px]', 'relative');
+  const titleClasses = classNames('text-grey-200', 'text-[16px]/[24px]');
+  const dividerClasses = classNames('divider', 'mt-[18px]', 'mb-[30px]', 'p-0');
+
+  const migrateButtonWrapperClasses = classNames('absolute', 'bottom-[10px]', 'w-full', 'px-[10px]');
+  const infoTextClasses = classNames(
+    'w-full',
+    'text-center',
+    'justify-center',
+    'text-secondary-content',
+    'flex',
+    'h-[70px]',
+  );
+
   $: enabledBadgeIds = [] as number[];
 
   $: displayActiveMigration = false;
 
-  $: userFactions = {
-    [FactionNames.Ravers]: false,
-    [FactionNames.Robots]: false,
-    [FactionNames.Bouncers]: false,
-    [FactionNames.Masters]: false,
-    [FactionNames.Monks]: false,
-    [FactionNames.Androids]: false,
-    [FactionNames.Drummers]: false,
-    [FactionNames.Shinto]: false,
-  } as Record<FactionNames, boolean>;
+  $: userBadges = [] as NFT[];
 
-  //$: status = null as null | IBadgeMigration;
-
-  async function refresh() {
-    if (!$account || !$account.address) {
-      return;
-    }
-    // status = await getMigrationStatus($account.address);
-  }
+  // overlap between enabledBadgeIds and userBadges
+  $: possibleMigrations = enabledBadgeIds.filter((badgeId) => userBadges.some((nft) => nft.badgeId === badgeId));
 
   onMount(async () => {
+    const allNFTS = $userProfile.nfts || [];
+    userBadges = allNFTS.filter(
+      (nft) => nft.address.toLowerCase() === trailblazersBadgesAddress[chainId].toLowerCase(),
+    );
     enabledBadgeIds = await getEnabledMigrationIds();
+
+    // TODO: TEMPORARY
+    // slice the nfts, only leave the first
+    // userBadges = userBadges.slice(0, 2);
+    // enabledBadgeIds = [1, 2, 3, 4];
+    // END TEMPORARY
+
     if (!$account || !$account.address) {
       return;
     }
@@ -64,18 +96,12 @@
     await updateMigrationStatus(address);
 
     displayActiveMigration = $badgeMigrationStore.s1BadgeId > 0;
-
-    userFactions = await getUserBadges(address);
-
-    await refresh();
   });
 
   function getAsFactionName(name: string) {
     return name as FactionNames;
   }
 
-  const migrateButtonWrapperClasses = classNames('absolute', 'bottom-[10px]', 'w-full', 'px-[10px]');
-  const infoTextClasses = classNames('absolute', 'w-full', 'text-center');
   async function handleStartMigration(badgeId: number) {
     if (!$account || !$account.address) return;
     const isApproved = await isApprovedToMigrate($account.address, badgeId);
@@ -90,32 +116,34 @@
   }
 </script>
 
-<div class={wrapperClasses}>
-  {#if displayActiveMigration}
-    <div class={sectionWrapperClasses}>
-      <div class={sectionDividerClasses}>Active Migration</div>
+<div class={containerClass}>
+  <div class={rowClass}>
+    {#if displayActiveMigration}
+      <div class="">Active Migration</div>
       {JSON.stringify($badgeMigrationStore, null, 2)}
-    </div>
-  {/if}
-  <div class={sectionWrapperClasses}>
-    <div class={sectionDividerClasses}>Enabled Migrations</div>
-
-    <div class={gridClasses}>
+    {/if}
+    <div class={titleClasses}>{title}</div>
+    <div class={dividerClasses} />
+    <div class={boxClasses}>
       {#if enabledBadgeIds.length}
-        {#each enabledBadgeIds as badgeId}
-          {@const factionName = getAsFactionName(FACTIONS[badgeId])}
-          <FactionBadgeItem disabled={!userFactions[factionName]} movement={Movements.Neutral} name={factionName}>
-            {#if userFactions[factionName]}
+        <div class={nftGridClasses}>
+          {#each enabledBadgeIds as badgeId}
+            {@const factionName = getAsFactionName(FACTIONS[badgeId])}
+            {@const disabled = !possibleMigrations.includes(badgeId)}
+            <FactionBadgeItem {disabled} movement={Movements.Neutral} name={factionName}>
               {#if !displayActiveMigration}
                 <div class={migrateButtonWrapperClasses}>
-                  <ActionButton on:click={() => handleStartMigration(badgeId)} priority="primary">
+                  <ActionButton {disabled} on:click={() => handleStartMigration(badgeId)} priority="primary">
                     Start Migration
                   </ActionButton>
-                </div>{/if}{/if}
-          </FactionBadgeItem>
-        {/each}
+                </div>{/if}
+            </FactionBadgeItem>
+          {/each}
+        </div>
       {:else}
-        <div class={infoTextClasses}>No migrations are currently enabled. Stay tuned!</div>
+        <div class={infoTextClasses}>
+          <p>No migrations are currently enabled. Stay tuned!</p>
+        </div>
       {/if}
     </div>
   </div>

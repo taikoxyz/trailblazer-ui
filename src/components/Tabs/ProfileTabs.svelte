@@ -1,14 +1,14 @@
 <script lang="ts">
   import { LeaderboardTransactions } from '$components/Leaderboards';
   import DevRoom from '$components/Profile/DevRoom/DevRoom.svelte';
-  import { default as BadgeMigration } from '$lib/domains/nfts/components/BadgeMigration.svelte';
+  import BadgeMigration from '$lib/domains/nfts/components/BadgeMigration.svelte';
   import { NFTCollection } from '$lib/domains/profile/components/ProfileNFTs';
   import { classNames } from '$libs/util/classNames';
   import { isDevelopmentEnv } from '$libs/util/isDevelopmentEnv';
 
   type TabContent = {
     name: string;
-    content: typeof LeaderboardTransactions | typeof NFTCollection;
+    content: typeof LeaderboardTransactions | typeof NFTCollection | typeof BadgeMigration;
     checked?: boolean;
   };
 

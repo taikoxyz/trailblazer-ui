@@ -3,57 +3,86 @@
   import type { Address } from 'viem';
 
   import { browser } from '$app/environment';
+  import { Button } from '$components/Button';
+  import RotatingIcon from '$components/Icon/RotatingIcon.svelte';
   import { Spinner } from '$components/Spinner';
+  import { trailblazersBadgesAddress } from '$generated/abi';
+  import profileService from '$lib/domains/profile/services/ProfileServiceInstance';
+  import { profileLoading, userProfile } from '$lib/domains/profile/stores';
   import type { NFT } from '$lib/shared/types/NFT';
+  import { chainId } from '$lib/shared/utils/chain';
   import { classNames } from '$libs/util/classNames';
 
-  import profileService from '../../services/ProfileServiceInstance';
-  import { userProfile } from '../../stores/profileStore';
-  import { UserNFTsSection } from './TaikoNFTs';
+  import UserNFTsSection from './UserNFTsSection.svelte';
 
+  // Reactive variables
   $: nfts = [] as NFT[];
   $: badges = [] as NFT[];
-  $: isReady = false;
 
-  onMount(async () => {
+  $: isLoading = $profileLoading;
+  const handleRefresh = async () => {
     if (!browser) return;
     const address = window.location.pathname.split('/').pop();
     if (!address) return;
     await profileService.getProfileWithNFTs(address as Address);
+  };
 
-    nfts = $userProfile.nfts || [];
+  onMount(async () => {
+    const allNfts = $userProfile.nfts || [];
 
-    // nfts = allNfts.filter((nft) => nft.address.toLowerCase() !== trailblazersBadgesAddress[chainId].toLowerCase());
-    // badges = allNfts.filter((nft) => nft.address.toLowerCase() === trailblazersBadgesAddress[chainId].toLowerCase());
-    isReady = true;
+    nfts = allNfts.filter((nft) => nft.address.toLowerCase() !== trailblazersBadgesAddress[chainId].toLowerCase());
+    badges = allNfts.filter((nft) => nft.address.toLowerCase() === trailblazersBadgesAddress[chainId].toLowerCase());
   });
 
-  const wrapperClasses = classNames(
-    'flex',
-    'flex-col',
-    'py-[8px]',
-    'gap-[62px]',
+  // CSS classes
+  const spinnerWrapperClasses = classNames('w-full', ' flex', ' justify-center', ' items-center', 'h-[70px]');
+
+  const containerClass = classNames(
+    'container',
+    'w-full',
     'bg-elevated-background',
+    'xl:max-w-[1344px]',
+    'sm:rounded-b-[30px]',
+    'rounded-t-[30px]',
+    'md:rounded-tl-none',
     'rounded-[30px]',
-    'px-[32px]',
-    'justify-center',
-    'items-center',
+    'relative',
   );
-  const spinnerWrapperClasses = classNames('w-full', 'flex', 'justify-center', 'items-center');
+
+  const rowClass = classNames(
+    'relative',
+    'grid',
+    'items-center',
+    'gap-x-[26px]',
+    'px-[16px]',
+    'pt-[34px]',
+    'md:px-[47px]',
+    'body-bold',
+    'text-sm',
+  );
 </script>
 
-<div class={wrapperClasses}>
-  {#if isReady}
-    {#if badges.length}
-      <UserNFTsSection nfts={badges} title="Season 1 Faction Badges" />
-    {/if}
+<div class={containerClass}>
+  <div class={rowClass}>
+    <Button
+      type="neutral"
+      shape="circle"
+      class="bg-neutral rounded-full w-[28px] h-[28px] border-none absolute right-[20px] md:right-[48px] top-[30px]"
+      on:click={handleRefresh}>
+      <RotatingIcon loading={isLoading} type="refresh" size={13} />
+    </Button>
+    {#if isLoading}
+      <div class={spinnerWrapperClasses}>
+        <Spinner size="md" />
+      </div>
+    {:else}
+      {#if badges.length}
+        <UserNFTsSection nfts={badges} title="Season 1 Faction Badges" />
+      {/if}
 
-    {#if nfts.length}
-      <UserNFTsSection {nfts} title="NFTs" />
+      {#if nfts.length}
+        <UserNFTsSection {nfts} title="NFTs" />
+      {/if}
     {/if}
-  {:else}
-    <div class={spinnerWrapperClasses}>
-      <Spinner size="lg" />
-    </div>
-  {/if}
+  </div>
 </div>
