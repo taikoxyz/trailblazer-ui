@@ -275,13 +275,12 @@ export default {
     },
   },
 
-
+  extend: {
+    backgroundColor: ['aria-selected'],
+    textColor: ['aria-selected'],
+  },
   plugins: [
     daisyuiPlugin,
-    extend: {
-      backgroundColor: ['aria-selected'],
-      textColor: ['aria-selected'],
-   },
     function ({ addUtilities }) {
       const newUtilities = {
         '.stroke-1': {
