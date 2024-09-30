@@ -5,6 +5,7 @@ import { PUBLIC_TRAILBLAZER_API_URL } from '$env/static/public';
 import profileService from '$lib/domains/profile/services/ProfileServiceInstance';
 import { globalAxiosConfig } from '$libs/api/axiosConfig';
 import type { PaginationInfo } from '$libs/leaderboard/types';
+import Pfp from '$libs/pfp';
 import { isDevelopmentEnv } from '$libs/util/isDevelopmentEnv';
 import { getLogger } from '$libs/util/logger';
 import { setUserLeaderboard } from '$stores/leaderboard';
