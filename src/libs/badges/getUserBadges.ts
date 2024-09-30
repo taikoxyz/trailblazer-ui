@@ -32,7 +32,7 @@ export async function getUserBadges(address: Address): Promise<IUserBadges> {
       query UserBadges($address: String) {
         account(id: $address) {
           id
-          s1Badges {
+          s1MultiplierNfts {
             id
             badgeId
           }
@@ -49,10 +49,10 @@ export async function getUserBadges(address: Address): Promise<IUserBadges> {
       return out;
     }
 
-    const { s1Badges } = graphqlResponse.data.account;
+    const { s1MultiplierNfts } = graphqlResponse.data.account;
 
     for (const badgeId of Object.values(FACTIONS)) {
-      for (const badge of s1Badges) {
+      for (const badge of s1MultiplierNfts) {
         const currentBadgeId = parseInt(badge.badgeId);
 
         if (currentBadgeId === badgeId) {
