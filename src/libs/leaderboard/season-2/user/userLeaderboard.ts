@@ -3,6 +3,7 @@ import axios from 'axios';
 import { PUBLIC_TRAILBLAZER_API_URL } from '$env/static/public';
 import { globalAxiosConfig } from '$libs/api/axiosConfig';
 import type { PaginationInfo } from '$libs/leaderboard/types';
+import Pfp from '$libs/pfp';
 import { isDevelopmentEnv } from '$libs/util/isDevelopmentEnv';
 import { getLogger } from '$libs/util/logger';
 import { setUserLeaderboard } from '$stores/leaderboard';
@@ -39,6 +40,14 @@ export class UserLeaderboard {
       leaderboardPage.items = response.data.data.items as UserLeaderboardRow[];
 
       log('user leaderboard page: ', leaderboardPage);
+
+      // fetch the pfps for the current page
+      const addresses = leaderboardPage.items.map((item) => item.address);
+      const icons = await Pfp.getMany(addresses);
+
+      for (const item of leaderboardPage.items) {
+        item.icon = icons[item.address];
+      }
 
       setUserLeaderboard(leaderboardPage);
 

@@ -38,6 +38,7 @@ export type UserLeaderboardRow = UserLeaderboardItem & {
   level?: string;
   title?: string;
   name?: string;
+  icon?: string;
 };
 
 export type DappLeaderboardRow = {
