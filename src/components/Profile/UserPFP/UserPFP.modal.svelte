@@ -214,9 +214,18 @@
     }
   }
 
-  const noNftsClasses = classNames('absolute',
-  'border','bg-[green]',
-  'max-w-[400px]','text-center', 'w-full', 'h-full', 'flex', 'justify-center', 'items-center');
+  const noNftsClasses = classNames(
+    'absolute',
+    'border',
+    'bg-[green]',
+    'max-w-[400px]',
+    'text-center',
+    'w-full',
+    'h-full',
+    'flex',
+    'justify-center',
+    'items-center',
+  );
 </script>
 
 <dialog bind:this={modal} class="modal">

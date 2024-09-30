@@ -39,7 +39,7 @@ export function mapUserLeaderboardRow(row: UserLeaderboardRow): UnifiedLeaderboa
     address: row.address ? row.address : row.address,
     level: level.level || '1',
     title: level.title || 'Drummer',
-    icon: '',
+    icon: row.icon,
     handle: '',
     data: [],
     totalScore,
