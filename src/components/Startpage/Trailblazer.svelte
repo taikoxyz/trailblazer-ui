@@ -1,4 +1,5 @@
 <script lang="ts">
+  import S2StartBanner from '$components/Banner/S2StartBanner.svelte';
   import EcosystemSection from '$components/Ecosystem/EcosystemSection.svelte';
   import { classNames } from '$libs/util/classNames';
 
@@ -32,6 +33,7 @@
   <div class={separator40pxClasses} />
 
   <TrailblazerGuide />
+  <S2StartBanner />
 
   <div class={separator120pxClasses} />
 

@@ -15,6 +15,13 @@
     "notEnoughGas": "Not enough gas to claim the badge. Please fund your wallet and try again.",
     "pendingTx": "Your transaction is pending. Please wait for confirmation."
   },
+  "banner": {
+    "s2startbanner": {
+      "subtext": "Get ready for an exciting journey with new features, challenges, and rewards!",
+      "title_1": "Season 2",
+      "title_2": "NOW LIVE"
+    }
+  },
   "booster": {
     "breakdown": {
       "factionBadges": "Faction Badges",

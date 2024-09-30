@@ -6,6 +6,23 @@ export default {
   content: ['./src/**/*.{html,js,svelte,ts}'],
   theme: {
     extend: {
+      spacing: {
+        // Custom spacing values
+        7.5: '1.875rem', // 30px
+        8.75: '2.1875rem', // 35px
+        12.5: '3.125rem', // 50px
+        32.5: '8.125rem', // 130px
+      },
+      fontSize: {
+        // Custom font sizes
+        '50px': '50px',
+        '34.695px': '34.695px',
+      },
+      letterSpacing: {
+        // Custom letter-spacing
+        '7.817px': '7.817px',
+        '1.735px': '1.735px',
+      },
       screens: {
         sm: '640px',
         // => @media (min-width: 640px) { ... }
@@ -35,15 +52,25 @@ export default {
           '0%': { transform: 'translateX(100%)' },
           '100%': { transform: 'translateX(0%)' },
         },
+        flicker: {
+          '0%, 19%, 21%, 23%, 25%, 54%, 56%, 100%': {
+            opacity: '1',
+          },
+          '20%, 24%, 55%': {
+            opacity: '0.5',
+          },
+        },
       },
       animation: {
         'slide-right': 'slide-right 0.3s ease-in-out',
         marquee: 'marquee 25s linear infinite',
         marquee2: 'marquee2 25s linear infinite',
+        flicker: 'flicker 1.5s infinite alternate',
       },
       colors: {
         'partner-light': '#FFE7F6',
         'partner-dark': '#310e2f',
+
         /***************
          * Base colors *
          ***************/
@@ -248,7 +275,29 @@ export default {
     },
   },
 
-  plugins: [daisyuiPlugin],
+  plugins: [
+    daisyuiPlugin,
+    function ({ addUtilities }) {
+      const newUtilities = {
+        '.stroke-1': {
+          '-webkit-text-stroke-width': '1px',
+        },
+        '.stroke-2': {
+          '-webkit-text-stroke-width': '2px',
+        },
+        '.text-stroke-neon': {
+          '-webkit-text-stroke-color': 'var(--neon-green-color)',
+        },
+        '.drop-shadow-neon': {
+          filter: `drop-shadow(0 0 3px rgba(93, 222, 181, 0.4))
+                   drop-shadow(0 0 6px rgba(93, 222, 181, 0.4))
+                   drop-shadow(0 0 9px rgba(93, 222, 181, 0.1))`,
+        },
+      };
+
+      addUtilities(newUtilities);
+    },
+  ],
 
   // https://daisyui.com/docs/config/
   daisyui: {
@@ -313,6 +362,8 @@ export default {
           '--dialog-background': '#2B303B', // grey-700
           '--dialog-dialog-interactive-disabled': '#444A55', // grey-600
           '--gradient-pink': 'linear-gradient(to right, #EA36A4 0%, #F997D0 100%)',
+
+          '--neon-green-color': '#5DDEB5',
 
           // ================================ //
 
