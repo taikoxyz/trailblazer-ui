@@ -1,4 +1,5 @@
 import { redirect } from '@sveltejs/kit';
+import { get } from 'svelte/store';
 import { isAddress } from 'viem';
 
 import { browser } from '$app/environment';
@@ -19,7 +20,7 @@ export const load = async ({ params }) => {
   log('Fetching profile data', address);
   if (browser) {
     try {
-      await profileService.getProfile(address, parseInt(activeSeason));
+      await profileService.getProfile(address, get(activeSeason));
       // const loadProfile = ProfileS2.getProfile(address);
       // const loadHistory = ProfileS2.getUserPointsHistory(address);
       // const loadDomain = Domain.getDomain(address);

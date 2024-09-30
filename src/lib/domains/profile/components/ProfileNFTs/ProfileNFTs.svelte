@@ -60,6 +60,17 @@
     'body-bold',
     'text-sm',
   );
+
+  const infoTextClasses = classNames(
+    'w-full',
+    'text-center',
+    'justify-center',
+    'text-secondary-content',
+    'items-center',
+    'flex',
+    'h-full',
+    'min-h-[200px]',
+  );
 </script>
 
 <div class={containerClass}>
@@ -67,7 +78,7 @@
     <Button
       type="neutral"
       shape="circle"
-      class="bg-neutral rounded-full w-[28px] h-[28px] border-none absolute right-[20px] md:right-[48px] top-[30px]"
+      class="bg-neutral rounded-full !w-[28px] !h-[28px] border-none absolute right-[20px] md:right-[48px] top-[30px]"
       on:click={handleRefresh}>
       <RotatingIcon loading={isLoading} type="refresh" size={13} />
     </Button>
@@ -82,6 +93,12 @@
 
       {#if nfts.length}
         <UserNFTsSection {nfts} title="NFTs" />
+      {/if}
+
+      {#if !badges.length && !nfts.length}
+        <div class={infoTextClasses}>
+          <p>No relevant NFTs found</p>
+        </div>
       {/if}
     {/if}
   </div>

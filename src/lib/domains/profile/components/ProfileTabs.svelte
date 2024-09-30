@@ -1,6 +1,6 @@
 <script lang="ts">
-  import DevRoom from '$components/Profile/DevRoom/DevRoom.svelte';
   import BadgeMigration from '$lib/domains/nfts/components/BadgeMigration.svelte';
+  import DevRoom from '$lib/domains/profile/components/DevRoom/DevRoom.svelte';
   import { ProfileNFTs } from '$lib/domains/profile/components/ProfileNFTs';
   import { classNames } from '$libs/util/classNames';
   import { isDevelopmentEnv } from '$libs/util/isDevelopmentEnv';

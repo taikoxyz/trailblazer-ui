@@ -8,7 +8,31 @@
   import { isDevelopmentEnv } from '$libs/util/isDevelopmentEnv';
   import { account } from '$stores/account';
 
-  const wrapperClasses = classNames('grid', 'grid-cols-3', 'gap-[30px]');
+  const containerClass = classNames(
+    'container',
+    'w-full',
+    'bg-elevated-background',
+    'xl:max-w-[1344px]',
+    'sm:rounded-b-[30px]',
+    'rounded-t-[30px]',
+    'md:rounded-tl-none',
+    'rounded-[30px]',
+    'relative',
+  );
+
+  const rowClass = classNames(
+    'w-full',
+    'grid',
+    'grid-cols-3',
+    'gap-y-[30px]',
+    'items-center',
+    'gap-x-[26px]',
+    'px-[16px]',
+    'pt-[34px]',
+    'md:px-[47px]',
+    'body-bold',
+    'text-sm',
+  );
 
   async function handleDevButton(handler: (address: Address) => Promise<void>) {
     if (!$account || !$account.address) {
@@ -83,15 +107,18 @@
 </script>
 
 {#if isDevelopmentEnv}
-  <div class={wrapperClasses}>
-    {#each buttons as button}
-      <ActionButton
-        priority="primary"
-        on:click={() => {
-          handleDevButton(button.handler);
-        }}>
-        {button.text}
-      </ActionButton>
-    {/each}
+  <div class={containerClass}>
+    <div class={rowClass}>
+      {#each buttons as button}
+        <ActionButton
+          priority="primary"
+          class="!w-[200px]"
+          on:click={() => {
+            handleDevButton(button.handler);
+          }}>
+          {button.text}
+        </ActionButton>
+      {/each}
+    </div>
   </div>
 {/if}
