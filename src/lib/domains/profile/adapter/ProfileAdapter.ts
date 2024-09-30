@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client/core';
 import { writeContract } from '@wagmi/core';
-import { type Address, getAddress } from 'viem';
+import { type Address, getAddress, type Hash } from 'viem';
 
 import { registerProfilePictureAbi, registerProfilePictureAddress } from '$generated/abi';
 import { getAxiosInstance, globalAxiosConfig } from '$lib/shared/services/api/axiosClient';
@@ -75,7 +75,7 @@ export class ProfileApiAdapter {
    * @return {*}  {Promise<string>}
    * @memberof ProfileApiAdapter
    */
-  async setProfilePicture(nft: NFT): Promise<string> {
+  async setProfilePicture(nft: NFT): Promise<Hash> {
     const txHash = await writeContract(wagmiConfig, {
       abi: registerProfilePictureAbi,
       address: registerProfilePictureAddress[chainId],
