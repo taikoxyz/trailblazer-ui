@@ -20,11 +20,7 @@
 
   async function handlePageChange(selectedPage: number) {
     if ($userProfile.address) {
-      pointsHistory = await profileService.getPointHistoryPage(
-        $userProfile.address,
-        parseInt(activeSeason),
-        selectedPage,
-      );
+      pointsHistory = await profileService.getPointHistoryPage($userProfile.address, $activeSeason, selectedPage);
     }
   }
 

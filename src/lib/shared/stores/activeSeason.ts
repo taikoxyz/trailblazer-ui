@@ -1,3 +1,5 @@
+import { writable } from 'svelte/store';
+
 import { PUBLIC_ACTIVE_SEASON } from '$env/static/public';
 
-export const activeSeason = PUBLIC_ACTIVE_SEASON || '';
+export const activeSeason = writable<number>(parseInt(PUBLIC_ACTIVE_SEASON) || 1);

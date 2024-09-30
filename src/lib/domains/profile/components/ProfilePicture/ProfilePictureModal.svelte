@@ -7,6 +7,7 @@
   import Spinner from '$components/Spinner/Spinner.svelte';
   import { pfpModal, userProfile } from '$lib/domains/profile/stores';
   import type { NFT } from '$lib/shared/types/NFT';
+  import { closeOnEscapeOrOutsideClick } from '$lib/shared/utils/customActions';
   import { classNames } from '$libs/util/classNames';
   import { getLogger } from '$libs/util/logger';
   import { account } from '$stores/account';
@@ -16,6 +17,8 @@
   $: profile = $userProfile;
 
   const log = getLogger('ProfilePictureModal');
+
+  const dialogId = crypto.randomUUID();
 
   const modalContentWrapperClasses = classNames(
     'rounded-[20px]',
@@ -134,15 +137,6 @@
 
   $: modal = undefined as HTMLDialogElement | undefined;
 
-  $: $pfpModal, load();
-
-  async function load() {
-    if ($pfpModal && modal) {
-      modal.showModal();
-      await refreshPFPSources();
-    }
-  }
-
   $: possiblePFPs = [] as NFT[];
 
   $: previewVisible = false;
@@ -197,8 +191,6 @@
       log('Setting profile picture', selectedPfp);
       await profileService.setProfilePicture(selectedPfp);
 
-      // profile.personalInfo?.avatar = selectedPfp;
-      // currentProfile.set(profile);
       isLoading = false;
       successToast({
         title: $t('pfp.modal.success.title'),
@@ -223,20 +215,22 @@
   }
 
   const noNftsClasses = classNames(
-    'absolute',
-    'border',
-    'bg-[green]',
-    'max-w-[400px]',
-    'text-center',
     'w-full',
     'h-full',
     'flex',
     'justify-center',
     'items-center',
+    'bg-elevated-background',
+    'rounded-[20px]',
+    'p-[20px]',
   );
 </script>
 
-<dialog bind:this={modal} class="modal">
+<dialog
+  id={dialogId}
+  class="modal"
+  class:modal-open={$pfpModal}
+  use:closeOnEscapeOrOutsideClick={{ enabled: $pfpModal, callback: closeModal, uuid: dialogId }}>
   <div class={modalContentWrapperClasses}>
     <div class={modalHeaderClasses}>
       <div class={modalTitleClasses}>
@@ -271,25 +265,27 @@
               <img src="/refresh.svg" class="w-[14px] h-[14px]" alt="refresh" />
             </button>
           </div>
+          {#if isLoading}
+            <div class={spinnerWrapperClasses}>
+              <Spinner size="lg" />
+            </div>
+          {/if}
 
-          <div class={selectorGridClasses}>
-            {#if possiblePFPs.length}
+          {#if possiblePFPs.length > 0}
+            <div class={selectorGridClasses}>
               {#each possiblePFPs as pfp}
                 <button on:click={() => selectPfp(pfp)} class={selectorGridItemClasses}>
                   <img src={pfp.src} alt="pfp" />
                 </button>
               {/each}
-            {:else if isLoading}
-              <div class={spinnerWrapperClasses}>
-                <Spinner size="lg" />
-              </div>
-            {:else}
-              <div class={noNftsClasses}>
-                You don't have any eligible NFTs. Currently only Season 1 badges can be used. But we will enable more
-                soon!
-              </div>
-            {/if}
-          </div>
+            </div>
+          {/if}
+          {#if possiblePFPs.length === 0}
+            <div class={noNftsClasses}>
+              You don't have any eligible NFTs. Currently only Season 1 badges can be used. But we will enable more
+              soon!
+            </div>
+          {/if}
         </div>
       {/if}
     </div>
@@ -307,5 +303,6 @@
         </ActionButton>
       </div>
     {/if}
+    <button class="overlay-backdrop" data-modal-uuid={dialogId} />
   </div>
 </dialog>
