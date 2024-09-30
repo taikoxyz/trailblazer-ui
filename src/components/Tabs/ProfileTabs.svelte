@@ -1,10 +1,13 @@
 <script lang="ts">
   import { LeaderboardTransactions } from '$components/Leaderboards';
   import DevRoom from '$components/Profile/DevRoom/DevRoom.svelte';
+  import TokenClaim from '$components/Profile/TokenClaim/TokenClaim.svelte';
   import { NFTCollection } from '$components/Profile/UserNFTs';
   import { default as BadgeMigration } from '$components/Profile/UserNFTs/FactionBadges/BadgeMigration.svelte';
   import { classNames } from '$libs/util/classNames';
   import { isDevelopmentEnv } from '$libs/util/isDevelopmentEnv';
+
+  export let isSelfProfile: boolean;
 
   type TabContent = {
     name: string;
@@ -26,6 +29,16 @@
       name: 'Badge Migration',
       content: BadgeMigration,
     },
+    ...(isSelfProfile
+      ? [
+          {
+            name: 'Claim',
+            content: TokenClaim,
+            checked: true,
+          },
+        ]
+      : []),
+
     ...(isDevelopmentEnv
       ? [
           {

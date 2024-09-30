@@ -398,5 +398,29 @@
       "connecting": "Connecting",
       "disconnected": "Disconnected"
     }
+  },
+  "claim": {
+    "terms_agree": "I agree to the terms and conditions mentioned above.",
+    "panels": {
+      "review": {
+        "title": "Are you ready to claim your tokens?",
+        "text": "You are eligible to claim the token. Click to review your token amount and proceed with your claim.",
+        "button": "Review amount"
+      },
+      "claim": {
+        "title": "Are you ready to claim your tokens?",
+        "button": "Claim now"
+      },
+      "success": {
+        "title": "Claim successful",
+        "text": "Congratulations! You've successfully claimed your tokens. You can now add them to your wallet.",
+        "button": "Claimed"
+      },
+      "error": {
+        "title": "Claim Unsuccessful",
+        "text": "Your attempt to claim the tokens was not successful. Try claiming your tokens again when you are ready.",
+        "button": "Try again"
+      }
+    }
   }
 }
