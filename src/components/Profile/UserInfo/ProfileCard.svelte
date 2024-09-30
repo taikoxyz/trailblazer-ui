@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import { type Address, getAddress } from 'viem';
+  import { type Address } from 'viem';
 
   import { page } from '$app/stores';
   import Spinner from '$components/Spinner/Spinner.svelte';
@@ -11,20 +11,19 @@
   import { classNames } from '$libs/util/classNames';
   // import { formatMultiplier } from '$libs/util/formatMultiplier';
   import { formatNumbers } from '$libs/util/formatNumbers';
-  import getConnectedAddress from '$libs/util/getConnectedAddress';
   import { currentProfile } from '$stores/profile';
 
   import RankDisplay from '../RankDisplay.svelte';
   import { ProfileName } from '.';
 
   export let loading;
+  export let isSelfProfile: boolean;
 
   let profile: UserProfile;
   // let multipliedView = true;
   $: profile = $currentProfile;
   // $: totalMultiplier = formatMultiplier(profile?.multipliers.totalMultiplier);
   $: displayedScore = profile?.score;
-  $: isSelfProfile = false;
 
   const editAvatarButtonClasses = classNames(
     'absolute',
@@ -41,7 +40,6 @@
   $: pfp = '';
   onMount(async () => {
     const urlAddress = $page.url.pathname.split('/').pop() as Address;
-    isSelfProfile = getAddress(urlAddress) === getAddress(getConnectedAddress());
     pfp = await Pfp.get(urlAddress);
   });
 </script>

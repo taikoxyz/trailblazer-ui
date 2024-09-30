@@ -7,6 +7,8 @@
   import { classNames } from '$libs/util/classNames';
   import { isDevelopmentEnv } from '$libs/util/isDevelopmentEnv';
 
+  export let isSelfProfile: boolean;
+
   type TabContent = {
     name: string;
     content: typeof LeaderboardTransactions | typeof NFTCollection | typeof BadgeMigration;
@@ -27,11 +29,16 @@
       name: 'Badge Migration',
       content: BadgeMigration,
     },
-    {
-      name: 'Claim',
-      content: TokenClaim,
-      checked: true,
-    },
+    ...(isSelfProfile
+      ? [
+          {
+            name: 'Claim',
+            content: TokenClaim,
+            checked: true,
+          },
+        ]
+      : []),
+
     ...(isDevelopmentEnv
       ? [
           {

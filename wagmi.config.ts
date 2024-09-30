@@ -13,7 +13,7 @@ import ERC20Airdrop from '../taiko-mono.git/packages/nfts/out/ERC20Airdrop.sol/E
 import RegisterProfilePicture from '../taiko-mono.git/packages/nfts/out/RegisterProfilePicture.sol/RegisterProfilePicture.json';
 import TaikoonToken from '../taiko-mono.git/packages/nfts/out/TaikoonToken.sol/TaikoonToken.json';
 import TrailblazersBadges from '../taiko-mono.git/packages/nfts/out/TrailblazersBadges.sol/TrailblazersBadges.json';
-import TrailblazersBadgesS2 from '../taiko-mono.git/packages/nfts/out/TrailblazersBadgesS2.sol/TrailblazersBadgesS2.json';
+// import TrailblazersBadgesS2 from '../taiko-mono.git/packages/nfts/out/TrailblazersBadgesS2.sol/TrailblazersBadgesS2.json';
 
 export default defineConfig({
   out: 'src/generated/abi/index.ts',
@@ -25,7 +25,7 @@ export default defineConfig({
         167000: TrailblazerBadgesMainnetDeployment.TrailblazersBadges as Address,
       },
       abi: TrailblazersBadges.abi as Abi,
-    },
+    } /*
     {
       name: 'TrailblazersBadgesS2',
       address: {
@@ -33,6 +33,14 @@ export default defineConfig({
         167000: '0x0000000000000000000000000000000000000000', //MainnetDeployment.TrailblazersBadgesS2 as Address,
       },
       abi: TrailblazersBadgesS2.abi as Abi,
+    },*/,
+    {
+      name: 'TrailblazersBadgesS2',
+      address: {
+        167009: '0x0000000000000000000000000000000000000000',
+        167000: '0x0000000000000000000000000000000000000000', //MainnetDeployment.TrailblazersBadgesS2 as Address,
+      },
+      abi: [] as Abi,
     },
     {
       name: 'USDC',
