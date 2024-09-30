@@ -1,6 +1,7 @@
+import axios from 'axios';
 import type { Address } from 'viem';
 
-import { getAxiosInstance } from '$lib/shared/services/api/axiosClient';
+import type { NFTMetadata } from '$lib/domains/dto/nft';
 import type { NFT } from '$lib/shared/types/NFT';
 import { getLogger } from '$libs/util/logger';
 
@@ -34,11 +35,18 @@ export class CombinedNFTService {
     return { taikoonNFTs, badgeNFTs };
   }
 
-  async getNFTUrl(nft: NFT): Promise<string | null> {
+  /**
+   * Fetches the metadata for an NFT.
+   *
+   * @param {NFT} nft
+   * @return {*}  {(Promise<NFTMetadata | null>)}
+   * @memberof CombinedNFTService
+   */
+  async getNFTMetadata(nft: NFT): Promise<NFTMetadata | null> {
+    log('getNFTUrl', { nft });
     try {
-      const client = getAxiosInstance();
       const tokenUriUrl = `/api/proxy?url=${encodeURIComponent(nft.src)}`;
-      const src = await client.get(tokenUriUrl);
+      const src = await axios.get(tokenUriUrl);
       return src.data;
     } catch (error) {
       log('getNFTUrl error', { error });

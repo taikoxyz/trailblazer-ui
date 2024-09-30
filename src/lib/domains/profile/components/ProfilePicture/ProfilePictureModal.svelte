@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { onMount } from 'svelte';
   import { t } from 'svelte-i18n';
 
   import { ActionButton } from '$components/Button';
@@ -224,6 +225,10 @@
     'rounded-[20px]',
     'p-[20px]',
   );
+
+  onMount(() => {
+    possiblePFPs = $userProfile.nfts || [];
+  });
 </script>
 
 <dialog
