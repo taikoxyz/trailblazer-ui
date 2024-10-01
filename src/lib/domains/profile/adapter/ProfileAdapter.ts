@@ -1,10 +1,10 @@
-import { gql } from '@apollo/client/core';
 import { writeContract } from '@wagmi/core';
 import { type Address, getAddress, type Hash } from 'viem';
 
 import { registerProfilePictureAbi, registerProfilePictureAddress } from '$generated/abi';
 import { getAxiosInstance, globalAxiosConfig } from '$lib/shared/services/api/axiosClient';
 import { graphqlClient } from '$lib/shared/services/graphql/client';
+import { USER_PROFILE_PICTURE_QUERY, USER_PROFILE_PICTURES_QUERY } from '$lib/shared/services/graphql/queries';
 import { pendingTransactions } from '$lib/shared/stores/pendingTransactions';
 import type { NFT } from '$lib/shared/types/NFT';
 import { chainId } from '$lib/shared/utils/chain';
@@ -97,21 +97,11 @@ export class ProfileApiAdapter {
    */
   async getProfilePicture(userAddress: Address): Promise<NFT> {
     try {
-      const query = gql`
-        query PfpTokenURI($address: String) {
-          profilePicture(id: $address) {
-            id
-            tokenAddress
-            tokenId
-            tokenURI
-          }
-        }
-      `;
-
       const result = await graphqlClient.query({
-        query,
+        query: USER_PROFILE_PICTURE_QUERY,
         variables: { address: getAddress(userAddress) },
       });
+
       log('getProfilePicture graphql result', { result });
       if (!result.data.profilePicture) {
         throw new Error('GraphQL: No profile picture found');
@@ -146,22 +136,11 @@ export class ProfileApiAdapter {
     try {
       const out: Record<Address, NFT> = {};
       addresses.forEach((address) => {
-        out[address] = {} as NFT;
+        out[getAddress(address)] = {} as NFT;
       });
 
-      const query = gql`
-        query PfpTokenURI($addresses: [Bytes!]!) {
-          profilePictures(where: { id_in: $addresses }) {
-            id
-            tokenAddress
-            tokenId
-            tokenURI
-          }
-        }
-      `;
-
       const result = await graphqlClient.query({
-        query,
+        query: USER_PROFILE_PICTURES_QUERY,
         variables: { addresses: addresses },
       });
 

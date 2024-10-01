@@ -22,13 +22,6 @@ vi.mock('@wagmi/core', () => ({
   reconnect: vi.fn(),
 }));
 
-vi.mock('$lib/utils/logger', () => ({
-  getLogger: () => ({
-    log: vi.fn(),
-    error: vi.fn(),
-  }),
-}));
-
 describe('BadgeAdapter', () => {
   let badgeAdapter: BadgeAdapter;
   const mockAddress: Address = '0x1234567890abcdef1234567890abcdef12345678' as Address;
@@ -53,7 +46,7 @@ describe('BadgeAdapter', () => {
     const createMockQueryResult = <T>(data: T): ApolloQueryResult<T> => ({
       data,
       loading: false,
-      networkStatus: 7, // NetworkStatus.ready
+      networkStatus: 7,
     });
 
     it('should return badges when user has S1 badges', async () => {
