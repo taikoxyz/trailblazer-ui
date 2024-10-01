@@ -15,6 +15,7 @@ export default defineProject({
       $images: path.resolve(__dirname, './src/public/images'),
       $stores: path.resolve(__dirname, './src/stores'),
       $libs: path.resolve(__dirname, './src/libs'),
+      $lib: path.resolve(__dirname, './src/lib'),
       $abi: path.resolve(__dirname, './src/abi/index.ts'),
       $mocks: path.resolve(__dirname, './src/tests/mocks/index.ts'),
       $config: path.resolve(__dirname, './src/app.config.ts'),
