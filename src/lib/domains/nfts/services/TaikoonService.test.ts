@@ -1,4 +1,4 @@
-import { type Address,zeroAddress } from 'viem';
+import { type Address, zeroAddress } from 'viem';
 
 import type { NFT } from '$lib/shared/types/NFT';
 
