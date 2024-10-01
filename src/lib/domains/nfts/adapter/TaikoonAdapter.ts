@@ -30,11 +30,12 @@ export class TaikoonAdapter {
 
       log('fetchUserTaikoonNFTs', { metadata });
 
-      const src = metadata.data.image;
+      const tokenUri = metadata.data.image;
       out.push({
         address: taikoonTokenAddress[chainId],
         tokenId,
-        src,
+        src: '',
+        tokenUri,
       } satisfies NFT);
     }
 

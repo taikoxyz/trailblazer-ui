@@ -5,6 +5,7 @@ import type { FactionNames } from '$configs/badges';
 export interface NFT {
   address: Address;
   tokenId: number;
+  tokenUri: string;
   src: string;
   badgeId?: number;
 }

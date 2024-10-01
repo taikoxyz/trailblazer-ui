@@ -1,5 +1,6 @@
 <script lang="ts">
   import { LeaderboardTransactions } from '$components/Leaderboards';
+  import TokenClaim from '$components/Profile/TokenClaim/TokenClaim.svelte';
   import BadgeMigration from '$lib/domains/nfts/components/BadgeMigration.svelte';
   import DevRoom from '$lib/domains/profile/components/DevRoom/DevRoom.svelte';
   import { NFTCollection } from '$lib/domains/profile/components/ProfileNFTs';
