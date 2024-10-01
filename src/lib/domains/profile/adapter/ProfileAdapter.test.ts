@@ -1,7 +1,7 @@
 import type { ApolloQueryResult } from '@apollo/client';
 import { writeContract } from '@wagmi/core';
 import type { AxiosInstance } from 'axios';
-import { type Address, type Hash,zeroAddress } from 'viem';
+import { type Address, type Hash, zeroAddress } from 'viem';
 
 import { registerProfilePictureAbi, registerProfilePictureAddress } from '$generated/abi';
 import { getAxiosInstance, globalAxiosConfig } from '$lib/shared/services/api/axiosClient';
