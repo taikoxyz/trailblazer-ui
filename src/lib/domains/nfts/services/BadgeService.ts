@@ -30,6 +30,7 @@ export class BadgeService {
         badges.push({
           address: trailblazersBadgesAddress[chainId],
           src: this.getS1BadgeURI(badgeId),
+          tokenUri: '',
           tokenId,
           badgeId,
         } satisfies NFT);

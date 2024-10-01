@@ -44,8 +44,9 @@ export class CombinedNFTService {
    */
   async getNFTMetadata(nft: NFT): Promise<NFTMetadata | null> {
     log('getNFTUrl', { nft });
+    if (!nft.tokenUri) return null;
     try {
-      const tokenUriUrl = `/api/proxy?url=${encodeURIComponent(nft.src)}`;
+      const tokenUriUrl = `/api/proxy?url=${encodeURIComponent(nft.tokenUri)}`;
       const src = await axios.get(tokenUriUrl);
       return src.data;
     } catch (error) {

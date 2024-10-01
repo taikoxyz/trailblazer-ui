@@ -1,3 +1,8 @@
+import { get } from 'svelte/store';
+
+import profileService from '$lib/domains/profile/services/ProfileServiceInstance';
+import { currentUserLeaderboard } from '$stores/leaderboard';
+
 import type { DappLeaderboardRow, DefiDappLeaderboardRow, UnifiedLeaderboardRow, UserLeaderboardRow } from './types';
 
 export function mapDappLeaderboardRow(row: DappLeaderboardRow): UnifiedLeaderboardRow {
@@ -22,33 +27,23 @@ export function mapDefiDappLeaderboardRow(row: DefiDappLeaderboardRow): UnifiedL
 }
 
 export function mapUserLeaderboardRow(row: UserLeaderboardRow): UnifiedLeaderboardRow {
-  // if (!row.position) {
-  //   throw new Error('');
-  // }
-  // const totalScore = row.score ? row.score : 0;
-  // const totalUsers = get(currentUserLeaderboard).totalUsers;
-  // const percentile = Profile.calculatePercentile(row.position, totalUsers);
-  // const level = Profile.getLevel(percentile);
+  if (!row.position) {
+    throw new Error('');
+  }
+  const totalScore = row.score ? row.score : 0;
+  const totalUsers = get(currentUserLeaderboard).totalUsers;
+  const percentile = profileService.calculatePercentile(row.position, totalUsers);
+  const level = profileService.getLevel(percentile);
 
-  // const out = {
-  //   address: row.address ? row.address : row.address,
-  //   level: level.level || '1',
-  //   title: level.title || 'Drummer',
-  //   icon: '',
-  //   handle: '',
-  //   data: [],
-  //   totalScore,
-  // };
-
-  // // const rank = 1;
-  // return out;
-  // empty
-
-  return {
-    address: row.address,
-    icon: '',
+  const out = {
+    address: row.address ? row.address : row.address,
+    level: level.level || '1',
+    title: level.title || 'Drummer',
+    icon: row.icon,
     handle: '',
     data: [],
-    totalScore: row.score,
+    totalScore,
   };
+
+  return out;
 }

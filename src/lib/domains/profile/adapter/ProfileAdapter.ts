@@ -122,7 +122,8 @@ export class ProfileApiAdapter {
       const pfp: NFT = {
         address: tokenAddress,
         tokenId: tokenId,
-        src: tokenURI,
+        src: '',
+        tokenUri: tokenURI,
       };
 
       return pfp;
@@ -130,6 +131,64 @@ export class ProfileApiAdapter {
     } catch (e: any) {
       console.warn(e);
       return {} as NFT;
+    }
+  }
+
+  /**
+   * Fetches multiple profile pictures from the profilePicture contract.
+   *
+   * @param {Address[]} addresses the addresses to fetch profile pictures for
+   * @return {*}  {Promise<Record<Address, NFT>>}
+   * @memberof ProfileApiAdapter
+   */
+  async getProfilePictures(addresses: Address[]): Promise<Record<Address, NFT>> {
+    log('getProfilePictures', { addresses });
+    try {
+      const out: Record<Address, NFT> = {};
+      addresses.forEach((address) => {
+        out[address] = {} as NFT;
+      });
+
+      const query = gql`
+        query PfpTokenURI($addresses: [Bytes!]!) {
+          profilePictures(where: { id_in: $addresses }) {
+            id
+            tokenAddress
+            tokenId
+            tokenURI
+          }
+        }
+      `;
+
+      const result = await graphqlClient.query({
+        query,
+        variables: { addresses: addresses },
+      });
+
+      log('getProfilePictures graphql result', { result });
+
+      if (!result.data.profilePictures) {
+        throw new Error('GraphQL: No profile picture found');
+      }
+
+      for (const item of result.data.profilePictures) {
+        const { tokenURI, id: owner } = item;
+        const pfp: NFT = {
+          address: item.tokenAddress,
+          tokenId: item.tokenId,
+          src: '',
+          tokenUri: tokenURI,
+        };
+        log('pfp', pfp);
+        out[owner] = pfp;
+      }
+      log('returning out', out);
+      return out;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (e: any) {
+      console.warn(e);
+      log('getProfilePictures error', { e });
+      return {} as Record<Address, NFT>;
     }
   }
 }

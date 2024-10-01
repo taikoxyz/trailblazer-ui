@@ -303,8 +303,8 @@ export class ProfileService {
       return;
     }
 
-    const percentile = ProfileService.calculatePercentile(numericRank, total);
-    const { level, title } = ProfileService.getLevel(percentile);
+    const percentile = this.calculatePercentile(numericRank, total);
+    const { level, title } = this.getLevel(percentile);
 
     log('new info', { percentile, level, title });
     await this.userRepository.update({
@@ -318,13 +318,13 @@ export class ProfileService {
     log('updated', await this.userRepository.get());
   }
 
-  private static calculatePercentile(rank: string | number, total: string | number) {
+  calculatePercentile(rank: string | number, total: string | number) {
     // Take current rank over total
     const percentile = (1 - Number(rank) / Number(total)) * 100;
     return percentile || 0;
   }
 
-  private static getLevel(percentile: number) {
+  getLevel(percentile: number) {
     log('Percentile:', percentile);
     if (percentile < 0 || percentile > 100) {
       return { level: '0', title: 'Beginner' };
@@ -442,6 +442,33 @@ export class ProfileService {
     } catch (error) {
       log('Error retrieving profile picture:', error);
       return null;
+    }
+  }
+
+  async getProfilePictures(addresses: Address[]): Promise<Record<Address, string>> {
+    log('Retrieving profile pictures for addresses:', addresses);
+    try {
+      const result: Record<Address, string> = {};
+      const profilePictures: Record<Address, NFT> = await this.apiAdapter.getProfilePictures(addresses);
+      log('Found profile pictures:', profilePictures);
+
+      for (const [address, nft] of Object.entries(profilePictures)) {
+        const metadata = await this.combinedNFTService.getNFTMetadata(nft);
+        log('metadata', metadata);
+        if (metadata) {
+          result[getAddress(address) as Address] = metadata?.image || '';
+        } else {
+          result[getAddress(address) as Address] = '';
+        }
+      }
+      log('Profile pictures:', result);
+
+      // out[owner] = src.data.image;
+      // return profilePictures;
+      return result;
+    } catch (error) {
+      log('Error retrieving profile pictures:', error);
+      return {};
     }
   }
 }

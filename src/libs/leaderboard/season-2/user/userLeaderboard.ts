@@ -1,9 +1,10 @@
 import axios from 'axios';
+import { getAddress } from 'viem';
 
 import { PUBLIC_TRAILBLAZER_API_URL } from '$env/static/public';
+import profileService from '$lib/domains/profile/services/ProfileServiceInstance';
 import { globalAxiosConfig } from '$libs/api/axiosConfig';
 import type { PaginationInfo } from '$libs/leaderboard/types';
-import Pfp from '$libs/pfp';
 import { isDevelopmentEnv } from '$libs/util/isDevelopmentEnv';
 import { getLogger } from '$libs/util/logger';
 import { setUserLeaderboard } from '$stores/leaderboard';
@@ -42,11 +43,13 @@ export class UserLeaderboard {
       log('user leaderboard page: ', leaderboardPage);
 
       // fetch the pfps for the current page
-      const addresses = leaderboardPage.items.map((item) => item.address);
-      const icons = await Pfp.getMany(addresses);
+      const addresses = leaderboardPage.items.map((item) => getAddress(item.address));
+      const icons = await profileService.getProfilePictures(addresses);
+
+      log('icons', icons);
 
       for (const item of leaderboardPage.items) {
-        item.icon = icons[item.address];
+        item.icon = icons[getAddress(item.address)];
       }
 
       setUserLeaderboard(leaderboardPage);
