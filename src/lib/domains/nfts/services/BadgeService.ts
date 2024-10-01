@@ -13,8 +13,8 @@ const log = getLogger('BadgeService');
 export class BadgeService {
   private adapter: BadgeAdapter;
 
-  constructor() {
-    this.adapter = new BadgeAdapter();
+  constructor(adapter?: BadgeAdapter) {
+    this.adapter = adapter || new BadgeAdapter();
   }
 
   async getBadgesForUser(address: Address): Promise<NFT[]> {

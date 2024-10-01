@@ -9,8 +9,8 @@ const log = getLogger('TaikoonService');
 export class TaikoonService {
   private adapter: TaikoonAdapter;
 
-  constructor() {
-    this.adapter = new TaikoonAdapter();
+  constructor(adapter?: TaikoonAdapter) {
+    this.adapter = adapter || new TaikoonAdapter();
   }
 
   async getTaikoons(user: Address): Promise<NFT[]> {
