@@ -1,7 +1,7 @@
 import axios from 'axios';
 import type { Address } from 'viem';
 
-import type { NFTMetadata } from '$lib/domains/dto/nft';
+import type { NFTMetadata } from '$lib/domains/nfts/types/shared/types';
 import type { NFT } from '$lib/shared/types/NFT';
 import { getLogger } from '$libs/util/logger';
 

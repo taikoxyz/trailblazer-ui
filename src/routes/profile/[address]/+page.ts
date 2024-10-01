@@ -21,10 +21,6 @@ export const load = async ({ params }) => {
   if (browser) {
     try {
       await profileService.getProfile(address, get(activeSeason));
-      // const loadProfile = ProfileS2.getProfile(address);
-      // const loadHistory = ProfileS2.getUserPointsHistory(address);
-      // const loadDomain = Domain.getDomain(address);
-      // await Promise.all([loadProfile, loadHistory, loadDomain]);
     } catch (e) {
       console.error(e);
     }
