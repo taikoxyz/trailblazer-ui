@@ -1,4 +1,4 @@
 pre-commit:
   commands:
     lint:
-      # run: pnpm svelte:check && pnpm format && pnpm lint:fix && git add {staged_files}
+      run: pnpm svelte:check && pnpm format && pnpm lint:fix && git add {staged_files}
