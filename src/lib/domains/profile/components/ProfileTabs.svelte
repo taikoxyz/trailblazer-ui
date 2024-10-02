@@ -6,10 +6,16 @@
   import { isDevelopmentEnv } from '$libs/util/isDevelopmentEnv';
 
   import ProfileTransactions from './ProfileActivity/ProfileTransactions.svelte';
+  import ProfileRewardClaim from './ProfileRewardClaim/ProfileRewardClaim.svelte';
 
   type TabContent = {
     name: string;
-    content: typeof ProfileTransactions | typeof ProfileNFTs | typeof BadgeMigration | typeof DevRoom;
+    content:
+      | typeof ProfileTransactions
+      | typeof ProfileNFTs
+      | typeof BadgeMigration
+      | typeof DevRoom
+      | typeof ProfileRewardClaim;
   };
 
   export let tabs: TabContent[] = [
@@ -33,6 +39,10 @@
           },
         ]
       : []),
+    {
+      name: 'Claim',
+      content: ProfileRewardClaim,
+    },
   ];
 
   let activeTab = 0;

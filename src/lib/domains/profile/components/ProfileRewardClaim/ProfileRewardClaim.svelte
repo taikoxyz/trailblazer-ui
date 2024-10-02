@@ -9,13 +9,19 @@
 
   import ClaimPanel from './ClaimPanel.svelte';
   import { type IClaimButton, type IClaimPanelType } from './types';
-
-  const wrapperClasses = classNames('flex', 'flex-col', 'items-center', 'justify-center', 'px-[216px]', 'py-[100px]');
+  import { onMount } from 'svelte';
+  import { getAddress } from 'viem';
+  import getConnectedAddress from '$libs/util/getConnectedAddress';
+  import type { Address } from 'viem';
+  import { page } from '$app/stores';
+  import { PUBLIC_CLAIMING_ACTIVE } from '$env/static/public';
 
   const linkClasses = classNames('underline', 'text-[#FF6FC8]', 'hover:text-primary');
   const checkboxWrapperClasses = classNames('form-control', 'pt-[24px]');
   const checkboxLabelClasses = classNames('cursor-pointer label');
   const checkboxClasses = classNames('checkbox', 'checkbox-primary', 'bg-black', 'bg-opacity-50');
+
+  const claimingActive = PUBLIC_CLAIMING_ACTIVE === 'true' || false;
 
   $: isLoading = false;
 
@@ -104,34 +110,72 @@
   ];
 
   const termsUrl = 'https://taiko.xyz';
+  const containerClass = classNames(
+    'container',
+    'w-full',
+    'bg-elevated-background',
+    'xl:max-w-[1344px]',
+    'sm:rounded-b-[30px]',
+    'rounded-t-[30px]',
+    'md:rounded-tl-none',
+    'rounded-[30px]',
+    'relative',
+  );
+
+  const rowClass = classNames(
+    'relative',
+    'grid',
+    'items-center',
+    'gap-x-[26px]',
+    'justify-center',
+    'xl:h-[800px]',
+    'md:h-[642px]',
+    'h-[708px]',
+    'px-[16px]',
+    'pt-[34px]',
+    'md:px-[47px]',
+    'body-bold',
+    'text-sm',
+  );
+  let isSelfProfile = false;
+  onMount(async () => {
+    const urlAddress = $page.url.pathname.split('/').pop() as Address;
+    isSelfProfile = getAddress(urlAddress) === getAddress(getConnectedAddress());
+  });
 </script>
 
-<div class={wrapperClasses}>
-  {#if isLoading}
-    <Spinner size="lg" />
-  {:else}
-    <ClaimPanel
-      disableButton={(currentStep === 1 && !$tokenClaimTermsAccepted) ||
-        claimAmount === 0 ||
-        (currentStep === 2 && isClaimSuccessful)}
-      title={panels[currentStep].title}
-      amount={currentStep > 0 ? { value: claimAmount, label: claimLabel } : null}
-      text={panels[currentStep].text || ''}
-      type={panels[currentStep].type}
-      button={panels[currentStep].button}
-      on:click={handlePanelButtonClick}>
-      {#if currentStep === 1}
-        By confirming your claim, you agree to the <a href={termsUrl} target="_blank" class={linkClasses}
-          >terms and conditions</a>
-        of the token distribution and authorize the transfer of tokens directly to your wallet.
+<div class={containerClass}>
+  <div class={rowClass}>
+    {#if isLoading}
+      <Spinner size="lg" />
+    {:else if isSelfProfile && claimingActive}
+      <ClaimPanel
+        disableButton={(currentStep === 1 && !$tokenClaimTermsAccepted) ||
+          claimAmount === 0 ||
+          (currentStep === 2 && isClaimSuccessful)}
+        title={panels[currentStep].title}
+        amount={currentStep > 0 ? { value: claimAmount, label: claimLabel } : null}
+        text={panels[currentStep].text || ''}
+        type={panels[currentStep].type}
+        button={panels[currentStep].button}
+        on:click={handlePanelButtonClick}>
+        {#if currentStep === 1}
+          By confirming your claim, you agree to the <a href={termsUrl} target="_blank" class={linkClasses}
+            >terms and conditions</a>
+          of the token distribution and authorize the transfer of tokens directly to your wallet.
 
-        <div class={checkboxWrapperClasses}>
-          <label class={checkboxLabelClasses}>
-            <input type="checkbox" bind:checked={$tokenClaimTermsAccepted} class={checkboxClasses} />
-            <span>{$t('claim.terms_agree')}</span>
-          </label>
-        </div>
-      {/if}
-    </ClaimPanel>
-  {/if}
+          <div class={checkboxWrapperClasses}>
+            <label class={checkboxLabelClasses}>
+              <input type="checkbox" bind:checked={$tokenClaimTermsAccepted} class={checkboxClasses} />
+              <span>{$t('claim.terms_agree')}</span>
+            </label>
+          </div>
+        {/if}
+      </ClaimPanel>
+    {:else if !isSelfProfile && claimingActive}
+      Visit your own profile to claim your rewards.
+    {:else}
+      Currently no claiming active. Check back soon!
+    {/if}
+  </div>
 </div>

@@ -16,17 +16,26 @@
     'justify-center',
   );
 
-  const textWrapperClasses = classNames('w-full', 'flex', 'flex-col', 'gap-[24px]');
+  const textWrapperClasses = classNames('w-full', 'flex', 'flex-col', 'gap-[24px]', 'items-center');
 
   const titleClasses = classNames(
     'text-[#F3F3F3]',
     'text-[35px]/[42px]',
     'font-[500]',
+    'md:max-w-[316px]',
     'font-clash-grotesk',
-    'px-[90px]',
     'text-center',
   );
-  const contentClasses = classNames('px-[50px]', 'text-[#ADB1B8]', 'text-[16px]/[24px]', 'text-center');
+  const contentClasses = classNames(
+    'text-[#ADB1B8]',
+    'w-[294px]',
+    'md:w-[392px]',
+    ' xl:w-[412px]',
+    'text-secondary-content',
+    'font-weight-[400]',
+    'text-[16px]/[24px]',
+    'text-center',
+  );
 
   const rewardInputClasses = classNames(
     'p-[10px]',
