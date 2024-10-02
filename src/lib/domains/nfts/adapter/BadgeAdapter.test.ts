@@ -1,6 +1,6 @@
 import type { ApolloQueryResult } from '@apollo/client';
 import { readContract } from '@wagmi/core';
-import type { Address } from 'viem';
+import { type Address,zeroAddress } from 'viem';
 
 import { trailblazersBadgesAbi, trailblazersBadgesAddress } from '$generated/abi';
 import { FactionNames } from '$lib/domains/nfts/types/badges/types';
@@ -10,7 +10,6 @@ import { wagmiConfig } from '$lib/shared/wagmi';
 
 import { BadgeAdapter } from './BadgeAdapter';
 
-// Mock external modules
 vi.mock('$lib/shared/services/graphql/client', () => ({
   graphqlClient: {
     query: vi.fn(),
@@ -24,7 +23,7 @@ vi.mock('@wagmi/core', () => ({
 
 describe('BadgeAdapter', () => {
   let badgeAdapter: BadgeAdapter;
-  const mockAddress: Address = '0x1234567890abcdef1234567890abcdef12345678' as Address;
+  const mockAddress: Address = zeroAddress;
 
   beforeEach(() => {
     badgeAdapter = new BadgeAdapter();
