@@ -1,20 +1,20 @@
 <script lang="ts">
+  import { onMount } from 'svelte';
   import { t } from 'svelte-i18n';
+  import type { Address } from 'viem';
+  import { getAddress } from 'viem';
 
+  import { page } from '$app/stores';
   import { Spinner } from '$components/Spinner';
+  import { PUBLIC_CLAIMING_ACTIVE } from '$env/static/public';
   import TokenClaim from '$libs/token-claim';
   import { classNames } from '$libs/util/classNames';
+  import getConnectedAddress from '$libs/util/getConnectedAddress';
   import { account } from '$stores/account';
   import { tokenClaimTermsAccepted } from '$stores/tokenClaim';
 
   import ClaimPanel from './ClaimPanel.svelte';
   import { type IClaimButton, type IClaimPanelType } from './types';
-  import { onMount } from 'svelte';
-  import { getAddress } from 'viem';
-  import getConnectedAddress from '$libs/util/getConnectedAddress';
-  import type { Address } from 'viem';
-  import { page } from '$app/stores';
-  import { PUBLIC_CLAIMING_ACTIVE } from '$env/static/public';
 
   const linkClasses = classNames('underline', 'text-[#FF6FC8]', 'hover:text-primary');
   const checkboxWrapperClasses = classNames('form-control', 'pt-[24px]');
