@@ -1,12 +1,14 @@
 import type { Address } from 'viem';
 
+import { readClaimGalxePointsAlreadyRegistered } from '$generated/abi';
 import { getAxiosInstance, globalAxiosConfig } from '$lib/shared/services/api/axiosClient';
+import { chainId } from '$lib/shared/utils/chain';
+import { wagmiConfig } from '$lib/shared/wagmi';
 import { getLogger } from '$libs/util/logger';
 
 import type { BonusDTO } from '../dto/bonus.dto';
 
 const log = getLogger('SeasonBonusPointsAdapter');
-
 export class SeasonBonusPointsAdapter {
   /**
    * Fetches the user's bonus points from the /user/bonus endpoint.
@@ -36,5 +38,24 @@ export class SeasonBonusPointsAdapter {
   async claimUserBonusPoints(address: Address, season: number) {
     log('claimUserBonusPoints', { address, season });
     throw new Error('Not implemented');
+  }
+
+  /**
+   * Checks if the user has already claimed their bonus points
+   *
+   * @param {Address} address
+   * @param {number} season
+   * @return {*}  {Promise<boolean>}
+   * @memberof SeasonBonusPointsAdapter
+   */
+  async checkClaimed(address: Address, season: number): Promise<boolean> {
+    log('checkClaimed for address', { address, season });
+
+    if (!address) {
+      throw new Error('Address not found');
+    }
+
+    const isClaimed = await readClaimGalxePointsAlreadyRegistered(wagmiConfig, { args: [address], chainId });
+    return isClaimed;
   }
 }
