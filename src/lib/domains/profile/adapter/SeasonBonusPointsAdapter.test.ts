@@ -1,5 +1,5 @@
 import type { AxiosInstance } from 'axios';
-import { type Address,zeroAddress } from 'viem';
+import { type Address, zeroAddress } from 'viem';
 
 import { readClaimGalxePointsAlreadyRegistered } from '$generated/abi';
 import { getAxiosInstance } from '$lib/shared/services/api/axiosClient';
