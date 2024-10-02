@@ -32,6 +32,7 @@ vi.mock('$lib/shared/services/api/axiosClient', async () => {
     getAxiosInstance: vi.fn(),
   };
 });
+
 vi.mock('$lib/shared/stores/pendingTransactions', () => ({
   pendingTransactions: {
     add: vi.fn(),

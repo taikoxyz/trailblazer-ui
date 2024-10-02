@@ -26,7 +26,7 @@
 
 <div class="flex flex-col items-center">
   <div class="flex flex-col max-w-section w-full lg:gap-8">
-    <div class="flex px-4 lg:px-0 gap-8 h-full box-content flex-col lg:flex-row justify-center">
+    <div class="flex px-4 flex-wrap lg:px-0 gap-8 h-full box-content flex-col lg:flex-row justify-center">
       <ProfileCard loading={$profileLoading} />
       <BoosterCard />
       {#if isSelfProfile}

@@ -36,6 +36,7 @@
     'md:h-[290px]',
     'xl:w-1/2',
     'xl:max-w-[680px]',
+    'lg:max-w-[590px]',
   );
 
   onMount(async () => {

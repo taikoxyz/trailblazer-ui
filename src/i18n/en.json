@@ -61,6 +61,38 @@
     },
     "learn_more": "Learn more"
   },
+  "claim": {
+    "panels": {
+      "claim": {
+        "button": "Claim now",
+        "title": "Are you ready to claim your tokens?"
+      },
+      "error": {
+        "button": "Try again",
+        "text": "Your attempt to claim the tokens was not successful. Try claiming your tokens again when you are ready.",
+        "title": "Claim Unsuccessful"
+      },
+      "review": {
+        "button": "Review amount",
+        "text": "You are eligible to claim the token. Click to review your token amount and proceed with your claim.",
+        "title": "Are you ready to claim your tokens?"
+      },
+      "success": {
+        "button": "Claimed",
+        "text": "Congratulations! You've successfully claimed your tokens. You can now add them to your wallet.",
+        "title": "Claim successful"
+      }
+    },
+    "season1Bonus": {
+      "cta": {
+        "soon": "Claiming Coming Soon"
+      },
+      "tooltip": {
+        "message": " If you participated in Season 1, you will be rewarded some bonus points for season 2. These will be capped.           Have a look at our official Season 2 announcement for more details."
+      }
+    },
+    "terms_agree": "I agree to the terms and conditions mentioned above."
+  },
   "common": {
     "badge_claimed": "<a target=\"_blank\" href=\"https://taikoscan.io/tx/{txHash}\">Click here to see your transaction on Taikoscan</a>",
     "claim": "Claim",
@@ -397,30 +429,6 @@
       "connected": "Connected",
       "connecting": "Connecting",
       "disconnected": "Disconnected"
-    }
-  },
-  "claim": {
-    "terms_agree": "I agree to the terms and conditions mentioned above.",
-    "panels": {
-      "review": {
-        "title": "Are you ready to claim your tokens?",
-        "text": "You are eligible to claim the token. Click to review your token amount and proceed with your claim.",
-        "button": "Review amount"
-      },
-      "claim": {
-        "title": "Are you ready to claim your tokens?",
-        "button": "Claim now"
-      },
-      "success": {
-        "title": "Claim successful",
-        "text": "Congratulations! You've successfully claimed your tokens. You can now add them to your wallet.",
-        "button": "Claimed"
-      },
-      "error": {
-        "title": "Claim Unsuccessful",
-        "text": "Your attempt to claim the tokens was not successful. Try claiming your tokens again when you are ready.",
-        "button": "Try again"
-      }
     }
   }
 }
