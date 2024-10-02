@@ -1,8 +1,8 @@
 import { createWeb3Modal } from '@web3modal/wagmi';
 
 import { PUBLIC_WALLETCONNECT_PROJECT_ID } from '$env/static/public';
-import { getChainImages } from '$libs/chain';
-import { wagmiConfig } from '$libs/wagmi';
+import { getChainImages } from '$lib/shared/utils/chain';
+import { wagmiConfig } from '$lib/shared/wagmi';
 
 const projectId = PUBLIC_WALLETCONNECT_PROJECT_ID;
 const chainImages = getChainImages();

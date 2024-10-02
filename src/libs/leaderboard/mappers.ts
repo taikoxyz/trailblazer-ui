@@ -1,6 +1,6 @@
 import { get } from 'svelte/store';
 
-import { Profile } from '$libs/profile';
+import profileService from '$lib/domains/profile/services/ProfileServiceInstance';
 import { currentUserLeaderboard } from '$stores/leaderboard';
 
 import type { DappLeaderboardRow, DefiDappLeaderboardRow, UnifiedLeaderboardRow, UserLeaderboardRow } from './types';
@@ -32,8 +32,8 @@ export function mapUserLeaderboardRow(row: UserLeaderboardRow): UnifiedLeaderboa
   }
   const totalScore = row.score ? row.score : 0;
   const totalUsers = get(currentUserLeaderboard).totalUsers;
-  const percentile = Profile.calculatePercentile(row.position, totalUsers);
-  const level = Profile.getLevel(percentile);
+  const percentile = profileService.calculatePercentile(row.position, totalUsers);
+  const level = profileService.getLevel(percentile);
 
   const out = {
     address: row.address ? row.address : row.address,
@@ -45,6 +45,5 @@ export function mapUserLeaderboardRow(row: UserLeaderboardRow): UnifiedLeaderboa
     totalScore,
   };
 
-  // const rank = 1;
   return out;
 }

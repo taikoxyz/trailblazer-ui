@@ -275,6 +275,10 @@ export default {
     },
   },
 
+  extend: {
+    backgroundColor: ['aria-selected'],
+    textColor: ['aria-selected'],
+  },
   plugins: [
     daisyuiPlugin,
     function ({ addUtilities }) {

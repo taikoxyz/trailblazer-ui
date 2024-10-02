@@ -9,8 +9,8 @@
   import { Footer } from '$components/Footer';
   import { Header } from '$components/Header';
   import { NotificationToast } from '$components/NotificationToast';
-  import MigrationApprovalModal from '$components/Profile/UserNFTs/FactionBadges/MigrationApprovalModal.svelte';
   import { SwitchChainModal } from '$components/SwitchChainModal';
+  import { startWatching, stopWatching } from '$lib/shared/wagmi';
   import {
     desktopQuery,
     initializeMediaQueries,
@@ -18,7 +18,6 @@
     mobileQuery,
     tabletQuery,
   } from '$libs/util/responsiveCheck';
-  import { startWatching, stopWatching } from '$libs/wagmi';
 
   const syncPointer = ({ x, y }: { x: number; y: number }) => {
     if (browser) {
@@ -81,7 +80,3 @@
 <NotificationToast />
 <AccountConnectionToast />
 <SwitchChainModal />
-
-<div class="relative z-50">
-  <MigrationApprovalModal />
-</div>

@@ -3,6 +3,7 @@
   import { t } from 'svelte-i18n';
 
   import { Icon } from '$components/Icon';
+  import { classNames } from '$libs/util/classNames';
 
   export let currentPage = 1; // UI starts with page 1
   export let totalItems = 0;
@@ -33,10 +34,9 @@
   const btnClass = 'btn btn-xs btn-ghost';
 </script>
 
-<div class="pagination btn-group">
-  {#if currentPage !== 1}
-    <button class={btnClass} on:click={() => goToPage(currentPage - 1)}> <Icon type="chevron-left" /></button>
-  {/if}
+<div class="pagination btn-group {$$props.class}">
+  <button class={classNames(btnClass, currentPage === 1 ? 'invisible' : '')} on:click={() => goToPage(currentPage - 1)}>
+    <Icon type="chevron-left" /></button>
   {$t('paginator.page')}
   <input
     type="number"

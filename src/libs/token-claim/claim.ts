@@ -2,8 +2,8 @@ import { writeContract } from '@wagmi/core';
 import { type Address, parseEther } from 'viem';
 
 import { erc20AirdropAbi, erc20AirdropAddress } from '$generated/abi';
-import { chainId } from '$libs/chain';
-import { wagmiConfig } from '$libs/wagmi';
+import { chainId } from '$lib/shared/utils/chain';
+import { wagmiConfig } from '$lib/shared/wagmi';
 
 export default async function claim(address: Address, amount: number, proof: string): Promise<void> {
   await writeContract(wagmiConfig, {

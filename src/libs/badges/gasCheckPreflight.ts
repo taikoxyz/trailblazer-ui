@@ -3,7 +3,7 @@ import { getBalance } from '@wagmi/core';
 import { type Address } from 'viem';
 
 import { claimPreflightConfig } from '$config';
-import { wagmiConfig } from '$libs/wagmi';
+import { wagmiConfig } from '$lib/shared/wagmi';
 
 export default async function gasCheckPreflight(address: Address): Promise<boolean> {
   const balance = await getBalance(wagmiConfig, {

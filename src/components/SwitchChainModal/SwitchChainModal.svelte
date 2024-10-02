@@ -5,8 +5,8 @@
 
   import { LoadingMask } from '$components/Masks';
   import { warningToast } from '$components/NotificationToast';
-  import { chains, getChainImage } from '$libs/chain';
-  import { wagmiConfig } from '$libs/wagmi';
+  import { chains, getChainImage } from '$lib/shared/utils/chain';
+  import { wagmiConfig } from '$lib/shared/wagmi';
   import { switchChainModal } from '$stores/modal';
 
   // TODO: We should combine this with the ChainSelector component.

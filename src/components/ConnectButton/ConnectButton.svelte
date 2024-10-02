@@ -4,7 +4,7 @@
 
   import { ActionButton } from '$components/Button';
   import { Icon } from '$components/Icon';
-  import { getChainImage } from '$libs/chain';
+  import { getChainImage } from '$lib/shared/utils/chain';
   import { web3modal } from '$libs/connect';
   import { refreshUserBalance, renderEthBalance } from '$libs/util/balance';
   import { noop } from '$libs/util/noop';

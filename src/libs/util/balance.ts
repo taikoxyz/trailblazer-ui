@@ -1,8 +1,8 @@
 import { getAccount, getBalance, type GetBalanceReturnType } from '@wagmi/core';
 import { formatEther } from 'viem';
 
+import { wagmiConfig } from '$lib/shared/wagmi';
 import { truncateString } from '$libs/util/truncateString';
-import { wagmiConfig } from '$libs/wagmi';
 import { ethBalance } from '$stores/balance';
 
 export function renderBalance(balance: Maybe<GetBalanceReturnType>): string {
