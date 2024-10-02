@@ -78,7 +78,7 @@ describe('TaikoonAdapter', () => {
       const expectedNFTs: NFT[] = mockTokenIds.map((tokenId, index) => ({
         address: taikoonTokenAddress[chainId],
         tokenId,
-        src: '',
+        src: mockMetadataResponses[index].data.image,
         tokenUri: mockMetadataResponses[index].data.image,
       }));
 
