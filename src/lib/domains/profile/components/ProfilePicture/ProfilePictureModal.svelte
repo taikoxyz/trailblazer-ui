@@ -11,11 +11,8 @@
   import { closeOnEscapeOrOutsideClick } from '$lib/shared/utils/customActions';
   import { classNames } from '$libs/util/classNames';
   import { getLogger } from '$libs/util/logger';
-  import { account } from '$stores/account';
 
   import profileService from '../../services/ProfileServiceInstance';
-
-  $: profile = $userProfile;
 
   const log = getLogger('ProfilePictureModal');
 
@@ -93,21 +90,6 @@
   );
   const selectorTitleClasses = classNames('font-[700]');
   const selectorCounterClasses = classNames('pl-[5px]');
-  const refreshButtonClasses = classNames(
-    'bg-divider-border',
-    'w-[38px]',
-    'h-[38px]',
-    'aspect-square',
-    'rounded-full',
-    'absolute',
-    'right-0',
-    'flex',
-    'justify-center',
-    'items-center',
-    'hover:bg-primary-icon',
-    'transition-colors',
-    'active:bg-divider-border',
-  );
 
   const selectorGridClasses = classNames(
     'rounded-[20px]',
@@ -159,28 +141,6 @@
   const pfpPreviewClasses = classNames('w-[250px]', 'h-[250px]', 'rounded-[20px]');
 
   const spinnerWrapperClasses = classNames('w-full', 'h-full', 'absolute', 'flex', 'justify-center', 'items-center');
-
-  async function refreshPFPSources() {
-    possiblePFPs = [];
-
-    if (!$account || !$account.address) {
-      possiblePFPs = [];
-
-      return;
-    }
-    isLoading = true;
-    try {
-      await profileService.getProfileWithNFTs($account.address);
-      if (profile.nfts) {
-        possiblePFPs = profile.nfts;
-      }
-
-      isLoading = false;
-    } catch (error) {
-      console.warn(error);
-      isLoading = false;
-    }
-  }
 
   $: isLoading = false;
   async function handleButtonClick() {
@@ -266,9 +226,6 @@
                 {/if}
               </div>
             {/if}
-            <button on:click={refreshPFPSources} class={refreshButtonClasses}>
-              <img src="/refresh.svg" class="w-[14px] h-[14px]" alt="refresh" />
-            </button>
           </div>
           {#if isLoading}
             <div class={spinnerWrapperClasses}>

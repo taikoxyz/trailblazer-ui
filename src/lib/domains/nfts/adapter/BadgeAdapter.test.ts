@@ -1,6 +1,6 @@
 import type { ApolloQueryResult } from '@apollo/client';
 import { readContract } from '@wagmi/core';
-import { type Address,zeroAddress } from 'viem';
+import { type Address, zeroAddress } from 'viem';
 
 import { trailblazersBadgesAbi, trailblazersBadgesAddress } from '$generated/abi';
 import { FactionNames } from '$lib/domains/nfts/types/badges/types';
