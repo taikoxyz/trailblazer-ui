@@ -8,7 +8,7 @@
   import { Spinner } from '$components/Spinner';
   import { PUBLIC_CLAIMING_ACTIVE } from '$env/static/public';
   import TokenClaim from '$libs/token-claim';
-  import { classNames } from '$libs/util/classNames';
+  import { classNames } from '$lib/shared/utils/classNames';
   import getConnectedAddress from '$libs/util/getConnectedAddress';
   import { account } from '$stores/account';
   import { tokenClaimTermsAccepted } from '$stores/tokenClaim';
@@ -114,7 +114,6 @@
     'container',
     'w-full',
     'bg-elevated-background',
-    'xl:max-w-[1344px]',
     'sm:rounded-b-[30px]',
     'rounded-t-[30px]',
     'md:rounded-tl-none',

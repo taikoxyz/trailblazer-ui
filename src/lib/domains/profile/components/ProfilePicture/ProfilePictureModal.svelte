@@ -9,7 +9,7 @@
   import { pfpModal, userProfile } from '$lib/domains/profile/stores';
   import type { NFT } from '$lib/shared/types/NFT';
   import { closeOnEscapeOrOutsideClick } from '$lib/shared/utils/customActions';
-  import { classNames } from '$libs/util/classNames';
+  import { classNames } from '$lib/shared/utils/classNames';
   import { getLogger } from '$libs/util/logger';
 
   import profileService from '../../services/ProfileServiceInstance';

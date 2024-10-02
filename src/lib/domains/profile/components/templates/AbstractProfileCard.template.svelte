@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { Tooltip } from '$components/Tooltip';
-  import { classNames } from '$libs/util/classNames';
+  import { Tooltip } from '$lib/shared/components/Tooltip';
+  import { classNames } from '$lib/shared/utils/classNames';
 
   $: classes = classNames(
     'flex flex-col items-center justify-start w-full lg:max-w-[312px] h-auto rounded-[30px] pt-[18px] pb-5',
@@ -9,7 +9,7 @@
 </script>
 
 <div class={`${classes}`}>
-  <div class="flex w-full pb-3 px-3 items-center">
+  <div class="flex gap-[5px] pb-3 px-3 items-center">
     <slot name="title">
       <div class="title-subsection-bold">title</div>
     </slot>

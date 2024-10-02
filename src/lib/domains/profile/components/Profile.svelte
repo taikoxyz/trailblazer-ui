@@ -12,10 +12,15 @@
   import ProfileCard from './ProfileCard.svelte';
   import ProfilePictureModal from './ProfilePicture/ProfilePictureModal.svelte';
   import ProfileTabs from './ProfileTabs.svelte';
+  import ProfileSeasonBonusCard from './ProfileSeasonBonusCard/ProfileSeasonBonusCard.svelte';
+  import { getAddress } from 'viem';
+  import getConnectedAddress from '$lib/shared/utils/getConnectedAddress';
 
+  $: isSelfProfile = false;
   onMount(async () => {
     const urlAddress = $page.url.pathname.split('/').pop() as Address;
     await profileService.getProfile(urlAddress, $activeSeason);
+    isSelfProfile = getAddress(urlAddress) === getAddress(getConnectedAddress());
   });
 </script>
 
@@ -24,6 +29,9 @@
     <div class="flex px-4 lg:px-0 gap-8 h-full box-content flex-col lg:flex-row justify-center">
       <ProfileCard loading={$profileLoading} />
       <BoosterCard />
+      {#if isSelfProfile}
+        <ProfileSeasonBonusCard />
+      {/if}
     </div>
 
     <div class="mt-[60px]">

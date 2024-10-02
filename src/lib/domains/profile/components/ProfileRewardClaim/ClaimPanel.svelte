@@ -3,7 +3,7 @@
 
   import { ActionButton } from '$components/Button';
   import { Spinner } from '$components/Spinner';
-  import { classNames } from '$libs/util/classNames';
+  import { classNames } from '$lib/shared/utils/classNames';
 
   import type { IClaimAmount, IClaimButton, IClaimPanelType } from './types';
 
