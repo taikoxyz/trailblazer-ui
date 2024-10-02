@@ -3,7 +3,7 @@
   import { classNames } from '$lib/shared/utils/classNames';
 
   $: wrapperClasses = classNames(
-    'flex flex-col items-center justify-start w-full lg:max-w-[309px] h-auto rounded-[30px] pt-[18px] pb-5',
+    'flex flex-col items-center justify-start w-full lg:max-w-[309px] h-auto rounded-[30px] pt-[18px] pb-5 max-h-[290px]',
     $$props.class,
   );
 
