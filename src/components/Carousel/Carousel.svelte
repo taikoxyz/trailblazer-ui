@@ -4,7 +4,7 @@
 
   import { browser } from '$app/environment';
   import { Icon } from '$components/Icon';
-  import { classNames } from '$libs/util/classNames';
+  import { classNames } from '$lib/shared/utils/classNames';
   import { isMobile } from '$libs/util/responsiveCheck';
 
   import { CarouselItem } from '.';

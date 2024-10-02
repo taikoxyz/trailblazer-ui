@@ -2,7 +2,7 @@
   import { t } from 'svelte-i18n';
 
   import ActionButton from '$components/Button/ActionButton.svelte';
-  import { classNames } from '$libs/util/classNames';
+  import { classNames } from '$lib/shared/utils/classNames';
   import { isDesktop, isMobile, isTablet } from '$libs/util/responsiveCheck';
 
   export let trailNumber = '8';

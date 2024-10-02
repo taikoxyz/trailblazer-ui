@@ -2,7 +2,7 @@
   import { createEventDispatcher, onDestroy, onMount } from 'svelte';
 
   import { Icon } from '$components/Icon';
-  import { classNames } from '$libs/util/classNames';
+  import { classNames } from '$lib/shared/utils/classNames';
   import { positionElementByTarget } from '$libs/util/positionElementByTarget';
   import { uid } from '$libs/util/uid';
 

@@ -5,8 +5,8 @@
   import { Paginator } from '$components/Paginator';
   import { Pill } from '$components/Pill';
   import { Spinner } from '$components/Spinner';
+  import { classNames } from '$lib/shared/utils/classNames';
   import { Profile } from '$libs/profile';
-  import { classNames } from '$libs/util/classNames';
   import { formatDate } from '$libs/util/formatDate';
   import { currentProfile } from '$stores/profile';
 

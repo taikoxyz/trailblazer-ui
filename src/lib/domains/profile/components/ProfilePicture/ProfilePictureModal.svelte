@@ -8,8 +8,8 @@
   import Spinner from '$components/Spinner/Spinner.svelte';
   import { pfpModal, userProfile } from '$lib/domains/profile/stores';
   import type { NFT } from '$lib/shared/types/NFT';
-  import { closeOnEscapeOrOutsideClick } from '$lib/shared/utils/customActions';
   import { classNames } from '$lib/shared/utils/classNames';
+  import { closeOnEscapeOrOutsideClick } from '$lib/shared/utils/customActions';
   import { getLogger } from '$libs/util/logger';
 
   import profileService from '../../services/ProfileServiceInstance';

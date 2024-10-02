@@ -2,7 +2,7 @@
   import { createEventDispatcher } from 'svelte';
 
   import { Icon, type IconType } from '$components/Icon';
-  import { classNames } from '$libs/util/classNames';
+  import { classNames } from '$lib/shared/utils/classNames';
 
   export let iconType1: IconType;
   export let iconType2: IconType;

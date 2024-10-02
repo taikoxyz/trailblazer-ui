@@ -6,8 +6,8 @@
   import { ActionButton } from '$components/Button';
   import DappsLeaderboard from '$components/Leaderboards/s2/DappsLeaderboard.svelte';
   import { Page } from '$components/Page';
+  import { classNames } from '$lib/shared/utils/classNames';
   import type { DappLeaderboardItem, PaginationInfo } from '$libs/leaderboard';
-  import { classNames } from '$libs/util/classNames';
 
   let pageInfo: PaginationInfo<DappLeaderboardItem>;
   let loading: boolean;

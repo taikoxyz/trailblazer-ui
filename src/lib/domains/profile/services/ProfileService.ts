@@ -1,5 +1,5 @@
 import { getAccount } from '@wagmi/core';
-import { type Address, getAddress, type Hash } from 'viem';
+import { type Address, getAddress, type Hash, zeroAddress } from 'viem';
 
 import { BadgeService } from '$lib/domains/nfts/services/BadgeService';
 import { CombinedNFTService } from '$lib/domains/nfts/services/CombinedNFTService';
@@ -9,6 +9,8 @@ import { isDevelopmentEnv } from '$libs/util/isDevelopmentEnv';
 import { getLogger } from '$libs/util/logger';
 
 import { ProfileApiAdapter } from '../adapter/ProfileAdapter';
+import { SeasonBonusPointsAdapter } from '../adapter/SeasonBonusPointsAdapter';
+import type { UserPointsAndRankResponse } from '../dto/profile.dto';
 import UserRepository from '../repositories/UserRepository';
 import { multipliersLoading, profileLoading } from '../stores/profileStore';
 import { defaultUserProfile } from '../types/defaultUserProfile';
@@ -22,6 +24,7 @@ const log = getLogger('ProfileService');
 export class ProfileService {
   // Adapters
   private apiAdapter: ProfileApiAdapter;
+  private seasonBonusAdapter: SeasonBonusPointsAdapter;
 
   // Repositories
   private userRepository: UserRepository;
@@ -34,6 +37,7 @@ export class ProfileService {
 
   constructor() {
     this.apiAdapter = new ProfileApiAdapter();
+    this.seasonBonusAdapter = new SeasonBonusPointsAdapter();
     this.userRepository = new UserRepository();
     this.combinedNFTService = new CombinedNFTService();
     this.badgeService = new BadgeService();
@@ -264,20 +268,6 @@ export class ProfileService {
   }
 
   /**
-   * Fetches and updates the user's avatar.
-   * @param address - The user's address.
-   */
-  private async fetchAndUpdateAvatar(address: Address): Promise<void> {
-    try {
-      const avatar = await this.apiAdapter.getProfilePicture(address);
-      log('Fetched Avatar:', avatar);
-      // await this.userRepository.update({ personalInfo: { avatar } });
-    } catch (error) {
-      log('Error in fetchAndUpdateAvatar:', error);
-    }
-  }
-
-  /**
    * Performs additional calculations like percentile, level, and boosted points.
    */
   private async performAdditionalCalculations(): Promise<void> {
@@ -445,6 +435,13 @@ export class ProfileService {
     }
   }
 
+  /**
+   * Retrieves multiple user's profile pictures for the given addresses.
+   *
+   * @param {Address[]} addresses the addresses to fetch profile pictures for
+   * @return {*}  {Promise<Record<Address, string>>}
+   * @memberof ProfileService
+   */
   async getProfilePictures(addresses: Address[]): Promise<Record<Address, string>> {
     log('Retrieving profile pictures for addresses:', addresses);
     try {
@@ -462,13 +459,58 @@ export class ProfileService {
         }
       }
       log('Profile pictures:', result);
-
-      // out[owner] = src.data.image;
-      // return profilePictures;
       return result;
     } catch (error) {
       log('Error retrieving profile pictures:', error);
       return {};
+    }
+  }
+
+  /**
+   * Retrieves the user's bonus points for the given season.
+   *
+   * @param {Address} address
+   * @param {number} season
+   * @return {*}  {Promise<number>}
+   * @memberof ProfileService
+   */
+  async getProfileBonusPoints(address: Address, season: number): Promise<number> {
+    log('Fetching bonus points for address:', address, 'season:', season);
+    try {
+      const bonusPoints = await this.seasonBonusAdapter.fetchUserBonusPoints(address, season);
+      log('Bonus points:', bonusPoints);
+      return bonusPoints;
+    } catch (error) {
+      log('Error fetching bonus points:', error);
+      return 0;
+    }
+  }
+
+  /**
+   * Retrieves the user's bonus points for a given season.
+   *
+   * @param {Address} address
+   * @param {number} season
+   * @return {*}  {Promise<number>}
+   * @memberof ProfileService
+   */
+  async getProfilePointsAndRank(address: Address, season: number): Promise<UserPointsAndRankResponse> {
+    log('Fetching points and rank for address:', address, 'season:', season);
+    try {
+      const pointsAndRank = await this.apiAdapter.fetchUserPointsAndRank(address, season);
+      log('Points and rank:', pointsAndRank);
+      return pointsAndRank;
+    } catch (error) {
+      log('Error fetching points and rank:', error);
+      return {
+        rank: 0,
+        address: zeroAddress,
+        score: 0,
+        multiplier: 0,
+        totalScore: 0,
+        total: 0,
+        blacklisted: false,
+      };
     }
   }
 }

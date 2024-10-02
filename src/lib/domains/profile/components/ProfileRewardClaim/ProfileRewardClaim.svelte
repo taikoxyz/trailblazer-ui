@@ -7,8 +7,8 @@
   import { page } from '$app/stores';
   import { Spinner } from '$components/Spinner';
   import { PUBLIC_CLAIMING_ACTIVE } from '$env/static/public';
-  import TokenClaim from '$libs/token-claim';
   import { classNames } from '$lib/shared/utils/classNames';
+  import TokenClaim from '$libs/token-claim';
   import getConnectedAddress from '$libs/util/getConnectedAddress';
   import { account } from '$stores/account';
   import { tokenClaimTermsAccepted } from '$stores/tokenClaim';

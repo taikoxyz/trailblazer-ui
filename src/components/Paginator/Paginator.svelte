@@ -3,7 +3,7 @@
   import { t } from 'svelte-i18n';
 
   import { Icon } from '$components/Icon';
-  import { classNames } from '$libs/util/classNames';
+  import { classNames } from '$lib/shared/utils/classNames';
 
   export let currentPage = 1; // UI starts with page 1
   export let totalItems = 0;

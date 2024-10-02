@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { Address, Hash } from 'viem';
 
-  import { classNames } from '$libs/util/classNames';
+  import { classNames } from '$lib/shared/utils/classNames';
 
   type ExplorerCategory = 'address' | 'transaction' | 'token';
 

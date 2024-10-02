@@ -1,7 +1,7 @@
 <script lang="ts">
   import { t } from 'svelte-i18n';
 
-  import { classNames } from '$libs/util/classNames';
+  import { classNames } from '$lib/shared/utils/classNames';
 
   import TrailblazerGuideStep from './TrailblazerGuideStep.svelte';
 

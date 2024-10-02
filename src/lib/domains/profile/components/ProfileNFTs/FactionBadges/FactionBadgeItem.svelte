@@ -1,7 +1,7 @@
 <script lang="ts">
   import { type FactionNames, FACTIONS } from '$configs/badges';
+  import { classNames } from '$lib/shared/utils/classNames';
   import type { Movements } from '$libs/badges/const';
-  import { classNames } from '$libs/util/classNames';
 
   import FactionImage from './FactionImage.svelte';
 

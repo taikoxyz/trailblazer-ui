@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onDestroy, onMount } from 'svelte';
 
-  import { classNames } from '$libs/util/classNames';
+  import { classNames } from '$lib/shared/utils/classNames';
 
   const wrapperClasses = classNames('flex', 'flex-col', 'w-full', 'items-center', 'justify-center', 'gap-[30px]');
 

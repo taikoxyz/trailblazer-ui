@@ -1,6 +1,6 @@
 <script lang="ts">
   import { Icon, type IconType } from '$components/Icon';
-  import { classNames } from '$libs/util/classNames';
+  import { classNames } from '$lib/shared/utils/classNames';
   import { noop } from '$libs/util/noop';
 
   import type { TypeToast } from './types';

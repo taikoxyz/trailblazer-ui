@@ -1,7 +1,7 @@
 <script lang="ts">
   import Carousel from '$components/Carousel/Carousel.svelte';
   import type { CarouselItemType } from '$components/Carousel/types';
-  import { classNames } from '$libs/util/classNames';
+  import { classNames } from '$lib/shared/utils/classNames';
 
   export let title: string | undefined = undefined;
   export let carouselItems: CarouselItemType[] = [];

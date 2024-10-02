@@ -7,7 +7,7 @@
 
 <script lang="ts">
   import ActionButton from '$components/Button/ActionButton.svelte';
-  import { classNames } from '$libs/util/classNames';
+  import { classNames } from '$lib/shared/utils/classNames';
 
   export let title: string | undefined = undefined;
   export let entries: IFaqEntry[] = [];

@@ -1,20 +1,20 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import type { Address } from 'viem';
+  import { getAddress } from 'viem';
 
   import { page } from '$app/stores';
   import { MintDisclaimerModal } from '$lib/shared/components';
   import { activeSeason } from '$lib/shared/stores/activeSeason';
+  import getConnectedAddress from '$lib/shared/utils/getConnectedAddress';
 
   import profileService from '../services/ProfileServiceInstance';
   import { profileLoading } from '../stores/profileStore';
   import BoosterCard from './BoosterCard.svelte';
   import ProfileCard from './ProfileCard.svelte';
   import ProfilePictureModal from './ProfilePicture/ProfilePictureModal.svelte';
-  import ProfileTabs from './ProfileTabs.svelte';
   import ProfileSeasonBonusCard from './ProfileSeasonBonusCard/ProfileSeasonBonusCard.svelte';
-  import { getAddress } from 'viem';
-  import getConnectedAddress from '$lib/shared/utils/getConnectedAddress';
+  import ProfileTabs from './ProfileTabs.svelte';
 
   $: isSelfProfile = false;
   onMount(async () => {

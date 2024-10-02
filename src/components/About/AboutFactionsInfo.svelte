@@ -1,6 +1,6 @@
 <script lang="ts">
   import { ActionButton } from '$components/Button';
-  import { classNames } from '$libs/util/classNames';
+  import { classNames } from '$lib/shared/utils/classNames';
 
   const wrapperClasses = classNames(
     'flex',

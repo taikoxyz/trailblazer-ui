@@ -5,7 +5,7 @@
   import { page } from '$app/stores';
   import { Spinner } from '$lib/shared/components';
   import { formatNumbers } from '$lib/shared/utils';
-  import { classNames } from '$libs/util/classNames';
+  import { classNames } from '$lib/shared/utils/classNames';
   import getConnectedAddress from '$libs/util/getConnectedAddress';
 
   import { userProfile } from '../stores/profileStore';

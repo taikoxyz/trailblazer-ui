@@ -1,7 +1,7 @@
 <script lang="ts">
   import ActionButton from '$components/Button/ActionButton.svelte';
   import { Title } from '$components/Title';
-  import { classNames } from '$libs/util/classNames';
+  import { classNames } from '$lib/shared/utils/classNames';
 
   import EcosystemItem from './components/EcosystemItem.svelte';
   import EcosystemPartners from './partners';

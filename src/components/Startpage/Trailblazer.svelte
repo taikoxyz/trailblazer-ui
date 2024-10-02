@@ -1,7 +1,7 @@
 <script lang="ts">
   import S2StartBanner from '$components/Banner/S2StartBanner.svelte';
   import EcosystemSection from '$components/Ecosystem/EcosystemSection.svelte';
-  import { classNames } from '$libs/util/classNames';
+  import { classNames } from '$lib/shared/utils/classNames';
 
   import ExploreEcosystem from './ExploreEcosystem.svelte';
   import Factions from './Factions/Factions.svelte';

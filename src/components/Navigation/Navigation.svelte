@@ -1,6 +1,6 @@
 <script lang="ts">
+  import { classNames } from '$lib/shared/utils/classNames';
   import { routes } from '$libs/routes';
-  import { classNames } from '$libs/util/classNames';
 
   import NavigationChild from './NavigationChild.svelte';
   import NavigationParent from './NavigationParent.svelte';

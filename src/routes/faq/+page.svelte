@@ -3,7 +3,7 @@
 
   import { FaqBlock } from '$components/FaqBlock';
   import type { IFaqEntry } from '$components/FaqBlock/FaqBlock.svelte';
-  import { classNames } from '$libs/util/classNames';
+  import { classNames } from '$lib/shared/utils/classNames';
 
   $: faqEntries = $json('faq') as { section: string; items: IFaqEntry[] }[];
 

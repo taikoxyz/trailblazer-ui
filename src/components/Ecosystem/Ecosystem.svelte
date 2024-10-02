@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { classNames } from '$libs/util/classNames';
+  import { classNames } from '$lib/shared/utils/classNames';
 
   import EcosystemGrid from './components/EcosystemGrid.svelte';
   import EcosystemHeader from './components/EcosystemHeader.svelte';

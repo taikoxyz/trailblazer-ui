@@ -11,7 +11,7 @@
   import { profileLoading, userProfile } from '$lib/domains/profile/stores';
   import type { NFT } from '$lib/shared/types/NFT';
   import { chainId } from '$lib/shared/utils/chain';
-  import { classNames } from '$libs/util/classNames';
+  import { classNames } from '$lib/shared/utils/classNames';
 
   import UserNFTsSection from './UserNFTsSection.svelte';
 
@@ -41,7 +41,6 @@
     'container',
     'w-full',
     'bg-elevated-background',
-    'xl:max-w-[1344px]',
     'sm:rounded-b-[30px]',
     'rounded-t-[30px]',
     'md:rounded-tl-none',

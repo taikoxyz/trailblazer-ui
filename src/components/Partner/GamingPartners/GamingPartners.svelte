@@ -1,6 +1,6 @@
 <script lang="ts">
   import { PartnersTemplate } from '$components/Partner/';
-  import { classNames } from '$libs/util/classNames';
+  import { classNames } from '$lib/shared/utils/classNames';
 
   import { gamingCarouselItems } from './gamingCarouselItems';
 </script>

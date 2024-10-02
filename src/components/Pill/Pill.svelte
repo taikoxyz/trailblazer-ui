@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onMount } from 'svelte';
 
-  import { classNames } from '$libs/util/classNames';
+  import { classNames } from '$lib/shared/utils/classNames';
   import { positionElementByTarget } from '$libs/util/positionElementByTarget';
 
   export let position: Position = 'top';

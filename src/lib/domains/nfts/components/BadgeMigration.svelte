@@ -7,12 +7,12 @@
   import { userProfile } from '$lib/domains/profile/stores';
   import type { NFT } from '$lib/shared/types/NFT';
   import { chainId } from '$lib/shared/utils/chain';
+  import { classNames } from '$lib/shared/utils/classNames';
   import { Movements } from '$libs/badges/const';
   import isApprovedToMigrate from '$libs/badges/isApprovedToMigrate';
   import getEnabledMigrationIds from '$libs/badges/migration/getEnabledMigrationIds';
   import updateMigrationStatus from '$libs/badges/migration/updateMigrationStatus';
   import startMigration from '$libs/badges/startMigration';
-  import { classNames } from '$libs/util/classNames';
   import { account } from '$stores/account';
   import { badgeMigrationStore } from '$stores/badgeMigration';
   import { migrationApprovalModal } from '$stores/modal';
@@ -25,7 +25,6 @@
     'container',
     'w-full',
     'bg-elevated-background',
-    'xl:max-w-[1344px]',
     'sm:rounded-b-[30px]',
     'rounded-t-[30px]',
     'md:rounded-tl-none',

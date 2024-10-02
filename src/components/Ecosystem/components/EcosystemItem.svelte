@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { classNames } from '$libs/util/classNames';
+  import { classNames } from '$lib/shared/utils/classNames';
 
   import type { IEcosystemPartner } from '../partners';
 

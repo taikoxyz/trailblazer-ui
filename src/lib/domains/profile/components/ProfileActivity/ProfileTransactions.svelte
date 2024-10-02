@@ -2,7 +2,7 @@
   import { Paginator } from '$components/Paginator';
   import { Spinner } from '$components/Spinner';
   import { activeSeason } from '$lib/shared/stores/activeSeason';
-  import { classNames } from '$libs/util/classNames';
+  import { classNames } from '$lib/shared/utils/classNames';
 
   import profileService from '../../services/ProfileServiceInstance';
   import { profileLoading, userProfile } from '../../stores/profileStore';
@@ -29,7 +29,6 @@
     'container',
     'w-full',
     'bg-elevated-background',
-    'xl:max-w-[1344px]',
     'sm:rounded-b-[30px]',
     'rounded-t-[30px]',
     'md:rounded-tl-none',

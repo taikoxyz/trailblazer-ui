@@ -1,6 +1,6 @@
 <script lang="ts">
   import Spinner from '$components/Spinner/Spinner.svelte';
-  import { classNames } from '$libs/util/classNames';
+  import { classNames } from '$lib/shared/utils/classNames';
 
   export let text = 'Loading';
   export let textClass = '';

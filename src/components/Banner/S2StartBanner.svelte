@@ -3,8 +3,8 @@
 
   import { goto } from '$app/navigation';
   import ActionButton from '$components/Button/ActionButton.svelte';
+  import { classNames } from '$lib/shared/utils/classNames';
   import { web3modal } from '$libs/connect';
-  import { classNames } from '$libs/util/classNames';
   import { account } from '$stores/account';
 
   // Container Classes

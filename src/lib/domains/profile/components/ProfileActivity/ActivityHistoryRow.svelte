@@ -4,7 +4,7 @@
   import { ActivityIcon } from '$components/Icon';
   import Icon from '$components/Icon/Icon.svelte';
   import { Pill } from '$components/Pill';
-  import { classNames } from '$libs/util/classNames';
+  import { classNames } from '$lib/shared/utils/classNames';
   import { formatDate } from '$libs/util/formatDate';
   import { truncateDecimal } from '$libs/util/truncateDecimal';
 

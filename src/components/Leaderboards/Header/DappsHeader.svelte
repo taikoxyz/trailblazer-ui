@@ -2,8 +2,8 @@
   import { getContext } from 'svelte';
   import { t } from 'svelte-i18n';
 
+  import { classNames } from '$lib/shared/utils/classNames';
   import type { DappLeaderboardItem, PaginationInfo } from '$libs/leaderboard';
-  import { classNames } from '$libs/util/classNames';
 
   import LastUpdated from '../LastUpdated.svelte';
   import Search from './Search.svelte';

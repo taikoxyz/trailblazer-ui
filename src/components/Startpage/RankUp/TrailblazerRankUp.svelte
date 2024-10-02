@@ -2,7 +2,7 @@
   import { t } from 'svelte-i18n';
 
   import ActionButton from '$components/Button/ActionButton.svelte';
-  import { classNames } from '$libs/util/classNames';
+  import { classNames } from '$lib/shared/utils/classNames';
 
   const containerClasses = classNames(
     'w-full',

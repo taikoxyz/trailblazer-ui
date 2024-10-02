@@ -1,14 +1,15 @@
 <script lang="ts">
   import { ActionButton } from '$components/Button';
   import { Spinner } from '$components/Spinner';
-  import { Tooltip } from '$lib/shared/components/Tooltip';
-  import { AbstractProfileCard } from '../templates';
   import { bonusLoading } from '$lib/domains/profile/stores';
-  import profileService from '../../services/ProfileServiceInstance';
+  import { Tooltip } from '$lib/shared/components/Tooltip';
   import { activeSeason } from '$lib/shared/stores/activeSeason';
-  import { account } from '$stores/account';
-  import type { UserPointsAndRankResponse } from '../../dto/profile.dto';
   import getConnectedAddress from '$libs/util/getConnectedAddress';
+  import { account } from '$stores/account';
+
+  import type { UserPointsAndRankResponse } from '../../dto/profile.dto';
+  import profileService from '../../services/ProfileServiceInstance';
+  import { AbstractProfileCard } from '../templates';
 
   $: seasonBonusPoints = 0;
   $: previousSeasonPointsAndRank = {} as UserPointsAndRankResponse;

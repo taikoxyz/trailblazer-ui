@@ -6,8 +6,8 @@
   import { ActionButton } from '$components/Button';
   import { UserLeaderboardS2 } from '$components/Leaderboards/s2';
   import { Page } from '$components/Page';
+  import { classNames } from '$lib/shared/utils/classNames';
   import type { PaginationInfo, UserLeaderboardItem } from '$libs/leaderboard';
-  import { classNames } from '$libs/util/classNames';
 
   let pageInfo: PaginationInfo<UserLeaderboardItem>;
   let loading: boolean;

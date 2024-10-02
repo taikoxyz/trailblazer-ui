@@ -1,6 +1,6 @@
 <script lang="ts">
   import { Icon } from '$components/Icon';
-  import { classNames } from '$libs/util/classNames';
+  import { classNames } from '$lib/shared/utils/classNames';
 
   export let icon: 'semi-circle-reversed' | 'quad-circles' | 'diamond' = 'semi-circle-reversed';
   export let title: string = 'Unlock your potential';

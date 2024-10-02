@@ -1,6 +1,6 @@
 <script lang="ts">
   import { Spinner } from '$components/Spinner';
-  import { classNames } from '$libs/util/classNames';
+  import { classNames } from '$lib/shared/utils/classNames';
 
   type ButtonType =
     | 'neutral'

@@ -6,7 +6,7 @@
   import { FactionsGallery } from '$components/FactionsGallery';
   import Icon from '$components/Icon/Icon.svelte';
   import Title from '$components/Title/Title.svelte';
-  import { classNames } from '$libs/util/classNames';
+  import { classNames } from '$lib/shared/utils/classNames';
 
   import { DividerElement } from '../DividerElement';
 

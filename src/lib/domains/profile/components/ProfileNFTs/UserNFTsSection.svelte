@@ -3,8 +3,8 @@
   import { FACTIONS } from '$lib/domains/nfts/types/badges/types';
   import type { NFT } from '$lib/shared/types/NFT';
   import { chainId } from '$lib/shared/utils/chain';
+  import { classNames } from '$lib/shared/utils/classNames';
   import { Movements } from '$libs/badges/const';
-  import { classNames } from '$libs/util/classNames';
 
   import { FactionBadgeItem } from './FactionBadges';
   import UserNftItem from './Taikoons/UserNFTItem.svelte';

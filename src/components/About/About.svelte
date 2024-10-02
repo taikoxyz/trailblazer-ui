@@ -6,7 +6,7 @@
   import Factions from '$components/Startpage/Factions/Factions.svelte';
   import { TrailblazerGuide } from '$components/Startpage/Guide';
   import TrailblazerRankUp from '$components/Startpage/RankUp/TrailblazerRankUp.svelte';
-  import { classNames } from '$libs/util/classNames';
+  import { classNames } from '$lib/shared/utils/classNames';
 
   import AboutHero from './AboutHero.svelte';
   import AboutInfoPanels from './AboutInfoPanels.svelte';

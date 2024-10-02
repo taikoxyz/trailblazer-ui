@@ -23,9 +23,9 @@ export class ProfileApiAdapter {
    * @return {*}
    * @memberof ProfileApiAdapter
    */
-  async fetchUserPointsAndRank(address: Address, season: number) {
+  async fetchUserPointsAndRank(address: Address, season: number): Promise<UserPointsAndRankResponse> {
     const client = getAxiosInstance(season);
-    const response: UserPointsAndRankResponse = await client.get(`/user/rank`, {
+    const response = await client.get<UserPointsAndRankResponse>(`/user/rank`, {
       params: { address },
       ...globalAxiosConfig,
     });

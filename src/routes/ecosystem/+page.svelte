@@ -1,6 +1,6 @@
 <script lang="ts">
   import { Ecosystem } from '$components/Ecosystem';
-  import { classNames } from '$libs/util/classNames';
+  import { classNames } from '$lib/shared/utils/classNames';
 
   const wrapperClasses = classNames(
     'f-center',

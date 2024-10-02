@@ -5,7 +5,7 @@
   import LogoWithText from '$components/Logo/LogoWithText.svelte';
   import { MobileNavigation } from '$components/MobileNavigation';
   import Navigation from '$components/Navigation/Navigation.svelte';
-  import { classNames } from '$libs/util/classNames';
+  import { classNames } from '$lib/shared/utils/classNames';
 
   let mobileMenu = false;
 

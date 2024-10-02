@@ -1,7 +1,7 @@
 <script lang="ts">
   import { pfpModal, profileLoading } from '$lib/domains/profile/stores/';
   import type { UserProfile } from '$lib/domains/profile/types/UserProfile';
-  import { classNames } from '$libs/util/classNames';
+  import { classNames } from '$lib/shared/utils/classNames';
 
   export let profile: UserProfile;
   export let isSelfProfile: boolean;

@@ -3,7 +3,7 @@
   import { t } from 'svelte-i18n';
 
   import { Button } from '$components/Button';
-  import { classNames } from '$libs/util/classNames';
+  import { classNames } from '$lib/shared/utils/classNames';
   import { mintDisclaimerModal } from '$stores/modal';
 
   const modalContentWrapperClasses = classNames('modal-box', 'p-0', 'bg-secondary-icon', 'md:w-[40vw]');

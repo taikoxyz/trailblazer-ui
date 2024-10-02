@@ -3,8 +3,8 @@
 
   import ActionButton from '$components/Button/ActionButton.svelte';
   import { errorToast, successToast } from '$components/NotificationToast';
+  import { classNames } from '$lib/shared/utils/classNames';
   import claimBadge from '$libs/badges/claimBadge';
-  import { classNames } from '$libs/util/classNames';
   import { isDevelopmentEnv } from '$libs/util/isDevelopmentEnv';
   import { account } from '$stores/account';
 
@@ -12,7 +12,6 @@
     'container',
     'w-full',
     'bg-elevated-background',
-    'xl:max-w-[1344px]',
     'sm:rounded-b-[30px]',
     'rounded-t-[30px]',
     'md:rounded-tl-none',

@@ -1,6 +1,6 @@
 <script lang="ts">
   import Icon from '$components/Icon/Icon.svelte';
-  import { classNames } from '$libs/util/classNames';
+  import { classNames } from '$lib/shared/utils/classNames';
 
   import EcosystemPartners from '../partners';
   import EcosystemItem from './EcosystemItem.svelte';

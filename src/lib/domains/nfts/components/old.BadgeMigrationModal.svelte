@@ -5,6 +5,7 @@
   import { FACTIONS } from '$configs/badges';
   import { trailblazersBadgesS2Address } from '$generated/abi';
   import { chainId } from '$lib/shared/utils/chain';
+  import { classNames } from '$lib/shared/utils/classNames';
   import approve from '$libs/badges/approve';
   import { Movements } from '$libs/badges/const';
   import { getTokenId } from '$libs/badges/getTokenId';
@@ -14,7 +15,6 @@
   import startMigration from '$libs/badges/startMigration';
   import tamperMigration from '$libs/badges/tamperMigration';
   import type { Faction } from '$libs/profile';
-  import { classNames } from '$libs/util/classNames';
   import { account } from '$stores/account';
   import { badgeMigrationStore } from '$stores/badgeMigration';
   import { badgeMigrationModal } from '$stores/modal';

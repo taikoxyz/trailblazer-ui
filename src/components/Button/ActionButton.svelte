@@ -1,7 +1,7 @@
 <script lang="ts">
   import { Icon } from '$components/Icon';
   import { Spinner } from '$components/Spinner';
-  import { classNames } from '$libs/util/classNames';
+  import { classNames } from '$lib/shared/utils/classNames';
 
   import { ButtonState } from './states';
   import type { ActionButtonType } from './types';

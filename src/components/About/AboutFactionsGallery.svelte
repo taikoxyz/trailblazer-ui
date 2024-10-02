@@ -1,6 +1,6 @@
 <script lang="ts">
   import { Icon, LockIcon } from '$components/Icon';
-  import { classNames } from '$libs/util/classNames';
+  import { classNames } from '$lib/shared/utils/classNames';
 
   import { type GalleryItem } from '../FactionsGallery/types';
 
