@@ -7,7 +7,7 @@
   import { classNames } from '$libs/util/classNames';
 
   import { FactionBadgeItem } from './FactionBadges';
-  import UserNftItem from './TaikoNFTs/UserNFTItem.svelte';
+  import UserNftItem from './Taikoons/UserNFTItem.svelte';
 
   export let nfts: NFT[] = [];
   export let title: string = 'NFTs';

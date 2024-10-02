@@ -34,7 +34,7 @@ export class TaikoonAdapter {
       out.push({
         address: taikoonTokenAddress[chainId],
         tokenId,
-        src: '',
+        src: tokenUri,
         tokenUri,
       } satisfies NFT);
     }
