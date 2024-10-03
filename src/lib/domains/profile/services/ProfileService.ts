@@ -1,6 +1,7 @@
 import { getAccount } from '@wagmi/core';
 import { type Address, getAddress, type Hash } from 'viem';
 
+import { BadgeMigrationService } from '$lib/domains/nfts/services/BadgeMigrationService';
 import { BadgeService } from '$lib/domains/nfts/services/BadgeService';
 import { CombinedNFTService } from '$lib/domains/nfts/services/CombinedNFTService';
 import type { NFT } from '$lib/shared/types/NFT';
@@ -29,6 +30,7 @@ export class ProfileService {
   //Services
   private combinedNFTService: CombinedNFTService;
   private badgeService: BadgeService;
+  private badgeMigrationService: BadgeMigrationService;
 
   private localStorageKey = 'taikoENSdomain';
 
@@ -37,6 +39,7 @@ export class ProfileService {
     this.userRepository = new UserRepository();
     this.combinedNFTService = new CombinedNFTService();
     this.badgeService = new BadgeService();
+    this.badgeMigrationService = new BadgeMigrationService();
   }
 
   /**
@@ -84,6 +87,7 @@ export class ProfileService {
         },
         multipliers: defaultUserProfile.multipliers,
         domainInfo: userDomainInfo,
+        badgeMigrations: [],
       };
 
       const info: DomainInfo = {
@@ -106,8 +110,9 @@ export class ProfileService {
       const avatar = this.getProfilePicture(address);
       const rankName = this.performAdditionalCalculations();
       const domainInfo = this.handleDomainSelection(info);
+      const badgeMigrations = this.getBadgeMigrations(address);
 
-      await Promise.all([multiplier, avatar, rankName, domainInfo, nfts]);
+      await Promise.all([multiplier, avatar, rankName, domainInfo, nfts, badgeMigrations]);
 
       log('Final Profile:', await this.userRepository.get());
     } catch (error) {
@@ -470,5 +475,45 @@ export class ProfileService {
       log('Error retrieving profile pictures:', error);
       return {};
     }
+  }
+
+  /* example for ref
+
+
+  async getProfileWithNFTs(address: Address, season: number = 0): Promise<void> {
+    log('Fetching profile with NFTs for address:', address, 'season:', season);
+    profileLoading.set(true);
+
+    try {
+      // Fetch NFTs (badges, avatars, etc.)
+      const nfts = await this.combinedNFTService.fetchAllNFTsForUser(address);
+
+      log('result of fetchAllNFTsForUser:', nfts);
+      // Combine and update the profile with NFT data
+      await this.userRepository.update({
+        nfts: [...nfts.taikoonNFTs, ...nfts.badgeNFTs],
+      });
+
+      log('Profile with NFTs:', await this.userRepository.get());
+    } catch (error) {
+      log('Error in getProfileWithNFTs:', error);
+    } finally {
+      profileLoading.set(false);
+    }
+  }
+
+
+
+  */
+  async getEnabledMigrations(): Promise<number[]> {
+    log('getEnabledMigrations');
+    return this.badgeMigrationService.getEnabledMigrations();
+  }
+
+  async getBadgeMigrations(address: Address): Promise<void> {
+    // fetch the required info here!
+    log('getBadgeMigrations', { address });
+
+    this.badgeMigrationService.getEnabledMigrations()
   }
 }

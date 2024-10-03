@@ -4,12 +4,12 @@
   import { ActionButton } from '$components/Button';
   import { FactionNames, FACTIONS } from '$configs/badges';
   import { trailblazersBadgesAddress } from '$generated/abi';
+  import profileService from '$lib/domains/profile/services/ProfileServiceInstance';
   import { userProfile } from '$lib/domains/profile/stores';
   import type { NFT } from '$lib/shared/types/NFT';
   import { chainId } from '$lib/shared/utils/chain';
   import { Movements } from '$libs/badges/const';
   import isApprovedToMigrate from '$libs/badges/isApprovedToMigrate';
-  import getEnabledMigrationIds from '$libs/badges/migration/getEnabledMigrationIds';
   import updateMigrationStatus from '$libs/badges/migration/updateMigrationStatus';
   import startMigration from '$libs/badges/startMigration';
   import { classNames } from '$libs/util/classNames';
@@ -81,7 +81,9 @@
     userBadges = allNFTS.filter(
       (nft) => nft.address.toLowerCase() === trailblazersBadgesAddress[chainId].toLowerCase(),
     );
-    enabledBadgeIds = await getEnabledMigrationIds();
+    // enabledBadgeIds = await getEnabledMigrationIds();
+
+    enabledBadgeIds = await profileService.getEnabledMigrations();
 
     // TODO: TEMPORARY
     // slice the nfts, only leave the first
