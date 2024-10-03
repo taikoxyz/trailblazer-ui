@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { CampaignEndedInfoBox } from '$components/Leaderboards/CampaignEndedInfoBox';
+  import { CampaignEndedInfoBox } from '$lib/domains/leaderboard/components/CampaignEndedInfoBox';
 
   export let title: string;
   export let description: string;

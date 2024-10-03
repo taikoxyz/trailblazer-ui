@@ -1,6 +1,10 @@
+import { get } from 'svelte/store';
+
 import { browser } from '$app/environment';
 import { leaderboardConfig } from '$config';
-import { type DappLeaderboardItem, Leaderboard, type PaginationInfo } from '$libs/leaderboard';
+import { dappLeaderboardService } from '$lib/domains/leaderboard/services/LeaderboardServiceInstances';
+import { activeSeason } from '$lib/shared/stores/activeSeason';
+import { type DappLeaderboardItem, type PaginationInfo } from '$libs/leaderboard';
 
 export const load = async () => {
   let loading = true;
@@ -13,7 +17,8 @@ export const load = async () => {
 
   if (browser) {
     try {
-      pageInfo = await Leaderboard.getDappLeaderboard(pageInfo);
+      const leaderboardPage = await dappLeaderboardService.getDappLeaderboardData(pageInfo, get(activeSeason));
+      if (leaderboardPage) pageInfo = leaderboardPage.pagination;
     } catch (error) {
       console.error('Error loading leaderboard data:', error);
     } finally {

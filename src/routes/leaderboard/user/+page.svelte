@@ -4,8 +4,8 @@
   import { goto } from '$app/navigation';
   import { page } from '$app/stores';
   import { ActionButton } from '$components/Button';
-  import { UserLeaderboard } from '$components/Leaderboards';
   import { Page } from '$components/Page';
+  import { UserLeaderboard } from '$lib/domains/leaderboard/components';
   import type { PaginationInfo, UserLeaderboardItem } from '$libs/leaderboard';
 
   let pageInfo: PaginationInfo<UserLeaderboardItem>;

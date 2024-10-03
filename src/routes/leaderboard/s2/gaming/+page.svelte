@@ -4,8 +4,8 @@
   import { goto } from '$app/navigation';
   import { page } from '$app/stores';
   import { ActionButton } from '$components/Button';
-  import GamingLeaderboard from '$components/Leaderboards/s2/GamingLeaderboard.svelte';
   import { Page } from '$components/Page';
+  import GamingLeaderboard from '$lib/domains/leaderboard/components/s2/GamingLeaderboard.svelte';
   import type { DappLeaderboardItem, PaginationInfo } from '$libs/leaderboard';
 
   let pageInfo: PaginationInfo<DappLeaderboardItem>;

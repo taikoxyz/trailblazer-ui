@@ -1,10 +1,11 @@
 <script lang="ts">
-  import { UserLeaderboardHeader } from '$components/Leaderboards/Header';
-  import { AbstractLeaderboard, PointScore } from '$components/Leaderboards/Template/';
   import { leaderboardConfig } from '$config';
   import { mapUserLeaderboardRow, type PaginationInfo } from '$libs/leaderboard';
   import { type UserLeaderboardItem, UserLeaderboardS2 } from '$libs/leaderboard/season-2/user/index';
   import { currentUserLeaderboard } from '$stores/leaderboard';
+
+  import { UserLeaderboardHeader } from '../Header';
+  import { AbstractLeaderboard, PointScore } from '../Template';
 
   let headers = ['No.', 'Address', 'Level', 'Title', 'Points'];
 

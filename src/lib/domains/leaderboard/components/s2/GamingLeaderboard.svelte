@@ -1,14 +1,15 @@
 <script lang="ts">
   import { setContext } from 'svelte';
 
-  import { default as GamingCompetitionInformation } from '$components/Leaderboards/Competition/GamingCompetition/GamingCompetitionInformation.svelte';
-  import { default as GamingHeader } from '$components/Leaderboards/Header/GamingHeader.svelte';
-  import { AbstractLeaderboard, PointScore } from '$components/Leaderboards/Template/';
   import { leaderboardConfig } from '$config';
   import { type DappLeaderboardItem, type PaginationInfo } from '$libs/leaderboard';
   import { GamingLeaderboard } from '$libs/leaderboard/season-2/competitions/gaming/gamingLeaderboard';
   import { getLogger } from '$libs/util/logger';
   import { currentGamingLeaderboard } from '$stores/leaderboards/gamingLeaderboard';
+
+  import { GamingCompetitionInformation } from '../Competition/GamingCompetition';
+  import GamingHeader from '../Header/GamingHeader.svelte';
+  import { AbstractLeaderboard, PointScore } from '../Template';
 
   const log = getLogger('DappsLeaderboard');
   export let loading = false;

@@ -2,11 +2,13 @@
   import { setContext } from 'svelte';
 
   import { leaderboardConfig } from '$config';
-  import { type DappLeaderboardItem, Leaderboard, type PaginationInfo } from '$libs/leaderboard';
+  import { activeSeason } from '$lib/shared/stores/activeSeason';
+  import { type DappLeaderboardItem, type PaginationInfo } from '$libs/leaderboard';
   import { getLogger } from '$libs/util/logger';
   import { currentDappLeaderboard } from '$stores/leaderboard';
 
-  import DappsHeader from './Header/DappsHeader.svelte';
+  import { dappLeaderboardService } from '../services/LeaderboardServiceInstances';
+  import DappsHeader from './Header/DappsLeaderboardHeader.svelte';
   import AbstractLeaderboard from './Template/AbstractLeaderboard.template.svelte';
   import PointScore from './Template/PointScore.template.svelte';
 
@@ -35,8 +37,12 @@
       size: pageSize,
       name,
     };
-    const pageInfo = await Leaderboard.getDappLeaderboard(args);
-    totalItems = pageInfo.total || $currentDappLeaderboard.items.length;
+    const leaderboardPage = await dappLeaderboardService.getDappLeaderboardData(args, $activeSeason);
+    if (leaderboardPage) {
+      totalItems = leaderboardPage.pagination.total || $currentDappLeaderboard.items.length;
+      pageInfo = leaderboardPage.pagination;
+      log('leaderboardPage', leaderboardPage.pagination);
+    }
     loading = false;
   }
 

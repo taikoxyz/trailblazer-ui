@@ -1,13 +1,17 @@
 <script lang="ts">
   import { setContext } from 'svelte';
 
-  import DappsHeader from '$components/Leaderboards/Header/DappsHeader.svelte';
-  import { AbstractLeaderboard, PointScore } from '$components/Leaderboards/Template/';
   import { leaderboardConfig } from '$config';
-  import { type DappLeaderboardItem, type PaginationInfo } from '$libs/leaderboard';
-  import { DappsLeaderboardS2 } from '$libs/leaderboard/season-2/dapps/dappsLeaderboard';
+  import { DappsLeaderboardHeader } from '$lib/domains/leaderboard/components/Header';
+  import { PointScore } from '$lib/domains/leaderboard/components/Template';
+  import type { PaginationInfo } from '$lib/shared/dto/CommonPageApiResponse';
+  import { activeSeason } from '$lib/shared/stores/activeSeason';
   import { getLogger } from '$libs/util/logger';
-  import { currentDappLeaderboard } from '$stores/leaderboard';
+
+  import type { DappLeaderboardItem } from '../../dto/dapps.dto';
+  import { dappLeaderboardService } from '../../services/LeaderboardServiceInstances';
+  import { currentDappLeaderboard } from '../../stores/dappleaderboard';
+  import { AbstractLeaderboard } from '../Template';
 
   const log = getLogger('DappsLeaderboard');
 
@@ -34,8 +38,8 @@
       size: pageSize,
       name,
     };
-    const pageInfo = await DappsLeaderboardS2.getDappLeaderboard(args);
-    totalItems = pageInfo.total || $currentDappLeaderboard.items.length;
+    const leaderboardPage = await dappLeaderboardService.getDappLeaderboardData(args, $activeSeason);
+    totalItems = leaderboardPage?.pagination.total || $currentDappLeaderboard.items.length;
     loading = false;
   }
 
@@ -51,5 +55,5 @@
   {handlePageChange}
   {totalItems}
   showPagination={true}
-  headerComponent={DappsHeader}
+  headerComponent={DappsLeaderboardHeader}
   scoreComponent={PointScore} />

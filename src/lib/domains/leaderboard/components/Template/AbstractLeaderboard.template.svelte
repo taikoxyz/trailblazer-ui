@@ -4,7 +4,7 @@
   import { DisabledMask } from '$components/Masks';
   import Paginator from '$components/Paginator/Paginator.svelte';
   import { leaderboardConfig } from '$config';
-  import type { UnifiedLeaderboardRow } from '$libs/leaderboard';
+  import type { UnifiedLeaderboardRow } from '$lib/domains/leaderboard/types/shared/types';
 
   import LoadingRow from './LoadingRow.svelte';
   import TableHeader from './TableHeader.svelte';

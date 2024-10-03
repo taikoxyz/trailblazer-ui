@@ -3,8 +3,8 @@
 
   import { goto } from '$app/navigation';
   import { ActionButton } from '$components/Button';
-  import { BridgeLeaderboard } from '$components/Leaderboards';
   import { Page } from '$components/Page';
+  import BridgeLeaderboard from '$lib/domains/leaderboard/components/BridgeLeaderboard.svelte';
 </script>
 
 <svelte:head>

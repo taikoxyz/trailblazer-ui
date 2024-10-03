@@ -3,8 +3,8 @@
 
   import { goto } from '$app/navigation';
   import { ActionButton } from '$components/Button';
-  import { DeFiDappLeaderboard } from '$components/Leaderboards';
   import { Page } from '$components/Page';
+  import DeFiDappLeaderboard from '$lib/domains/leaderboard/components/DeFiDappLeaderboard.svelte';
 </script>
 
 <svelte:head>
