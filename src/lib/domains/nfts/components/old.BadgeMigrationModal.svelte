@@ -10,7 +10,7 @@
   import { getTokenId } from '$libs/badges/getTokenId';
   import isApprovedToMigrate from '$libs/badges/isApprovedToMigrate';
   import getMigrationStatus from '$libs/badges/migration/getMigrationStatus';
-  import setApprovalForAll from '$libs/badges/setApprovalForAll';
+  //  import setApprovalForAll from '$libs/badges/setApprovalForAll';
   import startMigration from '$libs/badges/startMigration';
   import tamperMigration from '$libs/badges/tamperMigration';
   import type { Faction } from '$libs/profile';
@@ -160,7 +160,7 @@
   async function setApproveSeason2() {
     if (!$account || !$account.address) return;
     isLoading = true;
-    await setApprovalForAll(trailblazersBadgesS2Address[chainId]);
+    // await setApprovalForAll(trailblazersBadgesS2Address[chainId]);
     isLoading = false;
     isApproved = true;
   }

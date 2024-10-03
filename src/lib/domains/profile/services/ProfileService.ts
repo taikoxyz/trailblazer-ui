@@ -88,6 +88,7 @@ export class ProfileService {
         multipliers: defaultUserProfile.multipliers,
         domainInfo: userDomainInfo,
         badgeMigrations: [],
+        isSetApprovalForAll: false,
       };
 
       const info: DomainInfo = {
@@ -510,10 +511,19 @@ export class ProfileService {
     return this.badgeMigrationService.getEnabledMigrations();
   }
 
+  async setApprovalForAll(address: Address): Promise<string> {
+    log('setApprovalForAll', { address });
+    return this.badgeMigrationService.setApprovalForAll(address);
+  }
+
   async getBadgeMigrations(address: Address): Promise<void> {
     // fetch the required info here!
     log('getBadgeMigrations', { address });
+    // first, fetch if the user has set approval for all
+    const isSetApprovalForAll = await this.badgeMigrationService.getApprovalForAll(address);
 
-    this.badgeMigrationService.getEnabledMigrations()
+    await this.userRepository.update({
+      isSetApprovalForAll,
+    });
   }
 }

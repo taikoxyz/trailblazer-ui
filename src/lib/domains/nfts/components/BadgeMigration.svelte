@@ -2,6 +2,7 @@
   import { onMount } from 'svelte';
 
   import { ActionButton } from '$components/Button';
+  import { errorToast, successToast } from '$components/NotificationToast';
   import { FactionNames, FACTIONS } from '$configs/badges';
   import { trailblazersBadgesAddress } from '$generated/abi';
   import profileService from '$lib/domains/profile/services/ProfileServiceInstance';
@@ -31,6 +32,7 @@
     'md:rounded-tl-none',
     'rounded-[30px]',
     'relative',
+    'pb-[30px]',
   );
 
   const rowClass = classNames(
@@ -65,6 +67,37 @@
     'text-secondary-content',
     'flex',
     'h-[70px]',
+  );
+
+  const approvalInfoWrapperClasses = classNames(
+    'border-l-[6px]',
+    'pl-[16px]',
+    'border-primary',
+    'text-[#ADB1B8]',
+    'w-full',
+    'flex',
+    'flex-col',
+    'justify-center',
+    'items-start',
+    'font-[500]',
+    'relative',
+    'lg:pr-[40%]',
+    'mb-[50px]',
+  );
+  const approvalInfoTitleClasses = classNames(
+    'mb-[12px]',
+
+    'text-[#F3F3F3]',
+    'text-[26px]/[26px]',
+    'font-clash-grotesk',
+  );
+  const approvalButtonWrapperClasses = classNames(
+    'mt-[20px]',
+    'w-full',
+    'lg:w-max',
+    'lg:mt-0',
+    'lg:absolute',
+    'right-0',
   );
 
   $: enabledBadgeIds = [] as number[];
@@ -116,6 +149,25 @@
     await startMigration($account.address, badgeId);
     await updateMigrationStatus($account.address);
   }
+
+  async function setApprovalForAll() {
+    try {
+      if (!$account || !$account.address) return;
+      await profileService.setApprovalForAll($account.address);
+
+      successToast({
+        title: 'Success',
+        message: 'Approved all tokens',
+      });
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (e: any) {
+      console.error('approve all error', e);
+      errorToast({
+        title: 'Error',
+        message: e.message,
+      });
+    }
+  }
 </script>
 
 <div class={containerClass}>
@@ -126,6 +178,18 @@
     {/if}
     <div class={titleClasses}>{title}</div>
     <div class={dividerClasses} />
+
+    {#if !$userProfile || !$userProfile.isSetApprovalForAll}
+      <div class={approvalInfoWrapperClasses}>
+        <div class={approvalInfoTitleClasses}>Streamline your badge upgrades</div>
+        Approve all badges in your collection with one click, or manage them individually for a customized Season 2 experience.
+        Once the contract is approved, you can seamlessly migrate your badges.
+
+        <div class={approvalButtonWrapperClasses}>
+          <ActionButton on:click={setApprovalForAll} priority="primary">Approve all badges</ActionButton>
+        </div>
+      </div>
+    {/if}
     <div class={boxClasses}>
       {#if enabledBadgeIds.length}
         <div class={nftGridClasses}>

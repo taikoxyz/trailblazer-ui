@@ -1,16 +1,17 @@
 <script lang="ts">
   import { ActionButton } from '$components/Button';
   import { Icon } from '$components/Icon';
+  import { errorToast, successToast } from '$components/NotificationToast';
   import Spinner from '$components/Spinner/Spinner.svelte';
   import { FACTIONS } from '$configs/badges';
   import { trailblazersBadgesS2Address } from '$generated/abi';
+  import profileService from '$lib/domains/profile/services/ProfileServiceInstance';
   import { chainId } from '$lib/shared/utils/chain';
   import approve from '$libs/badges/approve';
   import { Movements } from '$libs/badges/const';
   import { getTokenId } from '$libs/badges/getTokenId';
   import isApprovedToMigrate from '$libs/badges/isApprovedToMigrate';
   import getMigrationStatus from '$libs/badges/migration/getMigrationStatus';
-  import setApprovalForAll from '$libs/badges/setApprovalForAll';
   import startMigration from '$libs/badges/startMigration';
   import type { Faction } from '$libs/profile';
   import { classNames } from '$libs/util/classNames';
@@ -112,11 +113,27 @@
   }
 
   async function setApproveSeason2() {
-    if (!$account || !$account.address) return;
-    isLoading = true;
-    await setApprovalForAll(trailblazersBadgesS2Address[chainId]);
-    isLoading = false;
-    isApproved = true;
+    try {
+      if (!$account || !$account.address) return;
+      isLoading = true;
+      await profileService.setApprovalForAll($account.address);
+      //await setApprovalForAll(trailblazersBadgesS2Address[chainId]);
+      isApproved = true;
+
+      successToast({
+        title: 'Success',
+        message: 'Approved all tokens',
+      });
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (e: any) {
+      console.error('approve all error', e);
+      errorToast({
+        title: 'Error',
+        message: e.message,
+      });
+    } finally {
+      isLoading = false;
+    }
   }
 
   async function setApproveToken() {

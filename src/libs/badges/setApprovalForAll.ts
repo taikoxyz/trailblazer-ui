@@ -1,3 +1,4 @@
+/*
 import { writeContract } from '@wagmi/core';
 import { type Address } from 'viem';
 
@@ -16,3 +17,5 @@ export default async function setApprovalForAll(address: Address): Promise<Addre
 
   return txHash;
 }
+
+*/
