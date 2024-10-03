@@ -54,6 +54,7 @@
       });
     }
   }
+
   const buttons = [
     {
       text: 'Claim S1 Badge #0 - Ravers',

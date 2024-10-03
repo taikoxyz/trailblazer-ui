@@ -1,10 +1,12 @@
 import { getAccount } from '@wagmi/core';
 import { type Address, getAddress, type Hash } from 'viem';
 
+import { trailblazersBadgesS2Address } from '$generated/abi';
 import { BadgeMigrationService } from '$lib/domains/nfts/services/BadgeMigrationService';
 import { BadgeService } from '$lib/domains/nfts/services/BadgeService';
 import { CombinedNFTService } from '$lib/domains/nfts/services/CombinedNFTService';
 import type { NFT } from '$lib/shared/types/NFT';
+import { chainId } from '$lib/shared/utils/chain';
 import { wagmiConfig } from '$lib/shared/wagmi';
 import { isDevelopmentEnv } from '$libs/util/isDevelopmentEnv';
 import { getLogger } from '$libs/util/logger';
@@ -88,7 +90,7 @@ export class ProfileService {
         multipliers: defaultUserProfile.multipliers,
         domainInfo: userDomainInfo,
         badgeMigrations: [],
-        isSetApprovalForAll: false,
+        approvedMigrationBadgeIds: [],
       };
 
       const info: DomainInfo = {
@@ -519,11 +521,28 @@ export class ProfileService {
   async getBadgeMigrations(address: Address): Promise<void> {
     // fetch the required info here!
     log('getBadgeMigrations', { address });
+    let approvedMigrationBadgeIds: number[] = [];
     // first, fetch if the user has set approval for all
     const isSetApprovalForAll = await this.badgeMigrationService.getApprovalForAll(address);
+    if (isSetApprovalForAll) {
+      approvedMigrationBadgeIds = [0, 1, 2, 3, 4, 5, 6, 7];
+    } else {
+      // if not set, fetch each individually
+      for (let i = 0; i < 8; i++) {
+        const approvedAccount = await this.badgeMigrationService.getApproved(address, i);
+        if (approvedAccount.toLowerCase() === trailblazersBadgesS2Address[chainId].toLowerCase()) {
+          approvedMigrationBadgeIds.push(i);
+        }
+      }
+    }
 
     await this.userRepository.update({
-      isSetApprovalForAll,
+      approvedMigrationBadgeIds,
     });
+  }
+
+  async approve(address: Address, tokenId: number): Promise<Address> {
+    log('approve', { address, tokenId });
+    return this.badgeMigrationService.approve(address, tokenId);
   }
 }

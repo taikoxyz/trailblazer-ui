@@ -3,6 +3,7 @@
   import type { Address } from 'viem';
 
   import { page } from '$app/stores';
+  import MigrationApprovalModal from '$lib/domains/nfts/components/MigrationApprovalModal.svelte';
   import { MintDisclaimerModal } from '$lib/shared/components';
   import { activeSeason } from '$lib/shared/stores/activeSeason';
 
@@ -34,3 +35,4 @@
 
 <ProfilePictureModal />
 <MintDisclaimerModal />
+<MigrationApprovalModal />

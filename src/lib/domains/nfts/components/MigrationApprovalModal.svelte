@@ -1,13 +1,11 @@
 <script lang="ts">
   import { ActionButton } from '$components/Button';
   import { Icon } from '$components/Icon';
-  import { errorToast, successToast } from '$components/NotificationToast';
   import Spinner from '$components/Spinner/Spinner.svelte';
   import { FACTIONS } from '$configs/badges';
   import { trailblazersBadgesS2Address } from '$generated/abi';
   import profileService from '$lib/domains/profile/services/ProfileServiceInstance';
   import { chainId } from '$lib/shared/utils/chain';
-  import approve from '$libs/badges/approve';
   import { Movements } from '$libs/badges/const';
   import { getTokenId } from '$libs/badges/getTokenId';
   import isApprovedToMigrate from '$libs/badges/isApprovedToMigrate';
@@ -21,23 +19,7 @@
 
   import MigrationBadgeItem from './MigrationBadgeItem.svelte';
 
-  const wrapperClasses = classNames(
-    'z-100',
-    'fixed',
-    'top-0',
-    'gap-[60px]',
-    'left-0',
-    'w-[100vw]',
-    'h-[100vh]',
-    'overflow-hidden',
-    'glassy-background-lg',
-    'bg-black',
-    'bg-opacity-70',
-    'flex',
-    'flex-col',
-    'justify-center',
-    'items-center',
-  );
+  const wrapperClasses = classNames('modal');
 
   $: s1BadgeId = $badgeMigrationStore.s1BadgeId;
 
@@ -112,35 +94,11 @@
     isLoading = false;
   }
 
-  async function setApproveSeason2() {
-    try {
-      if (!$account || !$account.address) return;
-      isLoading = true;
-      await profileService.setApprovalForAll($account.address);
-      //await setApprovalForAll(trailblazersBadgesS2Address[chainId]);
-      isApproved = true;
-
-      successToast({
-        title: 'Success',
-        message: 'Approved all tokens',
-      });
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (e: any) {
-      console.error('approve all error', e);
-      errorToast({
-        title: 'Error',
-        message: e.message,
-      });
-    } finally {
-      isLoading = false;
-    }
-  }
-
   async function setApproveToken() {
     if (!$account || !$account.address) return;
     isLoading = true;
     const tokenId = await getTokenId($account.address, s1BadgeId);
-    await approve(trailblazersBadgesS2Address[chainId], tokenId);
+    await profileService.approve(trailblazersBadgesS2Address[chainId], tokenId);
     isLoading = false;
     isApproved = true;
   }
@@ -185,76 +143,88 @@
     'max-w-[900px]',
   );
 
-  $: badgeLabel = `#${s1BadgeId + 1} - ${s1BadgeName}`;
+  $: badgeLabel = `${s1BadgeName}`;
 
   const badgeWrapperClasses = classNames('flex-col', 'flex', 'justify-center', 'items-center', 'gap-[25px]');
+
+  const contentWrapperClasses = classNames(
+    'bg-elevated-background',
+    'w-full',
+    'h-full',
+    'flex',
+    'flex-col',
+    'justify-center',
+    'items-center',
+    'gap-[60px]',
+  );
 </script>
 
 {#if $migrationApprovalModal}
-  <div class={wrapperClasses}>
-    <div class={textWrapperClasses}>
-      <div class={titleClasses}>Choose your path!</div>
+  <dialog class={wrapperClasses} class:modal-open={true}>
+    <div class={contentWrapperClasses}>
+      <div class={textWrapperClasses}>
+        <div class={titleClasses}>Choose your path!</div>
 
-      <div class={descriptionClasses}>
-        Migrate your Season 1 Trailblazer Badges to Season 2. Choose your path wisely!
-      </div>
-    </div>
-    <div class={tokenCardWrapperClasses}>
-      <div class={badgeWrapperClasses}>
-        <MigrationBadgeItem
-          unlocked={isActive}
-          value={pinkTampers}
-          badgeMovement={Movements.Based}
-          badgeId={s1BadgeId}
-          badgeName={s1BadgeName} />
-      </div>
-      {#if !isActive}
-        <MigrationBadgeItem unlocked badgeMovement={Movements.Neutral} badgeId={s1BadgeId} badgeName={s1BadgeName} />
-      {/if}
-
-      <div class={badgeWrapperClasses}>
-        <MigrationBadgeItem
-          unlocked={isActive}
-          badgeMovement={Movements.Boosted}
-          badgeId={s1BadgeId}
-          value={purpleTampers}
-          badgeName={s1BadgeName} />
-      </div>
-    </div>
-
-    <div class={buttonWrapperClasses}>
-      {#if isLoading}
-        <Spinner size="lg" />
-      {:else}
-        {#if !isActive}
-          <div class={instructionsClasses}>
-            {#if isApproved}
-              The migration for <b>{badgeLabel}</b> is ready.
-            {:else}
-              You must approve the Season 2 contract to proceed.
-            {/if}
-          </div>{/if}
-        {#if isApproved}
-          {#if isCompleted}
-            <ActionButton on:click={completeMigration} priority="primary">Complete Migration</ActionButton>
-          {:else if !isStarted}
-            <ActionButton on:click={beginMigration} priority="primary">Start Migration</ActionButton>
-          {:else if !isActive}
-            another migration is in progress
+        <div class={descriptionClasses}>
+          {#if isApproved}
+            Migrate your Season 1 Trailblazer Badges to Season 2. Choose your path wisely!
+          {:else}
+            Upgrade your Season 1 Trailblazer badges to Season 2. You must first approve the Season 2 contract to
+            proceed.
           {/if}
-        {:else}
-          <ActionButton on:click={setApproveToken} priority="primary"
-            >Approve for <b>#{s1BadgeId + 1} - {s1BadgeName}</b></ActionButton>
-          <div class="w-1/2">
-            <div class="divider">or</div>
-          </div>
-          <ActionButton on:click={setApproveSeason2} priority="secondary">Approve All</ActionButton>
+        </div>
+      </div>
+      <div class={tokenCardWrapperClasses}>
+        <div class={badgeWrapperClasses}>
+          <MigrationBadgeItem
+            unlocked={isActive}
+            value={pinkTampers}
+            badgeMovement={Movements.Based}
+            badgeId={s1BadgeId}
+            badgeName={s1BadgeName} />
+        </div>
+        {#if !isActive}
+          <MigrationBadgeItem unlocked badgeMovement={Movements.Neutral} badgeId={s1BadgeId} badgeName={s1BadgeName} />
         {/if}
-      {/if}
-    </div>
 
-    <button class={closeButtonClasses} on:click={closeModal}>
-      <Icon type="x-close" class={closeButtonIconClasses} size={24} />
-    </button>
-  </div>
+        <div class={badgeWrapperClasses}>
+          <MigrationBadgeItem
+            unlocked={isActive}
+            badgeMovement={Movements.Boosted}
+            badgeId={s1BadgeId}
+            value={purpleTampers}
+            badgeName={s1BadgeName} />
+        </div>
+      </div>
+
+      <div class={buttonWrapperClasses}>
+        {#if isLoading}
+          <Spinner size="lg" />
+        {:else}
+          {#if !isActive}
+            {#if isApproved}
+              <div class={instructionsClasses}>
+                The migration for <b>{badgeLabel}</b> is ready.
+              </div>
+            {/if}
+          {/if}
+          {#if isApproved}
+            {#if isCompleted}
+              <ActionButton on:click={completeMigration} priority="primary">Complete Migration</ActionButton>
+            {:else if !isStarted}
+              <ActionButton on:click={beginMigration} priority="primary">Start Migration</ActionButton>
+            {:else if !isActive}
+              another migration is in progress
+            {/if}
+          {:else}
+            <ActionButton on:click={setApproveToken} priority="primary">Approve for <b>{s1BadgeName}</b></ActionButton>
+          {/if}
+        {/if}
+      </div>
+
+      <button class={closeButtonClasses} on:click={closeModal}>
+        <Icon type="x-close" class={closeButtonIconClasses} size={24} />
+      </button>
+    </div>
+  </dialog>
 {/if}

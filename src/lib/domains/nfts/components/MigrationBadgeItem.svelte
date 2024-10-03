@@ -70,9 +70,11 @@
   </div>
   <div class={badgeTextClasses}>
     {#if badgeMovement === Movements.Neutral}
-      #{badgeId + 1} - {badgeName}
-    {:else}
+      {badgeName}
+    {:else if unlocked}
       <TamperCounter {max} {value} color={badgeMovement === Movements.Based ? 'pink' : 'purple'} />
+    {:else}
+      &nbsp;
     {/if}
   </div>
 

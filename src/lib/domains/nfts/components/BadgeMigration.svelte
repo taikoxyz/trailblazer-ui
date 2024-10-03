@@ -168,6 +168,11 @@
       });
     }
   }
+
+  async function openApprovalModal(badgeId: number) {
+    $badgeMigrationStore.s1BadgeId = badgeId;
+    $migrationApprovalModal = true;
+  }
 </script>
 
 <div class={containerClass}>
@@ -179,7 +184,7 @@
     <div class={titleClasses}>{title}</div>
     <div class={dividerClasses} />
 
-    {#if !$userProfile || !$userProfile.isSetApprovalForAll}
+    {#if $userProfile?.approvedMigrationBadgeIds?.length !== 8}
       <div class={approvalInfoWrapperClasses}>
         <div class={approvalInfoTitleClasses}>Streamline your badge upgrades</div>
         Approve all badges in your collection with one click, or manage them individually for a customized Season 2 experience.
@@ -199,9 +204,17 @@
             <FactionBadgeItem {disabled} movement={Movements.Neutral} name={factionName}>
               {#if !displayActiveMigration}
                 <div class={migrateButtonWrapperClasses}>
-                  <ActionButton {disabled} on:click={() => handleStartMigration(badgeId)} priority="primary">
-                    Start Migration
-                  </ActionButton>
+                  {#if disabled}
+                    <ActionButton disabled priority="primary">Not eligible</ActionButton>
+                  {:else if $userProfile?.approvedMigrationBadgeIds?.includes(badgeId)}
+                    <ActionButton {disabled} on:click={() => handleStartMigration(badgeId)} priority="primary">
+                      Start Migration
+                    </ActionButton>
+                  {:else}
+                    <ActionButton {disabled} on:click={() => openApprovalModal(badgeId)} priority="primary">
+                      Approve contract
+                    </ActionButton>
+                  {/if}
                 </div>{/if}
             </FactionBadgeItem>
           {/each}
