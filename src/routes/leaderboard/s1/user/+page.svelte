@@ -20,7 +20,7 @@
 </script>
 
 <svelte:head>
-  <title>Taiko Trailblazer - User Leaderboard</title>
+  <title>{$t('pagetitle.leaderboards.user')}</title>
 </svelte:head>
 
 <Page>

@@ -309,7 +309,8 @@
   },
   "pagetitle": {
     "leaderboards": {
-      "dapp": "Taiko Trailblazer - Dapp Leaderboard"
+      "dapp": "Taiko Trailblazer - Dapp Leaderboard",
+      "user": "Taiko Trailblazer - User Leaderboard"
     }
   },
   "paginator": {
