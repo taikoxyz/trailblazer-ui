@@ -44,7 +44,10 @@ export class DappLeaderboardService {
       pagination: { ...args },
     };
     log('fetching leaderboard data', args, season);
-    const leaderboardData = await this.leaderboardAdapter.fetchLeaderboardData(args, season);
+    const leaderboardData: PaginationInfo<DappLeaderboardItem> = await this.leaderboardAdapter.fetchLeaderboardData(
+      args,
+      season,
+    );
 
     log('leaderboardData', leaderboardData);
 
@@ -69,6 +72,7 @@ export class DappLeaderboardService {
       const unifiedRows = await Promise.all(protocolDetailsPromises);
 
       leaderboardPage.items.push(...unifiedRows);
+      leaderboardPage.pagination = { ...leaderboardData };
       this.leaderboardRepository.update(leaderboardPage);
       return leaderboardPage;
     }

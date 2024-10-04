@@ -23,7 +23,7 @@
 </script>
 
 <svelte:head>
-  <title>Taiko Trailblazer - Dapp Leaderboard</title>
+  <title>{$t('pagetitle.leaderboards.dapp')}</title>
 </svelte:head>
 
 <Page>

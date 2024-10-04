@@ -5,6 +5,7 @@
   import Paginator from '$components/Paginator/Paginator.svelte';
   import { leaderboardConfig } from '$config';
   import type { UnifiedLeaderboardRow } from '$lib/domains/leaderboard/types/shared/types';
+  import { classNames } from '$libs/util/classNames';
 
   import LoadingRow from './LoadingRow.svelte';
   import TableHeader from './TableHeader.svelte';
@@ -41,44 +42,66 @@
   function toggleRow(index: number) {
     expandedRow = expandedRow === index ? -1 : index;
   }
+
+  // CSS classes extracted to variables
+  const containerClass = classNames('overflow-x-auto', 'lg:w-full', 'px-8', 'lg:mt-0');
+  const headerMarginClass = classNames('mt-[60px]', 'lg:mt-[80px]', 'block', 'lg:hidden');
+  const additionalInfoMarginClass = classNames('mt-[60px]', 'lg:mt-[80px]');
+  const textCenterClass = classNames('text-center', 'mt-[30px]', 'text-xl');
+  const tableWrapperClass = classNames('overflow-x-auto', 'rounded-3xl');
+  const tableClass = classNames('relative', 'table-lg', 'w-full', 'body-regular', 'text-white', 'rounded-3xl');
+  const tableStyle = 'background: rgba(25, 30, 40, .50)';
+  const tbodyClass = classNames('rounded-lg', ended ? 'blur-[1.5px]' : '');
+  const noDataRowClass = classNames('row', 'h-12');
+  const paginationMarginClass = classNames('mt-[38px]');
 </script>
 
-<div class="overflow-x-auto lg:w-full px-8 lg:mt-0">
+<div class={containerClass}>
   <svelte:component this={headerComponent} {lastUpdated} />
   {#if ended && endedComponent}
-    <div class="mt-[60px] lg:mt-[80px] block lg:hidden">
+    <div class={headerMarginClass}>
       <svelte:component this={endedComponent} title={endTitleText} description={endDescriptionText} />
     </div>
   {/if}
   {#if additionalInfoComponent && !ended}
-    <div class="mt-[60px] lg:mt-[80px]">
+    <div class={additionalInfoMarginClass}>
       <svelte:component this={additionalInfoComponent} />
     </div>
   {/if}
-  <div class="text-center mt-[30px] text-xl"></div>
+  <div class={textCenterClass}></div>
   <slot />
-  <div class="overflow-x-auto rounded-3xl">
-    <table
-      class="relative table-lg w-full body-regular text-white rounded-3xl"
-      style="background: rgba(25, 30, 40, .50)">
+  <div class={tableWrapperClass}>
+    <table class={tableClass} style={tableStyle}>
       <TableHeader {headers} />
       {#if ended && data.length > 0}
         <DisabledMask title={endTitleText} description={endDescriptionText} />
       {/if}
-      <tbody class="rounded-lg {ended ? 'blur-[1.5px]' : ''}  ">
+      <tbody class={tbodyClass}>
         {#if isLoading}
           <!-- eslint-disable-next-line @typescript-eslint/no-unused-vars -->
           {#each Array(pageSize) as _, index}
             {@const rank = index + 1 + (currentPage - 1) * pageSize}
             {@const fillClass =
-              rank === 1 ? 'fill-warning-sentiment' : rank === 2 ? 'fill-grey-300' : rank === 3 ? 'fill-[#775602]' : ''}
+              rank === 1
+                ? 'fill-warning-sentiment'
+                : rank === 2
+                  ? 'fill-grey-300'
+                  : rank === 3
+                    ? 'fill-yellow-700'
+                    : ''}
             <LoadingRow {rank} {fillClass} {showTrophy} />
           {/each}
         {:else}
           {#each data as entry, index}
             {@const rank = index + 1 + (currentPage - 1) * pageSize}
             {@const fillClass =
-              rank === 1 ? 'fill-warning-sentiment' : rank === 2 ? 'fill-grey-300' : rank === 3 ? 'fill-[#775602]' : ''}
+              rank === 1
+                ? 'fill-warning-sentiment'
+                : rank === 2
+                  ? 'fill-grey-300'
+                  : rank === 3
+                    ? 'fill-yellow-700'
+                    : ''}
             <TableRow
               {entry}
               {index}
@@ -92,7 +115,7 @@
           {/each}
         {/if}
         {#if data.length === 0 && !isLoading}
-          <tr class="row h-12">
+          <tr class={noDataRowClass}>
             <td class="lg:px-10" colspan="3">No data available yet</td>
           </tr>
         {/if}
@@ -101,10 +124,10 @@
   </div>
 
   {#if showPagination}
-    <div class="mt-[38px]">
+    <div class={paginationMarginClass}>
       <Paginator
         {pageSize}
-        bind:currentPage
+        {currentPage}
         limitPages={true}
         maxPages={Math.ceil(totalItems / pageSize)}
         bind:totalItems

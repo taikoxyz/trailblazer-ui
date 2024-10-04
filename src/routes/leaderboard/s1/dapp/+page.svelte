@@ -14,7 +14,7 @@
   $: ({ pageInfo, loading } = $page.data);
 
   const handleClick = () => {
-    goto('/leaderboard/bridge');
+    goto('/leaderboard/s1/bridge');
   };
 </script>
 
