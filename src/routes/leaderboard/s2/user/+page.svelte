@@ -6,7 +6,8 @@
   import { ActionButton } from '$components/Button';
   import { Page } from '$components/Page';
   import { UserLeaderboardS2 } from '$lib/domains/leaderboard/components/s2';
-  import type { PaginationInfo, UserLeaderboardItem } from '$libs/leaderboard';
+  import type { UserLeaderboardItem } from '$lib/domains/leaderboard/types/dapps/types';
+  import type { PaginationInfo } from '$lib/shared/dto/CommonPageApiResponse';
   import { classNames } from '$libs/util/classNames';
 
   let pageInfo: PaginationInfo<UserLeaderboardItem>;

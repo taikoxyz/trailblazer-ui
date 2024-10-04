@@ -1,6 +1,7 @@
 import { getAccount } from '@wagmi/core';
 import { type Address, getAddress, type Hash } from 'viem';
 
+import type { UserLeaderboardItem } from '$lib/domains/leaderboard/types/dapps/types';
 import { BadgeService } from '$lib/domains/nfts/services/BadgeService';
 import { CombinedNFTService } from '$lib/domains/nfts/services/CombinedNFTService';
 import type { NFT } from '$lib/shared/types/NFT';
@@ -9,7 +10,6 @@ import { isDevelopmentEnv } from '$libs/util/isDevelopmentEnv';
 import { getLogger } from '$libs/util/logger';
 
 import { ProfileApiAdapter } from '../adapter/ProfileAdapter';
-import type { UserPointsAndRankResponse } from '../dto/profile.dto';
 import UserRepository from '../repositories/UserRepository';
 import { multipliersLoading, profileLoading } from '../stores/profileStore';
 import { defaultUserProfile } from '../types/defaultUserProfile';
@@ -150,41 +150,58 @@ export class ProfileService {
    * @return {*}
    * @memberof ProfileService
    */
-  async getUserInfoForLeaderboard(addresses: Address[], season: number): Promise<UserInfoForLeaderboard[]> {
-    log('Fetching user info for leaderboard for addresses:', addresses);
+  async getUserInfoForLeaderboard(
+    entries: UserLeaderboardItem[],
+    total: number,
+    season: number,
+  ): Promise<UserInfoForLeaderboard[]> {
+    log('Fetching user info for leaderboard for entries:', entries, 'total:', total, 'season:', season);
+
+    // Extract all addresses from entries
+    const addresses = entries.map((entry) => entry.address);
 
     // Fetch profile pictures in bulk
     const profilePicturesPromise = this.getProfilePictures(addresses);
 
-    // Fetch user stats for all addresses in parallel
-    const userStatsPromises = addresses.map((address) => this.fetchUserStats(address, season));
-
     // Fetch domain info for all addresses in parallel
-    const domainInfoPromises = addresses.map((address) => this.fetchDomainInfo(address));
+    // const domainInfoPromises = addresses.map((address) => this.fetchDomainInfo(address));
+    // const domainInfoArrayPromise = Promise.all(domainInfoPromises);
 
-    // Wait for all promises to resolve
-    const [profilePictures, userStatsArray, domainInfoArray] = await Promise.all([
-      profilePicturesPromise,
-      Promise.all(userStatsPromises),
-      Promise.all(domainInfoPromises),
-    ]);
+    log('Fetching user info for leaderboard:', entries);
 
-    // Assemble the final array of UserInfoForLeaderboard
-    const userInfoList: UserInfoForLeaderboard[] = addresses.map((address, index) => {
+    // Calculate user stats synchronously
+    const userStatsArray = entries.map((entry) => {
+      const { rank, score } = entry;
+      log('calculating user stats', { score, rank, total });
+      const percentile = this.calculatePercentile(rank, total);
+      const { level, title } = this.getLevel(percentile);
+      log('creating user stats', { score, rank, total, percentile, level, title });
+      return {
+        score,
+        rank: rank.toString(),
+        total: total.toString(),
+        rankPercentile: percentile.toFixed(2),
+        level,
+        title,
+      } satisfies UserStats['userStats'];
+    });
+
+    const [profilePictures] = await Promise.all([profilePicturesPromise]);
+
+    const userInfoList: UserInfoForLeaderboard[] = entries.map((entry, index) => {
+      const address = entry.address;
       const userStats = userStatsArray[index];
-      const domainInfo = domainInfoArray[index];
       const profilePicture = profilePictures[getAddress(address)] || '';
 
       return {
         address,
-        score: userStats.userStats.score,
-        rank: userStats.userStats.rank,
-        title: userStats.userStats.title,
-        level: userStats.userStats.level,
-        total: userStats.userStats.total,
-        rankPercentile: userStats.userStats.rankPercentile || '0',
+        score: userStats.score,
+        rank: userStats.rank,
+        title: userStats.title,
+        level: userStats.level,
+        total: userStats.total,
+        rankPercentile: userStats.rankPercentile || '0',
         profilePicture,
-        domainInfo,
       };
     });
 
@@ -198,21 +215,23 @@ export class ProfileService {
    * @return {*}
    * @memberof ProfileService
    */
-  async fetchUserStats(address: Address, season: number): Promise<UserStats> {
-    log('Fetching user stats for address:', address, 'season:', season);
-    const pointsAndRankResponse: UserPointsAndRankResponse = await this.apiAdapter.fetchUserPointsAndRank(
-      address,
-      season,
-    );
-    log('Fetched user stats:', pointsAndRankResponse);
-    const { score, rank, total } = pointsAndRankResponse;
+  async calculateUserStats({
+    position,
+    total,
+    score,
+  }: {
+    position: number;
+    total: number;
+    score: number;
+  }): Promise<UserStats> {
+    log('Fetching user stats for address:');
 
-    const percentile = this.calculatePercentile(rank, total);
+    const percentile = this.calculatePercentile(position, total);
     const { level, title } = this.getLevel(percentile);
     const userStats: UserStats = {
       userStats: {
         score,
-        rank: rank.toString(),
+        rank: position.toString(),
         total: total.toString(),
         rankPercentile: percentile.toFixed(2),
         level,

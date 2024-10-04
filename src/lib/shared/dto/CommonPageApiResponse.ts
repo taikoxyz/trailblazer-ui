@@ -4,7 +4,7 @@ export type PaginationInfo<T> = {
   size: number;
   max_page?: number;
   total_pages?: number;
-  total?: number;
+  total: number;
   last?: number;
   first?: number;
   visible?: number;

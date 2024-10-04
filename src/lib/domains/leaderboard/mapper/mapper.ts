@@ -13,11 +13,12 @@ export function mapDappLeaderboardRow(row: DappLeaderboardRow): UnifiedLeaderboa
 }
 
 export function mapUserLeaderboardRow(row: UserLeaderboardRow): UnifiedLeaderboardRow {
-  if (!row.position) {
+  if (!row.rank) {
     throw new Error('');
   }
 
   const out = {
+    rank: row.rank,
     address: row.address ? row.address : row.address,
     level: row.level || '0',
     title: row.title || 'Beginner',

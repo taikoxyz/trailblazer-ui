@@ -1,7 +1,5 @@
 import type { Address } from 'viem';
 
-import type { DomainInfo } from './DomainInfo';
-
 export type UserInfoForLeaderboard = {
   address: Address;
   score: number;
@@ -11,5 +9,4 @@ export type UserInfoForLeaderboard = {
   total: string;
   rankPercentile: string;
   profilePicture: string;
-  domainInfo: DomainInfo;
 };

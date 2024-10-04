@@ -31,6 +31,7 @@ export type UserLeaderboardPage = {
 export type UserLeaderboardItem = {
   address: Address;
   score: number;
+  position: number;
 };
 
 export type UserLeaderboardRow = UserLeaderboardItem & {

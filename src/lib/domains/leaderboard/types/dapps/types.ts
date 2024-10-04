@@ -24,10 +24,10 @@ export type UserLeaderboardPage = {
 export type UserLeaderboardItem = {
   address: Address;
   score: number;
+  rank: number;
 };
 
 export type UserLeaderboardRow = UserLeaderboardItem & {
-  position?: number;
   level?: string;
   title?: string;
   name?: string;
@@ -53,7 +53,7 @@ type PaginationInfo = {
   size: number;
   max_page?: number;
   total_pages?: number;
-  total?: number;
+  total: number;
   last?: number;
   first?: number;
   visible?: number;

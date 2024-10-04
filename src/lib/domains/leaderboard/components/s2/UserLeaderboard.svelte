@@ -26,11 +26,12 @@
     const args: PaginationInfo<UserLeaderboardItem> = {
       page,
       size: pageSize,
+      total: totalItems,
     };
     const leaderboardPage = await userLeaderboardService.getUserLeaderboardData(args, 2);
     totalItems = leaderboardPage?.pagination.total || $currentUserLeaderboard.items.length;
 
-    loading = false;
+    // loading = false;
   }
 </script>
 

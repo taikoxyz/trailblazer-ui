@@ -56,15 +56,16 @@ export class UserLeaderboardService {
         return {
           items: [],
           lastUpdated: Date.now(),
-          pagination: { ...args },
+          pagination: { ...args, total: leaderboardData.total, total_pages: leaderboardData.total_pages },
         };
       }
 
-      // Extract addresses from leaderboard items
-      const addresses = leaderboardData.items.map((item) => item.address);
-
       // Fetch user details in bulk
-      const userDetailsList = await profileService.getUserInfoForLeaderboard(addresses, season);
+      const userDetailsList = await profileService.getUserInfoForLeaderboard(
+        leaderboardData.items,
+        leaderboardData.total,
+        season,
+      );
       log('Fetched user details:', userDetailsList);
 
       // Map addresses to user details for easy lookup
@@ -79,13 +80,12 @@ export class UserLeaderboardService {
 
         if (!userDetails) {
           log(`No user details found for address ${item.address}, using default values.`);
-          // Handle the case where user details are not found
           const entry: UserLeaderboardRow = {
             address: item.address,
             score: item.score,
             icon: '',
             level: '',
-            position: index + 1 + args.page * args.size,
+            rank: index + 1 + args.page * args.size,
             title: '',
           };
           return mapUserLeaderboardRow(entry);
@@ -98,7 +98,7 @@ export class UserLeaderboardService {
           score: item.score,
           icon: userDetails.profilePicture,
           level: userDetails.level,
-          position: index + 1 + args.page * args.size,
+          rank: index + 1 + args.page * args.size,
           title: userDetails.title,
         };
         log(`Entry`, entry);
@@ -112,7 +112,7 @@ export class UserLeaderboardService {
         lastUpdated: Date.now(),
         pagination: {
           ...args,
-          total: leaderboardData.total, // Ensure total is included
+          total: leaderboardData.total,
         },
       };
 

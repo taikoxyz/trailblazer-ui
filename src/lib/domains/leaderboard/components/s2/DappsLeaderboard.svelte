@@ -5,7 +5,6 @@
   import { DappsLeaderboardHeader } from '$lib/domains/leaderboard/components/Header';
   import { PointScore } from '$lib/domains/leaderboard/components/Template';
   import type { PaginationInfo } from '$lib/shared/dto/CommonPageApiResponse';
-  import { activeSeason } from '$lib/shared/stores/activeSeason';
   import { getLogger } from '$libs/util/logger';
 
   import type { DappLeaderboardItem } from '../../dto/dapps.dto';
@@ -37,8 +36,9 @@
       page,
       size: pageSize,
       name,
+      total: totalItems,
     };
-    const leaderboardPage = await dappLeaderboardService.getDappLeaderboardData(args, $activeSeason);
+    const leaderboardPage = await dappLeaderboardService.getDappLeaderboardData(args, 2);
     totalItems = leaderboardPage?.pagination.total || $currentDappLeaderboard.items.length;
     loading = false;
   }

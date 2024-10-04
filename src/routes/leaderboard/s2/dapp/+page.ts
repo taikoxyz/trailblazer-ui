@@ -2,9 +2,10 @@ import { get } from 'svelte/store';
 
 import { browser } from '$app/environment';
 import { leaderboardConfig } from '$config';
+import type { DappLeaderboardItem } from '$lib/domains/leaderboard/dto/dapps.dto';
 import { dappLeaderboardService } from '$lib/domains/leaderboard/services/LeaderboardServiceInstances';
+import type { PaginationInfo } from '$lib/shared/dto/CommonPageApiResponse';
 import { activeSeason } from '$lib/shared/stores/activeSeason';
-import { type DappLeaderboardItem, type PaginationInfo } from '$libs/leaderboard';
 
 export const load = async () => {
   let loading = true;
@@ -13,6 +14,7 @@ export const load = async () => {
     size: leaderboardConfig.pageSize,
     first: 0,
     last: 1,
+    total: 0,
   };
 
   if (browser) {

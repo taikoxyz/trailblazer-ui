@@ -5,8 +5,9 @@
   import { page } from '$app/stores';
   import { ActionButton } from '$components/Button';
   import { Page } from '$components/Page';
-  import { DappsLeaderboard } from '$lib/domains/leaderboard/components';
-  import type { DappLeaderboardItem, PaginationInfo } from '$libs/leaderboard';
+  import DappsLeaderboard from '$lib/domains/leaderboard/components/s2/DappsLeaderboard.svelte';
+  import type { DappLeaderboardItem } from '$lib/domains/leaderboard/dto/dapps.dto';
+  import type { PaginationInfo } from '$lib/shared/dto/CommonPageApiResponse';
   import { classNames } from '$libs/util/classNames';
 
   let pageInfo: PaginationInfo<DappLeaderboardItem>;
