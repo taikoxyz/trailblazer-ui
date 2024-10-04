@@ -1,6 +1,6 @@
 import type { Address } from 'viem';
 
-import type { UnifiedLeaderboardRow } from '$libs/leaderboard';
+import type { UnifiedLeaderboardRow } from '../shared/types';
 
 export type DappLeaderboardPage = {
   items: DappLeaderboardRow[];
@@ -15,11 +15,15 @@ export type DappLeaderboardRow = {
   totalScore: number;
 };
 
+export type GamingLeaderboardRow = DappLeaderboardRow;
+
 export type UserLeaderboardPage = {
   items: UnifiedLeaderboardRow[];
   lastUpdated: number;
   pagination: PaginationInfo;
 };
+
+export type GamingLeaderboardPage = DappLeaderboardPage;
 
 export type UserLeaderboardItem = {
   address: Address;

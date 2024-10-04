@@ -1,7 +1,6 @@
-<script lang="ts">
+<!-- <script lang="ts">
   import { t } from 'svelte-i18n';
 
-  import { mapDefiDappLeaderboardRow } from '$libs/leaderboard';
   import { currentDefiDappLeaderboard } from '$stores/leaderboard';
 
   import { DefiEndedComponent } from './Competition/DefiCompetition';
@@ -10,6 +9,7 @@
   import LastUpdatedHeader from './LastUpdatedHeader.svelte';
   import AbstractLeaderboard from './Template/AbstractLeaderboard.template.svelte';
   import DollarScore from './Template/DollarScore.template.svelte';
+  import { mapDefiDappLeaderboardRow } from '../mapper/mapper';
 
   let headers = ['No.', 'Dapp', 'TVL'];
 
@@ -35,4 +35,4 @@
   endTitleText={$t('leaderboard.defi.ended.title')}
   endDescriptionText={$t('leaderboard.defi.ended.description')}>
   <LastUpdatedHeader {lastUpdated} />
-</AbstractLeaderboard>
+</AbstractLeaderboard> -->

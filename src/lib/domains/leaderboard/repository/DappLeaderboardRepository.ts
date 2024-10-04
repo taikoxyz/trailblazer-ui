@@ -1,6 +1,6 @@
 import { getLogger } from '$libs/util/logger';
 
-import { currentDappLeaderboard } from '../stores/dappleaderboard';
+import { currentDappLeaderboard } from '../stores/dappLeaderboard';
 import type { DappLeaderboardPage } from '../types/dapps/types';
 
 const log = getLogger('DappLeaderboardRepository');

@@ -6,7 +6,8 @@
   import { ActionButton } from '$components/Button';
   import { Page } from '$components/Page';
   import GamingLeaderboard from '$lib/domains/leaderboard/components/s2/GamingLeaderboard.svelte';
-  import type { DappLeaderboardItem, PaginationInfo } from '$libs/leaderboard';
+  import type { DappLeaderboardItem } from '$lib/domains/leaderboard/dto/dapps.dto';
+  import type { PaginationInfo } from '$lib/shared/dto/CommonPageApiResponse';
 
   let pageInfo: PaginationInfo<DappLeaderboardItem>;
   let loading: boolean;
@@ -19,7 +20,7 @@
 </script>
 
 <svelte:head>
-  <title>Taiko Trailblazer - Leaderboard</title>
+  <title>Taiko Trailblazer - Gaming Leaderboard</title>
 </svelte:head>
 
 <Page>

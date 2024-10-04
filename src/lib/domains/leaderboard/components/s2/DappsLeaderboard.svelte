@@ -9,7 +9,7 @@
 
   import type { DappLeaderboardItem } from '../../dto/dapps.dto';
   import { dappLeaderboardService } from '../../services/LeaderboardServiceInstances';
-  import { currentDappLeaderboard } from '../../stores/dappleaderboard';
+  import { currentDappLeaderboard } from '../../stores/dappLeaderboard';
   import { AbstractLeaderboard } from '../Template';
 
   const log = getLogger('DappsLeaderboard');

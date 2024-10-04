@@ -1,7 +1,19 @@
-import type { DappLeaderboardRow, UserLeaderboardRow } from '../types/dapps/types';
+import type { DappLeaderboardRow, GamingLeaderboardRow, UserLeaderboardRow } from '../types/dapps/types';
+import type { DefiDappLeaderboardRow } from '../types/defi/types';
 import type { UnifiedLeaderboardRow } from '../types/shared/types';
 
 export function mapDappLeaderboardRow(row: DappLeaderboardRow): UnifiedLeaderboardRow {
+  return {
+    address: row.address,
+    icon: row.metadata?.logo,
+    handle: row.metadata?.twitter,
+    data: row.data,
+    name: row.metadata?.name,
+    totalScore: row.totalScore,
+  };
+}
+
+export function mapGamingLeaderboardRow(row: GamingLeaderboardRow): UnifiedLeaderboardRow {
   return {
     address: row.address,
     icon: row.metadata?.logo,
@@ -29,4 +41,15 @@ export function mapUserLeaderboardRow(row: UserLeaderboardRow): UnifiedLeaderboa
   };
 
   return out;
+}
+
+export function mapDefiDappLeaderboardRow(row: DefiDappLeaderboardRow): UnifiedLeaderboardRow {
+  const totalScore = row?.taikoTvl ? row.taikoTvl : 0;
+  return {
+    address: row.name ? row.name : row.address,
+    icon: row.logo,
+    handle: row.twitter,
+    data: [],
+    totalScore,
+  };
 }

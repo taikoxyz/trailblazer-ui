@@ -2,9 +2,10 @@
   import { getContext } from 'svelte';
   import { t } from 'svelte-i18n';
 
-  import type { DappLeaderboardItem, PaginationInfo } from '$libs/leaderboard';
+  import type { PaginationInfo } from '$lib/shared/dto/CommonPageApiResponse';
   import { classNames } from '$libs/util/classNames';
 
+  import type { DappLeaderboardItem } from '../../dto/dapps.dto';
   import LastUpdated from '../LastUpdated.svelte';
   import Search from './Search.svelte';
 

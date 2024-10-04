@@ -1,6 +1,6 @@
 import type { RequestHandler } from '@sveltejs/kit';
 
-import type { UserLeaderboardPageApiResponse } from '$libs/leaderboard';
+import type { UserLeaderboardPageApiResponse } from '$lib/domains/leaderboard/dto/user.dto';
 
 export const GET: RequestHandler = async () => {
   return new Response(JSON.stringify(mockData), {

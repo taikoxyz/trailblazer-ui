@@ -212,40 +212,6 @@ export class ProfileService {
    * Fetches the user's domain information.
    *
    * @param {Address} address
-   * @return {*}
-   * @memberof ProfileService
-   */
-  async calculateUserStats({
-    position,
-    total,
-    score,
-  }: {
-    position: number;
-    total: number;
-    score: number;
-  }): Promise<UserStats> {
-    log('Fetching user stats for address:');
-
-    const percentile = this.calculatePercentile(position, total);
-    const { level, title } = this.getLevel(percentile);
-    const userStats: UserStats = {
-      userStats: {
-        score,
-        rank: position.toString(),
-        total: total.toString(),
-        rankPercentile: percentile.toFixed(2),
-        level,
-        title,
-      },
-    };
-    log("User's stats:", userStats);
-    return userStats;
-  }
-
-  /**
-   * Fetches the user's domain information.
-   *
-   * @param {Address} address
    * @return {*}  {Promise<DomainInfo>}
    * @memberof ProfileService
    */

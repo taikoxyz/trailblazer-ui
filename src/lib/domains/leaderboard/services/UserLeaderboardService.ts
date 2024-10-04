@@ -47,7 +47,6 @@ export class UserLeaderboardService {
   ): Promise<UserLeaderboardPage> {
     try {
       log('Fetching leaderboard data', { args, season });
-
       const leaderboardData = await this.leaderboardAdapter.fetchLeaderboardData(args, season);
       log('Fetched leaderboard data', { leaderboardData });
 

@@ -1,14 +1,16 @@
 <script lang="ts">
-  import { leaderboardConfig } from '$config';
-  import { type DappLeaderboardItem, Leaderboard, type PaginationInfo } from '$libs/leaderboard';
-  import { getLogger } from '$libs/util/logger';
-  import { currentGamingLeaderboard } from '$stores/leaderboards/gamingLeaderboard';
+  import { setContext } from 'svelte';
 
-  import GamingCompetitionInformation from './Competition/GamingCompetition/GamingCompetitionInformation.svelte';
-  import GamingHeader from './Header/GamingHeader.svelte';
-  import LastUpdatedHeader from './LastUpdatedHeader.svelte';
-  import AbstractLeaderboard from './Template/AbstractLeaderboard.template.svelte';
-  import PointScore from './Template/PointScore.template.svelte';
+  import { leaderboardConfig } from '$config';
+  import GamingHeader from '$lib/domains/leaderboard/components/Header/GamingHeader.svelte';
+  import type { PaginationInfo } from '$lib/shared/dto/CommonPageApiResponse';
+  import { getLogger } from '$libs/util/logger';
+
+  import type { DappLeaderboardItem } from '../dto/dapps.dto';
+  import { gamingLeaderboardService } from '../services/LeaderboardServiceInstances';
+  import { currentGamingLeaderboard } from '../stores/gamingLeaderboard';
+  import { GamingCompetitionInformation } from './Competition/GamingCompetition';
+  import { AbstractLeaderboard, PointScore } from './Template';
 
   const log = getLogger('DappsLeaderboard');
   export let loading = false;
@@ -17,7 +19,6 @@
 
   $: totalItems = pageInfo?.total || 0;
   $: pageSize = pageInfo?.size || leaderboardConfig.pageSize;
-  $: lastUpdated = new Date($currentGamingLeaderboard.lastUpdated * 1000);
 
   function handlePageChange(page: number) {
     log('handlePageChange', page);
@@ -29,11 +30,15 @@
     const args: PaginationInfo<DappLeaderboardItem> = {
       page,
       size: pageSize,
+      total: totalItems,
     };
-    const pageInfo = await Leaderboard.getGamingLeaderboard(args);
-    totalItems = pageInfo.total || $currentGamingLeaderboard.items.length;
+    const leaderboardPage = await gamingLeaderboardService.getGamingLeaderboardData(args, 1);
+    totalItems = leaderboardPage?.pagination.total || $currentGamingLeaderboard.items.length;
     loading = false;
   }
+
+  setContext('loadDappsLeaderboardData', loadLeaderboardData);
+  setContext('dappsPageInfo', pageInfo);
 </script>
 
 <AbstractLeaderboard
@@ -41,11 +46,9 @@
   data={$currentGamingLeaderboard.items}
   showTrophy={true}
   isLoading={loading}
-  showPagination={false}
   {handlePageChange}
   {totalItems}
+  showPagination={true}
+  additionalInfoComponent={GamingCompetitionInformation}
   headerComponent={GamingHeader}
-  scoreComponent={PointScore}
-  additionalInfoComponent={GamingCompetitionInformation}>
-  <LastUpdatedHeader {lastUpdated} />
-</AbstractLeaderboard>
+  scoreComponent={PointScore} />

@@ -1,4 +1,4 @@
-<script lang="ts">
+<!-- <script lang="ts">
   import { t } from 'svelte-i18n';
   import type { Address } from 'viem';
   import { getAddress } from 'viem/utils';
@@ -48,9 +48,9 @@
       <DisabledMask
         title={$t('leaderboard.bridge.ended.title')}
         description={$t('leaderboard.bridge.ended.description')} />
-    {/if}
-    <!-- head -->
-    <thead class="border-b-2 border-gray-800">
+    {/if} -->
+<!-- head -->
+<!-- <thead class="border-b-2 border-gray-800">
       <tr>
         <th class="body-regular text-secondary-content text-start pt-8 px-10">No.</th>
         <th class="body-regular text-secondary-content text-start pt-8 px-10">Name</th>
@@ -122,4 +122,4 @@
       </tbody>
     {/if}
   </table>
-</div>
+</div> -->

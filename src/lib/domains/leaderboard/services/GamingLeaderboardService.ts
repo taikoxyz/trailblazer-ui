@@ -1,0 +1,81 @@
+import type { PaginationInfo } from '$lib/shared/dto/CommonPageApiResponse';
+import { getLogger } from '$libs/util/logger';
+
+import { GamingLeaderboardAdapter } from '../adapter/GamingLeaderboardAdapter';
+import { ProtocolAdapter } from '../adapter/ProtocolAdapter';
+import type { GamingLeaderboardItem } from '../dto/gaming.dto';
+import { mapGamingLeaderboardRow } from '../mapper/mapper';
+import { GamingLeaderboardRepository } from '../repository/GamingLeaderboardRepository';
+import type { GamingLeaderboardPage, GamingLeaderboardRow } from '../types/dapps/types';
+import type { UnifiedLeaderboardRow } from '../types/shared/types';
+
+const log = getLogger('GamingLeaderboardService');
+
+export class GamingLeaderboardService {
+  // adapters
+  private leaderboardAdapter: GamingLeaderboardAdapter;
+  private protocolAdapter: ProtocolAdapter;
+
+  // repositories
+  private leaderboardRepository: GamingLeaderboardRepository;
+
+  constructor(
+    leaderboardAdapter?: GamingLeaderboardAdapter,
+    protocolAdapter?: ProtocolAdapter,
+    leaderboardRepository?: GamingLeaderboardRepository,
+  ) {
+    this.leaderboardRepository = leaderboardRepository ? leaderboardRepository : new GamingLeaderboardRepository();
+    this.protocolAdapter = protocolAdapter ? protocolAdapter : new ProtocolAdapter();
+    this.leaderboardAdapter = leaderboardAdapter ? leaderboardAdapter : new GamingLeaderboardAdapter();
+  }
+
+  /**
+   * Fetches gaming leaderboard data.
+   *
+   * @param {PaginationInfo<GamingLeaderboardItem>} args
+   * @param {number} season
+   * @return {*}
+   * @memberof GamingLeaderboardService
+   */
+  async getGamingLeaderboardData(args: PaginationInfo<GamingLeaderboardItem>, season: number) {
+    const leaderboardPage: GamingLeaderboardPage = {
+      items: [],
+      lastUpdated: Date.now(),
+      pagination: { ...args },
+    };
+    log('fetching leaderboard data', args, season);
+    const leaderboardData: PaginationInfo<GamingLeaderboardItem> = await this.leaderboardAdapter.fetchLeaderboardData(
+      args,
+      season,
+    );
+
+    log('leaderboardData', leaderboardData);
+
+    if (leaderboardData.items && leaderboardData.items.length > 0) {
+      const protocolDetailsPromises = leaderboardData.items.map(async (item) => {
+        const protocolDetails = await this.protocolAdapter.fetchGamingProtocolDetails(item.slug, season);
+
+        log(`details for ${item.slug}`, protocolDetails);
+
+        const entry: GamingLeaderboardRow = {
+          address: item.address,
+          data: protocolDetails.protocols,
+          metadata: protocolDetails.metadata,
+          totalScore: item.score,
+        };
+
+        const unifiedRow: UnifiedLeaderboardRow = mapGamingLeaderboardRow(entry);
+        log(`unifiedRow`, unifiedRow);
+
+        return unifiedRow;
+      });
+
+      const unifiedRows = await Promise.all(protocolDetailsPromises);
+      leaderboardPage.items.push(...unifiedRows);
+      leaderboardPage.pagination = { ...leaderboardData };
+      await this.leaderboardRepository.update(leaderboardPage);
+
+      return leaderboardPage;
+    }
+  }
+}
