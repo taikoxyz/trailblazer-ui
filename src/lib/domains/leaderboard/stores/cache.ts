@@ -1,4 +1,7 @@
 import { get, writable } from 'svelte/store';
+import { type Address,getAddress } from 'viem';
+
+import type { NFT } from '$lib/shared/types/NFT';
 
 import type { ProtocolApiResponse } from '../dto/protocol.dto';
 
@@ -23,3 +26,50 @@ function createProtocolDetailsStore() {
 }
 
 export const protocolDetailsCache = createProtocolDetailsStore();
+
+type ProfilePictureEntry = NFT | null;
+type MultipleProfilePictureEntry = Record<string, ProfilePictureEntry>;
+
+function createProfilePictureCacheStore() {
+  // Single profile picture cache
+  const singleCache = writable<Map<string, ProfilePictureEntry>>(new Map());
+
+  // Multiple profile pictures cache
+  const multipleCache = writable<Map<string, MultipleProfilePictureEntry>>(new Map());
+
+  return {
+    subscribeSingle: singleCache.subscribe,
+    getSingle: (address: Address): ProfilePictureEntry | undefined => {
+      const checksummedAddress = getAddress(address);
+      const cache = get(singleCache);
+      return cache.get(checksummedAddress);
+    },
+    setSingle: (address: Address, data: ProfilePictureEntry): void => {
+      const checksummedAddress = getAddress(address);
+      singleCache.update((cache) => {
+        cache.set(checksummedAddress, data);
+        return cache;
+      });
+    },
+    subscribeMultiple: multipleCache.subscribe,
+    getMultiple: (addresses: Address[]): MultipleProfilePictureEntry | undefined => {
+      const normalizedAddresses = addresses.map((addr) => getAddress(addr)).sort();
+      const cacheKey = normalizedAddresses.join(',');
+      const cache = get(multipleCache);
+      return cache.get(cacheKey);
+    },
+    setMultiple: (addresses: Address[], data: MultipleProfilePictureEntry): void => {
+      const normalizedAddresses = addresses.map((addr) => getAddress(addr)).sort();
+      const cacheKey = normalizedAddresses.join(',');
+      multipleCache.update((cache) => {
+        cache.set(cacheKey, data);
+        return cache;
+      });
+    },
+  };
+}
+
+/**
+ * Exported cache stores for single and multiple profile pictures.
+ */
+export const profilePictureCache = createProfilePictureCacheStore();

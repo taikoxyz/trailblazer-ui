@@ -1,7 +1,7 @@
 import { browser } from '$app/environment';
 import { leaderboardConfig } from '$config';
+import { userLeaderboardService } from '$lib/domains/leaderboard/services/LeaderboardServiceInstances';
 import { type PaginationInfo, type UserLeaderboardItem } from '$libs/leaderboard';
-import { UserLeaderboard } from '$libs/leaderboard/season-2/user/userLeaderboard';
 
 export const load = async () => {
   let loading = true;
@@ -14,7 +14,10 @@ export const load = async () => {
 
   if (browser) {
     try {
-      pageInfo = await UserLeaderboard.getUserLeaderboard(pageInfo);
+      const page = await userLeaderboardService.getUserLeaderboardData(pageInfo, 2);
+      if (page) {
+        pageInfo = page.pagination;
+      }
     } catch (error) {
       console.error('Error loading leaderboard data:', error);
     } finally {

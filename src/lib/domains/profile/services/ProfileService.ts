@@ -9,13 +9,16 @@ import { isDevelopmentEnv } from '$libs/util/isDevelopmentEnv';
 import { getLogger } from '$libs/util/logger';
 
 import { ProfileApiAdapter } from '../adapter/ProfileAdapter';
+import type { UserPointsAndRankResponse } from '../dto/profile.dto';
 import UserRepository from '../repositories/UserRepository';
 import { multipliersLoading, profileLoading } from '../stores/profileStore';
 import { defaultUserProfile } from '../types/defaultUserProfile';
 import type { DomainInfo } from '../types/DomainInfo';
 import { levelTiers } from '../types/LevelTiers';
 import { DomainType } from '../types/types';
+import type { UserInfoForLeaderboard } from '../types/UserInfoForLeaderboard';
 import type { UserProfile } from '../types/UserProfile';
+import type { UserStats } from '../types/UserStats';
 
 const log = getLogger('ProfileService');
 
@@ -44,7 +47,7 @@ export class ProfileService {
    * @param address - The user's address.
    * @param season - The season number for data fetching (default is 0).
    */
-  async getProfile(address?: Address, season: number = 0): Promise<void> {
+  async getProfile(address?: Address, season: number = 0): Promise<UserProfile | null> {
     profileLoading.set(true);
 
     try {
@@ -100,22 +103,147 @@ export class ProfileService {
 
       log('Saved Profile:', await this.userRepository.get());
 
-      // Proceed with fetching NFTs and further calculations
-      const multiplier = this.fetchAndCalculateMultipliers(address);
-      const nfts = this.getProfileWithNFTs(address, season);
-      const avatar = this.getProfilePicture(address);
-      const rankName = this.performAdditionalCalculations();
-      const domainInfo = this.handleDomainSelection(info);
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const [multiplierResult, nftsResult, avatarResult, rankNameResult, domainInfoResult] = await Promise.all([
+        this.fetchAndCalculateMultipliers(address),
+        this.getProfileWithNFTs(address, season),
+        this.getProfilePicture(address),
+        this.performAdditionalCalculations(),
+        this.handleDomainSelection(info),
+      ]);
 
-      await Promise.all([multiplier, avatar, rankName, domainInfo, nfts]);
+      // update avatar on userprofile
+      const user = await this.userRepository.get();
+      if (user.personalInfo && avatarResult) {
+        user.personalInfo.avatar = avatarResult;
+        await this.userRepository.update(user);
+      }
 
-      log('Final Profile:', await this.userRepository.get());
+      log('Final Profile:');
     } catch (error) {
       log('Error in getProfile:', error);
+      return null;
     } finally {
       profileLoading.set(false);
       multipliersLoading.set(false);
     }
+    return await this.userRepository.get();
+  }
+
+  /**
+   * Fetches the user's points and rank for a given season.
+   *
+   * @param {Address} address
+   * @param {number} season
+   * @return {*}
+   * @memberof ProfileService
+   */
+  async getProfileRankAndPoints(address: Address, season: number) {
+    log('Fetching user points and rank for address:', address, 'season:', season);
+    return await this.apiAdapter.fetchUserPointsAndRank(address, season);
+  }
+
+  /**
+   * Fetches the user's domain information.
+   *
+   * @param {Address} address
+   * @return {*}
+   * @memberof ProfileService
+   */
+  async getUserInfoForLeaderboard(addresses: Address[], season: number): Promise<UserInfoForLeaderboard[]> {
+    log('Fetching user info for leaderboard for addresses:', addresses);
+
+    // Fetch profile pictures in bulk
+    const profilePicturesPromise = this.getProfilePictures(addresses);
+
+    // Fetch user stats for all addresses in parallel
+    const userStatsPromises = addresses.map((address) => this.fetchUserStats(address, season));
+
+    // Fetch domain info for all addresses in parallel
+    const domainInfoPromises = addresses.map((address) => this.fetchDomainInfo(address));
+
+    // Wait for all promises to resolve
+    const [profilePictures, userStatsArray, domainInfoArray] = await Promise.all([
+      profilePicturesPromise,
+      Promise.all(userStatsPromises),
+      Promise.all(domainInfoPromises),
+    ]);
+
+    // Assemble the final array of UserInfoForLeaderboard
+    const userInfoList: UserInfoForLeaderboard[] = addresses.map((address, index) => {
+      const userStats = userStatsArray[index];
+      const domainInfo = domainInfoArray[index];
+      const profilePicture = profilePictures[getAddress(address)] || '';
+
+      return {
+        address,
+        score: userStats.userStats.score,
+        rank: userStats.userStats.rank,
+        title: userStats.userStats.title,
+        level: userStats.userStats.level,
+        total: userStats.userStats.total,
+        rankPercentile: userStats.userStats.rankPercentile || '0',
+        profilePicture,
+        domainInfo,
+      };
+    });
+
+    return userInfoList;
+  }
+
+  /**
+   * Fetches the user's domain information.
+   *
+   * @param {Address} address
+   * @return {*}
+   * @memberof ProfileService
+   */
+  async fetchUserStats(address: Address, season: number): Promise<UserStats> {
+    log('Fetching user stats for address:', address, 'season:', season);
+    const pointsAndRankResponse: UserPointsAndRankResponse = await this.apiAdapter.fetchUserPointsAndRank(
+      address,
+      season,
+    );
+    log('Fetched user stats:', pointsAndRankResponse);
+    const { score, rank, total } = pointsAndRankResponse;
+
+    const percentile = this.calculatePercentile(rank, total);
+    const { level, title } = this.getLevel(percentile);
+    const userStats: UserStats = {
+      userStats: {
+        score,
+        rank: rank.toString(),
+        total: total.toString(),
+        rankPercentile: percentile.toFixed(2),
+        level,
+        title,
+      },
+    };
+    log("User's stats:", userStats);
+    return userStats;
+  }
+
+  /**
+   * Fetches the user's domain information.
+   *
+   * @param {Address} address
+   * @return {*}  {Promise<DomainInfo>}
+   * @memberof ProfileService
+   */
+  async fetchDomainInfo(address: Address): Promise<DomainInfo> {
+    const userDomainInfo = await this.apiAdapter.fetchUserDomainInfo(address);
+
+    const info: DomainInfo = {
+      domainInfo: {
+        dotTaiko: userDomainInfo.dotTaiko,
+        zns: userDomainInfo.zns,
+      },
+    };
+
+    // Handle domain selection logic
+    await this.handleDomainSelection(info);
+
+    return info;
   }
 
   /**
@@ -173,7 +301,7 @@ export class ProfileService {
     const oldUser = await this.userRepository.get();
     this.userRepository.update({
       domainInfo: {
-        ...oldUser.domainInfo,
+        ...oldUser?.domainInfo,
         selected: selectedDomain,
       },
     });
@@ -278,7 +406,11 @@ export class ProfileService {
   }
 
   /**
-   * Performs additional calculations like percentile, level, and boosted points.
+   * Performs additional calculations after fetching user stats.
+   *
+   * @private
+   * @return {*}  {Promise<void>}
+   * @memberof ProfileService
    */
   private async performAdditionalCalculations(): Promise<void> {
     const user = await this.userRepository.get();
@@ -333,6 +465,7 @@ export class ProfileService {
       level: '0',
       title: 'Beginner',
     };
+
     log('found tier', tier);
     const { level, title } = tier;
     return { level: level, title };
@@ -402,42 +535,56 @@ export class ProfileService {
   async getProfilePicture(address: Address): Promise<string | null> {
     log('Retrieving profile picture for address:', address);
     try {
-      const user = await this.userRepository.get();
-      if (!user) return null;
-
+      // Fetch the profile picture NFT reference from the API
       const pfpNFT = await this.apiAdapter.getProfilePicture(address);
-      if (!pfpNFT) return null;
+      if (!pfpNFT) {
+        log('No profile picture NFT found for address:', address);
+        return null;
+      }
 
       log('Found profile picture NFT:', pfpNFT);
 
-      // Fetch the NFT details using CombinedNFTService
-      const allNFTs = await this.combinedNFTService.fetchAllNFTsForUser(address);
+      // If pfpNFT lacks necessary details, fetch all NFTs and find a match
+      if (!pfpNFT.address || !pfpNFT.tokenId) {
+        // Fetch all NFTs for the user
+        const allNFTs = await this.combinedNFTService.fetchAllNFTsForUser(address);
 
-      // Find the NFT with the given ID
-      const allNFTsFlat: NFT[] = [...allNFTs.taikoonNFTs, ...allNFTs.badgeNFTs];
-      log('All NFTs:', allNFTsFlat);
+        // Combine all NFTs into a single array
+        const allNFTsFlat: NFT[] = [...allNFTs.taikoonNFTs, ...allNFTs.badgeNFTs];
+        log('All NFTs:', allNFTsFlat);
 
-      //find the pfp based on address AND tokenId
-      const match = allNFTsFlat.find(
-        (nft) => nft.tokenId === Number(pfpNFT.tokenId) && getAddress(nft.address) === getAddress(pfpNFT.address),
-      );
-      if (match) {
+        // Find the matching NFT
+        const match = allNFTsFlat.find(
+          (nft) => nft.tokenId === Number(pfpNFT.tokenId) && getAddress(nft.address) === getAddress(pfpNFT.address),
+        );
+
+        if (match) {
+          const metadata = await this.combinedNFTService.getNFTMetadata(match);
+          const profilePicture = metadata?.image || null;
+
+          if (profilePicture) {
+            log('Retrieved profile picture URL:', profilePicture);
+            return profilePicture;
+          } else {
+            log('No image found in metadata for NFT:', match);
+            return null;
+          }
+        } else {
+          log('Profile picture NFT not found among user NFTs.');
+          return null;
+        }
+      } else {
+        // pfpNFT has enough information; fetch metadata directly
         const metadata = await this.combinedNFTService.getNFTMetadata(pfpNFT);
-        const profilePicture = metadata?.image;
+        const profilePicture = metadata?.image || null;
 
         if (profilePicture) {
-          await this.userRepository.update({
-            personalInfo: {
-              avatar: profilePicture,
-            },
-          });
-
+          log('Retrieved profile picture URL:', profilePicture);
           return profilePicture;
+        } else {
+          log('No image found in metadata for NFT:', pfpNFT);
+          return null;
         }
-        return null;
-      } else {
-        log('Profile picture not found');
-        return null;
       }
     } catch (error) {
       log('Error retrieving profile picture:', error);
@@ -445,14 +592,25 @@ export class ProfileService {
     }
   }
 
+  /**
+   * Retrieves the profile pictures for the given addresses.
+   *
+   * @param {Address[]} addresses
+   * @return {*}  {Promise<Record<Address, string>>}
+   * @memberof ProfileService
+   */
   async getProfilePictures(addresses: Address[]): Promise<Record<Address, string>> {
     log('Retrieving profile pictures for addresses:', addresses);
     try {
       const result: Record<Address, string> = {};
-      const profilePictures: Record<Address, NFT> = await this.apiAdapter.getProfilePictures(addresses);
+      const profilePictures: Record<Address, NFT | null> = await this.apiAdapter.getProfilePictures(addresses);
       log('Found profile pictures:', profilePictures);
 
       for (const [address, nft] of Object.entries(profilePictures)) {
+        if (!nft) {
+          result[getAddress(address) as Address] = '';
+          continue;
+        }
         const metadata = await this.combinedNFTService.getNFTMetadata(nft);
         log('metadata', metadata);
         if (metadata) {
@@ -463,8 +621,6 @@ export class ProfileService {
       }
       log('Profile pictures:', result);
 
-      // out[owner] = src.data.image;
-      // return profilePictures;
       return result;
     } catch (error) {
       log('Error retrieving profile pictures:', error);

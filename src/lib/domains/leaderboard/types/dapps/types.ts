@@ -1,5 +1,7 @@
 import type { Address } from 'viem';
 
+import type { UnifiedLeaderboardRow } from '$libs/leaderboard';
+
 export type DappLeaderboardPage = {
   items: DappLeaderboardRow[];
   lastUpdated: number;
@@ -12,6 +14,27 @@ export type DappLeaderboardRow = {
   metadata?: ProtocolMetadata;
   totalScore: number;
 };
+
+export type UserLeaderboardPage = {
+  items: UnifiedLeaderboardRow[];
+  lastUpdated: number;
+  pagination: PaginationInfo;
+};
+
+export type UserLeaderboardItem = {
+  address: Address;
+  score: number;
+};
+
+export type UserLeaderboardRow = UserLeaderboardItem & {
+  position?: number;
+  level?: string;
+  title?: string;
+  name?: string;
+  icon?: string;
+};
+
+// Internal types
 
 type ProtocolData = {
   address: Address;

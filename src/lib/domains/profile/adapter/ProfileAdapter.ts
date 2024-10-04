@@ -1,7 +1,10 @@
+// src/lib/domains/profile/adapter/ProfileApiAdapter.ts
+
 import { writeContract } from '@wagmi/core';
 import { type Address, getAddress, type Hash } from 'viem';
 
 import { registerProfilePictureAbi, registerProfilePictureAddress } from '$generated/abi';
+import { profilePictureCache } from '$lib/domains/leaderboard/stores/cache';
 import { getAxiosInstance, globalAxiosConfig } from '$lib/shared/services/api/axiosClient';
 import { graphqlClient } from '$lib/shared/services/graphql/client';
 import { USER_PROFILE_PICTURE_QUERY, USER_PROFILE_PICTURES_QUERY } from '$lib/shared/services/graphql/queries';
@@ -14,18 +17,18 @@ import { getLogger } from '$libs/util/logger';
 import type { DomainResponse, UserPointHistoryPage, UserPointsAndRankResponse } from '../dto/profile.dto';
 
 const log = getLogger('ProfileApiAdapter');
+
 export class ProfileApiAdapter {
   /**
    * Fetches user points and rank from the /user/rank endpoint.
    *
    * @param {Address} address the user's address
    * @param {number} season the season the user's points and rank are being fetched for
-   * @return {*}
-   * @memberof ProfileApiAdapter
+   * @return {Promise<UserPointsAndRankResponse>} the user's points and rank data
    */
-  async fetchUserPointsAndRank(address: Address, season: number) {
+  async fetchUserPointsAndRank(address: Address, season: number): Promise<UserPointsAndRankResponse> {
     const client = getAxiosInstance(season);
-    const response: UserPointsAndRankResponse = await client.get(`/user/rank`, {
+    const response = await client.get<UserPointsAndRankResponse>(`/user/rank`, {
       params: { address },
       ...globalAxiosConfig,
     });
@@ -40,12 +43,11 @@ export class ProfileApiAdapter {
    * @param {number} season the season the user's activity is being fetched for
    * @param {number} [page] the page number of the activity
    * @return {Promise<UserPointHistoryPage>} the user's activity
-   * @memberof ProfileApiAdapter
    */
   async fetchUserActivity(address: Address, season: number, page?: number): Promise<UserPointHistoryPage> {
     const client = getAxiosInstance(season);
     const params = page ? { address, page } : { address };
-    const response = await client.get(`/user/history`, {
+    const response = await client.get<UserPointHistoryPage>(`/user/history`, {
       params,
       ...globalAxiosConfig,
     });
@@ -57,7 +59,6 @@ export class ProfileApiAdapter {
    *
    * @param {Address} address the user's address
    * @return {Promise<DomainResponse>} the user's domain info
-   * @memberof ProfileApiAdapter
    */
   async fetchUserDomainInfo(address: Address): Promise<DomainResponse> {
     const client = getAxiosInstance();
@@ -72,8 +73,7 @@ export class ProfileApiAdapter {
    * Sets the user's profile picture in the profilePicture contract.
    *
    * @param {NFT} nft the NFT to set as the user's profile picture
-   * @return {*}  {Promise<string>}
-   * @memberof ProfileApiAdapter
+   * @return {Promise<Hash>} the transaction hash
    */
   async setProfilePicture(nft: NFT): Promise<Hash> {
     const txHash = await writeContract(wagmiConfig, {
@@ -88,23 +88,36 @@ export class ProfileApiAdapter {
 
     return txHash;
   }
+
   /**
    * Fetches the user's profile picture from the profilePicture contract.
+   * Utilizes caching to improve performance.
    *
    * @param {Address} userAddress the user's address
-   * @return {Promise<string>} the user's profile picture URL
-   * @memberof ProfileApiAdapter
+   * @return {Promise<NFT | null>} the user's profile picture NFT or null if not found
    */
-  async getProfilePicture(userAddress: Address): Promise<NFT> {
+  async getProfilePicture(userAddress: Address): Promise<NFT | null> {
+    const checksummedAddress = getAddress(userAddress);
+
+    // Check cache first
+    const cachedData = profilePictureCache.getSingle(checksummedAddress);
+    if (cachedData !== undefined) {
+      log(`Cache hit for profile picture: ${checksummedAddress}`);
+      return cachedData;
+    }
+
     try {
       const result = await graphqlClient.query({
         query: USER_PROFILE_PICTURE_QUERY,
-        variables: { address: getAddress(userAddress) },
+        variables: { address: checksummedAddress },
       });
 
       log('getProfilePicture graphql result', { result });
+
       if (!result.data.profilePicture) {
-        throw new Error('GraphQL: No profile picture found');
+        log(`No profile picture found for address: ${checksummedAddress}`);
+        profilePictureCache.setSingle(checksummedAddress, null);
+        return null;
       }
 
       const { tokenURI, tokenAddress, tokenId } = result.data.profilePicture;
@@ -112,62 +125,104 @@ export class ProfileApiAdapter {
       const pfp: NFT = {
         address: tokenAddress,
         tokenId: tokenId,
-        src: '',
+        src: '', // You might want to resolve tokenURI to an actual image URL
         tokenUri: tokenURI,
       };
+
+      // Update cache
+      profilePictureCache.setSingle(checksummedAddress, pfp);
 
       return pfp;
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (e: any) {
-      console.warn(e);
-      return {} as NFT;
+      console.error('Error fetching profile picture', { address: checksummedAddress, error: e });
+      // Cache the failure to prevent repeated attempts
+      profilePictureCache.setSingle(checksummedAddress, null);
+      return null;
     }
   }
 
   /**
    * Fetches multiple profile pictures from the profilePicture contract.
+   * Utilizes caching to improve performance.
    *
    * @param {Address[]} addresses the addresses to fetch profile pictures for
-   * @return {*}  {Promise<Record<Address, NFT>>}
-   * @memberof ProfileApiAdapter
+   * @return {Promise<Record<Address, NFT | null>>} a record mapping addresses to their profile pictures or null
    */
-  async getProfilePictures(addresses: Address[]): Promise<Record<Address, NFT>> {
-    log('getProfilePictures', { addresses });
-    try {
-      const out: Record<Address, NFT> = {};
-      addresses.forEach((address) => {
-        out[getAddress(address)] = {} as NFT;
-      });
+  async getProfilePictures(addresses: Address[]): Promise<Record<Address, NFT | null>> {
+    // Normalize and sort addresses to generate a consistent cache key
+    const normalizedAddresses = addresses.map((addr) => getAddress(addr)).sort();
+    const cacheKey = normalizedAddresses.join(',');
 
-      const result = await graphqlClient.query({
-        query: USER_PROFILE_PICTURES_QUERY,
-        variables: { addresses: addresses },
-      });
-
-      log('getProfilePictures graphql result', { result });
-
-      if (!result.data.profilePictures) {
-        throw new Error('GraphQL: No profile picture found');
-      }
-
-      for (const item of result.data.profilePictures) {
-        const { tokenURI, id: owner } = item;
-        const pfp: NFT = {
-          address: item.tokenAddress,
-          tokenId: item.tokenId,
-          src: '',
-          tokenUri: tokenURI,
-        };
-        log('pfp', pfp);
-        out[owner] = pfp;
-      }
-      log('returning out', out);
-      return out;
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (e: any) {
-      console.warn(e);
-      log('getProfilePictures error', { e });
-      return {} as Record<Address, NFT>;
+    // Check if the entire set is cached
+    const cachedMultiple = profilePictureCache.getMultiple(normalizedAddresses);
+    if (cachedMultiple) {
+      log(`Cache hit for multiple profile pictures: [${cacheKey}]`);
+      return cachedMultiple;
     }
+
+    // Identify addresses that are not cached
+    const addressesToFetch = normalizedAddresses.filter((addr) => profilePictureCache.getSingle(addr) === undefined);
+
+    const fetchedData: Record<string, NFT | null> = {};
+
+    if (addressesToFetch.length > 0) {
+      try {
+        const result = await graphqlClient.query({
+          query: USER_PROFILE_PICTURES_QUERY,
+          variables: { addresses: addressesToFetch },
+        });
+
+        log('getProfilePictures graphql result', { result });
+
+        if (result.data.profilePictures) {
+          for (const item of result.data.profilePictures) {
+            const { tokenURI, id: owner, tokenAddress, tokenId } = item;
+            const checksummedOwner = getAddress(owner);
+            const pfp: NFT = {
+              address: tokenAddress,
+              tokenId: tokenId,
+              src: '', // Resolve tokenURI as needed
+              tokenUri: tokenURI,
+            };
+            fetchedData[checksummedOwner] = pfp;
+            // Update individual cache
+            profilePictureCache.setSingle(checksummedOwner, pfp);
+          }
+        }
+
+        // For addresses without profile pictures, set to null
+        for (const addr of addressesToFetch) {
+          if (!fetchedData[addr]) {
+            fetchedData[addr] = null;
+            profilePictureCache.setSingle(addr, null);
+          }
+        }
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      } catch (e: any) {
+        console.error('Error fetching multiple profile pictures', { addresses: addressesToFetch, error: e });
+        // On error, set all to null to prevent repeated attempts
+        for (const addr of addressesToFetch) {
+          fetchedData[addr] = null;
+          profilePictureCache.setSingle(addr, null);
+        }
+      }
+    }
+
+    // Combine cached and fetched data
+    const combinedData: Record<string, NFT | null> = {};
+
+    for (const addr of normalizedAddresses) {
+      if (profilePictureCache.getSingle(addr) !== undefined) {
+        combinedData[addr] = profilePictureCache.getSingle(addr) || null;
+      } else {
+        combinedData[addr] = null; // Fallback if not fetched
+      }
+    }
+
+    // Cache the entire set
+    profilePictureCache.setMultiple(normalizedAddresses, combinedData);
+
+    return combinedData;
   }
 }

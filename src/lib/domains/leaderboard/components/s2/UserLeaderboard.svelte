@@ -1,9 +1,10 @@
 <script lang="ts">
   import { leaderboardConfig } from '$config';
-  import { mapUserLeaderboardRow, type PaginationInfo } from '$libs/leaderboard';
-  import { type UserLeaderboardItem, UserLeaderboardS2 } from '$libs/leaderboard/season-2/user/index';
-  import { currentUserLeaderboard } from '$stores/leaderboard';
+  import type { PaginationInfo } from '$lib/shared/dto/CommonPageApiResponse';
 
+  import { userLeaderboardService } from '../../services/LeaderboardServiceInstances';
+  import { currentUserLeaderboard } from '../../stores/userLeaderboard';
+  import type { UserLeaderboardItem } from '../../types/dapps/types';
   import { UserLeaderboardHeader } from '../Header';
   import { AbstractLeaderboard, PointScore } from '../Template';
 
@@ -12,7 +13,6 @@
   export let loading = false;
   export let pageInfo: PaginationInfo<UserLeaderboardItem>;
 
-  $: data = $currentUserLeaderboard.items.map(mapUserLeaderboardRow);
   $: totalItems = pageInfo?.total || 0;
   $: pageSize = pageInfo?.size || leaderboardConfig.pageSize;
 
@@ -27,8 +27,8 @@
       page,
       size: pageSize,
     };
-    const pageInfo = await UserLeaderboardS2.getUserLeaderboard(args);
-    totalItems = pageInfo.total || $currentUserLeaderboard.items.length;
+    const leaderboardPage = await userLeaderboardService.getUserLeaderboardData(args, 2);
+    totalItems = leaderboardPage?.pagination.total || $currentUserLeaderboard.items.length;
 
     loading = false;
   }
@@ -36,7 +36,7 @@
 
 <AbstractLeaderboard
   {headers}
-  {data}
+  data={$currentUserLeaderboard.items}
   showPagination={true}
   showDetailsColumn={false}
   showTrophy={true}

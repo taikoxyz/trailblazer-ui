@@ -1,8 +1,9 @@
 <script lang="ts">
   import { leaderboardConfig } from '$config';
-  import { Leaderboard, mapUserLeaderboardRow, type PaginationInfo, type UserLeaderboardItem } from '$libs/leaderboard';
+  import { Leaderboard, type PaginationInfo, type UserLeaderboardItem } from '$libs/leaderboard';
   import { currentUserLeaderboard } from '$stores/leaderboard';
 
+  import { mapUserLeaderboardRow } from '../mapper/mapper';
   import { UserLeaderboardHeader } from './Header';
   import AbstractLeaderboard from './Template/AbstractLeaderboard.template.svelte';
   import PointScore from './Template/PointScore.template.svelte';
