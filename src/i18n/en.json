@@ -209,6 +209,14 @@
         "title": "Campaign ended"
       }
     },
+    "dapp": {
+      "ended": {
+        "s1": {
+          "description": "Our journey concluded on Sept. 16th, 2024. Congratulations to the winners!",
+          "title": "Season ended"
+        }
+      }
+    },
     "defi": {
       "banner": {
         "description": "Compete for a month-long jackpot by increasing your TVL on DeFiLlama. Rewards will be based on performance throughout the competition, ending August 9th.",
@@ -240,6 +248,16 @@
         "description": "Compete for a month-long jackpot by providing the best gaming experience for your users! Rewards will be based on performance throughout the competition, ending Oct 17th.",
         "title": "Join the Gaming competition starting Sep 17th!"
       },
+      "ended": {
+        "s1": {
+          "description": "Our journey concluded on Sept. 16th, 2024. Congratulations to the winners!",
+          "title": "Campaign ended"
+        },
+        "s2": {
+          "description": "Our journey concluded on October 17th, 2024. Congratulations to the winners!",
+          "title": "Campaign ended"
+        }
+      },
       "prize": {
         "1": "Prize Pool",
         "2": "150K TAIKO Tokens"
@@ -260,6 +278,12 @@
     "user": {
       "booster": "{multiplier}x boosted",
       "dailyMaxReached": "Daily Max Reached",
+      "ended": {
+        "s1": {
+          "description": "Our journey concluded on Sept. 16th, 2024. Congratulations to the winners!",
+          "title": "Season ended"
+        }
+      },
       "event": {
         "block_proposed": "Block Proposed",
         "bridged": "Bridged",

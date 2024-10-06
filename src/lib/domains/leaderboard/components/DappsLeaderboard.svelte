@@ -7,10 +7,12 @@
   import type { PaginationInfo } from '$lib/shared/dto/CommonPageApiResponse';
   import { getLogger } from '$libs/util/logger';
 
-  import type { DappLeaderboardItem } from '../../dto/dapps.dto';
-  import { dappLeaderboardService } from '../../services/LeaderboardServiceInstances';
-  import { currentDappLeaderboard } from '../../stores/dappLeaderboard';
-  import { AbstractLeaderboard } from '../Template';
+  import type { DappLeaderboardItem } from '../dto/dapps.dto';
+  import { dappLeaderboardService } from '../services/LeaderboardServiceInstances';
+  import { currentDappLeaderboard } from '../stores/dappLeaderboard';
+  import { AbstractLeaderboard } from './Template';
+  import { CampaignEndedInfoBox } from './CampaignEndedInfoBox';
+  import { t } from 'svelte-i18n';
 
   const log = getLogger('DappsLeaderboard');
 
@@ -18,9 +20,14 @@
 
   export let loading = false;
   export let pageInfo: PaginationInfo<DappLeaderboardItem>;
+  export let season: number;
+
+  const endedSeasons = [1];
 
   $: totalItems = pageInfo?.total || 0;
   $: pageSize = pageInfo?.size || leaderboardConfig.pageSize;
+
+  $: hasEnded = endedSeasons.includes(season);
 
   let value = '';
 
@@ -38,7 +45,7 @@
       name,
       total: totalItems,
     };
-    const leaderboardPage = await dappLeaderboardService.getDappLeaderboardData(args, 2);
+    const leaderboardPage = await dappLeaderboardService.getDappLeaderboardData(args, season);
     totalItems = leaderboardPage?.pagination.total || $currentDappLeaderboard.items.length;
     loading = false;
   }
@@ -52,6 +59,10 @@
   data={$currentDappLeaderboard.items}
   showTrophy={true}
   isLoading={loading}
+  ended={hasEnded}
+  endedComponent={CampaignEndedInfoBox}
+  endTitleText={$t('leaderboard.dapp.ended.s1.title')}
+  endDescriptionText={$t('leaderboard.dapp.ended.s1.description')}
   {handlePageChange}
   {totalItems}
   showPagination={true}

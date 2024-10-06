@@ -5,9 +5,9 @@
   import { page } from '$app/stores';
   import { ActionButton } from '$components/Button';
   import { Page } from '$components/Page';
-  import GamingLeaderboard from '$lib/domains/leaderboard/components/s2/GamingLeaderboard.svelte';
   import type { DappLeaderboardItem } from '$lib/domains/leaderboard/dto/dapps.dto';
   import type { PaginationInfo } from '$lib/shared/dto/CommonPageApiResponse';
+  import GamingLeaderboard from '$lib/domains/leaderboard/components/GamingLeaderboard.svelte';
 
   let pageInfo: PaginationInfo<DappLeaderboardItem>;
   let loading: boolean;
@@ -15,7 +15,7 @@
   $: ({ pageInfo, loading } = $page.data);
 
   const handleClick = () => {
-    goto('/s2/leaderboard/dapps');
+    goto('/leaderboard/s2/dapps');
   };
 </script>
 
@@ -24,7 +24,7 @@
 </svelte:head>
 
 <Page>
-  <GamingLeaderboard {pageInfo} {loading} />
+  <GamingLeaderboard {pageInfo} {loading} season={2} />
 
   <div class="w-full flex justify-center mt-[58px]">
     <ActionButton class="max-w-[280px]" priority="primary" on:click={handleClick} withArrow>

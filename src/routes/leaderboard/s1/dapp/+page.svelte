@@ -19,7 +19,7 @@
   const buttonClasses = classNames('max-w-[280px]');
 
   const handleClick = () => {
-    goto('/leaderboard/s2/user');
+    goto('/leaderboard/s1/user');
   };
 </script>
 
@@ -28,7 +28,7 @@
 </svelte:head>
 
 <Page>
-  <DappsLeaderboard {pageInfo} {loading} season={2} />
+  <DappsLeaderboard {pageInfo} {loading} season={1} />
 
   <div class={wrapperClasses}>
     <ActionButton class={buttonClasses} priority="primary" on:click={handleClick} withArrow>

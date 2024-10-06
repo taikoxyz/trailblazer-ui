@@ -16,7 +16,7 @@ export const load = async () => {
 
   if (browser) {
     try {
-      const page = await dappLeaderboardService.getDappLeaderboardData(pageInfo, 2);
+      const page = await dappLeaderboardService.getDappLeaderboardData(pageInfo, 1);
       if (page) {
         pageInfo = page.pagination;
       }

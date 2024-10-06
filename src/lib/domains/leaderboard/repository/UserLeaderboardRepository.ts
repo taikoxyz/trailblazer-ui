@@ -1,3 +1,4 @@
+import { IRepository } from '$lib/shared/repository/IRepository';
 import { getLogger } from '$libs/util/logger';
 
 import { currentUserLeaderboard } from '../stores/userLeaderboard';
@@ -5,9 +6,10 @@ import type { UserLeaderboardPage } from '../types/dapps/types';
 
 const log = getLogger('UserLeaderboardRepository');
 
-export class UserLeaderboardRepository {
+export class UserLeaderboardRepository extends IRepository<UserLeaderboardPage> {
   async save(leaderboardPage: UserLeaderboardPage) {
     log('saving leaderboard data', leaderboardPage);
+    currentUserLeaderboard.set(leaderboardPage);
   }
 
   async update(leaderboardPage: UserLeaderboardPage) {
