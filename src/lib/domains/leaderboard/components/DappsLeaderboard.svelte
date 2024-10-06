@@ -1,5 +1,6 @@
 <script lang="ts">
   import { setContext } from 'svelte';
+  import { t } from 'svelte-i18n';
 
   import { leaderboardConfig } from '$config';
   import { DappsLeaderboardHeader } from '$lib/domains/leaderboard/components/Header';
@@ -10,9 +11,8 @@
   import type { DappLeaderboardItem } from '../dto/dapps.dto';
   import { dappLeaderboardService } from '../services/LeaderboardServiceInstances';
   import { currentDappLeaderboard } from '../stores/dappLeaderboard';
-  import { AbstractLeaderboard } from './Template';
   import { CampaignEndedInfoBox } from './CampaignEndedInfoBox';
-  import { t } from 'svelte-i18n';
+  import { AbstractLeaderboard } from './Template';
 
   const log = getLogger('DappsLeaderboard');
 

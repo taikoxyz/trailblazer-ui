@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { t } from 'svelte-i18n';
+
   import { leaderboardConfig } from '$config';
   import type { PaginationInfo } from '$lib/shared/dto/CommonPageApiResponse';
 
@@ -8,7 +10,6 @@
   import { CampaignEndedInfoBox } from './CampaignEndedInfoBox';
   import { UserLeaderboardHeader } from './Header';
   import { AbstractLeaderboard, PointScore } from './Template';
-  import { t } from 'svelte-i18n';
 
   let headers = ['No.', 'Address', 'Level', 'Title', 'Points'];
 

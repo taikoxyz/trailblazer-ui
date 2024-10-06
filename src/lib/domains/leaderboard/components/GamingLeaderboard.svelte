@@ -1,5 +1,6 @@
 <script lang="ts">
   import { setContext } from 'svelte';
+  import { t } from 'svelte-i18n';
 
   import { leaderboardConfig } from '$config';
   import { GamingCompetitionInformation } from '$lib/domains/leaderboard/components/Competition/GamingCompetition';
@@ -10,7 +11,7 @@
   import { currentGamingLeaderboard } from '$lib/domains/leaderboard/stores/gamingLeaderboard';
   import type { PaginationInfo } from '$lib/shared/dto/CommonPageApiResponse';
   import { getLogger } from '$libs/util/logger';
-  import { t } from 'svelte-i18n';
+
   import CampaignEndedInfoBox from './CampaignEndedInfoBox/CampaignEndedInfoBox.svelte';
 
   const log = getLogger('DappsLeaderboard');

@@ -5,10 +5,10 @@
   import { page } from '$app/stores';
   import { ActionButton } from '$components/Button';
   import { Page } from '$components/Page';
+  import UserLeaderboard from '$lib/domains/leaderboard/components/UserLeaderboard.svelte';
   import type { UserLeaderboardItem } from '$lib/domains/leaderboard/types/dapps/types';
   import type { PaginationInfo } from '$lib/shared/dto/CommonPageApiResponse';
   import { classNames } from '$libs/util/classNames';
-  import UserLeaderboard from '$lib/domains/leaderboard/components/UserLeaderboard.svelte';
 
   let pageInfo: PaginationInfo<UserLeaderboardItem>;
   let loading: boolean;

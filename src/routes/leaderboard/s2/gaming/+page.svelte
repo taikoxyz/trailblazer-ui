@@ -5,9 +5,9 @@
   import { page } from '$app/stores';
   import { ActionButton } from '$components/Button';
   import { Page } from '$components/Page';
+  import GamingLeaderboard from '$lib/domains/leaderboard/components/GamingLeaderboard.svelte';
   import type { DappLeaderboardItem } from '$lib/domains/leaderboard/dto/dapps.dto';
   import type { PaginationInfo } from '$lib/shared/dto/CommonPageApiResponse';
-  import GamingLeaderboard from '$lib/domains/leaderboard/components/GamingLeaderboard.svelte';
 
   let pageInfo: PaginationInfo<DappLeaderboardItem>;
   let loading: boolean;
