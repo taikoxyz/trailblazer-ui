@@ -1,6 +1,8 @@
 import { getAccount, watchAccount } from '@wagmi/core';
+import { get } from 'svelte/store';
 
-import { Galxe } from '$libs/galxe';
+import profileService from '$lib/domains/profile/services/ProfileServiceInstance';
+import { activeSeason } from '$lib/shared/stores/activeSeason';
 import { getLogger } from '$libs/util/logger';
 import { account } from '$stores/account';
 import { switchChainModal } from '$stores/modal';
@@ -30,17 +32,17 @@ export async function startWatching() {
             log('Unsupported chain', chainId);
             switchChainModal.set(true);
           } else {
-            await Galxe.refreshData();
             switchChainModal.set(false);
           }
         }
+        profileService.getProfile(data.address, get(activeSeason));
       },
     });
   } else {
     // return current account with wagmiConfig
     log('Account watcher already running, returning current account');
     const currentAccount = getAccount(wagmiConfig);
-    account.set(currentAccount);
+
     return currentAccount;
   }
 }

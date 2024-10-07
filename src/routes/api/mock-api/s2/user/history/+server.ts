@@ -1,6 +1,7 @@
 import { json } from '@sveltejs/kit';
+import type { Address } from 'viem';
 
-import type { UserPointHistory } from '$libs/profile';
+import type { UserPointHistory } from '$lib/domains/profile/types/ActivityHistory';
 
 type APIResponse<T> = {
   items: T[];
@@ -15,7 +16,7 @@ type APIResponse<T> = {
 };
 
 export function GET({ url }) {
-  const address = url.searchParams.get('address');
+  const address = url.searchParams.get('address') as Address;
   if (!address) throw new Error('address is required');
 
   return json({

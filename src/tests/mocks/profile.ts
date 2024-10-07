@@ -1,63 +1,61 @@
 import { zeroAddress } from 'viem';
 
-import type { UserProfile } from '$libs/profile';
+import { DomainType } from '$lib/domains/profile/types/types';
+import type { UserProfile } from '$lib/domains/profile/types/UserProfile';
 
 export const MOCK_PROFILE: UserProfile = {
-  avatar: '/avatar.png',
-  name: 'Jane',
   address: zeroAddress,
-  ens: 'jane.eth',
-  score: 0,
-  title: 'Beginner',
-  level: '0',
-  experience: 10000,
-  rankPercentile: '99',
-  isLoading: true,
-  faction: {
-    faction: 'Drummers',
-    boostedOrBased: 'Boosted',
+  personalInfo: {
+    name: 'Jane',
+    ens: 'jane.eth',
+    avatar: '/avatar.png',
   },
-  leaderboardPosition: '1',
-  pointsToNextLevel: 1000,
-  total: '0',
-  rank: '0',
-  movement: 0,
+  userStats: {
+    score: 12345,
+    rank: '1',
+    title: 'Legend',
+    level: '12',
+    total: '9999',
+    rankPercentile: '99',
+  },
+  activityHistory: {},
   multipliers: {
-    factionMultiplier: 2,
-    snaefellMultiplier: 2,
-    taikoonMultiplier: 2,
     totalMultiplier: 3,
+    taikoonMultiplier: 1,
+    factionMultiplier: 2,
+    snaefellMultiplier: 1,
+  },
+  domainInfo: {
+    dotTaiko: 'jane.test.taiko',
+    selected: DomainType.DOTTAIKO,
   },
   nfts: [],
-  boostedPoints: '0',
 };
 
 export const MOCK_PROFILE_2: UserProfile = {
-  avatar: '/avatar.png',
-  name: 'Jane',
   address: zeroAddress,
-  ens: 'jane2.eth',
-  score: 0,
-  title: 'Beginner',
-  level: '0',
-  experience: 10000,
-  rankPercentile: '99',
-  isLoading: false,
-  faction: {
-    faction: 'Drummers',
-    boostedOrBased: 'Boosted',
+  personalInfo: {
+    name: 'John',
+    ens: 'john.eth',
+    avatar: '/avatar.png',
   },
-  leaderboardPosition: '1',
-  pointsToNextLevel: 1000,
-  total: '0',
-  rank: '0',
-  movement: 1,
+  userStats: {
+    score: 54321,
+    rank: '99',
+    title: 'Beginner',
+    level: '0',
+    total: '9999',
+    rankPercentile: '20',
+  },
+  activityHistory: {},
   multipliers: {
+    totalMultiplier: 1,
+    taikoonMultiplier: 0,
     factionMultiplier: 1,
     snaefellMultiplier: 1,
-    taikoonMultiplier: 1,
-    totalMultiplier: 1,
+  },
+  domainInfo: {
+    selected: DomainType.ADDRESS,
   },
   nfts: [],
-  boostedPoints: '0',
 };

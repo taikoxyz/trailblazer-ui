@@ -1,6 +1,4 @@
-import type { UserFactionBadge } from '$libs/profile';
-
-export const MOCK_USER_FACTIONS: UserFactionBadge[] = [
+export const MOCK_USER_FACTIONS = [
   {
     faction: 'Ravers',
     boostedOrBased: 'Based',

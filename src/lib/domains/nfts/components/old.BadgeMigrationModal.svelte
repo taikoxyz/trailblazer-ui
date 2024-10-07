@@ -4,6 +4,7 @@
   import Spinner from '$components/Spinner/Spinner.svelte';
   import { FACTIONS } from '$configs/badges';
   import { trailblazersBadgesS2Address } from '$generated/abi';
+  import type { Faction } from '$lib/domains/profile/types/types';
   import { chainId } from '$lib/shared/utils/chain';
   import approve from '$libs/badges/approve';
   import { Movements } from '$libs/badges/const';
@@ -13,7 +14,6 @@
   import setApprovalForAll from '$libs/badges/setApprovalForAll';
   import startMigration from '$libs/badges/startMigration';
   import tamperMigration from '$libs/badges/tamperMigration';
-  import type { Faction } from '$libs/profile';
   import { classNames } from '$libs/util/classNames';
   import { account } from '$stores/account';
   import { badgeMigrationStore } from '$stores/badgeMigration';

@@ -1,6 +1,5 @@
 <script lang="ts">
-  import { MovementNames, type Movements } from '$libs/badges/const';
-  import type { Faction } from '$libs/profile';
+  import { type Faction,MovementNames, Movements } from '$lib/domains/profile/types/types';
 
   export let type: Faction;
   export let movement: Movements = 0;
