@@ -21,9 +21,9 @@ export class BadgeMigrationService {
     return this.migrationAdapter.fetchEnabledMigrations();
   }
 
-  async setApprovalForAll(address: Address): Promise<string> {
-    log('setApprovalForAll', { address });
-    return this.migrationAdapter.setApprovalForAll(address);
+  async setApprovalForAll(): Promise<string> {
+    log('setApprovalForAll');
+    return this.migrationAdapter.setApprovalForAll();
   }
 
   async getApprovalForAll(address: Address): Promise<boolean> {
@@ -36,8 +36,18 @@ export class BadgeMigrationService {
     return this.migrationAdapter.getApproved(this.badgeAdapter, address, factionId);
   }
 
-  async approve(address: Address, tokenId: number): Promise<Address> {
-    log('approve', { address, tokenId });
-    return this.migrationAdapter.approve(address, tokenId);
+  async approve(tokenId: number): Promise<Address> {
+    log('approve', { tokenId });
+    return this.migrationAdapter.approve(tokenId);
+  }
+
+  async startMigration(factionId: number): Promise<string> {
+    log('startMigration', { factionId });
+    return this.migrationAdapter.startMigration(factionId);
+  }
+
+  async getMigrationStatus(address: Address): Promise<number[]> {
+    log('getMigrationStatus', { address });
+    return this.migrationAdapter.getMigrationStatus(address);
   }
 }

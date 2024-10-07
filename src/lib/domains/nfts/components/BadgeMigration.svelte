@@ -10,9 +10,7 @@
   import type { NFT } from '$lib/shared/types/NFT';
   import { chainId } from '$lib/shared/utils/chain';
   import { Movements } from '$libs/badges/const';
-  import isApprovedToMigrate from '$libs/badges/isApprovedToMigrate';
   import updateMigrationStatus from '$libs/badges/migration/updateMigrationStatus';
-  import startMigration from '$libs/badges/startMigration';
   import { classNames } from '$libs/util/classNames';
   import { account } from '$stores/account';
   import { badgeMigrationStore } from '$stores/badgeMigration';
@@ -139,6 +137,11 @@
 
   async function handleStartMigration(badgeId: number) {
     if (!$account || !$account.address) return;
+
+    await profileService.startMigration(badgeId);
+    await updateMigrationStatus($account.address);
+    /*
+    if (!$account || !$account.address) return;
     const isApproved = await isApprovedToMigrate($account.address, badgeId);
 
     if (!isApproved) {
@@ -147,7 +150,7 @@
       return;
     }
     await startMigration($account.address, badgeId);
-    await updateMigrationStatus($account.address);
+    await updateMigrationStatus($account.address);*/
   }
 
   async function setApprovalForAll() {
@@ -204,6 +207,7 @@
             <FactionBadgeItem {disabled} movement={Movements.Neutral} name={factionName}>
               {#if !displayActiveMigration}
                 <div class={migrateButtonWrapperClasses}>
+                  {JSON.stringify($userProfile?.approvedMigrationBadgeIds)}
                   {#if disabled}
                     <ActionButton disabled priority="primary">Not eligible</ActionButton>
                   {:else if $userProfile?.approvedMigrationBadgeIds?.includes(badgeId)}

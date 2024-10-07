@@ -1,12 +1,10 @@
 import { getAccount } from '@wagmi/core';
 import { type Address, getAddress, type Hash } from 'viem';
 
-import { trailblazersBadgesS2Address } from '$generated/abi';
 import { BadgeMigrationService } from '$lib/domains/nfts/services/BadgeMigrationService';
 import { BadgeService } from '$lib/domains/nfts/services/BadgeService';
 import { CombinedNFTService } from '$lib/domains/nfts/services/CombinedNFTService';
 import type { NFT } from '$lib/shared/types/NFT';
-import { chainId } from '$lib/shared/utils/chain';
 import { wagmiConfig } from '$lib/shared/wagmi';
 import { isDevelopmentEnv } from '$libs/util/isDevelopmentEnv';
 import { getLogger } from '$libs/util/logger';
@@ -513,11 +511,11 @@ export class ProfileService {
     return this.badgeMigrationService.getEnabledMigrations();
   }
 
-  async setApprovalForAll(address: Address): Promise<string> {
-    log('setApprovalForAll', { address });
-    return this.badgeMigrationService.setApprovalForAll(address);
+  async setApprovalForAll(): Promise<string> {
+    log('setApprovalForAll');
+    return this.badgeMigrationService.setApprovalForAll();
   }
-
+/*
   async getBadgeMigrations(address: Address): Promise<void> {
     // fetch the required info here!
     log('getBadgeMigrations', { address });
@@ -528,21 +526,46 @@ export class ProfileService {
       approvedMigrationBadgeIds = [0, 1, 2, 3, 4, 5, 6, 7];
     } else {
       // if not set, fetch each individually
-      for (let i = 0; i < 8; i++) {
-        const approvedAccount = await this.badgeMigrationService.getApproved(address, i);
-        if (approvedAccount.toLowerCase() === trailblazersBadgesS2Address[chainId].toLowerCase()) {
-          approvedMigrationBadgeIds.push(i);
+      const tokens = await this.badgeService.getBadgesForUser(address);
+
+      for (const token of tokens) {
+        try{
+          const approvedAccount = await this.badgeMigrationService.getApproved(address, token.tokenId);
+          if (isAddressEqual(approvedAccount, trailblazersBadgesS2Address[chainId])) {
+            approvedMigrationBadgeIds.push(token.badgeId!);
+          }
+        } catch (error) {
+          console.error(error);
         }
       }
+
     }
 
     await this.userRepository.update({
       approvedMigrationBadgeIds,
     });
+  }*/
+
+  async approve(tokenId: number): Promise<Address> {
+    log('approve', { tokenId });
+    return this.badgeMigrationService.approve(tokenId);
   }
 
-  async approve(address: Address, tokenId: number): Promise<Address> {
-    log('approve', { address, tokenId });
-    return this.badgeMigrationService.approve(address, tokenId);
+  async startMigration( factionId: number): Promise<string> {
+    log('startMigration', {  factionId });
+    return this.badgeMigrationService.startMigration( factionId);
+  }
+
+  async getBadgeTokenId(address: Address, s1BadgeId: number): Promise<number> {
+    log('getTokenId', { address, s1BadgeId });
+    return this.badgeService.getTokenId(address, s1BadgeId);
+  }
+
+  async getBadgeMigrations(address: Address): Promise<void> {
+    log('getMigrationStatus', { address });
+    const approvedMigrationBadgeIds = await this.badgeMigrationService.getMigrationStatus(address);
+    await this.userRepository.update({
+      approvedMigrationBadgeIds,
+    });
   }
 }

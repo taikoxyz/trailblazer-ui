@@ -7,10 +7,7 @@
   import profileService from '$lib/domains/profile/services/ProfileServiceInstance';
   import { chainId } from '$lib/shared/utils/chain';
   import { Movements } from '$libs/badges/const';
-  import { getTokenId } from '$libs/badges/getTokenId';
-  import isApprovedToMigrate from '$libs/badges/isApprovedToMigrate';
   import getMigrationStatus from '$libs/badges/migration/getMigrationStatus';
-  import startMigration from '$libs/badges/startMigration';
   import type { Faction } from '$libs/profile';
   import { classNames } from '$libs/util/classNames';
   import { account } from '$stores/account';
@@ -70,6 +67,7 @@
 
   $: status = null as null | IBadgeMigration;
   async function load() {
+    /*
     if (!$account || !$account.address) return;
 
     if (!$migrationApprovalModal) {
@@ -84,20 +82,21 @@
     status = await getMigrationStatus($account.address);
     isActive = isStarted && !isCompleted && status.s1BadgeId === s1BadgeId;
 
-    isLoading = false;
+    isLoading = false;*/
   }
 
   async function beginMigration() {
+    /*
     if (!$account || !$account.address) return;
     isLoading = true;
     await startMigration($account.address, s1BadgeId);
-    isLoading = false;
+    isLoading = false;*/
   }
 
   async function setApproveToken() {
     if (!$account || !$account.address) return;
     isLoading = true;
-    const tokenId = await getTokenId($account.address, s1BadgeId);
+    const tokenId = await profileService.getBadgeTokenId($account.address, s1BadgeId);
     await profileService.approve(trailblazersBadgesS2Address[chainId], tokenId);
     isLoading = false;
     isApproved = true;

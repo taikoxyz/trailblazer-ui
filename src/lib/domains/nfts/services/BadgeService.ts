@@ -55,4 +55,8 @@ export class BadgeService {
     ];
     return s1Badges[badgeId];
   }
+
+  getTokenId(address: Address, badgeId: number): Promise<number> {
+    return this.adapter.getTokenId(address, badgeId);
+  }
 }
