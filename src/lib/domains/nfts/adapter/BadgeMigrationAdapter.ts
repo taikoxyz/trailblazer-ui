@@ -1,7 +1,14 @@
 import { gql } from '@apollo/client/core';
+import { readContract, writeContract } from '@wagmi/core';
+import type { Address } from 'viem';
 
+import { trailblazersBadgesAbi, trailblazersBadgesAddress } from '$generated/abi';
 import { graphqlClient } from '$lib/shared/services/graphql/client';
+import { chainId } from '$lib/shared/utils/chain';
+import { wagmiConfig } from '$lib/shared/wagmi';
 import { getLogger } from '$libs/util/logger';
+
+import type { BadgeAdapter } from './BadgeAdapter';
 
 const log = getLogger('BadgeMigrationAdapter');
 
@@ -51,5 +58,61 @@ export class BadgeMigrationAdapter {
       }
       throw e;
     }
+  }
+
+  async setApprovalForAll(address: Address): Promise<string> {
+    log('setApprovalForAll', { address });
+
+    const txHash = await writeContract(wagmiConfig, {
+      abi: trailblazersBadgesAbi,
+      address: trailblazersBadgesAddress[chainId],
+      functionName: 'setApprovalForAll',
+      args: [address, true],
+      chainId,
+    });
+
+    return txHash;
+  }
+
+  async getApprovalForAll(address: Address): Promise<boolean> {
+    log('getApprovalForAll', { address });
+
+    const isApproved = await readContract(wagmiConfig, {
+      abi: trailblazersBadgesAbi,
+      address: trailblazersBadgesAddress[chainId],
+      functionName: 'isApprovedForAll',
+      args: [address, address],
+      chainId,
+    });
+
+    return isApproved;
+  }
+
+  async getApproved(badgeAdapter: BadgeAdapter, address: Address, factionId: number): Promise<Address> {
+    const contractAddress = trailblazersBadgesAddress[chainId];
+
+    const tokenId = await badgeAdapter.getTokenId(address, factionId);
+
+    const approvedAccount = await readContract(wagmiConfig, {
+      abi: trailblazersBadgesAbi,
+      address: contractAddress,
+      functionName: 'getApproved',
+      args: [BigInt(tokenId)],
+      chainId,
+    });
+
+    return approvedAccount;
+  }
+
+  async approve(address: Address, tokenId: number): Promise<Address> {
+    const txHash = await writeContract(wagmiConfig, {
+      abi: trailblazersBadgesAbi,
+      address: trailblazersBadgesAddress[chainId],
+      functionName: 'approve',
+      args: [address, BigInt(tokenId)],
+      chainId,
+    });
+
+    return txHash;
   }
 }

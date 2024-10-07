@@ -1,81 +1,43 @@
-import { readContract, writeContract } from '@wagmi/core';
 import type { Address } from 'viem';
 
-import { trailblazersBadgesAbi, trailblazersBadgesAddress } from '$generated/abi';
-import { chainId } from '$lib/shared/utils/chain/chains';
-import { wagmiConfig } from '$lib/shared/wagmi';
-import { getTokenId } from '$libs/badges/getTokenId';
 import { getLogger } from '$libs/util/logger';
 
+import { BadgeAdapter } from '../adapter/BadgeAdapter';
 import { BadgeMigrationAdapter } from '../adapter/BadgeMigrationAdapter';
 
 const log = getLogger('BadgeMigrationService');
 
 export class BadgeMigrationService {
-  private adapter: BadgeMigrationAdapter;
+  private migrationAdapter: BadgeMigrationAdapter;
+  private badgeAdapter: BadgeAdapter;
 
-  constructor(adapter?: BadgeMigrationAdapter) {
-    this.adapter = adapter || new BadgeMigrationAdapter();
+  constructor(migrationAdapter?: BadgeMigrationAdapter, badgeAdapter?: BadgeAdapter) {
+    this.migrationAdapter = migrationAdapter || new BadgeMigrationAdapter();
+    this.badgeAdapter = badgeAdapter || new BadgeAdapter();
   }
 
   async getEnabledMigrations(): Promise<number[]> {
     log('getEnabledMigrations');
-    return this.adapter.fetchEnabledMigrations();
+    return this.migrationAdapter.fetchEnabledMigrations();
   }
 
   async setApprovalForAll(address: Address): Promise<string> {
     log('setApprovalForAll', { address });
-
-    const txHash = await writeContract(wagmiConfig, {
-      abi: trailblazersBadgesAbi,
-      address: trailblazersBadgesAddress[chainId],
-      functionName: 'setApprovalForAll',
-      args: [address, true],
-      chainId,
-    });
-
-    return txHash;
+    return this.migrationAdapter.setApprovalForAll(address);
   }
 
   async getApprovalForAll(address: Address): Promise<boolean> {
     log('getApprovalForAll', { address });
-
-    const isApproved = await readContract(wagmiConfig, {
-      abi: trailblazersBadgesAbi,
-      address: trailblazersBadgesAddress[chainId],
-      functionName: 'isApprovedForAll',
-      args: [address, address],
-      chainId,
-    });
-
-    return isApproved;
+    return this.migrationAdapter.getApprovalForAll(address);
   }
 
   async getApproved(address: Address, factionId: number): Promise<Address> {
-    const contractAddress = trailblazersBadgesAddress[chainId];
-
-    const tokenId = await getTokenId(address, factionId);
-
-    const approvedAccount = await readContract(wagmiConfig, {
-      abi: trailblazersBadgesAbi,
-      address: contractAddress,
-      functionName: 'getApproved',
-      args: [BigInt(tokenId)],
-      chainId,
-    });
-
-    return approvedAccount;
+    log('getApproved', { address, factionId });
+    return this.migrationAdapter.getApproved(this.badgeAdapter, address, factionId);
   }
 
   async approve(address: Address, tokenId: number): Promise<Address> {
-    const txHash = await writeContract(wagmiConfig, {
-      abi: trailblazersBadgesAbi,
-      address: trailblazersBadgesAddress[chainId],
-      functionName: 'approve',
-      args: [address, BigInt(tokenId)],
-      chainId,
-    });
-
-    return txHash;
+    log('approve', { address, tokenId });
+    return this.migrationAdapter.approve(address, tokenId);
   }
 }
