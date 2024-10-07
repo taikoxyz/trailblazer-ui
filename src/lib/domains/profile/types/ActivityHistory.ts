@@ -1,10 +1,11 @@
-import type { PaginationInfo } from '$lib/domains/leaderboard/types/shared/types';
 import type { Address } from 'viem';
+
+import type { PaginationInfo } from '$lib/domains/leaderboard/types/shared/types';
 
 export type ActivityHistory = {
   activityHistory: {
     items?: UserPointHistory[];
-    pagination: PaginationInfo;
+    pagination?: PaginationInfo;
   };
 };
 

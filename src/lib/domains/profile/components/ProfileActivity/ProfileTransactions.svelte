@@ -19,7 +19,7 @@
   const pageSize = leaderboardConfig.pageSize;
   $: currentPage = 1;
   $: totalItems = pointsHistory?.length || 0;
-  $: totalPages = $userProfile?.activityHistory?.pagination.total_pages || Math.ceil(totalItems / pageSize);
+  $: totalPages = $userProfile?.activityHistory?.pagination?.total_pages || Math.ceil(totalItems / pageSize);
 
   async function handlePageChange(selectedPageNo: number) {
     loadLeaderboardData(selectedPageNo);

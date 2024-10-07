@@ -4,6 +4,7 @@ import { type Address, getAddress, type Hash } from 'viem';
 import type { UserLeaderboardItem } from '$lib/domains/leaderboard/types/dapps/types';
 import { BadgeService } from '$lib/domains/nfts/services/BadgeService';
 import { CombinedNFTService } from '$lib/domains/nfts/services/CombinedNFTService';
+import type { PaginationInfo } from '$lib/shared/dto/CommonPageApiResponse';
 import type { NFT } from '$lib/shared/types/NFT';
 import { wagmiConfig } from '$lib/shared/wagmi';
 import { isDevelopmentEnv } from '$libs/util/isDevelopmentEnv';
@@ -19,7 +20,6 @@ import { DomainType, type UserPointHistory } from '../types/types';
 import type { UserInfoForLeaderboard } from '../types/UserInfoForLeaderboard';
 import type { UserProfile } from '../types/UserProfile';
 import type { UserStats } from '../types/UserStats';
-import type { PaginationInfo } from '$lib/shared/dto/CommonPageApiResponse';
 
 const log = getLogger('ProfileService');
 

@@ -1,5 +1,7 @@
-import type { CommonPageApiResponse } from '$lib/shared/dto/CommonPageApiResponse';
 import type { Address } from 'viem';
+
+import type { CommonPageApiResponse } from '$lib/shared/dto/CommonPageApiResponse';
+
 import type { UserPointHistory } from '../types/ActivityHistory';
 
 export interface UserPointsAndRankResponse {

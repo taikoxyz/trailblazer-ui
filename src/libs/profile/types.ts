@@ -1,5 +1,5 @@
+import type { DomainNames } from '$lib/domains/profile/types/types';
 import type { Movements } from '$libs/badges/const';
-import type { DomainNames } from '$libs/domain/types';
 
 export type GraphQLResponse = {
   loading: boolean;
