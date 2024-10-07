@@ -8,7 +8,7 @@
   import { formatDate } from '$libs/util/formatDate';
   import { truncateDecimal } from '$libs/util/truncateDecimal';
 
-  export let pointHistory;
+  export let historyEntry;
 
   // CSS classes
   const rowClass = classNames(
@@ -41,13 +41,13 @@
 <div class={rowClass}>
   <!-- Activity Cell -->
   <div class={activityCellClass}>
-    {#if pointHistory?.event === 'TransactionValue'}
+    {#if historyEntry?.event === 'TransactionValue'}
       <ActivityIcon type="double-coin" />
       <span class={eventClasses}>{$t('leaderboard.user.event.transaction_value')}</span>
-    {:else if pointHistory?.event === 'BlockProposed'}
+    {:else if historyEntry?.event === 'BlockProposed'}
       <ActivityIcon type="cube" />
       <span class={eventClasses}>{$t('leaderboard.user.event.block_proposed')}</span>
-    {:else if pointHistory?.event === 'Bridged'}
+    {:else if historyEntry?.event === 'Bridged'}
       <ActivityIcon type="double-diamond" />
       <span class={eventClasses}>{$t('leaderboard.user.event.bridged')}</span>
     {:else}
@@ -58,18 +58,18 @@
 
   <!-- Points Cell -->
   <div class={pointsCellClass}>
-    {#if pointHistory?.points === 0}
+    {#if historyEntry?.points === 0}
       <span class={negativeSentimentClass}>{$t('leaderboard.user.dailyMaxReached')}</span>
     {:else}
       <div class={pointsInnerClass}>
         <span>
           {$t('leaderboard.user.points', {
-            values: { value: truncateDecimal(pointHistory?.points, 3) },
+            values: { value: truncateDecimal(historyEntry?.points, 3) },
           })}
         </span>
-        {#if pointHistory?.multiplier && pointHistory?.multiplier > 1}
+        {#if historyEntry?.multiplier && historyEntry?.multiplier > 1}
           <Pill class={pillClass}>
-            {$t('leaderboard.user.booster', { values: { multiplier: pointHistory?.multiplier } })}
+            {$t('leaderboard.user.booster', { values: { multiplier: historyEntry?.multiplier } })}
           </Pill>
         {/if}
       </div>
@@ -84,5 +84,5 @@
     </button>
   </div>
   <!-- Time Cell (Hidden on mobile, visible on large screens) -->
-  <div class={timeCellClass}>{formatDate(pointHistory?.date)}</div>
+  <div class={timeCellClass}>{formatDate(historyEntry?.date)}</div>
 </div>

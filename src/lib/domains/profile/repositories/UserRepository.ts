@@ -1,6 +1,5 @@
 // src/lib/domains/profile/repositories/UserRepository.ts
 import { get } from 'svelte/store';
-import { zeroAddress } from 'viem';
 
 import { getLogger } from '$libs/util/logger';
 
@@ -16,6 +15,7 @@ export default class UserRepository {
    */
   async save(profile: UserProfile): Promise<void> {
     log('Saving user profile:', userProfile);
+    3;
     userProfile.set(profile);
   }
 
@@ -37,44 +37,6 @@ export default class UserRepository {
     log('Updating user profile:', profile);
     userProfile.update((current) => {
       return { ...current, ...profile };
-    });
-  }
-
-  /**
-   * Deletes the user profile from the store by resetting it to default values.
-   */
-  async delete(): Promise<void> {
-    log('Deleting user profile.');
-    userProfile.set({
-      address: zeroAddress,
-      personalInfo: {
-        name: undefined,
-        ens: undefined,
-        avatar: undefined,
-      },
-      userStats: {
-        score: 0,
-        rank: '0',
-        title: '',
-        level: '0',
-        total: '0',
-        rankPercentile: undefined,
-      },
-      activityHistory: {
-        pointsHistory: undefined,
-      },
-      multipliers: {
-        totalMultiplier: 0,
-        taikoonMultiplier: 0,
-        factionMultiplier: 0,
-        snaefellMultiplier: 0,
-      },
-      nfts: [],
-      domainInfo: {
-        selected: undefined,
-        dotTaiko: undefined,
-        zns: undefined,
-      },
     });
   }
 }

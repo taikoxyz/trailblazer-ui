@@ -14,7 +14,7 @@ import { chainId } from '$lib/shared/utils/chain';
 import { wagmiConfig } from '$lib/shared/wagmi';
 import { getLogger } from '$libs/util/logger';
 
-import type { DomainResponse, UserPointHistoryPage, UserPointsAndRankResponse } from '../dto/profile.dto';
+import type { DomainResponse, UserHistoryApiResponse, UserPointsAndRankResponse } from '../dto/profile.dto';
 
 const log = getLogger('ProfileApiAdapter');
 
@@ -42,12 +42,12 @@ export class ProfileApiAdapter {
    * @param {Address} address the user's address
    * @param {number} season the season the user's activity is being fetched for
    * @param {number} [page] the page number of the activity
-   * @return {Promise<UserPointHistoryPage>} the user's activity
+   * @return {Promise<UserHistoryApiResponse>} the user's activity
    */
-  async fetchUserActivity(address: Address, season: number, page?: number): Promise<UserPointHistoryPage> {
+  async fetchUserActivity(address: Address, season: number, page?: number): Promise<UserHistoryApiResponse> {
     const client = getAxiosInstance(season);
     const params = page ? { address, page } : { address };
-    const response = await client.get<UserPointHistoryPage>(`/user/history`, {
+    const response = await client.get<UserHistoryApiResponse>(`/user/history`, {
       params,
       ...globalAxiosConfig,
     });

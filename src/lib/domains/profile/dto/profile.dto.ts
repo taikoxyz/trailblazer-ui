@@ -1,4 +1,6 @@
+import type { CommonPageApiResponse } from '$lib/shared/dto/CommonPageApiResponse';
 import type { Address } from 'viem';
+import type { UserPointHistory } from '../types/ActivityHistory';
 
 export interface UserPointsAndRankResponse {
   rank: number;
@@ -33,10 +35,4 @@ export type UserPointHistoryPage = {
   visible: number;
 };
 
-export type UserPointHistory = {
-  address: Address;
-  event: string;
-  points: number;
-  date: number;
-  multiplier: number;
-};
+export type UserHistoryApiResponse = CommonPageApiResponse<UserPointHistory>;

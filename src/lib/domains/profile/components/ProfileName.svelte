@@ -1,10 +1,10 @@
 <script lang="ts">
   import { Icon, IconFlipper } from '$components/Icon';
-  import { DomainType } from '$libs/domain';
   import { shortenAddress } from '$libs/util/shortenAddress';
 
   import profileService from '../services/ProfileServiceInstance';
   import { profileLoading, userProfile } from '../stores/profileStore';
+  import { DomainType } from '../types/types';
   import type { UserProfile } from '../types/UserProfile';
 
   export let profile: UserProfile;

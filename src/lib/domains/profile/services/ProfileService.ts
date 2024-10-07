@@ -15,10 +15,11 @@ import { multipliersLoading, profileLoading } from '../stores/profileStore';
 import { defaultUserProfile } from '../types/defaultUserProfile';
 import type { DomainInfo } from '../types/DomainInfo';
 import { levelTiers } from '../types/LevelTiers';
-import { DomainType } from '../types/types';
+import { DomainType, type UserPointHistory } from '../types/types';
 import type { UserInfoForLeaderboard } from '../types/UserInfoForLeaderboard';
 import type { UserProfile } from '../types/UserProfile';
 import type { UserStats } from '../types/UserStats';
+import type { PaginationInfo } from '$lib/shared/dto/CommonPageApiResponse';
 
 const log = getLogger('ProfileService');
 
@@ -48,8 +49,6 @@ export class ProfileService {
    * @param season - The season number for data fetching (default is 0).
    */
   async getProfile(address?: Address, season: number = 0): Promise<UserProfile | null> {
-    profileLoading.set(true);
-
     try {
       if (!address) {
         const account = getAccount(wagmiConfig);
@@ -61,11 +60,15 @@ export class ProfileService {
       }
 
       // Fetch data from multiple endpoints
-      const [pointsAndRank, userDomainInfo, activity] = await Promise.all([
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const [pointsAndRank, userDomainInfo, activity, nftsResult, avatarResult] = await Promise.all([
         this.apiAdapter.fetchUserPointsAndRank(address, season),
-        this.apiAdapter.fetchUserDomainInfo(address),
+        this.fetchDomainInfo(address),
         this.apiAdapter.fetchUserActivity(address, season, 0),
+        this.combinedNFTService.fetchAllNFTsForUser(address),
+        this.getProfilePicture(address),
       ]);
+      log('Fetched data:', { pointsAndRank, userDomainInfo, activity, nftsResult, avatarResult });
 
       // Assemble the complete UserProfile with default values
       const userProfile: UserProfile = {
@@ -73,6 +76,7 @@ export class ProfileService {
         address,
         personalInfo: {
           ...defaultUserProfile.personalInfo,
+          avatar: avatarResult || '',
         },
         userStats: {
           ...defaultUserProfile.userStats,
@@ -83,43 +87,33 @@ export class ProfileService {
           level: '',
         },
         activityHistory: {
-          pointsHistory: activity,
+          items: activity?.items,
+          pagination: {
+            page: 0,
+            size: activity?.size,
+            total: activity?.total,
+          },
         },
+        nfts: [...nftsResult.taikoonNFTs, ...nftsResult.badgeNFTs],
         multipliers: defaultUserProfile.multipliers,
-        domainInfo: userDomainInfo,
-      };
-
-      const info: DomainInfo = {
         domainInfo: {
-          dotTaiko: userDomainInfo.dotTaiko,
-          zns: userDomainInfo.zns,
+          ...userDomainInfo,
+          selected: userDomainInfo.domainInfo.selected,
         },
       };
-
-      log('Assembled User Profile:', userProfile);
 
       // Save the assembled profile
       await this.userRepository.save(userProfile);
 
-      log('Saved Profile:', await this.userRepository.get());
-
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const [multiplierResult, nftsResult, avatarResult, rankNameResult, domainInfoResult] = await Promise.all([
+      // Do additional config
+      await Promise.all([
+        this.handleDomainSelection(userDomainInfo),
         this.fetchAndCalculateMultipliers(address),
-        this.getProfileWithNFTs(address, season),
-        this.getProfilePicture(address),
         this.performAdditionalCalculations(),
-        this.handleDomainSelection(info),
       ]);
+      // const [multiplierResult] = await Promise.all([this.handleDomainSelection(info)]);
 
-      // update avatar on userprofile
-      const user = await this.userRepository.get();
-      if (user.personalInfo && avatarResult) {
-        user.personalInfo.avatar = avatarResult;
-        await this.userRepository.update(user);
-      }
-
-      log('Final Profile:');
+      log('Final Profile:', await this.userRepository.get());
     } catch (error) {
       log('Error in getProfile:', error);
       return null;
@@ -225,9 +219,6 @@ export class ProfileService {
       },
     };
 
-    // Handle domain selection logic
-    await this.handleDomainSelection(info);
-
     return info;
   }
 
@@ -238,7 +229,7 @@ export class ProfileService {
   async handleDomainSelection(domainInfo: DomainInfo): Promise<void> {
     try {
       const selectedDomain = this.determineSelectedDomain(domainInfo);
-      this.setSelectedDomain(selectedDomain);
+      await this.setSelectedDomain(selectedDomain);
     } catch (error) {
       log('Error in handleDomainSelection:', error);
     }
@@ -291,14 +282,6 @@ export class ProfileService {
       },
     });
     log('updated user', await this.userRepository.get());
-  }
-
-  /**
-   * Allows the user to select a domain and updates the store and localStorage.
-   * @param selectedDomain - The domain type selected by the user.
-   */
-  setSelectedDomainExternally(selectedDomain: DomainType): void {
-    this.setSelectedDomain(selectedDomain);
   }
 
   /**
@@ -377,20 +360,6 @@ export class ProfileService {
   }
 
   /**
-   * Fetches and updates the user's avatar.
-   * @param address - The user's address.
-   */
-  private async fetchAndUpdateAvatar(address: Address): Promise<void> {
-    try {
-      const avatar = await this.apiAdapter.getProfilePicture(address);
-      log('Fetched Avatar:', avatar);
-      // await this.userRepository.update({ personalInfo: { avatar } });
-    } catch (error) {
-      log('Error in fetchAndUpdateAvatar:', error);
-    }
-  }
-
-  /**
    * Performs additional calculations after fetching user stats.
    *
    * @private
@@ -462,6 +431,26 @@ export class ProfileService {
     return activity;
   }
 
+  async updateProfilePointHistoryPage(args: PaginationInfo<UserPointHistory>, user: Address, season: number) {
+    log('Fetching user activity for args:', args, 'season:', season);
+
+    const activity = await this.apiAdapter.fetchUserActivity(user, season, args.page);
+    log('activity', activity);
+
+    if (activity.items && activity.items.length > 0) {
+      const oldUser = await this.userRepository.get();
+      const newProfile: UserProfile = {
+        ...oldUser,
+        activityHistory: {
+          items: [...activity.items],
+          pagination: { ...args },
+        },
+      };
+      await this.userRepository.update(newProfile);
+      // return  PaginationInfo<UserPointHistory> with new items
+    }
+  }
+
   /**
    * Fetches the user profile along with their NFTs and updates the store.
    * @param address - The user's address.
@@ -474,7 +463,6 @@ export class ProfileService {
     try {
       // Fetch NFTs (badges, avatars, etc.)
       const nfts = await this.combinedNFTService.fetchAllNFTsForUser(address);
-
       log('result of fetchAllNFTsForUser:', nfts);
       // Combine and update the profile with NFT data
       await this.userRepository.update({
@@ -591,19 +579,17 @@ export class ProfileService {
       const profilePictures: Record<Address, NFT | null> = await this.apiAdapter.getProfilePictures(addresses);
       log('Found profile pictures:', profilePictures);
 
-      for (const [address, nft] of Object.entries(profilePictures)) {
-        if (!nft) {
-          result[getAddress(address) as Address] = '';
-          continue;
-        }
+      const metadataPromises = Object.entries(profilePictures).map(async ([address, nft]) => {
+        const resolvedAddress = getAddress(address) as Address;
+        if (!nft) return { address: resolvedAddress, image: '' };
         const metadata = await this.combinedNFTService.getNFTMetadata(nft);
-        log('metadata', metadata);
-        if (metadata) {
-          result[getAddress(address) as Address] = metadata?.image || '';
-        } else {
-          result[getAddress(address) as Address] = '';
-        }
-      }
+        return { address: resolvedAddress, image: metadata?.image || '' };
+      });
+
+      const metadataResults = await Promise.all(metadataPromises);
+      metadataResults.forEach(({ address, image }) => {
+        result[address] = image;
+      });
       log('Profile pictures:', result);
 
       return result;

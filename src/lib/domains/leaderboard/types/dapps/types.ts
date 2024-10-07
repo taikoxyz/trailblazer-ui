@@ -1,6 +1,6 @@
 import type { Address } from 'viem';
 
-import type { UnifiedLeaderboardRow } from '../shared/types';
+import type { PaginationInfo, UnifiedLeaderboardRow } from '../shared/types';
 
 export type DappLeaderboardPage = {
   items: DappLeaderboardRow[];
@@ -50,15 +50,4 @@ type ProtocolMetadata = {
   slug: string;
   twitter: string;
   logo: string;
-};
-
-type PaginationInfo = {
-  page: number;
-  size: number;
-  max_page?: number;
-  total_pages?: number;
-  total: number;
-  last?: number;
-  first?: number;
-  visible?: number;
 };

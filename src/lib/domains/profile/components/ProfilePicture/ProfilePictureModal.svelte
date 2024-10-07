@@ -187,7 +187,7 @@
   );
 
   onMount(() => {
-    possiblePFPs = $userProfile.nfts || [];
+    possiblePFPs = $userProfile?.nfts || [];
   });
 </script>
 
