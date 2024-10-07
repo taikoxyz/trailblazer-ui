@@ -1,5 +1,5 @@
 import { get, writable } from 'svelte/store';
-import { type Address,getAddress } from 'viem';
+import { type Address, getAddress } from 'viem';
 
 import type { NFT } from '$lib/shared/types/NFT';
 
@@ -65,6 +65,11 @@ function createProfilePictureCacheStore() {
         cache.set(cacheKey, data);
         return cache;
       });
+    },
+    // Add the clear method to reset the cache
+    clear: (): void => {
+      singleCache.set(new Map());
+      multipleCache.set(new Map());
     },
   };
 }

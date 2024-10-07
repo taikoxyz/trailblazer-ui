@@ -32,14 +32,14 @@ describe('BadgeAdapter', () => {
 
   describe('fetchUserS1Badges', () => {
     const defaultOutput = {
-      [FactionNames.Ravers]: false,
-      [FactionNames.Robots]: false,
-      [FactionNames.Bouncers]: false,
-      [FactionNames.Masters]: false,
-      [FactionNames.Monks]: false,
-      [FactionNames.Drummers]: false,
-      [FactionNames.Androids]: false,
-      [FactionNames.Shinto]: false,
+      [FactionNames.Ravers]: { hasBadge: false, badgeId: null, tokenId: null },
+      [FactionNames.Robots]: { hasBadge: false, badgeId: null, tokenId: null },
+      [FactionNames.Bouncers]: { hasBadge: false, badgeId: null, tokenId: null },
+      [FactionNames.Masters]: { hasBadge: false, badgeId: null, tokenId: null },
+      [FactionNames.Monks]: { hasBadge: false, badgeId: null, tokenId: null },
+      [FactionNames.Drummers]: { hasBadge: false, badgeId: null, tokenId: null },
+      [FactionNames.Androids]: { hasBadge: false, badgeId: null, tokenId: null },
+      [FactionNames.Shinto]: { hasBadge: false, badgeId: null, tokenId: null },
     };
 
     const createMockQueryResult = <T>(data: T): ApolloQueryResult<T> => ({
@@ -75,8 +75,8 @@ describe('BadgeAdapter', () => {
 
       const expectedOutput = {
         ...defaultOutput,
-        [FactionNames.Ravers]: true,
-        [FactionNames.Masters]: true,
+        [FactionNames.Ravers]: { hasBadge: true, badgeId: 0, tokenId: undefined },
+        [FactionNames.Masters]: { hasBadge: true, badgeId: 3, tokenId: undefined },
       };
 
       expect(result).toEqual(expectedOutput);

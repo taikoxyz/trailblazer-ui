@@ -150,9 +150,8 @@ export class ProfileApiAdapter {
    * @return {Promise<Record<Address, NFT | null>>} a record mapping addresses to their profile pictures or null
    */
   async getProfilePictures(addresses: Address[]): Promise<Record<Address, NFT | null>> {
-    // Normalize and sort addresses to generate a consistent cache key
-    const normalizedAddresses = addresses.map((addr) => getAddress(addr)).sort();
-    const cacheKey = normalizedAddresses.join(',');
+    const normalizedAddresses = addresses.map((addr) => getAddress(addr));
+    const cacheKey = normalizedAddresses.sort().join(',');
 
     // Check if the entire set is cached
     const cachedMultiple = profilePictureCache.getMultiple(normalizedAddresses);
@@ -162,9 +161,8 @@ export class ProfileApiAdapter {
     }
 
     // Identify addresses that are not cached
-    const addressesToFetch = normalizedAddresses.filter((addr) => profilePictureCache.getSingle(addr) === undefined);
-
     const fetchedData: Record<string, NFT | null> = {};
+    const addressesToFetch = normalizedAddresses.filter((addr) => profilePictureCache.getSingle(addr) === undefined);
 
     if (addressesToFetch.length > 0) {
       try {
@@ -182,7 +180,7 @@ export class ProfileApiAdapter {
             const pfp: NFT = {
               address: tokenAddress,
               tokenId: tokenId,
-              src: '', // Resolve tokenURI as needed
+              src: '',
               tokenUri: tokenURI,
             };
             fetchedData[checksummedOwner] = pfp;
@@ -193,13 +191,12 @@ export class ProfileApiAdapter {
 
         // For addresses without profile pictures, set to null
         for (const addr of addressesToFetch) {
-          if (!fetchedData[addr]) {
+          if (fetchedData[addr] === undefined) {
             fetchedData[addr] = null;
             profilePictureCache.setSingle(addr, null);
           }
         }
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      } catch (e: any) {
+      } catch (e: unknown) {
         console.error('Error fetching multiple profile pictures', { addresses: addressesToFetch, error: e });
         // On error, set all to null to prevent repeated attempts
         for (const addr of addressesToFetch) {
@@ -209,18 +206,16 @@ export class ProfileApiAdapter {
       }
     }
 
-    // Combine cached and fetched data
     const combinedData: Record<string, NFT | null> = {};
-
     for (const addr of normalizedAddresses) {
-      if (profilePictureCache.getSingle(addr) !== undefined) {
-        combinedData[addr] = profilePictureCache.getSingle(addr) || null;
+      if (fetchedData[addr] !== undefined) {
+        combinedData[addr] = fetchedData[addr];
       } else {
-        combinedData[addr] = null; // Fallback if not fetched
+        const cachedValue = profilePictureCache.getSingle(addr);
+        combinedData[addr] = cachedValue !== undefined ? cachedValue : null;
       }
     }
 
-    // Cache the entire set
     profilePictureCache.setMultiple(normalizedAddresses, combinedData);
 
     return combinedData;

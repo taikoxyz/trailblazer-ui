@@ -4,10 +4,10 @@ import type { Address } from 'viem';
 import { trailblazersBadgesAbi, trailblazersBadgesAddress } from '$generated/abi';
 import { FactionNames, FACTIONS } from '$lib/domains/nfts/types/badges/types';
 import { graphqlClient } from '$lib/shared/services/graphql/client';
+import { USER_BADGES_QUERY } from '$lib/shared/services/graphql/queries';
 import { chainId } from '$lib/shared/utils/chain';
 import { wagmiConfig } from '$lib/shared/wagmi';
 import { getLogger } from '$libs/util/logger';
-import { USER_BADGES_QUERY } from '$lib/shared/services/graphql/queries';
 
 const log = getLogger('BadgeAdapter');
 

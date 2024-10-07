@@ -25,7 +25,7 @@ export class BadgeService {
 
     const badgePromises = Object.keys(balances).map(async (badgeName, index) => {
       const badge = balances[badgeName as FactionNames];
-      if (badge && badge.badgeId && badge.tokenId) {
+      if (badge && badge.badgeId !== null && badge.tokenId !== null) {
         return {
           address: trailblazersBadgesAddress[chainId],
           src: this.getS1BadgeURI(index),
