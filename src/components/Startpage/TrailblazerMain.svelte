@@ -5,7 +5,7 @@
   import ActionButton from '$components/Button/ActionButton.svelte';
   import { PlusIcon } from '$components/Icon';
   import { TaikoTrailblazersLogo } from '$components/Logo';
-  import { web3modal } from '$libs/connect';
+  import { web3modal } from '$lib/shared/utils/connect';
   import { classNames } from '$libs/util/classNames';
   import { account } from '$stores/account';
 

@@ -2,7 +2,7 @@ import axios from 'axios';
 import type { Address } from 'viem';
 
 import { PUBLIC_TRAILBLAZER_API_URL } from '$env/static/public';
-import { globalAxiosConfig } from '$libs/api/axiosConfig';
+import { globalAxiosConfig } from '$lib/shared/services/api/axiosClient';
 
 import type { ITokenClaimPreflight } from './types';
 

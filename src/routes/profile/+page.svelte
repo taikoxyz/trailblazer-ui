@@ -1,7 +1,7 @@
 <script lang="ts">
   import { goto } from '$app/navigation';
   import { Page } from '$components/Page';
-  import { web3modal } from '$libs/connect';
+  import { web3modal } from '$lib/shared/utils/connect';
   import { account } from '$stores/account';
 
   function handleConnectWallet() {
