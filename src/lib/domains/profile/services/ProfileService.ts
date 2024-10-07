@@ -97,7 +97,7 @@ export class ProfileService {
         nfts: [...nftsResult.taikoonNFTs, ...nftsResult.badgeNFTs],
         multipliers: defaultUserProfile.multipliers,
         domainInfo: {
-          ...userDomainInfo,
+          ...userDomainInfo.domainInfo,
           selected: userDomainInfo.domainInfo.selected,
         },
       };
