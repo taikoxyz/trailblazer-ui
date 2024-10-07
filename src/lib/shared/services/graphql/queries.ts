@@ -15,6 +15,19 @@ export const USER_NFTS_QUERY = gql`
   }
 `;
 
+export const USER_BADGES_QUERY = gql`
+  query UserBadges($address: Bytes) {
+    account(id: $address) {
+      id
+      s1MultiplierNfts {
+        id
+        badgeId
+        tokenId
+      }
+    }
+  }
+`;
+
 export const USER_PROFILE_PICTURE_QUERY = gql`
   query PfpTokenURI($address: String) {
     profilePicture(id: $address) {

@@ -1,4 +1,3 @@
-import { gql } from '@apollo/client/core';
 import { readContract } from '@wagmi/core';
 import type { Address } from 'viem';
 
@@ -8,6 +7,7 @@ import { graphqlClient } from '$lib/shared/services/graphql/client';
 import { chainId } from '$lib/shared/utils/chain';
 import { wagmiConfig } from '$lib/shared/wagmi';
 import { getLogger } from '$libs/util/logger';
+import { USER_BADGES_QUERY } from '$lib/shared/services/graphql/queries';
 
 const log = getLogger('BadgeAdapter');
 
@@ -21,37 +21,28 @@ export class BadgeAdapter {
    */
   async fetchUserS1Badges(address: Address) {
     log('fetchUserS1Badges', { address });
-    const out = {
-      [FactionNames.Ravers]: false,
-      [FactionNames.Robots]: false,
-      [FactionNames.Bouncers]: false,
-      [FactionNames.Masters]: false,
-      [FactionNames.Monks]: false,
-      [FactionNames.Drummers]: false,
-      [FactionNames.Androids]: false,
-      [FactionNames.Shinto]: false,
+    const badgeResult: {
+      [key in FactionNames]: { hasBadge: boolean; badgeId: number | null; tokenId: number | null };
+    } = {
+      [FactionNames.Ravers]: { hasBadge: false, badgeId: null, tokenId: null },
+      [FactionNames.Robots]: { hasBadge: false, badgeId: null, tokenId: null },
+      [FactionNames.Bouncers]: { hasBadge: false, badgeId: null, tokenId: null },
+      [FactionNames.Masters]: { hasBadge: false, badgeId: null, tokenId: null },
+      [FactionNames.Monks]: { hasBadge: false, badgeId: null, tokenId: null },
+      [FactionNames.Drummers]: { hasBadge: false, badgeId: null, tokenId: null },
+      [FactionNames.Androids]: { hasBadge: false, badgeId: null, tokenId: null },
+      [FactionNames.Shinto]: { hasBadge: false, badgeId: null, tokenId: null },
     };
 
     try {
-      const gqlQuery = gql`
-        query UserBadges($address: String) {
-          account(id: $address) {
-            id
-            s1MultiplierNfts {
-              id
-              badgeId
-            }
-          }
-        }
-      `;
       const graphqlResponse = await graphqlClient.query({
-        query: gqlQuery,
+        query: USER_BADGES_QUERY,
         variables: { address: address.toLocaleLowerCase() },
       });
 
       if (!graphqlResponse || !graphqlResponse.data || !graphqlResponse.data.account) {
         // account does not exist, skip
-        return out;
+        return badgeResult;
       }
 
       const { s1MultiplierNfts } = graphqlResponse.data.account;
@@ -62,17 +53,17 @@ export class BadgeAdapter {
 
           if (currentBadgeId === badgeId) {
             const key = Object.values(FactionNames)[badgeId];
-            out[key] = true;
+            badgeResult[key] = { hasBadge: true, badgeId: currentBadgeId, tokenId: badge.tokenId };
           }
         }
       }
-      log('fetchUserS1Badges', { out });
-      return out;
+      log('fetchUserS1Badges', { badgeResult });
+      return badgeResult;
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (e: any) {
       if (e.message === 'graphqlResponse.data.account is null') {
         // account does not exist, skip
-        return out;
+        return badgeResult;
       }
       throw e;
     }

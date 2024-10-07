@@ -22,21 +22,24 @@ export class BadgeService {
     const balances = await this.adapter.fetchUserS1Badges(address);
 
     const badges: NFT[] = [];
-    let badgeId = 0;
 
-    for (const badgeName in balances) {
-      if (balances[badgeName as FactionNames]) {
-        const tokenId = await this.adapter.getTokenId(address, badgeId);
-        badges.push({
+    const badgePromises = Object.keys(balances).map(async (badgeName, index) => {
+      const badge = balances[badgeName as FactionNames];
+      if (badge && badge.badgeId && badge.tokenId) {
+        return {
           address: trailblazersBadgesAddress[chainId],
-          src: this.getS1BadgeURI(badgeId),
+          src: this.getS1BadgeURI(index),
           tokenUri: '',
-          tokenId,
-          badgeId,
-        } satisfies NFT);
+          tokenId: badge.tokenId,
+          badgeId: badge.badgeId,
+        } satisfies NFT;
       }
-      badgeId += 1;
-    }
+      return null;
+    });
+
+    const resolvedBadges = await Promise.all(badgePromises);
+    const filteredBadges = resolvedBadges.filter((badge) => badge !== null) as NFT[];
+    badges.push(...filteredBadges);
 
     log('getBadgesForUser result', { badges });
     return badges;
