@@ -13,5 +13,5 @@ export function isMintDisclaimerAccepted() {
 }
 
 export const tamperMigrationModal = writable<boolean>(false);
-
+export const startMigrationModal = writable<boolean>(false);
 export const migrationApprovalModal = writable<boolean>(false);

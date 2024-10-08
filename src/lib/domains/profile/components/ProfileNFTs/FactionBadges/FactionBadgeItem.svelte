@@ -1,6 +1,6 @@
 <script lang="ts">
   import ActionButton from '$components/Button/ActionButton.svelte';
-import { type FactionNames, FACTIONS } from '$configs/badges';
+  import { type FactionNames, FACTIONS } from '$configs/badges';
   import type { FactionBadgeButton } from '$lib/domains/profile/types/FactionBadgeButton';
   import type { Movements } from '$libs/badges/const';
   import { classNames } from '$libs/util/classNames';
@@ -12,7 +12,7 @@ import { type FactionNames, FACTIONS } from '$configs/badges';
   export let blurred: boolean = false;
   export let disabled: boolean = false;
 
-  export let button: null | FactionBadgeButton = null
+  export let button: null | FactionBadgeButton = null;
 
   // CSS classes
   $: wrapperClasses = classNames(
@@ -52,13 +52,7 @@ import { type FactionNames, FACTIONS } from '$configs/badges';
     'right-[20px]',
   );
 
-  const buttonWrapperClasses = classNames(
-    'absolute',
-    'w-full',
-    'bottom-0',
-    'p-[20px]',
-    'h-[88px]'
-  )
+  const buttonWrapperClasses = classNames('absolute', 'w-full', 'bottom-0', 'p-[20px]', 'h-[88px]');
   $: typedNamed = name as FactionNames;
 </script>
 
@@ -75,13 +69,13 @@ import { type FactionNames, FACTIONS } from '$configs/badges';
   </div>
 
   {#if button}
-  <div class={buttonWrapperClasses}>
-    <ActionButton {disabled}
-    on:click={() => button.handler && button.handler(FACTIONS[typedNamed])}
-    priority={button.type}>
-{button.label}
-    </ActionButton>
-  </div>
-
+    <div class={buttonWrapperClasses}>
+      <ActionButton
+        {disabled}
+        on:click={() => button.handler && button.handler(FACTIONS[typedNamed])}
+        priority={button.type}>
+        {button.label}
+      </ActionButton>
+    </div>
   {/if}
 </div>

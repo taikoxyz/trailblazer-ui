@@ -1,5 +1,5 @@
 export interface FactionBadgeButton {
-    label: string
-    handler?: (badgeId: number) => void
-  type: 'primary' | 'secondary',
+  label: string;
+  handler?: (badgeId: number) => void;
+  type: 'primary' | 'secondary';
 }

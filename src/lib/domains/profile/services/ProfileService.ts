@@ -568,7 +568,7 @@ export class ProfileService {
 
     await this.userRepository.update({
       badgeMigrations: migrations,
-      approvedMigrationBadgeIds
+      approvedMigrationBadgeIds,
     });
   }
 }

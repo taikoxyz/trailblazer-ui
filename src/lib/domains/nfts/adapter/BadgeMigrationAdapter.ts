@@ -8,7 +8,7 @@ import {
   trailblazersBadgesS2Abi,
   trailblazersBadgesS2Address,
 } from '$generated/abi';
-import type { BadgeMigration as GqlBadgeMigration,Token } from '$generated/graphql';
+import type { BadgeMigration as GqlBadgeMigration, Token } from '$generated/graphql';
 import { graphqlClient } from '$lib/shared/services/graphql/client';
 import { GET_MIGRATION_STATUS_GQL } from '$lib/shared/services/graphql/queries/getMigrationStatus.gql';
 import type { BadgeMigration } from '$lib/shared/types/BadgeMigration';
@@ -119,24 +119,23 @@ export class BadgeMigrationAdapter {
     });
 
     if (!graphqlResponse || !graphqlResponse.data || !graphqlResponse.data.account) {
-      return []
+      return [];
     }
 
     const { approvedS1Tokens, approvedForAll } = graphqlResponse.data.account as {
-      approvedS1Tokens: Token[],
-      approvedForAll: boolean,
-    }
+      approvedS1Tokens: Token[];
+      approvedForAll: boolean;
+    };
 
-    let approvedTokenIds = []
+    let approvedTokenIds = [];
 
-    if (approvedForAll){
-      approvedTokenIds = [0,1,2,3,4,5,6,7]
+    if (approvedForAll) {
+      approvedTokenIds = [0, 1, 2, 3, 4, 5, 6, 7];
     } else {
-      approvedTokenIds = approvedS1Tokens.map(
-        (token: Token) => parseInt(token.badgeId.toString()))
+      approvedTokenIds = approvedS1Tokens.map((token: Token) => parseInt(token.badgeId.toString()));
     }
 
-    return approvedTokenIds
+    return approvedTokenIds;
   }
 
   async getMigrationStatus(address: Address): Promise<BadgeMigration[]> {
@@ -149,31 +148,30 @@ export class BadgeMigrationAdapter {
       });
 
       if (!graphqlResponse || !graphqlResponse.data || !graphqlResponse.data.account) {
-        return []
+        return [];
       }
 
       const { approvedS1Tokens, approvedForAll, s2Migrations } = graphqlResponse.data.account as {
-        approvedS1Tokens: Token[],
-        approvedForAll: boolean,
-        s2Migrations: GqlBadgeMigration[]
-      }
+        approvedS1Tokens: Token[];
+        approvedForAll: boolean;
+        s2Migrations: GqlBadgeMigration[];
+      };
 
-      let approvedTokenIds = []
+      let approvedTokenIds = [];
 
-      if (approvedForAll){
-        approvedTokenIds = [0,1,2,3,4,5,6,7]
+      if (approvedForAll) {
+        approvedTokenIds = [0, 1, 2, 3, 4, 5, 6, 7];
       } else {
-        approvedTokenIds = approvedS1Tokens.map(
-          (token: Token) => parseInt(token.badgeId.toString()))
+        approvedTokenIds = approvedS1Tokens.map((token: Token) => parseInt(token.badgeId.toString()));
       }
 
       const migrations = s2Migrations.map((raw) => {
         if (!raw.s1Badge || !raw.s1Badge.badgeId) {
-          throw new Error('BadgeMigrationAdapter: s1Badge or s1Badge.badgeId is missing')
+          throw new Error('BadgeMigrationAdapter: s1Badge or s1Badge.badgeId is missing');
         }
 
-        const badgeId = parseInt(raw.s1Badge.badgeId?.toString())
-        const tamperExpirationTimeout = parseInt(raw.tamperExpirationTimeout.toString())
+        const badgeId = parseInt(raw.s1Badge.badgeId?.toString());
+        const tamperExpirationTimeout = parseInt(raw.tamperExpirationTimeout.toString());
 
         return {
           id: raw.id,
@@ -189,22 +187,19 @@ export class BadgeMigrationAdapter {
           pinkTampers: raw.pinkTampers,
           purpleTampers: raw.purpleTampers,
           claimExpirationTimeout: new Date(parseInt(raw.claimExpirationTimeout.toString()) * 1000),
-          tamperExpirationTimeout:tamperExpirationTimeout > 0 ? new Date(tamperExpirationTimeout * 1000) : undefined,
-          isApproved: approvedTokenIds.includes(badgeId)
-        } satisfies BadgeMigration
-      })
+          tamperExpirationTimeout: tamperExpirationTimeout > 0 ? new Date(tamperExpirationTimeout * 1000) : undefined,
+          isApproved: approvedTokenIds.includes(badgeId),
+        } satisfies BadgeMigration;
+      });
 
-
-
-return migrations
-/*
+      return migrations;
+      /*
 
       // set the approvals
       */
-
-    } catch (e){
-      console.error(e)
-      return []
+    } catch (e) {
+      console.error(e);
+      return [];
     }
   }
 }
