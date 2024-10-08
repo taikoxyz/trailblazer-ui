@@ -12,6 +12,7 @@
   import ProfileCard from './ProfileCard.svelte';
   import ProfilePictureModal from './ProfilePicture/ProfilePictureModal.svelte';
   import ProfileTabs from './ProfileTabs.svelte';
+  import Alert from '$lib/shared/components/Alert/Alert.svelte';
 
   onMount(async () => {
     const urlAddress = $page.url.pathname.split('/').pop() as Address;
@@ -26,7 +27,14 @@
       <BoosterCard />
     </div>
 
-    <div class="mt-[60px]">
+    <div class="mt-[28px]">
+      <Alert type="info">
+        <b>Note:</b> Season 1 has ended, and we’re getting the rewards ready for claiming. Stay tuned for updates coming
+        soon!
+      </Alert>
+    </div>
+
+    <div class="mt-[28px]">
       <ProfileTabs />
     </div>
   </div>
