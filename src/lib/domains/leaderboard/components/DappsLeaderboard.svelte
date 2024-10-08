@@ -8,11 +8,11 @@
   import type { PaginationInfo } from '$lib/shared/dto/CommonPageApiResponse';
   import { getLogger } from '$libs/util/logger';
 
-  import type { DappLeaderboardItem } from '../dto/dapps.dto';
-  import { dappLeaderboardService } from '../services/LeaderboardServiceInstances';
-  import { currentDappLeaderboard } from '../stores/dappLeaderboard';
-  import { CampaignEndedInfoBox } from './CampaignEndedInfoBox';
-  import { AbstractLeaderboard } from './Template';
+  import type { DappLeaderboardItem } from '$lib/domains/leaderboard/dto/dapps.dto';
+  import { dappLeaderboardService } from '$lib/domains/leaderboard/services/LeaderboardServiceInstances';
+  import { currentDappLeaderboard } from '$lib/domains/leaderboard/stores/dappLeaderboard';
+  import { CampaignEndedInfoBox } from '$lib/domains/leaderboard/components/CampaignEndedInfoBox';
+  import { AbstractLeaderboard } from '$lib/domains/leaderboard/components/Template';
 
   const log = getLogger('DappsLeaderboard');
 
