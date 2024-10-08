@@ -1,5 +1,6 @@
 <script lang="ts">
   import { ActionButton } from '$components/Button';
+  import profileService from '$lib/domains/profile/services/ProfileServiceInstance';
   import { badgeMigrationStore } from '$stores/badgeMigration';
   import { startMigrationModal } from '$stores/modal';
 
@@ -20,12 +21,9 @@
   $: isLoading = false;
 
   async function handleStartMigration() {
-    /*
-      if (!$account || !$account.address) return;
-      isLoading = true;
-      await startMigration($account.address, s1BadgeId);
-      isLoading = false;
-      //isMigrationStarted = true;*/
+    isLoading = true;
+    await profileService.startMigration(s1BadgeId);
+    isLoading = false;
   }
 </script>
 

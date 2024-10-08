@@ -18,14 +18,20 @@
     await profileService.getProfile(urlAddress, $activeSeason);
   });
 
-  const wrapperClasses = classNames("flex","flex-col","items-center")
-  const profileWrapperClasses = classNames(
-"flex","flex-col","max-w-section","w-full","lg:gap-8"
-  )
+  const wrapperClasses = classNames('flex', 'flex-col', 'items-center');
+  const profileWrapperClasses = classNames('flex', 'flex-col', 'max-w-section', 'w-full', 'lg:gap-8');
 
   const profileHeaderClasses = classNames(
-"flex","px-4","lg:px-0","gap-8","h-full","box-content","flex-col","lg:flex-row","justify-center"
-  )
+    'flex',
+    'px-4',
+    'lg:px-0',
+    'gap-8',
+    'h-full',
+    'box-content',
+    'flex-col',
+    'lg:flex-row',
+    'justify-center',
+  );
 </script>
 
 <div class={wrapperClasses}>
