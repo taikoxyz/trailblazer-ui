@@ -1,5 +1,7 @@
 <script lang="ts">
-  import { type FactionNames, FACTIONS } from '$configs/badges';
+  import ActionButton from '$components/Button/ActionButton.svelte';
+import { type FactionNames, FACTIONS } from '$configs/badges';
+  import type { FactionBadgeButton } from '$lib/domains/profile/types/FactionBadgeButton';
   import type { Movements } from '$libs/badges/const';
   import { classNames } from '$libs/util/classNames';
 
@@ -9,6 +11,8 @@
   export let movement: Movements;
   export let blurred: boolean = false;
   export let disabled: boolean = false;
+
+  export let button: null | FactionBadgeButton = null
 
   // CSS classes
   $: wrapperClasses = classNames(
@@ -48,6 +52,13 @@
     'right-[20px]',
   );
 
+  const buttonWrapperClasses = classNames(
+    'absolute',
+    'w-full',
+    'bottom-0',
+    'p-[20px]',
+    'h-[88px]'
+  )
   $: typedNamed = name as FactionNames;
 </script>
 
@@ -62,4 +73,15 @@
   <div class={weekBadgeClasses}>
     Trail {FACTIONS[typedNamed] + 1}
   </div>
+
+  {#if button}
+  <div class={buttonWrapperClasses}>
+    <ActionButton {disabled}
+    on:click={() => button.handler && button.handler(FACTIONS[typedNamed])}
+    priority={button.type}>
+{button.label}
+    </ActionButton>
+  </div>
+
+  {/if}
 </div>

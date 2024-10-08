@@ -18,6 +18,7 @@
 
   import { FactionBadgeItem } from '../../profile/components/ProfileNFTs/FactionBadges';
   import Countdown from './Countdown.svelte';
+  import type { FactionBadgeButton } from '$lib/domains/profile/types/FactionBadgeButton';
 
   export let title: string = 'Badge Migration';
 
@@ -230,6 +231,30 @@ const countdownItemClasses = classNames(
     $badgeMigrationStore.s1BadgeId = badgeId;
     $migrationApprovalModal = true;
   }
+
+    $: buttons = {
+NotEligible: {
+  type: 'primary',
+  label: 'Not eligible'
+},
+View: {
+  type: 'primary',
+  label: 'View',
+  handler: handleTamperModal
+},
+StartMigration: {
+  type: 'primary',
+  label: 'Migrate',
+  handler: handleStartMigration
+
+},
+Approve: {
+  type: 'primary',
+  label: 'Approve contract',
+  handler: (badgeId) => console.log(badgeId)
+
+}
+    } as Record<string, FactionBadgeButton>
 </script>
 
 <div class={containerClass}>
@@ -259,7 +284,15 @@ const countdownItemClasses = classNames(
           {@const migration = $userProfile?.badgeMigrations?.find((m) => m.s1Badge.badgeId === badgeId)}
             {@const factionName = getAsFactionName(FACTIONS[badgeId])}
             {@const disabled = !possibleMigrations.includes(badgeId)}
-            <FactionBadgeItem {disabled} movement={Movements.Neutral} name={factionName}>
+            <FactionBadgeItem
+            button={
+              disabled ? buttons.NotEligible:
+              migration ? buttons.View:
+              $userProfile?.approvedMigrationBadgeIds?.includes(badgeId) ? buttons.StartMigration :
+              buttons.Approve
+            }
+
+            {disabled} movement={Movements.Neutral} name={factionName}>
               {#if !displayActiveMigration}
 
               {#if migration}
@@ -296,28 +329,7 @@ target={migration.claimExpirationTimeout} />
                 {/if}
             </div>
               {/if}
-                <div class={migrateButtonWrapperClasses}>
-                  {#if disabled}
-                    <ActionButton disabled priority="primary">Not eligible</ActionButton>
-                  {:else if migration}
-                  <!-- Continue Migration Button -->
-                    <ActionButton on:click={() => handleTamperModal(badgeId)} priority="secondary">
-                      View
-                    </ActionButton>
-                    {:else if $userProfile?.approvedMigrationBadgeIds?.includes(badgeId)}
-                  <!-- Start Migration Button -->
-                    <ActionButton {disabled} on:click={() => handleStartMigration(badgeId)} priority="primary">
-                      Start Migration
-                    </ActionButton>
-                  {:else}
-                  <!-- Approve Contract Button -->
-                    <ActionButton {disabled} on:click={() => openApprovalModal(badgeId)} priority="primary">
-                      Approve contract
-                    </ActionButton>
-                  {/if}
-                </div>{/if}
-
-
+              {/if}
 
             </FactionBadgeItem>
           {/each}
