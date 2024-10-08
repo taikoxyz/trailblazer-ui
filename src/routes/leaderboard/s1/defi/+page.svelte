@@ -2,9 +2,9 @@
   import { t } from 'svelte-i18n';
 
   import { goto } from '$app/navigation';
-  import { ActionButton } from '$components/Button';
-  import { Page } from '$components/Page';
   import DeFiDappLeaderboard from '$lib/domains/leaderboard/components/DeFiDappLeaderboard.svelte';
+  import { ActionButton } from '$shared/components/Button';
+  import { Page } from '$shared/components/Page';
 </script>
 
 <svelte:head>

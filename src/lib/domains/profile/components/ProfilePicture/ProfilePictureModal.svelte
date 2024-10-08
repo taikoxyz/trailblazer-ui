@@ -2,15 +2,15 @@
   import { onMount } from 'svelte';
   import { t } from 'svelte-i18n';
 
-  import { ActionButton } from '$components/Button';
-  import { Icon } from '$components/Icon';
-  import { errorToast, successToast } from '$components/NotificationToast';
-  import Spinner from '$components/Spinner/Spinner.svelte';
   import { pfpModal, userProfile } from '$lib/domains/profile/stores';
   import type { NFT } from '$lib/shared/types/NFT';
   import { closeOnEscapeOrOutsideClick } from '$lib/shared/utils/customActions';
-  import { classNames } from '$libs/util/classNames';
-  import { getLogger } from '$libs/util/logger';
+  import { ActionButton } from '$shared/components/Button';
+  import { Icon } from '$shared/components/Icon';
+  import { errorToast, successToast } from '$shared/components/NotificationToast';
+  import Spinner from '$shared/components/Spinner/Spinner.svelte';
+  import { classNames } from '$shared/utils/classNames';
+  import { getLogger } from '$shared/utils/logger';
 
   import profileService from '../../services/ProfileServiceInstance';
 

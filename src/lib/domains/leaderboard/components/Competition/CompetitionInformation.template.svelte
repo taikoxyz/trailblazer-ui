@@ -1,7 +1,7 @@
 <script lang="ts">
   import { t } from 'svelte-i18n';
 
-  import { classNames } from '$libs/util/classNames';
+  import { classNames } from '$shared/utils/classNames';
 
   import type { CompetitionInfo } from './types';
 

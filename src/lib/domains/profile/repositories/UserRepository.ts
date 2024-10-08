@@ -1,7 +1,7 @@
 // src/lib/domains/profile/repositories/UserRepository.ts
 import { get } from 'svelte/store';
 
-import { getLogger } from '$libs/util/logger';
+import { getLogger } from '$shared/utils/logger';
 
 import { userProfile } from '../stores/profileStore';
 import type { UserProfile } from '../types/UserProfile';

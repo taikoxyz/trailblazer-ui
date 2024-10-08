@@ -11,7 +11,7 @@
   import { dappLeaderboardService } from '$lib/domains/leaderboard/services/LeaderboardServiceInstances';
   import { currentDappLeaderboard } from '$lib/domains/leaderboard/stores';
   import type { PaginationInfo } from '$lib/shared/dto/CommonPageApiResponse';
-  import { getLogger } from '$libs/util/logger';
+  import { getLogger } from '$shared/utils/logger';
 
   const log = getLogger('DappsLeaderboard');
 

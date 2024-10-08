@@ -3,15 +3,15 @@
   import type { Address } from 'viem';
   import { getAddress } from 'viem/utils';
 
-  import { EthIcon, Icon } from '$components/Icon';
-  import Usdc from '$components/Icon/USDC.svelte';
-  import Usdt from '$components/Icon/USDT.svelte';
-  import { DisabledMask } from '$components/Masks';
-  import { Skeleton } from '$components/Mock';
+  import { EthIcon, Icon } from '$shared/components/Icon';
+  import Usdc from '$shared/components/Icon/USDC.svelte';
+  import Usdt from '$shared/components/Icon/USDT.svelte';
+  import { DisabledMask } from '$shared/components/Masks';
+  import { Skeleton } from '$shared/components/Mock';
   import { usdcAddress, usdtAddress } from '$generated/abi';
   import { chainId } from '$lib/shared/utils/chain';
-  import { formatNumbers } from '$libs/util/formatNumbers';
-  import { currentBridgeLeaderboard } from '$stores/leaderboard';
+  import { formatNumbers } from '$shared/utils/formatNumbers';
+  import { currentBridgeLeaderboard } from '$shared/stores/leaderboard';
 
   import { CampaignEndedInfoBox } from './CampaignEndedInfoBox';
   import BridgeHeader from './Header/BridgeHeader.svelte';

@@ -13,7 +13,7 @@ import type { IProfileService } from '$lib/domains/profile/services/IProfileServ
 import { ProfileService } from '$lib/domains/profile/services/ProfileService';
 import type { UserInfoForLeaderboard } from '$lib/domains/profile/types/UserInfoForLeaderboard';
 import type { PaginationInfo } from '$lib/shared/dto/CommonPageApiResponse';
-import { getLogger } from '$libs/util/logger';
+import { getLogger } from '$shared/utils/logger';
 
 const log = getLogger('UserLeaderboardService');
 

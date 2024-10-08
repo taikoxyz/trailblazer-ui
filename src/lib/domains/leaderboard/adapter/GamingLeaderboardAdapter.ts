@@ -1,6 +1,6 @@
 import type { PaginationInfo } from '$lib/shared/dto/CommonPageApiResponse';
 import { getAxiosInstance, globalAxiosConfig } from '$lib/shared/services/api/axiosClient';
-import { getLogger } from '$libs/util/logger';
+import { getLogger } from '$shared/utils/logger';
 
 import type { GamingLeaderboardItem, GamingLeaderboardPageApiResponse } from '../dto/gaming.dto';
 

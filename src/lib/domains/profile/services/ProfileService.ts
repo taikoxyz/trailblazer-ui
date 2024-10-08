@@ -7,8 +7,8 @@ import { CombinedNFTService } from '$lib/domains/nfts/services/CombinedNFTServic
 import type { PaginationInfo } from '$lib/shared/dto/CommonPageApiResponse';
 import type { NFT } from '$lib/shared/types/NFT';
 import { wagmiConfig } from '$lib/shared/wagmi';
-import { isDevelopmentEnv } from '$libs/util/isDevelopmentEnv';
-import { getLogger } from '$libs/util/logger';
+import { isDevelopmentEnv } from '$shared/utils/isDevelopmentEnv';
+import { getLogger } from '$shared/utils/logger';
 
 import { ProfileApiAdapter } from '../adapter/ProfileAdapter';
 import UserRepository from '../repositories/UserRepository';

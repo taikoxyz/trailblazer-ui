@@ -2,9 +2,9 @@
   import { t } from 'svelte-i18n';
 
   import { goto } from '$app/navigation';
-  import { ActionButton } from '$components/Button';
-  import { Page } from '$components/Page';
   import BridgeLeaderboard from '$lib/domains/leaderboard/components/BridgeLeaderboard.svelte';
+  import { ActionButton } from '$shared/components/Button';
+  import { Page } from '$shared/components/Page';
 </script>
 
 <svelte:head>

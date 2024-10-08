@@ -3,9 +3,9 @@ import { get } from 'svelte/store';
 
 import profileService from '$lib/domains/profile/services/ProfileServiceInstance';
 import { activeSeason } from '$lib/shared/stores/activeSeason';
-import { getLogger } from '$libs/util/logger';
-import { account } from '$stores/account';
-import { switchChainModal } from '$stores/modal';
+import { account } from '$shared/stores/account';
+import { switchChainModal } from '$shared/stores/modal';
+import { getLogger } from '$shared/utils/logger';
 
 import { isSupportedChain } from '../utils/chain';
 import { wagmiConfig } from '.';

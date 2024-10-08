@@ -1,7 +1,7 @@
 <script lang="ts">
-  import { Icon } from '$components/Icon';
-  import Skeleton from '$components/Mock/Skeleton.svelte';
-  import Spinner from '$components/Spinner/Spinner.svelte';
+  import { Icon } from '$shared/components/Icon';
+  import Skeleton from '$shared/components/Mock/Skeleton.svelte';
+  import Spinner from '$shared/components/Spinner/Spinner.svelte';
   export let rank: number;
   export let fillClass: string;
   export let showTrophy: boolean;

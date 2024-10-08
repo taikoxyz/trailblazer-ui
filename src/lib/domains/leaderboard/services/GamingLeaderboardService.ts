@@ -6,7 +6,7 @@ import { GamingLeaderboardRepository } from '$lib/domains/leaderboard/repository
 import type { GamingLeaderboardPage, GamingLeaderboardRow } from '$lib/domains/leaderboard/types/dapps/types';
 import type { UnifiedLeaderboardRow } from '$lib/domains/leaderboard/types/shared/types';
 import type { PaginationInfo } from '$lib/shared/dto/CommonPageApiResponse';
-import { getLogger } from '$libs/util/logger';
+import { getLogger } from '$shared/utils/logger';
 
 const log = getLogger('GamingLeaderboardService');
 

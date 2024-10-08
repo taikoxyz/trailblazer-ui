@@ -1,10 +1,10 @@
 <script lang="ts">
-  import { Paginator } from '$components/Paginator';
-  import { Spinner } from '$components/Spinner';
   import { leaderboardConfig } from '$config';
   import type { PaginationInfo } from '$lib/shared/dto/CommonPageApiResponse';
-  import { classNames } from '$libs/util/classNames';
-  import getConnectedAddress from '$libs/util/getConnectedAddress';
+  import { Paginator } from '$shared/components/Paginator';
+  import { Spinner } from '$shared/components/Spinner';
+  import { classNames } from '$shared/utils/classNames';
+  import getConnectedAddress from '$shared/utils/getConnectedAddress';
 
   import profileService from '../../services/ProfileServiceInstance';
   import { profileLoading, userProfile } from '../../stores/profileStore';

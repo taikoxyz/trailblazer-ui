@@ -1,5 +1,5 @@
 import { IRepository } from '$lib/shared/repository/IRepository';
-import { getLogger } from '$libs/util/logger';
+import { getLogger } from '$shared/utils/logger';
 
 import { currentUserLeaderboard } from '../stores/userLeaderboard';
 import type { UserLeaderboardPage } from '../types/dapps/types';

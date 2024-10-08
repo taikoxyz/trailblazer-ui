@@ -1,11 +1,11 @@
 <script lang="ts">
   import type { ComponentType } from 'svelte';
 
-  import { DisabledMask } from '$components/Masks';
-  import Paginator from '$components/Paginator/Paginator.svelte';
   import { leaderboardConfig } from '$config';
   import type { UnifiedLeaderboardRow } from '$lib/domains/leaderboard/types/shared/types';
-  import { classNames } from '$libs/util/classNames';
+  import { DisabledMask } from '$shared/components/Masks';
+  import Paginator from '$shared/components/Paginator/Paginator.svelte';
+  import { classNames } from '$shared/utils/classNames';
 
   import LoadingRow from './LoadingRow.svelte';
   import TableHeader from './TableHeader.svelte';

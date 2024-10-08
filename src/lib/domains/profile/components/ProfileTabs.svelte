@@ -2,8 +2,8 @@
   import BadgeMigration from '$lib/domains/nfts/components/BadgeMigration.svelte';
   import DevRoom from '$lib/domains/profile/components/DevRoom/DevRoom.svelte';
   import { ProfileNFTs } from '$lib/domains/profile/components/ProfileNFTs';
-  import { classNames } from '$libs/util/classNames';
-  import { isDevelopmentEnv } from '$libs/util/isDevelopmentEnv';
+  import { classNames } from '$shared/utils/classNames';
+  import { isDevelopmentEnv } from '$shared/utils/isDevelopmentEnv';
 
   import ProfileTransactions from './ProfileActivity/ProfileTransactions.svelte';
   import ProfileRewardClaim from './ProfileRewardClaim/ProfileRewardClaim.svelte';

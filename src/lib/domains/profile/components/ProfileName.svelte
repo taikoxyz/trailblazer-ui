@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { Icon, IconFlipper } from '$components/Icon';
-  import { shortenAddress } from '$libs/util/shortenAddress';
+  import { Icon, IconFlipper } from '$shared/components/Icon';
+  import { shortenAddress } from '$shared/utils/shortenAddress';
 
   import profileService from '../services/ProfileServiceInstance';
   import { profileLoading, userProfile } from '../stores/profileStore';

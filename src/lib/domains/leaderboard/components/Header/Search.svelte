@@ -1,7 +1,7 @@
 <script lang="ts">
-  import { SearchIcon } from '$components/Icon';
-  import { InputBox } from '$components/InputBox';
-  import { debounce } from '$libs/util/debounce';
+  import { SearchIcon } from '$shared/components/Icon';
+  import { InputBox } from '$shared/components/InputBox';
+  import { debounce } from '$shared/utils/debounce';
 
   export let onSearch: (value: string) => void;
   export let placeholder = 'Search...';

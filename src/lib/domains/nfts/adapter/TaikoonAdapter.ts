@@ -6,7 +6,7 @@ import Taikoon from '$lib/domains/nfts/types/taikoon';
 import { globalAxiosConfig } from '$lib/shared/services/api/axiosClient';
 import type { NFT } from '$lib/shared/types/NFT';
 import { chainId } from '$lib/shared/utils/chain';
-import { getLogger } from '$libs/util/logger';
+import { getLogger } from '$shared/utils/logger';
 
 const log = getLogger('TaikoonAdapter');
 export class TaikoonAdapter {

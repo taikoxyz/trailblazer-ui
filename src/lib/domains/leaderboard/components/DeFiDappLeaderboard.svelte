@@ -1,7 +1,7 @@
 <!-- <script lang="ts">
   import { t } from 'svelte-i18n';
 
-  import { currentDefiDappLeaderboard } from '$stores/leaderboard';
+  import { currentDefiDappLeaderboard } from '$shared/stores/leaderboard';
 
   import { DefiEndedComponent } from './Competition/DefiCompetition';
   import DefiCompetitionInformation from './Competition/DefiCompetition/DefiCompetitionInformation.svelte';

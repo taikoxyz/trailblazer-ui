@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { classNames } from '$libs/util/classNames';
+  import { classNames } from '$shared/utils/classNames';
 
   export let value: number;
   export let color: 'pink' | 'purple' = 'pink';

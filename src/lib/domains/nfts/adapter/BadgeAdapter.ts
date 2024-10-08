@@ -7,7 +7,7 @@ import { graphqlClient } from '$lib/shared/services/graphql/client';
 import { USER_BADGES_QUERY } from '$lib/shared/services/graphql/queries';
 import { chainId } from '$lib/shared/utils/chain';
 import { wagmiConfig } from '$lib/shared/wagmi';
-import { getLogger } from '$libs/util/logger';
+import { getLogger } from '$shared/utils/logger';
 
 const log = getLogger('BadgeAdapter');
 

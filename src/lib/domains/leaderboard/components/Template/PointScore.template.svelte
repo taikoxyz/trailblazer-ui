@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { formatNumbers } from '$libs/util/formatNumbers';
+  import { formatNumbers } from '$shared/utils/formatNumbers';
 
   export let score: number;
 </script>

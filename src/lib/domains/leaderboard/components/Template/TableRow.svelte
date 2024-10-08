@@ -2,11 +2,11 @@
   import { isAddress } from 'ethereum-address';
   import type { ComponentType } from 'svelte';
 
-  import { Icon } from '$components/Icon';
-  import ExplorerLink from '$components/Links/ExplorerLink.svelte';
-  import { Skeleton } from '$components/Mock';
   import type { UnifiedLeaderboardRow } from '$lib/domains/leaderboard/types/shared/types';
-  import { shortenAddress } from '$libs/util/shortenAddress';
+  import { Icon } from '$shared/components/Icon';
+  import ExplorerLink from '$shared/components/Links/ExplorerLink.svelte';
+  import { Skeleton } from '$shared/components/Mock';
+  import { shortenAddress } from '$shared/utils/shortenAddress';
 
   export let entry: UnifiedLeaderboardRow;
   export let index: number;

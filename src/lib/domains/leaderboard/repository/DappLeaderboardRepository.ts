@@ -1,7 +1,7 @@
 import { currentDappLeaderboard } from '$lib/domains/leaderboard/stores';
 import type { DappLeaderboardPage } from '$lib/domains/leaderboard/types/dapps/types';
 import { IRepository } from '$lib/shared/repository/IRepository';
-import { getLogger } from '$libs/util/logger';
+import { getLogger } from '$shared/utils/logger';
 
 const log = getLogger('DappLeaderboardRepository');
 

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Icon } from '$components/Icon';
+  import { Icon } from '$shared/components/Icon';
 
   export let lastUpdated: Date;
   $: lastUpdatedFormatted = formatLastUpdated(lastUpdated);

@@ -1,12 +1,12 @@
 <script lang="ts">
   import { t } from 'svelte-i18n';
 
-  import { ActivityIcon } from '$components/Icon';
-  import Icon from '$components/Icon/Icon.svelte';
-  import { Pill } from '$components/Pill';
-  import { classNames } from '$libs/util/classNames';
-  import { formatDate } from '$libs/util/formatDate';
-  import { truncateDecimal } from '$libs/util/truncateDecimal';
+  import { ActivityIcon } from '$shared/components/Icon';
+  import Icon from '$shared/components/Icon/Icon.svelte';
+  import { Pill } from '$shared/components/Pill';
+  import { classNames } from '$shared/utils/classNames';
+  import { formatDate } from '$shared/utils/formatDate';
+  import { truncateDecimal } from '$shared/utils/truncateDecimal';
 
   export let historyEntry;
 

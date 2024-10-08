@@ -3,7 +3,7 @@ import type { Address } from 'viem';
 
 import type { NFTMetadata } from '$lib/domains/nfts/types/shared/types';
 import type { NFT } from '$lib/shared/types/NFT';
-import { getLogger } from '$libs/util/logger';
+import { getLogger } from '$shared/utils/logger';
 
 import { BadgeService } from './BadgeService';
 import { TaikoonService } from './TaikoonService';

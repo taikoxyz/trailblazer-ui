@@ -12,7 +12,7 @@ import { pendingTransactions } from '$lib/shared/stores/pendingTransactions';
 import type { NFT } from '$lib/shared/types/NFT';
 import { chainId } from '$lib/shared/utils/chain';
 import { wagmiConfig } from '$lib/shared/wagmi';
-import { getLogger } from '$libs/util/logger';
+import { getLogger } from '$shared/utils/logger';
 
 import type { DomainResponse, UserHistoryApiResponse, UserPointsAndRankResponse } from '../dto/profile.dto';
 

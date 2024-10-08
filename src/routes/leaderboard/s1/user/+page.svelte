@@ -3,11 +3,11 @@
 
   import { goto } from '$app/navigation';
   import { page } from '$app/stores';
-  import { ActionButton } from '$components/Button';
-  import { Page } from '$components/Page';
   import UserLeaderboard from '$lib/domains/leaderboard/components/UserLeaderboard.svelte';
   import type { UserLeaderboardItem } from '$lib/domains/leaderboard/types/dapps/types';
   import type { PaginationInfo } from '$lib/shared/dto/CommonPageApiResponse';
+  import { ActionButton } from '$shared/components/Button';
+  import { Page } from '$shared/components/Page';
 
   let pageInfo: PaginationInfo<UserLeaderboardItem>;
   let loading: boolean;

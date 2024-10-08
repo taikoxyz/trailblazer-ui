@@ -5,8 +5,8 @@
   import { page } from '$app/stores';
   import { Spinner } from '$lib/shared/components';
   import { formatNumbers } from '$lib/shared/utils';
-  import { classNames } from '$libs/util/classNames';
-  import getConnectedAddress from '$libs/util/getConnectedAddress';
+  import { classNames } from '$shared/utils/classNames';
+  import getConnectedAddress from '$shared/utils/getConnectedAddress';
 
   import { userProfile } from '../stores/profileStore';
   import ProfileName from './ProfileName.svelte';

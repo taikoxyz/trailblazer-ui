@@ -5,13 +5,13 @@
   import { getAddress } from 'viem';
 
   import { page } from '$app/stores';
-  import { Spinner } from '$components/Spinner';
   import { PUBLIC_CLAIMING_ACTIVE } from '$env/static/public';
-  import TokenClaim from '$libs/token-claim';
-  import { classNames } from '$libs/util/classNames';
-  import getConnectedAddress from '$libs/util/getConnectedAddress';
-  import { account } from '$stores/account';
-  import { tokenClaimTermsAccepted } from '$stores/tokenClaim';
+  import { Spinner } from '$shared/components/Spinner';
+  import { account } from '$shared/stores/account';
+  import { tokenClaimTermsAccepted } from '$shared/stores/tokenClaim';
+  import { classNames } from '$shared/utils/classNames';
+  import getConnectedAddress from '$shared/utils/getConnectedAddress';
+  import TokenClaim from '$shared/utils/token-claim';
 
   import ClaimPanel from './ClaimPanel.svelte';
   import { type IClaimButton, type IClaimPanelType } from './types';
