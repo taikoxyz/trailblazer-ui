@@ -9,7 +9,7 @@
   import { AbstractLeaderboard } from '$lib/domains/leaderboard/components/Template';
   import type { DappLeaderboardItem } from '$lib/domains/leaderboard/dto/dapps.dto';
   import { dappLeaderboardService } from '$lib/domains/leaderboard/services/LeaderboardServiceInstances';
-  import currentDappLeaderboard from '$lib/domains/leaderboard/stores/dappLeaderboard';
+  import { currentDappLeaderboard } from '$lib/domains/leaderboard/stores';
   import type { PaginationInfo } from '$lib/shared/dto/CommonPageApiResponse';
   import { getLogger } from '$libs/util/logger';
 
