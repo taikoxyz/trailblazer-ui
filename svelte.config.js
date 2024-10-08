@@ -26,6 +26,7 @@ const config = {
       '$generated/*': './src/generated/*',
       // new below
       $domain: './src/domain/*',
+      '$lib/*': './src/lib/*',
     },
   },
 };
