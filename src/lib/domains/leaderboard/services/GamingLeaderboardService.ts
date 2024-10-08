@@ -1,13 +1,12 @@
+import { GamingLeaderboardAdapter } from '$lib/domains/leaderboard/adapter/GamingLeaderboardAdapter';
+import { ProtocolAdapter } from '$lib/domains/leaderboard/adapter/ProtocolAdapter';
+import type { GamingLeaderboardItem } from '$lib/domains/leaderboard/dto/gaming.dto';
+import { mapGamingLeaderboardRow } from '$lib/domains/leaderboard/mapper/mapper';
+import { GamingLeaderboardRepository } from '$lib/domains/leaderboard/repository/GamingLeaderboardRepository';
+import type { GamingLeaderboardPage, GamingLeaderboardRow } from '$lib/domains/leaderboard/types/dapps/types';
+import type { UnifiedLeaderboardRow } from '$lib/domains/leaderboard/types/shared/types';
 import type { PaginationInfo } from '$lib/shared/dto/CommonPageApiResponse';
 import { getLogger } from '$libs/util/logger';
-
-import { GamingLeaderboardAdapter } from '../adapter/GamingLeaderboardAdapter';
-import { ProtocolAdapter } from '../adapter/ProtocolAdapter';
-import type { GamingLeaderboardItem } from '../dto/gaming.dto';
-import { mapGamingLeaderboardRow } from '../mapper/mapper';
-import { GamingLeaderboardRepository } from '../repository/GamingLeaderboardRepository';
-import type { GamingLeaderboardPage, GamingLeaderboardRow } from '../types/dapps/types';
-import type { UnifiedLeaderboardRow } from '../types/shared/types';
 
 const log = getLogger('GamingLeaderboardService');
 

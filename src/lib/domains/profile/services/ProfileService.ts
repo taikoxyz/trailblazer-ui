@@ -20,10 +20,11 @@ import { DomainType, type UserPointHistory } from '../types/types';
 import type { UserInfoForLeaderboard } from '../types/UserInfoForLeaderboard';
 import type { UserProfile } from '../types/UserProfile';
 import type { UserStats } from '../types/UserStats';
+import type { IProfileService } from './IProfileService';
 
 const log = getLogger('ProfileService');
 
-export class ProfileService {
+export class ProfileService implements IProfileService {
   // Adapters
   private apiAdapter: ProfileApiAdapter;
 
@@ -36,11 +37,16 @@ export class ProfileService {
 
   private localStorageKey = 'taikoENSdomain';
 
-  constructor() {
-    this.apiAdapter = new ProfileApiAdapter();
-    this.userRepository = new UserRepository();
-    this.combinedNFTService = new CombinedNFTService();
-    this.badgeService = new BadgeService();
+  constructor(
+    apiAdapter?: ProfileApiAdapter,
+    userRepository?: UserRepository,
+    combinedNFTService?: CombinedNFTService,
+    badgeService?: BadgeService,
+  ) {
+    this.apiAdapter = apiAdapter || new ProfileApiAdapter();
+    this.userRepository = userRepository || new UserRepository();
+    this.combinedNFTService = combinedNFTService || new CombinedNFTService();
+    this.badgeService = badgeService || new BadgeService();
   }
 
   /**

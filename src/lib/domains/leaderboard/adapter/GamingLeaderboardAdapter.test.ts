@@ -4,19 +4,19 @@ import { zeroAddress } from 'viem';
 import type { PaginationInfo } from '$lib/shared/dto/CommonPageApiResponse';
 import { getAxiosInstance, globalAxiosConfig } from '$lib/shared/services/api/axiosClient';
 
-import type { DappLeaderboardItem, DappLeaderboardPageApiResponse } from '../dto/dapps.dto';
-import { DappLeaderboardAdapter } from './DappLeaderboardAdapter';
+import type { GamingLeaderboardItem, GamingLeaderboardPageApiResponse } from '../dto/gaming.dto';
+import { GamingLeaderboardAdapter } from './GamingLeaderboardAdapter';
 
 vi.mock('$lib/shared/services/api/axiosClient', () => ({
   getAxiosInstance: vi.fn(),
   globalAxiosConfig: {},
 }));
 
-describe('DappLeaderboardAdapter', () => {
-  let leaderboardAdapter: DappLeaderboardAdapter;
+describe('GamingLeaderboardAdapter', () => {
+  let leaderboardAdapter: GamingLeaderboardAdapter;
 
   beforeEach(() => {
-    leaderboardAdapter = new DappLeaderboardAdapter();
+    leaderboardAdapter = new GamingLeaderboardAdapter();
     vi.clearAllMocks();
   });
 
@@ -28,13 +28,13 @@ describe('DappLeaderboardAdapter', () => {
           items: [
             {
               address: zeroAddress,
-              score: 100,
-              slug: 'dapp-1',
+              score: 150,
+              slug: 'game-1',
             },
             {
               address: zeroAddress,
-              score: 200,
-              slug: 'dapp-2',
+              score: 250,
+              slug: 'game-2',
             },
           ],
           page: 0,
@@ -42,7 +42,7 @@ describe('DappLeaderboardAdapter', () => {
           size: 2,
         },
         lastUpdated: Date.now(),
-      } satisfies DappLeaderboardPageApiResponse;
+      } satisfies GamingLeaderboardPageApiResponse;
 
       const mockResponse = {
         data: mockLeaderboardData,
@@ -54,7 +54,7 @@ describe('DappLeaderboardAdapter', () => {
 
       vi.mocked(getAxiosInstance).mockReturnValue(mockClient);
 
-      const input: PaginationInfo<DappLeaderboardItem> = {
+      const input: PaginationInfo<GamingLeaderboardItem> = {
         items: [],
         page: 0,
         size: 2,
@@ -66,7 +66,7 @@ describe('DappLeaderboardAdapter', () => {
 
       // Then
       expect(getAxiosInstance).toHaveBeenCalledWith(1);
-      expect(mockClient.get).toHaveBeenCalledWith('/v2/leaderboard/dapp', {
+      expect(mockClient.get).toHaveBeenCalledWith('/v2/leaderboard/gaming', {
         ...globalAxiosConfig,
         params: input,
       });

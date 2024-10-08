@@ -1,16 +1,19 @@
 import type { Address } from 'viem';
 
+import { UserLeaderboardAdapter } from '$lib/domains/leaderboard/adapter/UserLeaderboardAdapter';
+import { mapUserLeaderboardRow } from '$lib/domains/leaderboard/mapper/mapper';
+import { UserLeaderboardRepository } from '$lib/domains/leaderboard/repository/UserLeaderboardRepository';
+import type {
+  UserLeaderboardItem,
+  UserLeaderboardPage,
+  UserLeaderboardRow,
+} from '$lib/domains/leaderboard/types/dapps/types';
+import type { UnifiedLeaderboardRow } from '$lib/domains/leaderboard/types/shared/types';
+import type { IProfileService } from '$lib/domains/profile/services/IProfileService';
 import { ProfileService } from '$lib/domains/profile/services/ProfileService';
-import profileService from '$lib/domains/profile/services/ProfileServiceInstance';
 import type { UserInfoForLeaderboard } from '$lib/domains/profile/types/UserInfoForLeaderboard';
 import type { PaginationInfo } from '$lib/shared/dto/CommonPageApiResponse';
 import { getLogger } from '$libs/util/logger';
-
-import { UserLeaderboardAdapter } from '../adapter/UserLeaderboardAdapter';
-import { mapUserLeaderboardRow } from '../mapper/mapper';
-import { UserLeaderboardRepository } from '../repository/UserLeaderboardRepository';
-import type { UserLeaderboardItem, UserLeaderboardPage, UserLeaderboardRow } from '../types/dapps/types';
-import type { UnifiedLeaderboardRow } from '../types/shared/types';
 
 const log = getLogger('UserLeaderboardService');
 
@@ -19,19 +22,19 @@ export class UserLeaderboardService {
   private leaderboardAdapter: UserLeaderboardAdapter;
 
   // Services
-  private profileService: ProfileService;
+  private profileService: IProfileService;
 
   // Repositories
   private leaderboardRepository: UserLeaderboardRepository;
 
   constructor(
-    leaderboardAdapter: UserLeaderboardAdapter = new UserLeaderboardAdapter(),
-    leaderboardRepository: UserLeaderboardRepository = new UserLeaderboardRepository(),
-    profileService: ProfileService = new ProfileService(),
+    leaderboardAdapter?: UserLeaderboardAdapter,
+    leaderboardRepository?: UserLeaderboardRepository,
+    profileService?: IProfileService,
   ) {
-    this.leaderboardAdapter = leaderboardAdapter;
-    this.leaderboardRepository = leaderboardRepository;
-    this.profileService = profileService;
+    this.leaderboardAdapter = leaderboardAdapter || new UserLeaderboardAdapter();
+    this.leaderboardRepository = leaderboardRepository || new UserLeaderboardRepository();
+    this.profileService = profileService || new ProfileService();
   }
 
   /**
@@ -60,51 +63,56 @@ export class UserLeaderboardService {
       }
 
       // Fetch user details in bulk
-      const userDetailsList = await profileService.getUserInfoForLeaderboard(
+      const userDetailsList = await this.profileService.getUserInfoForLeaderboard(
         leaderboardData.items,
         leaderboardData.total,
         season,
       );
       log('Fetched user details:', userDetailsList);
 
-      // Map addresses to user details for easy lookup
       const userDetailsMap = new Map<Address, UserInfoForLeaderboard>();
       userDetailsList.forEach((userInfo) => {
         userDetailsMap.set(userInfo.address, userInfo);
       });
 
-      // Map leaderboard items to UnifiedLeaderboardRow[]
-      const itemsWithDetails: UnifiedLeaderboardRow[] = leaderboardData.items.map((item, index) => {
+      const itemsWithDetails: UnifiedLeaderboardRow[] = [];
+
+      for (let index = 0; index < leaderboardData.items.length; index++) {
+        const item = leaderboardData.items[index];
         const userDetails = userDetailsMap.get(item.address);
 
-        if (!userDetails) {
-          log(`No user details found for address ${item.address}, using default values.`);
-          const entry: UserLeaderboardRow = {
-            address: item.address,
-            score: item.score,
-            icon: '',
-            level: '',
-            rank: index + 1 + args.page * args.size,
-            title: '',
-          };
-          return mapUserLeaderboardRow(entry);
+        try {
+          if (!userDetails) {
+            log(`No user details found for address ${item.address}, using default values.`);
+            const entry: UserLeaderboardRow = {
+              address: item.address,
+              score: item.score,
+              icon: '',
+              level: '',
+              rank: index + 1 + args.page * args.size,
+              title: '',
+            };
+            const mapped = mapUserLeaderboardRow(entry);
+            itemsWithDetails.push(mapped);
+          } else {
+            log(`Details for ${item.address}`, userDetails);
+            const entry: UserLeaderboardRow = {
+              address: item.address,
+              score: item.score,
+              icon: userDetails.profilePicture,
+              level: userDetails.level,
+              rank: index + 1 + args.page * args.size,
+              title: userDetails.title,
+            };
+            log(`Entry`, entry);
+            const mapped = mapUserLeaderboardRow(entry);
+            log(`Mapped`, mapped);
+            itemsWithDetails.push(mapped);
+          }
+        } catch (mapError) {
+          log(`Error mapping leaderboard row for address ${item.address}:`, mapError);
         }
-
-        log(`Details for ${item.address}`, userDetails);
-
-        const entry: UserLeaderboardRow = {
-          address: item.address,
-          score: item.score,
-          icon: userDetails.profilePicture,
-          level: userDetails.level,
-          rank: index + 1 + args.page * args.size,
-          title: userDetails.title,
-        };
-        log(`Entry`, entry);
-        const mapped = mapUserLeaderboardRow(entry);
-        log(`Mapped`, mapped);
-        return mapped;
-      });
+      }
 
       const userLeaderboardPage: UserLeaderboardPage = {
         items: itemsWithDetails,
@@ -115,8 +123,10 @@ export class UserLeaderboardService {
         },
       };
 
-      await this.leaderboardRepository.update(userLeaderboardPage);
-      log('Updated leaderboard repository', { userLeaderboardPage });
+      if (itemsWithDetails.length > 0) {
+        await this.leaderboardRepository.update(userLeaderboardPage);
+        log('Updated leaderboard repository', { userLeaderboardPage });
+      }
 
       return userLeaderboardPage;
     } catch (error) {

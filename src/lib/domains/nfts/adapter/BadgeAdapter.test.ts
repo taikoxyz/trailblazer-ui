@@ -1,4 +1,3 @@
-import type { ApolloQueryResult } from '@apollo/client';
 import { readContract } from '@wagmi/core';
 import { type Address, zeroAddress } from 'viem';
 
@@ -6,6 +5,7 @@ import { trailblazersBadgesAbi, trailblazersBadgesAddress } from '$generated/abi
 import { FactionNames } from '$lib/domains/nfts/types/badges/types';
 import { graphqlClient } from '$lib/shared/services/graphql/client';
 import { chainId } from '$lib/shared/utils/chain';
+import { createMockQueryResult } from '$lib/shared/utils/test/createMockQueryResult';
 import { wagmiConfig } from '$lib/shared/wagmi';
 
 import { BadgeAdapter } from './BadgeAdapter';
@@ -41,12 +41,6 @@ describe('BadgeAdapter', () => {
       [FactionNames.Androids]: { hasBadge: false, badgeId: null, tokenId: null },
       [FactionNames.Shinto]: { hasBadge: false, badgeId: null, tokenId: null },
     };
-
-    const createMockQueryResult = <T>(data: T): ApolloQueryResult<T> => ({
-      data,
-      loading: false,
-      networkStatus: 7,
-    });
 
     it('should return badges when user has S1 badges', async () => {
       // Given

@@ -9,6 +9,7 @@ export type UnifiedLeaderboardRow = {
   level?: string;
   title?: string;
   name?: string;
+  rank?: number | string;
 };
 
 type ProtocolData = {

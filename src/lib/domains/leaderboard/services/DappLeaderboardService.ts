@@ -1,13 +1,12 @@
+import { DappLeaderboardAdapter } from '$lib/domains/leaderboard/adapter/DappLeaderboardAdapter';
+import { ProtocolAdapter } from '$lib/domains/leaderboard/adapter/ProtocolAdapter';
+import type { DappLeaderboardItem } from '$lib/domains/leaderboard/dto/dapps.dto';
+import { mapDappLeaderboardRow } from '$lib/domains/leaderboard/mapper/mapper';
+import { DappLeaderboardRepository } from '$lib/domains/leaderboard/repository/DappLeaderboardRepository';
+import type { DappLeaderboardPage, DappLeaderboardRow } from '$lib/domains/leaderboard/types/dapps/types';
+import type { UnifiedLeaderboardRow } from '$lib/domains/leaderboard/types/shared/types';
 import type { PaginationInfo } from '$lib/shared/dto/CommonPageApiResponse';
 import { getLogger } from '$libs/util/logger';
-
-import { DappLeaderboardAdapter } from '../adapter/DappLeaderboardAdapter';
-import { ProtocolAdapter } from '../adapter/ProtocolAdapter';
-import type { DappLeaderboardItem } from '../dto/dapps.dto';
-import { mapDappLeaderboardRow } from '../mapper/mapper';
-import { DappLeaderboardRepository } from '../repository/DappLeaderboardRepository';
-import type { DappLeaderboardPage, DappLeaderboardRow } from '../types/dapps/types';
-import type { UnifiedLeaderboardRow } from '../types/shared/types';
 
 const log = getLogger('DappLeaderboardService');
 
@@ -53,23 +52,29 @@ export class DappLeaderboardService {
 
     if (leaderboardData.items && leaderboardData.items.length > 0) {
       const protocolDetailsPromises = leaderboardData.items.map(async (item) => {
-        const protocolDetails = await this.protocolAdapter.fetchProtocolDetails(item.slug, season);
-        log(`details for ${item.slug}`, protocolDetails);
+        try {
+          const protocolDetails = await this.protocolAdapter.fetchProtocolDetails(item.slug, season);
+          log(`details for ${item.slug}`, protocolDetails);
 
-        const entry: DappLeaderboardRow = {
-          address: item.address,
-          data: protocolDetails.protocols,
-          metadata: protocolDetails.metadata,
-          totalScore: item.score,
-        };
+          const entry: DappLeaderboardRow = {
+            address: item.address,
+            data: protocolDetails.protocols,
+            metadata: protocolDetails.metadata,
+            totalScore: item.score,
+          };
 
-        const unifiedRow: UnifiedLeaderboardRow = mapDappLeaderboardRow(entry);
-        log(`unifiedRow`, unifiedRow);
+          const unifiedRow: UnifiedLeaderboardRow = mapDappLeaderboardRow(entry);
+          log(`unifiedRow`, unifiedRow);
 
-        return unifiedRow;
+          return unifiedRow;
+        } catch (error) {
+          log(`Error fetching protocol details for ${item.slug}:`, error);
+          return null;
+        }
       });
 
-      const unifiedRows = await Promise.all(protocolDetailsPromises);
+      const settledRows = await Promise.all(protocolDetailsPromises);
+      const unifiedRows = settledRows.filter((row): row is UnifiedLeaderboardRow => row !== null);
 
       leaderboardPage.items.push(...unifiedRows);
       leaderboardPage.pagination = { ...leaderboardData };
