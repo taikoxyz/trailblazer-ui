@@ -1,4 +1,4 @@
-import { currentDappLeaderboard } from '$lib/domains/leaderboard/stores/dappLeaderboard';
+import currentDappLeaderboard from '$lib/domains/leaderboard/stores/dappLeaderboard';
 import type { DappLeaderboardPage } from '$lib/domains/leaderboard/types/dapps/types';
 import { IRepository } from '$lib/shared/repository/IRepository';
 import { getLogger } from '$libs/util/logger';

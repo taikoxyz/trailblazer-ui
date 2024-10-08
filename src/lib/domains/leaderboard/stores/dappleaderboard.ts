@@ -2,7 +2,7 @@ import { writable } from 'svelte/store';
 
 import type { DappLeaderboardPage } from '../types/dapps/types';
 
-export const currentDappLeaderboard = writable<DappLeaderboardPage>({
+const currentDappLeaderboard = writable<DappLeaderboardPage>({
   items: [],
   lastUpdated: Date.now(),
   pagination: {
@@ -11,3 +11,5 @@ export const currentDappLeaderboard = writable<DappLeaderboardPage>({
     total: 0,
   },
 });
+
+export default currentDappLeaderboard;
