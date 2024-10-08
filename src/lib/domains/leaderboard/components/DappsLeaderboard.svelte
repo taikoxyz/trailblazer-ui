@@ -3,16 +3,15 @@
   import { t } from 'svelte-i18n';
 
   import { leaderboardConfig } from '$config';
+  import { CampaignEndedInfoBox } from '$lib/domains/leaderboard/components/CampaignEndedInfoBox';
   import { DappsLeaderboardHeader } from '$lib/domains/leaderboard/components/Header';
   import { PointScore } from '$lib/domains/leaderboard/components/Template';
-  import type { PaginationInfo } from '$lib/shared/dto/CommonPageApiResponse';
-  import { getLogger } from '$libs/util/logger';
-
+  import { AbstractLeaderboard } from '$lib/domains/leaderboard/components/Template';
   import type { DappLeaderboardItem } from '$lib/domains/leaderboard/dto/dapps.dto';
   import { dappLeaderboardService } from '$lib/domains/leaderboard/services/LeaderboardServiceInstances';
   import { currentDappLeaderboard } from '$lib/domains/leaderboard/stores/dappLeaderboard';
-  import { CampaignEndedInfoBox } from '$lib/domains/leaderboard/components/CampaignEndedInfoBox';
-  import { AbstractLeaderboard } from '$lib/domains/leaderboard/components/Template';
+  import type { PaginationInfo } from '$lib/shared/dto/CommonPageApiResponse';
+  import { getLogger } from '$libs/util/logger';
 
   const log = getLogger('DappsLeaderboard');
 
