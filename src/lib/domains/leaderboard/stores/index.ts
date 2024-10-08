@@ -1,1 +1,1 @@
-export { default as currentDappLeaderboard } from './dappLeaderboard';
+export { default as currentDappLeaderboard } from './dappLeaderboard2';
