@@ -1,5 +1,5 @@
 import { gql } from '@apollo/client/core';
-import { readContract, writeContract } from '@wagmi/core';
+import { writeContract } from '@wagmi/core';
 import type { Address } from 'viem';
 
 import {
@@ -8,13 +8,14 @@ import {
   trailblazersBadgesS2Abi,
   trailblazersBadgesS2Address,
 } from '$generated/abi';
+import type { BadgeMigration as GqlBadgeMigration,Token } from '$generated/graphql';
 import { graphqlClient } from '$lib/shared/services/graphql/client';
+import { GET_MIGRATION_STATUS_GQL } from '$lib/shared/services/graphql/queries/getMigrationStatus.gql';
+import type { BadgeMigration } from '$lib/shared/types/BadgeMigration';
+import type { NFT } from '$lib/shared/types/NFT';
 import { chainId } from '$lib/shared/utils/chain';
 import { wagmiConfig } from '$lib/shared/wagmi';
 import { getLogger } from '$libs/util/logger';
-
-import type { BadgeAdapter } from './BadgeAdapter';
-import type { BadgeMigration } from '$lib/shared/types/BadgeMigration';
 
 const log = getLogger('BadgeMigrationAdapter');
 
@@ -81,36 +82,6 @@ export class BadgeMigrationAdapter {
     return txHash;
   }
 
-  async getApprovalForAll(address: Address): Promise<boolean> {
-    log('getApprovalForAll', { address });
-
-    const isApproved = await readContract(wagmiConfig, {
-      abi: trailblazersBadgesAbi,
-      address: trailblazersBadgesAddress[chainId],
-      functionName: 'isApprovedForAll',
-      args: [address, address],
-      chainId,
-    });
-
-    return isApproved;
-  }
-
-  async getApproved(badgeAdapter: BadgeAdapter, address: Address, factionId: number): Promise<Address> {
-    const contractAddress = trailblazersBadgesAddress[chainId];
-
-    const tokenId = await badgeAdapter.getTokenId(address, factionId);
-
-    const approvedAccount = await readContract(wagmiConfig, {
-      abi: trailblazersBadgesAbi,
-      address: contractAddress,
-      functionName: 'getApproved',
-      args: [BigInt(tokenId)],
-      chainId,
-    });
-
-    return approvedAccount;
-  }
-
   async approve(tokenId: number): Promise<Address> {
     const s2ContractAddress = trailblazersBadgesS2Address[chainId];
 
@@ -141,62 +112,95 @@ export class BadgeMigrationAdapter {
     return tx;
   }
 
+  async getApprovedMigrations(address: Address): Promise<number[]> {
+    const graphqlResponse = await graphqlClient.query({
+      query: GET_MIGRATION_STATUS_GQL,
+      variables: { address: address.toLocaleLowerCase() },
+    });
+
+    if (!graphqlResponse || !graphqlResponse.data || !graphqlResponse.data.account) {
+      return []
+    }
+
+    const { approvedS1Tokens, approvedForAll } = graphqlResponse.data.account as {
+      approvedS1Tokens: Token[],
+      approvedForAll: boolean,
+    }
+
+    let approvedTokenIds = []
+
+    if (approvedForAll){
+      approvedTokenIds = [0,1,2,3,4,5,6,7]
+    } else {
+      approvedTokenIds = approvedS1Tokens.map(
+        (token: Token) => parseInt(token.badgeId.toString()))
+    }
+
+    return approvedTokenIds
+  }
+
   async getMigrationStatus(address: Address): Promise<BadgeMigration[]> {
     log('getMigrationStatus', { address });
-    try {
-      const gqlQuery = gql`
-        query MigrationStatus ($address: Bytes){
-          account(id: $address) {
-            id
-            approvedForAll
-            approvedS1Tokens {
-              id
-              badgeId
-            }
-            s2Migrations {
-      id
-      isStarted
-      isCompleted
-      pinkTampers
-      purpleTampers
-      claimExpirationTimeout
-      tamperExpirationTimeout
-      s1Badge {
-        id
-        badgeId
 
-      }
-    }
-          }
-        }
-      `
+    try {
       const graphqlResponse = await graphqlClient.query({
-        query: gqlQuery,
+        query: GET_MIGRATION_STATUS_GQL,
         variables: { address: address.toLocaleLowerCase() },
       });
 
       if (!graphqlResponse || !graphqlResponse.data || !graphqlResponse.data.account) {
-        // account does not exist, skip
         return []
       }
 
-      const { approvedS1Tokens, approvedForAll, s2Migrations } = graphqlResponse.data.account;
+      const { approvedS1Tokens, approvedForAll, s2Migrations } = graphqlResponse.data.account as {
+        approvedS1Tokens: Token[],
+        approvedForAll: boolean,
+        s2Migrations: GqlBadgeMigration[]
+      }
 
-      console.log(
-        s2Migrations
-      )
-
-
-
-
-      // set the approvals
       let approvedTokenIds = []
 
       if (approvedForAll){
         approvedTokenIds = [0,1,2,3,4,5,6,7]
       } else {
-        approvedTokenIds = approvedS1Tokens.map((token: { badgeId: bigint; }) => parseInt(token.badgeId.toString()))
+        approvedTokenIds = approvedS1Tokens.map(
+          (token: Token) => parseInt(token.badgeId.toString()))
       }
+
+      const migrations = s2Migrations.map((raw) => {
+        if (!raw.s1Badge || !raw.s1Badge.badgeId) {
+          throw new Error('BadgeMigrationAdapter: s1Badge or s1Badge.badgeId is missing')
+        }
+
+        const badgeId = parseInt(raw.s1Badge.badgeId?.toString())
+        const tamperExpirationTimeout = parseInt(raw.tamperExpirationTimeout.toString())
+
+        return {
+          id: raw.id,
+          s1Badge: {
+            badgeId,
+            tokenId: parseInt(raw.s1Badge.tokenId.toString()),
+            address: trailblazersBadgesAddress[chainId],
+            src: '',
+            tokenUri: '',
+          } satisfies NFT,
+          isStarted: raw.isStarted,
+          isCompleted: raw.isCompleted,
+          pinkTampers: raw.pinkTampers,
+          purpleTampers: raw.purpleTampers,
+          claimExpirationTimeout: new Date(parseInt(raw.claimExpirationTimeout.toString()) * 1000),
+          tamperExpirationTimeout:tamperExpirationTimeout > 0 ? new Date(tamperExpirationTimeout * 1000) : undefined,
+          isApproved: approvedTokenIds.includes(badgeId)
+        } satisfies BadgeMigration
+      })
+
+
+
+return migrations
+/*
+
+      // set the approvals
+      */
 
     } catch (e){
       console.error(e)

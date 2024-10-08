@@ -3,7 +3,7 @@
   import type { Address } from 'viem';
 
   import { page } from '$app/stores';
-  import MigrationApprovalModal from '$lib/domains/nfts/components/MigrationApprovalModal.svelte';
+  import MigrationApprovalModal from '$lib/domains/nfts/components/modal/MigrationApprovalModal.svelte';
   import { MintDisclaimerModal } from '$lib/shared/components';
   import { activeSeason } from '$lib/shared/stores/activeSeason';
 
@@ -13,6 +13,7 @@
   import ProfileCard from './ProfileCard.svelte';
   import ProfilePictureModal from './ProfilePicture/ProfilePictureModal.svelte';
   import ProfileTabs from './ProfileTabs.svelte';
+  import TamperMigrationModal from '$lib/domains/nfts/components/modal/TamperMigrationModal.svelte';
 
   onMount(async () => {
     const urlAddress = $page.url.pathname.split('/').pop() as Address;
@@ -36,3 +37,4 @@
 <ProfilePictureModal />
 <MintDisclaimerModal />
 <MigrationApprovalModal />
+<TamperMigrationModal />

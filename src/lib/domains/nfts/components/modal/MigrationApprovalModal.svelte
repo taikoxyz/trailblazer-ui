@@ -14,7 +14,7 @@
   import { badgeMigrationStore, type IBadgeMigration } from '$stores/badgeMigration';
   import { migrationApprovalModal } from '$stores/modal';
 
-  import MigrationBadgeItem from './MigrationBadgeItem.svelte';
+  import MigrationBadgeItem from '../MigrationBadgeItem.svelte';
 
   const wrapperClasses = classNames('modal');
 
@@ -97,7 +97,7 @@
     if (!$account || !$account.address) return;
     isLoading = true;
     const tokenId = await profileService.getBadgeTokenId($account.address, s1BadgeId);
-    await profileService.approve(trailblazersBadgesS2Address[chainId], tokenId);
+    await profileService.approve(tokenId);
     isLoading = false;
     isApproved = true;
   }

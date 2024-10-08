@@ -1,5 +1,6 @@
 import type { Address } from 'viem';
 
+import type { BadgeMigration } from '$lib/shared/types/BadgeMigration';
 import { getLogger } from '$libs/util/logger';
 
 import { BadgeAdapter } from '../adapter/BadgeAdapter';
@@ -26,16 +27,6 @@ export class BadgeMigrationService {
     return this.migrationAdapter.setApprovalForAll();
   }
 
-  async getApprovalForAll(address: Address): Promise<boolean> {
-    log('getApprovalForAll', { address });
-    return this.migrationAdapter.getApprovalForAll(address);
-  }
-
-  async getApproved(address: Address, factionId: number): Promise<Address> {
-    log('getApproved', { address, factionId });
-    return this.migrationAdapter.getApproved(this.badgeAdapter, address, factionId);
-  }
-
   async approve(tokenId: number): Promise<Address> {
     log('approve', { tokenId });
     return this.migrationAdapter.approve(tokenId);
@@ -46,7 +37,12 @@ export class BadgeMigrationService {
     return this.migrationAdapter.startMigration(factionId);
   }
 
-  async getMigrationStatus(address: Address): Promise<number[]> {
+  async getApprovedMigrations(address: Address): Promise<number[]> {
+    log('getApprovedMigrations', { address });
+    return this.migrationAdapter.getApprovedMigrations(address);
+  }
+
+  async getMigrationStatus(address: Address): Promise<BadgeMigration[]> {
     log('getMigrationStatus', { address });
     return this.migrationAdapter.getMigrationStatus(address);
   }

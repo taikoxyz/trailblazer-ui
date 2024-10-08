@@ -1,3 +1,5 @@
+import type { BadgeMigration } from '$lib/shared/types/BadgeMigration';
+
 export enum FACTIONS {
   Ravers,
   Robots,
@@ -17,4 +19,10 @@ export enum FactionNames {
   Androids = 'Androids',
   Drummers = 'Drummers',
   Shinto = 'Shinto',
+}
+
+// return type for getMigrationStatus
+export interface GetMigrationStatusResult {
+  approvedTokenIds: number[];
+  migrations: BadgeMigration[];
 }

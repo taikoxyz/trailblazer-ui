@@ -515,7 +515,7 @@ export class ProfileService {
     log('setApprovalForAll');
     return this.badgeMigrationService.setApprovalForAll();
   }
-/*
+  /*
   async getBadgeMigrations(address: Address): Promise<void> {
     // fetch the required info here!
     log('getBadgeMigrations', { address });
@@ -551,9 +551,9 @@ export class ProfileService {
     return this.badgeMigrationService.approve(tokenId);
   }
 
-  async startMigration( factionId: number): Promise<string> {
-    log('startMigration', {  factionId });
-    return this.badgeMigrationService.startMigration( factionId);
+  async startMigration(factionId: number): Promise<string> {
+    log('startMigration', { factionId });
+    return this.badgeMigrationService.startMigration(factionId);
   }
 
   async getBadgeTokenId(address: Address, s1BadgeId: number): Promise<number> {
@@ -563,9 +563,12 @@ export class ProfileService {
 
   async getBadgeMigrations(address: Address): Promise<void> {
     log('getMigrationStatus', { address });
-    const approvedMigrationBadgeIds = await this.badgeMigrationService.getMigrationStatus(address);
+    const approvedMigrationBadgeIds = await this.badgeMigrationService.getApprovedMigrations(address);
+    const migrations = await this.badgeMigrationService.getMigrationStatus(address);
+
     await this.userRepository.update({
-      approvedMigrationBadgeIds,
+      badgeMigrations: migrations,
+      approvedMigrationBadgeIds
     });
   }
 }
