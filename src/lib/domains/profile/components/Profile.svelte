@@ -4,6 +4,7 @@
 
   import { page } from '$app/stores';
   import { MintDisclaimerModal } from '$lib/shared/components';
+  import Alert from '$lib/shared/components/Alert/Alert.svelte';
   import { activeSeason } from '$lib/shared/stores/activeSeason';
 
   import profileService from '../services/ProfileServiceInstance';
@@ -12,7 +13,6 @@
   import ProfileCard from './ProfileCard.svelte';
   import ProfilePictureModal from './ProfilePicture/ProfilePictureModal.svelte';
   import ProfileTabs from './ProfileTabs.svelte';
-  import Alert from '$lib/shared/components/Alert/Alert.svelte';
 
   onMount(async () => {
     const urlAddress = $page.url.pathname.split('/').pop() as Address;

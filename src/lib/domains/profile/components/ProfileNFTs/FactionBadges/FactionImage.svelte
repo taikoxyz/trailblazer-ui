@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { type Faction,MovementNames, Movements } from '$lib/domains/profile/types/types';
+  import { type Faction, MovementNames, Movements } from '$lib/domains/profile/types/types';
 
   export let type: Faction;
   export let movement: Movements = 0;
