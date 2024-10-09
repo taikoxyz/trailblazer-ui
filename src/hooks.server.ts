@@ -1,3 +1,4 @@
+// import { isDevelopmentEnv } from '$libs/util/isDevelopmentEnv';
 import { type Handle } from '@sveltejs/kit';
 import { error } from '@sveltejs/kit';
 
@@ -51,8 +52,11 @@ const bannedCountryCodes = Object.keys(bannedCountries);
 
 export const handle: Handle = async ({ event, resolve }) => {
   const country = event.request.headers.get('x-vercel-ip-country') ?? false;
-  const isDev = event.url.hostname === 'localhost' || event.url.port === '5173';
-  if (!isDev && (!country || bannedCountryCodes.includes(country))) {
+  if (
+    //   !isDevelopmentEnv &&
+    !country ||
+    bannedCountryCodes.includes(country)
+  ) {
     return error(403, {
       message: `The site is not available on the following countries: ${Object.values(bannedCountries).join(', ')}`,
     });
