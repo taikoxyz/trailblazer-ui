@@ -1,8 +1,6 @@
-import { error, type Handle } from '@sveltejs/kit';
+import { error } from '@sveltejs/kit';
 
-import { isDevelopmentEnv } from '$libs/util/isDevelopmentEnv';
-
-export const bannedCountries: Record<string, string> = {
+const bannedCountries: Record<string, string> = {
   AF: 'Afghanistan',
   AS: 'American Samoa', // United States Territory
   BI: 'Burundi',
@@ -48,17 +46,16 @@ export const bannedCountries: Record<string, string> = {
   ZW: 'Zimbabwe',
 };
 
-export const bannedCountryCodes = Object.keys(bannedCountries);
-
-export const handle: Handle = async ({ event, resolve }) => {
-  const country = event.request.headers.get('x-vercel-ip-country') ?? '';
+const bannedCountryCodes = Object.keys(bannedCountries);
+export function load(event) {
+  const country = event.request.headers.get('x-vercel-ip-country') ?? false;
   const isDev = event.url.hostname === 'localhost' || event.url.port === '5173';
-
   if (!isDev && (!country || bannedCountryCodes.includes(country))) {
-    throw error(403, {
-      message: `The site is not available in the following countries: ${Object.values(bannedCountries).join(', ')}`,
+    return error(400, {
+      message: `The site is not available on the following countries: ${Object.values(bannedCountries).join(', ')}`,
     });
   }
-
-  return resolve(event);
-};
+  return {
+    location: { country },
+  };
+}
