@@ -16,6 +16,10 @@
     "pendingTx": "Your transaction is pending. Please wait for confirmation."
   },
   "banner": {
+    "s1claimbanner": {
+      "title_1": "Season 1 claiming",
+      "title_2": "now live"
+    },
     "s2startbanner": {
       "subtext": "Get ready for an exciting journey with new features, challenges, and rewards!",
       "title_1": "Season 2",
