@@ -1,23 +1,22 @@
 <script lang="ts">
   import { onMount } from 'svelte';
 
-  import { ActionButton } from '$components/Button';
   import { FactionNames, FACTIONS } from '$configs/badges';
   import { trailblazersBadgesAddress } from '$generated/abi';
+  import { FactionBadgeItem } from '$lib/domains/profile/components/ProfileNFTs/FactionBadges';
   import { userProfile } from '$lib/domains/profile/stores';
   import type { NFT } from '$lib/shared/types/NFT';
   import { chainId } from '$lib/shared/utils/chain';
-  import { Movements } from '$libs/badges/const';
-  import isApprovedToMigrate from '$libs/badges/isApprovedToMigrate';
-  import getEnabledMigrationIds from '$libs/badges/migration/getEnabledMigrationIds';
-  import updateMigrationStatus from '$libs/badges/migration/updateMigrationStatus';
-  import startMigration from '$libs/badges/startMigration';
-  import { classNames } from '$libs/util/classNames';
-  import { account } from '$stores/account';
-  import { badgeMigrationStore } from '$stores/badgeMigration';
-  import { migrationApprovalModal } from '$stores/modal';
-
-  import { FactionBadgeItem } from '../../profile/components/ProfileNFTs/FactionBadges';
+  import { ActionButton } from '$shared/components/Button';
+  import { account } from '$shared/stores/account';
+  import { badgeMigrationStore } from '$shared/stores/badgeMigration';
+  import { migrationApprovalModal } from '$shared/stores/modal';
+  import { Movements } from '$shared/utils/badges/const';
+  import isApprovedToMigrate from '$shared/utils/badges/isApprovedToMigrate';
+  import getEnabledMigrationIds from '$shared/utils/badges/migration/getEnabledMigrationIds';
+  import updateMigrationStatus from '$shared/utils/badges/migration/updateMigrationStatus';
+  import startMigration from '$shared/utils/badges/startMigration';
+  import { classNames } from '$shared/utils/classNames';
 
   export let title: string = 'Badge Migration';
 

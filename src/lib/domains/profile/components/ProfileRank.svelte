@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { UserProfile } from '../types/UserProfile';
+  import type { UserProfile } from '$lib/domains/profile/types/UserProfile';
 
   export let profile: UserProfile;
 

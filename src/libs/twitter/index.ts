@@ -1,1 +1,0 @@
-export { draftMessage } from './draft';

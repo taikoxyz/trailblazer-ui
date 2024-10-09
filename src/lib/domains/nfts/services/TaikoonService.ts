@@ -2,7 +2,7 @@ import type { Address } from 'viem';
 
 import { TaikoonAdapter } from '$lib/domains/nfts/adapter/TaikoonAdapter';
 import type { NFT } from '$lib/shared/types/NFT';
-import { getLogger } from '$libs/util/logger';
+import { getLogger } from '$shared/utils/logger';
 
 const log = getLogger('TaikoonService');
 

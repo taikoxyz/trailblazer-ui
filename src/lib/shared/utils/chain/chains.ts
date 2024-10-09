@@ -1,7 +1,7 @@
 import type { Chain } from 'viem';
 import { taiko, taikoHekla } from 'viem/chains';
 
-import { isDevelopmentEnv } from '$libs/util/isDevelopmentEnv';
+import { isDevelopmentEnv } from '$shared/utils/isDevelopmentEnv';
 
 export const getChainImages = (): Record<number, string> => {
   const map = {

@@ -1,4 +1,4 @@
-import type { ActionButtonType } from '$components/Button/types';
+import type { ActionButtonType } from '$shared/components/Button/types';
 
 export type IClaimPanelType = 'claim' | 'success' | 'error';
 export interface IClaimAmount {

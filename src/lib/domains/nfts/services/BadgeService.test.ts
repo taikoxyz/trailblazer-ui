@@ -1,13 +1,13 @@
 import type { Address } from 'viem';
 
 import { trailblazersBadgesAddress } from '$generated/abi';
+import { BadgeAdapter } from '$lib/domains/nfts/adapter/BadgeAdapter';
+import { BadgeService } from '$lib/domains/nfts/services/BadgeService';
+import { FactionNames } from '$lib/domains/nfts/types/badges/types';
 import type { NFT } from '$lib/shared/types/NFT';
 import { chainId } from '$lib/shared/utils/chain';
 
-import { BadgeAdapter } from '../adapter/BadgeAdapter';
-import { BadgeService } from './BadgeService';
-
-vi.mock('../adapter/BadgeAdapter', () => {
+vi.mock('$lib/domains/nfts/adapter/BadgeAdapter', () => {
   return {
     BadgeAdapter: vi.fn().mockImplementation(() => ({
       fetchUserS1Badges: vi.fn(),
@@ -32,48 +32,44 @@ describe('BadgeService', () => {
   it('should return badges for a user', async () => {
     // Given
     const mockBadges = {
-      Ravers: true,
-      Robots: false,
-      Bouncers: true,
-      Masters: false,
-      Monks: false,
-      Androids: false,
-      Drummers: false,
-      Shinto: true,
+      [FactionNames.Ravers]: { hasBadge: true, badgeId: 0, tokenId: 33 },
+      [FactionNames.Robots]: { hasBadge: false, badgeId: 1, tokenId: null },
+      [FactionNames.Bouncers]: { hasBadge: true, badgeId: 2, tokenId: 55 },
+      [FactionNames.Masters]: { hasBadge: false, badgeId: 3, tokenId: null },
+      [FactionNames.Monks]: { hasBadge: false, badgeId: 4, tokenId: null },
+      [FactionNames.Drummers]: { hasBadge: false, badgeId: 5, tokenId: null },
+      [FactionNames.Androids]: { hasBadge: false, badgeId: 6, tokenId: null },
+      [FactionNames.Shinto]: { hasBadge: true, badgeId: 7, tokenId: 99 },
     };
 
-    const mockTokenId = 123;
-
     vi.mocked(mockBadgeAdapter.fetchUserS1Badges).mockResolvedValue(mockBadges);
-    vi.mocked(mockBadgeAdapter.getTokenId).mockResolvedValue(mockTokenId);
 
     // When
     const result = await badgeService.getBadgesForUser(mockAddress);
 
     // Then
     expect(mockBadgeAdapter.fetchUserS1Badges).toHaveBeenCalledWith(mockAddress);
-    expect(mockBadgeAdapter.getTokenId).toHaveBeenCalledTimes(3);
 
     const expectedBadges: NFT[] = [
       {
         address: trailblazersBadgesAddress[chainId],
         src: '/factions/ravers/neutral.png',
         tokenUri: '',
-        tokenId: mockTokenId,
+        tokenId: 33,
         badgeId: 0,
       },
       {
         address: trailblazersBadgesAddress[chainId],
         src: '/factions/bouncers/neutral.png',
         tokenUri: '',
-        tokenId: mockTokenId,
+        tokenId: 55,
         badgeId: 2,
       },
       {
         address: trailblazersBadgesAddress[chainId],
         src: '/factions/shinto/neutral.png',
         tokenUri: '',
-        tokenId: mockTokenId,
+        tokenId: 99,
         badgeId: 7,
       },
     ];
@@ -84,14 +80,14 @@ describe('BadgeService', () => {
   it('should return an empty array if no badges are found', async () => {
     // Given
     const mockBadges = {
-      Ravers: false,
-      Robots: false,
-      Bouncers: false,
-      Masters: false,
-      Monks: false,
-      Androids: false,
-      Drummers: false,
-      Shinto: false,
+      [FactionNames.Ravers]: { hasBadge: false, badgeId: null, tokenId: null },
+      [FactionNames.Robots]: { hasBadge: false, badgeId: null, tokenId: null },
+      [FactionNames.Bouncers]: { hasBadge: false, badgeId: null, tokenId: null },
+      [FactionNames.Masters]: { hasBadge: false, badgeId: null, tokenId: null },
+      [FactionNames.Monks]: { hasBadge: false, badgeId: null, tokenId: null },
+      [FactionNames.Drummers]: { hasBadge: false, badgeId: null, tokenId: null },
+      [FactionNames.Androids]: { hasBadge: false, badgeId: null, tokenId: null },
+      [FactionNames.Shinto]: { hasBadge: false, badgeId: null, tokenId: null },
     };
 
     vi.mocked(mockBadgeAdapter.fetchUserS1Badges).mockResolvedValue(mockBadges);
@@ -101,7 +97,7 @@ describe('BadgeService', () => {
 
     // Then
     expect(mockBadgeAdapter.fetchUserS1Badges).toHaveBeenCalledWith(mockAddress);
-    expect(mockBadgeAdapter.getTokenId).not.toHaveBeenCalled(); // No badges to get token IDs for
+    expect(mockBadgeAdapter.getTokenId).not.toHaveBeenCalled();
     expect(result).toEqual([]);
   });
 });

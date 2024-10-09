@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { Icon } from '$components/Icon';
-  import { classNames } from '$libs/util/classNames';
+  import { Icon } from '$shared/components/Icon';
+  import { classNames } from '$shared/utils/classNames';
 
   import type { AlertIconDetails, AlertType } from './types';
 
@@ -28,9 +28,9 @@
       iconFillClass: 'fill-error-content',
     },
     info: {
-      alertClass: 'alert-info',
+      alertClass: classNames('alert', 'text-white', 'bg-pink-400/80', 'border-none'),
       iconType: 'info-circle',
-      iconFillClass: 'fill-info-content',
+      iconFillClass: 'fill-white',
     },
   };
 

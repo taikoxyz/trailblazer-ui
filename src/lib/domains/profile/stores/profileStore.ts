@@ -1,6 +1,6 @@
 import { writable } from 'svelte/store';
 
-import type { UserProfile } from '../types/UserProfile';
+import type { UserProfile } from '$lib/domains/profile/types/UserProfile';
 
 export const userProfile = writable<UserProfile>();
 

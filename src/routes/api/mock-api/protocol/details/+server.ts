@@ -1,6 +1,6 @@
 import type { RequestHandler } from '@sveltejs/kit';
 
-import type { ProtocolApiResponse } from '$libs/leaderboard';
+import type { ProtocolApiResponse } from '$lib/domains/leaderboard/dto/protocol.dto';
 
 const protocolDetails: Record<string, ProtocolApiResponse> = {
   'mock-slug1': {

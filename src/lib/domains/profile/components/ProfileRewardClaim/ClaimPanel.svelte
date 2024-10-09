@@ -1,9 +1,9 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
 
-  import { ActionButton } from '$components/Button';
-  import { Spinner } from '$components/Spinner';
-  import { classNames } from '$libs/util/classNames';
+  import { ActionButton } from '$shared/components/Button';
+  import { Spinner } from '$shared/components/Spinner';
+  import { classNames } from '$shared/utils/classNames';
 
   import type { IClaimAmount, IClaimButton, IClaimPanelType } from './types';
 

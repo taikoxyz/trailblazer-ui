@@ -6,5 +6,4 @@ export * from './profile';
 export * from './proofs';
 export * from './userBoosters';
 export * from './userFactions';
-export * from './userPointHistory';
 export * from './userStatistics';

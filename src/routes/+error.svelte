@@ -1,6 +1,6 @@
 <script>
   import { page } from '$app/stores';
-  import { Page } from '$components/Page';
+  import { Page } from '$shared/components/Page';
 </script>
 
 <Page>

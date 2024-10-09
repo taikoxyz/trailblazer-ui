@@ -1,7 +1,7 @@
 <script>
   import { page } from '$app/stores';
-  import { Page } from '$components/Page';
-  import TrailEnded from '$components/Trails/Ended/TrailEnded.svelte';
+  import { Page } from '$shared/components/Page';
+  import TrailEnded from '$shared/components/Trails/Ended/TrailEnded.svelte';
 </script>
 
 <svelte:head>

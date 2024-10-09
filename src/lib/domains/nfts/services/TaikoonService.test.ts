@@ -1,11 +1,10 @@
 import { type Address, zeroAddress } from 'viem';
 
+import { TaikoonAdapter } from '$lib/domains/nfts/adapter/TaikoonAdapter';
+import { TaikoonService } from '$lib/domains/nfts/services/TaikoonService';
 import type { NFT } from '$lib/shared/types/NFT';
 
-import { TaikoonAdapter } from '../adapter/TaikoonAdapter';
-import { TaikoonService } from './TaikoonService';
-
-vi.mock('../adapter/TaikoonAdapter', () => {
+vi.mock('$lib/domains/nfts/adapter/TaikoonAdapter', () => {
   return {
     TaikoonAdapter: vi.fn().mockImplementation(() => ({
       fetchUserTaikoonNFTs: vi.fn(),

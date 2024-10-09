@@ -3,15 +3,15 @@
   import type { Address } from 'viem';
 
   import { browser } from '$app/environment';
-  import { Button } from '$components/Button';
-  import RotatingIcon from '$components/Icon/RotatingIcon.svelte';
-  import { Spinner } from '$components/Spinner';
   import { trailblazersBadgesAddress } from '$generated/abi';
   import profileService from '$lib/domains/profile/services/ProfileServiceInstance';
   import { profileLoading, userProfile } from '$lib/domains/profile/stores';
   import type { NFT } from '$lib/shared/types/NFT';
   import { chainId } from '$lib/shared/utils/chain';
-  import { classNames } from '$libs/util/classNames';
+  import { Button } from '$shared/components/Button';
+  import RotatingIcon from '$shared/components/Icon/RotatingIcon.svelte';
+  import { Spinner } from '$shared/components/Spinner';
+  import { classNames } from '$shared/utils/classNames';
 
   import UserNFTsSection from './UserNFTsSection.svelte';
 
