@@ -55,10 +55,11 @@ export const handle: Handle = async ({ event, resolve }) => {
   const isDev = event.url.hostname === 'localhost' || event.url.port === '5173';
 
   if (!isDev && (!country || bannedCountryCodes.includes(country))) {
-    throw error(403, {
+    throw error(400, {
       message: `The site is not available in the following countries: ${Object.values(bannedCountries).join(', ')}`,
     });
   }
-
+  const response = await resolve(event);
+  response.headers.set('x-vercel-ip-country', country);
   return resolve(event);
 };
