@@ -58,7 +58,5 @@ export const handle: Handle = async ({ event, resolve }) => {
     });
   }
 
-  //event.locals.country = country;
-
   return resolve(event);
 };
