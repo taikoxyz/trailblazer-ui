@@ -1,6 +1,6 @@
 <!-- Carousel.svelte -->
 <script lang="ts">
-  import { onDestroy,onMount } from 'svelte';
+  import { onDestroy, onMount } from 'svelte';
   import { cubicInOut } from 'svelte/easing';
   import { fly } from 'svelte/transition';
 
@@ -62,12 +62,24 @@
     'h-[732px]',
     'md:h-[427px]',
     'lg:h-[300px]',
-    'xl:h-[250px]',
+    'xl:h-[317px]',
     'overflow-hidden',
+  );
+
+  const dotsClasses = classNames(
+    'absolute',
+    'bottom-0',
+    'left-1/2',
+    'transform',
+    '-translate-x-1/2',
+    'flex',
+    'space-x-2',
+    'mb-4',
+    'hidden',
+    'xl:block',
   );
 </script>
 
-<!-- Carousel Markup -->
 <div
   class={carouselClasses}
   on:mouseenter={stopTimer}
@@ -75,7 +87,6 @@
   aria-label="Image Carousel"
   role="region"
   aria-roledescription="carousel">
-  <!-- Slides Wrapper -->
   <div class="relative w-full h-full">
     {#if slides.length > 0}
       {#key current}
@@ -94,15 +105,12 @@
   </div>
 
   {#if slides.length > 1 && withDots}
-    <div
-      class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2"
-      role="tablist"
-      aria-label="Slide navigation">
+    <div class={dotsClasses} role="tablist" aria-label="Slide navigation">
       <!-- eslint-disable-next-line @typescript-eslint/no-unused-vars -->
       {#each slides as _, index}
         <button
-          class={`w-3 h-3 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-            index === current ? 'bg-primary-brand' : 'bg-gray-300'
+          class={`w-3 h-3 rounded-full focus:outline-none focus:ring-0  ${
+            index === current ? 'bg-primary-brand' : 'bg-gray-600'
           }`}
           on:click={() => goToSlide(index)}
           aria-label={`Go to slide ${index + 1}`}
@@ -113,7 +121,6 @@
   {/if}
 </div>
 
-<!-- Component Styles -->
 <style>
   .carousel-slide {
     position: absolute;

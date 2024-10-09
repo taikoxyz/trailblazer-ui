@@ -43,7 +43,7 @@
 
   <TrailblazerGuide />
 
-  <BannerCarousel interval={5000} transitionDuration={700} transitionDistance={200} {slides} />
+  <BannerCarousel interval={5000} transitionDuration={700} transitionDistance={200} {slides} withDots />
 
   <div class={separator120pxClasses} />
 
