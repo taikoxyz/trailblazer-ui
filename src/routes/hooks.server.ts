@@ -1,6 +1,6 @@
 import { error, type Handle } from '@sveltejs/kit';
 
-import { isDevelopmentEnv } from '$libs/util/isDevelopmentEnv';
+// import { isDevelopmentEnv } from '$libs/util/isDevelopmentEnv';
 
 export const bannedCountries: Record<string, string> = {
   AF: 'Afghanistan',
