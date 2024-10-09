@@ -1,65 +1,8 @@
-import { error, type Handle } from '@sveltejs/kit';
+import { type Handle } from '@sveltejs/kit';
 
-// import { isDevelopmentEnv } from '$libs/util/isDevelopmentEnv';
-
-export const bannedCountries: Record<string, string> = {
-  AF: 'Afghanistan',
-  AS: 'American Samoa', // United States Territory
-  BI: 'Burundi',
-  BS: 'Bahamas',
-  BW: 'Botswana',
-  BY: 'Belarus',
-  CA: 'Canada',
-  CD: 'The Democratic Republic of the Congo',
-  CF: 'Central African Republic',
-  CI: 'Côte d’Ivoire',
-  CN: 'People’s Republic of China',
-  CU: 'Cuba',
-  ET: 'Ethiopia',
-  GH: 'Ghana',
-  GU: 'Guam', // United States Territory
-  ID: 'Indonesia',
-  IQ: 'Iraq',
-  IR: 'Islamic Republic of Iran',
-  KH: 'Cambodia',
-  KP: 'Democratic People’s Republic of Korea (North Korea)',
-  LB: 'Lebanon',
-  LK: 'Sri Lanka',
-  LY: 'Libya',
-  ML: 'Mali',
-  MM: 'Myanmar',
-  MP: 'Northern Mariana Islands', // United States Territory
-  NI: 'Nicaragua',
-  PA: 'Panama',
-  PK: 'Pakistan',
-  PR: 'Puerto Rico', // United States Territory
-  RU: 'Russia',
-  SD: 'Sudan',
-  SO: 'Somalia',
-  SS: 'South Sudan',
-  SY: 'Syrian Arab Republic',
-  TN: 'Tunisia',
-  TT: 'Trinidad and Tobago',
-  UA: 'Ukraine', // Some regions are internationally recognized as part of Ukraine but have areas under Russian control
-  US: 'United States',
-  VE: 'Bolivarian Republic of Venezuela',
-  VI: 'U.S. Virgin Islands', // United States Territory
-  YE: 'Yemen',
-  ZW: 'Zimbabwe',
-};
-
-export const bannedCountryCodes = Object.keys(bannedCountries);
-
-export const handle: Handle = async ({ event, resolve }) => {
-  const country = event.request.headers.get('x-vercel-ip-country') ?? '';
-  const isDev = event.url.hostname === 'localhost' || event.url.port === '5173';
-
-  if (!isDev && (!country || bannedCountryCodes.includes(country))) {
-    throw error(400, {
-      message: `The site is not available in the following countries: ${Object.values(bannedCountries).join(', ')}`,
-    });
-  }
-  const response = await resolve(event);
-  response.headers.set('x-vercel-ip-country', country);
-  return resolve(event);
+export const handle: Handle = async () => {
+  return new Response(null, {
+    status: 400,
+    headers: { location: '/' },
+  });
 };
