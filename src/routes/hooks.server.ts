@@ -1,3 +1,5 @@
+import { error, type Handle } from '@sveltejs/kit';
+
 export const bannedCountries: Record<string, string> = {
   AF: 'Afghanistan',
   AS: 'American Samoa', // United States Territory
@@ -45,3 +47,18 @@ export const bannedCountries: Record<string, string> = {
 };
 
 export const bannedCountryCodes = Object.keys(bannedCountries);
+
+export const handle: Handle = async ({ event, resolve }) => {
+  const country = event.request.headers.get('x-vercel-ip-country') ?? '';
+  const isDev = event.url.hostname === 'localhost' || event.url.port === '5173';
+
+  if (!isDev && (!country || bannedCountryCodes.includes(country))) {
+    throw error(403, {
+      message: `The site is not available in the following countries: ${Object.values(bannedCountries).join(', ')}`,
+    });
+  }
+
+  //event.locals.country = country;
+
+  return resolve(event);
+};
