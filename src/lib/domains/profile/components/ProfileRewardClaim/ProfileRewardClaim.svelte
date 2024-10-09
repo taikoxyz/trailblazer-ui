@@ -49,7 +49,6 @@
       isLoading = true;
       try {
         await TokenClaim.claim(address, claimAmount, claimProof);
-        //await new Promise((resolve) => setTimeout(resolve, 1000));
         currentStep = 2; // success
         claimLabel = 'You have claimed';
         isClaimSuccessful = true;
@@ -141,6 +140,18 @@
   onMount(async () => {
     const urlAddress = $page.url.pathname.split('/').pop() as Address;
     isSelfProfile = getAddress(urlAddress) === getAddress(getConnectedAddress());
+    if (isSelfProfile) {
+      const hasClaimed = await TokenClaim.hasClaimed(urlAddress);
+
+      if (hasClaimed) {
+        currentStep = 2; // success
+        isClaimSuccessful = true;
+        claimLabel = 'You have claimed';
+        const { value, proof } = await TokenClaim.preflight(urlAddress);
+        claimAmount = value;
+        claimProof = proof;
+      }
+    }
   });
 </script>
 
