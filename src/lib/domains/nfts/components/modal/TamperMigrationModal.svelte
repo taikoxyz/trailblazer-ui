@@ -43,13 +43,13 @@
     }
   }
 
-  $: s1BadgeId = $badgeMigrationStore.s1BadgeId;
+  $: s1BadgeId = $badgeMigrationStore.s1Badge?.badgeId!;
 
   $: pinkTampers = 0;
   $: purpleTampers = 0;
 
-  $: claimExpiration = undefined as Date | undefined;
-  $: tamperExpiration = undefined as Date | undefined;
+  $: claimExpiration = $badgeMigrationStore.claimExpirationTimeout
+  $: tamperExpiration = $badgeMigrationStore.tamperExpirationTimeout
 
   async function handleTamper() {
     // TODO: re-implement under d3
@@ -59,6 +59,8 @@
     isTampering = false;
     */
   }
+
+  $: $badgeMigrationStore, console.log({ $badgeMigrationStore });
 </script>
 
 <CoreModal open={$tamperMigrationModal}>

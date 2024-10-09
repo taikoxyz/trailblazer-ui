@@ -1,22 +1,17 @@
 import { writable } from 'svelte/store';
 
-export interface IBadgeMigration {
-  s1BadgeId: number;
-  //s2BadgeId: number;
-  isStarted: boolean;
-  isCompleted: boolean;
-  pinkTampers: number;
-  purpleTampers: number;
-  claimExpiration?: Date;
-  tamperExpiration?: Date;
-}
+import type { BadgeMigration } from '$lib/shared/types/BadgeMigration';
+import type { NFT } from '$lib/shared/types/NFT';
 
-export const badgeMigrationStore = writable<IBadgeMigration>({
-  s1BadgeId: -1,
+
+export const badgeMigrationStore = writable<BadgeMigration>({
+  id: '',
+  s1Badge: {} as NFT,
   isStarted: false,
   isCompleted: false,
   pinkTampers: 0,
   purpleTampers: 0,
-  claimExpiration: new Date(),
-  tamperExpiration: new Date(),
+  claimExpirationTimeout: new Date(),
+  tamperExpirationTimeout: undefined,
+  isApproved: false,
 });

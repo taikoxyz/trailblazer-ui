@@ -19,6 +19,7 @@
 
   import { FactionBadgeItem } from '../../profile/components/ProfileNFTs/FactionBadges';
   import Countdown from './Countdown.svelte';
+  import Error from '../../../../routes/+error.svelte';
 
   export let title: string = 'Badge Migration';
 
@@ -166,11 +167,20 @@
     const address = $account.address;
     await updateMigrationStatus(address);
 
-    displayActiveMigration = $badgeMigrationStore.s1BadgeId > 0;
+    displayActiveMigration = $badgeMigrationStore.s1Badge?.badgeId! > 0;
   });
 
   function getAsFactionName(name: string) {
     return name as FactionNames;
+  }
+
+  function getMigration(badgeId: number){
+    const migration = $userProfile.badgeMigrations?.find(m => m.s1Badge.badgeId === badgeId)
+   if (!migration) {
+     throw new Error('Migration not found')
+   }
+
+   return migration
   }
 
   async function handleStartMigration(badgeId: number) {
@@ -182,12 +192,13 @@
 
 
     */
-    $badgeMigrationStore.s1BadgeId = badgeId;
+
+    $badgeMigrationStore = getMigration(badgeId)
     $startMigrationModal = true;
   }
 
   function handleTamperModal(badgeId: number) {
-    $badgeMigrationStore.s1BadgeId = badgeId;
+    $badgeMigrationStore = getMigration(badgeId)
     $tamperMigrationModal = true;
   }
 
@@ -211,7 +222,7 @@
   }
 
   async function handleApprovalModal(badgeId: number) {
-    $badgeMigrationStore.s1BadgeId = badgeId;
+    $badgeMigrationStore = getMigration(badgeId)
     $migrationApprovalModal = true;
   }
 
