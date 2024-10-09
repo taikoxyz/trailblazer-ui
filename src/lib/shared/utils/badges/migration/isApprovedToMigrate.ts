@@ -2,8 +2,7 @@ import { gql } from '@apollo/client/core';
 import type { Address } from 'viem';
 
 import { graphqlClient } from '$lib/shared/services/graphql/client';
-
-import { getTokenId } from '../getTokenId';
+import { getTokenId } from '$shared/utils/badges/getTokenId';
 
 export default async function isApprovedToMigrate(address: Address, badgeId: number): Promise<boolean> {
   try {

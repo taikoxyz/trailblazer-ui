@@ -1,11 +1,10 @@
 import type { AxiosInstance } from 'axios';
 import { zeroAddress } from 'viem';
 
+import { GamingLeaderboardAdapter } from '$lib/domains/leaderboard/adapter/GamingLeaderboardAdapter';
+import type { GamingLeaderboardItem, GamingLeaderboardPageApiResponse } from '$lib/domains/leaderboard/dto/gaming.dto';
 import type { PaginationInfo } from '$lib/shared/dto/CommonPageApiResponse';
 import { getAxiosInstance, globalAxiosConfig } from '$lib/shared/services/api/axiosClient';
-
-import type { GamingLeaderboardItem, GamingLeaderboardPageApiResponse } from '../dto/gaming.dto';
-import { GamingLeaderboardAdapter } from './GamingLeaderboardAdapter';
 
 vi.mock('$lib/shared/services/api/axiosClient', () => ({
   getAxiosInstance: vi.fn(),

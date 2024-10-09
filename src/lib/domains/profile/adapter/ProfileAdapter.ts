@@ -5,6 +5,11 @@ import { type Address, getAddress, type Hash } from 'viem';
 
 import { registerProfilePictureAbi, registerProfilePictureAddress } from '$generated/abi';
 import { profilePictureCache } from '$lib/domains/leaderboard/stores/cache';
+import type {
+  DomainResponse,
+  UserHistoryApiResponse,
+  UserPointsAndRankResponse,
+} from '$lib/domains/profile/dto/profile.dto';
 import { getAxiosInstance, globalAxiosConfig } from '$lib/shared/services/api/axiosClient';
 import { graphqlClient } from '$lib/shared/services/graphql/client';
 import { USER_PROFILE_PICTURE_QUERY, USER_PROFILE_PICTURES_QUERY } from '$lib/shared/services/graphql/queries';
@@ -13,8 +18,6 @@ import type { NFT } from '$lib/shared/types/NFT';
 import { chainId } from '$lib/shared/utils/chain';
 import { wagmiConfig } from '$lib/shared/wagmi';
 import { getLogger } from '$shared/utils/logger';
-
-import type { DomainResponse, UserHistoryApiResponse, UserPointsAndRankResponse } from '../dto/profile.dto';
 
 const log = getLogger('ProfileApiAdapter');
 

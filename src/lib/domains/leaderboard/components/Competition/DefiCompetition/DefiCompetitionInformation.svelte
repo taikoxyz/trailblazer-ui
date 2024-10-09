@@ -1,8 +1,8 @@
 <script lang="ts">
   import { t } from 'svelte-i18n';
 
-  import CompetitionInformation from '../CompetitionInformation.template.svelte';
-  import type { CompetitionInfo } from '../types';
+  import CompetitionInformation from '$lib/domains/leaderboard/components/Competition/CompetitionInformation.template.svelte';
+  import type { CompetitionInfo } from '$lib/domains/leaderboard/components/Competition/types';
 
   const competitionInfo: CompetitionInfo = {
     title: $t('leaderboard.defi.banner.title'),

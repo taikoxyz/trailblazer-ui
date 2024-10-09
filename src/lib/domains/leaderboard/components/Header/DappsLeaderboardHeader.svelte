@@ -2,11 +2,11 @@
   import { getContext } from 'svelte';
   import { t } from 'svelte-i18n';
 
+  import LastUpdated from '$lib/domains/leaderboard/components/LastUpdated.svelte';
+  import type { DappLeaderboardItem } from '$lib/domains/leaderboard/dto/dapps.dto';
   import type { PaginationInfo } from '$lib/shared/dto/CommonPageApiResponse';
   import { classNames } from '$shared/utils/classNames';
 
-  import type { DappLeaderboardItem } from '../../dto/dapps.dto';
-  import LastUpdated from '../LastUpdated.svelte';
   import Search from './Search.svelte';
 
   export let lastUpdated: Date;

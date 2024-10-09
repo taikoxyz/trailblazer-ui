@@ -1,7 +1,6 @@
 <script lang="ts">
+  import type { IEcosystemPartner } from '$lib/domains/ecosystem/components/partners';
   import { classNames } from '$shared/utils/classNames';
-
-  import type { IEcosystemPartner } from '../partners';
 
   export let data: IEcosystemPartner;
   export let style: 'dark' | 'light' = 'dark';

@@ -1,7 +1,6 @@
 <script lang="ts">
+  import { LastUpdated } from '$lib/domains/leaderboard/components/';
   import { classNames } from '$shared/utils/classNames';
-
-  import { LastUpdated } from '../';
 
   export let lastUpdated: Date;
 

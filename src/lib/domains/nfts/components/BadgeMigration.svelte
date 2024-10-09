@@ -3,6 +3,7 @@
 
   import { FactionNames, FACTIONS } from '$configs/badges';
   import { trailblazersBadgesAddress } from '$generated/abi';
+  import { FactionBadgeItem } from '$lib/domains/profile/components/ProfileNFTs/FactionBadges';
   import { userProfile } from '$lib/domains/profile/stores';
   import type { NFT } from '$lib/shared/types/NFT';
   import { chainId } from '$lib/shared/utils/chain';
@@ -16,8 +17,6 @@
   import updateMigrationStatus from '$shared/utils/badges/migration/updateMigrationStatus';
   import startMigration from '$shared/utils/badges/startMigration';
   import { classNames } from '$shared/utils/classNames';
-
-  import { FactionBadgeItem } from '../../profile/components/ProfileNFTs/FactionBadges';
 
   export let title: string = 'Badge Migration';
 

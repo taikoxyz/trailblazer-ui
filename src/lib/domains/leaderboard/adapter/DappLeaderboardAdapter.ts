@@ -1,8 +1,7 @@
+import type { DappLeaderboardItem, DappLeaderboardPageApiResponse } from '$lib/domains/leaderboard/dto/dapps.dto';
 import type { PaginationInfo } from '$lib/shared/dto/CommonPageApiResponse';
 import { getAxiosInstance, globalAxiosConfig } from '$lib/shared/services/api/axiosClient';
 import { getLogger } from '$shared/utils/logger';
-
-import type { DappLeaderboardItem, DappLeaderboardPageApiResponse } from '../dto/dapps.dto';
 
 const log = getLogger('DappLeaderboardAdapter');
 

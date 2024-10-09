@@ -1,8 +1,7 @@
+import type { GamingLeaderboardItem, GamingLeaderboardPageApiResponse } from '$lib/domains/leaderboard/dto/gaming.dto';
 import type { PaginationInfo } from '$lib/shared/dto/CommonPageApiResponse';
 import { getAxiosInstance, globalAxiosConfig } from '$lib/shared/services/api/axiosClient';
 import { getLogger } from '$shared/utils/logger';
-
-import type { GamingLeaderboardItem, GamingLeaderboardPageApiResponse } from '../dto/gaming.dto';
 
 const log = getLogger('GamingLeaderboardAdapter');
 

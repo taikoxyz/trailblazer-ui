@@ -5,9 +5,9 @@ import profileService from '$lib/domains/profile/services/ProfileServiceInstance
 import { activeSeason } from '$lib/shared/stores/activeSeason';
 import { account } from '$shared/stores/account';
 import { switchChainModal } from '$shared/stores/modal';
+import { isSupportedChain } from '$shared/utils/chain';
 import { getLogger } from '$shared/utils/logger';
 
-import { isSupportedChain } from '../utils/chain';
 import { wagmiConfig } from '.';
 
 let unWatchAccount: (() => void) | null = null;

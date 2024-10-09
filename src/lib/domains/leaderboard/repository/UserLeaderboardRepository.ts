@@ -1,8 +1,7 @@
+import { currentUserLeaderboard } from '$lib/domains/leaderboard/stores/userLeaderboard';
+import type { UserLeaderboardPage } from '$lib/domains/leaderboard/types/dapps/types';
 import { IRepository } from '$lib/shared/repository/IRepository';
 import { getLogger } from '$shared/utils/logger';
-
-import { currentUserLeaderboard } from '../stores/userLeaderboard';
-import type { UserLeaderboardPage } from '../types/dapps/types';
 
 const log = getLogger('UserLeaderboardRepository');
 

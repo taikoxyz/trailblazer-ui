@@ -1,8 +1,8 @@
 <script lang="ts">
+  import EcosystemPartners from '$lib/domains/ecosystem/components/partners';
   import Icon from '$shared/components/Icon/Icon.svelte';
   import { classNames } from '$shared/utils/classNames';
 
-  import EcosystemPartners from '../partners';
   import EcosystemItem from './EcosystemItem.svelte';
 
   const wrapperClasses = classNames('flex', 'w-full', 'flex-col', 'gap-[20px]');

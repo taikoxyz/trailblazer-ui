@@ -1,11 +1,10 @@
 import type { AxiosInstance } from 'axios';
 import { zeroAddress } from 'viem';
 
+import { UserLeaderboardAdapter } from '$lib/domains/leaderboard/adapter/UserLeaderboardAdapter';
+import type { UserLeaderboardItem } from '$lib/domains/leaderboard/types/dapps/types';
 import type { PaginationInfo } from '$lib/shared/dto/CommonPageApiResponse';
 import { getAxiosInstance, globalAxiosConfig } from '$lib/shared/services/api/axiosClient';
-
-import type { UserLeaderboardItem } from '../types/dapps/types';
-import { UserLeaderboardAdapter } from './UserLeaderboardAdapter';
 
 vi.mock('$lib/shared/services/api/axiosClient', () => ({
   getAxiosInstance: vi.fn(),

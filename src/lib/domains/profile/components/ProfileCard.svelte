@@ -3,12 +3,12 @@
   import { type Address, getAddress } from 'viem';
 
   import { page } from '$app/stores';
+  import { userProfile } from '$lib/domains/profile/stores/profileStore';
   import { Spinner } from '$lib/shared/components';
   import { formatNumbers } from '$lib/shared/utils';
   import { classNames } from '$shared/utils/classNames';
   import getConnectedAddress from '$shared/utils/getConnectedAddress';
 
-  import { userProfile } from '../stores/profileStore';
   import ProfileName from './ProfileName.svelte';
   import ProfilePicture from './ProfilePicture/ProfilePicture.svelte';
   import ProfileRank from './ProfileRank.svelte';

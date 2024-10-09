@@ -1,9 +1,8 @@
 import { get, writable } from 'svelte/store';
 import { type Address, getAddress } from 'viem';
 
+import type { ProtocolApiResponse } from '$lib/domains/leaderboard/dto/protocol.dto';
 import type { NFT } from '$lib/shared/types/NFT';
-
-import type { ProtocolApiResponse } from '../dto/protocol.dto';
 
 function createProtocolDetailsStore() {
   const store = writable<Map<string, ProtocolApiResponse>>(new Map());

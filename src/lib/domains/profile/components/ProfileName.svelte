@@ -1,11 +1,10 @@
 <script lang="ts">
+  import profileService from '$lib/domains/profile/services/ProfileServiceInstance';
+  import { profileLoading, userProfile } from '$lib/domains/profile/stores/profileStore';
+  import { DomainType } from '$lib/domains/profile/types/types';
+  import type { UserProfile } from '$lib/domains/profile/types/UserProfile';
   import { Icon, IconFlipper } from '$shared/components/Icon';
   import { shortenAddress } from '$shared/utils/shortenAddress';
-
-  import profileService from '../services/ProfileServiceInstance';
-  import { profileLoading, userProfile } from '../stores/profileStore';
-  import { DomainType } from '../types/types';
-  import type { UserProfile } from '../types/UserProfile';
 
   export let profile: UserProfile;
   let dropdown: HTMLDivElement;

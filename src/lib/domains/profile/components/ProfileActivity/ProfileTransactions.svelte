@@ -1,14 +1,14 @@
 <script lang="ts">
   import { leaderboardConfig } from '$config';
+  import profileService from '$lib/domains/profile/services/ProfileServiceInstance';
+  import { profileLoading, userProfile } from '$lib/domains/profile/stores/profileStore';
+  import type { UserPointHistory } from '$lib/domains/profile/types/types';
   import type { PaginationInfo } from '$lib/shared/dto/CommonPageApiResponse';
   import { Paginator } from '$shared/components/Paginator';
   import { Spinner } from '$shared/components/Spinner';
   import { classNames } from '$shared/utils/classNames';
   import getConnectedAddress from '$shared/utils/getConnectedAddress';
 
-  import profileService from '../../services/ProfileServiceInstance';
-  import { profileLoading, userProfile } from '../../stores/profileStore';
-  import type { UserPointHistory } from '../../types/types';
   import ActivityHistoryRow from './ActivityHistoryRow.svelte';
 
   $: pointsHistory = $userProfile?.activityHistory?.items;

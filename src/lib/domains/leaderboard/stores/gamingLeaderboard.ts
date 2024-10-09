@@ -1,6 +1,6 @@
 import { writable } from 'svelte/store';
 
-import type { GamingLeaderboardPage } from '../types/dapps/types';
+import type { GamingLeaderboardPage } from '$lib/domains/leaderboard/types/dapps/types';
 
 export const currentGamingLeaderboard = writable<GamingLeaderboardPage>({
   items: [],

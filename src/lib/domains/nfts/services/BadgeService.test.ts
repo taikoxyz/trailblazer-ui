@@ -1,14 +1,13 @@
 import type { Address } from 'viem';
 
 import { trailblazersBadgesAddress } from '$generated/abi';
+import { BadgeAdapter } from '$lib/domains/nfts/adapter/BadgeAdapter';
+import { BadgeService } from '$lib/domains/nfts/services/BadgeService';
+import { FactionNames } from '$lib/domains/nfts/types/badges/types';
 import type { NFT } from '$lib/shared/types/NFT';
 import { chainId } from '$lib/shared/utils/chain';
 
-import { BadgeAdapter } from '../adapter/BadgeAdapter';
-import { FactionNames } from '../types/badges/types';
-import { BadgeService } from './BadgeService';
-
-vi.mock('../adapter/BadgeAdapter', () => {
+vi.mock('$lib/domains/nfts/adapter/BadgeAdapter', () => {
   return {
     BadgeAdapter: vi.fn().mockImplementation(() => ({
       fetchUserS1Badges: vi.fn(),

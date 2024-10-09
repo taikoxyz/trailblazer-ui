@@ -1,8 +1,7 @@
 import type { Address } from 'viem';
 
+import type { UserPointHistory } from '$lib/domains/profile/types/ActivityHistory';
 import type { CommonPageApiResponse } from '$lib/shared/dto/CommonPageApiResponse';
-
-import type { UserPointHistory } from '../types/ActivityHistory';
 
 export interface UserPointsAndRankResponse {
   rank: number;

@@ -1,18 +1,17 @@
 import type { AxiosInstance } from 'axios';
 import { zeroAddress } from 'viem';
 
+import { ProtocolAdapter } from '$lib/domains/leaderboard/adapter/ProtocolAdapter';
+import type { ProtocolApiResponse } from '$lib/domains/leaderboard/dto/protocol.dto';
+import { protocolDetailsCache } from '$lib/domains/leaderboard/stores/cache';
 import { getAxiosInstance, globalAxiosConfig } from '$lib/shared/services/api/axiosClient';
-
-import type { ProtocolApiResponse } from '../dto/protocol.dto';
-import { protocolDetailsCache } from '../stores/cache';
-import { ProtocolAdapter } from './ProtocolAdapter';
 
 vi.mock('$lib/shared/services/api/axiosClient', () => ({
   getAxiosInstance: vi.fn(),
   globalAxiosConfig: {},
 }));
 
-vi.mock('../stores/cache', () => ({
+vi.mock('$lib/domains/leaderboard/stores/cache', () => ({
   protocolDetailsCache: {
     get: vi.fn(),
     set: vi.fn(),

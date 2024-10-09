@@ -5,10 +5,9 @@
   import { ActionButton } from '$shared/components/Button';
   import { FactionsGallery } from '$shared/components/FactionsGallery';
   import Icon from '$shared/components/Icon/Icon.svelte';
+  import { DividerElement } from '$shared/components/Startpage/DividerElement';
   import Title from '$shared/components/Title/Title.svelte';
   import { classNames } from '$shared/utils/classNames';
-
-  import { DividerElement } from '../DividerElement';
 
   let carouselRef: InstanceType<typeof FactionsGallery>;
 

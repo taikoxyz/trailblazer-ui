@@ -2,14 +2,13 @@
   import { t } from 'svelte-i18n';
 
   import { leaderboardConfig } from '$config';
+  import { CampaignEndedInfoBox } from '$lib/domains/leaderboard/components/CampaignEndedInfoBox';
+  import { UserLeaderboardHeader } from '$lib/domains/leaderboard/components/Header';
+  import { AbstractLeaderboard, PointScore } from '$lib/domains/leaderboard/components/Template';
+  import { userLeaderboardService } from '$lib/domains/leaderboard/services/LeaderboardServiceInstances';
+  import { currentUserLeaderboard } from '$lib/domains/leaderboard/stores/userLeaderboard';
+  import type { UserLeaderboardItem } from '$lib/domains/leaderboard/types/dapps/types';
   import type { PaginationInfo } from '$lib/shared/dto/CommonPageApiResponse';
-
-  import { userLeaderboardService } from '../services/LeaderboardServiceInstances';
-  import { currentUserLeaderboard } from '../stores/userLeaderboard';
-  import type { UserLeaderboardItem } from '../types/dapps/types';
-  import { CampaignEndedInfoBox } from './CampaignEndedInfoBox';
-  import { UserLeaderboardHeader } from './Header';
-  import { AbstractLeaderboard, PointScore } from './Template';
 
   let headers = ['No.', 'Address', 'Level', 'Title', 'Points'];
 

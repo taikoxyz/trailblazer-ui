@@ -1,8 +1,7 @@
+import type { ProtocolApiResponse } from '$lib/domains/leaderboard/dto/protocol.dto';
+import { protocolDetailsCache } from '$lib/domains/leaderboard/stores/cache';
 import { getAxiosInstance, globalAxiosConfig } from '$lib/shared/services/api/axiosClient';
 import { getLogger } from '$shared/utils/logger';
-
-import type { ProtocolApiResponse } from '../dto/protocol.dto';
-import { protocolDetailsCache } from '../stores/cache';
 
 const log = getLogger('ProtocolAdapter');
 

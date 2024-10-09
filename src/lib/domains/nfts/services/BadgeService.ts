@@ -1,12 +1,11 @@
 import type { Address } from 'viem';
 
 import { trailblazersBadgesAddress } from '$generated/abi';
+import { BadgeAdapter } from '$lib/domains/nfts/adapter/BadgeAdapter';
+import type { FactionNames } from '$lib/domains/nfts/types/badges/types';
 import type { NFT } from '$lib/shared/types/NFT';
 import { chainId } from '$lib/shared/utils/chain';
 import { getLogger } from '$shared/utils/logger';
-
-import { BadgeAdapter } from '../adapter/BadgeAdapter';
-import type { FactionNames } from '../types/badges/types';
 
 const log = getLogger('BadgeService');
 

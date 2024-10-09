@@ -1,6 +1,6 @@
 import type { Address } from 'viem';
 
-import type { PaginationInfo, UnifiedLeaderboardRow } from '../shared/types';
+import type { PaginationInfo, UnifiedLeaderboardRow } from '$lib/domains/leaderboard/types/shared/types';
 
 export type DappLeaderboardPage = {
   items: DappLeaderboardRow[];

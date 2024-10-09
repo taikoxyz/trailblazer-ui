@@ -1,10 +1,8 @@
-// src/lib/domains/profile/repositories/UserRepository.ts
 import { get } from 'svelte/store';
 
+import { userProfile } from '$lib/domains/profile/stores/profileStore';
+import type { UserProfile } from '$lib/domains/profile/types/UserProfile';
 import { getLogger } from '$shared/utils/logger';
-
-import { userProfile } from '../stores/profileStore';
-import type { UserProfile } from '../types/UserProfile';
 
 const log = getLogger('UserRepository');
 

@@ -1,6 +1,5 @@
+import type { UserLeaderboardItem } from '$lib/domains/leaderboard/types/dapps/types';
 import type { CommonPageApiResponse } from '$lib/shared/dto/CommonPageApiResponse';
-
-import type { UserLeaderboardItem } from '../types/dapps/types';
 
 export type UserLeaderboardPageApiResponse = {
   lastUpdated: number;

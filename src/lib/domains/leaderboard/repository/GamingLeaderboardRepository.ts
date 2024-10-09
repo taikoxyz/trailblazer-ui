@@ -1,8 +1,7 @@
+import { currentGamingLeaderboard } from '$lib/domains/leaderboard/stores/gamingLeaderboard';
+import type { GamingLeaderboardPage } from '$lib/domains/leaderboard/types/dapps/types';
 import { IRepository } from '$lib/shared/repository/IRepository';
 import { getLogger } from '$shared/utils/logger';
-
-import { currentGamingLeaderboard } from '../stores/gamingLeaderboard';
-import type { GamingLeaderboardPage } from '../types/dapps/types';
 
 const log = getLogger('GamingLeaderboardRepository');
 

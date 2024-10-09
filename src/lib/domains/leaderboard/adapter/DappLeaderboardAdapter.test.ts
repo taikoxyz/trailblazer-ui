@@ -1,10 +1,10 @@
 import type { AxiosInstance } from 'axios';
 import { zeroAddress } from 'viem';
 
+import type { DappLeaderboardItem, DappLeaderboardPageApiResponse } from '$lib/domains/leaderboard/dto/dapps.dto';
 import type { PaginationInfo } from '$lib/shared/dto/CommonPageApiResponse';
 import { getAxiosInstance, globalAxiosConfig } from '$lib/shared/services/api/axiosClient';
 
-import type { DappLeaderboardItem, DappLeaderboardPageApiResponse } from '../dto/dapps.dto';
 import { DappLeaderboardAdapter } from './DappLeaderboardAdapter';
 
 vi.mock('$lib/shared/services/api/axiosClient', () => ({
