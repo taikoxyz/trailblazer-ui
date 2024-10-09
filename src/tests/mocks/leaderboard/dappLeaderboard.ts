@@ -1,4 +1,4 @@
-import type { DappLeaderboardPageApiResponse } from '$libs/leaderboard';
+import type { DappLeaderboardPageApiResponse } from '$lib/domains/leaderboard/dto/dapps.dto';
 
 export const MOCK_DAPP_LEADERBOARD: DappLeaderboardPageApiResponse = {
   lastUpdated: 1709294400,

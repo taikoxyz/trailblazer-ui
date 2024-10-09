@@ -1,22 +1,22 @@
 <script lang="ts">
-  import { ActionButton } from '$components/Button';
-  import { Icon } from '$components/Icon';
-  import Spinner from '$components/Spinner/Spinner.svelte';
   import { FACTIONS } from '$configs/badges';
   import { trailblazersBadgesS2Address } from '$generated/abi';
+  import type { Faction } from '$lib/domains/profile/types/types';
   import { chainId } from '$lib/shared/utils/chain';
-  import approve from '$libs/badges/approve';
-  import { Movements } from '$libs/badges/const';
-  import { getTokenId } from '$libs/badges/getTokenId';
-  import isApprovedToMigrate from '$libs/badges/isApprovedToMigrate';
-  import getMigrationStatus from '$libs/badges/migration/getMigrationStatus';
-  import setApprovalForAll from '$libs/badges/setApprovalForAll';
-  import startMigration from '$libs/badges/startMigration';
-  import type { Faction } from '$libs/profile';
-  import { classNames } from '$libs/util/classNames';
-  import { account } from '$stores/account';
-  import { badgeMigrationStore, type IBadgeMigration } from '$stores/badgeMigration';
-  import { migrationApprovalModal } from '$stores/modal';
+  import { ActionButton } from '$shared/components/Button';
+  import { Icon } from '$shared/components/Icon';
+  import Spinner from '$shared/components/Spinner/Spinner.svelte';
+  import { account } from '$shared/stores/account';
+  import { badgeMigrationStore, type IBadgeMigration } from '$shared/stores/badgeMigration';
+  import { migrationApprovalModal } from '$shared/stores/modal';
+  import approve from '$shared/utils/badges/approve';
+  import { Movements } from '$shared/utils/badges/const';
+  import { getTokenId } from '$shared/utils/badges/getTokenId';
+  import isApprovedToMigrate from '$shared/utils/badges/isApprovedToMigrate';
+  import getMigrationStatus from '$shared/utils/badges/migration/getMigrationStatus';
+  import setApprovalForAll from '$shared/utils/badges/setApprovalForAll';
+  import startMigration from '$shared/utils/badges/startMigration';
+  import { classNames } from '$shared/utils/classNames';
 
   import MigrationBadgeItem from './MigrationBadgeItem.svelte';
 

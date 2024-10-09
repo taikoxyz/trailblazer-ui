@@ -1,4 +1,4 @@
-import type { UserBooster } from '$libs/profile';
+import type { UserBooster } from '$lib/domains/profile/types/types';
 
 export const MOCK_USER_BOOSTERS: UserBooster[] = [
   {

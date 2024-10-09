@@ -5,7 +5,7 @@ import { get } from 'svelte/store';
 import { apiConfig } from '$config';
 import { PUBLIC_TRAILBLAZER_API_URL } from '$env/static/public';
 import { activeSeason } from '$lib/shared/stores/activeSeason';
-import { isDevelopmentEnv } from '$libs/util/isDevelopmentEnv';
+import { isDevelopmentEnv } from '$shared/utils/isDevelopmentEnv';
 
 const baseApiUrl = isDevelopmentEnv ? '/api/mock-api' : PUBLIC_TRAILBLAZER_API_URL;
 

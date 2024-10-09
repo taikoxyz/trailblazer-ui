@@ -1,6 +1,6 @@
 <script>
-  import { About } from '$components/About';
-  import { classNames } from '$libs/util/classNames';
+  import { About } from '$lib/domains/splashpage/components/About';
+  import { classNames } from '$shared/utils/classNames';
 
   const wrapperClasses = classNames('overflow-hidden', 'f-center', 'w-full', 'h-full', 'pb-[100px]');
 </script>

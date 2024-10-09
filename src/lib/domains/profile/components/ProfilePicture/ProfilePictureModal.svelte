@@ -2,28 +2,34 @@
   import { onMount } from 'svelte';
   import { t } from 'svelte-i18n';
 
-  import { ActionButton } from '$components/Button';
-  import { Icon } from '$components/Icon';
-  import { errorToast, successToast } from '$components/NotificationToast';
-  import Spinner from '$components/Spinner/Spinner.svelte';
+  import profileService from '$lib/domains/profile/services/ProfileServiceInstance';
   import { pfpModal, userProfile } from '$lib/domains/profile/stores';
   import type { NFT } from '$lib/shared/types/NFT';
   import { closeOnEscapeOrOutsideClick } from '$lib/shared/utils/customActions';
-  import { classNames } from '$libs/util/classNames';
-  import { getLogger } from '$libs/util/logger';
-
-  import profileService from '../../services/ProfileServiceInstance';
+  import { ActionButton } from '$shared/components/Button';
+  import { Icon } from '$shared/components/Icon';
+  import { errorToast, successToast } from '$shared/components/NotificationToast';
+  import Spinner from '$shared/components/Spinner/Spinner.svelte';
+  import { classNames } from '$shared/utils/classNames';
+  import { getLogger } from '$shared/utils/logger';
 
   const log = getLogger('ProfilePictureModal');
 
   const dialogId = crypto.randomUUID();
 
-  const modalContentWrapperClasses = classNames(
-    'rounded-[20px]',
+  $: modalContentWrapperClasses = classNames(
+    'w-[100vw]',
+    'h-[100vh]',
+    'md:rounded-[20px]',
+    'md:h-max',
     'bg-neutral-background',
     'md:w-[500px]',
     'lg:w-[700px]',
-    'w-[calc(100vw-96px)]',
+    'flex',
+    'flex-col',
+    previewVisible ? 'justify-between' : 'justify-start',
+    'items-center',
+    'relative',
   );
 
   const modalHeaderClasses = classNames(
@@ -34,6 +40,12 @@
     'items-center',
     'py-[20px]',
     'px-[24px]',
+    'border-divider-border',
+    'border',
+    'border-b-1',
+    'border-l-0',
+    'border-r-0',
+    'border-t-0',
   );
   const modalTitleClasses = classNames('font-[700]', 'w-full', 'text-[18px]/[24px]');
   const modalFooterClasses = classNames(
@@ -42,6 +54,7 @@
     'gap-[20px]',
     'w-full',
     'flex',
+    'h-max',
     'flex-row',
     'items-center',
     'justify-center',
@@ -63,22 +76,18 @@
   );
 
   const modalBodyClasses = classNames(
-    'border',
-    'border-t-1',
-    'border-l-0',
-    'border-r-0',
-    'border-b-0',
     'w-full',
-    'border-divider-border',
+    'h-max',
+
     'py-[20px]',
     'px-[24px]',
     'flex',
     'flex-row',
     'justify-center',
-    'items-center',
+    'justify-center',
   );
 
-  const selectorWrapperClasses = classNames('w-full', 'flex', 'flex-col', 'gap-[20px]');
+  const selectorWrapperClasses = classNames('w-full', 'h-max', 'flex', 'flex-col', 'gap-[20px]');
 
   const selectorTitleRowClasses = classNames(
     'text-[16px]/[24px]',
@@ -99,12 +108,14 @@
     'md:grid-cols-3',
     'lg:grid-cols-4',
     'gap-[20px]',
-    'h-[350px]',
+    'md:h-[350px]',
+    'h-full',
     'transition-all',
     'bg-elevated-background',
     'p-[20px]',
     'overflow-y-scroll',
     'relative',
+    'min-h-[100px]',
   );
   const selectorGridItemClasses = classNames(
     'overflow-hidden',
@@ -187,7 +198,7 @@
   );
 
   onMount(() => {
-    possiblePFPs = $userProfile.nfts || [];
+    possiblePFPs = $userProfile?.nfts || [];
   });
 </script>
 

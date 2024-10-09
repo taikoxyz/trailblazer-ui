@@ -1,9 +1,9 @@
 <script lang="ts">
   import { FACTIONS } from '$configs/badges';
   import { FactionImage } from '$lib/domains/profile/components/ProfileNFTs';
-  import { Movements } from '$libs/badges/const';
-  import type { Faction } from '$libs/profile';
-  import { classNames } from '$libs/util/classNames';
+  import type { Faction } from '$lib/domains/profile/types/types';
+  import { Movements } from '$shared/utils/badges/const';
+  import { classNames } from '$shared/utils/classNames';
 
   import TamperCounter from './TamperCounter.svelte';
   import TamperRings from './TamperRings.svelte';

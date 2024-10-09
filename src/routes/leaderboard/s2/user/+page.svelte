@@ -3,11 +3,12 @@
 
   import { goto } from '$app/navigation';
   import { page } from '$app/stores';
-  import { ActionButton } from '$components/Button';
-  import { UserLeaderboardS2 } from '$components/Leaderboards/s2';
-  import { Page } from '$components/Page';
-  import type { PaginationInfo, UserLeaderboardItem } from '$libs/leaderboard';
-  import { classNames } from '$libs/util/classNames';
+  import UserLeaderboard from '$lib/domains/leaderboard/components/UserLeaderboard.svelte';
+  import type { UserLeaderboardItem } from '$lib/domains/leaderboard/types/dapps/types';
+  import type { PaginationInfo } from '$lib/shared/dto/CommonPageApiResponse';
+  import { ActionButton } from '$shared/components/Button';
+  import { Page } from '$shared/components/Page';
+  import { classNames } from '$shared/utils/classNames';
 
   let pageInfo: PaginationInfo<UserLeaderboardItem>;
   let loading: boolean;
@@ -27,7 +28,7 @@
 </svelte:head>
 
 <Page>
-  <UserLeaderboardS2 {pageInfo} {loading} />
+  <UserLeaderboard {pageInfo} {loading} season={2} />
   <div class={wrapperClasses}>
     <ActionButton class={buttonClasses} priority="primary" on:click={handleClick} withArrow>
       {$t('buttons.leaderboard.dapp')}

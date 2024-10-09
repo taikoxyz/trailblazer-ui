@@ -1,9 +1,10 @@
 import type { ApolloQueryResult } from '@apollo/client';
 import { writeContract } from '@wagmi/core';
 import type { AxiosInstance } from 'axios';
-import { type Address, type Hash, zeroAddress } from 'viem';
+import { type Address, getAddress, type Hash, zeroAddress } from 'viem';
 
 import { registerProfilePictureAbi, registerProfilePictureAddress } from '$generated/abi';
+import { profilePictureCache } from '$lib/domains/leaderboard/stores/cache';
 import { getAxiosInstance, globalAxiosConfig } from '$lib/shared/services/api/axiosClient';
 import { graphqlClient } from '$lib/shared/services/graphql/client';
 import { USER_PROFILE_PICTURE_QUERY, USER_PROFILE_PICTURES_QUERY } from '$lib/shared/services/graphql/queries';
@@ -38,6 +39,16 @@ vi.mock('$lib/shared/stores/pendingTransactions', () => ({
   },
 }));
 
+vi.mock('$lib/domains/leaderboard/stores/cache', () => ({
+  profilePictureCache: {
+    getSingle: vi.fn(),
+    setSingle: vi.fn(),
+    getMultiple: vi.fn(),
+    setMultiple: vi.fn(),
+    clear: vi.fn(),
+  },
+}));
+
 const createMockQueryResult = <T>(data: T): ApolloQueryResult<T> => ({
   data,
   loading: false,
@@ -56,6 +67,7 @@ describe('ProfileApiAdapter', () => {
 
   beforeEach(() => {
     profileApiAdapter = new ProfileApiAdapter();
+    profilePictureCache.clear();
     vi.clearAllMocks();
   });
 
@@ -136,6 +148,11 @@ describe('ProfileApiAdapter', () => {
   });
 
   describe('getProfilePicture', () => {
+    beforeEach(() => {
+      profilePictureCache.clear();
+      vi.clearAllMocks();
+    });
+
     it('should fetch the profile picture for a user', async () => {
       vi.mocked(graphqlClient.query).mockResolvedValue(
         createMockQueryResult({
@@ -158,7 +175,7 @@ describe('ProfileApiAdapter', () => {
       expect(result).toEqual(mockNFT);
     });
 
-    it('should return an empty object if no profile picture is found', async () => {
+    it('should return null if no profile picture is found', async () => {
       vi.mocked(graphqlClient.query).mockResolvedValue(
         createMockQueryResult({
           data: {
@@ -171,25 +188,31 @@ describe('ProfileApiAdapter', () => {
 
       expect(graphqlClient.query).toHaveBeenCalledWith({
         query: USER_PROFILE_PICTURE_QUERY,
-        variables: { address: mockAddress },
+        variables: { address: getAddress(mockAddress) },
       });
-      expect(result).toEqual({} as NFT);
+      expect(result).toBeNull();
     });
   });
 
   describe('getProfilePictures', () => {
+    beforeEach(() => {
+      profilePictureCache.clear();
+      vi.clearAllMocks();
+    });
+
     it('should fetch multiple profile pictures for users', async () => {
       const mockAddresses: Address[] = [zeroAddress, '0x1670010000000000000000000000000000000001'];
+
       const mockResponse = {
         profilePictures: [
           {
-            id: mockAddresses[0],
+            id: getAddress(mockAddresses[0]),
             tokenAddress: mockNFT.address,
             tokenId: mockNFT.tokenId,
             tokenURI: mockNFT.tokenUri,
           },
           {
-            id: mockAddresses[1],
+            id: getAddress(mockAddresses[1]),
             tokenAddress: mockNFT.address,
             tokenId: mockNFT.tokenId,
             tokenURI: mockNFT.tokenUri,
@@ -207,8 +230,8 @@ describe('ProfileApiAdapter', () => {
       });
 
       expect(result).toEqual({
-        [mockAddresses[0]]: mockNFT,
-        [mockAddresses[1]]: mockNFT,
+        [getAddress(mockAddresses[0])]: mockNFT,
+        [getAddress(mockAddresses[1])]: mockNFT,
       });
     });
   });
