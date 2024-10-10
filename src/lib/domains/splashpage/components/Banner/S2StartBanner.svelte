@@ -8,7 +8,14 @@
   import { classNames } from '$shared/utils/classNames';
 
   // Container Classes
-  const containerClasses = classNames('container', 'flex', 'justify-center', 'items-center', 'w-full');
+  const containerClasses = classNames(
+    'container',
+    'flex',
+    'justify-center',
+    'items-center',
+    'content-center',
+    'w-full',
+  );
 
   // Wrapper Classes
   const wrapperClasses = classNames(
@@ -48,7 +55,8 @@
     'lg:space-y-0',
     'px-5',
     'md:px-6',
-    'lg:px-[110px]',
+    'lg:pr-[110px]',
+    'xl:pl-0',
     'lg:py-0',
     'md:py-8.75',
     'xl:py-0',
@@ -87,7 +95,7 @@
   const subtextClasses = classNames('w-64', 'md:w-[292px]', 'xl:w-[247px]', 'text-center', 'md:text-left');
 
   // Action Button Classes
-  const actionButtonClasses = classNames('min-w-[140px]', 'max-h-[48px]');
+  const actionButtonClasses = classNames('min-w-[140px]', 'max-h-[48px]', 'max-w-[140px]');
 
   // Inner Content Classes
   const innerContentClasses = classNames(
@@ -112,7 +120,8 @@
   // Image Classes
   const characterImageClassesSm = classNames('md:hidden', 'w-auto', 'self-center', 'w-fit');
 
-  const characterImageClassesMd = classNames('hidden', 'md:block', 'xl:hidden', 'h-full', 'w-auto', 'self-start');
+  const characterImageClassesMd = classNames('hidden', 'md:block', 'lg:hidden', 'h-full', 'w-auto', 'self-start');
+  const characterImageClassesLg = classNames('hidden', 'lg:block', 'xl:hidden', 'h-full', 'w-auto', 'self-start');
 
   const characterImageClassesXl = classNames('hidden', 'xl:block', 'h-full', 'w-auto', 'self-start');
 
@@ -126,9 +135,11 @@
     'xl:hidden',
     'h-[289.481px]',
     'w-[181.105px]',
-    'xl:ml-[130px]',
+    'lg:w-[176.35px]',
+    'lg:ml-[80px]',
+    'xl:ml-[270px]',
   );
-  const runesImageClassesXl = classNames('w-full', 'hidden', 'xl:block', 'h-[250px]', 'max-w-[174px]', 'xl:ml-[130px]');
+  const runesImageClassesXl = classNames('w-full', 'hidden', 'xl:block', 'h-[250px]', 'max-w-[174px]', 'xl:ml-[270px]');
 
   const runesRightImageClasses = classNames(
     'absolute',
@@ -185,6 +196,7 @@
     <!-- Character Images -->
     <img alt="character" class={characterImageClassesSm} src="/banner/s2startbanner/sm/character.png" />
     <img alt="character" class={characterImageClassesMd} src="/banner/s2startbanner/md/character.png" />
+    <img alt="character" class={characterImageClassesLg} src="/banner/s2startbanner/lg/character.png" />
     <img alt="character" class={characterImageClassesXl} src="/banner/s2startbanner/xl/character.png" />
 
     <!-- Runes Image for Small Screens -->
@@ -203,7 +215,7 @@
           <h1 class={h1Classes}>{$t('banner.s2startbanner.title_1')}</h1>
           <h2 class={h2Classes}>{$t('banner.s2startbanner.title_2')}</h2>
 
-          <div class="hidden xl:block w-[402px]">
+          <div class="hidden xl:f-col w-[402px]">
             <div class={separatorClasses} />
             <img class={glyphsImageClasses} src="/banner/s2startbanner/glyphs.svg" alt="glyphs" />
           </div>
@@ -215,7 +227,7 @@
           <ActionButton priority="primary" class={actionButtonClasses} on:click={handleClick}>Start now</ActionButton>
         </div>
 
-        <div class="xl:hidden w-full f-col">
+        <div class="xl:hidden w-full f-col md:max-w-[315px]">
           <div class={separatorClasses} />
           <img class={glyphsImageClasses} src="/banner/s2startbanner/glyphs.svg" alt="glyphs" />
         </div>

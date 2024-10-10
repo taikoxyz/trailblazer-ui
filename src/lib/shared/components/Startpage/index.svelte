@@ -1,6 +1,9 @@
 <script lang="ts">
   import { EcosystemSection } from '$lib/domains/ecosystem/components/index';
-  import S2StartBanner from '$shared/components/Banner/S2StartBanner.svelte';
+  import BannerCarousel from '$lib/domains/splashpage/components/Banner/BannerCarousel.svelte';
+  import S1ClaimBanner from '$lib/domains/splashpage/components/Banner/S1ClaimBanner.svelte';
+  import S2StartBanner from '$lib/domains/splashpage/components/Banner/S2StartBanner.svelte';
+  import type { Slide } from '$lib/domains/splashpage/components/Banner/types';
   import { classNames } from '$shared/utils/classNames';
 
   import Factions from './Factions/Factions.svelte';
@@ -22,9 +25,16 @@
   const separatorBaseClasses = classNames('container', 'w-full', 'mt-[-150px]', 'mb-[-150px]');
   const separator40pxClasses = classNames(separatorBaseClasses, 'h-[40px]');
 
-  // const separator80pxClasses = classNames(separatorBaseClasses, 'h-[80px]');
-
   const separator120pxClasses = classNames(separatorBaseClasses, 'h-[120px]');
+
+  const slides: Slide[] = [
+    {
+      component: S1ClaimBanner,
+    },
+    {
+      component: S2StartBanner,
+    },
+  ];
 </script>
 
 <div class={wrapperClasses}>
@@ -32,7 +42,8 @@
   <div class={separator40pxClasses} />
 
   <TrailblazerGuide />
-  <S2StartBanner />
+
+  <BannerCarousel interval={5000} transitionDuration={700} transitionDistance={200} {slides} withDots />
 
   <div class={separator120pxClasses} />
 
