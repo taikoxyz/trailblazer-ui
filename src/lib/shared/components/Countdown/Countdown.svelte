@@ -11,25 +11,34 @@
     'h-min',
     'auto-cols-max',
     'grid-flow-col',
-    'gap-[24px]',
+    'gap-[12px]',
+    'sm:gap-[24px]',
     'md:gap-[36px]',
     'lg:gap-[48px]',
     'text-center',
   );
 
   const colClasses = classNames('flex flex-col', 'md:gap-[16px]', 'gap-[8px]');
+
   const counterClasses = classNames(
     'countdown',
-    'md:text-[100px]/[85px]',
-    'text-[45px]/[52px]',
+    'font-[500]',
+    'text-[35px]/[42px]',
+    'md:text-[57px]/[64px]',
     'font-clash-grotesk',
     'text-primary-content',
   );
 
-  const labelClasses = classNames('text-secondary-content', 'md:text-[22px]/[26px]', 'text-[14px]/[20px]');
+  const labelClasses = classNames(
+    'text-secondary-content',
+    'font-[400]',
+    'text-[14px]/[20px]',
+    'md:text-[22px]/[28px]',
+  );
 
-  const dividerClasses = classNames('md:h-[75px]', 'h-[35px]', 'w-[1px]', 'bg-divider-border');
+  const dividerClasses = classNames('md:h-[75px]', 'mt-[10px]', 'h-[35px]', 'w-[1px]', 'bg-divider-border');
   export let countdown: Date;
+  export let title: string;
 
   let now = Date.now();
   let end = countdown.getTime();
@@ -61,16 +70,20 @@
   });
 
   const titleClasses = classNames(
-    'md:text-[57px]/[64px]',
-    'text-[45px]/[52px]',
+    'md:text-[45px]/[52px]',
+    'text-[35px]/[42px]',
     'font-clash-grotesk',
     'text-primary-content',
     'font-[500]',
+    'w-full',
+    'text-center',
   );
 </script>
 
 <div class={wrapperClasses}>
-  <div class={titleClasses}>Season 1 ends in</div>
+  <div class={titleClasses}>
+    {title}
+  </div>
 
   <div class={timerWrapperClasses}>
     <div class={colClasses}>
@@ -79,8 +92,8 @@
       </span>
       <div class={labelClasses}>Days</div>
     </div>
-
     <div class={dividerClasses} />
+
     <div class={colClasses}>
       <span class={counterClasses}>
         <span style="--value:{h};"></span>

@@ -6,8 +6,11 @@
 
   import { page } from '$app/stores';
   import { PUBLIC_CLAIMING_ACTIVE } from '$env/static/public';
+  import { ActionButton } from '$shared/components/Button';
+  import { Countdown } from '$shared/components/Countdown';
   import { Spinner } from '$shared/components/Spinner';
   import { account } from '$shared/stores/account';
+  import { s1ClaimDate } from '$shared/stores/s1Claim';
   import { tokenClaimTermsAccepted } from '$shared/stores/tokenClaim';
   import { classNames } from '$shared/utils/classNames';
   import getConnectedAddress from '$shared/utils/getConnectedAddress';
@@ -18,10 +21,17 @@
 
   const linkClasses = classNames('underline', 'text-[#FF6FC8]', 'hover:text-primary');
   const checkboxWrapperClasses = classNames('form-control', 'pt-[24px]');
-  const checkboxLabelClasses = classNames('cursor-pointer label');
+  const checkboxLabelClasses = classNames(
+    'cursor-pointer',
+    'flex',
+    'flex-col',
+    'gap-[5px]',
+    'md:flex-row',
+    'md:gap-0',
+    'label',
+    'font-[400]',
+  );
   const checkboxClasses = classNames('checkbox', 'checkbox-primary', 'bg-black', 'bg-opacity-50');
-
-  const claimingActive = PUBLIC_CLAIMING_ACTIVE === 'true' || false;
 
   $: isLoading = false;
 
@@ -49,7 +59,6 @@
       isLoading = true;
       try {
         await TokenClaim.claim(address, claimAmount, claimProof);
-        //await new Promise((resolve) => setTimeout(resolve, 1000));
         currentStep = 2; // success
         claimLabel = 'You have claimed';
         isClaimSuccessful = true;
@@ -83,7 +92,7 @@
     },
     {
       title: $t('claim.panels.claim.title'),
-      type: 'claim' as IClaimPanelType,
+      type: 'prepare' as IClaimPanelType,
       button: {
         priority: 'primary',
         label: $t('claim.panels.claim.button'),
@@ -120,28 +129,48 @@
     'md:rounded-tl-none',
     'rounded-[30px]',
     'relative',
+    'pb-[40px]',
   );
 
   const rowClass = classNames(
     'relative',
-    'grid',
     'items-center',
     'gap-x-[26px]',
+    'items-center',
+    'flex',
+    'flex-col',
     'justify-center',
-    'xl:h-[800px]',
-    'md:h-[642px]',
-    'h-[708px]',
+    'min-xl:h-[800px]',
+    'min-md:h-[642px]',
+    'min-h-[708px]',
     'px-[16px]',
     'pt-[34px]',
     'md:px-[47px]',
     'body-bold',
     'text-sm',
   );
+
+  const buttonWrapperClasses = classNames('w-full', 'max-w-[350px]', 'pt-[50px]');
   let isSelfProfile = false;
   onMount(async () => {
     const urlAddress = $page.url.pathname.split('/').pop() as Address;
     isSelfProfile = getAddress(urlAddress) === getAddress(getConnectedAddress());
+    if (isSelfProfile) {
+      const hasClaimed = await TokenClaim.hasClaimed(urlAddress);
+
+      if (hasClaimed) {
+        currentStep = 2; // success
+        isClaimSuccessful = true;
+        claimLabel = 'You have claimed';
+        const { value, proof } = await TokenClaim.preflight(urlAddress);
+        claimAmount = value;
+        claimProof = proof;
+      }
+    }
   });
+
+  $: now = new Date();
+  $: claimingActive = (now > $s1ClaimDate && PUBLIC_CLAIMING_ACTIVE === 'true') || false;
 </script>
 
 <div class={containerClass}>
@@ -175,7 +204,12 @@
     {:else if !isSelfProfile && claimingActive}
       Visit your own profile to claim your rewards.
     {:else}
-      Currently no claiming active. Check back soon!
+      <Countdown title="Season 1 claim begins in" countdown={$s1ClaimDate} />
+      <div class={buttonWrapperClasses}>
+        <ActionButton priority="primary" href="https://taiko.mirror.xyz/LiTIQUkMay7HmAP96IN6XtxqeaHdFcipF2krY9rhhn4">
+          Learn More
+        </ActionButton>
+      </div>
     {/if}
   </div>
 </div>
