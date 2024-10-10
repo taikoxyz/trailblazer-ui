@@ -30,7 +30,7 @@ async function checkBlacklist(address: Address) {
     const profile = await profileService.getProfile(address, get(activeSeason));
     log('Fetched profile:', profile);
 
-    if (!profile?.personalInfo?.blacklisted) {
+    if (profile?.personalInfo?.blacklisted) {
       blacklistModal.set(true);
     } else {
       blacklistModal.set(false);
