@@ -18,7 +18,16 @@
 
   const linkClasses = classNames('underline', 'text-[#FF6FC8]', 'hover:text-primary');
   const checkboxWrapperClasses = classNames('form-control', 'pt-[24px]');
-  const checkboxLabelClasses = classNames('cursor-pointer label');
+  const checkboxLabelClasses = classNames(
+    'cursor-pointer',
+    'flex',
+    'flex-col',
+    'gap-[5px]',
+    'md:flex-row',
+    'md:gap-0',
+    'label',
+    'font-[400]',
+  );
   const checkboxClasses = classNames('checkbox', 'checkbox-primary', 'bg-black', 'bg-opacity-50');
 
   const claimingActive = PUBLIC_CLAIMING_ACTIVE === 'true' || false;
@@ -82,7 +91,7 @@
     },
     {
       title: $t('claim.panels.claim.title'),
-      type: 'claim' as IClaimPanelType,
+      type: 'prepare' as IClaimPanelType,
       button: {
         priority: 'primary',
         label: $t('claim.panels.claim.button'),
@@ -119,6 +128,7 @@
     'md:rounded-tl-none',
     'rounded-[30px]',
     'relative',
+    'pb-[40px]',
   );
 
   const rowClass = classNames(
@@ -127,9 +137,9 @@
     'items-center',
     'gap-x-[26px]',
     'justify-center',
-    'xl:h-[800px]',
-    'md:h-[642px]',
-    'h-[708px]',
+    'min-xl:h-[800px]',
+    'min-md:h-[642px]',
+    'min-h-[708px]',
     'px-[16px]',
     'pt-[34px]',
     'md:px-[47px]',

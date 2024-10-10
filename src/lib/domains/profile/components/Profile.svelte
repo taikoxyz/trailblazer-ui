@@ -28,8 +28,7 @@
 
     <div class="mt-[28px]">
       <Alert type="info">
-        <b>Note:</b> Season 1 has ended, and we’re getting the rewards ready for claiming. Stay tuned for updates coming
-        soon!
+        <b>Note:</b> Season 1 claiming now live! Click on claim below to check your eligibility and claim your rewards.
       </Alert>
     </div>
 

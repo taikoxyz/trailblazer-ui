@@ -14,6 +14,7 @@
     'flex-col',
     'items-center',
     'justify-center',
+    'h-max',
   );
 
   const textWrapperClasses = classNames('w-full', 'flex', 'flex-col', 'gap-[24px]', 'items-center');
@@ -32,7 +33,7 @@
     'md:w-[392px]',
     ' xl:w-[412px]',
     'text-secondary-content',
-    'font-weight-[400]',
+    'font-[400]',
     'text-[16px]/[24px]',
     'text-center',
   );
@@ -44,13 +45,17 @@
     'w-full',
     'bg-[#0B101B]',
     'flex',
+    'md:flex-row',
     'justify-between',
     'items-center',
+    'flex-col',
+    'gap-[5px]',
+    'md:gap-0',
   );
 
-  const rewardInputLabelClasses = classNames('text-[#F3F3F3]', 'text-[16px]/[24px]');
+  const rewardInputLabelClasses = classNames('text-[#F3F3F3]', 'font-[400]', 'text-[16px]/[24px]');
   const rewardInputValueWrapperClasses = classNames(
-    'bg-[#2B303B]',
+    'md:bg-[#2B303B]',
     'rounded-full',
     'text-[#F3F3F3]',
     'py-[10px]',
@@ -91,11 +96,11 @@
   {:else}
     {#if type === 'claim'}
       <img class={iconClasses} alt="Coin" src="/coin.svg" />
-    {/if}
-    {#if type === 'success'}
+    {:else if type === 'prepare'}
+      <img class={iconClasses} alt="Coin" src="/claim-confirm.svg" />
+    {:else if type === 'success'}
       <img class={iconClasses} alt="Success" src="/success.svg" />
-    {/if}
-    {#if type === 'error'}
+    {:else if type === 'error'}
       <img class={iconClasses} alt="Error" src="/not-eligible.png" />
     {/if}
 
