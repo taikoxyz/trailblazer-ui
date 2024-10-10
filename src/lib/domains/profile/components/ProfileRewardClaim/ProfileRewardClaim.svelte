@@ -6,6 +6,7 @@
 
   import { page } from '$app/stores';
   import { PUBLIC_CLAIMING_ACTIVE } from '$env/static/public';
+  import { ActionButton } from '$shared/components/Button';
   import { Countdown } from '$shared/components/Countdown';
   import { Spinner } from '$shared/components/Spinner';
   import { account } from '$shared/stores/account';
@@ -137,6 +138,7 @@
     'gap-x-[26px]',
     'items-center',
     'flex',
+    'flex-col',
     'justify-center',
     'min-xl:h-[800px]',
     'min-md:h-[642px]',
@@ -147,6 +149,8 @@
     'body-bold',
     'text-sm',
   );
+
+  const buttonWrapperClasses = classNames('w-full', 'max-w-[350px]', 'pt-[50px]');
   let isSelfProfile = false;
   onMount(async () => {
     const urlAddress = $page.url.pathname.split('/').pop() as Address;
@@ -201,6 +205,11 @@
       Visit your own profile to claim your rewards.
     {:else}
       <Countdown title="Season 1 claim begins in" countdown={$s1ClaimDate} />
+      <div class={buttonWrapperClasses}>
+        <ActionButton priority="primary" href="https://taiko.mirror.xyz/LiTIQUkMay7HmAP96IN6XtxqeaHdFcipF2krY9rhhn4">
+          Learn More
+        </ActionButton>
+      </div>
     {/if}
   </div>
 </div>
