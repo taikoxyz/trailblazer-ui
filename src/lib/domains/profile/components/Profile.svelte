@@ -10,9 +10,9 @@
   import profileService from '$lib/domains/profile/services/ProfileServiceInstance';
   import { profileLoading } from '$lib/domains/profile/stores/profileStore';
   import { MintDisclaimerModal } from '$lib/shared/components';
-  import Alert from '$lib/shared/components/Alert/Alert.svelte';
+  // import Alert from '$lib/shared/components/Alert/Alert.svelte';
   import { activeSeason } from '$lib/shared/stores/activeSeason';
-  import { s1ClaimDate } from '$shared/stores/s1Claim';
+  // import { s1ClaimDate } from '$shared/stores/s1Claim';
 
   onMount(async () => {
     const urlAddress = $page.url.pathname.split('/').pop() as Address;
@@ -26,6 +26,7 @@
       <ProfileCard loading={$profileLoading} />
       <BoosterCard />
     </div>
+    <!--
 
     <div class="mt-[28px]">
       <Alert type="info">
@@ -37,6 +38,7 @@
         {/if}
       </Alert>
     </div>
+      -->
 
     <div class="mt-[28px]">
       <ProfileTabs />
