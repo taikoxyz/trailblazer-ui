@@ -12,6 +12,7 @@
   import type { PaginationInfo } from '$lib/shared/dto/CommonPageApiResponse';
   import { getLogger } from '$shared/utils/logger';
 
+  import type { GamingLeaderboardPage } from '../types/dapps/types';
   import CampaignEndedInfoBox from './CampaignEndedInfoBox/CampaignEndedInfoBox.svelte';
 
   const log = getLogger('DappsLeaderboard');
@@ -38,7 +39,10 @@
       size: pageSize,
       total: totalItems,
     };
-    const leaderboardPage = await gamingLeaderboardService.getGamingLeaderboardData(args, season);
+    const leaderboardPage: GamingLeaderboardPage | undefined = await gamingLeaderboardService.getGamingLeaderboardData(
+      args,
+      season,
+    );
     totalItems = leaderboardPage?.pagination.total || $currentGamingLeaderboard.items.length;
     log('loadLeaderboardData', leaderboardPage);
     loading = false;
@@ -52,6 +56,7 @@
   headers={['No.', 'Game', '', 'Points']}
   data={$currentGamingLeaderboard.items}
   showTrophy={true}
+  lastUpdated={new Date($currentGamingLeaderboard.lastUpdated)}
   isLoading={loading}
   {handlePageChange}
   {totalItems}

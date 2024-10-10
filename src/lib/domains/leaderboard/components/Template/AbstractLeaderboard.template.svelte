@@ -65,7 +65,7 @@
   {/if}
   {#if additionalInfoComponent && !ended}
     <div class={additionalInfoMarginClass}>
-      <svelte:component this={additionalInfoComponent} />
+      <svelte:component this={additionalInfoComponent} {lastUpdated} />
     </div>
   {/if}
   <div class={textCenterClass}></div>

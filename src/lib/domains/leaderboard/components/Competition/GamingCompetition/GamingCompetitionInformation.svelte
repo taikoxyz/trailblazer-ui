@@ -4,6 +4,8 @@
   import CompetitionInformation from '$lib/domains/leaderboard/components/Competition/CompetitionInformation.template.svelte';
   import type { CompetitionInfo } from '$lib/domains/leaderboard/components/Competition/types';
 
+  export let lastUpdated: Date;
+
   const competitionInfo: CompetitionInfo = {
     title: $t('leaderboard.gaming.banner.title'),
     description: $t('leaderboard.gaming.banner.description'),
@@ -26,4 +28,4 @@
   };
 </script>
 
-<CompetitionInformation {competitionInfo} />
+<CompetitionInformation {competitionInfo} {lastUpdated} />

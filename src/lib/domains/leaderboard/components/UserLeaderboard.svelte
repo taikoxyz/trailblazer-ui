@@ -7,7 +7,7 @@
   import { AbstractLeaderboard, PointScore } from '$lib/domains/leaderboard/components/Template';
   import { userLeaderboardService } from '$lib/domains/leaderboard/services/LeaderboardServiceInstances';
   import { currentUserLeaderboard } from '$lib/domains/leaderboard/stores/userLeaderboard';
-  import type { UserLeaderboardItem } from '$lib/domains/leaderboard/types/dapps/types';
+  import type { UserLeaderboardItem, UserLeaderboardPage } from '$lib/domains/leaderboard/types/dapps/types';
   import type { PaginationInfo } from '$lib/shared/dto/CommonPageApiResponse';
 
   let headers = ['No.', 'Address', 'Level', 'Title', 'Points'];
@@ -34,7 +34,7 @@
       size: pageSize,
       total: totalItems,
     };
-    const leaderboardPage = await userLeaderboardService.getUserLeaderboardData(args, season);
+    const leaderboardPage: UserLeaderboardPage = await userLeaderboardService.getUserLeaderboardData(args, season);
     totalItems = leaderboardPage?.pagination.total || $currentUserLeaderboard.items.length;
 
     loading = false;
@@ -44,6 +44,7 @@
 <AbstractLeaderboard
   {headers}
   data={$currentUserLeaderboard.items}
+  lastUpdated={new Date($currentUserLeaderboard.lastUpdated)}
   showPagination={true}
   showDetailsColumn={false}
   showTrophy={true}
