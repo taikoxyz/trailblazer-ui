@@ -6,41 +6,36 @@
   const wrapperClasses = classNames('flex', 'flex-col', 'w-full', 'items-center', 'justify-center', 'gap-[30px]');
 
   const timerWrapperClasses = classNames(
-    'md:grid',
+    'grid',
     'relative',
     'h-min',
     'auto-cols-max',
     'grid-flow-col',
-    'gap-[24px]',
+    'gap-[12px]',
+    'sm:gap-[24px]',
     'md:gap-[36px]',
     'lg:gap-[48px]',
     'text-center',
-    'flex',
-    'flex-col',
-    'justify-center',
-    'items-center',
   );
 
   const colClasses = classNames('flex flex-col', 'md:gap-[16px]', 'gap-[8px]');
   const counterClasses = classNames(
     'countdown',
     'font-[500]',
-    'text-[57px]/[64px]',
+    'text-[35px]/[42px]',
+    'md:text-[57px]/[64px]',
     'font-clash-grotesk',
     'text-primary-content',
   );
 
-  const labelClasses = classNames('text-secondary-content', 'font-[400]', 'text-[22px]/[28px]');
-
-  const dividerClasses = classNames(
-    'md:h-[75px]',
-    'hidden',
-    'md:block',
-    'mt-[10px]',
-    'h-[35px]',
-    'w-[1px]',
-    'bg-divider-border',
+  const labelClasses = classNames(
+    'text-secondary-content',
+    'font-[400]',
+    'text-[14px]/[20px]',
+    'md:text-[22px]/[28px]',
   );
+
+  const dividerClasses = classNames('md:h-[75px]', 'mt-[10px]', 'h-[35px]', 'w-[1px]', 'bg-divider-border');
   export let countdown: Date;
   export let title: string;
 
