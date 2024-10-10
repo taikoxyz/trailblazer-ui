@@ -19,6 +19,7 @@
   );
 
   const colClasses = classNames('flex flex-col', 'md:gap-[16px]', 'gap-[8px]');
+
   const counterClasses = classNames(
     'countdown',
     'font-[500]',
