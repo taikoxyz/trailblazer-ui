@@ -3,9 +3,12 @@
 
   import { classNames } from '$shared/utils/classNames';
 
+  import LastUpdatedHeader from '../LastUpdatedHeader.svelte';
   import type { CompetitionInfo } from './types';
 
   export let competitionInfo: CompetitionInfo;
+  export let lastUpdated: Date | null = null;
+
   const { title, description, prizeTitle, prizeSubtitle, prizes } = competitionInfo;
 
   // Root container classes
@@ -145,6 +148,10 @@
     {/each}
   </div>
 </div>
+
+{#if lastUpdated}
+  <LastUpdatedHeader {lastUpdated} />
+{/if}
 
 <style>
   .bordered-wrap {

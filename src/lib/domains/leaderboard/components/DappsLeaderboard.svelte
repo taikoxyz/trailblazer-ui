@@ -13,6 +13,8 @@
   import type { PaginationInfo } from '$lib/shared/dto/CommonPageApiResponse';
   import { getLogger } from '$shared/utils/logger';
 
+  import type { DappLeaderboardPage } from '../types/dapps/types';
+
   const log = getLogger('DappsLeaderboard');
 
   let headers = ['No.', 'Dapp', '', 'Volume'];
@@ -44,7 +46,13 @@
       name,
       total: totalItems,
     };
-    const leaderboardPage = await dappLeaderboardService.getDappLeaderboardData(args, season);
+    const leaderboardPage: DappLeaderboardPage | undefined = await dappLeaderboardService.getDappLeaderboardData(
+      args,
+      season,
+    );
+
+    // date from timestamp
+
     totalItems = leaderboardPage?.pagination.total || $currentDappLeaderboard.items.length;
     loading = false;
   }
@@ -57,6 +65,7 @@
   {headers}
   data={$currentDappLeaderboard.items}
   showTrophy={true}
+  lastUpdated={new Date($currentDappLeaderboard.lastUpdated)}
   isLoading={loading}
   ended={hasEnded}
   endedComponent={CampaignEndedInfoBox}
