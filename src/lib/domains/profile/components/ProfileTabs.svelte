@@ -38,11 +38,11 @@
             content: DevRoom,
           },
         ]
-      : []) /*
+      : []),
     {
       name: 'Claim',
       content: ProfileRewardClaim,
-    },*/,
+    },
   ];
 
   let activeTab = 0;
