@@ -45,7 +45,7 @@ type ProtocolData = {
   score: number;
 };
 
-type ProtocolMetadata = {
+export type ProtocolMetadata = {
   name: string;
   slug: string;
   twitter: string;

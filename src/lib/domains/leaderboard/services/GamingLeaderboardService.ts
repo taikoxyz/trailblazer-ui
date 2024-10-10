@@ -1,6 +1,7 @@
 import { GamingLeaderboardAdapter } from '$lib/domains/leaderboard/adapter/GamingLeaderboardAdapter';
 import { ProtocolAdapter } from '$lib/domains/leaderboard/adapter/ProtocolAdapter';
 import type { GamingLeaderboardItem } from '$lib/domains/leaderboard/dto/gaming.dto';
+import { mapGamingDetails } from '$lib/domains/leaderboard/mapper/gamingDetailsMapper';
 import { mapGamingLeaderboardRow } from '$lib/domains/leaderboard/mapper/mapper';
 import { GamingLeaderboardRepository } from '$lib/domains/leaderboard/repository/GamingLeaderboardRepository';
 import type { GamingLeaderboardPage, GamingLeaderboardRow } from '$lib/domains/leaderboard/types/dapps/types';
@@ -64,8 +65,18 @@ export class GamingLeaderboardService {
         };
 
         const unifiedRow: UnifiedLeaderboardRow = mapGamingLeaderboardRow(entry);
-        log(`unifiedRow`, unifiedRow);
 
+        const protocolName = protocolDetails.metadata?.name || entry.address;
+        const additionalDetails = mapGamingDetails(protocolName);
+
+        if (additionalDetails) {
+          unifiedRow.handle = additionalDetails.handle;
+          unifiedRow.icon = additionalDetails.icon;
+        } else {
+          log(`No mapping found for protocol: ${protocolName}`);
+        }
+
+        log(`unifiedRow`, unifiedRow);
         return unifiedRow;
       });
 
