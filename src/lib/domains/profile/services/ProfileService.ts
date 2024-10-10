@@ -25,6 +25,8 @@ import type { IProfileService } from './IProfileService';
 const log = getLogger('ProfileService');
 
 export class ProfileService implements IProfileService {
+  private static instance: ProfileService;
+
   // Adapters
   private apiAdapter: ProfileApiAdapter;
 
@@ -47,6 +49,13 @@ export class ProfileService implements IProfileService {
     this.userRepository = userRepository || new UserRepository();
     this.combinedNFTService = combinedNFTService || new CombinedNFTService();
     this.badgeService = badgeService || new BadgeService();
+  }
+
+  public static getInstance(): ProfileService {
+    if (!ProfileService.instance) {
+      ProfileService.instance = new ProfileService();
+    }
+    return ProfileService.instance;
   }
 
   /**

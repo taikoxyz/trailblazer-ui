@@ -31,14 +31,9 @@ async function checkBlacklist(address: Address) {
     log('Fetched profile:', profile);
 
     if (!profile?.personalInfo?.blacklisted) {
-      if (get(blacklistModal)) {
-        log('Blacklisted account detected', address);
-        blacklistModal.set(true);
-      }
+      blacklistModal.set(true);
     } else {
-      if (get(blacklistModal)) {
-        blacklistModal.set(false);
-      }
+      blacklistModal.set(false);
     }
   } catch (error) {
     log('Error fetching profile:', error);
@@ -58,6 +53,9 @@ const handleChange = debounce(async (data) => {
   // Prevent redundant profile fetching
   if (address === previousAddress && chainId === previousChainId) {
     log('No change in address or chain, skipping profile fetch.');
+    if (address) {
+      await checkBlacklist(address);
+    }
     return;
   }
 
