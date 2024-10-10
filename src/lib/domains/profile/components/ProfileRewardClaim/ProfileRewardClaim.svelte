@@ -6,6 +6,7 @@
 
   import { page } from '$app/stores';
   import { PUBLIC_CLAIMING_ACTIVE } from '$env/static/public';
+  import { Countdown } from '$shared/components/Countdown';
   import { Spinner } from '$shared/components/Spinner';
   import { account } from '$shared/stores/account';
   import { tokenClaimTermsAccepted } from '$shared/stores/tokenClaim';
@@ -29,8 +30,6 @@
     'font-[400]',
   );
   const checkboxClasses = classNames('checkbox', 'checkbox-primary', 'bg-black', 'bg-opacity-50');
-
-  const claimingActive = PUBLIC_CLAIMING_ACTIVE === 'true' || false;
 
   $: isLoading = false;
 
@@ -133,9 +132,10 @@
 
   const rowClass = classNames(
     'relative',
-    'grid',
     'items-center',
     'gap-x-[26px]',
+    'items-center',
+    'flex',
     'justify-center',
     'min-xl:h-[800px]',
     'min-md:h-[642px]',
@@ -163,6 +163,10 @@
       }
     }
   });
+
+  const claimStartDate = new Date(Date.UTC(2024, 9, 11, 23, 55));
+  $: now = new Date();
+  $: claimingActive = (now > claimStartDate && PUBLIC_CLAIMING_ACTIVE === 'true') || false;
 </script>
 
 <div class={containerClass}>
@@ -196,7 +200,7 @@
     {:else if !isSelfProfile && claimingActive}
       Visit your own profile to claim your rewards.
     {:else}
-      Currently no claiming active. Check back soon!
+      <Countdown title="Season 1 claim begins in" countdown={claimStartDate} />
     {/if}
   </div>
 </div>

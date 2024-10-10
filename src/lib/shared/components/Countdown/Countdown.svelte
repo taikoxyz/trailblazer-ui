@@ -6,7 +6,7 @@
   const wrapperClasses = classNames('flex', 'flex-col', 'w-full', 'items-center', 'justify-center', 'gap-[30px]');
 
   const timerWrapperClasses = classNames(
-    'grid',
+    'md:grid',
     'relative',
     'h-min',
     'auto-cols-max',
@@ -15,21 +15,34 @@
     'md:gap-[36px]',
     'lg:gap-[48px]',
     'text-center',
+    'flex',
+    'flex-col',
+    'justify-center',
+    'items-center',
   );
 
   const colClasses = classNames('flex flex-col', 'md:gap-[16px]', 'gap-[8px]');
   const counterClasses = classNames(
     'countdown',
-    'md:text-[100px]/[85px]',
-    'text-[45px]/[52px]',
+    'font-[500]',
+    'text-[57px]/[64px]',
     'font-clash-grotesk',
     'text-primary-content',
   );
 
-  const labelClasses = classNames('text-secondary-content', 'md:text-[22px]/[26px]', 'text-[14px]/[20px]');
+  const labelClasses = classNames('text-secondary-content', 'font-[400]', 'text-[22px]/[28px]');
 
-  const dividerClasses = classNames('md:h-[75px]', 'h-[35px]', 'w-[1px]', 'bg-divider-border');
+  const dividerClasses = classNames(
+    'md:h-[75px]',
+    'hidden',
+    'md:block',
+    'mt-[10px]',
+    'h-[35px]',
+    'w-[1px]',
+    'bg-divider-border',
+  );
   export let countdown: Date;
+  export let title: string;
 
   let now = Date.now();
   let end = countdown.getTime();
@@ -61,16 +74,20 @@
   });
 
   const titleClasses = classNames(
-    'md:text-[57px]/[64px]',
-    'text-[45px]/[52px]',
+    'md:text-[45px]/[52px]',
+    'text-[35px]/[42px]',
     'font-clash-grotesk',
     'text-primary-content',
     'font-[500]',
+    'w-full',
+    'text-center',
   );
 </script>
 
 <div class={wrapperClasses}>
-  <div class={titleClasses}>Season 1 ends in</div>
+  <div class={titleClasses}>
+    {title}
+  </div>
 
   <div class={timerWrapperClasses}>
     <div class={colClasses}>
@@ -79,8 +96,8 @@
       </span>
       <div class={labelClasses}>Days</div>
     </div>
-
     <div class={dividerClasses} />
+
     <div class={colClasses}>
       <span class={counterClasses}>
         <span style="--value:{h};"></span>
