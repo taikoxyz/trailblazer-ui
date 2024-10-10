@@ -25,6 +25,8 @@ import type { IProfileService } from './IProfileService';
 const log = getLogger('ProfileService');
 
 export class ProfileService implements IProfileService {
+  private static instance: ProfileService;
+
   // Adapters
   private apiAdapter: ProfileApiAdapter;
 
@@ -47,6 +49,13 @@ export class ProfileService implements IProfileService {
     this.userRepository = userRepository || new UserRepository();
     this.combinedNFTService = combinedNFTService || new CombinedNFTService();
     this.badgeService = badgeService || new BadgeService();
+  }
+
+  public static getInstance(): ProfileService {
+    if (!ProfileService.instance) {
+      ProfileService.instance = new ProfileService();
+    }
+    return ProfileService.instance;
   }
 
   /**
@@ -83,6 +92,7 @@ export class ProfileService implements IProfileService {
         personalInfo: {
           ...defaultUserProfile.personalInfo,
           avatar: avatarResult || '',
+          blacklisted: pointsAndRank.blacklisted || false,
         },
         userStats: {
           ...defaultUserProfile.userStats,
@@ -128,19 +138,6 @@ export class ProfileService implements IProfileService {
       multipliersLoading.set(false);
     }
     return await this.userRepository.get();
-  }
-
-  /**
-   * Fetches the user's points and rank for a given season.
-   *
-   * @param {Address} address
-   * @param {number} season
-   * @return {*}
-   * @memberof ProfileService
-   */
-  async getProfileRankAndPoints(address: Address, season: number) {
-    log('Fetching user points and rank for address:', address, 'season:', season);
-    return await this.apiAdapter.fetchUserPointsAndRank(address, season);
   }
 
   /**

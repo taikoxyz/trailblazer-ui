@@ -6,7 +6,6 @@
   import EcosystemItem from './EcosystemItem.svelte';
 
   const wrapperClasses = classNames('flex', 'w-full', 'flex-col', 'gap-[20px]');
-
   const gridClasses = classNames(
     'grid',
     'grid-cols-1',
@@ -15,7 +14,6 @@
     'xl:grid-cols-4',
     'gap-[18px]',
   );
-
   const filterRowClasses = classNames(
     'flex',
     'md:flex-row',
@@ -46,7 +44,6 @@
     'focus:outline-none',
     'focus:shadow-none',
   );
-
   const filterIconClasses = classNames('absolute', 'right-[30px]');
   const filterSelectClasses = classNames(
     'select',
@@ -87,7 +84,9 @@
   $: filterCategory = 'ALL CATEGORIES';
   $: categories = ['ALL CATEGORIES', ...new Set(EcosystemPartners.map((partner) => partner.category.toUpperCase()))];
 
-  function onSelectCategory(category: string) {
+  function onSelectCategory(event: Event) {
+    const category = (event.target as HTMLSelectElement).value;
+
     // clear the filter text
     filterText = '';
     if (category === 'ALL CATEGORIES') {
@@ -107,9 +106,9 @@
       <Icon type="magnifying-glass" size={20} class={filterIconClasses} />
     </div>
 
-    <select value={filterCategory} class={filterSelectClasses}>
+    <select bind:value={filterCategory} class={filterSelectClasses} on:change={onSelectCategory}>
       {#each categories as category}
-        <option value={category} on:click={() => onSelectCategory(category)}>{category}</option>
+        <option value={category}>{category}</option>
       {/each}
     </select>
   </div>
