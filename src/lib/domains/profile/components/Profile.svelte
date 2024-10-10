@@ -12,6 +12,7 @@
   import { MintDisclaimerModal } from '$lib/shared/components';
   import Alert from '$lib/shared/components/Alert/Alert.svelte';
   import { activeSeason } from '$lib/shared/stores/activeSeason';
+  import { s1ClaimDate } from '$shared/stores/s1Claim';
 
   onMount(async () => {
     const urlAddress = $page.url.pathname.split('/').pop() as Address;
@@ -28,7 +29,12 @@
 
     <div class="mt-[28px]">
       <Alert type="info">
-        <b>Note:</b> Season 1 claiming now live! Click on claim below to check your eligibility and claim your rewards.
+        <b>Note:</b>
+        {#if new Date() > $s1ClaimDate}
+          Season 1 claiming now live! Click on claim below to check your eligibility and claim your rewards.
+        {:else}
+          Season 1 rewards can be claimed soon! Check the claim tab!
+        {/if}
       </Alert>
     </div>
 

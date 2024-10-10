@@ -9,6 +9,7 @@
   import { Countdown } from '$shared/components/Countdown';
   import { Spinner } from '$shared/components/Spinner';
   import { account } from '$shared/stores/account';
+  import { s1ClaimDate } from '$shared/stores/s1Claim';
   import { tokenClaimTermsAccepted } from '$shared/stores/tokenClaim';
   import { classNames } from '$shared/utils/classNames';
   import getConnectedAddress from '$shared/utils/getConnectedAddress';
@@ -164,9 +165,8 @@
     }
   });
 
-  const claimStartDate = new Date(Date.UTC(2024, 9, 11, 23, 55));
   $: now = new Date();
-  $: claimingActive = (now > claimStartDate && PUBLIC_CLAIMING_ACTIVE === 'true') || false;
+  $: claimingActive = (now > $s1ClaimDate && PUBLIC_CLAIMING_ACTIVE === 'true') || false;
 </script>
 
 <div class={containerClass}>
@@ -200,7 +200,7 @@
     {:else if !isSelfProfile && claimingActive}
       Visit your own profile to claim your rewards.
     {:else}
-      <Countdown title="Season 1 claim begins in" countdown={claimStartDate} />
+      <Countdown title="Season 1 claim begins in" countdown={$s1ClaimDate} />
     {/if}
   </div>
 </div>
