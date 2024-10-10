@@ -22,6 +22,12 @@
       "title_2": "NOW LIVE"
     }
   },
+  "blackist_modal": {
+    "title": "Sorry, but you’re blacklisted!"
+  },
+  "blacklist_modal": {
+    "description": "Your previous actions have been found to have severely <span class='text-primary-link'>violated our rules</span>. As a result, your address is permanently banned from participating in Trailblazers. This decision is final and cannot be appealed."
+  },
   "booster": {
     "breakdown": {
       "factionBadges": "Faction Badges",

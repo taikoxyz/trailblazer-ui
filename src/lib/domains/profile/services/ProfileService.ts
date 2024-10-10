@@ -83,6 +83,7 @@ export class ProfileService implements IProfileService {
         personalInfo: {
           ...defaultUserProfile.personalInfo,
           avatar: avatarResult || '',
+          blacklisted: pointsAndRank.blacklisted || false,
         },
         userStats: {
           ...defaultUserProfile.userStats,
@@ -128,19 +129,6 @@ export class ProfileService implements IProfileService {
       multipliersLoading.set(false);
     }
     return await this.userRepository.get();
-  }
-
-  /**
-   * Fetches the user's points and rank for a given season.
-   *
-   * @param {Address} address
-   * @param {number} season
-   * @return {*}
-   * @memberof ProfileService
-   */
-  async getProfileRankAndPoints(address: Address, season: number) {
-    log('Fetching user points and rank for address:', address, 'season:', season);
-    return await this.apiAdapter.fetchUserPointsAndRank(address, season);
   }
 
   /**
