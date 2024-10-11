@@ -7,6 +7,7 @@ import { registerProfilePictureAbi, registerProfilePictureAddress } from '$gener
 import { profilePictureCache } from '$lib/domains/leaderboard/stores/cache';
 import type {
   DomainResponse,
+  UserFinalScoreResponse,
   UserHistoryApiResponse,
   UserPointsAndRankResponse,
 } from '$lib/domains/profile/dto/profile.dto';
@@ -222,5 +223,21 @@ export class ProfileApiAdapter {
     profilePictureCache.setMultiple(normalizedAddresses, combinedData);
 
     return combinedData;
+  }
+
+  /**
+   * Fetches the user's previous season final scores from the /user/finalscore endpoint.
+   *
+   *
+   * @param {number} season the season the user's final scores are being fetched for
+   * @return {Promise<UserFinalScoreResponse>} the user's final scores
+   */
+  async getPreviousSeasonFinalScores(address: Address, season: number): Promise<UserFinalScoreResponse> {
+    const client = getAxiosInstance(season);
+    const response = await client.get<UserFinalScoreResponse>(`/user/final`, {
+      ...globalAxiosConfig,
+      params: { address },
+    });
+    return response.data;
   }
 }

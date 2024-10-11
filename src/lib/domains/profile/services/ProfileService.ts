@@ -13,7 +13,7 @@ import { levelTiers } from '$lib/domains/profile/types/LevelTiers';
 import { DomainType, type UserPointHistory } from '$lib/domains/profile/types/types';
 import type { UserInfoForLeaderboard } from '$lib/domains/profile/types/UserInfoForLeaderboard';
 import type { UserProfile } from '$lib/domains/profile/types/UserProfile';
-import type { UserStats } from '$lib/domains/profile/types/UserStats';
+import type { SeasonHistoryEntry, UserStats } from '$lib/domains/profile/types/UserStats';
 import type { PaginationInfo } from '$lib/shared/dto/CommonPageApiResponse';
 import type { NFT } from '$lib/shared/types/NFT';
 import { wagmiConfig } from '$lib/shared/wagmi';
@@ -73,7 +73,7 @@ export class ProfileService implements IProfileService {
       if (!address) {
         throw new Error('No address provided and no connected account found.');
       }
-
+      // address = '0x081A919A2e2e43EEdfc6a618B76be5A2381adc00';
       // Fetch data from multiple endpoints
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const [pointsAndRank, userDomainInfo, activity, nftsResult, avatarResult] = await Promise.all([
@@ -126,6 +126,7 @@ export class ProfileService implements IProfileService {
         this.handleDomainSelection(userDomainInfo),
         this.fetchAndCalculateMultipliers(address),
         this.performAdditionalCalculations(),
+        this.previousSeasonFinalScores(address, season - 1),
       ]);
       // const [multiplierResult] = await Promise.all([this.handleDomainSelection(info)]);
 
@@ -599,6 +600,62 @@ export class ProfileService implements IProfileService {
     } catch (error) {
       log('Error retrieving profile pictures:', error);
       return {};
+    }
+  }
+  /**
+   * Retrieves the user's blacklist status for the given season.
+   *
+   * @param {Address} address
+   * @param {number} season
+   * @return {*}  {Promise<boolean>}
+   * @memberof ProfileService
+   */
+  async getBlacklistStatus(address: Address, season: number): Promise<boolean> {
+    log('Checking blacklist status for address:', address);
+    try {
+      const { blacklisted } = await this.apiAdapter.fetchUserPointsAndRank(address, season);
+      log('Blacklist status:', blacklisted);
+      return blacklisted;
+    } catch (error) {
+      log('Error checking blacklist status:', error);
+      return false;
+    }
+  }
+
+  async previousSeasonFinalScores(address: Address, season: number): Promise<void> {
+    log('Fetching previous season final scores for season:', season);
+    try {
+      // Fetch the user's final scores for the previous season
+      const { score, multiplier, total } = await this.apiAdapter.getPreviousSeasonFinalScores(address, season);
+      log('Fetched final scores:', score, multiplier, total);
+
+      // Update the profile with the final scores
+      const oldUser = await this.userRepository.get();
+      const history = oldUser.userStats?.seasonHistory || ([] as Record<number, SeasonHistoryEntry>);
+      history[season] = {
+        score,
+        multiplier,
+        total,
+      };
+
+      const newProfile: UserProfile = {
+        ...oldUser,
+        userStats: {
+          seasonHistory: history,
+          score: oldUser.userStats?.score || 0,
+          rank: oldUser.userStats?.rank || '',
+          title: oldUser.userStats?.title || '',
+          level: oldUser.userStats?.level || '',
+          total: oldUser.userStats?.total || '',
+          rankPercentile: oldUser.userStats?.rankPercentile || '0',
+        },
+      };
+      log('Updating profile with:', newProfile);
+      await this.userRepository.update(newProfile);
+
+      log('Profile with final scores:', await this.userRepository.get());
+    } catch (error) {
+      log('Error in previousSeasonFinalScores:', error);
     }
   }
 }

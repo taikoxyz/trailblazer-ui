@@ -37,3 +37,9 @@ export type UserPointHistoryPage = {
 };
 
 export type UserHistoryApiResponse = CommonPageApiResponse<UserPointHistory>;
+
+export type UserFinalScoreResponse = {
+  score: number;
+  multiplier: number;
+  total: number;
+};

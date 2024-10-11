@@ -1,48 +1,70 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
+  import { onDestroy, onMount } from 'svelte';
 
-  let repetitions: number = 5; // Start with an estimated initial value
-  let marqueeContent: HTMLDivElement;
+  import { browser } from '$app/environment';
 
-  const updateRepetitions = () => {
-    if (marqueeContent) {
-      const contentWidth = marqueeContent.offsetWidth;
-      const viewportWidth = window.innerWidth;
-      repetitions = Math.ceil(viewportWidth / contentWidth) + 1;
+  interface MarqueeItem {
+    highlight: string;
+    text: string;
+  }
+
+  const items: MarqueeItem[] = [
+    { highlight: 'SEASON 1 CLAIMING', text: 'NOW LIVE' },
+    { highlight: 'EARN 60X MULTIPLIER', text: 'LOCK YOUR TAIKO' },
+  ];
+
+  let containerRef: HTMLDivElement;
+  let contentWidth = 0;
+  let duplicates = 3; // Start with a default number of duplicates
+
+  function updateDuplicates() {
+    if (!containerRef) return;
+
+    const containerWidth = containerRef.offsetWidth;
+    const singleItemWidth = contentWidth / duplicates;
+
+    // Calculate how many duplicates we need to fill the container twice (for seamless loop)
+    const neededDuplicates = Math.ceil((containerWidth * 2) / singleItemWidth);
+
+    if (neededDuplicates !== duplicates) {
+      duplicates = neededDuplicates;
     }
-  };
+  }
+
+  let resizeObserver: ResizeObserver;
 
   onMount(() => {
-    // Estimate initial repetitions as soon as the component is mounted
-    updateRepetitions();
+    resizeObserver = new ResizeObserver(() => {
+      if (containerRef) {
+        contentWidth = containerRef.scrollWidth;
+        updateDuplicates();
+      }
+    });
 
-    // Attach event listener to handle window resize
-    window.addEventListener('resize', updateRepetitions);
+    if (containerRef) {
+      resizeObserver.observe(containerRef);
+    }
+    if (browser) window.addEventListener('resize', updateDuplicates);
+  });
 
-    return () => window.removeEventListener('resize', updateRepetitions);
+  onDestroy(() => {
+    if (resizeObserver) {
+      resizeObserver.disconnect();
+    }
+    if (browser) window.removeEventListener('resize', updateDuplicates);
   });
 </script>
 
-<div class="bg-pink-400 h-6 py-5 f-center">
-  <div class="relative flex overflow-x-hidden w-full">
-    <div class="f-row animate-marquee whitespace-nowrap" bind:this={marqueeContent}>
-      <!-- eslint-disable-next-line @typescript-eslint/no-unused-vars -->
-      {#each Array(repetitions).fill(0) as _}
-        <span class="f-row mx-4 text-4xl">
-          <div class="body-bold mr-[10px] text-secondary-warm-yellow">EARN 4X MULTIPLIER</div>
-          <div class="body-bold">TRAIL 8 HAPPENING NOW</div>
-        </span>
+<div class="w-full bg-pink-400 overflow-hidden py-[12px] h-[48px]" bind:this={containerRef}>
+  <div class="flex whitespace-nowrap animate-marquee">
+    <!-- eslint-disable-next-line @typescript-eslint/no-unused-vars -->
+    {#each Array(duplicates) as _}
+      {#each items as item}
+        <div class="flex items-center text-[18px] mx-[25px]">
+          <span class="font-bold mr-3 text-secondary-warm-yellow">{item.highlight}</span>
+          <span class="font-bold">{item.text}</span>
+        </div>
       {/each}
-    </div>
-
-    <div class="absolute f-row top-0 animate-marquee2 whitespace-nowrap">
-      <!-- eslint-disable-next-line @typescript-eslint/no-unused-vars -->
-      {#each Array(repetitions).fill(0) as _}
-        <span class="f-row mx-4 text-4xl">
-          <div class="body-bold mr-[10px] text-secondary-warm-yellow">EARN 4X MULTIPLIER</div>
-          <div class="body-bold">TRAIL 8 HAPPENING NOW</div>
-        </span>
-      {/each}
-    </div>
+    {/each}
   </div>
 </div>
