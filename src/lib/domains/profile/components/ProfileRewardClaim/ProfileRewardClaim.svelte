@@ -226,7 +226,6 @@
   const termsUrl = 'https://taiko.xyz';
   const containerClass = classNames(
     'container',
-
     'w-full',
     'bg-elevated-background',
     'xl:max-w-[1344px]',
@@ -235,7 +234,6 @@
     'md:rounded-tl-none',
     'rounded-[30px]',
     'relative',
-    'pb-[40px]',
   );
 
   const rowClass = classNames(
@@ -250,11 +248,10 @@
     'min-xl:h-[800px]',
     'min-md:h-[642px]',
     'min-h-[708px]',
-    'px-[16px]',
-    'pt-[34px]',
-    'md:px-[47px]',
     'body-bold',
     'text-sm',
+    'px-[24px]',
+    'md:px-[55px]',
   );
 
   const buttonWrapperClasses = classNames('w-full', 'max-w-[350px]', 'pt-[50px]');
@@ -263,11 +260,15 @@
     'absolute',
     'bottom-0',
     'border-t',
+    //'w-full',
     'pt-[24px]',
     'border-divider-border',
     'font-[400]',
     'text-secondary-content',
-    'mx-[15px]',
+    'pb-[30px]',
+    'md:pb-[55px]',
+    'mx-[24px]',
+    'md:mx-[54px]',
   );
 </script>
 
