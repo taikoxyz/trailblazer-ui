@@ -258,6 +258,17 @@
   );
 
   const buttonWrapperClasses = classNames('w-full', 'max-w-[350px]', 'pt-[50px]');
+
+  const countdownFooterClasses = classNames(
+    'absolute',
+    'bottom-0',
+    'border-t',
+    'pt-[24px]',
+    'border-divider-border',
+    'font-[400]',
+    'text-secondary-content',
+    'mx-[15px]',
+  );
 </script>
 
 <div class={containerClass}>
@@ -275,8 +286,13 @@
         {/if}
       </div>
       <div class={buttonWrapperClasses}>
-        <ActionButton priority="primary" href="https://taiko.mirror.xyz/zTL8AoTXdoTCZKQ5O13nGmbfRIpsObIs93bRVgz9kxk"
-          >Learn More</ActionButton>
+        <ActionButton priority="primary" disabled>Claim now</ActionButton>
+      </div>
+
+      <div class={countdownFooterClasses}>
+        Our percentile-based leaderboard adjusts with participation levels. Sybil analysis may cause rank drops but
+        increases individual rewards. Final multipliers can also affect rankings. A lower rank doesn't always mean lower
+        rewards, as fewer participants results in higher individual payouts.
       </div>
     {:else if isSelfProfile && claimingActive}
       <ClaimPanel
