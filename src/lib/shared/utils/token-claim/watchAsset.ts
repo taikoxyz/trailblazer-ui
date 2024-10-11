@@ -1,17 +1,17 @@
 import { getConnectorClient } from '@wagmi/core';
 import { watchAsset as viemWatchAsset } from 'viem/actions';
 
+import { erc20TaikoTokenAddress } from '$generated/abi';
 import { wagmiConfig } from '$shared/wagmi';
+
+import { chainId } from '../chain';
 
 export default async function watchAsset() {
   const client = await getConnectorClient(wagmiConfig);
   await viemWatchAsset(client, {
     type: 'ERC20',
     options: {
-      // mainnet
-      address: '0xa9d23408b9ba935c230493c40c73824df71a0975',
-      // hekla
-      //  address: '0x48E948322e282C586173ED8258B18616500717D1',
+      address: erc20TaikoTokenAddress[chainId],
       decimals: 18,
       symbol: 'TKO',
     },
