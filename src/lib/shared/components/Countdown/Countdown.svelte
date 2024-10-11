@@ -37,37 +37,6 @@
   );
 
   const dividerClasses = classNames('md:h-[75px]', 'mt-[10px]', 'h-[35px]', 'w-[1px]', 'bg-divider-border');
-  export let countdown: Date;
-  export let title: string;
-
-  let now = Date.now();
-  let end = countdown.getTime();
-
-  $: count = Math.round((end - now) / 1000);
-  $: d = Math.floor(count / 86400);
-  $: h = Math.floor((count - d * 86400) / 3600);
-  $: m = Math.floor((count - d * 86400 - h * 3600) / 60);
-  $: s = count - d * 86400 - h * 3600 - m * 60;
-
-  function updateTimer() {
-    now = Date.now();
-  }
-
-  let interval = setInterval(updateTimer, 1000);
-  $: if (count === 0) clearInterval(interval);
-
-  function handleStart() {
-    now = Date.now();
-    end = now + count * 1000;
-    interval = setInterval(updateTimer, 1000);
-  }
-  onMount(() => {
-    handleStart();
-  });
-
-  onDestroy(() => {
-    clearInterval(interval);
-  });
 
   const titleClasses = classNames(
     'md:text-[45px]/[52px]',
@@ -78,6 +47,46 @@
     'w-full',
     'text-center',
   );
+
+  export let countdown: Date;
+  export let title: string;
+  export let hitZero = false;
+
+  let now = Date.now();
+  let end = countdown.getTime();
+
+  $: count = Math.max(0, Math.round((end - now) / 1000));
+  $: d = Math.floor(count / 86400);
+  $: h = Math.floor((count - d * 86400) / 3600);
+  $: m = Math.floor((count - d * 86400 - h * 3600) / 60);
+  $: s = count - d * 86400 - h * 3600 - m * 60;
+
+  let interval: ReturnType<typeof setInterval>;
+
+  function updateTimer() {
+    now = Date.now();
+    if (now >= end) {
+      clearInterval(interval);
+    }
+  }
+
+  function handleStart() {
+    now = Date.now();
+    end = countdown.getTime();
+    if (now < end) {
+      interval = setInterval(updateTimer, 1000);
+    } else {
+      hitZero = true;
+    }
+  }
+
+  onMount(() => {
+    handleStart();
+  });
+
+  onDestroy(() => {
+    clearInterval(interval);
+  });
 </script>
 
 <div class={wrapperClasses}>
