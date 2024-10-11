@@ -88,7 +88,12 @@
   <div class={nameClasses}>{name}</div>
   <div class={descriptionClasses}>{description}</div>
   <div class={urlRowClasses}>
-    <a class={urlClasses} target="_blank" href={url}>{getButtonText()}</a>
+    <a class={urlClasses} target="_blank" href={url}>
+      {#if data.button}
+        {data.button}
+      {:else}
+        {getButtonText()}
+      {/if}</a>
   </div>
   <div class={categoryClasses}>{category}</div>
 </div>
