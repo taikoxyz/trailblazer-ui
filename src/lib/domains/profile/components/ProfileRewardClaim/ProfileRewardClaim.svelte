@@ -201,7 +201,7 @@
           },
         } satisfies IClaimButton,
         {
-          priority: 'primary',
+          priority: 'tertiary',
           label: $t('claim.panels.success.buttons.1'),
           handler: () => {},
         } satisfies IClaimButton,
