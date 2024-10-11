@@ -247,7 +247,7 @@
     'justify-center',
     'min-xl:h-[800px]',
     'min-md:h-[642px]',
-    'min-h-[708px]',
+    'min-h-[760px]',
     'body-bold',
     'text-sm',
     'px-[24px]',
