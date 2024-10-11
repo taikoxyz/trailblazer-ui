@@ -203,7 +203,9 @@
         {
           priority: 'tertiary',
           label: $t('claim.panels.success.buttons.1'),
-          handler: () => {},
+          handler: () => {
+            window.location.hash = '#lockdown';
+          },
         } satisfies IClaimButton,
       ],
     },
