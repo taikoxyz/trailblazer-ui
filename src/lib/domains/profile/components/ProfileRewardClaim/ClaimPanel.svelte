@@ -13,6 +13,7 @@
     'items-center',
     'justify-center',
     'h-max',
+    'z-10',
   );
 
   const textWrapperClasses = classNames('w-full', 'flex', 'flex-col', 'gap-[24px]', 'items-center');
