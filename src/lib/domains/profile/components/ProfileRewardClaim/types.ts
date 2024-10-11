@@ -8,4 +8,5 @@ export interface IClaimAmount {
 export interface IClaimButton {
   priority: ActionButtonType;
   label: string;
+  handler: () => void;
 }

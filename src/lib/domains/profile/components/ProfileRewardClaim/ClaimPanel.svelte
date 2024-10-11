@@ -1,6 +1,4 @@
 <script lang="ts">
-  import { createEventDispatcher } from 'svelte';
-
   import { ActionButton } from '$shared/components/Button';
   import { Spinner } from '$shared/components/Spinner';
   import { classNames } from '$shared/utils/classNames';
@@ -70,6 +68,8 @@
     'gap-[8px]',
   );
 
+  const buttonsWrapperClasses = classNames('flex', 'flex-col', 'gap-[16px]', 'w-full');
+
   const iconClasses = classNames('w-[150px]', 'h-[150px]');
 
   export let loading = false;
@@ -79,11 +79,15 @@
   export let text: string;
 
   export let amount: IClaimAmount | null = null;
-  export let button: IClaimButton = { priority: 'primary', label: 'Claim now' };
+  export let buttons: IClaimButton[] = [
+    {
+      handler: async () => {},
+      priority: 'primary',
+      label: 'Claim now',
+    },
+  ];
 
   export let disableButton: boolean = false;
-
-  const dispatch = createEventDispatcher();
 
   function numberWithCommas(x: number) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
@@ -129,7 +133,11 @@
       </div>
     {/if}
 
-    <ActionButton on:click={() => dispatch('click')} disabled={disableButton} priority={button.priority}
-      >{button.label}</ActionButton>
+    <div class={buttonsWrapperClasses}>
+      {#each buttons as button}
+        <ActionButton on:click={button.handler} disabled={disableButton} priority={button.priority}
+          >{button.label}</ActionButton>
+      {/each}
+    </div>
   {/if}
 </div>
