@@ -11,11 +11,13 @@
   import { Countdown } from '$shared/components/Countdown';
   import { Spinner } from '$shared/components/Spinner';
   import { account } from '$shared/stores/account';
+  import { pendingTransactions } from '$shared/stores/pendingTransactions';
   import { s1ClaimDate } from '$shared/stores/s1Claim';
   import { tokenClaimTermsAccepted } from '$shared/stores/tokenClaim';
   import { classNames } from '$shared/utils/classNames';
   import getConnectedAddress from '$shared/utils/getConnectedAddress';
   import TokenClaim from '$shared/utils/token-claim';
+  import watchAsset from '$shared/utils/token-claim/watchAsset';
 
   import ClaimPanel from './ClaimPanel.svelte';
   import { type IClaimButton, type IClaimPanelType } from './types';
@@ -137,36 +139,89 @@
       title: $t('claim.panels.review.title'),
       text: $t('claim.panels.review.text'),
       type: 'claim' as IClaimPanelType,
-      button: {
-        priority: 'primary',
-        label: $t('claim.panels.review.button'),
-      } satisfies IClaimButton,
+
+      buttons: [
+        {
+          priority: 'primary',
+          label: $t('claim.panels.review.button'),
+          handler: async () => {
+            if (!$account || !$account.address) return;
+            const address = $account.address;
+            // load claim amount
+            isLoading = true;
+            const { value, proof } = await TokenClaim.preflight(address);
+            claimAmount = value;
+            claimProof = proof;
+            claimLabel = 'You will receive';
+            isLoading = false;
+
+            currentStep += 1;
+          },
+        } satisfies IClaimButton,
+      ],
     },
     {
       title: $t('claim.panels.claim.title'),
       type: 'prepare' as IClaimPanelType,
-      button: {
-        priority: 'primary',
-        label: $t('claim.panels.claim.button'),
-      } satisfies IClaimButton,
+
+      buttons: [
+        {
+          priority: 'primary',
+          label: $t('claim.panels.claim.button'),
+          handler: async () => {
+            if (!$account || !$account.address) return;
+            const address = $account.address;
+            // make the actual claim call
+            isLoading = true;
+            try {
+              await TokenClaim.claim(address, claimAmount, claimProof);
+              currentStep = 2; // success
+              claimLabel = 'You have claimed';
+              isClaimSuccessful = true;
+            } catch (e) {
+              console.error(e);
+              currentStep = 3; // error
+            } finally {
+              isLoading = false;
+            }
+          },
+        } satisfies IClaimButton,
+      ],
     },
     {
       title: $t('claim.panels.success.title'),
       text: $t('claim.panels.success.text'),
       type: 'success' as IClaimPanelType,
-      button: {
-        priority: 'primary',
-        label: $t('claim.panels.success.button'),
-      } satisfies IClaimButton,
+      buttons: [
+        {
+          priority: 'secondary',
+          label: $t('claim.panels.success.buttons.0'),
+          handler: async () => {
+            await watchAsset();
+          },
+        } satisfies IClaimButton,
+        {
+          priority: 'tertiary',
+          label: $t('claim.panels.success.buttons.1'),
+          handler: () => {
+            window.location.hash = '#lockdown';
+          },
+        } satisfies IClaimButton,
+      ],
     },
     {
       title: $t('claim.panels.error.title'),
       text: $t('claim.panels.error.text'),
       type: 'error' as IClaimPanelType,
-      button: {
-        priority: 'secondary',
-        label: $t('claim.panels.error.button'),
-      } satisfies IClaimButton,
+      buttons: [
+        {
+          priority: 'secondary',
+          label: $t('claim.panels.error.button'),
+          handler: () => {
+            currentStep = 0;
+          },
+        } satisfies IClaimButton,
+      ],
     },
   ];
 
@@ -181,7 +236,6 @@
     'md:rounded-tl-none',
     'rounded-[30px]',
     'relative',
-    'pb-[40px]',
   );
 
   const rowClass = classNames(
@@ -195,20 +249,34 @@
     'justify-center',
     'min-xl:h-[800px]',
     'min-md:h-[642px]',
-    'min-h-[708px]',
-    'px-[16px]',
-    'pt-[34px]',
-    'md:px-[47px]',
+    'min-h-[760px]',
     'body-bold',
     'text-sm',
+    'px-[24px]',
+    'md:px-[55px]',
   );
 
   const buttonWrapperClasses = classNames('w-full', 'max-w-[350px]', 'pt-[50px]');
+
+  const countdownFooterClasses = classNames(
+    'absolute',
+    'bottom-0',
+    'border-t',
+    //'w-full',
+    'pt-[24px]',
+    'border-divider-border',
+    'font-[400]',
+    'text-secondary-content',
+    'pb-[30px]',
+    'md:pb-[55px]',
+    'mx-[24px]',
+    'md:mx-[54px]',
+  );
 </script>
 
 <div class={containerClass}>
   <div class={rowClass}>
-    {#if isLoading}
+    {#if isLoading || $pendingTransactions.length > 0}
       <Spinner size="lg" />
     {:else if !claimingActive}
       <Countdown title="Season 1 claim begins in" countdown={$s1ClaimDate} bind:hitZero />
@@ -221,19 +289,24 @@
         {/if}
       </div>
       <div class={buttonWrapperClasses}>
-        <ActionButton priority="primary" href="https://taiko.mirror.xyz/zTL8AoTXdoTCZKQ5O13nGmbfRIpsObIs93bRVgz9kxk"
-          >Learn More</ActionButton>
+        <ActionButton priority="primary" disabled>Claim now</ActionButton>
+      </div>
+
+      <div class={countdownFooterClasses}>
+        Our percentile-based leaderboard adjusts with participation levels. Sybil analysis may cause rank drops but
+        increases individual rewards. Final multipliers can also affect rankings. A lower rank doesn't always mean lower
+        rewards, as fewer participants results in higher individual payouts.
       </div>
     {:else if isSelfProfile && claimingActive}
       <ClaimPanel
         disableButton={(currentStep === 1 && !$tokenClaimTermsAccepted) ||
           claimAmount === 0 ||
-          (currentStep === 2 && isClaimSuccessful)}
+          (currentStep === 2 && !isClaimSuccessful)}
         title={panels[currentStep].title}
         amount={currentStep > 0 ? { value: claimAmount, label: claimLabel } : null}
         text={panels[currentStep].text || ''}
         type={panels[currentStep].type}
-        button={panels[currentStep].button}
+        buttons={panels[currentStep].buttons}
         on:click={handlePanelButtonClick}>
         {#if currentStep === 1}
           By confirming your claim, you agree to the <a href={termsUrl} target="_blank" class={linkClasses}

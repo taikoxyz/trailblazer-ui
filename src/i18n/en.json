@@ -88,7 +88,7 @@
         "title": "Are you ready to claim your tokens?"
       },
       "success": {
-        "button": "Claimed",
+        "buttons": ["Add to wallet", "Earn more TAIKO"],
         "text": "Congratulations! You've successfully claimed your tokens. You can now add them to your wallet.",
         "title": "Claim successful"
       }

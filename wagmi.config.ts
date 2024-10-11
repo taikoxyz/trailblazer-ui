@@ -7,6 +7,7 @@ import * as ProfilePictureMainnetDeployment from '../taiko-mono.git/packages/nft
 import * as TaikoonHeklaDeployment from '../taiko-mono.git/packages/nfts/deployments/taikoon/hekla.json';
 import * as TaikoonMainnetDeployment from '../taiko-mono.git/packages/nfts/deployments/taikoon/mainnet.json';
 import * as S1ClaimHeklaDeployment from '../taiko-mono.git/packages/nfts/deployments/trailblazers-airdrop/hekla.json';
+import * as S1ClaimMainnetDeployment from '../taiko-mono.git/packages/nfts/deployments/trailblazers-airdrop/mainnet.json';
 import * as TrailblazerBadgesHeklaDeployment from '../taiko-mono.git/packages/nfts/deployments/trailblazers-badges/hekla.json';
 import * as TrailblazerBadgesMainnetDeployment from '../taiko-mono.git/packages/nfts/deployments/trailblazers-badges/mainnet.json';
 import ERC20Airdrop from '../taiko-mono.git/packages/nfts/out/ERC20Airdrop.sol/ERC20Airdrop.json';
@@ -101,9 +102,17 @@ export default defineConfig({
       name: 'ERC20Airdrop',
       address: {
         167009: S1ClaimHeklaDeployment.ERC20Airdrop as Address,
-        167000: S1ClaimHeklaDeployment.ERC20Airdrop as Address,
+        167000: S1ClaimMainnetDeployment.ERC20Airdrop as Address,
       },
       abi: ERC20Airdrop.abi as Abi,
+    },
+    {
+      name: 'ERC20TaikoToken',
+      address: {
+        167009: S1ClaimHeklaDeployment.ERC20Token as Address,
+        167000: S1ClaimMainnetDeployment.ERC20Token as Address,
+      },
+      abi: [],
     },
   ],
   plugins: [actions()],
