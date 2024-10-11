@@ -7,10 +7,12 @@
 
   import { page } from '$app/stores';
   import { PUBLIC_CLAIMING_ACTIVE } from '$env/static/public';
+  import { userProfile } from '$lib/domains/profile/stores/';
   import { ActionButton } from '$shared/components/Button';
   import { Countdown } from '$shared/components/Countdown';
   import { Spinner } from '$shared/components/Spinner';
   import { account } from '$shared/stores/account';
+  import { activeSeason } from '$shared/stores/activeSeason';
   import { pendingTransactions } from '$shared/stores/pendingTransactions';
   import { s1ClaimDate } from '$shared/stores/s1Claim';
   import { tokenClaimTermsAccepted } from '$shared/stores/tokenClaim';
@@ -19,6 +21,7 @@
   import TokenClaim from '$shared/utils/token-claim';
   import watchAsset from '$shared/utils/token-claim/watchAsset';
 
+  import profileService from '../../services/ProfileServiceInstance';
   import ClaimPanel from './ClaimPanel.svelte';
   import { type IClaimButton, type IClaimPanelType } from './types';
 
@@ -43,6 +46,8 @@
   $: claimProof = '';
   $: isClaimSuccessful = false;
 
+  $: isBlacklisted = $userProfile.personalInfo?.blacklisted || false;
+
   let now = new Date();
   let isSelfProfile = false;
   $: showConfetti = hitZero;
@@ -63,6 +68,9 @@
     isSelfProfile = getAddress(urlAddress) === getAddress(getConnectedAddress());
 
     if (isSelfProfile) {
+      profileService.getBlacklistStatus(urlAddress, $activeSeason).then((result) => {
+        isBlacklisted = result;
+      });
       TokenClaim.hasClaimed(urlAddress).then(async (hasClaimed) => {
         if (hasClaimed) {
           currentStep = 2;
@@ -276,7 +284,12 @@
 
 <div class={containerClass}>
   <div class={rowClass}>
-    {#if isLoading || $pendingTransactions.length > 0}
+    {#if isBlacklisted}
+      <div class="text-center space-y-[15px]">
+        <h1 class="text-3xl font-bold">You have been blacklisted</h1>
+        <p class="text-lg">You will not be able to claim.</p>
+      </div>
+    {:else if isLoading || $pendingTransactions.length > 0}
       <Spinner size="lg" />
     {:else if !claimingActive}
       <Countdown title="Season 1 claim begins in" countdown={$s1ClaimDate} bind:hitZero />
