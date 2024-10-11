@@ -6,6 +6,7 @@
   import { isDevelopmentEnv } from '$shared/utils/isDevelopmentEnv';
 
   import ProfileTransactions from './ProfileActivity/ProfileTransactions.svelte';
+  import ProfileLockdownTab from './ProfileLockdownTab.svelte';
   import ProfileRewardClaim from './ProfileRewardClaim/ProfileRewardClaim.svelte';
 
   type TabContent = {
@@ -42,6 +43,10 @@
     {
       name: 'Claim',
       content: ProfileRewardClaim,
+    },
+    {
+      name: 'Lockdown',
+      content: ProfileLockdownTab,
     },
   ];
 

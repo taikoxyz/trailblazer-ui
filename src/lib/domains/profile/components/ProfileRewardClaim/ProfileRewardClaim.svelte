@@ -173,7 +173,6 @@
   const termsUrl = 'https://taiko.xyz';
   const containerClass = classNames(
     'container',
-
     'w-full',
     'bg-elevated-background',
     'xl:max-w-[1344px]',

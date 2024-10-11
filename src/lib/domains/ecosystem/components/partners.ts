@@ -4,6 +4,7 @@ export interface IEcosystemPartner {
   description: string;
   category: string;
   url: string;
+  button?: string;
 }
 
 const EcosystemPartners: IEcosystemPartner[] = [
