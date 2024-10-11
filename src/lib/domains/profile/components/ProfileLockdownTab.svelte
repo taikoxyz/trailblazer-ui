@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { t } from 'svelte-i18n';
+
   import EcosystemItem from '$lib/domains/ecosystem/components/components/EcosystemItem.svelte';
   import { classNames } from '$shared/utils/classNames';
   import { isMobile, isTablet } from '$shared/utils/responsiveCheck';
@@ -68,11 +70,9 @@
   {/if}
 
   <div class={textWrapperClasses}>
-    <div class={titleClasses}>How it works</div>
+    <div class={titleClasses}>{$t('lockdown.title')}</div>
     <div class={contentClasses}>
-      Introducing Trailblazers Lockdown, an exciting campaign where you can use Taiko tokens and earn Trailblazers
-      multipliers along with with participating projects offering boosted rewards and exclusive benefits for users who
-      commit to locking their tokens.
+      {$t('lockdown.content')}
     </div>
   </div>
   <div class={partnersWrapperClasses}>
