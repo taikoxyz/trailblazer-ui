@@ -8,14 +8,19 @@ import { wagmiConfig } from '$lib/shared/wagmi';
 import preflight from './preflight';
 
 export default async function hasClaimed(address: Address): Promise<boolean> {
-  const { value } = await preflight(address);
+  try {
+    const { value } = await preflight(address);
 
-  const res = await readContract(wagmiConfig, {
-    abi: erc20AirdropAbi,
-    address: erc20AirdropAddress[chainId],
-    functionName: 'hasClaimed',
-    args: [address, parseEther(value.toString())],
-  });
+    const res = await readContract(wagmiConfig, {
+      abi: erc20AirdropAbi,
+      address: erc20AirdropAddress[chainId],
+      functionName: 'hasClaimed',
+      args: [address, parseEther(value.toString())],
+    });
 
-  return res;
+    return res;
+  } catch (e) {
+    console.warn(e);
+    return false;
+  }
 }
