@@ -5,8 +5,8 @@ import { get } from 'svelte/store';
 import type { Address } from 'viem';
 
 import profileService from '$lib/domains/profile/services/ProfileServiceInstance';
-import { activeSeason } from '$lib/shared/stores/activeSeason';
 import { account } from '$shared/stores/account';
+import { activeSeason } from '$shared/stores/activeSeason';
 import { blacklistModal, switchChainModal } from '$shared/stores/modal';
 import { isSupportedChain } from '$shared/utils/chain';
 import { debounce } from '$shared/utils/debounce';
@@ -27,10 +27,8 @@ let previousChainId: number | null = null;
  */
 async function checkBlacklist(address: Address) {
   try {
-    const profile = await profileService.getProfile(address, get(activeSeason));
-    log('Fetched profile:', profile);
-
-    if (profile?.personalInfo?.blacklisted) {
+    const blacklisted = await profileService.getBlacklistStatus(address, get(activeSeason));
+    if (blacklisted) {
       blacklistModal.set(true);
     } else {
       blacklistModal.set(false);
