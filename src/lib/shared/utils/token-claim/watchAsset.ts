@@ -13,7 +13,7 @@ export default async function watchAsset() {
     options: {
       address: erc20TaikoTokenAddress[chainId],
       decimals: 18,
-      symbol: 'TKO',
+      symbol: 'TAIKO',
     },
   });
 }

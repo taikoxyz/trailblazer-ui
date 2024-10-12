@@ -1,20 +1,15 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import { Confetti } from 'svelte-confetti';
   import { t } from 'svelte-i18n';
   import type { Address } from 'viem';
   import { getAddress } from 'viem';
 
   import { page } from '$app/stores';
-  import { PUBLIC_CLAIMING_ACTIVE } from '$env/static/public';
   import { userProfile } from '$lib/domains/profile/stores/';
-  import { ActionButton } from '$shared/components/Button';
-  import { Countdown } from '$shared/components/Countdown';
   import { Spinner } from '$shared/components/Spinner';
   import { account } from '$shared/stores/account';
   import { activeSeason } from '$shared/stores/activeSeason';
   import { pendingTransactions } from '$shared/stores/pendingTransactions';
-  import { s1ClaimDate } from '$shared/stores/s1Claim';
   import { tokenClaimTermsAccepted } from '$shared/stores/tokenClaim';
   import { classNames } from '$shared/utils/classNames';
   import getConnectedAddress from '$shared/utils/getConnectedAddress';
@@ -48,22 +43,9 @@
 
   $: isBlacklisted = $userProfile.personalInfo?.blacklisted || false;
 
-  let now = new Date();
   let isSelfProfile = false;
-  $: showConfetti = hitZero;
-  let claimingActive = false;
-
-  let hitZero = false;
-
-  const claimStartTime = $s1ClaimDate.getTime();
-  const confettiDuration = 2000;
-  const claimActiveTime = claimStartTime + confettiDuration;
 
   onMount(() => {
-    const interval = setInterval(() => {
-      now = new Date();
-    }, 1000);
-
     const urlAddress = $page.url.pathname.split('/').pop() as Address;
     isSelfProfile = getAddress(urlAddress) === getAddress(getConnectedAddress());
 
@@ -82,29 +64,7 @@
         }
       });
     }
-
-    return () => {
-      clearInterval(interval);
-    };
   });
-
-  $: {
-    const currentTime = now.getTime();
-
-    if (PUBLIC_CLAIMING_ACTIVE !== 'true') {
-      claimingActive = false;
-      showConfetti = false;
-    } else if (currentTime >= claimActiveTime) {
-      claimingActive = true;
-      showConfetti = false;
-    } else if (currentTime >= claimStartTime && currentTime < claimActiveTime) {
-      claimingActive = false;
-      showConfetti = true;
-    } else {
-      claimingActive = false;
-      showConfetti = false;
-    }
-  }
 
   async function handlePanelButtonClick() {
     if (!$account || !$account.address) return;
@@ -263,23 +223,6 @@
     'px-[24px]',
     'md:px-[55px]',
   );
-
-  const buttonWrapperClasses = classNames('w-full', 'max-w-[350px]', 'pt-[50px]');
-
-  const countdownFooterClasses = classNames(
-    'absolute',
-    'bottom-0',
-    'border-t',
-    //'w-full',
-    'pt-[24px]',
-    'border-divider-border',
-    'font-[400]',
-    'text-secondary-content',
-    'pb-[30px]',
-    'md:pb-[55px]',
-    'mx-[24px]',
-    'md:mx-[54px]',
-  );
 </script>
 
 <div class={containerClass}>
@@ -291,26 +234,7 @@
       </div>
     {:else if isLoading || $pendingTransactions.length > 0}
       <Spinner size="lg" />
-    {:else if !claimingActive}
-      <Countdown title="Season 1 claim begins in" countdown={$s1ClaimDate} bind:hitZero />
-      <div class="absolute bottom-[180px] z-0">
-        {#if showConfetti}
-          <Confetti xSpread={0.4} x={[-1, -0.25]} colorRange={[100, 200]} />
-          <Confetti xSpread={0.4} x={[-0.35, 0.35]} delay={[500, 550]} colorRange={[200, 300]} />
-          <Confetti xSpread={0.4} x={[0.25, 1]} delay={[250, 300]} colorRange={[100, 200]} />
-          <Confetti xSpread={0.4} amount={20} x={[-1, 1]} y={[0, 1]} delay={[0, 550]} colorRange={[200, 300]} />
-        {/if}
-      </div>
-      <div class={buttonWrapperClasses}>
-        <ActionButton priority="primary" disabled>Claim now</ActionButton>
-      </div>
-
-      <div class={countdownFooterClasses}>
-        Our percentile-based leaderboard adjusts with participation levels. Sybil analysis may cause rank drops but
-        increases individual rewards. Final multipliers can also affect rankings. A lower rank doesn't always mean lower
-        rewards, as fewer participants results in higher individual payouts.
-      </div>
-    {:else if isSelfProfile && claimingActive}
+    {:else if isSelfProfile}
       <ClaimPanel
         disableButton={(currentStep === 1 && !$tokenClaimTermsAccepted) ||
           claimAmount === 0 ||
@@ -334,7 +258,7 @@
           </div>
         {/if}
       </ClaimPanel>
-    {:else if !isSelfProfile && claimingActive}
+    {:else if !isSelfProfile}
       Visit your own profile to claim your rewards.
     {/if}
   </div>
