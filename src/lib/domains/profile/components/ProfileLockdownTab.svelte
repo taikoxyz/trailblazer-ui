@@ -82,8 +82,8 @@
         description: 'Zypher Network is building the next-generation infrastructure for FOCGs and Autonomous Worlds.',
         logo: '/lockdown/symmetric.png',
         url: 'https://app.symm.fi/#/taiko',
-        category: 'Gaming',
-        button: 'Use Now',
+        category: 'DeFi',
+        button: 'Lock Now',
       }} />
 
     <EcosystemItem
@@ -92,8 +92,8 @@
         description: 'Experience unique gameplay and explore a world without end in a quest to form your destiny.',
         logo: '/lockdown/taiko-drips.png',
         url: 'https://taikodrips.xyz/',
-        category: 'Gaming',
-        button: 'Use Now',
+        category: 'DeFi',
+        button: 'Lock Now',
       }} />
   </div>
 </div>
