@@ -79,7 +79,8 @@
     <EcosystemItem
       data={{
         name: 'Symmetric',
-        description: 'Symmetric is a Balancer fork and you can boost your earnings by locking your 80TAIKO-20WETH LP tokens in a Symmetric Taiko LP Vault until December 19th.',
+        description:
+          'Symmetric is a Balancer fork and you can boost your earnings by locking your 80TAIKO-20WETH LP tokens in a Symmetric Taiko LP Vault until December 19th.',
         logo: '/lockdown/symmetric.png',
         url: 'https://app.symm.fi/#/taiko',
         category: 'DeFi',
@@ -89,7 +90,8 @@
     <EcosystemItem
       data={{
         name: 'Taiko Drips',
-        description: 'Introducing Taiko Drips 💧, the lock-to-earn platform for loyal $TAIKO holders to earn rewards from the based @taikoxyz ecosystem.',
+        description:
+          'Introducing Taiko Drips 💧, the lock-to-earn platform for loyal $TAIKO holders to earn rewards from the based @taikoxyz ecosystem.',
         logo: '/lockdown/taiko-drips.png',
         url: 'https://taikodrips.xyz/',
         category: 'DeFi',
