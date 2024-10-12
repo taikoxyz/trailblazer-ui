@@ -79,21 +79,23 @@
     <EcosystemItem
       data={{
         name: 'Symmetric',
-        description: 'Zypher Network is building the next-generation infrastructure for FOCGs and Autonomous Worlds.',
+        description:
+          'Symmetric is a Balancer fork and you can boost your earnings by locking your 80TAIKO-20WETH LP tokens in a Symmetric Taiko LP Vault until December 19th.',
         logo: '/lockdown/symmetric.png',
         url: 'https://app.symm.fi/#/taiko',
-        category: 'Gaming',
-        button: 'Use Now',
+        category: 'DeFi',
+        button: 'Lock Now',
       }} />
 
     <EcosystemItem
       data={{
         name: 'Taiko Drips',
-        description: 'Experience unique gameplay and explore a world without end in a quest to form your destiny.',
+        description:
+          'Introducing Taiko Drips 💧, the lock-to-earn platform for loyal $TAIKO holders to earn rewards from the based @taikoxyz ecosystem.',
         logo: '/lockdown/taiko-drips.png',
         url: 'https://taikodrips.xyz/',
-        category: 'Gaming',
-        button: 'Use Now',
+        category: 'DeFi',
+        button: 'Lock Now',
       }} />
   </div>
 </div>
