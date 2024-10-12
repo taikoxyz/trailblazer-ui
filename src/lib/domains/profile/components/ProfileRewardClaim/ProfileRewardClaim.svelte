@@ -193,7 +193,7 @@
     },
   ];
 
-  const termsUrl = 'https://taiko.xyz';
+  const termsUrl = 'https://www.notion.so/taikoxyz/Legal-Disclaimer-89047a75cb0948f8833032f3467660c4';
   const containerClass = classNames(
     'container',
     'w-full',
