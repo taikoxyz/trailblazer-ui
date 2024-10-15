@@ -1,4 +1,7 @@
 <script lang="ts">
+  import type { Address } from 'viem';
+
+  import { page } from '$app/stores';
   import { leaderboardConfig } from '$config';
   import profileService from '$lib/domains/profile/services/ProfileServiceInstance';
   import { profileLoading, userProfile } from '$lib/domains/profile/stores/profileStore';
@@ -7,7 +10,6 @@
   import { Paginator } from '$shared/components/Paginator';
   import { Spinner } from '$shared/components/Spinner';
   import { classNames } from '$shared/utils/classNames';
-  import getConnectedAddress from '$shared/utils/getConnectedAddress';
 
   import ActivityHistoryRow from './ActivityHistoryRow.svelte';
 
@@ -31,11 +33,12 @@
       size: pageSize,
       total: totalItems,
     };
-    const userAddress = $userProfile.address;
+    const userAddress = $page.url.pathname.split('/').pop() as Address;
+
     if (!userAddress) {
       return;
     }
-    await profileService.updateProfilePointHistoryPage(args, getConnectedAddress(), 2);
+    await profileService.updateProfilePointHistoryPage(args, userAddress, 2);
   }
 
   // CSS classes
