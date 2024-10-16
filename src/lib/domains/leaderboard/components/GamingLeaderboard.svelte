@@ -20,6 +20,7 @@
   export let pageInfo: PaginationInfo<DappLeaderboardItem>;
   export let season: number;
 
+  // Todo: think about moving this to a global store for each leaderboard
   const endedSeasons = [1, 2];
 
   $: totalItems = pageInfo?.total || 0;
