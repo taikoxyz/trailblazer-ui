@@ -62,7 +62,7 @@
   <!-- Disconnected State -->
   <ActionButton
     priority="primary"
-    class="lg:!max-w-[215px] {$$props.class} lg:!f-items-center font-clash-grotesk py-[24px] px-[24px] lg:py-[0px] w-full justify-start"
+    class="lg:!max-w-[215px] max-h-[75px] {$$props.class} lg:!f-items-center font-clash-grotesk py-[24px] px-[24px] lg:py-[0px] w-full justify-start"
     loading={web3modalOpen}
     on:click={connectWallet}>
     <div class="flex items-center lg:body-regular text-[22px] font-medium space-x-2">
