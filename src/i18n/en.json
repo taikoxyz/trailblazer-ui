@@ -342,6 +342,9 @@
     }
   },
   "pagetitle": {
+    "competitions": {
+      "dapp": "Taiko Trailblazer - Dapp Competition Leaderboard"
+    },
     "leaderboards": {
       "dapp": "Taiko Trailblazer - Dapp Leaderboard",
       "user": "Taiko Trailblazer - User Leaderboard"
