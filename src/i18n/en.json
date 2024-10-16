@@ -219,6 +219,21 @@
         "title": "Campaign ended"
       }
     },
+    "competitions": {
+      "s2": {
+        "dapp": {
+          "banner": {
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor.",
+            "title": "Join the Dapp competition starting Oct 17th!"
+          },
+          "prize": {},
+          "ended": {
+            "description": "Our journey concluded on Dec 18th, 2024. Congratulations to the winners!",
+            "title": "Season ended"
+          }
+        }
+      }
+    },
     "dapp": {
       "ended": {
         "s1": {

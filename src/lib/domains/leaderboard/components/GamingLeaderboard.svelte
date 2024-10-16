@@ -54,6 +54,7 @@
 
 <AbstractLeaderboard
   headers={['No.', 'Game', '', 'Points']}
+  {season}
   data={$currentGamingLeaderboard.items}
   showTrophy={true}
   lastUpdated={new Date($currentGamingLeaderboard.lastUpdated)}

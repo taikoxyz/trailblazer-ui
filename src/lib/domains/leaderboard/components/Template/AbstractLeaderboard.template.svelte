@@ -21,6 +21,7 @@
   export let headerComponent: ComponentType;
   export let ended: boolean = false;
   export let scoreComponent: ComponentType;
+  export let season: number;
 
   export let additionalInfoComponent: ComponentType | null = null;
   // export let showCTA: boolean = true;
@@ -57,7 +58,7 @@
 </script>
 
 <div class={containerClass}>
-  <svelte:component this={headerComponent} {lastUpdated} />
+  <svelte:component this={headerComponent} {lastUpdated} {season} />
   {#if ended && endedComponent}
     <div class={headerMarginClass}>
       <svelte:component this={endedComponent} title={endTitleText} description={endDescriptionText} />
@@ -65,7 +66,7 @@
   {/if}
   {#if additionalInfoComponent && !ended}
     <div class={additionalInfoMarginClass}>
-      <svelte:component this={additionalInfoComponent} {lastUpdated} />
+      <svelte:component this={additionalInfoComponent} {lastUpdated} {season} />
     </div>
   {/if}
   <div class={textCenterClass}></div>

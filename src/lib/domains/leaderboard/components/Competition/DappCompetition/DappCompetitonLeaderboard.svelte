@@ -3,8 +3,6 @@
   import { t } from 'svelte-i18n';
 
   import { leaderboardConfig } from '$config';
-  import { GamingCompetitionInformation } from '$lib/domains/leaderboard/components/Competition/GamingCompetition';
-  import GamingHeader from '$lib/domains/leaderboard/components/Header/GamingHeader.svelte';
   import { AbstractLeaderboard, PointScore } from '$lib/domains/leaderboard/components/Template';
   import type { DappLeaderboardItem } from '$lib/domains/leaderboard/dto/dapps.dto';
   import { dappCompetitionService } from '$lib/domains/leaderboard/services/LeaderboardServiceInstances';
@@ -14,6 +12,8 @@
   import { getLogger } from '$shared/utils/logger';
 
   import { CampaignEndedInfoBox } from '../../CampaignEndedInfoBox';
+  import DappCompetitionHeader from '../../Header/DappCompetitionHeader.svelte';
+  import DappCompetitionInformation from './DappCompetitionInformation.svelte';
 
   const log = getLogger('DappsLeaderboard');
   export let loading = false;
@@ -65,6 +65,7 @@
   endTitleText={$t('leaderboard.gaming.ended.s1.title')}
   endDescriptionText={$t('leaderboard.gaming.ended.s1.description')}
   showPagination={true}
-  additionalInfoComponent={GamingCompetitionInformation}
-  headerComponent={GamingHeader}
+  additionalInfoComponent={DappCompetitionInformation}
+  {season}
+  headerComponent={DappCompetitionHeader}
   scoreComponent={PointScore} />

@@ -3,7 +3,7 @@
 
   import { goto } from '$app/navigation';
   import { page } from '$app/stores';
-  import DappsLeaderboard from '$lib/domains/leaderboard/components/DappsLeaderboard.svelte';
+  import DappCompetitonLeaderboard from '$lib/domains/leaderboard/components/Competition/DappCompetition/DappCompetitonLeaderboard.svelte';
   import type { DappLeaderboardItem } from '$lib/domains/leaderboard/dto/dapps.dto';
   import type { PaginationInfo } from '$lib/shared/dto/CommonPageApiResponse';
   import { ActionButton } from '$shared/components/Button';
@@ -28,7 +28,7 @@
 </svelte:head>
 
 <Page>
-  <DappsLeaderboard {pageInfo} {loading} season={2} />
+  <DappCompetitonLeaderboard {pageInfo} {loading} season={2} />
 
   <div class={wrapperClasses}>
     <ActionButton class={buttonClasses} priority="primary" on:click={handleClick} withArrow>
