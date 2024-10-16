@@ -17,14 +17,31 @@ export function renderBalance(balance: Maybe<GetBalanceReturnType>): string {
   return `${formattedBalance} ${truncateString(balance.symbol, 7)}`;
 }
 
+/**
+ * Renders the ETH balance from wei.
+ *
+ * @param wei - The balance in wei as a bigint.
+ * @param maxDecimals - The maximum number of decimal places to display (default is 18).
+ * @param rounding - The rounding mode: 'floor', 'ceil', or 'round' (default is 'round').
+ * @returns A formatted ETH balance string.
+ */
 export function renderEthBalance(
   wei: bigint,
   maxDecimals: number = 18,
   rounding: 'floor' | 'ceil' | 'round' = 'round',
-) {
+): string {
+  if (maxDecimals < 0 || maxDecimals > 18) {
+    throw new RangeError('maxDecimals must be between 0 and 18');
+  }
+
   const power = 10n ** BigInt(18 - maxDecimals);
   const remainder = wei % power;
-  const firstDecimal = remainder / 10n ** BigInt(18 - maxDecimals - 1);
+
+  // Prevent negative exponents
+  let firstDecimal = 0n;
+  if (maxDecimals < 18) {
+    firstDecimal = remainder / 10n ** BigInt(17 - maxDecimals);
+  }
 
   let b = wei - remainder;
 
