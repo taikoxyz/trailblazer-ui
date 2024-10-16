@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client/core';
-import { writeContract } from '@wagmi/core';
-import type { Address } from 'viem';
+import { readContract, signMessage, writeContract } from '@wagmi/core';
+import { parseSignature, recoverAddress, type Address } from 'viem';
 
 import {
   trailblazersBadgesAbi,
@@ -16,6 +16,10 @@ import type { NFT } from '$lib/shared/types/NFT';
 import { chainId } from '$lib/shared/utils/chain';
 import { wagmiConfig } from '$lib/shared/wagmi';
 import { getLogger } from '$libs/util/logger';
+import axios from 'axios';
+import { PUBLIC_TRAILBLAZER_API_URL } from '$env/static/public';
+import { globalAxiosConfig } from '$libs/api/axiosConfig';
+import { pendingTransactions } from '$lib/shared/stores/pendingTransactions';
 
 const log = getLogger('BadgeMigrationAdapter');
 
@@ -85,15 +89,15 @@ export class BadgeMigrationAdapter {
   async approve(tokenId: number): Promise<Address> {
     const s2ContractAddress = trailblazersBadgesS2Address[chainId];
 
-    const txHash = await writeContract(wagmiConfig, {
+    const tx = await writeContract(wagmiConfig, {
       abi: trailblazersBadgesAbi,
       address: trailblazersBadgesAddress[chainId],
       functionName: 'approve',
       args: [s2ContractAddress, BigInt(tokenId)],
       chainId,
     });
-
-    return txHash;
+    await pendingTransactions.add(tx);
+    return tx;
   }
 
   async startMigration(factionId: number): Promise<string> {
@@ -107,7 +111,84 @@ export class BadgeMigrationAdapter {
       chainId,
     });
 
-    //  await pendingTransactions.add(tx);
+    await pendingTransactions.add(tx);
+
+    return tx;
+  }
+
+  async tamperMigration(pinkOrPurple: boolean): Promise<string> {
+    const s2ContractAddress = trailblazersBadgesS2Address[chainId];
+
+    const tx = await writeContract(wagmiConfig, {
+      abi: trailblazersBadgesS2Abi,
+      address: s2ContractAddress,
+      functionName: 'tamperMigration',
+      args: [pinkOrPurple],
+      chainId,
+    });
+
+    await pendingTransactions.add(tx);
+
+    return tx;
+  }
+
+  async endMigration(address: Address, factionId: number): Promise<string> {
+    const s2ContractAddress = trailblazersBadgesS2Address[chainId];
+    // fetch signature
+
+    const challenge = Date.now().toString();
+    const signature = await signMessage(wagmiConfig, { message: challenge });
+
+    const res = await axios.post(
+      `${PUBLIC_TRAILBLAZER_API_URL}/s2/faction/migrate`,
+      {
+        address,
+        signature,
+        message: challenge,
+        badgeId: factionId,
+        chainId,
+      },
+      {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        ...globalAxiosConfig,
+      },
+    );
+
+    const { signature: rawSignature, points } = res.data;
+
+    const mintSignature = `0x${rawSignature}` as Address;
+    const { r, s, v } = parseSignature(mintSignature);
+
+    if (!r || !s || !v) {
+      throw new Error('Invalid signature');
+    }
+
+    const hash = await readContract(wagmiConfig, {
+      abi: trailblazersBadgesS2Abi,
+      address: s2ContractAddress,
+      functionName: 'generateClaimHash',
+      args: [address, BigInt(points)],
+      chainId,
+    });
+
+    const signer = await recoverAddress({
+      hash,
+      signature: mintSignature,
+    });
+
+    console.log({ signer });
+
+    const tx = await writeContract(wagmiConfig, {
+      abi: trailblazersBadgesS2Abi,
+      address: s2ContractAddress,
+      functionName: 'endMigration',
+      args: [hash, parseInt(v.toString()), r, s, BigInt(points)],
+      chainId,
+    });
+
+    await pendingTransactions.add(tx);
 
     return tx;
   }
@@ -163,7 +244,9 @@ export class BadgeMigrationAdapter {
         approvedTokenIds = [0, 1, 2, 3, 4, 5, 6, 7];
       } else {
         approvedTokenIds = approvedS1Tokens.map((token: Token) => parseInt(token.badgeId.toString()));
+        console.log({ approvedTokenIds });
       }
+      console.log({ s2Migrations });
 
       const migrations = s2Migrations.map((raw) => {
         if (!raw.s1Badge || !raw.s1Badge.badgeId) {

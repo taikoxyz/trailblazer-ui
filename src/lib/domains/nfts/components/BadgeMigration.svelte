@@ -15,10 +15,11 @@
   import { classNames } from '$libs/util/classNames';
   import { account } from '$stores/account';
   import { badgeMigrationStore } from '$stores/badgeMigration';
-  import { migrationApprovalModal, startMigrationModal, tamperMigrationModal } from '$stores/modal';
+  import { endMigrationModal, migrationApprovalModal, startMigrationModal, tamperMigrationModal } from '$stores/modal';
 
   import { FactionBadgeItem } from '../../profile/components/ProfileNFTs/FactionBadges';
   import Countdown from './Countdown.svelte';
+  import type { BadgeMigration } from '$lib/shared/types/BadgeMigration';
   import Error from '../../../../routes/+error.svelte';
 
   export let title: string = 'Badge Migration';
@@ -174,13 +175,13 @@
     return name as FactionNames;
   }
 
-  function getMigration(badgeId: number){
-    const migration = $userProfile.badgeMigrations?.find(m => m.s1Badge.badgeId === badgeId)
-   if (!migration) {
-     throw new Error('Migration not found')
-   }
-
-   return migration
+  function getMigration(badgeId: number) {
+    const migration = $userProfile.badgeMigrations?.find((m) => m.s1Badge.badgeId === badgeId);
+    if (!migration) {
+      throw new Error('Migration not found');
+    }
+    console.log({ migration });
+    return migration;
   }
 
   async function handleStartMigration(badgeId: number) {
@@ -193,12 +194,39 @@
 
     */
 
-    $badgeMigrationStore = getMigration(badgeId)
+    if (!$account || !$account.address) return;
+    const tokenId = await profileService.getBadgeTokenId($account.address, badgeId);
+    const migration = {
+      s1Badge: {
+        badgeId,
+        tokenId,
+        tokenUri: '',
+        address: trailblazersBadgesAddress[chainId],
+        src: '',
+      },
+      id: '',
+      isStarted: false,
+      isCompleted: false,
+      pinkTampers: 0,
+      purpleTampers: 0,
+      isApproved: false,
+      claimExpirationTimeout: new Date(),
+      tamperExpirationTimeout: undefined,
+    } satisfies BadgeMigration;
+
+    $badgeMigrationStore = migration;
     $startMigrationModal = true;
   }
 
+  async function handleEndMigration(badgeId: number) {
+    const migration = getMigration(badgeId);
+    $badgeMigrationStore = migration;
+    $endMigrationModal = true;
+  }
+
   function handleTamperModal(badgeId: number) {
-    $badgeMigrationStore = getMigration(badgeId)
+    const migration = getMigration(badgeId);
+    $badgeMigrationStore = migration;
     $tamperMigrationModal = true;
   }
 
@@ -222,7 +250,28 @@
   }
 
   async function handleApprovalModal(badgeId: number) {
-    $badgeMigrationStore = getMigration(badgeId)
+    console.log('handleApprovalModal', badgeId);
+    if (!$account || !$account.address) return;
+    const tokenId = await profileService.getBadgeTokenId($account.address, badgeId);
+    const migration = {
+      s1Badge: {
+        badgeId,
+        tokenId,
+        tokenUri: '',
+        address: trailblazersBadgesAddress[chainId],
+        src: '',
+      },
+      id: '',
+      isStarted: false,
+      isCompleted: false,
+      pinkTampers: 0,
+      purpleTampers: 0,
+      isApproved: false,
+      claimExpirationTimeout: new Date(),
+      tamperExpirationTimeout: undefined,
+    } satisfies BadgeMigration;
+
+    $badgeMigrationStore = migration;
     $migrationApprovalModal = true;
   }
 
@@ -233,13 +282,18 @@
     },
     View: {
       type: 'primary',
-      label: 'View',
+      label: 'Tamper',
       handler: handleTamperModal,
     },
     StartMigration: {
       type: 'primary',
       label: 'Migrate',
       handler: handleStartMigration,
+    },
+    EndMigration: {
+      type: 'primary',
+      label: 'Reveal',
+      handler: handleEndMigration,
     },
     Approve: {
       type: 'primary',
@@ -279,11 +333,13 @@
             <FactionBadgeItem
               button={disabled
                 ? buttons.NotEligible
-                : migration
+                : migration && migration.claimExpirationTimeout > new Date()
                   ? buttons.View
-                  : $userProfile?.approvedMigrationBadgeIds?.includes(badgeId)
-                    ? buttons.StartMigration
-                    : buttons.Approve}
+                  : migration && migration.claimExpirationTimeout < new Date()
+                    ? buttons.EndMigration
+                    : $userProfile?.approvedMigrationBadgeIds?.includes(badgeId)
+                      ? buttons.StartMigration
+                      : buttons.Approve}
               {disabled}
               movement={Movements.Neutral}
               name={factionName}>
@@ -296,7 +352,12 @@
                     <div class={timerLabelClasses}>
                       {#if migration.tamperExpirationTimeout}
                         <!-- logic for tampering -->
-                        Continue tampering
+                        {#if migration.tamperExpirationTimeout > new Date()}
+                          <!-- cannot re-tamper yet-->
+                          Next tamper available in:
+                        {:else}
+                          Migration claimable in:
+                        {/if}
                       {:else if migration.claimExpirationTimeout > new Date()}
                         <!-- logic for untampered, time 0 -->
                         Migration complete in
@@ -307,8 +368,20 @@
                     </div>
 
                     {#if migration.tamperExpirationTimeout}
-                      <!-- logic for tampering -->
-                      {migration.tamperExpirationTimeout}
+                      {#if migration.tamperExpirationTimeout > new Date()}
+                        <!-- cannot re-tamper yet-->
+                        <Countdown
+                          class={countdownWrapperClasses}
+                          itemClasses={countdownItemClasses}
+                          labels={{ days: 'd', hours: 'h', minutes: 'min', seconds: 's' }}
+                          target={migration.tamperExpirationTimeout} />
+                      {:else}
+                        <Countdown
+                          class={countdownWrapperClasses}
+                          itemClasses={countdownItemClasses}
+                          labels={{ days: 'd', hours: 'h', minutes: 'min', seconds: 's' }}
+                          target={migration.claimExpirationTimeout} />
+                      {/if}
                     {:else}
                       <!-- logic for untampered -->
                       <Countdown

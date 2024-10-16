@@ -37,6 +37,16 @@ export class BadgeMigrationService {
     return this.migrationAdapter.startMigration(factionId);
   }
 
+  async tamperMigration(pinkOrPurple: boolean): Promise<string> {
+    log('tamperMigration', { pinkOrPurple });
+    return this.migrationAdapter.tamperMigration(pinkOrPurple);
+  }
+
+  async endMigration(address: Address, factionId: number): Promise<string> {
+    log('endMigration', { address, factionId });
+    return this.migrationAdapter.endMigration(address, factionId);
+  }
+
   async getApprovedMigrations(address: Address): Promise<number[]> {
     log('getApprovedMigrations', { address });
     return this.migrationAdapter.getApprovedMigrations(address);

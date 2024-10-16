@@ -3,7 +3,6 @@ import { writable } from 'svelte/store';
 import type { BadgeMigration } from '$lib/shared/types/BadgeMigration';
 import type { NFT } from '$lib/shared/types/NFT';
 
-
 export const badgeMigrationStore = writable<BadgeMigration>({
   id: '',
   s1Badge: {} as NFT,

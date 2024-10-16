@@ -556,6 +556,16 @@ export class ProfileService {
     return this.badgeMigrationService.startMigration(factionId);
   }
 
+  async tamperMigration(pinkOrPurple: boolean): Promise<string> {
+    log('tamperMigration', { pinkOrPurple });
+    return this.badgeMigrationService.tamperMigration(pinkOrPurple);
+  }
+
+  async endMigration(address: Address, factionId: number): Promise<string> {
+    log('endMigration', { address, factionId });
+    return this.badgeMigrationService.endMigration(address, factionId);
+  }
+
   async getBadgeTokenId(address: Address, s1BadgeId: number): Promise<number> {
     log('getTokenId', { address, s1BadgeId });
     return this.badgeService.getTokenId(address, s1BadgeId);

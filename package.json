@@ -89,6 +89,7 @@
     "stores": "link:@zerodevx/svelte-toast/stores",
     "svelte-apollo": "^0.5.0",
     "svelte-countdown": "^1.1.2",
+    "svelte-flip": "^0.0.11",
     "svelte-i18n": "^4.0.0",
     "viem": "^2.15.1"
   }

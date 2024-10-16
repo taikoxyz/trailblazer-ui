@@ -1,12 +1,21 @@
 <script lang="ts">
   import { FACTIONS } from '$configs/badges';
   import type { Faction } from '$lib/domains/profile/types/types';
-  import { Movements } from '$libs/badges/const';
+  import { MovementNames, Movements } from '$libs/badges/const';
   import { classNames } from '$libs/util/classNames';
 
   import MigrationBadgeItem from '../../MigrationBadgeItem.svelte';
 
-  const badgeWrapperClasses = classNames('flex-col', 'flex', 'justify-center', 'items-center', 'gap-[25px]');
+  const badgeWrapperClasses = classNames(
+    'flex-col',
+    'w-[250px]',
+    'flex',
+    'justify-center',
+    'items-center',
+    'gap-[25px]',
+  );
+
+  const centralBadgeWrapperClasses = classNames(badgeWrapperClasses, 'w-[300px]');
   const wrapperClasses = classNames(
     'relative',
     'w-full',
@@ -20,34 +29,45 @@
   export let pinkTampers: number = 0;
   export let purpleTampers: number = 0;
   export let badgeId: number;
-
+  export let hideResult: boolean = false;
   $: badgeName = FACTIONS[badgeId] as Faction;
 </script>
 
 <div class={wrapperClasses}>
-  <div class={badgeWrapperClasses}>
-    <MigrationBadgeItem unlocked={active} value={pinkTampers} badgeMovement={Movements.Based} {badgeId} {badgeName} />
-    <!--
+  {#if !hideResult}
+    <div class={badgeWrapperClasses}>
+      <MigrationBadgeItem blurred={!active} value={pinkTampers} badgeMovement={Movements.Based} {badgeId} {badgeName}>
+        {MovementNames[Movements.Based]}
+      </MigrationBadgeItem>
+      <!--
     {#if tamperExpiration && new Date() > tamperExpiration}
       <button disabled={isTampering} on:click={() => activateTamper('pink')} class={pinkTamperButtonClasses}>
         Tamper</button>
     {/if}-->
-  </div>
-  {#if !active}
-    <MigrationBadgeItem unlocked badgeMovement={Movements.Neutral} {badgeId} {badgeName} />
+    </div>
   {/if}
-
-  <div class={badgeWrapperClasses}>
-    <MigrationBadgeItem
-      unlocked={active}
-      badgeMovement={Movements.Boosted}
-      {badgeId}
-      value={purpleTampers}
-      {badgeName} />
-    <!--
+  {#if !active}
+    <div class={centralBadgeWrapperClasses}>
+      <MigrationBadgeItem badgeMovement={Movements.Neutral} {badgeId} {badgeName}>
+        {MovementNames[Movements.Neutral]}
+      </MigrationBadgeItem>
+    </div>
+  {/if}
+  {#if !hideResult}
+    <div class={badgeWrapperClasses}>
+      <MigrationBadgeItem
+        blurred={!active}
+        badgeMovement={Movements.Boosted}
+        {badgeId}
+        value={purpleTampers}
+        {badgeName}>
+        {MovementNames[Movements.Boosted]}
+      </MigrationBadgeItem>
+      <!--
     {#if tamperExpiration && new Date() > tamperExpiration}
       <button disabled={isTampering} on:click={() => activateTamper('purple')} class={purpleTamperButtonClasses}>
         Tamper</button>
     {/if}-->
-  </div>
+    </div>
+  {/if}
 </div>

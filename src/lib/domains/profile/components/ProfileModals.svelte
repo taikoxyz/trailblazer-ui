@@ -1,4 +1,5 @@
 <script lang="ts">
+  import EndMigrationModal from '$lib/domains/nfts/components/modal/EndMigrationModal.svelte';
   import MigrationApprovalModal from '$lib/domains/nfts/components/modal/MigrationApprovalModal.svelte';
   import StartMigrationModal from '$lib/domains/nfts/components/modal/StartMigrationModal.svelte';
   import TamperMigrationModal from '$lib/domains/nfts/components/modal/TamperMigrationModal.svelte';
@@ -11,4 +12,5 @@
 <MintDisclaimerModal />
 <MigrationApprovalModal />
 <StartMigrationModal />
+<EndMigrationModal />
 <TamperMigrationModal />

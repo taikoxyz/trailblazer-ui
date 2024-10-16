@@ -11,7 +11,7 @@
   import CoreModalHeader from './components/CoreModalHeader.svelte';
   import CoreModalTitle from './components/CoreModalTitle.svelte';
 
-  $: s1BadgeId = $badgeMigrationStore.s1BadgeId;
+  $: s1BadgeId = $badgeMigrationStore.s1Badge?.badgeId || 0;
 
   /*
   function closeModal() {
@@ -24,6 +24,7 @@
     isLoading = true;
     await profileService.startMigration(s1BadgeId);
     isLoading = false;
+    $startMigrationModal = false;
   }
 </script>
 
@@ -38,8 +39,6 @@
   <CoreModalBadges active={false} badgeId={s1BadgeId} />
 
   <CoreModalFooter>
-    <div>You must approve the Season 2 contract to proceed.</div>
-
     <ActionButton on:click={handleStartMigration} priority="primary">Start Migration</ActionButton>
   </CoreModalFooter>
 </CoreModal>

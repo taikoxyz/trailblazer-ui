@@ -60,12 +60,16 @@ export default {
             opacity: '0.5',
           },
         },
+        'flip-y': {
+          '100%': { transform: 'rotateY(360deg)' },
+        },
       },
       animation: {
         'slide-right': 'slide-right 0.3s ease-in-out',
         marquee: 'marquee 25s linear infinite',
         marquee2: 'marquee2 25s linear infinite',
         flicker: 'flicker 1.5s infinite alternate',
+        'flip-card': 'flip-y 1s ease-in-out infinite',
       },
       colors: {
         'partner-light': '#FFE7F6',

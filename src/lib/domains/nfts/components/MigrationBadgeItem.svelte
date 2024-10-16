@@ -4,20 +4,27 @@
   import { Movements } from '$libs/badges/const';
   import type { Faction } from '$libs/profile';
   import { classNames } from '$libs/util/classNames';
+  import { createEventDispatcher } from 'svelte';
 
   import TamperCounter from './TamperCounter.svelte';
+  import TamperRadio from './TamperRadio.svelte';
   import TamperRings from './TamperRings.svelte';
 
   export let badgeId: number;
   export let badgeName: Faction;
   export let badgeMovement: Movements;
-  export let unlocked: boolean = false;
+  export let blurred: boolean = false;
   export let value: number = 0;
+  export let shadow: boolean = false;
 
+  // tmp refactor fix
+
+  $: unlocked = !blurred;
   $: wrapperClasses = classNames(
     'bg-white',
     'p-[8px]',
-    badgeMovement === Movements.Neutral ? 'w-[300px]' : 'w-[250px]',
+    // badgeMovement === Movements.Neutral ? 'w-[300px]' : 'w-[250px]',
+    'w-full',
     'relative',
     'border',
     'border-white',
@@ -31,8 +38,15 @@
     'justify-center',
     'pb-0',
     'transition-all',
-    badgeMovement === Movements.Based ? 'border-secondary hover:shadow hover:shadow-[0_0px_50px_0px_#E81899]' : null,
-    badgeMovement === Movements.Boosted ? 'border-[#5D08C8] hover:shadow hover:shadow-[0_0px_50px_0px_#5D08C8]' : null,
+    shadow && badgeMovement === Movements.Based ? 'border-secondary  shadow-[0_0px_50px_0px_#E81899]' : null,
+    shadow && badgeMovement === Movements.Boosted ? 'border-[#5D08C8] shadow-[0_0px_50px_0px_#5D08C8]' : null,
+    shadow && badgeMovement === Movements.Neutral ? 'border-[white] shadow-[0_0px_50px_0px_white]' : null,
+
+    /*
+    badgeMovement === Movements.Based ?
+    'border-secondary hover:shadow hover:shadow-[0_0px_50px_0px_#E81899]' : null,
+    badgeMovement === Movements.Boosted ? 'border-[#5D08C8]
+    hover:shadow hover:shadow-[0_0px_50px_0px_#5D08C8]' : null,*/
   );
 
   const imageWrapperClasses = classNames(
@@ -54,12 +68,13 @@
     'font-clash-grotesk',
     'text-center',
     'pb-[22px]',
+    'flex',
+    'justify-center',
+    'items-center',
   );
   $: badgeName = FACTIONS[badgeId] as Faction;
 
   const lockImageOverlayClasses = classNames('absolute', 'w-full', 'h-full', 'glassy-background');
-
-  const max = 3;
 </script>
 
 <div class={wrapperClasses}>
@@ -69,13 +84,7 @@
       <div class={lockImageOverlayClasses}></div>{/if}
   </div>
   <div class={badgeTextClasses}>
-    {#if badgeMovement === Movements.Neutral}
-      {badgeName}
-    {:else if unlocked}
-      <TamperCounter {max} {value} color={badgeMovement === Movements.Based ? 'pink' : 'purple'} />
-    {:else}
-      &nbsp;
-    {/if}
+    <slot />
   </div>
 
   {#if badgeMovement !== Movements.Neutral}

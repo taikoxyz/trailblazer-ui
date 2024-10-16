@@ -1,7 +1,7 @@
 export enum Movements {
-  Neutral,
-  Based,
-  Boosted,
+  Neutral, // Devs
+  Based, // Whales
+  Boosted, // Minnows
 }
 
 export const MovementNames: string[] = Object.keys(Movements).filter((key) => isNaN(Number(key)));
