@@ -26,6 +26,7 @@ describe('mapDappLeaderboardRow', () => {
         logo: 'https://example.com/logo.png',
       },
       totalScore: 200,
+      rank: 1,
     };
 
     const expected: UnifiedLeaderboardRow = {
@@ -35,6 +36,7 @@ describe('mapDappLeaderboardRow', () => {
       data: input.data,
       name: input.metadata!.name,
       totalScore: input.totalScore,
+      rank: input.rank,
     };
 
     const result = mapDappLeaderboardRow(input);
@@ -59,6 +61,7 @@ describe('mapGamingLeaderboardRow', () => {
         twitter: '@testgame',
         logo: 'https://example.com/game-logo.png',
       },
+      rank: 1,
       totalScore: 250,
     };
 
@@ -69,6 +72,7 @@ describe('mapGamingLeaderboardRow', () => {
       data: input.data,
       name: input.metadata!.name,
       totalScore: input.totalScore,
+      rank: input.rank,
     };
 
     const result = mapGamingLeaderboardRow(input);

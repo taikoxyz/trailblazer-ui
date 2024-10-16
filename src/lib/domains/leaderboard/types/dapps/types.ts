@@ -10,6 +10,7 @@ export type DappLeaderboardPage = {
 
 export type DappLeaderboardRow = {
   address: string;
+  rank: number;
   data: ProtocolData[];
   metadata?: ProtocolMetadata;
   totalScore: number;

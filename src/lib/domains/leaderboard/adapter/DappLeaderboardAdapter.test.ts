@@ -30,11 +30,13 @@ describe('DappLeaderboardAdapter', () => {
               address: zeroAddress,
               score: 100,
               slug: 'dapp-1',
+              rank: 1,
             },
             {
               address: zeroAddress,
               score: 200,
               slug: 'dapp-2',
+              rank: 2,
             },
           ],
           page: 0,

@@ -11,4 +11,5 @@ export type DappLeaderboardItem = {
   address: Address;
   score: number;
   slug: string;
+  rank: number;
 };

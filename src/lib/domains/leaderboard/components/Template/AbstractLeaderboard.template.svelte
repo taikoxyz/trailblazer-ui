@@ -80,20 +80,11 @@
         {#if isLoading}
           <!-- eslint-disable-next-line @typescript-eslint/no-unused-vars -->
           {#each Array(pageSize) as _, index}
-            {@const rank = index + 1 + (currentPage - 1) * pageSize}
-            {@const fillClass =
-              rank === 1
-                ? 'fill-warning-sentiment'
-                : rank === 2
-                  ? 'fill-grey-300'
-                  : rank === 3
-                    ? 'fill-yellow-700'
-                    : ''}
-            <LoadingRow {rank} {fillClass} {showTrophy} />
+            <LoadingRow />
           {/each}
         {:else}
           {#each data as entry, index}
-            {@const rank = index + 1 + (currentPage - 1) * pageSize}
+            {@const rank = entry.rank ? entry.rank : index + 1 + (currentPage - 1) * pageSize}
             {@const fillClass =
               rank === 1
                 ? 'fill-warning-sentiment'
@@ -102,6 +93,7 @@
                   : rank === 3
                     ? 'fill-yellow-700'
                     : ''}
+
             <TableRow
               {entry}
               {index}
