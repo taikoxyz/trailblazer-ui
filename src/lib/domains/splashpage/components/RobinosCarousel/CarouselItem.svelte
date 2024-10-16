@@ -37,7 +37,7 @@
 
   const titleClasses = classNames('text-3xl', 'font-medium', 'text-zinc-100');
   const descriptionClasses = classNames('text-sm', 'text-gray-400', 'leading-5');
-  const buttonClasses = classNames('self-start', 'mt-[20px]', 'w-[120px]');
+  const buttonClasses = classNames('self-start', 'mt-[20px]', 'max-w-[120px]');
 </script>
 
 <article class={carouselWrapperClasses}>
