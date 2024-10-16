@@ -17,8 +17,29 @@ export function renderBalance(balance: Maybe<GetBalanceReturnType>): string {
   return `${formattedBalance} ${truncateString(balance.symbol, 7)}`;
 }
 
-export function renderEthBalance(balance: bigint, maxlength = 8): string {
-  return `${truncateString(formatEther(balance).toString(), maxlength, '')} ETH`;
+export function renderEthBalance(
+  wei: bigint,
+  maxDecimals: number = 18,
+  rounding: 'floor' | 'ceil' | 'round' = 'round',
+) {
+  const power = 10n ** BigInt(18 - maxDecimals);
+  const remainder = wei % power;
+  const firstDecimal = remainder / 10n ** BigInt(18 - maxDecimals - 1);
+
+  let b = wei - remainder;
+
+  if (rounding === 'ceil' || (rounding === 'round' && firstDecimal >= 5)) {
+    b += power;
+  }
+
+  const formattedBalance = formatEther(b);
+  const [integerPart] = formattedBalance.split('.');
+
+  if (integerPart.length > 5) {
+    return `${integerPart}... ETH`;
+  }
+
+  return `${formattedBalance} ETH`;
 }
 
 export const refreshUserBalance = async () => {

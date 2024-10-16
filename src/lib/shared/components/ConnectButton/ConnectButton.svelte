@@ -42,7 +42,7 @@
   <!-- Connected State -->
   <button
     on:click={connectWallet}
-    class="rounded-full flex justify-between items-center pl-[24px] lg:pl-[8px] pr-[3px] py-1 lg:max-h-[44px] lg:min-h-[40px] wc-parent-glass !border-solid gap-2 font-bold font-clash-grotesk lg:font-public-sans {$$props.class}">
+    class="rounded-full flex justify-between items-center pl-[24px] lg:pl-[8px] pr-[3px] py-1 lg:max-h-[44px] lg:min-h-[40px] w-[250px] wc-parent-glass !border-solid gap-2 font-bold font-clash-grotesk lg:font-public-sans {$$props.class}">
     <div class="flex gap-2">
       <img
         alt="chain icon"
@@ -50,12 +50,12 @@
         src={(currentChainId && getChainImage(currentChainId)) || '/chains/ethereum.svg'} />
       <span
         class="flex items-center text-primary-content lg:text-secondary-content justify-self-start gap-4 font-normal lg:font-bold text-[22px] lg:text-sm"
-        >{renderEthBalance(balance, 6)}
+        >{renderEthBalance(balance, 3)}
       </span>
     </div>
     <span
       class="flex items-center text-secondary-content lg:text-tertiary-content btn-glass-bg rounded-full px-[10px] py-[19px] lg:py-[4px] md:min-h-[38px] bg-interactive-primary font-normal lg:font-bold text-[22px] lg:text-sm">
-      {shortenAddress(accountAddress, 4, 6)}
+      {shortenAddress(accountAddress, 4, 4)}
     </span>
   </button>
 {:else}
