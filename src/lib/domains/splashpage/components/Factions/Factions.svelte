@@ -2,10 +2,10 @@
   import { t } from 'svelte-i18n';
 
   import { browser } from '$app/environment';
+  import { DividerElement } from '$lib/domains/splashpage/components/DividerElement';
   import { ActionButton } from '$shared/components/Button';
   import { FactionsGallery } from '$shared/components/FactionsGallery';
   import Icon from '$shared/components/Icon/Icon.svelte';
-  import { DividerElement } from '$shared/components/Startpage/DividerElement';
   import Title from '$shared/components/Title/Title.svelte';
   import { classNames } from '$shared/utils/classNames';
 
