@@ -2,6 +2,8 @@ import type { Address } from 'viem';
 
 export type UnifiedLeaderboardRow = {
   address: string;
+  rank: number;
+
   icon?: string;
   handle?: string;
   data: ProtocolData[];
@@ -9,7 +11,6 @@ export type UnifiedLeaderboardRow = {
   level?: string;
   title?: string;
   name?: string;
-  rank?: number | string;
 };
 
 type ProtocolData = {

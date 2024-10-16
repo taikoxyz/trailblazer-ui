@@ -29,11 +29,13 @@ describe('GamingLeaderboardAdapter', () => {
               address: zeroAddress,
               score: 150,
               slug: 'game-1',
+              rank: 1,
             },
             {
               address: zeroAddress,
               score: 250,
               slug: 'game-2',
+              rank: 2,
             },
           ],
           page: 0,
