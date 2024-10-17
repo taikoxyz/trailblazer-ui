@@ -1,9 +1,24 @@
 <script lang="ts">
+  import { getContext } from 'svelte';
   import { t } from 'svelte-i18n';
 
+  import { LastUpdated } from '$lib/domains/leaderboard/components';
+  import Search from '$lib/domains/leaderboard/components/Search.svelte';
+  import type { DappLeaderboardItem } from '$lib/domains/leaderboard/dto/dapps.dto';
+  import type { LoadLeaderboardDataType } from '$lib/domains/leaderboard/types/shared/types';
+  import type { PaginationInfo } from '$shared/dto/CommonPageApiResponse';
   import { classNames } from '$shared/utils/classNames';
 
   import type { CompetitionInfo } from '../types';
+
+  const loadLeaderboardData = getContext<LoadLeaderboardDataType>('loadCompetitionLeaderboardData');
+  const pageInfo = getContext<PaginationInfo<DappLeaderboardItem>>('dappsCompetitionPageInfo');
+
+  const handleSearch = async (value: string) => {
+    await loadLeaderboardData(pageInfo.page, value);
+  };
+
+  export let lastUpdated: Date;
 
   const wrapperCLasses = classNames('f-col', 'relative', 'mt-[40px]', 'w-full', 'items-center');
 
@@ -200,6 +215,26 @@
     //xl
     'xl:justify-between',
   );
+
+  const secondaryContentClasses = classNames(
+    'flex',
+    'flex-col',
+    'lg:flex-row',
+    'lg:justify-between',
+    'items-center',
+    'content-center',
+    'text-center',
+    'mb-[40px]',
+    'lg:space-y-0',
+  );
+
+  const ctaWrapperClasses = classNames('flex', 'flex-col', 'order-2');
+
+  const ctaTextClasses = classNames('text-secondary-content');
+
+  const lastUpdatedClasses = classNames('mt-[30px]', 'mb-[40px]', 'md:my-[20px]', 'lg:my-[10px]', 'lg:order-1');
+
+  const searchClasses = classNames('w-full', 'lg:w-[400px]', 'lg:order-1', 'order-last', 'z-0');
 </script>
 
 <div class={wrapperCLasses}>
@@ -235,4 +270,12 @@
       </div>
     {/each}
   </div>
+</div>
+<div class={secondaryContentClasses}>
+  <div class={ctaWrapperClasses}>
+    <!-- eslint-disable-next-line svelte/no-at-html-tags -->
+    <div class={ctaTextClasses}>{@html $t('leaderboard.whitelist.cta')}</div>
+    <LastUpdated class={lastUpdatedClasses} {lastUpdated} />
+  </div>
+  <Search className={searchClasses} onSearch={handleSearch} placeholder="Search Dapps..." />
 </div>

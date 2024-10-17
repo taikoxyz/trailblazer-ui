@@ -28,3 +28,5 @@ export type PaginationInfo = {
   first?: number;
   visible?: number;
 };
+
+export type LoadLeaderboardDataType = (page: number, name?: string) => Promise<void>;

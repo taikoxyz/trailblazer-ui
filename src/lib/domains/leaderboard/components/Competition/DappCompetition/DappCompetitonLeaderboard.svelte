@@ -32,6 +32,7 @@
   }
 
   async function loadLeaderboardData(page: number, name = '') {
+    log('loadLeaderboardData', page, name);
     loading = true;
     // Fetch the leaderboard data for the given page
     const args: PaginationInfo<DappLeaderboardItem> = {
@@ -47,8 +48,8 @@
     loading = false;
   }
 
-  setContext('loadDappsLeaderboardData', loadLeaderboardData);
-  setContext('dappsPageInfo', pageInfo);
+  setContext('loadCompetitionLeaderboardData', loadLeaderboardData);
+  setContext('dappsCompetitionPageInfo', pageInfo);
 </script>
 
 <AbstractLeaderboard
