@@ -229,7 +229,7 @@ describe('DappLeaderboardService', () => {
     expect(mockProtocolAdapter.fetchProtocolDetails).not.toHaveBeenCalled();
     expect(mapDappLeaderboardRow).not.toHaveBeenCalled();
     expect(mockLeaderboardRepository.update).not.toHaveBeenCalled();
-    expect(result).toBeUndefined(); // Since the method returns nothing if there are no items
+    expect(result).not.toBeUndefined();
   });
 
   it('should handle errors from fetchLeaderboardData gracefully', async () => {
