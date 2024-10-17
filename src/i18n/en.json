@@ -16,11 +16,21 @@
     "pendingTx": "Your transaction is pending. Please wait for confirmation."
   },
   "banner": {
+    "s1claimbanner": {
+      "title_1": "Season 1 claiming",
+      "title_2": "now live"
+    },
     "s2startbanner": {
       "subtext": "Get ready for an exciting journey with new features, challenges, and rewards!",
       "title_1": "Season 2",
       "title_2": "NOW LIVE"
     }
+  },
+  "blackist_modal": {
+    "title": "Sorry, but you’re blacklisted!"
+  },
+  "blacklist_modal": {
+    "description": "Your previous actions have been found to have severely <span class='text-primary-link'>violated our rules</span>. As a result, your address is permanently banned from participating in Trailblazers. This decision is final and cannot be appealed."
   },
   "booster": {
     "breakdown": {
@@ -61,6 +71,30 @@
     },
     "learn_more": "Learn more"
   },
+  "claim": {
+    "panels": {
+      "claim": {
+        "button": "Claim now",
+        "title": "Are you ready to claim your tokens?"
+      },
+      "error": {
+        "button": "Try again",
+        "text": "Your attempt to claim the tokens was not successful. Try claiming your tokens again when you are ready.",
+        "title": "Claim Unsuccessful"
+      },
+      "review": {
+        "button": "Review amount",
+        "text": "You are eligible to claim the token. Click to review your token amount and proceed with your claim.",
+        "title": "Are you ready to claim your tokens?"
+      },
+      "success": {
+        "buttons": ["Add to wallet", "Earn more TAIKO"],
+        "text": "Congratulations! You've successfully claimed your tokens. You can now add them to your wallet.",
+        "title": "Claim successful"
+      }
+    },
+    "terms_agree": "I agree to the terms and conditions mentioned above."
+  },
   "common": {
     "badge_claimed": "<a target=\"_blank\" href=\"https://taikoscan.io/tx/{txHash}\">Click here to see your transaction on Taikoscan</a>",
     "claim": "Claim",
@@ -72,6 +106,9 @@
     "not_eligible": "Not eligible",
     "trail": "Trail",
     "week": "Week"
+  },
+  "disclaimer": {
+    "leaderboard": "Please note that rankings are subject to change with fair play enforcement. Final standings will be confirmed at season’s end. Non-compliant wallets or dapps may be removed or have their points slashed."
   },
   "factions": {
     "about": {
@@ -185,6 +222,14 @@
         "title": "Campaign ended"
       }
     },
+    "dapp": {
+      "ended": {
+        "s1": {
+          "description": "Our journey concluded on Sept. 16th, 2024. Congratulations to the winners!",
+          "title": "Season ended"
+        }
+      }
+    },
     "defi": {
       "banner": {
         "description": "Compete for a month-long jackpot by increasing your TVL on DeFiLlama. Rewards will be based on performance throughout the competition, ending August 9th.",
@@ -216,6 +261,16 @@
         "description": "Compete for a month-long jackpot by providing the best gaming experience for your users! Rewards will be based on performance throughout the competition, ending Oct 17th.",
         "title": "Join the Gaming competition starting Sep 17th!"
       },
+      "ended": {
+        "s1": {
+          "description": "Our journey concluded on Sept. 16th, 2024. Congratulations to the winners!",
+          "title": "Campaign ended"
+        },
+        "s2": {
+          "description": "Our journey concluded on October 17th, 2024. Congratulations to the winners!",
+          "title": "Campaign ended"
+        }
+      },
       "prize": {
         "1": "Prize Pool",
         "2": "150K TAIKO Tokens"
@@ -236,6 +291,12 @@
     "user": {
       "booster": "{multiplier}x boosted",
       "dailyMaxReached": "Daily Max Reached",
+      "ended": {
+        "s1": {
+          "description": "Our journey concluded on Sept. 16th, 2024. Congratulations to the winners!",
+          "title": "Season ended"
+        }
+      },
       "event": {
         "block_proposed": "Block Proposed",
         "bridged": "Bridged",
@@ -255,6 +316,10 @@
     "textPost": " of the token distribution and authorize the transfer of tokens directly to your wallet.",
     "textPre": "By confirming your claim, you agree to the ",
     "title": "Token claim"
+  },
+  "lockdown": {
+    "content": "Introducing Trailblazers Lockdown, an exciting campaign where you can use Taiko tokens and earn Trailblazers multipliers along with with participating projects offering boosted rewards and exclusive benefits for users who commit to locking their tokens.",
+    "title": "How it works"
   },
   "messages": {
     "account": {
@@ -281,6 +346,12 @@
         "title": "Connected"
       },
       "switching": "Switching network"
+    }
+  },
+  "pagetitle": {
+    "leaderboards": {
+      "dapp": "Taiko Trailblazer - Dapp Leaderboard",
+      "user": "Taiko Trailblazer - User Leaderboard"
     }
   },
   "paginator": {
@@ -397,30 +468,6 @@
       "connected": "Connected",
       "connecting": "Connecting",
       "disconnected": "Disconnected"
-    }
-  },
-  "claim": {
-    "terms_agree": "I agree to the terms and conditions mentioned above.",
-    "panels": {
-      "review": {
-        "title": "Are you ready to claim your tokens?",
-        "text": "You are eligible to claim the token. Click to review your token amount and proceed with your claim.",
-        "button": "Review amount"
-      },
-      "claim": {
-        "title": "Are you ready to claim your tokens?",
-        "button": "Claim now"
-      },
-      "success": {
-        "title": "Claim successful",
-        "text": "Congratulations! You've successfully claimed your tokens. You can now add them to your wallet.",
-        "button": "Claimed"
-      },
-      "error": {
-        "title": "Claim Unsuccessful",
-        "text": "Your attempt to claim the tokens was not successful. Try claiming your tokens again when you are ready.",
-        "button": "Try again"
-      }
     }
   }
 }

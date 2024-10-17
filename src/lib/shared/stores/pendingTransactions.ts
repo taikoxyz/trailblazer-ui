@@ -4,9 +4,9 @@ import { type Hex, type TransactionReceipt, WaitForTransactionReceiptTimeoutErro
 
 import { chainId } from '$lib/shared/utils/chain';
 import { wagmiConfig } from '$lib/shared/wagmi';
-import { refreshUserBalance } from '$libs/util/balance';
-import { getLogger } from '$libs/util/logger';
-import { noop } from '$libs/util/noop';
+import { refreshUserBalance } from '$shared/utils/balance';
+import { getLogger } from '$shared/utils/logger';
+import { noop } from '$shared/utils/noop';
 
 const pendingTransaction = {
   waitTimeout: 90_000,

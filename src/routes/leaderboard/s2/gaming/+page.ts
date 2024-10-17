@@ -1,20 +1,25 @@
 import { browser } from '$app/environment';
 import { leaderboardConfig } from '$config';
-import { type DappLeaderboardItem, type PaginationInfo } from '$libs/leaderboard';
-import { GamingLeaderboard } from '$libs/leaderboard/season-2/competitions/gaming/gamingLeaderboard';
+import type { GamingLeaderboardItem } from '$lib/domains/leaderboard/dto/gaming.dto';
+import { gamingLeaderboardService } from '$lib/domains/leaderboard/services/LeaderboardServiceInstances';
+import type { PaginationInfo } from '$lib/shared/dto/CommonPageApiResponse';
 
 export const load = async () => {
   let loading = true;
-  let pageInfo: PaginationInfo<DappLeaderboardItem> = {
+  let pageInfo: PaginationInfo<GamingLeaderboardItem> = {
     page: 0,
     size: leaderboardConfig.pageSize,
     first: 0,
     last: 1,
+    total: 0,
   };
 
   if (browser) {
     try {
-      pageInfo = await GamingLeaderboard.getGamingLeaderboard(pageInfo);
+      const page = await gamingLeaderboardService.getGamingLeaderboardData(pageInfo, 2);
+      if (page) {
+        pageInfo = page.pagination;
+      }
     } catch (error) {
       console.error('Error loading leaderboard data:', error);
     } finally {

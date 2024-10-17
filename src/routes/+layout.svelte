@@ -5,19 +5,21 @@
   import { onDestroy, onMount } from 'svelte';
 
   import { browser } from '$app/environment';
-  import { AccountConnectionToast } from '$components/AccountConnectionToast';
-  import { Footer } from '$components/Footer';
-  import { Header } from '$components/Header';
-  import { NotificationToast } from '$components/NotificationToast';
-  import { SwitchChainModal } from '$components/SwitchChainModal';
   import { startWatching, stopWatching } from '$lib/shared/wagmi';
+  // import { AccountConnectionToast } from '$shared/components/AccountConnectionToast';
+  import { Footer } from '$shared/components/Footer';
+  import { Header } from '$shared/components/Header';
+  import { BlacklistModal } from '$shared/components/Modals/BlacklistModal';
+  import { SwitchChainModal } from '$shared/components/Modals/SwitchChainModal';
+  import { NotificationToast } from '$shared/components/NotificationToast';
+  import { Ribbon } from '$shared/components/Ribbon';
   import {
     desktopQuery,
     initializeMediaQueries,
     mediaQueryHandler,
     mobileQuery,
     tabletQuery,
-  } from '$libs/util/responsiveCheck';
+  } from '$shared/utils/responsiveCheck';
 
   const syncPointer = ({ x, y }: { x: number; y: number }) => {
     if (browser) {
@@ -64,7 +66,7 @@
 <!-- App components -->
 
 <div class="relative z-10">
-  <!-- <Ribbon /> -->
+  <Ribbon />
 
   <Header />
 
@@ -78,5 +80,7 @@
 -->
 
 <NotificationToast />
-<AccountConnectionToast />
+<!-- <AccountConnectionToast /> -->
+<!-- Todo renable in the future -->
 <SwitchChainModal />
+<BlacklistModal />

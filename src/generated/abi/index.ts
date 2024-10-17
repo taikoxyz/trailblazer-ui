@@ -452,6 +452,13 @@ export const badgeMigrationAbi = [
   },
   {
     type: 'function',
+    inputs: [{ name: '_blacklist', internalType: 'address', type: 'address' }],
+    name: 'updateBlacklist',
+    outputs: [],
+    stateMutability: 'nonpayable',
+  },
+  {
+    type: 'function',
     inputs: [
       { name: 'newImplementation', internalType: 'address', type: 'address' },
       { name: 'data', internalType: 'bytes', type: 'bytes' },
@@ -842,6 +849,34 @@ export const erc20AirdropConfig = {
   address: erc20AirdropAddress,
   abi: erc20AirdropAbi,
 } as const
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// ERC20TaikoToken
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/**
+ * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa9d23408b9ba935c230493c40c73824df71a0975)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x60DBDE3eB9B12d2d29729a2417f57A0a23539dBA)
+ */
+export const erc20TaikoTokenAbi = [] as const;
+
+/**
+ * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa9d23408b9ba935c230493c40c73824df71a0975)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x60DBDE3eB9B12d2d29729a2417f57A0a23539dBA)
+ */
+export const erc20TaikoTokenAddress = {
+  167000: '0xA9d23408b9bA935c230493c40C73824Df71A0975',
+  167009: '0x60DBDE3eB9B12d2d29729a2417f57A0a23539dBA',
+} as const;
+
+/**
+ * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa9d23408b9ba935c230493c40c73824df71a0975)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x60DBDE3eB9B12d2d29729a2417f57A0a23539dBA)
+ */
+export const erc20TaikoTokenConfig = {
+  address: erc20TaikoTokenAddress,
+  abi: erc20TaikoTokenAbi,
+} as const;
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // RegisterProfilePicture

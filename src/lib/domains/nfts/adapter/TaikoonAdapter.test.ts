@@ -3,9 +3,9 @@ import type { Address } from 'viem';
 
 import { taikoonTokenAddress } from '$generated/abi';
 import Taikoon from '$lib/domains/nfts/types/taikoon';
+import { globalAxiosConfig } from '$lib/shared/services/api/axiosClient';
 import type { NFT } from '$lib/shared/types/NFT';
 import { chainId } from '$lib/shared/utils/chain';
-import { globalAxiosConfig } from '$libs/api/axiosConfig';
 
 import { TaikoonAdapter } from './TaikoonAdapter';
 

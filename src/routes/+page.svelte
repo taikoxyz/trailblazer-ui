@@ -2,7 +2,7 @@
   import { inject } from '@vercel/analytics';
 
   import { dev } from '$app/environment';
-  import { Trailblazer } from '$components/Startpage';
+  import { Startpage } from '$shared/components/Startpage';
 
   inject({ mode: dev ? 'development' : 'production' });
 </script>
@@ -21,5 +21,5 @@
 </svelte:head>
 
 <div class="f-center overflow-hidden no-scrollbar">
-  <Trailblazer />
+  <Startpage />
 </div>

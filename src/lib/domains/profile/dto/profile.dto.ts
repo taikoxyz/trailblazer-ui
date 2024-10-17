@@ -1,15 +1,16 @@
 import type { Address } from 'viem';
 
+import type { UserPointHistory } from '$lib/domains/profile/types/ActivityHistory';
+import type { CommonPageApiResponse } from '$lib/shared/dto/CommonPageApiResponse';
+
 export interface UserPointsAndRankResponse {
-  data: {
-    rank: number;
-    address: Address;
-    score: number;
-    multiplier: number;
-    totalScore: number;
-    total: number;
-    blacklisted: boolean;
-  };
+  rank: number;
+  address: Address;
+  score: number;
+  multiplier: number;
+  totalScore: number;
+  total: number;
+  blacklisted: boolean;
 }
 
 export interface UserSeasonBonusPointsResponse {
@@ -35,10 +36,10 @@ export type UserPointHistoryPage = {
   visible: number;
 };
 
-export type UserPointHistory = {
-  address: Address;
-  event: string;
-  points: number;
-  date: number;
+export type UserHistoryApiResponse = CommonPageApiResponse<UserPointHistory>;
+
+export type UserFinalScoreResponse = {
+  score: number;
   multiplier: number;
+  total: number;
 };

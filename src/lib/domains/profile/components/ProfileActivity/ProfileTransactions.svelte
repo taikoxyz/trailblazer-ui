@@ -1,27 +1,44 @@
 <script lang="ts">
-  import { Paginator } from '$components/Paginator';
-  import { Spinner } from '$components/Spinner';
-  import { activeSeason } from '$lib/shared/stores/activeSeason';
-  import { classNames } from '$libs/util/classNames';
+  import type { Address } from 'viem';
 
-  import profileService from '../../services/ProfileServiceInstance';
-  import { profileLoading, userProfile } from '../../stores/profileStore';
+  import { page } from '$app/stores';
+  import { leaderboardConfig } from '$config';
+  import profileService from '$lib/domains/profile/services/ProfileServiceInstance';
+  import { profileLoading, userProfile } from '$lib/domains/profile/stores/profileStore';
+  import type { UserPointHistory } from '$lib/domains/profile/types/types';
+  import type { PaginationInfo } from '$lib/shared/dto/CommonPageApiResponse';
+  import { Paginator } from '$shared/components/Paginator';
+  import { Spinner } from '$shared/components/Spinner';
+  import { classNames } from '$shared/utils/classNames';
+
   import ActivityHistoryRow from './ActivityHistoryRow.svelte';
 
-  $: pointsHistory = $userProfile?.activityHistory?.pointsHistory;
-  $: hasPointHistory = pointsHistory && pointsHistory.items && pointsHistory.items.length > 0;
+  $: pointsHistory = $userProfile?.activityHistory?.items;
+  $: hasPointHistory = pointsHistory && pointsHistory.length > 0;
 
   let headers = ['Activity', 'Points', ''];
 
-  const pageSize = 10;
+  const pageSize = leaderboardConfig.pageSize;
   $: currentPage = 1;
-  $: totalItems = pointsHistory?.total || 0;
-  $: totalPages = pointsHistory?.total_pages || Math.ceil(totalItems / pageSize);
+  $: totalItems = pointsHistory?.length || 0;
+  $: totalPages = $userProfile?.activityHistory?.pagination?.total_pages || Math.ceil(totalItems / pageSize);
 
-  async function handlePageChange(selectedPage: number) {
-    if ($userProfile.address) {
-      pointsHistory = await profileService.getPointHistoryPage($userProfile.address, $activeSeason, selectedPage);
+  async function handlePageChange(selectedPageNo: number) {
+    loadLeaderboardData(selectedPageNo);
+  }
+
+  async function loadLeaderboardData(selectedPageNo: number) {
+    const args: PaginationInfo<UserPointHistory> = {
+      page: selectedPageNo,
+      size: pageSize,
+      total: totalItems,
+    };
+    const userAddress = $page.url.pathname.split('/').pop() as Address;
+
+    if (!userAddress) {
+      return;
     }
+    await profileService.updateProfilePointHistoryPage(args, userAddress, 2);
   }
 
   // CSS classes
@@ -98,8 +115,8 @@
   {:else}
     <!-- Activity History Rows -->
     {#if pointsHistory && hasPointHistory}
-      {#each pointsHistory.items as pointHistory}
-        <ActivityHistoryRow {pointHistory} />
+      {#each pointsHistory as historyEntry}
+        <ActivityHistoryRow {historyEntry} />
       {/each}
     {:else}
       <div class="p-5 text-center">No activity history available.</div>

@@ -2,25 +2,32 @@ import { getAccount } from '@wagmi/core';
 import { type Address, getAddress, type Hash } from 'viem';
 
 import { BadgeMigrationService } from '$lib/domains/nfts/services/BadgeMigrationService';
+import type { UserLeaderboardItem } from '$lib/domains/leaderboard/types/dapps/types';
 import { BadgeService } from '$lib/domains/nfts/services/BadgeService';
 import { CombinedNFTService } from '$lib/domains/nfts/services/CombinedNFTService';
+import { ProfileApiAdapter } from '$lib/domains/profile/adapter/ProfileAdapter';
+import UserRepository from '$lib/domains/profile/repositories/UserRepository';
+import { multipliersLoading, profileLoading } from '$lib/domains/profile/stores/profileStore';
+import { defaultUserProfile } from '$lib/domains/profile/types/defaultUserProfile';
+import type { DomainInfo } from '$lib/domains/profile/types/DomainInfo';
+import { levelTiers } from '$lib/domains/profile/types/LevelTiers';
+import { DomainType, type UserPointHistory } from '$lib/domains/profile/types/types';
+import type { UserInfoForLeaderboard } from '$lib/domains/profile/types/UserInfoForLeaderboard';
+import type { UserProfile } from '$lib/domains/profile/types/UserProfile';
+import type { SeasonHistoryEntry, UserStats } from '$lib/domains/profile/types/UserStats';
+import type { PaginationInfo } from '$lib/shared/dto/CommonPageApiResponse';
 import type { NFT } from '$lib/shared/types/NFT';
 import { wagmiConfig } from '$lib/shared/wagmi';
-import { isDevelopmentEnv } from '$libs/util/isDevelopmentEnv';
-import { getLogger } from '$libs/util/logger';
+import { isDevelopmentEnv } from '$shared/utils/isDevelopmentEnv';
+import { getLogger } from '$shared/utils/logger';
 
-import { ProfileApiAdapter } from '../adapter/ProfileAdapter';
-import UserRepository from '../repositories/UserRepository';
-import { multipliersLoading, profileLoading } from '../stores/profileStore';
-import { defaultUserProfile } from '../types/defaultUserProfile';
-import type { DomainInfo } from '../types/DomainInfo';
-import { levelTiers } from '../types/LevelTiers';
-import { DomainType } from '../types/types';
-import type { UserProfile } from '../types/UserProfile';
+import type { IProfileService } from './IProfileService';
 
 const log = getLogger('ProfileService');
 
-export class ProfileService {
+export class ProfileService implements IProfileService {
+  private static instance: ProfileService;
+
   // Adapters
   private apiAdapter: ProfileApiAdapter;
 
@@ -34,12 +41,26 @@ export class ProfileService {
 
   private localStorageKey = 'taikoENSdomain';
 
-  constructor() {
-    this.apiAdapter = new ProfileApiAdapter();
-    this.userRepository = new UserRepository();
-    this.combinedNFTService = new CombinedNFTService();
-    this.badgeService = new BadgeService();
-    this.badgeMigrationService = new BadgeMigrationService();
+  constructor(
+    apiAdapter?: ProfileApiAdapter,
+    userRepository?: UserRepository,
+    combinedNFTService?: CombinedNFTService,
+    badgeService?: BadgeService,
+    badgeMigrationService?: BadgeMigrationService,
+  ) {
+    this.apiAdapter = apiAdapter || new ProfileApiAdapter();
+    this.userRepository = userRepository || new UserRepository();
+    this.combinedNFTService = combinedNFTService || new CombinedNFTService();
+    this.badgeService = badgeService || new BadgeService();
+    this.badgeMigrationService = badgeMigrationService || new BadgeMigrationService();
+
+  }
+
+  public static getInstance(): ProfileService {
+    if (!ProfileService.instance) {
+      ProfileService.instance = new ProfileService();
+    }
+    return ProfileService.instance;
   }
 
   /**
@@ -47,9 +68,7 @@ export class ProfileService {
    * @param address - The user's address.
    * @param season - The season number for data fetching (default is 0).
    */
-  async getProfile(address?: Address, season: number = 0): Promise<void> {
-    profileLoading.set(true);
-
+  async getProfile(address?: Address, season: number = 0): Promise<UserProfile | null> {
     try {
       if (!address) {
         const account = getAccount(wagmiConfig);
@@ -59,13 +78,17 @@ export class ProfileService {
       if (!address) {
         throw new Error('No address provided and no connected account found.');
       }
-
+      // address = '0x081A919A2e2e43EEdfc6a618B76be5A2381adc00';
       // Fetch data from multiple endpoints
-      const [pointsAndRank, userDomainInfo, activity] = await Promise.all([
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const [pointsAndRank, userDomainInfo, activity, nftsResult, avatarResult] = await Promise.all([
         this.apiAdapter.fetchUserPointsAndRank(address, season),
-        this.apiAdapter.fetchUserDomainInfo(address),
+        this.fetchDomainInfo(address),
         this.apiAdapter.fetchUserActivity(address, season, 0),
+        this.combinedNFTService.fetchAllNFTsForUser(address),
+        this.getProfilePicture(address),
       ]);
+      log('Fetched data:', { pointsAndRank, userDomainInfo, activity, nftsResult, avatarResult });
 
       // Assemble the complete UserProfile with default values
       const userProfile: UserProfile = {
@@ -73,6 +96,8 @@ export class ProfileService {
         address,
         personalInfo: {
           ...defaultUserProfile.personalInfo,
+          avatar: avatarResult || '',
+          blacklisted: pointsAndRank.blacklisted || false,
         },
         userStats: {
           ...defaultUserProfile.userStats,
@@ -83,45 +108,129 @@ export class ProfileService {
           level: '',
         },
         activityHistory: {
-          pointsHistory: activity,
+          items: activity?.items,
+          pagination: {
+            page: 0,
+            size: activity?.size,
+            total: activity?.total,
+          },
         },
+        nfts: [...nftsResult.taikoonNFTs, ...nftsResult.badgeNFTs],
         multipliers: defaultUserProfile.multipliers,
-        domainInfo: userDomainInfo,
-        badgeMigrations: [],
-        approvedMigrationBadgeIds: [],
-      };
-
-      const info: DomainInfo = {
         domainInfo: {
-          dotTaiko: userDomainInfo.dotTaiko,
-          zns: userDomainInfo.zns,
+          ...userDomainInfo.domainInfo,
+          selected: userDomainInfo.domainInfo.selected,
         },
       };
-
-      log('Assembled User Profile:', userProfile);
 
       // Save the assembled profile
       await this.userRepository.save(userProfile);
 
-      log('Saved Profile:', await this.userRepository.get());
+      // Do additional config
+      await Promise.all([
+        this.handleDomainSelection(userDomainInfo),
+        this.fetchAndCalculateMultipliers(address),
+        this.performAdditionalCalculations(),
+        this.previousSeasonFinalScores(address, season - 1),
+        this.getBadgeMigrations(address)
 
-      // Proceed with fetching NFTs and further calculations
-      const multiplier = this.fetchAndCalculateMultipliers(address);
-      const nfts = this.getProfileWithNFTs(address, season);
-      const avatar = this.getProfilePicture(address);
-      const rankName = this.performAdditionalCalculations();
-      const domainInfo = this.handleDomainSelection(info);
-      const badgeMigrations = this.getBadgeMigrations(address);
-
-      await Promise.all([multiplier, avatar, rankName, domainInfo, nfts, badgeMigrations]);
+      ]);
+      // const [multiplierResult] = await Promise.all([this.handleDomainSelection(info)]);
 
       log('Final Profile:', await this.userRepository.get());
     } catch (error) {
       log('Error in getProfile:', error);
+      return null;
     } finally {
       profileLoading.set(false);
       multipliersLoading.set(false);
     }
+    return await this.userRepository.get();
+  }
+
+  /**
+   * Fetches the user's domain information.
+   *
+   * @param {Address} address
+   * @return {*}
+   * @memberof ProfileService
+   */
+  async getUserInfoForLeaderboard(
+    entries: UserLeaderboardItem[],
+    total: number,
+    season: number,
+  ): Promise<UserInfoForLeaderboard[]> {
+    log('Fetching user info for leaderboard for entries:', entries, 'total:', total, 'season:', season);
+
+    // Extract all addresses from entries
+    const addresses = entries.map((entry) => entry.address);
+
+    // Fetch profile pictures in bulk
+    const profilePicturesPromise = this.getProfilePictures(addresses);
+
+    // Fetch domain info for all addresses in parallel
+    // const domainInfoPromises = addresses.map((address) => this.fetchDomainInfo(address));
+    // const domainInfoArrayPromise = Promise.all(domainInfoPromises);
+
+    log('Fetching user info for leaderboard:', entries);
+
+    // Calculate user stats synchronously
+    const userStatsArray = entries.map((entry) => {
+      const { rank, score } = entry;
+      log('calculating user stats', { score, rank, total });
+      const percentile = this.calculatePercentile(rank, total);
+      const { level, title } = this.getLevel(percentile);
+      log('creating user stats', { score, rank, total, percentile, level, title });
+      return {
+        score,
+        rank: rank.toString(),
+        total: total.toString(),
+        rankPercentile: percentile.toFixed(2),
+        level,
+        title,
+      } satisfies UserStats['userStats'];
+    });
+
+    const [profilePictures] = await Promise.all([profilePicturesPromise]);
+
+    const userInfoList: UserInfoForLeaderboard[] = entries.map((entry, index) => {
+      const address = entry.address;
+      const userStats = userStatsArray[index];
+      const profilePicture = profilePictures[getAddress(address)] || '';
+
+      return {
+        address,
+        score: userStats.score,
+        rank: userStats.rank,
+        title: userStats.title,
+        level: userStats.level,
+        total: userStats.total,
+        rankPercentile: userStats.rankPercentile || '0',
+        profilePicture,
+      };
+    });
+
+    return userInfoList;
+  }
+
+  /**
+   * Fetches the user's domain information.
+   *
+   * @param {Address} address
+   * @return {*}  {Promise<DomainInfo>}
+   * @memberof ProfileService
+   */
+  async fetchDomainInfo(address: Address): Promise<DomainInfo> {
+    const userDomainInfo = await this.apiAdapter.fetchUserDomainInfo(address);
+
+    const info: DomainInfo = {
+      domainInfo: {
+        dotTaiko: userDomainInfo.dotTaiko,
+        zns: userDomainInfo.zns,
+      },
+    };
+
+    return info;
   }
 
   /**
@@ -131,7 +240,7 @@ export class ProfileService {
   async handleDomainSelection(domainInfo: DomainInfo): Promise<void> {
     try {
       const selectedDomain = this.determineSelectedDomain(domainInfo);
-      this.setSelectedDomain(selectedDomain);
+      await this.setSelectedDomain(selectedDomain);
     } catch (error) {
       log('Error in handleDomainSelection:', error);
     }
@@ -179,19 +288,11 @@ export class ProfileService {
     const oldUser = await this.userRepository.get();
     this.userRepository.update({
       domainInfo: {
-        ...oldUser.domainInfo,
+        ...oldUser?.domainInfo,
         selected: selectedDomain,
       },
     });
     log('updated user', await this.userRepository.get());
-  }
-
-  /**
-   * Allows the user to select a domain and updates the store and localStorage.
-   * @param selectedDomain - The domain type selected by the user.
-   */
-  setSelectedDomainExternally(selectedDomain: DomainType): void {
-    this.setSelectedDomain(selectedDomain);
   }
 
   /**
@@ -270,21 +371,11 @@ export class ProfileService {
   }
 
   /**
-   * Fetches and updates the user's avatar.
-   * @param address - The user's address.
-   */
-  private async fetchAndUpdateAvatar(address: Address): Promise<void> {
-    try {
-      const avatar = await this.apiAdapter.getProfilePicture(address);
-      log('Fetched Avatar:', avatar);
-      // await this.userRepository.update({ personalInfo: { avatar } });
-    } catch (error) {
-      log('Error in fetchAndUpdateAvatar:', error);
-    }
-  }
-
-  /**
-   * Performs additional calculations like percentile, level, and boosted points.
+   * Performs additional calculations after fetching user stats.
+   *
+   * @private
+   * @return {*}  {Promise<void>}
+   * @memberof ProfileService
    */
   private async performAdditionalCalculations(): Promise<void> {
     const user = await this.userRepository.get();
@@ -339,6 +430,7 @@ export class ProfileService {
       level: '0',
       title: 'Beginner',
     };
+
     log('found tier', tier);
     const { level, title } = tier;
     return { level: level, title };
@@ -348,6 +440,26 @@ export class ProfileService {
     log('Fetching user activity for address:', address, 'season:', season, 'page:', page);
     const activity = await this.apiAdapter.fetchUserActivity(address, season, page);
     return activity;
+  }
+
+  async updateProfilePointHistoryPage(args: PaginationInfo<UserPointHistory>, user: Address, season: number) {
+    log('Fetching user activity for args:', args, 'season:', season);
+
+    const activity = await this.apiAdapter.fetchUserActivity(user, season, args.page);
+    log('activity', activity);
+
+    if (activity.items && activity.items.length > 0) {
+      const oldUser = await this.userRepository.get();
+      const newProfile: UserProfile = {
+        ...oldUser,
+        activityHistory: {
+          items: [...activity.items],
+          pagination: { ...args },
+        },
+      };
+      await this.userRepository.update(newProfile);
+      // return  PaginationInfo<UserPointHistory> with new items
+    }
   }
 
   /**
@@ -362,7 +474,6 @@ export class ProfileService {
     try {
       // Fetch NFTs (badges, avatars, etc.)
       const nfts = await this.combinedNFTService.fetchAllNFTsForUser(address);
-
       log('result of fetchAllNFTsForUser:', nfts);
       // Combine and update the profile with NFT data
       await this.userRepository.update({
@@ -408,42 +519,56 @@ export class ProfileService {
   async getProfilePicture(address: Address): Promise<string | null> {
     log('Retrieving profile picture for address:', address);
     try {
-      const user = await this.userRepository.get();
-      if (!user) return null;
-
+      // Fetch the profile picture NFT reference from the API
       const pfpNFT = await this.apiAdapter.getProfilePicture(address);
-      if (!pfpNFT) return null;
+      if (!pfpNFT) {
+        log('No profile picture NFT found for address:', address);
+        return null;
+      }
 
       log('Found profile picture NFT:', pfpNFT);
 
-      // Fetch the NFT details using CombinedNFTService
-      const allNFTs = await this.combinedNFTService.fetchAllNFTsForUser(address);
+      // If pfpNFT lacks necessary details, fetch all NFTs and find a match
+      if (!pfpNFT.address || !pfpNFT.tokenId) {
+        // Fetch all NFTs for the user
+        const allNFTs = await this.combinedNFTService.fetchAllNFTsForUser(address);
 
-      // Find the NFT with the given ID
-      const allNFTsFlat: NFT[] = [...allNFTs.taikoonNFTs, ...allNFTs.badgeNFTs];
-      log('All NFTs:', allNFTsFlat);
+        // Combine all NFTs into a single array
+        const allNFTsFlat: NFT[] = [...allNFTs.taikoonNFTs, ...allNFTs.badgeNFTs];
+        log('All NFTs:', allNFTsFlat);
 
-      //find the pfp based on address AND tokenId
-      const match = allNFTsFlat.find(
-        (nft) => nft.tokenId === Number(pfpNFT.tokenId) && getAddress(nft.address) === getAddress(pfpNFT.address),
-      );
-      if (match) {
+        // Find the matching NFT
+        const match = allNFTsFlat.find(
+          (nft) => nft.tokenId === Number(pfpNFT.tokenId) && getAddress(nft.address) === getAddress(pfpNFT.address),
+        );
+
+        if (match) {
+          const metadata = await this.combinedNFTService.getNFTMetadata(match);
+          const profilePicture = metadata?.image || null;
+
+          if (profilePicture) {
+            log('Retrieved profile picture URL:', profilePicture);
+            return profilePicture;
+          } else {
+            log('No image found in metadata for NFT:', match);
+            return null;
+          }
+        } else {
+          log('Profile picture NFT not found among user NFTs.');
+          return null;
+        }
+      } else {
+        // pfpNFT has enough information; fetch metadata directly
         const metadata = await this.combinedNFTService.getNFTMetadata(pfpNFT);
-        const profilePicture = metadata?.image;
+        const profilePicture = metadata?.image || null;
 
         if (profilePicture) {
-          await this.userRepository.update({
-            personalInfo: {
-              avatar: profilePicture,
-            },
-          });
-
+          log('Retrieved profile picture URL:', profilePicture);
           return profilePicture;
+        } else {
+          log('No image found in metadata for NFT:', pfpNFT);
+          return null;
         }
-        return null;
-      } else {
-        log('Profile picture not found');
-        return null;
       }
     } catch (error) {
       log('Error retrieving profile picture:', error);
@@ -451,26 +576,33 @@ export class ProfileService {
     }
   }
 
+  /**
+   * Retrieves the profile pictures for the given addresses.
+   *
+   * @param {Address[]} addresses
+   * @return {*}  {Promise<Record<Address, string>>}
+   * @memberof ProfileService
+   */
   async getProfilePictures(addresses: Address[]): Promise<Record<Address, string>> {
     log('Retrieving profile pictures for addresses:', addresses);
     try {
       const result: Record<Address, string> = {};
-      const profilePictures: Record<Address, NFT> = await this.apiAdapter.getProfilePictures(addresses);
+      const profilePictures: Record<Address, NFT | null> = await this.apiAdapter.getProfilePictures(addresses);
       log('Found profile pictures:', profilePictures);
 
-      for (const [address, nft] of Object.entries(profilePictures)) {
+      const metadataPromises = Object.entries(profilePictures).map(async ([address, nft]) => {
+        const resolvedAddress = getAddress(address) as Address;
+        if (!nft) return { address: resolvedAddress, image: '' };
         const metadata = await this.combinedNFTService.getNFTMetadata(nft);
-        log('metadata', metadata);
-        if (metadata) {
-          result[getAddress(address) as Address] = metadata?.image || '';
-        } else {
-          result[getAddress(address) as Address] = '';
-        }
-      }
+        return { address: resolvedAddress, image: metadata?.image || '' };
+      });
+
+      const metadataResults = await Promise.all(metadataPromises);
+      metadataResults.forEach(({ address, image }) => {
+        result[address] = image;
+      });
       log('Profile pictures:', result);
 
-      // out[owner] = src.data.image;
-      // return profilePictures;
       return result;
     } catch (error) {
       log('Error retrieving profile pictures:', error);
@@ -478,34 +610,6 @@ export class ProfileService {
     }
   }
 
-  /* example for ref
-
-
-  async getProfileWithNFTs(address: Address, season: number = 0): Promise<void> {
-    log('Fetching profile with NFTs for address:', address, 'season:', season);
-    profileLoading.set(true);
-
-    try {
-      // Fetch NFTs (badges, avatars, etc.)
-      const nfts = await this.combinedNFTService.fetchAllNFTsForUser(address);
-
-      log('result of fetchAllNFTsForUser:', nfts);
-      // Combine and update the profile with NFT data
-      await this.userRepository.update({
-        nfts: [...nfts.taikoonNFTs, ...nfts.badgeNFTs],
-      });
-
-      log('Profile with NFTs:', await this.userRepository.get());
-    } catch (error) {
-      log('Error in getProfileWithNFTs:', error);
-    } finally {
-      profileLoading.set(false);
-    }
-  }
-
-
-
-  */
   async getEnabledMigrations(): Promise<number[]> {
     log('getEnabledMigrations');
     return this.badgeMigrationService.getEnabledMigrations();
@@ -515,36 +619,6 @@ export class ProfileService {
     log('setApprovalForAll');
     return this.badgeMigrationService.setApprovalForAll();
   }
-  /*
-  async getBadgeMigrations(address: Address): Promise<void> {
-    // fetch the required info here!
-    log('getBadgeMigrations', { address });
-    let approvedMigrationBadgeIds: number[] = [];
-    // first, fetch if the user has set approval for all
-    const isSetApprovalForAll = await this.badgeMigrationService.getApprovalForAll(address);
-    if (isSetApprovalForAll) {
-      approvedMigrationBadgeIds = [0, 1, 2, 3, 4, 5, 6, 7];
-    } else {
-      // if not set, fetch each individually
-      const tokens = await this.badgeService.getBadgesForUser(address);
-
-      for (const token of tokens) {
-        try{
-          const approvedAccount = await this.badgeMigrationService.getApproved(address, token.tokenId);
-          if (isAddressEqual(approvedAccount, trailblazersBadgesS2Address[chainId])) {
-            approvedMigrationBadgeIds.push(token.badgeId!);
-          }
-        } catch (error) {
-          console.error(error);
-        }
-      }
-
-    }
-
-    await this.userRepository.update({
-      approvedMigrationBadgeIds,
-    });
-  }*/
 
   async approve(tokenId: number): Promise<Address> {
     log('approve', { tokenId });
@@ -556,9 +630,9 @@ export class ProfileService {
     return this.badgeMigrationService.startMigration(factionId);
   }
 
-  async tamperMigration(pinkOrPurple: boolean): Promise<string> {
-    log('tamperMigration', { pinkOrPurple });
-    return this.badgeMigrationService.tamperMigration(pinkOrPurple);
+  async tamperMigration(address: Address, factionId: number, pinkOrPurple: boolean): Promise<string> {
+    log('tamperMigration', { address, factionId, pinkOrPurple });
+    return this.badgeMigrationService.tamperMigration(address, factionId,pinkOrPurple);
   }
 
   async endMigration(address: Address, factionId: number): Promise<string> {
@@ -580,5 +654,62 @@ export class ProfileService {
       badgeMigrations: migrations,
       approvedMigrationBadgeIds,
     });
+
+  }
+  /**
+   * Retrieves the user's blacklist status for the given season.
+   *
+   * @param {Address} address
+   * @param {number} season
+   * @return {*}  {Promise<boolean>}
+   * @memberof ProfileService
+   */
+  async getBlacklistStatus(address: Address, season: number): Promise<boolean> {
+    log('Checking blacklist status for address:', address);
+    try {
+      const { blacklisted } = await this.apiAdapter.fetchUserPointsAndRank(address, season);
+      log('Blacklist status:', blacklisted);
+      return blacklisted;
+    } catch (error) {
+      log('Error checking blacklist status:', error);
+      return false;
+    }
+  }
+
+  async previousSeasonFinalScores(address: Address, season: number): Promise<void> {
+    log('Fetching previous season final scores for season:', season);
+    try {
+      // Fetch the user's final scores for the previous season
+      const { score, multiplier, total } = await this.apiAdapter.getPreviousSeasonFinalScores(address, season);
+      log('Fetched final scores:', score, multiplier, total);
+
+      // Update the profile with the final scores
+      const oldUser = await this.userRepository.get();
+      const history = oldUser.userStats?.seasonHistory || ([] as Record<number, SeasonHistoryEntry>);
+      history[season] = {
+        score,
+        multiplier,
+        total,
+      };
+
+      const newProfile: UserProfile = {
+        ...oldUser,
+        userStats: {
+          seasonHistory: history,
+          score: oldUser.userStats?.score || 0,
+          rank: oldUser.userStats?.rank || '',
+          title: oldUser.userStats?.title || '',
+          level: oldUser.userStats?.level || '',
+          total: oldUser.userStats?.total || '',
+          rankPercentile: oldUser.userStats?.rankPercentile || '0',
+        },
+      };
+      log('Updating profile with:', newProfile);
+      await this.userRepository.update(newProfile);
+
+      log('Profile with final scores:', await this.userRepository.get());
+    } catch (error) {
+      log('Error in previousSeasonFinalScores:', error);
+    }
   }
 }

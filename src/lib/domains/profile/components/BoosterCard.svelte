@@ -1,7 +1,7 @@
 <script>
   import { t } from 'svelte-i18n';
 
-  import { Tooltip } from '$components/Tooltip';
+  import { Tooltip } from '$shared/components/Tooltip';
 
   import { AbstractProfileCard } from './templates';
 </script>

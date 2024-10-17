@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { classNames } from '$libs/util/classNames';
+  import { classNames } from '$shared/utils/classNames';
 
   export let size: 'sm' | 'md' | 'lg' = 'md';
   const classes = classNames(

@@ -6,5 +6,6 @@ export type PersonalInfo = {
     name?: string;
     ens?: string;
     avatar?: string;
+    blacklisted?: boolean;
   };
 };

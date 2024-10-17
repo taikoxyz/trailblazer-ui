@@ -10,6 +10,11 @@ import * as TaikoonMainnetDeployment from '../taiko-mono.git/packages/nfts/deplo
 // import * as TrailblazerBadgesHeklaDeployment from '../taiko-mono.git/packages/nfts/deployments/trailblazers-badges/hekla.json';
 import * as TrailblazerBadgesS2HeklaDeployment from '../taiko-mono.git/packages/nfts/deployments/trailblazers-season-2/hekla.json';
 // import ERC20Airdrop from '../taiko-mono.git/packages/nfts/out/ERC20Airdrop.sol/ERC20Airdrop.json';
+import * as S1ClaimHeklaDeployment from '../taiko-mono.git/packages/nfts/deployments/trailblazers-airdrop/hekla.json';
+import * as S1ClaimMainnetDeployment from '../taiko-mono.git/packages/nfts/deployments/trailblazers-airdrop/mainnet.json';
+import * as TrailblazerBadgesHeklaDeployment from '../taiko-mono.git/packages/nfts/deployments/trailblazers-badges/hekla.json';
+import * as TrailblazerBadgesMainnetDeployment from '../taiko-mono.git/packages/nfts/deployments/trailblazers-badges/mainnet.json';
+import ERC20Airdrop from '../taiko-mono.git/packages/nfts/out/ERC20Airdrop.sol/ERC20Airdrop.json';
 import RegisterProfilePicture from '../taiko-mono.git/packages/nfts/out/RegisterProfilePicture.sol/RegisterProfilePicture.json';
 import TaikoonToken from '../taiko-mono.git/packages/nfts/out/TaikoonToken.sol/TaikoonToken.json';
 import TrailblazersBadges from '../taiko-mono.git/packages/nfts/out/TrailblazersBadges.sol/TrailblazersBadges.json';
@@ -102,10 +107,18 @@ export default defineConfig({
     {
       name: 'ERC20Airdrop',
       address: {
-        167009: '0x0000000000000000000000000000000000000000', // S1ClaimHeklaDeployment.ERC20Airdrop as Address,
-        167000: '0x0000000000000000000000000000000000000000', // S1ClaimHeklaDeployment.ERC20Airdrop as Address,
+        167009: S1ClaimHeklaDeployment.ERC20Airdrop as Address,
+        167000: S1ClaimMainnetDeployment.ERC20Airdrop as Address,
       },
       abi: [] as Abi, // ERC20Airdrop.abi as Abi,
+    },
+    {
+      name: 'ERC20TaikoToken',
+      address: {
+        167009: S1ClaimHeklaDeployment.ERC20Token as Address,
+        167000: S1ClaimMainnetDeployment.ERC20Token as Address,
+      },
+      abi: [],
     },
   ],
   plugins: [actions()],

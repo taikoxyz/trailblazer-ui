@@ -1,12 +1,12 @@
 <script lang="ts">
   import type { Address } from 'viem';
 
-  import ActionButton from '$components/Button/ActionButton.svelte';
-  import { errorToast, successToast } from '$components/NotificationToast';
-  import claimBadge from '$libs/badges/claimBadge';
-  import { classNames } from '$libs/util/classNames';
-  import { isDevelopmentEnv } from '$libs/util/isDevelopmentEnv';
-  import { account } from '$stores/account';
+  import ActionButton from '$shared/components/Button/ActionButton.svelte';
+  import { errorToast, successToast } from '$shared/components/NotificationToast';
+  import { account } from '$shared/stores/account';
+  import claimBadge from '$shared/utils/badges/claimBadge';
+  import { classNames } from '$shared/utils/classNames';
+  import { isDevelopmentEnv } from '$shared/utils/isDevelopmentEnv';
 
   const containerClass = classNames(
     'container',
