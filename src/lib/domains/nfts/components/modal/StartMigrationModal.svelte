@@ -13,11 +13,6 @@
 
   $: s1BadgeId = $badgeMigrationStore.s1Badge?.badgeId || 0;
 
-  /*
-  function closeModal() {
-    $startMigrationModal = false;
-  }*/
-
   $: isLoading = false;
 
   async function handleStartMigration() {
@@ -28,7 +23,7 @@
   }
 </script>
 
-<CoreModal open={$startMigrationModal} loading={isLoading}>
+<CoreModal open={$startMigrationModal}>
   <CoreModalHeader>
     <CoreModalTitle>Choose your path!</CoreModalTitle>
 
@@ -39,6 +34,7 @@
   <CoreModalBadges active={false} badgeId={s1BadgeId} />
 
   <CoreModalFooter>
-    <ActionButton on:click={handleStartMigration} priority="primary">Start Migration</ActionButton>
+    <ActionButton loading={isLoading} disabled={isLoading} on:click={handleStartMigration} priority="primary"
+      >Start Migration</ActionButton>
   </CoreModalFooter>
 </CoreModal>

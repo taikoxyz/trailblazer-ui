@@ -4,10 +4,7 @@
   import { Movements } from '$libs/badges/const';
   import type { Faction } from '$libs/profile';
   import { classNames } from '$libs/util/classNames';
-  import { createEventDispatcher } from 'svelte';
 
-  import TamperCounter from './TamperCounter.svelte';
-  import TamperRadio from './TamperRadio.svelte';
   import TamperRings from './TamperRings.svelte';
 
   export let badgeId: number;

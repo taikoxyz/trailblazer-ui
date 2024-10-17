@@ -1,7 +1,9 @@
 import { gql } from '@apollo/client/core';
 import { readContract, signMessage, writeContract } from '@wagmi/core';
-import { parseSignature, recoverAddress, type Address } from 'viem';
+import axios from 'axios';
+import { type Address, parseSignature, recoverAddress } from 'viem';
 
+import { PUBLIC_TRAILBLAZER_API_URL } from '$env/static/public';
 import {
   trailblazersBadgesAbi,
   trailblazersBadgesAddress,
@@ -11,15 +13,13 @@ import {
 import type { BadgeMigration as GqlBadgeMigration, Token } from '$generated/graphql';
 import { graphqlClient } from '$lib/shared/services/graphql/client';
 import { GET_MIGRATION_STATUS_GQL } from '$lib/shared/services/graphql/queries/getMigrationStatus.gql';
+import { pendingTransactions } from '$lib/shared/stores/pendingTransactions';
 import type { BadgeMigration } from '$lib/shared/types/BadgeMigration';
 import type { NFT } from '$lib/shared/types/NFT';
 import { chainId } from '$lib/shared/utils/chain';
 import { wagmiConfig } from '$lib/shared/wagmi';
-import { getLogger } from '$libs/util/logger';
-import axios from 'axios';
-import { PUBLIC_TRAILBLAZER_API_URL } from '$env/static/public';
 import { globalAxiosConfig } from '$libs/api/axiosConfig';
-import { pendingTransactions } from '$lib/shared/stores/pendingTransactions';
+import { getLogger } from '$libs/util/logger';
 
 const log = getLogger('BadgeMigrationAdapter');
 
@@ -137,13 +137,13 @@ export class BadgeMigrationAdapter {
     // fetch signature
 
     const challenge = Date.now().toString();
-    const signature = await signMessage(wagmiConfig, { message: challenge });
+    const challengeSignature = await signMessage(wagmiConfig, { message: challenge });
 
     const res = await axios.post(
       `${PUBLIC_TRAILBLAZER_API_URL}/s2/faction/migrate`,
       {
         address,
-        signature,
+        signature: challengeSignature,
         message: challenge,
         badgeId: factionId,
         chainId,
@@ -157,7 +157,7 @@ export class BadgeMigrationAdapter {
     );
 
     const { signature: rawSignature, points } = res.data;
-
+    console.warn(res.data);
     const mintSignature = `0x${rawSignature}` as Address;
     const { r, s, v } = parseSignature(mintSignature);
 
@@ -178,13 +178,13 @@ export class BadgeMigrationAdapter {
       signature: mintSignature,
     });
 
-    console.log({ signer });
+    console.warn({ signer, hash });
 
     const tx = await writeContract(wagmiConfig, {
       abi: trailblazersBadgesS2Abi,
       address: s2ContractAddress,
       functionName: 'endMigration',
-      args: [hash, parseInt(v.toString()), r, s, BigInt(points)],
+      args: [hash, Number(v), r, s, BigInt(points)],
       chainId,
     });
 
@@ -244,9 +244,7 @@ export class BadgeMigrationAdapter {
         approvedTokenIds = [0, 1, 2, 3, 4, 5, 6, 7];
       } else {
         approvedTokenIds = approvedS1Tokens.map((token: Token) => parseInt(token.badgeId.toString()));
-        console.log({ approvedTokenIds });
       }
-      console.log({ s2Migrations });
 
       const migrations = s2Migrations.map((raw) => {
         if (!raw.s1Badge || !raw.s1Badge.badgeId) {

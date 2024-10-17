@@ -1,10 +1,8 @@
 <script lang="ts">
   import { Icon } from '$components/Icon';
-  import { Spinner } from '$components/Spinner';
   import { classNames } from '$libs/util/classNames';
 
   export let open = false;
-  export let loading = false;
 
   const wrapperClasses = classNames('modal');
   const contentWrapperClasses = classNames(
@@ -50,11 +48,7 @@
 {#if open}
   <dialog class={wrapperClasses} class:modal-open={open}>
     <div class={contentWrapperClasses}>
-      {#if loading}
-        <Spinner size="lg" />
-      {:else}
-        <slot />
-      {/if}
+      <slot />
       <button class={closeButtonClasses} on:click={closeModal}>
         <Icon type="x-close" class={closeButtonIconClasses} size={24} />
       </button>

@@ -37,6 +37,7 @@
         title: 'Success',
         message: `You have successfully approved the Season 2 contract for ${s1BadgeName}`,
       });
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (e: any) {
       isLoading = false;
       console.error(e);
@@ -48,7 +49,7 @@
   }
 </script>
 
-<CoreModal open={$migrationApprovalModal} loading={isLoading}>
+<CoreModal open={$migrationApprovalModal}>
   <CoreModalHeader>
     <CoreModalTitle>Choose your path</CoreModalTitle>
     <CoreModalDescription>
@@ -59,6 +60,7 @@
   <CoreModalBadges active={false} badgeId={s1BadgeId} />
 
   <CoreModalFooter>
-    <ActionButton on:click={handleApprove} priority="primary">Approve for <b>{s1BadgeName}</b></ActionButton>
+    <ActionButton loading={isLoading} disabled={isLoading} on:click={handleApprove} priority="primary"
+      >Approve for <b>{s1BadgeName}</b></ActionButton>
   </CoreModalFooter>
 </CoreModal>

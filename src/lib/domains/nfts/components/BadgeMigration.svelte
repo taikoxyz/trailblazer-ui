@@ -8,6 +8,7 @@
   import profileService from '$lib/domains/profile/services/ProfileServiceInstance';
   import { userProfile } from '$lib/domains/profile/stores';
   import type { FactionBadgeButton } from '$lib/domains/profile/types/FactionBadgeButton';
+  import type { BadgeMigration } from '$lib/shared/types/BadgeMigration';
   import type { NFT } from '$lib/shared/types/NFT';
   import { chainId } from '$lib/shared/utils/chain';
   import { Movements } from '$libs/badges/const';
@@ -19,8 +20,6 @@
 
   import { FactionBadgeItem } from '../../profile/components/ProfileNFTs/FactionBadges';
   import Countdown from './Countdown.svelte';
-  import type { BadgeMigration } from '$lib/shared/types/BadgeMigration';
-  import Error from '../../../../routes/+error.svelte';
 
   export let title: string = 'Badge Migration';
 
@@ -167,33 +166,14 @@
     }
     const address = $account.address;
     await updateMigrationStatus(address);
-
-    displayActiveMigration = $badgeMigrationStore.s1Badge?.badgeId! > 0;
+    displayActiveMigration = Boolean($badgeMigrationStore.s1Badge?.badgeId! > 0);
   });
 
   function getAsFactionName(name: string) {
     return name as FactionNames;
   }
 
-  function getMigration(badgeId: number) {
-    const migration = $userProfile.badgeMigrations?.find((m) => m.s1Badge.badgeId === badgeId);
-    if (!migration) {
-      throw new Error('Migration not found');
-    }
-    console.log({ migration });
-    return migration;
-  }
-
   async function handleStartMigration(badgeId: number) {
-    /*
-    if (!$account || !$account.address) return;
-
-    await profileService.startMigration(badgeId);
-    await updateMigrationStatus($account.address);
-
-
-    */
-
     if (!$account || !$account.address) return;
     const tokenId = await profileService.getBadgeTokenId($account.address, badgeId);
     const migration = {
@@ -219,13 +199,21 @@
   }
 
   async function handleEndMigration(badgeId: number) {
-    const migration = getMigration(badgeId);
+    const migration = $userProfile.badgeMigrations?.find((m) => m.s1Badge.badgeId === badgeId);
+    if (!migration) {
+      console.error(`Migration for badge id #${badgeId} not found`);
+      return;
+    }
     $badgeMigrationStore = migration;
     $endMigrationModal = true;
   }
 
   function handleTamperModal(badgeId: number) {
-    const migration = getMigration(badgeId);
+    const migration = $userProfile.badgeMigrations?.find((m) => m.s1Badge.badgeId === badgeId);
+    if (!migration) {
+      console.error(`Migration for badge id #${badgeId} not found`);
+      return;
+    }
     $badgeMigrationStore = migration;
     $tamperMigrationModal = true;
   }
@@ -250,7 +238,6 @@
   }
 
   async function handleApprovalModal(badgeId: number) {
-    console.log('handleApprovalModal', badgeId);
     if (!$account || !$account.address) return;
     const tokenId = await profileService.getBadgeTokenId($account.address, badgeId);
     const migration = {

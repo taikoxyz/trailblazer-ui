@@ -1,90 +1,17 @@
 <script lang="ts">
   import { ActionButton } from '$components/Button';
   import { errorToast, successToast } from '$components/NotificationToast';
-  import { FACTIONS, type FactionNames } from '$configs/badges';
+  import { type FactionNames, FACTIONS } from '$configs/badges';
   import profileService from '$lib/domains/profile/services/ProfileServiceInstance';
+  import timeUntil from '$lib/shared/utils/date/timeUntil';
   import { Movements } from '$libs/badges/const';
   import { classNames } from '$libs/util/classNames';
   import { badgeMigrationStore } from '$stores/badgeMigration';
   import { tamperMigrationModal } from '$stores/modal';
+
   import MigrationBadgeItem from '../MigrationBadgeItem.svelte';
   import TamperRadio from '../TamperRadio.svelte';
-
-  import {
-    CoreModal,
-    CoreModalBadges,
-    CoreModalDescription,
-    CoreModalFooter,
-    CoreModalHeader,
-    CoreModalTitle,
-  } from './components';
-
-  function timeUntil(targetDate: Date): string {
-    const now = new Date();
-
-    // Calculate the difference in milliseconds
-    const difference = targetDate.getTime() - now.getTime();
-
-    // If the difference is negative, the target date is in the past
-    if (difference <= 0) {
-      return '00min 00s';
-    }
-
-    // Calculate hours, minutes, and seconds
-    const hours = Math.floor(difference / (1000 * 60 * 60));
-    const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((difference % (1000 * 60)) / 1000);
-
-    // Format minutes and seconds to mm:ss
-    const formattedMinutes = String(minutes).padStart(2, '0');
-    const formattedSeconds = String(seconds).padStart(2, '0');
-
-    // Return the appropriate format based on the values of hours and minutes
-    if (hours > 0) {
-      const formattedHours = String(hours).padStart(2, '0');
-      return `${formattedHours}h ${formattedMinutes}min ${formattedSeconds}s`;
-    } else if (minutes > 0) {
-      return `${formattedMinutes}min ${formattedSeconds}s`;
-    } else {
-      return `${formattedSeconds} seconds`;
-    }
-  }
-
-  $: s1BadgeId = $badgeMigrationStore.s1Badge?.badgeId!;
-
-  $: pinkTampers = 0;
-  $: purpleTampers = 0;
-
-  $: claimExpiration = $badgeMigrationStore.claimExpirationTimeout;
-  $: tamperExpiration = $badgeMigrationStore.tamperExpirationTimeout;
-  $: isLoading = false;
-
-  console.log({ $badgeMigrationStore });
-
-  async function handleTamper() {
-    try {
-      isLoading = true;
-      await profileService.tamperMigration(isPinkSelected && !isPurpleSelected);
-
-      isLoading = false;
-
-      $tamperMigrationModal = false;
-
-      successToast({
-        title: 'Success',
-        message: `You have successfully approved the Season 2 contract for ${s1BadgeName}`,
-      });
-    } catch (e: any) {
-      isLoading = false;
-      console.error(e);
-      errorToast({
-        title: 'Error',
-        message: e.message,
-      });
-    }
-  }
-
-  $: $badgeMigrationStore, console.log({ $badgeMigrationStore });
+  import { CoreModal, CoreModalDescription, CoreModalFooter, CoreModalHeader, CoreModalTitle } from './components';
 
   const badgesWrapperClasses = classNames(
     'flex',
@@ -95,18 +22,48 @@
     'lg:gap-[80px]',
   );
 
+  $: s1BadgeId = $badgeMigrationStore.s1Badge?.badgeId!;
+
+  // $: pinkTampers = $badgeMigrationStore.pinkTampers;
+  // $: purpleTampers = $badgeMigrationStore.purpleTampers;
+
+  $: claimExpiration = $badgeMigrationStore.claimExpirationTimeout;
+  $: tamperExpiration = $badgeMigrationStore.tamperExpirationTimeout;
+  $: isLoading = false;
+
+  async function handleTamper() {
+    try {
+      isLoading = true;
+      await profileService.tamperMigration(isPinkSelected && !isPurpleSelected);
+
+      isLoading = false;
+
+      $tamperMigrationModal = false;
+
+      const color = isPinkSelected ? 'pink' : 'purple';
+
+      successToast({
+        title: 'Success',
+        message: `You have successfully tampered your badge to ${color}`,
+      });
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (e: any) {
+      isLoading = false;
+      console.error(e);
+      errorToast({
+        title: 'Error',
+        message: e.message,
+      });
+    }
+  }
+
   $: badgeName = FACTIONS[s1BadgeId] as FactionNames;
 
   $: isPinkSelected = false;
   $: isPurpleSelected = false;
-  function handleOptionClick(event: any) {
-    console.log(event);
-    const { badgeId } = event.detail;
-    console.log(badgeId);
-  }
 </script>
 
-<CoreModal open={$tamperMigrationModal} loading={isLoading}>
+<CoreModal open={$tamperMigrationModal}>
   <CoreModalHeader>
     <CoreModalTitle>
       {#if tamperExpiration && new Date() < tamperExpiration}
@@ -145,7 +102,10 @@
   </div>
 
   <CoreModalFooter>
-    <ActionButton on:click={handleTamper} disabled={!isPinkSelected && !isPurpleSelected} priority="primary"
-      >Tamper</ActionButton>
+    <ActionButton
+      loading={isLoading}
+      on:click={handleTamper}
+      disabled={isLoading || (!isPinkSelected && !isPurpleSelected)}
+      priority="primary">Tamper</ActionButton>
   </CoreModalFooter>
 </CoreModal>
