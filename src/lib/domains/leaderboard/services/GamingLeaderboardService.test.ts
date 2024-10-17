@@ -54,8 +54,8 @@ describe('DappLeaderboardService', () => {
     const season = 1;
 
     const leaderboardItems: DappLeaderboardItem[] = [
-      { address: '0x123', score: 100, slug: 'protocol-1' },
-      { address: '0x456', score: 200, slug: 'protocol-2' },
+      { address: '0x123', score: 100, rank: 1, slug: 'protocol-1' },
+      { address: '0x456', score: 200, rank: 2, slug: 'protocol-2' },
     ];
 
     const leaderboardData: PaginationInfo<DappLeaderboardItem> = {
@@ -92,6 +92,7 @@ describe('DappLeaderboardService', () => {
       data: protocolDetails1.protocols,
       name: 'Protocol 1',
       totalScore: 100,
+      rank: 1,
     };
 
     const mappedRow2: UnifiedLeaderboardRow = {
@@ -101,6 +102,7 @@ describe('DappLeaderboardService', () => {
       data: protocolDetails2.protocols,
       name: 'Protocol 2',
       totalScore: 200,
+      rank: 2,
     };
 
     vi.mocked(mockLeaderboardAdapter.fetchLeaderboardData!).mockResolvedValue(leaderboardData);
@@ -141,8 +143,8 @@ describe('DappLeaderboardService', () => {
     const season = 1;
 
     const leaderboardItems: DappLeaderboardItem[] = [
-      { address: '0x123', score: 100, slug: 'protocol-1' },
-      { address: '0x456', score: 200, slug: 'protocol-2' },
+      { address: '0x123', score: 100, rank: 1, slug: 'protocol-1' },
+      { address: '0x456', score: 200, rank: 2, slug: 'protocol-2' },
     ];
 
     const leaderboardData: PaginationInfo<DappLeaderboardItem> = {
@@ -171,6 +173,7 @@ describe('DappLeaderboardService', () => {
       data: protocolDetails1.protocols,
       name: 'Protocol 1',
       totalScore: 100,
+      rank: 1,
     };
 
     vi.mocked(mockLeaderboardAdapter.fetchLeaderboardData!).mockResolvedValue(leaderboardData);

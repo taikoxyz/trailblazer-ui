@@ -12,6 +12,25 @@
   import { MintDisclaimerModal } from '$lib/shared/components';
   import { activeSeason } from '$lib/shared/stores/activeSeason';
   import { Alert } from '$shared/components/Alert';
+  import LeaderboardDisclaimer from '$shared/components/Disclaimer/LeaderboardDisclaimer.svelte';
+  import { classNames } from '$shared/utils/classNames';
+
+  const disclaimerWrapperClasses = classNames('mt-[100px]', 'px-[24px]', 'md:px-0');
+  const containerClasses = classNames('flex', 'flex-col', 'items-center');
+  const sectionClasses = classNames('flex', 'flex-col', 'max-w-section', 'w-full', 'lg:gap-8');
+  const innerContainerClasses = classNames(
+    'flex',
+    'px-4',
+    'lg:px-0',
+    'gap-8',
+    'h-full',
+    'box-content',
+    'flex-col',
+    'lg:flex-row',
+    'justify-center',
+  );
+  const alertClasses = classNames('mt-[28px]');
+  const tabsClasses = classNames('mt-[28px]');
 
   onMount(async () => {
     const urlAddress = $page.url.pathname.split('/').pop() as Address;
@@ -19,22 +38,26 @@
   });
 </script>
 
-<div class="flex flex-col items-center">
-  <div class="flex flex-col max-w-section w-full lg:gap-8">
-    <div class="flex px-4 lg:px-0 gap-8 h-full box-content flex-col lg:flex-row justify-center">
+<div class={containerClasses}>
+  <div class={sectionClasses}>
+    <div class={innerContainerClasses}>
       <ProfileCard loading={$profileLoading} />
       <BoosterCard />
     </div>
 
-    <div class="mt-[28px]">
+    <div class={alertClasses}>
       <Alert type="info">
         <b>Note:</b>
-        Season 1 rewards can be claimed soon! Check the claim tab!
+        Season 1 rewards can be claimed now! Check the claim tab!
       </Alert>
     </div>
 
-    <div class="mt-[28px]">
+    <div class={tabsClasses}>
       <ProfileTabs />
+
+      <div class={disclaimerWrapperClasses}>
+        <LeaderboardDisclaimer />
+      </div>
     </div>
   </div>
 </div>

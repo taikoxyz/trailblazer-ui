@@ -58,6 +58,7 @@ export class DappLeaderboardService {
 
           const entry: DappLeaderboardRow = {
             address: item.address,
+            rank: item.rank,
             data: protocolDetails.protocols,
             metadata: protocolDetails.metadata,
             totalScore: item.score,
