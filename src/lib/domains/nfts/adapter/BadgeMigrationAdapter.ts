@@ -5,10 +5,10 @@ import { type Address, parseSignature, recoverAddress } from 'viem';
 
 import { PUBLIC_TRAILBLAZER_API_URL } from '$env/static/public';
 import {
+  badgeMigrationAbi,
+  badgeMigrationAddress,
   trailblazersBadgesAbi,
   trailblazersBadgesAddress,
-  trailblazersBadgesS2Abi,
-  trailblazersBadgesS2Address,
 } from '$generated/abi';
 import type { BadgeMigration as GqlBadgeMigration, Token } from '$generated/graphql';
 import { graphqlClient } from '$lib/shared/services/graphql/client';
@@ -73,27 +73,25 @@ export class BadgeMigrationAdapter {
 
   async setApprovalForAll(): Promise<string> {
     log('setApprovalForAll');
-    const s2ContractAddress = trailblazersBadgesS2Address[chainId];
-
-    const txHash = await writeContract(wagmiConfig, {
+    const tx = await writeContract(wagmiConfig, {
       abi: trailblazersBadgesAbi,
       address: trailblazersBadgesAddress[chainId],
       functionName: 'setApprovalForAll',
-      args: [s2ContractAddress, true],
+      args: [badgeMigrationAddress[chainId], true],
       chainId,
     });
+    await pendingTransactions.add(tx);
 
-    return txHash;
+    return tx;
   }
 
   async approve(tokenId: number): Promise<Address> {
-    const s2ContractAddress = trailblazersBadgesS2Address[chainId];
-
+    log('approve', { tokenId });
     const tx = await writeContract(wagmiConfig, {
       abi: trailblazersBadgesAbi,
       address: trailblazersBadgesAddress[chainId],
       functionName: 'approve',
-      args: [s2ContractAddress, BigInt(tokenId)],
+      args: [badgeMigrationAddress[chainId], BigInt(tokenId)],
       chainId,
     });
     await pendingTransactions.add(tx);
@@ -101,11 +99,11 @@ export class BadgeMigrationAdapter {
   }
 
   async startMigration(factionId: number): Promise<string> {
-    const s2ContractAddress = trailblazersBadgesS2Address[chainId];
+    log('startMigration', { factionId });
 
     const tx = await writeContract(wagmiConfig, {
-      abi: trailblazersBadgesS2Abi,
-      address: s2ContractAddress,
+      abi: badgeMigrationAbi,
+      address: badgeMigrationAddress[chainId],
       functionName: 'startMigration',
       args: [BigInt(factionId)],
       chainId,
@@ -116,25 +114,16 @@ export class BadgeMigrationAdapter {
     return tx;
   }
 
-  async tamperMigration(pinkOrPurple: boolean): Promise<string> {
-    const s2ContractAddress = trailblazersBadgesS2Address[chainId];
-
-    const tx = await writeContract(wagmiConfig, {
-      abi: trailblazersBadgesS2Abi,
-      address: s2ContractAddress,
-      functionName: 'tamperMigration',
-      args: [pinkOrPurple],
-      chainId,
-    });
-
-    await pendingTransactions.add(tx);
-
-    return tx;
-  }
-
-  async endMigration(address: Address, factionId: number): Promise<string> {
-    const s2ContractAddress = trailblazersBadgesS2Address[chainId];
-    // fetch signature
+  async _getMigrationSignature(
+    address: Address,
+    factionId: number
+  ): Promise<{
+    hash: Address,
+    r: Address,
+    s: Address,
+    v: bigint,
+  points: number}>
+  {
 
     const challenge = Date.now().toString();
     const challengeSignature = await signMessage(wagmiConfig, { message: challenge });
@@ -157,7 +146,6 @@ export class BadgeMigrationAdapter {
     );
 
     const { signature: rawSignature, points } = res.data;
-    console.warn(res.data);
     const mintSignature = `0x${rawSignature}` as Address;
     const { r, s, v } = parseSignature(mintSignature);
 
@@ -165,24 +153,64 @@ export class BadgeMigrationAdapter {
       throw new Error('Invalid signature');
     }
 
+
+
     const hash = await readContract(wagmiConfig, {
-      abi: trailblazersBadgesS2Abi,
-      address: s2ContractAddress,
+      abi: badgeMigrationAbi,
+      address: badgeMigrationAddress[chainId],
       functionName: 'generateClaimHash',
       args: [address, BigInt(points)],
       chainId,
     });
+
+
+
 
     const signer = await recoverAddress({
       hash,
       signature: mintSignature,
     });
 
-    console.warn({ signer, hash });
+    console.log({ signer, hash });
+
+    return { r, s, v, points, hash };
+  }
+
+  async tamperMigration(
+    address: Address,
+    factionId: number,
+    pinkOrPurple: boolean): Promise<string> {
+    log('tamperMigration', { pinkOrPurple });
+
+    const {r,s,v,points,hash} = await this._getMigrationSignature(address, factionId);
+    const tx = await writeContract(wagmiConfig, {
+      abi: badgeMigrationAbi,
+      address: badgeMigrationAddress[chainId],
+      functionName: 'tamperMigration',
+      args: [
+        hash,
+        Number(v),
+        r,
+        s,
+        BigInt(points),
+        pinkOrPurple
+      ],
+      chainId,
+    });
+
+    await pendingTransactions.add(tx);
+
+    return tx;
+  }
+
+  async endMigration(address: Address, factionId: number): Promise<string> {
+
+    const {r,s,v,points,hash} = await this._getMigrationSignature(address, factionId);
+
 
     const tx = await writeContract(wagmiConfig, {
-      abi: trailblazersBadgesS2Abi,
-      address: s2ContractAddress,
+      abi: badgeMigrationAbi,
+      address: badgeMigrationAddress[chainId],
       functionName: 'endMigration',
       args: [hash, Number(v), r, s, BigInt(points)],
       chainId,
@@ -263,8 +291,8 @@ export class BadgeMigrationAdapter {
             src: '',
             tokenUri: '',
           } satisfies NFT,
-          isStarted: raw.isStarted,
-          isCompleted: raw.isCompleted,
+          isStarted: Boolean(raw.isStarted),
+          isCompleted: Boolean(raw.isCompleted),
           pinkTampers: raw.pinkTampers,
           purpleTampers: raw.purpleTampers,
           claimExpirationTimeout: new Date(parseInt(raw.claimExpirationTimeout.toString()) * 1000),

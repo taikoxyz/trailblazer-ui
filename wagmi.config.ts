@@ -8,13 +8,13 @@ import * as TaikoonHeklaDeployment from '../taiko-mono.git/packages/nfts/deploym
 import * as TaikoonMainnetDeployment from '../taiko-mono.git/packages/nfts/deployments/taikoon/mainnet.json';
 // import * as S1ClaimHeklaDeployment from '../taiko-mono.git/packages/nfts/deployments/trailblazers-airdrop/hekla.json';
 // import * as TrailblazerBadgesHeklaDeployment from '../taiko-mono.git/packages/nfts/deployments/trailblazers-badges/hekla.json';
-import * as TrailblazerBadgesMainnetDeployment from '../taiko-mono.git/packages/nfts/deployments/trailblazers-badges/mainnet.json';
 import * as TrailblazerBadgesS2HeklaDeployment from '../taiko-mono.git/packages/nfts/deployments/trailblazers-season-2/hekla.json';
 // import ERC20Airdrop from '../taiko-mono.git/packages/nfts/out/ERC20Airdrop.sol/ERC20Airdrop.json';
 import RegisterProfilePicture from '../taiko-mono.git/packages/nfts/out/RegisterProfilePicture.sol/RegisterProfilePicture.json';
 import TaikoonToken from '../taiko-mono.git/packages/nfts/out/TaikoonToken.sol/TaikoonToken.json';
 import TrailblazersBadges from '../taiko-mono.git/packages/nfts/out/TrailblazersBadges.sol/TrailblazersBadges.json';
 import TrailblazersBadgesS2 from '../taiko-mono.git/packages/nfts/out/TrailblazersBadgesS2.sol/TrailblazersBadgesS2.json';
+import BadgeMigration from '../taiko-mono.git/packages/nfts/out/BadgeMigration.sol/BadgeMigration.json';
 
 export default defineConfig({
   out: 'src/generated/abi/index.ts',
@@ -24,9 +24,17 @@ export default defineConfig({
       address: {
         // use s2 for hekla, as it re-deploys s1 contracts
         167009: TrailblazerBadgesS2HeklaDeployment.TrailblazersBadges as Address,
-        167000: TrailblazerBadgesMainnetDeployment.TrailblazersBadges as Address,
+        167000: TrailblazerBadgesS2HeklaDeployment.TrailblazersBadges as Address,
       },
       abi: TrailblazersBadges.abi as Abi,
+    },
+    {
+      name: 'BadgeMigration',
+      address: {
+        167009: TrailblazerBadgesS2HeklaDeployment.BadgeMigration as Address,
+        167000: TrailblazerBadgesS2HeklaDeployment.BadgeMigration as Address,
+      },
+      abi: BadgeMigration.abi as Abi,
     },
     {
       name: 'TrailblazersBadgesS2',
