@@ -383,6 +383,9 @@
     }
   },
   "pagetitle": {
+    "competition": {
+      "dapp": "Thrillblazer - Competition 18.10 - 18.11.24"
+    },
     "competitions": {
       "dapp": "Taiko Trailblazer - Dapp Competition Leaderboard"
     },
