@@ -20,7 +20,8 @@
   export let pageInfo: PaginationInfo<DappLeaderboardItem>;
   export let season: number;
 
-  const endedSeasons = [1];
+  // Todo: think about moving this to a global store for each leaderboard
+  const endedSeasons = [1, 2];
 
   $: totalItems = pageInfo?.total || 0;
   $: pageSize = pageInfo?.size || leaderboardConfig.pageSize;
@@ -48,6 +49,12 @@
     loading = false;
   }
 
+  // Dynamically fetch the correct text for the ended season
+  $: seasonEndedTitle = endedSeasons.includes(season) ? $t(`leaderboard.gaming.ended.s${season}.title`) : '';
+  $: seasonEndedDescription = endedSeasons.includes(season)
+    ? $t(`leaderboard.gaming.ended.s${season}.description`)
+    : '';
+
   setContext('loadDappsLeaderboardData', loadLeaderboardData);
   setContext('dappsPageInfo', pageInfo);
 </script>
@@ -62,8 +69,8 @@
   {totalItems}
   ended={hasEnded}
   endedComponent={CampaignEndedInfoBox}
-  endTitleText={$t('leaderboard.gaming.ended.s1.title')}
-  endDescriptionText={$t('leaderboard.gaming.ended.s1.description')}
+  endTitleText={seasonEndedTitle}
+  endDescriptionText={seasonEndedDescription}
   showPagination={true}
   additionalInfoComponent={GamingCompetitionInformation}
   headerComponent={GamingHeader}
