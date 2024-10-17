@@ -13,7 +13,7 @@ export class DappCompetitionAdapter {
     log('fetching leaderboard data', args, season);
 
     const client = getAxiosInstance(season);
-    const response = await client.get<DappLeaderboardPageApiResponse>(`/competition/dapp`, {
+    const response = await client.get<DappLeaderboardPageApiResponse>(`v2/leaderboard/competition`, {
       ...globalAxiosConfig,
       params: args,
     });

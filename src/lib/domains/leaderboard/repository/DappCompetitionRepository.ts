@@ -1,3 +1,4 @@
+import currentDappCompetitionLeaderboard from '$lib/domains/leaderboard/stores/dappCompetitionLeaderboard';
 import type { DappLeaderboardPage } from '$lib/domains/leaderboard/types/dapps/types';
 import { IRepository } from '$shared/repository/IRepository';
 import { getLogger } from '$shared/utils/logger';
@@ -5,12 +6,15 @@ import { getLogger } from '$shared/utils/logger';
 const log = getLogger('DappLeaderboardRepository');
 
 export class DappCompetitionRepository extends IRepository<DappLeaderboardPage> {
-  save(leaderboardPage: DappLeaderboardPage): Promise<void> {
+  async save(leaderboardPage: DappLeaderboardPage) {
     log('saving leaderboard data', leaderboardPage);
-    throw new Error('Method not implemented.');
+    currentDappCompetitionLeaderboard.set(leaderboardPage);
   }
-  update(leaderboardPage: DappLeaderboardPage): Promise<void> {
+  async update(leaderboardPage: DappLeaderboardPage) {
     log('updating leaderboard data', leaderboardPage);
-    throw new Error('Method not implemented.');
+    currentDappCompetitionLeaderboard.update((store: DappLeaderboardPage) => {
+      store.items = leaderboardPage.items.filter((item) => !!item.address);
+      return store;
+    });
   }
 }

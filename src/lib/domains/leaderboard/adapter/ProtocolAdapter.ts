@@ -40,19 +40,30 @@ export class ProtocolAdapter {
    * @memberof ProtocolAdapter
    */
   async fetchGamingProtocolDetails(protocolSlug: string, season: number): Promise<ProtocolApiResponse> {
-    const cachedData = protocolDetailsCache.get(protocolSlug, season);
-    if (cachedData) {
-      return cachedData;
-    }
-
-    log(`Cache miss for ${protocolSlug}, fetching from API`);
     const client = getAxiosInstance(season);
     const response = await client.get<ProtocolApiResponse>(`/protocol/gaming`, {
       ...globalAxiosConfig,
       params: { slug: protocolSlug },
     });
     log(`Fetched protocol details for ${protocolSlug}`, response.data);
-    protocolDetailsCache.set(protocolSlug, season, response.data);
+    return response.data;
+  }
+
+  /**
+   * Fetches competition data from the /protocol/competition endpoint.
+   *
+   * @param {string} protocolSlug
+   * @param {number} season
+   * @return {*}  {Promise<ProtocolApiResponse>}
+   * @memberof ProtocolAdapter
+   */
+  async fetchCompetitionData(protocolSlug: string, season: number): Promise<ProtocolApiResponse> {
+    const client = getAxiosInstance(season);
+    const response = await client.get<ProtocolApiResponse>(`/protocol/competition`, {
+      ...globalAxiosConfig,
+      params: { slug: protocolSlug },
+    });
+    log(`Fetched protocol details for ${protocolSlug}`, response.data);
     return response.data;
   }
 }

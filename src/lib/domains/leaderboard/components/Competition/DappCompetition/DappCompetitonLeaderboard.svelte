@@ -12,8 +12,7 @@
   import { getLogger } from '$shared/utils/logger';
 
   import { CampaignEndedInfoBox } from '../../CampaignEndedInfoBox';
-  import DappCompetitionHeader from '../../Header/DappCompetitionHeader.svelte';
-  import DappCompetitionInformation from './DappCompetitionInformation.svelte';
+  import DappCompetitionHeader from './DappCompetitionHeader.svelte';
 
   const log = getLogger('DappsLeaderboard');
   export let loading = false;
@@ -65,7 +64,6 @@
   endTitleText={$t('leaderboard.gaming.ended.s1.title')}
   endDescriptionText={$t('leaderboard.gaming.ended.s1.description')}
   showPagination={true}
-  additionalInfoComponent={DappCompetitionInformation}
   {season}
   headerComponent={DappCompetitionHeader}
   scoreComponent={PointScore} />
