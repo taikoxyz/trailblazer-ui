@@ -56,6 +56,7 @@ export class DappCompetitionService {
             data: protocolDetails.protocols,
             metadata: protocolDetails.metadata,
             totalScore: item.score,
+            rank: item.rank,
           };
 
           const unifiedRow: UnifiedLeaderboardRow = mapDappLeaderboardRow(entry);
