@@ -26,6 +26,15 @@ export const GET_MIGRATION_STATUS_GQL = gql`
           }
           tokenId
         }
+        s2Badge {
+          id
+          badgeId
+          contract
+          owner {
+            id
+          }
+          tokenId
+        }
       }
     }
   }

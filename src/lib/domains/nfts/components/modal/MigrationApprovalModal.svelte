@@ -6,7 +6,7 @@
   import { errorToast, successToast } from '$shared/components/NotificationToast';
   import { account } from '$shared/stores';
   import { badgeMigrationStore } from '$shared/stores/badgeMigration';
-  import { migrationApprovalModal } from '$shared/stores/modal';
+  import { migrationApprovalModal, startMigrationModal } from '$shared/stores/modal';
 
   import {
     CoreModal,
@@ -32,6 +32,7 @@
 
       isLoading = false;
       $migrationApprovalModal = false;
+      $startMigrationModal = true;
 
       successToast({
         title: 'Success',

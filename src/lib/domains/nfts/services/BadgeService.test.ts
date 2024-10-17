@@ -53,21 +53,21 @@ describe('BadgeService', () => {
     const expectedBadges: NFT[] = [
       {
         address: trailblazersBadgesAddress[chainId],
-        src: '/factions/ravers/neutral.png',
+        src: '/factions/ravers/dev.png',
         tokenUri: '',
         tokenId: 33,
         badgeId: 0,
       },
       {
         address: trailblazersBadgesAddress[chainId],
-        src: '/factions/bouncers/neutral.png',
+        src: '/factions/bouncers/dev.png',
         tokenUri: '',
         tokenId: 55,
         badgeId: 2,
       },
       {
         address: trailblazersBadgesAddress[chainId],
-        src: '/factions/shinto/neutral.png',
+        src: '/factions/shinto/dev.png',
         tokenUri: '',
         tokenId: 99,
         badgeId: 7,

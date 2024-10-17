@@ -1,8 +1,10 @@
-import client from 'https://api.goldsky.com/api/public/project_clz85cxrvng3n01ughcv5e7hg/subgraphs/tbz-hekla/0.2.13/gn';
-import type {} from '@apollo/client';
-import { readable } from 'svelte/store';
-import type { Readable } from 'svelte/store';
-import gql from 'graphql-tag';
+import client from "https://api.goldsky.com/api/public/project_clz85cxrvng3n01ughcv5e7hg/subgraphs/tbz-hekla/0.2.29j/gn";
+import type {
+        
+      } from "@apollo/client";
+import { readable } from "svelte/store";
+import type { Readable } from "svelte/store";
+import gql from "graphql-tag"
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -12,16 +14,16 @@ export type MakeEmpty<T extends { [key: string]: unknown }, K extends keyof T> =
 export type Incremental<T> = T | { [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
-  ID: { input: string; output: string };
-  String: { input: string; output: string };
-  Boolean: { input: boolean; output: boolean };
-  Int: { input: number; output: number };
-  Float: { input: number; output: number };
-  BigDecimal: { input: any; output: any };
-  BigInt: { input: any; output: any };
-  Bytes: { input: any; output: any };
-  Int8: { input: any; output: any };
-  Timestamp: { input: any; output: any };
+  ID: { input: string; output: string; }
+  String: { input: string; output: string; }
+  Boolean: { input: boolean; output: boolean; }
+  Int: { input: number; output: number; }
+  Float: { input: number; output: number; }
+  BigDecimal: { input: any; output: any; }
+  BigInt: { input: any; output: any; }
+  Bytes: { input: any; output: any; }
+  Int8: { input: any; output: any; }
+  Timestamp: { input: any; output: any; }
 };
 
 export type Account = {
@@ -36,6 +38,7 @@ export type Account = {
   totalMultiplier: Scalars['BigInt']['output'];
 };
 
+
 export type AccountApprovedS1TokensArgs = {
   first?: InputMaybe<Scalars['Int']['input']>;
   orderBy?: InputMaybe<Token_OrderBy>;
@@ -43,6 +46,7 @@ export type AccountApprovedS1TokensArgs = {
   skip?: InputMaybe<Scalars['Int']['input']>;
   where?: InputMaybe<Token_Filter>;
 };
+
 
 export type AccountS1MultiplierNftsArgs = {
   first?: InputMaybe<Scalars['Int']['input']>;
@@ -52,6 +56,7 @@ export type AccountS1MultiplierNftsArgs = {
   where?: InputMaybe<Token_Filter>;
 };
 
+
 export type AccountS2BadgesArgs = {
   first?: InputMaybe<Scalars['Int']['input']>;
   orderBy?: InputMaybe<Token_OrderBy>;
@@ -59,6 +64,7 @@ export type AccountS2BadgesArgs = {
   skip?: InputMaybe<Scalars['Int']['input']>;
   where?: InputMaybe<Token_Filter>;
 };
+
 
 export type AccountS2MigrationsArgs = {
   first?: InputMaybe<Scalars['Int']['input']>;
@@ -120,12 +126,12 @@ export enum Account_OrderBy {
   S1MultiplierNfts = 's1MultiplierNfts',
   S2Badges = 's2Badges',
   S2Migrations = 's2Migrations',
-  TotalMultiplier = 'totalMultiplier',
+  TotalMultiplier = 'totalMultiplier'
 }
 
 export enum Aggregation_Interval {
   Day = 'day',
-  Hour = 'hour',
+  Hour = 'hour'
 }
 
 export type BadgeMigration = {
@@ -138,7 +144,7 @@ export type BadgeMigration = {
   owner: Account;
   pinkTampers: Scalars['BigInt']['output'];
   purpleTampers: Scalars['BigInt']['output'];
-  s1Badge: Token;
+  s1Badge?: Maybe<Token>;
   s2Badge?: Maybe<Token>;
   tamperExpirationTimeout: Scalars['BigInt']['output'];
 };
@@ -278,13 +284,15 @@ export enum BadgeMigration_OrderBy {
   S1BadgeBadgeId = 's1Badge__badgeId',
   S1BadgeContract = 's1Badge__contract',
   S1BadgeId = 's1Badge__id',
+  S1BadgeMovement = 's1Badge__movement',
   S1BadgeTokenId = 's1Badge__tokenId',
   S2Badge = 's2Badge',
   S2BadgeBadgeId = 's2Badge__badgeId',
   S2BadgeContract = 's2Badge__contract',
   S2BadgeId = 's2Badge__id',
+  S2BadgeMovement = 's2Badge__movement',
   S2BadgeTokenId = 's2Badge__tokenId',
-  TamperExpirationTimeout = 'tamperExpirationTimeout',
+  TamperExpirationTimeout = 'tamperExpirationTimeout'
 }
 
 export type BlockChangedFilter = {
@@ -423,7 +431,7 @@ export enum Champion_OrderBy {
   Owner = 'owner',
   Points = 'points',
   Power = 'power',
-  TokenId = 'tokenId',
+  TokenId = 'tokenId'
 }
 
 export type League = {
@@ -438,6 +446,7 @@ export type League = {
   startTime: Scalars['BigInt']['output'];
 };
 
+
 export type LeagueParticipantsArgs = {
   first?: InputMaybe<Scalars['Int']['input']>;
   orderBy?: InputMaybe<Champion_OrderBy>;
@@ -445,6 +454,7 @@ export type LeagueParticipantsArgs = {
   skip?: InputMaybe<Scalars['Int']['input']>;
   where?: InputMaybe<Champion_Filter>;
 };
+
 
 export type LeagueRoundsArgs = {
   first?: InputMaybe<Scalars['Int']['input']>;
@@ -522,7 +532,7 @@ export enum League_OrderBy {
   Participants = 'participants',
   Rounds = 'rounds',
   Seed = 'seed',
-  StartTime = 'startTime',
+  StartTime = 'startTime'
 }
 
 export type Match = {
@@ -531,6 +541,7 @@ export type Match = {
   id: Scalars['ID']['output'];
   participants: Array<MatchParticipant>;
 };
+
 
 export type MatchParticipantsArgs = {
   first?: InputMaybe<Scalars['Int']['input']>;
@@ -662,7 +673,7 @@ export enum MatchParticipant_OrderBy {
   Owner = 'owner',
   Points = 'points',
   Power = 'power',
-  TotalPower = 'totalPower',
+  TotalPower = 'totalPower'
 }
 
 export type Match_Filter = {
@@ -689,7 +700,7 @@ export type Match_Filter = {
 
 export enum Match_OrderBy {
   Id = 'id',
-  Participants = 'participants',
+  Participants = 'participants'
 }
 
 export type OpenMigration = {
@@ -729,13 +740,13 @@ export type OpenMigration_Filter = {
 export enum OpenMigration_OrderBy {
   CycleId = 'cycleId',
   Enabled = 'enabled',
-  Id = 'id',
+  Id = 'id'
 }
 
 /** Defines the order direction, either ascending or descending */
 export enum OrderDirection {
   Asc = 'asc',
-  Desc = 'desc',
+  Desc = 'desc'
 }
 
 export type ProfilePicture = {
@@ -805,7 +816,7 @@ export enum ProfilePicture_OrderBy {
   Id = 'id',
   TokenAddress = 'tokenAddress',
   TokenId = 'tokenId',
-  TokenUri = 'tokenURI',
+  TokenUri = 'tokenURI'
 }
 
 export type Query = {
@@ -834,15 +845,18 @@ export type Query = {
   tokens: Array<Token>;
 };
 
+
 export type Query_MetaArgs = {
   block?: InputMaybe<Block_Height>;
 };
+
 
 export type QueryAccountArgs = {
   block?: InputMaybe<Block_Height>;
   id: Scalars['ID']['input'];
   subgraphError?: _SubgraphErrorPolicy_;
 };
+
 
 export type QueryAccountsArgs = {
   block?: InputMaybe<Block_Height>;
@@ -854,11 +868,13 @@ export type QueryAccountsArgs = {
   where?: InputMaybe<Account_Filter>;
 };
 
+
 export type QueryBadgeMigrationArgs = {
   block?: InputMaybe<Block_Height>;
   id: Scalars['ID']['input'];
   subgraphError?: _SubgraphErrorPolicy_;
 };
+
 
 export type QueryBadgeMigrationsArgs = {
   block?: InputMaybe<Block_Height>;
@@ -870,11 +886,13 @@ export type QueryBadgeMigrationsArgs = {
   where?: InputMaybe<BadgeMigration_Filter>;
 };
 
+
 export type QueryChampionArgs = {
   block?: InputMaybe<Block_Height>;
   id: Scalars['ID']['input'];
   subgraphError?: _SubgraphErrorPolicy_;
 };
+
 
 export type QueryChampionsArgs = {
   block?: InputMaybe<Block_Height>;
@@ -886,11 +904,13 @@ export type QueryChampionsArgs = {
   where?: InputMaybe<Champion_Filter>;
 };
 
+
 export type QueryLeagueArgs = {
   block?: InputMaybe<Block_Height>;
   id: Scalars['ID']['input'];
   subgraphError?: _SubgraphErrorPolicy_;
 };
+
 
 export type QueryLeaguesArgs = {
   block?: InputMaybe<Block_Height>;
@@ -902,17 +922,20 @@ export type QueryLeaguesArgs = {
   where?: InputMaybe<League_Filter>;
 };
 
+
 export type QueryMatchArgs = {
   block?: InputMaybe<Block_Height>;
   id: Scalars['ID']['input'];
   subgraphError?: _SubgraphErrorPolicy_;
 };
 
+
 export type QueryMatchParticipantArgs = {
   block?: InputMaybe<Block_Height>;
   id: Scalars['ID']['input'];
   subgraphError?: _SubgraphErrorPolicy_;
 };
+
 
 export type QueryMatchParticipantsArgs = {
   block?: InputMaybe<Block_Height>;
@@ -924,6 +947,7 @@ export type QueryMatchParticipantsArgs = {
   where?: InputMaybe<MatchParticipant_Filter>;
 };
 
+
 export type QueryMatchesArgs = {
   block?: InputMaybe<Block_Height>;
   first?: InputMaybe<Scalars['Int']['input']>;
@@ -934,11 +958,13 @@ export type QueryMatchesArgs = {
   where?: InputMaybe<Match_Filter>;
 };
 
+
 export type QueryOpenMigrationArgs = {
   block?: InputMaybe<Block_Height>;
   id: Scalars['ID']['input'];
   subgraphError?: _SubgraphErrorPolicy_;
 };
+
 
 export type QueryOpenMigrationsArgs = {
   block?: InputMaybe<Block_Height>;
@@ -950,11 +976,13 @@ export type QueryOpenMigrationsArgs = {
   where?: InputMaybe<OpenMigration_Filter>;
 };
 
+
 export type QueryProfilePictureArgs = {
   block?: InputMaybe<Block_Height>;
   id: Scalars['ID']['input'];
   subgraphError?: _SubgraphErrorPolicy_;
 };
+
 
 export type QueryProfilePicturesArgs = {
   block?: InputMaybe<Block_Height>;
@@ -966,11 +994,13 @@ export type QueryProfilePicturesArgs = {
   where?: InputMaybe<ProfilePicture_Filter>;
 };
 
+
 export type QueryRoundArgs = {
   block?: InputMaybe<Block_Height>;
   id: Scalars['ID']['input'];
   subgraphError?: _SubgraphErrorPolicy_;
 };
+
 
 export type QueryRoundsArgs = {
   block?: InputMaybe<Block_Height>;
@@ -982,11 +1012,13 @@ export type QueryRoundsArgs = {
   where?: InputMaybe<Round_Filter>;
 };
 
+
 export type QueryTokenArgs = {
   block?: InputMaybe<Block_Height>;
   id: Scalars['ID']['input'];
   subgraphError?: _SubgraphErrorPolicy_;
 };
+
 
 export type QueryTokensArgs = {
   block?: InputMaybe<Block_Height>;
@@ -1004,6 +1036,7 @@ export type Round = {
   id: Scalars['ID']['output'];
   matches: Array<Match>;
 };
+
 
 export type RoundMatchesArgs = {
   first?: InputMaybe<Scalars['Int']['input']>;
@@ -1037,7 +1070,7 @@ export type Round_Filter = {
 
 export enum Round_OrderBy {
   Id = 'id',
-  Matches = 'matches',
+  Matches = 'matches'
 }
 
 export type Subscription = {
@@ -1066,15 +1099,18 @@ export type Subscription = {
   tokens: Array<Token>;
 };
 
+
 export type Subscription_MetaArgs = {
   block?: InputMaybe<Block_Height>;
 };
+
 
 export type SubscriptionAccountArgs = {
   block?: InputMaybe<Block_Height>;
   id: Scalars['ID']['input'];
   subgraphError?: _SubgraphErrorPolicy_;
 };
+
 
 export type SubscriptionAccountsArgs = {
   block?: InputMaybe<Block_Height>;
@@ -1086,11 +1122,13 @@ export type SubscriptionAccountsArgs = {
   where?: InputMaybe<Account_Filter>;
 };
 
+
 export type SubscriptionBadgeMigrationArgs = {
   block?: InputMaybe<Block_Height>;
   id: Scalars['ID']['input'];
   subgraphError?: _SubgraphErrorPolicy_;
 };
+
 
 export type SubscriptionBadgeMigrationsArgs = {
   block?: InputMaybe<Block_Height>;
@@ -1102,11 +1140,13 @@ export type SubscriptionBadgeMigrationsArgs = {
   where?: InputMaybe<BadgeMigration_Filter>;
 };
 
+
 export type SubscriptionChampionArgs = {
   block?: InputMaybe<Block_Height>;
   id: Scalars['ID']['input'];
   subgraphError?: _SubgraphErrorPolicy_;
 };
+
 
 export type SubscriptionChampionsArgs = {
   block?: InputMaybe<Block_Height>;
@@ -1118,11 +1158,13 @@ export type SubscriptionChampionsArgs = {
   where?: InputMaybe<Champion_Filter>;
 };
 
+
 export type SubscriptionLeagueArgs = {
   block?: InputMaybe<Block_Height>;
   id: Scalars['ID']['input'];
   subgraphError?: _SubgraphErrorPolicy_;
 };
+
 
 export type SubscriptionLeaguesArgs = {
   block?: InputMaybe<Block_Height>;
@@ -1134,17 +1176,20 @@ export type SubscriptionLeaguesArgs = {
   where?: InputMaybe<League_Filter>;
 };
 
+
 export type SubscriptionMatchArgs = {
   block?: InputMaybe<Block_Height>;
   id: Scalars['ID']['input'];
   subgraphError?: _SubgraphErrorPolicy_;
 };
 
+
 export type SubscriptionMatchParticipantArgs = {
   block?: InputMaybe<Block_Height>;
   id: Scalars['ID']['input'];
   subgraphError?: _SubgraphErrorPolicy_;
 };
+
 
 export type SubscriptionMatchParticipantsArgs = {
   block?: InputMaybe<Block_Height>;
@@ -1156,6 +1201,7 @@ export type SubscriptionMatchParticipantsArgs = {
   where?: InputMaybe<MatchParticipant_Filter>;
 };
 
+
 export type SubscriptionMatchesArgs = {
   block?: InputMaybe<Block_Height>;
   first?: InputMaybe<Scalars['Int']['input']>;
@@ -1166,11 +1212,13 @@ export type SubscriptionMatchesArgs = {
   where?: InputMaybe<Match_Filter>;
 };
 
+
 export type SubscriptionOpenMigrationArgs = {
   block?: InputMaybe<Block_Height>;
   id: Scalars['ID']['input'];
   subgraphError?: _SubgraphErrorPolicy_;
 };
+
 
 export type SubscriptionOpenMigrationsArgs = {
   block?: InputMaybe<Block_Height>;
@@ -1182,11 +1230,13 @@ export type SubscriptionOpenMigrationsArgs = {
   where?: InputMaybe<OpenMigration_Filter>;
 };
 
+
 export type SubscriptionProfilePictureArgs = {
   block?: InputMaybe<Block_Height>;
   id: Scalars['ID']['input'];
   subgraphError?: _SubgraphErrorPolicy_;
 };
+
 
 export type SubscriptionProfilePicturesArgs = {
   block?: InputMaybe<Block_Height>;
@@ -1198,11 +1248,13 @@ export type SubscriptionProfilePicturesArgs = {
   where?: InputMaybe<ProfilePicture_Filter>;
 };
 
+
 export type SubscriptionRoundArgs = {
   block?: InputMaybe<Block_Height>;
   id: Scalars['ID']['input'];
   subgraphError?: _SubgraphErrorPolicy_;
 };
+
 
 export type SubscriptionRoundsArgs = {
   block?: InputMaybe<Block_Height>;
@@ -1214,11 +1266,13 @@ export type SubscriptionRoundsArgs = {
   where?: InputMaybe<Round_Filter>;
 };
 
+
 export type SubscriptionTokenArgs = {
   block?: InputMaybe<Block_Height>;
   id: Scalars['ID']['input'];
   subgraphError?: _SubgraphErrorPolicy_;
 };
+
 
 export type SubscriptionTokensArgs = {
   block?: InputMaybe<Block_Height>;
@@ -1234,7 +1288,8 @@ export type Token = {
   __typename?: 'Token';
   badgeId?: Maybe<Scalars['BigInt']['output']>;
   contract: Scalars['Bytes']['output'];
-  id: Scalars['Bytes']['output'];
+  id: Scalars['ID']['output'];
+  movement?: Maybe<Scalars['BigInt']['output']>;
   owner: Account;
   tokenId: Scalars['BigInt']['output'];
 };
@@ -1261,16 +1316,22 @@ export type Token_Filter = {
   contract_not?: InputMaybe<Scalars['Bytes']['input']>;
   contract_not_contains?: InputMaybe<Scalars['Bytes']['input']>;
   contract_not_in?: InputMaybe<Array<Scalars['Bytes']['input']>>;
-  id?: InputMaybe<Scalars['Bytes']['input']>;
-  id_contains?: InputMaybe<Scalars['Bytes']['input']>;
-  id_gt?: InputMaybe<Scalars['Bytes']['input']>;
-  id_gte?: InputMaybe<Scalars['Bytes']['input']>;
-  id_in?: InputMaybe<Array<Scalars['Bytes']['input']>>;
-  id_lt?: InputMaybe<Scalars['Bytes']['input']>;
-  id_lte?: InputMaybe<Scalars['Bytes']['input']>;
-  id_not?: InputMaybe<Scalars['Bytes']['input']>;
-  id_not_contains?: InputMaybe<Scalars['Bytes']['input']>;
-  id_not_in?: InputMaybe<Array<Scalars['Bytes']['input']>>;
+  id?: InputMaybe<Scalars['ID']['input']>;
+  id_gt?: InputMaybe<Scalars['ID']['input']>;
+  id_gte?: InputMaybe<Scalars['ID']['input']>;
+  id_in?: InputMaybe<Array<Scalars['ID']['input']>>;
+  id_lt?: InputMaybe<Scalars['ID']['input']>;
+  id_lte?: InputMaybe<Scalars['ID']['input']>;
+  id_not?: InputMaybe<Scalars['ID']['input']>;
+  id_not_in?: InputMaybe<Array<Scalars['ID']['input']>>;
+  movement?: InputMaybe<Scalars['BigInt']['input']>;
+  movement_gt?: InputMaybe<Scalars['BigInt']['input']>;
+  movement_gte?: InputMaybe<Scalars['BigInt']['input']>;
+  movement_in?: InputMaybe<Array<Scalars['BigInt']['input']>>;
+  movement_lt?: InputMaybe<Scalars['BigInt']['input']>;
+  movement_lte?: InputMaybe<Scalars['BigInt']['input']>;
+  movement_not?: InputMaybe<Scalars['BigInt']['input']>;
+  movement_not_in?: InputMaybe<Array<Scalars['BigInt']['input']>>;
   or?: InputMaybe<Array<InputMaybe<Token_Filter>>>;
   owner?: InputMaybe<Scalars['String']['input']>;
   owner_?: InputMaybe<Account_Filter>;
@@ -1307,11 +1368,12 @@ export enum Token_OrderBy {
   BadgeId = 'badgeId',
   Contract = 'contract',
   Id = 'id',
+  Movement = 'movement',
   Owner = 'owner',
   OwnerApprovedForAll = 'owner__approvedForAll',
   OwnerId = 'owner__id',
   OwnerTotalMultiplier = 'owner__totalMultiplier',
-  TokenId = 'tokenId',
+  TokenId = 'tokenId'
 }
 
 export type _Block_ = {
@@ -1347,5 +1409,7 @@ export enum _SubgraphErrorPolicy_ {
   /** Data will be returned even if the subgraph has indexing errors */
   Allow = 'allow',
   /** If the subgraph has indexing errors, data will be omitted. The default. */
-  Deny = 'deny',
+  Deny = 'deny'
 }
+
+

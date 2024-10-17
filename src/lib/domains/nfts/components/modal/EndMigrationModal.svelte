@@ -3,11 +3,11 @@
 
   import { FactionNames, FACTIONS } from '$configs/badges';
   import profileService from '$lib/domains/profile/services/ProfileServiceInstance';
+  import { Movements } from '$lib/domains/profile/types/types';
   import { ActionButton } from '$shared/components/Button';
   import { account } from '$shared/stores';
   import { badgeMigrationStore } from '$shared/stores/badgeMigration';
   import { endMigrationModal } from '$shared/stores/modal';
-  import { Movements } from '$shared/utils/badges/const';
   import { classNames } from '$shared/utils/classNames';
 
   import MigrationBadgeItem from '../MigrationBadgeItem.svelte';
@@ -47,9 +47,9 @@
   </CoreModalHeader>
   <div class={badgeWrapperClasses}>
     <Flippable height="400px" width="300px" flip={isRevealed}>
-      <MigrationBadgeItem slot="front" badgeMovement={Movements.Neutral} badgeId={s1BadgeId} {badgeName} />
+      <MigrationBadgeItem slot="front" badgeMovement={Movements.Dev} badgeId={s1BadgeId} {badgeName} />
 
-      <MigrationBadgeItem slot="back" badgeMovement={Movements.Based} badgeId={s1BadgeId} {badgeName} />
+      <MigrationBadgeItem slot="back" badgeMovement={Movements.Whale} badgeId={s1BadgeId} {badgeName} />
     </Flippable>
   </div>
 

@@ -1,8 +1,8 @@
 <script lang="ts">
   import { type FactionNames, FACTIONS } from '$configs/badges';
   import type { FactionBadgeButton } from '$lib/domains/profile/types/FactionBadgeButton';
+  import type { Movements } from '$lib/domains/profile/types/types';
   import { ActionButton } from '$shared/components/Button';
-  import type { Movements } from '$shared/utils/badges/const';
   import { classNames } from '$shared/utils/classNames';
 
   import FactionImage from './FactionImage.svelte';
@@ -71,7 +71,7 @@
   {#if button}
     <div class={buttonWrapperClasses}>
       <ActionButton
-        {disabled}
+        disabled={disabled || button.label === "Migration complete"}
         on:click={() => button.handler && button.handler(FACTIONS[typedNamed])}
         priority={button.type}>
         {button.label}

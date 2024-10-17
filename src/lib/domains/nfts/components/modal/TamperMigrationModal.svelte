@@ -1,13 +1,13 @@
 <script lang="ts">
   import { type FactionNames, FACTIONS } from '$configs/badges';
   import profileService from '$lib/domains/profile/services/ProfileServiceInstance';
+  import { Movements } from '$lib/domains/profile/types/types';
   import timeUntil from '$lib/shared/utils/date/timeUntil';
   import { ActionButton } from '$shared/components/Button';
   import { errorToast, successToast } from '$shared/components/NotificationToast';
   import { account } from '$shared/stores';
   import { badgeMigrationStore } from '$shared/stores/badgeMigration';
   import { tamperMigrationModal } from '$shared/stores/modal';
-  import { Movements } from '$shared/utils/badges/const';
   import { classNames } from '$shared/utils/classNames';
 
   import MigrationBadgeItem from '../MigrationBadgeItem.svelte';
@@ -82,7 +82,7 @@
   </CoreModalHeader>
 
   <div class={badgesWrapperClasses}>
-    <MigrationBadgeItem shadow badgeMovement={Movements.Based} badgeId={s1BadgeId} {badgeName}>
+    <MigrationBadgeItem shadow badgeMovement={Movements.Whale} badgeId={s1BadgeId} {badgeName}>
       <TamperRadio
         checked={isPinkSelected}
         on:change={() => {
@@ -91,7 +91,7 @@
         }}
         name="radio-tamper" />
     </MigrationBadgeItem>
-    <MigrationBadgeItem shadow badgeMovement={Movements.Boosted} badgeId={s1BadgeId} {badgeName}>
+    <MigrationBadgeItem shadow badgeMovement={Movements.Minnow} badgeId={s1BadgeId} {badgeName}>
       <TamperRadio
         on:change={() => {
           isPinkSelected = false;

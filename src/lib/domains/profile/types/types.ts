@@ -73,7 +73,7 @@ export type BoosterType = 'nft' | 'stake' | 'bridge';
 
 export type UserFaction = {
   faction: Faction;
-  boostedOrBased: BoostedOrBased;
+  minnorOrWhale: MinnowOrWhale;
 };
 
 export type UserLevel = {
@@ -88,12 +88,12 @@ export type UserFactionBadge = UserFaction & {
 
 export type Faction = 'Ravers' | 'Robots' | 'Bouncers' | 'Masters' | 'Monks' | 'Drummers' | 'Androids' | 'Shinto';
 
-export type BoostedOrBased = 'Boosted' | 'Based';
+export type MinnowOrWhale = 'Minnow' | 'Whale';
 
 export enum Movements {
-  Neutral,
-  Based,
-  Boosted,
+  Dev, // Neutral
+  Whale, // Based
+  Minnow, // Boosted
 }
 
 export const MovementNames: string[] = Object.keys(Movements).filter((key) => isNaN(Number(key)));

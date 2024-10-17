@@ -1,8 +1,7 @@
 <script lang="ts">
   import { FACTIONS } from '$configs/badges';
   import { FactionImage } from '$lib/domains/profile/components/ProfileNFTs';
-  import type { Faction } from '$lib/domains/profile/types/types';
-  import { Movements } from '$shared/utils/badges/const';
+  import { type Faction,Movements } from '$lib/domains/profile/types/types';
   import { classNames } from '$shared/utils/classNames';
 
   import TamperRings from './TamperRings.svelte';
@@ -35,9 +34,9 @@
     'justify-center',
     'pb-0',
     'transition-all',
-    shadow && badgeMovement === Movements.Based ? 'border-secondary  shadow-[0_0px_50px_0px_#E81899]' : null,
-    shadow && badgeMovement === Movements.Boosted ? 'border-[#5D08C8] shadow-[0_0px_50px_0px_#5D08C8]' : null,
-    shadow && badgeMovement === Movements.Neutral ? 'border-[white] shadow-[0_0px_50px_0px_white]' : null,
+    shadow && badgeMovement === Movements.Whale ? 'border-secondary  shadow-[0_0px_50px_0px_#E81899]' : null,
+    shadow && badgeMovement === Movements.Minnow ? 'border-[#5D08C8] shadow-[0_0px_50px_0px_#5D08C8]' : null,
+    shadow && badgeMovement === Movements.Dev ? 'border-[white] shadow-[0_0px_50px_0px_white]' : null,
 
     /*
     badgeMovement === Movements.Based ?
@@ -84,7 +83,7 @@
     <slot />
   </div>
 
-  {#if badgeMovement !== Movements.Neutral}
-    <TamperRings {value} color={badgeMovement === Movements.Based ? 'pink' : 'purple'} />
+  {#if badgeMovement !== Movements.Dev}
+    <TamperRings {value} color={badgeMovement === Movements.Whale ? 'pink' : 'purple'} />
   {/if}
 </div>

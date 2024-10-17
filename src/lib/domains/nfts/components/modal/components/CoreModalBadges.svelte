@@ -1,6 +1,6 @@
 <script lang="ts">
   import { FACTIONS } from '$configs/badges';
-  import { type Faction,MovementNames, Movements } from '$lib/domains/profile/types/types';
+  import { type Faction, MovementNames, Movements } from '$lib/domains/profile/types/types';
   import { classNames } from '$shared/utils/classNames';
 
   import MigrationBadgeItem from '../../MigrationBadgeItem.svelte';
@@ -35,8 +35,8 @@
 <div class={wrapperClasses}>
   {#if !hideResult}
     <div class={badgeWrapperClasses}>
-      <MigrationBadgeItem blurred={!active} value={pinkTampers} badgeMovement={Movements.Based} {badgeId} {badgeName}>
-        {MovementNames[Movements.Based]}
+      <MigrationBadgeItem blurred={!active} value={pinkTampers} badgeMovement={Movements.Whale} {badgeId} {badgeName}>
+        {MovementNames[Movements.Whale]}
       </MigrationBadgeItem>
       <!--
     {#if tamperExpiration && new Date() > tamperExpiration}
@@ -47,8 +47,8 @@
   {/if}
   {#if !active}
     <div class={centralBadgeWrapperClasses}>
-      <MigrationBadgeItem badgeMovement={Movements.Neutral} {badgeId} {badgeName}>
-        {MovementNames[Movements.Neutral]}
+      <MigrationBadgeItem badgeMovement={Movements.Dev} {badgeId} {badgeName}>
+        {MovementNames[Movements.Dev]}
       </MigrationBadgeItem>
     </div>
   {/if}
@@ -56,11 +56,11 @@
     <div class={badgeWrapperClasses}>
       <MigrationBadgeItem
         blurred={!active}
-        badgeMovement={Movements.Boosted}
+        badgeMovement={Movements.Minnow}
         {badgeId}
         value={purpleTampers}
         {badgeName}>
-        {MovementNames[Movements.Boosted]}
+        {MovementNames[Movements.Minnow]}
       </MigrationBadgeItem>
       <!--
     {#if tamperExpiration && new Date() > tamperExpiration}

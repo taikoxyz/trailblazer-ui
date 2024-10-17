@@ -50,6 +50,9 @@ importers:
       events:
         specifier: ^3.3.0
         version: 3.3.0
+      graphql-tag:
+        specifier: ^2.12.6
+        version: 2.12.6(graphql@16.9.0)
       lefthook:
         specifier: ^1.7.12
         version: 1.7.14

@@ -46,14 +46,14 @@ export class BadgeService {
 
   private getS1BadgeURI(badgeId: number): string {
     const s1Badges = [
-      '/factions/ravers/neutral.png',
-      '/factions/robots/neutral.png',
-      '/factions/bouncers/neutral.png',
-      '/factions/masters/neutral.png',
-      '/factions/monks/neutral.png',
-      '/factions/androids/neutral.png',
-      '/factions/drummers/neutral.png',
-      '/factions/shinto/neutral.png',
+      '/factions/ravers/dev.png',
+      '/factions/robots/dev.png',
+      '/factions/bouncers/dev.png',
+      '/factions/masters/dev.png',
+      '/factions/monks/dev.png',
+      '/factions/androids/dev.png',
+      '/factions/drummers/dev.png',
+      '/factions/shinto/dev.png',
     ];
     return s1Badges[badgeId];
   }

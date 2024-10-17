@@ -257,29 +257,44 @@ export class BadgeMigrationAdapter {
       }
 
       const migrations = s2Migrations.map((raw) => {
-        if (!raw.s1Badge || !raw.s1Badge.badgeId) {
-          throw new Error('BadgeMigrationAdapter: s1Badge or s1Badge.badgeId is missing');
-        }
+        let s1Badge = undefined
+        if (raw.s1Badge) {
+          const badgeId = parseInt(raw.s1Badge.badgeId.toString());
 
-        const badgeId = parseInt(raw.s1Badge.badgeId?.toString());
-        const tamperExpirationTimeout = parseInt(raw.tamperExpirationTimeout.toString());
-
-        return {
-          id: raw.id,
-          s1Badge: {
+          s1Badge = {
             badgeId,
             tokenId: parseInt(raw.s1Badge.tokenId.toString()),
             address: trailblazersBadgesAddress[chainId],
             src: '',
             tokenUri: '',
-          } satisfies NFT,
+          } satisfies NFT
+        }
+
+        let s2Badge = undefined
+        if (raw.s2Badge) {
+          const badgeId = parseInt(raw.s2Badge.badgeId.toString());
+
+          s2Badge = {
+            badgeId,
+            tokenId: parseInt(raw.s2Badge.tokenId.toString()),
+            address: trailblazersBadgesAddress[chainId],
+            src: '',
+            tokenUri: '',
+          } satisfies NFT
+        }
+        const tamperExpirationTimeout = parseInt(raw.tamperExpirationTimeout.toString());
+
+        return {
+          id: raw.id,
+          s1Badge,
+          s2Badge,
           isStarted: Boolean(raw.isStarted),
           isCompleted: Boolean(raw.isCompleted),
           pinkTampers: raw.pinkTampers,
           purpleTampers: raw.purpleTampers,
           claimExpirationTimeout: new Date(parseInt(raw.claimExpirationTimeout.toString()) * 1000),
           tamperExpirationTimeout: tamperExpirationTimeout > 0 ? new Date(tamperExpirationTimeout * 1000) : undefined,
-          isApproved: approvedTokenIds.includes(badgeId),
+          isApproved: s1Badge ? approvedTokenIds.includes(parseInt(raw.s1Badge?.badgeId.toString())) : false,
         } satisfies BadgeMigration;
       });
 

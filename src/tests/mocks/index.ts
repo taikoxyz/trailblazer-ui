@@ -5,5 +5,4 @@ export * from './leaderboard';
 export * from './profile';
 export * from './proofs';
 export * from './userBoosters';
-export * from './userFactions';
 export * from './userStatistics';
