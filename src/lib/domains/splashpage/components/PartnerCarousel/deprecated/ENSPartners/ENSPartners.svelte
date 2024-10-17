@@ -1,8 +1,7 @@
 <script lang="ts">
   import { t } from 'svelte-i18n';
 
-  import { PartnersTemplate } from '$shared/components/PartnerCarousels';
-
+  import { PartnersTemplate } from '..';
   import { ensCarouselItems } from './ensCarouselItems';
 </script>
 

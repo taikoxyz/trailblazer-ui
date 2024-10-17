@@ -1,7 +1,8 @@
 <script lang="ts">
   import type { CarouselItemType } from '$shared/components/Carousel/types';
-  import { PartnersTemplate } from '$shared/components/PartnerCarousels';
   import { classNames } from '$shared/utils/classNames';
+
+  import { PartnersTemplate } from '..';
 
   export const gamingCarouselItems: CarouselItemType[] = [
     {
