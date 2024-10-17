@@ -226,11 +226,11 @@
             "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor.",
             "title": "Join the Dapp competition starting Oct 17th!"
           },
-          "prize": {},
           "ended": {
             "description": "Our journey concluded on Dec 18th, 2024. Congratulations to the winners!",
             "title": "Season ended"
-          }
+          },
+          "prize": {}
         }
       }
     },
@@ -300,6 +300,25 @@
       },
       "tokenName": "TAIKO Tokens"
     },
+    "thrillblazer": {
+      "prize_breakdown": {
+        "fifth": {
+          "amount": "5k"
+        },
+        "first": {
+          "amount": "65k"
+        },
+        "fourth": {
+          "amount": "10k"
+        },
+        "second": {
+          "amount": "40k"
+        },
+        "third": {
+          "amount": "20k"
+        }
+      }
+    },
     "user": {
       "booster": "{multiplier}x boosted",
       "dailyMaxReached": "Daily Max Reached",
@@ -328,6 +347,10 @@
     "textPost": " of the token distribution and authorize the transfer of tokens directly to your wallet.",
     "textPre": "By confirming your claim, you agree to the ",
     "title": "Token claim"
+  },
+  "lockdown": {
+    "content": "Introducing Trailblazers Lockdown, an exciting campaign where you can use Taiko tokens and earn Trailblazers multipliers along with with participating projects offering boosted rewards and exclusive benefits for users who commit to locking their tokens.",
+    "title": "How it works"
   },
   "messages": {
     "account": {
@@ -480,9 +503,5 @@
       "connecting": "Connecting",
       "disconnected": "Disconnected"
     }
-  },
-  "lockdown": {
-    "title": "How it works",
-    "content": "Introducing Trailblazers Lockdown, an exciting campaign where you can use Taiko tokens and earn Trailblazers multipliers along with with participating projects offering boosted rewards and exclusive benefits for users who commit to locking their tokens."
   }
 }
