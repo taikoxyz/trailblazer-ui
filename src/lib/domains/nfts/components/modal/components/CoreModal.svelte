@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { Icon } from '$components/Icon';
-  import { classNames } from '$libs/util/classNames';
+  import { Icon } from '$shared/components/Icon';
+  import { classNames } from '$shared/utils/classNames';
 
   export let open = false;
 

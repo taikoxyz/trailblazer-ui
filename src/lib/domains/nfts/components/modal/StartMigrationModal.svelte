@@ -1,8 +1,8 @@
 <script lang="ts">
-  import { ActionButton } from '$components/Button';
   import profileService from '$lib/domains/profile/services/ProfileServiceInstance';
-  import { badgeMigrationStore } from '$stores/badgeMigration';
-  import { startMigrationModal } from '$stores/modal';
+  import { ActionButton } from '$shared/components/Button';
+  import { badgeMigrationStore } from '$shared/stores/badgeMigration';
+  import { startMigrationModal } from '$shared/stores/modal';
 
   import CoreModal from './components/CoreModal.svelte';
   import CoreModalBadges from './components/CoreModalBadges.svelte';

@@ -1,9 +1,9 @@
 <script lang="ts">
-  import ActionButton from '$components/Button/ActionButton.svelte';
   import { type FactionNames, FACTIONS } from '$configs/badges';
   import type { FactionBadgeButton } from '$lib/domains/profile/types/FactionBadgeButton';
-  import type { Movements } from '$libs/badges/const';
-  import { classNames } from '$libs/util/classNames';
+  import { ActionButton } from '$shared/components/Button';
+  import type { Movements } from '$shared/utils/badges/const';
+  import { classNames } from '$shared/utils/classNames';
 
   import FactionImage from './FactionImage.svelte';
 

@@ -1,8 +1,7 @@
 <script lang="ts">
   import { FACTIONS } from '$configs/badges';
-  import type { Faction } from '$lib/domains/profile/types/types';
-  import { MovementNames, Movements } from '$libs/badges/const';
-  import { classNames } from '$libs/util/classNames';
+  import { type Faction,MovementNames, Movements } from '$lib/domains/profile/types/types';
+  import { classNames } from '$shared/utils/classNames';
 
   import MigrationBadgeItem from '../../MigrationBadgeItem.svelte';
 

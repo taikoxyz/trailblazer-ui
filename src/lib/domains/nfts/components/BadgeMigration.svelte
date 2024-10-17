@@ -1,8 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte';
 
-  import { ActionButton } from '$components/Button';
-  import { errorToast, successToast } from '$components/NotificationToast';
   import { FactionNames, FACTIONS } from '$configs/badges';
   import { trailblazersBadgesAddress } from '$generated/abi';
   import profileService from '$lib/domains/profile/services/ProfileServiceInstance';
@@ -11,12 +9,19 @@
   import type { BadgeMigration } from '$lib/shared/types/BadgeMigration';
   import type { NFT } from '$lib/shared/types/NFT';
   import { chainId } from '$lib/shared/utils/chain';
-  import { Movements } from '$libs/badges/const';
-  import updateMigrationStatus from '$libs/badges/migration/updateMigrationStatus';
-  import { classNames } from '$libs/util/classNames';
-  import { account } from '$stores/account';
-  import { badgeMigrationStore } from '$stores/badgeMigration';
-  import { endMigrationModal, migrationApprovalModal, startMigrationModal, tamperMigrationModal } from '$stores/modal';
+  import { ActionButton } from '$shared/components/Button';
+  import { errorToast, successToast } from '$shared/components/NotificationToast';
+  import { account } from '$shared/stores';
+  import { badgeMigrationStore } from '$shared/stores/badgeMigration';
+  import {
+    endMigrationModal,
+    migrationApprovalModal,
+    startMigrationModal,
+    tamperMigrationModal,
+  } from '$shared/stores/modal';
+  import { Movements } from '$shared/utils/badges/const';
+  import updateMigrationStatus from '$shared/utils/badges/migration/updateMigrationStatus';
+  import { classNames } from '$shared/utils/classNames';
 
   import { FactionBadgeItem } from '../../profile/components/ProfileNFTs/FactionBadges';
   import Countdown from './Countdown.svelte';

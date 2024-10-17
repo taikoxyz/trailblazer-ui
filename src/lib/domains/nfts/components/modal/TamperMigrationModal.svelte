@@ -1,13 +1,14 @@
 <script lang="ts">
-  import { ActionButton } from '$components/Button';
-  import { errorToast, successToast } from '$components/NotificationToast';
   import { type FactionNames, FACTIONS } from '$configs/badges';
   import profileService from '$lib/domains/profile/services/ProfileServiceInstance';
   import timeUntil from '$lib/shared/utils/date/timeUntil';
-  import { Movements } from '$libs/badges/const';
-  import { classNames } from '$libs/util/classNames';
-  import { badgeMigrationStore } from '$stores/badgeMigration';
-  import { tamperMigrationModal } from '$stores/modal';
+  import { ActionButton } from '$shared/components/Button';
+  import { errorToast, successToast } from '$shared/components/NotificationToast';
+  import { account } from '$shared/stores';
+  import { badgeMigrationStore } from '$shared/stores/badgeMigration';
+  import { tamperMigrationModal } from '$shared/stores/modal';
+  import { Movements } from '$shared/utils/badges/const';
+  import { classNames } from '$shared/utils/classNames';
 
   import MigrationBadgeItem from '../MigrationBadgeItem.svelte';
   import TamperRadio from '../TamperRadio.svelte';
@@ -30,11 +31,16 @@
   $: claimExpiration = $badgeMigrationStore.claimExpirationTimeout;
   $: tamperExpiration = $badgeMigrationStore.tamperExpirationTimeout;
   $: isLoading = false;
+  $: badgeName = FACTIONS[s1BadgeId] as FactionNames;
+
+  $: isPinkSelected = false;
+  $: isPurpleSelected = false;
 
   async function handleTamper() {
     try {
+      if (!$account || !$account.address) return;
       isLoading = true;
-      await profileService.tamperMigration(isPinkSelected && !isPurpleSelected);
+      await profileService.tamperMigration($account.address, s1BadgeId, isPinkSelected && !isPurpleSelected);
 
       isLoading = false;
 
@@ -56,11 +62,6 @@
       });
     }
   }
-
-  $: badgeName = FACTIONS[s1BadgeId] as FactionNames;
-
-  $: isPinkSelected = false;
-  $: isPurpleSelected = false;
 </script>
 
 <CoreModal open={$tamperMigrationModal}>

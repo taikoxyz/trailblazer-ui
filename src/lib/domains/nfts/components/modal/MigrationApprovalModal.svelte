@@ -1,12 +1,12 @@
 <script lang="ts">
-  import { ActionButton } from '$components/Button';
-  import { errorToast, successToast } from '$components/NotificationToast';
   import { FACTIONS } from '$configs/badges';
   import profileService from '$lib/domains/profile/services/ProfileServiceInstance';
-  import type { Faction } from '$libs/profile';
-  import { account } from '$stores/account';
-  import { badgeMigrationStore } from '$stores/badgeMigration';
-  import { migrationApprovalModal } from '$stores/modal';
+  import { type Faction } from '$lib/domains/profile/types/types';
+  import { ActionButton } from '$shared/components/Button';
+  import { errorToast, successToast } from '$shared/components/NotificationToast';
+  import { account } from '$shared/stores';
+  import { badgeMigrationStore } from '$shared/stores/badgeMigration';
+  import { migrationApprovalModal } from '$shared/stores/modal';
 
   import {
     CoreModal,

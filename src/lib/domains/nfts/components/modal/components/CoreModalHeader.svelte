@@ -1,7 +1,5 @@
 <script lang="ts">
-  import { classNames } from '$libs/util/classNames';
-
-  // Conceived as a wrapper for CoreModalTitle and CoreModalDescription
+  import { classNames } from '$shared/utils/classNames';
 
   const wrapperClasses = classNames(
     'flex',

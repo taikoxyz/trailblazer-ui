@@ -1,8 +1,8 @@
 import { getAccount } from '@wagmi/core';
 import { type Address, getAddress, type Hash } from 'viem';
 
-import { BadgeMigrationService } from '$lib/domains/nfts/services/BadgeMigrationService';
 import type { UserLeaderboardItem } from '$lib/domains/leaderboard/types/dapps/types';
+import { BadgeMigrationService } from '$lib/domains/nfts/services/BadgeMigrationService';
 import { BadgeService } from '$lib/domains/nfts/services/BadgeService';
 import { CombinedNFTService } from '$lib/domains/nfts/services/CombinedNFTService';
 import { ProfileApiAdapter } from '$lib/domains/profile/adapter/ProfileAdapter';
@@ -53,7 +53,6 @@ export class ProfileService implements IProfileService {
     this.combinedNFTService = combinedNFTService || new CombinedNFTService();
     this.badgeService = badgeService || new BadgeService();
     this.badgeMigrationService = badgeMigrationService || new BadgeMigrationService();
-
   }
 
   public static getInstance(): ProfileService {
@@ -132,8 +131,7 @@ export class ProfileService implements IProfileService {
         this.fetchAndCalculateMultipliers(address),
         this.performAdditionalCalculations(),
         this.previousSeasonFinalScores(address, season - 1),
-        this.getBadgeMigrations(address)
-
+        this.getBadgeMigrations(address),
       ]);
       // const [multiplierResult] = await Promise.all([this.handleDomainSelection(info)]);
 
@@ -632,7 +630,7 @@ export class ProfileService implements IProfileService {
 
   async tamperMigration(address: Address, factionId: number, pinkOrPurple: boolean): Promise<string> {
     log('tamperMigration', { address, factionId, pinkOrPurple });
-    return this.badgeMigrationService.tamperMigration(address, factionId,pinkOrPurple);
+    return this.badgeMigrationService.tamperMigration(address, factionId, pinkOrPurple);
   }
 
   async endMigration(address: Address, factionId: number): Promise<string> {
@@ -654,7 +652,6 @@ export class ProfileService implements IProfileService {
       badgeMigrations: migrations,
       approvedMigrationBadgeIds,
     });
-
   }
   /**
    * Retrieves the user's blacklist status for the given season.

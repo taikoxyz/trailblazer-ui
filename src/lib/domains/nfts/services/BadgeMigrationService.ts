@@ -1,7 +1,7 @@
 import type { Address } from 'viem';
 
 import type { BadgeMigration } from '$lib/shared/types/BadgeMigration';
-import { getLogger } from '$libs/util/logger';
+import { getLogger } from '$shared/utils/logger';
 
 import { BadgeAdapter } from '../adapter/BadgeAdapter';
 import { BadgeMigrationAdapter } from '../adapter/BadgeMigrationAdapter';

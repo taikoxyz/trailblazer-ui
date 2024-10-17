@@ -18,8 +18,8 @@ import type { BadgeMigration } from '$lib/shared/types/BadgeMigration';
 import type { NFT } from '$lib/shared/types/NFT';
 import { chainId } from '$lib/shared/utils/chain';
 import { wagmiConfig } from '$lib/shared/wagmi';
-import { globalAxiosConfig } from '$libs/api/axiosConfig';
-import { getLogger } from '$libs/util/logger';
+import { globalAxiosConfig } from '$shared/services/api/axiosClient';
+import { getLogger } from '$shared/utils/logger';
 
 const log = getLogger('BadgeMigrationAdapter');
 
@@ -116,15 +116,14 @@ export class BadgeMigrationAdapter {
 
   async _getMigrationSignature(
     address: Address,
-    factionId: number
+    factionId: number,
   ): Promise<{
-    hash: Address,
-    r: Address,
-    s: Address,
-    v: bigint,
-  points: number}>
-  {
-
+    hash: Address;
+    r: Address;
+    s: Address;
+    v: bigint;
+    points: number;
+  }> {
     const challenge = Date.now().toString();
     const challengeSignature = await signMessage(wagmiConfig, { message: challenge });
 
@@ -153,8 +152,6 @@ export class BadgeMigrationAdapter {
       throw new Error('Invalid signature');
     }
 
-
-
     const hash = await readContract(wagmiConfig, {
       abi: badgeMigrationAbi,
       address: badgeMigrationAddress[chainId],
@@ -162,9 +159,6 @@ export class BadgeMigrationAdapter {
       args: [address, BigInt(points)],
       chainId,
     });
-
-
-
 
     const signer = await recoverAddress({
       hash,
@@ -176,25 +170,15 @@ export class BadgeMigrationAdapter {
     return { r, s, v, points, hash };
   }
 
-  async tamperMigration(
-    address: Address,
-    factionId: number,
-    pinkOrPurple: boolean): Promise<string> {
+  async tamperMigration(address: Address, factionId: number, pinkOrPurple: boolean): Promise<string> {
     log('tamperMigration', { pinkOrPurple });
 
-    const {r,s,v,points,hash} = await this._getMigrationSignature(address, factionId);
+    const { r, s, v, points, hash } = await this._getMigrationSignature(address, factionId);
     const tx = await writeContract(wagmiConfig, {
       abi: badgeMigrationAbi,
       address: badgeMigrationAddress[chainId],
       functionName: 'tamperMigration',
-      args: [
-        hash,
-        Number(v),
-        r,
-        s,
-        BigInt(points),
-        pinkOrPurple
-      ],
+      args: [hash, Number(v), r, s, BigInt(points), pinkOrPurple],
       chainId,
     });
 
@@ -204,9 +188,7 @@ export class BadgeMigrationAdapter {
   }
 
   async endMigration(address: Address, factionId: number): Promise<string> {
-
-    const {r,s,v,points,hash} = await this._getMigrationSignature(address, factionId);
-
+    const { r, s, v, points, hash } = await this._getMigrationSignature(address, factionId);
 
     const tx = await writeContract(wagmiConfig, {
       abi: badgeMigrationAbi,

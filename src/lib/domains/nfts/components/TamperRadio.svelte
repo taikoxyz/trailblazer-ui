@@ -1,7 +1,7 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
 
-  import { classNames } from '$libs/util/classNames';
+  import { classNames } from '$shared/utils/classNames';
 
   const wrapperClasses = classNames('radio radio-secondary border-secondary checked:shadow-none!');
 

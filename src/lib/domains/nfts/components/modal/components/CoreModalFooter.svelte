@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { classNames } from '$libs/util/classNames';
+  import { classNames } from '$shared/utils/classNames';
 
   const wrapperClasses = classNames(
     'w-[450px]',

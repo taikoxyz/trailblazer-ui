@@ -1,14 +1,14 @@
 <script lang="ts">
   import Flippable from 'svelte-flip';
 
-  import { ActionButton } from '$components/Button';
   import { FactionNames, FACTIONS } from '$configs/badges';
   import profileService from '$lib/domains/profile/services/ProfileServiceInstance';
-  import { Movements } from '$libs/badges/const';
-  import { classNames } from '$libs/util/classNames';
-  import { account } from '$stores/account';
-  import { badgeMigrationStore } from '$stores/badgeMigration';
-  import { endMigrationModal } from '$stores/modal';
+  import { ActionButton } from '$shared/components/Button';
+  import { account } from '$shared/stores';
+  import { badgeMigrationStore } from '$shared/stores/badgeMigration';
+  import { endMigrationModal } from '$shared/stores/modal';
+  import { Movements } from '$shared/utils/badges/const';
+  import { classNames } from '$shared/utils/classNames';
 
   import MigrationBadgeItem from '../MigrationBadgeItem.svelte';
   import CoreModal from './components/CoreModal.svelte';
