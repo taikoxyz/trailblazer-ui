@@ -211,7 +211,7 @@
   <img src="/blazers.svg" alt="Thrillblazers" class={blazersClasses} />
 
   <span class={descriptionClasses}>
-    Thrill-Blazer launches Sept 18. Calling all gaming and SocialFi dApps: Blaze new trails, fuel Taiko's momentum, and
+    Thrill-Blazer launches Oct 18th. Calling all gaming and SocialFi dApps: Blaze new trails, fuel Taiko's momentum, and
     seize your chance for legendary rewards!
   </span>
 
