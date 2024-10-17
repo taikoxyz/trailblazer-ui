@@ -107,6 +107,9 @@
     "trail": "Trail",
     "week": "Week"
   },
+  "disclaimer": {
+    "leaderboard": "Please note that rankings are subject to change with fair play enforcement. Final standings will be confirmed at season’s end. Non-compliant wallets or dapps may be removed or have their points slashed."
+  },
   "factions": {
     "about": {
       "description": "Collect Faction Badges as you engage with the Taiko universe. These limited-edition NFTs are not just collectibles—they're a testament to your dedication and milestones achieved on your journey.\n\nBe swift, as these badges disappear once their trail window closes.",

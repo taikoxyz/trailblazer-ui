@@ -10,6 +10,7 @@ export function mapDappLeaderboardRow(row: DappLeaderboardRow): UnifiedLeaderboa
   return {
     address: row.address,
     icon: row.metadata?.logo,
+    rank: row.rank,
     handle: row.metadata?.twitter,
     data: row.data,
     name: row.metadata?.name,
@@ -21,6 +22,7 @@ export function mapGamingLeaderboardRow(row: GamingLeaderboardRow): UnifiedLeade
   return {
     address: row.address,
     icon: row.metadata?.logo,
+    rank: row.rank,
     handle: row.metadata?.twitter,
     data: row.data,
     name: row.metadata?.name,
@@ -51,6 +53,7 @@ export function mapDefiDappLeaderboardRow(row: DefiDappLeaderboardRow): UnifiedL
   const totalScore = row?.taikoTvl ? row.taikoTvl : 0;
   return {
     address: row.name ? row.name : row.address,
+    rank: 0,
     icon: row.logo,
     handle: row.twitter,
     data: [],
