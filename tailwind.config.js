@@ -289,6 +289,12 @@ export default {
         '.stroke-2': {
           '-webkit-text-stroke-width': '2px',
         },
+        '.stroke-3': {
+          '-webkit-text-stroke-width': '3px',
+        },
+        '.stroke-4': {
+          '-webkit-text-stroke-width': '4px',
+        },
         /* Neon Green Text Stroke */
         '.text-stroke-neon-green': {
           '-webkit-text-stroke-color': 'var(--neon-green-color)',
