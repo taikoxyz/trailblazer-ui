@@ -1,6 +1,5 @@
 <script lang="ts">
-  import { PartnersTemplate } from '$shared/components/PartnerCarousels';
-
+  import { PartnersTemplate } from '..';
   import { defiCarouselItems } from './defiCarouselItems';
 </script>
 

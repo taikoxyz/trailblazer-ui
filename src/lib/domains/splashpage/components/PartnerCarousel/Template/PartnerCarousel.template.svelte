@@ -1,50 +1,11 @@
 <script lang="ts">
   import { Icon } from '$shared/components/Icon';
+  import { classNames } from '$shared/utils/classNames';
 
-  import CarouselItem from './CarouselItem.svelte';
+  import CarouselItem from './CarouselItem.template.svelte';
+  import type { PartnerCarouselItem } from './types';
 
-  export let carouselItems = [
-    {
-      title: 'Robinos',
-      description: 'Robinos leverages smart contracts and blockchain technology to create...',
-      imageSrc: '/dapps/robinos.png',
-      imageAlt: 'Robinos logo',
-      tagText: 'DeFi',
-      buttonText: 'Earn more',
-    },
-    {
-      title: 'Card 2',
-      description: 'Another interesting blockchain project...',
-      imageSrc: 'https://via.placeholder.com/100',
-      imageAlt: 'Card 2 logo',
-      tagText: 'NFT',
-      buttonText: 'Discover',
-    },
-    {
-      title: 'Card 3',
-      description: 'Yet another cool project...',
-      imageSrc: 'https://via.placeholder.com/100',
-      imageAlt: 'Card 3 logo',
-      tagText: 'GameFi',
-      buttonText: 'Explore',
-    },
-    {
-      title: 'Card 4',
-      description: 'One more project to check out...',
-      imageSrc: 'https://via.placeholder.com/100',
-      imageAlt: 'Card 4 logo',
-      tagText: 'Metaverse',
-      buttonText: 'Learn more',
-    },
-    {
-      title: 'Card 5',
-      description: 'The last project in the carousel...',
-      imageSrc: 'https://via.placeholder.com/100',
-      imageAlt: 'Card 5 logo',
-      tagText: 'DAO',
-      buttonText: 'Join us',
-    },
-  ];
+  export let carouselItems: PartnerCarouselItem[] = [];
 
   export let title: string | undefined = 'Boost your Taiko score';
 
@@ -109,37 +70,36 @@
     };
   });
 
-  async function rotateLeft() {
+  const rotateLeft = async () => {
     if (isAnimating) return;
     isAnimating = true;
     currentIndex = (currentIndex + 1) % N;
     await new Promise((r) => setTimeout(r, animationDuration));
     isAnimating = false;
-  }
+  };
 
-  async function rotateRight() {
+  const rotateRight = async () => {
     if (isAnimating) return;
     isAnimating = true;
     currentIndex = (currentIndex - 1 + N) % N;
     await new Promise((r) => setTimeout(r, animationDuration));
     isAnimating = false;
-  }
+  };
 
-  function handlePointerDown(event: PointerEvent) {
+  const handlePointerDown = (event: PointerEvent) => {
     if (isAnimating) return;
     isDragging = true;
     startX = event.clientX;
 
-    // Type assertion to ensure event.target is an Element
     (event.target as Element).setPointerCapture(event.pointerId);
-  }
+  };
 
-  function handlePointerMove(event: PointerEvent) {
+  const handlePointerMove = (event: PointerEvent) => {
     if (!isDragging) return;
     deltaX = event.clientX - startX;
-  }
+  };
 
-  function handlePointerUp(event: PointerEvent) {
+  const handlePointerUp = (event: PointerEvent) => {
     if (!isDragging) return;
     isDragging = false;
     if (Math.abs(deltaX) > threshold) {
@@ -150,23 +110,22 @@
       }
     }
     deltaX = 0;
-    // Type assertion to ensure event.target is an Element
     (event.target as Element).releasePointerCapture(event.pointerId);
-  }
+  };
 
-  function handleTouchStart(event: TouchEvent) {
+  const handleTouchStart = (event: TouchEvent) => {
     if (isAnimating) return;
     isDragging = true;
     startX = event.touches[0].clientX;
-  }
+  };
 
-  function handleTouchMove(event: TouchEvent) {
+  const handleTouchMove = (event: TouchEvent) => {
     if (!isDragging) return;
     deltaX = event.touches[0].clientX - startX;
     event.preventDefault();
-  }
+  };
 
-  function handleTouchEnd() {
+  const handleTouchEnd = () => {
     if (!isDragging) return;
     isDragging = false;
     if (Math.abs(deltaX) > threshold) {
@@ -177,19 +136,92 @@
       }
     }
     deltaX = 0;
-  }
+  };
+
+  $: displayButtonNav = carouselItems.length > 1;
+
+  const carouselWrapperClasses = classNames('flex', 'justify-center', 'items-center', 'w-full', 'xl:max-w-[1440px]');
+
+  const commonButtonClasses = classNames(
+    'rounded-full',
+    'bg-primary-interactive-accent',
+    'hover:bg-primary-brand-hover',
+    'disabled:opacity-50',
+    'disabled:cursor-not-allowed',
+  );
+
+  const hiddenButtonClasses = classNames(
+    'hidden',
+    'md:flex',
+    'items-center',
+    'justify-center',
+    'w-12',
+    'h-12',
+    'rounded-full',
+    'bg-primary-interactive-accent',
+    'hover:bg-primary-brand-hover',
+    'disabled:opacity-50',
+    'disabled:cursor-not-allowed',
+    'absolute',
+    'top-1/2',
+    '-translate-y-1/2',
+    'z-10',
+  );
+
+  const titleSectionClasses = classNames(
+    'flex',
+    'flex-col',
+    'gap-10',
+    'w-full',
+    'md:min-w-[400px]',
+    'md:w-[400px]',
+    'self-start',
+  );
+
+  const titleTextClasses = classNames('text-[20px]', 'text-white', 'font-clash-grotesk');
+
+  const titleSpanClasses = classNames(
+    'text-[45px]',
+    'font-semi-bold',
+    'text-white',
+    'leading-tight',
+    'font-clash-grotesk',
+  );
+
+  const carouselContainerClasses = classNames(
+    'relative',
+    'w-full',
+    'flex',
+    'justify-center',
+    'items-center',
+    'md:mt-[50px]',
+    'lg:w-[472px]',
+    'lg:overflow-hidden',
+    'xl:w-full',
+  );
+
+  const perspectiveClasses = classNames('relative', 'w-[1024px]', 'h-[350px]', 'perspective-[1000px]');
+
+  const mobileNavClasses = classNames(
+    'md:hidden',
+    'flex',
+    'gap-4',
+    'justify-center',
+    'w-full',
+    'mb-[40px]',
+    'mt-[50px]',
+  );
 </script>
 
-<div class="flex justify-center items-center w-full">
+<div class={carouselWrapperClasses}>
   <div class="w-full f-col lg:f-row justify-between items-center relative h-full mb-10">
     <!-- Title Section -->
     {#if title}
-      <div class="flex flex-col gap-10 w-full md:min-w-[400px] md:w-[400px] self-start">
+      <div class={titleSectionClasses}>
         <div class="flex flex-col gap-5 items-start">
-          <div class="text-[20px] text-white font-clash-grotesk">{title}</div>
+          <div class={titleTextClasses}>{title}</div>
           <div class="border border-primary-brand w-16" />
-          <span class="text-[45px] font-semi-bold text-white leading-tight font-clash-grotesk"
-            >Hit the Drums, Rack Up Points:</span>
+          <span class={titleSpanClasses}>Hit the Drums, Rack Up Points:</span>
           <p class="text-secondary-content">
             Unlock multiplier magic with Robinos - the more you engage, the more you earn!
           </p>
@@ -197,43 +229,34 @@
       </div>
     {/if}
 
-    <!-- Navigation Buttons (Mobile - centered above) -->
-    <div class="md:hidden flex gap-4 justify-center w-full mb-[40px] mt-[50px]">
-      <button
-        class="flex items-center justify-center w-12 h-12 rounded-full bg-primary-interactive-accent hover:bg-primary-brand-hover disabled:opacity-50 disabled:cursor-not-allowed"
-        on:click={rotateLeft}
-        disabled={isAnimating}>
-        <Icon type="chevron-left" />
-      </button>
-      <button
-        class="flex items-center justify-center w-12 h-12 rounded-full bg-primary-interactive-accent hover:bg-primary-brand-hover disabled:opacity-50 disabled:cursor-not-allowed"
-        on:click={rotateRight}
-        disabled={isAnimating}>
-        <Icon type="chevron-right" />
-      </button>
+    <div class={mobileNavClasses}>
+      {#if displayButtonNav}
+        <!-- Navigation Buttons (Mobile - centered above) -->
+        <button class={commonButtonClasses} on:click={rotateLeft} disabled={isAnimating}>
+          <Icon type="chevron-left" />
+        </button>
+        <button class={commonButtonClasses} on:click={rotateRight} disabled={isAnimating}>
+          <Icon type="chevron-right" />
+        </button>
+      {/if}
     </div>
 
     <!-- Carousel Container with Desktop Navigation -->
-    <div
-      class="relative w-full flex justify-center items-center md:mt-[50px] lg:w-[472px] lg:overflow-hidden xl:w-full">
-      <!-- Left Navigation Button (Desktop only) -->
-      <button
-        class="hidden md:flex items-center justify-center w-12 h-12 rounded-full bg-primary-interactive-accent hover:bg-primary-brand-hover disabled:opacity-50 disabled:cursor-not-allowed absolute top-1/2 -translate-y-1/2 z-10"
-        style="right: calc(50% + 186px)"
-        on:click={rotateLeft}>
-        <Icon type="chevron-left" />
-      </button>
+    <div class={carouselContainerClasses}>
+      {#if displayButtonNav}
+        <!-- Left Navigation Button (Desktop only) -->
+        <button class={hiddenButtonClasses} style="right: calc(50% + 186px)" on:click={rotateLeft}>
+          <Icon type="chevron-left" />
+        </button>
 
-      <!-- Right Navigation Button (Desktop only) -->
-      <button
-        class="hidden md:flex items-center justify-center w-12 h-12 rounded-full bg-primary-interactive-accent hover:bg-primary-brand-hover disabled:opacity-50 disabled:cursor-not-allowed absolute top-1/2 -translate-y-1/2 z-10"
-        style="left: calc(50% + 186px)"
-        on:click={rotateRight}>
-        <Icon type="chevron-right" />
-      </button>
+        <!-- Right Navigation Button (Desktop only) -->
+        <button class={hiddenButtonClasses} style="left: calc(50% + 186px)" on:click={rotateRight}>
+          <Icon type="chevron-right" />
+        </button>
+      {/if}
 
       <div
-        class="relative w-[1024px] h-[350px] perspective-[1000px]"
+        class={perspectiveClasses}
         on:pointerdown={handlePointerDown}
         on:pointermove={handlePointerMove}
         on:pointerup={handlePointerUp}

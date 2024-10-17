@@ -10,8 +10,8 @@
   import Factions from './Factions/Factions.svelte';
   import { TrailblazerGuide } from './Guide';
   import TrailblazerMain from './HeroSection/HeroSection.svelte';
+  import { DappCompetition } from './PartnerCarousel';
   import { RankUp } from './RankUp';
-  import RobinosCarousel from './RobinosCarousel/RobinosCarousel.svelte';
 
   const wrapperClasses = classNames(
     'f-center',
@@ -48,7 +48,7 @@
 
   <TrailblazerGuide />
 
-  <RobinosCarousel />
+  <DappCompetition />
 
   <BannerCarousel interval={5000} transitionDuration={700} transitionDistance={200} {slides} withDots />
 

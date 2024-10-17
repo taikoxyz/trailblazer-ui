@@ -1,7 +1,7 @@
 <script lang="ts">
-  import { PartnersTemplate } from '$shared/components/PartnerCarousels/';
   import { classNames } from '$shared/utils/classNames';
 
+  import { PartnersTemplate } from '..';
   import { gamingCarouselItems } from './gamingCarouselItems';
 </script>
 
