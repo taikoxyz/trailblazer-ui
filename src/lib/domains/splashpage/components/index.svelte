@@ -1,6 +1,7 @@
 <script lang="ts">
   import { EcosystemSection } from '$lib/domains/ecosystem/components/index';
   import BannerCarousel from '$lib/domains/splashpage/components/Banner/BannerCarousel.svelte';
+  import DappCompetitionBanner from '$lib/domains/splashpage/components/Banner/DappCompetitonBanner.svelte';
   import S1ClaimBanner from '$lib/domains/splashpage/components/Banner/S1ClaimBanner.svelte';
   import S2StartBanner from '$lib/domains/splashpage/components/Banner/S2StartBanner.svelte';
   import type { Slide } from '$lib/domains/splashpage/components/Banner/types';
@@ -9,7 +10,6 @@
   import Factions from './Factions/Factions.svelte';
   import { TrailblazerGuide } from './Guide';
   import TrailblazerMain from './HeroSection/HeroSection.svelte';
-  import { DappCompetition } from './PartnerCarousel';
   import { RankUp } from './RankUp';
 
   const wrapperClasses = classNames(
@@ -44,7 +44,8 @@
 
   <TrailblazerGuide />
 
-  <DappCompetition />
+  <!-- <DappCompetition /> -->
+  <DappCompetitionBanner />
 
   <BannerCarousel interval={5000} transitionDuration={700} transitionDistance={200} {slides} withDots />
 
