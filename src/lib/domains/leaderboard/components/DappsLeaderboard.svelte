@@ -63,6 +63,7 @@
 
 <AbstractLeaderboard
   {headers}
+  {season}
   data={$currentDappLeaderboard.items}
   showTrophy={true}
   lastUpdated={new Date($currentDappLeaderboard.lastUpdated)}
