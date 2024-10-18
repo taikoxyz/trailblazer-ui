@@ -289,7 +289,7 @@ const EcosystemPartners: IEcosystemPartner[] = [
       'LogX uses charts that are powered By TradingView. A comprehensive trading and investment platform, offering an exceptional charting solution',
     logo: '/dapps/logx.jpg',
     category: 'Derivatives',
-    url: 'https://www.logx.trade/',
+    url: 'https://app.logx.network/trade/BTC',
   },
   {
     name: 'Tanuki',
