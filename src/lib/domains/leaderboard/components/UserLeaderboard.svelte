@@ -43,6 +43,7 @@
 
 <AbstractLeaderboard
   {headers}
+  {season}
   data={$currentUserLeaderboard.items}
   lastUpdated={new Date($currentUserLeaderboard.lastUpdated)}
   showPagination={true}

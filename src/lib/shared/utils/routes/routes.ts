@@ -29,10 +29,11 @@ export const routes: NavigationItem[] = [
       { name: 'About', route: '/about', icon: 'nav-about' },
       { name: 'Ecosystem', route: '/ecosystem', icon: 'nav-ecosystem' },
       { name: 'Bridge', route: 'https://bridge.taiko.xyz', icon: 'nav-bridge' },
+      { name: 'FAQs', route: '/faq', icon: 'quad-circles' },
     ],
   },
   {
-    name: 'FAQs',
-    route: '/faq',
+    name: 'Competitions',
+    children: [{ name: 'Thrillblazer', route: '/competitions/s2/dapps', icon: 'flower-circle' }],
   },
 ];

@@ -36,7 +36,10 @@ export class DappLeaderboardService {
    * @return {*}
    * @memberof DappLeaderboardService
    */
-  async getDappLeaderboardData(args: PaginationInfo<DappLeaderboardItem>, season: number) {
+  async getDappLeaderboardData(
+    args: PaginationInfo<DappLeaderboardItem>,
+    season: number,
+  ): Promise<DappLeaderboardPage> {
     const leaderboardPage: DappLeaderboardPage = {
       items: [],
       lastUpdated: Date.now(),
@@ -58,6 +61,7 @@ export class DappLeaderboardService {
 
           const entry: DappLeaderboardRow = {
             address: item.address,
+            rank: item.rank,
             data: protocolDetails.protocols,
             metadata: protocolDetails.metadata,
             totalScore: item.score,
@@ -81,5 +85,6 @@ export class DappLeaderboardService {
       this.leaderboardRepository.update(leaderboardPage);
       return leaderboardPage;
     }
+    return leaderboardPage;
   }
 }

@@ -59,6 +59,7 @@ export class GamingLeaderboardService {
 
         const entry: GamingLeaderboardRow = {
           address: item.address,
+          rank: item.rank,
           data: protocolDetails.protocols,
           metadata: protocolDetails.metadata,
           totalScore: item.score,

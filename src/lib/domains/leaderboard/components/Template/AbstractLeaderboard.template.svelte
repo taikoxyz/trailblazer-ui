@@ -21,6 +21,7 @@
   export let headerComponent: ComponentType;
   export let ended: boolean = false;
   export let scoreComponent: ComponentType;
+  export let season: number;
 
   export let additionalInfoComponent: ComponentType | null = null;
   // export let showCTA: boolean = true;
@@ -57,7 +58,7 @@
 </script>
 
 <div class={containerClass}>
-  <svelte:component this={headerComponent} {lastUpdated} />
+  <svelte:component this={headerComponent} {lastUpdated} {season} />
   {#if ended && endedComponent}
     <div class={headerMarginClass}>
       <svelte:component this={endedComponent} title={endTitleText} description={endDescriptionText} />
@@ -65,7 +66,7 @@
   {/if}
   {#if additionalInfoComponent && !ended}
     <div class={additionalInfoMarginClass}>
-      <svelte:component this={additionalInfoComponent} {lastUpdated} />
+      <svelte:component this={additionalInfoComponent} {lastUpdated} {season} />
     </div>
   {/if}
   <div class={textCenterClass}></div>
@@ -80,20 +81,11 @@
         {#if isLoading}
           <!-- eslint-disable-next-line @typescript-eslint/no-unused-vars -->
           {#each Array(pageSize) as _, index}
-            {@const rank = index + 1 + (currentPage - 1) * pageSize}
-            {@const fillClass =
-              rank === 1
-                ? 'fill-warning-sentiment'
-                : rank === 2
-                  ? 'fill-grey-300'
-                  : rank === 3
-                    ? 'fill-yellow-700'
-                    : ''}
-            <LoadingRow {rank} {fillClass} {showTrophy} />
+            <LoadingRow />
           {/each}
         {:else}
           {#each data as entry, index}
-            {@const rank = index + 1 + (currentPage - 1) * pageSize}
+            {@const rank = entry.rank ? entry.rank : index + 1 + (currentPage - 1) * pageSize}
             {@const fillClass =
               rank === 1
                 ? 'fill-warning-sentiment'
@@ -102,6 +94,7 @@
                   : rank === 3
                     ? 'fill-yellow-700'
                     : ''}
+
             <TableRow
               {entry}
               {index}

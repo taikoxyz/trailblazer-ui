@@ -107,6 +107,9 @@
     "trail": "Trail",
     "week": "Week"
   },
+  "disclaimer": {
+    "leaderboard": "Please note that rankings are subject to change with fair play enforcement. Final standings will be confirmed at season’s end. Non-compliant wallets or dapps may be removed or have their points slashed."
+  },
   "factions": {
     "about": {
       "description": "Collect Faction Badges as you engage with the Taiko universe. These limited-edition NFTs are not just collectibles—they're a testament to your dedication and milestones achieved on your journey.\n\nBe swift, as these badges disappear once their trail window closes.",
@@ -219,6 +222,21 @@
         "title": "Campaign ended"
       }
     },
+    "competitions": {
+      "s2": {
+        "dapp": {
+          "banner": {
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor.",
+            "title": "Join the Dapp competition starting Oct 17th!"
+          },
+          "ended": {
+            "description": "Our journey concluded on Dec 18th, 2024. Congratulations to the winners!",
+            "title": "Season ended"
+          },
+          "prize": {}
+        }
+      }
+    },
     "dapp": {
       "ended": {
         "s1": {
@@ -285,6 +303,25 @@
       },
       "tokenName": "TAIKO Tokens"
     },
+    "thrillblazer": {
+      "prize_breakdown": {
+        "fifth": {
+          "amount": "5k"
+        },
+        "first": {
+          "amount": "65k"
+        },
+        "fourth": {
+          "amount": "10k"
+        },
+        "second": {
+          "amount": "40k"
+        },
+        "third": {
+          "amount": "20k"
+        }
+      }
+    },
     "user": {
       "booster": "{multiplier}x boosted",
       "dailyMaxReached": "Daily Max Reached",
@@ -314,6 +351,10 @@
     "textPre": "By confirming your claim, you agree to the ",
     "title": "Token claim"
   },
+  "lockdown": {
+    "content": "Introducing Trailblazers Lockdown, an exciting campaign where you can use Taiko tokens and earn Trailblazers multipliers along with with participating projects offering boosted rewards and exclusive benefits for users who commit to locking their tokens.",
+    "title": "How it works"
+  },
   "messages": {
     "account": {
       "connected": "Account connected",
@@ -342,6 +383,12 @@
     }
   },
   "pagetitle": {
+    "competition": {
+      "dapp": "Thrillblazer - Competition 18.10 - 18.11.24"
+    },
+    "competitions": {
+      "dapp": "Taiko Trailblazer - Dapp Competition Leaderboard"
+    },
     "leaderboards": {
       "dapp": "Taiko Trailblazer - Dapp Leaderboard",
       "user": "Taiko Trailblazer - User Leaderboard"
@@ -462,9 +509,5 @@
       "connecting": "Connecting",
       "disconnected": "Disconnected"
     }
-  },
-  "lockdown": {
-    "title": "How it works",
-    "content": "Introducing Trailblazers Lockdown, an exciting campaign where you can use Taiko tokens and earn Trailblazers multipliers along with with participating projects offering boosted rewards and exclusive benefits for users who commit to locking their tokens."
   }
 }
