@@ -1,5 +1,7 @@
 import { error } from '@sveltejs/kit';
 
+import { PUBLIC_BYPASS_GEOBLOCK } from '$env/static/public';
+
 const bannedCountries: Record<string, string> = {
   AF: 'Afghanistan',
   AS: 'American Samoa', // United States Territory
@@ -47,14 +49,24 @@ const bannedCountries: Record<string, string> = {
 };
 
 const bannedCountryCodes = Object.keys(bannedCountries);
+
 export function load(event) {
   const country = event.request.headers.get('x-vercel-ip-country') ?? false;
   const isDev = event.url.hostname === 'localhost' || event.url.port === '5173';
-  if (!isDev && (!country || bannedCountryCodes.includes(country))) {
+  const isBypassed = PUBLIC_BYPASS_GEOBLOCK === 'true';
+
+  if (isBypassed || isDev) {
+    return {
+      location: { country },
+    };
+  }
+
+  if (!country || bannedCountryCodes.includes(country)) {
     return error(400, {
-      message: `The site is not available on the following countries: ${Object.values(bannedCountries).join(', ')}`,
+      message: `The site is not available in the following countries: ${Object.values(bannedCountries).join(', ')}`,
     });
   }
+
   return {
     location: { country },
   };
