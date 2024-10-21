@@ -97,7 +97,7 @@ describe('DappCompetitionService', () => {
     };
 
     mockCompetitionAdapter.fetchCompetitionData.mockResolvedValue(leaderboardData);
-    mockProtocolAdapter.fetchProtocolDetails
+    mockProtocolAdapter.fetchCompetitionData
       .mockResolvedValueOnce(protocolDetails1)
       .mockResolvedValueOnce(protocolDetails2);
 
@@ -108,9 +108,9 @@ describe('DappCompetitionService', () => {
 
     // Then
     expect(mockCompetitionAdapter.fetchCompetitionData).toHaveBeenCalledWith(args, season);
-    expect(mockProtocolAdapter.fetchProtocolDetails).toHaveBeenCalledTimes(2);
-    expect(mockProtocolAdapter.fetchProtocolDetails).toHaveBeenNthCalledWith(1, 'protocol-1', season);
-    expect(mockProtocolAdapter.fetchProtocolDetails).toHaveBeenNthCalledWith(2, 'protocol-2', season);
+    expect(mockProtocolAdapter.fetchCompetitionData).toHaveBeenCalledTimes(2);
+    expect(mockProtocolAdapter.fetchCompetitionData).toHaveBeenNthCalledWith(1, 'protocol-1', season);
+    expect(mockProtocolAdapter.fetchCompetitionData).toHaveBeenNthCalledWith(2, 'protocol-2', season);
     expect(mapDappLeaderboardRow).toHaveBeenCalledTimes(2);
     expect(mockLeaderboardRepository.update).toHaveBeenCalledWith({
       items: [mappedRow1, mappedRow2],
