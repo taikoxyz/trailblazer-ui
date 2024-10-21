@@ -38,7 +38,7 @@
     const args: PaginationInfo<DappLeaderboardItem> = {
       page,
       size: pageSize,
-      name,
+      slug: name,
       total: totalItems,
     };
     const leaderboardPage: DappLeaderboardPage = await dappCompetitionService.getCompetitionData(args, season);
