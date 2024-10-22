@@ -62,4 +62,13 @@ export const defiCarouselItems: CarouselItemType[] = [
     link: 'https://app.kiloex.io/trade',
     cta: 'Swap now',
   },
+  {
+    id: '8',
+    title: 'Eisen',
+    description:
+      'Eisen is rapidly growing as a multichain DEX aggregator, with a daily trading volume of $500K across various chains, including Taiko.',
+    image: '/dapps/defi/eisen.png',
+    link: 'https://eisenfinance.com',
+    cta: 'Swap now',
+  },
 ];
