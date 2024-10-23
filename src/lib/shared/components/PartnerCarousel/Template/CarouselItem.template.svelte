@@ -2,14 +2,12 @@
   import ActionButton from '$shared/components/Button/ActionButton.svelte';
   import { classNames } from '$shared/utils/classNames';
 
-  export let title: string;
-  export let description: string;
-  export let imageSrc: string;
-  export let imageAlt: string;
-  export let tagText: string;
-  export let buttonText: string;
+  import type { PartnerCarouselItem } from './types';
+
   export let blur: number = 0;
   export let active = false;
+
+  export let item: PartnerCarouselItem;
 
   $: carouselWrapperClasses = classNames(
     'p-[35px]',
@@ -42,13 +40,13 @@
 
 <article class={carouselWrapperClasses}>
   <div class={innerWrapper} style="filter: blur({blur}px); transition: filter 0.5s ease;">
-    <img src={imageSrc} alt={imageAlt} loading="lazy" class={imageClasses} />
-    <span class={tagClasses}>{tagText}</span>
+    <img src={item.imageSrc} alt={item.imageAlt} loading="lazy" class={imageClasses} />
+    <span class={tagClasses}>{item.tagText}</span>
     <div class="f-col min-w-[240px] w-full">
-      <h2 class={titleClasses}>{title}</h2>
+      <h2 class={titleClasses}>{item.title}</h2>
 
-      <p class={descriptionClasses}>{description}</p>
-      <ActionButton priority="primary" class={buttonClasses}>{buttonText}</ActionButton>
+      <p class={descriptionClasses}>{item.description}</p>
+      <ActionButton priority="primary" href={item.buttonLink} class={buttonClasses}>{item.buttonText}</ActionButton>
     </div>
   </div>
 </article>

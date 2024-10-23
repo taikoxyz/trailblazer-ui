@@ -221,9 +221,10 @@
         <div class="flex flex-col gap-5 items-start">
           <div class={titleTextClasses}>{title}</div>
           <div class="border border-primary-brand w-16" />
-          <span class={titleSpanClasses}>Hit the Drums, Rack Up Points:</span>
+          <span class={titleSpanClasses}>Boost liquidity;<br />Earn rewards!</span>
           <p class="text-secondary-content">
-            Unlock multiplier magic with Robinos - the more you engage, the more you earn!
+            Liquidity Royale gives you the chance to grow your liquidity while earning rewards. Check out new products
+            designed to boost adoption and participation in the Taiko ecosystem.
           </p>
         </div>
       </div>
@@ -276,7 +277,7 @@
               filter: {styles[index].filter};
               transition: all 0.5s cubic-bezier(0.22, 0.61, 0.36, 1);
             ">
-            <CarouselItem {...item} active={(index - currentIndex + N) % N === 0} blur={styles[index].blur} />
+            <CarouselItem {item} active={(index - currentIndex + N) % N === 0} blur={styles[index].blur} />
           </div>
         {/each}
       </div>

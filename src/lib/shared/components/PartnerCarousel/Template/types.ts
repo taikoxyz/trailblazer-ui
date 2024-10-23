@@ -5,4 +5,5 @@ export type PartnerCarouselItem = {
   imageAlt: string;
   tagText: string;
   buttonText: string;
+  buttonLink: string;
 };

@@ -5,6 +5,7 @@
   import S1ClaimBanner from '$lib/domains/splashpage/components/Banner/S1ClaimBanner.svelte';
   import S2StartBanner from '$lib/domains/splashpage/components/Banner/S2StartBanner.svelte';
   import type { Slide } from '$lib/domains/splashpage/components/Banner/types';
+  import LiquidityRoyalCarousel from '$shared/components/PartnerCarousel/LiquidityRoyalCarousel.svelte';
   import { classNames } from '$shared/utils/classNames';
 
   import Factions from './Factions/Factions.svelte';
@@ -46,6 +47,8 @@
   <div class={separator40pxClasses} />
 
   <TrailblazerGuide />
+
+  <LiquidityRoyalCarousel />
 
   <BannerCarousel interval={5000} transitionDuration={700} transitionDistance={200} {slides} withDots />
 
