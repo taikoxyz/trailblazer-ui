@@ -11,7 +11,6 @@
   import { FaqBlock } from '$lib/domains/splashpage/components/FaqBlock';
   import type { IFaqEntry } from '$lib/domains/splashpage/components/FaqBlock/FaqBlock.svelte';
   import type { BadgeMigration } from '$lib/shared/types/BadgeMigration';
-  import type { NFT } from '$lib/shared/types/NFT';
   import { chainId } from '$lib/shared/utils/chain';
   import { account } from '$shared/stores';
   import { activeMigration, endMigrationModal, startMigrationModal, tamperMigrationModal } from '$shared/stores/modal';
@@ -103,34 +102,36 @@
 
   $: enabledBadgeIds = [] as number[];
 
-  $: userBadges = [] as NFT[];
-
   // overlap between enabledBadgeIds and userBadges
   $: possibleMigrations = [
     ...enabledBadgeIds.filter((badgeId) => userBadges.some((nft) => nft.badgeId === badgeId)),
     ...($userProfile.badgeMigrations || []).map((migration) => migration.s1Badge?.badgeId),
   ];
 
-  $: activeMigrationBadgeId =
-    $userProfile.badgeMigrations?.find((migration) => {
-      return (
-        // ongoing migration
-        (migration.claimExpirationTimeout > new Date() && !migration.isCompleted) ||
-        // unclaimed migration
-        !migration.isCompleted
-      );
-    })?.s1Badge?.badgeId || -1;
+  $: activeMigrationBadgeId = !$activeMigration?.s1Badge?.badgeId ? -1 : $activeMigration.s1Badge.badgeId;
+
+  onMount(async () => {});
+
+  $: allNFTS = $userProfile.nfts || [];
+  $: userBadges = allNFTS.filter(
+    (nft) =>
+      isAddressEqual(nft.address, trailblazersBadgesAddress[chainId]) ||
+      isAddressEqual(nft.address, trailblazersBadgesS2Address[chainId]),
+  );
 
   onMount(async () => {
-    const allNFTS = $userProfile.nfts || [];
-    userBadges = allNFTS.filter(
-      (nft) =>
-        isAddressEqual(nft.address, trailblazersBadgesAddress[chainId]) ||
-        isAddressEqual(nft.address, trailblazersBadgesS2Address[chainId]),
-    );
-
     enabledBadgeIds = await profileService.getEnabledMigrations();
+    await forceUpdateUI();
   });
+
+  $: forceRenderFlag = false;
+  async function forceUpdateUI() {
+    if (!$account || !$account.address) return;
+    forceRenderFlag = false;
+    await profileService.getBadgeMigrations($account.address);
+    //enabledBadgeIds = await profileService.getEnabledMigrations()
+    forceRenderFlag = true;
+  }
 
   async function handleStartMigration(badgeId: number) {
     if (!$account || !$account.address) return;
@@ -165,7 +166,6 @@
     $activeMigration = migration;
     $endMigrationModal = true;
   }
-  endMigrationModal;
 
   function handleTamperModal(badgeId: number) {
     const migration = $userProfile.badgeMigrations?.find((m) => m.s1Badge?.badgeId === badgeId);
@@ -202,15 +202,18 @@
 
   const faqEntries = $json('badge_forge.faq.entries') as IFaqEntry[];
   const faqWrapperClasses = classNames('pt-[60px]', 'w-full', 'px-[48px]', 'flex', 'flex-col', 'gap-[30px]');
+
+  $: $endMigrationModal, !$endMigrationModal && forceUpdateUI();
+
+  $: $tamperMigrationModal, !$tamperMigrationModal && forceUpdateUI();
 </script>
 
 <div class={containerClass}>
   <div class={rowClass}>
     <div class={titleClasses}>{title}</div>
     <div class={dividerClasses} />
-
     <div class={boxClasses}>
-      {#if enabledBadgeIds.length}
+      {#if forceRenderFlag && enabledBadgeIds.length}
         <div class={nftGridClasses}>
           {#each enabledBadgeIds as badgeId}
             {@const migration = $userProfile?.badgeMigrations?.find((m) => m.s1Badge?.badgeId === badgeId)}
@@ -266,6 +269,7 @@
                     {#if tamperExpiration && tamperExpiration > new Date()}
                       <!-- cannot re-tamper yet-->
                       <Countdown
+                        on:end={forceUpdateUI}
                         class={countdownWrapperClasses}
                         itemClasses={countdownItemClasses}
                         labels={{ days: 'd', hours: 'h', minutes: 'min', seconds: 's' }}
@@ -273,6 +277,7 @@
                     {:else if claimExpiration && claimExpiration > new Date()}
                       <!-- logic for untampered -->
                       <Countdown
+                        on:end={forceUpdateUI}
                         class={countdownWrapperClasses}
                         itemClasses={countdownItemClasses}
                         labels={{ days: 'd', hours: 'h', minutes: 'min', seconds: 's' }}

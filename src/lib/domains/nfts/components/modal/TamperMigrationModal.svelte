@@ -51,8 +51,8 @@
       isLoading = false;
       console.error(e);
       errorToast({
-        title: 'Error',
-        message: e.message,
+        title: 'Refine error',
+        message: e.shortMessage ? e.shortMessage : 'Error refining your forge process',
       });
     }
   }

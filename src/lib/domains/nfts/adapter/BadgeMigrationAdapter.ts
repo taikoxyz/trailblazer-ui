@@ -260,9 +260,9 @@ export class BadgeMigrationAdapter {
           s2Badge,
           isStarted: Boolean(raw.isStarted),
           isCompleted: Boolean(raw.isCompleted),
-          devTampers: raw.devTampers,
-          whaleTampers: raw.whaleTampers,
-          minnowTampers: raw.minnowTampers,
+          devTampers: parseInt(raw.devTampers),
+          whaleTampers: parseInt(raw.whaleTampers),
+          minnowTampers: parseInt(raw.minnowTampers),
           claimExpirationTimeout: new Date(minuteBuffer + parseInt(raw.claimExpirationTimeout.toString()) * 1000),
           tamperExpirationTimeout:
             tamperExpirationTimeout > 0 ? new Date(minuteBuffer + tamperExpirationTimeout * 1000) : undefined,

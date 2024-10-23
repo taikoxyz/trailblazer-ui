@@ -1,7 +1,7 @@
 <script lang="ts">
   import dayjs from 'dayjs';
   import duration from 'dayjs/plugin/duration';
-  import { onMount } from 'svelte';
+  import { createEventDispatcher, onMount } from 'svelte';
 
   dayjs.extend(duration);
 
@@ -25,6 +25,8 @@
 
   let interval: NodeJS.Timeout | null = null;
 
+  const dispatch = createEventDispatcher();
+
   const calculateCountdown = () => {
     const now = dayjs();
     const targetDate = dayjs(target);
@@ -32,6 +34,7 @@
 
     if (diff <= 0) {
       if (interval) clearInterval(interval);
+      dispatch('end');
     } else {
       // Calculate the remaining time
       const duration = dayjs.duration(diff);

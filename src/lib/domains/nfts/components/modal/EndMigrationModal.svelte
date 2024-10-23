@@ -6,6 +6,7 @@
   import { MovementNames, Movements } from '$lib/domains/profile/types/types';
   import { Spinner } from '$shared/components';
   import { ActionButton } from '$shared/components/Button';
+  import { errorToast, successToast } from '$shared/components/NotificationToast';
   import { account } from '$shared/stores';
   import { activeMigration, endMigrationModal } from '$shared/stores/modal';
   import { classNames } from '$shared/utils/classNames';
@@ -23,18 +24,51 @@
   $: isLoading = false;
 
   async function handleEndMigration() {
+    try {
+      if (!$account || !$account.address) {
+        return;
+      }
+      isLoading = true;
+      const address = $account.address;
+      await profileService.endMigration($account.address, s1BadgeId);
+
+      profileService.migrationListener(address, async () => {
+        await profileService.getBadgeMigrations(address);
+        isLoading = false;
+        isRevealed = true;
+
+        successToast({
+          title: 'Badge forge claim',
+          message: `You have successfully claimed your badge`,
+        });
+      });
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (e: any) {
+      errorToast({
+        title: 'Badge forge claim error',
+        message: e.shortMessage ? e.shortMessage : 'Error claiming your badge forge',
+      });
+    }
+
+    /*
     if (!$account || !$account.address) {
       return;
     }
     isLoading = true;
     const address = $account.address;
-    await profileService.endMigration($account.address, s1BadgeId);
+   // await profileService.endMigration($account.address, s1BadgeId);
 
-    profileService.migrationListener(address, async () => {
+
+      if ($activeMigration){
+        $activeMigration.s2Badge = undefined
+      }
       await profileService.getBadgeMigrations(address);
+
+      console.log($activeMigration?.s2Badge)
       isLoading = false;
       isRevealed = true;
-    });
+
+      */
   }
 
   const badgeWrapperClasses = classNames('w-full', 'flex', 'justify-center', 'items-center');
@@ -58,12 +92,10 @@
       </MigrationBadgeItem>
 
       <div slot="back">
-        {#if $activeMigration?.s2Badge}
-          <MigrationBadgeItem
-            badgeMovement={$activeMigration?.s2Badge?.movement || Movements.Whale}
-            badgeId={s1BadgeId}
-            {badgeName}>
-            {MovementNames[$activeMigration?.s2Badge?.movement || Movements.Whale]}
+        {#if $activeMigration && $activeMigration.s2Badge && $activeMigration.s2Badge.movement}
+          {@const movement = $activeMigration.s2Badge.movement}
+          <MigrationBadgeItem badgeMovement={movement} badgeId={s1BadgeId} {badgeName}>
+            {MovementNames[movement]}
           </MigrationBadgeItem>
         {:else}
           <Spinner />

@@ -632,8 +632,12 @@ export class ProfileService implements IProfileService {
     log('getMigrationStatus', { address });
     const migrations = await this.badgeMigrationService.getMigrationStatus(address);
 
-    const currentMigration = migrations[migrations.length - 1];
-    activeMigration.set(currentMigration);
+    // find the last, noncompleted migration, and set as current
+    const currentMigration = migrations
+      .slice()
+      .reverse()
+      .find((migration) => !migration.isCompleted);
+    activeMigration.set(currentMigration || null);
     await this.userRepository.update({
       badgeMigrations: migrations,
     });

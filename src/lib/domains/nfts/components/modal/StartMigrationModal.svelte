@@ -43,12 +43,12 @@
     } catch (e: any) {
       console.error(e);
       if (e.message.includes('0x3a0147ec')) {
-        e.message = 'You have already started another migration.';
+        errorToast({
+          title: 'Error',
+          message: 'You have already started another migration.',
+        });
       }
-      errorToast({
-        title: 'Error',
-        message: e.message,
-      });
+
       isLoading = false;
     }
   }
