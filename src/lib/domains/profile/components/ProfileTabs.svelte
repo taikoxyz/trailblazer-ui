@@ -35,7 +35,7 @@
     },
     {
       slug: 'badge-migration',
-      name: 'Badge Migration',
+      name: 'Badge Forge',
       content: BadgeMigration,
     },
     ...(isDevelopmentEnv

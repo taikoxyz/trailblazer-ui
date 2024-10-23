@@ -12,7 +12,7 @@ import {
 } from '$generated/abi';
 import type { BadgeMigration as GqlBadgeMigration, Token } from '$generated/graphql';
 import type { Movements } from '$lib/domains/profile/types/types';
-import { graphqlClient } from '$lib/shared/services/graphql/client';
+import { graphqlClient, noCacheGraphqlClient } from '$lib/shared/services/graphql/client';
 import { GET_MIGRATION_STATUS_GQL } from '$lib/shared/services/graphql/queries/getMigrationStatus.gql';
 import { pendingTransactions } from '$lib/shared/stores/pendingTransactions';
 import type { BadgeMigration } from '$lib/shared/types/BadgeMigration';
@@ -198,37 +198,11 @@ export class BadgeMigrationAdapter {
     return tx;
   }
 
-  async getApprovedMigrations(address: Address): Promise<number[]> {
-    const graphqlResponse = await graphqlClient.query({
-      query: GET_MIGRATION_STATUS_GQL,
-      variables: { address: address.toLocaleLowerCase() },
-    });
-
-    if (!graphqlResponse || !graphqlResponse.data || !graphqlResponse.data.account) {
-      return [];
-    }
-
-    const { approvedS1Tokens, approvedForAll } = graphqlResponse.data.account as {
-      approvedS1Tokens: Token[];
-      approvedForAll: boolean;
-    };
-
-    let approvedTokenIds = [];
-
-    if (approvedForAll) {
-      approvedTokenIds = [0, 1, 2, 3, 4, 5, 6, 7];
-    } else {
-      approvedTokenIds = approvedS1Tokens.map((token: Token) => parseInt(token.badgeId.toString()));
-    }
-
-    return approvedTokenIds;
-  }
-
   async getMigrationStatus(address: Address): Promise<BadgeMigration[]> {
     log('getMigrationStatus', { address });
 
     try {
-      const graphqlResponse = await graphqlClient.query({
+      const graphqlResponse = await noCacheGraphqlClient.query({
         query: GET_MIGRATION_STATUS_GQL,
         variables: { address: address.toLocaleLowerCase() },
       });
@@ -275,6 +249,7 @@ export class BadgeMigrationAdapter {
             address: trailblazersBadgesAddress[chainId],
             src: '',
             tokenUri: '',
+            movement: parseInt(raw.s2Badge.movement) as Movements,
           } satisfies NFT;
         }
         const tamperExpirationTimeout = parseInt(raw.tamperExpirationTimeout.toString());

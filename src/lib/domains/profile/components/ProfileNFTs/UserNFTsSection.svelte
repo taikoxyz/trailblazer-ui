@@ -1,7 +1,7 @@
 <script lang="ts">
+  import { isAddressEqual } from 'viem';
+
   import { trailblazersBadgesAddress } from '$generated/abi';
-  import { FACTIONS } from '$lib/domains/nfts/types/badges/types';
-  import { Movements } from '$lib/domains/profile/types/types';
   import type { NFT } from '$lib/shared/types/NFT';
   import { chainId } from '$lib/shared/utils/chain';
   import { classNames } from '$shared/utils/classNames';
@@ -33,11 +33,11 @@
   <div class={boxClasses}>
     <div class={nftGridClasses}>
       {#if nfts.length}
-        {#each nfts as { address, src, badgeId }}
-          {#if address.toLowerCase() === trailblazersBadgesAddress[chainId].toLowerCase()}
-            <FactionBadgeItem name={FACTIONS[badgeId || 0]} movement={Movements.Dev} />
+        {#each nfts as nft}
+          {#if isAddressEqual(nft.address, trailblazersBadgesAddress[chainId])}
+            <FactionBadgeItem token={nft} />
           {:else}
-            <UserNftItem imageUrl={src} />
+            <UserNftItem imageUrl={nft.src} />
           {/if}
         {/each}
       {/if}

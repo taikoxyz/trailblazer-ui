@@ -509,5 +509,20 @@
       "connecting": "Connecting",
       "disconnected": "Disconnected"
     }
+  },
+  "badge_forge": {
+    "faq": {
+      "title": "What's the Badge Forge?",
+      "entries": [
+        {
+          "question": "What's the Forge?",
+          "answer": "This is where you can mint your season 2 Trailblazer badges by staking a Season 1 badge for 365 days."
+        },
+        {
+          "question": "What's \"Refining\" a forge process?",
+          "answer": "Tamper with your chances of getting your season 2 badge in any of the 3 possible teams: Devs, Minnows and Whales."
+        }
+      ]
+    }
   }
 }

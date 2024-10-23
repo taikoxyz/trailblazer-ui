@@ -4,10 +4,10 @@
   import { FactionNames, FACTIONS } from '$configs/badges';
   import profileService from '$lib/domains/profile/services/ProfileServiceInstance';
   import { MovementNames, Movements } from '$lib/domains/profile/types/types';
+  import { Spinner } from '$shared/components';
   import { ActionButton } from '$shared/components/Button';
   import { account } from '$shared/stores';
-  import { badgeMigrationStore } from '$shared/stores/badgeMigration';
-  import { endMigrationModal } from '$shared/stores/modal';
+  import { activeMigration, endMigrationModal } from '$shared/stores/modal';
   import { classNames } from '$shared/utils/classNames';
 
   import MigrationBadgeItem from '../MigrationBadgeItem.svelte';
@@ -17,7 +17,7 @@
   import CoreModalHeader from './components/CoreModalHeader.svelte';
   import CoreModalTitle from './components/CoreModalTitle.svelte';
 
-  $: s1BadgeId = $badgeMigrationStore.s1Badge?.badgeId || 0;
+  $: s1BadgeId = $activeMigration?.s1Badge?.badgeId || 0;
   $: badgeName = FACTIONS[s1BadgeId] as FactionNames;
 
   $: isLoading = false;
@@ -27,12 +27,14 @@
       return;
     }
     isLoading = true;
+    const address = $account.address;
     await profileService.endMigration($account.address, s1BadgeId);
-    await profileService.getBadgeMigrations($account.address);
 
-    await profileService.getBadgeMigrations($account.address);
-    isLoading = false;
-    isRevealed = true;
+    profileService.migrationListener(address, async () => {
+      await profileService.getBadgeMigrations(address);
+      isLoading = false;
+      isRevealed = true;
+    });
   }
 
   const badgeWrapperClasses = classNames('w-full', 'flex', 'justify-center', 'items-center');
@@ -45,7 +47,8 @@
     <CoreModalTitle>Congratulations</CoreModalTitle>
 
     <CoreModalDescription>
-      You’ve successfully migrated your {FACTIONS[s1BadgeId]} Badge to Season 2!
+      You’ve successfully migrated your {FACTIONS[s1BadgeId]} Badge to Season 2! Click on the reveal button to see your new
+      badge.
     </CoreModalDescription>
   </CoreModalHeader>
   <div class={badgeWrapperClasses}>
@@ -54,13 +57,18 @@
         Season 1
       </MigrationBadgeItem>
 
-      <MigrationBadgeItem
-        slot="back"
-        badgeMovement={$badgeMigrationStore.s2Badge?.movement || Movements.Whale}
-        badgeId={s1BadgeId}
-        {badgeName}>
-        {MovementNames[$badgeMigrationStore.s2Badge?.movement || Movements.Whale]}
-      </MigrationBadgeItem>
+      <div slot="back">
+        {#if $activeMigration?.s2Badge}
+          <MigrationBadgeItem
+            badgeMovement={$activeMigration?.s2Badge?.movement || Movements.Whale}
+            badgeId={s1BadgeId}
+            {badgeName}>
+            {MovementNames[$activeMigration?.s2Badge?.movement || Movements.Whale]}
+          </MigrationBadgeItem>
+        {:else}
+          <Spinner />
+        {/if}
+      </div>
     </Flippable>
   </div>
 

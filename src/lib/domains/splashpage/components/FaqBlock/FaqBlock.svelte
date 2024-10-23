@@ -9,7 +9,7 @@
   import ActionButton from '$shared/components/Button/ActionButton.svelte';
   import { classNames } from '$shared/utils/classNames';
 
-  export let title: string | undefined = undefined;
+  export let title: string | null = null;
   export let entries: IFaqEntry[] = [];
 
   const wrapperClasses = classNames(

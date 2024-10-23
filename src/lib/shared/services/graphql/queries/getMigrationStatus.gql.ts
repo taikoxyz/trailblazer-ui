@@ -21,6 +21,7 @@ export const GET_MIGRATION_STATUS_GQL = gql`
         s1Badge {
           id
           badgeId
+          movement
           contract
           owner {
             id
@@ -30,6 +31,7 @@ export const GET_MIGRATION_STATUS_GQL = gql`
         s2Badge {
           id
           badgeId
+          movement
           contract
           owner {
             id

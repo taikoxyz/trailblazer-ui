@@ -6,8 +6,7 @@
   import { ActionButton } from '$shared/components/Button';
   import { errorToast, successToast } from '$shared/components/NotificationToast';
   import { account } from '$shared/stores';
-  import { badgeMigrationStore } from '$shared/stores/badgeMigration';
-  import { tamperMigrationModal } from '$shared/stores/modal';
+  import { activeMigration, tamperMigrationModal } from '$shared/stores/modal';
   import { classNames } from '$shared/utils/classNames';
 
   import MigrationBadgeItem from '../MigrationBadgeItem.svelte';
@@ -24,9 +23,9 @@
     'lg:gap-[80px]',
   );
 
-  $: s1BadgeId = $badgeMigrationStore.s1Badge?.badgeId || 0;
+  $: s1BadgeId = $activeMigration?.s1Badge?.badgeId || 0;
 
-  $: tamperExpiration = $badgeMigrationStore.tamperExpirationTimeout;
+  $: tamperExpiration = $activeMigration?.tamperExpirationTimeout;
   $: isLoading = false;
   $: badgeName = FACTIONS[s1BadgeId] as FactionNames;
 
@@ -36,12 +35,13 @@
     try {
       if (!$account || !$account.address || selectedMovement === null) return;
       isLoading = true;
+      const address = $account.address;
+
       await profileService.tamperMigration($account.address, s1BadgeId, selectedMovement);
-      await profileService.getBadgeMigrations($account.address);
+      await profileService.getBadgeMigrations(address);
       isLoading = false;
 
       $tamperMigrationModal = false;
-
       successToast({
         title: 'Success',
         message: `You have successfully tampered your badge to ${MovementNames[selectedMovement]}`,
@@ -68,16 +68,18 @@
       {#if tamperExpiration && new Date() < tamperExpiration}
         Tamper available in {timeUntil(tamperExpiration)}
       {:else}
-        Migration in progress
+        Your Season 2 Badge is being forged
       {/if}
     </CoreModalTitle>
 
-    <CoreModalDescription>Tamper your migration to affect the outcome of your badge</CoreModalDescription>
+    <CoreModalDescription>
+      Refine your badge to favor the path of your Season 2 {badgeName}
+    </CoreModalDescription>
   </CoreModalHeader>
 
   <div class={badgesWrapperClasses}>
     <MigrationBadgeItem
-      value={$badgeMigrationStore.whaleTampers}
+      value={$activeMigration?.whaleTampers}
       shadow
       badgeMovement={Movements.Whale}
       badgeId={s1BadgeId}
@@ -94,7 +96,7 @@
     </MigrationBadgeItem>
 
     <MigrationBadgeItem
-      value={$badgeMigrationStore.devTampers}
+      value={$activeMigration?.devTampers}
       shadow
       badgeMovement={Movements.Dev}
       badgeId={s1BadgeId}
@@ -111,7 +113,7 @@
     </MigrationBadgeItem>
 
     <MigrationBadgeItem
-      value={$badgeMigrationStore.minnowTampers}
+      value={$activeMigration?.minnowTampers}
       shadow
       badgeMovement={Movements.Minnow}
       badgeId={s1BadgeId}

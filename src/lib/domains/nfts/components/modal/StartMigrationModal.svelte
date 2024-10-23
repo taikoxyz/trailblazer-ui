@@ -5,8 +5,7 @@
   import { ActionButton } from '$shared/components/Button';
   import { errorToast, successToast } from '$shared/components/NotificationToast';
   import { account } from '$shared/stores';
-  import { badgeMigrationStore } from '$shared/stores/badgeMigration';
-  import { startMigrationModal, tamperMigrationModal } from '$shared/stores/modal';
+  import { activeMigration, startMigrationModal, tamperMigrationModal } from '$shared/stores/modal';
   import { classNames } from '$shared/utils/classNames';
 
   import MigrationBadgeItem from '../MigrationBadgeItem.svelte';
@@ -16,7 +15,7 @@
   import CoreModalHeader from './components/CoreModalHeader.svelte';
   import CoreModalTitle from './components/CoreModalTitle.svelte';
 
-  $: s1BadgeId = $badgeMigrationStore.s1Badge?.badgeId || 0;
+  $: s1BadgeId = $activeMigration?.s1Badge?.badgeId || 0;
   $: badgeName = FACTIONS[s1BadgeId] as Faction;
   $: isLoading = false;
 
@@ -26,16 +25,20 @@
         return;
       }
       isLoading = true;
-      await profileService.startMigration(s1BadgeId);
-      await profileService.getBadgeMigrations($account.address);
+      const address = $account.address;
 
-      successToast({
-        title: 'Success',
-        message: `You have successfully started the migration of your ${badgeName} badge.`,
+      profileService.migrationListener(address, async () => {
+        await profileService.getBadgeMigrations(address);
+        successToast({
+          title: 'Success',
+          message: `You have successfully started the migration of your ${badgeName} badge.`,
+        });
+        isLoading = false;
+        $startMigrationModal = false;
+        $tamperMigrationModal = true;
       });
-      isLoading = false;
-      $startMigrationModal = false;
-      $tamperMigrationModal = true;
+      await profileService.startMigration(s1BadgeId);
+
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (e: any) {
       console.error(e);
@@ -65,9 +68,7 @@
     <CoreModalTitle>Start your migration</CoreModalTitle>
 
     <CoreModalDescription>
-      <p>Migrate your Season 1 Trailblazer Badges to Season 2. Choose your path wisely!</p>
-      <br />
-      <p>⚠️ WARNING ⚠️ You won't be able to transfer your season 1 badge for 365 days once the migration starts</p>
+      Time to forge your Season 2 {badgeName} badge.
     </CoreModalDescription>
   </CoreModalHeader>
 
@@ -75,6 +76,8 @@
     <MigrationBadgeItem badgeMovement={Movements.Dev} badgeId={s1BadgeId} {badgeName}>Season 1</MigrationBadgeItem>
   </div>
   <CoreModalFooter>
+    ⚠️ WARNING ⚠️ You won't be able to transfer your season 1 badge for 365 days once the forge process starts
+
     <ActionButton loading={isLoading} disabled={isLoading} on:click={handleStartMigration} priority="primary"
       >Start Migration</ActionButton>
   </CoreModalFooter>

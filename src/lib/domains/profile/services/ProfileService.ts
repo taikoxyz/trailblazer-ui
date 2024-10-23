@@ -19,6 +19,8 @@ import type { SeasonHistoryEntry, UserStats } from '$lib/domains/profile/types/U
 import type { PaginationInfo } from '$lib/shared/dto/CommonPageApiResponse';
 import type { NFT } from '$lib/shared/types/NFT';
 import { wagmiConfig } from '$lib/shared/wagmi';
+import { activeMigration } from '$shared/stores/modal';
+import type { BadgeMigration } from '$shared/types/BadgeMigration';
 import { chainId } from '$shared/utils/chain';
 import { getLogger } from '$shared/utils/logger';
 
@@ -630,6 +632,8 @@ export class ProfileService implements IProfileService {
     log('getMigrationStatus', { address });
     const migrations = await this.badgeMigrationService.getMigrationStatus(address);
 
+    const currentMigration = migrations[migrations.length - 1];
+    activeMigration.set(currentMigration);
     await this.userRepository.update({
       badgeMigrations: migrations,
     });
@@ -690,5 +694,26 @@ export class ProfileService implements IProfileService {
     } catch (error) {
       log('Error in previousSeasonFinalScores:', error);
     }
+  }
+
+  async migrationListener(address: Address, callback: (migrations: BadgeMigration[]) => void): Promise<void> {
+    const currentMigrations = (await this.userRepository.get()).badgeMigrations;
+    setTimeout(async () => {
+      const migrations = await this.badgeMigrationService.getMigrationStatus(address);
+
+      const hasChanged = JSON.stringify(currentMigrations) !== JSON.stringify(migrations);
+
+      if (hasChanged) {
+        log('migrationListener', { address, migrations });
+
+        await this.userRepository.update({
+          badgeMigrations: migrations,
+        });
+
+        return callback(migrations);
+      } else {
+        return this.migrationListener(address, callback);
+      }
+    }, 1000);
   }
 }
