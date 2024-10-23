@@ -1,6 +1,6 @@
 import type { Address } from 'viem';
 
-import type { PaginationInfo, UnifiedLeaderboardRow } from '$lib/domains/leaderboard/types/shared/types';
+import type { PaginationInfo } from '$lib/domains/leaderboard/types/shared/types';
 
 export type DappLeaderboardPage = {
   items: DappLeaderboardRow[];
@@ -18,26 +18,7 @@ export type DappLeaderboardRow = {
 
 export type GamingLeaderboardRow = DappLeaderboardRow;
 
-export type UserLeaderboardPage = {
-  items: UnifiedLeaderboardRow[];
-  lastUpdated: number;
-  pagination: PaginationInfo;
-};
-
 export type GamingLeaderboardPage = DappLeaderboardPage;
-
-export type UserLeaderboardItem = {
-  address: Address;
-  score: number;
-  rank: number;
-};
-
-export type UserLeaderboardRow = UserLeaderboardItem & {
-  level?: string;
-  title?: string;
-  name?: string;
-  icon?: string;
-};
 
 // Internal types
 

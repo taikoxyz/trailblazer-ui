@@ -1,6 +1,6 @@
 import type { Address } from 'viem';
 
-import type { UserLeaderboardItem } from '$lib/domains/leaderboard/types/dapps/types';
+import type { UserLeaderboardItem } from '$lib/domains/leaderboard/types/user/types';
 import type { UserInfoForLeaderboard } from '$lib/domains/profile/types/UserInfoForLeaderboard';
 
 export interface IProfileService {

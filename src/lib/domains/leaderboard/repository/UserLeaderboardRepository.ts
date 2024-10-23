@@ -1,5 +1,5 @@
 import { currentUserLeaderboard } from '$lib/domains/leaderboard/stores/userLeaderboard';
-import type { UserLeaderboardPage } from '$lib/domains/leaderboard/types/dapps/types';
+import type { UserLeaderboardPage } from '$lib/domains/leaderboard/types/user/types';
 import { IRepository } from '$lib/shared/repository/IRepository';
 import { getLogger } from '$shared/utils/logger';
 

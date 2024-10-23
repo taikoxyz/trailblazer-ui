@@ -1,7 +1,7 @@
 import { getAccount } from '@wagmi/core';
 import { type Address, getAddress, type Hash } from 'viem';
 
-import type { UserLeaderboardItem } from '$lib/domains/leaderboard/types/dapps/types';
+import type { UserLeaderboardItem } from '$lib/domains/leaderboard/types/user/types';
 import { BadgeService } from '$lib/domains/nfts/services/BadgeService';
 import { CombinedNFTService } from '$lib/domains/nfts/services/CombinedNFTService';
 import { ProfileApiAdapter } from '$lib/domains/profile/adapter/ProfileAdapter';
