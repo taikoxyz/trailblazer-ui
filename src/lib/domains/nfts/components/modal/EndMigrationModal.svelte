@@ -3,7 +3,7 @@
 
   import { FactionNames, FACTIONS } from '$configs/badges';
   import profileService from '$lib/domains/profile/services/ProfileServiceInstance';
-  import { Movements } from '$lib/domains/profile/types/types';
+  import { MovementNames, Movements } from '$lib/domains/profile/types/types';
   import { ActionButton } from '$shared/components/Button';
   import { account } from '$shared/stores';
   import { badgeMigrationStore } from '$shared/stores/badgeMigration';
@@ -28,6 +28,9 @@
     }
     isLoading = true;
     await profileService.endMigration($account.address, s1BadgeId);
+    await profileService.getBadgeMigrations($account.address);
+
+    await profileService.getBadgeMigrations($account.address);
     isLoading = false;
     isRevealed = true;
   }
@@ -47,19 +50,25 @@
   </CoreModalHeader>
   <div class={badgeWrapperClasses}>
     <Flippable height="400px" width="300px" flip={isRevealed}>
-      <MigrationBadgeItem slot="front" badgeMovement={Movements.Dev} badgeId={s1BadgeId} {badgeName} />
+      <MigrationBadgeItem slot="front" badgeMovement={Movements.Dev} badgeId={s1BadgeId} {badgeName}>
+        Season 1
+      </MigrationBadgeItem>
 
-      <MigrationBadgeItem slot="back" badgeMovement={Movements.Whale} badgeId={s1BadgeId} {badgeName} />
+      <MigrationBadgeItem
+        slot="back"
+        badgeMovement={$badgeMigrationStore.s2Badge?.movement || Movements.Whale}
+        badgeId={s1BadgeId}
+        {badgeName}>
+        {MovementNames[$badgeMigrationStore.s2Badge?.movement || Movements.Whale]}
+      </MigrationBadgeItem>
     </Flippable>
   </div>
 
   <CoreModalFooter>
-    <ActionButton loading={isLoading} disabled={isLoading} on:click={handleEndMigration} priority="primary">
-      {#if isRevealed}
-        Add to collection
-      {:else}
+    {#if !isRevealed}
+      <ActionButton loading={isLoading} disabled={isLoading} on:click={handleEndMigration} priority="primary">
         Reveal
-      {/if}
-    </ActionButton>
+      </ActionButton>
+    {/if}
   </CoreModalFooter>
 </CoreModal>

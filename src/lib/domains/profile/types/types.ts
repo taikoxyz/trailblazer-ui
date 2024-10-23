@@ -92,8 +92,8 @@ export type MinnowOrWhale = 'Minnow' | 'Whale';
 
 export enum Movements {
   Dev, // Neutral
-  Whale, // Based
-  Minnow, // Boosted
+  Whale, // Based, pink
+  Minnow, // Boosted, purple
 }
 
 export const MovementNames: string[] = Object.keys(Movements).filter((key) => isNaN(Number(key)));

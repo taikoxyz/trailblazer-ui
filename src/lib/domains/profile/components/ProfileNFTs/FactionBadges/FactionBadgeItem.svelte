@@ -71,7 +71,7 @@
   {#if button}
     <div class={buttonWrapperClasses}>
       <ActionButton
-        disabled={disabled || button.label === "Migration complete"}
+        disabled={disabled || button.label === 'Migration complete'}
         on:click={() => button.handler && button.handler(FACTIONS[typedNamed])}
         priority={button.type}>
         {button.label}

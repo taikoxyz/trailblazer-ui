@@ -1,5 +1,5 @@
 import axios from 'axios';
-import type { Address } from 'viem';
+import { type Address } from 'viem';
 
 import type { NFTMetadata } from '$lib/domains/nfts/types/shared/types';
 import type { NFT } from '$lib/shared/types/NFT';
@@ -23,16 +23,10 @@ export class CombinedNFTService {
    * Fetches all NFTs for a user, including badges and Taikoons.
    * @param address - The user's address.
    */
-  async fetchAllNFTsForUser(address: Address): Promise<{
-    taikoonNFTs: NFT[];
-    badgeNFTs: NFT[];
-  }> {
-    const [taikoonNFTs, badgeNFTs] = await Promise.all([
-      this.taikoonService.getTaikoons(address),
-      this.badgeNFTService.getBadgesForUser(address),
-    ]);
-    log('fetchAllNFTsForUser', { address, taikoonNFTs, badgeNFTs });
-    return { taikoonNFTs, badgeNFTs };
+  async fetchAllNFTsForUser(address: Address): Promise<NFT[]> {
+    const nfts = await this.badgeNFTService.fetchAllNFTsForUser(address);
+    log('fetchAllNFTsForUser', { address, nfts });
+    return nfts;
   }
 
   /**

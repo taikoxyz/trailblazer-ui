@@ -13,8 +13,9 @@ export const GET_MIGRATION_STATUS_GQL = gql`
         id
         isStarted
         isCompleted
-        pinkTampers
-        purpleTampers
+        devTampers
+        whaleTampers
+        minnowTampers
         claimExpirationTimeout
         tamperExpirationTimeout
         s1Badge {

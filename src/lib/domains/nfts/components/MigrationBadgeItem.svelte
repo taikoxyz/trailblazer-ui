@@ -1,10 +1,8 @@
 <script lang="ts">
   import { FACTIONS } from '$configs/badges';
   import { FactionImage } from '$lib/domains/profile/components/ProfileNFTs';
-  import { type Faction,Movements } from '$lib/domains/profile/types/types';
+  import { type Faction, Movements } from '$lib/domains/profile/types/types';
   import { classNames } from '$shared/utils/classNames';
-
-  import TamperRings from './TamperRings.svelte';
 
   export let badgeId: number;
   export let badgeName: Faction;
@@ -13,13 +11,11 @@
   export let value: number = 0;
   export let shadow: boolean = false;
 
-  // tmp refactor fix
-
   $: unlocked = !blurred;
   $: wrapperClasses = classNames(
+    'indicator',
     'bg-white',
     'p-[8px]',
-    // badgeMovement === Movements.Neutral ? 'w-[300px]' : 'w-[250px]',
     'w-full',
     'relative',
     'border',
@@ -37,12 +33,6 @@
     shadow && badgeMovement === Movements.Whale ? 'border-secondary  shadow-[0_0px_50px_0px_#E81899]' : null,
     shadow && badgeMovement === Movements.Minnow ? 'border-[#5D08C8] shadow-[0_0px_50px_0px_#5D08C8]' : null,
     shadow && badgeMovement === Movements.Dev ? 'border-[white] shadow-[0_0px_50px_0px_white]' : null,
-
-    /*
-    badgeMovement === Movements.Based ?
-    'border-secondary hover:shadow hover:shadow-[0_0px_50px_0px_#E81899]' : null,
-    badgeMovement === Movements.Boosted ? 'border-[#5D08C8]
-    hover:shadow hover:shadow-[0_0px_50px_0px_#5D08C8]' : null,*/
   );
 
   const imageWrapperClasses = classNames(
@@ -71,9 +61,14 @@
   $: badgeName = FACTIONS[badgeId] as Faction;
 
   const lockImageOverlayClasses = classNames('absolute', 'w-full', 'h-full', 'glassy-background');
+
+  const indicatorClasses = classNames('indicator-item', 'badge', 'badge-secondary', 'text-white', 'text-[24]/[36px]');
 </script>
 
 <div class={wrapperClasses}>
+  {#if value > 0}
+    <span class={indicatorClasses}>{value}</span>
+  {/if}
   <div class={imageWrapperClasses}>
     <FactionImage movement={badgeMovement} type={badgeName} />
     {#if !unlocked}
@@ -82,8 +77,4 @@
   <div class={badgeTextClasses}>
     <slot />
   </div>
-
-  {#if badgeMovement !== Movements.Dev}
-    <TamperRings {value} color={badgeMovement === Movements.Whale ? 'pink' : 'purple'} />
-  {/if}
 </div>

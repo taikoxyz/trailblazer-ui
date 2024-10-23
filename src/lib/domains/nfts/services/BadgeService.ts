@@ -1,10 +1,12 @@
-import type { Address } from 'viem';
+import { type Address, isAddressEqual } from 'viem';
 
-import { trailblazersBadgesAddress } from '$generated/abi';
+import { FACTIONS } from '$configs/badges';
+import { trailblazersBadgesAddress, trailblazersBadgesS2Address } from '$generated/abi';
 import { BadgeAdapter } from '$lib/domains/nfts/adapter/BadgeAdapter';
-import type { FactionNames } from '$lib/domains/nfts/types/badges/types';
+import { FactionNames } from '$lib/domains/nfts/types/badges/types';
+import { MovementNames, Movements } from '$lib/domains/profile/types/types';
 import type { NFT } from '$lib/shared/types/NFT';
-import { chainId } from '$lib/shared/utils/chain';
+import { chainId } from '$shared/utils/chain';
 import { getLogger } from '$shared/utils/logger';
 
 const log = getLogger('BadgeService');
@@ -16,46 +18,37 @@ export class BadgeService {
     this.adapter = adapter || new BadgeAdapter();
   }
 
-  async getBadgesForUser(address: Address): Promise<NFT[]> {
-    log('getBadgesForUser', { address });
-    const balances = await this.adapter.fetchUserS1Badges(address);
-
-    const badges: NFT[] = [];
-
-    const badgePromises = Object.keys(balances).map(async (badgeName, index) => {
-      const badge = balances[badgeName as FactionNames];
-      if (badge && badge.badgeId !== null && badge.tokenId !== null) {
-        return {
-          address: trailblazersBadgesAddress[chainId],
-          src: this.getS1BadgeURI(index),
-          tokenUri: '',
-          tokenId: badge.tokenId,
-          badgeId: badge.badgeId,
-        } satisfies NFT;
+  async fetchAllNFTsForUser(address: Address): Promise<NFT[]> {
+    const dryTokens = await this.adapter.fetchAllNFTsForUser(address);
+    log('fetchAllNFTsForUser', { address, dryTokens });
+    const tokens = dryTokens.map((token) => {
+      if (
+        token.badgeId === undefined ||
+        token.badgeId === null ||
+        (!isAddressEqual(token.address, trailblazersBadgesAddress[chainId]) &&
+          !isAddressEqual(token.address, trailblazersBadgesS2Address[chainId]))
+      ) {
+        return token;
       }
-      return null;
+
+      if (token.movement === undefined || token.movement === null) {
+        token.movement = Movements.Dev;
+      }
+
+      return {
+        ...token,
+        src: this.getBadgeURI(token.badgeId, token.movement),
+      };
     });
 
-    const resolvedBadges = await Promise.all(badgePromises);
-    const filteredBadges = resolvedBadges.filter((badge) => badge !== null) as NFT[];
-    badges.push(...filteredBadges);
-
-    log('getBadgesForUser result', { badges });
-    return badges;
+    return tokens;
   }
 
-  private getS1BadgeURI(badgeId: number): string {
-    const s1Badges = [
-      '/factions/ravers/dev.png',
-      '/factions/robots/dev.png',
-      '/factions/bouncers/dev.png',
-      '/factions/masters/dev.png',
-      '/factions/monks/dev.png',
-      '/factions/androids/dev.png',
-      '/factions/drummers/dev.png',
-      '/factions/shinto/dev.png',
-    ];
-    return s1Badges[badgeId];
+  private getBadgeURI(badgeId: number, movement: Movements): string {
+    const movementStr = MovementNames[movement].toLowerCase();
+    const factionStr = FactionNames[FACTIONS[badgeId] as FactionNames].toLowerCase();
+
+    return `/factions/${factionStr}/${movementStr}.png`;
   }
 
   getTokenId(address: Address, badgeId: number): Promise<number> {

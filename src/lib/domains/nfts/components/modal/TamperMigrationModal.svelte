@@ -1,7 +1,7 @@
 <script lang="ts">
   import { type FactionNames, FACTIONS } from '$configs/badges';
   import profileService from '$lib/domains/profile/services/ProfileServiceInstance';
-  import { Movements } from '$lib/domains/profile/types/types';
+  import { MovementNames, Movements } from '$lib/domains/profile/types/types';
   import timeUntil from '$lib/shared/utils/date/timeUntil';
   import { ActionButton } from '$shared/components/Button';
   import { errorToast, successToast } from '$shared/components/NotificationToast';
@@ -16,41 +16,35 @@
 
   const badgesWrapperClasses = classNames(
     'flex',
-    'w-[700px]',
-    'max-w-[90vw]',
+    'w-full',
+    'max-w-[1200px]',
+    'p-[80px]',
     'gap-[20px]',
     'md:gap-[40px]',
     'lg:gap-[80px]',
   );
 
-  $: s1BadgeId = $badgeMigrationStore.s1Badge?.badgeId!;
+  $: s1BadgeId = $badgeMigrationStore.s1Badge?.badgeId || 0;
 
-  // $: pinkTampers = $badgeMigrationStore.pinkTampers;
-  // $: purpleTampers = $badgeMigrationStore.purpleTampers;
-
-  $: claimExpiration = $badgeMigrationStore.claimExpirationTimeout;
   $: tamperExpiration = $badgeMigrationStore.tamperExpirationTimeout;
   $: isLoading = false;
   $: badgeName = FACTIONS[s1BadgeId] as FactionNames;
 
-  $: isPinkSelected = false;
-  $: isPurpleSelected = false;
+  $: selectedMovement = null as null | Movements;
 
   async function handleTamper() {
     try {
-      if (!$account || !$account.address) return;
+      if (!$account || !$account.address || selectedMovement === null) return;
       isLoading = true;
-      await profileService.tamperMigration($account.address, s1BadgeId, isPinkSelected && !isPurpleSelected);
-
+      await profileService.tamperMigration($account.address, s1BadgeId, selectedMovement);
+      await profileService.getBadgeMigrations($account.address);
       isLoading = false;
 
       $tamperMigrationModal = false;
 
-      const color = isPinkSelected ? 'pink' : 'purple';
-
       successToast({
         title: 'Success',
-        message: `You have successfully tampered your badge to ${color}`,
+        message: `You have successfully tampered your badge to ${MovementNames[selectedMovement]}`,
       });
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (e: any) {
@@ -62,6 +56,10 @@
       });
     }
   }
+
+  const detailsClasses = classNames('flex', 'flex-col', 'w-full', 'justify-center', 'items-center', 'gap-[8px]');
+
+  const radioGroupName = 'radio-tamper';
 </script>
 
 <CoreModal open={$tamperMigrationModal}>
@@ -74,31 +72,59 @@
       {/if}
     </CoreModalTitle>
 
-    <CoreModalDescription>
-      {#if claimExpiration}
-        Migration claimable in {timeUntil(claimExpiration)}
-      {/if}
-    </CoreModalDescription>
+    <CoreModalDescription>Tamper your migration to affect the outcome of your badge</CoreModalDescription>
   </CoreModalHeader>
 
   <div class={badgesWrapperClasses}>
-    <MigrationBadgeItem shadow badgeMovement={Movements.Whale} badgeId={s1BadgeId} {badgeName}>
-      <TamperRadio
-        checked={isPinkSelected}
-        on:change={() => {
-          isPinkSelected = true;
-          isPurpleSelected = false;
-        }}
-        name="radio-tamper" />
+    <MigrationBadgeItem
+      value={$badgeMigrationStore.whaleTampers}
+      shadow
+      badgeMovement={Movements.Whale}
+      badgeId={s1BadgeId}
+      {badgeName}>
+      <div class={detailsClasses}>
+        {MovementNames[Movements.Whale]}
+        <TamperRadio
+          checked={selectedMovement === Movements.Whale}
+          on:change={() => {
+            selectedMovement = Movements.Whale;
+          }}
+          name={radioGroupName} />
+      </div>
     </MigrationBadgeItem>
-    <MigrationBadgeItem shadow badgeMovement={Movements.Minnow} badgeId={s1BadgeId} {badgeName}>
-      <TamperRadio
-        on:change={() => {
-          isPinkSelected = false;
-          isPurpleSelected = true;
-        }}
-        name="radio-tamper"
-        checked={isPurpleSelected} />
+
+    <MigrationBadgeItem
+      value={$badgeMigrationStore.devTampers}
+      shadow
+      badgeMovement={Movements.Dev}
+      badgeId={s1BadgeId}
+      {badgeName}>
+      <div class={detailsClasses}>
+        {MovementNames[Movements.Dev]}
+        <TamperRadio
+          checked={selectedMovement === Movements.Dev}
+          on:change={() => {
+            selectedMovement = Movements.Dev;
+          }}
+          name={radioGroupName} />
+      </div>
+    </MigrationBadgeItem>
+
+    <MigrationBadgeItem
+      value={$badgeMigrationStore.minnowTampers}
+      shadow
+      badgeMovement={Movements.Minnow}
+      badgeId={s1BadgeId}
+      {badgeName}>
+      <div class={detailsClasses}>
+        {MovementNames[Movements.Minnow]}
+        <TamperRadio
+          checked={selectedMovement === Movements.Minnow}
+          on:change={() => {
+            selectedMovement = Movements.Minnow;
+          }}
+          name={radioGroupName} />
+      </div>
     </MigrationBadgeItem>
   </div>
 
@@ -106,7 +132,7 @@
     <ActionButton
       loading={isLoading}
       on:click={handleTamper}
-      disabled={isLoading || (!isPinkSelected && !isPurpleSelected)}
+      disabled={isLoading || selectedMovement === null}
       priority="primary">Tamper</ActionButton>
   </CoreModalFooter>
 </CoreModal>

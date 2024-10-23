@@ -15,7 +15,7 @@ export const USER_NFTS_QUERY = gql`
   }
 `;
 
-export const USER_BADGES_QUERY = gql`
+export const USER_BADGES_S1_QUERY = gql`
   query UserBadges($address: Bytes) {
     account(id: $address) {
       id
@@ -46,6 +46,21 @@ export const USER_PROFILE_PICTURES_QUERY = gql`
       tokenAddress
       tokenId
       tokenURI
+    }
+  }
+`;
+
+export const USER_NFTS_FETCH_QUERY = gql`
+  query UserBadges($address: Bytes) {
+    tokens(where: { owner: $address }) {
+      id
+      erc
+      tokenId
+      contract
+      badgeId
+      movement
+      season
+      uri
     }
   }
 `;

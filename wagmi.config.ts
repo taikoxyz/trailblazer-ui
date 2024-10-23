@@ -18,8 +18,8 @@ import BadgeMigration from '../taiko-mono.git/packages/nfts/out/BadgeMigration.s
 import ERC20Airdrop from '../taiko-mono.git/packages/nfts/out/ERC20Airdrop.sol/ERC20Airdrop.json';
 import RegisterProfilePicture from '../taiko-mono.git/packages/nfts/out/RegisterProfilePicture.sol/RegisterProfilePicture.json';
 import TaikoonToken from '../taiko-mono.git/packages/nfts/out/TaikoonToken.sol/TaikoonToken.json';
-import TrailblazersBadges from '../taiko-mono.git/packages/nfts/out/TrailblazersBadges.sol/TrailblazersBadges.json';
 import TrailblazersBadgesS2 from '../taiko-mono.git/packages/nfts/out/TrailblazersBadgesS2.sol/TrailblazersBadgesS2.json';
+import TrailblazersS1BadgesV4 from '../taiko-mono.git/packages/nfts/out/TrailblazersS1BadgesV4.sol/TrailblazersBadgesV4.json';
 
 export default defineConfig({
   out: 'src/generated/abi/index.ts',
@@ -31,7 +31,7 @@ export default defineConfig({
         167009: TrailblazerBadgesS2HeklaDeployment.TrailblazersBadges as Address,
         167000: TrailblazerBadgesS2HeklaDeployment.TrailblazersBadges as Address,
       },
-      abi: TrailblazersBadges.abi as Abi,
+      abi: TrailblazersS1BadgesV4.abi as Abi,
     },
     {
       name: 'BadgeMigration',

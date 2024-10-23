@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client/core';
 import { readContract, signMessage, writeContract } from '@wagmi/core';
 import axios from 'axios';
-import { type Address, parseSignature, recoverAddress } from 'viem';
+import { type Address, parseSignature } from 'viem';
 
 import { PUBLIC_TRAILBLAZER_API_URL } from '$env/static/public';
 import {
@@ -11,6 +11,7 @@ import {
   trailblazersBadgesAddress,
 } from '$generated/abi';
 import type { BadgeMigration as GqlBadgeMigration, Token } from '$generated/graphql';
+import type { Movements } from '$lib/domains/profile/types/types';
 import { graphqlClient } from '$lib/shared/services/graphql/client';
 import { GET_MIGRATION_STATUS_GQL } from '$lib/shared/services/graphql/queries/getMigrationStatus.gql';
 import { pendingTransactions } from '$lib/shared/stores/pendingTransactions';
@@ -59,6 +60,7 @@ export class BadgeMigrationAdapter {
         const currentBadgeId = parseInt(badge.id);
         out.push(currentBadgeId);
       }
+
       log('fetchEnabledMigrations', { out });
       return out;
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -102,8 +104,8 @@ export class BadgeMigrationAdapter {
     log('startMigration', { factionId });
 
     const tx = await writeContract(wagmiConfig, {
-      abi: badgeMigrationAbi,
-      address: badgeMigrationAddress[chainId],
+      abi: trailblazersBadgesAbi,
+      address: trailblazersBadgesAddress[chainId],
       functionName: 'startMigration',
       args: [BigInt(factionId)],
       chainId,
@@ -160,25 +162,18 @@ export class BadgeMigrationAdapter {
       chainId,
     });
 
-    const signer = await recoverAddress({
-      hash,
-      signature: mintSignature,
-    });
-
-    console.log({ signer, hash });
-
     return { r, s, v, points, hash };
   }
 
-  async tamperMigration(address: Address, factionId: number, pinkOrPurple: boolean): Promise<string> {
-    log('tamperMigration', { pinkOrPurple });
+  async tamperMigration(address: Address, factionId: number, tamperMovement: Movements): Promise<string> {
+    log('tamperMigration', { address, factionId, tamperMovement });
 
     const { r, s, v, points, hash } = await this._getMigrationSignature(address, factionId);
     const tx = await writeContract(wagmiConfig, {
       abi: badgeMigrationAbi,
       address: badgeMigrationAddress[chainId],
       functionName: 'tamperMigration',
-      args: [hash, Number(v), r, s, BigInt(points), pinkOrPurple],
+      args: [hash, Number(v), r, s, BigInt(points), tamperMovement],
       chainId,
     });
 
@@ -257,7 +252,7 @@ export class BadgeMigrationAdapter {
       }
 
       const migrations = s2Migrations.map((raw) => {
-        let s1Badge = undefined
+        let s1Badge = undefined;
         if (raw.s1Badge) {
           const badgeId = parseInt(raw.s1Badge.badgeId.toString());
 
@@ -267,10 +262,10 @@ export class BadgeMigrationAdapter {
             address: trailblazersBadgesAddress[chainId],
             src: '',
             tokenUri: '',
-          } satisfies NFT
+          } satisfies NFT;
         }
 
-        let s2Badge = undefined
+        let s2Badge = undefined;
         if (raw.s2Badge) {
           const badgeId = parseInt(raw.s2Badge.badgeId.toString());
 
@@ -280,20 +275,22 @@ export class BadgeMigrationAdapter {
             address: trailblazersBadgesAddress[chainId],
             src: '',
             tokenUri: '',
-          } satisfies NFT
+          } satisfies NFT;
         }
         const tamperExpirationTimeout = parseInt(raw.tamperExpirationTimeout.toString());
-
+        const minuteBuffer = 60 * 1000;
         return {
           id: raw.id,
           s1Badge,
           s2Badge,
           isStarted: Boolean(raw.isStarted),
           isCompleted: Boolean(raw.isCompleted),
-          pinkTampers: raw.pinkTampers,
-          purpleTampers: raw.purpleTampers,
-          claimExpirationTimeout: new Date(parseInt(raw.claimExpirationTimeout.toString()) * 1000),
-          tamperExpirationTimeout: tamperExpirationTimeout > 0 ? new Date(tamperExpirationTimeout * 1000) : undefined,
+          devTampers: raw.devTampers,
+          whaleTampers: raw.whaleTampers,
+          minnowTampers: raw.minnowTampers,
+          claimExpirationTimeout: new Date(minuteBuffer + parseInt(raw.claimExpirationTimeout.toString()) * 1000),
+          tamperExpirationTimeout:
+            tamperExpirationTimeout > 0 ? new Date(minuteBuffer + tamperExpirationTimeout * 1000) : undefined,
           isApproved: s1Badge ? approvedTokenIds.includes(parseInt(raw.s1Badge?.badgeId.toString())) : false,
         } satisfies BadgeMigration;
       });

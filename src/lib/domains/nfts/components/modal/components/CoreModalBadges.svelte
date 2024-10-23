@@ -25,8 +25,9 @@
     'gap-[40px]',
   );
   export let active: boolean;
-  export let pinkTampers: number = 0;
-  export let purpleTampers: number = 0;
+  export let devTampers: number = 0;
+  export let whaleTampers: number = 0;
+  export let minnowTampers: number = 0;
   export let badgeId: number;
   export let hideResult: boolean = false;
   $: badgeName = FACTIONS[badgeId] as Faction;
@@ -35,7 +36,7 @@
 <div class={wrapperClasses}>
   {#if !hideResult}
     <div class={badgeWrapperClasses}>
-      <MigrationBadgeItem blurred={!active} value={pinkTampers} badgeMovement={Movements.Whale} {badgeId} {badgeName}>
+      <MigrationBadgeItem blurred={!active} value={whaleTampers} badgeMovement={Movements.Whale} {badgeId} {badgeName}>
         {MovementNames[Movements.Whale]}
       </MigrationBadgeItem>
       <!--
@@ -47,7 +48,7 @@
   {/if}
   {#if !active}
     <div class={centralBadgeWrapperClasses}>
-      <MigrationBadgeItem badgeMovement={Movements.Dev} {badgeId} {badgeName}>
+      <MigrationBadgeItem badgeMovement={Movements.Dev} {badgeId} value={devTampers} {badgeName}>
         {MovementNames[Movements.Dev]}
       </MigrationBadgeItem>
     </div>
@@ -58,7 +59,7 @@
         blurred={!active}
         badgeMovement={Movements.Minnow}
         {badgeId}
-        value={purpleTampers}
+        value={minnowTampers}
         {badgeName}>
         {MovementNames[Movements.Minnow]}
       </MigrationBadgeItem>

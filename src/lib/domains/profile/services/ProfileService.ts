@@ -1,6 +1,7 @@
 import { getAccount } from '@wagmi/core';
-import { type Address, getAddress, type Hash } from 'viem';
+import { type Address, getAddress, type Hash, isAddressEqual } from 'viem';
 
+import { taikoonTokenAddress, trailblazersBadgesAddress } from '$generated/abi';
 import type { UserLeaderboardItem } from '$lib/domains/leaderboard/types/dapps/types';
 import { BadgeMigrationService } from '$lib/domains/nfts/services/BadgeMigrationService';
 import { BadgeService } from '$lib/domains/nfts/services/BadgeService';
@@ -11,14 +12,14 @@ import { multipliersLoading, profileLoading } from '$lib/domains/profile/stores/
 import { defaultUserProfile } from '$lib/domains/profile/types/defaultUserProfile';
 import type { DomainInfo } from '$lib/domains/profile/types/DomainInfo';
 import { levelTiers } from '$lib/domains/profile/types/LevelTiers';
-import { DomainType, type UserPointHistory } from '$lib/domains/profile/types/types';
+import { DomainType, Movements, type UserPointHistory } from '$lib/domains/profile/types/types';
 import type { UserInfoForLeaderboard } from '$lib/domains/profile/types/UserInfoForLeaderboard';
 import type { UserProfile } from '$lib/domains/profile/types/UserProfile';
 import type { SeasonHistoryEntry, UserStats } from '$lib/domains/profile/types/UserStats';
 import type { PaginationInfo } from '$lib/shared/dto/CommonPageApiResponse';
 import type { NFT } from '$lib/shared/types/NFT';
 import { wagmiConfig } from '$lib/shared/wagmi';
-import { isDevelopmentEnv } from '$shared/utils/isDevelopmentEnv';
+import { chainId } from '$shared/utils/chain';
 import { getLogger } from '$shared/utils/logger';
 
 import type { IProfileService } from './IProfileService';
@@ -114,7 +115,7 @@ export class ProfileService implements IProfileService {
             total: activity?.total,
           },
         },
-        nfts: [...nftsResult.taikoonNFTs, ...nftsResult.badgeNFTs],
+        nfts: [...nftsResult],
         multipliers: defaultUserProfile.multipliers,
         domainInfo: {
           ...userDomainInfo.domainInfo,
@@ -300,21 +301,17 @@ export class ProfileService implements IProfileService {
   private async fetchAndCalculateMultipliers(address: Address): Promise<void> {
     const badges: NFT[] = [];
     try {
-      if (!isDevelopmentEnv) {
-        const found = await this.badgeService.getBadgesForUser(address);
-        badges.push(...found);
-        // graphqlResponse = await graphqlClient.query({
-        //   query: USER_NFTS_QUERY,
-        //   variables: { address: address.toLocaleLowerCase() },
-        // });
-      } else {
-        //TODO: implement again
-        // const { data } = await axios.get(`/user/graphql`, {
-        //   params: { address },
-        //   ...globalAxiosConfig,
-        // });
-        // graphqlResponse = data;
-      }
+      const all = await this.badgeService.fetchAllNFTsForUser(address);
+      const found = all.filter(
+        (nft) =>
+          isAddressEqual(nft.address, trailblazersBadgesAddress[chainId]) ||
+          isAddressEqual(nft.address, taikoonTokenAddress[chainId]),
+      );
+      badges.push(...found);
+      // graphqlResponse = await graphqlClient.query({
+      //   query: USER_NFTS_QUERY,
+      //   variables: { address: address.toLocaleLowerCase() },
+      // });
 
       if (badges) {
         log('Found badges', badges);
@@ -475,7 +472,7 @@ export class ProfileService implements IProfileService {
       log('result of fetchAllNFTsForUser:', nfts);
       // Combine and update the profile with NFT data
       await this.userRepository.update({
-        nfts: [...nfts.taikoonNFTs, ...nfts.badgeNFTs],
+        nfts,
       });
 
       log('Profile with NFTs:', await this.userRepository.get());
@@ -529,12 +526,8 @@ export class ProfileService implements IProfileService {
       // If pfpNFT lacks necessary details, fetch all NFTs and find a match
       if (!pfpNFT.address || !pfpNFT.tokenId) {
         // Fetch all NFTs for the user
-        const allNFTs = await this.combinedNFTService.fetchAllNFTsForUser(address);
-
-        // Combine all NFTs into a single array
-        const allNFTsFlat: NFT[] = [...allNFTs.taikoonNFTs, ...allNFTs.badgeNFTs];
+        const allNFTsFlat: NFT[] = await this.combinedNFTService.fetchAllNFTsForUser(address);
         log('All NFTs:', allNFTsFlat);
-
         // Find the matching NFT
         const match = allNFTsFlat.find(
           (nft) => nft.tokenId === Number(pfpNFT.tokenId) && getAddress(nft.address) === getAddress(pfpNFT.address),
@@ -613,24 +606,14 @@ export class ProfileService implements IProfileService {
     return this.badgeMigrationService.getEnabledMigrations();
   }
 
-  async setApprovalForAll(): Promise<string> {
-    log('setApprovalForAll');
-    return this.badgeMigrationService.setApprovalForAll();
-  }
-
-  async approve(tokenId: number): Promise<Address> {
-    log('approve', { tokenId });
-    return this.badgeMigrationService.approve(tokenId);
-  }
-
   async startMigration(factionId: number): Promise<string> {
     log('startMigration', { factionId });
     return this.badgeMigrationService.startMigration(factionId);
   }
 
-  async tamperMigration(address: Address, factionId: number, pinkOrPurple: boolean): Promise<string> {
-    log('tamperMigration', { address, factionId, pinkOrPurple });
-    return this.badgeMigrationService.tamperMigration(address, factionId, pinkOrPurple);
+  async tamperMigration(address: Address, factionId: number, tamperMovement: Movements): Promise<string> {
+    log('tamperMigration', { address, factionId, tamperMovement });
+    return this.badgeMigrationService.tamperMigration(address, factionId, tamperMovement);
   }
 
   async endMigration(address: Address, factionId: number): Promise<string> {
@@ -645,14 +628,13 @@ export class ProfileService implements IProfileService {
 
   async getBadgeMigrations(address: Address): Promise<void> {
     log('getMigrationStatus', { address });
-    const approvedMigrationBadgeIds = await this.badgeMigrationService.getApprovedMigrations(address);
     const migrations = await this.badgeMigrationService.getMigrationStatus(address);
 
     await this.userRepository.update({
       badgeMigrations: migrations,
-      approvedMigrationBadgeIds,
     });
   }
+
   /**
    * Retrieves the user's blacklist status for the given season.
    *

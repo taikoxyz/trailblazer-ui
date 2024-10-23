@@ -6,8 +6,9 @@ export interface BadgeMigration {
   s2Badge?: NFT;
   isStarted: boolean;
   isCompleted: boolean;
-  pinkTampers: number;
-  purpleTampers: number;
+  devTampers: number;
+  whaleTampers: number;
+  minnowTampers: number;
   claimExpirationTimeout: Date;
   tamperExpirationTimeout?: Date;
   isApproved: boolean;

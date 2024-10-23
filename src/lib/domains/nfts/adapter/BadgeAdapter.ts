@@ -1,12 +1,14 @@
 import { readContract } from '@wagmi/core';
-import type { Address } from 'viem';
+import { type Address } from 'viem';
 
 import { trailblazersBadgesAbi, trailblazersBadgesAddress } from '$generated/abi';
+import type { Token } from '$generated/graphql';
 import { FactionNames, FACTIONS } from '$lib/domains/nfts/types/badges/types';
 import { graphqlClient } from '$lib/shared/services/graphql/client';
-import { USER_BADGES_QUERY } from '$lib/shared/services/graphql/queries';
+import { USER_BADGES_S1_QUERY, USER_NFTS_FETCH_QUERY } from '$lib/shared/services/graphql/queries';
 import { chainId } from '$lib/shared/utils/chain';
 import { wagmiConfig } from '$lib/shared/wagmi';
+import type { NFT } from '$shared/types/NFT';
 import { getLogger } from '$shared/utils/logger';
 
 const log = getLogger('BadgeAdapter');
@@ -36,7 +38,7 @@ export class BadgeAdapter {
 
     try {
       const graphqlResponse = await graphqlClient.query({
-        query: USER_BADGES_QUERY,
+        query: USER_BADGES_S1_QUERY,
         variables: { address: address.toLocaleLowerCase() },
       });
 
@@ -89,5 +91,43 @@ export class BadgeAdapter {
     });
 
     return parseInt(result.toString(16), 16);
+  }
+
+  async fetchAllNFTsForUser(address: Address): Promise<NFT[]> {
+    log('fetchAllNFTsForUser', { address });
+
+    try {
+      const graphqlResponse = await graphqlClient.query({
+        query: USER_NFTS_FETCH_QUERY,
+        variables: { address: address.toLocaleLowerCase() },
+      });
+
+      if (!graphqlResponse || !graphqlResponse.data || !graphqlResponse.data.tokens) {
+        // account does not exist, skip
+        return [];
+      }
+      const { tokens } = graphqlResponse.data;
+      const flatTokens = tokens.map((token: Token) => {
+        return {
+          address: token.contract,
+          tokenId: token.tokenId,
+          badgeId: parseInt(token.badgeId),
+          erc: token.erc,
+          movement: token.movement,
+          tokenUri: token.uri || '',
+          src: '',
+        } satisfies NFT;
+      });
+
+      return flatTokens;
+
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (e: any) {
+      if (e.message === 'graphqlResponse.data.account is null') {
+        // account does not exist, skip
+        return [];
+      }
+      throw e;
+    }
   }
 }

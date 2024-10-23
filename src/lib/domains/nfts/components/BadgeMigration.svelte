@@ -1,8 +1,9 @@
 <script lang="ts">
   import { onMount } from 'svelte';
+  import { isAddressEqual } from 'viem';
 
   import { FactionNames, FACTIONS } from '$configs/badges';
-  import { trailblazersBadgesAddress } from '$generated/abi';
+  import { trailblazersBadgesAddress, trailblazersBadgesS2Address } from '$generated/abi';
   import profileService from '$lib/domains/profile/services/ProfileServiceInstance';
   import { userProfile } from '$lib/domains/profile/stores';
   import type { FactionBadgeButton } from '$lib/domains/profile/types/FactionBadgeButton';
@@ -10,17 +11,9 @@
   import type { BadgeMigration } from '$lib/shared/types/BadgeMigration';
   import type { NFT } from '$lib/shared/types/NFT';
   import { chainId } from '$lib/shared/utils/chain';
-  import { ActionButton } from '$shared/components/Button';
-  import { errorToast, successToast } from '$shared/components/NotificationToast';
   import { account } from '$shared/stores';
   import { badgeMigrationStore } from '$shared/stores/badgeMigration';
-  import {
-    endMigrationModal,
-    migrationApprovalModal,
-    startMigrationModal,
-    tamperMigrationModal,
-  } from '$shared/stores/modal';
- // import updateMigrationStatus from '$shared/utils/badges/migration/updateMigrationStatus';
+  import { endMigrationModal, startMigrationModal, tamperMigrationModal } from '$shared/stores/modal';
   import { classNames } from '$shared/utils/classNames';
 
   import { FactionBadgeItem } from '../../profile/components/ProfileNFTs/FactionBadges';
@@ -74,37 +67,6 @@
     'h-[70px]',
   );
 
-  const approvalInfoWrapperClasses = classNames(
-    'border-l-[6px]',
-    'pl-[16px]',
-    'border-primary',
-    'text-[#ADB1B8]',
-    'w-full',
-    'flex',
-    'flex-col',
-    'justify-center',
-    'items-start',
-    'font-[500]',
-    'relative',
-    'lg:pr-[40%]',
-    'mb-[50px]',
-  );
-  const approvalInfoTitleClasses = classNames(
-    'mb-[12px]',
-
-    'text-[#F3F3F3]',
-    'text-[26px]/[26px]',
-    'font-clash-grotesk',
-  );
-  const approvalButtonWrapperClasses = classNames(
-    'mt-[20px]',
-    'w-full',
-    'lg:w-max',
-    'lg:mt-0',
-    'lg:absolute',
-    'right-0',
-  );
-
   const timeOverlayBaseClasses = classNames(
     'w-full',
     'h-full',
@@ -125,8 +87,7 @@
     'shadow-[0_35px_60px_-15px_rgba(255,255,255,1)]',
   );
 
-  const timerOverlayClaimClasses = classNames(timeOverlayBaseClasses,
-  'border-[3px]', 'border-[#47E0A0]');
+  const timerOverlayClaimClasses = classNames(timeOverlayBaseClasses, 'border-[3px]', 'border-[#47E0A0]');
 
   const timerLabelClasses = classNames('text-[14px]/[20px]', 'text-[#adb1b8]');
 
@@ -155,24 +116,13 @@
   onMount(async () => {
     const allNFTS = $userProfile.nfts || [];
     userBadges = allNFTS.filter(
-      (nft) => nft.address.toLowerCase() === trailblazersBadgesAddress[chainId].toLowerCase(),
+      (nft) =>
+        isAddressEqual(nft.address, trailblazersBadgesAddress[chainId]) ||
+        isAddressEqual(nft.address, trailblazersBadgesS2Address[chainId]),
     );
-    // enabledBadgeIds = await getEnabledMigrationIds();
 
     enabledBadgeIds = await profileService.getEnabledMigrations();
-
-    // TODO: TEMPORARY
-    // slice the nfts, only leave the first
-    // userBadges = userBadges.slice(0, 2);
-    // enabledBadgeIds = [1, 2, 3, 4];
-    // END TEMPORARY
-
-    if (!$account || !$account.address) {
-      return;
-    }
-    const address = $account.address;
-    //await updateMigrationStatus(address);
-    displayActiveMigration = Boolean($badgeMigrationStore.s1Badge?.badgeId! > 0);
+    displayActiveMigration = Boolean($badgeMigrationStore.s1Badge?.badgeId);
   });
 
   function getAsFactionName(name: string) {
@@ -193,8 +143,9 @@
       id: '',
       isStarted: false,
       isCompleted: false,
-      pinkTampers: 0,
-      purpleTampers: 0,
+      devTampers: 0,
+      whaleTampers: 0,
+      minnowTampers: 0,
       isApproved: false,
       claimExpirationTimeout: new Date(),
       tamperExpirationTimeout: undefined,
@@ -224,50 +175,6 @@
     $tamperMigrationModal = true;
   }
 
-  async function setApprovalForAll() {
-    try {
-      if (!$account || !$account.address) return;
-      await profileService.setApprovalForAll();
-
-      successToast({
-        title: 'Success',
-        message: 'Approved all tokens',
-      });
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (e: any) {
-      console.error('approve all error', e);
-      errorToast({
-        title: 'Error',
-        message: e.message,
-      });
-    }
-  }
-
-  async function handleApprovalModal(badgeId: number) {
-    if (!$account || !$account.address) return;
-    const tokenId = await profileService.getBadgeTokenId($account.address, badgeId);
-    const migration = {
-      s1Badge: {
-        badgeId,
-        tokenId,
-        tokenUri: '',
-        address: trailblazersBadgesAddress[chainId],
-        src: '',
-      },
-      id: '',
-      isStarted: false,
-      isCompleted: false,
-      pinkTampers: 0,
-      purpleTampers: 0,
-      isApproved: false,
-      claimExpirationTimeout: new Date(),
-      tamperExpirationTimeout: undefined,
-    } satisfies BadgeMigration;
-
-    $badgeMigrationStore = migration;
-    $migrationApprovalModal = true;
-  }
-
   $: buttons = {
     NotEligible: {
       type: 'primary',
@@ -280,27 +187,20 @@
     },
     StartMigration: {
       type: 'primary',
-      label: 'Migrate',
+      label: 'Start migration',
       handler: handleStartMigration,
     },
     EndMigration: {
       type: 'primary',
-      label: 'Reveal',
+      label: 'Claim',
       handler: handleEndMigration,
-    },
-    Approve: {
-      type: 'primary',
-      label: 'Approve contract',
-      handler: handleApprovalModal,
     },
     MigrationComplete: {
       type: 'primary',
       label: 'Migration complete',
       handler: () => {},
-    }
+    },
   } as Record<string, FactionBadgeButton>;
-
-  $: $userProfile, console.log($userProfile.badgeMigrations)
 </script>
 
 <div class={containerClass}>
@@ -312,37 +212,26 @@
     <div class={titleClasses}>{title}</div>
     <div class={dividerClasses} />
 
-    {#if $userProfile?.approvedMigrationBadgeIds?.length !== 8}
-      <div class={approvalInfoWrapperClasses}>
-        <div class={approvalInfoTitleClasses}>Streamline your badge upgrades</div>
-        Approve all badges in your collection with one click, or manage them individually for a customized Season 2 experience.
-        Once the contract is approved, you can seamlessly migrate your badges.
-
-        <div class={approvalButtonWrapperClasses}>
-          <ActionButton on:click={setApprovalForAll} priority="primary">Approve all badges</ActionButton>
-        </div>
-      </div>
-    {/if}
     <div class={boxClasses}>
       {#if enabledBadgeIds.length}
         <div class={nftGridClasses}>
           {#each enabledBadgeIds as badgeId}
-            {@const migration = $userProfile?.badgeMigrations?.find((m) => m.s1Badge?.badgeId === badgeId || m.s2Badge?.badgeId === badgeId)}
+            {@const migration = $userProfile?.badgeMigrations?.find((m) => m.s1Badge?.badgeId === badgeId)}
             {@const factionName = getAsFactionName(FACTIONS[badgeId])}
             {@const disabled = !possibleMigrations.includes(badgeId)}
             <FactionBadgeItem
               button={disabled
                 ? buttons.NotEligible
-                : migration && migration.claimExpirationTimeout > new Date()
-                  ? buttons.View
-                  : migration && migration.isCompleted ?
-                      buttons.MigrationComplete
-                  : migration && migration.claimExpirationTimeout < new Date()
-                    ? buttons.EndMigration
-                      : $userProfile?.approvedMigrationBadgeIds?.includes(badgeId)
-                      ? buttons.StartMigration
-                      : buttons.Approve}
-              {disabled}
+                : migration && migration.isCompleted
+                  ? buttons.MigrationComplete
+                  : migration && migration.claimExpirationTimeout > new Date()
+                    ? buttons.View
+                    : migration && migration.claimExpirationTimeout < new Date()
+                      ? buttons.EndMigration
+                      : buttons.StartMigration}
+              disabled={disabled ||
+                (migration && migration.isCompleted) ||
+                (migration && migration.tamperExpirationTimeout && migration.tamperExpirationTimeout > new Date())}
               movement={Movements.Dev}
               name={factionName}>
               {#if !displayActiveMigration}
@@ -352,49 +241,32 @@
                       ? timerOverlayClasses
                       : timerOverlayClaimClasses}>
                     <div class={timerLabelClasses}>
-                      {#if migration.tamperExpirationTimeout}
-                        <!-- logic for tampering -->
-                        {#if migration.tamperExpirationTimeout > new Date()}
-                          <!-- cannot re-tamper yet-->
-                          Next tamper available in:
-                        {:else}
-                          Migration claimable in:
-                        {/if}
+                      {#if migration.tamperExpirationTimeout && migration.tamperExpirationTimeout > new Date()}
+                        <!-- cannot re-tamper yet-->
+                        Next tamper available in:
                       {:else if migration.claimExpirationTimeout > new Date()}
                         <!-- logic for untampered, time 0 -->
-                        Migration complete in
-
-                      {:else if migration.isCompleted}
-                        <!-- logic for untampered, migration time left -->
-                        Migration completed
+                        Migration complete in:
                       {/if}
                     </div>
 
                     {#if !migration.isCompleted}
-                    {#if migration.tamperExpirationTimeout}
-                      {#if migration.tamperExpirationTimeout > new Date()}
+                      {#if migration.tamperExpirationTimeout && migration.tamperExpirationTimeout > new Date()}
                         <!-- cannot re-tamper yet-->
                         <Countdown
                           class={countdownWrapperClasses}
                           itemClasses={countdownItemClasses}
                           labels={{ days: 'd', hours: 'h', minutes: 'min', seconds: 's' }}
                           target={migration.tamperExpirationTimeout} />
-                      {:else}
+                      {:else if migration.claimExpirationTimeout > new Date()}
+                        <!-- logic for untampered -->
                         <Countdown
                           class={countdownWrapperClasses}
                           itemClasses={countdownItemClasses}
                           labels={{ days: 'd', hours: 'h', minutes: 'min', seconds: 's' }}
                           target={migration.claimExpirationTimeout} />
                       {/if}
-                    {:else}
-                      <!-- logic for untampered -->
-                      <Countdown
-                        class={countdownWrapperClasses}
-                        itemClasses={countdownItemClasses}
-                        labels={{ days: 'd', hours: 'h', minutes: 'min', seconds: 's' }}
-                        target={migration.claimExpirationTimeout} />
-                    {/if}                    {/if}
-
+                    {/if}
                   </div>
                 {/if}
               {/if}

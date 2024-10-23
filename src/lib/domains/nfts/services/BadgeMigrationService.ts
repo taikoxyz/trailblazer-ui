@@ -1,5 +1,6 @@
 import type { Address } from 'viem';
 
+import type { Movements } from '$lib/domains/profile/types/types';
 import type { BadgeMigration } from '$lib/shared/types/BadgeMigration';
 import { getLogger } from '$shared/utils/logger';
 
@@ -22,34 +23,19 @@ export class BadgeMigrationService {
     return this.migrationAdapter.fetchEnabledMigrations();
   }
 
-  async setApprovalForAll(): Promise<string> {
-    log('setApprovalForAll');
-    return this.migrationAdapter.setApprovalForAll();
-  }
-
-  async approve(tokenId: number): Promise<Address> {
-    log('approve', { tokenId });
-    return this.migrationAdapter.approve(tokenId);
-  }
-
   async startMigration(factionId: number): Promise<string> {
     log('startMigration', { factionId });
     return this.migrationAdapter.startMigration(factionId);
   }
 
-  async tamperMigration(address: Address, factionId: number, pinkOrPurple: boolean): Promise<string> {
-    log('tamperMigration', { pinkOrPurple });
-    return this.migrationAdapter.tamperMigration(address, factionId, pinkOrPurple);
+  async tamperMigration(address: Address, factionId: number, tamperMovement: Movements): Promise<string> {
+    log('tamperMigration', { tamperMovement });
+    return this.migrationAdapter.tamperMigration(address, factionId, tamperMovement);
   }
 
   async endMigration(address: Address, factionId: number): Promise<string> {
     log('endMigration', { address, factionId });
     return this.migrationAdapter.endMigration(address, factionId);
-  }
-
-  async getApprovedMigrations(address: Address): Promise<number[]> {
-    log('getApprovedMigrations', { address });
-    return this.migrationAdapter.getApprovedMigrations(address);
   }
 
   async getMigrationStatus(address: Address): Promise<BadgeMigration[]> {

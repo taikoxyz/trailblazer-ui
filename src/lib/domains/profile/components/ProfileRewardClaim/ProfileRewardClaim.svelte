@@ -131,7 +131,6 @@
     {
       title: $t('claim.panels.claim.title'),
       type: 'prepare' as IClaimPanelType,
-
       buttons: [
         {
           priority: 'primary',

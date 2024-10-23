@@ -12,13 +12,13 @@
     "test:unit:debug": "vitest run",
     "test:unit:coverage": "vitest run --silent --coverage",
     "test:unit:watch": "vitest",
-    "svelte:check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --ignore ./wagmi.config.ts ./src/generated",
+    "svelte:check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
     "svelte:check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --ignore ./wagmi.config.ts --watch",
     "format": "prettier --write .",
     "lint": "prettier --check . && eslint .",
     "lint:fix": "eslint . --fix",
     "codegen:abi": "cd ../taiko-mono.git/packages/nfts && pnpm compile && cd - && wagmi generate",
-    "codegen:subgraph": "graphql-codegen"
+    "codegen:subgraph": "graphql-code-generator --config subgraph.codegen.ts"
   },
   "devDependencies": {
     "@apollo/client": "^3.11.4",
@@ -83,6 +83,7 @@
     "dayjs": "^1.11.13",
     "debug": "^4.3.5",
     "events": "^3.3.0",
+    "graphql-codegen": "^0.4.0",
     "graphql-tag": "^2.12.6",
     "lefthook": "^1.7.12",
     "object-hash": "^3.0.0",
