@@ -43,7 +43,7 @@
     const args: PaginationInfo<DappLeaderboardItem> = {
       page,
       size: pageSize,
-      name,
+      slug: name,
       total: totalItems,
     };
     const leaderboardPage: DappLeaderboardPage | undefined = await dappLeaderboardService.getDappLeaderboardData(
@@ -63,6 +63,7 @@
 
 <AbstractLeaderboard
   {headers}
+  {season}
   data={$currentDappLeaderboard.items}
   showTrophy={true}
   lastUpdated={new Date($currentDappLeaderboard.lastUpdated)}

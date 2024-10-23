@@ -222,6 +222,21 @@
         "title": "Campaign ended"
       }
     },
+    "competitions": {
+      "s2": {
+        "dapp": {
+          "banner": {
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor.",
+            "title": "Join the Dapp competition starting Oct 17th!"
+          },
+          "ended": {
+            "description": "Our journey concluded on Dec 18th, 2024. Congratulations to the winners!",
+            "title": "Season ended"
+          },
+          "prize": {}
+        }
+      }
+    },
     "dapp": {
       "ended": {
         "s1": {
@@ -288,6 +303,25 @@
       },
       "tokenName": "TAIKO Tokens"
     },
+    "thrillblazer": {
+      "prize_breakdown": {
+        "fifth": {
+          "amount": "5k"
+        },
+        "first": {
+          "amount": "65k"
+        },
+        "fourth": {
+          "amount": "10k"
+        },
+        "second": {
+          "amount": "40k"
+        },
+        "third": {
+          "amount": "20k"
+        }
+      }
+    },
     "user": {
       "booster": "{multiplier}x boosted",
       "dailyMaxReached": "Daily Max Reached",
@@ -349,6 +383,12 @@
     }
   },
   "pagetitle": {
+    "competition": {
+      "dapp": "Thrillblazer - Competition 18.10 - 18.11.24"
+    },
+    "competitions": {
+      "dapp": "Taiko Trailblazer - Dapp Competition Leaderboard"
+    },
     "leaderboards": {
       "dapp": "Taiko Trailblazer - Dapp Leaderboard",
       "user": "Taiko Trailblazer - User Leaderboard"

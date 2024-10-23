@@ -8,7 +8,7 @@ export type PaginationInfo<T> = {
   last?: number;
   first?: number;
   visible?: number;
-  name?: string;
+  slug?: string;
 };
 
 export type CommonPageApiResponse<T> = PaginationInfo<T>;

@@ -170,8 +170,8 @@
     'animate-flicker',
     'stroke-2',
     'text-transparent',
-    'text-stroke-neon',
-    'drop-shadow-neon',
+    'text-stroke-neon-green',
+    'drop-shadow-neon-green',
   );
 
   const h2Classes = classNames(

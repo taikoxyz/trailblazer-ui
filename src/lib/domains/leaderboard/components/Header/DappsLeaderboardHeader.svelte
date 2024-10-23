@@ -3,15 +3,13 @@
   import { t } from 'svelte-i18n';
 
   import LastUpdated from '$lib/domains/leaderboard/components/LastUpdated.svelte';
+  import Search from '$lib/domains/leaderboard/components/Search.svelte';
   import type { DappLeaderboardItem } from '$lib/domains/leaderboard/dto/dapps.dto';
+  import type { LoadLeaderboardDataType } from '$lib/domains/leaderboard/types/shared/types';
   import type { PaginationInfo } from '$lib/shared/dto/CommonPageApiResponse';
   import { classNames } from '$shared/utils/classNames';
 
-  import Search from './Search.svelte';
-
   export let lastUpdated: Date;
-
-  type LoadLeaderboardDataType = (page: number, name?: string) => Promise<void>;
 
   const loadLeaderboardData = getContext<LoadLeaderboardDataType>('loadDappsLeaderboardData');
   const pageInfo = getContext<PaginationInfo<DappLeaderboardItem>>('dappsPageInfo');
