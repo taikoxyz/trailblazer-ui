@@ -17,8 +17,18 @@ export type ActivityHistory = {
 
 export type UserPointHistory = {
   address: Address;
-  event: string;
+  event: ActivityType;
   points: number;
   date: number;
   multiplier: number;
+  tx_hash?: string;
 };
+
+export enum ActivityType {
+  PREDICTION = 'Prediction',
+  TRANSACTION_VALUE = 'TransactionValue',
+  TRANSACTION = 'Transaction',
+  BRIDGED = 'Bridged',
+  BLOCK_PROPOSED = 'BlockProposed',
+  BLOCK_PROVEN = 'BlockProven',
+}

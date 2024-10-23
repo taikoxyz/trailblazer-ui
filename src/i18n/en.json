@@ -334,6 +334,7 @@
       "event": {
         "block_proposed": "Block Proposed",
         "bridged": "Bridged",
+        "prediction": "Prediction",
         "transaction": "Transaction",
         "transaction_value": "Tx Value"
       },
