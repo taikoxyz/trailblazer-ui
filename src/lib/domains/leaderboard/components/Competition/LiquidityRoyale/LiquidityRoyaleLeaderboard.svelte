@@ -5,17 +5,18 @@
   import { CampaignEndedInfoBox } from '$lib/domains/leaderboard/components/CampaignEndedInfoBox';
   import { UserLeaderboardHeader } from '$lib/domains/leaderboard/components/Header';
   import { AbstractLeaderboard, PointScore } from '$lib/domains/leaderboard/components/Template';
-  import { userLeaderboardService } from '$lib/domains/leaderboard/services/LeaderboardServiceInstances';
-  import { currentUserLeaderboard } from '$lib/domains/leaderboard/stores/userLeaderboard';
-  import type { UserLeaderboardItem, UserLeaderboardPage } from '$lib/domains/leaderboard/types/user/types';
+  import { liquidityCompetitionService } from '$lib/domains/leaderboard/services/LeaderboardServiceInstances';
+  import { currentLiquidityCompetitionLeaderboard } from '$lib/domains/leaderboard/stores/liquidityCompetitionLeaderboard';
+  import type { LiquidityCompetitionPage } from '$lib/domains/leaderboard/types/liquidity/types';
+  import type { UserLeaderboardItem } from '$lib/domains/leaderboard/types/user/types';
   import type { PaginationInfo } from '$lib/shared/dto/CommonPageApiResponse';
 
-  let headers = ['No.', 'Address', 'Level', 'Title', 'Points'];
+  let headers = ['No.', 'Address', 'Points'];
 
   export let loading = false;
   export let pageInfo: PaginationInfo<UserLeaderboardItem>;
   export let season: number;
-  const endedSeasons = [1];
+  const endedSeasons: number[] = [];
 
   $: totalItems = pageInfo?.total || 0;
   $: pageSize = pageInfo?.size || leaderboardConfig.pageSize;
@@ -34,8 +35,9 @@
       size: pageSize,
       total: totalItems,
     };
-    const leaderboardPage: UserLeaderboardPage = await userLeaderboardService.getUserLeaderboardData(args, season);
-    totalItems = leaderboardPage?.pagination.total || $currentUserLeaderboard.items.length;
+    const leaderboardPage: LiquidityCompetitionPage =
+      await liquidityCompetitionService.getLiquidityCompetitionLeaderboard(args, season);
+    totalItems = leaderboardPage?.pagination.total || $currentLiquidityCompetitionLeaderboard.items.length;
 
     loading = false;
   }
@@ -44,11 +46,13 @@
 <AbstractLeaderboard
   {headers}
   {season}
-  data={$currentUserLeaderboard.items}
-  lastUpdated={new Date($currentUserLeaderboard.lastUpdated)}
+  data={$currentLiquidityCompetitionLeaderboard.items}
+  highlightedUserPosition={$currentLiquidityCompetitionLeaderboard.items[44]}
+  lastUpdated={new Date($currentLiquidityCompetitionLeaderboard.lastUpdated)}
   showPagination={true}
   showDetailsColumn={false}
   showTrophy={true}
+  qualifyingPositions={100}
   isLoading={loading}
   ended={hasEnded}
   endedComponent={CampaignEndedInfoBox}

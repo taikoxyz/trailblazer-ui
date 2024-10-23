@@ -29,7 +29,7 @@
 
   {#if children.length > 0 && children}
     <ul
-      class="dropdown-content flex flex-col items-start py-[24px] pl-[24px] pr-[43px] gap-[22px] bg-neutral-background opacity-100 z-[1] shadow rounded-box w-fit body-regular">
+      class="dropdown-content flex flex-col items-start py-[24px] pl-[24px] pr-[24px] w-[200px] gap-[22px] bg-neutral-background opacity-100 z-[1] shadow rounded-box body-regular">
       <slot></slot>
     </ul>
   {/if}
