@@ -3,13 +3,14 @@
 
   import { leaderboardConfig } from '$config';
   import { CampaignEndedInfoBox } from '$lib/domains/leaderboard/components/CampaignEndedInfoBox';
-  import { UserLeaderboardHeader } from '$lib/domains/leaderboard/components/Header';
   import { AbstractLeaderboard, PointScore } from '$lib/domains/leaderboard/components/Template';
   import { liquidityCompetitionService } from '$lib/domains/leaderboard/services/LeaderboardServiceInstances';
   import { currentLiquidityCompetitionLeaderboard } from '$lib/domains/leaderboard/stores/liquidityCompetitionLeaderboard';
   import type { LiquidityCompetitionPage } from '$lib/domains/leaderboard/types/liquidity/types';
   import type { UserLeaderboardItem } from '$lib/domains/leaderboard/types/user/types';
   import type { PaginationInfo } from '$lib/shared/dto/CommonPageApiResponse';
+
+  import LiquidityRoyaleHeader from '../../Header/LiquidityRoyaleHeader/LiquidityRoyaleHeader.svelte';
 
   let headers = ['No.', 'Address', 'Points'];
 
@@ -60,5 +61,5 @@
   endDescriptionText={$t('leaderboard.user.ended.s1.description')}
   {handlePageChange}
   {totalItems}
-  headerComponent={UserLeaderboardHeader}
+  headerComponent={LiquidityRoyaleHeader}
   scoreComponent={PointScore} />

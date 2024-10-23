@@ -45,7 +45,7 @@
     expandedRow = expandedRow === index ? -1 : index;
   }
 
-  const containerClass = classNames('overflow-x-auto', 'lg:w-full', 'px-8', 'lg:mt-0');
+  const containerClass = classNames('overflow-x-auto', 'lg:w-full', 'px-8', 'lg:px-0', 'lg:mt-0');
   const headerMarginClass = classNames('mt-[60px]', 'lg:mt-[80px]', 'block', 'lg:hidden');
   const additionalInfoMarginClass = classNames('mt-[60px]', 'lg:mt-[80px]');
   const textCenterClass = classNames('text-center', 'mt-[30px]', 'text-xl');

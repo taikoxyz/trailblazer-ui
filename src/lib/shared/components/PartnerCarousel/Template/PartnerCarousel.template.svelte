@@ -146,6 +146,11 @@
     'rounded-full',
     'bg-primary-interactive-accent',
     'hover:bg-primary-brand-hover',
+    'min-w-[50px]',
+    'min-h-[50px]',
+    'flex',
+    'justify-center',
+    'items-center',
     'disabled:opacity-50',
     'disabled:cursor-not-allowed',
   );
@@ -155,8 +160,8 @@
     'md:flex',
     'items-center',
     'justify-center',
-    'w-12',
-    'h-12',
+    'min-w-[50px]',
+    'min-h-[50px]',
     'rounded-full',
     'bg-primary-interactive-accent',
     'hover:bg-primary-brand-hover',
@@ -176,6 +181,8 @@
     'md:min-w-[400px]',
     'md:w-[400px]',
     'self-start',
+    'justify-center',
+    'md:justify-start',
   );
 
   const titleTextClasses = classNames('text-[20px]', 'text-white', 'font-clash-grotesk');
@@ -186,6 +193,8 @@
     'text-white',
     'leading-tight',
     'font-clash-grotesk',
+    'text-center',
+    'md:text-left',
   );
 
   const carouselContainerClasses = classNames(
@@ -195,7 +204,7 @@
     'justify-center',
     'items-center',
     'md:mt-[50px]',
-    'lg:w-[472px]',
+    'lg:min-w-[472px]',
     'lg:overflow-hidden',
     'xl:w-full',
   );
@@ -218,11 +227,11 @@
     <!-- Title Section -->
     {#if title}
       <div class={titleSectionClasses}>
-        <div class="flex flex-col gap-5 items-start">
+        <div class="flex flex-col gap-5 items-center md:items-start">
           <div class={titleTextClasses}>{title}</div>
           <div class="border border-primary-brand w-16" />
           <span class={titleSpanClasses}>Boost liquidity;<br />Earn rewards!</span>
-          <p class="text-secondary-content">
+          <p class="text-secondary-content text-center md:text-left">
             Liquidity Royale gives you the chance to grow your liquidity while earning rewards. Check out new products
             designed to boost adoption and participation in the Taiko ecosystem.
           </p>
