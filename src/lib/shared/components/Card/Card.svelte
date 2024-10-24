@@ -1,36 +1,72 @@
 <script lang="ts">
+  import { t } from 'svelte-i18n';
+
+  import { goto } from '$app/navigation';
   import { classNames } from '$shared/utils/classNames';
-  import { isDesktop } from '$shared/utils/responsiveCheck';
+  import { isMobile, isTablet, isTabletLg } from '$shared/utils/responsiveCheck';
 
-  const styles = `
-    w-full 
-    md:card 
-    md:rounded-[20px] 
-    md:border 
-    md:border-divider-border
-    md:glassy-gradient-card
-    dark:md:dark-glass-background-gradient
-    light:md:light-glass-background-gradient
-    `;
+  import { ActionButton } from '../Button';
+  import type { CampaignCardType } from '../FeaturedCampaigns/types';
 
-  export let title: string = '';
-  export let text = '';
+  export let content: CampaignCardType;
 
-  $: dynamicAttrs = isDesktop ? { 'data-glow-border': true } : {};
+  const { title, text } = content;
 
-  $: classes = classNames(styles, $$props.class);
+  $: img = $isMobile
+    ? content.images.sm
+    : $isTablet
+      ? content.images.md
+      : $isTabletLg
+        ? content.images.lg
+        : content.images.xl;
+
+  let isDesktopOrLarger = true;
+  $: dynamicAttrs = isDesktopOrLarger ? { 'data-glow-border': true } : {};
+
+  const cardClasses = classNames(
+    'w-full',
+    'card',
+    'rounded-[20px]',
+    'border',
+    'border-divider-border',
+    'glassy-gradient-card',
+    'dark-glass-background-gradient',
+    'w-[341px]',
+    'md:min-w-[672px]',
+    'lg:min-w-[294px]',
+    'lg:max-w-[294px]',
+    'xl:min-w-[423px]',
+    'h-full',
+    $$props.class,
+  );
+
+  const innerWrapper = classNames('f-col');
+
+  const titleClasses = classNames('font-clash-grotesk', 'text-[20px]', 'font-medium', 'leading-normal');
+
+  const imageClasses = classNames('h-[200px]', 'rounded-[20px]', 'mb-[24px]', 'md:w-[625px]');
+
+  const buttonClasses = classNames('min-w-[140px]', 'max-w-[140px]');
+  const textClasses = classNames('text-secondary-content', 'mb-[30px]');
+  const bodyClasses = classNames('card-body', 'body-regular', 'p-[20px]');
 </script>
 
-<div class={classes}>
-  <div {...dynamicAttrs} class="card-body body-regular px-4 md:p-[50px] gap-0 py-0 md:mt-[0px] mt-[40px]">
-    {#if title}
-      <h2 class="card-title title-screen-bold">{title}</h2>
-    {/if}
-    {#if text}
-      <p class="text-secondary-content">{text}</p>
-    {/if}
-    <div class="f-col">
-      <slot />
+<div class={cardClasses}>
+  <div {...dynamicAttrs} class={bodyClasses}>
+    <div class={innerWrapper}>
+      <img src={img} alt="card-header" class={imageClasses} />
+      <h2 class={titleClasses}>{title}</h2>
+
+      <p class={textClasses}>{text}</p>
+      {#if content.btn.external}
+        <ActionButton priority="primary" class={buttonClasses} href={content.btn.destination}>
+          {$t('common.learn_more')}
+        </ActionButton>
+      {:else}
+        <ActionButton priority="primary" class={buttonClasses} on:click={() => goto(content.btn.destination)}>
+          {content.btn.text}
+        </ActionButton>
+      {/if}
     </div>
   </div>
 </div>

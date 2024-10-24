@@ -7,6 +7,7 @@
   import type { Slide } from '$lib/domains/splashpage/components/Banner/types';
   import { classNames } from '$shared/utils/classNames';
 
+  import FeaturedCampaigns from '../FeaturedCampaigns/FeaturedCampaigns.svelte';
   import Factions from './Factions/Factions.svelte';
   import { TrailblazerGuide } from './Guide';
   import TrailblazerMain from './HeroSection/HeroSection.svelte';
@@ -46,6 +47,8 @@
   <div class={separator40pxClasses} />
 
   <TrailblazerGuide />
+
+  <FeaturedCampaigns />
 
   <BannerCarousel interval={5000} transitionDuration={700} transitionDistance={200} {slides} withDots />
 
