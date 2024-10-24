@@ -304,6 +304,9 @@
       "tokenName": "TAIKO Tokens"
     },
     "liquidityRoyale": {
+      "blogpost": {
+        "url": "https://taiko.mirror.xyz/sB3dVLrVRn3DPKaAi6ed1C1qKLCtpaCfyaQdw7LD0XI"
+      },
       "description": "  Ready to supercharge your liquidity and get rewarded for it? The Taiko Liquidity Royale is here, offering a         massive 1M Taiko tokens in rewards! Whether you’re a seasoned liquidity provider or looking to get started, this         is your chance to dive in and earn juicy prizes.",
       "infobox": {
         "boost": {
@@ -323,6 +326,9 @@
           "title": "Earn 10K TAIKO"
         },
         "title": "🏆&nbsp;&nbsp;What’s in it for you?"
+      },
+      "readmore": {
+        "text": "Do you still have questions about earning points and how they're calculated? Visit our blog post for all the       answers!"
       }
     },
     "thrillblazer": {

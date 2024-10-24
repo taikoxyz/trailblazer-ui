@@ -41,12 +41,8 @@
   <div class={innerWrapperClasses}>
     <img src="/questionmark-glow.svg" alt="questionmark icon" class={iconClasses} />
 
-    <span class={textClasses}
-      >Do you still have questions about earning points and how they're calculated? Visit our blog post for all the
-      answers!</span>
+    <span class={textClasses}>{$t('leaderboard.liquidityRoyale.readmore.text')}</span>
   </div>
-  <ActionButton
-    priority="primary"
-    class={buttonClasses}
-    href="https://taiko.mirror.xyz/sB3dVLrVRn3DPKaAi6ed1C1qKLCtpaCfyaQdw7LD0XI">{$t('common.learn_more')}</ActionButton>
+  <ActionButton priority="primary" class={buttonClasses} href={$t('leaderboard.liquidityRoyale.blogpost.url')}
+    >{$t('common.learn_more')}</ActionButton>
 </div>
