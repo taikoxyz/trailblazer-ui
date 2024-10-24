@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { t } from 'svelte-i18n';
+
   import { PlusIcon } from '$shared/components/Icon';
   import LiquidityRoyalCarousel from '$shared/components/PartnerCarousel/LiquidityRoyalCarousel.svelte';
   import { classNames } from '$shared/utils/classNames';
@@ -15,9 +17,10 @@
     'overflow-hidden',
     'mt-[550px]',
     'xl:mt-[600px]',
-    'md:space-y-[50px]',
     'space-y-[120px]',
   );
+  const innerWrapperClasses = classNames('f-col', 'md:f-row', 'justify-between', 'items-center', 'space-y-[50px]');
+
   const headerImageClasses = classNames(
     'min-h-[475px]',
     'xl:h-[606px]',
@@ -58,13 +61,10 @@
   <div class={headerImageClasses}></div>
 
   <div class={wrapperClasses}>
-    <div class="f-col md:f-row justify-between items-center space-y-[50px]">
+    <div class={innerWrapperClasses}>
       <span class={descriptionClasses}>
         <PlusIcon class={plusIconClasses} />
-
-        Ready to supercharge your liquidity and get rewarded for it? The Taiko Liquidity Royale is here, offering a
-        massive 1M Taiko tokens in rewards! Whether you’re a seasoned liquidity provider or looking to get started, this
-        is your chance to dive in and earn juicy prizes.
+        {$t('leaderboard.liquidityRoyale.description')}
       </span>
       <PrizePool />
     </div>

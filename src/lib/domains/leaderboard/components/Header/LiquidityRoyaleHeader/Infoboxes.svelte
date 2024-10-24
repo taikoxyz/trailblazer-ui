@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { t } from 'svelte-i18n';
+
   import type { InfoBoxType } from '$lib/domains/leaderboard/types/liquidity/types';
   import { classNames } from '$shared/utils/classNames';
 
@@ -6,24 +8,24 @@
 
   const boxes: InfoBoxType[] = [
     {
-      title: 'Earn 10K TAIKO',
+      title: $t('leaderboard.liquidityRoyale.infobox.rewards.title'),
       icon: '/icons/coins.svg',
-      text: 'The top 100 will each win a guaranteed 10K Taiko tokens, no matter your final ranking!',
+      text: $t('leaderboard.liquidityRoyale.infobox.rewards.text'),
     },
     {
-      title: 'Boost your points',
+      title: $t('leaderboard.liquidityRoyale.infobox.boost.title'),
       icon: '/icons/rocket.svg',
-      text: 'Random snapshot rewards mean every contribution counts! The more liquidity you provide, the higher your points, stacking across all protocols.',
+      text: $t('leaderboard.liquidityRoyale.infobox.boost.text'),
     },
     {
-      title: 'Random rewards',
+      title: $t('leaderboard.liquidityRoyale.infobox.random.title'),
       icon: '/icons/gift.svg',
-      text: 'Random snapshots can happen at any time during the campaign, so stay ready to rack up points and maximize your rewards!',
+      text: $t('leaderboard.liquidityRoyale.infobox.random.text'),
     },
     {
-      title: 'All season long',
+      title: $t('leaderboard.liquidityRoyale.infobox.campaign.title'),
       icon: '/icons/flame.svg',
-      text: 'TThis campaign runs until the end of Season 2, but don’t worry—the fun will continue through Season 3.',
+      text: $t('leaderboard.liquidityRoyale.infobox.campaign.text'),
     },
   ];
 
@@ -51,8 +53,9 @@
 <div class={wrapperClasses}>
   <div class={titleSectionClasses}>
     <div class="flex flex-col gap-5 items-center md:items-start">
-      <div class={titleTextClasses}>🏆&nbsp;&nbsp;What’s in it for you?</div>
       <div class={lineClasses} />
+      <!-- eslint-disable-next-line svelte/no-at-html-tags -->
+      <div class={titleTextClasses}>{@html $t('leaderboard.liquidityRoyale.infobox.title')}</div>
     </div>
   </div>
   <div class={gridClasses}>
