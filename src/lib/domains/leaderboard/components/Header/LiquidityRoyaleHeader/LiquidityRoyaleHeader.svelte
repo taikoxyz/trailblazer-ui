@@ -3,15 +3,17 @@
   import LiquidityRoyalCarousel from '$shared/components/PartnerCarousel/LiquidityRoyalCarousel.svelte';
   import { classNames } from '$shared/utils/classNames';
 
+  import ReadMoreBox from './ReadMoreBox.svelte';
+
   const containerClasses = classNames('flex', 'justify-center', 'items-center', 'w-full');
   const wrapperClasses = classNames(
-    'flex',
-    'flex-col',
+    'f-col',
     'w-full',
     'z-10',
     'overflow-hidden',
-    'mt-[475px]',
-    'space-y-[50px]',
+    'mt-[425px]',
+    'md:space-y-[50px]',
+    'space-y-[120px]',
   );
   const headerImageClasses = classNames(
     'min-h-[475px]',
@@ -25,7 +27,7 @@
     'overflow-visible',
     'absolute',
     'left-0',
-    'top-[160px]',
+    'top-[120px]',
     'w-full',
     'z-0',
   );
@@ -39,7 +41,7 @@
     'md:text-left',
     'md:w-[336px]',
     'lg:w-[555px]',
-    'font-["Clash Grotesk"]',
+    'font-clash-grotesk',
     'text-[16px]',
     'font-medium',
     'leading-[22px]',
@@ -62,6 +64,7 @@
       </span>
       <span> PRIZE POOL 1M TAIKO TOKENS </span>
     </div>
+    <ReadMoreBox />
     <LiquidityRoyalCarousel />
   </div>
 </div>
