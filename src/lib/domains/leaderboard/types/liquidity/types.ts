@@ -11,3 +11,9 @@ export type LiquidityCompetitionPage = {
   lastUpdated: number;
   pagination: PaginationInfo;
 };
+
+export type InfoBoxType = {
+  title: string;
+  icon: string;
+  text: string;
+};

@@ -3,6 +3,8 @@
   import LiquidityRoyalCarousel from '$shared/components/PartnerCarousel/LiquidityRoyalCarousel.svelte';
   import { classNames } from '$shared/utils/classNames';
 
+  import Infoboxes from './Infoboxes.svelte';
+  import PrizePool from './PrizePool.svelte';
   import ReadMoreBox from './ReadMoreBox.svelte';
 
   const containerClasses = classNames('flex', 'justify-center', 'items-center', 'w-full');
@@ -11,12 +13,14 @@
     'w-full',
     'z-10',
     'overflow-hidden',
-    'mt-[425px]',
+    'mt-[550px]',
+    'xl:mt-[600px]',
     'md:space-y-[50px]',
     'space-y-[120px]',
   );
   const headerImageClasses = classNames(
     'min-h-[475px]',
+    'xl:h-[606px]',
     'bg-[url(/competitionInfo/liquidityRoyale/sm/header.png)]',
     'md:bg-[url(/competitionInfo/liquidityRoyale/md/header.png)]',
     'lg:bg-[url(/competitionInfo/liquidityRoyale/lg/header.png)]',
@@ -27,7 +31,7 @@
     'overflow-visible',
     'absolute',
     'left-0',
-    'top-[120px]',
+    'top-[180px]',
     'w-full',
     'z-0',
   );
@@ -39,7 +43,7 @@
     'items-center',
     'text-center',
     'md:text-left',
-    'md:w-[336px]',
+    'md:w-[395px]',
     'lg:w-[555px]',
     'font-clash-grotesk',
     'text-[16px]',
@@ -54,7 +58,7 @@
   <div class={headerImageClasses}></div>
 
   <div class={wrapperClasses}>
-    <div class="f-col md:f-row justify-between">
+    <div class="f-col md:f-row justify-between items-center space-y-[50px]">
       <span class={descriptionClasses}>
         <PlusIcon class={plusIconClasses} />
 
@@ -62,8 +66,9 @@
         massive 1M Taiko tokens in rewards! Whether you’re a seasoned liquidity provider or looking to get started, this
         is your chance to dive in and earn juicy prizes.
       </span>
-      <span> PRIZE POOL 1M TAIKO TOKENS </span>
+      <PrizePool />
     </div>
+    <Infoboxes />
     <ReadMoreBox />
     <LiquidityRoyalCarousel />
   </div>
