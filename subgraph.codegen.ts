@@ -1,6 +1,6 @@
 import type { CodegenConfig } from '@graphql-codegen/cli';
 import * as dotenv from 'dotenv';
-import { writeFileSync } from 'fs';
+import { existsSync, mkdirSync, writeFileSync } from 'fs';
 
 dotenv.config();
 
@@ -18,4 +18,7 @@ const config: CodegenConfig = {
 };
 export default config;
 
+if (!existsSync('./src/generated/graphql')) {
+  mkdirSync('./src/generated/graphql', { recursive: true });
+}
 writeFileSync('./src/generated/graphql/types.d.ts', `declare module "${process.env.PUBLIC_SUBGRAPH_URL}"`);

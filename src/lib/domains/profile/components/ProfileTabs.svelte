@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onMount } from 'svelte';
 
-  import BadgeMigration from '$lib/domains/nfts/components/BadgeMigration.svelte';
+  import BadgeMigration from '$lib/domains/badges/components/BadgeMigration.svelte';
   import DevRoom from '$lib/domains/profile/components/DevRoom/DevRoom.svelte';
   import { ProfileNFTs } from '$lib/domains/profile/components/ProfileNFTs';
   import { classNames } from '$shared/utils/classNames';

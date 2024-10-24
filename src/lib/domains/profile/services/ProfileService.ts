@@ -1,10 +1,9 @@
 import { getAccount } from '@wagmi/core';
-import { type Address, getAddress, type Hash, isAddressEqual } from 'viem';
+import { type Address, getAddress, type Hash } from 'viem';
 
-import { taikoonTokenAddress, trailblazersBadgesAddress } from '$generated/abi';
+import { BadgeMigrationService } from '$lib/domains/badges/services/BadgeMigrationService';
+import { BadgeS1Service } from '$lib/domains/badges/services/BadgeS1Service';
 import type { UserLeaderboardItem } from '$lib/domains/leaderboard/types/dapps/types';
-import { BadgeMigrationService } from '$lib/domains/nfts/services/BadgeMigrationService';
-import { BadgeService } from '$lib/domains/nfts/services/BadgeService';
 import { CombinedNFTService } from '$lib/domains/nfts/services/CombinedNFTService';
 import { ProfileApiAdapter } from '$lib/domains/profile/adapter/ProfileAdapter';
 import UserRepository from '$lib/domains/profile/repositories/UserRepository';
@@ -21,7 +20,6 @@ import type { NFT } from '$lib/shared/types/NFT';
 import { wagmiConfig } from '$lib/shared/wagmi';
 import { activeMigration } from '$shared/stores/modal';
 import type { BadgeMigration } from '$shared/types/BadgeMigration';
-import { chainId } from '$shared/utils/chain';
 import { getLogger } from '$shared/utils/logger';
 
 import type { IProfileService } from './IProfileService';
@@ -39,7 +37,7 @@ export class ProfileService implements IProfileService {
 
   //Services
   private combinedNFTService: CombinedNFTService;
-  private badgeService: BadgeService;
+  private badgeService: BadgeS1Service;
   private badgeMigrationService: BadgeMigrationService;
 
   private localStorageKey = 'taikoENSdomain';
@@ -48,13 +46,13 @@ export class ProfileService implements IProfileService {
     apiAdapter?: ProfileApiAdapter,
     userRepository?: UserRepository,
     combinedNFTService?: CombinedNFTService,
-    badgeService?: BadgeService,
+    badgeService?: BadgeS1Service,
     badgeMigrationService?: BadgeMigrationService,
   ) {
     this.apiAdapter = apiAdapter || new ProfileApiAdapter();
     this.userRepository = userRepository || new UserRepository();
     this.combinedNFTService = combinedNFTService || new CombinedNFTService();
-    this.badgeService = badgeService || new BadgeService();
+    this.badgeService = badgeService || new BadgeS1Service();
     this.badgeMigrationService = badgeMigrationService || new BadgeMigrationService();
   }
 
@@ -131,7 +129,7 @@ export class ProfileService implements IProfileService {
       // Do additional config
       await Promise.all([
         this.handleDomainSelection(userDomainInfo),
-        this.fetchAndCalculateMultipliers(address),
+        // this.fetchAndCalculateMultipliers(address),
         this.performAdditionalCalculations(),
         this.previousSeasonFinalScores(address, season - 1),
         this.getBadgeMigrations(address),
@@ -294,77 +292,6 @@ export class ProfileService implements IProfileService {
       },
     });
     log('updated user', await this.userRepository.get());
-  }
-
-  /**
-   * Fetches NFTs and calculates multipliers.
-   * @param address - The user's address.
-   */
-  private async fetchAndCalculateMultipliers(address: Address): Promise<void> {
-    const badges: NFT[] = [];
-    try {
-      const all = await this.badgeService.fetchAllNFTsForUser(address);
-      const found = all.filter(
-        (nft) =>
-          isAddressEqual(nft.address, trailblazersBadgesAddress[chainId]) ||
-          isAddressEqual(nft.address, taikoonTokenAddress[chainId]),
-      );
-      badges.push(...found);
-      // graphqlResponse = await graphqlClient.query({
-      //   query: USER_NFTS_QUERY,
-      //   variables: { address: address.toLocaleLowerCase() },
-      // });
-
-      if (badges) {
-        log('Found badges', badges);
-
-        //TODO: implement again
-        // const userNFTs: UserNFT[] = graphqlResponse.data.account.s1MultiplierNfts.map(
-        //   (token: { contract: { name: string }; tokenId: string; badgeId: string }) => ({
-        //     name: token.contract.name,
-        //     tokenId: token.tokenId,
-        //     badgeId: token.badgeId,
-        //   }),
-        // );
-
-        // // Calculate Multipliers
-        // const taikoonCount = userNFTs.filter((nft) => nft.name === 'Taikoon').length;
-        // const taikoonMultiplier = taikoonCount >= 1 ? 1000 : 0;
-
-        // const snaefellCount = userNFTs.filter((nft) => nft.name === 'SnaefellToken').length;
-        // const snaefellMultiplier = snaefellCount >= 1 ? 100 : 0;
-
-        // const factionBadges = userNFTs
-        //   .filter((nft) => nft.name === 'Trailblazers Badges')
-        //   .reduce(
-        //     (acc, nft) => {
-        //       if (nft.badgeId) {
-        //         acc[nft.badgeId] = (acc[nft.badgeId] || 0) + 1;
-        //       }
-        //       return acc;
-        //     },
-        //     {} as Record<string, number>,
-        //   );
-
-        // const multiplierTable = [0, 100, 210, 331, 464, 611, 772, 949, 1144];
-        // const uniqueFactionBadgesCount = Object.keys(factionBadges).length;
-        // const factionMultiplier = multiplierTable[uniqueFactionBadgesCount] || 0;
-
-        // const totalMultiplier = taikoonMultiplier + snaefellMultiplier + factionMultiplier;
-
-        // const userMultiplier: UserMultiplier = {
-        //   totalMultiplier: Math.min(Number(totalMultiplier || 0), 2000), // max of 3x
-        //   taikoonMultiplier: Number(taikoonMultiplier || 0),
-        //   factionMultiplier: Number(factionMultiplier || 0),
-        //   snaefellMultiplier: Number(snaefellMultiplier || 0),
-        // };
-
-        // // Update profile with multipliers and NFTs via UserRepository
-        // await this.userRepository.update({ multipliers: userMultiplier, nfts: userNFTs });
-      }
-    } catch (error) {
-      log('Error in fetchAndCalculateMultipliers:', error);
-    }
   }
 
   /**
@@ -613,14 +540,14 @@ export class ProfileService implements IProfileService {
     return this.badgeMigrationService.startMigration(factionId);
   }
 
-  async tamperMigration(address: Address, factionId: number, tamperMovement: Movements): Promise<string> {
-    log('tamperMigration', { address, factionId, tamperMovement });
-    return this.badgeMigrationService.tamperMigration(address, factionId, tamperMovement);
+  async refineMigration(address: Address, factionId: number, movement: Movements): Promise<string> {
+    log('refineMigration', { address, factionId, movement });
+    return this.badgeMigrationService.refineMigration(address, factionId, movement);
   }
 
-  async endMigration(address: Address, factionId: number): Promise<string> {
-    log('endMigration', { address, factionId });
-    return this.badgeMigrationService.endMigration(address, factionId);
+  async endMigration(address: Address, nft: NFT): Promise<NFT> {
+    log('endMigration', { address, nft });
+    return this.badgeMigrationService.endMigration(address, nft);
   }
 
   async getBadgeTokenId(address: Address, s1BadgeId: number): Promise<number> {
@@ -632,11 +559,11 @@ export class ProfileService implements IProfileService {
     log('getMigrationStatus', { address });
     const migrations = await this.badgeMigrationService.getMigrationStatus(address);
 
-    // find the last, noncompleted migration, and set as current
     const currentMigration = migrations
       .slice()
       .reverse()
       .find((migration) => !migration.isCompleted);
+
     activeMigration.set(currentMigration || null);
     await this.userRepository.update({
       badgeMigrations: migrations,
@@ -719,5 +646,9 @@ export class ProfileService implements IProfileService {
         return this.migrationListener(address, callback);
       }
     }, 1000);
+  }
+
+  getMockBadge(contract: Address, badgeId: number, movement?: Movements) {
+    return this.combinedNFTService.getMockBadge(contract, badgeId, movement);
   }
 }

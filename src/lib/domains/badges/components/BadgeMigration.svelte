@@ -13,7 +13,7 @@
   import type { BadgeMigration } from '$lib/shared/types/BadgeMigration';
   import { chainId } from '$lib/shared/utils/chain';
   import { account } from '$shared/stores';
-  import { activeMigration, endMigrationModal, startMigrationModal, tamperMigrationModal } from '$shared/stores/modal';
+  import { activeMigration, endMigrationModal, refineMigrationModal, startMigrationModal } from '$shared/stores/modal';
   import { classNames } from '$shared/utils/classNames';
 
   import Countdown from './Countdown.svelte';
@@ -138,11 +138,8 @@
     const tokenId = await profileService.getBadgeTokenId($account.address, badgeId);
     $activeMigration = {
       s1Badge: {
-        badgeId,
+        ...profileService.getMockBadge(trailblazersBadgesAddress[chainId], badgeId),
         tokenId,
-        tokenUri: '',
-        address: trailblazersBadgesAddress[chainId],
-        src: '',
       },
       id: '',
       isStarted: false,
@@ -174,7 +171,7 @@
       return;
     }
     $activeMigration = migration;
-    $tamperMigrationModal = true;
+    $refineMigrationModal = true;
   }
 
   $: buttons = {
@@ -203,9 +200,8 @@
   const faqEntries = $json('badge_forge.faq.entries') as IFaqEntry[];
   const faqWrapperClasses = classNames('pt-[60px]', 'w-full', 'px-[48px]', 'flex', 'flex-col', 'gap-[30px]');
 
-  $: $endMigrationModal, !$endMigrationModal && forceUpdateUI();
-
-  $: $tamperMigrationModal, !$tamperMigrationModal && forceUpdateUI();
+  $: $endMigrationModal, forceUpdateUI();
+  $: $refineMigrationModal, forceUpdateUI();
 </script>
 
 <div class={containerClass}>
@@ -216,12 +212,12 @@
       {#if forceRenderFlag && enabledBadgeIds.length}
         <div class={nftGridClasses}>
           {#each enabledBadgeIds as badgeId}
-            {@const migration = $userProfile?.badgeMigrations?.find((m) => m.s1Badge?.badgeId === badgeId)}
+            {@const migration = $userProfile?.badgeMigrations?.find((m) => m.s1Badge.badgeId === badgeId)}
             {@const disabled = !possibleMigrations.includes(badgeId)}
             {@const buttonDisabled =
               (activeMigrationBadgeId >= 0 && activeMigrationBadgeId !== badgeId) ||
               (migration?.tamperExpirationTimeout && migration.tamperExpirationTimeout > new Date())}
-            {@const token = (migration?.s2Badge?.tokenId || 0) > 0 ? migration?.s2Badge : migration?.s1Badge}
+            {@const token = migration?.s2Badge || migration?.s1Badge}
             {@const tamperExpiration = migration?.tamperExpirationTimeout}
             {@const isTamperActive = migration || (tamperExpiration && tamperExpiration > new Date())}
             {@const claimExpiration = migration?.claimExpirationTimeout}
@@ -231,13 +227,7 @@
               !disabled || (migration && migration.isCompleted) || (tamperExpiration && tamperExpiration > new Date())}
 
             <FactionBadgeItem
-              token={token || {
-                tokenId: -1,
-                badgeId,
-                tokenUri: '',
-                address: trailblazersBadgesAddress[chainId],
-                src: '',
-              }}
+              token={token || profileService.getMockBadge(trailblazersBadgesAddress[chainId], badgeId)}
               {inColor}
               {blurred}
               {buttonDisabled}

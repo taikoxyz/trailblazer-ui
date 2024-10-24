@@ -7,10 +7,14 @@ export interface NFT {
   address: Address;
   tokenId: number;
   tokenUri: string;
-  src: string;
   badgeId?: number;
   erc?: number;
   movement?: Movements;
+  assets: {
+    image: string;
+    // Record<type, src>
+    video?: Record<string, string>;
+  };
 }
 
 export interface IUserBadges {

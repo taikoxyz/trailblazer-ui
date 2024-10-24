@@ -30,13 +30,13 @@ describe('TaikoonService', () => {
     const expectedTaikoons: NFT[] = [
       {
         address: zeroAddress,
-        src: '/taikoons/0.png',
+        assets: { image: '/taikoons/0.png' },
         tokenId: 0,
         tokenUri: '',
       },
       {
         address: zeroAddress,
-        src: '/taikoons/1.png',
+        assets: { image: '/taikoons/1.png' },
         tokenId: 1,
         tokenUri: '',
       },

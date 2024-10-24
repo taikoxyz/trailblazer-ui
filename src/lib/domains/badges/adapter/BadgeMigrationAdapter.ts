@@ -1,5 +1,5 @@
 import { gql } from '@apollo/client/core';
-import { readContract, signMessage, writeContract } from '@wagmi/core';
+import { readContract, signMessage, watchContractEvent, writeContract } from '@wagmi/core';
 import axios from 'axios';
 import { type Address, parseSignature } from 'viem';
 
@@ -21,6 +21,8 @@ import { chainId } from '$lib/shared/utils/chain';
 import { wagmiConfig } from '$lib/shared/wagmi';
 import { globalAxiosConfig } from '$shared/services/api/axiosClient';
 import { getLogger } from '$shared/utils/logger';
+
+import getBadgeURI from '../utils/getBadgeURI';
 
 const log = getLogger('BadgeMigrationAdapter');
 
@@ -69,6 +71,7 @@ export class BadgeMigrationAdapter {
         // no open migrations, skip
         return out;
       }
+      console.error(e);
       throw e;
     }
   }
@@ -165,15 +168,15 @@ export class BadgeMigrationAdapter {
     return { r, s, v, points, hash };
   }
 
-  async tamperMigration(address: Address, factionId: number, tamperMovement: Movements): Promise<string> {
-    log('tamperMigration', { address, factionId, tamperMovement });
+  async refineMigration(address: Address, factionId: number, movement: Movements): Promise<string> {
+    log('refineMigration', { address, factionId, movement });
 
     const { r, s, v, points, hash } = await this._getMigrationSignature(address, factionId);
     const tx = await writeContract(wagmiConfig, {
       abi: badgeMigrationAbi,
       address: badgeMigrationAddress[chainId],
       functionName: 'tamperMigration',
-      args: [hash, Number(v), r, s, BigInt(points), tamperMovement],
+      args: [hash, Number(v), r, s, BigInt(points), movement],
       chainId,
     });
 
@@ -182,10 +185,13 @@ export class BadgeMigrationAdapter {
     return tx;
   }
 
-  async endMigration(address: Address, factionId: number): Promise<string> {
-    const { r, s, v, points, hash } = await this._getMigrationSignature(address, factionId);
+  async endMigration(address: Address, nft: NFT): Promise<NFT> {
+    if (nft.badgeId === undefined || nft.badgeId === null) {
+      throw new Error('Badge ID is required');
+    }
 
-    const tx = await writeContract(wagmiConfig, {
+    const { r, s, v, points, hash } = await this._getMigrationSignature(address, nft.badgeId);
+    await writeContract(wagmiConfig, {
       abi: badgeMigrationAbi,
       address: badgeMigrationAddress[chainId],
       functionName: 'endMigration',
@@ -193,9 +199,14 @@ export class BadgeMigrationAdapter {
       chainId,
     });
 
-    await pendingTransactions.add(tx);
-
-    return tx;
+    //await pendingTransactions.add(tx);
+    return new Promise((resolve, reject) => {
+      try {
+        this.listenForMigrationEnd(address, nft, resolve);
+      } catch (e) {
+        reject(e);
+      }
+    });
   }
 
   async getMigrationStatus(address: Address): Promise<BadgeMigration[]> {
@@ -226,30 +237,41 @@ export class BadgeMigrationAdapter {
       }
 
       const migrations = s2Migrations.map((raw) => {
-        let s1Badge = undefined;
-        if (raw.s1Badge) {
-          const badgeId = parseInt(raw.s1Badge.badgeId.toString());
-
-          s1Badge = {
-            badgeId,
-            tokenId: parseInt(raw.s1Badge.tokenId.toString()),
-            address: trailblazersBadgesAddress[chainId],
-            src: '',
-            tokenUri: '',
-          } satisfies NFT;
-        }
+        const s1badgeId = parseInt(raw.s1Badge.badgeId.toString());
+        const uri = getBadgeURI(s1badgeId);
+        const s1Badge = {
+          badgeId: s1badgeId,
+          tokenId: parseInt(raw.s1Badge.tokenId.toString()),
+          address: trailblazersBadgesAddress[chainId],
+          assets: {
+            image: `${uri}.png`,
+            video: {
+              mp4: `${uri}.mp4`,
+              webm: `${uri}.webm`,
+            },
+          },
+          tokenUri: '',
+        } satisfies NFT;
 
         let s2Badge = undefined;
         if (raw.s2Badge) {
           const badgeId = parseInt(raw.s2Badge.badgeId.toString());
+          const movement = parseInt(raw.s2Badge.movement) as Movements;
+          const uri = getBadgeURI(s1badgeId);
 
           s2Badge = {
             badgeId,
             tokenId: parseInt(raw.s2Badge.tokenId.toString()),
             address: trailblazersBadgesAddress[chainId],
-            src: '',
+            assets: {
+              image: `${uri}.png`,
+              video: {
+                mp4: `${uri}.mp4`,
+                webm: `${uri}.webm`,
+              },
+            },
             tokenUri: '',
-            movement: parseInt(raw.s2Badge.movement) as Movements,
+            movement,
           } satisfies NFT;
         }
         const tamperExpirationTimeout = parseInt(raw.tamperExpirationTimeout.toString());
@@ -271,13 +293,39 @@ export class BadgeMigrationAdapter {
       });
 
       return migrations;
-      /*
-
-      // set the approvals
-      */
     } catch (e) {
       console.error(e);
       return [];
     }
+  }
+
+  async listenForMigrationEnd(address: Address, token: NFT, callback: (nft: NFT) => void): Promise<void> {
+    const unwatch = watchContractEvent(wagmiConfig, {
+      address: badgeMigrationAddress[chainId],
+      abi: badgeMigrationAbi,
+      eventName: 'MigrationComplete',
+      args: {
+        user: address,
+      },
+      onLogs(logs) {
+        const { finalColor, s2TokenId } = logs[0].args;
+        const movement = parseInt(finalColor!.toString()) as Movements;
+        const uri = getBadgeURI(token.badgeId!, movement);
+
+        callback({
+          ...token,
+          tokenId: parseInt(s2TokenId!.toString()),
+          movement,
+          assets: {
+            image: `${uri}.png`,
+            video: {
+              mp4: `${uri}.mp4`,
+              webm: `${uri}.webm`,
+            },
+          },
+        });
+        unwatch();
+      },
+    });
   }
 }

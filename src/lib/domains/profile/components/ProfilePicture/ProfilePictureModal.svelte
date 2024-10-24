@@ -220,7 +220,7 @@
     <div class={modalBodyClasses}>
       {#if previewVisible && selectedPfp}
         <!-- svelte-ignore a11y-img-redundant-alt -->
-        <img alt="Profile picture preview" class={pfpPreviewClasses} src={selectedPfp.src} />
+        <img alt="Profile picture preview" class={pfpPreviewClasses} src={selectedPfp.assets.image} />
       {:else}
         <div class={selectorWrapperClasses}>
           <div class={selectorTitleRowClasses}>
@@ -248,7 +248,7 @@
             <div class={selectorGridClasses}>
               {#each possiblePFPs as pfp}
                 <button on:click={() => selectPfp(pfp)} class={selectorGridItemClasses}>
-                  <img src={pfp.src} alt="pfp" />
+                  <img src={pfp.assets.image} alt="pfp" />
                 </button>
               {/each}
             </div>

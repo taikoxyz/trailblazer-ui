@@ -1,8 +1,12 @@
 <script lang="ts">
-  import { type FactionNames, FACTIONS } from '$configs/badges';
+  import { isAddressEqual } from 'viem';
+
+  import { trailblazersBadgesAddress } from '$generated/abi';
   import type { FactionBadgeButton } from '$lib/domains/profile/types/FactionBadgeButton';
+  import { MovementNames, Movements } from '$lib/domains/profile/types/types';
   import { ActionButton } from '$shared/components/Button';
   import type { NFT } from '$shared/types/NFT';
+  import { chainId } from '$shared/utils/chain';
   import { classNames } from '$shared/utils/classNames';
 
   import FactionImage from './FactionImage.svelte';
@@ -14,9 +18,7 @@
 
   export let token: NFT;
 
-  $: badgeMovement = token.movement;
   $: badgeId = token.badgeId || 0;
-  $: badgeName = FACTIONS[badgeId] as FactionNames;
 
   // CSS classes
   $: wrapperClasses = classNames(
@@ -43,8 +45,17 @@
 
   $: imageWrapperClasses = classNames('w-full', 'f-col', 'items-center', blurred ? 'blur-md' : null);
 
-  const weekBadgeClasses = classNames(
+  const bubbleWrapperClasses = classNames(
     'absolute',
+    'top-[20px]',
+    'right-[20px]',
+    'flex',
+    'flex-col',
+    'justify-end',
+    'items-end',
+    'gap-[5px]',
+  );
+  const bubbleClasses = classNames(
     'badge',
     'py-[15px]',
     'px-[12px]',
@@ -52,23 +63,33 @@
     'font-[700]',
     'border-transparent',
     'bg-[rgba(0,0,0,.4)]',
-    'top-[20px]',
-    'right-[20px]',
   );
 
   const buttonWrapperClasses = classNames('absolute', 'w-full', 'bottom-0', 'p-[20px]', 'h-[88px]');
+
+  $: season = isAddressEqual(token.address, trailblazersBadgesAddress[chainId]) ? 1 : 2;
 </script>
 
 <div class={wrapperClasses} role="button">
   <div class={contentWrapperClasses}>
     <div class={imageWrapperClasses}>
-      <FactionImage movement={badgeMovement} type={badgeName} />
+      <FactionImage {token} />
     </div>
   </div>
   <slot />
 
-  <div class={weekBadgeClasses}>
-    Trail {badgeId + 1}
+  <div class={bubbleWrapperClasses}>
+    <div class={bubbleClasses}>
+      Season {season}
+    </div>
+    <div class={bubbleClasses}>
+      Trail {badgeId + 1}
+    </div>
+    {#if season > 1}
+      <div class={bubbleClasses}>
+        {MovementNames[token.movement || Movements.Dev]}
+      </div>
+    {/if}
   </div>
 
   {#if button}

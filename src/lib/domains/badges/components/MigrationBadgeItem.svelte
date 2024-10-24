@@ -1,15 +1,14 @@
 <script lang="ts">
-  import { FACTIONS } from '$configs/badges';
   import { FactionImage } from '$lib/domains/profile/components/ProfileNFTs';
-  import { type Faction, Movements } from '$lib/domains/profile/types/types';
+  import { Movements } from '$lib/domains/profile/types/types';
+  import type { NFT } from '$shared/types/NFT';
   import { classNames } from '$shared/utils/classNames';
 
-  export let badgeId: number;
-  export let badgeName: Faction;
-  export let badgeMovement: Movements;
   export let blurred: boolean = false;
   export let value: number = 0;
   export let shadow: boolean = false;
+
+  export let token: NFT;
 
   $: unlocked = !blurred;
   $: wrapperClasses = classNames(
@@ -30,9 +29,13 @@
     'justify-center',
     'pb-0',
     'transition-all',
-    shadow && badgeMovement === Movements.Whale ? 'border-secondary  shadow-[0_0px_50px_0px_#E81899]' : null,
-    shadow && badgeMovement === Movements.Minnow ? 'border-[#5D08C8] shadow-[0_0px_50px_0px_#5D08C8]' : null,
-    shadow && badgeMovement === Movements.Dev ? 'border-[white] shadow-[0_0px_50px_0px_white]' : null,
+    shadow && token.movement && token.movement === Movements.Whale
+      ? 'border-secondary  shadow-[0_0px_50px_0px_#E81899]'
+      : null,
+    shadow && token.movement && token.movement === Movements.Minnow
+      ? 'border-[#5D08C8] shadow-[0_0px_50px_0px_#5D08C8]'
+      : null,
+    shadow && token.movement === Movements.Dev ? 'border-[white] shadow-[0_0px_50px_0px_white]' : null,
   );
 
   const imageWrapperClasses = classNames(
@@ -58,7 +61,6 @@
     'justify-center',
     'items-center',
   );
-  $: badgeName = FACTIONS[badgeId] as Faction;
 
   const lockImageOverlayClasses = classNames('absolute', 'w-full', 'h-full', 'glassy-background');
 
@@ -70,7 +72,7 @@
     <span class={indicatorClasses}>{value}</span>
   {/if}
   <div class={imageWrapperClasses}>
-    <FactionImage movement={badgeMovement} type={badgeName} />
+    <FactionImage {token} />
     {#if !unlocked}
       <div class={lockImageOverlayClasses}></div>{/if}
   </div>

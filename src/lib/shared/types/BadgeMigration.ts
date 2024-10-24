@@ -2,7 +2,7 @@ import type { NFT } from './NFT';
 
 export interface BadgeMigration {
   id: string;
-  s1Badge?: NFT;
+  s1Badge: NFT;
   s2Badge?: NFT;
   isStarted: boolean;
   isCompleted: boolean;

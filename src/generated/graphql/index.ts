@@ -1,4 +1,4 @@
-import client from 'https://api.goldsky.com/api/public/project_clz85cxrvng3n01ughcv5e7hg/subgraphs/tbz-hekla/0.2.46/gn';
+import client from 'https://api.goldsky.com/api/public/project_clz85cxrvng3n01ughcv5e7hg/subgraphs/tbz-hekla/0.2.50/gn';
 import type {} from '@apollo/client';
 import { readable } from 'svelte/store';
 import type { Readable } from 'svelte/store';
@@ -138,7 +138,7 @@ export type BadgeMigration = {
   isStarted?: Maybe<Scalars['Boolean']['output']>;
   minnowTampers: Scalars['BigInt']['output'];
   owner: Account;
-  s1Badge?: Maybe<Token>;
+  s1Badge: Token;
   s2Badge?: Maybe<Token>;
   tamperExpirationTimeout: Scalars['BigInt']['output'];
   whaleTampers: Scalars['BigInt']['output'];

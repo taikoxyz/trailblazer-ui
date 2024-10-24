@@ -1,21 +1,22 @@
 import type { Address } from 'viem';
 
+import { BadgeMigrationAdapter } from '$lib/domains/badges/adapter/BadgeMigrationAdapter';
 import type { Movements } from '$lib/domains/profile/types/types';
 import type { BadgeMigration } from '$lib/shared/types/BadgeMigration';
+import type { NFT } from '$shared/types/NFT';
 import { getLogger } from '$shared/utils/logger';
 
-import { BadgeAdapter } from '../adapter/BadgeAdapter';
-import { BadgeMigrationAdapter } from '../adapter/BadgeMigrationAdapter';
+import { BadgeS1Service } from './BadgeS1Service';
 
 const log = getLogger('BadgeMigrationService');
 
 export class BadgeMigrationService {
   private migrationAdapter: BadgeMigrationAdapter;
-  private badgeAdapter: BadgeAdapter;
+  private badgeAdapter: BadgeS1Service;
 
-  constructor(migrationAdapter?: BadgeMigrationAdapter, badgeAdapter?: BadgeAdapter) {
+  constructor(migrationAdapter?: BadgeMigrationAdapter, badgeAdapter?: BadgeS1Service) {
     this.migrationAdapter = migrationAdapter || new BadgeMigrationAdapter();
-    this.badgeAdapter = badgeAdapter || new BadgeAdapter();
+    this.badgeAdapter = badgeAdapter || new BadgeS1Service();
   }
 
   async getEnabledMigrations(): Promise<number[]> {
@@ -28,14 +29,14 @@ export class BadgeMigrationService {
     return this.migrationAdapter.startMigration(factionId);
   }
 
-  async tamperMigration(address: Address, factionId: number, tamperMovement: Movements): Promise<string> {
-    log('tamperMigration', { tamperMovement });
-    return this.migrationAdapter.tamperMigration(address, factionId, tamperMovement);
+  async refineMigration(address: Address, factionId: number, movement: Movements): Promise<string> {
+    log('refineMigration', { movement });
+    return this.migrationAdapter.refineMigration(address, factionId, movement);
   }
 
-  async endMigration(address: Address, factionId: number): Promise<string> {
-    log('endMigration', { address, factionId });
-    return this.migrationAdapter.endMigration(address, factionId);
+  async endMigration(address: Address, nft: NFT): Promise<NFT> {
+    log('endMigration', { address, nft });
+    return this.migrationAdapter.endMigration(address, nft);
   }
 
   async getMigrationStatus(address: Address): Promise<BadgeMigration[]> {

@@ -1,14 +1,14 @@
 <script lang="ts">
   import { FACTIONS } from '$configs/badges';
   import profileService from '$lib/domains/profile/services/ProfileServiceInstance';
-  import { type Faction, Movements } from '$lib/domains/profile/types/types';
+  import { type Faction } from '$lib/domains/profile/types/types';
   import { ActionButton } from '$shared/components/Button';
   import { errorToast, successToast } from '$shared/components/NotificationToast';
   import { account } from '$shared/stores';
-  import { activeMigration, startMigrationModal, tamperMigrationModal } from '$shared/stores/modal';
+  import { activeMigration, refineMigrationModal, startMigrationModal } from '$shared/stores/modal';
   import { classNames } from '$shared/utils/classNames';
 
-  import MigrationBadgeItem from '../MigrationBadgeItem.svelte';
+  import MigrationBadgeItem from '../../../badges/components/MigrationBadgeItem.svelte';
   import CoreModal from './components/CoreModal.svelte';
   import CoreModalDescription from './components/CoreModalDescription.svelte';
   import CoreModalFooter from './components/CoreModalFooter.svelte';
@@ -35,7 +35,7 @@
         });
         isLoading = false;
         $startMigrationModal = false;
-        $tamperMigrationModal = true;
+        $refineMigrationModal = true;
       });
       await profileService.startMigration(s1BadgeId);
 
@@ -72,9 +72,11 @@
     </CoreModalDescription>
   </CoreModalHeader>
 
-  <div class={badgesWrapperClasses}>
-    <MigrationBadgeItem badgeMovement={Movements.Dev} badgeId={s1BadgeId} {badgeName}>Season 1</MigrationBadgeItem>
-  </div>
+  {#if $activeMigration}
+    <div class={badgesWrapperClasses}>
+      <MigrationBadgeItem token={$activeMigration.s1Badge}>Season 1</MigrationBadgeItem>
+    </div>
+  {/if}
   <CoreModalFooter>
     ⚠️ WARNING ⚠️ You won't be able to transfer your season 1 badge for 365 days once the forge process starts
 

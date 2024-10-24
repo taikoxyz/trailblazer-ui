@@ -1,17 +1,18 @@
 <script lang="ts">
   import Flippable from 'svelte-flip';
 
-  import { FactionNames, FACTIONS } from '$configs/badges';
+  import { FACTIONS } from '$configs/badges';
   import profileService from '$lib/domains/profile/services/ProfileServiceInstance';
-  import { MovementNames, Movements } from '$lib/domains/profile/types/types';
+  import { MovementNames } from '$lib/domains/profile/types/types';
   import { Spinner } from '$shared/components';
   import { ActionButton } from '$shared/components/Button';
   import { errorToast, successToast } from '$shared/components/NotificationToast';
   import { account } from '$shared/stores';
   import { activeMigration, endMigrationModal } from '$shared/stores/modal';
+  import type { NFT } from '$shared/types/NFT';
   import { classNames } from '$shared/utils/classNames';
 
-  import MigrationBadgeItem from '../MigrationBadgeItem.svelte';
+  import MigrationBadgeItem from '../../../badges/components/MigrationBadgeItem.svelte';
   import CoreModal from './components/CoreModal.svelte';
   import CoreModalDescription from './components/CoreModalDescription.svelte';
   import CoreModalFooter from './components/CoreModalFooter.svelte';
@@ -19,56 +20,38 @@
   import CoreModalTitle from './components/CoreModalTitle.svelte';
 
   $: s1BadgeId = $activeMigration?.s1Badge?.badgeId || 0;
-  $: badgeName = FACTIONS[s1BadgeId] as FactionNames;
 
   $: isLoading = false;
+
+  $: backToken = null as null | NFT;
 
   async function handleEndMigration() {
     try {
       if (!$account || !$account.address) {
         return;
       }
+
+      if (!$activeMigration || !$activeMigration.s1Badge) {
+        return;
+      }
       isLoading = true;
-      const address = $account.address;
-      await profileService.endMigration($account.address, s1BadgeId);
+      backToken = await profileService.endMigration($account.address, $activeMigration.s1Badge);
+      isLoading = false;
+      isRevealed = true;
 
-      profileService.migrationListener(address, async () => {
-        await profileService.getBadgeMigrations(address);
-        isLoading = false;
-        isRevealed = true;
-
-        successToast({
-          title: 'Badge forge claim',
-          message: `You have successfully claimed your badge`,
-        });
+      successToast({
+        title: 'Badge forge claim',
+        message: `You have successfully claimed your badge`,
       });
+
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (e: any) {
+      console.error(e);
       errorToast({
         title: 'Badge forge claim error',
         message: e.shortMessage ? e.shortMessage : 'Error claiming your badge forge',
       });
     }
-
-    /*
-    if (!$account || !$account.address) {
-      return;
-    }
-    isLoading = true;
-    const address = $account.address;
-   // await profileService.endMigration($account.address, s1BadgeId);
-
-
-      if ($activeMigration){
-        $activeMigration.s2Badge = undefined
-      }
-      await profileService.getBadgeMigrations(address);
-
-      console.log($activeMigration?.s2Badge)
-      isLoading = false;
-      isRevealed = true;
-
-      */
   }
 
   const badgeWrapperClasses = classNames('w-full', 'flex', 'justify-center', 'items-center');
@@ -85,24 +68,24 @@
       badge.
     </CoreModalDescription>
   </CoreModalHeader>
-  <div class={badgeWrapperClasses}>
-    <Flippable height="400px" width="300px" flip={isRevealed}>
-      <MigrationBadgeItem slot="front" badgeMovement={Movements.Dev} badgeId={s1BadgeId} {badgeName}>
-        Season 1
-      </MigrationBadgeItem>
 
-      <div slot="back">
-        {#if $activeMigration && $activeMigration.s2Badge && $activeMigration.s2Badge.movement}
-          {@const movement = $activeMigration.s2Badge.movement}
-          <MigrationBadgeItem badgeMovement={movement} badgeId={s1BadgeId} {badgeName}>
-            {MovementNames[movement]}
-          </MigrationBadgeItem>
-        {:else}
-          <Spinner />
-        {/if}
-      </div>
-    </Flippable>
-  </div>
+  {#if $activeMigration}
+    <div class={badgeWrapperClasses}>
+      <Flippable height="400px" width="300px" flip={isRevealed}>
+        <MigrationBadgeItem token={$activeMigration.s1Badge} slot="front">Season 1</MigrationBadgeItem>
+
+        <div slot="back">
+          {#if backToken && backToken.movement}
+            <MigrationBadgeItem token={backToken}>
+              {MovementNames[backToken.movement]}
+            </MigrationBadgeItem>
+          {:else}
+            <Spinner />
+          {/if}
+        </div>
+      </Flippable>
+    </div>
+  {/if}
 
   <CoreModalFooter>
     {#if !isRevealed}

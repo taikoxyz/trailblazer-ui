@@ -1,23 +1,32 @@
 <script lang="ts">
-  import { type Faction, MovementNames, Movements } from '$lib/domains/profile/types/types';
+  import type { NFT } from '$shared/types/NFT';
+  import { classNames } from '$shared/utils/classNames';
 
-  export let type: Faction;
-  export let movement: Movements = 0;
+  export let token: NFT;
 
-  $: baseUrl = `/factions/${type.toLowerCase()}/${MovementNames[movement].toLowerCase()}`;
+  const wrapperClasses = classNames('relative', 'w-full', 'h-full', 'z-0', 'aspect-square');
+
+  const videoClasses = classNames(
+    'pointer-events-none',
+    'rounded-[20px]',
+    'absolute',
+    'left-0',
+    'top-0',
+    'z-20',
+    'w-full',
+    'h-full',
+  );
 </script>
 
-<div class="relative w-full h-full z-0 aspect-square">
-  <video
-    poster="{baseUrl}.png"
-    loop
-    muted
-    autoplay
-    playsinline
-    class="pointer-events-none rounded-[20px] absolute left-0 top-0 z-20 w-full h-full">
+<div class={wrapperClasses}>
+  <video poster={token.assets.image} loop muted autoplay playsinline class={videoClasses}>
     <track kind="captions" />
-    <source src="{baseUrl}.mp4" type="video/mp4" />
-    <source src="{baseUrl}.webm" type="video/webm" />
+
+    {#if token.assets.video}
+      {#each Object.keys(token.assets.video) as videoType}
+        <source src={token.assets.video[videoType]} type={`video/${videoType}`} />
+      {/each}
+    {/if}
     Your browser does not support the video tag.
   </video>
 </div>

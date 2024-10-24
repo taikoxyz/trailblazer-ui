@@ -15,7 +15,7 @@ export function isMintDisclaimerAccepted() {
 
 export const activeMigration = writable<BadgeMigration | null>(null);
 
-export const tamperMigrationModal = writable<boolean>(false);
+export const refineMigrationModal = writable<boolean>(false);
 export const startMigrationModal = writable<boolean>(false);
 export const migrationApprovalModal = writable<boolean>(false);
 export const endMigrationModal = writable<boolean>(false);
