@@ -42,7 +42,7 @@ export function initializeMediaQueries() {
   if (typeof window !== 'undefined') {
     desktopQuery = window.matchMedia('(min-width: 1280px)');
     tabletQuery = window.matchMedia('(min-width: 768px) and (max-width: 1023px)');
-    tabletLgQuery = window.matchMedia('(min-width: 1024px) and (max-width: 1279px)');
+    tabletLgQuery = window.matchMedia('(min-width: 1024px) and (max-width: 1439px)');
     mobileQuery = window.matchMedia('(max-width: 767px)');
 
     // Set initial values

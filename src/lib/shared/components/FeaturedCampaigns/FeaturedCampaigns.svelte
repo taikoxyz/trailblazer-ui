@@ -14,7 +14,7 @@
   );
 </script>
 
-<div class="">
+<div class="f-col w-full xl:max-w-[1440px]">
   <h1 class={h1Classes}>Featured Campaigns</h1>
   <CampaingCards />
 </div>
