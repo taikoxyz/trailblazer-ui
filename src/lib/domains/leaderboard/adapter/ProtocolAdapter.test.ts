@@ -66,7 +66,7 @@ describe('ProtocolAdapter', () => {
       // Then
       expect(protocolDetailsCache.get).toHaveBeenCalledWith(protocolSlug, season);
       expect(getAxiosInstance).toHaveBeenCalledWith(season);
-      expect(mockClient.get).toHaveBeenCalledWith('/protocol/details', {
+      expect(mockClient.get).toHaveBeenCalledWith('/protocol/dapp', {
         ...globalAxiosConfig,
         params: { slug: protocolSlug },
       });
