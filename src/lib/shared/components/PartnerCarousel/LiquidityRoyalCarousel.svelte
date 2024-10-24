@@ -10,7 +10,7 @@
       imageAlt: 'Panko logo',
       tagText: 'Dex',
       buttonText: 'Earn more',
-      buttonLink: 'https://taiko.xyz',
+      buttonLink: 'https://panko.finance/farms',
     },
     {
       title: 'TakoTako',
@@ -19,7 +19,7 @@
       imageAlt: 'Takotako logo',
       tagText: 'Dex',
       buttonText: 'Earn more',
-      buttonLink: 'https://taiko.xyz',
+      buttonLink: 'https://www.takotako.xyz',
     },
   ];
 </script>

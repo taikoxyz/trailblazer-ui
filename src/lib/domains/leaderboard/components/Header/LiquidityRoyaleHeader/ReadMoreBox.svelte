@@ -45,6 +45,8 @@
       >Do you still have questions about earning points and how they're calculated? Visit our blog post for all the
       answers!</span>
   </div>
-  <ActionButton priority="primary" class={buttonClasses} href="https://taiko.xyz"
-    >{$t('common.learn_more')}</ActionButton>
+  <ActionButton
+    priority="primary"
+    class={buttonClasses}
+    href="https://taiko.mirror.xyz/sB3dVLrVRn3DPKaAi6ed1C1qKLCtpaCfyaQdw7LD0XI">{$t('common.learn_more')}</ActionButton>
 </div>
