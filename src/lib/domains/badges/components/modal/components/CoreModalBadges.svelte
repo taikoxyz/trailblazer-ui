@@ -37,21 +37,47 @@
 <div class={wrapperClasses}>
   {#if !hideResult}
     <div class={badgeWrapperClasses}>
-      <MigrationBadgeItem token={{ ...token, movement: Movements.Whale }} blurred={!active} value={whaleTampers}>
+      <MigrationBadgeItem
+        token={{
+          ...token,
+          metadata: {
+            ...token.metadata,
+            movement: Movements.Whale,
+          },
+        }}
+        blurred={!active}
+        value={whaleTampers}>
         {MovementNames[Movements.Whale]}
       </MigrationBadgeItem>
     </div>
   {/if}
   {#if !active}
     <div class={centralBadgeWrapperClasses}>
-      <MigrationBadgeItem token={{ ...token, movement: Movements.Dev }} value={devTampers}>
+      <MigrationBadgeItem
+        token={{
+          ...token,
+          metadata: {
+            ...token.metadata,
+            movement: Movements.Dev,
+          },
+        }}
+        value={devTampers}>
         {MovementNames[Movements.Dev]}
       </MigrationBadgeItem>
     </div>
   {/if}
   {#if !hideResult}
     <div class={badgeWrapperClasses}>
-      <MigrationBadgeItem token={{ ...token, movement: Movements.Minnow }} blurred={!active} value={minnowTampers}>
+      <MigrationBadgeItem
+        token={{
+          ...token,
+          metadata: {
+            ...token.metadata,
+            movement: Movements.Minnow,
+          },
+        }}
+        blurred={!active}
+        value={minnowTampers}>
         {MovementNames[Movements.Minnow]}
       </MigrationBadgeItem>
     </div>

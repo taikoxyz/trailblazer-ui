@@ -1,4 +1,3 @@
-import { gql } from '@apollo/client/core';
 import { readContract, signMessage, watchContractEvent, writeContract } from '@wagmi/core';
 import axios from 'axios';
 import { type Address, parseSignature } from 'viem';
@@ -12,17 +11,16 @@ import {
 } from '$generated/abi';
 import type { BadgeMigration as GqlBadgeMigration, Token } from '$generated/graphql';
 import type { Movements } from '$lib/domains/profile/types/types';
-import { graphqlClient, noCacheGraphqlClient } from '$lib/shared/services/graphql/client';
-import { GET_MIGRATION_STATUS_GQL } from '$lib/shared/services/graphql/queries/getMigrationStatus.gql';
+import { graphqlClient } from '$lib/shared/services/graphql/client';
 import { pendingTransactions } from '$lib/shared/stores/pendingTransactions';
 import type { BadgeMigration } from '$lib/shared/types/BadgeMigration';
 import type { NFT } from '$lib/shared/types/NFT';
 import { chainId } from '$lib/shared/utils/chain';
 import { wagmiConfig } from '$lib/shared/wagmi';
 import { globalAxiosConfig } from '$shared/services/api/axiosClient';
+import { FETCH_ENABLED_MIGRATIONS_QUERY, GET_MIGRATION_STATUS_GQL } from '$shared/services/graphql/queries';
 import { getLogger } from '$shared/utils/logger';
-
-import getBadgeURI from '../utils/getBadgeURI';
+import getBadgeURI from '$shared/utils/nfts/getBadgeURI';
 
 const log = getLogger('BadgeMigrationAdapter');
 
@@ -30,24 +28,16 @@ export class BadgeMigrationAdapter {
   /**
    * Fetches the currently-enabled migration s1 badge ids
    *
-   * @return {*}  {Promise<IUserBadges>}
-   * @memberof ProfileApiAdapter
+   * @return {*}  {Promise<number[]>}
+   * @memberof BadgeMigrationAdapter
    */
   async fetchEnabledMigrations(): Promise<number[]> {
     log('fetchEnabledMigrations');
     const out: number[] = [];
 
     try {
-      const gqlQuery = gql`
-        query OpenMigrations($address: String) {
-          openMigrations(where: { enabled: true }) {
-            id
-            enabled
-          }
-        }
-      `;
       const graphqlResponse = await graphqlClient.query({
-        query: gqlQuery,
+        query: FETCH_ENABLED_MIGRATIONS_QUERY,
       });
 
       if (!graphqlResponse || !graphqlResponse.data || !graphqlResponse.data.openMigrations) {
@@ -76,33 +66,12 @@ export class BadgeMigrationAdapter {
     }
   }
 
-  async setApprovalForAll(): Promise<string> {
-    log('setApprovalForAll');
-    const tx = await writeContract(wagmiConfig, {
-      abi: trailblazersBadgesAbi,
-      address: trailblazersBadgesAddress[chainId],
-      functionName: 'setApprovalForAll',
-      args: [badgeMigrationAddress[chainId], true],
-      chainId,
-    });
-    await pendingTransactions.add(tx);
-
-    return tx;
-  }
-
-  async approve(tokenId: number): Promise<Address> {
-    log('approve', { tokenId });
-    const tx = await writeContract(wagmiConfig, {
-      abi: trailblazersBadgesAbi,
-      address: trailblazersBadgesAddress[chainId],
-      functionName: 'approve',
-      args: [badgeMigrationAddress[chainId], BigInt(tokenId)],
-      chainId,
-    });
-    await pendingTransactions.add(tx);
-    return tx;
-  }
-
+  /**
+   * Calls the `startMigration` method through the s1 bnadges
+   *
+   * @return {*}  {Promise<string>}
+   * @memberof BadgeMigrationAdapter
+   */
   async startMigration(factionId: number): Promise<string> {
     log('startMigration', { factionId });
 
@@ -119,7 +88,13 @@ export class BadgeMigrationAdapter {
     return tx;
   }
 
-  async _getMigrationSignature(
+  /**
+   * Internal method to fetch the migration signature's from the backend
+   *
+   * @return {*}  {Promise<{ hash: Address; r: Address; s: Address; v: bigint; points: number;}>}
+   * @memberof BadgeMigrationAdapter
+   */
+  private async _getMigrationSignature(
     address: Address,
     factionId: number,
   ): Promise<{
@@ -168,6 +143,12 @@ export class BadgeMigrationAdapter {
     return { r, s, v, points, hash };
   }
 
+  /**
+   * Execute a tamper/refine on the migration
+   *
+   * @return {*}  {Promise<string>}
+   * @memberof BadgeMigrationAdapter
+   */
   async refineMigration(address: Address, factionId: number, movement: Movements): Promise<string> {
     log('refineMigration', { address, factionId, movement });
 
@@ -185,12 +166,18 @@ export class BadgeMigrationAdapter {
     return tx;
   }
 
+  /**
+   * Complete/end the migration
+   *
+   * @return {*}  {Promise<NFT>}
+   * @memberof BadgeMigrationAdapter
+   */
   async endMigration(address: Address, nft: NFT): Promise<NFT> {
-    if (nft.badgeId === undefined || nft.badgeId === null) {
+    if (nft.metadata.badgeId === undefined) {
       throw new Error('Badge ID is required');
     }
 
-    const { r, s, v, points, hash } = await this._getMigrationSignature(address, nft.badgeId);
+    const { r, s, v, points, hash } = await this._getMigrationSignature(address, nft.metadata.badgeId as number);
     await writeContract(wagmiConfig, {
       abi: badgeMigrationAbi,
       address: badgeMigrationAddress[chainId],
@@ -209,11 +196,17 @@ export class BadgeMigrationAdapter {
     });
   }
 
+  /**
+   * Fetch migrations for the user
+   *
+   * @return {*}  {Promise<BadgeMigration>}
+   * @memberof BadgeMigrationAdapter
+   */
   async getMigrationStatus(address: Address): Promise<BadgeMigration[]> {
     log('getMigrationStatus', { address });
 
     try {
-      const graphqlResponse = await noCacheGraphqlClient.query({
+      const graphqlResponse = await graphqlClient.query({
         query: GET_MIGRATION_STATUS_GQL,
         variables: { address: address.toLocaleLowerCase() },
       });
@@ -240,15 +233,13 @@ export class BadgeMigrationAdapter {
         const s1badgeId = parseInt(raw.s1Badge.badgeId.toString());
         const uri = getBadgeURI(s1badgeId);
         const s1Badge = {
-          badgeId: s1badgeId,
           tokenId: parseInt(raw.s1Badge.tokenId.toString()),
           address: trailblazersBadgesAddress[chainId],
-          assets: {
+          metadata: {
+            badgeId: s1badgeId,
             image: `${uri}.png`,
-            video: {
-              mp4: `${uri}.mp4`,
-              webm: `${uri}.webm`,
-            },
+            'video/mp4': `${uri}.mp4`,
+            'video/webm': `${uri}.webm`,
           },
           tokenUri: '',
         } satisfies NFT;
@@ -260,18 +251,16 @@ export class BadgeMigrationAdapter {
           const uri = getBadgeURI(s1badgeId);
 
           s2Badge = {
-            badgeId,
             tokenId: parseInt(raw.s2Badge.tokenId.toString()),
             address: trailblazersBadgesAddress[chainId],
-            assets: {
+            metadata: {
+              movement,
+              badgeId,
               image: `${uri}.png`,
-              video: {
-                mp4: `${uri}.mp4`,
-                webm: `${uri}.webm`,
-              },
+              'video/mp4': `${uri}.mp4`,
+              'video/webm': `${uri}.webm`,
             },
             tokenUri: '',
-            movement,
           } satisfies NFT;
         }
         const tamperExpirationTimeout = parseInt(raw.tamperExpirationTimeout.toString());
@@ -299,6 +288,12 @@ export class BadgeMigrationAdapter {
     }
   }
 
+  /**
+   * Listener for the migration's completion
+   *
+   * @return {*}  {Promise<NFT>}
+   * @memberof BadgeMigrationAdapter
+   */
   async listenForMigrationEnd(address: Address, token: NFT, callback: (nft: NFT) => void): Promise<void> {
     const unwatch = watchContractEvent(wagmiConfig, {
       address: badgeMigrationAddress[chainId],
@@ -310,18 +305,17 @@ export class BadgeMigrationAdapter {
       onLogs(logs) {
         const { finalColor, s2TokenId } = logs[0].args;
         const movement = parseInt(finalColor!.toString()) as Movements;
-        const uri = getBadgeURI(token.badgeId!, movement);
+        const uri = getBadgeURI(token.metadata.badgeId as number, movement);
 
         callback({
           ...token,
           tokenId: parseInt(s2TokenId!.toString()),
-          movement,
-          assets: {
+          metadata: {
+            ...token.metadata,
+            movement,
             image: `${uri}.png`,
-            video: {
-              mp4: `${uri}.mp4`,
-              webm: `${uri}.webm`,
-            },
+            'video/mp4': `${uri}.mp4`,
+            'video/webm': `${uri}.webm`,
           },
         });
         unwatch();

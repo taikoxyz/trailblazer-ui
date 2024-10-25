@@ -129,7 +129,7 @@ export class ProfileApiAdapter {
       const pfp: NFT = {
         address: tokenAddress,
         tokenId: tokenId,
-        assets: { image: '' },
+        metadata: { image: '' },
         tokenUri: tokenURI,
       };
 
@@ -184,7 +184,7 @@ export class ProfileApiAdapter {
             const pfp: NFT = {
               address: tokenAddress,
               tokenId: tokenId,
-              assets: { image: '' },
+              metadata: { image: '' },
               tokenUri: tokenURI,
             };
             fetchedData[checksummedOwner] = pfp;

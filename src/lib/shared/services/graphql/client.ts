@@ -6,7 +6,7 @@ export const graphqlClient = new ApolloClient({
   uri: PUBLIC_SUBGRAPH_URL,
   cache: new InMemoryCache(),
 });
-
+/*
 export const noCacheGraphqlClient = new ApolloClient({
   uri: PUBLIC_SUBGRAPH_URL,
   cache: new InMemoryCache(),
@@ -21,3 +21,4 @@ export const noCacheGraphqlClient = new ApolloClient({
     },
   },
 });
+*/

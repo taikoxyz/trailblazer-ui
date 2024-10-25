@@ -1,20 +1,12 @@
 import type { Address } from 'viem';
 
 import type { FactionNames } from '$configs/badges';
-import type { Movements } from '$lib/domains/profile/types/types';
 
 export interface NFT {
   address: Address;
   tokenId: number;
   tokenUri: string;
-  badgeId?: number;
-  erc?: number;
-  movement?: Movements;
-  assets: {
-    image: string;
-    // Record<type, src>
-    video?: Record<string, string>;
-  };
+  metadata: Record<string, string | number | boolean | undefined>;
 }
 
 export interface IUserBadges {

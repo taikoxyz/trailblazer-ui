@@ -2,28 +2,23 @@ import axios from 'axios';
 import { type Address, isAddressEqual } from 'viem';
 
 import { trailblazersBadgesAddress, trailblazersBadgesS2Address } from '$generated/abi';
-import getBadgeURI from '$lib/domains/badges/utils/getBadgeURI';
 import type { NFTMetadata } from '$lib/domains/nfts/types/shared/types';
 import { Movements } from '$lib/domains/profile/types/types';
 import type { NFT } from '$lib/shared/types/NFT';
+import { globalAxiosConfig } from '$shared/services/api/axiosClient';
 import { chainId } from '$shared/utils/chain';
 import { getLogger } from '$shared/utils/logger';
+import getBadgeURI from '$shared/utils/nfts/getBadgeURI';
 
-import { BadgeS1Service } from '../../badges/services/BadgeS1Service';
-import { CombinedNFTAdapter } from '../adapter/CombinedNFTAdapter';
-import { TaikoonService } from './TaikoonService';
+import { NFTsAdapter } from '../adapter/NFTsAdapter';
 
 const log = getLogger('CombinedNFTService');
 
 export class CombinedNFTService {
-  private taikoonService: TaikoonService;
-  private badgeS1Service: BadgeS1Service;
-  private adapter: CombinedNFTAdapter;
+  private adapter: NFTsAdapter;
 
   constructor() {
-    this.taikoonService = new TaikoonService();
-    this.badgeS1Service = new BadgeS1Service();
-    this.adapter = new CombinedNFTAdapter();
+    this.adapter = new NFTsAdapter();
   }
 
   /**
@@ -50,35 +45,40 @@ export class CombinedNFTService {
     log('fetchAllNFTsForUser', { address });
 
     try {
-      const tokens = await this.adapter.fetchAllNFTsForUser(address);
-      const flatTokens = tokens.map((token: NFT) => {
+      const tokens = await this.adapter.fetchForUser(address);
+      const flatTokens = tokens.map(async (token: NFT) => {
         let uri = '';
 
-        if (token.badgeId !== undefined && token.badgeId !== null) {
+        if (token.metadata.badgeId !== undefined) {
+          const badgeId = token.metadata.badgeId as number;
+          const movement = token.metadata.movement as Movements;
           if (isAddressEqual(trailblazersBadgesAddress[chainId], token.address)) {
             // s1 badge
-            uri = getBadgeURI(token.badgeId);
+            uri = getBadgeURI(badgeId);
           } else if (isAddressEqual(trailblazersBadgesS2Address[chainId], token.address)) {
             // s2 badge
-            uri = getBadgeURI(token.badgeId, token.movement || Movements.Dev);
+            uri = getBadgeURI(badgeId, movement);
           }
         } else {
-          // todo: fetch from uri
+          const res = await axios.get(`/api/proxy?url=${token.tokenUri}`, globalAxiosConfig);
+
+          return {
+            ...token,
+            metadata: res.data,
+          };
         }
 
         return {
           ...token,
-          assets: {
+          metadata: {
             image: `${uri}.png`,
-            video: {
-              mp4: `${uri}.mp4`,
-              webm: `${uri}.webm`,
-            },
+            'video/mp4': `${uri}.mp4`,
+            'video/webm': `${uri}.webm`,
           },
         } satisfies NFT;
       });
 
-      return flatTokens;
+      return Promise.all(flatTokens);
 
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (e: any) {
@@ -103,18 +103,17 @@ export class CombinedNFTService {
 
     const badge = {
       tokenId: -1,
-      erc: 202,
-      badgeId,
+
       tokenUri: '',
       address: contract,
-      assets: {
+      metadata: {
+        erc: 404,
+        badgeId,
+        movement: movement || Movements.Dev,
         image: `${uri}.png`,
-        video: {
-          mp4: `${uri}.mp4`,
-          webm: `${uri}.webm`,
-        },
+        'video/mp4': `${uri}.mp4`,
+        'video/webm': `${uri}.webm`,
       },
-      movement: movement || Movements.Dev,
     } satisfies NFT;
 
     return badge;

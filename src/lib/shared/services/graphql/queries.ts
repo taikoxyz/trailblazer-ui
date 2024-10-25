@@ -64,3 +64,68 @@ export const USER_NFTS_FETCH_QUERY = gql`
     }
   }
 `;
+
+export const FETCH_ENABLED_MIGRATIONS_QUERY = gql`
+  query OpenMigrations($address: String) {
+    openMigrations(where: { enabled: true }) {
+      id
+      enabled
+    }
+  }
+`;
+
+export const GET_MIGRATION_STATUS_GQL = gql`
+  query getMigrationStatus($address: Bytes) {
+    account(id: $address) {
+      id
+      approvedForAll
+      approvedS1Tokens {
+        id
+        badgeId
+      }
+      s2Migrations {
+        id
+        isStarted
+        isCompleted
+        devTampers
+        whaleTampers
+        minnowTampers
+        claimExpirationTimeout
+        tamperExpirationTimeout
+        s1Badge {
+          id
+          badgeId
+          movement
+          contract
+          owner {
+            id
+          }
+          tokenId
+        }
+        s2Badge {
+          id
+          badgeId
+          movement
+          contract
+          owner {
+            id
+          }
+          tokenId
+        }
+      }
+    }
+  }
+`;
+
+export const GET_MIGRATION_APPROVALS_GQL = gql`
+  query getMigrationApprovals($address: Bytes) {
+    account(id: $address) {
+      id
+      approvedForAll
+      approvedS1Tokens {
+        id
+        badgeId
+      }
+    }
+  }
+`;

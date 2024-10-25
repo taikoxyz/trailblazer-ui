@@ -37,7 +37,7 @@
           {#if isAddressEqual(nft.address, trailblazersBadgesAddress[chainId]) || isAddressEqual(nft.address, trailblazersBadgesS2Address[chainId])}
             <FactionBadgeItem token={nft} />
           {:else}
-            <UserNftItem imageUrl={nft.assets.image} />
+            <UserNftItem token={nft} />
           {/if}
         {/each}
       {/if}

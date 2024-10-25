@@ -6,10 +6,10 @@ import { graphqlClient } from '$shared/services/graphql/client';
 import { USER_NFTS_FETCH_QUERY } from '$shared/services/graphql/queries';
 import { getLogger } from '$shared/utils/logger';
 
-const log = getLogger('CombinedNFTAdapter');
-export class CombinedNFTAdapter {
-  async fetchAllNFTsForUser(address: Address): Promise<NFT[]> {
-    log('fetchAllNFTsForUser', { address });
+const log = getLogger('NFTsAdapter');
+export class NFTsAdapter {
+  async fetchForUser(address: Address): Promise<NFT[]> {
+    log('fetchForUser', { address });
 
     try {
       const graphqlResponse = await graphqlClient.query({
@@ -33,11 +33,12 @@ export class CombinedNFTAdapter {
         return {
           address,
           tokenId,
-          badgeId,
-          erc,
-          movement,
           tokenUri,
-          assets: { image: '' },
+          metadata: {
+            badgeId: isNaN(badgeId) ? undefined : badgeId,
+            erc,
+            movement: isNaN(movement) ? undefined : movement,
+          },
         } satisfies NFT;
       });
 

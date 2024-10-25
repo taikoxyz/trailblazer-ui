@@ -2,7 +2,6 @@ import { getAccount } from '@wagmi/core';
 import { type Address, getAddress, type Hash } from 'viem';
 
 import { BadgeMigrationService } from '$lib/domains/badges/services/BadgeMigrationService';
-import { BadgeS1Service } from '$lib/domains/badges/services/BadgeS1Service';
 import type { UserLeaderboardItem } from '$lib/domains/leaderboard/types/dapps/types';
 import { CombinedNFTService } from '$lib/domains/nfts/services/CombinedNFTService';
 import { ProfileApiAdapter } from '$lib/domains/profile/adapter/ProfileAdapter';
@@ -37,7 +36,6 @@ export class ProfileService implements IProfileService {
 
   //Services
   private combinedNFTService: CombinedNFTService;
-  private badgeService: BadgeS1Service;
   private badgeMigrationService: BadgeMigrationService;
 
   private localStorageKey = 'taikoENSdomain';
@@ -46,13 +44,11 @@ export class ProfileService implements IProfileService {
     apiAdapter?: ProfileApiAdapter,
     userRepository?: UserRepository,
     combinedNFTService?: CombinedNFTService,
-    badgeService?: BadgeS1Service,
     badgeMigrationService?: BadgeMigrationService,
   ) {
     this.apiAdapter = apiAdapter || new ProfileApiAdapter();
     this.userRepository = userRepository || new UserRepository();
     this.combinedNFTService = combinedNFTService || new CombinedNFTService();
-    this.badgeService = badgeService || new BadgeS1Service();
     this.badgeMigrationService = badgeMigrationService || new BadgeMigrationService();
   }
 
@@ -548,11 +544,6 @@ export class ProfileService implements IProfileService {
   async endMigration(address: Address, nft: NFT): Promise<NFT> {
     log('endMigration', { address, nft });
     return this.badgeMigrationService.endMigration(address, nft);
-  }
-
-  async getBadgeTokenId(address: Address, s1BadgeId: number): Promise<number> {
-    log('getTokenId', { address, s1BadgeId });
-    return this.badgeService.getTokenId(address, s1BadgeId);
   }
 
   async getBadgeMigrations(address: Address): Promise<void> {

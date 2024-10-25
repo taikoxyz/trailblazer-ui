@@ -104,11 +104,13 @@
 
   // overlap between enabledBadgeIds and userBadges
   $: possibleMigrations = [
-    ...enabledBadgeIds.filter((badgeId) => userBadges.some((nft) => nft.badgeId === badgeId)),
-    ...($userProfile.badgeMigrations || []).map((migration) => migration.s1Badge?.badgeId),
+    ...enabledBadgeIds.filter((badgeId) => userBadges.some((nft) => nft.metadata.badgeId === badgeId)),
+    ...($userProfile.badgeMigrations || []).map((migration) => migration.s1Badge?.metadata.badgeId),
   ];
 
-  $: activeMigrationBadgeId = !$activeMigration?.s1Badge?.badgeId ? -1 : $activeMigration.s1Badge.badgeId;
+  $: activeMigrationBadgeId = !$activeMigration?.s1Badge?.metadata.badgeId
+    ? -1
+    : ($activeMigration.s1Badge.metadata.badgeId as number);
 
   onMount(async () => {});
 
@@ -135,11 +137,11 @@
 
   async function handleStartMigration(badgeId: number) {
     if (!$account || !$account.address) return;
-    const tokenId = await profileService.getBadgeTokenId($account.address, badgeId);
+    //const tokenId = await profileService.getBadgeTokenId($account.address, badgeId);
     $activeMigration = {
       s1Badge: {
         ...profileService.getMockBadge(trailblazersBadgesAddress[chainId], badgeId),
-        tokenId,
+        //   tokenId,
       },
       id: '',
       isStarted: false,
@@ -155,7 +157,7 @@
   }
 
   async function handleEndMigration(badgeId: number) {
-    const migration = $userProfile.badgeMigrations?.find((m) => m.s1Badge?.badgeId === badgeId);
+    const migration = $userProfile.badgeMigrations?.find((m) => m.s1Badge?.metadata.badgeId === badgeId);
     if (!migration) {
       console.error(`Migration for badge id #${badgeId} not found`);
       return;
@@ -165,7 +167,7 @@
   }
 
   function handleTamperModal(badgeId: number) {
-    const migration = $userProfile.badgeMigrations?.find((m) => m.s1Badge?.badgeId === badgeId);
+    const migration = $userProfile.badgeMigrations?.find((m) => m.s1Badge?.metadata.badgeId === badgeId);
     if (!migration) {
       console.error(`Migration for badge id #${badgeId} not found`);
       return;
@@ -212,7 +214,7 @@
       {#if forceRenderFlag && enabledBadgeIds.length}
         <div class={nftGridClasses}>
           {#each enabledBadgeIds as badgeId}
-            {@const migration = $userProfile?.badgeMigrations?.find((m) => m.s1Badge.badgeId === badgeId)}
+            {@const migration = $userProfile?.badgeMigrations?.find((m) => m.s1Badge.metadata.badgeId === badgeId)}
             {@const disabled = !possibleMigrations.includes(badgeId)}
             {@const buttonDisabled =
               (activeMigrationBadgeId >= 0 && activeMigrationBadgeId !== badgeId) ||

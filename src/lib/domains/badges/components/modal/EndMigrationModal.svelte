@@ -3,7 +3,7 @@
 
   import { FACTIONS } from '$configs/badges';
   import profileService from '$lib/domains/profile/services/ProfileServiceInstance';
-  import { MovementNames } from '$lib/domains/profile/types/types';
+  import { MovementNames, Movements } from '$lib/domains/profile/types/types';
   import { Spinner } from '$shared/components';
   import { ActionButton } from '$shared/components/Button';
   import { errorToast, successToast } from '$shared/components/NotificationToast';
@@ -19,7 +19,7 @@
   import CoreModalHeader from './components/CoreModalHeader.svelte';
   import CoreModalTitle from './components/CoreModalTitle.svelte';
 
-  $: s1BadgeId = $activeMigration?.s1Badge?.badgeId || 0;
+  $: s1BadgeId = ($activeMigration?.s1Badge?.metadata.badgeId as number) || 0;
 
   $: isLoading = false;
 
@@ -57,6 +57,10 @@
   const badgeWrapperClasses = classNames('w-full', 'flex', 'justify-center', 'items-center');
 
   $: isRevealed = false;
+
+  function getMovementName(token: NFT) {
+    return MovementNames[token.metadata.movement as Movements];
+  }
 </script>
 
 <CoreModal open={$endMigrationModal}>
@@ -75,9 +79,9 @@
         <MigrationBadgeItem token={$activeMigration.s1Badge} slot="front">Season 1</MigrationBadgeItem>
 
         <div slot="back">
-          {#if backToken && backToken.movement}
+          {#if backToken && backToken.metadata.movement !== undefined}
             <MigrationBadgeItem token={backToken}>
-              {MovementNames[backToken.movement]}
+              {getMovementName(backToken)}
             </MigrationBadgeItem>
           {:else}
             <Spinner />

@@ -25,7 +25,7 @@
     'lg:gap-[80px]',
   );
 
-  $: s1BadgeId = $activeMigration?.s1Badge?.badgeId || 0;
+  $: s1BadgeId = ($activeMigration?.s1Badge?.metadata.badgeId as number) || 0;
 
   $: refineExpiration = $activeMigration?.tamperExpirationTimeout;
   $: isLoading = false;

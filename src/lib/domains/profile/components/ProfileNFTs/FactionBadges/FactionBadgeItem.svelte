@@ -18,7 +18,9 @@
 
   export let token: NFT;
 
-  $: badgeId = token.badgeId || 0;
+  $: badgeId = (token.metadata.badgeId as number) || 0;
+  $: season = isAddressEqual(token.address, trailblazersBadgesAddress[chainId]) ? 1 : 2;
+  $: movementName = MovementNames[(token.metadata.movement as Movements) || Movements.Dev];
 
   // CSS classes
   $: wrapperClasses = classNames(
@@ -66,8 +68,6 @@
   );
 
   const buttonWrapperClasses = classNames('absolute', 'w-full', 'bottom-0', 'p-[20px]', 'h-[88px]');
-
-  $: season = isAddressEqual(token.address, trailblazersBadgesAddress[chainId]) ? 1 : 2;
 </script>
 
 <div class={wrapperClasses} role="button">
@@ -87,7 +87,7 @@
     </div>
     {#if season > 1}
       <div class={bubbleClasses}>
-        {MovementNames[token.movement || Movements.Dev]}
+        {movementName}
       </div>
     {/if}
   </div>

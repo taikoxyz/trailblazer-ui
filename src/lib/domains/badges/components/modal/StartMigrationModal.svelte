@@ -15,7 +15,7 @@
   import CoreModalHeader from './components/CoreModalHeader.svelte';
   import CoreModalTitle from './components/CoreModalTitle.svelte';
 
-  $: s1BadgeId = $activeMigration?.s1Badge?.badgeId || 0;
+  $: s1BadgeId = ($activeMigration?.s1Badge?.metadata.badgeId as number) || 0;
   $: badgeName = FACTIONS[s1BadgeId] as Faction;
   $: isLoading = false;
 
