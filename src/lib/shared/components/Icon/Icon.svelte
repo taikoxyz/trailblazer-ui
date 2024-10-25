@@ -64,7 +64,7 @@
     | 'flower-circle'
     | 'pencil-edit'
     | 'gaming'
-    | 'gold-crown';
+    | 'gold-crown'
     | 'event-prediction';
 </script>
 
