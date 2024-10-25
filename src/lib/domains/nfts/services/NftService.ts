@@ -10,15 +10,15 @@ import { chainId } from '$shared/utils/chain';
 import { getLogger } from '$shared/utils/logger';
 import getBadgeURI from '$shared/utils/nfts/getBadgeURI';
 
-import { NFTsAdapter } from '../adapter/NFTsAdapter';
+import { NftAdapter } from '../adapter/NFTsAdapter';
 
-const log = getLogger('CombinedNFTService');
+const log = getLogger('NftService');
 
-export class CombinedNFTService {
-  private adapter: NFTsAdapter;
+export class NftService {
+  private adapter: NftAdapter;
 
   constructor() {
-    this.adapter = new NFTsAdapter();
+    this.adapter = new NftAdapter();
   }
 
   /**
@@ -26,7 +26,7 @@ export class CombinedNFTService {
    *
    * @param {NFT} nft
    * @return {*}  {(Promise<NFTMetadata | null>)}
-   * @memberof CombinedNFTService
+   * @memberof NftService
    */
   async getNFTMetadata(nft: NFT): Promise<NFTMetadata | null> {
     log('getNFTUrl', { nft });
@@ -40,13 +40,20 @@ export class CombinedNFTService {
       return null;
     }
   }
-
+  /**
+   * Fetches the NFTs for a user
+   *
+   * @param {NFT} nft
+   * @return {*}  {(Promise<NFT[]>)}
+   * @memberof NftService
+   */
   async fetchAllNFTsForUser(address: Address): Promise<NFT[]> {
     log('fetchAllNFTsForUser', { address });
 
     try {
       const tokens = await this.adapter.fetchForUser(address);
-      const flatTokens = tokens.map(async (token: NFT) => {
+      const flatTokens: NFT[] = [];
+      for (const token of tokens) {
         let uri = '';
 
         if (token.metadata.badgeId !== undefined) {
@@ -59,26 +66,27 @@ export class CombinedNFTService {
             // s2 badge
             uri = getBadgeURI(badgeId, movement);
           }
+
+          flatTokens.push({
+            ...token,
+            metadata: {
+              ...token.metadata,
+              image: `${uri}.png`,
+              'video/mp4': `${uri}.mp4`,
+              'video/webm': `${uri}.webm`,
+            },
+          });
         } else {
           const res = await axios.get(`/api/proxy?url=${token.tokenUri}`, globalAxiosConfig);
 
-          return {
+          flatTokens.push({
             ...token,
             metadata: res.data,
-          };
+          });
         }
+      }
 
-        return {
-          ...token,
-          metadata: {
-            image: `${uri}.png`,
-            'video/mp4': `${uri}.mp4`,
-            'video/webm': `${uri}.webm`,
-          },
-        } satisfies NFT;
-      });
-
-      return Promise.all(flatTokens);
+      return flatTokens;
 
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (e: any) {
@@ -91,6 +99,13 @@ export class CombinedNFTService {
     }
   }
 
+  /**
+   * Returns a parametrized mock badge
+   *
+   * @param {NFT} nft
+   * @return {*}  {(Promise<NFT>)}
+   * @memberof NftService
+   */
   getMockBadge(contract: Address, badgeId: number, movement?: Movements): NFT {
     let uri = '';
     if (isAddressEqual(trailblazersBadgesAddress[chainId], contract)) {

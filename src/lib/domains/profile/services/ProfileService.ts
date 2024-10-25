@@ -3,7 +3,7 @@ import { type Address, getAddress, type Hash } from 'viem';
 
 import { BadgeMigrationService } from '$lib/domains/badges/services/BadgeMigrationService';
 import type { UserLeaderboardItem } from '$lib/domains/leaderboard/types/dapps/types';
-import { CombinedNFTService } from '$lib/domains/nfts/services/CombinedNFTService';
+import { NftService } from '$lib/domains/nfts/services/NftService';
 import { ProfileApiAdapter } from '$lib/domains/profile/adapter/ProfileAdapter';
 import UserRepository from '$lib/domains/profile/repositories/UserRepository';
 import { multipliersLoading, profileLoading } from '$lib/domains/profile/stores/profileStore';
@@ -35,7 +35,7 @@ export class ProfileService implements IProfileService {
   private userRepository: UserRepository;
 
   //Services
-  private combinedNFTService: CombinedNFTService;
+  private combinedNFTService: NftService;
   private badgeMigrationService: BadgeMigrationService;
 
   private localStorageKey = 'taikoENSdomain';
@@ -43,12 +43,12 @@ export class ProfileService implements IProfileService {
   constructor(
     apiAdapter?: ProfileApiAdapter,
     userRepository?: UserRepository,
-    combinedNFTService?: CombinedNFTService,
+    combinedNFTService?: NftService,
     badgeMigrationService?: BadgeMigrationService,
   ) {
     this.apiAdapter = apiAdapter || new ProfileApiAdapter();
     this.userRepository = userRepository || new UserRepository();
-    this.combinedNFTService = combinedNFTService || new CombinedNFTService();
+    this.combinedNFTService = combinedNFTService || new NftService();
     this.badgeMigrationService = badgeMigrationService || new BadgeMigrationService();
   }
 

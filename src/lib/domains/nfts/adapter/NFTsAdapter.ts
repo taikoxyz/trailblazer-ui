@@ -6,8 +6,8 @@ import { graphqlClient } from '$shared/services/graphql/client';
 import { USER_NFTS_FETCH_QUERY } from '$shared/services/graphql/queries';
 import { getLogger } from '$shared/utils/logger';
 
-const log = getLogger('NFTsAdapter');
-export class NFTsAdapter {
+const log = getLogger('NftAdapter');
+export class NftAdapter {
   async fetchForUser(address: Address): Promise<NFT[]> {
     log('fetchForUser', { address });
 
