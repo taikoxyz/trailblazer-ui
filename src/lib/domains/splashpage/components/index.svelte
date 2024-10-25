@@ -4,9 +4,9 @@
   import S1ClaimBanner from '$lib/domains/splashpage/components/Banner/S1ClaimBanner.svelte';
   import S2StartBanner from '$lib/domains/splashpage/components/Banner/S2StartBanner.svelte';
   import type { Slide } from '$lib/domains/splashpage/components/Banner/types';
+  import FeaturedCampaigns from '$shared/components/FeaturedCampaigns/FeaturedCampaigns.svelte';
   import { classNames } from '$shared/utils/classNames';
 
-  import FeaturedCampaigns from '../FeaturedCampaigns/FeaturedCampaigns.svelte';
   import Factions from './Factions/Factions.svelte';
   import { TrailblazerGuide } from './Guide';
   import TrailblazerMain from './HeroSection/HeroSection.svelte';

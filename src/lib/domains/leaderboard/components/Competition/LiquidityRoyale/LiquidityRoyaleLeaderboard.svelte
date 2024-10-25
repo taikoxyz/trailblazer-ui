@@ -48,7 +48,6 @@
   {headers}
   {season}
   data={$currentLiquidityCompetitionLeaderboard.items}
-  highlightedUserPosition={$currentLiquidityCompetitionLeaderboard.items[44]}
   lastUpdated={new Date($currentLiquidityCompetitionLeaderboard.lastUpdated)}
   showPagination={true}
   showDetailsColumn={false}
