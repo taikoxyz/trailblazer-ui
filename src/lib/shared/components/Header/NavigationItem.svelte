@@ -61,7 +61,6 @@
     'z-[1]',
     'shadow',
     'rounded-box',
-    'w-fit',
     'body-regular',
   );
 

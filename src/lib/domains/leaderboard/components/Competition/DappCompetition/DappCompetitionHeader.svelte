@@ -26,7 +26,7 @@
     'relative',
     'text-left',
     'font-bold',
-    'font-["Clash_Grotesk"]',
+    'font-clash-grotesk',
     'text-[65px]',
     'leading-none',
     'tracking-[9.74px]',

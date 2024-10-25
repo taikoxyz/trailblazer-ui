@@ -7,10 +7,10 @@
   import { AbstractLeaderboard, PointScore } from '$lib/domains/leaderboard/components/Template';
   import { userLeaderboardService } from '$lib/domains/leaderboard/services/LeaderboardServiceInstances';
   import { currentUserLeaderboard } from '$lib/domains/leaderboard/stores/userLeaderboard';
-  import type { UserLeaderboardItem, UserLeaderboardPage } from '$lib/domains/leaderboard/types/dapps/types';
+  import type { UserLeaderboardItem, UserLeaderboardPage } from '$lib/domains/leaderboard/types/user/types';
   import type { PaginationInfo } from '$lib/shared/dto/CommonPageApiResponse';
 
-  let headers = ['No.', 'Address', 'Level', 'Title', 'Points'];
+  let headers = ['No.', 'Address', 'Level', '', 'Points'];
 
   export let loading = false;
   export let pageInfo: PaginationInfo<UserLeaderboardItem>;

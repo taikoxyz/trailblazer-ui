@@ -303,6 +303,39 @@
       },
       "tokenName": "TAIKO Tokens"
     },
+    "liquidityRoyale": {
+      "blogpost": {
+        "url": "https://taiko.mirror.xyz/sB3dVLrVRn3DPKaAi6ed1C1qKLCtpaCfyaQdw7LD0XI"
+      },
+      "carousel": {
+        "description": "Liquidity Royale gives you the chance to grow your liquidity while earning rewards. Check out new products designed to boost adoption and participation in the Taiko ecosystem.",
+        "headline": "Boost liquidity;<br />Earn rewards!",
+        "title": "Boost your Taiko score"
+      },
+      "description": "  Ready to supercharge your liquidity and get rewarded for it? The Taiko Liquidity Royale is here, offering a         massive 1M Taiko tokens in rewards! Whether you’re a seasoned liquidity provider or looking to get started, this         is your chance to dive in and earn juicy prizes.",
+      "infobox": {
+        "boost": {
+          "text": "Random snapshot rewards mean every contribution counts! The more liquidity you provide, the higher your points, stacking across all protocols.",
+          "title": "Boost your points"
+        },
+        "campaign": {
+          "text": "This campaign runs until the end of Season 2, but don’t worry—the fun will continue through Season 3.",
+          "title": "All season long"
+        },
+        "random": {
+          "text": "Random snapshots can happen at any time during the campaign, so stay ready to rack up points and maximize your rewards!",
+          "title": "Random rewards"
+        },
+        "rewards": {
+          "text": "The top 100 will each win a guaranteed 10K Taiko tokens, no matter your final ranking!",
+          "title": "Earn 10K TAIKO"
+        },
+        "title": "🏆&nbsp;&nbsp;What’s in it for you?"
+      },
+      "readmore": {
+        "text": "Do you still have questions about earning points and how they're calculated? Visit our blog post for all the       answers!"
+      }
+    },
     "thrillblazer": {
       "prize_breakdown": {
         "fifth": {
@@ -385,7 +418,8 @@
   },
   "pagetitle": {
     "competition": {
-      "dapp": "Thrillblazer - Competition 18.10 - 18.11.24"
+      "dapp": "Thrillblazer - Competition 18.10 - 18.11.24",
+      "liquidity": "Taiko Trailblazers - Liquidity Royale"
     },
     "competitions": {
       "dapp": "Taiko Trailblazer - Dapp Competition Leaderboard"
