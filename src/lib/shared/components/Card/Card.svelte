@@ -31,24 +31,27 @@
     'border-divider-border',
     'glassy-gradient-card',
     'dark-glass-background-gradient',
-    'w-[341px]',
-    'md:min-w-[672px]',
-    'lg:min-w-[294px]',
-    'lg:max-w-[294px]',
-    'xl:min-w-[423px]',
     'h-full',
     $$props.class,
   );
 
-  const innerWrapper = classNames('f-col');
+  const innerWrapper = classNames('flex', 'flex-col', 'h-full');
 
   const titleClasses = classNames('font-clash-grotesk', 'text-[20px]', 'font-medium', 'leading-normal');
 
-  const imageClasses = classNames('h-[200px]', 'rounded-[20px]', 'mb-[24px]', 'md:w-[625px]');
+  const imageClasses = classNames('w-full', 'h-[200px]', 'object-cover', 'rounded-[20px]', 'mb-[24px]');
 
   const buttonClasses = classNames('min-w-[140px]', 'max-w-[140px]');
-  const textClasses = classNames('text-secondary-content', 'mb-[30px]');
-  const bodyClasses = classNames('card-body', 'body-regular', 'p-[20px]');
+  const textClasses = classNames('text-secondary-content', 'mb-[30px]', 'flex-grow');
+  const bodyClasses = classNames(
+    'card-body',
+    'body-regular',
+    'p-[20px]',
+    'flex',
+    'flex-col',
+    'justify-between',
+    'h-full',
+  );
 </script>
 
 <div class={cardClasses}>
@@ -56,8 +59,9 @@
     <div class={innerWrapper}>
       <img src={img} alt="card-header" class={imageClasses} />
       <h2 class={titleClasses}>{title}</h2>
-
       <p class={textClasses}>{text}</p>
+    </div>
+    <div class="mt-auto">
       {#if content.btn.external}
         <ActionButton priority="primary" class={buttonClasses} href={content.btn.destination}>
           {$t('common.learn_more')}

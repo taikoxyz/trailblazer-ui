@@ -52,8 +52,8 @@
   ];
 </script>
 
-<div class="f-col lg:f-row w-full justify-center items-center lg:f-between-center gap-[24px]">
+<div class="grid gap-6 w-full grid-cols-1 lg:grid-cols-3">
   {#each cards as card}
-    <Card class="md:mt-[32px] w-full md:w-[524px]" content={card} />
+    <Card content={card} class="w-full h-full" />
   {/each}
 </div>
