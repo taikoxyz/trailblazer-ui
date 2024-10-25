@@ -1,13 +1,20 @@
 import { type Address } from 'viem';
 
 import type { Token } from '$generated/graphql';
-import type { NFT } from '$lib/shared/types/NFT';
+import type { NFT, TokenType } from '$lib/shared/types/NFT';
 import { graphqlClient } from '$shared/services/graphql/client';
 import { USER_NFTS_FETCH_QUERY } from '$shared/services/graphql/queries';
 import { getLogger } from '$shared/utils/logger';
 
 const log = getLogger('NftAdapter');
 export class NftAdapter {
+  /**
+   * Fetches the NFTs for a user
+   *
+   * @param {NFT} nft
+   * @return {*}  {(Promise<NFT[]>)}
+   * @memberof NftAdapter
+   */
   async fetchForUser(address: Address): Promise<NFT[]> {
     log('fetchForUser', { address });
 
@@ -26,7 +33,7 @@ export class NftAdapter {
         const address = token.contract as Address;
         const tokenId = parseInt(token.tokenId);
         const badgeId = parseInt(token.badgeId);
-        const erc = parseInt(token.erc);
+        const erc = parseInt(token.erc) as TokenType;
         const movement = parseInt(token.movement);
         const tokenUri = token.uri || '';
 

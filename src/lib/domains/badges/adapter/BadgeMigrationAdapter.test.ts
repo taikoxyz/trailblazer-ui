@@ -4,7 +4,7 @@ import type { Hash } from 'viem';
 
 import { trailblazersBadgesAbi, trailblazersBadgesAddress } from '$generated/abi';
 import { graphqlClient } from '$lib/shared/services/graphql/client';
-import { FETCH_ENABLED_MIGRATIONS_QUERY, GET_MIGRATION_STATUS_GQL } from '$lib/shared/services/graphql/queries';
+import { FETCH_ENABLED_MIGRATIONS_QUERY, GET_MIGRATION_STATUS_QUERY } from '$lib/shared/services/graphql/queries';
 import { pendingTransactions } from '$lib/shared/stores/pendingTransactions';
 import { chainId } from '$shared/utils/chain';
 import { wagmiConfig } from '$shared/wagmi';
@@ -195,7 +195,7 @@ describe('BadgeMigrationAdapter', () => {
       const result = await adapter.getMigrationStatus(mockAddress);
 
       expect(graphqlClient.query).toHaveBeenCalledWith({
-        query: GET_MIGRATION_STATUS_GQL,
+        query: GET_MIGRATION_STATUS_QUERY,
         variables: { address: mockAddress.toLocaleLowerCase() },
       });
 

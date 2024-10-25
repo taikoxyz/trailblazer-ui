@@ -4,13 +4,13 @@ import { type Address, isAddressEqual } from 'viem';
 import { trailblazersBadgesAddress, trailblazersBadgesS2Address } from '$generated/abi';
 import type { NFTMetadata } from '$lib/domains/nfts/types/shared/types';
 import { Movements } from '$lib/domains/profile/types/types';
-import type { NFT } from '$lib/shared/types/NFT';
+import { type NFT, TokenType } from '$lib/shared/types/NFT';
 import { globalAxiosConfig } from '$shared/services/api/axiosClient';
 import { chainId } from '$shared/utils/chain';
 import { getLogger } from '$shared/utils/logger';
 import getBadgeURI from '$shared/utils/nfts/getBadgeURI';
 
-import { NftAdapter } from '../adapter/NFTsAdapter';
+import { NftAdapter } from '../adapter/NftAdapter';
 
 const log = getLogger('NftService');
 
@@ -42,6 +42,9 @@ export class NftService {
   }
   /**
    * Fetches the NFTs for a user
+   * - Taikoons
+   * - Snaefell
+   * - s1 & s1 Trailblazer Badges
    *
    * @param {NFT} nft
    * @return {*}  {(Promise<NFT[]>)}
@@ -122,7 +125,7 @@ export class NftService {
       tokenUri: '',
       address: contract,
       metadata: {
-        erc: 404,
+        erc: TokenType.Unknown,
         badgeId,
         movement: movement || Movements.Dev,
         image: `${uri}.png`,

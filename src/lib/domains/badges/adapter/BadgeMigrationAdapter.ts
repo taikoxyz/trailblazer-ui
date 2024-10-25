@@ -18,7 +18,7 @@ import type { NFT } from '$lib/shared/types/NFT';
 import { chainId } from '$lib/shared/utils/chain';
 import { wagmiConfig } from '$lib/shared/wagmi';
 import { globalAxiosConfig } from '$shared/services/api/axiosClient';
-import { FETCH_ENABLED_MIGRATIONS_QUERY, GET_MIGRATION_STATUS_GQL } from '$shared/services/graphql/queries';
+import { FETCH_ENABLED_MIGRATIONS_QUERY, GET_MIGRATION_STATUS_QUERY } from '$shared/services/graphql/queries';
 import { getLogger } from '$shared/utils/logger';
 import getBadgeURI from '$shared/utils/nfts/getBadgeURI';
 
@@ -207,7 +207,7 @@ export class BadgeMigrationAdapter {
 
     try {
       const graphqlResponse = await graphqlClient.query({
-        query: GET_MIGRATION_STATUS_GQL,
+        query: GET_MIGRATION_STATUS_QUERY,
         variables: { address: address.toLocaleLowerCase() },
       });
 

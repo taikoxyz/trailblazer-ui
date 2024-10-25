@@ -74,7 +74,7 @@ export const FETCH_ENABLED_MIGRATIONS_QUERY = gql`
   }
 `;
 
-export const GET_MIGRATION_STATUS_GQL = gql`
+export const GET_MIGRATION_STATUS_QUERY = gql`
   query getMigrationStatus($address: Bytes) {
     account(id: $address) {
       id
@@ -117,7 +117,7 @@ export const GET_MIGRATION_STATUS_GQL = gql`
   }
 `;
 
-export const GET_MIGRATION_APPROVALS_GQL = gql`
+export const GET_MIGRATION_APPROVALS_QUERY = gql`
   query getMigrationApprovals($address: Bytes) {
     account(id: $address) {
       id
