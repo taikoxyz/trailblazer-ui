@@ -53,9 +53,9 @@
 <div class={wrapperClasses}>
   <div class={titleSectionClasses}>
     <div class="flex flex-col gap-5 items-center md:items-start">
-      <div class={lineClasses} />
       <!-- eslint-disable-next-line svelte/no-at-html-tags -->
       <div class={titleTextClasses}>{@html $t('leaderboard.liquidityRoyale.infobox.title')}</div>
+      <div class={lineClasses} />
     </div>
   </div>
   <div class={gridClasses}>

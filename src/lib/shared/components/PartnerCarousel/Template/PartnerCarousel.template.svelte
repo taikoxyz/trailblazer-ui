@@ -8,6 +8,8 @@
   export let carouselItems: PartnerCarouselItem[] = [];
 
   export let title: string | undefined = 'Boost your Taiko score';
+  export let headline: string | undefined = 'Boost your Taiko score';
+  export let description: string | undefined = '';
 
   let currentIndex = 0;
   let isAnimating = false;
@@ -187,7 +189,7 @@
 
   const titleTextClasses = classNames('text-[20px]', 'text-white', 'font-clash-grotesk');
 
-  const titleSpanClasses = classNames(
+  const headlineSpanClasses = classNames(
     'text-[45px]',
     'font-semi-bold',
     'text-white',
@@ -230,10 +232,10 @@
         <div class="flex flex-col gap-5 items-center md:items-start">
           <div class={titleTextClasses}>{title}</div>
           <div class="border border-primary-brand w-16" />
-          <span class={titleSpanClasses}>Boost liquidity;<br />Earn rewards!</span>
+          <!-- eslint-disable-next-line svelte/no-at-html-tags -->
+          <span class={headlineSpanClasses}>{@html headline}</span>
           <p class="text-secondary-content text-center md:text-left">
-            Liquidity Royale gives you the chance to grow your liquidity while earning rewards. Check out new products
-            designed to boost adoption and participation in the Taiko ecosystem.
+            {description}
           </p>
         </div>
       </div>
