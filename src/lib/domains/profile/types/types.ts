@@ -24,29 +24,6 @@ export type GalxePoints = {
   galxePointsClaimed?: boolean;
 };
 
-export type UserPointHistoryPage = {
-  items: UserPointHistory[];
-  page: number;
-  size: number;
-  max_page: number;
-  total_pages: number;
-  total: number;
-  last: number;
-  first: number;
-  visible: number;
-};
-
-export type Event = 'Transaction' | 'TransactionValue' | 'BlockProposed' | 'Bridged';
-export type ActivityType = Event;
-
-export type UserPointHistory = {
-  address: Address;
-  event: Event;
-  points: number;
-  date: number;
-  multiplier: number;
-};
-
 export type UserNFT = {
   name: string;
   tokenId: string;

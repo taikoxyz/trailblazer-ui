@@ -1,6 +1,8 @@
 <script lang="ts">
   import { t } from 'svelte-i18n';
 
+  import { eventToActivityTypeMap } from '$lib/domains/profile/mappers/eventToActivityMapper';
+  import { ActivityType, type UserPointHistory } from '$lib/domains/profile/types/ActivityHistory';
   import { ActivityIcon } from '$shared/components/Icon';
   import Icon from '$shared/components/Icon/Icon.svelte';
   import { Pill } from '$shared/components/Pill';
@@ -8,9 +10,8 @@
   import { formatDate } from '$shared/utils/formatDate';
   import { truncateDecimal } from '$shared/utils/truncateDecimal';
 
-  export let historyEntry;
+  export let historyEntry: UserPointHistory;
 
-  // CSS classes
   const rowClass = classNames(
     'grid',
     'items-center',
@@ -41,15 +42,18 @@
 <div class={rowClass}>
   <!-- Activity Cell -->
   <div class={activityCellClass}>
-    {#if historyEntry?.event === 'TransactionValue'}
+    {#if eventToActivityTypeMap[historyEntry?.event] === ActivityType.TRANSACTION_VALUE}
       <ActivityIcon type="double-coin" />
       <span class={eventClasses}>{$t('leaderboard.user.event.transaction_value')}</span>
-    {:else if historyEntry?.event === 'BlockProposed'}
+    {:else if eventToActivityTypeMap[historyEntry?.event] === ActivityType.BLOCK_PROPOSED}
       <ActivityIcon type="cube" />
       <span class={eventClasses}>{$t('leaderboard.user.event.block_proposed')}</span>
-    {:else if historyEntry?.event === 'Bridged'}
+    {:else if eventToActivityTypeMap[historyEntry?.event] === ActivityType.BRIDGED}
       <ActivityIcon type="double-diamond" />
       <span class={eventClasses}>{$t('leaderboard.user.event.bridged')}</span>
+    {:else if eventToActivityTypeMap[historyEntry?.event] === ActivityType.PREDICTION}
+      <ActivityIcon type="event-prediction" />
+      <span class={eventClasses}>{$t('leaderboard.user.event.prediction')}</span>
     {:else}
       <ActivityIcon type="triple-coin-stacked" />
       <span class={eventClasses}>{$t('leaderboard.user.event.transaction')}</span>
@@ -79,10 +83,24 @@
   <!-- Icon Cell (Visible on small screens, hidden on lg and up) -->
   <div class={iconCellClass}>
     <!-- Icon is visible on mobile, hidden on lg and up -->
-    <button class="btn block btn-ghost btn-sm btn-circle items-center content-center pt-1 flex lg:hidden">
-      <Icon type="arrow-top-right" fillClass="fill-primary-link" />
-    </button>
+    {#if historyEntry.tx_hash}
+      <a
+        href={`https://taikoscan.io/tx/${historyEntry?.tx_hash}`}
+        target="_blank"
+        class="btn block btn-ghost btn-sm btn-circle items-center content-center pt-1 flex lg:hidden">
+        <Icon type="arrow-top-right" fillClass="fill-primary-link" />
+      </a>
+    {/if}
   </div>
   <!-- Time Cell (Hidden on mobile, visible on large screens) -->
-  <div class={timeCellClass}>{formatDate(historyEntry?.date)}</div>
+  <div class={timeCellClass}>
+    {#if historyEntry.tx_hash}
+      <a href={`https://taikoscan.io/tx/${historyEntry?.tx_hash}`} target="_blank" class="f-row gap-1">
+        {formatDate(historyEntry?.date)}
+        <Icon type="arrow-top-right" fillClass="fill-primary-link" />
+      </a>
+    {:else}
+      {formatDate(historyEntry?.date)}
+    {/if}
+  </div>
 </div>

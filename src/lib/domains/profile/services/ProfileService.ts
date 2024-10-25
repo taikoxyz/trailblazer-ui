@@ -10,7 +10,7 @@ import { multipliersLoading, profileLoading } from '$lib/domains/profile/stores/
 import { defaultUserProfile } from '$lib/domains/profile/types/defaultUserProfile';
 import type { DomainInfo } from '$lib/domains/profile/types/DomainInfo';
 import { levelTiers } from '$lib/domains/profile/types/LevelTiers';
-import { DomainType, type UserPointHistory } from '$lib/domains/profile/types/types';
+import { DomainType } from '$lib/domains/profile/types/types';
 import type { UserInfoForLeaderboard } from '$lib/domains/profile/types/UserInfoForLeaderboard';
 import type { UserProfile } from '$lib/domains/profile/types/UserProfile';
 import type { SeasonHistoryEntry, UserStats } from '$lib/domains/profile/types/UserStats';
@@ -20,6 +20,7 @@ import { wagmiConfig } from '$lib/shared/wagmi';
 import { isDevelopmentEnv } from '$shared/utils/isDevelopmentEnv';
 import { getLogger } from '$shared/utils/logger';
 
+import type { UserPointHistory } from '../types/ActivityHistory';
 import type { IProfileService } from './IProfileService';
 
 const log = getLogger('ProfileService');

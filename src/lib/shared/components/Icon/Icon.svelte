@@ -63,7 +63,8 @@
     | 'double-user'
     | 'flower-circle'
     | 'pencil-edit'
-    | 'gaming';
+    | 'gaming'
+    | 'event-prediction';
 </script>
 
 <script lang="ts">
@@ -777,5 +778,20 @@
         <rect width="20" height="20" fill="white" />
       </clipPath>
     </defs>
+  {:else if type === 'event-prediction'}
+    <g transform="translate(1,0)">
+      <path
+        d="m13.833,13.333H.5c-.273,0-.5-.227-.5-.5s.227-.5.5-.5h13.333c.273,0,.5.227.5.5s-.227.5-.5.5Z"
+        style="fill: #f3f3f4; stroke-width: 0px;" />
+      <path
+        d="m5.667,1.333v12h3V1.333c0-.733-.3-1.333-1.2-1.333h-.6c-.9,0-1.2.6-1.2,1.333Z"
+        style="fill: #f3f3f4; stroke-width: 0px;" />
+      <path
+        d="m1.167,5.333v8h2.667v-8c0-.733-.267-1.333-1.067-1.333h-.533c-.8,0-1.067.6-1.067,1.333Z"
+        style="fill: #f3f3f4; stroke-width: 0px;" />
+      <path
+        d="m10.5,8.667v4.667h2.667v-4.667c0-.733-.267-1.333-1.067-1.333h-.533c-.8,0-1.067.6-1.067,1.333Z"
+        style="fill: #f3f3f4; stroke-width: 0px;" />
+    </g>
   {/if}
 </svg>
