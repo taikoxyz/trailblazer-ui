@@ -5,7 +5,7 @@
   import { ActionButton } from '$shared/components/Button';
   import { errorToast, successToast } from '$shared/components/NotificationToast';
   import { account } from '$shared/stores';
-  import { activeMigration, refineMigrationModal, startMigrationModal } from '$shared/stores/modal';
+  import { activeMigration, refineMigrationModal, startMigrationModal } from '$shared/stores/migration';
   import { classNames } from '$shared/utils/classNames';
 
   import MigrationBadgeItem from '../../../badges/components/MigrationBadgeItem.svelte';

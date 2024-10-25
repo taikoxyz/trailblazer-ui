@@ -8,7 +8,7 @@
   import { ActionButton } from '$shared/components/Button';
   import { errorToast, successToast } from '$shared/components/NotificationToast';
   import { account } from '$shared/stores';
-  import { activeMigration, endMigrationModal } from '$shared/stores/modal';
+  import { activeMigration, endMigrationModal } from '$shared/stores/migration';
   import type { NFT } from '$shared/types/NFT';
   import { classNames } from '$shared/utils/classNames';
 

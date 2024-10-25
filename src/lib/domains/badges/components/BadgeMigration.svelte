@@ -13,7 +13,12 @@
   import type { BadgeMigration } from '$lib/shared/types/BadgeMigration';
   import { chainId } from '$lib/shared/utils/chain';
   import { account } from '$shared/stores';
-  import { activeMigration, endMigrationModal, refineMigrationModal, startMigrationModal } from '$shared/stores/modal';
+  import {
+    activeMigration,
+    endMigrationModal,
+    refineMigrationModal,
+    startMigrationModal,
+  } from '$shared/stores/migration';
   import { classNames } from '$shared/utils/classNames';
 
   import Countdown from './Countdown.svelte';

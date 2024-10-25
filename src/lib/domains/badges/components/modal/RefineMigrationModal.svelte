@@ -7,7 +7,7 @@
   import { ActionButton } from '$shared/components/Button';
   import { errorToast, successToast } from '$shared/components/NotificationToast';
   import { account } from '$shared/stores';
-  import { activeMigration, refineMigrationModal } from '$shared/stores/modal';
+  import { activeMigration, refineMigrationModal } from '$shared/stores/migration';
   import { chainId } from '$shared/utils/chain';
   import { classNames } from '$shared/utils/classNames';
 

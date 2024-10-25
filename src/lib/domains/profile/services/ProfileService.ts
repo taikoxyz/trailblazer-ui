@@ -17,7 +17,7 @@ import type { SeasonHistoryEntry, UserStats } from '$lib/domains/profile/types/U
 import type { PaginationInfo } from '$lib/shared/dto/CommonPageApiResponse';
 import type { NFT } from '$lib/shared/types/NFT';
 import { wagmiConfig } from '$lib/shared/wagmi';
-import { activeMigration } from '$shared/stores/modal';
+import { activeMigration } from '$shared/stores/migration';
 import type { BadgeMigration } from '$shared/types/BadgeMigration';
 import { getLogger } from '$shared/utils/logger';
 
