@@ -3,6 +3,7 @@
 
   import { goto } from '$app/navigation';
   import { page } from '$app/stores';
+  import LiquidityDisclaimer from '$lib/domains/leaderboard/components/Competition/LiquidityRoyale/LiquidityDisclaimer.svelte';
   import LiquidityRoyaleLeaderboard from '$lib/domains/leaderboard/components/Competition/LiquidityRoyale/LiquidityRoyaleLeaderboard.svelte';
   import type { DappLeaderboardItem } from '$lib/domains/leaderboard/dto/dapps.dto';
   import type { PaginationInfo } from '$lib/shared/dto/CommonPageApiResponse';
@@ -29,6 +30,7 @@
 
 <Page>
   <LiquidityRoyaleLeaderboard {pageInfo} {loading} season={2} />
+  <LiquidityDisclaimer />
 
   <div class={wrapperClasses}>
     <ActionButton class={buttonClasses} priority="primary" on:click={handleClick} withArrow>
