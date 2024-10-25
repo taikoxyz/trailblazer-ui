@@ -10,7 +10,7 @@
   import type { UserLeaderboardItem, UserLeaderboardPage } from '$lib/domains/leaderboard/types/user/types';
   import type { PaginationInfo } from '$lib/shared/dto/CommonPageApiResponse';
 
-  let headers = ['No.', 'Address', 'Points'];
+  let headers = ['No.', 'Address', 'Level', '', 'Points'];
 
   export let loading = false;
   export let pageInfo: PaginationInfo<UserLeaderboardItem>;

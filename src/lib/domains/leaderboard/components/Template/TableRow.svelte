@@ -42,16 +42,10 @@
   const avatarClasses = classNames('avatar', 'flex', 'items-center');
   const skeletonClasses = classNames('hidden', 'lg:table-cell');
   const twitterLinkClasses = classNames('f-row', 'text-primary-link', 'underline', 'text-[14px]/[20px]', 'gap-1');
-  const detailsButtonClasses = classNames('text-start', 'table-cell', 'lg:px-10', 'body-regular', 'w-3/12');
-  const levelCellClasses = classNames('lg:px-10', 'body-regular', 'w-3/12', 'text-left');
-  const titleCellClasses = classNames('lg:px-10', 'body-regular', 'w-3/12', 'text-left');
-  const scoreCellClasses = classNames(
-    'lg:px-10',
-    'body-regular',
-    'w-3/12',
-    'text-right',
-    'rounded-tr-[10px] rounded-br-[10px]',
-  );
+  const detailsButtonClasses = classNames('text-start', 'table-cell', 'body-regular', 'w-3/12');
+  const levelCellClasses = classNames('body-regular', 'w-3/12', 'text-left');
+  const titleCellClasses = classNames('body-regular', 'w-3/12', 'text-left');
+  const scoreCellClasses = classNames('body-regular', 'w-3/12', 'text-right', 'rounded-tr-[10px] rounded-br-[10px]');
   const expandedRowClasses = classNames('row border-y-2 border-neutral-background h-12 hover:bg-neutral-background  ');
 </script>
 

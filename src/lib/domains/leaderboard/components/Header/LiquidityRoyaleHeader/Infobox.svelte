@@ -4,7 +4,7 @@
 
   export let content: InfoBoxType;
 
-  const wrapperClasses = classNames('space-y-[20px]');
+  const wrapperClasses = classNames('space-y-[20px]', 'max-w-[600px]');
   const titleClasses = classNames('text-left', 'font-medium', 'text-[35px]', 'leading-[42px]');
   const textClasses = classNames('text-secondary-content');
   const iconClasses = classNames('size-[20px]');

@@ -29,7 +29,7 @@
     },
   ];
 
-  const gridClasses = classNames('grid', 'grid-cols-1', 'md:grid-cols-2', 'gap-[50px]');
+  const gridClasses = classNames('grid', 'grid-cols-1', 'md:grid-cols-2', 'gap-[74px]');
 
   const titleSectionClasses = classNames(
     'flex',

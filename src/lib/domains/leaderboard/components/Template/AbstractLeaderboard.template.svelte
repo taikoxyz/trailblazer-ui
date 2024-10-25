@@ -57,7 +57,9 @@
     'body-regular',
     'text-white',
     'rounded-3xl',
-    'border-separate border-spacing-y-[4px] border-spacing-x-0',
+    'border-separate',
+    'border-spacing-y-4',
+    'border-spacing-x-0',
   );
   const tbodyClass = classNames('rounded-lg', ended ? 'blur-[1.5px]' : '');
   const noDataRowClass = classNames('row', 'h-12');

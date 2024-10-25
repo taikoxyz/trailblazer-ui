@@ -47,7 +47,7 @@
     'text-center',
     'md:text-left',
     'md:w-[395px]',
-    'lg:w-[555px]',
+    'lg:w-[600px]',
     'font-clash-grotesk',
     'text-[16px]',
     'font-medium',

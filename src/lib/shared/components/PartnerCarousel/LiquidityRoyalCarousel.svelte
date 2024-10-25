@@ -30,4 +30,5 @@
   const description = $t('leaderboard.liquidityRoyale.carousel.description');
 </script>
 
-<PartnerCarousel carouselItems={partners} {title} {headline} {description} />
+<!-- NOTE: due to only having two cards initially, these are duplicated to behave like an infinite carousel -->
+<PartnerCarousel carouselItems={[...partners, ...partners]} {title} {headline} {description} />

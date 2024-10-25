@@ -142,7 +142,7 @@
 
   $: displayButtonNav = carouselItems.length > 1;
 
-  const carouselWrapperClasses = classNames('flex', 'justify-center', 'items-center', 'w-full', 'xl:max-w-[1440px]');
+  const carouselWrapperClasses = classNames('flex', 'justify-center', 'items-center', 'w-full', '');
 
   const commonButtonClasses = classNames(
     'rounded-full',
@@ -185,6 +185,8 @@
     'self-start',
     'justify-center',
     'md:justify-start',
+    'xl:w-[600px]',
+    'xl:mr-[50px]',
   );
 
   const titleTextClasses = classNames('text-[20px]', 'text-white', 'font-clash-grotesk');
@@ -203,15 +205,22 @@
     'relative',
     'w-full',
     'flex',
-    'justify-center',
+    'justify-end',
     'items-center',
     'md:mt-[50px]',
     'lg:min-w-[472px]',
     'lg:overflow-hidden',
-    'xl:w-full',
+    'xl:w-[920px]',
   );
 
-  const perspectiveClasses = classNames('relative', 'w-[1024px]', 'h-[350px]', 'perspective-[1000px]');
+  const perspectiveClasses = classNames(
+    'relative',
+    'w-[1024px]',
+    'h-[350px]',
+    'perspective-[1000px]',
+    'xl:w-[920px]',
+    'xl:overflow-hidden',
+  );
 
   const mobileNavClasses = classNames(
     'md:hidden',
