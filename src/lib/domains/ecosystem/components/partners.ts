@@ -300,6 +300,15 @@ const EcosystemPartners: IEcosystemPartner[] = [
     url: 'https://www.tanukix.com/',
   },
   {
+    name: 'TakoTako',
+    description:
+      'TAKOTAKO emphasizes on real yield by offering competitive rates and sharing almost half of its revenue with users.',
+    logo: '/dapps/takotako.svg',
+    category: 'DEX',
+    url: 'https://takotako.xyz',
+  },
+
+  {
     name: 'Rubic',
     description:
       'The benefits of using Rubic as a DEX and Bridge Aggregator include access to 80+ major blockchains, 220+ DEXs and bridges, one-click swapping of 15,500+ assets ',
