@@ -54,7 +54,7 @@ export class NftService {
     log('fetchAllNFTsForUser', { address });
 
     try {
-      const tokens = await this.adapter.fetchForUser(address);
+      const tokens = await this.adapter.fetchTaikoTokensForUser(address);
       const flatTokens: NFT[] = [];
       for (const token of tokens) {
         let uri = '';

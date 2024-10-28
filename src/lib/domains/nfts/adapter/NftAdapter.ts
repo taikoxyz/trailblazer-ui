@@ -10,13 +10,16 @@ const log = getLogger('NftAdapter');
 export class NftAdapter {
   /**
    * Fetches the NFTs for a user
-   *
+   * - snaefell
+   * - taikoons
+   * - s1 badges
+   * - s2 badges
    * @param {NFT} nft
    * @return {*}  {(Promise<NFT[]>)}
    * @memberof NftAdapter
    */
-  async fetchForUser(address: Address): Promise<NFT[]> {
-    log('fetchForUser', { address });
+  async fetchTaikoTokensForUser(address: Address): Promise<NFT[]> {
+    log('fetchTaikoTokensForUser', { address });
 
     try {
       const graphqlResponse = await graphqlClient.query({

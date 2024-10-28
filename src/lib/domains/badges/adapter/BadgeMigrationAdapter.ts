@@ -26,6 +26,9 @@ import parseGqlBadgeMigration from '../utils/parseGqlBadgeMigration';
 const log = getLogger('BadgeMigrationAdapter');
 
 export class BadgeMigrationAdapter {
+  constructor() {
+    log('constructor');
+  }
   /**
    * Fetches the currently-enabled migration s1 badge ids
    *
