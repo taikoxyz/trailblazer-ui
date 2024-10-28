@@ -47,9 +47,10 @@ const createMockQueryResult = <T>(data: T): ApolloQueryResult<T> => ({
 
 describe('BadgeMigrationAdapter', () => {
   let adapter: BadgeMigrationAdapter;
+
   //const mockTxHash = '0xTransactionHash';
 
-  //const SEASON_1 = 1;
+  // const SEASON_1 = 1;
   // const SEASON_2 = 2
 
   const mockEnabledMigrationIds = vi.mocked([0, 1, 2, 3]);
