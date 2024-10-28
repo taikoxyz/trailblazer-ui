@@ -33,11 +33,11 @@
 
   async function handleRefine() {
     try {
-      if (!$account || !$account.address || selectedMovement === null) return;
+      if (!$account || !$account.address || !$activeMigration || selectedMovement === null) return;
       isLoading = true;
       const address = $account.address;
 
-      await profileService.refineMigration($account.address, s1BadgeId, selectedMovement);
+      await profileService.refineMigration($account.address, $activeMigration?.s1Badge, selectedMovement);
       await profileService.getBadgeMigrations(address);
       isLoading = false;
 

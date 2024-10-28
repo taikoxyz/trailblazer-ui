@@ -2,6 +2,7 @@
   import Flippable from 'svelte-flip';
   import { t } from 'svelte-i18n';
 
+  import MigrationBadgeItem from '$lib/domains/badges/components/MigrationBadgeItem.svelte';
   import profileService from '$lib/domains/profile/services/ProfileServiceInstance';
   import { MovementNames, Movements } from '$lib/domains/profile/types/types';
   import { Spinner } from '$shared/components';
@@ -12,7 +13,6 @@
   import type { NFT } from '$shared/types/NFT';
   import { classNames } from '$shared/utils/classNames';
 
-  import MigrationBadgeItem from '../../../badges/components/MigrationBadgeItem.svelte';
   import CoreModal from './components/CoreModal.svelte';
   import CoreModalDescription from './components/CoreModalDescription.svelte';
   import CoreModalFooter from './components/CoreModalFooter.svelte';

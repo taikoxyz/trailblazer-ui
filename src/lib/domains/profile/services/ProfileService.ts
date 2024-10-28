@@ -531,14 +531,14 @@ export class ProfileService implements IProfileService {
     return this.badgeMigrationService.getEnabledMigrations();
   }
 
-  async startMigration(factionId: number): Promise<string> {
-    log('startMigration', { factionId });
-    return this.badgeMigrationService.startMigration(factionId);
+  async startMigration(address: Address, nft: NFT): Promise<NFT> {
+    log('startMigration', { address, nft });
+    return this.badgeMigrationService.startMigration(address, nft);
   }
 
-  async refineMigration(address: Address, factionId: number, movement: Movements): Promise<string> {
-    log('refineMigration', { address, factionId, movement });
-    return this.badgeMigrationService.refineMigration(address, factionId, movement);
+  async refineMigration(address: Address, nft: NFT, selectedMovement: Movements): Promise<NFT> {
+    log('refineMigration', { address, nft, selectedMovement });
+    return this.badgeMigrationService.refineMigration(address, nft, selectedMovement);
   }
 
   async endMigration(address: Address, nft: NFT): Promise<NFT> {

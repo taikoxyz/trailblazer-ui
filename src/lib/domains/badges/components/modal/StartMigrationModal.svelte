@@ -1,6 +1,7 @@
 <script lang="ts">
   import { t } from 'svelte-i18n';
 
+  import MigrationBadgeItem from '$lib/domains/badges/components/MigrationBadgeItem.svelte';
   import profileService from '$lib/domains/profile/services/ProfileServiceInstance';
   import { ActionButton } from '$shared/components/Button';
   import { errorToast, successToast } from '$shared/components/NotificationToast';
@@ -8,30 +9,30 @@
   import { activeMigration, refineMigrationModal, startMigrationModal } from '$shared/stores/migration';
   import { classNames } from '$shared/utils/classNames';
 
-  import MigrationBadgeItem from '../../../badges/components/MigrationBadgeItem.svelte';
   import CoreModal from './components/CoreModal.svelte';
   import CoreModalDescription from './components/CoreModalDescription.svelte';
   import CoreModalFooter from './components/CoreModalFooter.svelte';
   import CoreModalHeader from './components/CoreModalHeader.svelte';
   import CoreModalTitle from './components/CoreModalTitle.svelte';
 
-  $: s1BadgeId = ($activeMigration?.s1Badge?.metadata.badgeId as number) || 0;
   $: isLoading = false;
 
   async function handleStartMigration() {
     try {
-      if (!$account || !$account.address) {
+      if (!$account || !$account.address || !$activeMigration) {
         return;
       }
       isLoading = true;
       const address = $account.address;
 
-      await profileService.startMigration(s1BadgeId);
+      await profileService.startMigration(address, $activeMigration.s1Badge);
       await profileService.getBadgeMigrations(address);
+
       successToast({
         title: $t('badge_forge.modal.start_migration.toast.success.title'),
         message: $t('badge_forge.modal.start_migration.toast.success.message'),
       });
+
       isLoading = false;
       $startMigrationModal = false;
       $refineMigrationModal = true;

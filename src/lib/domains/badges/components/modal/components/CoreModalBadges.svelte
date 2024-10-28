@@ -3,7 +3,7 @@
   import type { NFT } from '$shared/types/NFT';
   import { classNames } from '$shared/utils/classNames';
 
-  import MigrationBadgeItem from '../../../../badges/components/MigrationBadgeItem.svelte';
+  import MigrationBadgeItem from '../../MigrationBadgeItem.svelte';
 
   export let active: boolean;
   export let devTampers: number = 0;

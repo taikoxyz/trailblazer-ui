@@ -20,14 +20,14 @@ export class BadgeMigrationService {
     return this.adapter.fetchEnabledMigrations();
   }
 
-  async startMigration(factionId: number): Promise<string> {
-    log('startMigration', { factionId });
-    return this.adapter.startMigration(factionId);
+  async startMigration(address: Address, nft: NFT): Promise<NFT> {
+    log('startMigration', { address, nft });
+    return this.adapter.startMigration(address, nft);
   }
 
-  async refineMigration(address: Address, factionId: number, movement: Movements): Promise<string> {
-    log('refineMigration', { movement });
-    return this.adapter.refineMigration(address, factionId, movement);
+  async refineMigration(address: Address, nft: NFT, selectedMovement: Movements): Promise<NFT> {
+    log('refineMigration', { address, nft, selectedMovement });
+    return this.adapter.refineMigration(address, nft, selectedMovement);
   }
 
   async endMigration(address: Address, nft: NFT): Promise<NFT> {
