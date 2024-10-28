@@ -19,9 +19,9 @@ import { wagmiConfig } from '$lib/shared/wagmi';
 import { globalAxiosConfig } from '$shared/services/api/axiosClient';
 import { FETCH_ENABLED_MIGRATIONS_QUERY, GET_MIGRATION_STATUS_QUERY } from '$shared/services/graphql/queries';
 import { getLogger } from '$shared/utils/logger';
-import getBadgeURI from '$shared/utils/nfts/getBadgeURI';
+import generateBadgeMetadata from '$shared/utils/nfts/generateBadgeMetadata';
 
-import parseGqlBadgeMigration from '../utils/parseGqlBadgeMigration';
+import parseGqlBadgeMigration from '../../../shared/utils/nfts/parseGqlBadgeMigration';
 
 const log = getLogger('BadgeMigrationAdapter');
 
@@ -71,12 +71,12 @@ export class BadgeMigrationAdapter {
   }
 
   /**
-   * Calls the `startMigration` method through the s1 bnadges
+   * Calls the `startMigration` method through the s1 badges
    *
    * @return {*}  {Promise<string>}
    * @memberof BadgeMigrationAdapter
    */
-  async startMigration(address: Address, nft: NFT): Promise<NFT> {
+  async startMigration(address: Address, nft: NFT): Promise<void> {
     log('startMigration', { address, nft });
     const badgeId = nft.metadata.badgeId as number;
     await writeContract(wagmiConfig, {
@@ -89,7 +89,7 @@ export class BadgeMigrationAdapter {
 
     return new Promise((resolve, reject) => {
       try {
-        this._listenForMigrationEnd(address, nft, resolve);
+        this._listenForMigrationUpdate(address, nft, resolve);
       } catch (e) {
         reject(e);
       }
@@ -157,7 +157,7 @@ export class BadgeMigrationAdapter {
    * @return {*}  {Promise<string>}
    * @memberof BadgeMigrationAdapter
    */
-  async refineMigration(address: Address, nft: NFT, selectedMovement: Movements): Promise<NFT> {
+  async refineMigration(address: Address, nft: NFT, selectedMovement: Movements): Promise<void> {
     log('refineMigration', { address, nft });
 
     const { r, s, v, points, hash } = await this._getMigrationSignature(address, nft.metadata.badgeId as number);
@@ -172,7 +172,7 @@ export class BadgeMigrationAdapter {
 
     return new Promise((resolve, reject) => {
       try {
-        this._listenForMigrationEnd(address, nft, resolve);
+        this._listenForMigrationUpdate(address, nft, resolve);
       } catch (e) {
         reject(e);
       }
@@ -253,6 +253,27 @@ export class BadgeMigrationAdapter {
   }
 
   /**
+   * Listener for the migration's update
+   *
+   * @return {*}  {Promise<void>}
+   * @memberof BadgeMigrationAdapter
+   */
+  private async _listenForMigrationUpdate(address: Address, token: NFT, callback: () => void): Promise<void> {
+    const unwatch = watchContractEvent(wagmiConfig, {
+      address: badgeMigrationAddress[chainId],
+      abi: badgeMigrationAbi,
+      eventName: 'MigrationUpdated',
+      args: {
+        user: address,
+      },
+      onLogs() {
+        callback();
+        unwatch();
+      },
+    });
+  }
+
+  /**
    * Listener for the migration's completion
    *
    * @return {*}  {Promise<NFT>}
@@ -269,17 +290,13 @@ export class BadgeMigrationAdapter {
       onLogs(logs) {
         const { finalColor, s2TokenId } = logs[0].args;
         const movement = parseInt(finalColor!.toString()) as Movements;
-        const uri = getBadgeURI(token.metadata.badgeId as number, movement);
 
         callback({
           ...token,
           tokenId: parseInt(s2TokenId!.toString()),
           metadata: {
             ...token.metadata,
-            movement,
-            image: `${uri}.png`,
-            'video/mp4': `${uri}.mp4`,
-            'video/webm': `${uri}.webm`,
+            ...generateBadgeMetadata(token.metadata.badgeId as number, movement),
           },
         });
         unwatch();

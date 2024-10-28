@@ -4,43 +4,31 @@ import type { Movements } from '$lib/domains/profile/types/types';
 import type { BadgeMigration } from '$shared/types/BadgeMigration';
 import type { NFT } from '$shared/types/NFT';
 import { chainId } from '$shared/utils/chain';
-import getBadgeURI from '$shared/utils/nfts/getBadgeURI';
+
+import generateBadgeMetadata from './generateBadgeMetadata';
 
 export default async function parseGqlBadgeMigration(
   raw: GqlBadgeMigration,
   approvedTokenIds: number[],
 ): Promise<BadgeMigration> {
   const s1badgeId = parseInt(raw.s1Badge.badgeId.toString());
-  const uri = getBadgeURI(s1badgeId);
   const s1Badge = {
     tokenId: parseInt(raw.s1Badge.tokenId.toString()),
     address: trailblazersBadgesAddress[chainId],
-    metadata: {
-      badgeId: s1badgeId,
-      image: `${uri}.png`,
-      'video/mp4': `${uri}.mp4`,
-      'video/webm': `${uri}.webm`,
-    },
-    tokenUri: '',
+    metadata: generateBadgeMetadata(s1badgeId),
+    tokenUri: raw.s1Badge.uri || '',
   } satisfies NFT;
 
   let s2Badge = undefined;
   if (raw.s2Badge) {
     const badgeId = parseInt(raw.s2Badge.badgeId.toString());
     const movement = parseInt(raw.s2Badge.movement) as Movements;
-    const uri = getBadgeURI(s1badgeId);
 
     s2Badge = {
       tokenId: parseInt(raw.s2Badge.tokenId.toString()),
       address: trailblazersBadgesAddress[chainId],
-      metadata: {
-        movement,
-        badgeId,
-        image: `${uri}.png`,
-        'video/mp4': `${uri}.mp4`,
-        'video/webm': `${uri}.webm`,
-      },
-      tokenUri: '',
+      metadata: generateBadgeMetadata(badgeId, movement),
+      tokenUri: raw.s2Badge.uri || '',
     } satisfies NFT;
   }
   const tamperExpirationTimeout = parseInt(raw.tamperExpirationTimeout.toString());

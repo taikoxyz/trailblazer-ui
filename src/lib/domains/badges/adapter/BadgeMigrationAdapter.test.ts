@@ -1,9 +1,11 @@
 import type { ApolloQueryResult } from '@apollo/client';
 
 import { trailblazersBadgesAddress } from '$generated/abi';
+import { Movements } from '$lib/domains/profile/types/types';
 import { graphqlClient } from '$lib/shared/services/graphql/client';
 import { FETCH_ENABLED_MIGRATIONS_QUERY, GET_MIGRATION_STATUS_QUERY } from '$lib/shared/services/graphql/queries';
 import { chainId } from '$shared/utils/chain';
+import generateBadgeMetadata from '$shared/utils/nfts/generateBadgeMetadata';
 
 import { BadgeMigrationAdapter } from './BadgeMigrationAdapter';
 
@@ -201,24 +203,13 @@ describe('BadgeMigrationAdapter', () => {
           s1Badge: {
             tokenId: 1,
             address: trailblazersBadgesAddress[chainId],
-            metadata: {
-              badgeId: 1,
-              image: '/factions/robots/dev.png',
-              'video/mp4': '/factions/robots/dev.mp4',
-              'video/webm': '/factions/robots/dev.webm',
-            },
+            metadata: generateBadgeMetadata(1),
             tokenUri: '',
           },
           s2Badge: {
             tokenId: 2,
             address: trailblazersBadgesAddress[chainId],
-            metadata: {
-              movement: 1,
-              badgeId: 2,
-              image: '/factions/robots/dev.png',
-              'video/mp4': '/factions/robots/dev.mp4',
-              'video/webm': '/factions/robots/dev.webm',
-            },
+            metadata: generateBadgeMetadata(2, Movements.Dev),
             tokenUri: '',
           },
           isStarted: true,

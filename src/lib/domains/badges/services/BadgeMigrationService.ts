@@ -20,12 +20,12 @@ export class BadgeMigrationService {
     return this.adapter.fetchEnabledMigrations();
   }
 
-  async startMigration(address: Address, nft: NFT): Promise<NFT> {
+  async startMigration(address: Address, nft: NFT): Promise<void> {
     log('startMigration', { address, nft });
     return this.adapter.startMigration(address, nft);
   }
 
-  async refineMigration(address: Address, nft: NFT, selectedMovement: Movements): Promise<NFT> {
+  async refineMigration(address: Address, nft: NFT, selectedMovement: Movements): Promise<void> {
     log('refineMigration', { address, nft, selectedMovement });
     return this.adapter.refineMigration(address, nft, selectedMovement);
   }

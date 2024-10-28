@@ -8,6 +8,7 @@
   import profileService from '$lib/domains/profile/services/ProfileServiceInstance';
   import { userProfile } from '$lib/domains/profile/stores';
   import type { FactionBadgeButton } from '$lib/domains/profile/types/FactionBadgeButton';
+  import { Movements } from '$lib/domains/profile/types/types';
   import { FaqBlock } from '$lib/domains/splashpage/components/FaqBlock';
   import type { IFaqEntry } from '$lib/domains/splashpage/components/FaqBlock/FaqBlock.svelte';
   import type { BadgeMigration } from '$lib/shared/types/BadgeMigration';
@@ -20,6 +21,7 @@
     startMigrationModal,
   } from '$shared/stores/migration';
   import { classNames } from '$shared/utils/classNames';
+  import getMockBadge from '$shared/utils/nfts/getMockBadge';
 
   import Countdown from './Countdown.svelte';
 
@@ -142,12 +144,9 @@
 
   async function handleStartMigration(badgeId: number) {
     if (!$account || !$account.address) return;
-    //const tokenId = await profileService.getBadgeTokenId($account.address, badgeId);
+
     $activeMigration = {
-      s1Badge: {
-        ...profileService.getMockBadge(trailblazersBadgesAddress[chainId], badgeId),
-        //   tokenId,
-      },
+      s1Badge: getMockBadge(trailblazersBadgesAddress[chainId], badgeId),
       id: '',
       isStarted: false,
       isCompleted: false,
@@ -224,7 +223,7 @@
             {@const buttonDisabled =
               (activeMigrationBadgeId >= 0 && activeMigrationBadgeId !== badgeId) ||
               (migration?.tamperExpirationTimeout && migration.tamperExpirationTimeout > new Date())}
-            {@const token = migration?.s2Badge || migration?.s1Badge}
+            {@const token = migration?.s1Badge}
             {@const tamperExpiration = migration?.tamperExpirationTimeout}
             {@const isTamperActive = migration || (tamperExpiration && tamperExpiration > new Date())}
             {@const claimExpiration = migration?.claimExpirationTimeout}
@@ -234,7 +233,7 @@
               !disabled || (migration && migration.isCompleted) || (tamperExpiration && tamperExpiration > new Date())}
 
             <FactionBadgeItem
-              token={token || profileService.getMockBadge(trailblazersBadgesAddress[chainId], badgeId)}
+              token={token || getMockBadge(trailblazersBadgesAddress[chainId], badgeId, Movements.Dev)}
               {inColor}
               {blurred}
               {buttonDisabled}

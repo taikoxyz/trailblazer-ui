@@ -1,14 +1,12 @@
 import axios from 'axios';
-import { type Address, isAddressEqual } from 'viem';
+import { type Address } from 'viem';
 
-import { trailblazersBadgesAddress, trailblazersBadgesS2Address } from '$generated/abi';
 import type { NFTMetadata } from '$lib/domains/nfts/types/shared/types';
 import { Movements } from '$lib/domains/profile/types/types';
 import { type NFT, TokenType } from '$lib/shared/types/NFT';
 import { globalAxiosConfig } from '$shared/services/api/axiosClient';
-import { chainId } from '$shared/utils/chain';
 import { getLogger } from '$shared/utils/logger';
-import getBadgeURI from '$shared/utils/nfts/getBadgeURI';
+import generateBadgeMetadata from '$shared/utils/nfts/generateBadgeMetadata';
 
 import { NftAdapter } from '../adapter/NftAdapter';
 
@@ -57,26 +55,15 @@ export class NftService {
       const tokens = await this.adapter.fetchTaikoTokensForUser(address);
       const flatTokens: NFT[] = [];
       for (const token of tokens) {
-        let uri = '';
-
         if (token.metadata.badgeId !== undefined) {
           const badgeId = token.metadata.badgeId as number;
           const movement = token.metadata.movement as Movements;
-          if (isAddressEqual(trailblazersBadgesAddress[chainId], token.address)) {
-            // s1 badge
-            uri = getBadgeURI(badgeId);
-          } else if (isAddressEqual(trailblazersBadgesS2Address[chainId], token.address)) {
-            // s2 badge
-            uri = getBadgeURI(badgeId, movement);
-          }
 
           flatTokens.push({
             ...token,
             metadata: {
               ...token.metadata,
-              image: `${uri}.png`,
-              'video/mp4': `${uri}.mp4`,
-              'video/webm': `${uri}.webm`,
+              ...generateBadgeMetadata(badgeId, movement),
             },
           });
         } else {
@@ -110,27 +97,13 @@ export class NftService {
    * @memberof NftService
    */
   getMockBadge(contract: Address, badgeId: number, movement?: Movements): NFT {
-    let uri = '';
-    if (isAddressEqual(trailblazersBadgesAddress[chainId], contract)) {
-      uri = getBadgeURI(badgeId);
-    }
-
-    if (isAddressEqual(trailblazersBadgesS2Address[chainId], contract)) {
-      uri = getBadgeURI(badgeId, movement || Movements.Dev);
-    }
-
     const badge = {
       tokenId: -1,
-
       tokenUri: '',
       address: contract,
       metadata: {
+        ...generateBadgeMetadata(badgeId, movement),
         erc: TokenType.Unknown,
-        badgeId,
-        movement: movement || Movements.Dev,
-        image: `${uri}.png`,
-        'video/mp4': `${uri}.mp4`,
-        'video/webm': `${uri}.webm`,
       },
     } satisfies NFT;
 

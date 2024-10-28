@@ -1,4 +1,5 @@
 import { getAccount } from '@wagmi/core';
+import { get } from 'svelte/store';
 import { type Address, getAddress, type Hash } from 'viem';
 
 import { BadgeMigrationService } from '$lib/domains/badges/services/BadgeMigrationService';
@@ -18,7 +19,6 @@ import type { PaginationInfo } from '$lib/shared/dto/CommonPageApiResponse';
 import type { NFT } from '$lib/shared/types/NFT';
 import { wagmiConfig } from '$lib/shared/wagmi';
 import { activeMigration } from '$shared/stores/migration';
-import type { BadgeMigration } from '$shared/types/BadgeMigration';
 import { getLogger } from '$shared/utils/logger';
 
 import type { UserPointHistory } from '../types/ActivityHistory';
@@ -527,26 +527,74 @@ export class ProfileService implements IProfileService {
     }
   }
 
+  /**
+   * Fetches enabled migrations
+   *
+   * @return {*}  {Promise<number[]>}
+   * @memberof ProfileService
+   */
   async getEnabledMigrations(): Promise<number[]> {
     log('getEnabledMigrations');
     return this.badgeMigrationService.getEnabledMigrations();
   }
 
-  async startMigration(address: Address, nft: NFT): Promise<NFT> {
+  /**
+   * Starts a migration process
+   *
+   * @param {Address} address
+   * @param {NFT} nft
+   * @return {*}  {Promise<NFT>}
+   * @memberof ProfileService
+   */
+  async startMigration(address: Address, nft: NFT): Promise<void> {
     log('startMigration', { address, nft });
     return this.badgeMigrationService.startMigration(address, nft);
   }
 
-  async refineMigration(address: Address, nft: NFT, selectedMovement: Movements): Promise<NFT> {
+  /**
+   * Starts a migration process
+   *
+   * @param {Address} address
+   * @param {NFT} nft
+   * @param {Movements} selectedMovement
+   * @return {*}  {Promise<NFT>}
+   * @memberof ProfileService
+   */
+  async refineMigration(address: Address, nft: NFT, selectedMovement: Movements): Promise<void> {
     log('refineMigration', { address, nft, selectedMovement });
-    return this.badgeMigrationService.refineMigration(address, nft, selectedMovement);
+    await this.badgeMigrationService.refineMigration(address, nft, selectedMovement);
+    const active = get(activeMigration);
+    if (!active) {
+      throw new Error('No active migration found');
+    }
+    activeMigration.set({
+      ...active,
+      devTampers: active.devTampers + (selectedMovement === Movements.Dev ? 1 : 0),
+      whaleTampers: active.whaleTampers + (selectedMovement === Movements.Whale ? 1 : 0),
+      minnowTampers: active.minnowTampers + (selectedMovement === Movements.Minnow ? 1 : 0),
+    });
   }
 
+  /**
+   * Starts a migration process
+   *
+   * @param {Address} address
+   * @param {NFT} nft
+   * @return {*}  {Promise<NFT>}
+   * @memberof ProfileService
+   */
   async endMigration(address: Address, nft: NFT): Promise<NFT> {
     log('endMigration', { address, nft });
     return this.badgeMigrationService.endMigration(address, nft);
   }
 
+  /**
+   * Starts a migration process
+   *
+   * @param {Address} address
+   * @return {*}  {Promise<void>}
+   * @memberof ProfileService
+   */
   async getBadgeMigrations(address: Address): Promise<void> {
     log('getMigrationStatus', { address });
     const migrations = await this.badgeMigrationService.getMigrationStatus(address);
@@ -617,30 +665,5 @@ export class ProfileService implements IProfileService {
     } catch (error) {
       log('Error in previousSeasonFinalScores:', error);
     }
-  }
-
-  async migrationListener(address: Address, callback: (migrations: BadgeMigration[]) => void): Promise<void> {
-    const currentMigrations = (await this.userRepository.get()).badgeMigrations;
-    setTimeout(async () => {
-      const migrations = await this.badgeMigrationService.getMigrationStatus(address);
-
-      const hasChanged = JSON.stringify(currentMigrations) !== JSON.stringify(migrations);
-
-      if (hasChanged) {
-        log('migrationListener', { address, migrations });
-
-        await this.userRepository.update({
-          badgeMigrations: migrations,
-        });
-
-        return callback(migrations);
-      } else {
-        return this.migrationListener(address, callback);
-      }
-    }, 1000);
-  }
-
-  getMockBadge(contract: Address, badgeId: number, movement?: Movements) {
-    return this.combinedNFTService.getMockBadge(contract, badgeId, movement);
   }
 }

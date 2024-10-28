@@ -10,6 +10,7 @@
   import { activeMigration, refineMigrationModal } from '$shared/stores/migration';
   import { chainId } from '$shared/utils/chain';
   import { classNames } from '$shared/utils/classNames';
+  import getMockBadge from '$shared/utils/nfts/getMockBadge';
 
   import MigrationBadgeItem from '../MigrationBadgeItem.svelte';
   import TamperRadio from '../RefineRadio.svelte';
@@ -35,13 +36,12 @@
     try {
       if (!$account || !$account.address || !$activeMigration || selectedMovement === null) return;
       isLoading = true;
-      const address = $account.address;
 
-      await profileService.refineMigration($account.address, $activeMigration?.s1Badge, selectedMovement);
-      await profileService.getBadgeMigrations(address);
+      await profileService.refineMigration($account.address, $activeMigration.s1Badge, selectedMovement);
+
       isLoading = false;
-
       $refineMigrationModal = false;
+
       successToast({
         title: 'Success',
         message: `You have successfully tampered your badge to ${MovementNames[selectedMovement]}`,
@@ -78,7 +78,7 @@
       <MigrationBadgeItem
         value={$activeMigration?.whaleTampers}
         shadow
-        token={profileService.getMockBadge(trailblazersBadgesS2Address[chainId], s1BadgeId, Movements.Whale)}>
+        token={getMockBadge(trailblazersBadgesS2Address[chainId], s1BadgeId, Movements.Whale)}>
         <div class={detailsClasses}>
           {MovementNames[Movements.Whale]}
           <TamperRadio
@@ -105,7 +105,7 @@
       <MigrationBadgeItem
         value={$activeMigration?.minnowTampers}
         shadow
-        token={profileService.getMockBadge(trailblazersBadgesS2Address[chainId], s1BadgeId, Movements.Minnow)}>
+        token={getMockBadge(trailblazersBadgesS2Address[chainId], s1BadgeId, Movements.Minnow)}>
         <div class={detailsClasses}>
           {MovementNames[Movements.Minnow]}
           <TamperRadio
