@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { t } from 'svelte-i18n';
   import { isAddressEqual } from 'viem';
 
   import { trailblazersBadgesAddress } from '$generated/abi';
@@ -80,10 +81,12 @@
 
   <div class={bubbleWrapperClasses}>
     <div class={bubbleClasses}>
-      Season {season}
+      {$t('badge_forge.labels.season')}
+      {season}
     </div>
     <div class={bubbleClasses}>
-      Trail {badgeId + 1}
+      {$t('badge_forge.labels.trail')}
+      {badgeId + 1}
     </div>
     {#if season > 1}
       <div class={bubbleClasses}>

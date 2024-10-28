@@ -1,9 +1,9 @@
 <script lang="ts">
-  import { type FactionNames, FACTIONS } from '$configs/badges';
+  import { t } from 'svelte-i18n';
+
   import { trailblazersBadgesS2Address } from '$generated/abi';
   import profileService from '$lib/domains/profile/services/ProfileServiceInstance';
   import { MovementNames, Movements } from '$lib/domains/profile/types/types';
-  import timeUntil from '$lib/shared/utils/date/timeUntil';
   import { ActionButton } from '$shared/components/Button';
   import { errorToast, successToast } from '$shared/components/NotificationToast';
   import { account } from '$shared/stores';
@@ -27,9 +27,7 @@
 
   $: s1BadgeId = ($activeMigration?.s1Badge?.metadata.badgeId as number) || 0;
 
-  $: refineExpiration = $activeMigration?.tamperExpirationTimeout;
   $: isLoading = false;
-  $: badgeName = FACTIONS[s1BadgeId] as FactionNames;
 
   $: selectedMovement = null as null | Movements;
 
@@ -67,15 +65,11 @@
 <CoreModal open={$refineMigrationModal}>
   <CoreModalHeader>
     <CoreModalTitle>
-      {#if refineExpiration && new Date() < refineExpiration}
-        Refine available in {timeUntil(refineExpiration)}
-      {:else}
-        Your Season 2 Badge is being forged
-      {/if}
+      {$t('badge_forge.modal.refine_migration.title')}
     </CoreModalTitle>
 
     <CoreModalDescription>
-      Refine your badge to favor the path of your Season 2 {badgeName}
+      {$t('badge_forge.modal.refine_migration.description')}
     </CoreModalDescription>
   </CoreModalHeader>
 
@@ -129,6 +123,8 @@
       loading={isLoading}
       on:click={handleRefine}
       disabled={isLoading || selectedMovement === null}
-      priority="primary">Refine</ActionButton>
+      priority="primary">
+      {$t('badge_forge.buttons.refine')}
+    </ActionButton>
   </CoreModalFooter>
 </CoreModal>

@@ -511,6 +511,61 @@
     }
   },
   "badge_forge": {
+    "buttons": {
+      "not_eligible": "Not eligible",
+      "refine": "Refine",
+      "start_migration": "Start migration",
+      "end_migration": "Claim",
+      "reveal": "Reveal"
+    },
+    "labels": {
+      "season": "Season",
+      "trail": "Trail"
+    },
+    "main": {
+      "can_refine_in": "You can refine again in:",
+      "can_claim_in": "Badge forged in:",
+      "no_enabled_migrations": "No migrations are currently enabled. Stay tuned!"
+    },
+    "modal": {
+      "start_migration": {
+        "title": "Start your forge process",
+        "description": "Time to forge your Season 2 badge.",
+        "warning": "⚠️ WARNING ⚠️ You won't be able to transfer your season 1 badge for 365 days once the forge process starts.",
+        "toast": {
+          "success": {
+            "title": "Success",
+            "message": "You have successfully started the migration of your badge."
+          },
+          "error": {
+            "title": "Error",
+            "message": {
+              "default": "Could not start your migration. Please try again later.",
+              "rejected": "You have rejected the migration.",
+              "already_started": "You have already started another migration."
+            }
+          }
+        }
+      },
+      "refine_migration": {
+        "title": "Your Season 2 Badge is being forged",
+        "description": "Refine your badge to favor the path of your Season 2 badge."
+      },
+      "end_migration": {
+        "title": "Congratulations!",
+        "description": "You have successfully forged your badge. You can now claim it.",
+        "toast": {
+          "success": {
+            "title": "Badge forge claim",
+            "message": "You have successfully claimed your badge"
+          },
+          "error": {
+            "title": "Badge forge claim error",
+            "default_message": "Error claiming your badge forge"
+          }
+        }
+      }
+    },
     "faq": {
       "title": "Badge Forge FAQ",
       "entries": [
@@ -523,6 +578,14 @@
           "answer": "Tamper with your chances of getting your season 2 badge in any of the 3 possible teams: Devs, Minnows and Whales."
         }
       ]
+    }
+  },
+  "date": {
+    "labels": {
+      "days": "d",
+      "hours": "h",
+      "minutes": "min",
+      "seconds": "s"
     }
   }
 }

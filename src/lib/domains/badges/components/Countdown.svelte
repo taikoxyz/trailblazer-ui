@@ -2,16 +2,17 @@
   import dayjs from 'dayjs';
   import duration from 'dayjs/plugin/duration';
   import { createEventDispatcher, onMount } from 'svelte';
+  import { t } from 'svelte-i18n';
 
   dayjs.extend(duration);
 
   export let target: Date;
 
   export let labels: { days: string; hours: string; minutes: string; seconds: string } = {
-    days: 'Days',
-    hours: 'Hours',
-    minutes: 'Minutes',
-    seconds: 'Seconds',
+    days: $t('date.labels.days'),
+    hours: $t('date.labels.hours'),
+    minutes: $t('date.labels.minutes'),
+    seconds: $t('date.labels.seconds'),
   };
 
   export let itemClasses = '';

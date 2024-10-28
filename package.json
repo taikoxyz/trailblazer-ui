@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "vite dev --host",
     "dev:prod": "vite dev --mode production",
+    "dev:i18n-debug": "node scripts/i18nDebug.js && export PUBLIC_DEBUG_I18N=true && pnpm dev",
     "build": "vite build",
     "preview": "vite preview",
     "test:pw": "playwright test",

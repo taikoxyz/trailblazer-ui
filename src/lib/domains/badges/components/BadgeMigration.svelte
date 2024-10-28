@@ -185,21 +185,21 @@
     NotEligible: {
       disabled: true,
       type: 'primary',
-      label: 'Not eligible',
+      label: $t('badge_forge.buttons.not_eligible'),
     },
     Refine: {
       type: 'primary',
-      label: 'Refine',
+      label: $t('badge_forge.buttons.refine'),
       handler: handleTamperModal,
     },
     StartMigration: {
       type: 'primary',
-      label: 'Start migration',
+      label: $t('badge_forge.buttons.start_migration'),
       handler: handleStartMigration,
     },
     EndMigration: {
       type: 'primary',
-      label: 'Claim',
+      label: $t('badge_forge.buttons.end_migration'),
       handler: handleEndMigration,
     },
   } as Record<string, FactionBadgeButton>;
@@ -255,10 +255,10 @@
                   <div class={timerLabelClasses}>
                     {#if tamperExpiration && tamperExpiration > new Date()}
                       <!-- cannot re-tamper yet-->
-                      You can refine again in:
+                      {$t('badge_forge.main.can_refine_in')}
                     {:else if claimExpiration && claimExpiration > new Date()}
                       <!-- logic for untampered, time 0 -->
-                      Badge forged in:
+                      {$t('badge_forge.main.can_claim_in')}
                     {/if}
                   </div>
 
@@ -269,7 +269,12 @@
                         on:end={forceUpdateUI}
                         class={countdownWrapperClasses}
                         itemClasses={countdownItemClasses}
-                        labels={{ days: 'd', hours: 'h', minutes: 'min', seconds: 's' }}
+                        labels={{
+                          days: $t('date.labels.days'),
+                          hours: $t('date.labels.hours'),
+                          minutes: $t('date.labels.minutes'),
+                          seconds: $t('date.labels.seconds'),
+                        }}
                         target={tamperExpiration} />
                     {:else if claimExpiration && claimExpiration > new Date()}
                       <!-- logic for untampered -->
@@ -277,7 +282,12 @@
                         on:end={forceUpdateUI}
                         class={countdownWrapperClasses}
                         itemClasses={countdownItemClasses}
-                        labels={{ days: 'd', hours: 'h', minutes: 'min', seconds: 's' }}
+                        labels={{
+                          days: $t('date.labels.days'),
+                          hours: $t('date.labels.hours'),
+                          minutes: $t('date.labels.minutes'),
+                          seconds: $t('date.labels.seconds'),
+                        }}
                         target={claimExpiration} />
                     {/if}
                   {/if}
@@ -288,7 +298,7 @@
         </div>
       {:else}
         <div class={infoTextClasses}>
-          <p>No migrations are currently enabled. Stay tuned!</p>
+          <p>{$t('badge_forge.main.no_enabled_migrations')}</p>
         </div>
       {/if}
     </div>
