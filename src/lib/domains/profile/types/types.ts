@@ -74,3 +74,8 @@ export enum Movements {
 }
 
 export const MovementNames: string[] = Object.keys(Movements).filter((key) => isNaN(Number(key)));
+
+export enum Seasons {
+  Season1 = 1,
+  Season2 = 2,
+}

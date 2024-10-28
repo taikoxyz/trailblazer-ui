@@ -5,10 +5,9 @@
     'w-[450px]',
     'justify-center',
     'items-center',
-    'gap-[60px]',
+    'gap-[24px]',
     'flex',
     'flex-col',
-
     'text-[24px]/[32px]',
     'font-clash-grotesk',
     'text-secondary-content',

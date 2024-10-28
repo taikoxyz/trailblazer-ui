@@ -15,13 +15,12 @@ import { graphqlClient } from '$lib/shared/services/graphql/client';
 import type { BadgeMigration } from '$lib/shared/types/BadgeMigration';
 import type { NFT } from '$lib/shared/types/NFT';
 import { chainId } from '$lib/shared/utils/chain';
+import parseGqlBadgeMigration from '$lib/shared/utils/nfts/parseGqlBadgeMigration';
 import { wagmiConfig } from '$lib/shared/wagmi';
 import { globalAxiosConfig } from '$shared/services/api/axiosClient';
 import { FETCH_ENABLED_MIGRATIONS_QUERY, GET_MIGRATION_STATUS_QUERY } from '$shared/services/graphql/queries';
 import { getLogger } from '$shared/utils/logger';
 import generateBadgeMetadata from '$shared/utils/nfts/generateBadgeMetadata';
-
-import parseGqlBadgeMigration from '../../../shared/utils/nfts/parseGqlBadgeMigration';
 
 const log = getLogger('BadgeMigrationAdapter');
 

@@ -47,6 +47,10 @@ const createMockQueryResult = <T>(data: T): ApolloQueryResult<T> => ({
 
 describe('BadgeMigrationAdapter', () => {
   let adapter: BadgeMigrationAdapter;
+  //const mockTxHash = '0xTransactionHash';
+
+  //const SEASON_1 = 1;
+  // const SEASON_2 = 2
 
   const mockEnabledMigrationIds = vi.mocked([0, 1, 2, 3]);
 
@@ -77,40 +81,42 @@ describe('BadgeMigrationAdapter', () => {
   describe('startMigration', () => {
     it('should start migration', async () => {
       /*
-      const mockFactionId = 1;
+      const mockBadge = getMockBadge(SEASON_1, 1);
+
+      const mockAddress = '0xAddress' as Address;
+
       vi.mocked(writeContract).mockResolvedValue(mockTxHash);
 
-      const result = await adapter.startMigration(mockFactionId);
+      const result = await adapter.startMigration(mockAddress, mockBadge);
 
       expect(writeContract).toHaveBeenCalledWith(wagmiConfig, {
         abi: trailblazersBadgesAbi,
         address: trailblazersBadgesAddress[chainId],
         functionName: 'startMigration',
-        args: [BigInt(mockFactionId)],
+        args: [BigInt(mockBadge.metadata.badgeId as number)],
         chainId,
       });
 
-      expect(pendingTransactions.add).toHaveBeenCalledWith(mockTxHash);
-      expect(result).toBe(mockTxHash);
-      */
+      expect(result).toBe(mockTxHash);*/
     });
   });
   describe('refineMigration', () => {
     /*
     const mockTxHash: Hash = '0xTransactionHash' as Hash;
-  const mockSignatureResponse = {
-    data: {
-      signature: 'sampleSignature',
-      points: 100,
-    },
-  };
-  */
+    const mockSignatureResponse = {
+      data: {
+        signature: '0x2c6404e913a67da2ed0d48d0d3e06c8a7bc0c2416bb22f4a6f4455e1d6c5d9a274b2c3b1c5b2d403f2ff490c1fd37eab2a5e2d197bd2190c8889a8a2e2fdf0e31b',
+        points: 100,
+      },
+    };*/
 
     it('should refine migration with a valid transaction', async () => {
       /*
-       const mockAddress = '0x1234567890abcdef1234567890abcdef12345678';
-      const mockFactionId = 1;
-      const mockMovement = 2;
+      const mockAddress = '0x1234567890abcdef1234567890abcdef12345678';
+
+      const mockBadge = getMockBadge(SEASON_1, 1);
+
+      const mockMovement = Movements.Dev;
 
       // Mock the signature response and parsing
       vi.mocked(axios.post).mockResolvedValue(mockSignatureResponse);
@@ -118,7 +124,7 @@ describe('BadgeMigrationAdapter', () => {
       vi.mocked(readContract).mockResolvedValue('0xGeneratedClaimHash');
       vi.mocked(writeContract).mockResolvedValue(mockTxHash);
 
-      const result = await adapter.refineMigration(mockAddress, mockFactionId, mockMovement);
+      const result = await adapter.refineMigration(mockAddress, mockBadge, mockMovement);
 
       expect(signMessage).toHaveBeenCalledWith(wagmiConfig, { message: expect.any(String) });
       expect(axios.post).toHaveBeenCalledWith(
@@ -127,10 +133,10 @@ describe('BadgeMigrationAdapter', () => {
           address: mockAddress,
           signature: 'signedChallenge',
           message: expect.any(String),
-          badgeId: mockFactionId,
+          badgeId: mockBadge.metadata.badgeId,
           chainId,
         },
-        expect.any(Object)
+        expect.any(Object),
       );
 
       expect(readContract).toHaveBeenCalledWith(wagmiConfig, {
@@ -156,7 +162,6 @@ describe('BadgeMigrationAdapter', () => {
         chainId,
       });
 
-      expect(pendingTransactions.add).toHaveBeenCalledWith(mockTxHash);
       expect(result).toBe(mockTxHash);
       */
     });
@@ -209,7 +214,7 @@ describe('BadgeMigrationAdapter', () => {
           s2Badge: {
             tokenId: 2,
             address: trailblazersBadgesAddress[chainId],
-            metadata: generateBadgeMetadata(2, Movements.Dev),
+            metadata: generateBadgeMetadata(2, Movements.Whale),
             tokenUri: '',
           },
           isStarted: true,

@@ -69,6 +69,21 @@
     'md:gap-[40px]',
     'lg:gap-[80px]',
   );
+
+  const warningClasses = classNames(
+    'bg-[#382800]',
+    'text-[#EBB222]',
+    'px-[20px]',
+    'py-[12px]',
+    'rounded-[10px]',
+    'flex',
+    'gap-[12px]',
+    'text-left',
+    'text-[16px]/[24px]',
+    'font-[400]',
+    'justify-center',
+    'items-center',
+  );
 </script>
 
 <CoreModal open={$startMigrationModal}>
@@ -90,7 +105,11 @@
   {/if}
 
   <CoreModalFooter>
-    {$t('badge_forge.modal.start_migration.warning')}
+    <div class={warningClasses}>
+      <img src="/icons/exclaimation-circle.svg" alt="Warning" class="w-[24px] h-[24px]" />
+      <p>{$t('badge_forge.modal.start_migration.warning')}</p>
+    </div>
+
     <ActionButton loading={isLoading} disabled={isLoading} on:click={handleStartMigration} priority="primary">
       {$t('badge_forge.buttons.start_migration')}
     </ActionButton>
