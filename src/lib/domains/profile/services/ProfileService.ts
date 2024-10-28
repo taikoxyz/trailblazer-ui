@@ -2,7 +2,7 @@ import { getAccount } from '@wagmi/core';
 import { type Address, getAddress, type Hash } from 'viem';
 
 import { BadgeMigrationService } from '$lib/domains/badges/services/BadgeMigrationService';
-import type { UserLeaderboardItem } from '$lib/domains/leaderboard/types/dapps/types';
+import type { UserLeaderboardItem } from '$lib/domains/leaderboard/types/user/types';
 import { NftService } from '$lib/domains/nfts/services/NftService';
 import { ProfileApiAdapter } from '$lib/domains/profile/adapter/ProfileAdapter';
 import UserRepository from '$lib/domains/profile/repositories/UserRepository';
@@ -10,7 +10,7 @@ import { multipliersLoading, profileLoading } from '$lib/domains/profile/stores/
 import { defaultUserProfile } from '$lib/domains/profile/types/defaultUserProfile';
 import type { DomainInfo } from '$lib/domains/profile/types/DomainInfo';
 import { levelTiers } from '$lib/domains/profile/types/LevelTiers';
-import { DomainType, Movements, type UserPointHistory } from '$lib/domains/profile/types/types';
+import { DomainType, Movements } from '$lib/domains/profile/types/types';
 import type { UserInfoForLeaderboard } from '$lib/domains/profile/types/UserInfoForLeaderboard';
 import type { UserProfile } from '$lib/domains/profile/types/UserProfile';
 import type { SeasonHistoryEntry, UserStats } from '$lib/domains/profile/types/UserStats';
@@ -21,6 +21,7 @@ import { activeMigration } from '$shared/stores/migration';
 import type { BadgeMigration } from '$shared/types/BadgeMigration';
 import { getLogger } from '$shared/utils/logger';
 
+import type { UserPointHistory } from '../types/ActivityHistory';
 import type { IProfileService } from './IProfileService';
 
 const log = getLogger('ProfileService');

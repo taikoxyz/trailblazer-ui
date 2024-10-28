@@ -1,6 +1,6 @@
 import { writable } from 'svelte/store';
 
-import type { UserLeaderboardPage } from '$lib/domains/leaderboard/types/dapps/types';
+import type { UserLeaderboardPage } from '$lib/domains/leaderboard/types/user/types';
 
 export const currentUserLeaderboard = writable<UserLeaderboardPage>({
   items: [],

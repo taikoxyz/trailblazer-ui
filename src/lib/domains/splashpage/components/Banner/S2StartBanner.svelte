@@ -159,7 +159,7 @@
     'relative',
     'md:text-left',
     'font-semibold',
-    'font-["Clash_Grotesk"]',
+    'font-clash-grotesk',
     'text-[50px]',
     'lg:text-[64px]',
     'xl:text-[70px]',
@@ -176,7 +176,7 @@
 
   const h2Classes = classNames(
     'text-secondary-brand',
-    'font-["Clash_Grotesk"]',
+    'font-clash-grotesk',
     'text-[34.695px]',
     'lg:text-[37px]',
     'font-semibold',

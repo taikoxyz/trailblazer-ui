@@ -5,7 +5,7 @@
   import { leaderboardConfig } from '$config';
   import profileService from '$lib/domains/profile/services/ProfileServiceInstance';
   import { profileLoading, userProfile } from '$lib/domains/profile/stores/profileStore';
-  import type { UserPointHistory } from '$lib/domains/profile/types/types';
+  import type { UserPointHistory } from '$lib/domains/profile/types/ActivityHistory';
   import type { PaginationInfo } from '$lib/shared/dto/CommonPageApiResponse';
   import { Paginator } from '$shared/components/Paginator';
   import { Spinner } from '$shared/components/Spinner';

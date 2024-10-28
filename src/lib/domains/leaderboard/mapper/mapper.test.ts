@@ -1,11 +1,8 @@
 import { zeroAddress } from 'viem';
 
-import type {
-  DappLeaderboardRow,
-  GamingLeaderboardRow,
-  UserLeaderboardRow,
-} from '$lib/domains/leaderboard/types/dapps/types';
+import type { DappLeaderboardRow, GamingLeaderboardRow } from '$lib/domains/leaderboard/types/dapps/types';
 import type { UnifiedLeaderboardRow } from '$lib/domains/leaderboard/types/shared/types';
+import type { UserLeaderboardRow } from '$lib/domains/leaderboard/types/user/types';
 
 import { mapDappLeaderboardRow, mapGamingLeaderboardRow, mapUserLeaderboardRow } from './mapper';
 

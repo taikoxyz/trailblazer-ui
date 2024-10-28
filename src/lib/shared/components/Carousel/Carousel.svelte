@@ -7,7 +7,7 @@
   import { classNames } from '$shared/utils/classNames';
   import { isMobile } from '$shared/utils/responsiveCheck';
 
-  import { CarouselItem } from '.';
+  import CarouselItem from './CarouselItem.svelte';
   import type { CarouselItemType } from './types';
 
   export let carouselItems: CarouselItemType[] = [];

@@ -13,6 +13,7 @@
 
   export let headers: string[];
   export let data: UnifiedLeaderboardRow[];
+  export let highlightedUserPosition: UnifiedLeaderboardRow | null = null;
   export let showTrophy: boolean = true;
   export let isLoading: boolean = false;
   export let handlePageChange: (page: number) => void;
@@ -34,24 +35,32 @@
 
   export let showPagination: boolean = true;
   export let showDetailsColumn: boolean = true;
+  export let qualifyingPositions: number = 3;
 
   $: pageSize = leaderboardConfig.pageSize;
 
-  // State for expanded rows
   let expandedRow = -1;
 
   function toggleRow(index: number) {
     expandedRow = expandedRow === index ? -1 : index;
   }
 
-  // CSS classes extracted to variables
-  const containerClass = classNames('overflow-x-auto', 'lg:w-full', 'px-8', 'lg:mt-0');
+  const containerClass = classNames('overflow-x-auto', 'lg:w-full', 'px-8', 'md:px-0', 'lg:mt-0');
   const headerMarginClass = classNames('mt-[60px]', 'lg:mt-[80px]', 'block', 'lg:hidden');
   const additionalInfoMarginClass = classNames('mt-[60px]', 'lg:mt-[80px]');
   const textCenterClass = classNames('text-center', 'mt-[30px]', 'text-xl');
-  const tableWrapperClass = classNames('overflow-x-auto', 'rounded-3xl');
-  const tableClass = classNames('relative', 'table-lg', 'w-full', 'body-regular', 'text-white', 'rounded-3xl');
-  const tableStyle = 'background: rgba(25, 30, 40, .50)';
+  const tableWrapperClass = classNames('overflow-x-auto', 'rounded-3xl', 'p-6', 'bg-gray-800/10');
+  const tableClass = classNames(
+    'relative',
+    'table-lg',
+    'w-full',
+    'body-regular',
+    'text-white',
+    'rounded-3xl',
+    'border-separate',
+    'border-spacing-y-4',
+    'border-spacing-x-0',
+  );
   const tbodyClass = classNames('rounded-lg', ended ? 'blur-[1.5px]' : '');
   const noDataRowClass = classNames('row', 'h-12');
   const paginationMarginClass = classNames('mt-[38px]');
@@ -71,13 +80,43 @@
   {/if}
   <div class={textCenterClass}></div>
   <slot />
+
   <div class={tableWrapperClass}>
-    <table class={tableClass} style={tableStyle}>
+    <table class={tableClass}>
       <TableHeader {headers} />
+      <div class="h-[4px]" />
       {#if ended && data.length > 0}
         <DisabledMask title={endTitleText} description={endDescriptionText} />
       {/if}
       <tbody class={tbodyClass}>
+        {#if highlightedUserPosition}
+          {@const rank = highlightedUserPosition.rank}
+          {@const userEntry = {
+            ...highlightedUserPosition,
+            address: 'Your position',
+          }}
+          {@const fillClass =
+            qualifyingPositions > 3 && rank <= qualifyingPositions
+              ? 'fill-fixed-icon'
+              : rank === 1
+                ? 'fill-warning-sentiment'
+                : rank === 2
+                  ? 'fill-grey-300'
+                  : rank === 3
+                    ? 'fill-yellow-700'
+                    : ''}
+          <TableRow
+            entry={userEntry}
+            index={-1}
+            {rank}
+            {fillClass}
+            {showTrophy}
+            {expandedRow}
+            {toggleRow}
+            {scoreComponent}
+            {showDetailsColumn}
+            {qualifyingPositions} />
+        {/if}
         {#if isLoading}
           <!-- eslint-disable-next-line @typescript-eslint/no-unused-vars -->
           {#each Array(pageSize) as _, index}
@@ -86,25 +125,30 @@
         {:else}
           {#each data as entry, index}
             {@const rank = entry.rank ? entry.rank : index + 1 + (currentPage - 1) * pageSize}
+            {@const highlightIndexPosition = entry.address === highlightedUserPosition?.address ? index : -1}
             {@const fillClass =
-              rank === 1
-                ? 'fill-warning-sentiment'
-                : rank === 2
-                  ? 'fill-grey-300'
-                  : rank === 3
-                    ? 'fill-yellow-700'
-                    : ''}
+              qualifyingPositions > 3 && rank <= qualifyingPositions
+                ? 'fill-fixed-icon'
+                : rank === 1
+                  ? 'fill-warning-sentiment'
+                  : rank === 2
+                    ? 'fill-grey-300'
+                    : rank === 3
+                      ? 'fill-yellow-700'
+                      : ''}
 
             <TableRow
               {entry}
               {index}
               {rank}
+              {highlightIndexPosition}
               {fillClass}
               {showTrophy}
               {expandedRow}
               {toggleRow}
               {scoreComponent}
-              {showDetailsColumn} />
+              {showDetailsColumn}
+              {qualifyingPositions} />
           {/each}
         {/if}
         {#if data.length === 0 && !isLoading}

@@ -1,7 +1,7 @@
 import { browser } from '$app/environment';
 import { leaderboardConfig } from '$config';
 import { userLeaderboardService } from '$lib/domains/leaderboard/services/LeaderboardServiceInstances';
-import type { UserLeaderboardItem } from '$lib/domains/leaderboard/types/dapps/types';
+import type { UserLeaderboardItem } from '$lib/domains/leaderboard/types/user/types';
 import type { PaginationInfo } from '$lib/shared/dto/CommonPageApiResponse';
 
 export const load = async () => {

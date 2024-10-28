@@ -1,7 +1,7 @@
 import { json } from '@sveltejs/kit';
 import type { Address } from 'viem';
 
-import type { UserPointHistory } from '$lib/domains/profile/types/ActivityHistory';
+import { ActivityType, type UserPointHistory } from '$lib/domains/profile/types/ActivityHistory';
 
 type APIResponse<T> = {
   items: T[];
@@ -24,91 +24,98 @@ export function GET({ url }) {
       {
         address: address,
         points: 0,
-        event: 'TransactionValue',
+        event: ActivityType.TRANSACTION,
+        date: 1721642099,
+        multiplier: 3,
+      },
+      {
+        address: address,
+        points: 0,
+        event: ActivityType.TRANSACTION_VALUE,
         date: 1721642099,
         multiplier: 4,
       },
       {
         address: address,
         points: 0,
-        event: 'Transaction',
+        event: ActivityType.TRANSACTION,
         date: 1721642099,
         multiplier: 1,
       },
       {
         address: address,
         points: 0,
-        event: 'Bridged',
+        event: ActivityType.BRIDGED,
         date: 1721642039,
         multiplier: 1,
       },
       {
         address: address,
         points: 0,
-        event: 'BlockProposed',
+        event: ActivityType.BLOCK_PROPOSED,
         date: 1721642039,
         multiplier: 1,
       },
       {
         address: address,
         points: 5000,
-        event: 'Transaction',
+        event: ActivityType.TRANSACTION,
         date: 1721641979,
         multiplier: 5,
       },
       {
         address: address,
         points: 1234,
-        event: 'Transaction',
+        event: ActivityType.TRANSACTION,
         date: 1721641943,
         multiplier: 1,
       },
       {
         address: address,
         points: 12345678,
-        event: 'Transaction',
+        event: ActivityType.TRANSACTION,
         date: 1721641907,
         multiplier: 1,
       },
       {
         address: address,
         points: 123456789,
-        event: 'Bridged',
+        event: ActivityType.BRIDGED,
         date: 1721571479,
         multiplier: 1,
       },
       {
         address: address,
         points: 123456789,
-        event: 'Transaction',
+        event: ActivityType.TRANSACTION,
         date: 1721571431,
         multiplier: 1,
       },
       {
         address: address,
         points: 123456789,
-        event: 'TransactionValue',
+        event: ActivityType.TRANSACTION_VALUE,
         date: 1721571431,
         multiplier: 1,
       },
       {
         address: address,
         points: 1234567890,
-        event: 'Transaction',
+        event: ActivityType.TRANSACTION,
         date: 1721571263,
         multiplier: 1,
       },
       {
         address: address,
         points: 123.456789,
-        event: 'TransactionValue',
+        event: ActivityType.TRANSACTION_VALUE,
         date: 1721571263,
         multiplier: 1,
       },
       {
         address: address,
         points: 1.23456789,
-        event: 'Transaction',
+        event: ActivityType.TRANSACTION,
         date: 1721571155,
         multiplier: 1,
       },

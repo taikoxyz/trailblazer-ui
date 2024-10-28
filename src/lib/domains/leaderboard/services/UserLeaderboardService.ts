@@ -3,12 +3,12 @@ import type { Address } from 'viem';
 import { UserLeaderboardAdapter } from '$lib/domains/leaderboard/adapter/UserLeaderboardAdapter';
 import { mapUserLeaderboardRow } from '$lib/domains/leaderboard/mapper/mapper';
 import { UserLeaderboardRepository } from '$lib/domains/leaderboard/repository/UserLeaderboardRepository';
+import type { UnifiedLeaderboardRow } from '$lib/domains/leaderboard/types/shared/types';
 import type {
   UserLeaderboardItem,
   UserLeaderboardPage,
   UserLeaderboardRow,
-} from '$lib/domains/leaderboard/types/dapps/types';
-import type { UnifiedLeaderboardRow } from '$lib/domains/leaderboard/types/shared/types';
+} from '$lib/domains/leaderboard/types/user/types';
 import type { IProfileService } from '$lib/domains/profile/services/IProfileService';
 import { ProfileService } from '$lib/domains/profile/services/ProfileService';
 import type { UserInfoForLeaderboard } from '$lib/domains/profile/types/UserInfoForLeaderboard';

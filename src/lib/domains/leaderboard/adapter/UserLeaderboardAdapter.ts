@@ -1,4 +1,4 @@
-import type { UserLeaderboardItem } from '$lib/domains/leaderboard/types/dapps/types';
+import type { UserLeaderboardItem } from '$lib/domains/leaderboard/types/user/types';
 import type { PaginationInfo } from '$lib/shared/dto/CommonPageApiResponse';
 import { getAxiosInstance, globalAxiosConfig } from '$lib/shared/services/api/axiosClient';
 import { getLogger } from '$shared/utils/logger';

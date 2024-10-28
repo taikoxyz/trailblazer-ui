@@ -34,6 +34,9 @@ export const routes: NavigationItem[] = [
   },
   {
     name: 'Competitions',
-    children: [{ name: 'Thrillblazer', route: '/competitions/s2/dapps', icon: 'flower-circle' }],
+    children: [
+      { name: 'Thrillblazer', route: '/competitions/s2/dapps', icon: 'flower-circle' },
+      { name: 'Liquidity Royale', route: '/competitions/s2/liquidity', icon: 'quad-circles' },
+    ],
   },
 ];
