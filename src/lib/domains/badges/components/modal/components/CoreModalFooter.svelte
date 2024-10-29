@@ -9,7 +9,6 @@
     'flex',
     'flex-col',
     'text-[24px]/[32px]',
-    'font-clash-grotesk',
     'text-secondary-content',
     'text-center',
   );

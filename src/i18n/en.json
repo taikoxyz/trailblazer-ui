@@ -565,7 +565,7 @@
     "modal": {
       "start_migration": {
         "title": "Start your forge process",
-        "description": "Time to forge your Season 2 badge.",
+        "description": "Time to forge your Season 2 {badgeName} badge!",
         "warning": "Warning: Once you click 'Start Migration', your Season 1 badge will be locked for 365 days.",
         "toast": {
           "success": {

@@ -1,7 +1,7 @@
 import type { ApolloQueryResult } from '@apollo/client';
 
 import { trailblazersBadgesAddress } from '$generated/abi';
-import { Movements } from '$lib/domains/profile/types/types';
+import { Movements, Seasons } from '$lib/domains/profile/types/types';
 import { graphqlClient } from '$lib/shared/services/graphql/client';
 import { FETCH_ENABLED_MIGRATIONS_QUERY, GET_MIGRATION_STATUS_QUERY } from '$lib/shared/services/graphql/queries';
 import { chainId } from '$shared/utils/chain';
@@ -209,13 +209,13 @@ describe('BadgeMigrationAdapter', () => {
           s1Badge: {
             tokenId: 1,
             address: trailblazersBadgesAddress[chainId],
-            metadata: generateBadgeMetadata(1),
+            metadata: generateBadgeMetadata(Seasons.Season1, 1),
             tokenUri: '',
           },
           s2Badge: {
             tokenId: 2,
             address: trailblazersBadgesAddress[chainId],
-            metadata: generateBadgeMetadata(2, Movements.Whale),
+            metadata: generateBadgeMetadata(Seasons.Season2, 2, Movements.Whale),
             tokenUri: '',
           },
           isStarted: true,

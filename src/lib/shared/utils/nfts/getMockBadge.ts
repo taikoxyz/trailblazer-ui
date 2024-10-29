@@ -15,7 +15,7 @@ export default function getMockBadge(season: Seasons, badgeId: number, movement?
     address: contract,
     metadata: {
       erc: TokenType.Unknown,
-      ...generateBadgeMetadata(badgeId, movement),
+      ...generateBadgeMetadata(season, badgeId, movement),
     },
   } satisfies NFT;
 

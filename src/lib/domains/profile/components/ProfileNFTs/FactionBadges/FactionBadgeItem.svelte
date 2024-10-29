@@ -1,13 +1,10 @@
 <script lang="ts">
   import { t } from 'svelte-i18n';
-  import { isAddressEqual } from 'viem';
 
-  import { trailblazersBadgesAddress } from '$generated/abi';
   import type { FactionBadgeButton } from '$lib/domains/profile/types/FactionBadgeButton';
-  import { MovementNames, Movements } from '$lib/domains/profile/types/types';
+  import { MovementNames, Movements, Seasons } from '$lib/domains/profile/types/types';
   import { ActionButton } from '$shared/components/Button';
   import type { NFT } from '$shared/types/NFT';
-  import { chainId } from '$shared/utils/chain';
   import { classNames } from '$shared/utils/classNames';
 
   import FactionImage from './FactionImage.svelte';
@@ -16,11 +13,12 @@
   export let inColor: boolean = true;
   export let buttonDisabled = false;
   export let button: null | FactionBadgeButton = null;
+  export let hideBubbles = false;
 
   export let token: NFT;
 
   $: badgeId = (token.metadata.badgeId as number) || 0;
-  $: season = isAddressEqual(token.address, trailblazersBadgesAddress[chainId]) ? 1 : 2;
+  $: season = token.metadata.season as Seasons;
   $: movementName = MovementNames[(token.metadata.movement as Movements) || Movements.Dev];
 
   // CSS classes
@@ -79,21 +77,23 @@
   </div>
   <slot />
 
-  <div class={bubbleWrapperClasses}>
-    <div class={bubbleClasses}>
-      {$t('badge_forge.labels.season')}
-      {season}
-    </div>
-    <div class={bubbleClasses}>
-      {$t('badge_forge.labels.trail')}
-      {badgeId + 1}
-    </div>
-    {#if season > 1}
+  {#if !hideBubbles}
+    <div class={bubbleWrapperClasses}>
       <div class={bubbleClasses}>
-        {movementName}
+        {$t('badge_forge.labels.season')}
+        {season}
       </div>
-    {/if}
-  </div>
+      <div class={bubbleClasses}>
+        {$t('badge_forge.labels.trail')}
+        {badgeId + 1}
+      </div>
+      {#if season > 1}
+        <div class={bubbleClasses}>
+          {movementName}
+        </div>
+      {/if}
+    </div>
+  {/if}
 
   {#if button}
     <div class={buttonWrapperClasses}>

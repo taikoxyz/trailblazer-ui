@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { FactionImage } from '$lib/domains/profile/components/ProfileNFTs';
+  import { FactionBadgeItem } from '$lib/domains/profile/components/ProfileNFTs';
   import { Movements } from '$lib/domains/profile/types/types';
   import type { NFT } from '$shared/types/NFT';
   import { classNames } from '$shared/utils/classNames';
@@ -7,6 +7,7 @@
   export let blurred: boolean = false;
   export let value: number = 0;
   export let shadow: boolean = false;
+  export let hideBubbles = false;
 
   export let token: NFT;
 
@@ -74,7 +75,7 @@
     <span class={indicatorClasses}>{value}</span>
   {/if}
   <div class={imageWrapperClasses}>
-    <FactionImage {token} />
+    <FactionBadgeItem {hideBubbles} {token} />
     {#if !unlocked}
       <div class={lockImageOverlayClasses}></div>{/if}
   </div>

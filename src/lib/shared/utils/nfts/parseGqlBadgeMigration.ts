@@ -1,6 +1,6 @@
 import { trailblazersBadgesAddress } from '$generated/abi';
 import type { BadgeMigration as GqlBadgeMigration } from '$generated/graphql';
-import type { Movements } from '$lib/domains/profile/types/types';
+import { type Movements, Seasons } from '$lib/domains/profile/types/types';
 import type { BadgeMigration } from '$shared/types/BadgeMigration';
 import type { NFT } from '$shared/types/NFT';
 import { chainId } from '$shared/utils/chain';
@@ -15,7 +15,7 @@ export default async function parseGqlBadgeMigration(
   const s1Badge = {
     tokenId: parseInt(raw.s1Badge.tokenId.toString()),
     address: trailblazersBadgesAddress[chainId],
-    metadata: generateBadgeMetadata(s1badgeId),
+    metadata: generateBadgeMetadata(Seasons.Season1, s1badgeId),
     tokenUri: raw.s1Badge.uri || '',
   } satisfies NFT;
 
@@ -27,7 +27,7 @@ export default async function parseGqlBadgeMigration(
     s2Badge = {
       tokenId: parseInt(raw.s2Badge.tokenId.toString()),
       address: trailblazersBadgesAddress[chainId],
-      metadata: generateBadgeMetadata(badgeId, movement),
+      metadata: generateBadgeMetadata(Seasons.Season2, badgeId, movement),
       tokenUri: raw.s2Badge.uri || '',
     } satisfies NFT;
   }

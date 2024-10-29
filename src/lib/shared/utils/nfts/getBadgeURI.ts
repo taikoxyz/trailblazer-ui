@@ -1,7 +1,7 @@
 import { FactionNames, FACTIONS } from '$configs/badges';
-import { MovementNames, Movements } from '$lib/domains/profile/types/types';
+import { MovementNames, Movements, Seasons } from '$lib/domains/profile/types/types';
 
-export default function getBadgeURI(badgeId: number, movement?: Movements) {
+export default function getBadgeURI(season: Seasons, badgeId: number, movement?: Movements) {
   if (!movement) {
     movement = Movements.Dev;
   }
@@ -9,6 +9,6 @@ export default function getBadgeURI(badgeId: number, movement?: Movements) {
   const movementStr = MovementNames[movement].toLowerCase();
   const factionStr = FactionNames[FACTIONS[badgeId] as FactionNames].toLowerCase();
 
-  const uri = `/factions/${factionStr}/${movementStr}`;
+  const uri = `/factions/s${season}/${factionStr}/${movementStr}`;
   return uri;
 }

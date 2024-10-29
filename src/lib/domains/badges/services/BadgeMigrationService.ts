@@ -20,19 +20,24 @@ export class BadgeMigrationService {
     return this.adapter.fetchEnabledMigrations();
   }
 
-  async startMigration(address: Address, nft: NFT): Promise<void> {
-    log('startMigration', { address, nft });
-    return this.adapter.startMigration(address, nft);
+  async startMigration(address: Address, nft: NFT, migration: BadgeMigration): Promise<BadgeMigration> {
+    log('startMigration', { address, nft, migration });
+    return this.adapter.startMigration(address, nft, migration);
   }
 
-  async refineMigration(address: Address, nft: NFT, selectedMovement: Movements): Promise<void> {
+  async refineMigration(
+    address: Address,
+    nft: NFT,
+    selectedMovement: Movements,
+    migration: BadgeMigration,
+  ): Promise<BadgeMigration> {
     log('refineMigration', { address, nft, selectedMovement });
-    return this.adapter.refineMigration(address, nft, selectedMovement);
+    return this.adapter.refineMigration(address, nft, selectedMovement, migration);
   }
 
-  async endMigration(address: Address, nft: NFT): Promise<NFT> {
-    log('endMigration', { address, nft });
-    return this.adapter.endMigration(address, nft);
+  async endMigration(address: Address, nft: NFT, migration: BadgeMigration): Promise<BadgeMigration> {
+    log('endMigration', { address, nft, migration });
+    return this.adapter.endMigration(address, nft, migration);
   }
 
   async getMigrationStatus(address: Address): Promise<BadgeMigration[]> {

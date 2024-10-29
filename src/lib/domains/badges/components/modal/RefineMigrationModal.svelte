@@ -35,7 +35,12 @@
       if (!$account || !$account.address || !$activeMigration || selectedMovement === null) return;
       isLoading = true;
 
-      await profileService.refineMigration($account.address, $activeMigration.s1Badge, selectedMovement);
+      await profileService.refineMigration(
+        $account.address,
+        $activeMigration.s1Badge,
+        selectedMovement,
+        $activeMigration,
+      );
 
       isLoading = false;
       $refineMigrationModal = false;
@@ -74,8 +79,9 @@
   {#if $activeMigration}
     <div class={badgesWrapperClasses}>
       <MigrationBadgeItem
+        hideBubbles
         value={$activeMigration?.whaleTampers}
-        shadow
+        shadow={selectedMovement === Movements.Whale}
         token={getMockBadge(Seasons.Season2, s1BadgeId, Movements.Whale)}>
         <div class={detailsClasses}>
           {MovementNames[Movements.Whale]}
@@ -88,7 +94,11 @@
         </div>
       </MigrationBadgeItem>
 
-      <MigrationBadgeItem value={$activeMigration?.devTampers} shadow token={$activeMigration.s1Badge}>
+      <MigrationBadgeItem
+        hideBubbles
+        shadow={selectedMovement === Movements.Dev}
+        value={$activeMigration?.devTampers}
+        token={getMockBadge(Seasons.Season2, s1BadgeId, Movements.Dev)}>
         <div class={detailsClasses}>
           {MovementNames[Movements.Dev]}
           <TamperRadio
@@ -101,8 +111,9 @@
       </MigrationBadgeItem>
 
       <MigrationBadgeItem
+        hideBubbles
+        shadow={selectedMovement === Movements.Minnow}
         value={$activeMigration?.minnowTampers}
-        shadow
         token={getMockBadge(Seasons.Season2, s1BadgeId, Movements.Minnow)}>
         <div class={detailsClasses}>
           {MovementNames[Movements.Minnow]}

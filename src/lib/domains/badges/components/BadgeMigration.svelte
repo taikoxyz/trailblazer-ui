@@ -115,11 +115,7 @@
     ...($userProfile.badgeMigrations || []).map((migration) => migration.s1Badge?.metadata.badgeId),
   ];
 
-  $: activeMigrationBadgeId = !$activeMigration?.s1Badge?.metadata.badgeId
-    ? -1
-    : ($activeMigration.s1Badge.metadata.badgeId as number);
-
-  onMount(async () => {});
+  $: activeMigrationBadgeId = $activeMigration?.s1Badge?.metadata.badgeId as number;
 
   $: allNFTS = $userProfile.nfts || [];
   $: userBadges = allNFTS.filter(
@@ -137,7 +133,7 @@
   async function forceUpdateUI() {
     if (!$account || !$account.address) return;
     forceRenderFlag = false;
-    await profileService.getBadgeMigrations($account.address);
+    //await profileService.getBadgeMigrations($account.address);
     //enabledBadgeIds = await profileService.getEnabledMigrations()
     forceRenderFlag = true;
   }
@@ -160,16 +156,6 @@
     $startMigrationModal = true;
   }
 
-  async function handleEndMigration(badgeId: number) {
-    const migration = $userProfile.badgeMigrations?.find((m) => m.s1Badge?.metadata.badgeId === badgeId);
-    if (!migration) {
-      console.error(`Migration for badge id #${badgeId} not found`);
-      return;
-    }
-    $activeMigration = migration;
-    $endMigrationModal = true;
-  }
-
   function handleTamperModal(badgeId: number) {
     const migration = $userProfile.badgeMigrations?.find((m) => m.s1Badge?.metadata.badgeId === badgeId);
     if (!migration) {
@@ -178,6 +164,16 @@
     }
     $activeMigration = migration;
     $refineMigrationModal = true;
+  }
+
+  async function handleEndMigration(badgeId: number) {
+    const migration = $userProfile.badgeMigrations?.find((m) => m.s1Badge?.metadata.badgeId === badgeId);
+    if (!migration) {
+      console.error(`Migration for badge id #${badgeId} not found`);
+      return;
+    }
+    $activeMigration = migration;
+    $endMigrationModal = true;
   }
 
   $: buttons = {
@@ -223,7 +219,7 @@
             {@const buttonDisabled =
               (activeMigrationBadgeId >= 0 && activeMigrationBadgeId !== badgeId) ||
               (migration?.tamperExpirationTimeout && migration.tamperExpirationTimeout > new Date())}
-            {@const token = migration?.s1Badge}
+            {@const token = migration?.s2Badge ? migration?.s2Badge : migration?.s1Badge}
             {@const tamperExpiration = migration?.tamperExpirationTimeout}
             {@const isTamperActive = migration || (tamperExpiration && tamperExpiration > new Date())}
             {@const claimExpiration = migration?.claimExpirationTimeout}

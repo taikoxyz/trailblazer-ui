@@ -1,14 +1,16 @@
-import { Movements } from '$lib/domains/profile/types/types';
+import { Movements, Seasons } from '$lib/domains/profile/types/types';
 
 import getBadgeURI from './getBadgeURI';
 
 export default function generateBadgeMetadata(
+  season: Seasons,
   badgeId: number,
   movement?: Movements,
-): Record<string, string | Movements> {
-  const uri = getBadgeURI(badgeId, movement || Movements.Dev);
+): Record<string, string | Seasons | Movements> {
+  const uri = getBadgeURI(season, badgeId, movement || Movements.Dev);
 
   return {
+    season,
     badgeId,
     movement: movement || Movements.Dev,
     image: `${uri}.png`,

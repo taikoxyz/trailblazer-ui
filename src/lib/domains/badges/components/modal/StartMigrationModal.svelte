@@ -1,6 +1,7 @@
 <script lang="ts">
-  import { t } from 'svelte-i18n';
+  import { format, t } from 'svelte-i18n';
 
+  import { FACTIONS } from '$configs/badges';
   import MigrationBadgeItem from '$lib/domains/badges/components/MigrationBadgeItem.svelte';
   import profileService from '$lib/domains/profile/services/ProfileServiceInstance';
   import { ActionButton } from '$shared/components/Button';
@@ -25,8 +26,7 @@
       isLoading = true;
       const address = $account.address;
 
-      await profileService.startMigration(address, $activeMigration.s1Badge);
-      await profileService.getBadgeMigrations(address);
+      await profileService.startMigration(address, $activeMigration.s1Badge, $activeMigration);
 
       successToast({
         title: $t('badge_forge.modal.start_migration.toast.success.title'),
@@ -84,6 +84,8 @@
     'justify-center',
     'items-center',
   );
+
+  $: badgeName = FACTIONS[$activeMigration?.s1Badge?.metadata.badgeId as number] || '';
 </script>
 
 <CoreModal open={$startMigrationModal}>
@@ -93,14 +95,19 @@
     </CoreModalTitle>
 
     <CoreModalDescription>
-      {$t('badge_forge.modal.start_migration.description')}
+      {$format('badge_forge.modal.start_migration.description', {
+        values: {
+          badgeName,
+        },
+      })}
     </CoreModalDescription>
   </CoreModalHeader>
 
   {#if $activeMigration}
     <div class={badgesWrapperClasses}>
       <MigrationBadgeItem token={$activeMigration.s1Badge}>
-        {$t('badge_forge.labels.season')} 1</MigrationBadgeItem>
+        {badgeName}
+      </MigrationBadgeItem>
     </div>
   {/if}
 

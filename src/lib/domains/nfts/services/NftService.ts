@@ -1,10 +1,12 @@
 import axios from 'axios';
-import { type Address } from 'viem';
+import { type Address, isAddressEqual } from 'viem';
 
+import { trailblazersBadgesAddress } from '$generated/abi';
 import type { NFTMetadata } from '$lib/domains/nfts/types/shared/types';
-import { Movements } from '$lib/domains/profile/types/types';
-import { type NFT, TokenType } from '$lib/shared/types/NFT';
+import { Movements, Seasons } from '$lib/domains/profile/types/types';
+import { type NFT } from '$lib/shared/types/NFT';
 import { globalAxiosConfig } from '$shared/services/api/axiosClient';
+import { chainId } from '$shared/utils/chain';
 import { getLogger } from '$shared/utils/logger';
 import generateBadgeMetadata from '$shared/utils/nfts/generateBadgeMetadata';
 
@@ -58,12 +60,15 @@ export class NftService {
         if (token.metadata.badgeId !== undefined) {
           const badgeId = token.metadata.badgeId as number;
           const movement = token.metadata.movement as Movements;
+          const season = isAddressEqual(trailblazersBadgesAddress[chainId], token.address)
+            ? Seasons.Season1
+            : Seasons.Season2;
 
           flatTokens.push({
             ...token,
             metadata: {
               ...token.metadata,
-              ...generateBadgeMetadata(badgeId, movement),
+              ...generateBadgeMetadata(season, badgeId, movement),
             },
           });
         } else {
@@ -87,26 +92,5 @@ export class NftService {
       console.error(e);
       throw e;
     }
-  }
-
-  /**
-   * Returns a parametrized mock badge
-   *
-   * @param {NFT} nft
-   * @return {*}  {(Promise<NFT>)}
-   * @memberof NftService
-   */
-  getMockBadge(contract: Address, badgeId: number, movement?: Movements): NFT {
-    const badge = {
-      tokenId: -1,
-      tokenUri: '',
-      address: contract,
-      metadata: {
-        ...generateBadgeMetadata(badgeId, movement),
-        erc: TokenType.Unknown,
-      },
-    } satisfies NFT;
-
-    return badge;
   }
 }

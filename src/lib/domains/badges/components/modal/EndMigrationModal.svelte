@@ -33,7 +33,8 @@
         return;
       }
       isLoading = true;
-      backToken = await profileService.endMigration($account.address, $activeMigration.s1Badge);
+      await profileService.endMigration($account.address, $activeMigration.s1Badge, $activeMigration);
+      backToken = $activeMigration.s2Badge!;
       isLoading = false;
       isRevealed = true;
 
@@ -79,7 +80,7 @@
 
         <div slot="back">
           {#if backToken && backToken.metadata.movement !== undefined}
-            <MigrationBadgeItem token={backToken}>
+            <MigrationBadgeItem hideBubbles token={backToken}>
               {getMovementName(backToken)}
             </MigrationBadgeItem>
           {:else}

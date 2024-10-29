@@ -4,11 +4,12 @@
   const wrapperClasses = classNames(
     'flex',
     'flex-col',
-    'gap-[20px]',
+    'gap-[8px]',
     'items-center',
     'justify-center',
     'w-full',
     'max-w-[900px]',
+    'pb-[60px]',
   );
 </script>
 
