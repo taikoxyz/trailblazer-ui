@@ -87,6 +87,7 @@
     "graphql-codegen": "^0.4.0",
     "graphql-tag": "^2.12.6",
     "lefthook": "^1.7.12",
+    "node-conditions": "^1.2.0",
     "object-hash": "^3.0.0",
     "postcss-import": "^16.1.0",
     "stores": "link:@zerodevx/svelte-toast/stores",
