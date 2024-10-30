@@ -288,7 +288,7 @@ describe('DappLeaderboardService', () => {
   it('should process a large dataset efficiently', async () => {
     // Given
 
-    const dataSize = 2;
+    const dataSize = 50;
     const args: PaginationInfo<DappLeaderboardItem> = {
       page: 0,
       size: dataSize,
