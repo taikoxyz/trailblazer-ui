@@ -7,10 +7,10 @@
   import Navigation from '$shared/components/Navigation/Navigation.svelte';
   import { classNames } from '$shared/utils/classNames';
 
-  let mobileMenu = false;
+  let isMenuOpen = false;
 
   function toggleMobileMenu() {
-    mobileMenu = !mobileMenu;
+    isMenuOpen = !isMenuOpen;
   }
 
   const wrapperClasses = classNames(
@@ -24,7 +24,7 @@
     'bg-[#0c0f1b]',
   );
 
-  const containerClasses = classNames('f-center', 'w-full', 'fixed', 'relative', 'bg-[#0c0f1b]', 'xl:max-w-[1440px]');
+  const containerClasses = classNames('f-center', 'w-full', 'fixed', 'relative', 'bg-[#0c0f1b]', 'xl:max-w-[1512px]');
 
   const headerClasses = classNames(
     'flex',
@@ -44,19 +44,6 @@
   const mobileLogoClasses = classNames('md:hidden');
   const desktopLogoClasses = classNames('hidden', 'md:flex', 'h-[25px]', 'w-[90px]');
   const trailblazersLogoClasses = classNames('max-w-[125px]', 'pb-[2px]', 'max-h-[25px]', 'min-h-[25px]');
-  const burgerButtonClasses = classNames(
-    'btn',
-    'xl:hidden',
-    'btn-circle',
-    'bg-neutral-background',
-    'hover:bg-secondary-interactive-hover',
-    'border-none',
-    'swap',
-    'swap-rotate',
-    'z-50',
-    'fixed',
-    'right-[24px]',
-  );
 </script>
 
 <div class={wrapperClasses}>
@@ -69,19 +56,9 @@
           <TaikoTrailblazersLogo class={trailblazersLogoClasses} />
         </a>
 
-        <!-- Mobile Burger Button -->
-
-        <label class={burgerButtonClasses}>
-          <input type="checkbox" checked={mobileMenu} on:click={toggleMobileMenu} />
-          <img src="/hamburger.svg" alt="menu closed" class="swap-off pl-[2px]" />
-          <img src="/x.svg" alt="menu open" class="swap-on pl-[1px]" />
-        </label>
-
         <!-- Desktop Navigation -->
         <Navigation />
-        {#if mobileMenu}
-          <MobileNavigation on:navigate={toggleMobileMenu} />
-        {/if}
+        <MobileNavigation on:navigate={toggleMobileMenu} bind:isMenuOpen />
         <div class="hidden xl:flex">
           <ConnectButton />
         </div>
