@@ -72,6 +72,15 @@
   const plusIconClasses = classNames('self-center', 'mb-6', 'md:mb-0');
 
   const searchClasses = classNames('w-full', 'lg:w-[400px]', 'lg:order-1', 'order-last', 'z-0', 'ml-1', 'order-first');
+
+  const additionalInfoWrapperClasses = classNames(
+    'flex',
+    'f-between-center',
+    'f-col',
+    'lg:f-row',
+    'space-y-[24px]',
+    'lg:space-y-0',
+  );
 </script>
 
 <div class={containerClasses}>
@@ -90,7 +99,7 @@
     <LiquidityRoyalCarousel />
   </div>
 </div>
-<div class="flex f-between-center">
+<div class={additionalInfoWrapperClasses}>
   <Search className={searchClasses} onSearch={handleSearch} placeholder="Search Address..." />
   <LastUpdated {lastUpdated} class="order-last" />
 </div>
