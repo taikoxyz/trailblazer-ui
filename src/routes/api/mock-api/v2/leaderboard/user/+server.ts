@@ -12,6 +12,7 @@ export const GET: RequestHandler = async () => {
 };
 
 const mockData: UserLeaderboardPageApiResponse = {
+  lastUpdated: 1724040243,
   data: {
     items: [
       {
@@ -64,5 +65,4 @@ const mockData: UserLeaderboardPageApiResponse = {
     first: 0,
     visible: 20,
   },
-  lastUpdated: 1724040243,
 };

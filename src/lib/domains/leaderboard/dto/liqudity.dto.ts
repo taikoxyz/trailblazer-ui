@@ -1,7 +1,4 @@
 import type { UserLeaderboardItem } from '$lib/domains/leaderboard/types/user/types';
 import type { CommonPageApiResponse } from '$lib/shared/dto/CommonPageApiResponse';
 
-export type LiquidityLeaderboardPageApiResponse = {
-  lastUpdated: number;
-  data: CommonPageApiResponse<UserLeaderboardItem>;
-};
+export type LiquidityLeaderboardPageApiResponse = CommonPageApiResponse<UserLeaderboardItem>;

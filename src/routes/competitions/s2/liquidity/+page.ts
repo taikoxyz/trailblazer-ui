@@ -2,7 +2,9 @@ import { browser } from '$app/environment';
 import { leaderboardConfig } from '$config';
 import type { DappLeaderboardItem } from '$lib/domains/leaderboard/dto/dapps.dto';
 import { liquidityCompetitionService } from '$lib/domains/leaderboard/services/LeaderboardServiceInstances';
+import { currentLiquidityCompetitionLeaderboardUserEntry } from '$lib/domains/leaderboard/stores/liquidityCompetitionLeaderboard';
 import type { PaginationInfo } from '$lib/shared/dto/CommonPageApiResponse';
+import getConnectedAddress from '$shared/utils/getConnectedAddress';
 
 export const load = async () => {
   let loading = true;
@@ -17,6 +19,9 @@ export const load = async () => {
   if (browser) {
     try {
       const page = await liquidityCompetitionService.getLiquidityCompetitionLeaderboard(pageInfo, 2);
+      currentLiquidityCompetitionLeaderboardUserEntry.set(
+        await liquidityCompetitionService.getLiquidityCompetitionDataForAddress(2, getConnectedAddress()),
+      );
       if (page) {
         pageInfo = page.pagination;
       }

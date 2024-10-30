@@ -14,8 +14,12 @@ export class GamingLeaderboardRepository extends IRepository<GamingLeaderboardPa
   async update(leaderboardPage: GamingLeaderboardPage) {
     log('updating leaderboard data', leaderboardPage);
     currentGamingLeaderboard.update((store) => {
-      store.items = leaderboardPage.items.filter((item) => !!item.address);
-      return store;
+      return {
+        ...store,
+        items: leaderboardPage.items.filter((item) => !!item.address),
+        lastUpdated: leaderboardPage.lastUpdated,
+        pagination: leaderboardPage.pagination,
+      };
     });
   }
 }

@@ -6,7 +6,7 @@ import { mapGamingLeaderboardRow } from '$lib/domains/leaderboard/mapper/mapper'
 import { GamingLeaderboardRepository } from '$lib/domains/leaderboard/repository/GamingLeaderboardRepository';
 import type { GamingLeaderboardPage, GamingLeaderboardRow } from '$lib/domains/leaderboard/types/dapps/types';
 import type { UnifiedLeaderboardRow } from '$lib/domains/leaderboard/types/shared/types';
-import type { PaginationInfo } from '$lib/shared/dto/CommonPageApiResponse';
+import type { CommonPageApiResponse, PaginationInfo } from '$lib/shared/dto/CommonPageApiResponse';
 import { getLogger } from '$shared/utils/logger';
 
 const log = getLogger('GamingLeaderboardService');
@@ -44,46 +44,51 @@ export class GamingLeaderboardService {
       pagination: { ...args },
     };
     log('fetching leaderboard data', args, season);
-    const leaderboardData: PaginationInfo<GamingLeaderboardItem> = await this.leaderboardAdapter.fetchLeaderboardData(
-      args,
-      season,
-    );
+    const leaderboardData: CommonPageApiResponse<GamingLeaderboardItem> =
+      await this.leaderboardAdapter.fetchLeaderboardData(args, season);
 
     log('leaderboardData', leaderboardData);
 
-    if (leaderboardData.items && leaderboardData.items.length > 0) {
-      const protocolDetailsPromises = leaderboardData.items.map(async (item) => {
-        const protocolDetails = await this.protocolAdapter.fetchGamingProtocolDetails(item.slug, season);
+    if (leaderboardData.data.items && leaderboardData.data.items.length > 0) {
+      const protocolDetailsPromises = leaderboardData.data.items.map(async (item) => {
+        try {
+          const protocolDetails = await this.protocolAdapter.fetchGamingProtocolDetails(item.slug, season);
 
-        log(`details for ${item.slug}`, protocolDetails);
+          log(`details for ${item.slug}`, protocolDetails);
 
-        const entry: GamingLeaderboardRow = {
-          address: item.address,
-          rank: item.rank,
-          data: protocolDetails.protocols,
-          metadata: protocolDetails.metadata,
-          totalScore: item.score,
-        };
+          const entry: GamingLeaderboardRow = {
+            address: item.address,
+            rank: item.rank,
+            data: protocolDetails.protocols,
+            metadata: protocolDetails.metadata,
+            totalScore: item.score,
+          };
 
-        const unifiedRow: UnifiedLeaderboardRow = mapGamingLeaderboardRow(entry);
+          const unifiedRow: UnifiedLeaderboardRow = mapGamingLeaderboardRow(entry);
 
-        const protocolName = protocolDetails.metadata?.name || entry.address;
-        const additionalDetails = mapGamingDetails(protocolName);
+          const protocolName = protocolDetails.metadata?.name || entry.address;
+          const additionalDetails = mapGamingDetails(protocolName);
 
-        if (additionalDetails) {
-          unifiedRow.handle = additionalDetails.handle;
-          unifiedRow.icon = additionalDetails.icon;
-        } else {
-          log(`No mapping found for protocol: ${protocolName}`);
+          if (additionalDetails) {
+            unifiedRow.handle = additionalDetails.handle;
+            unifiedRow.icon = additionalDetails.icon;
+          } else {
+            log(`No mapping found for protocol: ${protocolName}`);
+          }
+
+          log(`unifiedRow`, unifiedRow);
+          return unifiedRow;
+        } catch (error) {
+          log(`Error fetching protocol details for ${item.slug}:`, error);
+          return null;
         }
-
-        log(`unifiedRow`, unifiedRow);
-        return unifiedRow;
       });
 
-      const unifiedRows = await Promise.all(protocolDetailsPromises);
+      const settledRows = await Promise.all(protocolDetailsPromises);
+      // Filter out any null entries (failed items)
+      const unifiedRows = settledRows.filter((row): row is UnifiedLeaderboardRow => row !== null);
       leaderboardPage.items.push(...unifiedRows);
-      leaderboardPage.pagination = { ...leaderboardData };
+      leaderboardPage.pagination = { ...leaderboardData.data };
       await this.leaderboardRepository.update(leaderboardPage);
 
       return leaderboardPage;

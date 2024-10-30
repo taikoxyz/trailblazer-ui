@@ -62,6 +62,13 @@ describe('GamingLeaderboardAdapter', () => {
         total: 2,
       };
 
+      const expectedResult = {
+        data: {
+          ...mockLeaderboardData.data,
+        },
+        lastUpdated: mockLeaderboardData.lastUpdated * 1000,
+      };
+
       // When
       const result = await leaderboardAdapter.fetchLeaderboardData(input, 1);
 
@@ -71,7 +78,7 @@ describe('GamingLeaderboardAdapter', () => {
         ...globalAxiosConfig,
         params: input,
       });
-      expect(result).toEqual(mockLeaderboardData.data);
+      expect(result).toEqual(expectedResult);
     });
   });
 });
