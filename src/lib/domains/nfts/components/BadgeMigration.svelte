@@ -76,7 +76,7 @@
   $: possibleMigrations = enabledBadgeIds.filter((badgeId) => userBadges.some((nft) => nft.badgeId === badgeId));
 
   onMount(async () => {
-    const allNFTS = $userProfile.nfts || [];
+    const allNFTS = $userProfile?.nfts || [];
     userBadges = allNFTS.filter(
       (nft) => nft.address.toLowerCase() === trailblazersBadgesAddress[chainId].toLowerCase(),
     );
