@@ -43,6 +43,7 @@ describe('LiquidityCompetitionService', () => {
 
     mockProfileService = {
       getUserInfoForLeaderboard: vi.fn(),
+      getProfilePicture: vi.fn(),
     };
 
     service = new LiquidityCompetitionService(
@@ -157,5 +158,48 @@ describe('LiquidityCompetitionService', () => {
         total: leaderboardData.data.total,
       },
     });
+  });
+
+  it('should fetch leaderboard data for a single address', async () => {
+    // Given
+    const address = '0x123' as Address;
+
+    const season = 1;
+
+    const leaderboardPosition: UserLeaderboardItem = { address, score: 200, rank: 2 };
+    const leaderboardItems: UserLeaderboardItem[] = [leaderboardPosition];
+
+    const leaderboardData: PaginationInfo<UserLeaderboardItem> = {
+      items: leaderboardItems,
+      page: 0,
+      size: 2,
+      total: 100,
+    };
+
+    const mappedRow: UnifiedLeaderboardRow = {
+      address,
+      icon: '',
+      level: '',
+      rank: 2,
+      title: '',
+      data: [],
+      totalScore: 200,
+      handle: '',
+    };
+
+    vi.mocked(mockLeaderboardAdapter.fetchLeaderboardPositionForAddress!).mockResolvedValue(leaderboardData);
+
+    // Mock the profile service
+    vi.mocked(mockProfileService.getProfilePicture!).mockResolvedValue(null);
+
+    // Mock the mapper function
+    vi.mocked(mapLiquidityLeaderboardRow).mockReturnValueOnce(mappedRow);
+
+    // When
+    const result = await service.getLiquidityCompetitionDataForAddress(season, address);
+
+    // Then
+    expect(mockLeaderboardAdapter.fetchLeaderboardPositionForAddress).toHaveBeenCalledWith(season, address);
+    expect(result).toEqual(mappedRow);
   });
 });

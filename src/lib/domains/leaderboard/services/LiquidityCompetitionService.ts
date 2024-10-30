@@ -139,11 +139,8 @@ export class LiquidityCompetitionService {
   async getLiquidityCompetitionDataForAddress(season: number, address: Address): Promise<UnifiedLeaderboardRow | null> {
     try {
       log('Fetching user leaderboard data', season, address);
-      // const leaderboardData = await this.leaderboardAdapter.fetchLeaderboardPositionForAddress(season, address);
-      const leaderboardData = await this.leaderboardAdapter.fetchLeaderboardPositionForAddress(
-        season,
-        '0x5aFB2Eb005Fba6C8Be124F7235684870e015D55D', // TODO REMOVE
-      );
+      const leaderboardData = await this.leaderboardAdapter.fetchLeaderboardPositionForAddress(season, address);
+
       log('Fetched user leaderboard data', leaderboardData);
 
       if (!leaderboardData.items?.length) {

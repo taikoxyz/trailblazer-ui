@@ -1,5 +1,5 @@
 import type { GamingLeaderboardItem, GamingLeaderboardPageApiResponse } from '$lib/domains/leaderboard/dto/gaming.dto';
-import type { PaginationInfo } from '$lib/shared/dto/CommonPageApiResponse';
+import type { CommonPageApiResponse, PaginationInfo } from '$lib/shared/dto/CommonPageApiResponse';
 import { getAxiosInstance, globalAxiosConfig } from '$lib/shared/services/api/axiosClient';
 import { getLogger } from '$shared/utils/logger';
 
@@ -17,7 +17,7 @@ export class GamingLeaderboardAdapter {
   async fetchLeaderboardData(
     args: PaginationInfo<GamingLeaderboardItem>,
     season: number,
-  ): Promise<PaginationInfo<GamingLeaderboardItem>> {
+  ): Promise<CommonPageApiResponse<GamingLeaderboardItem>> {
     log('fetching leaderboard data', args, season);
 
     const client = getAxiosInstance(season);
@@ -26,6 +26,9 @@ export class GamingLeaderboardAdapter {
       params: args,
     });
 
-    return response.data.data;
+    return {
+      ...response.data,
+      lastUpdated: response.data.lastUpdated * 1000,
+    } satisfies CommonPageApiResponse<GamingLeaderboardItem>;
   }
 }
