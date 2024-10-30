@@ -84,7 +84,6 @@
         shadow={selectedMovement === Movements.Whale}
         token={getMockBadge(Seasons.Season2, s1BadgeId, Movements.Whale)}>
         <div class={detailsClasses}>
-          {MovementNames[Movements.Whale]}
           <TamperRadio
             checked={selectedMovement === Movements.Whale}
             on:change={() => {
@@ -100,7 +99,6 @@
         value={$activeMigration?.devTampers}
         token={getMockBadge(Seasons.Season2, s1BadgeId, Movements.Dev)}>
         <div class={detailsClasses}>
-          {MovementNames[Movements.Dev]}
           <TamperRadio
             checked={selectedMovement === Movements.Dev}
             on:change={() => {
@@ -116,7 +114,6 @@
         value={$activeMigration?.minnowTampers}
         token={getMockBadge(Seasons.Season2, s1BadgeId, Movements.Minnow)}>
         <div class={detailsClasses}>
-          {MovementNames[Movements.Minnow]}
           <TamperRadio
             checked={selectedMovement === Movements.Minnow}
             on:change={() => {

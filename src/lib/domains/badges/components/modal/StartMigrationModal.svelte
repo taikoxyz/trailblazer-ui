@@ -40,22 +40,21 @@
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (e: any) {
       console.error(e);
+      let title = $t('badge_forge.modal.start_migration.toast.error.title');
+      let message = $t('badge_forge.modal.start_migration.toast.error.message.default');
+
       if (e.message.includes('0x3a0147ec')) {
-        errorToast({
-          title: $t('badge_forge.modal.start_migration.toast.error.title'),
-          message: $t('badge_forge.modal.start_migration.toast.error.message.already_started'),
-        });
+        title = $t('badge_forge.modal.start_migration.toast.error.title');
+        message = $t('badge_forge.modal.start_migration.toast.error.message.already_started');
       } else if (e.message.includes('User rejected the request')) {
-        errorToast({
-          title: $t('badge_forge.modal.start_migration.toast.error.title'),
-          message: $t('badge_forge.modal.start_migration.toast.error.message.rejected'),
-        });
-      } else {
-        errorToast({
-          title: $t('badge_forge.modal.start_migration.toast.error.title'),
-          message: $t('badge_forge.modal.start_migration.toast.error.message.default'),
-        });
+        title = $t('badge_forge.modal.start_migration.toast.error.title');
+        message = $t('badge_forge.modal.start_migration.toast.error.message.rejected');
       }
+
+      errorToast({
+        title,
+        message,
+      });
 
       isLoading = false;
     }

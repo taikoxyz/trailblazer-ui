@@ -84,7 +84,9 @@ export class BadgeMigrationAdapter {
             user: address,
           },
           onLogs(logs) {
-            const cooldownExpiration = new Date(parseInt(logs[0].args.cooldownExpiration!.toString()) * 1000);
+            const cooldownExpiration = new Date(
+              60 * 1000 + parseInt(logs[0].args.cooldownExpiration!.toString()) * 1000,
+            );
             const s1TokenId = parseInt(logs[0].args.s1TokenId!.toString());
             unwatch();
             resolve({
@@ -193,7 +195,7 @@ export class BadgeMigrationAdapter {
             user: address,
           },
           onLogs(logs) {
-            const tamperExpiration = new Date(parseInt(logs[0].args.tamperExpiration!.toString()) * 1000);
+            const tamperExpiration = new Date(60 * 1000 + parseInt(logs[0].args.tamperExpiration!.toString()) * 1000);
             const devTampers = parseInt(logs[0].args.devTampers!.toString());
             const whaleTampers = parseInt(logs[0].args.whaleTampers!.toString());
             const minnowTampers = parseInt(logs[0].args.minnowTampers!.toString());

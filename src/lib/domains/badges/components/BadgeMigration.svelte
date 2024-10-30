@@ -126,18 +126,16 @@
 
   onMount(async () => {
     enabledBadgeIds = await profileService.getEnabledMigrations();
-    await forceUpdateUI();
   });
 
   $: forceRenderFlag = true;
   async function forceUpdateUI() {
-    /*
     if (!$account || !$account.address) return;
     forceRenderFlag = false;
+    await new Promise((r) => setTimeout(r, 0));
     //await profileService.getBadgeMigrations($account.address);
     //enabledBadgeIds = await profileService.getEnabledMigrations()
     forceRenderFlag = true;
-    */
   }
 
   async function handleStartMigration(badgeId: number) {
