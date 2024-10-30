@@ -67,16 +67,25 @@
   }
 
   // CSS Classes
-  const containerClass = 'overflow-x-auto lg:w-full px-8 md:px-0 lg:mt-0';
-  const headerMarginClass = 'mt-[60px] lg:mt-[80px] block lg:hidden';
-  const additionalInfoMarginClass = 'mt-[60px] lg:mt-[80px]';
-  const textCenterClass = 'text-center mt-[30px] text-xl';
-  const tableWrapperClass = 'overflow-x-auto rounded-3xl p-6 bg-gray-800/10';
-  const tableClass =
-    'relative table-lg w-full body-regular text-white rounded-3xl border-separate border-spacing-y-4 border-spacing-x-0';
+  const containerClass = classNames('overflow-x-auto', 'lg:w-full', 'px-8', 'md:px-0', 'lg:mt-0');
+  const headerMarginClass = classNames('mt-[60px]', 'lg:mt-[80px]', 'block', 'lg:hidden');
+  const additionalInfoMarginClass = classNames('mt-[60px]', 'lg:mt-[80px]');
+  const textCenterClass = classNames('text-center', 'mt-[30px]', 'text-xl');
+  const tableWrapperClass = classNames('overflow-x-auto', 'rounded-3xl', 'p-6', 'bg-gray-800/10');
+  const tableClass = classNames(
+    'relative',
+    'table-lg',
+    'w-full',
+    'body-regular',
+    'text-white',
+    'rounded-3xl',
+    'border-separate',
+    'border-spacing-y-4',
+    'border-spacing-x-0',
+  );
   const tbodyClass = classNames('rounded-lg', ended ? 'blur-[1.5px]' : '');
-  const noDataRowClass = 'row h-12';
-  const paginationMarginClass = 'mt-[38px]';
+  const noDataRowClass = classNames('row', 'h-12');
+  const paginationMarginClass = classNames('mt-[38px]');
 </script>
 
 <div class={containerClass}>

@@ -136,7 +136,7 @@ describe('GamingLeaderboardService', () => {
     // When
     const result = await service.getGamingLeaderboardData(args, season);
 
-    // The
+    // Then
     expect(mockLeaderboardAdapter.fetchLeaderboardData).toHaveBeenCalledWith(args, season);
     expect(mockProtocolAdapter.fetchGamingProtocolDetails).toHaveBeenCalledTimes(2);
     expect(mockProtocolAdapter.fetchGamingProtocolDetails).toHaveBeenNthCalledWith(1, 'protocol-1', season);
@@ -223,7 +223,7 @@ describe('GamingLeaderboardService', () => {
     // When
     const result = await service.getGamingLeaderboardData(args, season);
 
-    // The
+    // Then
     expect(mockLeaderboardAdapter.fetchLeaderboardData).toHaveBeenCalledWith(args, season);
     expect(mockProtocolAdapter.fetchGamingProtocolDetails).toHaveBeenCalledTimes(2);
     expect(mapGamingLeaderboardRow).toHaveBeenCalledTimes(1);

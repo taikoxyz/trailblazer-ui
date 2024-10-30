@@ -117,12 +117,12 @@ describe('DappLeaderboardService', () => {
     expect(mockLeaderboardRepository.update).toHaveBeenCalledWith({
       items: [mappedRow1, mappedRow2],
       lastUpdated: expect.any(Number),
-      pagination: leaderboardData.data, // Adjusted expectation
+      pagination: leaderboardData.data,
     });
     expect(result).toEqual({
       items: [mappedRow1, mappedRow2],
       lastUpdated: expect.any(Number),
-      pagination: leaderboardData.data, // Adjusted expectation
+      pagination: leaderboardData.data,
     });
   });
 
@@ -218,12 +218,12 @@ describe('DappLeaderboardService', () => {
     expect(mockLeaderboardRepository.update).toHaveBeenCalledWith({
       items: [mappedRow1],
       lastUpdated: expect.any(Number),
-      pagination: leaderboardData.data, // Adjusted expectation
+      pagination: leaderboardData.data,
     });
     expect(result).toEqual({
       items: [mappedRow1],
       lastUpdated: expect.any(Number),
-      pagination: leaderboardData.data, // Adjusted expectation
+      pagination: leaderboardData.data,
     });
   });
 
@@ -276,12 +276,12 @@ describe('DappLeaderboardService', () => {
     expect(mockLeaderboardRepository.update).toHaveBeenCalledWith({
       items: [unexpectedMappedRow],
       lastUpdated: expect.any(Number),
-      pagination: leaderboardData.data, // Adjusted expectation
+      pagination: leaderboardData.data,
     });
     expect(result).toEqual({
       items: [unexpectedMappedRow],
       lastUpdated: expect.any(Number),
-      pagination: leaderboardData.data, // Adjusted expectation
+      pagination: leaderboardData.data,
     });
   });
 
@@ -350,7 +350,7 @@ describe('DappLeaderboardService', () => {
     expect(result).toEqual({
       items: Array(dataSize).fill(mappedRow),
       lastUpdated: expect.any(Number),
-      pagination: leaderboardData.data, // Adjusted expectation
+      pagination: leaderboardData.data,
     });
   });
 });
