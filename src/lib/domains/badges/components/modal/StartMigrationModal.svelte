@@ -88,7 +88,7 @@
   $: badgeName = FACTIONS[$activeMigration?.s1Badge?.metadata.badgeId as number] || '';
 </script>
 
-<CoreModal open={$startMigrationModal}>
+<CoreModal bind:open={$startMigrationModal}>
   <CoreModalHeader>
     <CoreModalTitle>
       {$t('badge_forge.modal.start_migration.title')}

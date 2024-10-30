@@ -65,7 +65,7 @@
   const radioGroupName = 'radio-tamper';
 </script>
 
-<CoreModal open={$refineMigrationModal}>
+<CoreModal bind:open={$refineMigrationModal}>
   <CoreModalHeader>
     <CoreModalTitle>
       {$t('badge_forge.modal.refine_migration.title')}

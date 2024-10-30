@@ -62,7 +62,7 @@
   }
 </script>
 
-<CoreModal open={$endMigrationModal}>
+<CoreModal bind:open={$endMigrationModal}>
   <CoreModalHeader>
     <CoreModalTitle>
       {$t('badge_forge.modal.end_migration.title')}

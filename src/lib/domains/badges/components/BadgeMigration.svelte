@@ -129,13 +129,15 @@
     await forceUpdateUI();
   });
 
-  $: forceRenderFlag = false;
+  $: forceRenderFlag = true;
   async function forceUpdateUI() {
+    /*
     if (!$account || !$account.address) return;
     forceRenderFlag = false;
     //await profileService.getBadgeMigrations($account.address);
     //enabledBadgeIds = await profileService.getEnabledMigrations()
     forceRenderFlag = true;
+    */
   }
 
   async function handleStartMigration(badgeId: number) {
