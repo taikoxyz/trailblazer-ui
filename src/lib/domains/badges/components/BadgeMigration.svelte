@@ -1,9 +1,7 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import { json, t } from 'svelte-i18n';
-  import { isAddressEqual } from 'viem';
 
-  import { trailblazersBadgesAddress, trailblazersBadgesS2Address } from '$generated/abi';
   import { FactionBadgeItem } from '$lib/domains/profile/components/ProfileNFTs/FactionBadges';
   import profileService from '$lib/domains/profile/services/ProfileServiceInstance';
   import { userProfile } from '$lib/domains/profile/stores';
@@ -11,8 +9,7 @@
   import { Movements, Seasons } from '$lib/domains/profile/types/types';
   import { FaqBlock } from '$lib/domains/splashpage/components/FaqBlock';
   import type { IFaqEntry } from '$lib/domains/splashpage/components/FaqBlock/FaqBlock.svelte';
-  import type { BadgeMigration } from '$lib/shared/types/BadgeMigration';
-  import { chainId } from '$lib/shared/utils/chain';
+  import { type ActiveBadgeMigration, MigrationStatus } from '$lib/shared/types/BadgeMigration';
   import { account } from '$shared/stores';
   import {
     activeMigration,
@@ -109,32 +106,20 @@
 
   $: enabledBadgeIds = [] as number[];
 
-  // overlap between enabledBadgeIds and userBadges
-  $: possibleMigrations = [
-    ...enabledBadgeIds.filter((badgeId) => userBadges.some((nft) => nft.metadata.badgeId === badgeId)),
-    ...($userProfile.badgeMigrations || []).map((migration) => migration.s1Badge?.metadata.badgeId),
-  ];
-
-  $: activeMigrationBadgeId = $activeMigration?.s1Badge?.metadata.badgeId as number;
-
-  $: allNFTS = $userProfile.nfts || [];
-  $: userBadges = allNFTS.filter(
-    (nft) =>
-      isAddressEqual(nft.address, trailblazersBadgesAddress[chainId]) ||
-      isAddressEqual(nft.address, trailblazersBadgesS2Address[chainId]),
-  );
-
   onMount(async () => {
     enabledBadgeIds = await profileService.getEnabledMigrations();
   });
 
   $: forceRenderFlag = true;
-  async function forceUpdateUI() {
+  async function onCounterEnd(migration: ActiveBadgeMigration, status: MigrationStatus) {
     if (!$account || !$account.address) return;
     forceRenderFlag = false;
-    await new Promise((r) => setTimeout(r, 0));
-    //await profileService.getBadgeMigrations($account.address);
-    //enabledBadgeIds = await profileService.getEnabledMigrations()
+
+    $activeMigration = {
+      ...migration,
+      status,
+    };
+
     forceRenderFlag = true;
   }
 
@@ -142,22 +127,21 @@
     if (!$account || !$account.address) return;
 
     $activeMigration = {
+      badgeId,
+      status: MigrationStatus.NOT_STARTED,
       s1Badge: getMockBadge(Seasons.Season1, badgeId),
       id: '',
-      isStarted: false,
-      isCompleted: false,
       devTampers: 0,
       whaleTampers: 0,
       minnowTampers: 0,
-      isApproved: false,
       claimExpirationTimeout: new Date(),
       tamperExpirationTimeout: undefined,
-    } satisfies BadgeMigration;
+    } satisfies ActiveBadgeMigration;
     $startMigrationModal = true;
   }
 
   function handleTamperModal(badgeId: number) {
-    const migration = $userProfile.badgeMigrations?.find((m) => m.s1Badge?.metadata.badgeId === badgeId);
+    const migration = $userProfile.badgeMigrations?.find((m) => m.badgeId === badgeId);
     if (!migration) {
       console.error(`Migration for badge id #${badgeId} not found`);
       return;
@@ -167,7 +151,7 @@
   }
 
   async function handleEndMigration(badgeId: number) {
-    const migration = $userProfile.badgeMigrations?.find((m) => m.s1Badge?.metadata.badgeId === badgeId);
+    const migration = $userProfile.badgeMigrations?.find((m) => m.badgeId === badgeId);
     if (!migration) {
       console.error(`Migration for badge id #${badgeId} not found`);
       return;
@@ -201,9 +185,6 @@
 
   const faqEntries = $json('badge_forge.faq.entries') as IFaqEntry[];
   const faqWrapperClasses = classNames('pt-[60px]', 'w-full', 'px-[48px]', 'flex', 'flex-col', 'gap-[30px]');
-
-  $: $endMigrationModal, forceUpdateUI();
-  $: $refineMigrationModal, forceUpdateUI();
 </script>
 
 <div class={containerClass}>
@@ -214,54 +195,66 @@
       {#if forceRenderFlag && enabledBadgeIds.length}
         <div class={nftGridClasses}>
           {#each enabledBadgeIds as badgeId}
-            {@const migration = $userProfile?.badgeMigrations?.find((m) => m.s1Badge.metadata.badgeId === badgeId)}
-            {@const disabled = !possibleMigrations.includes(badgeId)}
-            {@const buttonDisabled =
-              (activeMigrationBadgeId >= 0 && activeMigrationBadgeId !== badgeId) ||
-              (migration?.tamperExpirationTimeout && migration.tamperExpirationTimeout > new Date())}
-            {@const token = migration?.s2Badge ? migration?.s2Badge : migration?.s1Badge}
-            {@const tamperExpiration = migration?.tamperExpirationTimeout}
-            {@const isTamperActive = migration || (tamperExpiration && tamperExpiration > new Date())}
-            {@const claimExpiration = migration?.claimExpirationTimeout}
-            {@const blurred =
-              (tamperExpiration && tamperExpiration > new Date()) || !possibleMigrations.includes(badgeId)}
-            {@const inColor =
-              !disabled || (migration && migration.isCompleted) || (tamperExpiration && tamperExpiration > new Date())}
+            {@const migration =
+              $activeMigration && $activeMigration.badgeId === badgeId
+                ? $activeMigration
+                : $userProfile?.badgeMigrations?.find((m) => m.badgeId === badgeId)}
+            {#if migration}
+              {@const s1TokenOwned = Boolean(
+                $userProfile.nfts?.find(
+                  (nft) => nft.metadata.season === Seasons.Season1 && nft.metadata.badgeId === badgeId,
+                ),
+              )}
 
-            <FactionBadgeItem
-              token={token || getMockBadge(Seasons.Season1, badgeId, Movements.Dev)}
-              {inColor}
-              {blurred}
-              {buttonDisabled}
-              button={disabled
-                ? buttons.NotEligible
-                : migration && migration.isCompleted
-                  ? null
-                  : claimExpiration && claimExpiration < new Date()
+              {@const tamperExpiration = migration.tamperExpirationTimeout}
+              {@const claimExpiration = migration.claimExpirationTimeout}
+              {@const isTamperActive = tamperExpiration && tamperExpiration > new Date()}
+
+              {@const isEligible = migration.status === MigrationStatus.ELIGIBLE || s1TokenOwned}
+              {@const isStarted = migration.status === MigrationStatus.STARTED}
+              {@const canClaim = migration.status === MigrationStatus.CAN_CLAIM}
+              {@const canRefine = migration.status === MigrationStatus.CAN_REFINE}
+              {@const isComplete = migration.status === MigrationStatus.COMPLETED}
+
+              {@const blurred = canRefine}
+              {@const inColor = isEligible || canClaim || canRefine || isComplete}
+              {@const buttonDisabled =
+                isTamperActive ||
+                Boolean($activeMigration ? $activeMigration.badgeId !== migration.badgeId : $activeMigration)}
+
+              <FactionBadgeItem
+                token={getMockBadge(Seasons.Season1, badgeId, Movements.Dev)}
+                {inColor}
+                {blurred}
+                {buttonDisabled}
+                button={canRefine || isStarted
+                  ? buttons.Refine
+                  : canClaim
                     ? buttons.EndMigration
-                    : isTamperActive
-                      ? buttons.Refine
-                      : buttons.StartMigration}>
-              {#if migration}
-                <div
-                  class={claimExpiration && claimExpiration > new Date()
-                    ? timerOverlayClasses
-                    : timerOverlayClaimClasses}>
-                  <div class={timerLabelClasses}>
-                    {#if tamperExpiration && tamperExpiration > new Date()}
-                      <!-- cannot re-tamper yet-->
-                      {$t('badge_forge.main.can_refine_in')}
-                    {:else if claimExpiration && claimExpiration > new Date()}
-                      <!-- logic for untampered, time 0 -->
-                      {$t('badge_forge.main.can_claim_in')}
-                    {/if}
-                  </div>
+                    : isComplete
+                      ? null
+                      : isEligible
+                        ? buttons.StartMigration
+                        : buttons.NotEligible}>
+                {#if migration}
+                  <div
+                    class={claimExpiration && claimExpiration > new Date()
+                      ? timerOverlayClasses
+                      : timerOverlayClaimClasses}>
+                    <div class={timerLabelClasses}>
+                      {#if tamperExpiration && tamperExpiration > new Date()}
+                        <!-- cannot re-tamper yet-->
+                        {$t('badge_forge.main.can_refine_in')}
+                      {:else if claimExpiration && claimExpiration > new Date()}
+                        <!-- logic for untampered, time 0 -->
+                        {$t('badge_forge.main.can_claim_in')}
+                      {/if}
+                    </div>
 
-                  {#if !migration.isCompleted}
                     {#if tamperExpiration && tamperExpiration > new Date()}
                       <!-- cannot re-tamper yet-->
                       <Countdown
-                        on:end={forceUpdateUI}
+                        on:end={() => onCounterEnd(migration, MigrationStatus.CAN_REFINE)}
                         class={countdownWrapperClasses}
                         itemClasses={countdownItemClasses}
                         labels={{
@@ -274,7 +267,7 @@
                     {:else if claimExpiration && claimExpiration > new Date()}
                       <!-- logic for untampered -->
                       <Countdown
-                        on:end={forceUpdateUI}
+                        on:end={() => onCounterEnd(migration, MigrationStatus.CAN_CLAIM)}
                         class={countdownWrapperClasses}
                         itemClasses={countdownItemClasses}
                         labels={{
@@ -285,10 +278,10 @@
                         }}
                         target={claimExpiration} />
                     {/if}
-                  {/if}
-                </div>
-              {/if}
-            </FactionBadgeItem>
+                  </div>
+                {/if}
+              </FactionBadgeItem>
+            {/if}
           {/each}
         </div>
       {:else}

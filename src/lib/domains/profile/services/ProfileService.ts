@@ -15,7 +15,7 @@ import type { UserInfoForLeaderboard } from '$lib/domains/profile/types/UserInfo
 import type { UserProfile } from '$lib/domains/profile/types/UserProfile';
 import type { SeasonHistoryEntry, UserStats } from '$lib/domains/profile/types/UserStats';
 import type { PaginationInfo } from '$lib/shared/dto/CommonPageApiResponse';
-import type { BadgeMigration } from '$lib/shared/types/BadgeMigration';
+import type { ActiveBadgeMigration } from '$lib/shared/types/BadgeMigration';
 import type { NFT } from '$lib/shared/types/NFT';
 import { wagmiConfig } from '$lib/shared/wagmi';
 import { activeMigration } from '$shared/stores/migration';
@@ -538,19 +538,27 @@ export class ProfileService implements IProfileService {
     return this.badgeMigrationService.getEnabledMigrations();
   }
 
-  private async _updateMigration(migration: BadgeMigration): Promise<void> {
+  private async _updateMigration(migration: ActiveBadgeMigration): Promise<void> {
     const oldUser = await this.userRepository.get();
     const badgeMigrations = oldUser.badgeMigrations || [];
 
-    badgeMigrations[badgeMigrations.length - 1] = migration;
-    const newProfile: UserProfile = {
+    // Find the migration to update
+    const existingMigration = badgeMigrations.find((m) => m.id === migration.id);
+    if (existingMigration) {
+      // Update the migration
+      const index = badgeMigrations.indexOf(existingMigration);
+      badgeMigrations[index] = migration;
+    } else {
+      badgeMigrations.push(migration);
+    }
+    // Update the profile
+    await this.userRepository.update({
       ...oldUser,
       badgeMigrations,
-    };
-    log('Updating profile with:', newProfile);
-    await this.userRepository.update(newProfile);
+    });
 
     activeMigration.set(migration);
+    log('Updating migration:', migration);
   }
 
   /**
@@ -561,7 +569,7 @@ export class ProfileService implements IProfileService {
    * @return {*}  {Promise<NFT>}
    * @memberof ProfileService
    */
-  async startMigration(address: Address, nft: NFT, migration: BadgeMigration): Promise<void> {
+  async startMigration(address: Address, nft: NFT, migration: ActiveBadgeMigration): Promise<void> {
     log('startMigration', { address, nft, migration });
     const updatedMigration = await this.badgeMigrationService.startMigration(address, nft, migration);
     await this._updateMigration(updatedMigration);
@@ -580,7 +588,7 @@ export class ProfileService implements IProfileService {
     address: Address,
     nft: NFT,
     selectedMovement: Movements,
-    migration: BadgeMigration,
+    migration: ActiveBadgeMigration,
   ): Promise<void> {
     log('refineMigration', { address, nft, selectedMovement });
     const updatedMigration = await this.badgeMigrationService.refineMigration(
@@ -600,7 +608,7 @@ export class ProfileService implements IProfileService {
    * @return {*}  {Promise<NFT>}
    * @memberof ProfileService
    */
-  async endMigration(address: Address, nft: NFT, migration: BadgeMigration): Promise<void> {
+  async endMigration(address: Address, nft: NFT, migration: ActiveBadgeMigration): Promise<void> {
     log('endMigration', { address, nft, migration });
     const updatedMigration = await this.badgeMigrationService.endMigration(address, nft, migration);
     await this._updateMigration(updatedMigration);
@@ -616,6 +624,7 @@ export class ProfileService implements IProfileService {
   async getBadgeMigrations(address: Address): Promise<void> {
     log('getMigrationStatus', { address });
     const migrations = await this.badgeMigrationService.getMigrationStatus(address);
+
     await this.userRepository.update({
       badgeMigrations: migrations,
     });

@@ -9,10 +9,10 @@ import {
   trailblazersBadgesAbi,
   trailblazersBadgesAddress,
 } from '$generated/abi';
-import type { BadgeMigration as GqlBadgeMigration, Token } from '$generated/graphql';
+import type { BadgeMigration as GqlBadgeMigration } from '$generated/graphql';
 import { type Movements, Seasons } from '$lib/domains/profile/types/types';
 import { graphqlClient } from '$lib/shared/services/graphql/client';
-import type { BadgeMigration } from '$lib/shared/types/BadgeMigration';
+import { type ActiveBadgeMigration, MigrationStatus } from '$lib/shared/types/BadgeMigration';
 import type { NFT } from '$lib/shared/types/NFT';
 import { chainId } from '$lib/shared/utils/chain';
 import parseGqlBadgeMigration from '$lib/shared/utils/nfts/parseGqlBadgeMigration';
@@ -72,7 +72,7 @@ export class BadgeMigrationAdapter {
    * @return {*}  {Promise<string>}
    * @memberof BadgeMigrationAdapter
    */
-  async startMigration(address: Address, nft: NFT, migration: BadgeMigration): Promise<BadgeMigration> {
+  async startMigration(address: Address, nft: NFT, migration: ActiveBadgeMigration): Promise<ActiveBadgeMigration> {
     log('startMigration', { address, nft });
     return new Promise((resolve, reject) => {
       try {
@@ -84,14 +84,13 @@ export class BadgeMigrationAdapter {
             user: address,
           },
           onLogs(logs) {
-            const cooldownExpiration = new Date(
-              60 * 1000 + parseInt(logs[0].args.cooldownExpiration!.toString()) * 1000,
-            );
+            const cooldownExpiration = new Date(parseInt(logs[0].args.cooldownExpiration!.toString()) * 1000);
             const s1TokenId = parseInt(logs[0].args.s1TokenId!.toString());
             unwatch();
             resolve({
               ...migration,
               claimExpirationTimeout: cooldownExpiration,
+              status: MigrationStatus.CAN_REFINE,
               s1Badge: {
                 ...migration.s1Badge,
                 tokenId: s1TokenId,
@@ -172,15 +171,15 @@ export class BadgeMigrationAdapter {
   /**
    * Execute a tamper/refine on the migration
    *
-   * @return {*}  {Promise<string>}
+   * @return {*}  {Promise<ActiveBadgeMigration>}
    * @memberof BadgeMigrationAdapter
    */
   async refineMigration(
     address: Address,
     nft: NFT,
     selectedMovement: Movements,
-    migration: BadgeMigration,
-  ): Promise<BadgeMigration> {
+    migration: ActiveBadgeMigration,
+  ): Promise<ActiveBadgeMigration> {
     log('refineMigration', { address, nft, migration });
 
     const { r, s, v, points, hash } = await this._getMigrationSignature(address, nft.metadata.badgeId as number);
@@ -195,7 +194,7 @@ export class BadgeMigrationAdapter {
             user: address,
           },
           onLogs(logs) {
-            const tamperExpiration = new Date(60 * 1000 + parseInt(logs[0].args.tamperExpiration!.toString()) * 1000);
+            const tamperExpiration = new Date(parseInt(logs[0].args.tamperExpiration!.toString()) * 1000);
             const devTampers = parseInt(logs[0].args.devTampers!.toString());
             const whaleTampers = parseInt(logs[0].args.whaleTampers!.toString());
             const minnowTampers = parseInt(logs[0].args.minnowTampers!.toString());
@@ -229,7 +228,7 @@ export class BadgeMigrationAdapter {
    * @return {*}  {Promise<NFT>}
    * @memberof BadgeMigrationAdapter
    */
-  async endMigration(address: Address, nft: NFT, migration: BadgeMigration): Promise<BadgeMigration> {
+  async endMigration(address: Address, nft: NFT, migration: ActiveBadgeMigration): Promise<ActiveBadgeMigration> {
     if (nft.metadata.badgeId === undefined) {
       throw new Error('Badge ID is required');
     }
@@ -251,7 +250,7 @@ export class BadgeMigrationAdapter {
             unwatch();
             resolve({
               ...migration,
-              isCompleted: true,
+              status: MigrationStatus.COMPLETED,
               s2Badge: {
                 ...migration.s1Badge,
                 tokenId: parseInt(s2TokenId!.toString()),
@@ -284,7 +283,7 @@ export class BadgeMigrationAdapter {
    * @return {*}  {Promise<BadgeMigration>}
    * @memberof BadgeMigrationAdapter
    */
-  async getMigrationStatus(address: Address): Promise<BadgeMigration[]> {
+  async getMigrationStatus(address: Address): Promise<Partial<ActiveBadgeMigration>[]> {
     log('getMigrationStatus', { address });
 
     try {
@@ -297,25 +296,26 @@ export class BadgeMigrationAdapter {
         return [];
       }
 
-      const { approvedS1Tokens, approvedForAll, s2Migrations } = graphqlResponse.data.account as {
-        approvedS1Tokens: Token[];
-        approvedForAll: boolean;
+      const { s2Migrations } = graphqlResponse.data.account as {
         s2Migrations: GqlBadgeMigration[];
       };
 
-      let approvedTokenIds = [];
+      const enabledBadgeIds = await this.fetchEnabledMigrations();
 
-      if (approvedForAll) {
-        approvedTokenIds = [0, 1, 2, 3, 4, 5, 6, 7];
-      } else {
-        approvedTokenIds = approvedS1Tokens.map((token: Token) => parseInt(token.badgeId.toString()));
-      }
-
-      const migrations = s2Migrations.map(async (raw) => {
-        return parseGqlBadgeMigration(raw, approvedTokenIds);
+      const migrations = enabledBadgeIds.map((badgeId) => {
+        const rawMigration = s2Migrations.find(
+          (migration) => parseInt(migration.s1Badge.badgeId.toString()) === badgeId,
+        );
+        if (!rawMigration) {
+          return {
+            badgeId,
+            status: MigrationStatus.NOT_STARTED,
+          } as Partial<ActiveBadgeMigration>;
+        }
+        return parseGqlBadgeMigration(rawMigration);
       });
 
-      return Promise.all(migrations);
+      return migrations;
     } catch (e) {
       console.error(e);
       return [];
