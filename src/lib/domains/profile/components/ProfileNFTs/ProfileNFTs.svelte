@@ -28,7 +28,7 @@
   };
 
   onMount(async () => {
-    const allNfts = $userProfile.nfts || [];
+    const allNfts = $userProfile?.nfts || [];
 
     nfts = allNfts.filter((nft) => nft.address.toLowerCase() !== trailblazersBadgesAddress[chainId].toLowerCase());
     badges = allNfts.filter((nft) => nft.address.toLowerCase() === trailblazersBadgesAddress[chainId].toLowerCase());
