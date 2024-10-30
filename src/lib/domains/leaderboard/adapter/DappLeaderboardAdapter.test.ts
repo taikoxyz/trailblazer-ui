@@ -43,7 +43,7 @@ describe('DappLeaderboardAdapter', () => {
           total: 2,
           size: 2,
         },
-        lastUpdated: Date.now(),
+        lastUpdated: 1730244198,
       } satisfies DappLeaderboardPageApiResponse;
 
       const mockResponse = {
@@ -63,6 +63,13 @@ describe('DappLeaderboardAdapter', () => {
         total: 2,
       };
 
+      const expectedResult = {
+        data: {
+          ...mockLeaderboardData.data,
+        },
+        lastUpdated: mockLeaderboardData.lastUpdated * 1000,
+      };
+
       // When
       const result = await leaderboardAdapter.fetchLeaderboardData(input, 1);
 
@@ -72,7 +79,7 @@ describe('DappLeaderboardAdapter', () => {
         ...globalAxiosConfig,
         params: input,
       });
-      expect(result).toEqual(mockLeaderboardData.data);
+      expect(result).toEqual(expectedResult);
     });
   });
 });

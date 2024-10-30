@@ -41,6 +41,7 @@ describe('LiquidityCompetitionAdapter', () => {
           size: 2,
           total: 2,
         },
+        lastUpdated: 1730244198,
       };
 
       const mockResponse = {
@@ -61,6 +62,13 @@ describe('LiquidityCompetitionAdapter', () => {
 
       const season = 1;
 
+      const expectedResult = {
+        data: {
+          ...mockLeaderboardData.data,
+        },
+        lastUpdated: mockLeaderboardData.lastUpdated * 1000,
+      };
+
       // When
       const result = await leaderboardAdapter.fetchLeaderboardData(input, season);
 
@@ -70,7 +78,7 @@ describe('LiquidityCompetitionAdapter', () => {
         ...globalAxiosConfig,
         params: input,
       });
-      expect(result).toEqual(mockLeaderboardData.data);
+      expect(result).toEqual(expectedResult);
     });
 
     it('should handle API errors gracefully', async () => {

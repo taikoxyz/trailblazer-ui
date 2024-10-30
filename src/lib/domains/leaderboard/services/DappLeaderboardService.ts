@@ -5,7 +5,7 @@ import { mapDappLeaderboardRow } from '$lib/domains/leaderboard/mapper/mapper';
 import { DappLeaderboardRepository } from '$lib/domains/leaderboard/repository/DappLeaderboardRepository';
 import type { DappLeaderboardPage, DappLeaderboardRow } from '$lib/domains/leaderboard/types/dapps/types';
 import type { UnifiedLeaderboardRow } from '$lib/domains/leaderboard/types/shared/types';
-import type { PaginationInfo } from '$lib/shared/dto/CommonPageApiResponse';
+import type { CommonPageApiResponse, PaginationInfo } from '$lib/shared/dto/CommonPageApiResponse';
 import { getLogger } from '$shared/utils/logger';
 
 const log = getLogger('DappLeaderboardService');
@@ -46,15 +46,13 @@ export class DappLeaderboardService {
       pagination: { ...args },
     };
     log('fetching leaderboard data', args, season);
-    const leaderboardData: PaginationInfo<DappLeaderboardItem> = await this.leaderboardAdapter.fetchLeaderboardData(
-      args,
-      season,
-    );
+    const leaderboardData: CommonPageApiResponse<DappLeaderboardItem> =
+      await this.leaderboardAdapter.fetchLeaderboardData(args, season);
 
     log('leaderboardData', leaderboardData);
 
-    if (leaderboardData.items && leaderboardData.items.length > 0) {
-      const protocolDetailsPromises = leaderboardData.items.map(async (item) => {
+    if (leaderboardData.data.items && leaderboardData.data.items.length > 0) {
+      const protocolDetailsPromises = leaderboardData.data.items.map(async (item) => {
         try {
           const protocolDetails = await this.protocolAdapter.fetchProtocolDetails(item.slug, season);
           log(`details for ${item.slug}`, protocolDetails);
@@ -81,7 +79,7 @@ export class DappLeaderboardService {
       const unifiedRows = settledRows.filter((row): row is UnifiedLeaderboardRow => row !== null);
 
       leaderboardPage.items.push(...unifiedRows);
-      leaderboardPage.pagination = { ...leaderboardData };
+      leaderboardPage.pagination = { ...leaderboardData.data, ...args };
       this.leaderboardRepository.update(leaderboardPage);
       return leaderboardPage;
     }

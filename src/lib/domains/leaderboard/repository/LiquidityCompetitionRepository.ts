@@ -14,8 +14,12 @@ export class LiquidityCompetitionRepository extends IRepository<LiquidityCompeti
   async update(leaderboardPage: LiquidityCompetitionPage) {
     log('updating leaderboard data', leaderboardPage);
     currentLiquidityCompetitionLeaderboard.update((store) => {
-      store.items = leaderboardPage.items.filter((item) => !!item.address);
-      return store;
+      return {
+        ...store,
+        items: leaderboardPage.items.filter((item) => !!item.address),
+        lastUpdated: leaderboardPage.lastUpdated,
+        pagination: leaderboardPage.pagination,
+      };
     });
   }
 }

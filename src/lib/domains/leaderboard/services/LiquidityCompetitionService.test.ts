@@ -2,9 +2,9 @@ import type { Address } from 'viem';
 
 import type { ProfileService } from '$lib/domains/profile/services/ProfileService';
 import type { UserInfoForLeaderboard } from '$lib/domains/profile/types/UserInfoForLeaderboard';
-import type { PaginationInfo } from '$shared/dto/CommonPageApiResponse';
+import type { CommonPageApiResponse, PaginationInfo } from '$shared/dto/CommonPageApiResponse';
 
-import type { UserLeaderboardAdapter } from '../adapter/UserLeaderboardAdapter';
+import type { LiquidityCompetitionAdapter } from '../adapter/LiquidityCompetitionAdapter';
 import { mapLiquidityLeaderboardRow } from '../mapper/mapper';
 import type { LiquidityCompetitionRepository } from '../repository/LiquidityCompetitionRepository';
 import type { UnifiedLeaderboardRow } from '../types/shared/types';
@@ -24,7 +24,7 @@ vi.mock('$lib/domains/leaderboard/mapper/mapper', () => ({
 
 describe('LiquidityCompetitionService', () => {
   let service: LiquidityCompetitionService;
-  let mockLeaderboardAdapter: UserLeaderboardAdapter;
+  let mockLeaderboardAdapter: LiquidityCompetitionAdapter;
   let mockProfileService: Partial<ProfileService>;
   let mockLeaderboardRepository: LiquidityCompetitionRepository;
 
@@ -33,7 +33,8 @@ describe('LiquidityCompetitionService', () => {
 
     mockLeaderboardAdapter = {
       fetchLeaderboardData: vi.fn(),
-    } as UserLeaderboardAdapter;
+      fetchLeaderboardPositionForAddress: vi.fn(),
+    } as LiquidityCompetitionAdapter;
 
     mockLeaderboardRepository = {
       update: vi.fn(),
@@ -42,6 +43,7 @@ describe('LiquidityCompetitionService', () => {
 
     mockProfileService = {
       getUserInfoForLeaderboard: vi.fn(),
+      getProfilePicture: vi.fn(),
     };
 
     service = new LiquidityCompetitionService(
@@ -65,11 +67,14 @@ describe('LiquidityCompetitionService', () => {
       { address: '0x456' as Address, score: 200, rank: 2 },
     ];
 
-    const leaderboardData: PaginationInfo<UserLeaderboardItem> = {
-      items: leaderboardItems,
-      page: 0,
-      size: 2,
-      total: 100,
+    const leaderboardData: CommonPageApiResponse<UserLeaderboardItem> = {
+      data: {
+        items: leaderboardItems,
+        page: 0,
+        size: 2,
+        total: 100,
+      },
+      lastUpdated: Date.now(),
     };
 
     const userDetailsList: UserInfoForLeaderboard[] = [
@@ -133,7 +138,7 @@ describe('LiquidityCompetitionService', () => {
     expect(mockLeaderboardAdapter.fetchLeaderboardData).toHaveBeenCalledWith(args, season);
     expect(mockProfileService.getUserInfoForLeaderboard).toHaveBeenCalledWith(
       leaderboardItems,
-      leaderboardData.total,
+      leaderboardData.data.total,
       season,
     );
     expect(mapLiquidityLeaderboardRow).toHaveBeenCalledTimes(2);
@@ -142,7 +147,7 @@ describe('LiquidityCompetitionService', () => {
       lastUpdated: expect.any(Number),
       pagination: {
         ...args,
-        total: leaderboardData.total,
+        total: leaderboardData.data.total,
       },
     });
     expect(result).toEqual({
@@ -150,8 +155,51 @@ describe('LiquidityCompetitionService', () => {
       lastUpdated: expect.any(Number),
       pagination: {
         ...args,
-        total: leaderboardData.total,
+        total: leaderboardData.data.total,
       },
     });
+  });
+
+  it('should fetch leaderboard data for a single address', async () => {
+    // Given
+    const address = '0x123' as Address;
+
+    const season = 1;
+
+    const leaderboardPosition: UserLeaderboardItem = { address, score: 200, rank: 2 };
+    const leaderboardItems: UserLeaderboardItem[] = [leaderboardPosition];
+
+    const leaderboardData: PaginationInfo<UserLeaderboardItem> = {
+      items: leaderboardItems,
+      page: 0,
+      size: 2,
+      total: 100,
+    };
+
+    const mappedRow: UnifiedLeaderboardRow = {
+      address,
+      icon: '',
+      level: '',
+      rank: 2,
+      title: '',
+      data: [],
+      totalScore: 200,
+      handle: '',
+    };
+
+    vi.mocked(mockLeaderboardAdapter.fetchLeaderboardPositionForAddress!).mockResolvedValue(leaderboardData);
+
+    // Mock the profile service
+    vi.mocked(mockProfileService.getProfilePicture!).mockResolvedValue(null);
+
+    // Mock the mapper function
+    vi.mocked(mapLiquidityLeaderboardRow).mockReturnValueOnce(mappedRow);
+
+    // When
+    const result = await service.getLiquidityCompetitionDataForAddress(season, address);
+
+    // Then
+    expect(mockLeaderboardAdapter.fetchLeaderboardPositionForAddress).toHaveBeenCalledWith(season, address);
+    expect(result).toEqual(mappedRow);
   });
 });

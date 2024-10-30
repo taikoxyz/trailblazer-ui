@@ -49,24 +49,23 @@ export class LiquidityCompetitionService {
     try {
       log('Fetching leaderboard data', { args, season });
       const leaderboardData = await this.leaderboardAdapter.fetchLeaderboardData(args, season);
-      log('Fetched leaderboard data', { leaderboardData });
+      log('Fetched leaderboard data', leaderboardData);
 
-      if (!leaderboardData.items?.length) {
+      if (!leaderboardData.data.items?.length) {
         log('No leaderboard items found', { args, season });
         return {
           items: [],
           lastUpdated: Date.now(),
-          pagination: { ...args, total: leaderboardData.total, total_pages: leaderboardData.total_pages },
+          pagination: { ...args, total: leaderboardData.data.total, total_pages: leaderboardData.data.total_pages },
         };
       }
 
       // Fetch user details in bulk
       const userDetailsList = await this.profileService.getUserInfoForLeaderboard(
-        leaderboardData.items,
-        leaderboardData.total,
+        leaderboardData.data.items,
+        leaderboardData.data.total,
         season,
       );
-      log('Fetched user details:', userDetailsList);
 
       const userDetailsMap = new Map<Address, UserInfoForLeaderboard>();
       userDetailsList.forEach((userInfo) => {
@@ -74,8 +73,8 @@ export class LiquidityCompetitionService {
       });
 
       const itemsWithDetails: UnifiedLeaderboardRow[] = [];
-      for (let index = 0; index < leaderboardData.items.length; index++) {
-        const item = leaderboardData.items[index];
+      for (let index = 0; index < leaderboardData.data.items.length; index++) {
+        const item = leaderboardData.data.items[index];
         const userDetails = userDetailsMap.get(item.address);
 
         try {
@@ -95,7 +94,7 @@ export class LiquidityCompetitionService {
               address: item.address,
               score: item.score,
               icon: userDetails.profilePicture,
-              rank: index + 1 + args.page * args.size,
+              rank: item.rank,
             };
             log(`Entry`, entry);
             const mapped = mapLiquidityLeaderboardRow(entry);
@@ -109,13 +108,13 @@ export class LiquidityCompetitionService {
 
       const liquidityCompetionPage: LiquidityCompetitionPage = {
         items: itemsWithDetails,
-        lastUpdated: Date.now(),
+        lastUpdated: leaderboardData.lastUpdated,
         pagination: {
           ...args,
-          total: leaderboardData.total,
+          total: leaderboardData.data.total,
         },
       };
-      log('Liquidity competition leaderboard page', liquidityCompetionPage);
+      log('Liquidity competition leaderboard page', liquidityCompetionPage, liquidityCompetionPage.lastUpdated);
 
       if (itemsWithDetails.length > 0) {
         await this.liquidityCompetitionRepository.update(liquidityCompetionPage);
@@ -125,6 +124,49 @@ export class LiquidityCompetitionService {
       return liquidityCompetionPage;
     } catch (error) {
       log('Failed to fetch leaderboard data', error);
+      throw error;
+    }
+  }
+
+  /**
+   * Fetches a single liquidity competition leaderboard entry for a given season with pagination.
+   *
+   * @param {number} season
+   * @param {Address} address of the user
+   * @return {*}  {(Promise<UnifiedLeaderboardRow | null>)}
+   * @memberof LiquidityCompetitionService
+   */
+  async getLiquidityCompetitionDataForAddress(season: number, address: Address): Promise<UnifiedLeaderboardRow | null> {
+    try {
+      log('Fetching user leaderboard data', season, address);
+      const leaderboardData = await this.leaderboardAdapter.fetchLeaderboardPositionForAddress(season, address);
+
+      log('Fetched user leaderboard data', leaderboardData);
+
+      if (!leaderboardData.items?.length) {
+        log('No leaderboard items found', { season, address });
+        return null;
+      }
+
+      const profilePicture = await this.profileService.getProfilePicture(address);
+
+      const userLeaderboardItem = leaderboardData.items[0];
+      const userLeaderboardRow: UserLeaderboardItem = {
+        address: userLeaderboardItem.address,
+        score: userLeaderboardItem.score,
+        rank: userLeaderboardItem.rank,
+      };
+
+      const entry: LiquidityCompetitionRow = {
+        ...userLeaderboardRow,
+        icon: profilePicture || '',
+      };
+      const mapped = mapLiquidityLeaderboardRow(entry);
+      log('Mapped user leaderboard row', mapped);
+
+      return mapped;
+    } catch (error) {
+      log('Failed to fetch user leaderboard data', error);
       throw error;
     }
   }
