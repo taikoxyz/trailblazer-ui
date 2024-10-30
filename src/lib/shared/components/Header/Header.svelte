@@ -24,7 +24,7 @@
     'bg-[#0c0f1b]',
   );
 
-  const containerClasses = classNames('f-center', 'w-full', 'fixed', 'relative', 'bg-[#0c0f1b]', 'xl:max-w-[1512px]');
+  const containerClasses = classNames('f-center', 'w-full', 'fixed', 'relative', 'bg-[#0c0f1b]', 'xl:max-w-[1440px]');
 
   const headerClasses = classNames(
     'flex',
@@ -40,7 +40,7 @@
 
   const innerHeaderClasses = classNames('f-between-center', 'w-full', 'gap-2', 'xl:top-[12px]', 'pl-[8px]');
 
-  const logoLinkClasses = classNames('flex', 'gap-2', 'items-end', 'z-50');
+  const logoLinkClasses = classNames('flex', 'gap-2', 'items-end', 'z-10');
   const mobileLogoClasses = classNames('md:hidden');
   const desktopLogoClasses = classNames('hidden', 'md:flex', 'h-[25px]', 'w-[90px]');
   const trailblazersLogoClasses = classNames('max-w-[125px]', 'pb-[2px]', 'max-h-[25px]', 'min-h-[25px]');

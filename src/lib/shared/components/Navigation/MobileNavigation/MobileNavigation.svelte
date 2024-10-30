@@ -89,7 +89,7 @@
               </div>
               <div class="collapse-content bg-neutral w-full rounded-full flex flex-col gap-4 pl-0">
                 {#each route.children as child}
-                  <MobileNavigationLink navigation={child} />
+                  <MobileNavigationLink navigation={child} on:navigate={closeMenu} />
                 {/each}
               </div>
             </div>
