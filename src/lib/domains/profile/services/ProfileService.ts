@@ -86,6 +86,8 @@ export class ProfileService implements IProfileService {
       ]);
       log('Fetched data:', { pointsAndRank, userDomainInfo, activity, nftsResult, avatarResult });
 
+      log('DEBUGME', activity);
+
       // Assemble the complete UserProfile with default values
       const userProfile: UserProfile = {
         ...defaultUserProfile,
@@ -104,11 +106,11 @@ export class ProfileService implements IProfileService {
           level: '',
         },
         activityHistory: {
-          items: activity?.data.items,
+          items: activity.items,
           pagination: {
             page: 0,
-            size: activity?.data.size,
-            total: activity?.data.total,
+            size: activity.size,
+            total: activity.total,
           },
         },
         nfts: [...nftsResult.taikoonNFTs, ...nftsResult.badgeNFTs],
@@ -442,17 +444,16 @@ export class ProfileService implements IProfileService {
     const activity = await this.apiAdapter.fetchUserActivity(user, season, args.page);
     log('activity', activity);
 
-    if (activity.data.items && activity.data.items.length > 0) {
+    if (activity.items && activity.items.length > 0) {
       const oldUser = await this.userRepository.get();
       const newProfile: UserProfile = {
         ...oldUser,
         activityHistory: {
-          items: [...activity.data.items],
+          items: [...activity.items],
           pagination: { ...args },
         },
       };
       await this.userRepository.update(newProfile);
-      // return  PaginationInfo<UserPointHistory> with new items
     }
   }
 
