@@ -303,7 +303,7 @@ const EcosystemPartners: IEcosystemPartner[] = [
     name: 'TakoTako',
     description:
       'TAKOTAKO emphasizes on real yield by offering competitive rates and sharing almost half of its revenue with users.',
-    logo: '/dapps/takotako.svg',
+    logo: '/dapps/takotako.png',
     category: 'DEX',
     url: 'https://takotako.xyz',
   },
