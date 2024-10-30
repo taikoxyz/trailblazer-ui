@@ -46,6 +46,7 @@
       slug: name,
       total: totalItems,
     };
+
     const leaderboardPage: DappLeaderboardPage | undefined = await dappLeaderboardService.getDappLeaderboardData(
       args,
       season,

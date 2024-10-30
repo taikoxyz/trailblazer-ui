@@ -1,13 +1,28 @@
 <script lang="ts">
+  import { getContext } from 'svelte';
   import { t } from 'svelte-i18n';
 
+  import type { LoadLeaderboardDataType } from '$lib/domains/leaderboard/types/shared/types';
+  import type { UserLeaderboardItem } from '$lib/domains/leaderboard/types/user/types';
   import { PlusIcon } from '$shared/components/Icon';
   import LiquidityRoyalCarousel from '$shared/components/PartnerCarousel/LiquidityRoyalCarousel.svelte';
+  import type { PaginationInfo } from '$shared/dto/CommonPageApiResponse';
   import { classNames } from '$shared/utils/classNames';
 
+  import LastUpdated from '../../LastUpdated.svelte';
+  import Search from '../../Search.svelte';
   import Infoboxes from './Infoboxes.svelte';
   import PrizePool from './PrizePool.svelte';
   import ReadMoreBox from './ReadMoreBox.svelte';
+
+  export let lastUpdated: Date;
+
+  const loadLeaderboardData = getContext<LoadLeaderboardDataType>('loadDappsLiquidityCompetitionLeaderboardData');
+  const pageInfo = getContext<PaginationInfo<UserLeaderboardItem>>('loadLiquidityCompetitionPageInfo');
+
+  const handleSearch = async (value: string) => {
+    await loadLeaderboardData(pageInfo.page, value);
+  };
 
   const containerClasses = classNames('flex', 'justify-center', 'items-center', 'w-full');
   const wrapperClasses = classNames(
@@ -55,6 +70,8 @@
     'tracking-[0.32px]',
   );
   const plusIconClasses = classNames('self-center', 'mb-6', 'md:mb-0');
+
+  const searchClasses = classNames('w-full', 'lg:w-[400px]', 'lg:order-1', 'order-last', 'z-0', 'ml-1', 'order-first');
 </script>
 
 <div class={containerClasses}>
@@ -72,4 +89,8 @@
     <ReadMoreBox />
     <LiquidityRoyalCarousel />
   </div>
+</div>
+<div class="flex f-between-center">
+  <Search className={searchClasses} onSearch={handleSearch} placeholder="Search Address..." />
+  <LastUpdated {lastUpdated} class="order-last" />
 </div>

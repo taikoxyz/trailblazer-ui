@@ -104,11 +104,11 @@ export class ProfileService implements IProfileService {
           level: '',
         },
         activityHistory: {
-          items: activity?.items,
+          items: activity?.data.items,
           pagination: {
             page: 0,
-            size: activity?.size,
-            total: activity?.total,
+            size: activity?.data.size,
+            total: activity?.data.total,
           },
         },
         nfts: [...nftsResult.taikoonNFTs, ...nftsResult.badgeNFTs],
@@ -442,12 +442,12 @@ export class ProfileService implements IProfileService {
     const activity = await this.apiAdapter.fetchUserActivity(user, season, args.page);
     log('activity', activity);
 
-    if (activity.items && activity.items.length > 0) {
+    if (activity.data.items && activity.data.items.length > 0) {
       const oldUser = await this.userRepository.get();
       const newProfile: UserProfile = {
         ...oldUser,
         activityHistory: {
-          items: [...activity.items],
+          items: [...activity.data.items],
           pagination: { ...args },
         },
       };

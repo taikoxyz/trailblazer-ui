@@ -100,7 +100,6 @@
   {#if showDetailsColumn}
     <td class={detailsButtonClasses}>
       <div class="px-6">
-        <!-- Added padding here -->
         {#if entry.data?.length > 0}
           <button class="link">Details</button>
         {:else if entry.address}
@@ -113,7 +112,6 @@
   {#if entry.level}
     <td class={levelCellClasses}>
       <div class="px-6">
-        <!-- Added padding here -->
         {entry.level}
       </div>
     </td>
@@ -122,7 +120,6 @@
   {#if entry.title}
     <td class={titleCellClasses}>
       <div class="px-6">
-        <!-- Added padding here -->
         {entry.title}
       </div>
     </td>
@@ -130,11 +127,10 @@
 
   <td class={scoreCellClasses}>
     <div class="px-6">
-      <!-- Added padding here -->
       {#if entry.totalScore >= 0}
         <svelte:component this={scoreComponent} score={entry.totalScore} data={entry.data} />
       {:else}
-        Indexing...
+        0
       {/if}
     </div>
   </td>

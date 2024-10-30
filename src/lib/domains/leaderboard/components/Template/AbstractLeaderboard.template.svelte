@@ -11,73 +11,92 @@
   import TableHeader from './TableHeader.svelte';
   import TableRow from './TableRow.svelte';
 
+  // Component Props
   export let headers: string[];
   export let data: UnifiedLeaderboardRow[];
   export let highlightedUserPosition: UnifiedLeaderboardRow | null = null;
-  export let showTrophy: boolean = true;
-  export let isLoading: boolean = false;
+  export let showTrophy = true;
+  export let isLoading = false;
   export let handlePageChange: (page: number) => void;
-  export let currentPage: number = 1;
-  export let totalItems: number = 0;
+  export let currentPage = 1;
+  export let totalItems = 0;
   export let headerComponent: ComponentType;
-  export let ended: boolean = false;
+  export let ended = false;
   export let scoreComponent: ComponentType;
   export let season: number;
 
   export let additionalInfoComponent: ComponentType | null = null;
-  // export let showCTA: boolean = true;
-
-  // End info and components
   export let endedComponent: ComponentType | null = null;
-  export let endTitleText: string = '';
-  export let endDescriptionText: string = '';
-  export let lastUpdated: Date = new Date();
+  export let endTitleText = '';
+  export let endDescriptionText = '';
+  export let lastUpdated = new Date();
 
-  export let showPagination: boolean = true;
-  export let showDetailsColumn: boolean = true;
-  export let qualifyingPositions: number = 3;
+  export let showPagination = true;
+  export let showDetailsColumn = true;
+  export let qualifyingPositions = 3;
 
+  // Reactive Variables
   $: pageSize = leaderboardConfig.pageSize;
 
+  // Local State
   let expandedRow = -1;
 
+  // Helper Functions
   function toggleRow(index: number) {
     expandedRow = expandedRow === index ? -1 : index;
   }
 
-  const containerClass = classNames('overflow-x-auto', 'lg:w-full', 'px-8', 'md:px-0', 'lg:mt-0');
-  const headerMarginClass = classNames('mt-[60px]', 'lg:mt-[80px]', 'block', 'lg:hidden');
-  const additionalInfoMarginClass = classNames('mt-[60px]', 'lg:mt-[80px]');
-  const textCenterClass = classNames('text-center', 'mt-[30px]', 'text-xl');
-  const tableWrapperClass = classNames('overflow-x-auto', 'rounded-3xl', 'p-6', 'bg-gray-800/10');
-  const tableClass = classNames(
-    'relative',
-    'table-lg',
-    'w-full',
-    'body-regular',
-    'text-white',
-    'rounded-3xl',
-    'border-separate',
-    'border-spacing-y-4',
-    'border-spacing-x-0',
-  );
+  function getFillClass(rank: number): string {
+    if (qualifyingPositions > 3 && rank <= qualifyingPositions) {
+      return 'fill-fixed-icon';
+    }
+    switch (rank) {
+      case 1:
+        return 'fill-warning-sentiment';
+      case 2:
+        return 'fill-grey-300';
+      case 3:
+        return 'fill-yellow-700';
+      default:
+        return '';
+    }
+  }
+
+  function getRank(entry: UnifiedLeaderboardRow, index: number): number {
+    return entry.rank ?? index + 1 + (currentPage - 1) * pageSize;
+  }
+
+  // CSS Classes
+  const containerClass = 'overflow-x-auto lg:w-full px-8 md:px-0 lg:mt-0';
+  const headerMarginClass = 'mt-[60px] lg:mt-[80px] block lg:hidden';
+  const additionalInfoMarginClass = 'mt-[60px] lg:mt-[80px]';
+  const textCenterClass = 'text-center mt-[30px] text-xl';
+  const tableWrapperClass = 'overflow-x-auto rounded-3xl p-6 bg-gray-800/10';
+  const tableClass =
+    'relative table-lg w-full body-regular text-white rounded-3xl border-separate border-spacing-y-4 border-spacing-x-0';
   const tbodyClass = classNames('rounded-lg', ended ? 'blur-[1.5px]' : '');
-  const noDataRowClass = classNames('row', 'h-12');
-  const paginationMarginClass = classNames('mt-[38px]');
+  const noDataRowClass = 'row h-12';
+  const paginationMarginClass = 'mt-[38px]';
 </script>
 
 <div class={containerClass}>
+  <!-- The leaderboard header -->
   <svelte:component this={headerComponent} {lastUpdated} {season} />
+
+  <!-- Leaderboard or season ended overlay -->
   {#if ended && endedComponent}
     <div class={headerMarginClass}>
       <svelte:component this={endedComponent} title={endTitleText} description={endDescriptionText} />
     </div>
   {/if}
+
+  <!-- Additional component such as prize pool -->
   {#if additionalInfoComponent && !ended}
     <div class={additionalInfoMarginClass}>
       <svelte:component this={additionalInfoComponent} {lastUpdated} {season} />
     </div>
   {/if}
+
   <div class={textCenterClass}></div>
   <slot />
 
@@ -85,26 +104,18 @@
     <table class={tableClass}>
       <TableHeader {headers} />
       <div class="h-[4px]" />
+
       {#if ended && data.length > 0}
         <DisabledMask title={endTitleText} description={endDescriptionText} />
       {/if}
+
       <tbody class={tbodyClass}>
+        <!-- A single row to highlight a position -->
         {#if highlightedUserPosition}
           {@const rank = highlightedUserPosition.rank}
-          {@const userEntry = {
-            ...highlightedUserPosition,
-            address: 'Your position',
-          }}
-          {@const fillClass =
-            qualifyingPositions > 3 && rank <= qualifyingPositions
-              ? 'fill-fixed-icon'
-              : rank === 1
-                ? 'fill-warning-sentiment'
-                : rank === 2
-                  ? 'fill-grey-300'
-                  : rank === 3
-                    ? 'fill-yellow-700'
-                    : ''}
+          {@const userEntry = { ...highlightedUserPosition, address: 'Your position' }}
+          {@const fillClass = getFillClass(rank)}
+
           <TableRow
             entry={userEntry}
             index={-1}
@@ -117,25 +128,19 @@
             {showDetailsColumn}
             {qualifyingPositions} />
         {/if}
+
+        <!-- Loading rows -->
         {#if isLoading}
           <!-- eslint-disable-next-line @typescript-eslint/no-unused-vars -->
           {#each Array(pageSize) as _, index}
             <LoadingRow />
           {/each}
         {:else}
+          <!-- The actual data rows -->
           {#each data as entry, index}
-            {@const rank = entry.rank ? entry.rank : index + 1 + (currentPage - 1) * pageSize}
+            {@const rank = getRank(entry, index)}
             {@const highlightIndexPosition = entry.address === highlightedUserPosition?.address ? index : -1}
-            {@const fillClass =
-              qualifyingPositions > 3 && rank <= qualifyingPositions
-                ? 'fill-fixed-icon'
-                : rank === 1
-                  ? 'fill-warning-sentiment'
-                  : rank === 2
-                    ? 'fill-grey-300'
-                    : rank === 3
-                      ? 'fill-yellow-700'
-                      : ''}
+            {@const fillClass = getFillClass(rank)}
 
             <TableRow
               {entry}
@@ -151,6 +156,7 @@
               {qualifyingPositions} />
           {/each}
         {/if}
+
         {#if data.length === 0 && !isLoading}
           <tr class={noDataRowClass}>
             <td class="lg:px-10" colspan="3">No data available yet</td>
@@ -165,7 +171,7 @@
       <Paginator
         {pageSize}
         {currentPage}
-        limitPages={true}
+        limitPages
         maxPages={Math.ceil(totalItems / pageSize)}
         bind:totalItems
         on:pageChange={({ detail: selectedPage }) => handlePageChange(selectedPage)} />
