@@ -13,7 +13,9 @@
   import RotatingIcon from '$shared/components/Icon/RotatingIcon.svelte';
   import { Spinner } from '$shared/components/Spinner';
   import { classNames } from '$shared/utils/classNames';
+  import filterBadges from '$shared/utils/nfts/filterBadges';
 
+  import { Seasons } from '../../types/types';
   import UserNFTsSection from './UserNFTsSection.svelte';
 
   // Reactive variables
@@ -39,10 +41,8 @@
         !isAddressEqual(nft.address, trailblazersBadgesS2Address[chainId]),
     );
 
-    s1Badges = allNfts.filter((nft) => nft.address.toLowerCase() === trailblazersBadgesAddress[chainId].toLowerCase());
-    s2Badges = allNfts.filter(
-      (nft) => nft.address.toLowerCase() === trailblazersBadgesS2Address[chainId].toLowerCase(),
-    );
+    s1Badges = filterBadges(Seasons.Season1, allNfts);
+    s2Badges = filterBadges(Seasons.Season2, allNfts);
   });
 
   // CSS classes
