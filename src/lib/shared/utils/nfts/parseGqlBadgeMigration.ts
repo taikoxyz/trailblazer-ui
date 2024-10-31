@@ -54,7 +54,6 @@ export default function parseGqlBadgeMigration(raw: GqlBadgeMigration): ActiveBa
     id: raw.id,
     s1Badge,
     s2Badge,
-    devTampers: parseInt(raw.devTampers),
     whaleTampers: parseInt(raw.whaleTampers),
     minnowTampers: parseInt(raw.minnowTampers),
     claimExpirationTimeout,

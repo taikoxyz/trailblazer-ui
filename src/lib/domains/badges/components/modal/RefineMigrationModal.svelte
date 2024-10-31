@@ -17,7 +17,7 @@
   const badgesWrapperClasses = classNames(
     'flex',
     'w-full',
-    'max-w-[1200px]',
+    'max-w-[900px]',
     'p-[80px]',
     'gap-[20px]',
     'md:gap-[40px]',
@@ -88,21 +88,6 @@
             checked={selectedMovement === Movements.Whale}
             on:change={() => {
               selectedMovement = Movements.Whale;
-            }}
-            name={radioGroupName} />
-        </div>
-      </MigrationBadgeItem>
-
-      <MigrationBadgeItem
-        hideBubbles
-        shadow={selectedMovement === Movements.Dev}
-        value={$activeMigration?.devTampers}
-        token={getMockBadge(Seasons.Season2, s1BadgeId, Movements.Dev)}>
-        <div class={detailsClasses}>
-          <TamperRadio
-            checked={selectedMovement === Movements.Dev}
-            on:change={() => {
-              selectedMovement = Movements.Dev;
             }}
             name={radioGroupName} />
         </div>

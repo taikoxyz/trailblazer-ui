@@ -85,7 +85,7 @@
 
   const baseBadgeWrapperClasses = classNames(
     'border',
-    'border-transparent',
+    // 'border-transparent',
     'border-[3px]',
     'w-full',
     'transition-all',
@@ -106,9 +106,9 @@
   const countdownBadgeWrapperClasses = classNames(
     baseBadgeWrapperClasses,
     'border-[#ff6fc8]',
+    'bg-[#ff6fc8]',
     'hover:shadow-[0_0_20px_0px_rgba(255,111,200,1)]',
   );
-  /////////////////////////////////////////////////
 
   const timerLabelClasses = classNames('text-[14px]/[20px]', 'text-[#adb1b8]');
 
@@ -149,7 +149,6 @@
       status: MigrationStatus.NOT_STARTED,
       s1Badge: getMockBadge(Seasons.Season1, badgeId),
       id: '',
-      devTampers: 0,
       whaleTampers: 0,
       minnowTampers: 0,
       claimExpirationTimeout: new Date(),
@@ -214,7 +213,7 @@
       (nft) => nft.metadata.season === Seasons.Season2 && nft.metadata.badgeId === badgeId,
     );
     if (!nft) {
-      return Movements.Dev;
+      return Movements.Undefined;
     }
 
     return nft.metadata.movement as Movements;

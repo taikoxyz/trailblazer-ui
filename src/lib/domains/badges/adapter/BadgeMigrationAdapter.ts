@@ -195,14 +195,12 @@ export class BadgeMigrationAdapter {
           },
           onLogs(logs) {
             const tamperExpiration = new Date(parseInt(logs[0].args.tamperExpiration!.toString()) * 1000);
-            const devTampers = parseInt(logs[0].args.devTampers!.toString());
             const whaleTampers = parseInt(logs[0].args.whaleTampers!.toString());
             const minnowTampers = parseInt(logs[0].args.minnowTampers!.toString());
             unwatch();
             resolve({
               ...migration,
               tamperExpirationTimeout: tamperExpiration,
-              devTampers,
               whaleTampers,
               minnowTampers,
             });

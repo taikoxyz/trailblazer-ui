@@ -19,7 +19,7 @@
 
   $: badgeId = (token.metadata.badgeId as number) || 0;
   $: season = token.metadata.season as Seasons;
-  $: movementName = MovementNames[(token.metadata.movement as Movements) || Movements.Dev];
+  $: movementName = MovementNames[(token.metadata.movement as Movements) || Movements.Undefined];
 
   // CSS classes
   $: wrapperClasses = classNames(

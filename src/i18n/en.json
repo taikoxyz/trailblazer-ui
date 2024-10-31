@@ -566,7 +566,7 @@
       "start_migration": {
         "title": "Start your forge process",
         "description": "Time to forge your Season 2 {badgeName} badge!",
-        "warning": "Warning: Once you click 'Start Migration', your Season 1 badge will be locked for 365 days.",
+        "warning": "Warning: Once you click 'Start Migration', your Season 1 badge will be locked for XXX days.",
         "toast": {
           "success": {
             "title": "Success",
@@ -606,7 +606,7 @@
       "entries": [
         {
           "question": "What's the Forge?",
-          "answer": "This is where you can mint your season 2 Trailblazer badges by staking a Season 1 badge for 365 days."
+          "answer": "This is where you can mint your season 2 Trailblazer badges by staking a Season 1 badge for XXX days."
         },
         {
           "question": "What's \"Refining\" a forge process?",

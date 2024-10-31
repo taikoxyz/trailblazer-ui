@@ -1,4 +1,4 @@
-import client from 'https://api.goldsky.com/api/public/project_clz85cxrvng3n01ughcv5e7hg/subgraphs/tbz-hekla/0.2.54/gn';
+import client from 'https://api.goldsky.com/api/public/project_clz85cxrvng3n01ughcv5e7hg/subgraphs/tbz-hekla/0.2.58/gn';
 import type {} from '@apollo/client';
 import { readable } from 'svelte/store';
 import type { Readable } from 'svelte/store';
@@ -131,7 +131,6 @@ export enum Aggregation_Interval {
 export type BadgeMigration = {
   __typename?: 'BadgeMigration';
   claimExpirationTimeout: Scalars['BigInt']['output'];
-  devTampers: Scalars['BigInt']['output'];
   /** owner:s1BadgeTokenId */
   id: Scalars['Bytes']['output'];
   isCompleted?: Maybe<Scalars['Boolean']['output']>;
@@ -156,14 +155,6 @@ export type BadgeMigration_Filter = {
   claimExpirationTimeout_lte?: InputMaybe<Scalars['BigInt']['input']>;
   claimExpirationTimeout_not?: InputMaybe<Scalars['BigInt']['input']>;
   claimExpirationTimeout_not_in?: InputMaybe<Array<Scalars['BigInt']['input']>>;
-  devTampers?: InputMaybe<Scalars['BigInt']['input']>;
-  devTampers_gt?: InputMaybe<Scalars['BigInt']['input']>;
-  devTampers_gte?: InputMaybe<Scalars['BigInt']['input']>;
-  devTampers_in?: InputMaybe<Array<Scalars['BigInt']['input']>>;
-  devTampers_lt?: InputMaybe<Scalars['BigInt']['input']>;
-  devTampers_lte?: InputMaybe<Scalars['BigInt']['input']>;
-  devTampers_not?: InputMaybe<Scalars['BigInt']['input']>;
-  devTampers_not_in?: InputMaybe<Array<Scalars['BigInt']['input']>>;
   id?: InputMaybe<Scalars['Bytes']['input']>;
   id_contains?: InputMaybe<Scalars['Bytes']['input']>;
   id_gt?: InputMaybe<Scalars['Bytes']['input']>;
@@ -274,7 +265,6 @@ export type BadgeMigration_Filter = {
 
 export enum BadgeMigration_OrderBy {
   ClaimExpirationTimeout = 'claimExpirationTimeout',
-  DevTampers = 'devTampers',
   Id = 'id',
   IsCompleted = 'isCompleted',
   IsStarted = 'isStarted',

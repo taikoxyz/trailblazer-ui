@@ -87,7 +87,6 @@ export const GET_MIGRATION_STATUS_QUERY = gql`
         id
         isStarted
         isCompleted
-        devTampers
         whaleTampers
         minnowTampers
         claimExpirationTimeout

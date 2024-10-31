@@ -15,9 +15,6 @@ export interface ActiveBadgeMigration {
   status: MigrationStatus;
   s1Badge: NFT;
   s2Badge?: NFT;
-  //isStarted: boolean;
-  //isCompleted: boolean;
-  devTampers: number;
   whaleTampers: number;
   minnowTampers: number;
   claimExpirationTimeout: Date;
