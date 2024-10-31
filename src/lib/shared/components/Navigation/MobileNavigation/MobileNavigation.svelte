@@ -3,6 +3,7 @@
   import { fly } from 'svelte/transition';
 
   import ConnectButton from '$shared/components/ConnectButton/ConnectButton.svelte';
+  import { Logo, TaikoTrailblazersLogo } from '$shared/components/Logo';
   import { classNames } from '$shared/utils/classNames';
   import { routes } from '$shared/utils/routes/routes';
 
@@ -35,11 +36,13 @@
     'border-none',
     'swap',
     'swap-rotate',
-    'z-50',
   );
 
   // Prevent background scrolling when the menu is open
   let originalOverflow: string;
+
+  const logoLinkClasses = classNames('flex', 'gap-2', 'items-end', 'z-10');
+  const trailblazersLogoClasses = classNames('max-w-[125px]', 'pb-[2px]', 'max-h-[25px]', 'min-h-[25px]');
 
   $: {
     if (isMenuOpen) {
@@ -66,11 +69,18 @@
 
 {#if isMenuOpen}
   <!-- Overlay -->
-  <div class="z-30 fixed inset-0 h-full w-full" transition:fly={{ x: '600' }}>
-    <div class="relative z-21 flex flex-col gap-2 p-5 pt-[48px] min-h-full bg-elevated-background overflow-y-auto">
-      <!-- Logo or Branding -->
-      <a class="flex gap-2 pb-20" href="/"> </a>
+  <div class="z-30 fixed inset-0 overflow-y-scroll h-full w-full" transition:fly={{ x: '600' }}>
+    <div class="relative z-21 flex flex-col gap-2 p-5 pt-[78px] min-h-full bg-elevated-background">
+      <div class="f-between-center mb-10">
+        <a class={logoLinkClasses} href="/">
+          <Logo width={27} class="" /> <TaikoTrailblazersLogo class={trailblazersLogoClasses} /></a>
 
+        <label class={burgerButtonClasses}>
+          <input type="checkbox" checked={isMenuOpen} on:click={toggleMobileMenu} />
+          <img src="/hamburger.svg" alt="menu closed" class="swap-off pl-[2px]" />
+          <img src="/x.svg" alt="menu open" class="swap-on pl-[1px]" />
+        </label>
+      </div>
       <!-- Wallet -->
       <ConnectButton class="min-h-[75px] min-w-full" />
 
