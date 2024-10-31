@@ -39,6 +39,7 @@
   const headerImageClasses = classNames(
     'min-h-[475px]',
     'xl:h-[606px]',
+    'xl:max-w-[1520px]',
     'bg-[url(/competitionInfo/liquidityRoyale/sm/header.png)]',
     'md:bg-[url(/competitionInfo/liquidityRoyale/md/header.png)]',
     'lg:bg-[url(/competitionInfo/liquidityRoyale/lg/header.png)]',
