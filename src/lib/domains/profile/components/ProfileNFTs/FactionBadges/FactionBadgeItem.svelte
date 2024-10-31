@@ -30,7 +30,6 @@
     'w-full',
     'aspect-square',
     'rounded-[30px]',
-    'bg-[#310E2F]',
     'transition-all',
     inColor ? 'grayscale-0' : 'grayscale',
   );

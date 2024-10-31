@@ -70,27 +70,45 @@
     'h-[70px]',
   );
 
-  const timeOverlayBaseClasses = classNames(
+  const emptyOverlayClasses = classNames(
     'w-full',
     'h-full',
     'absolute',
-    'rounded-[30px]',
     'flex',
-    'flex-col',
     'justify-center',
     'items-center',
+    'flex-col',
+  );
+  const timerOverlayClasses = classNames(emptyOverlayClasses, 'glassy-background-lg');
+
+  /////////////////////////////////////////////////
+
+  const baseBadgeWrapperClasses = classNames(
+    'border',
+    'border-transparent',
+    'border-[3px]',
+    'w-full',
+    'transition-all',
+    // 'border-[#FF6FC8]',
+    // 'shadow-[0_0_20px_0px_rgba(255,255,255,1)]',
+    'rounded-[30px]',
+    'box-border',
+    'aspect-square',
   );
 
-  const timerOverlayClasses = classNames(
-    timeOverlayBaseClasses,
-    'border-l-[3px]',
-    'glassy-background-lg',
-    'border-b-[3px]',
-    'border-[#FF6FC8]',
-    'shadow-[0_35px_60px_-15px_rgba(255,255,255,1)]',
+  const claimBadgeWrapperClasses = classNames(
+    baseBadgeWrapperClasses,
+    'border-[#47e0a0]',
+    'shadow-[0_0_20px_0px_rgba(71,224,160,1)]',
+    'hover:shadow-[0_0_30px_0px_rgba(71,224,160,1)]',
+    'bg-[#47e0a0]',
   );
-
-  const timerOverlayClaimClasses = classNames(timeOverlayBaseClasses, 'border-[3px]', 'border-[#47E0A0]');
+  const countdownBadgeWrapperClasses = classNames(
+    baseBadgeWrapperClasses,
+    'border-[#ff6fc8]',
+    'hover:shadow-[0_0_20px_0px_rgba(255,111,200,1)]',
+  );
+  /////////////////////////////////////////////////
 
   const timerLabelClasses = classNames('text-[14px]/[20px]', 'text-[#adb1b8]');
 
@@ -102,7 +120,7 @@
     'font-[500]',
     'text-[#f3f3f3]',
   );
-  const countdownItemClasses = classNames();
+  const countdownItemClasses = classNames('h-min');
 
   $: enabledBadgeIds = [] as number[];
 
@@ -185,6 +203,17 @@
 
   const faqEntries = $json('badge_forge.faq.entries') as IFaqEntry[];
   const faqWrapperClasses = classNames('pt-[60px]', 'w-full', 'px-[48px]', 'flex', 'flex-col', 'gap-[30px]');
+
+  function getBadgeMovement(badgeId: number): Movements {
+    const nft = $userProfile.nfts?.find(
+      (nft) => nft.metadata.season === Seasons.Season2 && nft.metadata.badgeId === badgeId,
+    );
+    if (!nft) {
+      return Movements.Dev;
+    }
+
+    return nft.metadata.movement as Movements;
+  }
 </script>
 
 <div class={containerClass}>
@@ -205,7 +234,7 @@
                   (nft) => nft.metadata.season === Seasons.Season1 && nft.metadata.badgeId === badgeId,
                 ),
               )}
-
+              {@const movement = getBadgeMovement(badgeId)}
               {@const tamperExpiration = migration.tamperExpirationTimeout}
               {@const claimExpiration = migration.claimExpirationTimeout}
               {@const isTamperActive = tamperExpiration && tamperExpiration > new Date()}
@@ -221,66 +250,68 @@
               {@const buttonDisabled =
                 isTamperActive ||
                 Boolean($activeMigration ? $activeMigration.badgeId !== migration.badgeId : $activeMigration)}
-
-              <FactionBadgeItem
-                token={getMockBadge(Seasons.Season1, badgeId, Movements.Dev)}
-                {inColor}
-                {blurred}
-                {buttonDisabled}
-                button={canRefine || isStarted
-                  ? buttons.Refine
-                  : canClaim
-                    ? buttons.EndMigration
-                    : isComplete
-                      ? null
-                      : isEligible
-                        ? buttons.StartMigration
-                        : buttons.NotEligible}>
-                {#if migration}
-                  <div
-                    class={claimExpiration && claimExpiration > new Date()
-                      ? timerOverlayClasses
-                      : timerOverlayClaimClasses}>
-                    <div class={timerLabelClasses}>
+              <div
+                class={canClaim
+                  ? claimBadgeWrapperClasses
+                  : canRefine
+                    ? countdownBadgeWrapperClasses
+                    : baseBadgeWrapperClasses}>
+                <FactionBadgeItem
+                  token={getMockBadge(isComplete ? Seasons.Season2 : Seasons.Season1, badgeId, movement)}
+                  {inColor}
+                  {blurred}
+                  {buttonDisabled}
+                  button={canRefine || isStarted
+                    ? buttons.Refine
+                    : canClaim
+                      ? buttons.EndMigration
+                      : isComplete
+                        ? null
+                        : isEligible
+                          ? buttons.StartMigration
+                          : buttons.NotEligible}>
+                  {#if migration}
+                    <div class={blurred ? timerOverlayClasses : emptyOverlayClasses}>
+                      <div class={timerLabelClasses}>
+                        {#if tamperExpiration && tamperExpiration > new Date()}
+                          <!-- cannot re-tamper yet-->
+                          {$t('badge_forge.main.can_refine_in')}
+                        {:else if claimExpiration && claimExpiration > new Date()}
+                          <!-- logic for untampered, time 0 -->
+                          {$t('badge_forge.main.can_claim_in')}
+                        {/if}
+                      </div>
                       {#if tamperExpiration && tamperExpiration > new Date()}
                         <!-- cannot re-tamper yet-->
-                        {$t('badge_forge.main.can_refine_in')}
+                        <Countdown
+                          on:end={() => onCounterEnd(migration, MigrationStatus.CAN_REFINE)}
+                          class={countdownWrapperClasses}
+                          itemClasses={countdownItemClasses}
+                          labels={{
+                            days: $t('date.labels.days'),
+                            hours: $t('date.labels.hours'),
+                            minutes: $t('date.labels.minutes'),
+                            seconds: $t('date.labels.seconds'),
+                          }}
+                          target={tamperExpiration} />
                       {:else if claimExpiration && claimExpiration > new Date()}
-                        <!-- logic for untampered, time 0 -->
-                        {$t('badge_forge.main.can_claim_in')}
+                        <!-- logic for untampered -->
+                        <Countdown
+                          on:end={() => onCounterEnd(migration, MigrationStatus.CAN_CLAIM)}
+                          class={countdownWrapperClasses}
+                          itemClasses={countdownItemClasses}
+                          labels={{
+                            days: $t('date.labels.days'),
+                            hours: $t('date.labels.hours'),
+                            minutes: $t('date.labels.minutes'),
+                            seconds: $t('date.labels.seconds'),
+                          }}
+                          target={claimExpiration} />
                       {/if}
                     </div>
-
-                    {#if tamperExpiration && tamperExpiration > new Date()}
-                      <!-- cannot re-tamper yet-->
-                      <Countdown
-                        on:end={() => onCounterEnd(migration, MigrationStatus.CAN_REFINE)}
-                        class={countdownWrapperClasses}
-                        itemClasses={countdownItemClasses}
-                        labels={{
-                          days: $t('date.labels.days'),
-                          hours: $t('date.labels.hours'),
-                          minutes: $t('date.labels.minutes'),
-                          seconds: $t('date.labels.seconds'),
-                        }}
-                        target={tamperExpiration} />
-                    {:else if claimExpiration && claimExpiration > new Date()}
-                      <!-- logic for untampered -->
-                      <Countdown
-                        on:end={() => onCounterEnd(migration, MigrationStatus.CAN_CLAIM)}
-                        class={countdownWrapperClasses}
-                        itemClasses={countdownItemClasses}
-                        labels={{
-                          days: $t('date.labels.days'),
-                          hours: $t('date.labels.hours'),
-                          minutes: $t('date.labels.minutes'),
-                          seconds: $t('date.labels.seconds'),
-                        }}
-                        target={claimExpiration} />
-                    {/if}
-                  </div>
-                {/if}
-              </FactionBadgeItem>
+                  {/if}
+                </FactionBadgeItem>
+              </div>
             {/if}
           {/each}
         </div>
