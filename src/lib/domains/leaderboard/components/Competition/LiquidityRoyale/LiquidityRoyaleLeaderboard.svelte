@@ -1,14 +1,19 @@
 <script lang="ts">
+  import { setContext } from 'svelte';
   import { t } from 'svelte-i18n';
 
   import { leaderboardConfig } from '$config';
   import { CampaignEndedInfoBox } from '$lib/domains/leaderboard/components/CampaignEndedInfoBox';
   import { AbstractLeaderboard, PointScore } from '$lib/domains/leaderboard/components/Template';
   import { liquidityCompetitionService } from '$lib/domains/leaderboard/services/LeaderboardServiceInstances';
-  import { currentLiquidityCompetitionLeaderboard } from '$lib/domains/leaderboard/stores/liquidityCompetitionLeaderboard';
+  import {
+    currentLiquidityCompetitionLeaderboard,
+    currentLiquidityCompetitionLeaderboardUserEntry,
+  } from '$lib/domains/leaderboard/stores/liquidityCompetitionLeaderboard';
   import type { LiquidityCompetitionPage } from '$lib/domains/leaderboard/types/liquidity/types';
   import type { UserLeaderboardItem } from '$lib/domains/leaderboard/types/user/types';
   import type { PaginationInfo } from '$lib/shared/dto/CommonPageApiResponse';
+  import getConnectedAddress from '$shared/utils/getConnectedAddress';
 
   import LiquidityRoyaleHeader from '../../Header/LiquidityRoyaleHeader/LiquidityRoyaleHeader.svelte';
 
@@ -28,20 +33,26 @@
     loadLeaderboardData(page);
   }
 
-  async function loadLeaderboardData(page: number) {
+  async function loadLeaderboardData(page: number, address = '') {
     loading = true;
     // Fetch the leaderboard data for the given page
     const args: PaginationInfo<UserLeaderboardItem> = {
       page,
       size: pageSize,
       total: totalItems,
+      address,
     };
     const leaderboardPage: LiquidityCompetitionPage =
       await liquidityCompetitionService.getLiquidityCompetitionLeaderboard(args, season);
     totalItems = leaderboardPage?.pagination.total || $currentLiquidityCompetitionLeaderboard.items.length;
+    $currentLiquidityCompetitionLeaderboardUserEntry =
+      await liquidityCompetitionService.getLiquidityCompetitionDataForAddress(season, getConnectedAddress());
 
     loading = false;
   }
+
+  setContext('loadDappsLiquidityCompetitionLeaderboardData', loadLeaderboardData);
+  setContext('loadLiquidityCompetitionPageInfo', pageInfo);
 </script>
 
 <AbstractLeaderboard
@@ -53,6 +64,7 @@
   showDetailsColumn={false}
   showTrophy={true}
   qualifyingPositions={100}
+  highlightedUserPosition={$currentLiquidityCompetitionLeaderboardUserEntry}
   isLoading={loading}
   ended={hasEnded}
   endedComponent={CampaignEndedInfoBox}

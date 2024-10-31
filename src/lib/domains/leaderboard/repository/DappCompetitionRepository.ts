@@ -13,8 +13,12 @@ export class DappCompetitionRepository extends IRepository<DappLeaderboardPage> 
   async update(leaderboardPage: DappLeaderboardPage) {
     log('updating leaderboard data', leaderboardPage);
     currentDappCompetitionLeaderboard.update((store: DappLeaderboardPage) => {
-      store.items = leaderboardPage.items.filter((item) => !!item.address);
-      return store;
+      return {
+        ...store,
+        items: leaderboardPage.items.filter((item) => !!item.address),
+        lastUpdated: leaderboardPage.lastUpdated,
+        pagination: leaderboardPage.pagination,
+      };
     });
   }
 }

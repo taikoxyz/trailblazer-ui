@@ -1,5 +1,5 @@
 import type { DappLeaderboardItem, DappLeaderboardPageApiResponse } from '$lib/domains/leaderboard/dto/dapps.dto';
-import type { PaginationInfo } from '$lib/shared/dto/CommonPageApiResponse';
+import type { CommonPageApiResponse, PaginationInfo } from '$lib/shared/dto/CommonPageApiResponse';
 import { getAxiosInstance, globalAxiosConfig } from '$lib/shared/services/api/axiosClient';
 import { getLogger } from '$shared/utils/logger';
 
@@ -17,7 +17,7 @@ export class DappLeaderboardAdapter {
   async fetchLeaderboardData(
     args: PaginationInfo<DappLeaderboardItem>,
     season: number,
-  ): Promise<PaginationInfo<DappLeaderboardItem>> {
+  ): Promise<CommonPageApiResponse<DappLeaderboardItem>> {
     log('fetching leaderboard data', args, season);
 
     const client = getAxiosInstance(season);
@@ -26,6 +26,9 @@ export class DappLeaderboardAdapter {
       params: args,
     });
 
-    return response.data.data;
+    return {
+      ...response.data,
+      lastUpdated: response.data.lastUpdated * 1000,
+    } satisfies CommonPageApiResponse<DappLeaderboardItem>;
   }
 }

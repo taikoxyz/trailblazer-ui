@@ -41,7 +41,7 @@
   $: claimProof = '';
   $: isClaimSuccessful = false;
 
-  $: isBlacklisted = $userProfile.personalInfo?.blacklisted || false;
+  $: isBlacklisted = $userProfile?.personalInfo?.blacklisted || false;
 
   let isSelfProfile = false;
 

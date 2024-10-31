@@ -14,8 +14,12 @@ export class UserLeaderboardRepository extends IRepository<UserLeaderboardPage> 
   async update(leaderboardPage: UserLeaderboardPage) {
     log('updating leaderboard data', leaderboardPage);
     currentUserLeaderboard.update((store) => {
-      store.items = leaderboardPage.items.filter((item) => !!item.address);
-      return store;
+      return {
+        ...store,
+        items: leaderboardPage.items.filter((item) => !!item.address),
+        lastUpdated: leaderboardPage.lastUpdated,
+        pagination: leaderboardPage.pagination,
+      };
     });
   }
 }

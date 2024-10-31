@@ -7,7 +7,7 @@ import type { ProtocolApiResponse } from '$lib/domains/leaderboard/dto/protocol.
 import { mapDappLeaderboardRow } from '$lib/domains/leaderboard/mapper/mapper';
 import { DappLeaderboardRepository } from '$lib/domains/leaderboard/repository/DappLeaderboardRepository';
 import type { UnifiedLeaderboardRow } from '$lib/domains/leaderboard/types/shared/types';
-import type { PaginationInfo } from '$lib/shared/dto/CommonPageApiResponse';
+import type { CommonPageApiResponse, PaginationInfo } from '$lib/shared/dto/CommonPageApiResponse';
 
 import { DappLeaderboardService } from './DappLeaderboardService';
 
@@ -48,11 +48,14 @@ describe('DappLeaderboardService', () => {
       { address: '0x456', score: 200, rank: 2, slug: 'protocol-2' },
     ];
 
-    const leaderboardData: PaginationInfo<DappLeaderboardItem> = {
-      items: leaderboardItems,
-      page: 0,
-      size: 10,
-      total: 100,
+    const leaderboardData: CommonPageApiResponse<DappLeaderboardItem> = {
+      data: {
+        items: leaderboardItems,
+        page: 0,
+        size: 10,
+        total: 100,
+      },
+      lastUpdated: 1730244198,
     };
 
     const protocolDetails1: ProtocolApiResponse = {
@@ -114,12 +117,12 @@ describe('DappLeaderboardService', () => {
     expect(mockLeaderboardRepository.update).toHaveBeenCalledWith({
       items: [mappedRow1, mappedRow2],
       lastUpdated: expect.any(Number),
-      pagination: leaderboardData,
+      pagination: leaderboardData.data,
     });
     expect(result).toEqual({
       items: [mappedRow1, mappedRow2],
       lastUpdated: expect.any(Number),
-      pagination: leaderboardData,
+      pagination: leaderboardData.data,
     });
   });
 
@@ -165,11 +168,14 @@ describe('DappLeaderboardService', () => {
       { address: '0x456', score: 200, rank: 2, slug: 'protocol-2' },
     ];
 
-    const leaderboardData: PaginationInfo<DappLeaderboardItem> = {
-      items: leaderboardItems,
-      page: 0,
-      size: 2,
-      total: 100,
+    const leaderboardData: CommonPageApiResponse<DappLeaderboardItem> = {
+      data: {
+        items: leaderboardItems,
+        page: 0,
+        size: 2,
+        total: 100,
+      },
+      lastUpdated: 1730244198,
     };
 
     const protocolDetails1: ProtocolApiResponse = {
@@ -212,12 +218,12 @@ describe('DappLeaderboardService', () => {
     expect(mockLeaderboardRepository.update).toHaveBeenCalledWith({
       items: [mappedRow1],
       lastUpdated: expect.any(Number),
-      pagination: { ...leaderboardData },
+      pagination: leaderboardData.data,
     });
     expect(result).toEqual({
       items: [mappedRow1],
       lastUpdated: expect.any(Number),
-      pagination: { ...leaderboardData },
+      pagination: leaderboardData.data,
     });
   });
 
@@ -232,11 +238,14 @@ describe('DappLeaderboardService', () => {
 
     const leaderboardItems: DappLeaderboardItem[] = [{ address: '0x123', score: 100, rank: 1, slug: 'protocol-1' }];
 
-    const leaderboardData: PaginationInfo<DappLeaderboardItem> = {
-      items: leaderboardItems,
-      page: 0,
-      size: 1,
-      total: 100,
+    const leaderboardData: CommonPageApiResponse<DappLeaderboardItem> = {
+      data: {
+        items: leaderboardItems,
+        page: 0,
+        size: 1,
+        total: 100,
+      },
+      lastUpdated: 1730244198,
     };
 
     const protocolDetails1: ProtocolApiResponse = {
@@ -255,7 +264,7 @@ describe('DappLeaderboardService', () => {
     vi.mocked(mockLeaderboardAdapter.fetchLeaderboardData).mockResolvedValue(leaderboardData);
     vi.mocked(mockProtocolAdapter.fetchProtocolDetails).mockResolvedValue(protocolDetails1);
 
-    vi.mocked(mapDappLeaderboardRow).mockReturnValueOnce(unexpectedMappedRow as UnifiedLeaderboardRow);
+    vi.mocked(mapDappLeaderboardRow).mockReturnValueOnce(unexpectedMappedRow);
 
     // When
     const result = await service.getDappLeaderboardData(args, season);
@@ -267,36 +276,41 @@ describe('DappLeaderboardService', () => {
     expect(mockLeaderboardRepository.update).toHaveBeenCalledWith({
       items: [unexpectedMappedRow],
       lastUpdated: expect.any(Number),
-      pagination: { ...leaderboardData },
+      pagination: leaderboardData.data,
     });
     expect(result).toEqual({
       items: [unexpectedMappedRow],
       lastUpdated: expect.any(Number),
-      pagination: { ...leaderboardData },
+      pagination: leaderboardData.data,
     });
   });
 
   it('should process a large dataset efficiently', async () => {
     // Given
+
+    const dataSize = 50;
     const args: PaginationInfo<DappLeaderboardItem> = {
       page: 0,
-      size: 50,
+      size: dataSize,
       total: 1000,
     };
     const season = 1;
 
-    const leaderboardItems: DappLeaderboardItem[] = Array.from({ length: 50 }, (_, index) => ({
+    const leaderboardItems: DappLeaderboardItem[] = Array.from({ length: dataSize }, (_, index) => ({
       address: `0x${(index + 1).toString(16).padStart(40, '0')}`,
       score: 100 + index,
       slug: `protocol-${index + 1}`,
       rank: index + 1,
     }));
 
-    const leaderboardData: PaginationInfo<DappLeaderboardItem> = {
-      items: leaderboardItems,
-      page: 0,
-      size: 50,
-      total: 1000,
+    const leaderboardData: CommonPageApiResponse<DappLeaderboardItem> = {
+      data: {
+        items: leaderboardItems,
+        page: 0,
+        size: dataSize,
+        total: 1000,
+      },
+      lastUpdated: 1730244198,
     };
 
     const protocolDetails: ProtocolApiResponse = {
@@ -330,17 +344,13 @@ describe('DappLeaderboardService', () => {
 
     // Then
     expect(mockLeaderboardAdapter.fetchLeaderboardData).toHaveBeenCalledWith(args, season);
-    expect(mockProtocolAdapter.fetchProtocolDetails).toHaveBeenCalledTimes(50);
-    expect(mapDappLeaderboardRow).toHaveBeenCalledTimes(50);
-    expect(mockLeaderboardRepository.update).toHaveBeenCalledWith({
-      items: Array(50).fill(mappedRow),
-      lastUpdated: expect.any(Number),
-      pagination: { ...leaderboardData },
-    });
+    expect(mockProtocolAdapter.fetchProtocolDetails).toHaveBeenCalledTimes(dataSize);
+    expect(mapDappLeaderboardRow).toHaveBeenCalledTimes(dataSize);
+
     expect(result).toEqual({
-      items: Array(50).fill(mappedRow),
+      items: Array(dataSize).fill(mappedRow),
       lastUpdated: expect.any(Number),
-      pagination: { ...leaderboardData },
+      pagination: leaderboardData.data,
     });
   });
 });

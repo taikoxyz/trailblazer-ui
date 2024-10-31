@@ -87,6 +87,8 @@ export class ProfileService implements IProfileService {
       ]);
       log('Fetched data:', { pointsAndRank, userDomainInfo, activity, nftsResult, avatarResult });
 
+      log('DEBUGME', activity);
+
       // Assemble the complete UserProfile with default values
       const userProfile: UserProfile = {
         ...defaultUserProfile,
@@ -105,11 +107,11 @@ export class ProfileService implements IProfileService {
           level: '',
         },
         activityHistory: {
-          items: activity?.items,
+          items: activity.items,
           pagination: {
             page: 0,
-            size: activity?.size,
-            total: activity?.total,
+            size: activity.size,
+            total: activity.total,
           },
         },
         nfts: [...nftsResult],
@@ -379,7 +381,6 @@ export class ProfileService implements IProfileService {
         },
       };
       await this.userRepository.update(newProfile);
-      // return  PaginationInfo<UserPointHistory> with new items
     }
   }
 

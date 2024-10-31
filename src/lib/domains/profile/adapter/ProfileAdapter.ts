@@ -18,7 +18,10 @@ import { pendingTransactions } from '$lib/shared/stores/pendingTransactions';
 import type { NFT } from '$lib/shared/types/NFT';
 import { chainId } from '$lib/shared/utils/chain';
 import { wagmiConfig } from '$lib/shared/wagmi';
+import type { PaginationInfo } from '$shared/dto/CommonPageApiResponse';
 import { getLogger } from '$shared/utils/logger';
+
+import type { UserPointHistory } from '../types/ActivityHistory';
 
 const log = getLogger('ProfileApiAdapter');
 
@@ -48,14 +51,14 @@ export class ProfileApiAdapter {
    * @param {number} [page] the page number of the activity
    * @return {Promise<UserHistoryApiResponse>} the user's activity
    */
-  async fetchUserActivity(address: Address, season: number, page?: number): Promise<UserHistoryApiResponse> {
+  async fetchUserActivity(address: Address, season: number, page?: number): Promise<PaginationInfo<UserPointHistory>> {
     const client = getAxiosInstance(season);
     const params = page ? { address, page } : { address };
     const response = await client.get<UserHistoryApiResponse>(`/user/history`, {
       params,
       ...globalAxiosConfig,
     });
-    return response.data;
+    return normalizeUserHistoryResponse(response.data);
   }
 
   /**
@@ -241,3 +244,8 @@ export class ProfileApiAdapter {
     return response.data;
   }
 }
+
+// Helper function to normalize the user history response
+const normalizeUserHistoryResponse = (response: UserHistoryApiResponse): PaginationInfo<UserPointHistory> => {
+  return 'data' in response ? response.data! : response;
+};

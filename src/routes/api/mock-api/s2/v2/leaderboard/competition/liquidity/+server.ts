@@ -3,8 +3,23 @@ import type { Address } from 'viem';
 
 import type { LiquidityLeaderboardPageApiResponse } from '$lib/domains/leaderboard/dto/liqudity.dto';
 
-export const GET: RequestHandler = async () => {
-  return new Response(JSON.stringify(mockData), {
+export const GET: RequestHandler = async ({ url }) => {
+  const address = url.searchParams.get('address');
+
+  let filteredData = mockData;
+  if (address && mockData.data.items) {
+    filteredData = {
+      ...mockData,
+      data: {
+        ...mockData.data,
+        items: mockData.data.items.filter((item) => item.address === address),
+        total: 1,
+        visible: 1,
+      },
+    };
+  }
+
+  return new Response(JSON.stringify(filteredData), {
     status: 200,
     headers: {
       'Content-Type': 'application/json',
@@ -12,7 +27,7 @@ export const GET: RequestHandler = async () => {
   });
 };
 
-const generateRandomAddress = () => {
+const generateRandomAddress = (): Address => {
   const chars = '0123456789abcdef';
   let address = '0x';
   for (let i = 0; i < 40; i++) {
