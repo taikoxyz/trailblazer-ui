@@ -199,6 +199,11 @@
       label: $t('badge_forge.buttons.end_migration'),
       handler: handleEndMigration,
     },
+    OngoingMigration: {
+      type: 'primary',
+      label: 'Another migration in progress',
+      disabled: true,
+    },
   } as Record<string, FactionBadgeButton>;
 
   const faqEntries = $json('badge_forge.faq.entries') as IFaqEntry[];
@@ -238,14 +243,13 @@
               {@const tamperExpiration = migration.tamperExpirationTimeout}
               {@const claimExpiration = migration.claimExpirationTimeout}
               {@const isTamperActive = tamperExpiration && tamperExpiration > new Date()}
-
+              {@const isActiveBadge = $activeMigration ? $activeMigration.badgeId === migration.badgeId : false}
               {@const isEligible = migration.status === MigrationStatus.ELIGIBLE || s1TokenOwned}
               {@const isStarted = migration.status === MigrationStatus.STARTED}
               {@const canClaim = migration.status === MigrationStatus.CAN_CLAIM}
               {@const canRefine = migration.status === MigrationStatus.CAN_REFINE}
               {@const isComplete = migration.status === MigrationStatus.COMPLETED}
-
-              {@const blurred = canRefine}
+              {@const blurred = canRefine || isStarted}
               {@const inColor = isEligible || canClaim || canRefine || isComplete}
               {@const buttonDisabled =
                 isTamperActive ||
@@ -267,9 +271,11 @@
                       ? buttons.EndMigration
                       : isComplete
                         ? null
-                        : isEligible
-                          ? buttons.StartMigration
-                          : buttons.NotEligible}>
+                        : isEligible && !isActiveBadge && $activeMigration
+                          ? buttons.OngoingMigration
+                          : isEligible
+                            ? buttons.StartMigration
+                            : buttons.NotEligible}>
                   {#if migration}
                     <div class={blurred ? timerOverlayClasses : emptyOverlayClasses}>
                       <div class={timerLabelClasses}>

@@ -96,6 +96,8 @@
       <ActionButton loading={isLoading} disabled={isLoading} on:click={handleEndMigration} priority="primary">
         {$t('badge_forge.buttons.reveal')}
       </ActionButton>
+    {:else}
+      <ActionButton on:click={() => ($endMigrationModal = false)} priority="secondary">Confirm</ActionButton>
     {/if}
   </CoreModalFooter>
 </CoreModal>
