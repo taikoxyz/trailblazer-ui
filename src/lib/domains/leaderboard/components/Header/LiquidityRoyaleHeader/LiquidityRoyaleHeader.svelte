@@ -24,16 +24,8 @@
     await loadLeaderboardData(pageInfo.page, value);
   };
 
-  const containerClasses = classNames('flex', 'justify-center', 'items-center', 'w-full');
-  const wrapperClasses = classNames(
-    'f-col',
-    'w-full',
-    'z-10',
-    'overflow-hidden',
-    'mt-[550px]',
-    'xl:mt-[600px]',
-    'space-y-[120px]',
-  );
+  const containerClasses = classNames('f-col', 'justify-center', 'items-center', 'w-full');
+  const wrapperClasses = classNames('f-col', 'w-full', 'z-10', 'overflow-hidden', 'space-y-[120px]');
   const innerWrapperClasses = classNames('f-col', 'md:f-row', 'justify-between', 'items-center', 'space-y-[50px]');
 
   const headerImageClasses = classNames(
@@ -48,8 +40,6 @@
     'bg-center',
     'bg-contain',
     'overflow-visible',
-    'absolute',
-    'left-0',
     'top-[180px]',
     'w-full',
     'z-0',
