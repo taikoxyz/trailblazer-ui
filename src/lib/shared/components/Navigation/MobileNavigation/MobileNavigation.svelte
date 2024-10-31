@@ -1,15 +1,14 @@
 <script lang="ts">
-  import { createEventDispatcher, onDestroy } from 'svelte';
+  import { onDestroy } from 'svelte';
   import { fly } from 'svelte/transition';
 
+  import { goto } from '$app/navigation';
   import ConnectButton from '$shared/components/ConnectButton/ConnectButton.svelte';
   import { Logo, TaikoTrailblazersLogo } from '$shared/components/Logo';
   import { classNames } from '$shared/utils/classNames';
   import { routes } from '$shared/utils/routes/routes';
 
   import MobileNavigationLink from './MobileNavigationLink.svelte';
-
-  const dispatch = createEventDispatcher();
 
   export let isMenuOpen: boolean;
 
@@ -109,7 +108,7 @@
               on:click={() => {
                 // Navigate to the route
                 closeMenu();
-                dispatch('navigate', { url: route.route });
+                if (route.route) goto(route.route);
               }}>
               <a href={route.route} class="font-clash-grotesk title-subsection-medium text-[22px]/[24px]">
                 {route.name}
