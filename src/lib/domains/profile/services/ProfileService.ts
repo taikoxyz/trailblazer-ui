@@ -15,7 +15,7 @@ import type { UserInfoForLeaderboard } from '$lib/domains/profile/types/UserInfo
 import type { UserProfile } from '$lib/domains/profile/types/UserProfile';
 import type { SeasonHistoryEntry, UserStats } from '$lib/domains/profile/types/UserStats';
 import type { PaginationInfo } from '$lib/shared/dto/CommonPageApiResponse';
-import type { ActiveBadgeMigration } from '$lib/shared/types/BadgeMigration';
+import type { IBadgeMigration } from '$lib/shared/types/BadgeMigration';
 import type { NFT } from '$lib/shared/types/NFT';
 import { wagmiConfig } from '$lib/shared/wagmi';
 import { activeMigration } from '$shared/stores/migration';
@@ -82,7 +82,7 @@ export class ProfileService implements IProfileService {
         this.apiAdapter.fetchUserPointsAndRank(address, season),
         this.fetchDomainInfo(address),
         this.apiAdapter.fetchUserActivity(address, season, 0),
-        this.combinedNFTService.fetchAllNFTsForUser(address),
+        this.combinedNFTService.fetchTaikoTokensForUser(address),
         this.getProfilePicture(address),
       ]);
       log('Fetched data:', { pointsAndRank, userDomainInfo, activity, nftsResult, avatarResult });
@@ -395,12 +395,14 @@ export class ProfileService implements IProfileService {
 
     try {
       // Fetch NFTs (badges, avatars, etc.)
-      const nfts = await this.combinedNFTService.fetchAllNFTsForUser(address);
+      const nfts = await this.combinedNFTService.fetchTaikoTokensForUser(address);
       log('result of fetchAllNFTsForUser:', nfts);
       // Combine and update the profile with NFT data
       await this.userRepository.update({
         nfts,
       });
+
+      await this.getBadgeMigrations(address);
 
       log('Profile with NFTs:', await this.userRepository.get());
     } catch (error) {
@@ -453,7 +455,7 @@ export class ProfileService implements IProfileService {
       // If pfpNFT lacks necessary details, fetch all NFTs and find a match
       if (!pfpNFT.address || !pfpNFT.tokenId) {
         // Fetch all NFTs for the user
-        const allNFTsFlat: NFT[] = await this.combinedNFTService.fetchAllNFTsForUser(address);
+        const allNFTsFlat: NFT[] = await this.combinedNFTService.fetchTaikoTokensForUser(address);
         log('All NFTs:', allNFTsFlat);
         // Find the matching NFT
         const match = allNFTsFlat.find(
@@ -539,7 +541,7 @@ export class ProfileService implements IProfileService {
     return this.badgeMigrationService.getEnabledMigrations();
   }
 
-  private async _updateMigration(migration: ActiveBadgeMigration): Promise<void> {
+  private async _updateMigration(migration: IBadgeMigration): Promise<void> {
     const oldUser = await this.userRepository.get();
     const badgeMigrations = oldUser.badgeMigrations || [];
 
@@ -570,7 +572,7 @@ export class ProfileService implements IProfileService {
    * @return {*}  {Promise<NFT>}
    * @memberof ProfileService
    */
-  async startMigration(address: Address, nft: NFT, migration: ActiveBadgeMigration): Promise<void> {
+  async startMigration(address: Address, nft: NFT, migration: IBadgeMigration): Promise<void> {
     log('startMigration', { address, nft, migration });
     const updatedMigration = await this.badgeMigrationService.startMigration(address, nft, migration);
     await this._updateMigration(updatedMigration);
@@ -589,7 +591,7 @@ export class ProfileService implements IProfileService {
     address: Address,
     nft: NFT,
     selectedMovement: Movements,
-    migration: ActiveBadgeMigration,
+    migration: IBadgeMigration,
   ): Promise<void> {
     log('refineMigration', { address, nft, selectedMovement });
     const updatedMigration = await this.badgeMigrationService.refineMigration(
@@ -609,7 +611,7 @@ export class ProfileService implements IProfileService {
    * @return {*}  {Promise<NFT>}
    * @memberof ProfileService
    */
-  async endMigration(address: Address, nft: NFT, migration: ActiveBadgeMigration): Promise<void> {
+  async endMigration(address: Address, nft: NFT, migration: IBadgeMigration): Promise<void> {
     log('endMigration', { address, nft, migration });
     const updatedMigration = await this.badgeMigrationService.endMigration(address, nft, migration);
     await this._updateMigration(updatedMigration);

@@ -1,6 +1,6 @@
-import type { ActiveBadgeMigration } from '$lib/shared/types/BadgeMigration';
+import type { IBadgeMigration } from '$lib/shared/types/BadgeMigration';
 
 export type UserBadgeMigrations = {
   //approvedMigrationBadgeIds: number[];
-  badgeMigrations: ActiveBadgeMigration[];
+  badgeMigrations: IBadgeMigration[];
 };

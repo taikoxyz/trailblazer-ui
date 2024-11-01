@@ -1,7 +1,9 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import { json, t } from 'svelte-i18n';
+  import type { Address } from 'viem';
 
+  import { browser } from '$app/environment';
   import { FactionBadgeItem } from '$lib/domains/profile/components/ProfileNFTs/FactionBadges';
   import profileService from '$lib/domains/profile/services/ProfileServiceInstance';
   import { userProfile } from '$lib/domains/profile/stores';
@@ -9,7 +11,10 @@
   import { Movements, Seasons } from '$lib/domains/profile/types/types';
   import { FaqBlock } from '$lib/domains/splashpage/components/FaqBlock';
   import type { IFaqEntry } from '$lib/domains/splashpage/components/FaqBlock/FaqBlock.svelte';
-  import { type ActiveBadgeMigration, MigrationStatus } from '$lib/shared/types/BadgeMigration';
+  import { type IBadgeMigration, MigrationStatus } from '$lib/shared/types/BadgeMigration';
+  import { Spinner } from '$shared/components';
+  import { Button } from '$shared/components/Button';
+  import RotatingIcon from '$shared/components/Icon/RotatingIcon.svelte';
   import { account } from '$shared/stores';
   import {
     activeMigration,
@@ -124,7 +129,7 @@
   });
 
   $: forceRenderFlag = true;
-  async function onCounterEnd(migration: ActiveBadgeMigration, status: MigrationStatus) {
+  async function onCounterEnd(migration: IBadgeMigration, status: MigrationStatus) {
     if (!$account || !$account.address) return;
     forceRenderFlag = false;
 
@@ -148,7 +153,7 @@
       minnowTampers: 0,
       claimExpirationTimeout: new Date(),
       tamperExpirationTimeout: undefined,
-    } satisfies ActiveBadgeMigration;
+    } satisfies IBadgeMigration;
     $startMigrationModal = true;
   }
 
@@ -213,14 +218,41 @@
 
     return nft.metadata.movement as Movements;
   }
+
+  $: isLoading = false;
+  const handleRefresh = async () => {
+    if (!browser) return;
+    isLoading = true;
+    const address = window.location.pathname.split('/').pop();
+    if (!address) return;
+    await profileService.getProfileWithNFTs(address as Address);
+    enabledBadgeIds = await profileService.getEnabledMigrations();
+    isLoading = false;
+  };
+
+  onMount(async () => {
+    await handleRefresh();
+  });
 </script>
 
 <div class={containerClass}>
   <div class={rowClass}>
+    <Button
+      type="neutral"
+      shape="circle"
+      class="bg-neutral rounded-full !w-[28px] !h-[28px] border-none absolute right-[20px] md:right-[48px] top-[30px]"
+      on:click={handleRefresh}>
+      <RotatingIcon loading={isLoading} type="refresh" size={13} />
+    </Button>
+
     <div class={titleClasses}>{title}</div>
     <div class={dividerClasses} />
     <div class={boxClasses}>
-      {#if forceRenderFlag && enabledBadgeIds.length}
+      {#if isLoading}
+        <div class="w-full flex justify-center">
+          <Spinner size="lg" />
+        </div>
+      {:else if forceRenderFlag && enabledBadgeIds.length}
         <div class={nftGridClasses}>
           {#each enabledBadgeIds as badgeId}
             {@const migration =
@@ -254,7 +286,9 @@
                   : isComplete
                     ? greenBordered
                     : isEligible
-                      ? pinkBordered
+                      ? $activeMigration && isActiveBadge
+                        ? pinkShadowed
+                        : pinkBordered
                       : neutralBordered}>
                 <FactionBadgeItem
                   token={getMockBadge(isComplete ? Seasons.Season2 : Seasons.Season1, badgeId, movement)}

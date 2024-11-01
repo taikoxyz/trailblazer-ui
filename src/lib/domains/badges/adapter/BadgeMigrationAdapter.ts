@@ -12,7 +12,7 @@ import {
 import type { BadgeMigration as GqlBadgeMigration } from '$generated/graphql';
 import { type Movements, Seasons } from '$lib/domains/profile/types/types';
 import { graphqlClient } from '$lib/shared/services/graphql/client';
-import { type ActiveBadgeMigration, MigrationStatus } from '$lib/shared/types/BadgeMigration';
+import { type IBadgeMigration, MigrationStatus } from '$lib/shared/types/BadgeMigration';
 import type { NFT } from '$lib/shared/types/NFT';
 import { chainId } from '$lib/shared/utils/chain';
 import parseGqlBadgeMigration from '$lib/shared/utils/nfts/parseGqlBadgeMigration';
@@ -72,7 +72,7 @@ export class BadgeMigrationAdapter {
    * @return {*}  {Promise<string>}
    * @memberof BadgeMigrationAdapter
    */
-  async startMigration(address: Address, nft: NFT, migration: ActiveBadgeMigration): Promise<ActiveBadgeMigration> {
+  async startMigration(address: Address, nft: NFT, migration: IBadgeMigration): Promise<IBadgeMigration> {
     log('startMigration', { address, nft });
     return new Promise((resolve, reject) => {
       try {
@@ -178,8 +178,8 @@ export class BadgeMigrationAdapter {
     address: Address,
     nft: NFT,
     selectedMovement: Movements,
-    migration: ActiveBadgeMigration,
-  ): Promise<ActiveBadgeMigration> {
+    migration: IBadgeMigration,
+  ): Promise<IBadgeMigration> {
     log('refineMigration', { address, nft, migration });
 
     const { r, s, v, points, hash } = await this._getMigrationSignature(address, nft.metadata.badgeId as number);
@@ -226,7 +226,7 @@ export class BadgeMigrationAdapter {
    * @return {*}  {Promise<NFT>}
    * @memberof BadgeMigrationAdapter
    */
-  async endMigration(address: Address, nft: NFT, migration: ActiveBadgeMigration): Promise<ActiveBadgeMigration> {
+  async endMigration(address: Address, nft: NFT, migration: IBadgeMigration): Promise<IBadgeMigration> {
     if (nft.metadata.badgeId === undefined) {
       throw new Error('Badge ID is required');
     }
@@ -281,13 +281,15 @@ export class BadgeMigrationAdapter {
    * @return {*}  {Promise<BadgeMigration>}
    * @memberof BadgeMigrationAdapter
    */
-  async getMigrationStatus(address: Address): Promise<Partial<ActiveBadgeMigration>[]> {
+  async getMigrationStatus(address: Address): Promise<Partial<IBadgeMigration>[]> {
     log('getMigrationStatus', { address });
 
     try {
+      await graphqlClient.cache.reset();
       const graphqlResponse = await graphqlClient.query({
         query: GET_MIGRATION_STATUS_QUERY,
         variables: { address: address.toLocaleLowerCase() },
+        fetchPolicy: 'no-cache',
       });
 
       if (!graphqlResponse || !graphqlResponse.data || !graphqlResponse.data.account) {
@@ -308,7 +310,7 @@ export class BadgeMigrationAdapter {
           return {
             badgeId,
             status: MigrationStatus.NOT_STARTED,
-          } as Partial<ActiveBadgeMigration>;
+          } as Partial<IBadgeMigration>;
         }
         return parseGqlBadgeMigration(rawMigration);
       });

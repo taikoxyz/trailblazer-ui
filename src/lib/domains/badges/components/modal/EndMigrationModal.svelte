@@ -35,7 +35,6 @@
       isLoading = true;
       await profileService.endMigration($account.address, $activeMigration.s1Badge, $activeMigration);
       backToken = $activeMigration.s2Badge!;
-      isLoading = false;
       isRevealed = true;
 
       successToast({
@@ -50,6 +49,8 @@
         title: $t('badge_forge.modal.end_migration.toast.error.title'),
         message: e.shortMessage ? e.shortMessage : $t('badge_forge.modal.end_migration.toast.error.default_message'),
       });
+    } finally {
+      isLoading = false;
     }
   }
 

@@ -1,13 +1,13 @@
 import { trailblazersBadgesAddress } from '$generated/abi';
 import type { BadgeMigration as GqlBadgeMigration } from '$generated/graphql';
 import { type Movements, Seasons } from '$lib/domains/profile/types/types';
-import { type ActiveBadgeMigration, MigrationStatus } from '$shared/types/BadgeMigration';
+import { type IBadgeMigration, MigrationStatus } from '$shared/types/BadgeMigration';
 import type { NFT } from '$shared/types/NFT';
 import { chainId } from '$shared/utils/chain';
 
 import generateBadgeMetadata from './generateBadgeMetadata';
 
-export default function parseGqlBadgeMigration(raw: GqlBadgeMigration): ActiveBadgeMigration {
+export default function parseGqlBadgeMigration(raw: GqlBadgeMigration): IBadgeMigration {
   const s1BadgeId = parseInt(raw.s1Badge.badgeId.toString());
   const s1Badge = {
     tokenId: parseInt(raw.s1Badge.tokenId.toString()),
@@ -58,5 +58,5 @@ export default function parseGqlBadgeMigration(raw: GqlBadgeMigration): ActiveBa
     minnowTampers: parseInt(raw.minnowTampers),
     claimExpirationTimeout,
     tamperExpirationTimeout,
-  } satisfies ActiveBadgeMigration;
+  } satisfies IBadgeMigration;
 }

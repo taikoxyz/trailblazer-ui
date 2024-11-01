@@ -2,7 +2,7 @@ import type { Address } from 'viem';
 
 import { BadgeMigrationAdapter } from '$lib/domains/badges/adapter/BadgeMigrationAdapter';
 import type { Movements } from '$lib/domains/profile/types/types';
-import { type ActiveBadgeMigration, MigrationStatus } from '$lib/shared/types/BadgeMigration';
+import { type IBadgeMigration, MigrationStatus } from '$lib/shared/types/BadgeMigration';
 import { activeMigration } from '$shared/stores/migration';
 import type { NFT } from '$shared/types/NFT';
 import { getLogger } from '$shared/utils/logger';
@@ -21,7 +21,7 @@ export class BadgeMigrationService {
     return this.adapter.fetchEnabledMigrations();
   }
 
-  async startMigration(address: Address, nft: NFT, migration: ActiveBadgeMigration): Promise<ActiveBadgeMigration> {
+  async startMigration(address: Address, nft: NFT, migration: IBadgeMigration): Promise<IBadgeMigration> {
     log('startMigration', { address, nft, migration });
     return this.adapter.startMigration(address, nft, migration);
   }
@@ -30,18 +30,18 @@ export class BadgeMigrationService {
     address: Address,
     nft: NFT,
     selectedMovement: Movements,
-    migration: ActiveBadgeMigration,
-  ): Promise<ActiveBadgeMigration> {
+    migration: IBadgeMigration,
+  ): Promise<IBadgeMigration> {
     log('refineMigration', { address, nft, selectedMovement });
     return this.adapter.refineMigration(address, nft, selectedMovement, migration);
   }
 
-  async endMigration(address: Address, nft: NFT, migration: ActiveBadgeMigration): Promise<ActiveBadgeMigration> {
+  async endMigration(address: Address, nft: NFT, migration: IBadgeMigration): Promise<IBadgeMigration> {
     log('endMigration', { address, nft, migration });
     return this.adapter.endMigration(address, nft, migration);
   }
 
-  async getMigrationStatus(address: Address): Promise<ActiveBadgeMigration[]> {
+  async getMigrationStatus(address: Address): Promise<IBadgeMigration[]> {
     log('getMigrationStatus', { address });
     const migrations = await this.adapter.getMigrationStatus(address);
     const foundActive = migrations.find(
@@ -51,7 +51,7 @@ export class BadgeMigrationService {
         migration.status === MigrationStatus.CAN_CLAIM,
     );
 
-    activeMigration.set(foundActive as ActiveBadgeMigration);
-    return migrations as ActiveBadgeMigration[];
+    activeMigration.set(foundActive as IBadgeMigration);
+    return migrations as IBadgeMigration[];
   }
 }

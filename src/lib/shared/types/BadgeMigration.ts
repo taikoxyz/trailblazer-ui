@@ -9,7 +9,7 @@ export enum MigrationStatus {
   COMPLETED = 'COMPLETED',
 }
 
-export interface ActiveBadgeMigration {
+export interface IBadgeMigration {
   id: string;
   badgeId: number;
   status: MigrationStatus;

@@ -50,8 +50,8 @@ export class NftService {
    * @return {*}  {(Promise<NFT[]>)}
    * @memberof NftService
    */
-  async fetchAllNFTsForUser(address: Address): Promise<NFT[]> {
-    log('fetchAllNFTsForUser', { address });
+  async fetchTaikoTokensForUser(address: Address): Promise<NFT[]> {
+    log('fetchTaikoTokensForUser', { address });
 
     try {
       const tokens = await this.adapter.fetchTaikoTokensForUser(address);
