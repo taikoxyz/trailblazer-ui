@@ -62,8 +62,8 @@
 
   const badgesWrapperClasses = classNames(
     'flex',
-    'w-[350px]',
-    'max-w-[90vw]',
+    'w-[250px]',
+    'max-w-[80vw]',
     'gap-[20px]',
     'md:gap-[40px]',
     'lg:gap-[80px]',

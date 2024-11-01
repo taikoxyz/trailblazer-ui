@@ -9,7 +9,7 @@
     'justify-center',
     'w-full',
     'max-w-[900px]',
-    'pb-[60px]',
+    // 'pb-[40px]',
   );
 </script>
 

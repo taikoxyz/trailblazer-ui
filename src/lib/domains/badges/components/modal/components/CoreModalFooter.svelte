@@ -3,6 +3,7 @@
 
   const wrapperClasses = classNames(
     'w-[450px]',
+    'max-w-full',
     'justify-center',
     'items-center',
     'gap-[24px]',

@@ -9,7 +9,6 @@
     'z-100',
     'fixed',
     'top-0',
-    'gap-[24px]',
     'left-0',
     'w-[100vw]',
     'h-[100vh]',
@@ -21,6 +20,19 @@
     'flex-col',
     'justify-center',
     'items-center',
+  );
+
+  const contentClasses = classNames(
+    'overflow-y-scroll',
+    'py-[20px]',
+    'w-full',
+    'h-full',
+    'flex',
+    'flex-col',
+    'justify-start',
+    'items-center',
+    'gap-[24px]',
+    'px-[20px]',
   );
 
   const closeButtonClasses = classNames(
@@ -48,10 +60,12 @@
 {#if open}
   <dialog class={wrapperClasses} class:modal-open={open}>
     <div class={contentWrapperClasses}>
-      <slot />
-      <button class={closeButtonClasses} on:click={closeModal}>
-        <Icon type="x-close" class={closeButtonIconClasses} size={24} />
-      </button>
+      <div class={contentClasses}>
+        <slot />
+      </div>
     </div>
+    <button class={closeButtonClasses} on:click={closeModal}>
+      <Icon type="x-close" class={closeButtonIconClasses} size={24} />
+    </button>
   </dialog>
 {/if}
