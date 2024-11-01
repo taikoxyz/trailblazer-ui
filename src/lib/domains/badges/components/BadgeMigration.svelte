@@ -81,45 +81,9 @@
   );
   const timerOverlayClasses = classNames(emptyOverlayClasses, 'glassy-background-lg');
 
-  /////////////////////////////////////////////////
-  /*
-  const baseBadgeWrapperClasses = classNames(
-
-    'w-full',
-    'transition-all',
-    // 'border-[#FF6FC8]',
-    // 'shadow-[0_0_20px_0px_rgba(255,255,255,1)]',
-    'rounded-[30px]',
-    'box-border',
-    'aspect-square',
-  );
-
-  const claimBadgeWrapperClasses = classNames(
-    baseBadgeWrapperClasses,
-    'border',
-    // 'border-transparent',
-    'border-[3px]',
-    'border-[#47e0a0]',
-    'shadow-[0_0_20px_0px_rgba(71,224,160,1)]',
-    'hover:shadow-[0_0_30px_0px_rgba(71,224,160,1)]',
-    'bg-[#47e0a0]',
-  );
-  const countdownBadgeWrapperClasses = classNames(
-    baseBadgeWrapperClasses,
-    'border',
-    // 'border-transparent',
-    'border-[3px]',
-    'border-[#ff6fc8]',
-    'bg-[#ff6fc8]',
-    'hover:shadow-[0_0_20px_0px_rgba(255,111,200,1)]',
-  );*/
-
-  ///////////////////////////////////////////////
   const borderedBadgeBaseClasses = classNames(
     'w-full',
     'transition-all',
-    // 'border-[#FF6FC8]',
-    // 'shadow-[0_0_20px_0px_rgba(255,255,255,1)]',
     'rounded-[30px]',
     'box-border',
     'aspect-square',
@@ -132,22 +96,14 @@
   const pinkShadowed = classNames(
     borderedBadgeBaseClasses,
     'bg-[#FF6FC8]',
-    'bg-[#FF6FC8]',
+    'border-[#FF6FC8]',
     'shadow-[0_0_20px_0px_rgba(255,111,200,1)]',
     'hover:shadow-[0_0_30px_0px_rgba(255,111,200,1)]',
   );
 
   const greenBordered = classNames(borderedBadgeBaseClasses, 'bg-[#47e0a0]', 'border-[#47e0a0]');
 
-  const neutralBordered = classNames(
-    'w-full',
-    'transition-all',
-    // 'border-[#FF6FC8]',
-    // 'shadow-[0_0_20px_0px_rgba(255,255,255,1)]',
-    'rounded-[30px]',
-    'box-border',
-    'aspect-square',
-  );
+  const neutralBordered = classNames('w-full', 'transition-all', 'rounded-[30px]', 'box-border', 'aspect-square');
 
   const timerLabelClasses = classNames('text-[14px]/[20px]', 'text-[#adb1b8]');
 
@@ -293,11 +249,11 @@
                 isTamperActive ||
                 Boolean($activeMigration ? $activeMigration.badgeId !== migration.badgeId : $activeMigration)}
               <div
-                class={canClaim
+                class={canClaim || canRefine
                   ? pinkShadowed
                   : isComplete
                     ? greenBordered
-                    : canRefine || isEligible
+                    : isEligible
                       ? pinkBordered
                       : neutralBordered}>
                 <FactionBadgeItem
