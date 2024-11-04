@@ -2,12 +2,12 @@
   import { format, t } from 'svelte-i18n';
 
   import { FACTIONS } from '$configs/badges';
-  import MigrationBadgeItem from '$lib/domains/badges/components/MigrationBadgeItem.svelte';
+  import RecruitmentBadgeItem from '$lib/domains/badges/components/RecruitmentBadgeItem.svelte';
   import profileService from '$lib/domains/profile/services/ProfileServiceInstance';
   import { ActionButton } from '$shared/components/Button';
   import { errorToast, successToast } from '$shared/components/NotificationToast';
   import { account } from '$shared/stores';
-  import { activeMigration, refineMigrationModal, startMigrationModal } from '$shared/stores/migration';
+  import { activeRecruitment, influenceRecruitmentModal, startRecruitmentModal } from '$shared/stores/recruitment';
   import { classNames } from '$shared/utils/classNames';
 
   import CoreModal from './components/CoreModal.svelte';
@@ -18,37 +18,37 @@
 
   $: isLoading = false;
 
-  async function handleStartMigration() {
+  async function handleStartRecruitment() {
     try {
-      if (!$account || !$account.address || !$activeMigration) {
+      if (!$account || !$account.address || !$activeRecruitment) {
         return;
       }
       isLoading = true;
       const address = $account.address;
 
-      await profileService.startMigration(address, $activeMigration.s1Badge, $activeMigration);
+      await profileService.startRecruitment(address, $activeRecruitment.s1Badge, $activeRecruitment);
 
       successToast({
-        title: $t('badge_forge.modal.start_migration.toast.success.title'),
-        message: $t('badge_forge.modal.start_migration.toast.success.message'),
+        title: $t('badge_recruitment.modal.start_recruitment.toast.success.title'),
+        message: $t('badge_recruitment.modal.start_recruitment.toast.success.message'),
       });
 
       isLoading = false;
-      $startMigrationModal = false;
-      $refineMigrationModal = true;
+      $startRecruitmentModal = false;
+      $influenceRecruitmentModal = true;
 
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (e: any) {
       console.error(e);
-      let title = $t('badge_forge.modal.start_migration.toast.error.title');
-      let message = $t('badge_forge.modal.start_migration.toast.error.message.default');
+      let title = $t('badge_recruitment.modal.start_recruitment.toast.error.title');
+      let message = $t('badge_recruitment.modal.start_recruitment.toast.error.message.default');
 
       if (e.message.includes('0x3a0147ec')) {
-        title = $t('badge_forge.modal.start_migration.toast.error.title');
-        message = $t('badge_forge.modal.start_migration.toast.error.message.already_started');
+        title = $t('badge_recruitment.modal.start_recruitment.toast.error.title');
+        message = $t('badge_recruitment.modal.start_recruitment.toast.error.message.already_started');
       } else if (e.message.includes('User rejected the request')) {
-        title = $t('badge_forge.modal.start_migration.toast.error.title');
-        message = $t('badge_forge.modal.start_migration.toast.error.message.rejected');
+        title = $t('badge_recruitment.modal.start_recruitment.toast.error.title');
+        message = $t('badge_recruitment.modal.start_recruitment.toast.error.message.rejected');
       }
 
       errorToast({
@@ -84,17 +84,17 @@
     'items-center',
   );
 
-  $: badgeName = FACTIONS[$activeMigration?.s1Badge?.metadata.badgeId as number] || '';
+  $: badgeName = FACTIONS[$activeRecruitment?.s1Badge?.metadata.badgeId as number] || '';
 </script>
 
-<CoreModal bind:open={$startMigrationModal}>
+<CoreModal bind:open={$startRecruitmentModal}>
   <CoreModalHeader>
     <CoreModalTitle>
-      {$t('badge_forge.modal.start_migration.title')}
+      {$t('badge_recruitment.modal.start_recruitment.title')}
     </CoreModalTitle>
 
     <CoreModalDescription>
-      {$format('badge_forge.modal.start_migration.description', {
+      {$format('badge_recruitment.modal.start_recruitment.description', {
         values: {
           badgeName,
         },
@@ -102,22 +102,22 @@
     </CoreModalDescription>
   </CoreModalHeader>
 
-  {#if $activeMigration}
+  {#if $activeRecruitment}
     <div class={badgesWrapperClasses}>
-      <MigrationBadgeItem token={$activeMigration.s1Badge}>
+      <RecruitmentBadgeItem token={$activeRecruitment.s1Badge}>
         {badgeName}
-      </MigrationBadgeItem>
+      </RecruitmentBadgeItem>
     </div>
   {/if}
 
   <CoreModalFooter>
     <div class={warningClasses}>
       <img src="/icons/exclaimation-circle.svg" alt="Warning" class="w-[24px] h-[24px]" />
-      <p>{$t('badge_forge.modal.start_migration.warning')}</p>
+      <p>{$t('badge_recruitment.modal.start_recruitment.warning')}</p>
     </div>
 
-    <ActionButton loading={isLoading} disabled={isLoading} on:click={handleStartMigration} priority="primary">
-      {$t('badge_forge.buttons.start_migration')}
+    <ActionButton loading={isLoading} disabled={isLoading} on:click={handleStartRecruitment} priority="primary">
+      {$t('badge_recruitment.buttons.start_recruitment')}
     </ActionButton>
   </CoreModalFooter>
 </CoreModal>

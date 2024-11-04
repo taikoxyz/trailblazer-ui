@@ -14,7 +14,7 @@ import * as S1ClaimMainnetDeployment from '../taiko-mono.git/packages/nfts/deplo
 // import * as S1ClaimHeklaDeployment from '../taiko-mono.git/packages/nfts/deployments/trailblazers-airdrop/hekla.json';
 // import * as TrailblazerBadgesHeklaDeployment from '../taiko-mono.git/packages/nfts/deployments/trailblazers-badges/hekla.json';
 import * as TrailblazerBadgesS2HeklaDeployment from '../taiko-mono.git/packages/nfts/deployments/trailblazers-season-2/hekla.json';
-import BadgeMigration from '../taiko-mono.git/packages/nfts/out/BadgeMigration.sol/BadgeMigration.json';
+import BadgeRecruitment from '../taiko-mono.git/packages/nfts/out/BadgeRecruitment.sol/BadgeRecruitment.json';
 import ERC20Airdrop from '../taiko-mono.git/packages/nfts/out/ERC20Airdrop.sol/ERC20Airdrop.json';
 import RegisterProfilePicture from '../taiko-mono.git/packages/nfts/out/RegisterProfilePicture.sol/RegisterProfilePicture.json';
 import TaikoonToken from '../taiko-mono.git/packages/nfts/out/TaikoonToken.sol/TaikoonToken.json';
@@ -34,12 +34,12 @@ export default defineConfig({
       abi: TrailblazersS1BadgesV4.abi as Abi,
     },
     {
-      name: 'BadgeMigration',
+      name: 'BadgeRecruitment',
       address: {
-        167009: TrailblazerBadgesS2HeklaDeployment.BadgeMigration as Address,
-        167000: TrailblazerBadgesS2HeklaDeployment.BadgeMigration as Address,
+        167009: TrailblazerBadgesS2HeklaDeployment.BadgeRecruitment as Address,
+        167000: TrailblazerBadgesS2HeklaDeployment.BadgeRecruitment as Address,
       },
-      abi: BadgeMigration.abi as Abi,
+      abi: BadgeRecruitment.abi as Abi,
     },
     {
       name: 'TrailblazersBadgesS2',

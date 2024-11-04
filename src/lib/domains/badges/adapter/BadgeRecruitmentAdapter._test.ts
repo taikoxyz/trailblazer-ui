@@ -7,7 +7,7 @@ import { FETCH_ENABLED_MIGRATIONS_QUERY, GET_MIGRATION_STATUS_QUERY } from '$lib
 import { chainId } from '$shared/utils/chain';
 import generateBadgeMetadata from '$shared/utils/nfts/generateBadgeMetadata';
 
-import { BadgeMigrationAdapter } from './BadgeMigrationAdapter';
+import { BadgeRecruitmentAdapter } from './BadgeRecruitmentAdapter';
 
 vi.mock('$lib/shared/services/graphql/client', () => ({
   graphqlClient: {
@@ -45,42 +45,42 @@ const createMockQueryResult = <T>(data: T): ApolloQueryResult<T> => ({
   networkStatus: 7,
 });
 
-describe('BadgeMigrationAdapter', () => {
-  let adapter: BadgeMigrationAdapter;
+describe('BadgeRecruitmentAdapter', () => {
+  let adapter: BadgeRecruitmentAdapter;
 
   // const mockTxHash = '0xTransactionHash';
 
   // const SEASON_1 = 1;
   // const SEASON_2 = 2
 
-  const mockEnabledMigrationIds = vi.mocked([0, 1, 2, 3]);
+  const mockEnabledRecruitmentIds = vi.mocked([0, 1, 2, 3]);
 
   beforeEach(() => {
-    adapter = new BadgeMigrationAdapter();
+    adapter = new BadgeRecruitmentAdapter();
     vi.clearAllMocks();
   });
 
-  describe('fetchEnabledMigrations', () => {
-    it('should fetch enabled migrations', async () => {
+  describe('fetchEnabledRecruitments', () => {
+    it('should fetch enabled recruitments', async () => {
       vi.mocked(graphqlClient.query).mockResolvedValue(
         createMockQueryResult({
-          openMigrations: mockEnabledMigrationIds.map((id) => {
+          openRecruitments: mockEnabledRecruitmentIds.map((id) => {
             return { id, enabled: true };
           }),
         }),
       );
 
-      const result = await adapter.fetchEnabledMigrations();
+      const result = await adapter.fetchEnabledRecruitments();
       expect(graphqlClient.query).toHaveBeenCalledWith({
         query: FETCH_ENABLED_MIGRATIONS_QUERY,
       });
 
-      expect(result).toEqual(mockEnabledMigrationIds);
+      expect(result).toEqual(mockEnabledRecruitmentIds);
     });
   });
 
-  describe('startMigration', () => {
-    it('should start migration', async () => {
+  describe('startRecruitment', () => {
+    it('should start recruitment', async () => {
       /*
       const mockBadge = getMockBadge(SEASON_1, 1);
 
@@ -88,12 +88,12 @@ describe('BadgeMigrationAdapter', () => {
 
       vi.mocked(writeContract).mockResolvedValue(mockTxHash);
 
-      const result = await adapter.startMigration(mockAddress, mockBadge);
+      const result = await adapter.startRecruitment(mockAddress, mockBadge);
 
       expect(writeContract).toHaveBeenCalledWith(wagmiConfig, {
         abi: trailblazersBadgesAbi,
         address: trailblazersBadgesAddress[chainId],
-        functionName: 'startMigration',
+        functionName: 'startRecruitment',
         args: [BigInt(mockBadge.metadata.badgeId as number)],
         chainId,
       });
@@ -101,7 +101,7 @@ describe('BadgeMigrationAdapter', () => {
       expect(result).toBe(mockTxHash);*/
     });
   });
-  describe('refineMigration', () => {
+  describe('influenceRecruitment', () => {
     /*
     const mockTxHash: Hash = '0xTransactionHash' as Hash;
     const mockSignatureResponse = {
@@ -111,7 +111,7 @@ describe('BadgeMigrationAdapter', () => {
       },
     };*/
 
-    it('should refine migration with a valid transaction', async () => {
+    it('should influence recruitment with a valid transaction', async () => {
       /*
       const mockAddress = '0x1234567890abcdef1234567890abcdef12345678';
 
@@ -125,7 +125,7 @@ describe('BadgeMigrationAdapter', () => {
       vi.mocked(readContract).mockResolvedValue('0xGeneratedClaimHash');
       vi.mocked(writeContract).mockResolvedValue(mockTxHash);
 
-      const result = await adapter.refineMigration(mockAddress, mockBadge, mockMovement);
+      const result = await adapter.influenceRecruitment(mockAddress, mockBadge, mockMovement);
 
       expect(signMessage).toHaveBeenCalledWith(wagmiConfig, { message: expect.any(String) });
       expect(axios.post).toHaveBeenCalledWith(
@@ -141,17 +141,17 @@ describe('BadgeMigrationAdapter', () => {
       );
 
       expect(readContract).toHaveBeenCalledWith(wagmiConfig, {
-        abi: badgeMigrationAbi,
-        address: badgeMigrationAddress[chainId],
+        abi: badgeRecruitmentAbi,
+        address: badgeRecruitmentAddress[chainId],
         functionName: 'generateClaimHash',
         args: [mockAddress, BigInt(mockSignatureResponse.data.points)],
         chainId,
       });
 
       expect(writeContract).toHaveBeenCalledWith(wagmiConfig, {
-        abi: badgeMigrationAbi,
-        address: badgeMigrationAddress[chainId],
-        functionName: 'tamperMigration',
+        abi: badgeRecruitmentAbi,
+        address: badgeRecruitmentAddress[chainId],
+        functionName: 'influenceRecruitment',
         args: [
           '0xGeneratedClaimHash',
           expect.any(Number),
@@ -168,34 +168,34 @@ describe('BadgeMigrationAdapter', () => {
     });
   });
 
-  describe('endMigration', () => {
+  describe('endRecruitment', () => {
     it('', async () => {});
   });
 
-  describe('getMigrationStatus', () => {
-    it('should fetch migration status', async () => {
+  describe('getRecruitmentStatus', () => {
+    it('should fetch recruitment status', async () => {
       const mockAddress = '0x1234567890abcdef1234567890abcdef12345678';
-      const mockMigrationData = {
+      const mockRecruitmentData = {
         approvedS1Tokens: [{ badgeId: 1 }, { badgeId: 2 }],
         approvedForAll: false,
-        s2Migrations: [
+        s2Recruitments: [
           {
             id: '1',
             s1Badge: { badgeId: 1, tokenId: 1 },
             s2Badge: { badgeId: 2, tokenId: 2, movement: '1' },
             isStarted: true,
             isCompleted: false,
-            whaleTampers: 0,
-            minnowTampers: 0,
+            whaleInfluences: 0,
+            minnowInfluences: 0,
             claimExpirationTimeout: 3600,
-            tamperExpirationTimeout: 1800,
+            influenceExpirationTimeout: 1800,
           },
         ],
       };
 
-      vi.mocked(graphqlClient.query).mockResolvedValue(createMockQueryResult({ account: mockMigrationData }));
+      vi.mocked(graphqlClient.query).mockResolvedValue(createMockQueryResult({ account: mockRecruitmentData }));
 
-      const result = await adapter.getMigrationStatus(mockAddress);
+      const result = await adapter.getRecruitmentStatus(mockAddress);
 
       expect(graphqlClient.query).toHaveBeenCalledWith({
         query: GET_MIGRATION_STATUS_QUERY,
@@ -219,10 +219,10 @@ describe('BadgeMigrationAdapter', () => {
           },
           isStarted: true,
           isCompleted: false,
-          whaleTampers: 0,
-          minnowTampers: 0,
+          whaleInfluences: 0,
+          minnowInfluences: 0,
           claimExpirationTimeout: new Date('1970-01-01T01:01:00.000Z'),
-          tamperExpirationTimeout: new Date('1970-01-01T00:31:00.000Z'),
+          influenceExpirationTimeout: new Date('1970-01-01T00:31:00.000Z'),
           isApproved: true,
         },
       ]);

@@ -1,6 +1,6 @@
 import type { NFT } from './NFT';
 
-export enum MigrationStatus {
+export enum RecruitmentStatus {
   ELIGIBLE = 'ELIGIBLE',
   NOT_STARTED = 'NOT_STARTED',
   STARTED = 'STARTED',
@@ -9,14 +9,14 @@ export enum MigrationStatus {
   COMPLETED = 'COMPLETED',
 }
 
-export interface IBadgeMigration {
+export interface IBadgeRecruitment {
   id: string;
   badgeId: number;
-  status: MigrationStatus;
+  status: RecruitmentStatus;
   s1Badge: NFT;
   s2Badge?: NFT;
-  whaleTampers: number;
-  minnowTampers: number;
+  whaleInfluences: number;
+  minnowInfluences: number;
   claimExpirationTimeout: Date;
-  tamperExpirationTimeout?: Date;
+  influenceExpirationTimeout?: Date;
 }

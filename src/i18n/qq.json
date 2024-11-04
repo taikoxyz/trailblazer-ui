@@ -510,12 +510,12 @@
       "disconnected": "QQQQQ"
     }
   },
-  "badge_forge": {
+  "badge_recruitment": {
     "buttons": {
       "not_eligible": "QQQQQ",
-      "refine": "QQQQQ",
-      "start_migration": "QQQQQ",
-      "end_migration": "QQQQQ",
+      "influence": "QQQQQ",
+      "start_recruitment": "QQQQQ",
+      "end_recruitment": "QQQQQ",
       "reveal": "QQQQQ"
     },
     "labels": {
@@ -523,12 +523,12 @@
       "trail": "QQQQQ"
     },
     "main": {
-      "can_refine_in": "QQQQQ",
+      "can_influence_in": "QQQQQ",
       "can_claim_in": "QQQQQ",
-      "no_enabled_migrations": "QQQQQ"
+      "no_enabled_recruitments": "QQQQQ"
     },
     "modal": {
-      "start_migration": {
+      "start_recruitment": {
         "title": "QQQQQ",
         "description": "QQQQQ",
         "warning": "QQQQQ",
@@ -547,11 +547,11 @@
           }
         }
       },
-      "refine_migration": {
+      "influence_recruitment": {
         "title": "QQQQQ",
         "description": "QQQQQ"
       },
-      "end_migration": {
+      "end_recruitment": {
         "title": "QQQQQ",
         "description": "QQQQQ",
         "toast": {

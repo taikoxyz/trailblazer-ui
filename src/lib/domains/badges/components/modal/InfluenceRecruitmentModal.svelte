@@ -6,12 +6,12 @@
   import { ActionButton } from '$shared/components/Button';
   import { errorToast, successToast } from '$shared/components/NotificationToast';
   import { account } from '$shared/stores';
-  import { activeMigration, refineMigrationModal } from '$shared/stores/migration';
+  import { activeRecruitment, influenceRecruitmentModal } from '$shared/stores/recruitment';
   import { classNames } from '$shared/utils/classNames';
   import getMockBadge from '$shared/utils/nfts/getMockBadge';
 
-  import MigrationBadgeItem from '../MigrationBadgeItem.svelte';
-  import TamperRadio from '../RefineRadio.svelte';
+  import InfluenceRadio from '../InfluenceRadio.svelte';
+  import RecruitmentBadgeItem from '../RecruitmentBadgeItem.svelte';
   import { CoreModal, CoreModalDescription, CoreModalFooter, CoreModalHeader, CoreModalTitle } from './components';
 
   const badgesWrapperClasses = classNames(
@@ -24,98 +24,98 @@
     'lg:gap-[80px]',
   );
 
-  $: s1BadgeId = ($activeMigration?.s1Badge?.metadata.badgeId as number) || 0;
+  $: s1BadgeId = ($activeRecruitment?.s1Badge?.metadata.badgeId as number) || 0;
 
   $: isLoading = false;
 
   $: selectedMovement = null as null | Movements;
 
-  async function handleRefine() {
+  async function handleInfluence() {
     try {
-      if (!$account || !$account.address || !$activeMigration || selectedMovement === null) return;
+      if (!$account || !$account.address || !$activeRecruitment || selectedMovement === null) return;
       isLoading = true;
 
-      await profileService.refineMigration(
+      await profileService.influenceRecruitment(
         $account.address,
-        $activeMigration.s1Badge,
+        $activeRecruitment.s1Badge,
         selectedMovement,
-        $activeMigration,
+        $activeRecruitment,
       );
 
       isLoading = false;
-      $refineMigrationModal = false;
+      $influenceRecruitmentModal = false;
 
       successToast({
         title: 'Success',
-        message: `You have successfully tampered your badge to ${MovementNames[selectedMovement]}`,
+        message: `You have successfully influenceed your badge to ${MovementNames[selectedMovement]}`,
       });
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (e: any) {
       isLoading = false;
       console.error(e);
       errorToast({
-        title: 'Refine error',
-        message: e.shortMessage ? e.shortMessage : 'Error refining your forge process',
+        title: 'Influence error',
+        message: e.shortMessage ? e.shortMessage : 'Error refining your recruitment process',
       });
     }
   }
 
   const detailsClasses = classNames('flex', 'flex-col', 'w-full', 'justify-center', 'items-center', 'gap-[8px]');
 
-  const radioGroupName = 'radio-tamper';
+  const radioGroupName = 'radio-influence';
 </script>
 
-<CoreModal bind:open={$refineMigrationModal}>
+<CoreModal bind:open={$influenceRecruitmentModal}>
   <CoreModalHeader>
     <CoreModalTitle>
-      {$t('badge_forge.modal.refine_migration.title')}
+      {$t('badge_recruitment.modal.influence_recruitment.title')}
     </CoreModalTitle>
 
     <CoreModalDescription>
-      {$t('badge_forge.modal.refine_migration.description')}
+      {$t('badge_recruitment.modal.influence_recruitment.description')}
     </CoreModalDescription>
   </CoreModalHeader>
 
-  {#if $activeMigration}
+  {#if $activeRecruitment}
     <div class={badgesWrapperClasses}>
-      <MigrationBadgeItem
+      <RecruitmentBadgeItem
         hideBubbles
-        value={$activeMigration?.whaleTampers}
+        value={$activeRecruitment?.whaleInfluences}
         shadow={selectedMovement === Movements.Whale}
         token={getMockBadge(Seasons.Season2, s1BadgeId, Movements.Whale)}>
         <div class={detailsClasses}>
-          <TamperRadio
+          <InfluenceRadio
             checked={selectedMovement === Movements.Whale}
             on:change={() => {
               selectedMovement = Movements.Whale;
             }}
             name={radioGroupName} />
         </div>
-      </MigrationBadgeItem>
+      </RecruitmentBadgeItem>
 
-      <MigrationBadgeItem
+      <RecruitmentBadgeItem
         hideBubbles
         shadow={selectedMovement === Movements.Minnow}
-        value={$activeMigration?.minnowTampers}
+        value={$activeRecruitment?.minnowInfluences}
         token={getMockBadge(Seasons.Season2, s1BadgeId, Movements.Minnow)}>
         <div class={detailsClasses}>
-          <TamperRadio
+          <InfluenceRadio
             checked={selectedMovement === Movements.Minnow}
             on:change={() => {
               selectedMovement = Movements.Minnow;
             }}
             name={radioGroupName} />
         </div>
-      </MigrationBadgeItem>
+      </RecruitmentBadgeItem>
     </div>
   {/if}
   <CoreModalFooter>
     <ActionButton
       loading={isLoading}
-      on:click={handleRefine}
+      on:click={handleInfluence}
       disabled={isLoading || selectedMovement === null}
       priority="primary">
-      {$t('badge_forge.buttons.refine')}
+      {$t('badge_recruitment.buttons.influence')}
     </ActionButton>
   </CoreModalFooter>
 </CoreModal>

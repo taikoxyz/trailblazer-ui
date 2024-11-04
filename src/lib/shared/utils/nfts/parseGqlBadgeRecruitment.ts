@@ -1,13 +1,13 @@
 import { trailblazersBadgesAddress } from '$generated/abi';
-import type { BadgeMigration as GqlBadgeMigration } from '$generated/graphql';
+import type { BadgeRecruitment as GqlBadgeRecruitment } from '$generated/graphql';
 import { type Movements, Seasons } from '$lib/domains/profile/types/types';
-import { type IBadgeMigration, MigrationStatus } from '$shared/types/BadgeMigration';
+import { type IBadgeRecruitment, RecruitmentStatus } from '$shared/types/BadgeRecruitment';
 import type { NFT } from '$shared/types/NFT';
 import { chainId } from '$shared/utils/chain';
 
 import generateBadgeMetadata from './generateBadgeMetadata';
 
-export default function parseGqlBadgeMigration(raw: GqlBadgeMigration): IBadgeMigration {
+export default function parseGqlBadgeRecruitment(raw: GqlBadgeRecruitment): IBadgeRecruitment {
   const s1BadgeId = parseInt(raw.s1Badge.badgeId.toString());
   const s1Badge = {
     tokenId: parseInt(raw.s1Badge.tokenId.toString()),
@@ -28,24 +28,28 @@ export default function parseGqlBadgeMigration(raw: GqlBadgeMigration): IBadgeMi
       tokenUri: raw.s2Badge.uri || '',
     } satisfies NFT;
   }
-  const tamperExpirationTimeoutRaw = parseInt(raw.tamperExpirationTimeout.toString());
+  const influenceExpirationTimeoutRaw = parseInt(raw.influenceExpirationTimeout.toString());
 
-  const tamperExpirationTimeout =
-    tamperExpirationTimeoutRaw > 0 ? new Date(tamperExpirationTimeoutRaw * 1000) : undefined;
+  const influenceExpirationTimeout =
+    influenceExpirationTimeoutRaw > 0 ? new Date(influenceExpirationTimeoutRaw * 1000) : undefined;
 
   const claimExpirationTimeout = new Date(parseInt(raw.claimExpirationTimeout.toString()) * 1000);
 
-  let status = MigrationStatus.NOT_STARTED;
+  let status = RecruitmentStatus.NOT_STARTED;
   if (raw.isCompleted) {
-    status = MigrationStatus.COMPLETED;
+    status = RecruitmentStatus.COMPLETED;
   } else if (claimExpirationTimeout < new Date()) {
-    status = MigrationStatus.CAN_CLAIM;
-  } else if (claimExpirationTimeout >= new Date() && tamperExpirationTimeout && tamperExpirationTimeout < new Date()) {
-    status = MigrationStatus.CAN_REFINE;
-  } else if (tamperExpirationTimeout) {
-    status = MigrationStatus.STARTED;
+    status = RecruitmentStatus.CAN_CLAIM;
+  } else if (
+    claimExpirationTimeout >= new Date() &&
+    influenceExpirationTimeout &&
+    influenceExpirationTimeout < new Date()
+  ) {
+    status = RecruitmentStatus.CAN_REFINE;
+  } else if (influenceExpirationTimeout) {
+    status = RecruitmentStatus.STARTED;
   } else if (parseInt(raw.claimExpirationTimeout.toString()) > 0) {
-    status = MigrationStatus.STARTED;
+    status = RecruitmentStatus.STARTED;
   }
 
   return {
@@ -54,9 +58,9 @@ export default function parseGqlBadgeMigration(raw: GqlBadgeMigration): IBadgeMi
     id: raw.id,
     s1Badge,
     s2Badge,
-    whaleTampers: parseInt(raw.whaleTampers),
-    minnowTampers: parseInt(raw.minnowTampers),
+    whaleInfluences: parseInt(raw.whaleInfluences),
+    minnowInfluences: parseInt(raw.minnowInfluences),
     claimExpirationTimeout,
-    tamperExpirationTimeout,
-  } satisfies IBadgeMigration;
+    influenceExpirationTimeout,
+  } satisfies IBadgeRecruitment;
 }

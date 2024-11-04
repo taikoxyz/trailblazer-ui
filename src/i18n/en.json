@@ -102,7 +102,7 @@
     "explorer": "Explorer",
     "learn_more": "Learn more",
     "locked": "Locked",
-    "migrate": "Migration",
+    "migrate": "Recruitment",
     "not_eligible": "Not eligible",
     "trail": "Trail",
     "week": "Week"
@@ -545,12 +545,12 @@
       "disconnected": "Disconnected"
     }
   },
-  "badge_forge": {
+  "badge_recruitment": {
     "buttons": {
       "not_eligible": "Not eligible",
-      "refine": "Refine",
-      "start_migration": "Start migration",
-      "end_migration": "Claim",
+      "influence": "Influence",
+      "start_recruitment": "Start recruitment",
+      "end_recruitment": "Claim",
       "reveal": "Reveal"
     },
     "labels": {
@@ -558,59 +558,71 @@
       "trail": "Trail"
     },
     "main": {
-      "can_refine_in": "You can refine again in:",
-      "can_claim_in": "Badge forged in:",
-      "no_enabled_migrations": "No migrations are currently enabled. Stay tuned!"
+      "can_influence_in": "You can influence again in:",
+      "can_claim_in": "Badge recruited in:",
+      "no_enabled_recruitments": "No recruitments are currently enabled. Stay tuned!"
     },
     "modal": {
-      "start_migration": {
-        "title": "Start your forge process",
-        "description": "Time to forge your Season 2 {badgeName} badge!",
-        "warning": "Warning: Once you click 'Start Migration', your Season 1 badge will be locked for XXX days.",
+      "start_recruitment": {
+        "title": "Start your recruitment process",
+        "description": "Time to recruitment your Season 2 {badgeName} badge!",
+        "warning": "Warning: Once you click 'Start Recruitment', your Season 1 badge will be locked for XXX days.",
         "toast": {
           "success": {
             "title": "Success",
-            "message": "You have successfully started the migration of your badge."
+            "message": "You have successfully started the recruitment of your badge."
           },
           "error": {
             "title": "Error",
             "message": {
-              "default": "Could not start your migration. Please try again later.",
-              "rejected": "You have rejected the migration.",
-              "already_started": "You have already started another migration."
+              "default": "Could not start your recruitment. Please try again later.",
+              "rejected": "You have rejected the recruitment.",
+              "already_started": "You have already started another recruitment."
             }
           }
         }
       },
-      "refine_migration": {
-        "title": "Your Season 2 Badge is being forged",
-        "description": "Refine your badge to favor the path of your Season 2 badge."
+      "influence_recruitment": {
+        "title": "Your Season 2 Badge is being recruited",
+        "description": "Influence your badge to favor the path of your Season 2 badge."
       },
-      "end_migration": {
+      "end_recruitment": {
         "title": "Congratulations!",
-        "description": "You have successfully forged your badge. You can now claim it.",
+        "description": "You have successfully recruited your badge. You can now claim it.",
         "toast": {
           "success": {
-            "title": "Badge forge claim",
+            "title": "Badge recruitment claim",
             "message": "You have successfully claimed your badge"
           },
           "error": {
-            "title": "Badge forge claim error",
-            "default_message": "Error claiming your badge forge"
+            "title": "Badge recruitment claim error",
+            "default_message": "Error claiming your badge recruitment"
           }
         }
       }
     },
     "faq": {
-      "title": "Badge Forge FAQ",
+      "title": "Badge Recruitment FAQ",
       "entries": [
         {
-          "question": "What's the Forge?",
-          "answer": "This is where you can mint your season 2 Trailblazer badges by staking a Season 1 badge for XXX days."
+          "question": "What is Recruiting?",
+          "answer": "The Devs are out in full force looking for new recruits to join their Faction. The Recruit tab is where you can send any Devs you control out to find new members to join your cause. Your Dev will always return with a new member that belongs to one of two Teams: the Minnows, or the Whales, and will always be the same Faction of the Dev that Recruited them. It takes XXX hours for your Dev to return with a new member. Once you have sent your Dev out it will be staked for the rest of the Season"
         },
         {
-          "question": "What's \"Refining\" a forge process?",
-          "answer": "Tamper with your chances of getting your season 2 badge in any of the 3 possible teams: Devs, Minnows and Whales."
+          "question": "What does Influence do?",
+          "answer": "As your Dev is out looking for Recruits you can give them orders to target a specific Team to join your cause. Every time you give your Dev the order to Influence a particular Team, it will increase your chances of your Dev returning with a member of that Team. Every time you give your Dev orders to Influence a particular Team you will see the number increase above that Team on the Recruit Influence page. If you change your mind about which Team you want to Influence you can select the other Team, and it will reset the Influence counter to 1 for your new target. You can give Influence orders to your Dev once every XXX hours."
+        },
+        {
+          "question": "What are the different Teams and what do they do?",
+          "answer": "<b>The Devs</b> (S1 Badges) are the OGs, the ones that build and make things possible. For every unique Dev you control you will receive +0.05x to your <b>Global xp</b> multiplier as well as your Proposer xp.<br/><br/><b>The Whales</b> are the big bagged ones, they make splashes in DeFi. For every unique Whale you control you will receive +0.05x to your <b>Transaction Value</b> xp multiplier.<br/><br/><b>The Minnows</b> are small but plenty, what they lack in funds they make up for with activity. For every unique Minnow you control you will receive +0.05x to your <b>Transaction</b> xp multiplier."
+        },
+        {
+          "question": "What can my Dev do while it is staked?",
+          "answer": "While your Dev is staked you will not be able to take advantage of all of their skills, so you will lose the all the multipliers that it would normally give you. "
+        },
+        {
+          "question": "What is the Faction Battle Arena?",
+          "answer": "The Faction Battle Arena is where you can send the characters under your control to battle it out for fame, glory, and of course prizes. For more details on the FBA visit:"
         }
       ]
     }

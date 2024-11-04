@@ -79,11 +79,11 @@
   {#if !hideBubbles}
     <div class={bubbleWrapperClasses}>
       <div class={bubbleClasses}>
-        {$t('badge_forge.labels.season')}
+        {$t('badge_recruitment.labels.season')}
         {season}
       </div>
       <div class={bubbleClasses}>
-        {$t('badge_forge.labels.trail')}
+        {$t('badge_recruitment.labels.trail')}
         {badgeId + 1}
       </div>
       {#if season > 1}

@@ -1,7 +1,7 @@
 import { getAccount } from '@wagmi/core';
 import { type Address, getAddress, type Hash } from 'viem';
 
-import { BadgeMigrationService } from '$lib/domains/badges/services/BadgeMigrationService';
+import { BadgeRecruitmentService } from '$lib/domains/badges/services/BadgeRecruitmentService';
 import type { UserLeaderboardItem } from '$lib/domains/leaderboard/types/user/types';
 import { NftService } from '$lib/domains/nfts/services/NftService';
 import { ProfileApiAdapter } from '$lib/domains/profile/adapter/ProfileAdapter';
@@ -15,10 +15,10 @@ import type { UserInfoForLeaderboard } from '$lib/domains/profile/types/UserInfo
 import type { UserProfile } from '$lib/domains/profile/types/UserProfile';
 import type { SeasonHistoryEntry, UserStats } from '$lib/domains/profile/types/UserStats';
 import type { PaginationInfo } from '$lib/shared/dto/CommonPageApiResponse';
-import type { IBadgeMigration } from '$lib/shared/types/BadgeMigration';
+import type { IBadgeRecruitment } from '$lib/shared/types/BadgeRecruitment';
 import type { NFT } from '$lib/shared/types/NFT';
 import { wagmiConfig } from '$lib/shared/wagmi';
-import { activeMigration } from '$shared/stores/migration';
+import { activeRecruitment } from '$shared/stores/recruitment';
 import { getLogger } from '$shared/utils/logger';
 
 import type { UserPointHistory } from '../types/ActivityHistory';
@@ -37,7 +37,7 @@ export class ProfileService implements IProfileService {
 
   //Services
   private combinedNFTService: NftService;
-  private badgeMigrationService: BadgeMigrationService;
+  private badgeRecruitmentService: BadgeRecruitmentService;
 
   private localStorageKey = 'taikoENSdomain';
 
@@ -45,12 +45,12 @@ export class ProfileService implements IProfileService {
     apiAdapter?: ProfileApiAdapter,
     userRepository?: UserRepository,
     combinedNFTService?: NftService,
-    badgeMigrationService?: BadgeMigrationService,
+    badgeRecruitmentService?: BadgeRecruitmentService,
   ) {
     this.apiAdapter = apiAdapter || new ProfileApiAdapter();
     this.userRepository = userRepository || new UserRepository();
     this.combinedNFTService = combinedNFTService || new NftService();
-    this.badgeMigrationService = badgeMigrationService || new BadgeMigrationService();
+    this.badgeRecruitmentService = badgeRecruitmentService || new BadgeRecruitmentService();
   }
 
   public static getInstance(): ProfileService {
@@ -131,7 +131,7 @@ export class ProfileService implements IProfileService {
         // this.fetchAndCalculateMultipliers(address),
         this.performAdditionalCalculations(),
         this.previousSeasonFinalScores(address, season - 1),
-        this.getBadgeMigrations(address),
+        this.getBadgeRecruitments(address),
       ]);
       // const [multiplierResult] = await Promise.all([this.handleDomainSelection(info)]);
 
@@ -402,7 +402,7 @@ export class ProfileService implements IProfileService {
         nfts,
       });
 
-      await this.getBadgeMigrations(address);
+      await this.getBadgeRecruitments(address);
 
       log('Profile with NFTs:', await this.userRepository.get());
     } catch (error) {
@@ -531,55 +531,55 @@ export class ProfileService implements IProfileService {
   }
 
   /**
-   * Fetches enabled migrations
+   * Fetches enabled recruitments
    *
    * @return {*}  {Promise<number[]>}
    * @memberof ProfileService
    */
-  async getEnabledMigrations(): Promise<number[]> {
-    log('getEnabledMigrations');
-    return this.badgeMigrationService.getEnabledMigrations();
+  async getEnabledRecruitments(): Promise<number[]> {
+    log('getEnabledRecruitments');
+    return this.badgeRecruitmentService.getEnabledRecruitments();
   }
 
-  private async _updateMigration(migration: IBadgeMigration): Promise<void> {
+  private async _updateRecruitment(recruitment: IBadgeRecruitment): Promise<void> {
     const oldUser = await this.userRepository.get();
-    const badgeMigrations = oldUser.badgeMigrations || [];
+    const badgeRecruitment = oldUser.badgeRecruitment || [];
 
-    // Find the migration to update
-    const existingMigration = badgeMigrations.find((m) => m.id === migration.id);
-    if (existingMigration) {
-      // Update the migration
-      const index = badgeMigrations.indexOf(existingMigration);
-      badgeMigrations[index] = migration;
+    // Find the recruitment to update
+    const existingRecruitment = badgeRecruitment.find((m) => m.id === recruitment.id);
+    if (existingRecruitment) {
+      // Update the recruitment
+      const index = badgeRecruitment.indexOf(existingRecruitment);
+      badgeRecruitment[index] = recruitment;
     } else {
-      badgeMigrations.push(migration);
+      badgeRecruitment.push(recruitment);
     }
     // Update the profile
     await this.userRepository.update({
       ...oldUser,
-      badgeMigrations,
+      badgeRecruitment,
     });
 
-    activeMigration.set(migration);
-    log('Updating migration:', migration);
+    activeRecruitment.set(recruitment);
+    log('Updating recruitment:', recruitment);
   }
 
   /**
-   * Starts a migration process
+   * Starts a recruitment process
    *
    * @param {Address} address
    * @param {NFT} nft
    * @return {*}  {Promise<NFT>}
    * @memberof ProfileService
    */
-  async startMigration(address: Address, nft: NFT, migration: IBadgeMigration): Promise<void> {
-    log('startMigration', { address, nft, migration });
-    const updatedMigration = await this.badgeMigrationService.startMigration(address, nft, migration);
-    await this._updateMigration(updatedMigration);
+  async startRecruitment(address: Address, nft: NFT, recruitment: IBadgeRecruitment): Promise<void> {
+    log('startRecruitment', { address, nft, recruitment });
+    const updatedRecruitment = await this.badgeRecruitmentService.startRecruitment(address, nft, recruitment);
+    await this._updateRecruitment(updatedRecruitment);
   }
 
   /**
-   * Starts a migration process
+   * Starts a recruitment process
    *
    * @param {Address} address
    * @param {NFT} nft
@@ -587,49 +587,49 @@ export class ProfileService implements IProfileService {
    * @return {*}  {Promise<NFT>}
    * @memberof ProfileService
    */
-  async refineMigration(
+  async influenceRecruitment(
     address: Address,
     nft: NFT,
     selectedMovement: Movements,
-    migration: IBadgeMigration,
+    recruitment: IBadgeRecruitment,
   ): Promise<void> {
-    log('refineMigration', { address, nft, selectedMovement });
-    const updatedMigration = await this.badgeMigrationService.refineMigration(
+    log('influenceRecruitment', { address, nft, selectedMovement });
+    const updatedRecruitment = await this.badgeRecruitmentService.influenceRecruitment(
       address,
       nft,
       selectedMovement,
-      migration,
+      recruitment,
     );
-    await this._updateMigration(updatedMigration);
+    await this._updateRecruitment(updatedRecruitment);
   }
 
   /**
-   * Starts a migration process
+   * Starts a recruitment process
    *
    * @param {Address} address
    * @param {NFT} nft
    * @return {*}  {Promise<NFT>}
    * @memberof ProfileService
    */
-  async endMigration(address: Address, nft: NFT, migration: IBadgeMigration): Promise<void> {
-    log('endMigration', { address, nft, migration });
-    const updatedMigration = await this.badgeMigrationService.endMigration(address, nft, migration);
-    await this._updateMigration(updatedMigration);
+  async endRecruitment(address: Address, nft: NFT, recruitment: IBadgeRecruitment): Promise<void> {
+    log('endRecruitment', { address, nft, recruitment });
+    const updatedRecruitment = await this.badgeRecruitmentService.endRecruitment(address, nft, recruitment);
+    await this._updateRecruitment(updatedRecruitment);
   }
 
   /**
-   * Starts a migration process
+   * Starts a recruitment process
    *
    * @param {Address} address
    * @return {*}  {Promise<void>}
    * @memberof ProfileService
    */
-  async getBadgeMigrations(address: Address): Promise<void> {
-    log('getMigrationStatus', { address });
-    const migrations = await this.badgeMigrationService.getMigrationStatus(address);
+  async getBadgeRecruitments(address: Address): Promise<void> {
+    log('getRecruitmentStatus', { address });
+    const recruitments = await this.badgeRecruitmentService.getRecruitmentStatus(address);
 
     await this.userRepository.update({
-      badgeMigrations: migrations,
+      badgeRecruitment: recruitments,
     });
   }
 

@@ -1,7 +1,7 @@
 <script lang="ts">
-  import EndMigrationModal from '$lib/domains/badges/components/modal/EndMigrationModal.svelte';
-  import TamperMigrationModal from '$lib/domains/badges/components/modal/RefineMigrationModal.svelte';
-  import StartMigrationModal from '$lib/domains/badges/components/modal/StartMigrationModal.svelte';
+  import EndRecruitmentModal from '$lib/domains/badges/components/modal/EndRecruitmentModal.svelte';
+  import InfluenceRecruitmentModal from '$lib/domains/badges/components/modal/InfluenceRecruitmentModal.svelte';
+  import StartRecruitmentModal from '$lib/domains/badges/components/modal/StartRecruitmentModal.svelte';
   import { MintDisclaimerModal } from '$lib/shared/components';
 
   import ProfilePictureModal from './ProfilePicture/ProfilePictureModal.svelte';
@@ -9,6 +9,6 @@
 
 <ProfilePictureModal />
 <MintDisclaimerModal />
-<StartMigrationModal />
-<EndMigrationModal />
-<TamperMigrationModal />
+<StartRecruitmentModal />
+<EndRecruitmentModal />
+<InfluenceRecruitmentModal />

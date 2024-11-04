@@ -1,4 +1,4 @@
-import type { IBadgeMigration } from '$lib/shared/types/BadgeMigration';
+import type { IBadgeRecruitment } from '$lib/shared/types/BadgeRecruitment';
 
 export enum FACTIONS {
   Ravers,
@@ -21,8 +21,8 @@ export enum FactionNames {
   Shinto = 'Shinto',
 }
 
-// return type for getMigrationStatus
-export interface GetMigrationStatusResult {
+// return type for getRecruitmentStatus
+export interface GetRecruitmentStatusResult {
   approvedTokenIds: number[];
-  migrations: IBadgeMigration[];
+  recruitments: IBadgeRecruitment[];
 }

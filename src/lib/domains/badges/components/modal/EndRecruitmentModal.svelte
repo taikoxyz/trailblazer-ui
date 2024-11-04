@@ -2,14 +2,14 @@
   import Flippable from 'svelte-flip';
   import { t } from 'svelte-i18n';
 
-  import MigrationBadgeItem from '$lib/domains/badges/components/MigrationBadgeItem.svelte';
+  import RecruitmentBadgeItem from '$lib/domains/badges/components/RecruitmentBadgeItem.svelte';
   import profileService from '$lib/domains/profile/services/ProfileServiceInstance';
   import { MovementNames, Movements } from '$lib/domains/profile/types/types';
   import { Spinner } from '$shared/components';
   import { ActionButton } from '$shared/components/Button';
   import { errorToast, successToast } from '$shared/components/NotificationToast';
   import { account } from '$shared/stores';
-  import { activeMigration, endMigrationModal } from '$shared/stores/migration';
+  import { activeRecruitment, endRecruitmentModal } from '$shared/stores/recruitment';
   import type { NFT } from '$shared/types/NFT';
   import { classNames } from '$shared/utils/classNames';
 
@@ -23,31 +23,33 @@
 
   $: backToken = null as null | NFT;
 
-  async function handleEndMigration() {
+  async function handleEndRecruitment() {
     try {
       if (!$account || !$account.address) {
         return;
       }
 
-      if (!$activeMigration || !$activeMigration.s1Badge) {
+      if (!$activeRecruitment || !$activeRecruitment.s1Badge) {
         return;
       }
       isLoading = true;
-      await profileService.endMigration($account.address, $activeMigration.s1Badge, $activeMigration);
-      backToken = $activeMigration.s2Badge!;
+      await profileService.endRecruitment($account.address, $activeRecruitment.s1Badge, $activeRecruitment);
+      backToken = $activeRecruitment.s2Badge!;
       isRevealed = true;
 
       successToast({
-        title: $t('badge_forge.modal.end_migration.toast.success.title'),
-        message: $t('badge_forge.modal.end_migration.toast.success.message'),
+        title: $t('badge_recruitment.modal.end_recruitment.toast.success.title'),
+        message: $t('badge_recruitment.modal.end_recruitment.toast.success.message'),
       });
 
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (e: any) {
       console.error(e);
       errorToast({
-        title: $t('badge_forge.modal.end_migration.toast.error.title'),
-        message: e.shortMessage ? e.shortMessage : $t('badge_forge.modal.end_migration.toast.error.default_message'),
+        title: $t('badge_recruitment.modal.end_recruitment.toast.error.title'),
+        message: e.shortMessage
+          ? e.shortMessage
+          : $t('badge_recruitment.modal.end_recruitment.toast.error.default_message'),
       });
     } finally {
       isLoading = false;
@@ -63,27 +65,27 @@
   }
 </script>
 
-<CoreModal bind:open={$endMigrationModal}>
+<CoreModal bind:open={$endRecruitmentModal}>
   <CoreModalHeader>
     <CoreModalTitle>
-      {$t('badge_forge.modal.end_migration.title')}
+      {$t('badge_recruitment.modal.end_recruitment.title')}
     </CoreModalTitle>
     <CoreModalDescription>
-      {$t('badge_forge.modal.end_migration.description')}
+      {$t('badge_recruitment.modal.end_recruitment.description')}
     </CoreModalDescription>
   </CoreModalHeader>
 
-  {#if $activeMigration}
+  {#if $activeRecruitment}
     <div class={badgeWrapperClasses}>
       <Flippable height="400px" width="300px" flip={isRevealed}>
-        <MigrationBadgeItem token={$activeMigration.s1Badge} slot="front">
-          {$t('badge_forge.labels.season')} 1</MigrationBadgeItem>
+        <RecruitmentBadgeItem token={$activeRecruitment.s1Badge} slot="front">
+          {$t('badge_recruitment.labels.season')} 1</RecruitmentBadgeItem>
 
         <div slot="back">
           {#if backToken && backToken.metadata.movement !== undefined}
-            <MigrationBadgeItem hideBubbles token={backToken}>
+            <RecruitmentBadgeItem hideBubbles token={backToken}>
               {getMovementName(backToken)}
-            </MigrationBadgeItem>
+            </RecruitmentBadgeItem>
           {:else}
             <Spinner />
           {/if}
@@ -94,11 +96,11 @@
 
   <CoreModalFooter>
     {#if !isRevealed}
-      <ActionButton loading={isLoading} disabled={isLoading} on:click={handleEndMigration} priority="primary">
-        {$t('badge_forge.buttons.reveal')}
+      <ActionButton loading={isLoading} disabled={isLoading} on:click={handleEndRecruitment} priority="primary">
+        {$t('badge_recruitment.buttons.reveal')}
       </ActionButton>
     {:else}
-      <ActionButton on:click={() => ($endMigrationModal = false)} priority="secondary">Confirm</ActionButton>
+      <ActionButton on:click={() => ($endRecruitmentModal = false)} priority="secondary">Confirm</ActionButton>
     {/if}
   </CoreModalFooter>
 </CoreModal>

@@ -11,23 +11,23 @@
   import { Movements, Seasons } from '$lib/domains/profile/types/types';
   import { FaqBlock } from '$lib/domains/splashpage/components/FaqBlock';
   import type { IFaqEntry } from '$lib/domains/splashpage/components/FaqBlock/FaqBlock.svelte';
-  import { type IBadgeMigration, MigrationStatus } from '$lib/shared/types/BadgeMigration';
+  import { type IBadgeRecruitment, RecruitmentStatus } from '$lib/shared/types/BadgeRecruitment';
   import { Spinner } from '$shared/components';
   import { Button } from '$shared/components/Button';
   import RotatingIcon from '$shared/components/Icon/RotatingIcon.svelte';
   import { account } from '$shared/stores';
   import {
-    activeMigration,
-    endMigrationModal,
-    refineMigrationModal,
-    startMigrationModal,
-  } from '$shared/stores/migration';
+    activeRecruitment,
+    endRecruitmentModal,
+    influenceRecruitmentModal,
+    startRecruitmentModal,
+  } from '$shared/stores/recruitment';
   import { classNames } from '$shared/utils/classNames';
   import getMockBadge from '$shared/utils/nfts/getMockBadge';
 
   import Countdown from './Countdown.svelte';
 
-  export let title: string = 'Badge Migration';
+  export let title: string = 'Badge Recruitment';
 
   const containerClass = classNames(
     'container',
@@ -125,87 +125,87 @@
   $: enabledBadgeIds = [] as number[];
 
   onMount(async () => {
-    enabledBadgeIds = await profileService.getEnabledMigrations();
+    enabledBadgeIds = await profileService.getEnabledRecruitments();
   });
 
   $: forceRenderFlag = true;
-  async function onCounterEnd(migration: IBadgeMigration, status: MigrationStatus) {
+  async function onCounterEnd(recruitment: IBadgeRecruitment, status: RecruitmentStatus) {
     if (!$account || !$account.address) return;
     forceRenderFlag = false;
 
-    $activeMigration = {
-      ...migration,
+    $activeRecruitment = {
+      ...recruitment,
       status,
     };
 
     forceRenderFlag = true;
   }
 
-  async function handleStartMigration(badgeId: number) {
+  async function handleStartRecruitment(badgeId: number) {
     if (!$account || !$account.address) return;
 
-    $activeMigration = {
+    $activeRecruitment = {
       badgeId,
-      status: MigrationStatus.NOT_STARTED,
+      status: RecruitmentStatus.NOT_STARTED,
       s1Badge: getMockBadge(Seasons.Season1, badgeId),
       id: '',
-      whaleTampers: 0,
-      minnowTampers: 0,
+      whaleInfluences: 0,
+      minnowInfluences: 0,
       claimExpirationTimeout: new Date(),
-      tamperExpirationTimeout: undefined,
-    } satisfies IBadgeMigration;
-    $startMigrationModal = true;
+      influenceExpirationTimeout: undefined,
+    } satisfies IBadgeRecruitment;
+    $startRecruitmentModal = true;
   }
 
-  function handleTamperModal(badgeId: number) {
-    const migration = $userProfile.badgeMigrations?.find((m) => m.badgeId === badgeId);
-    if (!migration) {
-      console.error(`Migration for badge id #${badgeId} not found`);
+  function handleInfluenceModal(badgeId: number) {
+    const recruitment = $userProfile.badgeRecruitment?.find((m) => m.badgeId === badgeId);
+    if (!recruitment) {
+      console.error(`Recruitment for badge id #${badgeId} not found`);
       return;
     }
-    $activeMigration = migration;
-    $refineMigrationModal = true;
+    $activeRecruitment = recruitment;
+    $influenceRecruitmentModal = true;
   }
 
-  async function handleEndMigration(badgeId: number) {
-    const migration = $userProfile.badgeMigrations?.find((m) => m.badgeId === badgeId);
-    if (!migration) {
-      console.error(`Migration for badge id #${badgeId} not found`);
+  async function handleEndRecruitment(badgeId: number) {
+    const recruitment = $userProfile.badgeRecruitment?.find((m) => m.badgeId === badgeId);
+    if (!recruitment) {
+      console.error(`Recruitment for badge id #${badgeId} not found`);
       return;
     }
-    $activeMigration = migration;
-    $endMigrationModal = true;
+    $activeRecruitment = recruitment;
+    $endRecruitmentModal = true;
   }
 
   $: buttons = {
     NotEligible: {
       disabled: true,
       type: 'primary',
-      label: $t('badge_forge.buttons.not_eligible'),
+      label: $t('badge_recruitment.buttons.not_eligible'),
     },
-    Refine: {
+    Influence: {
       type: 'primary',
-      label: $t('badge_forge.buttons.refine'),
-      handler: handleTamperModal,
+      label: $t('badge_recruitment.buttons.influence'),
+      handler: handleInfluenceModal,
     },
-    StartMigration: {
+    StartRecruitment: {
       type: 'primary',
-      label: $t('badge_forge.buttons.start_migration'),
-      handler: handleStartMigration,
+      label: $t('badge_recruitment.buttons.start_recruitment'),
+      handler: handleStartRecruitment,
     },
-    EndMigration: {
+    EndRecruitment: {
       type: 'primary',
-      label: $t('badge_forge.buttons.end_migration'),
-      handler: handleEndMigration,
+      label: $t('badge_recruitment.buttons.end_recruitment'),
+      handler: handleEndRecruitment,
     },
-    OngoingMigration: {
+    OngoingRecruitment: {
       type: 'primary',
-      label: 'Another migration in progress',
+      label: 'Another recruitment in progress',
       disabled: true,
     },
   } as Record<string, FactionBadgeButton>;
 
-  const faqEntries = $json('badge_forge.faq.entries') as IFaqEntry[];
+  const faqEntries = $json('badge_recruitment.faq.entries') as IFaqEntry[];
   const faqWrapperClasses = classNames('pt-[60px]', 'w-full', 'px-[48px]', 'flex', 'flex-col', 'gap-[30px]');
 
   function getBadgeMovement(badgeId: number): Movements {
@@ -226,7 +226,7 @@
     const address = window.location.pathname.split('/').pop();
     if (!address) return;
     await profileService.getProfileWithNFTs(address as Address);
-    enabledBadgeIds = await profileService.getEnabledMigrations();
+    enabledBadgeIds = await profileService.getEnabledRecruitments();
     isLoading = false;
   };
 
@@ -255,38 +255,38 @@
       {:else if forceRenderFlag && enabledBadgeIds.length}
         <div class={nftGridClasses}>
           {#each enabledBadgeIds as badgeId}
-            {@const migration =
-              $activeMigration && $activeMigration.badgeId === badgeId
-                ? $activeMigration
-                : $userProfile?.badgeMigrations?.find((m) => m.badgeId === badgeId)}
-            {#if migration}
+            {@const recruitment =
+              $activeRecruitment && $activeRecruitment.badgeId === badgeId
+                ? $activeRecruitment
+                : $userProfile?.badgeRecruitment?.find((m) => m.badgeId === badgeId)}
+            {#if recruitment}
               {@const s1TokenOwned = Boolean(
                 $userProfile.nfts?.find(
                   (nft) => nft.metadata.season === Seasons.Season1 && nft.metadata.badgeId === badgeId,
                 ),
               )}
               {@const movement = getBadgeMovement(badgeId)}
-              {@const tamperExpiration = migration.tamperExpirationTimeout}
-              {@const claimExpiration = migration.claimExpirationTimeout}
-              {@const isTamperActive = tamperExpiration && tamperExpiration > new Date()}
-              {@const isActiveBadge = $activeMigration ? $activeMigration.badgeId === migration.badgeId : false}
-              {@const isEligible = migration.status === MigrationStatus.ELIGIBLE || s1TokenOwned}
-              {@const isStarted = migration.status === MigrationStatus.STARTED}
-              {@const canClaim = migration.status === MigrationStatus.CAN_CLAIM}
-              {@const canRefine = migration.status === MigrationStatus.CAN_REFINE}
-              {@const isComplete = migration.status === MigrationStatus.COMPLETED}
-              {@const blurred = canRefine || isStarted}
-              {@const inColor = isEligible || canClaim || canRefine || isComplete}
+              {@const influenceExpiration = recruitment.influenceExpirationTimeout}
+              {@const claimExpiration = recruitment.claimExpirationTimeout}
+              {@const isInfluenceActive = influenceExpiration && influenceExpiration > new Date()}
+              {@const isActiveBadge = $activeRecruitment ? $activeRecruitment.badgeId === recruitment.badgeId : false}
+              {@const isEligible = recruitment.status === RecruitmentStatus.ELIGIBLE || s1TokenOwned}
+              {@const isStarted = recruitment.status === RecruitmentStatus.STARTED}
+              {@const canClaim = recruitment.status === RecruitmentStatus.CAN_CLAIM}
+              {@const canInfluence = recruitment.status === RecruitmentStatus.CAN_REFINE}
+              {@const isComplete = recruitment.status === RecruitmentStatus.COMPLETED}
+              {@const blurred = canInfluence || isStarted}
+              {@const inColor = isEligible || canClaim || canInfluence || isComplete}
               {@const buttonDisabled =
-                isTamperActive ||
-                Boolean($activeMigration ? $activeMigration.badgeId !== migration.badgeId : $activeMigration)}
+                isInfluenceActive ||
+                Boolean($activeRecruitment ? $activeRecruitment.badgeId !== recruitment.badgeId : $activeRecruitment)}
               <div
-                class={canClaim || canRefine
+                class={canClaim || canInfluence
                   ? pinkShadowed
                   : isComplete
                     ? greenBordered
                     : isEligible
-                      ? $activeMigration && isActiveBadge
+                      ? $activeRecruitment && isActiveBadge
                         ? pinkShadowed
                         : pinkBordered
                       : neutralBordered}>
@@ -295,32 +295,32 @@
                   {inColor}
                   {blurred}
                   {buttonDisabled}
-                  button={canRefine || isStarted
-                    ? buttons.Refine
+                  button={canInfluence || isStarted
+                    ? buttons.Influence
                     : canClaim
-                      ? buttons.EndMigration
+                      ? buttons.EndRecruitment
                       : isComplete
                         ? null
-                        : isEligible && !isActiveBadge && $activeMigration
-                          ? buttons.OngoingMigration
+                        : isEligible && !isActiveBadge && $activeRecruitment
+                          ? buttons.OngoingRecruitment
                           : isEligible
-                            ? buttons.StartMigration
+                            ? buttons.StartRecruitment
                             : buttons.NotEligible}>
-                  {#if migration}
+                  {#if recruitment}
                     <div class={blurred ? timerOverlayClasses : emptyOverlayClasses}>
                       <div class={timerLabelClasses}>
-                        {#if tamperExpiration && tamperExpiration > new Date()}
-                          <!-- cannot re-tamper yet-->
-                          {$t('badge_forge.main.can_refine_in')}
+                        {#if influenceExpiration && influenceExpiration > new Date()}
+                          <!-- cannot re-influence yet-->
+                          {$t('badge_recruitment.main.can_influence_in')}
                         {:else if claimExpiration && claimExpiration > new Date()}
-                          <!-- logic for untampered, time 0 -->
-                          {$t('badge_forge.main.can_claim_in')}
+                          <!-- logic for uninfluenceed, time 0 -->
+                          {$t('badge_recruitment.main.can_claim_in')}
                         {/if}
                       </div>
-                      {#if tamperExpiration && tamperExpiration > new Date()}
-                        <!-- cannot re-tamper yet-->
+                      {#if influenceExpiration && influenceExpiration > new Date()}
+                        <!-- cannot re-influence yet-->
                         <Countdown
-                          on:end={() => onCounterEnd(migration, MigrationStatus.CAN_REFINE)}
+                          on:end={() => onCounterEnd(recruitment, RecruitmentStatus.CAN_REFINE)}
                           class={countdownWrapperClasses}
                           itemClasses={countdownItemClasses}
                           labels={{
@@ -329,11 +329,11 @@
                             minutes: $t('date.labels.minutes'),
                             seconds: $t('date.labels.seconds'),
                           }}
-                          target={tamperExpiration} />
+                          target={influenceExpiration} />
                       {:else if claimExpiration && claimExpiration > new Date()}
-                        <!-- logic for untampered -->
+                        <!-- logic for uninfluenceed -->
                         <Countdown
-                          on:end={() => onCounterEnd(migration, MigrationStatus.CAN_CLAIM)}
+                          on:end={() => onCounterEnd(recruitment, RecruitmentStatus.CAN_CLAIM)}
                           class={countdownWrapperClasses}
                           itemClasses={countdownItemClasses}
                           labels={{
@@ -353,7 +353,7 @@
         </div>
       {:else}
         <div class={infoTextClasses}>
-          <p>{$t('badge_forge.main.no_enabled_migrations')}</p>
+          <p>{$t('badge_recruitment.main.no_enabled_recruitments')}</p>
         </div>
       {/if}
     </div>
@@ -362,6 +362,6 @@
   <div class={faqWrapperClasses}>
     <div class="divider" />
 
-    <FaqBlock title={$t('badge_forge.faq.title')} entries={faqEntries} />
+    <FaqBlock title={$t('badge_recruitment.faq.title')} entries={faqEntries} />
   </div>
 </div>

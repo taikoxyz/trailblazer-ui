@@ -66,8 +66,8 @@ export const USER_NFTS_FETCH_QUERY = gql`
 `;
 
 export const FETCH_ENABLED_MIGRATIONS_QUERY = gql`
-  query OpenMigrations($address: String) {
-    openMigrations(where: { enabled: true }) {
+  query OpenRecruitments($address: String) {
+    openRecruitments(where: { enabled: true }) {
       id
       enabled
     }
@@ -75,7 +75,7 @@ export const FETCH_ENABLED_MIGRATIONS_QUERY = gql`
 `;
 
 export const GET_MIGRATION_STATUS_QUERY = gql`
-  query getMigrationStatus($address: Bytes) {
+  query getRecruitmentStatus($address: Bytes) {
     account(id: $address) {
       id
       approvedForAll
@@ -83,14 +83,14 @@ export const GET_MIGRATION_STATUS_QUERY = gql`
         id
         badgeId
       }
-      s2Migrations {
+      s2Recruitments {
         id
         isStarted
         isCompleted
-        whaleTampers
-        minnowTampers
+        whaleInfluences
+        minnowInfluences
         claimExpirationTimeout
-        tamperExpirationTimeout
+        influenceExpirationTimeout
         s1Badge {
           id
           badgeId
@@ -117,7 +117,7 @@ export const GET_MIGRATION_STATUS_QUERY = gql`
 `;
 
 export const GET_MIGRATION_APPROVALS_QUERY = gql`
-  query getMigrationApprovals($address: Bytes) {
+  query getRecruitmentApprovals($address: Bytes) {
     account(id: $address) {
       id
       approvedForAll

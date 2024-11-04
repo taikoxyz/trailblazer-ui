@@ -1,4 +1,4 @@
-import client from 'https://api.goldsky.com/api/public/project_clz85cxrvng3n01ughcv5e7hg/subgraphs/tbz-hekla/0.2.58/gn';
+import client from 'https://api.goldsky.com/api/public/project_clz85cxrvng3n01ughcv5e7hg/subgraphs/tbz-hekla/0.2.62/gn';
 import type {} from '@apollo/client';
 import { readable } from 'svelte/store';
 import type { Readable } from 'svelte/store';
@@ -32,7 +32,7 @@ export type Account = {
   id: Scalars['Bytes']['output'];
   s1MultiplierNfts: Array<Token>;
   s2Badges: Array<Token>;
-  s2Migrations: Array<BadgeMigration>;
+  s2Recruitments: Array<BadgeRecruitment>;
   totalMultiplier: Scalars['BigInt']['output'];
 };
 
@@ -60,12 +60,12 @@ export type AccountS2BadgesArgs = {
   where?: InputMaybe<Token_Filter>;
 };
 
-export type AccountS2MigrationsArgs = {
+export type AccountS2RecruitmentsArgs = {
   first?: InputMaybe<Scalars['Int']['input']>;
-  orderBy?: InputMaybe<BadgeMigration_OrderBy>;
+  orderBy?: InputMaybe<BadgeRecruitment_OrderBy>;
   orderDirection?: InputMaybe<OrderDirection>;
   skip?: InputMaybe<Scalars['Int']['input']>;
-  where?: InputMaybe<BadgeMigration_Filter>;
+  where?: InputMaybe<BadgeRecruitment_Filter>;
 };
 
 export type Account_Filter = {
@@ -102,7 +102,7 @@ export type Account_Filter = {
   s2Badges_not?: InputMaybe<Array<Scalars['String']['input']>>;
   s2Badges_not_contains?: InputMaybe<Array<Scalars['String']['input']>>;
   s2Badges_not_contains_nocase?: InputMaybe<Array<Scalars['String']['input']>>;
-  s2Migrations_?: InputMaybe<BadgeMigration_Filter>;
+  s2Recruitments_?: InputMaybe<BadgeRecruitment_Filter>;
   totalMultiplier?: InputMaybe<Scalars['BigInt']['input']>;
   totalMultiplier_gt?: InputMaybe<Scalars['BigInt']['input']>;
   totalMultiplier_gte?: InputMaybe<Scalars['BigInt']['input']>;
@@ -119,7 +119,7 @@ export enum Account_OrderBy {
   Id = 'id',
   S1MultiplierNfts = 's1MultiplierNfts',
   S2Badges = 's2Badges',
-  S2Migrations = 's2Migrations',
+  S2Recruitments = 's2Recruitments',
   TotalMultiplier = 'totalMultiplier',
 }
 
@@ -128,25 +128,25 @@ export enum Aggregation_Interval {
   Hour = 'hour',
 }
 
-export type BadgeMigration = {
-  __typename?: 'BadgeMigration';
+export type BadgeRecruitment = {
+  __typename?: 'BadgeRecruitment';
   claimExpirationTimeout: Scalars['BigInt']['output'];
   /** owner:s1BadgeTokenId */
   id: Scalars['Bytes']['output'];
+  influenceExpirationTimeout: Scalars['BigInt']['output'];
   isCompleted?: Maybe<Scalars['Boolean']['output']>;
   isStarted?: Maybe<Scalars['Boolean']['output']>;
-  minnowTampers: Scalars['BigInt']['output'];
+  minnowInfluences: Scalars['BigInt']['output'];
   owner: Account;
   s1Badge: Token;
   s2Badge?: Maybe<Token>;
-  tamperExpirationTimeout: Scalars['BigInt']['output'];
-  whaleTampers: Scalars['BigInt']['output'];
+  whaleInfluences: Scalars['BigInt']['output'];
 };
 
-export type BadgeMigration_Filter = {
+export type BadgeRecruitment_Filter = {
   /** Filter for the block changed event. */
   _change_block?: InputMaybe<BlockChangedFilter>;
-  and?: InputMaybe<Array<InputMaybe<BadgeMigration_Filter>>>;
+  and?: InputMaybe<Array<InputMaybe<BadgeRecruitment_Filter>>>;
   claimExpirationTimeout?: InputMaybe<Scalars['BigInt']['input']>;
   claimExpirationTimeout_gt?: InputMaybe<Scalars['BigInt']['input']>;
   claimExpirationTimeout_gte?: InputMaybe<Scalars['BigInt']['input']>;
@@ -165,6 +165,14 @@ export type BadgeMigration_Filter = {
   id_not?: InputMaybe<Scalars['Bytes']['input']>;
   id_not_contains?: InputMaybe<Scalars['Bytes']['input']>;
   id_not_in?: InputMaybe<Array<Scalars['Bytes']['input']>>;
+  influenceExpirationTimeout?: InputMaybe<Scalars['BigInt']['input']>;
+  influenceExpirationTimeout_gt?: InputMaybe<Scalars['BigInt']['input']>;
+  influenceExpirationTimeout_gte?: InputMaybe<Scalars['BigInt']['input']>;
+  influenceExpirationTimeout_in?: InputMaybe<Array<Scalars['BigInt']['input']>>;
+  influenceExpirationTimeout_lt?: InputMaybe<Scalars['BigInt']['input']>;
+  influenceExpirationTimeout_lte?: InputMaybe<Scalars['BigInt']['input']>;
+  influenceExpirationTimeout_not?: InputMaybe<Scalars['BigInt']['input']>;
+  influenceExpirationTimeout_not_in?: InputMaybe<Array<Scalars['BigInt']['input']>>;
   isCompleted?: InputMaybe<Scalars['Boolean']['input']>;
   isCompleted_in?: InputMaybe<Array<Scalars['Boolean']['input']>>;
   isCompleted_not?: InputMaybe<Scalars['Boolean']['input']>;
@@ -173,15 +181,15 @@ export type BadgeMigration_Filter = {
   isStarted_in?: InputMaybe<Array<Scalars['Boolean']['input']>>;
   isStarted_not?: InputMaybe<Scalars['Boolean']['input']>;
   isStarted_not_in?: InputMaybe<Array<Scalars['Boolean']['input']>>;
-  minnowTampers?: InputMaybe<Scalars['BigInt']['input']>;
-  minnowTampers_gt?: InputMaybe<Scalars['BigInt']['input']>;
-  minnowTampers_gte?: InputMaybe<Scalars['BigInt']['input']>;
-  minnowTampers_in?: InputMaybe<Array<Scalars['BigInt']['input']>>;
-  minnowTampers_lt?: InputMaybe<Scalars['BigInt']['input']>;
-  minnowTampers_lte?: InputMaybe<Scalars['BigInt']['input']>;
-  minnowTampers_not?: InputMaybe<Scalars['BigInt']['input']>;
-  minnowTampers_not_in?: InputMaybe<Array<Scalars['BigInt']['input']>>;
-  or?: InputMaybe<Array<InputMaybe<BadgeMigration_Filter>>>;
+  minnowInfluences?: InputMaybe<Scalars['BigInt']['input']>;
+  minnowInfluences_gt?: InputMaybe<Scalars['BigInt']['input']>;
+  minnowInfluences_gte?: InputMaybe<Scalars['BigInt']['input']>;
+  minnowInfluences_in?: InputMaybe<Array<Scalars['BigInt']['input']>>;
+  minnowInfluences_lt?: InputMaybe<Scalars['BigInt']['input']>;
+  minnowInfluences_lte?: InputMaybe<Scalars['BigInt']['input']>;
+  minnowInfluences_not?: InputMaybe<Scalars['BigInt']['input']>;
+  minnowInfluences_not_in?: InputMaybe<Array<Scalars['BigInt']['input']>>;
+  or?: InputMaybe<Array<InputMaybe<BadgeRecruitment_Filter>>>;
   owner?: InputMaybe<Scalars['String']['input']>;
   owner_?: InputMaybe<Account_Filter>;
   owner_contains?: InputMaybe<Scalars['String']['input']>;
@@ -245,30 +253,23 @@ export type BadgeMigration_Filter = {
   s2Badge_not_starts_with_nocase?: InputMaybe<Scalars['String']['input']>;
   s2Badge_starts_with?: InputMaybe<Scalars['String']['input']>;
   s2Badge_starts_with_nocase?: InputMaybe<Scalars['String']['input']>;
-  tamperExpirationTimeout?: InputMaybe<Scalars['BigInt']['input']>;
-  tamperExpirationTimeout_gt?: InputMaybe<Scalars['BigInt']['input']>;
-  tamperExpirationTimeout_gte?: InputMaybe<Scalars['BigInt']['input']>;
-  tamperExpirationTimeout_in?: InputMaybe<Array<Scalars['BigInt']['input']>>;
-  tamperExpirationTimeout_lt?: InputMaybe<Scalars['BigInt']['input']>;
-  tamperExpirationTimeout_lte?: InputMaybe<Scalars['BigInt']['input']>;
-  tamperExpirationTimeout_not?: InputMaybe<Scalars['BigInt']['input']>;
-  tamperExpirationTimeout_not_in?: InputMaybe<Array<Scalars['BigInt']['input']>>;
-  whaleTampers?: InputMaybe<Scalars['BigInt']['input']>;
-  whaleTampers_gt?: InputMaybe<Scalars['BigInt']['input']>;
-  whaleTampers_gte?: InputMaybe<Scalars['BigInt']['input']>;
-  whaleTampers_in?: InputMaybe<Array<Scalars['BigInt']['input']>>;
-  whaleTampers_lt?: InputMaybe<Scalars['BigInt']['input']>;
-  whaleTampers_lte?: InputMaybe<Scalars['BigInt']['input']>;
-  whaleTampers_not?: InputMaybe<Scalars['BigInt']['input']>;
-  whaleTampers_not_in?: InputMaybe<Array<Scalars['BigInt']['input']>>;
+  whaleInfluences?: InputMaybe<Scalars['BigInt']['input']>;
+  whaleInfluences_gt?: InputMaybe<Scalars['BigInt']['input']>;
+  whaleInfluences_gte?: InputMaybe<Scalars['BigInt']['input']>;
+  whaleInfluences_in?: InputMaybe<Array<Scalars['BigInt']['input']>>;
+  whaleInfluences_lt?: InputMaybe<Scalars['BigInt']['input']>;
+  whaleInfluences_lte?: InputMaybe<Scalars['BigInt']['input']>;
+  whaleInfluences_not?: InputMaybe<Scalars['BigInt']['input']>;
+  whaleInfluences_not_in?: InputMaybe<Array<Scalars['BigInt']['input']>>;
 };
 
-export enum BadgeMigration_OrderBy {
+export enum BadgeRecruitment_OrderBy {
   ClaimExpirationTimeout = 'claimExpirationTimeout',
   Id = 'id',
+  InfluenceExpirationTimeout = 'influenceExpirationTimeout',
   IsCompleted = 'isCompleted',
   IsStarted = 'isStarted',
-  MinnowTampers = 'minnowTampers',
+  MinnowInfluences = 'minnowInfluences',
   Owner = 'owner',
   OwnerApprovedForAll = 'owner__approvedForAll',
   OwnerId = 'owner__id',
@@ -291,8 +292,7 @@ export enum BadgeMigration_OrderBy {
   S2BadgeSeason = 's2Badge__season',
   S2BadgeTokenId = 's2Badge__tokenId',
   S2BadgeUri = 's2Badge__uri',
-  TamperExpirationTimeout = 'tamperExpirationTimeout',
-  WhaleTampers = 'whaleTampers',
+  WhaleInfluences = 'whaleInfluences',
 }
 
 export type BlockChangedFilter = {
@@ -700,17 +700,17 @@ export enum Match_OrderBy {
   Participants = 'participants',
 }
 
-export type OpenMigration = {
-  __typename?: 'OpenMigration';
+export type OpenRecruitment = {
+  __typename?: 'OpenRecruitment';
   cycleId: Scalars['BigInt']['output'];
   enabled: Scalars['Boolean']['output'];
   id: Scalars['ID']['output'];
 };
 
-export type OpenMigration_Filter = {
+export type OpenRecruitment_Filter = {
   /** Filter for the block changed event. */
   _change_block?: InputMaybe<BlockChangedFilter>;
-  and?: InputMaybe<Array<InputMaybe<OpenMigration_Filter>>>;
+  and?: InputMaybe<Array<InputMaybe<OpenRecruitment_Filter>>>;
   cycleId?: InputMaybe<Scalars['BigInt']['input']>;
   cycleId_gt?: InputMaybe<Scalars['BigInt']['input']>;
   cycleId_gte?: InputMaybe<Scalars['BigInt']['input']>;
@@ -731,10 +731,10 @@ export type OpenMigration_Filter = {
   id_lte?: InputMaybe<Scalars['ID']['input']>;
   id_not?: InputMaybe<Scalars['ID']['input']>;
   id_not_in?: InputMaybe<Array<Scalars['ID']['input']>>;
-  or?: InputMaybe<Array<InputMaybe<OpenMigration_Filter>>>;
+  or?: InputMaybe<Array<InputMaybe<OpenRecruitment_Filter>>>;
 };
 
-export enum OpenMigration_OrderBy {
+export enum OpenRecruitment_OrderBy {
   CycleId = 'cycleId',
   Enabled = 'enabled',
   Id = 'id',
@@ -822,8 +822,8 @@ export type Query = {
   _meta?: Maybe<_Meta_>;
   account?: Maybe<Account>;
   accounts: Array<Account>;
-  badgeMigration?: Maybe<BadgeMigration>;
-  badgeMigrations: Array<BadgeMigration>;
+  badgeRecruitment?: Maybe<BadgeRecruitment>;
+  badgeRecruitments: Array<BadgeRecruitment>;
   champion?: Maybe<Champion>;
   champions: Array<Champion>;
   league?: Maybe<League>;
@@ -832,8 +832,8 @@ export type Query = {
   matchParticipant?: Maybe<MatchParticipant>;
   matchParticipants: Array<MatchParticipant>;
   matches: Array<Match>;
-  openMigration?: Maybe<OpenMigration>;
-  openMigrations: Array<OpenMigration>;
+  openRecruitment?: Maybe<OpenRecruitment>;
+  openRecruitments: Array<OpenRecruitment>;
   profilePicture?: Maybe<ProfilePicture>;
   profilePictures: Array<ProfilePicture>;
   round?: Maybe<Round>;
@@ -862,20 +862,20 @@ export type QueryAccountsArgs = {
   where?: InputMaybe<Account_Filter>;
 };
 
-export type QueryBadgeMigrationArgs = {
+export type QueryBadgeRecruitmentArgs = {
   block?: InputMaybe<Block_Height>;
   id: Scalars['ID']['input'];
   subgraphError?: _SubgraphErrorPolicy_;
 };
 
-export type QueryBadgeMigrationsArgs = {
+export type QueryBadgeRecruitmentsArgs = {
   block?: InputMaybe<Block_Height>;
   first?: InputMaybe<Scalars['Int']['input']>;
-  orderBy?: InputMaybe<BadgeMigration_OrderBy>;
+  orderBy?: InputMaybe<BadgeRecruitment_OrderBy>;
   orderDirection?: InputMaybe<OrderDirection>;
   skip?: InputMaybe<Scalars['Int']['input']>;
   subgraphError?: _SubgraphErrorPolicy_;
-  where?: InputMaybe<BadgeMigration_Filter>;
+  where?: InputMaybe<BadgeRecruitment_Filter>;
 };
 
 export type QueryChampionArgs = {
@@ -942,20 +942,20 @@ export type QueryMatchesArgs = {
   where?: InputMaybe<Match_Filter>;
 };
 
-export type QueryOpenMigrationArgs = {
+export type QueryOpenRecruitmentArgs = {
   block?: InputMaybe<Block_Height>;
   id: Scalars['ID']['input'];
   subgraphError?: _SubgraphErrorPolicy_;
 };
 
-export type QueryOpenMigrationsArgs = {
+export type QueryOpenRecruitmentsArgs = {
   block?: InputMaybe<Block_Height>;
   first?: InputMaybe<Scalars['Int']['input']>;
-  orderBy?: InputMaybe<OpenMigration_OrderBy>;
+  orderBy?: InputMaybe<OpenRecruitment_OrderBy>;
   orderDirection?: InputMaybe<OrderDirection>;
   skip?: InputMaybe<Scalars['Int']['input']>;
   subgraphError?: _SubgraphErrorPolicy_;
-  where?: InputMaybe<OpenMigration_Filter>;
+  where?: InputMaybe<OpenRecruitment_Filter>;
 };
 
 export type QueryProfilePictureArgs = {
@@ -1054,8 +1054,8 @@ export type Subscription = {
   _meta?: Maybe<_Meta_>;
   account?: Maybe<Account>;
   accounts: Array<Account>;
-  badgeMigration?: Maybe<BadgeMigration>;
-  badgeMigrations: Array<BadgeMigration>;
+  badgeRecruitment?: Maybe<BadgeRecruitment>;
+  badgeRecruitments: Array<BadgeRecruitment>;
   champion?: Maybe<Champion>;
   champions: Array<Champion>;
   league?: Maybe<League>;
@@ -1064,8 +1064,8 @@ export type Subscription = {
   matchParticipant?: Maybe<MatchParticipant>;
   matchParticipants: Array<MatchParticipant>;
   matches: Array<Match>;
-  openMigration?: Maybe<OpenMigration>;
-  openMigrations: Array<OpenMigration>;
+  openRecruitment?: Maybe<OpenRecruitment>;
+  openRecruitments: Array<OpenRecruitment>;
   profilePicture?: Maybe<ProfilePicture>;
   profilePictures: Array<ProfilePicture>;
   round?: Maybe<Round>;
@@ -1094,20 +1094,20 @@ export type SubscriptionAccountsArgs = {
   where?: InputMaybe<Account_Filter>;
 };
 
-export type SubscriptionBadgeMigrationArgs = {
+export type SubscriptionBadgeRecruitmentArgs = {
   block?: InputMaybe<Block_Height>;
   id: Scalars['ID']['input'];
   subgraphError?: _SubgraphErrorPolicy_;
 };
 
-export type SubscriptionBadgeMigrationsArgs = {
+export type SubscriptionBadgeRecruitmentsArgs = {
   block?: InputMaybe<Block_Height>;
   first?: InputMaybe<Scalars['Int']['input']>;
-  orderBy?: InputMaybe<BadgeMigration_OrderBy>;
+  orderBy?: InputMaybe<BadgeRecruitment_OrderBy>;
   orderDirection?: InputMaybe<OrderDirection>;
   skip?: InputMaybe<Scalars['Int']['input']>;
   subgraphError?: _SubgraphErrorPolicy_;
-  where?: InputMaybe<BadgeMigration_Filter>;
+  where?: InputMaybe<BadgeRecruitment_Filter>;
 };
 
 export type SubscriptionChampionArgs = {
@@ -1174,20 +1174,20 @@ export type SubscriptionMatchesArgs = {
   where?: InputMaybe<Match_Filter>;
 };
 
-export type SubscriptionOpenMigrationArgs = {
+export type SubscriptionOpenRecruitmentArgs = {
   block?: InputMaybe<Block_Height>;
   id: Scalars['ID']['input'];
   subgraphError?: _SubgraphErrorPolicy_;
 };
 
-export type SubscriptionOpenMigrationsArgs = {
+export type SubscriptionOpenRecruitmentsArgs = {
   block?: InputMaybe<Block_Height>;
   first?: InputMaybe<Scalars['Int']['input']>;
-  orderBy?: InputMaybe<OpenMigration_OrderBy>;
+  orderBy?: InputMaybe<OpenRecruitment_OrderBy>;
   orderDirection?: InputMaybe<OrderDirection>;
   skip?: InputMaybe<Scalars['Int']['input']>;
   subgraphError?: _SubgraphErrorPolicy_;
-  where?: InputMaybe<OpenMigration_Filter>;
+  where?: InputMaybe<OpenRecruitment_Filter>;
 };
 
 export type SubscriptionProfilePictureArgs = {
