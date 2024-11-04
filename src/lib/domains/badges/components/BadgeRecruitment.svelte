@@ -233,6 +233,13 @@
   onMount(async () => {
     await handleRefresh();
   });
+
+  function addGraceCoolDown(date?: Date): Date | undefined {
+    if (!date) return;
+    const newDate = new Date(date);
+    newDate.setMinutes(newDate.getMinutes() + 1);
+    return newDate;
+  }
 </script>
 
 <div class={containerClass}>
@@ -266,8 +273,8 @@
                 ),
               )}
               {@const movement = getBadgeMovement(badgeId)}
-              {@const influenceExpiration = recruitment.influenceExpirationTimeout}
-              {@const claimExpiration = recruitment.claimExpirationTimeout}
+              {@const influenceExpiration = addGraceCoolDown(recruitment.influenceExpirationTimeout)}
+              {@const claimExpiration = addGraceCoolDown(recruitment.claimExpirationTimeout)}
               {@const isInfluenceActive = influenceExpiration && influenceExpiration > new Date()}
               {@const isActiveBadge = $activeRecruitment ? $activeRecruitment.badgeId === recruitment.badgeId : false}
               {@const isEligible = recruitment.status === RecruitmentStatus.ELIGIBLE || s1TokenOwned}
