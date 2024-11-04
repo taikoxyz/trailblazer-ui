@@ -35,6 +35,7 @@
       isLoading = true;
       await profileService.endRecruitment($account.address, $activeRecruitment.s1Badge, $activeRecruitment);
       backToken = $activeRecruitment.s2Badge!;
+      // give 1s of buffer before re-fetching
       isRevealed = true;
 
       successToast({

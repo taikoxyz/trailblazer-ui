@@ -554,6 +554,7 @@ export class ProfileService implements IProfileService {
     } else {
       badgeRecruitment.push(recruitment);
     }
+
     // Update the profile
     await this.userRepository.update({
       ...oldUser,

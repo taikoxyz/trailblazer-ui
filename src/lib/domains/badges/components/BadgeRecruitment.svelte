@@ -177,6 +177,8 @@
     $endRecruitmentModal = true;
   }
 
+  $: $endRecruitmentModal, handleRefresh();
+
   $: buttons = {
     NotEligible: {
       disabled: true,
