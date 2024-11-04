@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "vite dev --host",
     "dev:prod": "vite dev --mode production",
+    "dev:i18n-debug": "node scripts/i18nDebug.js && export PUBLIC_DEBUG_I18N=true && pnpm dev",
     "build": "vite build",
     "preview": "vite preview",
     "test:pw": "playwright test",
@@ -12,15 +13,19 @@
     "test:unit:debug": "vitest run",
     "test:unit:coverage": "vitest run --silent --coverage",
     "test:unit:watch": "vitest",
-    "svelte:check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --ignore ./wagmi.config.ts ./src/generated",
+    "svelte:check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
     "svelte:check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --ignore ./wagmi.config.ts --watch",
     "format": "prettier --write .",
     "lint": "prettier --check . && eslint .",
     "lint:fix": "eslint . --fix",
-    "generate:abi": "cd ../taiko-mono.git/packages/nfts && pnpm compile && cd - && wagmi generate"
+    "codegen:abi": "cd ../taiko-mono.git/packages/nfts && pnpm compile && cd - && wagmi generate",
+    "codegen:subgraph": "graphql-code-generator --config subgraph.codegen.ts"
   },
   "devDependencies": {
-    "@apollo/client": "^3.11.3",
+    "@apollo/client": "^3.11.4",
+    "@graphql-codegen/cli": "^5.0.3",
+    "@graphql-codegen/typescript": "^4.1.0",
+    "@graphql-codegen/typescript-operations": "^4.3.0",
     "@playwright/test": "^1.44.1",
     "@sveltejs/adapter-auto": "^3.2.1",
     "@sveltejs/adapter-static": "^3.0.1",
@@ -43,6 +48,7 @@
     "eslint-plugin-svelte": "^2.35.1",
     "ethereum-address": "^0.0.4",
     "graphql": "^16.9.0",
+    "graphql-codegen-svelte-apollo": "^1.1.0",
     "jsdom": "^24.1.0",
     "lokijs": "^1.5.12",
     "postcss": "^8.4.38",
@@ -66,6 +72,7 @@
   "dependencies": {
     "@ethereumjs/util": "^9.0.3",
     "@metamask/eth-sig-util": "^7.0.2",
+    "@sveltejs/adapter-node": "^5.2.5",
     "@sveltejs/adapter-vercel": "^5.3.1",
     "@sveltejs/vite-plugin-svelte": "^3.1.1",
     "@wagmi/connectors": "^5.0.9",
@@ -77,11 +84,16 @@
     "dayjs": "^1.11.13",
     "debug": "^4.3.5",
     "events": "^3.3.0",
+    "graphql-codegen": "^0.4.0",
+    "graphql-tag": "^2.12.6",
     "lefthook": "^1.7.12",
+    "node-conditions": "^1.2.0",
     "object-hash": "^3.0.0",
     "postcss-import": "^16.1.0",
     "stores": "link:@zerodevx/svelte-toast/stores",
     "svelte-apollo": "^0.5.0",
+    "svelte-countdown": "^1.1.2",
+    "svelte-flip": "^0.0.11",
     "svelte-i18n": "^4.0.0",
     "viem": "^2.15.1"
   }
