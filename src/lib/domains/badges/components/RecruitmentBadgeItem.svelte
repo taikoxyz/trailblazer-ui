@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { createEventDispatcher } from 'svelte';
+
   import { FactionBadgeItem } from '$lib/domains/profile/components/ProfileNFTs';
   import { Movements } from '$lib/domains/profile/types/types';
   import type { NFT } from '$shared/types/NFT';
@@ -10,6 +12,8 @@
   export let hideBubbles = false;
 
   export let token: NFT;
+
+  const dispatch = createEventDispatcher();
 
   $: unlocked = !blurred;
   $: wrapperClasses = classNames(
@@ -70,7 +74,7 @@
   const indicatorClasses = classNames('indicator-item', 'badge', 'badge-secondary', 'text-white', 'text-[24]/[36px]');
 </script>
 
-<div class={wrapperClasses}>
+<button class={wrapperClasses} on:click={() => dispatch('click')}>
   {#if value > 0}
     <span class={indicatorClasses}>{value}</span>
   {/if}
@@ -82,4 +86,4 @@
   <div class={badgeTextClasses}>
     <slot />
   </div>
-</div>
+</button>

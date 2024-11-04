@@ -79,32 +79,28 @@
   {#if $activeRecruitment}
     <div class={badgesWrapperClasses}>
       <RecruitmentBadgeItem
+        on:click={() => {
+          selectedMovement = Movements.Whale;
+        }}
         hideBubbles
         value={$activeRecruitment?.whaleInfluences}
         shadow={selectedMovement === Movements.Whale}
         token={getMockBadge(Seasons.Season2, s1BadgeId, Movements.Whale)}>
         <div class={detailsClasses}>
-          <InfluenceRadio
-            checked={selectedMovement === Movements.Whale}
-            on:change={() => {
-              selectedMovement = Movements.Whale;
-            }}
-            name={radioGroupName} />
+          <InfluenceRadio checked={selectedMovement === Movements.Whale} name={radioGroupName} />
         </div>
       </RecruitmentBadgeItem>
 
       <RecruitmentBadgeItem
         hideBubbles
+        on:click={() => {
+          selectedMovement = Movements.Minnow;
+        }}
         shadow={selectedMovement === Movements.Minnow}
         value={$activeRecruitment?.minnowInfluences}
         token={getMockBadge(Seasons.Season2, s1BadgeId, Movements.Minnow)}>
         <div class={detailsClasses}>
-          <InfluenceRadio
-            checked={selectedMovement === Movements.Minnow}
-            on:change={() => {
-              selectedMovement = Movements.Minnow;
-            }}
-            name={radioGroupName} />
+          <InfluenceRadio checked={selectedMovement === Movements.Minnow} name={radioGroupName} />
         </div>
       </RecruitmentBadgeItem>
     </div>
