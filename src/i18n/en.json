@@ -623,6 +623,18 @@
         {
           "question": "What is the Faction Battle Arena?",
           "answer": "The Faction Battle Arena is where you can send the characters under your control to battle it out for fame, glory, and of course prizes. For more details on the FBA visit:"
+        },
+        {
+          "question": "How many Faction Badges are there to collect?",
+          "answer": "There are a total of 28 Trailblazer Faction Badges. There are 3 Teams: Devs, Minnows and Whales, and those Teams are split into 8 Factions: Ravers, Robots, Bouncers, Masters, Monk, Androids, Drummers, and Shinto."
+        },
+        {
+          "question": "How often can I recruit new members?",
+          "answer": "Recruitments happen in cycles. At the beginning of each cycle it will be announced which Factions are able to be obtained during the limited Recruitment period. During each cycle, every user will only be able to Recruit one member from the available Faction(s)."
+        },
+        {
+          "question": "What are Free Recruitment?",
+          "answer": "Sometimes you don’t even have to send a Dev out to do your dirty work and the Recruits come looking for you. This normally happens when you are making a big name for yourself by participating in other events, like the Faction Battle Arena or Liquidity Royale. During a Free Recruitment you will also be able to Influence the Team you get, but you do not have to Stake a Dev to do so."
         }
       ]
     }
