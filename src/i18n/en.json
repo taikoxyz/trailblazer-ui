@@ -225,12 +225,8 @@
     "competitions": {
       "s2": {
         "dapp": {
-          "banner": {
-            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor.",
-            "title": "Join the Dapp competition starting Oct 17th!"
-          },
           "ended": {
-            "description": "Our journey concluded on Dec 18th, 2024. Congratulations to the winners!",
+            "description": "Our journey concluded on December 18th, 2024. Congratulations to the winners!",
             "title": "Season ended"
           },
           "prize": {}
@@ -337,6 +333,10 @@
       }
     },
     "thrillblazer": {
+      "ended": {
+        "description": "Our journey concluded on November 18th, 2024. Congratulations to the winners!",
+        "title": "Journey ended"
+      },
       "prize_breakdown": {
         "fifth": {
           "amount": "5k"

@@ -62,8 +62,8 @@
   {totalItems}
   ended={hasEnded}
   endedComponent={CampaignEndedInfoBox}
-  endTitleText={$t('leaderboard.gaming.ended.s1.title')}
-  endDescriptionText={$t('leaderboard.gaming.ended.s1.description')}
+  endTitleText={$t('leaderboard.thrillblazer.ended.title')}
+  endDescriptionText={$t('leaderboard.thrillblazer.ended.description')}
   showPagination={true}
   {season}
   headerComponent={DappCompetitionHeader}
