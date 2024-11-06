@@ -58,7 +58,7 @@ export class DappLeaderboardService {
           log(`details for ${item.slug}`, protocolDetails);
 
           const entry: DappLeaderboardRow = {
-            address: item.address,
+            name: item.name,
             rank: item.rank,
             data: protocolDetails.protocols,
             metadata: protocolDetails.metadata,

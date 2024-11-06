@@ -79,7 +79,7 @@
               shineColor="bg-pink-100" />
           {/if}
           <div class="f-col justify-center">
-            {#if isAddress(entry.address)}
+            {#if entry.address && isAddress(entry.address)}
               <div class="body-bold">{shortenAddress(entry.address, 8, 4)}</div>
             {:else}
               <div class="body-bold">{entry.address}</div>

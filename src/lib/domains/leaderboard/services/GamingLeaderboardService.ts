@@ -57,7 +57,7 @@ export class GamingLeaderboardService {
           log(`details for ${item.slug}`, protocolDetails);
 
           const entry: GamingLeaderboardRow = {
-            address: item.address,
+            name: item.name,
             rank: item.rank,
             data: protocolDetails.protocols,
             metadata: protocolDetails.metadata,
@@ -66,7 +66,7 @@ export class GamingLeaderboardService {
 
           const unifiedRow: UnifiedLeaderboardRow = mapGamingLeaderboardRow(entry);
 
-          const protocolName = protocolDetails.metadata?.name || entry.address;
+          const protocolName = protocolDetails.metadata?.name || '';
           const additionalDetails = mapGamingDetails(protocolName);
 
           if (additionalDetails) {
