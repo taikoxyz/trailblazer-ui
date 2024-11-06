@@ -1,4 +1,98 @@
 {
+  "badge_recruitment": {
+    "buttons": {
+      "end_recruitment": "Claim",
+      "influence": "Influence",
+      "not_eligible": "Not eligible",
+      "reveal": "Reveal",
+      "start_recruitment": "Start recruitment"
+    },
+    "faq": {
+      "entries": [
+        {
+          "answer": "The Devs are out in full force looking for new recruits to join their Faction. The Recruit tab is where you can send any Devs you control out to find new members to join your cause. Your Dev will always return with a new member that belongs to one of two Teams: the Minnows, or the Whales, and will always be the same Faction of the Dev that Recruited them. It takes XXX hours for your Dev to return with a new member. Once you have sent your Dev out it will be staked for the rest of the Season",
+          "question": "What is Recruiting?"
+        },
+        {
+          "answer": "As your Dev is out looking for Recruits you can give them orders to target a specific Team to join your cause. Every time you give your Dev the order to Influence a particular Team, it will increase your chances of your Dev returning with a member of that Team. Every time you give your Dev orders to Influence a particular Team you will see the number increase above that Team on the Recruit Influence page. If you change your mind about which Team you want to Influence you can select the other Team, and it will reset the Influence counter to 1 for your new target. You can give Influence orders to your Dev once every XXX hours.",
+          "question": "What does Influence do?"
+        },
+        {
+          "answer": "<b>The Devs</b> (S1 Badges) are the OGs, the ones that build and make things possible. For every unique Dev you control you will receive +0.05x to your <b>Global xp</b> multiplier as well as your Proposer xp.<br/><br/><b>The Whales</b> are the big bagged ones, they make splashes in DeFi. For every unique Whale you control you will receive +0.05x to your <b>Transaction Value</b> xp multiplier.<br/><br/><b>The Minnows</b> are small but plenty, what they lack in funds they make up for with activity. For every unique Minnow you control you will receive +0.05x to your <b>Transaction</b> xp multiplier.",
+          "question": "What are the different Teams and what do they do?"
+        },
+        {
+          "answer": "While your Dev is staked you will not be able to take advantage of all of their skills, so you will lose the all the multipliers that it would normally give you. ",
+          "question": "What can my Dev do while it is staked?"
+        },
+        {
+          "answer": "The Faction Battle Arena is where you can send the characters under your control to battle it out for fame, glory, and of course prizes. For more details on the FBA visit:",
+          "question": "What is the Faction Battle Arena?"
+        }
+      ],
+      "entries[2]": {
+        "answer": "",
+        "question": ""
+      },
+      "entries[3]": {
+        "answer": "",
+        "question": ""
+      },
+      "entries[4]": {
+        "answer": "",
+        "question": ""
+      },
+      "title": "Badge Recruitment FAQ"
+    },
+    "labels": {
+      "season": "Season",
+      "trail": "Trail"
+    },
+    "main": {
+      "can_claim_in": "Badge recruited in:",
+      "can_influence_in": "You can influence again in:",
+      "no_enabled_recruitments": "No recruitments are currently enabled. Stay tuned!"
+    },
+    "modal": {
+      "end_recruitment": {
+        "description": "You have successfully recruited your badge. You can now claim it.",
+        "title": "Congratulations!",
+        "toast": {
+          "error": {
+            "default_message": "Error claiming your badge recruitment",
+            "title": "Badge recruitment claim error"
+          },
+          "success": {
+            "message": "You have successfully claimed your badge",
+            "title": "Badge recruitment claim"
+          }
+        }
+      },
+      "influence_recruitment": {
+        "description": "Influence your badge to favor the path of your Season 2 badge.",
+        "title": "Your Season 2 Badge is being recruited"
+      },
+      "start_recruitment": {
+        "description": "Time to recruitment your Season 2 {badgeName} badge!",
+        "title": "Start your recruitment process",
+        "toast": {
+          "error": {
+            "message": {
+              "already_started": "You have already started another recruitment.",
+              "default": "Could not start your recruitment. Please try again later.",
+              "rejected": "You have rejected the recruitment."
+            },
+            "title": "Error"
+          },
+          "success": {
+            "message": "You have successfully started the recruitment of your badge.",
+            "title": "Success"
+          }
+        },
+        "warning": "Warning: Once you click 'Start Recruitment', your Season 1 badge will be locked for XXX days."
+      }
+    }
+  },
   "badges": {
     "claimable": "You have a claimable badge. Unlock now!",
     "movement": {
@@ -106,6 +200,14 @@
     "not_eligible": "Not eligible",
     "trail": "Trail",
     "week": "Week"
+  },
+  "date": {
+    "labels": {
+      "days": "d",
+      "hours": "h",
+      "minutes": "min",
+      "seconds": "s"
+    }
   },
   "disclaimer": {
     "leaderboard": "Please note that rankings are subject to change with fair play enforcement. Final standings will be confirmed at season’s end. Non-compliant wallets or dapps may be removed or have their points slashed."
@@ -416,6 +518,53 @@
       "switching": "Switching network"
     }
   },
+  "pages": {
+    "badge_recruitment": {
+      "content": {
+        "migrate": {
+          "p1": ""
+        },
+        "overview": {
+          "p1": "In Season 1 participants collected 8 unique Faction Badges (Ravers, Robots, Bouncers, Masters, Monk, Androids, Drummers, and Shinto). It turns out all those Badges belonged to the same “Team”; the Devs.",
+          "p2": "In this season we will be introducing 2 new Teams; the Whales and the Minnows. The introduction of all three Teams will play a thematic role throughout the Season. Each  Team will have a corresponding Faction edition, meaning there will be a Dev Raver, a Minnow Raver, and Whale Raver, etc. for all Factions.",
+          "p3": "With this change also comes a revised multiplier system where each Faction Badge Team will provide a multiplier to specific point categories (Transaction/Transaction Value)"
+        },
+        "recruit": {
+          "p1": "A core mechanic in Season 2 will be the ability for participants to Recruit new Season 2 badges by sending their Season 1 Devs out to Influence them. The basic concept is that participants will be able to stake a Season 1 Badge they own, and it will give them a 50/50 chance of Recruiting a Whale or Minnow of the same Faction.",
+          "p2": "Participants will also have the ability to increase their chances of getting the Team they want, through a mechanism called Influencing."
+        }
+      },
+      "teams": {
+        "devs": {
+          "description": "The Devs are original builders from Season 1 with an overall points multiplier and bonus. To balance things out we have lowered the global multiplier to 1.4x max. "
+        },
+        "forumla": " The new formula for all Faction Team bonuses will be 0.05 * n where n is the number of Badges the participant owns       when performing any action.",
+        "minnows": {
+          "description": "The Minnows are small but plenty, what they lack in funds they make up for with activity. So they will get a multiplier on all Transaction points they earn.",
+          "title": "The Minnows"
+        },
+        "note": "Note: Participants are not required to pick a single Team to collect Badges for, but rather they are encouraged to collect the ones that suit their style and needs the best. The multipliers do stack, so for the max multiplier, a participant would need to collect them all.",
+        "title": "Meet the Teams",
+        "whales": {
+          "description": "The Whales are the big bagged ones, they make splashes in DeFi. So they will get a multiplier on all Transaction Value points they earn.",
+          "title": "The Whales"
+        }
+      },
+      "ways_to_get": {
+        "liquidity_royale": {
+          "description": "To go alongside the rewards offered in the Liquidity Royale program, participants who are not in the top 100, but who still meet minimum liquidity requirements will earn Free Recruits on a weekly basis.",
+          "title": "Liquidity Royale Perk"
+        },
+        "taikoon": {
+          "description": "   Taikoon holders can get excited for the first additional perk coming their way. Participants who were holding a Taikoon during the Season 1 final snapshot will be eligible to receive a Free Recruit from the Minnow Team or the Whale Team.",
+          "title": "Taikoon Perk"
+        }
+      }
+    },
+    "badge_recruitmnent": {
+      "ways_to_get": "More ways to get new Badges"
+    }
+  },
   "pagetitle": {
     "competition": {
       "dapp": "Thrillblazer - Competition 18.10 - 18.11.24",
@@ -543,96 +692,6 @@
       "connected": "Connected",
       "connecting": "Connecting",
       "disconnected": "Disconnected"
-    }
-  },
-  "badge_recruitment": {
-    "buttons": {
-      "not_eligible": "Not eligible",
-      "influence": "Influence",
-      "start_recruitment": "Start recruitment",
-      "end_recruitment": "Claim",
-      "reveal": "Reveal"
-    },
-    "labels": {
-      "season": "Season",
-      "trail": "Trail"
-    },
-    "main": {
-      "can_influence_in": "You can influence again in:",
-      "can_claim_in": "Badge recruited in:",
-      "no_enabled_recruitments": "No recruitments are currently enabled. Stay tuned!"
-    },
-    "modal": {
-      "start_recruitment": {
-        "title": "Start your recruitment process",
-        "description": "Time to recruitment your Season 2 {badgeName} badge!",
-        "warning": "Warning: Once you click 'Start Recruitment', your Season 1 badge will be locked for XXX days.",
-        "toast": {
-          "success": {
-            "title": "Success",
-            "message": "You have successfully started the recruitment of your badge."
-          },
-          "error": {
-            "title": "Error",
-            "message": {
-              "default": "Could not start your recruitment. Please try again later.",
-              "rejected": "You have rejected the recruitment.",
-              "already_started": "You have already started another recruitment."
-            }
-          }
-        }
-      },
-      "influence_recruitment": {
-        "title": "Your Season 2 Badge is being recruited",
-        "description": "Influence your badge to favor the path of your Season 2 badge."
-      },
-      "end_recruitment": {
-        "title": "Congratulations!",
-        "description": "You have successfully recruited your badge. You can now claim it.",
-        "toast": {
-          "success": {
-            "title": "Badge recruitment claim",
-            "message": "You have successfully claimed your badge"
-          },
-          "error": {
-            "title": "Badge recruitment claim error",
-            "default_message": "Error claiming your badge recruitment"
-          }
-        }
-      }
-    },
-    "faq": {
-      "title": "Badge Recruitment FAQ",
-      "entries": [
-        {
-          "question": "What is Recruiting?",
-          "answer": "The Devs are out in full force looking for new recruits to join their Faction. The Recruit tab is where you can send any Devs you control out to find new members to join your cause. Your Dev will always return with a new member that belongs to one of two Teams: the Minnows, or the Whales, and will always be the same Faction of the Dev that Recruited them. It takes XXX hours for your Dev to return with a new member. Once you have sent your Dev out it will be staked for the rest of the Season"
-        },
-        {
-          "question": "What does Influence do?",
-          "answer": "As your Dev is out looking for Recruits you can give them orders to target a specific Team to join your cause. Every time you give your Dev the order to Influence a particular Team, it will increase your chances of your Dev returning with a member of that Team. Every time you give your Dev orders to Influence a particular Team you will see the number increase above that Team on the Recruit Influence page. If you change your mind about which Team you want to Influence you can select the other Team, and it will reset the Influence counter to 1 for your new target. You can give Influence orders to your Dev once every XXX hours."
-        },
-        {
-          "question": "What are the different Teams and what do they do?",
-          "answer": "<b>The Devs</b> (S1 Badges) are the OGs, the ones that build and make things possible. For every unique Dev you control you will receive +0.05x to your <b>Global xp</b> multiplier as well as your Proposer xp.<br/><br/><b>The Whales</b> are the big bagged ones, they make splashes in DeFi. For every unique Whale you control you will receive +0.05x to your <b>Transaction Value</b> xp multiplier.<br/><br/><b>The Minnows</b> are small but plenty, what they lack in funds they make up for with activity. For every unique Minnow you control you will receive +0.05x to your <b>Transaction</b> xp multiplier."
-        },
-        {
-          "question": "What can my Dev do while it is staked?",
-          "answer": "While your Dev is staked you will not be able to take advantage of all of their skills, so you will lose the all the multipliers that it would normally give you. "
-        },
-        {
-          "question": "What is the Faction Battle Arena?",
-          "answer": "The Faction Battle Arena is where you can send the characters under your control to battle it out for fame, glory, and of course prizes. For more details on the FBA visit:"
-        }
-      ]
-    }
-  },
-  "date": {
-    "labels": {
-      "days": "d",
-      "hours": "h",
-      "minutes": "min",
-      "seconds": "s"
     }
   }
 }

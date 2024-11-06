@@ -10,7 +10,7 @@
       btn: {
         text: 'Learn more',
         external: true,
-        destination: 'https://taiko.xyz',
+        destination: 'https://robinos.finance/',
       },
       images: {
         sm: '/campaign/cards/sm/robinos.png',
