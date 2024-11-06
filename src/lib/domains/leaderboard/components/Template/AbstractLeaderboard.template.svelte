@@ -170,6 +170,7 @@
           {/each}
         {/if}
 
+        data.lengt{data.length}
         {#if data.length === 0 && !isLoading}
           <tr class={noDataRowClass}>
             <td class="lg:px-10" colspan="3">No data available yet</td>
