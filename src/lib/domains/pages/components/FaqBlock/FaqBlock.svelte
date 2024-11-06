@@ -9,7 +9,7 @@
   import ActionButton from '$shared/components/Button/ActionButton.svelte';
   import { classNames } from '$shared/utils/classNames';
 
-  export let title: string | null = null;
+  export let title: string | undefined = undefined;
   export let entries: IFaqEntry[] = [];
 
   const wrapperClasses = classNames(
@@ -56,6 +56,7 @@
     'justify-center',
     'items-center',
     'h-full',
+    // 'pr-[60px]',
     'mb-[50px]',
     'md:mb-0',
   );
@@ -126,8 +127,7 @@
         <input type="radio" name="faq-accordion-{uuid}" />
         <div class={questionClasses}>{question}</div>
         <div class={answerClasses}>
-          <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-          <p>{@html answer}</p>
+          <p>{answer}</p>
         </div>
       </div>
     {/each}

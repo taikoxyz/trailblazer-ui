@@ -61,7 +61,7 @@ describe('ProfileApiAdapter', () => {
   const mockNFT: NFT = {
     address: '0xTokenAddress',
     tokenId: 123,
-    metadata: { image: '' },
+    src: '',
     tokenUri: 'https://example.com/metadata/123.json',
   };
 

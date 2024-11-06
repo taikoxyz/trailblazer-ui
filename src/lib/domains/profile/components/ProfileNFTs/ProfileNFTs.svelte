@@ -1,10 +1,9 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import type { Address } from 'viem';
-  import { isAddressEqual } from 'viem';
 
   import { browser } from '$app/environment';
-  import { trailblazersBadgesAddress, trailblazersBadgesS2Address } from '$generated/abi';
+  import { trailblazersBadgesAddress } from '$generated/abi';
   import profileService from '$lib/domains/profile/services/ProfileServiceInstance';
   import { profileLoading, userProfile } from '$lib/domains/profile/stores';
   import type { NFT } from '$lib/shared/types/NFT';
@@ -13,15 +12,12 @@
   import RotatingIcon from '$shared/components/Icon/RotatingIcon.svelte';
   import { Spinner } from '$shared/components/Spinner';
   import { classNames } from '$shared/utils/classNames';
-  import filterBadges from '$shared/utils/nfts/filterBadges';
 
-  import { Seasons } from '../../types/types';
   import UserNFTsSection from './UserNFTsSection.svelte';
 
   // Reactive variables
   $: nfts = [] as NFT[];
-  $: s1Badges = [] as NFT[];
-  $: s2Badges = [] as NFT[];
+  $: badges = [] as NFT[];
 
   $: isLoading = $profileLoading;
   const handleRefresh = async () => {
@@ -32,17 +28,10 @@
   };
 
   onMount(async () => {
-    if (!$userProfile) return;
-    const allNfts = $userProfile.nfts || [];
+    const allNfts = $userProfile?.nfts || [];
 
-    nfts = allNfts.filter(
-      (nft) =>
-        !isAddressEqual(nft.address, trailblazersBadgesAddress[chainId]) &&
-        !isAddressEqual(nft.address, trailblazersBadgesS2Address[chainId]),
-    );
-
-    s1Badges = filterBadges(Seasons.Season1, allNfts);
-    s2Badges = filterBadges(Seasons.Season2, allNfts);
+    nfts = allNfts.filter((nft) => nft.address.toLowerCase() !== trailblazersBadgesAddress[chainId].toLowerCase());
+    badges = allNfts.filter((nft) => nft.address.toLowerCase() === trailblazersBadgesAddress[chainId].toLowerCase());
   });
 
   // CSS classes
@@ -98,19 +87,15 @@
         <Spinner size="md" />
       </div>
     {:else}
-      {#if s1Badges.length}
-        <UserNFTsSection nfts={s1Badges} title="Season 1 Faction Badges" />
-      {/if}
-
-      {#if s2Badges.length}
-        <UserNFTsSection nfts={s2Badges} title="Season 2 Faction Badges" />
+      {#if badges.length}
+        <UserNFTsSection nfts={badges} title="Season 1 Faction Badges" />
       {/if}
 
       {#if nfts.length}
         <UserNFTsSection {nfts} title="NFTs" />
       {/if}
 
-      {#if !s1Badges.length && !nfts.length}
+      {#if !badges.length && !nfts.length}
         <div class={infoTextClasses}>
           <p>No relevant NFTs found</p>
         </div>

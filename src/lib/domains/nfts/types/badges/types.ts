@@ -1,5 +1,3 @@
-import type { IBadgeRecruitment } from '$lib/shared/types/BadgeRecruitment';
-
 export enum FACTIONS {
   Ravers,
   Robots,
@@ -19,10 +17,4 @@ export enum FactionNames {
   Androids = 'Androids',
   Drummers = 'Drummers',
   Shinto = 'Shinto',
-}
-
-// return type for getRecruitmentStatus
-export interface GetRecruitmentStatusResult {
-  approvedTokenIds: number[];
-  recruitments: IBadgeRecruitment[];
 }

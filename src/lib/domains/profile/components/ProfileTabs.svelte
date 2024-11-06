@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onMount } from 'svelte';
 
-  import BadgeRecruitment from '$lib/domains/badges/components/BadgeRecruitment.svelte';
+  import BadgeMigration from '$lib/domains/nfts/components/BadgeMigration.svelte';
   import DevRoom from '$lib/domains/profile/components/DevRoom/DevRoom.svelte';
   import { ProfileNFTs } from '$lib/domains/profile/components/ProfileNFTs';
   import { classNames } from '$shared/utils/classNames';
@@ -17,7 +17,7 @@
     content:
       | typeof ProfileTransactions
       | typeof ProfileNFTs
-      | typeof BadgeRecruitment
+      | typeof BadgeMigration
       | typeof DevRoom
       | typeof ProfileRewardClaim;
   };
@@ -34,9 +34,9 @@
       content: ProfileNFTs,
     },
     {
-      slug: 'badge-recruitment',
-      name: 'Badge Recruitment',
-      content: BadgeRecruitment,
+      slug: 'badge-migration',
+      name: 'Badge Migration',
+      content: BadgeMigration,
     },
     ...(isDevelopmentEnv
       ? [

@@ -200,10 +200,6 @@
   onMount(() => {
     possiblePFPs = $userProfile?.nfts || [];
   });
-
-  function getNftImage(nft: NFT) {
-    return nft.metadata.image as string;
-  }
 </script>
 
 <dialog
@@ -224,7 +220,7 @@
     <div class={modalBodyClasses}>
       {#if previewVisible && selectedPfp}
         <!-- svelte-ignore a11y-img-redundant-alt -->
-        <img alt="Profile picture preview" class={pfpPreviewClasses} src={getNftImage(selectedPfp)} />
+        <img alt="Profile picture preview" class={pfpPreviewClasses} src={selectedPfp.src} />
       {:else}
         <div class={selectorWrapperClasses}>
           <div class={selectorTitleRowClasses}>
@@ -252,7 +248,7 @@
             <div class={selectorGridClasses}>
               {#each possiblePFPs as pfp}
                 <button on:click={() => selectPfp(pfp)} class={selectorGridItemClasses}>
-                  <img src={getNftImage(pfp)} alt="pfp" />
+                  <img src={pfp.src} alt="pfp" />
                 </button>
               {/each}
             </div>

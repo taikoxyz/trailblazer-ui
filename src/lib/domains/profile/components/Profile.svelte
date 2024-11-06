@@ -5,10 +5,11 @@
   import { page } from '$app/stores';
   import BoosterCard from '$lib/domains/profile/components/BoosterCard.svelte';
   import ProfileCard from '$lib/domains/profile/components/ProfileCard.svelte';
-  import ProfileModals from '$lib/domains/profile/components/ProfileModals.svelte';
+  import ProfilePictureModal from '$lib/domains/profile/components/ProfilePicture/ProfilePictureModal.svelte';
   import ProfileTabs from '$lib/domains/profile/components/ProfileTabs.svelte';
   import profileService from '$lib/domains/profile/services/ProfileServiceInstance';
   import { profileLoading } from '$lib/domains/profile/stores/profileStore';
+  import { MintDisclaimerModal } from '$lib/shared/components';
   import { activeSeason } from '$lib/shared/stores/activeSeason';
   import { Alert } from '$shared/components/Alert';
   import LeaderboardDisclaimer from '$shared/components/Disclaimer/LeaderboardDisclaimer.svelte';
@@ -61,4 +62,5 @@
   </div>
 </div>
 
-<ProfileModals />
+<ProfilePictureModal />
+<MintDisclaimerModal />

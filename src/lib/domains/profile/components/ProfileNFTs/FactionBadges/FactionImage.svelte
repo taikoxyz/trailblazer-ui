@@ -1,36 +1,23 @@
 <script lang="ts">
-  import type { NFT } from '$shared/types/NFT';
-  import { classNames } from '$shared/utils/classNames';
+  import { type Faction, MovementNames, Movements } from '$lib/domains/profile/types/types';
 
-  export let token: NFT;
+  export let type: Faction;
+  export let movement: Movements = 0;
 
-  $: image = token.metadata.image as string;
-  $: videoMp4 = token.metadata['video/mp4'] as string;
-  $: videoWebm = token.metadata['video/webm'] as string;
-
-  const wrapperClasses = classNames('relative', 'w-full', 'h-full', 'z-0', 'aspect-square');
-
-  const videoClasses = classNames(
-    'pointer-events-none',
-    'rounded-[20px]',
-    'absolute',
-    'left-0',
-    'top-0',
-    'z-20',
-    'w-full',
-    'h-full',
-  );
+  $: baseUrl = `/factions/${type.toLowerCase()}/${MovementNames[movement].toLowerCase()}`;
 </script>
 
-<div class={wrapperClasses}>
-  <video poster={image} loop muted autoplay playsinline class={videoClasses}>
+<div class="relative w-full h-full z-0 aspect-square">
+  <video
+    poster="{baseUrl}.png"
+    loop
+    muted
+    autoplay
+    playsinline
+    class="pointer-events-none rounded-[20px] absolute left-0 top-0 z-20 w-full h-full">
     <track kind="captions" />
-    {#if token.metadata['video/mp4']}
-      <source src={videoMp4} type="video/mp4" />
-    {/if}
-    {#if token.metadata['video/webm']}
-      <source src={videoWebm} type="video/webm" />
-    {/if}
+    <source src="{baseUrl}.mp4" type="video/mp4" />
+    <source src="{baseUrl}.webm" type="video/webm" />
     Your browser does not support the video tag.
   </video>
 </div>

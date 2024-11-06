@@ -2,17 +2,12 @@ import type { Address } from 'viem';
 
 import type { FactionNames } from '$configs/badges';
 
-export enum TokenType {
-  Unknown = 0,
-  ERC721 = 721,
-  ERC1155 = 1155,
-}
-
 export interface NFT {
   address: Address;
   tokenId: number;
   tokenUri: string;
-  metadata: Record<string, string | number | boolean | undefined | TokenType>;
+  src: string;
+  badgeId?: number;
 }
 
 export interface IUserBadges {

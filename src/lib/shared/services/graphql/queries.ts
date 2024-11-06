@@ -15,7 +15,7 @@ export const USER_NFTS_QUERY = gql`
   }
 `;
 
-export const USER_BADGES_S1_QUERY = gql`
+export const USER_BADGES_QUERY = gql`
   query UserBadges($address: Bytes) {
     account(id: $address) {
       id
@@ -46,85 +46,6 @@ export const USER_PROFILE_PICTURES_QUERY = gql`
       tokenAddress
       tokenId
       tokenURI
-    }
-  }
-`;
-
-export const USER_NFTS_FETCH_QUERY = gql`
-  query UserBadges($address: Bytes) {
-    tokens(where: { owner: $address }) {
-      id
-      erc
-      tokenId
-      contract
-      badgeId
-      movement
-      season
-      uri
-    }
-  }
-`;
-
-export const FETCH_ENABLED_MIGRATIONS_QUERY = gql`
-  query OpenRecruitments($address: String) {
-    openRecruitments(where: { enabled: true }) {
-      id
-      enabled
-    }
-  }
-`;
-
-export const GET_MIGRATION_STATUS_QUERY = gql`
-  query getRecruitmentStatus($address: Bytes) {
-    account(id: $address) {
-      id
-      approvedForAll
-      approvedS1Tokens {
-        id
-        badgeId
-      }
-      s2Recruitments {
-        id
-        isStarted
-        isCompleted
-        whaleInfluences
-        minnowInfluences
-        claimExpirationTimeout
-        influenceExpirationTimeout
-        s1Badge {
-          id
-          badgeId
-          movement
-          contract
-          owner {
-            id
-          }
-          tokenId
-        }
-        s2Badge {
-          id
-          badgeId
-          movement
-          contract
-          owner {
-            id
-          }
-          tokenId
-        }
-      }
-    }
-  }
-`;
-
-export const GET_MIGRATION_APPROVALS_QUERY = gql`
-  query getRecruitmentApprovals($address: Bytes) {
-    account(id: $address) {
-      id
-      approvedForAll
-      approvedS1Tokens {
-        id
-        badgeId
-      }
     }
   }
 `;
