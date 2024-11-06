@@ -118,7 +118,7 @@
   <!-- Teams description -->
   <ContentBox title={$t('pages.badge_recruitment.teams.title')}>
     <div>
-      <div class={headlineClasses}>{$t('pages.badge_recruitment.teams.devs')}</div>
+      <div class={headlineClasses}>{$t('pages.badge_recruitment.teams.devs.title')}</div>
       {$t('pages.badge_recruitment.teams.devs.description')}
     </div>
 

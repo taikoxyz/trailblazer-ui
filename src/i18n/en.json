@@ -536,7 +536,8 @@
       },
       "teams": {
         "devs": {
-          "description": "The Devs are original builders from Season 1 with an overall points multiplier and bonus. To balance things out we have lowered the global multiplier to 1.4x max. "
+          "description": "The Devs are original builders from Season 1 with an overall points multiplier and bonus. To balance things out we have lowered the global multiplier to 1.4x max. ",
+          "title": "The Devs"
         },
         "forumla": " The new formula for all Faction Team bonuses will be 0.05 * n where n is the number of Badges the participant owns       when performing any action.",
         "minnows": {
