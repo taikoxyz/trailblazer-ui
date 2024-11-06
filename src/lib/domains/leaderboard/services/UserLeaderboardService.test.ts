@@ -97,7 +97,7 @@ describe('UserLeaderboardService', () => {
     ];
 
     const mappedRow1: UnifiedLeaderboardRow = {
-      address: '0x123',
+      name: 'Dapp 1',
       icon: 'https://example.com/avatar1.png',
       level: '5',
       rank: 1,
@@ -108,7 +108,7 @@ describe('UserLeaderboardService', () => {
     };
 
     const mappedRow2: UnifiedLeaderboardRow = {
-      address: '0x456',
+      name: 'Dapp 1',
       icon: 'https://example.com/avatar2.png',
       level: '6',
       rank: 2,
@@ -306,7 +306,7 @@ describe('UserLeaderboardService', () => {
     ];
 
     const mappedRow1: UnifiedLeaderboardRow = {
-      address: '0x123',
+      name: 'Dapp 1',
       icon: 'https://example.com/avatar1.png',
       level: '5',
       rank: 1,
@@ -317,7 +317,7 @@ describe('UserLeaderboardService', () => {
     };
 
     const defaultMappedRow: UnifiedLeaderboardRow = {
-      address: '0x456',
+      name: 'Dapp 1',
       icon: '',
       level: '',
       rank: 2,
@@ -407,7 +407,7 @@ describe('UserLeaderboardService', () => {
     ];
 
     const mappedRow1: UnifiedLeaderboardRow = {
-      address: '0x123',
+      name: 'Dapp 1',
       icon: 'https://example.com/avatar1.png',
       level: '5',
       rank: 1,

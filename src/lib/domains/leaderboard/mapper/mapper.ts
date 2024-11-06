@@ -7,7 +7,6 @@ import type { LiquidityCompetitionRow } from '../types/liquidity/types';
 
 export function mapDappLeaderboardRow(row: DappLeaderboardRow): UnifiedLeaderboardRow {
   return {
-    address: row.address,
     icon: row.metadata?.logo,
     rank: row.rank,
     handle: row.metadata?.twitter,
@@ -19,7 +18,6 @@ export function mapDappLeaderboardRow(row: DappLeaderboardRow): UnifiedLeaderboa
 
 export function mapGamingLeaderboardRow(row: GamingLeaderboardRow): UnifiedLeaderboardRow {
   return {
-    address: row.address,
     icon: row.metadata?.logo,
     rank: row.rank,
     handle: row.metadata?.twitter,
@@ -64,7 +62,7 @@ export function mapLiquidityLeaderboardRow(row: LiquidityCompetitionRow): Unifie
 export function mapDefiDappLeaderboardRow(row: DefiDappLeaderboardRow): UnifiedLeaderboardRow {
   const totalScore = row?.taikoTvl ? row.taikoTvl : 0;
   return {
-    address: row.name ? row.name : row.address,
+    name: row.name ? row.name : row.address,
     rank: 0,
     icon: row.logo,
     handle: row.twitter,

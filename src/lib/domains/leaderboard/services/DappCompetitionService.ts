@@ -52,7 +52,7 @@ export class DappCompetitionService {
           log(`details for ${item.slug}`, protocolDetails);
 
           const entry: DappLeaderboardRow = {
-            address: item.address,
+            name: item.name,
             data: protocolDetails.protocols,
             metadata: protocolDetails.metadata,
             totalScore: item.score,
