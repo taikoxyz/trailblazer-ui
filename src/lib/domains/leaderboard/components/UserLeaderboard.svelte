@@ -40,12 +40,15 @@
       total: totalItems,
       address,
     };
-    const [leaderboardPage, userEntry] = await Promise.all([
+    const [leaderboardPage] = await Promise.all([
       userLeaderboardService.getUserLeaderboardData(args, season),
       userLeaderboardService.getUserLeaderboardDataForAddress(season, getConnectedAddress()),
     ]);
     totalItems = leaderboardPage?.pagination.total || $currentUserLeaderboard.items.length;
-    $currentUserLeaderboardUserEntry = userEntry;
+    $currentUserLeaderboardUserEntry = await userLeaderboardService.getUserLeaderboardDataForAddress(
+      season,
+      getConnectedAddress(),
+    );
     loading = false;
   }
 
