@@ -22,7 +22,7 @@ export class ProtocolAdapter {
 
     log(`Cache miss for ${protocolSlug}, fetching from API`);
     const client = getAxiosInstance(season);
-    const response = await client.get<ProtocolApiResponse>(`/protocol/details`, {
+    const response = await client.get<ProtocolApiResponse>(`/protocol/dapp`, {
       ...globalAxiosConfig,
       params: { slug: protocolSlug },
     });
