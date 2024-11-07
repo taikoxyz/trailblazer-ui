@@ -1,8 +1,10 @@
 import { browser } from '$app/environment';
 import { leaderboardConfig } from '$config';
 import { userLeaderboardService } from '$lib/domains/leaderboard/services/LeaderboardServiceInstances';
+import { currentUserLeaderboardUserEntry } from '$lib/domains/leaderboard/stores/userLeaderboard';
 import type { UserLeaderboardItem } from '$lib/domains/leaderboard/types/user/types';
 import type { PaginationInfo } from '$lib/shared/dto/CommonPageApiResponse';
+import getConnectedAddress from '$shared/utils/getConnectedAddress';
 
 export const load = async () => {
   let loading = true;
@@ -17,6 +19,9 @@ export const load = async () => {
   if (browser) {
     try {
       const page = await userLeaderboardService.getUserLeaderboardData(pageInfo, 1);
+      currentUserLeaderboardUserEntry.set(
+        await userLeaderboardService.getUserLeaderboardDataForAddress(1, getConnectedAddress()),
+      );
       if (page) {
         pageInfo = page.pagination;
       }
