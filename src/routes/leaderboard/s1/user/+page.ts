@@ -18,11 +18,10 @@ export const load = async () => {
 
   if (browser) {
     try {
-      const [page, userEntry] = await Promise.all([
-        userLeaderboardService.getUserLeaderboardData(pageInfo, 1),
-        userLeaderboardService.getUserLeaderboardDataForAddress(1, getConnectedAddress()),
-      ]);
-      currentUserLeaderboardUserEntry.set(userEntry);
+      const page = await userLeaderboardService.getUserLeaderboardData(pageInfo, 1);
+      currentUserLeaderboardUserEntry.set(
+        await userLeaderboardService.getUserLeaderboardDataForAddress(1, getConnectedAddress()),
+      );
       if (page) {
         pageInfo = page.pagination;
       }
