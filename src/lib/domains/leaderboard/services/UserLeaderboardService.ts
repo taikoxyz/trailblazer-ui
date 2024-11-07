@@ -160,22 +160,30 @@ export class UserLeaderboardService {
       }
 
       const profilePicture = await this.profileService.getProfilePicture(address);
-      const userLeaderboardItem = leaderboardData.items[0];
 
-      const percentile = this.profileService.calculatePercentile(userLeaderboardItem.rank, leaderboardData.total);
+      const { total, score, totalScore } = await this.profileService.getPointsAndRankForAddress(address, season);
+      const userLeaderboardItem = leaderboardData.items[0];
+      log('total, score, totalScore', { total, score, totalScore });
+      log('User leaderboard item', userLeaderboardItem);
+      const percentile = this.profileService.calculatePercentile(userLeaderboardItem.rank, total);
       const { level, title } = this.profileService.getLevel(percentile);
+
+      log('percentile and level', { percentile, level, title });
 
       const userLeaderboardRow: UserLeaderboardRow = {
         address: userLeaderboardItem.address,
-        score: userLeaderboardItem.totalScore ? userLeaderboardItem.totalScore : 0,
+        score: score,
+        totalScore: userLeaderboardItem.totalScore,
         rank: userLeaderboardItem.rank,
         level,
         title,
       };
+
       const entry: UserLeaderboardRow = {
         ...userLeaderboardRow,
         icon: profilePicture || '',
       };
+      log('User leaderboard row', entry);
       const mapped = mapUserLeaderboardRow(entry);
       log('Mapped user leaderboard row', mapped);
 
