@@ -11,4 +11,7 @@ export interface IProfileService {
   ): Promise<UserInfoForLeaderboard[]>;
 
   getProfilePicture(address: Address): Promise<string | null>;
+
+  calculatePercentile(rank: string | number, total: string | number): number;
+  getLevel(percentile: number): { level: string; title: string };
 }

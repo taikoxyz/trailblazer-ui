@@ -1,8 +1,7 @@
 import { writable } from 'svelte/store';
 
 import type { LiquidityCompetitionPage } from '$lib/domains/leaderboard/types/liquidity/types';
-
-import type { UnifiedLeaderboardRow } from '../types/shared/types';
+import type { UnifiedLeaderboardRow } from '$lib/domains/leaderboard/types/shared/types';
 
 export const currentLiquidityCompetitionLeaderboard = writable<LiquidityCompetitionPage>({
   items: [],

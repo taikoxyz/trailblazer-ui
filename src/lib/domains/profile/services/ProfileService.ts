@@ -86,8 +86,6 @@ export class ProfileService implements IProfileService {
       ]);
       log('Fetched data:', { pointsAndRank, userDomainInfo, activity, nftsResult, avatarResult });
 
-      log('DEBUGME', activity);
-
       // Assemble the complete UserProfile with default values
       const userProfile: UserProfile = {
         ...defaultUserProfile,
@@ -145,10 +143,12 @@ export class ProfileService implements IProfileService {
   }
 
   /**
-   * Fetches the user's domain information.
+   * Fetches details for a list of users
    *
-   * @param {Address} address
-   * @return {*}
+   * @param {UserLeaderboardItem[]} entries
+   * @param {number} total
+   * @param {number} season
+   * @return {*}  {Promise<UserInfoForLeaderboard[]>}
    * @memberof ProfileService
    */
   async getUserInfoForLeaderboard(

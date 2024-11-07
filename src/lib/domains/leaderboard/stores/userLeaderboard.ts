@@ -1,5 +1,6 @@
 import { writable } from 'svelte/store';
 
+import type { UnifiedLeaderboardRow } from '$lib/domains/leaderboard/types/shared/types';
 import type { UserLeaderboardPage } from '$lib/domains/leaderboard/types/user/types';
 
 export const currentUserLeaderboard = writable<UserLeaderboardPage>({
@@ -11,3 +12,5 @@ export const currentUserLeaderboard = writable<UserLeaderboardPage>({
     total: 0,
   },
 });
+
+export const currentUserLeaderboardUserEntry = writable<UnifiedLeaderboardRow | null>(null);

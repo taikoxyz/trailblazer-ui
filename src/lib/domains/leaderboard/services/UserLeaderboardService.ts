@@ -140,6 +140,52 @@ export class UserLeaderboardService {
   }
 
   /**
+   * Retrieves the leaderboard data for a given user address.
+   *
+   * @param {number} season
+   * @param {Address} address
+   * @return {*}  {(Promise<UnifiedLeaderboardRow | null>)}
+   * @memberof UserLeaderboardService
+   */
+  async getUserLeaderboardDataForAddress(season: number, address: Address): Promise<UnifiedLeaderboardRow | null> {
+    log('Fetching leaderboard data for address', { season, address });
+    try {
+      const leaderboardData = await this.leaderboardAdapter.fetchLeaderboardPositionForAddress(season, address);
+      log('Fetched leaderboard data', { leaderboardData });
+
+      if (!leaderboardData.items?.length) {
+        log('No leaderboard items found', { season, address });
+        return null;
+      }
+
+      const profilePicture = await this.profileService.getProfilePicture(address);
+      const userLeaderboardItem = leaderboardData.items[0];
+
+      const percentile = this.profileService.calculatePercentile(userLeaderboardItem.rank, leaderboardData.total);
+      const { level, title } = this.profileService.getLevel(percentile);
+
+      const userLeaderboardRow: UserLeaderboardRow = {
+        address: userLeaderboardItem.address,
+        score: userLeaderboardItem.totalScore ? userLeaderboardItem.totalScore : 0,
+        rank: userLeaderboardItem.rank,
+        level,
+        title,
+      };
+      const entry: UserLeaderboardRow = {
+        ...userLeaderboardRow,
+        icon: profilePicture || '',
+      };
+      const mapped = mapUserLeaderboardRow(entry);
+      log('Mapped user leaderboard row', mapped);
+
+      return mapped;
+    } catch (error) {
+      log('Error fetching user leaderboard data', { error, season, address });
+      return null;
+    }
+  }
+
+  /**
    * Retrieves the profile icon for a given user address
    *
    * @param address - The user's address.
