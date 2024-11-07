@@ -98,7 +98,7 @@
         button: 'Lock Now',
       }} />
 
-    <EcosystemItem
+    <!-- <EcosystemItem
       data={{
         name: 'Loopring',
         description:
@@ -107,6 +107,6 @@
         url: 'https://loopring.org/',
         category: 'DeFi',
         button: 'Lock Now',
-      }} />
+      }} /> -->
   </div>
 </div>
