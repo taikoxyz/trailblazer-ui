@@ -31,6 +31,7 @@ describe('mapDappLeaderboardRow', () => {
       data: input.data,
       name: input.metadata!.name,
       totalScore: input.totalScore,
+      icon: input.metadata!.logo,
       rank: input.rank,
     };
 
