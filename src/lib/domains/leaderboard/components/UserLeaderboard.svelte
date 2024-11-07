@@ -11,7 +11,7 @@
     currentUserLeaderboard,
     currentUserLeaderboardUserEntry,
   } from '$lib/domains/leaderboard/stores/userLeaderboard';
-  import type { UserLeaderboardItem } from '$lib/domains/leaderboard/types/user/types';
+  import type { UserLeaderboardItem, UserLeaderboardPage } from '$lib/domains/leaderboard/types/user/types';
   import type { PaginationInfo } from '$lib/shared/dto/CommonPageApiResponse';
   import getConnectedAddress from '$shared/utils/getConnectedAddress';
 
@@ -45,7 +45,10 @@
       userLeaderboardService.getUserLeaderboardDataForAddress(season, getConnectedAddress()),
     ]);
     totalItems = leaderboardPage?.pagination.total || $currentUserLeaderboard.items.length;
-    $currentUserLeaderboardUserEntry = userEntry;
+    $currentUserLeaderboardUserEntry = await userLeaderboardService.getUserLeaderboardDataForAddress(
+      season,
+      getConnectedAddress(),
+    );
     loading = false;
   }
 
