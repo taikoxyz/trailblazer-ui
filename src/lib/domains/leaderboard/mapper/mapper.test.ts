@@ -98,7 +98,8 @@ describe('mapUserLeaderboardRow', () => {
       handle: '',
       rank: input.rank,
       data: [],
-      totalScore: input.score,
+      totalScore: input.totalScore!,
+      score: input.score,
     };
 
     const result = mapUserLeaderboardRow(input);
@@ -110,6 +111,7 @@ describe('mapUserLeaderboardRow', () => {
     const input: UserLeaderboardRow = {
       address: zeroAddress,
       score: 300,
+      totalScore: 400,
       rank: 2,
       // level and title are missing
       icon: 'https://example.com/user-icon.png',
@@ -123,7 +125,8 @@ describe('mapUserLeaderboardRow', () => {
       handle: '',
       data: [],
       rank: input.rank,
-      totalScore: input.score,
+      totalScore: input.totalScore!,
+      score: input.score,
     };
 
     const result = mapUserLeaderboardRow(input);
