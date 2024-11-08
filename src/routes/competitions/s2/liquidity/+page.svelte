@@ -5,13 +5,13 @@
   import { page } from '$app/stores';
   import LiquidityDisclaimer from '$lib/domains/leaderboard/components/Competition/LiquidityRoyale/LiquidityDisclaimer.svelte';
   import LiquidityRoyaleLeaderboard from '$lib/domains/leaderboard/components/Competition/LiquidityRoyale/LiquidityRoyaleLeaderboard.svelte';
-  import type { DappLeaderboardItem } from '$lib/domains/leaderboard/dto/dapps.dto';
+  import type { UserLeaderboardItem } from '$lib/domains/leaderboard/types/user/types';
   import type { PaginationInfo } from '$lib/shared/dto/CommonPageApiResponse';
   import { ActionButton } from '$shared/components/Button';
   import { Page } from '$shared/components/Page';
   import { classNames } from '$shared/utils/classNames';
 
-  let pageInfo: PaginationInfo<DappLeaderboardItem>;
+  let pageInfo: PaginationInfo<UserLeaderboardItem>;
   let loading: boolean;
 
   $: ({ pageInfo, loading } = $page.data);

@@ -1,5 +1,6 @@
 <script lang="ts">
   import type { ComponentType } from 'svelte';
+  import { isAddress } from 'viem';
 
   import { leaderboardConfig } from '$config';
   import type { UnifiedLeaderboardRow } from '$lib/domains/leaderboard/types/shared/types';
@@ -148,7 +149,10 @@
           <!-- The actual data rows -->
           {#each data as entry, index}
             {@const rank = getRank(entry, index)}
-            {@const highlightIndexPosition = entry.address === highlightedUserPosition?.address ? index : -1}
+            {@const highlightIndexPosition =
+              entry.address && isAddress(entry.address) && entry.address === highlightedUserPosition?.address
+                ? index
+                : null}
             {@const fillClass = getFillClass(rank)}
 
             <TableRow

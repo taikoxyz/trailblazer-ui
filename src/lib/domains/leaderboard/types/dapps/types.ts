@@ -1,15 +1,15 @@
 import type { Address } from 'viem';
 
-import type { PaginationInfo } from '$lib/domains/leaderboard/types/shared/types';
+import type { PaginationInfo, UnifiedLeaderboardRow } from '$lib/domains/leaderboard/types/shared/types';
 
 export type DappLeaderboardPage = {
-  items: DappLeaderboardRow[];
+  items: UnifiedLeaderboardRow[];
   lastUpdated: number;
   pagination: PaginationInfo;
 };
 
 export type DappLeaderboardRow = {
-  address: string;
+  name: string;
   rank: number;
   data: ProtocolData[];
   metadata?: ProtocolMetadata;

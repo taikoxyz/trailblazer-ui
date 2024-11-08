@@ -19,7 +19,7 @@
   export let showDetailsColumn: boolean;
   export let scoreComponent: ComponentType;
   export let qualifyingPositions: number;
-  export let highlightIndexPosition: number = -1;
+  export let highlightIndexPosition: number | null = null;
 
   const rowClasses = classNames(
     'row',
@@ -79,10 +79,12 @@
               shineColor="bg-pink-100" />
           {/if}
           <div class="f-col justify-center">
-            {#if isAddress(entry.address)}
+            {#if index === -1}
+              <div class="body-bold">Your position</div>
+            {:else if entry.address && isAddress(entry.address)}
               <div class="body-bold">{shortenAddress(entry.address, 8, 4)}</div>
             {:else}
-              <div class="body-bold">{entry.address}</div>
+              <div class="body-bold">{entry.name}</div>
             {/if}
             {#if entry.handle}
               <div class="body-small-regular">

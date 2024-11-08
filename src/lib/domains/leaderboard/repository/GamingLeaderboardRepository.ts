@@ -16,7 +16,7 @@ export class GamingLeaderboardRepository extends IRepository<GamingLeaderboardPa
     currentGamingLeaderboard.update((store) => {
       return {
         ...store,
-        items: leaderboardPage.items.filter((item) => !!item.address),
+        items: leaderboardPage.items.filter((item) => !!item.name),
         lastUpdated: leaderboardPage.lastUpdated,
         pagination: leaderboardPage.pagination,
       };
