@@ -11,7 +11,7 @@
     currentUserLeaderboard,
     currentUserLeaderboardUserEntry,
   } from '$lib/domains/leaderboard/stores/userLeaderboard';
-  import type { UserLeaderboardItem, UserLeaderboardPage } from '$lib/domains/leaderboard/types/user/types';
+  import type { UserLeaderboardItem } from '$lib/domains/leaderboard/types/user/types';
   import type { PaginationInfo } from '$lib/shared/dto/CommonPageApiResponse';
   import getConnectedAddress from '$shared/utils/getConnectedAddress';
 
@@ -40,12 +40,12 @@
       total: totalItems,
       address,
     };
-    const leaderboardPage: UserLeaderboardPage = await userLeaderboardService.getUserLeaderboardData(args, season);
+    const [leaderboardPage, userEntry] = await Promise.all([
+      userLeaderboardService.getUserLeaderboardData(args, season),
+      userLeaderboardService.getUserLeaderboardDataForAddress(season, getConnectedAddress()),
+    ]);
     totalItems = leaderboardPage?.pagination.total || $currentUserLeaderboard.items.length;
-    $currentUserLeaderboardUserEntry = await userLeaderboardService.getUserLeaderboardDataForAddress(
-      season,
-      getConnectedAddress(),
-    );
+    $currentUserLeaderboardUserEntry = userEntry;
     loading = false;
   }
 

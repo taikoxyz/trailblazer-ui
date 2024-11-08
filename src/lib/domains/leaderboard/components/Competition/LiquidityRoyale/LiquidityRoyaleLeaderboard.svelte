@@ -10,7 +10,6 @@
     currentLiquidityCompetitionLeaderboard,
     currentLiquidityCompetitionLeaderboardUserEntry,
   } from '$lib/domains/leaderboard/stores/liquidityCompetitionLeaderboard';
-  import type { LiquidityCompetitionPage } from '$lib/domains/leaderboard/types/liquidity/types';
   import type { UserLeaderboardItem } from '$lib/domains/leaderboard/types/user/types';
   import type { PaginationInfo } from '$lib/shared/dto/CommonPageApiResponse';
   import getConnectedAddress from '$shared/utils/getConnectedAddress';
@@ -42,11 +41,13 @@
       total: totalItems,
       address,
     };
-    const leaderboardPage: LiquidityCompetitionPage =
-      await liquidityCompetitionService.getLiquidityCompetitionLeaderboard(args, season);
+    const [leaderboardPage, userEntry] = await Promise.all([
+      liquidityCompetitionService.getLiquidityCompetitionLeaderboard(args, season),
+      liquidityCompetitionService.getLiquidityCompetitionDataForAddress(season, getConnectedAddress()),
+    ]);
+
     totalItems = leaderboardPage?.pagination.total || $currentLiquidityCompetitionLeaderboard.items.length;
-    $currentLiquidityCompetitionLeaderboardUserEntry =
-      await liquidityCompetitionService.getLiquidityCompetitionDataForAddress(season, getConnectedAddress());
+    $currentLiquidityCompetitionLeaderboardUserEntry = userEntry;
 
     loading = false;
   }
