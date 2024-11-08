@@ -1,14 +1,14 @@
 import { browser } from '$app/environment';
 import { leaderboardConfig } from '$config';
-import type { DappLeaderboardItem } from '$lib/domains/leaderboard/dto/dapps.dto';
 import { liquidityCompetitionService } from '$lib/domains/leaderboard/services/LeaderboardServiceInstances';
 import { currentLiquidityCompetitionLeaderboardUserEntry } from '$lib/domains/leaderboard/stores/liquidityCompetitionLeaderboard';
+import type { UserLeaderboardItem } from '$lib/domains/leaderboard/types/user/types';
 import type { PaginationInfo } from '$lib/shared/dto/CommonPageApiResponse';
 import getConnectedAddress from '$shared/utils/getConnectedAddress';
 
 export const load = async () => {
   let loading = true;
-  let pageInfo: PaginationInfo<DappLeaderboardItem> = {
+  let pageInfo: PaginationInfo<UserLeaderboardItem> = {
     page: 0,
     size: leaderboardConfig.pageSize,
     first: 0,

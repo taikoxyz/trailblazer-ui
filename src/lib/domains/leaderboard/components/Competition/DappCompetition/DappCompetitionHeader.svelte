@@ -181,7 +181,7 @@
     'hidden',
     'md:block',
     'absolute',
-    'right-[-24px]',
+    'right-0',
     'top-[24px]',
     'w-[21.7px]',
     'lg:w-[30px]',

@@ -58,7 +58,7 @@ export class DappLeaderboardService {
           log(`details for ${item.slug}`, protocolDetails);
 
           const entry: DappLeaderboardRow = {
-            address: item.address,
+            name: item.name,
             rank: item.rank,
             data: protocolDetails.protocols,
             metadata: protocolDetails.metadata,
@@ -77,9 +77,10 @@ export class DappLeaderboardService {
 
       const settledRows = await Promise.all(protocolDetailsPromises);
       const unifiedRows = settledRows.filter((row): row is UnifiedLeaderboardRow => row !== null);
-
+      log('filtered rows', unifiedRows);
       leaderboardPage.items.push(...unifiedRows);
       leaderboardPage.pagination = { ...leaderboardData.data, ...args };
+      log('updating leaderboard page', leaderboardPage);
       this.leaderboardRepository.update(leaderboardPage);
       return leaderboardPage;
     }

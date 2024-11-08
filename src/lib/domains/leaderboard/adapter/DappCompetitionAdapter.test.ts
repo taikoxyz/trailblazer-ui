@@ -1,5 +1,4 @@
 import type { AxiosInstance } from 'axios';
-import { zeroAddress } from 'viem';
 
 import type { PaginationInfo } from '$shared/dto/CommonPageApiResponse';
 import { getAxiosInstance, globalAxiosConfig } from '$shared/services/api/axiosClient';
@@ -27,13 +26,13 @@ describe('DappCompetitionAdapter', () => {
         data: {
           items: [
             {
-              address: zeroAddress,
+              name: 'Dapp 1',
               score: 100,
               slug: 'dapp-1',
               rank: 1,
             },
             {
-              address: zeroAddress,
+              name: 'Dapp 2',
               score: 200,
               slug: 'dapp-2',
               rank: 2,

@@ -6,6 +6,15 @@
 
   const partners: PartnerCarouselItem[] = [
     {
+      title: 'Avalon',
+      description: 'The Hub of BTCFi - Borrow stablecoins against your BTC.',
+      imageSrc: '/dapps/defi/avalon.svg',
+      imageAlt: 'Avalon logo',
+      tagText: 'Lending',
+      buttonText: 'Borrow now',
+      buttonLink: 'https://www.avalonfinance.xyz/',
+    },
+    {
       title: 'Panko',
       description: 'Deep liquidity and top-class execution for native assets with permissionless pools.',
       imageSrc: '/dapps/defi/panko.png',
@@ -22,6 +31,15 @@
       tagText: 'Dex',
       buttonText: 'Earn more',
       buttonLink: 'https://www.takotako.xyz',
+    },
+    {
+      title: 'Unagi',
+      description: 'State-of-the-art trading solutions and liquidity management powered by DODO',
+      imageSrc: '/dapps/defi/unagi.svg',
+      imageAlt: 'Unagi logo',
+      tagText: 'Dex',
+      buttonText: 'Earn now',
+      buttonLink: 'https://www.avalonfinance.xyz/',
     },
   ];
 

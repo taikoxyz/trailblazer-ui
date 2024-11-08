@@ -16,7 +16,7 @@ export class DappLeaderboardRepository extends IRepository<DappLeaderboardPage> 
     currentDappLeaderboard.update((store: DappLeaderboardPage) => {
       return {
         ...store,
-        items: leaderboardPage.items.filter((item) => !!item.address),
+        items: leaderboardPage.items.filter((item) => !!item.name),
         lastUpdated: leaderboardPage.lastUpdated,
         pagination: leaderboardPage.pagination,
       };

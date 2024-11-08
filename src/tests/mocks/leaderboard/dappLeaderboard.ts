@@ -5,31 +5,31 @@ export const MOCK_DAPP_LEADERBOARD: DappLeaderboardPageApiResponse = {
   data: {
     items: [
       {
-        address: '0x1234567890abcdef1234567890abcdef12345678',
+        name: 'Dapp 1',
         slug: 'dapp-one',
         score: 100,
         rank: 1,
       },
       {
-        address: '0xabcdef1234567890abcdef1234567890abcdef12',
+        name: 'Dapp 2',
         slug: 'dapp-two',
         score: 200,
         rank: 2,
       },
       {
-        address: '0x7890abcdef1234567890abcdef1234567890abcd',
+        name: 'Dapp 3',
         slug: 'dapp-three',
         score: 300,
         rank: 3,
       },
       {
-        address: '0xabcdefabcdefabcdefabcdefabcdefabcdefabcd',
+        name: 'Dapp 4',
         slug: 'dapp-four',
         score: 400,
         rank: 4,
       },
       {
-        address: '0x1234567890abcdefabcdefabcdefabcdefabcdef',
+        name: 'Dapp 5',
         slug: 'dapp-five',
         score: 500,
         rank: 5,
