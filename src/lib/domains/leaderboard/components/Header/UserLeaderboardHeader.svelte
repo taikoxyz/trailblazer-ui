@@ -18,12 +18,6 @@
     await loadLeaderboardData(pageInfo.page, value);
   };
 
-  //     <div class={descriptionTextClasses}>Explore our ecosystem and stay tuned for competitions to rank up.</div>
-  //     <LastUpdated {lastUpdated} />
-  //   </div>
-  // </div>
-  // <Search className={searchClasses} onSearch={handleSearch} placeholder="Search Address..." />
-
   const wrapperClasses = classNames('space-y-[40px]');
 
   const bannerBackgroundClasses = classNames(
