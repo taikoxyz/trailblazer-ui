@@ -5,6 +5,9 @@ export type UnifiedLeaderboardRow = {
   rank: number;
   icon?: string;
   handle?: string;
+  data: ProtocolData[];
+  score?: number;
+  totalScore: number;
   level?: string;
   title?: string;
   address?: Address | string;
