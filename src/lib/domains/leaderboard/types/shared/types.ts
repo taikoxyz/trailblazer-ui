@@ -4,6 +4,7 @@ export type UnifiedLeaderboardRow = {
   name?: string;
   rank: number;
   data: ProtocolData[];
+  score?: number;
   totalScore: number;
   icon?: string;
   handle?: string;
