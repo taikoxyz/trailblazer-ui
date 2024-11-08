@@ -3,7 +3,6 @@ import type { Address } from 'viem';
 export type UnifiedLeaderboardRow = {
   address: string;
   rank: number;
-
   icon?: string;
   handle?: string;
   data: ProtocolData[];

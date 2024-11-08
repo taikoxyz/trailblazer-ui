@@ -42,6 +42,7 @@ export function mapUserLeaderboardRow(row: UserLeaderboardRow): UnifiedLeaderboa
     icon: row.icon,
     handle: '',
     data: [],
+    score: row.score,
     totalScore: row.totalScore!,
   };
 

@@ -99,6 +99,7 @@ export class UserLeaderboardService {
             const entry: UserLeaderboardRow = {
               address: item.address,
               score: item.score,
+              totalScore: item.totalScore,
               icon: userDetails.profilePicture,
               level: userDetails.level,
               rank: index + 1 + args.page * args.size,
