@@ -97,5 +97,16 @@
         category: 'DeFi',
         button: 'Lock Now',
       }} />
+
+    <EcosystemItem
+      data={{
+        name: 'Loopring',
+        description:
+          'Layer 2 scaling protocol for Ethereum that focuses on secure, high-speed, and low-cost trading and payment services.',
+        logo: '/lockdown/loopring.png',
+        url: 'https://loopring.org/',
+        category: 'DeFi',
+        button: 'Lock Now',
+      }} />
   </div>
 </div>

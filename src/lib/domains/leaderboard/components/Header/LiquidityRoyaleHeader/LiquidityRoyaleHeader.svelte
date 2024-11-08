@@ -24,21 +24,14 @@
     await loadLeaderboardData(pageInfo.page, value);
   };
 
-  const containerClasses = classNames('flex', 'justify-center', 'items-center', 'w-full');
-  const wrapperClasses = classNames(
-    'f-col',
-    'w-full',
-    'z-10',
-    'overflow-hidden',
-    'mt-[550px]',
-    'xl:mt-[600px]',
-    'space-y-[120px]',
-  );
+  const containerClasses = classNames('f-col', 'justify-center', 'items-center', 'w-full');
+  const wrapperClasses = classNames('f-col', 'w-full', 'z-10', 'overflow-hidden', 'space-y-[120px]');
   const innerWrapperClasses = classNames('f-col', 'md:f-row', 'justify-between', 'items-center', 'space-y-[50px]');
 
   const headerImageClasses = classNames(
     'min-h-[475px]',
     'xl:h-[606px]',
+    'xl:max-w-[1520px]',
     'bg-[url(/competitionInfo/liquidityRoyale/sm/header.png)]',
     'md:bg-[url(/competitionInfo/liquidityRoyale/md/header.png)]',
     'lg:bg-[url(/competitionInfo/liquidityRoyale/lg/header.png)]',
@@ -47,8 +40,6 @@
     'bg-center',
     'bg-contain',
     'overflow-visible',
-    'absolute',
-    'left-0',
     'top-[180px]',
     'w-full',
     'z-0',
@@ -72,6 +63,15 @@
   const plusIconClasses = classNames('self-center', 'mb-6', 'md:mb-0');
 
   const searchClasses = classNames('w-full', 'lg:w-[400px]', 'lg:order-1', 'order-last', 'z-0', 'ml-1', 'order-first');
+
+  const additionalInfoWrapperClasses = classNames(
+    'flex',
+    'f-between-center',
+    'f-col',
+    'lg:f-row',
+    'space-y-[24px]',
+    'lg:space-y-0',
+  );
 </script>
 
 <div class={containerClasses}>
@@ -90,7 +90,7 @@
     <LiquidityRoyalCarousel />
   </div>
 </div>
-<div class="flex f-between-center">
+<div class={additionalInfoWrapperClasses}>
   <Search className={searchClasses} onSearch={handleSearch} placeholder="Search Address..." />
   <LastUpdated {lastUpdated} class="order-last" />
 </div>

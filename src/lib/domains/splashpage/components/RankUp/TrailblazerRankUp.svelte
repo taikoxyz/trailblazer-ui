@@ -124,10 +124,10 @@
 
           <div class={buttonContainerClasses}>
             <div class={buttonClasses}>
-              <ActionButton priority="primary" href="/leaderboard/user">User leaderboard</ActionButton>
+              <ActionButton priority="primary" href="/leaderboard/s2/user">User leaderboard</ActionButton>
             </div>
             <div class={buttonClasses}>
-              <ActionButton priority="secondary" href="/leaderboard/dapp">
+              <ActionButton priority="secondary" href="/leaderboard/s2/dapp">
                 <span class={secondaryButtonTextClasses}>Dapps leaderboard</span>
               </ActionButton>
             </div>
