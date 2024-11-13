@@ -1,98 +1,4 @@
 {
-  "badge_recruitment": {
-    "buttons": {
-      "end_recruitment": "Claim",
-      "influence": "Influence",
-      "not_eligible": "Not eligible",
-      "reveal": "Reveal",
-      "start_recruitment": "Start recruitment"
-    },
-    "faq": {
-      "entries": [
-        {
-          "answer": "The Devs are out in full force looking for new recruits to join their Faction. The Recruit tab is where you can send any Devs you control out to find new members to join your cause. Your Dev will always return with a new member that belongs to one of two Teams: the Minnows, or the Whales, and will always be the same Faction of the Dev that Recruited them. It takes XXX hours for your Dev to return with a new member. Once you have sent your Dev out it will be staked for the rest of the Season",
-          "question": "What is Recruiting?"
-        },
-        {
-          "answer": "As your Dev is out looking for Recruits you can give them orders to target a specific Team to join your cause. Every time you give your Dev the order to Influence a particular Team, it will increase your chances of your Dev returning with a member of that Team. Every time you give your Dev orders to Influence a particular Team you will see the number increase above that Team on the Recruit Influence page. If you change your mind about which Team you want to Influence you can select the other Team, and it will reset the Influence counter to 1 for your new target. You can give Influence orders to your Dev once every XXX hours.",
-          "question": "What does Influence do?"
-        },
-        {
-          "answer": "<b>The Devs</b> (S1 Badges) are the OGs, the ones that build and make things possible. For every unique Dev you control you will receive +0.05x to your <b>Global xp</b> multiplier as well as your Proposer xp.<br/><br/><b>The Whales</b> are the big bagged ones, they make splashes in DeFi. For every unique Whale you control you will receive +0.05x to your <b>Transaction Value</b> xp multiplier.<br/><br/><b>The Minnows</b> are small but plenty, what they lack in funds they make up for with activity. For every unique Minnow you control you will receive +0.05x to your <b>Transaction</b> xp multiplier.",
-          "question": "What are the different Teams and what do they do?"
-        },
-        {
-          "answer": "While your Dev is staked you will not be able to take advantage of all of their skills, so you will lose the all the multipliers that it would normally give you. ",
-          "question": "What can my Dev do while it is staked?"
-        },
-        {
-          "answer": "The Faction Battle Arena is where you can send the characters under your control to battle it out for fame, glory, and of course prizes. For more details on the FBA visit:",
-          "question": "What is the Faction Battle Arena?"
-        }
-      ],
-      "entries[2]": {
-        "answer": "",
-        "question": ""
-      },
-      "entries[3]": {
-        "answer": "",
-        "question": ""
-      },
-      "entries[4]": {
-        "answer": "",
-        "question": ""
-      },
-      "title": "Badge Recruitment FAQ"
-    },
-    "labels": {
-      "season": "Season",
-      "trail": "Trail"
-    },
-    "main": {
-      "can_claim_in": "Badge recruited in:",
-      "can_influence_in": "You can influence again in:",
-      "no_enabled_recruitments": "No recruitments are currently enabled. Stay tuned!"
-    },
-    "modal": {
-      "end_recruitment": {
-        "description": "You have successfully recruited your badge. You can now claim it.",
-        "title": "Congratulations!",
-        "toast": {
-          "error": {
-            "default_message": "Error claiming your badge recruitment",
-            "title": "Badge recruitment claim error"
-          },
-          "success": {
-            "message": "You have successfully claimed your badge",
-            "title": "Badge recruitment claim"
-          }
-        }
-      },
-      "influence_recruitment": {
-        "description": "Influence your badge to favor the path of your Season 2 badge.",
-        "title": "Your Season 2 Badge is being recruited"
-      },
-      "start_recruitment": {
-        "description": "Time to recruitment your Season 2 {badgeName} badge!",
-        "title": "Start your recruitment process",
-        "toast": {
-          "error": {
-            "message": {
-              "already_started": "You have already started another recruitment.",
-              "default": "Could not start your recruitment. Please try again later.",
-              "rejected": "You have rejected the recruitment."
-            },
-            "title": "Error"
-          },
-          "success": {
-            "message": "You have successfully started the recruitment of your badge.",
-            "title": "Success"
-          }
-        },
-        "warning": "Warning: Once you click 'Start Recruitment', your Season 1 badge will be locked for XXX days."
-      }
-    }
-  },
   "badges": {
     "claimable": "You have a claimable badge. Unlock now!",
     "movement": {
@@ -715,7 +621,7 @@
     "modal": {
       "start_recruitment": {
         "title": "Start your recruitment process",
-        "description": "Time to recruitment your Season 2 {badgeName} badge!",
+        "description": "Time to recruit your Season 2 {badgeName} badge!",
         "warning": "Warning: Once you click 'Start Recruitment', your Season 1 badge will be locked for the rest of season 2.",
         "toast": {
           "success": {
@@ -787,14 +693,6 @@
           "answer": "Sometimes you don’t even have to send a Dev out to do your dirty work and the Recruits come looking for you. This normally happens when you are making a big name for yourself by participating in other events, like the Faction Battle Arena or Liquidity Royale. During a Free Recruitment you will also be able to Influence the Team you get, but you do not have to Stake a Dev to do so. "
         }
       ]
-    }
-  },
-  "date": {
-    "labels": {
-      "days": "d",
-      "hours": "h",
-      "minutes": "min",
-      "seconds": "s"
     }
   }
 }
