@@ -133,6 +133,7 @@ export default {
         purple: {
           1000: 'rgb(27 14 62)',
           900: '#1B0E3E',
+          600: '#5D08C8',
         },
 
         red: {

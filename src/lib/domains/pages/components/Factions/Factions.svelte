@@ -2,7 +2,7 @@
   import { t } from 'svelte-i18n';
 
   import { browser } from '$app/environment';
-  import { DividerElement } from '$lib/domains/splashpage/components/DividerElement';
+  import { DividerElement } from '$lib/domains/pages/components/DividerElement';
   import { ActionButton } from '$shared/components/Button';
   import { FactionsGallery } from '$shared/components/FactionsGallery';
   import Icon from '$shared/components/Icon/Icon.svelte';

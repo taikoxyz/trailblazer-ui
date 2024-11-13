@@ -1,9 +1,9 @@
 <script lang="ts">
   import { EcosystemSection } from '$lib/domains/ecosystem/components/index';
-  import BannerCarousel from '$lib/domains/splashpage/components/Banner/BannerCarousel.svelte';
-  import S1ClaimBanner from '$lib/domains/splashpage/components/Banner/S1ClaimBanner.svelte';
-  import S2StartBanner from '$lib/domains/splashpage/components/Banner/S2StartBanner.svelte';
-  import type { Slide } from '$lib/domains/splashpage/components/Banner/types';
+  import BannerCarousel from '$lib/domains/pages/components/Banner/BannerCarousel.svelte';
+  import S1ClaimBanner from '$lib/domains/pages/components/Banner/S1ClaimBanner.svelte';
+  import S2StartBanner from '$lib/domains/pages/components/Banner/S2StartBanner.svelte';
+  import type { Slide } from '$lib/domains/pages/components/Banner/types';
   import FeaturedCampaigns from '$shared/components/FeaturedCampaigns/FeaturedCampaigns.svelte';
   import { classNames } from '$shared/utils/classNames';
 
