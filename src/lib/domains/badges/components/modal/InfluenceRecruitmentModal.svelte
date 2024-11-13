@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { onMount } from 'svelte';
   import { t } from 'svelte-i18n';
 
   import profileService from '$lib/domains/profile/services/ProfileServiceInstance';
@@ -60,6 +61,11 @@
     }
   }
 
+  $: maxInfluences = 0;
+  onMount(async () => {
+    maxInfluences = await profileService.getMaxInfluences();
+  });
+
   const detailsClasses = classNames('flex', 'flex-col', 'w-full', 'justify-center', 'items-center', 'gap-[8px]');
 
   const radioGroupName = 'radio-influence';
@@ -79,6 +85,7 @@
   {#if $activeRecruitment}
     <div class={badgesWrapperClasses}>
       <RecruitmentBadgeItem
+        locked
         on:click={() => {
           selectedMovement = Movements.Whale;
         }}
@@ -92,6 +99,7 @@
       </RecruitmentBadgeItem>
 
       <RecruitmentBadgeItem
+        locked
         hideBubbles
         on:click={() => {
           selectedMovement = Movements.Minnow;
@@ -112,6 +120,8 @@
       disabled={isLoading || selectedMovement === null}
       priority="primary">
       {$t('badge_recruitment.buttons.influence')}
+
+      ( 0 / {maxInfluences})
     </ActionButton>
   </CoreModalFooter>
 </CoreModal>

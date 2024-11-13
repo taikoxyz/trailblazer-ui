@@ -1,4 +1,4 @@
-import client from 'https://api.goldsky.com/api/public/project_clz85cxrvng3n01ughcv5e7hg/subgraphs/tbz-hekla/0.2.62/gn';
+import client from 'https://api.goldsky.com/api/public/project_clz85cxrvng3n01ughcv5e7hg/subgraphs/tbz-hekla/0.2.69/gn';
 import type {} from '@apollo/client';
 import { readable } from 'svelte/store';
 import type { Readable } from 'svelte/store';
@@ -702,27 +702,35 @@ export enum Match_OrderBy {
 
 export type OpenRecruitment = {
   __typename?: 'OpenRecruitment';
-  cycleId: Scalars['BigInt']['output'];
+  badgeIds: Array<Scalars['BigInt']['output']>;
   enabled: Scalars['Boolean']['output'];
+  endTime: Scalars['BigInt']['output'];
   id: Scalars['ID']['output'];
+  startTime: Scalars['BigInt']['output'];
 };
 
 export type OpenRecruitment_Filter = {
   /** Filter for the block changed event. */
   _change_block?: InputMaybe<BlockChangedFilter>;
   and?: InputMaybe<Array<InputMaybe<OpenRecruitment_Filter>>>;
-  cycleId?: InputMaybe<Scalars['BigInt']['input']>;
-  cycleId_gt?: InputMaybe<Scalars['BigInt']['input']>;
-  cycleId_gte?: InputMaybe<Scalars['BigInt']['input']>;
-  cycleId_in?: InputMaybe<Array<Scalars['BigInt']['input']>>;
-  cycleId_lt?: InputMaybe<Scalars['BigInt']['input']>;
-  cycleId_lte?: InputMaybe<Scalars['BigInt']['input']>;
-  cycleId_not?: InputMaybe<Scalars['BigInt']['input']>;
-  cycleId_not_in?: InputMaybe<Array<Scalars['BigInt']['input']>>;
+  badgeIds?: InputMaybe<Array<Scalars['BigInt']['input']>>;
+  badgeIds_contains?: InputMaybe<Array<Scalars['BigInt']['input']>>;
+  badgeIds_contains_nocase?: InputMaybe<Array<Scalars['BigInt']['input']>>;
+  badgeIds_not?: InputMaybe<Array<Scalars['BigInt']['input']>>;
+  badgeIds_not_contains?: InputMaybe<Array<Scalars['BigInt']['input']>>;
+  badgeIds_not_contains_nocase?: InputMaybe<Array<Scalars['BigInt']['input']>>;
   enabled?: InputMaybe<Scalars['Boolean']['input']>;
   enabled_in?: InputMaybe<Array<Scalars['Boolean']['input']>>;
   enabled_not?: InputMaybe<Scalars['Boolean']['input']>;
   enabled_not_in?: InputMaybe<Array<Scalars['Boolean']['input']>>;
+  endTime?: InputMaybe<Scalars['BigInt']['input']>;
+  endTime_gt?: InputMaybe<Scalars['BigInt']['input']>;
+  endTime_gte?: InputMaybe<Scalars['BigInt']['input']>;
+  endTime_in?: InputMaybe<Array<Scalars['BigInt']['input']>>;
+  endTime_lt?: InputMaybe<Scalars['BigInt']['input']>;
+  endTime_lte?: InputMaybe<Scalars['BigInt']['input']>;
+  endTime_not?: InputMaybe<Scalars['BigInt']['input']>;
+  endTime_not_in?: InputMaybe<Array<Scalars['BigInt']['input']>>;
   id?: InputMaybe<Scalars['ID']['input']>;
   id_gt?: InputMaybe<Scalars['ID']['input']>;
   id_gte?: InputMaybe<Scalars['ID']['input']>;
@@ -732,12 +740,22 @@ export type OpenRecruitment_Filter = {
   id_not?: InputMaybe<Scalars['ID']['input']>;
   id_not_in?: InputMaybe<Array<Scalars['ID']['input']>>;
   or?: InputMaybe<Array<InputMaybe<OpenRecruitment_Filter>>>;
+  startTime?: InputMaybe<Scalars['BigInt']['input']>;
+  startTime_gt?: InputMaybe<Scalars['BigInt']['input']>;
+  startTime_gte?: InputMaybe<Scalars['BigInt']['input']>;
+  startTime_in?: InputMaybe<Array<Scalars['BigInt']['input']>>;
+  startTime_lt?: InputMaybe<Scalars['BigInt']['input']>;
+  startTime_lte?: InputMaybe<Scalars['BigInt']['input']>;
+  startTime_not?: InputMaybe<Scalars['BigInt']['input']>;
+  startTime_not_in?: InputMaybe<Array<Scalars['BigInt']['input']>>;
 };
 
 export enum OpenRecruitment_OrderBy {
-  CycleId = 'cycleId',
+  BadgeIds = 'badgeIds',
   Enabled = 'enabled',
+  EndTime = 'endTime',
   Id = 'id',
+  StartTime = 'startTime',
 }
 
 /** Defines the order direction, either ascending or descending */

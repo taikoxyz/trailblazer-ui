@@ -79,8 +79,7 @@
   {#if $activeRecruitment}
     <div class={badgeWrapperClasses}>
       <Flippable height="400px" width="300px" flip={isRevealed}>
-        <RecruitmentBadgeItem token={$activeRecruitment.s1Badge} slot="front">
-          {$t('badge_recruitment.labels.season')} 1</RecruitmentBadgeItem>
+        <RecruitmentBadgeItem locked token={$activeRecruitment.s1Badge} slot="front" />
 
         <div slot="back">
           {#if backToken && backToken.metadata.movement !== undefined}

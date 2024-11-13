@@ -54,4 +54,9 @@ export class BadgeRecruitmentService {
     activeRecruitment.set(foundActive as IBadgeRecruitment);
     return recruitments as IBadgeRecruitment[];
   }
+
+  async getMaxInfluences(exp: number): Promise<number> {
+    log('getMaxInfluences', { exp });
+    return this.adapter.getMaxInfluences(exp);
+  }
 }

@@ -690,4 +690,10 @@ export class ProfileService implements IProfileService {
       log('Error in previousSeasonFinalScores:', error);
     }
   }
+
+  async getMaxInfluences(): Promise<number> {
+    log('getMaxInfluences');
+    const user = await this.userRepository.get();
+    return this.badgeRecruitmentService.getMaxInfluences(user.userStats?.score || 0);
+  }
 }

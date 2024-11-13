@@ -47,10 +47,15 @@ export class BadgeRecruitmentAdapter {
 
       const { openRecruitments } = graphqlResponse.data;
       log('fetchEnabledRecruitments result for openRecruitments', { openRecruitments });
-      for (const badge of openRecruitments) {
-        if (!badge.enabled) continue;
-        const currentBadgeId = parseInt(badge.id);
-        out.push(currentBadgeId);
+      for (const recruitment of openRecruitments) {
+        if (!recruitment.enabled) continue;
+        const startTime = new Date(Number(recruitment.startTime) * 1000);
+        const endTime = new Date(Number(recruitment.endTime) * 1000);
+        if (Date.now() < startTime.getTime() || Date.now() > endTime.getTime()) {
+          // recruitment is not active
+          continue;
+        }
+        out.push(...recruitment.badgeIds.map((badgeId: bigint) => Number(badgeId)));
       }
 
       log('fetchEnabledRecruitments', { out });
@@ -122,6 +127,7 @@ export class BadgeRecruitmentAdapter {
   private async _getRecruitmentSignature(
     address: Address,
     factionId: number,
+    action: 'start' | 'end' | 'influence',
   ): Promise<{
     hash: Address;
     r: Address;
@@ -131,7 +137,7 @@ export class BadgeRecruitmentAdapter {
   }> {
     const challenge = Date.now().toString();
     const challengeSignature = await signMessage(wagmiConfig, { message: challenge });
-
+    const hashType = action === 'start' ? 1 : action === 'end' ? 2 : 3;
     const res = await axios.post(
       `${PUBLIC_TRAILBLAZER_API_URL}/s2/faction/migrate`,
       {
@@ -140,6 +146,7 @@ export class BadgeRecruitmentAdapter {
         message: challenge,
         badgeId: factionId,
         chainId,
+        hashType,
       },
       {
         headers: {
@@ -161,7 +168,7 @@ export class BadgeRecruitmentAdapter {
       abi: badgeRecruitmentAbi,
       address: badgeRecruitmentAddress[chainId],
       functionName: 'generateClaimHash',
-      args: [address, BigInt(points)],
+      args: [hashType, address, BigInt(points)],
       chainId,
     });
 
@@ -182,7 +189,11 @@ export class BadgeRecruitmentAdapter {
   ): Promise<IBadgeRecruitment> {
     log('influenceRecruitment', { address, nft, recruitment });
 
-    const { r, s, v, points, hash } = await this._getRecruitmentSignature(address, nft.metadata.badgeId as number);
+    const { r, s, v, points, hash } = await this._getRecruitmentSignature(
+      address,
+      nft.metadata.badgeId as number,
+      'influence',
+    );
 
     return new Promise((resolve, reject) => {
       try {
@@ -231,7 +242,11 @@ export class BadgeRecruitmentAdapter {
       throw new Error('Badge ID is required');
     }
 
-    const { r, s, v, points, hash } = await this._getRecruitmentSignature(address, nft.metadata.badgeId as number);
+    const { r, s, v, points, hash } = await this._getRecruitmentSignature(
+      address,
+      nft.metadata.badgeId as number,
+      'end',
+    );
 
     return new Promise((resolve, reject) => {
       try {
@@ -320,5 +335,17 @@ export class BadgeRecruitmentAdapter {
       console.error(e);
       return [];
     }
+  }
+
+  async getMaxInfluences(exp: number): Promise<number> {
+    const max = await readContract(wagmiConfig, {
+      abi: badgeRecruitmentAbi,
+      address: badgeRecruitmentAddress[chainId],
+      functionName: 'maxInfluences',
+      args: [BigInt(exp)],
+      chainId,
+    });
+
+    return Number(max);
   }
 }

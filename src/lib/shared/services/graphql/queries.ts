@@ -70,6 +70,9 @@ export const FETCH_ENABLED_MIGRATIONS_QUERY = gql`
     openRecruitments(where: { enabled: true }) {
       id
       enabled
+      badgeIds
+      startTime
+      endTime
     }
   }
 `;

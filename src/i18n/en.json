@@ -566,7 +566,7 @@
       "start_recruitment": {
         "title": "Start your recruitment process",
         "description": "Time to recruitment your Season 2 {badgeName} badge!",
-        "warning": "Warning: Once you click 'Start Recruitment', your Season 1 badge will be locked for XXX days.",
+        "warning": "Warning: Once you click 'Start Recruitment', your Season 1 badge will be locked for the rest of season 2.",
         "toast": {
           "success": {
             "title": "Success",
@@ -606,11 +606,11 @@
       "entries": [
         {
           "question": "What is Recruiting?",
-          "answer": "The Devs are out in full force looking for new recruits to join their Faction. The Recruit tab is where you can send any Devs you control out to find new members to join your cause. Your Dev will always return with a new member that belongs to one of two Teams: the Minnows, or the Whales, and will always be the same Faction of the Dev that Recruited them. It takes XXX hours for your Dev to return with a new member. Once you have sent your Dev out it will be staked for the rest of the Season"
+          "answer": "The Devs are out in full force looking for new recruits to join their Faction. The Recruit tab is where you can send any Devs you control out to find new members to join your cause. Your Dev will always find one new member that belongs to one of two Teams: the Minnows, or the Whales, and will always be the same Faction of the Dev that Recruited them. It takes 24 hours for your Dev to return with a new member. Once you have sent your Dev out it will be staked for the rest of the Season."
         },
         {
           "question": "What does Influence do?",
-          "answer": "As your Dev is out looking for Recruits you can give them orders to target a specific Team to join your cause. Every time you give your Dev the order to Influence a particular Team, it will increase your chances of your Dev returning with a member of that Team. Every time you give your Dev orders to Influence a particular Team you will see the number increase above that Team on the Recruit Influence page. If you change your mind about which Team you want to Influence you can select the other Team, and it will reset the Influence counter to 1 for your new target. You can give Influence orders to your Dev once every XXX hours."
+          "answer": "As your Dev is out looking for Recruits you can give them orders to target a specific Team to join your cause. Every time you give your Dev the order to Influence a particular Team, it will increase your chances of your Dev returning with a member of that Team by XXX%. Every time you give your Dev orders to Influence a particular Team you will see the number increase above that Team on the Recruit Influence page.<br/>If you change your mind about which Team you want to Influence you can select the other Team, and it will reset the Influence counter to 1 for your new target. You can give Influence orders to your Dev once every 1 hour."
         },
         {
           "question": "What are the different Teams and what do they do?",
@@ -618,7 +618,7 @@
         },
         {
           "question": "What can my Dev do while it is staked?",
-          "answer": "While your Dev is staked you will not be able to take advantage of all of their skills, so you will lose the all the multipliers that it would normally give you. "
+          "answer": "While your Dev is staked you will not be able to take advantage of all of their skills, so you will lose all the multipliers that it would normally give you. "
         },
         {
           "question": "What is the Faction Battle Arena?",
@@ -626,15 +626,15 @@
         },
         {
           "question": "How many Faction Badges are there to collect?",
-          "answer": "There are a total of 28 Trailblazer Faction Badges. There are 3 Teams: Devs, Minnows and Whales, and those Teams are split into 8 Factions: Ravers, Robots, Bouncers, Masters, Monk, Androids, Drummers, and Shinto."
+          "answer": "There are a total of 24 Trailblazer Faction Badges. There are 3 Teams: Devs, Minnows and Whales, and those Teams are split into 8 Factions: Ravers, Robots, Bouncers, Masters, Monk, Androids, Drummers, and Shinto."
         },
         {
           "question": "How often can I recruit new members?",
-          "answer": "Recruitments happen in cycles. At the beginning of each cycle it will be announced which Factions are able to be obtained during the limited Recruitment period. During each cycle, every user will only be able to Recruit one member from the available Faction(s)."
+          "answer": "Recruitments happen in cycles. At the beginning of each cycle it will be announced which Factions are able to be obtained during the limited Recruitment period. During each cycle, every user will only be able to Recruit one member from the available Faction(s) PLUS 1 Free Recruitment that they are qualified to make. "
         },
         {
           "question": "What are Free Recruitment?",
-          "answer": "Sometimes you don’t even have to send a Dev out to do your dirty work and the Recruits come looking for you. This normally happens when you are making a big name for yourself by participating in other events, like the Faction Battle Arena or Liquidity Royale. During a Free Recruitment you will also be able to Influence the Team you get, but you do not have to Stake a Dev to do so."
+          "answer": "Sometimes you don’t even have to send a Dev out to do your dirty work and the Recruits come looking for you. This normally happens when you are making a big name for yourself by participating in other events, like the Faction Battle Arena or Liquidity Royale. During a Free Recruitment you will also be able to Influence the Team you get, but you do not have to Stake a Dev to do so. "
         }
       ]
     }

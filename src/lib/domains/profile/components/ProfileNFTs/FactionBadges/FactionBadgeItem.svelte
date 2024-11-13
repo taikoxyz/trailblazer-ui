@@ -14,12 +14,12 @@
   export let buttonDisabled = false;
   export let button: null | FactionBadgeButton = null;
   export let hideBubbles = false;
-
+  export let locked: boolean = false;
   export let token: NFT;
 
   $: badgeId = (token.metadata.badgeId as number) || 0;
   $: season = token.metadata.season as Seasons;
-  $: movementName = MovementNames[(token.metadata.movement as Movements) || Movements.Undefined];
+  $: movementName = MovementNames[(token.metadata.movement as Movements) || Movements.Dev];
 
   // CSS classes
   $: wrapperClasses = classNames(
@@ -66,6 +66,12 @@
   );
 
   const buttonWrapperClasses = classNames('absolute', 'w-full', 'bottom-0', 'p-[20px]', 'h-[88px]');
+
+  const lockedOverlayClasses = classNames('w-full', 'h-full');
+
+  const lockedOverlayGlassClasses = classNames('glassy-background', 'absolute', 'w-full', 'h-full');
+
+  $: overlayImage = `/factions/recruitment/overlay-${MovementNames[token.metadata.movement as Movements].toLowerCase()}.svg`;
 </script>
 
 <div class={wrapperClasses} role="button">
@@ -102,6 +108,12 @@
         priority={button.type}>
         {button.label}
       </ActionButton>
+    </div>
+  {/if}
+
+  {#if locked}
+    <div class={lockedOverlayGlassClasses}>
+      <img class={lockedOverlayClasses} alt="Overlay" src={overlayImage} />
     </div>
   {/if}
 </div>

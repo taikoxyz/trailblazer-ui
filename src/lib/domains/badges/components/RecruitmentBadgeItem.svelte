@@ -10,9 +10,10 @@
   export let value: number = 0;
   export let shadow: boolean = false;
   export let hideBubbles = false;
+  export let locked = false;
 
   export let token: NFT;
-
+  const hasSlotContent = Object.keys($$slots).includes('default');
   const dispatch = createEventDispatcher();
 
   $: unlocked = !blurred;
@@ -32,7 +33,7 @@
     'flex-col',
     'items-center',
     'justify-center',
-    'pb-0',
+    hasSlotContent ? 'pb-0' : null,
     'transition-all',
     shadow && (token.metadata.movement as Movements) === Movements.Minnow
       ? 'border-secondary  shadow-[0_0px_50px_0px_#E81899]'
@@ -40,7 +41,7 @@
     shadow && (token.metadata.movement as Movements) === Movements.Whale
       ? 'border-[#5D08C8] shadow-[0_0px_50px_0px_#5D08C8]'
       : null,
-    shadow && (token.metadata.movement as Movements) === Movements.Undefined
+    shadow && (token.metadata.movement as Movements) === Movements.Dev
       ? 'border-[white] shadow-[0_0px_50px_0px_white]'
       : null,
   );
@@ -69,7 +70,12 @@
     'items-center',
   );
 
-  const lockImageOverlayClasses = classNames('absolute', 'w-full', 'h-full', 'glassy-background');
+  $: lockImageOverlayClasses = classNames(
+    'absolute',
+    'w-full',
+    'h-full',
+    hasSlotContent ? 'glassy-background' : 'glassy-background-lg',
+  );
 
   const indicatorClasses = classNames('indicator-item', 'badge', 'badge-secondary', 'text-white', 'text-[24]/[36px]');
 </script>
@@ -79,11 +85,13 @@
     <span class={indicatorClasses}>{value}</span>
   {/if}
   <div class={imageWrapperClasses}>
-    <FactionBadgeItem {hideBubbles} {token} />
+    <FactionBadgeItem {locked} {hideBubbles} {token} />
     {#if !unlocked}
       <div class={lockImageOverlayClasses}></div>{/if}
   </div>
-  <div class={badgeTextClasses}>
-    <slot />
-  </div>
+  {#if hasSlotContent}
+    <div class={badgeTextClasses}>
+      <slot />
+    </div>
+  {/if}
 </button>
