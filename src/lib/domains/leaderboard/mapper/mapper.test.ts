@@ -9,7 +9,7 @@ import { mapDappLeaderboardRow, mapGamingLeaderboardRow, mapUserLeaderboardRow }
 describe('mapDappLeaderboardRow', () => {
   it('should correctly map DappLeaderboardRow to UnifiedLeaderboardRow', () => {
     const input: DappLeaderboardRow = {
-      address: zeroAddress,
+      name: 'Test Dapp',
       data: [
         {
           address: zeroAddress,
@@ -17,7 +17,7 @@ describe('mapDappLeaderboardRow', () => {
         },
       ],
       metadata: {
-        name: 'Test DApp',
+        name: 'Test Dapp',
         slug: 'test-dapp',
         twitter: '@testdapp',
         logo: 'https://example.com/logo.png',
@@ -27,12 +27,11 @@ describe('mapDappLeaderboardRow', () => {
     };
 
     const expected: UnifiedLeaderboardRow = {
-      address: input.address,
-      icon: input.metadata!.logo,
       handle: input.metadata!.twitter,
       data: input.data,
       name: input.metadata!.name,
       totalScore: input.totalScore,
+      icon: input.metadata!.logo,
       rank: input.rank,
     };
 
@@ -45,7 +44,7 @@ describe('mapDappLeaderboardRow', () => {
 describe('mapGamingLeaderboardRow', () => {
   it('should correctly map GamingLeaderboardRow to UnifiedLeaderboardRow', () => {
     const input: GamingLeaderboardRow = {
-      address: zeroAddress,
+      name: 'Test Game',
       data: [
         {
           address: zeroAddress,
@@ -63,7 +62,6 @@ describe('mapGamingLeaderboardRow', () => {
     };
 
     const expected: UnifiedLeaderboardRow = {
-      address: input.address,
       icon: input.metadata!.logo,
       handle: input.metadata!.twitter,
       data: input.data,

@@ -1,5 +1,4 @@
 import type { AxiosInstance } from 'axios';
-import { zeroAddress } from 'viem';
 
 import { GamingLeaderboardAdapter } from '$lib/domains/leaderboard/adapter/GamingLeaderboardAdapter';
 import type { GamingLeaderboardItem, GamingLeaderboardPageApiResponse } from '$lib/domains/leaderboard/dto/gaming.dto';
@@ -26,13 +25,13 @@ describe('GamingLeaderboardAdapter', () => {
         data: {
           items: [
             {
-              address: zeroAddress,
+              name: 'Game 1',
               score: 150,
               slug: 'game-1',
               rank: 1,
             },
             {
-              address: zeroAddress,
+              name: 'Game 2',
               score: 250,
               slug: 'game-2',
               rank: 2,

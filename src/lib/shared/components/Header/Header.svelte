@@ -9,10 +9,6 @@
 
   let isMenuOpen = false;
 
-  function toggleMobileMenu() {
-    isMenuOpen = !isMenuOpen;
-  }
-
   const wrapperClasses = classNames(
     'w-[100vw]',
     'px-[24px]',
@@ -58,7 +54,7 @@
 
         <!-- Desktop Navigation -->
         <Navigation />
-        <MobileNavigation on:navigate={toggleMobileMenu} bind:isMenuOpen />
+        <MobileNavigation bind:isMenuOpen />
         <div class="hidden xl:flex">
           <ConnectButton />
         </div>

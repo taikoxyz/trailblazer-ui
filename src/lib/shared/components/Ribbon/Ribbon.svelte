@@ -55,7 +55,7 @@
   });
 </script>
 
-<div class="w-full bg-pink-400 overflow-hidden py-[12px] h-[48px]" bind:this={containerRef}>
+<div class="w-full bg-pink-400 overflow-hidden py-[12px] h-[48px] relative z-50" bind:this={containerRef}>
   <div class="flex whitespace-nowrap animate-marquee">
     <!-- eslint-disable-next-line @typescript-eslint/no-unused-vars -->
     {#each Array(duplicates) as _}
