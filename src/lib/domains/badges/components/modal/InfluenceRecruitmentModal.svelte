@@ -25,12 +25,10 @@
     'lg:gap-[80px]',
   );
 
-  $: s1BadgeId = ($activeRecruitment?.s1Badge?.metadata.badgeId as number) || 0;
-
   $: isLoading = false;
-
   $: selectedMovement = null as null | Movements;
 
+  $: s1BadgeId = ($activeRecruitment?.s1Badge?.metadata.badgeId as number) || 0;
   $: influenceCounter = $activeRecruitment
     ? $activeRecruitment.minnowInfluences + $activeRecruitment?.whaleInfluences
     : 0;
