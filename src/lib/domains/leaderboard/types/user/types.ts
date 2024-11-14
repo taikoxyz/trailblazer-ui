@@ -5,6 +5,8 @@ import type { PaginationInfo, UnifiedLeaderboardRow } from '$lib/domains/leaderb
 export type UserLeaderboardItem = {
   address: Address;
   score: number;
+  multiplier?: number;
+  totalScore?: number;
   rank: number;
 };
 

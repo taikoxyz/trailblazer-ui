@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { setContext } from 'svelte';
   import { t } from 'svelte-i18n';
 
   import { leaderboardConfig } from '$config';
@@ -6,9 +7,13 @@
   import { UserLeaderboardHeader } from '$lib/domains/leaderboard/components/Header';
   import { AbstractLeaderboard, PointScore } from '$lib/domains/leaderboard/components/Template';
   import { userLeaderboardService } from '$lib/domains/leaderboard/services/LeaderboardServiceInstances';
-  import { currentUserLeaderboard } from '$lib/domains/leaderboard/stores/userLeaderboard';
-  import type { UserLeaderboardItem, UserLeaderboardPage } from '$lib/domains/leaderboard/types/user/types';
+  import {
+    currentUserLeaderboard,
+    currentUserLeaderboardUserEntry,
+  } from '$lib/domains/leaderboard/stores/userLeaderboard';
+  import type { UserLeaderboardItem } from '$lib/domains/leaderboard/types/user/types';
   import type { PaginationInfo } from '$lib/shared/dto/CommonPageApiResponse';
+  import getConnectedAddress from '$shared/utils/getConnectedAddress';
 
   let headers = ['No.', 'Address', 'Level', '', 'Points'];
 
@@ -26,19 +31,26 @@
     loadLeaderboardData(page);
   }
 
-  async function loadLeaderboardData(page: number) {
+  async function loadLeaderboardData(page: number, address = '') {
     loading = true;
     // Fetch the leaderboard data for the given page
     const args: PaginationInfo<UserLeaderboardItem> = {
       page,
       size: pageSize,
       total: totalItems,
+      address,
     };
-    const leaderboardPage: UserLeaderboardPage = await userLeaderboardService.getUserLeaderboardData(args, season);
+    const [leaderboardPage, userEntry] = await Promise.all([
+      userLeaderboardService.getUserLeaderboardData(args, season),
+      userLeaderboardService.getUserLeaderboardDataForAddress(season, getConnectedAddress()),
+    ]);
     totalItems = leaderboardPage?.pagination.total || $currentUserLeaderboard.items.length;
-
+    $currentUserLeaderboardUserEntry = userEntry;
     loading = false;
   }
+
+  setContext('loadUserLeaderboardData', loadLeaderboardData);
+  setContext('userPageInfo', pageInfo);
 </script>
 
 <AbstractLeaderboard
@@ -51,6 +63,7 @@
   showTrophy={true}
   isLoading={loading}
   ended={hasEnded}
+  highlightedUserPosition={$currentUserLeaderboardUserEntry}
   endedComponent={CampaignEndedInfoBox}
   endTitleText={$t('leaderboard.user.ended.s1.title')}
   endDescriptionText={$t('leaderboard.user.ended.s1.description')}

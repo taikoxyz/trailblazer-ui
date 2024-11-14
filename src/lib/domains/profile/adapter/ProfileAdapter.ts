@@ -39,7 +39,7 @@ export class ProfileApiAdapter {
       params: { address },
       ...globalAxiosConfig,
     });
-
+    log('fetchUserPointsAndRank response', response.data);
     return response.data;
   }
 
