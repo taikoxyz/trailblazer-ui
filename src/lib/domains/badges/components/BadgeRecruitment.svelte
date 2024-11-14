@@ -129,15 +129,10 @@
   });
 
   $: forceRenderFlag = true;
-  async function onCounterEnd(recruitment: IBadgeRecruitment, status: RecruitmentStatus) {
+  async function onCounterEnd() {
     if (!$account || !$account.address) return;
     forceRenderFlag = false;
-
-    $activeRecruitment = {
-      ...recruitment,
-      status,
-    };
-
+    await handleRefresh();
     forceRenderFlag = true;
   }
 
@@ -284,7 +279,7 @@
               {@const canClaim = recruitment.status === RecruitmentStatus.CAN_CLAIM}
               {@const canInfluence = recruitment.status === RecruitmentStatus.CAN_REFINE}
               {@const isComplete = recruitment.status === RecruitmentStatus.COMPLETED}
-              {@const blurred = canInfluence || isStarted}
+              {@const blurred = canInfluence || isStarted || (influenceExpiration && influenceExpiration > new Date())}
               {@const inColor = isEligible || canClaim || canInfluence || isComplete}
               {@const buttonDisabled =
                 isInfluenceActive ||
@@ -322,14 +317,14 @@
                           <!-- cannot re-influence yet-->
                           {$t('badge_recruitment.main.can_influence_in')}
                         {:else if claimExpiration && claimExpiration > new Date()}
-                          <!-- logic for uninfluenceed, time 0 -->
+                          <!-- logic for uninfluenced, time 0 -->
                           {$t('badge_recruitment.main.can_claim_in')}
                         {/if}
                       </div>
                       {#if influenceExpiration && influenceExpiration > new Date()}
                         <!-- cannot re-influence yet-->
                         <Countdown
-                          on:end={() => onCounterEnd(recruitment, RecruitmentStatus.CAN_REFINE)}
+                          on:end={onCounterEnd}
                           class={countdownWrapperClasses}
                           itemClasses={countdownItemClasses}
                           labels={{
@@ -342,7 +337,7 @@
                       {:else if claimExpiration && claimExpiration > new Date()}
                         <!-- logic for uninfluenceed -->
                         <Countdown
-                          on:end={() => onCounterEnd(recruitment, RecruitmentStatus.CAN_CLAIM)}
+                          on:end={onCounterEnd}
                           class={countdownWrapperClasses}
                           itemClasses={countdownItemClasses}
                           labels={{

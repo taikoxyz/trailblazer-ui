@@ -33,14 +33,13 @@
     'items-center',
     'gap-[24px]',
     'px-[20px]',
+    'relative',
   );
 
   const closeButtonClasses = classNames(
-    'absolute',
-    'top-[40px]',
-    'right-[40px]',
     'w-[50px]',
     'h-[50px]',
+
     'bg-secondary-icon',
     'rounded-full',
     'flex',
@@ -48,6 +47,14 @@
     'justify-center',
     'hover:bg-grey-900',
     'transition-all',
+    // mobile
+    'top-[10px]',
+    'right-[10px]',
+    // bigger
+
+    'absolute',
+    'md:top-[40px]',
+    'md:right-[40px]',
   );
 
   const closeButtonIconClasses = classNames('fill-primary-icon', 'absolute', 'left-[11px]', 'top-[11px]');
@@ -62,10 +69,11 @@
     <div class={contentWrapperClasses}>
       <div class={contentClasses}>
         <slot />
+
+        <button class={closeButtonClasses} on:click={closeModal}>
+          <Icon type="x-close" class={closeButtonIconClasses} size={24} />
+        </button>
       </div>
     </div>
-    <button class={closeButtonClasses} on:click={closeModal}>
-      <Icon type="x-close" class={closeButtonIconClasses} size={24} />
-    </button>
   </dialog>
 {/if}

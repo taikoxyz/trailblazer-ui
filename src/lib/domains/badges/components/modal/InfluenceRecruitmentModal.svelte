@@ -31,6 +31,10 @@
 
   $: selectedMovement = null as null | Movements;
 
+  $: influenceCounter = $activeRecruitment
+    ? $activeRecruitment.minnowInfluences + $activeRecruitment?.whaleInfluences
+    : 0;
+
   async function handleInfluence() {
     try {
       if (!$account || !$account.address || !$activeRecruitment || selectedMovement === null) return;
@@ -117,11 +121,11 @@
     <ActionButton
       loading={isLoading}
       on:click={handleInfluence}
-      disabled={isLoading || selectedMovement === null}
+      disabled={isLoading || selectedMovement === null || influenceCounter === maxInfluences}
       priority="primary">
       {$t('badge_recruitment.buttons.influence')}
 
-      ( 0 / {maxInfluences})
+      ( {influenceCounter} / {maxInfluences})
     </ActionButton>
   </CoreModalFooter>
 </CoreModal>
