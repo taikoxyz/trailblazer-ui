@@ -46,7 +46,7 @@
 
   let isSelfProfile = false;
 
-  const claimingLive = PUBLIC_CLAIMING_ACTIVE || false;
+  const claimingLive = PUBLIC_CLAIMING_ACTIVE === 'true';
 
   onMount(() => {
     const urlAddress = $page.url.pathname.split('/').pop() as Address;
