@@ -79,7 +79,8 @@ export class DappLeaderboardService {
       const unifiedRows = settledRows.filter((row): row is UnifiedLeaderboardRow => row !== null);
       log('filtered rows', unifiedRows);
       leaderboardPage.items.push(...unifiedRows);
-      leaderboardPage.pagination = { ...leaderboardData.data, ...args };
+      leaderboardPage.pagination = { ...args, total: leaderboardData.data.total };
+
       log('updating leaderboard page', leaderboardPage);
       this.leaderboardRepository.update(leaderboardPage);
       return leaderboardPage;
