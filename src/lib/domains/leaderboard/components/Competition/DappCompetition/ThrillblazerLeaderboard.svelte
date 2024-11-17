@@ -12,7 +12,7 @@
   import { getLogger } from '$shared/utils/logger';
 
   import { CampaignEndedInfoBox } from '../../CampaignEndedInfoBox';
-  import DappCompetitionHeader from './DappCompetitionHeader.svelte';
+  import ThrillblazerHeader from './ThrillblazerHeader.svelte';
 
   const log = getLogger('DappsLeaderboard');
   export let loading = false;
@@ -66,5 +66,5 @@
   endDescriptionText={$t('leaderboard.thrillblazer.ended.description')}
   showPagination={true}
   {season}
-  headerComponent={DappCompetitionHeader}
+  headerComponent={ThrillblazerHeader}
   scoreComponent={PointScore} />
