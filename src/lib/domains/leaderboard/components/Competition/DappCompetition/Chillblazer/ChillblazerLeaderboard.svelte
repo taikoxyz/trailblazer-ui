@@ -45,7 +45,6 @@
 
     const leaderboardPage: DappLeaderboardPage = await chillblazerService.fetchCompetitionData(args, season);
 
-    // date from timestamp
     totalItems = leaderboardPage?.pagination.total || $currentDappCompetitionLeaderboard.items.length;
     loading = false;
   }
