@@ -55,7 +55,7 @@
 </script>
 
 <AbstractLeaderboard
-  headers={['No.', 'Game', '', 'Points']}
+  headers={['No.', 'Dapp', '', 'Points']}
   data={$currentDappCompetitionLeaderboard.items}
   showTrophy={true}
   lastUpdated={new Date($currentDappCompetitionLeaderboard.lastUpdated)}

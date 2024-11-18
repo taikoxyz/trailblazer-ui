@@ -222,6 +222,29 @@
         "title": "Campaign ended"
       }
     },
+    "chillblazers": {
+      "ended": {
+        "description": "ur journey concluded on Dec 18th, 2024. Congratulations to the winners!",
+        "title": "Journey ended"
+      },
+      "prize": {
+        "2": "100K TAIKO Tokens"
+      },
+      "prize_breakdown": {
+        "first": {
+          "amount": "50k"
+        },
+        "fourth": {
+          "amount": "5k"
+        },
+        "second": {
+          "amount": "30k"
+        },
+        "third": {
+          "amount": "15k"
+        }
+      }
+    },
     "competitions": {
       "s2": {
         "dapp": {

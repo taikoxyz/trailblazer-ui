@@ -94,27 +94,23 @@
     title: '',
     description: $t('leaderboard.gaming.banner.description'),
     prizeTitle: $t('leaderboard.gaming.prize.1'),
-    prizeSubtitle: $t('leaderboard.gaming.prize.2'),
+    prizeSubtitle: $t('leaderboard.chillblazers.prize.2'),
     prizes: [
       {
         image: '/first.svg',
-        amount: $t('leaderboard.thrillblazer.prize_breakdown.first.amount'),
+        amount: $t('leaderboard.chillblazers.prize_breakdown.first.amount'),
       },
       {
         image: '/second.svg',
-        amount: $t('leaderboard.thrillblazer.prize_breakdown.second.amount'),
+        amount: $t('leaderboard.chillblazers.prize_breakdown.second.amount'),
       },
       {
         image: '/third.svg',
-        amount: $t('leaderboard.thrillblazer.prize_breakdown.third.amount'),
+        amount: $t('leaderboard.chillblazers.prize_breakdown.third.amount'),
       },
       {
         image: '/default-prize.svg',
-        amount: $t('leaderboard.thrillblazer.prize_breakdown.fourth.amount'),
-      },
-      {
-        image: '/default-prize.svg',
-        amount: $t('leaderboard.thrillblazer.prize_breakdown.fifth.amount'),
+        amount: $t('leaderboard.chillblazers.prize_breakdown.fourth.amount'),
       },
     ],
   };
@@ -256,7 +252,7 @@
     Prize pool
     <span class="text-white align-baseline">&#x25C6</span>
   </h2>
-  <h3 class={h3Classes}>140k TAIKO Tokens</h3>
+  <h3 class={h3Classes}>{competitionInfo.prizeSubtitle}</h3>
 
   <div class={priceWrapperClasses}>
     {#each competitionInfo.prizes as prize}
