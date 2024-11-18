@@ -3,13 +3,12 @@
   import { t } from 'svelte-i18n';
 
   import { LastUpdated } from '$lib/domains/leaderboard/components';
+  import type { CompetitionInfo } from '$lib/domains/leaderboard/components/Competition/types';
   import Search from '$lib/domains/leaderboard/components/Search.svelte';
   import type { DappLeaderboardItem } from '$lib/domains/leaderboard/dto/dapps.dto';
   import type { LoadLeaderboardDataType } from '$lib/domains/leaderboard/types/shared/types';
   import type { PaginationInfo } from '$shared/dto/CommonPageApiResponse';
   import { classNames } from '$shared/utils/classNames';
-
-  import type { CompetitionInfo } from '../types';
 
   const loadLeaderboardData = getContext<LoadLeaderboardDataType>('loadCompetitionLeaderboardData');
   const pageInfo = getContext<PaginationInfo<DappLeaderboardItem>>('dappsCompetitionPageInfo');

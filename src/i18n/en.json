@@ -425,6 +425,9 @@
     "competitions": {
       "dapp": "Taiko Trailblazer - Dapp Competition Leaderboard"
     },
+    "journeys": {
+      "chillblazers": "Taiko - Chillblazer"
+    },
     "leaderboards": {
       "dapp": "Taiko Trailblazer - Dapp Leaderboard",
       "user": "Taiko Trailblazer - User Leaderboard"

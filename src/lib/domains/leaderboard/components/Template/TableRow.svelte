@@ -52,7 +52,7 @@
 <tr class={rowClasses} on:click={() => toggleRow(index)}>
   <td class={`${rankCellClasses}`}>
     <div class={rankIconClasses}>
-      {#if showTrophy && rank <= qualifyingPositions && qualifyingPositions > 3}
+      {#if showTrophy && rank <= qualifyingPositions && qualifyingPositions > 5}
         <Icon type="gold-crown" />
       {:else if showTrophy}
         <Icon type="trophy" {fillClass} />

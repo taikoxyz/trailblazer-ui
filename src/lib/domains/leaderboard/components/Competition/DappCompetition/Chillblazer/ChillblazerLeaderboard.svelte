@@ -3,16 +3,15 @@
   import { t } from 'svelte-i18n';
 
   import { leaderboardConfig } from '$config';
+  import { CampaignEndedInfoBox } from '$lib/domains/leaderboard/components/CampaignEndedInfoBox';
   import { AbstractLeaderboard, PointScore } from '$lib/domains/leaderboard/components/Template';
   import type { DappLeaderboardItem } from '$lib/domains/leaderboard/dto/dapps.dto';
-  import { dappCompetitionService } from '$lib/domains/leaderboard/services/LeaderboardServiceInstances';
-  import currentDappCompetitionLeaderboard from '$lib/domains/leaderboard/stores/dappCompetitionLeaderboard';
+  import { chillblazerService } from '$lib/domains/leaderboard/services/LeaderboardServiceInstances';
   import type { DappLeaderboardPage } from '$lib/domains/leaderboard/types/dapps/types';
   import type { PaginationInfo } from '$lib/shared/dto/CommonPageApiResponse';
   import { getLogger } from '$shared/utils/logger';
 
-  import { CampaignEndedInfoBox } from '../../CampaignEndedInfoBox';
-  import ThrillblazerHeader from './ThrillblazerHeader.svelte';
+  import ChillblazerHeader from './ChillblazerHeader.svelte';
 
   const log = getLogger('DappsLeaderboard');
   export let loading = false;
@@ -31,6 +30,8 @@
     loadLeaderboardData(page);
   }
 
+  const currentDappCompetitionLeaderboard = chillblazerService.getStore();
+
   async function loadLeaderboardData(page: number, name = '') {
     log('loadLeaderboardData', page, name);
     loading = true;
@@ -41,7 +42,8 @@
       slug: name,
       total: totalItems,
     };
-    const leaderboardPage: DappLeaderboardPage = await dappCompetitionService.getCompetitionData(args, season);
+
+    const leaderboardPage: DappLeaderboardPage = await chillblazerService.fetchCompetitionData(args, season);
 
     // date from timestamp
     totalItems = leaderboardPage?.pagination.total || $currentDappCompetitionLeaderboard.items.length;
@@ -61,10 +63,11 @@
   {handlePageChange}
   {totalItems}
   ended={hasEnded}
+  qualifyingPositions={4}
   endedComponent={CampaignEndedInfoBox}
-  endTitleText={$t('leaderboard.thrillblazer.ended.title')}
-  endDescriptionText={$t('leaderboard.thrillblazer.ended.description')}
+  endTitleText={$t('leaderboard.chillblazers.ended.title')}
+  endDescriptionText={$t('leaderboard.chillblazers.ended.description')}
   showPagination={true}
   {season}
-  headerComponent={ThrillblazerHeader}
+  headerComponent={ChillblazerHeader}
   scoreComponent={PointScore} />
