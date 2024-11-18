@@ -22,7 +22,7 @@ describe('ProtocolAdapter', () => {
   let protocolAdapter: ProtocolAdapter;
 
   beforeEach(() => {
-    protocolAdapter = new ProtocolAdapter();
+    protocolAdapter = new ProtocolAdapter('');
     vi.clearAllMocks();
   });
 

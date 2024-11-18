@@ -48,7 +48,8 @@
   }
 
   function getFillClass(rank: number): string {
-    if (qualifyingPositions > 3 && rank <= qualifyingPositions) {
+    // return 'fill-primary-brand';
+    if (qualifyingPositions > 5 && rank <= qualifyingPositions) {
       return 'fill-fixed-icon';
     }
     switch (rank) {
@@ -58,6 +59,10 @@
         return 'fill-grey-300';
       case 3:
         return 'fill-yellow-700';
+      case 4:
+        return 'fill-secondary-brand';
+      case 5:
+        return 'fill-secondary-brand';
       default:
         return '';
     }

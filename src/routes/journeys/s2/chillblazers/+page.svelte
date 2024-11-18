@@ -3,7 +3,7 @@
 
   import { goto } from '$app/navigation';
   import { page } from '$app/stores';
-  import ThrillblazerLeaderboard from '$lib/domains/leaderboard/components/Competition/DappCompetition/ThrillblazerLeaderboard.svelte';
+  import ChillblazerLeaderboard from '$lib/domains/leaderboard/components/Competition/DappCompetition/Chillblazer/ChillblazerLeaderboard.svelte';
   import type { DappLeaderboardItem } from '$lib/domains/leaderboard/dto/dapps.dto';
   import type { PaginationInfo } from '$lib/shared/dto/CommonPageApiResponse';
   import { ActionButton } from '$shared/components/Button';
@@ -24,11 +24,11 @@
 </script>
 
 <svelte:head>
-  <title>{$t('pagetitle.competition.dapp')}</title>
+  <title>{$t('pagetitle.journeys.chillblazers')}</title>
 </svelte:head>
 
 <Page>
-  <ThrillblazerLeaderboard {pageInfo} {loading} season={2} />
+  <ChillblazerLeaderboard {pageInfo} {loading} season={2} />
 
   <div class={wrapperClasses}>
     <ActionButton class={buttonClasses} priority="primary" on:click={handleClick} withArrow>
