@@ -1,12 +1,13 @@
 <script lang="ts">
   import type { ComponentType } from 'svelte';
-  import { isAddress } from 'viem';
+  import { isAddress, zeroAddress } from 'viem';
 
   import { leaderboardConfig } from '$config';
   import type { UnifiedLeaderboardRow } from '$lib/domains/leaderboard/types/shared/types';
   import { DisabledMask } from '$shared/components/Masks';
   import Paginator from '$shared/components/Paginator/Paginator.svelte';
   import { classNames } from '$shared/utils/classNames';
+  import getConnectedAddress from '$shared/utils/getConnectedAddress';
 
   import LoadingRow from './LoadingRow.svelte';
   import TableHeader from './TableHeader.svelte';
@@ -126,7 +127,7 @@
 
       <tbody class={tbodyClass}>
         <!-- A single row to highlight a position -->
-        {#if highlightedUserPosition}
+        {#if highlightedUserPosition && getConnectedAddress() !== zeroAddress}
           {@const rank = highlightedUserPosition.rank}
           {@const userEntry = { ...highlightedUserPosition, address: 'Your position' }}
           {@const fillClass = getFillClass(rank)}
@@ -175,7 +176,6 @@
           {/each}
         {/if}
 
-        data.lengt{data.length}
         {#if data.length === 0 && !isLoading}
           <tr class={noDataRowClass}>
             <td class="lg:px-10" colspan="3">No data available yet</td>
