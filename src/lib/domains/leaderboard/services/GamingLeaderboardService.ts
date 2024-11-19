@@ -25,7 +25,7 @@ export class GamingLeaderboardService {
     leaderboardRepository?: GamingLeaderboardRepository,
   ) {
     this.leaderboardRepository = leaderboardRepository ? leaderboardRepository : new GamingLeaderboardRepository();
-    this.protocolAdapter = protocolAdapter ? protocolAdapter : new ProtocolAdapter();
+    this.protocolAdapter = protocolAdapter ? protocolAdapter : new ProtocolAdapter('gaming');
     this.leaderboardAdapter = leaderboardAdapter ? leaderboardAdapter : new GamingLeaderboardAdapter();
   }
 

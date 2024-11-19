@@ -3,23 +3,22 @@
   import { t } from 'svelte-i18n';
 
   import { leaderboardConfig } from '$config';
+  import { CampaignEndedInfoBox } from '$lib/domains/leaderboard/components/CampaignEndedInfoBox';
   import { AbstractLeaderboard, PointScore } from '$lib/domains/leaderboard/components/Template';
   import type { DappLeaderboardItem } from '$lib/domains/leaderboard/dto/dapps.dto';
-  import { dappCompetitionService } from '$lib/domains/leaderboard/services/LeaderboardServiceInstances';
-  import currentDappCompetitionLeaderboard from '$lib/domains/leaderboard/stores/dappCompetitionLeaderboard';
+  import { thrillblazerService } from '$lib/domains/leaderboard/services/LeaderboardServiceInstances';
   import type { DappLeaderboardPage } from '$lib/domains/leaderboard/types/dapps/types';
   import type { PaginationInfo } from '$lib/shared/dto/CommonPageApiResponse';
   import { getLogger } from '$shared/utils/logger';
 
-  import { CampaignEndedInfoBox } from '../../CampaignEndedInfoBox';
-  import DappCompetitionHeader from './DappCompetitionHeader.svelte';
+  import ThrillblazerHeader from './ThrillblazerHeader.svelte';
 
   const log = getLogger('DappsLeaderboard');
   export let loading = false;
   export let pageInfo: PaginationInfo<DappLeaderboardItem>;
   export let season: number;
 
-  const endedSeasons: number[] = [];
+  const endedSeasons: number[] = [2];
 
   $: totalItems = pageInfo?.total || 0;
   $: pageSize = pageInfo?.size || leaderboardConfig.pageSize;
@@ -31,6 +30,8 @@
     loadLeaderboardData(page);
   }
 
+  const currentDappCompetitionLeaderboard = thrillblazerService.getStore();
+
   async function loadLeaderboardData(page: number, name = '') {
     log('loadLeaderboardData', page, name);
     loading = true;
@@ -41,7 +42,8 @@
       slug: name,
       total: totalItems,
     };
-    const leaderboardPage: DappLeaderboardPage = await dappCompetitionService.getCompetitionData(args, season);
+
+    const leaderboardPage: DappLeaderboardPage = await thrillblazerService.fetchCompetitionData(args, season);
 
     // date from timestamp
     totalItems = leaderboardPage?.pagination.total || $currentDappCompetitionLeaderboard.items.length;
@@ -53,7 +55,7 @@
 </script>
 
 <AbstractLeaderboard
-  headers={['No.', 'Game', '', 'Points']}
+  headers={['No.', 'Dapp', '', 'Points']}
   data={$currentDappCompetitionLeaderboard.items}
   showTrophy={true}
   lastUpdated={new Date($currentDappCompetitionLeaderboard.lastUpdated)}
@@ -61,10 +63,11 @@
   {handlePageChange}
   {totalItems}
   ended={hasEnded}
+  qualifyingPositions={4}
   endedComponent={CampaignEndedInfoBox}
-  endTitleText={$t('leaderboard.gaming.ended.s1.title')}
-  endDescriptionText={$t('leaderboard.gaming.ended.s1.description')}
+  endTitleText={$t('leaderboard.thrillblazer.ended.title')}
+  endDescriptionText={$t('leaderboard.thrillblazer.ended.description')}
   showPagination={true}
   {season}
-  headerComponent={DappCompetitionHeader}
+  headerComponent={ThrillblazerHeader}
   scoreComponent={PointScore} />

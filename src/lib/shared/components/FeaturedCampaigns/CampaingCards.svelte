@@ -20,18 +20,18 @@
       },
     },
     {
-      title: 'Thrillblazers',
+      title: 'Chillblazers',
       text: 'Prize pool 140K TAIKO tokens for all gaming and sociafi dapps!',
       btn: {
         text: 'Start now',
         external: false,
-        destination: 'competitions/s2/dapps',
+        destination: 'journeys/s2/chillblazers',
       },
       images: {
-        sm: '/campaign/cards/sm/thrillblazers.png',
-        md: '/campaign/cards/md/thrillblazers.png',
-        lg: '/campaign/cards/lg/thrillblazers.png',
-        xl: '/campaign/cards/xl/thrillblazers.png',
+        sm: '/campaign/cards/sm/chillblazers.png',
+        md: '/campaign/cards/md/chillblazers.png',
+        lg: '/campaign/cards/lg/chillblazers.png',
+        xl: '/campaign/cards/xl/chillblazers.png',
       },
     },
     {

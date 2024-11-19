@@ -33,10 +33,11 @@ export const routes: NavigationItem[] = [
     ],
   },
   {
-    name: 'Competitions',
+    name: 'Journeys',
     children: [
-      { name: 'Thrillblazer', route: '/competitions/s2/dapps', icon: 'flower-circle' },
-      { name: 'Liquidity Royale', route: '/competitions/s2/liquidity', icon: 'quad-circles' },
+      { name: 'Chillblazers', route: '/journeys/s2/chillblazers', icon: 'nav-conway' },
+      { name: 'Thrillblazers', route: '/journeys/s2/thrillblazers', icon: 'flower-circle' },
+      { name: 'Liquidity Royale', route: '/journeys/s2/liquidity', icon: 'nav-cross' },
     ],
   },
 ];

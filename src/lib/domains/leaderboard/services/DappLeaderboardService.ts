@@ -24,7 +24,7 @@ export class DappLeaderboardService {
     leaderboardRepository?: DappLeaderboardRepository,
   ) {
     this.leaderboardRepository = leaderboardRepository ? leaderboardRepository : new DappLeaderboardRepository();
-    this.protocolAdapter = protocolAdapter ? protocolAdapter : new ProtocolAdapter();
+    this.protocolAdapter = protocolAdapter ? protocolAdapter : new ProtocolAdapter('details');
     this.leaderboardAdapter = leaderboardAdapter ? leaderboardAdapter : new DappLeaderboardAdapter();
   }
 

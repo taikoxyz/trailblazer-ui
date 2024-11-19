@@ -298,13 +298,19 @@ export default {
         /* Neon Green Text Stroke */
         '.text-stroke-neon-green': {
           '-webkit-text-stroke-color': 'var(--neon-green-color)',
-          'text-stroke-color': 'var(--neon-green-color)', // For better browser support
+          'text-stroke-color': 'var(--neon-green-color)',
         },
 
         /* Neon Red Text Stroke */
         '.text-stroke-neon-red': {
           '-webkit-text-stroke-color': 'var(--neon-red-color)',
-          'text-stroke-color': 'var(--neon-red-color)', // For better browser support
+          'text-stroke-color': 'var(--neon-red-color)',
+        },
+
+        /* Neon Blue Text Stroke */
+        '.text-stroke-neon-blue': {
+          '-webkit-text-stroke-color': 'var(--neon-blue-color)',
+          'text-stroke-color': 'var(--neon-blue-color)',
         },
 
         /* Neon Green Drop Shadow */
@@ -315,7 +321,14 @@ export default {
             drop-shadow(0 0 9px rgba(93, 222, 181, 0.1))
           `,
         },
-
+        /* Neon Blue Drop Shadow */
+        '.drop-shadow-neon-blue': {
+          filter: `
+            drop-shadow(0 0 3px rgba(30, 184, 255, 0.8))
+            drop-shadow(0 0 6px rgba(30, 184, 255, 0.4))
+            drop-shadow(0 0 9px rgba(30, 184, 255, 0.1))
+          `,
+        },
         /* Neon Red Drop Shadow */
         '.drop-shadow-neon-red': {
           filter: `
@@ -325,7 +338,6 @@ export default {
           `,
         },
       };
-
       addUtilities(newUtilities);
     },
   ],
@@ -396,6 +408,7 @@ export default {
 
           '--neon-green-color': '#5DDEB5',
           '--neon-red-color': '#FF715B',
+          '--neon-blue-color': '#5AAAFF',
 
           // ================================ //
 

@@ -28,7 +28,7 @@ describe('DappLeaderboardService', () => {
     vi.clearAllMocks();
 
     mockLeaderboardAdapter = new DappLeaderboardAdapter() as Mocked<DappLeaderboardAdapter>;
-    mockProtocolAdapter = new ProtocolAdapter() as Mocked<ProtocolAdapter>;
+    mockProtocolAdapter = new ProtocolAdapter('') as Mocked<ProtocolAdapter>;
     mockLeaderboardRepository = new DappLeaderboardRepository() as Mocked<DappLeaderboardRepository>;
 
     service = new DappLeaderboardService(mockLeaderboardAdapter, mockProtocolAdapter, mockLeaderboardRepository);

@@ -1,10 +1,11 @@
 import { log } from 'debug';
 
 import { ProtocolAdapter } from '$lib/domains/leaderboard/adapter/ProtocolAdapter';
-import { DappCompetitionRepository } from '$lib/domains/leaderboard/repository/DappCompetitionRepository';
+import { DappsCompetitionRepository } from '$lib/domains/leaderboard/repository/DappsCompetitionRepository';
 import type { PaginationInfo } from '$shared/dto/CommonPageApiResponse';
 
-import { DappCompetitionAdapter } from '../adapter/DappCompetitionAdapter';
+import type { DappsCompetitionAdapter } from '../adapter/DappsCompetitionAdapter';
+// import { DappCompetitionAdapter } from '../adapter/DappCompetitionAdapter';
 import type { DappLeaderboardItem } from '../dto/dapps.dto';
 import { mapDappLeaderboardRow } from '../mapper/mapper';
 import type { DappLeaderboardPage, DappLeaderboardRow } from '../types/dapps/types';
@@ -12,20 +13,20 @@ import type { UnifiedLeaderboardRow } from '../types/shared/types';
 
 export class DappCompetitionService {
   // adapters
-  private competitionAdapter: DappCompetitionAdapter;
+  private competitionAdapter: DappsCompetitionAdapter;
   private protocolAdapter: ProtocolAdapter;
 
   // repositories
-  private competitionRepository: DappCompetitionRepository;
+  private competitionRepository: DappsCompetitionRepository;
 
   constructor(
-    competitionAdapter?: DappCompetitionAdapter,
-    protocolAdapter?: ProtocolAdapter,
-    competitionRepository?: DappCompetitionRepository,
+    competitionAdapter: DappsCompetitionAdapter,
+    protocolAdapter: ProtocolAdapter,
+    competitionRepository: DappsCompetitionRepository,
   ) {
-    this.competitionRepository = competitionRepository ? competitionRepository : new DappCompetitionRepository();
-    this.protocolAdapter = protocolAdapter ? protocolAdapter : new ProtocolAdapter();
-    this.competitionAdapter = competitionAdapter ? competitionAdapter : new DappCompetitionAdapter();
+    this.competitionRepository = competitionRepository;
+    this.protocolAdapter = protocolAdapter;
+    this.competitionAdapter = competitionAdapter;
   }
 
   async getCompetitionData(args: PaginationInfo<DappLeaderboardItem>, season: number): Promise<DappLeaderboardPage> {
