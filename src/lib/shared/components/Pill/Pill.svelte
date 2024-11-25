@@ -9,11 +9,13 @@
   let classes = classNames('flex z-10 rounded-full px-[8px] py-[2px] text-[14px]/[20px]', $$props.class || 'relative');
 
   const GAP = 10; // distance between trigger element and tooltip
-  let triggerElem: HTMLButtonElement;
-  let dialogElem: HTMLDialogElement;
+  let triggerElem: HTMLButtonElement | null = null;
+  let dialogElem: HTMLDialogElement | null = null;
 
   onMount(() => {
-    positionElementByTarget(dialogElem, triggerElem, position, GAP);
+    if (triggerElem && dialogElem) {
+      positionElementByTarget(dialogElem, triggerElem, position, GAP);
+    }
   });
 </script>
 
