@@ -13,7 +13,7 @@ export class ProtocolAdapter {
   }
 
   /**
-   * Fetches protocol details from the /protocol/details endpoint.
+   * Fetches protocol details from the /protocol/ endpoint.
    *
    * @param {string} protocolSlug the protocol's slug
    * @param {number} season the season the protocol's details are being fetched for
