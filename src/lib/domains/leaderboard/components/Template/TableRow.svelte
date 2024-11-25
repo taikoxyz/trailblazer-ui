@@ -54,7 +54,7 @@
     <div class={rankIconClasses}>
       {#if showTrophy && rank <= qualifyingPositions && qualifyingPositions > 5}
         <Icon type="gold-crown" />
-      {:else if showTrophy}
+      {:else if showTrophy && rank <= qualifyingPositions}
         <Icon type="trophy" {fillClass} />
       {/if}
       {rank}
