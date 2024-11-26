@@ -42,7 +42,7 @@
       ? [
           {
             slug: 'dev-room',
-            name: 'Dev Room',
+            name: '[Dev Room]',
             content: DevRoom,
           },
         ]
