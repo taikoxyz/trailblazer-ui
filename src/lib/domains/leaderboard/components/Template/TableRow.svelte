@@ -36,7 +36,7 @@
     'rounded-tl-[10px] rounded-bl-[10px]',
   );
   const rankIconClasses = classNames('f-row', 'gap-[12px]');
-  const addressCellClasses = classNames('lg:px-10', 'w-6/12', 'px-6');
+  const addressCellClasses = classNames('lg:px-10', 'w-6/12', 'px-0 lg:px-3');
   const addressWrapperClasses = classNames('flex', 'gap-[20px]', 'align-center');
   const addressInnerWrapperClasses = classNames('flex', 'flex-col', 'justify-around');
   const avatarClasses = classNames('avatar', 'flex', 'items-center');
@@ -52,9 +52,9 @@
 <tr class={rowClasses} on:click={() => toggleRow(index)}>
   <td class={`${rankCellClasses}`}>
     <div class={rankIconClasses}>
-      {#if showTrophy && rank <= qualifyingPositions && qualifyingPositions > 3}
+      {#if showTrophy && rank <= qualifyingPositions && qualifyingPositions > 5}
         <Icon type="gold-crown" />
-      {:else if showTrophy}
+      {:else if showTrophy && rank <= qualifyingPositions}
         <Icon type="trophy" {fillClass} />
       {/if}
       {rank}
@@ -101,7 +101,7 @@
   </td>
   {#if showDetailsColumn}
     <td class={detailsButtonClasses}>
-      <div class="px-6">
+      <div class="px-0 lg:px-3 xl:px-3">
         {#if entry.data?.length > 0}
           <button class="link">Details</button>
         {:else if entry.address}
@@ -113,7 +113,7 @@
 
   {#if entry.level}
     <td class={levelCellClasses}>
-      <div class="px-6">
+      <div class="px-0 lg:px-3">
         {entry.level}
       </div>
     </td>
@@ -121,14 +121,14 @@
 
   {#if entry.title}
     <td class={titleCellClasses}>
-      <div class="px-6">
+      <div class="px-0 lg:px-3">
         {entry.title}
       </div>
     </td>
   {/if}
 
   <td class={scoreCellClasses}>
-    <div class="px-6">
+    <div class="px-0 lg:px-3">
       {#if entry.totalScore >= 0}
         <svelte:component this={scoreComponent} score={entry.totalScore} data={entry.data} />
       {:else}

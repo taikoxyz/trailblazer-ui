@@ -5,6 +5,7 @@
   import { getAddress } from 'viem';
 
   import { page } from '$app/stores';
+  import { PUBLIC_CLAIMING_ACTIVE } from '$env/static/public';
   import { userProfile } from '$lib/domains/profile/stores/';
   import { Spinner } from '$shared/components/Spinner';
   import { account } from '$shared/stores/account';
@@ -44,6 +45,8 @@
   $: isBlacklisted = $userProfile?.personalInfo?.blacklisted || false;
 
   let isSelfProfile = false;
+
+  const claimingLive = PUBLIC_CLAIMING_ACTIVE === 'true';
 
   onMount(() => {
     const urlAddress = $page.url.pathname.split('/').pop() as Address;
@@ -225,40 +228,44 @@
 </script>
 
 <div class={containerClass}>
-  <div class={rowClass}>
-    {#if isBlacklisted}
-      <div class="text-center space-y-[15px]">
-        <h1 class="text-3xl font-bold">You have been blacklisted</h1>
-        <p class="text-lg">You will not be able to claim.</p>
-      </div>
-    {:else if isLoading || $pendingTransactions.length > 0}
-      <Spinner size="lg" />
-    {:else if isSelfProfile}
-      <ClaimPanel
-        disableButton={(currentStep === 1 && !$tokenClaimTermsAccepted) ||
-          claimAmount === 0 ||
-          (currentStep === 2 && !isClaimSuccessful)}
-        title={panels[currentStep].title}
-        amount={currentStep > 0 ? { value: claimAmount, label: claimLabel } : null}
-        text={panels[currentStep].text || ''}
-        type={panels[currentStep].type}
-        buttons={panels[currentStep].buttons}
-        on:click={handlePanelButtonClick}>
-        {#if currentStep === 1}
-          By confirming your claim, you agree to the <a href={termsUrl} target="_blank" class={linkClasses}
-            >terms and conditions</a>
-          of the token distribution and authorize the transfer of tokens directly to your wallet.
+  {#if claimingLive}
+    <div class={rowClass}>
+      {#if isBlacklisted}
+        <div class="text-center space-y-[15px]">
+          <h1 class="text-3xl font-bold">You have been blacklisted</h1>
+          <p class="text-lg">You will not be able to claim.</p>
+        </div>
+      {:else if isLoading || $pendingTransactions.length > 0}
+        <Spinner size="lg" />
+      {:else if isSelfProfile}
+        <ClaimPanel
+          disableButton={(currentStep === 1 && !$tokenClaimTermsAccepted) ||
+            claimAmount === 0 ||
+            (currentStep === 2 && !isClaimSuccessful)}
+          title={panels[currentStep].title}
+          amount={currentStep > 0 ? { value: claimAmount, label: claimLabel } : null}
+          text={panels[currentStep].text || ''}
+          type={panels[currentStep].type}
+          buttons={panels[currentStep].buttons}
+          on:click={handlePanelButtonClick}>
+          {#if currentStep === 1}
+            By confirming your claim, you agree to the <a href={termsUrl} target="_blank" class={linkClasses}
+              >terms and conditions</a>
+            of the token distribution and authorize the transfer of tokens directly to your wallet.
 
-          <div class={checkboxWrapperClasses}>
-            <label class={checkboxLabelClasses}>
-              <input type="checkbox" bind:checked={$tokenClaimTermsAccepted} class={checkboxClasses} />
-              <span>{$t('claim.terms_agree')}</span>
-            </label>
-          </div>
-        {/if}
-      </ClaimPanel>
-    {:else if !isSelfProfile}
-      Visit your own profile to claim your rewards.
-    {/if}
-  </div>
+            <div class={checkboxWrapperClasses}>
+              <label class={checkboxLabelClasses}>
+                <input type="checkbox" bind:checked={$tokenClaimTermsAccepted} class={checkboxClasses} />
+                <span>{$t('claim.terms_agree')}</span>
+              </label>
+            </div>
+          {/if}
+        </ClaimPanel>
+      {:else if !isSelfProfile}
+        Visit your own profile to claim your rewards.
+      {/if}
+    </div>
+  {:else}
+    <div class={rowClass}>The claim period has ended.</div>
+  {/if}
 </div>

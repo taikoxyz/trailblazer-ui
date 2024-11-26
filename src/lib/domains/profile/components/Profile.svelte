@@ -10,7 +10,7 @@
   import profileService from '$lib/domains/profile/services/ProfileServiceInstance';
   import { profileLoading } from '$lib/domains/profile/stores/profileStore';
   import { activeSeason } from '$lib/shared/stores/activeSeason';
-  import { Alert } from '$shared/components/Alert';
+  // import { Alert } from '$shared/components/Alert';
   import LeaderboardDisclaimer from '$shared/components/Disclaimer/LeaderboardDisclaimer.svelte';
   import { classNames } from '$shared/utils/classNames';
 
@@ -28,7 +28,7 @@
     'lg:flex-row',
     'justify-center',
   );
-  const alertClasses = classNames('mt-[28px]');
+  // const alertClasses = classNames('mt-[28px]');
   const tabsClasses = classNames('mt-[28px]');
 
   onMount(async () => {
@@ -44,12 +44,12 @@
       <BoosterCard />
     </div>
 
-    <div class={alertClasses}>
+    <!-- <div class={alertClasses}>
       <Alert type="info">
         <b>Note:</b>
         Season 1 rewards can be claimed now! Check the claim tab!
       </Alert>
-    </div>
+    </div> -->
 
     <div class={tabsClasses}>
       <ProfileTabs />

@@ -12,7 +12,7 @@
   import { BlacklistModal } from '$shared/components/Modals/BlacklistModal';
   import { SwitchChainModal } from '$shared/components/Modals/SwitchChainModal';
   import { NotificationToast } from '$shared/components/NotificationToast';
-  import { Ribbon } from '$shared/components/Ribbon';
+  // import { Ribbon } from '$shared/components/Ribbon';
   import {
     desktopQuery,
     initializeMediaQueries,
@@ -66,7 +66,7 @@
 <!-- App components -->
 
 <div class="relative z-10">
-  <Ribbon />
+  <!-- <Ribbon /> -->
 
   <Header />
 

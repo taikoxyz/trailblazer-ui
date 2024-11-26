@@ -3,13 +3,12 @@
   import { t } from 'svelte-i18n';
 
   import { LastUpdated } from '$lib/domains/leaderboard/components';
+  import type { CompetitionInfo } from '$lib/domains/leaderboard/components/Competition/types';
   import Search from '$lib/domains/leaderboard/components/Search.svelte';
   import type { DappLeaderboardItem } from '$lib/domains/leaderboard/dto/dapps.dto';
   import type { LoadLeaderboardDataType } from '$lib/domains/leaderboard/types/shared/types';
   import type { PaginationInfo } from '$shared/dto/CommonPageApiResponse';
   import { classNames } from '$shared/utils/classNames';
-
-  import type { CompetitionInfo } from '../types';
 
   const loadLeaderboardData = getContext<LoadLeaderboardDataType>('loadCompetitionLeaderboardData');
   const pageInfo = getContext<PaginationInfo<DappLeaderboardItem>>('dappsCompetitionPageInfo');
@@ -35,8 +34,8 @@
     'animate-flicker',
     'stroke-2',
     'text-transparent',
-    'text-stroke-neon-red',
-    'drop-shadow-neon-red',
+    'text-stroke-neon-blue',
+    'drop-shadow-neon-blue',
     'mb-[85px]',
     //md
     'md:self-start',
@@ -70,7 +69,7 @@
     'font-bold',
     'leading-[32px]',
     'uppercase',
-    'font-["Clash Grotesk"]',
+    'font-clash-grotesk',
   );
 
   const prizeTokenNameClasses = classNames('text-secondary-content');
@@ -95,27 +94,23 @@
     title: '',
     description: $t('leaderboard.gaming.banner.description'),
     prizeTitle: $t('leaderboard.gaming.prize.1'),
-    prizeSubtitle: $t('leaderboard.gaming.prize.2'),
+    prizeSubtitle: $t('leaderboard.chillblazers.prize.2'),
     prizes: [
       {
         image: '/first.svg',
-        amount: $t('leaderboard.thrillblazer.prize_breakdown.first.amount'),
+        amount: $t('leaderboard.chillblazers.prize_breakdown.first.amount'),
       },
       {
         image: '/second.svg',
-        amount: $t('leaderboard.thrillblazer.prize_breakdown.second.amount'),
+        amount: $t('leaderboard.chillblazers.prize_breakdown.second.amount'),
       },
       {
         image: '/third.svg',
-        amount: $t('leaderboard.thrillblazer.prize_breakdown.third.amount'),
+        amount: $t('leaderboard.chillblazers.prize_breakdown.third.amount'),
       },
       {
         image: '/default-prize.svg',
-        amount: $t('leaderboard.thrillblazer.prize_breakdown.fourth.amount'),
-      },
-      {
-        image: '/default-prize.svg',
-        amount: $t('leaderboard.thrillblazer.prize_breakdown.fifth.amount'),
+        amount: $t('leaderboard.chillblazers.prize_breakdown.fourth.amount'),
       },
     ],
   };
@@ -123,7 +118,7 @@
   const h2Classes = classNames(
     'text-center',
     'text-[#5DDEB5]	',
-    'font-[Clash Grotesk]',
+    'font-clash-grotesk',
     'text-[20px]',
     'font-medium',
     'leading-normal',
@@ -133,7 +128,7 @@
   );
 
   const h3Classes = classNames(
-    'font-[Clash Grotesk]',
+    'font-clash-grotesk',
     'text-[24px]',
     'font-medium',
     'leading-normal',
@@ -238,7 +233,7 @@
 </script>
 
 <div class={wrapperCLasses}>
-  <h1 class={h1Classes}>Thrill</h1>
+  <h1 class={h1Classes}>Chill</h1>
   <img class={runesLeftClasses} src="/header/thrillblazer/runes-left.svg" alt="runes" />
   <img class={runesLeftClassesLg} src="/header/thrillblazer/runes-left-lg.svg" alt="runes" />
   <img class={runesLeftClassesXl} src="/header/thrillblazer/runes-left-xl.svg" alt="runes" />
@@ -246,7 +241,7 @@
   <img src="/blazers.svg" alt="Thrillblazers" class={blazersClasses} />
 
   <span class={descriptionClasses}>
-    Thrill-Blazer launches Oct 18th. Calling all gaming and SocialFi dApps: Blaze new trails, fuel Taiko's momentum, and
+    Chill-Blazer launches Nov 18th. Calling all gaming and SocialFi dApps: Blaze new trails, fuel Taiko's momentum, and
     seize your chance for legendary rewards!
   </span>
 
@@ -257,7 +252,7 @@
     Prize pool
     <span class="text-white align-baseline">&#x25C6</span>
   </h2>
-  <h3 class={h3Classes}>140k TAIKO Tokens</h3>
+  <h3 class={h3Classes}>{competitionInfo.prizeSubtitle}</h3>
 
   <div class={priceWrapperClasses}>
     {#each competitionInfo.prizes as prize}

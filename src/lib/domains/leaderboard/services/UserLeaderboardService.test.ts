@@ -32,6 +32,7 @@ describe('UserLeaderboardService', () => {
 
     mockLeaderboardAdapter = {
       fetchLeaderboardData: vi.fn(),
+      fetchLeaderboardPositionForAddress: vi.fn(),
     } as UserLeaderboardAdapter;
 
     mockLeaderboardRepository = {

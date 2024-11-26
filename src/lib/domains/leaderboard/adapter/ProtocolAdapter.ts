@@ -6,8 +6,14 @@ import { getLogger } from '$shared/utils/logger';
 const log = getLogger('ProtocolAdapter');
 
 export class ProtocolAdapter {
+  private protocolUrl: string;
+
+  constructor(protocolUrl: string) {
+    this.protocolUrl = protocolUrl;
+  }
+
   /**
-   * Fetches protocol details from the /protocol/details endpoint.
+   * Fetches protocol details from the /protocol/ endpoint.
    *
    * @param {string} protocolSlug the protocol's slug
    * @param {number} season the season the protocol's details are being fetched for
@@ -22,7 +28,7 @@ export class ProtocolAdapter {
 
     log(`Cache miss for ${protocolSlug}, fetching from API`);
     const client = getAxiosInstance(season);
-    const response = await client.get<ProtocolApiResponse>(`/protocol/dapp`, {
+    const response = await client.get<ProtocolApiResponse>(`/protocol/${this.protocolUrl}`, {
       ...globalAxiosConfig,
       params: { slug: protocolSlug },
     });

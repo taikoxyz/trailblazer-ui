@@ -1,36 +1,39 @@
+import { writable } from 'svelte/store';
 import type { Mocked } from 'vitest';
 
 import type { PaginationInfo } from '$shared/dto/CommonPageApiResponse';
 
-import { DappCompetitionAdapter } from '../adapter/DappCompetitionAdapter';
+import { DappsCompetitionAdapter } from '../adapter/DappsCompetitionAdapter';
 import { ProtocolAdapter } from '../adapter/ProtocolAdapter';
 import type { DappLeaderboardItem } from '../dto/dapps.dto';
 import type { ProtocolApiResponse } from '../dto/protocol.dto';
 import { mapDappLeaderboardRow } from '../mapper/mapper';
-import { DappCompetitionRepository } from '../repository/DappCompetitionRepository';
+import { DappsCompetitionRepository } from '../repository/DappsCompetitionRepository';
+import type { DappLeaderboardPage } from '../types/dapps/types';
 import type { UnifiedLeaderboardRow } from '../types/shared/types';
 import { DappCompetitionService } from './DappCompetitionService';
 
 // Correctly mock DappCompetitionAdapter instead of DappLeaderboardAdapter
-vi.mock('$lib/domains/leaderboard/adapter/DappCompetitionAdapter');
+vi.mock('$lib/domains/leaderboard/adapter/DappsCompetitionAdapter');
 vi.mock('$lib/domains/leaderboard/adapter/ProtocolAdapter');
-vi.mock('$lib/domains/leaderboard/repository/DappCompetitionRepository');
+vi.mock('$lib/domains/leaderboard/repository/DappsCompetitionRepository');
 vi.mock('$lib/domains/leaderboard/mapper/mapper', () => ({
   mapDappLeaderboardRow: vi.fn(),
 }));
 
 describe('DappCompetitionService', () => {
   let service: DappCompetitionService;
-  let mockCompetitionAdapter: Mocked<DappCompetitionAdapter>;
+  let mockCompetitionAdapter: Mocked<DappsCompetitionAdapter>;
   let mockProtocolAdapter: Mocked<ProtocolAdapter>;
-  let mockLeaderboardRepository: Mocked<DappCompetitionRepository>;
+  let mockLeaderboardRepository: Mocked<DappsCompetitionRepository>;
 
   beforeEach(() => {
     vi.clearAllMocks();
 
-    mockCompetitionAdapter = new DappCompetitionAdapter() as Mocked<DappCompetitionAdapter>;
-    mockProtocolAdapter = new ProtocolAdapter() as Mocked<ProtocolAdapter>;
-    mockLeaderboardRepository = new DappCompetitionRepository() as Mocked<DappCompetitionRepository>;
+    mockCompetitionAdapter = new DappsCompetitionAdapter('') as Mocked<DappsCompetitionAdapter>;
+    mockProtocolAdapter = new ProtocolAdapter('mock') as Mocked<ProtocolAdapter>;
+    const mockStore = writable<DappLeaderboardPage>();
+    mockLeaderboardRepository = new DappsCompetitionRepository(mockStore) as Mocked<DappsCompetitionRepository>;
 
     service = new DappCompetitionService(mockCompetitionAdapter, mockProtocolAdapter, mockLeaderboardRepository);
   });
@@ -95,7 +98,7 @@ describe('DappCompetitionService', () => {
     };
 
     mockCompetitionAdapter.fetchCompetitionData.mockResolvedValue(leaderboardData);
-    mockProtocolAdapter.fetchCompetitionData
+    mockProtocolAdapter.fetchProtocolDetails
       .mockResolvedValueOnce(protocolDetails1)
       .mockResolvedValueOnce(protocolDetails2);
 
@@ -106,9 +109,9 @@ describe('DappCompetitionService', () => {
 
     // Then
     expect(mockCompetitionAdapter.fetchCompetitionData).toHaveBeenCalledWith(args, season);
-    expect(mockProtocolAdapter.fetchCompetitionData).toHaveBeenCalledTimes(2);
-    expect(mockProtocolAdapter.fetchCompetitionData).toHaveBeenNthCalledWith(1, 'protocol-1', season);
-    expect(mockProtocolAdapter.fetchCompetitionData).toHaveBeenNthCalledWith(2, 'protocol-2', season);
+    expect(mockProtocolAdapter.fetchProtocolDetails).toHaveBeenCalledTimes(2);
+    expect(mockProtocolAdapter.fetchProtocolDetails).toHaveBeenNthCalledWith(1, 'protocol-1', season);
+    expect(mockProtocolAdapter.fetchProtocolDetails).toHaveBeenNthCalledWith(2, 'protocol-2', season);
     expect(mapDappLeaderboardRow).toHaveBeenCalledTimes(2);
     expect(mockLeaderboardRepository.update).toHaveBeenCalledWith({
       items: [mappedRow1, mappedRow2],

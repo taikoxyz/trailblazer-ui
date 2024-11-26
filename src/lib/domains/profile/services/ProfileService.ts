@@ -21,6 +21,7 @@ import { wagmiConfig } from '$lib/shared/wagmi';
 import { activeRecruitment } from '$shared/stores/recruitment';
 import { getLogger } from '$shared/utils/logger';
 
+import type { UserPointsAndRankResponse } from '../dto/profile.dto';
 import type { UserPointHistory } from '../types/ActivityHistory';
 import type { IProfileService } from './IProfileService';
 
@@ -87,8 +88,6 @@ export class ProfileService implements IProfileService {
       ]);
       log('Fetched data:', { pointsAndRank, userDomainInfo, activity, nftsResult, avatarResult });
 
-      log('DEBUGME', activity);
-
       // Assemble the complete UserProfile with default values
       const userProfile: UserProfile = {
         ...defaultUserProfile,
@@ -147,10 +146,12 @@ export class ProfileService implements IProfileService {
   }
 
   /**
-   * Fetches the user's domain information.
+   * Fetches details for a list of users
    *
-   * @param {Address} address
-   * @return {*}
+   * @param {UserLeaderboardItem[]} entries
+   * @param {number} total
+   * @param {number} season
+   * @return {*}  {Promise<UserInfoForLeaderboard[]>}
    * @memberof ProfileService
    */
   async getUserInfoForLeaderboard(
@@ -291,6 +292,21 @@ export class ProfileService implements IProfileService {
       },
     });
     log('updated user', await this.userRepository.get());
+  }
+
+  /**
+   * Fetches the user's points and rank for a given season.
+   *
+   * @param {Address} address
+   * @param {number} season
+   * @return {*}  {Promise<UserPointsAndRankResponse>}
+   * @memberof ProfileService
+   */
+  async getPointsAndRankForAddress(address: Address, season: number): Promise<UserPointsAndRankResponse> {
+    log('Fetching points and rank for address:', address, 'season:', season);
+    const pointsAndRank = await this.apiAdapter.fetchUserPointsAndRank(address, season);
+    log('Fetched points and rank:', pointsAndRank);
+    return pointsAndRank;
   }
 
   /**

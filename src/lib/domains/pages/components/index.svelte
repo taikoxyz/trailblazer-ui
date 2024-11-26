@@ -1,7 +1,6 @@
 <script lang="ts">
   import { EcosystemSection } from '$lib/domains/ecosystem/components/index';
   import BannerCarousel from '$lib/domains/pages/components/Banner/BannerCarousel.svelte';
-  import S1ClaimBanner from '$lib/domains/pages/components/Banner/S1ClaimBanner.svelte';
   import S2StartBanner from '$lib/domains/pages/components/Banner/S2StartBanner.svelte';
   import type { Slide } from '$lib/domains/pages/components/Banner/types';
   import FeaturedCampaigns from '$shared/components/FeaturedCampaigns/FeaturedCampaigns.svelte';
@@ -29,9 +28,6 @@
   const separator120pxClasses = classNames(separatorBaseClasses, 'h-[120px]');
 
   const slides: Slide[] = [
-    {
-      component: S1ClaimBanner,
-    },
     {
       component: S2StartBanner,
     },

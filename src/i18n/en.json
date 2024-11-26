@@ -230,15 +230,34 @@
         "title": "Campaign ended"
       }
     },
+    "chillblazers": {
+      "ended": {
+        "description": "Our journey concluded on December 18th, 2024. Congratulations to the winners!",
+        "title": "Journey ended"
+      },
+      "prize": {
+        "2": "100K TAIKO Tokens"
+      },
+      "prize_breakdown": {
+        "first": {
+          "amount": "50k"
+        },
+        "fourth": {
+          "amount": "5k"
+        },
+        "second": {
+          "amount": "30k"
+        },
+        "third": {
+          "amount": "15k"
+        }
+      }
+    },
     "competitions": {
       "s2": {
         "dapp": {
-          "banner": {
-            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor.",
-            "title": "Join the Dapp competition starting Oct 17th!"
-          },
           "ended": {
-            "description": "Our journey concluded on Dec 18th, 2024. Congratulations to the winners!",
+            "description": "Our journey concluded on December 18th, 2024. Congratulations to the winners!",
             "title": "Season ended"
           },
           "prize": {}
@@ -345,6 +364,10 @@
       }
     },
     "thrillblazer": {
+      "ended": {
+        "description": "Our journey concluded on November 18th, 2024. Congratulations to the winners!",
+        "title": "Journey ended"
+      },
       "prize_breakdown": {
         "fifth": {
           "amount": "5k"
@@ -365,6 +388,7 @@
     },
     "user": {
       "booster": "{multiplier}x boosted",
+      "cta": "Explore our <a href=\"https://trailblazers.taiko.xyz/ecosystem\" class=\" link\">ecosystem</a> and stay tuned for competitions to rank up.",
       "dailyMaxReached": "Daily Max Reached",
       "ended": {
         "s1": {
@@ -479,6 +503,9 @@
     },
     "competitions": {
       "dapp": "Taiko Trailblazer - Dapp Competition Leaderboard"
+    },
+    "journeys": {
+      "chillblazers": "Taiko - Chillblazer"
     },
     "leaderboards": {
       "dapp": "Taiko Trailblazer - Dapp Leaderboard",

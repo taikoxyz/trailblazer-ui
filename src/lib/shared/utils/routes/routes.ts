@@ -18,7 +18,7 @@ export const routes: NavigationItem[] = [
     children: [
       { name: 'Users', route: '/leaderboard/s2/user', icon: 'double-user' },
       // { name: 'Bridge', route: '/leaderboard/bridge', icon: 'quad-circles' },
-      { name: 'Dapp', route: '/leaderboard/s2/dapp', icon: 'star2' },
+      { name: 'Dapps', route: '/leaderboard/s2/dapp', icon: 'star2' },
       // { name: 'DeFi', route: '/leaderboard/defi', icon: 'flower-circle' },
       { name: 'Gaming', route: '/leaderboard/s2/gaming', icon: 'gaming' },
     ],
@@ -33,10 +33,11 @@ export const routes: NavigationItem[] = [
     ],
   },
   {
-    name: 'Competitions',
+    name: 'Journeys',
     children: [
-      { name: 'Thrillblazer', route: '/competitions/s2/dapps', icon: 'flower-circle' },
-      { name: 'Liquidity Royale', route: '/competitions/s2/liquidity', icon: 'quad-circles' },
+      { name: 'Chillblazers', route: '/journeys/s2/chillblazers', icon: 'nav-conway' },
+      { name: 'Thrillblazers', route: '/journeys/s2/thrillblazers', icon: 'flower-circle' },
+      { name: 'Liquidity Royale', route: '/journeys/s2/liquidity', icon: 'nav-cross' },
     ],
   },
 ];
