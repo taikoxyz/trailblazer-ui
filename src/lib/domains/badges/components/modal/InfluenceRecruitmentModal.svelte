@@ -15,16 +15,6 @@
   import RecruitmentBadgeItem from '../RecruitmentBadgeItem.svelte';
   import { CoreModal, CoreModalDescription, CoreModalFooter, CoreModalHeader, CoreModalTitle } from './components';
 
-  const badgesWrapperClasses = classNames(
-    'flex',
-    'w-full',
-    'max-w-[600px]',
-    'py-[20px]',
-    'gap-[20px]',
-    'md:gap-[40px]',
-    'lg:gap-[80px]',
-  );
-
   $: isLoading = false;
   $: selectedMovement = null as null | Movements;
 
@@ -49,16 +39,20 @@
       $influenceRecruitmentModal = false;
 
       successToast({
-        title: 'Success',
-        message: `You have successfully influenceed your badge to ${MovementNames[selectedMovement]}`,
+        title: $t('badge_recruitment.modal.influence_recruitment.toast.success.title'),
+        message: $t('badge_recruitment.modal.influence_recruitment.toast.success.message', {
+          values: { movement: MovementNames[selectedMovement] },
+        }),
       });
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (e: any) {
       isLoading = false;
       console.error(e);
       errorToast({
-        title: 'Influence error',
-        message: e.shortMessage ? e.shortMessage : 'Error refining your recruitment process',
+        title: $t('badge_recruitment.modal.influence_recruitment.toast.error.title'),
+        message: e.shortMessage
+          ? e.shortMessage
+          : $t('badge_recruitment.modal.influence_recruitment.toast.error.message'),
       });
     }
   }
@@ -71,6 +65,16 @@
   const detailsClasses = classNames('flex', 'flex-col', 'w-full', 'justify-center', 'items-center', 'gap-[8px]');
 
   const radioGroupName = 'radio-influence';
+
+  const badgesWrapperClasses = classNames(
+    'flex',
+    'w-full',
+    'max-w-[600px]',
+    'py-[20px]',
+    'gap-[20px]',
+    'md:gap-[40px]',
+    'lg:gap-[80px]',
+  );
 </script>
 
 <CoreModal bind:open={$influenceRecruitmentModal}>

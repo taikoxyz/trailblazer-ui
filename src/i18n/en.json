@@ -667,7 +667,17 @@
       },
       "influence_recruitment": {
         "title": "Your Season 2 Badge is being recruited",
-        "description": "Influence your badge to favor the path of your Season 2 badge."
+        "description": "Influence your badge to favor the path of your Season 2 badge.",
+        "toast": {
+          "success": {
+            "title": "Influence success",
+            "message": "You have successfully influenced your badge to {movement}."
+          },
+          "error": {
+            "title": "Influence error",
+            "message": "Error refining your recruitment process"
+          }
+        }
       },
       "end_recruitment": {
         "title": "Congratulations!",

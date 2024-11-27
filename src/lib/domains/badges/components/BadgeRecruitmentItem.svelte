@@ -221,12 +221,6 @@
               on:end={() => dispatch('counterEnd')}
               class={countdownWrapperClasses}
               itemClasses={countdownItemClasses}
-              labels={{
-                days: $t('date.labels.days'),
-                hours: $t('date.labels.hours'),
-                minutes: $t('date.labels.minutes'),
-                seconds: $t('date.labels.seconds'),
-              }}
               target={influenceExpiration} />
           {:else if claimExpiration && claimExpiration > new Date()}
             <!-- logic for uninfluenceed -->
@@ -234,12 +228,6 @@
               on:end={() => dispatch('counterEnd')}
               class={countdownWrapperClasses}
               itemClasses={countdownItemClasses}
-              labels={{
-                days: $t('date.labels.days'),
-                hours: $t('date.labels.hours'),
-                minutes: $t('date.labels.minutes'),
-                seconds: $t('date.labels.seconds'),
-              }}
               target={claimExpiration} />
           {/if}
         </div>
