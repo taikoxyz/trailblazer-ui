@@ -13,8 +13,8 @@ const log = getLogger('BadgeRecruitmentService');
 export class BadgeRecruitmentService {
   private adapter: BadgeRecruitmentAdapter;
 
-  constructor(recruitmentAdapter?: BadgeRecruitmentAdapter) {
-    this.adapter = recruitmentAdapter!; /*|| new BadgeRecruitmentAdapter();*/
+  constructor(recruitmentAdapter: BadgeRecruitmentAdapter) {
+    this.adapter = recruitmentAdapter;
   }
   /**
    * Fetches the system's enabled migrations

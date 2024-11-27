@@ -1,12 +1,12 @@
 import type { ApolloQueryResult } from '@apollo/client';
+import { watchContractEvent, writeContract } from '@wagmi/core';
 import type { Address } from 'viem';
-import { writeContract } from 'viem/actions';
 
 import { trailblazersBadgesAbi, trailblazersBadgesAddress } from '$generated/abi';
 import { Movements } from '$lib/domains/profile/types/types';
 import { graphqlClient } from '$lib/shared/services/graphql/client';
 import { FETCH_ENABLED_MIGRATIONS_QUERY } from '$lib/shared/services/graphql/queries';
-import { type IBadgeRecruitment,RecruitmentStatus } from '$shared/types/BadgeRecruitment';
+import { type IBadgeRecruitment, RecruitmentStatus } from '$shared/types/BadgeRecruitment';
 import { chainId } from '$shared/utils/chain';
 import getMockBadge from '$shared/utils/nfts/getMockBadge';
 import { wagmiConfig } from '$shared/wagmi';
@@ -54,8 +54,8 @@ describe('BadgeRecruitmentAdapter', () => {
 
   const mockTxHash = '0xTransactionHash';
 
-   const SEASON_1 = 1;
-   const SEASON_2 = 2
+  const SEASON_1 = 1;
+  const SEASON_2 = 2;
 
   const mockEnabledRecruitmentIds = vi.mocked([0, 1, 2, 3]);
 
@@ -68,9 +68,15 @@ describe('BadgeRecruitmentAdapter', () => {
     it('should fetch enabled recruitments', async () => {
       vi.mocked(graphqlClient.query).mockResolvedValue(
         createMockQueryResult({
-          openRecruitments: [{
-            id: 'abcde', enabled: true, badgeIds: [0, 1, 2, 3], startTime: 0, endTime: 1E10
-          }]
+          openRecruitments: [
+            {
+              id: 'abcde',
+              enabled: true,
+              badgeIds: [0, 1, 2, 3],
+              startTime: 0,
+              endTime: 1e10,
+            },
+          ],
         }),
       );
 
@@ -96,14 +102,39 @@ describe('BadgeRecruitmentAdapter', () => {
         minnowInfluences: 0,
         claimExpirationTimeout: new Date('1970-01-01T01:01:00.000Z'),
         influenceExpirationTimeout: new Date('1970-01-01T00:31:00.000Z'),
-      }
+      };
 
       const mockAddress = '0xAddress' as Address;
+      const mockLogs = [
+        {
+          address: trailblazersBadgesAddress[chainId],
+          topics: ['0x12345678'],
+          blockHash: '0xBlockHash',
+          blockNumber: BigInt(123456),
+          data: '0xData',
+          logIndex: 0,
+          transactionHash: '0xTransactionHash',
+          transactionIndex: 0,
+          removed: false,
+          args: {
+            cooldownExpiration: BigInt(123456),
+            s1TokenId: BigInt(1),
+          },
+        },
+      ];
 
       vi.mocked(writeContract).mockResolvedValue(mockTxHash);
 
-      const result = await adapter.startRecruitment(
-        mockAddress, mockBadge, mockRecruitment);
+      const mockUnwatch = vi.fn();
+      vi.mocked(watchContractEvent).mockImplementation((config, options) => {
+        setTimeout(() => {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          options.onLogs(mockLogs as any[]);
+        }, 0);
+        return mockUnwatch;
+      });
+
+      const result = await adapter.startRecruitment(mockAddress, mockBadge, mockRecruitment);
 
       expect(writeContract).toHaveBeenCalledWith(wagmiConfig, {
         abi: trailblazersBadgesAbi,
@@ -113,7 +144,32 @@ describe('BadgeRecruitmentAdapter', () => {
         chainId,
       });
 
-      expect(result).toBe(mockTxHash);
+      expect(result).toStrictEqual({
+        badgeId: 1,
+        claimExpirationTimeout: new Date('1970-01-02T10:17:36.000Z'),
+        id: '1',
+        influenceExpirationTimeout: new Date('1970-01-01T00:31:00.000Z'),
+        minnowInfluences: 0,
+        s1Badge: { ...mockBadge, tokenId: 1 },
+        s2Badge: {
+          address: '0x0000000000000000000000000000000000000000',
+          metadata: {
+            badgeId: 2,
+            erc: 0,
+            image: '/factions/s2/bouncers/whale.png',
+            movement: 1,
+            season: 2,
+            'video/mp4': '/factions/s2/bouncers/whale.mp4',
+            'video/webm': '/factions/s2/bouncers/whale.webm',
+          },
+          tokenId: -1,
+          tokenUri: '',
+        },
+        status: 'CAN_REFINE',
+        whaleInfluences: 0,
+      });
+
+      expect(mockUnwatch).toHaveBeenCalled();
     });
   });
 
@@ -187,7 +243,7 @@ describe('BadgeRecruitmentAdapter', () => {
   describe('endRecruitment', () => {
     it('', async () => {});
   });
-/*
+  /*
   describe('getRecruitmentStatus', () => {
     it('should fetch recruitment status', async () => {
       const mockAddress = '0x1234567890abcdef1234567890abcdef12345678';

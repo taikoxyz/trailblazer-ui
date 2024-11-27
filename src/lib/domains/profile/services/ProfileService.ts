@@ -1,6 +1,7 @@
 import { getAccount } from '@wagmi/core';
 import { type Address, getAddress, type Hash } from 'viem';
 
+import { BadgeRecruitmentAdapter } from '$lib/domains/badges/adapter/BadgeRecruitmentAdapter';
 import { BadgeRecruitmentService } from '$lib/domains/badges/services/BadgeRecruitmentService';
 import type { UserLeaderboardItem } from '$lib/domains/leaderboard/types/user/types';
 import { NftService } from '$lib/domains/nfts/services/NftService';
@@ -51,7 +52,8 @@ export class ProfileService implements IProfileService {
     this.apiAdapter = apiAdapter || new ProfileApiAdapter();
     this.userRepository = userRepository || new UserRepository();
     this.combinedNFTService = combinedNFTService || new NftService();
-    this.badgeRecruitmentService = badgeRecruitmentService || new BadgeRecruitmentService();
+    this.badgeRecruitmentService =
+      badgeRecruitmentService || new BadgeRecruitmentService(new BadgeRecruitmentAdapter());
   }
 
   public static getInstance(): ProfileService {
