@@ -4,13 +4,13 @@
   import type { Address } from 'viem';
 
   import { browser } from '$app/environment';
-  import { FaqBlock } from '$lib/domains/pages/components/FaqBlock';
-  import type { IFaqEntry } from '$lib/domains/pages/components/FaqBlock/FaqBlock.svelte';
   import { FactionBadgeItem } from '$lib/domains/profile/components/ProfileNFTs/FactionBadges';
   import profileService from '$lib/domains/profile/services/ProfileServiceInstance';
   import { userProfile } from '$lib/domains/profile/stores';
   import type { FactionBadgeButton } from '$lib/domains/profile/types/FactionBadgeButton';
   import { Movements, Seasons } from '$lib/domains/profile/types/types';
+  import { FaqBlock } from '$lib/domains/splashpage/components/FaqBlock';
+  import type { IFaqEntry } from '$lib/domains/splashpage/components/FaqBlock/FaqBlock.svelte';
   import { type IBadgeRecruitment, RecruitmentStatus } from '$lib/shared/types/BadgeRecruitment';
   import { Spinner } from '$shared/components';
   import { Button } from '$shared/components/Button';

@@ -1,11 +1,11 @@
 <script lang="ts">
   import { json } from 'svelte-i18n';
 
-  import Factions from '$lib/domains/pages/components/Factions/Factions.svelte';
-  import { FaqBlock } from '$lib/domains/pages/components/FaqBlock';
-  import { type IFaqEntry } from '$lib/domains/pages/components/FaqBlock/FaqBlock.svelte';
-  import { TrailblazerGuide } from '$lib/domains/pages/components/Guide';
-  import TrailblazerRankUp from '$lib/domains/pages/components/RankUp/TrailblazerRankUp.svelte';
+  import Factions from '$lib/domains/splashpage/components/Factions/Factions.svelte';
+  import { FaqBlock } from '$lib/domains/splashpage/components/FaqBlock';
+  import { type IFaqEntry } from '$lib/domains/splashpage/components/FaqBlock/FaqBlock.svelte';
+  import { TrailblazerGuide } from '$lib/domains/splashpage/components/Guide';
+  import TrailblazerRankUp from '$lib/domains/splashpage/components/RankUp/TrailblazerRankUp.svelte';
   import { classNames } from '$shared/utils/classNames';
 
   import AboutHero from './AboutHero.svelte';

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import BadgeMigrations from '$lib/domains/pages/components/Journeys/BadgeMigrations/BadgeMigrations.svelte';
+  import BadgeMigrations from '$lib/domains/splashpage/components/Journeys/BadgeMigrations/BadgeMigrations.svelte';
 </script>
 
 <svelte:head>

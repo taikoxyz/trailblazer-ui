@@ -2,7 +2,7 @@
   import { inject } from '@vercel/analytics';
 
   import { dev } from '$app/environment';
-  import { Startpage } from '$lib/domains/pages/components/index';
+  import { Startpage } from '$lib/domains/splashpage/components/index';
 
   inject({ mode: dev ? 'development' : 'production' });
 </script>
