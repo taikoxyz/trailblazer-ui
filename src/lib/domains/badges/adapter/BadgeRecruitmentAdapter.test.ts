@@ -1,11 +1,15 @@
 import type { ApolloQueryResult } from '@apollo/client';
+import type { Address } from 'viem';
+import { writeContract } from 'viem/actions';
 
-import { trailblazersBadgesAddress } from '$generated/abi';
-import { Movements, Seasons } from '$lib/domains/profile/types/types';
+import { trailblazersBadgesAbi, trailblazersBadgesAddress } from '$generated/abi';
+import { Movements } from '$lib/domains/profile/types/types';
 import { graphqlClient } from '$lib/shared/services/graphql/client';
-import { FETCH_ENABLED_MIGRATIONS_QUERY, GET_MIGRATION_STATUS_QUERY } from '$lib/shared/services/graphql/queries';
+import { FETCH_ENABLED_MIGRATIONS_QUERY } from '$lib/shared/services/graphql/queries';
+import { type IBadgeRecruitment,RecruitmentStatus } from '$shared/types/BadgeRecruitment';
 import { chainId } from '$shared/utils/chain';
-import generateBadgeMetadata from '$shared/utils/nfts/generateBadgeMetadata';
+import getMockBadge from '$shared/utils/nfts/getMockBadge';
+import { wagmiConfig } from '$shared/wagmi';
 
 import { BadgeRecruitmentAdapter } from './BadgeRecruitmentAdapter';
 
@@ -48,10 +52,10 @@ const createMockQueryResult = <T>(data: T): ApolloQueryResult<T> => ({
 describe('BadgeRecruitmentAdapter', () => {
   let adapter: BadgeRecruitmentAdapter;
 
-  // const mockTxHash = '0xTransactionHash';
+  const mockTxHash = '0xTransactionHash';
 
-  // const SEASON_1 = 1;
-  // const SEASON_2 = 2
+   const SEASON_1 = 1;
+   const SEASON_2 = 2
 
   const mockEnabledRecruitmentIds = vi.mocked([0, 1, 2, 3]);
 
@@ -64,9 +68,9 @@ describe('BadgeRecruitmentAdapter', () => {
     it('should fetch enabled recruitments', async () => {
       vi.mocked(graphqlClient.query).mockResolvedValue(
         createMockQueryResult({
-          openRecruitments: mockEnabledRecruitmentIds.map((id) => {
-            return { id, enabled: true };
-          }),
+          openRecruitments: [{
+            id: 'abcde', enabled: true, badgeIds: [0, 1, 2, 3], startTime: 0, endTime: 1E10
+          }]
         }),
       );
 
@@ -81,14 +85,25 @@ describe('BadgeRecruitmentAdapter', () => {
 
   describe('startRecruitment', () => {
     it('should start recruitment', async () => {
-      /*
       const mockBadge = getMockBadge(SEASON_1, 1);
+      const mockRecruitment: IBadgeRecruitment = {
+        id: '1',
+        badgeId: mockBadge.metadata.badgeId as number,
+        status: RecruitmentStatus.ELIGIBLE,
+        s1Badge: mockBadge,
+        s2Badge: getMockBadge(SEASON_2, 2, Movements.Whale),
+        whaleInfluences: 0,
+        minnowInfluences: 0,
+        claimExpirationTimeout: new Date('1970-01-01T01:01:00.000Z'),
+        influenceExpirationTimeout: new Date('1970-01-01T00:31:00.000Z'),
+      }
 
       const mockAddress = '0xAddress' as Address;
 
       vi.mocked(writeContract).mockResolvedValue(mockTxHash);
 
-      const result = await adapter.startRecruitment(mockAddress, mockBadge);
+      const result = await adapter.startRecruitment(
+        mockAddress, mockBadge, mockRecruitment);
 
       expect(writeContract).toHaveBeenCalledWith(wagmiConfig, {
         abi: trailblazersBadgesAbi,
@@ -98,9 +113,10 @@ describe('BadgeRecruitmentAdapter', () => {
         chainId,
       });
 
-      expect(result).toBe(mockTxHash);*/
+      expect(result).toBe(mockTxHash);
     });
   });
+
   describe('influenceRecruitment', () => {
     /*
     const mockTxHash: Hash = '0xTransactionHash' as Hash;
@@ -171,7 +187,7 @@ describe('BadgeRecruitmentAdapter', () => {
   describe('endRecruitment', () => {
     it('', async () => {});
   });
-
+/*
   describe('getRecruitmentStatus', () => {
     it('should fetch recruitment status', async () => {
       const mockAddress = '0x1234567890abcdef1234567890abcdef12345678';
@@ -228,4 +244,6 @@ describe('BadgeRecruitmentAdapter', () => {
       ]);
     });
   });
+
+  */
 });

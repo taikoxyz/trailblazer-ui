@@ -14,7 +14,7 @@ export class BadgeRecruitmentService {
   private adapter: BadgeRecruitmentAdapter;
 
   constructor(recruitmentAdapter?: BadgeRecruitmentAdapter) {
-    this.adapter = recruitmentAdapter || new BadgeRecruitmentAdapter();
+    this.adapter = recruitmentAdapter!; /*|| new BadgeRecruitmentAdapter();*/
   }
   /**
    * Fetches the system's enabled migrations

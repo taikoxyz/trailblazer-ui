@@ -73,7 +73,9 @@ export class BadgeRecruitmentAdapter {
 
   /**
    * Calls the `startRecruitment` method through the s1 badges
-   *
+   * @param address
+   * @param nft
+   * @param recruitment
    * @return {*}  {Promise<string>}
    * @memberof BadgeRecruitmentAdapter
    */
