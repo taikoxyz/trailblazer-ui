@@ -37,7 +37,7 @@
     'w-full',
     'h-full',
     color === 'pink' ? 'bg-gradient-to-b from-[#F03BAA] via-secondary to-[#C0147E]' : null,
-    color === 'purple' ? 'bg-gradient-to-b from-[#6D1CE3] via-[#5D08C8] to-[#4C07A7]' : null,
+    color === 'purple' ? 'bg-gradient-to-b from-[#6D1CE3] via-purple-600 to-[#4C07A7]' : null,
   );
 </script>
 

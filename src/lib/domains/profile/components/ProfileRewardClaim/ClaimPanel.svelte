@@ -19,7 +19,7 @@
   const textWrapperClasses = classNames('w-full', 'flex', 'flex-col', 'gap-[24px]', 'items-center');
 
   const titleClasses = classNames(
-    'text-[#F3F3F3]',
+    'text-primary-content',
     'text-[35px]/[42px]',
     'font-[500]',
     'md:max-w-[316px]',
@@ -27,7 +27,7 @@
     'text-center',
   );
   const contentClasses = classNames(
-    'text-[#ADB1B8]',
+    'text-secondary-content',
     'w-[294px]',
     'md:w-[392px]',
     ' xl:w-[412px]',
@@ -52,11 +52,11 @@
     'md:gap-0',
   );
 
-  const rewardInputLabelClasses = classNames('text-[#F3F3F3]', 'font-[400]', 'text-[16px]/[24px]');
+  const rewardInputLabelClasses = classNames('text-primary-content', 'font-[400]', 'text-[16px]/[24px]');
   const rewardInputValueWrapperClasses = classNames(
     'md:bg-[#2B303B]',
     'rounded-full',
-    'text-[#F3F3F3]',
+    'text-primary-content',
     'py-[10px]',
     'px-[16px]',
     'text-[22px]/[28px]',

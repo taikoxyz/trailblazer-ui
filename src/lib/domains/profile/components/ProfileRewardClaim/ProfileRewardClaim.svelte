@@ -21,7 +21,7 @@
   import ClaimPanel from './ClaimPanel.svelte';
   import { type IClaimButton, type IClaimPanelType } from './types';
 
-  const linkClasses = classNames('underline', 'text-[#FF6FC8]', 'hover:text-primary');
+  const linkClasses = classNames('underline', 'text-pink-200', 'hover:text-primary');
   const checkboxWrapperClasses = classNames('form-control', 'pt-[24px]');
   const checkboxLabelClasses = classNames(
     'cursor-pointer',

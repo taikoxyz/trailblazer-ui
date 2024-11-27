@@ -45,7 +45,7 @@
     'text-center',
   );
 
-  const contentClasses = classNames('text-[16px]/[24px]', 'text-[#ADB1B8]', 'w-full', 'text-center');
+  const contentClasses = classNames('text-[16px]/[24px]', 'text-secondary-content', 'w-full', 'text-center');
 
   const partnersWrapperClasses = classNames(
     'w-full',

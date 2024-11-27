@@ -150,21 +150,21 @@
     'border-[3px]',
   );
 
-  const pinkBordered = classNames(borderedBadgeBaseClasses, 'bg-[#FF6FC8]', 'border-[#FF6FC8]');
+  const pinkBordered = classNames(borderedBadgeBaseClasses, 'bg-pink-200', 'border-pink-200');
 
   const pinkShadowed = classNames(
     borderedBadgeBaseClasses,
-    'bg-[#FF6FC8]',
-    'border-[#FF6FC8]',
+    'bg-pink-200',
+    'border-pink-200',
     'shadow-[0_0_20px_0px_rgba(255,111,200,1)]',
     'hover:shadow-[0_0_30px_0px_rgba(255,111,200,1)]',
   );
 
-  const greenBordered = classNames(borderedBadgeBaseClasses, 'bg-[#47e0a0]', 'border-[#47e0a0]');
+  const greenBordered = classNames(borderedBadgeBaseClasses, 'bg-green-300', 'border-green-300');
 
   const neutralBordered = classNames('w-full', 'transition-all', 'rounded-[30px]', 'box-border', 'aspect-square');
 
-  const timerLabelClasses = classNames('text-[14px]/[20px]', 'text-[#adb1b8]');
+  const timerLabelClasses = classNames('text-[14px]/[20px]', 'text-secondary-content');
 
   const countdownWrapperClasses = classNames(
     'flex',
@@ -172,7 +172,7 @@
     'font-clash-grotesk',
     'text-[35px]/[42px]',
     'font-[500]',
-    'text-[#f3f3f3]',
+    'text-primary-content',
   );
   const countdownItemClasses = classNames('h-min');
 </script>

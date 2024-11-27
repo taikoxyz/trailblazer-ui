@@ -70,8 +70,8 @@
   );
 
   const warningClasses = classNames(
-    'bg-[#382800]',
-    'text-[#EBB222]',
+    'bg-yellow-800',
+    'text-yellow-400',
     'px-[20px]',
     'py-[12px]',
     'rounded-[10px]',
