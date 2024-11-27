@@ -490,10 +490,15 @@
           "description": "   Taikoon holders can get excited for the first additional perk coming their way. Participants who were holding a Taikoon during the Season 1 final snapshot will be eligible to receive a Free Recruit from the Minnow Team or the Whale Team.",
           "title": "Taikoon Perk"
         }
+      },
+      "journey": {
+        "begin": {
+          "title": "Season 1 badges are evolving - Here’s how to get your season 2 badge",
+          "timer": "Recruitment phase beginning: Nov 27, 2024 12:00 UTC",
+          "description": "Recruit new Season 2 members to your cause by sending your Season 1 Devs out to find them. Stake one Season 1 badge per cycle, and after 24 hours, receive a new Season 2 badge of the same Faction but from a random Team (Minnow or Whale). Boost your chances of getting your preferred Team by giving your Dev orders through on-chain transactions. This feature is called Influencing.",
+          "note": "These transactions won’t add any TB points but will enhance your customization options."
+        }
       }
-    },
-    "badge_recruitmnent": {
-      "ways_to_get": "More ways to get new Badges"
     }
   },
   "pagetitle": {

@@ -68,19 +68,18 @@
   <div class="lg:f-between-center w-full f-col items-center lg:f-row">
     <img src="/header/migrations/migrations.svg" alt="Badge Migrations" class={headerImageClasses} />
     <div class="f-col">
-      <span class={startTimeClasses}> Recruitment phase beginning: Nov 11, 2024 12:00 UTC </span>
+      <span class={startTimeClasses}> {$t('pages.badge_recruitment.journey.begin.timer')} </span>
       <ContentBox
-        title="Season 1 badges are evolving - Here’s how to get your season 2 badge"
+        title={$t('pages.badge_recruitment.journey.begin.title')}
         alwaysColumn
         titleOverrideClasses={'lg:max-w-[452px]'}
         contentOverrideClasses={'lg:max-w-[452px]'}>
         <p>
-          Recruit new Season 2 members to your cause by sending your Season 1 Devs out to find them. Stake one Season 1
-          badge per cycle, and after 24 hours, receive a new Season 2 badge of the same Faction but from a random Team
-          (Minnow or Whale). Boost your chances of getting your preferred Team by giving your Dev orders through
-          on-chain transactions. This feature is called Influencing.
+          {$t('pages.badge_recruitment.journey.begin.description')}
         </p>
-        <Note>These transactions won’t add any TB points but will enhance your customization options.</Note>
+        <Note>
+          {$t('pages.badge_recruitment.journey.begin.note')}
+        </Note>
       </ContentBox>
     </div>
   </div>
@@ -144,7 +143,7 @@
   <Multipliers />
 
   <!-- Get more badges -->
-  <ContentBox title={$t('pages.badge_recruitmnent.ways_to_get')}>
+  <ContentBox title={$t('pages.badge_recruitment.ways_to_get')}>
     <div class={headlineClasses}>{$t('pages.badge_recruitment.ways_to_get.taikoon.title')}</div>
     {$t('pages.badge_recruitment.ways_to_get.taikoon.description')}
 
