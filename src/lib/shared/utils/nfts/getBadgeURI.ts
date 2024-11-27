@@ -1,4 +1,4 @@
-import { FactionNames, FACTIONS } from '$configs/badges';
+import { FactionNames } from '$lib/domains/nfts/types/badges/types';
 import { MovementNames, Movements, Seasons } from '$lib/domains/profile/types/types';
 
 export default function getBadgeURI(season: Seasons, badgeId: number, movement?: Movements) {
@@ -7,7 +7,7 @@ export default function getBadgeURI(season: Seasons, badgeId: number, movement?:
   }
 
   const movementStr = MovementNames[movement].toLowerCase();
-  const factionStr = FactionNames[FACTIONS[badgeId] as FactionNames].toLowerCase();
+  const factionStr = Object.values(FactionNames)[badgeId].toLowerCase();
 
   const uri = `/factions/s${season}/${factionStr}/${movementStr}`;
   return uri;

@@ -1,8 +1,8 @@
 <script lang="ts">
   import { format, t } from 'svelte-i18n';
 
-  import { FACTIONS } from '$configs/badges';
   import RecruitmentBadgeItem from '$lib/domains/badges/components/RecruitmentBadgeItem.svelte';
+  import { FactionNames } from '$lib/domains/nfts/types/badges/types';
   import profileService from '$lib/domains/profile/services/ProfileServiceInstance';
   import { ActionButton } from '$shared/components/Button';
   import { Icon } from '$shared/components/Icon';
@@ -85,7 +85,7 @@
     'items-center',
   );
 
-  $: badgeName = FACTIONS[$activeRecruitment?.s1Badge?.metadata.badgeId as number] || '';
+  $: badgeName = Object.values(FactionNames)[$activeRecruitment?.s1Badge?.metadata.badgeId as number] || '';
 </script>
 
 <CoreModal bind:open={$startRecruitmentModal}>
@@ -113,7 +113,7 @@
 
   <CoreModalFooter>
     <div class={warningClasses}>
-      <Icon type="exclamation-circle" size={24} />
+      <Icon type="exclamation-circle" size={48} class="mx-[12px]" fillClass="fill-yellow-400" />
       <p>{$t('badge_recruitment.modal.start_recruitment.warning')}</p>
     </div>
 

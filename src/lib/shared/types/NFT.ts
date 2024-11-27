@@ -1,6 +1,6 @@
 import type { Address } from 'viem';
 
-import type { FactionNames } from '$configs/badges';
+import type { FactionNames } from '$lib/domains/nfts/types/badges/types';
 
 export enum TokenType {
   Unknown = 0,

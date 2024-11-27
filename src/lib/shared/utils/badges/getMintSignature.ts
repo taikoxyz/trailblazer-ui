@@ -2,7 +2,6 @@ import { readContract, signMessage } from '@wagmi/core';
 import axios from 'axios';
 import { type Address } from 'viem';
 
-import type { FACTIONS } from '$configs/badges';
 import { PUBLIC_TRAILBLAZER_API_URL } from '$env/static/public';
 import { trailblazersBadgesAbi, trailblazersBadgesAddress } from '$generated/abi';
 import { globalAxiosConfig } from '$lib/shared/services/api/axiosClient';
@@ -49,7 +48,7 @@ async function signHash(
 
 export default async function getMintSignature(
   address: Address,
-  factionId: FACTIONS,
+  factionId: number,
 ): Promise<{ signature: Address; hash: Address }> {
   const contractAddress = trailblazersBadgesAddress[chainId];
 

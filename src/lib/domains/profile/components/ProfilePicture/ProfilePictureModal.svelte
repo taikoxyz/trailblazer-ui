@@ -12,6 +12,7 @@
   import Spinner from '$shared/components/Spinner/Spinner.svelte';
   import { classNames } from '$shared/utils/classNames';
   import { getLogger } from '$shared/utils/logger';
+  import getNftImage from '$shared/utils/nfts/getNftImage';
 
   const log = getLogger('ProfilePictureModal');
 
@@ -200,10 +201,6 @@
   onMount(() => {
     possiblePFPs = $userProfile?.nfts || [];
   });
-
-  function getNftImage(nft: NFT) {
-    return nft.metadata.image as string;
-  }
 </script>
 
 <dialog
