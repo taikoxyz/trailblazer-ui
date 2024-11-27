@@ -220,7 +220,9 @@
   const handleRefresh = async () => {
     if (!browser) return;
     isLoading = true;
-    const address = window.location.pathname.split('/').pop();
+    // match address in url
+    const match = window.location.pathname.match(/0x[a-fA-F0-9]{40}/);
+    const address = match ? match[0] : null;
     if (!address) return;
     await profileService.getProfileWithNFTs(address as Address);
     enabledBadgeIds = await profileService.getEnabledRecruitments();

@@ -135,6 +135,7 @@ export class BadgeRecruitmentAdapter {
     v: bigint;
     points: number;
   }> {
+    // arbitrary challenge to prove the user owns the calling address
     const challenge = Date.now().toString();
     const challengeSignature = await signMessage(wagmiConfig, { message: challenge });
     const hashType = action === 'start' ? 1 : action === 'end' ? 2 : 3;

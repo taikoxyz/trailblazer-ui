@@ -1,11 +1,12 @@
 import type { Address } from 'viem';
 
-import { BadgeRecruitmentAdapter } from '$lib/domains/badges/adapter/BadgeRecruitmentAdapter';
 import type { Movements } from '$lib/domains/profile/types/types';
 import { type IBadgeRecruitment, RecruitmentStatus } from '$lib/shared/types/BadgeRecruitment';
 import { activeRecruitment } from '$shared/stores/recruitment';
 import type { NFT } from '$shared/types/NFT';
 import { getLogger } from '$shared/utils/logger';
+
+import { BadgeRecruitmentAdapter } from '../adapter/BadgeRecruitmentAdapter';
 
 const log = getLogger('BadgeRecruitmentService');
 
