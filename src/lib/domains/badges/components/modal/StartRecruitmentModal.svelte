@@ -5,6 +5,7 @@
   import RecruitmentBadgeItem from '$lib/domains/badges/components/RecruitmentBadgeItem.svelte';
   import profileService from '$lib/domains/profile/services/ProfileServiceInstance';
   import { ActionButton } from '$shared/components/Button';
+  import { Icon } from '$shared/components/Icon';
   import { errorToast, successToast } from '$shared/components/NotificationToast';
   import { account } from '$shared/stores';
   import { activeRecruitment, influenceRecruitmentModal, startRecruitmentModal } from '$shared/stores/recruitment';
@@ -112,7 +113,7 @@
 
   <CoreModalFooter>
     <div class={warningClasses}>
-      <img src="/icons/exclaimation-circle.svg" alt="Warning" class="w-[24px] h-[24px]" />
+      <Icon type="exclamation-circle" size={24} />
       <p>{$t('badge_recruitment.modal.start_recruitment.warning')}</p>
     </div>
 
