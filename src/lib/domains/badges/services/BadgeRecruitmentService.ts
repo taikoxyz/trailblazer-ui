@@ -6,15 +6,15 @@ import { activeRecruitment } from '$shared/stores/recruitment';
 import type { NFT } from '$shared/types/NFT';
 import { getLogger } from '$shared/utils/logger';
 
-import { BadgeRecruitmentAdapter } from '../adapter/BadgeRecruitmentAdapter';
+import BadgeRecruitmentAdapter from '../adapter/BadgeRecruitmentAdapter';
 
 const log = getLogger('BadgeRecruitmentService');
 
-export class BadgeRecruitmentService {
+export default class BadgeRecruitmentService {
   private adapter: BadgeRecruitmentAdapter;
 
-  constructor(recruitmentAdapter: BadgeRecruitmentAdapter) {
-    this.adapter = recruitmentAdapter;
+  constructor(recruitmentAdapter?: BadgeRecruitmentAdapter) {
+    this.adapter = recruitmentAdapter || new BadgeRecruitmentAdapter();
   }
   /**
    * Fetches the system's enabled migrations

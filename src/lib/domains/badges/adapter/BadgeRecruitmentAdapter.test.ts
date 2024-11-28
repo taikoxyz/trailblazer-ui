@@ -18,7 +18,7 @@ import generateBadgeMetadata from '$shared/utils/nfts/generateBadgeMetadata';
 import getMockBadge from '$shared/utils/nfts/getMockBadge';
 import { wagmiConfig } from '$shared/wagmi';
 
-import { BadgeRecruitmentAdapter } from './BadgeRecruitmentAdapter';
+import BadgeRecruitmentAdapter from './BadgeRecruitmentAdapter';
 
 vi.mock('$lib/shared/services/graphql/client', () => ({
   graphqlClient: {

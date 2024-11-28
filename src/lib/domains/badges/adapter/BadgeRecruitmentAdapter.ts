@@ -24,7 +24,7 @@ import generateBadgeMetadata from '$shared/utils/nfts/generateBadgeMetadata';
 
 const log = getLogger('BadgeRecruitmentAdapter');
 
-export class BadgeRecruitmentAdapter {
+export default class BadgeRecruitmentAdapter {
   /**
    * Fetches the currently-enabled recruitment s1 badge ids
    *
