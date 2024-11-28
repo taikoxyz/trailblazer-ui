@@ -23,10 +23,13 @@
   );
 
   const contentClasses = classNames(
+    'lg:justify-center',
     'overflow-y-scroll',
     'py-[20px]',
     'w-full',
     'h-full',
+    'pt-[74px]',
+    'lg:pt-0',
     'flex',
     'flex-col',
     'justify-start',

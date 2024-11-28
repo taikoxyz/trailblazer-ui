@@ -106,7 +106,7 @@
     },
     OngoingRecruitment: {
       type: 'primary',
-      label: 'Another recruitment in progress',
+      label: $t('badge_recruitment.buttons.ongoing_recruitment'),
       disabled: true,
     },
   } as Record<string, FactionBadgeButton>;

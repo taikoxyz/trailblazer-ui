@@ -8,8 +8,9 @@
     'items-center',
     'justify-center',
     'w-full',
+    'text-center',
     'max-w-[900px]',
-    // 'pb-[40px]',
+    'mb-[60px]',
   );
 </script>
 

@@ -6,12 +6,14 @@
     'max-w-full',
     'justify-center',
     'items-center',
-    'gap-[24px]',
+    'gap-[30px]',
     'flex',
     'flex-col',
     'text-[24px]/[32px]',
     'text-secondary-content',
     'text-center',
+    'mt-[80px]',
+    'md:mt-[30px]',
   );
 </script>
 

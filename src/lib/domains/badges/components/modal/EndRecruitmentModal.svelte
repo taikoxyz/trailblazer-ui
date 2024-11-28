@@ -100,7 +100,7 @@
         {$t('badge_recruitment.buttons.reveal')}
       </ActionButton>
     {:else}
-      <ActionButton on:click={() => ($endRecruitmentModal = false)} priority="secondary">Confirm</ActionButton>
+      <ActionButton on:click={() => ($endRecruitmentModal = false)} priority="primary">Confirm</ActionButton>
     {/if}
   </CoreModalFooter>
 </CoreModal>
