@@ -8,6 +8,7 @@ import {
   badgeRecruitmentAddress,
   trailblazersBadgesAbi,
   trailblazersBadgesAddress,
+  trailblazersBadgesS2Address,
 } from '$generated/abi';
 import { Movements } from '$lib/domains/profile/types/types';
 import { graphqlClient } from '$lib/shared/services/graphql/client';
@@ -166,7 +167,7 @@ describe('BadgeRecruitmentAdapter', () => {
         minnowInfluences: 0,
         s1Badge: { ...mockBadge, tokenId: 1 },
         s2Badge: {
-          address: '0x0000000000000000000000000000000000000000',
+          address: trailblazersBadgesS2Address[chainId],
           metadata: {
             badgeId: 2,
             erc: 0,
@@ -276,7 +277,7 @@ describe('BadgeRecruitmentAdapter', () => {
         minnowInfluences: 0,
         s1Badge: { ...mockBadge },
         s2Badge: {
-          address: '0x0000000000000000000000000000000000000000',
+          address: trailblazersBadgesS2Address[chainId],
           metadata: {
             badgeId: 2,
             erc: 0,
