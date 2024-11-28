@@ -342,6 +342,10 @@ export default {
             drop-shadow(0 0 9px rgba(255, 113, 91, 0.1))
           `,
         },
+        '.fancy-background': {
+          background:
+            'var(--influence-button, linear-gradient(177deg, #5D08C8 -59.85%, #9F00B8 36.97%, #CA00A8 133.8%, #E81899 230.62%))',
+        },
       };
       addUtilities(newUtilities);
     },

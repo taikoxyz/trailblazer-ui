@@ -13,6 +13,7 @@
   import type { NFT } from '$shared/types/NFT';
   import { classNames } from '$shared/utils/classNames';
 
+  import FancyButton from '../FancyButton.svelte';
   import CoreModal from './components/CoreModal.svelte';
   import CoreModalDescription from './components/CoreModalDescription.svelte';
   import CoreModalFooter from './components/CoreModalFooter.svelte';
@@ -57,13 +58,13 @@
     }
   }
 
-  const badgeWrapperClasses = classNames('w-full', 'flex', 'justify-center', 'items-center');
-
   $: isRevealed = false;
 
   function getMovementName(token: NFT) {
     return MovementNames[token.metadata.movement as Movements];
   }
+
+  const badgeWrapperClasses = classNames('w-full', 'flex', 'justify-center', 'items-center');
 </script>
 
 <CoreModal bind:open={$endRecruitmentModal}>
@@ -96,9 +97,9 @@
 
   <CoreModalFooter>
     {#if !isRevealed}
-      <ActionButton loading={isLoading} disabled={isLoading} on:click={handleEndRecruitment} priority="primary">
+      <FancyButton disabled={isLoading} loading={isLoading} on:click={handleEndRecruitment}>
         {$t('badge_recruitment.buttons.reveal')}
-      </ActionButton>
+      </FancyButton>
     {:else}
       <ActionButton on:click={() => ($endRecruitmentModal = false)} priority="primary">Confirm</ActionButton>
     {/if}

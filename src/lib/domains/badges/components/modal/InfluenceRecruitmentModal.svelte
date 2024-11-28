@@ -4,13 +4,13 @@
 
   import profileService from '$lib/domains/profile/services/ProfileServiceInstance';
   import { MovementNames, Movements, Seasons } from '$lib/domains/profile/types/types';
-  import { ActionButton } from '$shared/components/Button';
   import { errorToast, successToast } from '$shared/components/NotificationToast';
   import { account } from '$shared/stores';
   import { activeRecruitment, influenceRecruitmentModal } from '$shared/stores/recruitment';
   import { classNames } from '$shared/utils/classNames';
   import getMockBadge from '$shared/utils/nfts/getMockBadge';
 
+  import FancyButton from '../FancyButton.svelte';
   import InfluenceRadio from '../InfluenceRadio.svelte';
   import RecruitmentBadgeItem from '../RecruitmentBadgeItem.svelte';
   import { CoreModal, CoreModalDescription, CoreModalFooter, CoreModalHeader, CoreModalTitle } from './components';
@@ -120,14 +120,12 @@
     </div>
   {/if}
   <CoreModalFooter>
-    <ActionButton
+    <FancyButton
       loading={isLoading}
-      on:click={handleInfluence}
       disabled={isLoading || selectedMovement === null || influenceCounter === maxInfluences}
-      priority="primary">
+      on:click={handleInfluence}>
       {$t('badge_recruitment.buttons.influence')}
-
       ( {influenceCounter} / {maxInfluences})
-    </ActionButton>
+    </FancyButton>
   </CoreModalFooter>
 </CoreModal>
