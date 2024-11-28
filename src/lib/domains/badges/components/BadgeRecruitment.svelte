@@ -9,7 +9,7 @@
   import { ActionButton, Button } from '$shared/components/Button';
   import RotatingIcon from '$shared/components/Icon/RotatingIcon.svelte';
   import { account } from '$shared/stores';
-  import { endRecruitmentModal } from '$shared/stores/recruitment';
+  import { endRecruitmentModal, influenceRecruitmentModal, startRecruitmentModal } from '$shared/stores/recruitment';
   import { classNames } from '$shared/utils/classNames';
 
   import BadgeRecruitmentItem from './BadgeRecruitmentItem.svelte';
@@ -76,7 +76,9 @@
     forceRenderFlag = true;
   }
 
-  $: $endRecruitmentModal, handleRefresh();
+  $: $startRecruitmentModal, !$startRecruitmentModal && handleRefresh();
+  $: $influenceRecruitmentModal, !$influenceRecruitmentModal && handleRefresh();
+  $: $endRecruitmentModal, !$startRecruitmentModal && handleRefresh();
 
   const faqWrapperClasses = classNames(
     'pt-[60px]',
