@@ -4,9 +4,13 @@ import { type Address, getAddress, type Hash } from 'viem';
 import BadgeRecruitmentService from '$lib/domains/badges/services/BadgeRecruitmentService';
 import type { UserLeaderboardItem } from '$lib/domains/leaderboard/types/user/types';
 import { NftService } from '$lib/domains/nfts/services/NftService';
+import { SeasonBonusPointsAdapter } from '$lib/domains/profile/adapter/BonusPointsAdapter';
 import { ProfileApiAdapter } from '$lib/domains/profile/adapter/ProfileAdapter';
+import type { UserPointsAndRankResponse } from '$lib/domains/profile/dto/profile.dto';
 import UserRepository from '$lib/domains/profile/repositories/UserRepository';
+import type { IProfileService } from '$lib/domains/profile/services/IProfileService';
 import { multipliersLoading, profileLoading } from '$lib/domains/profile/stores/profileStore';
+import type { UserPointHistory } from '$lib/domains/profile/types/ActivityHistory';
 import { defaultUserProfile } from '$lib/domains/profile/types/defaultUserProfile';
 import type { DomainInfo } from '$lib/domains/profile/types/DomainInfo';
 import { levelTiers } from '$lib/domains/profile/types/LevelTiers';
@@ -21,10 +25,6 @@ import { wagmiConfig } from '$lib/shared/wagmi';
 import { activeRecruitment } from '$shared/stores/recruitment';
 import { getLogger } from '$shared/utils/logger';
 
-import type { UserPointsAndRankResponse } from '../dto/profile.dto';
-import type { UserPointHistory } from '../types/ActivityHistory';
-import type { IProfileService } from './IProfileService';
-
 const log = getLogger('ProfileService');
 
 export class ProfileService implements IProfileService {
@@ -32,6 +32,7 @@ export class ProfileService implements IProfileService {
 
   // Adapters
   private apiAdapter: ProfileApiAdapter;
+  private seasonBonusAdapter: SeasonBonusPointsAdapter;
 
   // Repositories
   private userRepository: UserRepository;
@@ -47,11 +48,13 @@ export class ProfileService implements IProfileService {
     userRepository?: UserRepository,
     combinedNFTService?: NftService,
     badgeRecruitmentService?: BadgeRecruitmentService,
+    seasonBonusAdapter?: SeasonBonusPointsAdapter,
   ) {
     this.apiAdapter = apiAdapter || new ProfileApiAdapter();
     this.userRepository = userRepository || new UserRepository();
     this.combinedNFTService = combinedNFTService || new NftService();
     this.badgeRecruitmentService = badgeRecruitmentService || new BadgeRecruitmentService();
+    this.seasonBonusAdapter = seasonBonusAdapter || new SeasonBonusPointsAdapter();
   }
 
   public static getInstance(): ProfileService | null {
@@ -667,6 +670,36 @@ export class ProfileService implements IProfileService {
     } catch (error) {
       log('Error checking blacklist status:', error);
       return false;
+    }
+  }
+
+  /**
+   * Retrieves the user's bonus points for the given season.
+   *
+   * @param {Address} address
+   * @param {number} season
+   * @return {*}  {Promise<number>}
+   * @memberof ProfileService
+   */
+  async getProfileBonusPoints(address: Address, season: number): Promise<number> {
+    log('Fetching bonus points for address:', address, 'season:', season);
+    try {
+      const bonusPoints = await this.seasonBonusAdapter.fetchUserBonusPoints(address, season);
+      log('Bonus points:', bonusPoints);
+      return bonusPoints;
+    } catch (error) {
+      log('Error fetching bonus points:', error);
+      return 0;
+    }
+  }
+
+  async claimSeasonBonus(address: Address, season: number): Promise<void> {
+    log('Claiming bonus points for address:', address, 'season:', season);
+    try {
+      await this.seasonBonusAdapter.claimUserBonusPoints(address, season);
+      log('Claimed bonus points successfully.');
+    } catch (error) {
+      log('Error claiming bonus points:', error);
     }
   }
 
