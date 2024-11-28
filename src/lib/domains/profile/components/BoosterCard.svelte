@@ -18,5 +18,5 @@
     </div>
   </Tooltip>
   <div slot="status" class="w-full">
-    <h1>Coming soon!</h1>
+    <h1>Multipliers are being processed, check again soon</h1>
   </div></AbstractProfileCard>
