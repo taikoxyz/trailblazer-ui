@@ -1,1 +1,1 @@
-declare module 'https://api.goldsky.com/api/public/project_clz85cxrvng3n01ughcv5e7hg/subgraphs/tbz-hekla/0.2.78m5/gn';
+declare module 'https://api.goldsky.com/api/public/project_clz85cxrvng3n01ughcv5e7hg/subgraphs/tbz-s2/0.0.4/gn';
