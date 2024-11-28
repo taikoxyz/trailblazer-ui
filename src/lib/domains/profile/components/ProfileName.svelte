@@ -14,7 +14,7 @@
   $: open = false;
 
   function handleSetDomain(selectedDomain: DomainType) {
-    profileService.setSelectedDomain(selectedDomain);
+    profileService?.setSelectedDomain(selectedDomain);
     closeDropdown();
   }
 

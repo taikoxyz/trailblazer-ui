@@ -11,8 +11,17 @@ import BadgeRecruitmentService from './BadgeRecruitmentService';
 //import  BadgeRecruitmentAdapter  from '../adapter/BadgeRecruitmentAdapter';
 
 // Correctly mock DappCompetitionAdapter instead of DappLeaderboardAdapter
+vi.mock('@wagmi/core', () => ({
+  writeContract: vi.fn(),
+  readContract: vi.fn(),
+  signMessage: vi.fn(),
+  reconnect: vi.fn(),
+  watchContractEvent: vi.fn(),
+}));
 
 vi.mock('../adapter/BadgeRecruitmentAdapter');
+
+vi.mock('$lib/shared/wagmi/watcher');
 
 describe('BadgeRecruitmentService', () => {
   let mockBadgeRecruitmentAdapter: Mocked<BadgeRecruitmentAdapter>;

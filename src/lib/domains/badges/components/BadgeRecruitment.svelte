@@ -67,7 +67,7 @@
   $: enabledBadgeIds = [] as number[];
 
   onMount(async () => {
-    enabledBadgeIds = await profileService.getEnabledRecruitments();
+    enabledBadgeIds = (await profileService?.getEnabledRecruitments()) || [];
   });
 
   $: forceRenderFlag = true;
@@ -91,8 +91,8 @@
     const match = window.location.pathname.match(/0x[a-fA-F0-9]{40}/);
     const address = match ? match[0] : null;
     if (!address) return;
-    await profileService.getProfileWithNFTs(address as Address);
-    enabledBadgeIds = await profileService.getEnabledRecruitments();
+    await profileService?.getProfileWithNFTs(address as Address);
+    enabledBadgeIds = (await profileService?.getEnabledRecruitments()) || [];
     isLoading = false;
   };
 

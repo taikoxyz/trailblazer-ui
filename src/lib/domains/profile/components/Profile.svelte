@@ -33,7 +33,7 @@
 
   onMount(async () => {
     const urlAddress = $page.url.pathname.split('/').pop() as Address;
-    await profileService.getProfile(urlAddress, $activeSeason);
+    await profileService?.getProfile(urlAddress, $activeSeason);
   });
 </script>
 

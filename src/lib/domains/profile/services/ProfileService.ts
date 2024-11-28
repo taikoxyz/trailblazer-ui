@@ -54,18 +54,12 @@ export class ProfileService implements IProfileService {
     this.badgeRecruitmentService = badgeRecruitmentService || new BadgeRecruitmentService();
   }
 
-  public static getInstance(): ProfileService {
-    /*
-    if (!ProfileService.instance) {
-      ProfileService.instance = new ProfileService();
+  public static getInstance(): ProfileService | null {
+    try {
+      return new ProfileService();
+    } catch (e) {
+      return null;
     }
-    return ProfileService.instance;*/
-    const apiAdapter = new ProfileApiAdapter();
-    const userRepository = new UserRepository();
-    const combinedNFTService = new NftService();
-    const badgeRecruitmentService = new BadgeRecruitmentService();
-
-    return new ProfileService(apiAdapter, userRepository, combinedNFTService, badgeRecruitmentService);
   }
 
   /**

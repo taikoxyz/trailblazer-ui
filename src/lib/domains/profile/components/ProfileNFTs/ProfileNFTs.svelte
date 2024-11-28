@@ -28,7 +28,7 @@
     if (!browser) return;
     const address = window.location.pathname.split('/').pop();
     if (!address) return;
-    await profileService.getProfileWithNFTs(address as Address);
+    await profileService?.getProfileWithNFTs(address as Address);
   };
 
   onMount(async () => {

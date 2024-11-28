@@ -27,7 +27,7 @@ let previousChainId: number | null = null;
  */
 async function checkBlacklist(address: Address) {
   try {
-    const blacklisted = await profileService.getBlacklistStatus(address, get(activeSeason));
+    const blacklisted = await profileService?.getBlacklistStatus(address, get(activeSeason));
     if (blacklisted) {
       blacklistModal.set(true);
     } else {

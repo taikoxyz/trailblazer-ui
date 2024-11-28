@@ -27,7 +27,7 @@
       isLoading = true;
       const address = $account.address;
 
-      await profileService.startRecruitment(address, $activeRecruitment.s1Badge, $activeRecruitment);
+      await profileService?.startRecruitment(address, $activeRecruitment.s1Badge, $activeRecruitment);
 
       successToast({
         title: $t('badge_recruitment.modal.start_recruitment.toast.success.title'),

@@ -162,7 +162,7 @@
       }
       isLoading = true;
       log('Setting profile picture', selectedPfp);
-      await profileService.setProfilePicture(selectedPfp);
+      await profileService?.setProfilePicture(selectedPfp);
 
       isLoading = false;
       successToast({
