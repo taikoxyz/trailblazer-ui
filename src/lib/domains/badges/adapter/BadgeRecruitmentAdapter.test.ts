@@ -382,7 +382,7 @@ describe('BadgeRecruitmentAdapter', () => {
         minnowInfluences: 0,
         s1Badge: { ...mockBadge },
         s2Badge: {
-          address: '0x77B9f9324873645256AB3Bf70E6ad7354b3fe6Cc',
+          address: trailblazersBadgesAddress[chainId],
           metadata: {
             badgeId: 1,
             erc: 0,
