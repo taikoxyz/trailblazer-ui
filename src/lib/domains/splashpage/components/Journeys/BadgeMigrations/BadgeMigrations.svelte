@@ -66,7 +66,7 @@
 
 <div class={wrapperClasses}>
   <div class="lg:f-between-center w-full f-col items-center lg:f-row">
-    <img src="/header/migrations/migrations.svg" alt="Badge Migrations" class={headerImageClasses} />
+    <img src="/header/migrations/migrations.svg" alt="Badge Recruitment" class={headerImageClasses} />
     <div class="f-col">
       <span class={startTimeClasses}> {$t('pages.badge_recruitment.journey.begin.timer')} </span>
       <ContentBox
@@ -84,7 +84,9 @@
     </div>
   </div>
 
-  <ActionButton class={ctaClasses} priority="primary" on:click={() => goto(ctaLink)}>Start migration now</ActionButton>
+  <ActionButton class={ctaClasses} priority="primary" href="/profile">
+    {$t('pages.badge_recruitment.buttons.start')}
+  </ActionButton>
 
   <div class="h-sep" />
 
@@ -143,7 +145,7 @@
   <Multipliers />
 
   <!-- Get more badges -->
-  <ContentBox title={$t('pages.badge_recruitment.ways_to_get')}>
+  <ContentBox title={$t('pages.badge_recruitment.ways_to_get.title')}>
     <div class={headlineClasses}>{$t('pages.badge_recruitment.ways_to_get.taikoon.title')}</div>
     {$t('pages.badge_recruitment.ways_to_get.taikoon.description')}
 
@@ -155,7 +157,8 @@
   <div class={containerClasses}>
     <div class={lineClassesLeft}></div>
     <ActionButton class={ctaClasses} priority="primary" on:click={() => goto(ctaLink)}>
-      Start migration now</ActionButton>
+      {$t('pages.badge_recruitment.buttons.start')}
+    </ActionButton>
     <div class={lineClassesRight}></div>
   </div>
 

@@ -482,6 +482,7 @@
         }
       },
       "ways_to_get": {
+        "title": "Ways to get",
         "liquidity_royale": {
           "description": "To go alongside the rewards offered in the Liquidity Royale program, participants who are not in the top 100, but who still meet minimum liquidity requirements will earn Free Recruits on a weekly basis.",
           "title": "Liquidity Royale Perk"
@@ -494,10 +495,13 @@
       "journey": {
         "begin": {
           "title": "Season 1 badges are evolving - Here’s how to get your season 2 badge",
-          "timer": "Recruitment phase beginning: Nov 27, 2024 12:00 UTC",
+          "timer": "Recruitment phase beginning: Nov 28th 2024",
           "description": "Recruit new Season 2 members to your cause by sending your Season 1 Devs out to find them. Stake one Season 1 badge per cycle, and after 24 hours, receive a new Season 2 badge of the same Faction but from a random Team (Minnow or Whale). Boost your chances of getting your preferred Team by giving your Dev orders through on-chain transactions. This feature is called Influencing.",
           "note": "These transactions won’t add any TB points but will enhance your customization options."
         }
+      },
+      "buttons": {
+        "start": "Start recruiting now"
       }
     }
   },
@@ -709,7 +713,7 @@
         },
         {
           "question": "What does Influence do?",
-          "answer": "As your Dev is out looking for Recruits you can give them orders to target a specific Team to join your cause. Every time you give your Dev the order to Influence a particular Team, it will increase your chances of your Dev returning with a member of that Team by XXX%. Every time you give your Dev orders to Influence a particular Team you will see the number increase above that Team on the Recruit Influence page.<br/>If you change your mind about which Team you want to Influence you can select the other Team, and it will reset the Influence counter to 1 for your new target. You can give Influence orders to your Dev once every 1 hour."
+          "answer": "As your Dev is out looking for Recruits you can give them orders to target a specific Team to join your cause. Every time you give your Dev the order to Influence a particular Team, it will increase your chances of your Dev returning with a member of that Team by 5%. Every time you give your Dev orders to Influence a particular Team you will see the number increase above that Team on the Recruit Influence page.<br/><br/>If you change your mind about which Team you want to Influence you can select the other Team, and it will reset the Influence counter to 1 for your new target. You can give Influence orders to your Dev once every 1 hour."
         },
         {
           "question": "What are the different Teams and what do they do?",

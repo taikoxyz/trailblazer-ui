@@ -1,4 +1,4 @@
-import client from 'https://api.goldsky.com/api/public/project_clz85cxrvng3n01ughcv5e7hg/subgraphs/tbz-hekla/0.2.78/gn';
+import client from 'https://api.goldsky.com/api/public/project_clz85cxrvng3n01ughcv5e7hg/subgraphs/tbz-hekla/0.2.78m4/gn';
 import type {} from '@apollo/client';
 import { readable } from 'svelte/store';
 import type { Readable } from 'svelte/store';
@@ -856,6 +856,8 @@ export type Query = {
   profilePictures: Array<ProfilePicture>;
   round?: Maybe<Round>;
   rounds: Array<Round>;
+  s2Multiplier?: Maybe<S2Multiplier>;
+  s2Multipliers: Array<S2Multiplier>;
   token?: Maybe<Token>;
   tokens: Array<Token>;
 };
@@ -1008,6 +1010,22 @@ export type QueryRoundsArgs = {
   where?: InputMaybe<Round_Filter>;
 };
 
+export type QueryS2MultiplierArgs = {
+  block?: InputMaybe<Block_Height>;
+  id: Scalars['ID']['input'];
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+export type QueryS2MultipliersArgs = {
+  block?: InputMaybe<Block_Height>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<S2Multiplier_OrderBy>;
+  orderDirection?: InputMaybe<OrderDirection>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  subgraphError?: _SubgraphErrorPolicy_;
+  where?: InputMaybe<S2Multiplier_Filter>;
+};
+
 export type QueryTokenArgs = {
   block?: InputMaybe<Block_Height>;
   id: Scalars['ID']['input'];
@@ -1066,6 +1084,90 @@ export enum Round_OrderBy {
   Matches = 'matches',
 }
 
+export type S2Multiplier = {
+  __typename?: 'S2Multiplier';
+  devMultiplier: Scalars['BigInt']['output'];
+  globalMultiplier: Scalars['BigInt']['output'];
+  id: Scalars['ID']['output'];
+  minnowMultiplier: Scalars['BigInt']['output'];
+  snaefellMultiplier: Scalars['BigInt']['output'];
+  taikoonMultiplier: Scalars['BigInt']['output'];
+  whaleMultiplier: Scalars['BigInt']['output'];
+};
+
+export type S2Multiplier_Filter = {
+  /** Filter for the block changed event. */
+  _change_block?: InputMaybe<BlockChangedFilter>;
+  and?: InputMaybe<Array<InputMaybe<S2Multiplier_Filter>>>;
+  devMultiplier?: InputMaybe<Scalars['BigInt']['input']>;
+  devMultiplier_gt?: InputMaybe<Scalars['BigInt']['input']>;
+  devMultiplier_gte?: InputMaybe<Scalars['BigInt']['input']>;
+  devMultiplier_in?: InputMaybe<Array<Scalars['BigInt']['input']>>;
+  devMultiplier_lt?: InputMaybe<Scalars['BigInt']['input']>;
+  devMultiplier_lte?: InputMaybe<Scalars['BigInt']['input']>;
+  devMultiplier_not?: InputMaybe<Scalars['BigInt']['input']>;
+  devMultiplier_not_in?: InputMaybe<Array<Scalars['BigInt']['input']>>;
+  globalMultiplier?: InputMaybe<Scalars['BigInt']['input']>;
+  globalMultiplier_gt?: InputMaybe<Scalars['BigInt']['input']>;
+  globalMultiplier_gte?: InputMaybe<Scalars['BigInt']['input']>;
+  globalMultiplier_in?: InputMaybe<Array<Scalars['BigInt']['input']>>;
+  globalMultiplier_lt?: InputMaybe<Scalars['BigInt']['input']>;
+  globalMultiplier_lte?: InputMaybe<Scalars['BigInt']['input']>;
+  globalMultiplier_not?: InputMaybe<Scalars['BigInt']['input']>;
+  globalMultiplier_not_in?: InputMaybe<Array<Scalars['BigInt']['input']>>;
+  id?: InputMaybe<Scalars['ID']['input']>;
+  id_gt?: InputMaybe<Scalars['ID']['input']>;
+  id_gte?: InputMaybe<Scalars['ID']['input']>;
+  id_in?: InputMaybe<Array<Scalars['ID']['input']>>;
+  id_lt?: InputMaybe<Scalars['ID']['input']>;
+  id_lte?: InputMaybe<Scalars['ID']['input']>;
+  id_not?: InputMaybe<Scalars['ID']['input']>;
+  id_not_in?: InputMaybe<Array<Scalars['ID']['input']>>;
+  minnowMultiplier?: InputMaybe<Scalars['BigInt']['input']>;
+  minnowMultiplier_gt?: InputMaybe<Scalars['BigInt']['input']>;
+  minnowMultiplier_gte?: InputMaybe<Scalars['BigInt']['input']>;
+  minnowMultiplier_in?: InputMaybe<Array<Scalars['BigInt']['input']>>;
+  minnowMultiplier_lt?: InputMaybe<Scalars['BigInt']['input']>;
+  minnowMultiplier_lte?: InputMaybe<Scalars['BigInt']['input']>;
+  minnowMultiplier_not?: InputMaybe<Scalars['BigInt']['input']>;
+  minnowMultiplier_not_in?: InputMaybe<Array<Scalars['BigInt']['input']>>;
+  or?: InputMaybe<Array<InputMaybe<S2Multiplier_Filter>>>;
+  snaefellMultiplier?: InputMaybe<Scalars['BigInt']['input']>;
+  snaefellMultiplier_gt?: InputMaybe<Scalars['BigInt']['input']>;
+  snaefellMultiplier_gte?: InputMaybe<Scalars['BigInt']['input']>;
+  snaefellMultiplier_in?: InputMaybe<Array<Scalars['BigInt']['input']>>;
+  snaefellMultiplier_lt?: InputMaybe<Scalars['BigInt']['input']>;
+  snaefellMultiplier_lte?: InputMaybe<Scalars['BigInt']['input']>;
+  snaefellMultiplier_not?: InputMaybe<Scalars['BigInt']['input']>;
+  snaefellMultiplier_not_in?: InputMaybe<Array<Scalars['BigInt']['input']>>;
+  taikoonMultiplier?: InputMaybe<Scalars['BigInt']['input']>;
+  taikoonMultiplier_gt?: InputMaybe<Scalars['BigInt']['input']>;
+  taikoonMultiplier_gte?: InputMaybe<Scalars['BigInt']['input']>;
+  taikoonMultiplier_in?: InputMaybe<Array<Scalars['BigInt']['input']>>;
+  taikoonMultiplier_lt?: InputMaybe<Scalars['BigInt']['input']>;
+  taikoonMultiplier_lte?: InputMaybe<Scalars['BigInt']['input']>;
+  taikoonMultiplier_not?: InputMaybe<Scalars['BigInt']['input']>;
+  taikoonMultiplier_not_in?: InputMaybe<Array<Scalars['BigInt']['input']>>;
+  whaleMultiplier?: InputMaybe<Scalars['BigInt']['input']>;
+  whaleMultiplier_gt?: InputMaybe<Scalars['BigInt']['input']>;
+  whaleMultiplier_gte?: InputMaybe<Scalars['BigInt']['input']>;
+  whaleMultiplier_in?: InputMaybe<Array<Scalars['BigInt']['input']>>;
+  whaleMultiplier_lt?: InputMaybe<Scalars['BigInt']['input']>;
+  whaleMultiplier_lte?: InputMaybe<Scalars['BigInt']['input']>;
+  whaleMultiplier_not?: InputMaybe<Scalars['BigInt']['input']>;
+  whaleMultiplier_not_in?: InputMaybe<Array<Scalars['BigInt']['input']>>;
+};
+
+export enum S2Multiplier_OrderBy {
+  DevMultiplier = 'devMultiplier',
+  GlobalMultiplier = 'globalMultiplier',
+  Id = 'id',
+  MinnowMultiplier = 'minnowMultiplier',
+  SnaefellMultiplier = 'snaefellMultiplier',
+  TaikoonMultiplier = 'taikoonMultiplier',
+  WhaleMultiplier = 'whaleMultiplier',
+}
+
 export type Subscription = {
   __typename?: 'Subscription';
   /** Access to subgraph metadata */
@@ -1088,6 +1190,8 @@ export type Subscription = {
   profilePictures: Array<ProfilePicture>;
   round?: Maybe<Round>;
   rounds: Array<Round>;
+  s2Multiplier?: Maybe<S2Multiplier>;
+  s2Multipliers: Array<S2Multiplier>;
   token?: Maybe<Token>;
   tokens: Array<Token>;
 };
@@ -1238,6 +1342,22 @@ export type SubscriptionRoundsArgs = {
   skip?: InputMaybe<Scalars['Int']['input']>;
   subgraphError?: _SubgraphErrorPolicy_;
   where?: InputMaybe<Round_Filter>;
+};
+
+export type SubscriptionS2MultiplierArgs = {
+  block?: InputMaybe<Block_Height>;
+  id: Scalars['ID']['input'];
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+export type SubscriptionS2MultipliersArgs = {
+  block?: InputMaybe<Block_Height>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<S2Multiplier_OrderBy>;
+  orderDirection?: InputMaybe<OrderDirection>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  subgraphError?: _SubgraphErrorPolicy_;
+  where?: InputMaybe<S2Multiplier_Filter>;
 };
 
 export type SubscriptionTokenArgs = {
