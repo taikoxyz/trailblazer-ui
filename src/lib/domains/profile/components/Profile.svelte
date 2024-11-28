@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import { getAddress, type Address } from 'viem';
+  import type { Address } from 'viem';
 
   import { page } from '$app/stores';
   import BoosterCard from '$lib/domains/profile/components/BoosterCard.svelte';
@@ -14,9 +14,6 @@
   // import { Alert } from '$shared/components/Alert';
   import LeaderboardDisclaimer from '$shared/components/Disclaimer/LeaderboardDisclaimer.svelte';
   import { classNames } from '$shared/utils/classNames';
-  import getConnectedAddress from '$shared/utils/getConnectedAddress';
-
-  import ProfileSeasonBonusCard from './ProfileSeasonBonusCard/ProfileSeasonBonusCard.svelte';
 
   const disclaimerWrapperClasses = classNames('mt-[100px]', 'px-[24px]', 'md:px-0');
   const containerClasses = classNames('flex', 'flex-col', 'items-center');
@@ -34,11 +31,10 @@
   );
   // const alertClasses = classNames('mt-[28px]');
   const tabsClasses = classNames('mt-[28px]');
-  $: isSelfProfile = false;
+
   onMount(async () => {
     const urlAddress = $page.url.pathname.split('/').pop() as Address;
     await profileService.getProfile(urlAddress, $activeSeason);
-    isSelfProfile = getAddress(urlAddress) === getAddress(getConnectedAddress());
   });
 </script>
 
@@ -47,9 +43,6 @@
     <div class={innerContainerClasses}>
       <ProfileCard loading={$profileLoading} />
       <BoosterCard />
-      {#if isSelfProfile}
-        <ProfileSeasonBonusCard />
-      {/if}
     </div>
 
     <!-- <div class={alertClasses}>

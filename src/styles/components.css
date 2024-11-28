@@ -168,52 +168,6 @@
       border-top: 9px solid var(--neutral-background);
     }
   }
-  .dialog-tooltip-right {
-    :before {
-      content: '';
-      position: absolute;
-      height: 0px;
-      width: 0px;
-      top: 50%;
-      right: -9px;
-      margin-top: -9px;
-      border-width: 9px;
-      border-color: transparent transparent transparent;
-      border-style: solid;
-      border-left: 9px solid var(--neutral-background);
-    }
-  }
-
-  .dialog-tooltip-bottom {
-    :before {
-      content: '';
-      position: absolute;
-      height: 0px;
-      width: 0px;
-      bottom: 100%;
-      left: 133px; /* (283px - 9px)/2 - 4px */
-      border-width: 9px;
-      border-color: transparent transparent transparent;
-      border-style: solid;
-      border-bottom: 9px solid var(--neutral-background);
-    }
-  }
-
-  .dialog-tooltip-left {
-    :before {
-      content: '';
-      position: absolute;
-      height: 0px;
-      width: 0px;
-      top: 50%;
-      left: -9px;
-      margin-top: -9px;
-      border-width: 9px;
-      border-color: transparent transparent transparent;
-      border-style: solid;
-      border-right: 9px solid var(--neutral-background);
-    }
-  }
 
   /* Separators */
   .h-sep {
