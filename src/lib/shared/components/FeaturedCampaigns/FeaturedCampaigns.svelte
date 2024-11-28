@@ -63,7 +63,7 @@
       btn: {
         text: 'Earn now',
         external: false,
-        destination: 'competitions/s2/liquidity',
+        destination: 'journeys/s2/liquidity',
       },
       images: {
         sm: '/campaign/cards/sm/liquidity-royale.png',
