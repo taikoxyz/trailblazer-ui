@@ -639,7 +639,8 @@
       "influence": "Influence",
       "start_recruitment": "Start recruitment",
       "end_recruitment": "Claim",
-      "reveal": "Reveal"
+      "reveal": "Reveal",
+      "ongoing_recruitment": "Another recruitment ongoing"
     },
     "labels": {
       "season": "Season",
