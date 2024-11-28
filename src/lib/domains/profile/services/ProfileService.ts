@@ -645,7 +645,6 @@ export class ProfileService implements IProfileService {
   async getBadgeRecruitments(address: Address): Promise<void> {
     log('getRecruitmentStatus', { address });
     const recruitments = await this.badgeRecruitmentService.getRecruitmentStatus(address);
-
     await this.userRepository.update({
       badgeRecruitment: recruitments,
     });

@@ -310,15 +310,15 @@ export default class BadgeRecruitmentAdapter {
         fetchPolicy: 'no-cache',
       });
 
-      if (!graphqlResponse || !graphqlResponse.data || !graphqlResponse.data.account) {
+      const enabledBadgeIds = await this.fetchEnabledRecruitments();
+
+      if (!graphqlResponse) {
         return [];
       }
 
-      const { s2Recruitments } = graphqlResponse.data.account as {
+      const { s2Recruitments } = (graphqlResponse.data?.account as {
         s2Recruitments: GqlBadgeRecruitment[];
-      };
-
-      const enabledBadgeIds = await this.fetchEnabledRecruitments();
+      }) || { s2Recruitments: [] };
 
       const recruitments = enabledBadgeIds.map((badgeId) => {
         const rawRecruitment = s2Recruitments.find(

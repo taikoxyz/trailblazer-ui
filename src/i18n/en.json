@@ -653,7 +653,8 @@
     "main": {
       "can_influence_in": "You can influence again in:",
       "can_claim_in": "Badge recruited in:",
-      "no_enabled_recruitments": "No recruitments are currently enabled. Stay tuned!"
+      "no_enabled_recruitments": "No recruitments are currently enabled. Stay tuned!",
+      "cta": "Learn about badge recruitment"
     },
     "modal": {
       "start_recruitment": {

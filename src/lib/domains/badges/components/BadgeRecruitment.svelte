@@ -1,14 +1,12 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import { json, t } from 'svelte-i18n';
+  import { t } from 'svelte-i18n';
   import type { Address } from 'viem';
 
   import { browser } from '$app/environment';
   import profileService from '$lib/domains/profile/services/ProfileServiceInstance';
-  import { FaqBlock } from '$lib/domains/splashpage/components/FaqBlock';
-  import type { IFaqEntry } from '$lib/domains/splashpage/components/FaqBlock/FaqBlock.svelte';
   import { Spinner } from '$shared/components';
-  import { Button } from '$shared/components/Button';
+  import { ActionButton, Button } from '$shared/components/Button';
   import RotatingIcon from '$shared/components/Icon/RotatingIcon.svelte';
   import { account } from '$shared/stores';
   import { endRecruitmentModal } from '$shared/stores/recruitment';
@@ -80,19 +78,27 @@
 
   $: $endRecruitmentModal, handleRefresh();
 
-  const faqEntries = $json('badge_recruitment.faq.entries') as IFaqEntry[];
-  const faqWrapperClasses = classNames('pt-[60px]', 'w-full', 'px-[48px]', 'flex', 'flex-col', 'gap-[30px]');
+  const faqWrapperClasses = classNames(
+    'pt-[60px]',
+    'w-full',
+    'px-[48px]',
+    'flex',
+    'flex-col',
+    'gap-[30px]',
+    'justify-center',
+    'items-center',
+  );
 
   $: isLoading = false;
   const handleRefresh = async () => {
     if (!browser) return;
     isLoading = true;
+    enabledBadgeIds = (await profileService?.getEnabledRecruitments()) || [];
     // match address in url
     const match = window.location.pathname.match(/0x[a-fA-F0-9]{40}/);
     const address = match ? match[0] : null;
     if (!address) return;
     await profileService?.getProfileWithNFTs(address as Address);
-    enabledBadgeIds = (await profileService?.getEnabledRecruitments()) || [];
     isLoading = false;
   };
 
@@ -133,8 +139,10 @@
   </div>
 
   <div class={faqWrapperClasses}>
-    <div class="divider" />
-
-    <FaqBlock title={$t('badge_recruitment.faq.title')} entries={faqEntries} />
+    <div class="md:w-1/2 w-full">
+      <ActionButton href="/badge" priority="primary">
+        {$t('badge_recruitment.main.cta')}
+      </ActionButton>
+    </div>
   </div>
 </div>
