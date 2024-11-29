@@ -24,7 +24,6 @@
   $: dynamicAttrs = isDesktopOrLarger ? { 'data-glow-border': true } : {};
 
   const cardClasses = classNames(
-    'w-full',
     'card',
     'rounded-[20px]',
     'border',
