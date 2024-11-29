@@ -3,7 +3,6 @@
 
   import { Icon } from '$shared/components/Icon';
   import { classNames } from '$shared/utils/classNames';
-  import { isMobile } from '$shared/utils/responsiveCheck';
 
   export let title: string | undefined = undefined;
   import getConnectedAddress from '$shared/utils/getConnectedAddress';
@@ -44,7 +43,7 @@
     },
     {
       title: 'Chillblazers',
-      text: 'Prize pool 140K TAIKO tokens for all gaming and sociafi dapps!',
+      text: 'Prize pool 100K TAIKO tokens for all gaming and sociafi dapps!',
       btn: {
         text: 'Start now',
         external: false,
@@ -73,60 +72,157 @@
       },
     },
   ];
+
   let carouselElement: HTMLDivElement;
-  let carouselWrapper: HTMLDivElement;
+  let isDragging = false;
+  let startX = 0;
+  let scrollStartX = 0;
   let atStart = true;
   let atEnd = false;
 
+  function checkScrollPosition() {
+    if (!carouselElement) return;
+    atStart = carouselElement.scrollLeft === 0;
+    atEnd = Math.ceil(carouselElement.scrollLeft + carouselElement.offsetWidth) >= carouselElement.scrollWidth;
+  }
+
+  function onDragStart(event: MouseEvent | TouchEvent) {
+    isDragging = true;
+    startX = event instanceof MouseEvent ? event.clientX : event.touches[0].clientX;
+    scrollStartX = carouselElement.scrollLeft;
+    carouselElement.style.scrollBehavior = 'auto';
+  }
+
+  function onDragMove(event: MouseEvent | TouchEvent) {
+    if (!isDragging) return;
+    const currentX = event instanceof MouseEvent ? event.clientX : event.touches[0].clientX;
+    const deltaX = currentX - startX;
+    carouselElement.scrollLeft = scrollStartX - deltaX;
+    checkScrollPosition();
+  }
+
+  function onDragEnd() {
+    isDragging = false;
+    carouselElement.style.scrollBehavior = 'smooth';
+    checkScrollPosition();
+  }
+
   function scrollLeft() {
-    const scrollAmount = isMobile ? -200 : -600;
-    carouselElement.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    const card = carouselElement.querySelector('.snap-start') as HTMLElement;
+    if (!card) return;
+
+    const cardWidth = card.offsetWidth;
+    const gap = 16; // gap-4
+    const totalCardWidth = cardWidth + gap;
+
+    const currentScroll = carouselElement.scrollLeft;
+    const newScroll = Math.max(0, currentScroll - totalCardWidth);
+
+    carouselElement.scrollTo({ left: newScroll, behavior: 'smooth' });
+    setTimeout(checkScrollPosition, 300);
   }
 
   function scrollRight() {
-    const scrollAmount = isMobile ? 200 : 600;
-    carouselElement.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-  }
+    const card = carouselElement.querySelector('.snap-start') as HTMLElement;
+    if (!card) return;
 
-  function checkScrollPosition() {
-    atStart = carouselElement?.scrollLeft === 0;
-    atEnd = carouselElement?.scrollLeft + carouselElement?.offsetWidth >= carouselElement?.scrollWidth;
-  }
+    const cardWidth = card.offsetWidth;
+    const gap = 16; // gap-4
+    const totalCardWidth = cardWidth + gap;
 
-  $: checkScrollPosition();
+    const currentScroll = carouselElement.scrollLeft;
+    const maxScroll = carouselElement.scrollWidth - carouselElement.clientWidth;
+    const newScroll = Math.min(maxScroll, currentScroll + totalCardWidth);
+
+    carouselElement.scrollTo({ left: newScroll, behavior: 'smooth' });
+    setTimeout(checkScrollPosition, 300);
+  }
 
   onMount(() => {
-    carouselElement?.addEventListener('scroll', checkScrollPosition);
+    carouselElement?.addEventListener('mousedown', onDragStart);
+    carouselElement?.addEventListener('mousemove', onDragMove);
+    carouselElement?.addEventListener('mouseup', onDragEnd);
+    carouselElement?.addEventListener('mouseleave', onDragEnd);
+    carouselElement?.addEventListener('touchstart', onDragStart);
+    carouselElement?.addEventListener('touchmove', onDragMove);
+    carouselElement?.addEventListener('touchend', onDragEnd);
     checkScrollPosition();
   });
 
   onDestroy(() => {
-    carouselElement?.removeEventListener('scroll', checkScrollPosition);
+    carouselElement?.removeEventListener('mousedown', onDragStart);
+    carouselElement?.removeEventListener('mousemove', onDragMove);
+    carouselElement?.removeEventListener('mouseup', onDragEnd);
+    carouselElement?.removeEventListener('mouseleave', onDragEnd);
+    carouselElement?.removeEventListener('touchstart', onDragStart);
+    carouselElement?.removeEventListener('touchmove', onDragMove);
+    carouselElement?.removeEventListener('touchend', onDragEnd);
   });
+
+  const containerClasses = classNames('flex', 'flex-col', 'justify-center', 'items-center', 'w-full', 'container');
+
+  const headerWrapperClasses = classNames(
+    'w-full',
+    'flex',
+    'gap-4',
+    'justify-between',
+    'items-between',
+    'h-full',
+    'bottom-0',
+  );
+
+  const headerClasses = classNames('relative', 'right-0', 'flex-row', 'flex', 'justify-end', 'items-end', 'w-full');
+
+  const titleWrapperClasses = classNames('flex', 'flex-col', 'justify-start', 'gap-[40px]');
+
+  const titleInnerClasses = classNames('flex', 'flex-col', 'gap-[20px]', 'items-start', 'xl:items-start');
+
+  const titleClasses = classNames('font-clash-grotesk', 'text-[40px]/[49.2px]');
+
+  const underlineClasses = classNames('border', 'border-primary-brand', 'w-[66px]', 'h-[0px]');
+
+  const buttonWrapperClasses = classNames('flex', 'gap-4');
+
+  const buttonBaseClasses = classNames('f-center', 'btn-circle', 'border', 'border-primary-brand');
+
+  const buttonActiveClasses = classNames('bg-primary-brand', 'hover:bg-primary-interactive-hover');
+
+  const carouselWrapperClasses = classNames(
+    'w-full',
+    'pt-[100px]',
+    'md:pt-[70px]',
+    'overflow-x-hidden',
+    'overflow-y-hidden',
+    'scroll-smooth',
+  );
+
+  const cardContainerClasses = classNames('flex', 'w-full', 'gap-4', 'lg:gap-8', 'snap-x', 'snap-mandatory');
+
+  const cardClasses = classNames('snap-start', 'flex-shrink-0', 'w-full', 'md:w-[400px]', 'min-h-[444px]', 'h-full');
 </script>
 
-<div class={classNames('flex', 'flex-col', 'justify-center', 'items-center', 'w-full')}>
-  <div class="w-full flex gap-4 justify-between items-between h-full bottom-0">
-    <div class={classNames('relative right-0 flex-row flex justify-end items-end w-full')}>
+<div class={containerClasses}>
+  <div class={headerWrapperClasses}>
+    <div class={headerClasses}>
       {#if title}
-        <div class="flex flex-col justify-start gap-[40px]">
-          <div class="flex flex-col gap-[20px] items-start xl:items-start">
-            <div class="font-clash-grotesk text-[40px]/[49.2px]">{title}</div>
-            <div class={`border border-primary-brand w-[66px] h-[0px]`}></div>
+        <div class={titleWrapperClasses}>
+          <div class={titleInnerClasses}>
+            <div class={titleClasses}>{title}</div>
+            <div class={underlineClasses}></div>
           </div>
         </div>
       {/if}
 
-      <div class="flex gap-4">
+      <div class={buttonWrapperClasses}>
         <button
-          class={`f-center btn-circle border border-primary-brand ${atStart ? '' : 'bg-primary-brand  hover:bg-primary-interactive-hover'}`}
+          class={`${buttonBaseClasses} ${atStart ? '' : buttonActiveClasses}`}
           on:click={scrollLeft}
           disabled={atStart}>
           <Icon class="-translate-x-[2px]" type="chevron-left" />
         </button>
 
         <button
-          class={`f-center btn-circle border border-primary-brand ${atEnd ? '' : ' bg-primary-brand hover:bg-primary-interactive-hover'}`}
+          class={`${buttonBaseClasses} ${atEnd ? '' : buttonActiveClasses}`}
           on:click={scrollRight}
           disabled={atEnd}>
           <Icon class="translate-x-[2px]" type="chevron-right" />
@@ -134,12 +230,10 @@
       </div>
     </div>
   </div>
-  <div bind:this={carouselWrapper} class="w-full pt-[100px] md:pt-[70px]">
-    <div
-      bind:this={carouselElement}
-      class="flex w-full gap-4 lg:gap-8 overflow-x-hidden overflow-y-hidden scroll-smooth snap-x snap-mandatory">
+  <div bind:this={carouselElement} class={carouselWrapperClasses}>
+    <div class={cardContainerClasses}>
       {#each cards as card}
-        <Card content={card} class="snap-start flex-shrink-0 w-[300px] md:w-[400px] h-full" />
+        <Card content={card} class={cardClasses} />
       {/each}
     </div>
   </div>
