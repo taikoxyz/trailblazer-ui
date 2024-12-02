@@ -242,7 +242,7 @@ export default class BadgeRecruitmentAdapter {
    */
   async endRecruitment(address: Address, nft: NFT, recruitment: IBadgeRecruitment): Promise<IBadgeRecruitment> {
     if (nft.metadata.badgeId === undefined) {
-      throw new Error('Badge ID is required');
+      throw new Error('Badge ID is required for ending recruitment');
     }
 
     const { r, s, v, points, hash } = await this._getRecruitmentSignature(
