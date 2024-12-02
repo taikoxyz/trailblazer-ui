@@ -32,7 +32,13 @@ export class NftService {
     log('getNFTUrl', { nft });
     if (!nft.tokenUri) return null;
     try {
-      const tokenUriUrl = `/api/proxy?url=${encodeURIComponent(nft.tokenUri)}`;
+      let tokenBaseUri = nft.tokenUri;
+      const ipfsMatch = tokenBaseUri.match(/bafy[a-z2-7]{59,}/g);
+      if (ipfsMatch) {
+        tokenBaseUri = `https://taikonfts.4everland.link/ipfs/${ipfsMatch[0]}`;
+      }
+
+      const tokenUriUrl = `/api/proxy?url=${encodeURIComponent(tokenBaseUri)}`;
       const src = await axios.get(tokenUriUrl);
       return src.data;
     } catch (error) {
