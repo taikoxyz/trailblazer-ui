@@ -164,7 +164,7 @@ export default class BadgeRecruitmentAdapter {
     const { r, s, v } = parseSignature(mintSignature);
 
     if (!r || !s || !v) {
-      throw new Error('Invalid signature');
+      throw new Error('Invalid signature: r, s, or v value is missing or incorrect');
     }
 
     const hash = await readContract(wagmiConfig, {
