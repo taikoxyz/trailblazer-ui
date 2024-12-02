@@ -2,10 +2,15 @@
 import type { RequestHandler } from '@sveltejs/kit';
 
 export const GET: RequestHandler = async ({ url }) => {
-  const targetUrl = url.searchParams.get('url');
+  let targetUrl = url.searchParams.get('url');
 
   if (!targetUrl) {
     return new Response('Missing "url" query parameter', { status: 400 });
+  }
+
+  const ipfsMatch = targetUrl.match(/bafy[a-z2-7]{59,}/g);
+  if (ipfsMatch) {
+    targetUrl = `https://taikonfts.4everland.link/ipfs/${ipfsMatch[0]}`;
   }
 
   try {
