@@ -1,23 +1,18 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
-  import { type Address, getAddress } from 'viem';
-
-  import { page } from '$app/stores';
   import { userProfile } from '$lib/domains/profile/stores/profileStore';
   import { Spinner } from '$lib/shared/components';
   import { formatNumbers } from '$lib/shared/utils';
   import { activeSeason } from '$shared/stores/activeSeason';
   import { classNames } from '$shared/utils/classNames';
-  import getConnectedAddress from '$shared/utils/getConnectedAddress';
 
   import ProfileName from './ProfileName.svelte';
   import ProfilePicture from './ProfilePicture/ProfilePicture.svelte';
   import ProfileRank from './ProfileRank.svelte';
 
   export let loading: boolean;
+  export let isSelfProfile: boolean;
 
   let profile;
-  let isSelfProfile: boolean;
 
   $: profile = $userProfile;
   $: displayedScore = profile?.userStats?.score || 0;
@@ -40,11 +35,6 @@
     'xl:w-1/2',
     'xl:max-w-[680px]',
   );
-
-  onMount(async () => {
-    const urlAddress = $page.url.pathname.split('/').pop() as Address;
-    isSelfProfile = getAddress(urlAddress) === getAddress(getConnectedAddress());
-  });
 </script>
 
 <div class={cardClasses}>

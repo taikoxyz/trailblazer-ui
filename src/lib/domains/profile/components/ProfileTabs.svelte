@@ -22,6 +22,8 @@
       | typeof ProfileRewardClaim;
   };
 
+  export let isSelfProfile: boolean;
+
   export let tabs: TabContent[] = [
     {
       slug: 'activity',
@@ -33,11 +35,15 @@
       name: 'NFT Collection',
       content: ProfileNFTs,
     },
-    {
-      slug: 'badge-recruitment',
-      name: 'Badge Recruitment',
-      content: BadgeRecruitment,
-    },
+    ...(isSelfProfile
+      ? [
+          {
+            slug: 'badge-recruitment',
+            name: 'Badge Recruitment',
+            content: BadgeRecruitment,
+          },
+        ]
+      : []),
     ...(isDevelopmentEnv
       ? [
           {
@@ -47,11 +53,12 @@
           },
         ]
       : []),
+    /*
     {
       slug: 'claim',
       name: 'Claim',
       content: ProfileRewardClaim,
-    },
+    },*/
     {
       slug: 'lockdown',
       name: 'Lockdown',
