@@ -49,11 +49,18 @@
     'border-transparent',
     'bg-[rgba(0,0,0,.4)]',
   );
+
+  function prefixIpfsGateway(url: string) {
+    if (url.startsWith('http') || url.startsWith('/')) {
+      return url;
+    }
+    return `https://ipfs.io/ipfs/${url}`;
+  }
 </script>
 
 <div class={wrapperClasses}>
   <div class={imageWrapperClasses}>
-    <img src={image} alt={`NFT #${token.tokenId}`} class={imageClasses} />
+    <img src={prefixIpfsGateway(image)} alt={`NFT #${token.tokenId}`} class={imageClasses} />
   </div>
 
   <div class={bubbleWrapperClasses}>
@@ -62,3 +69,11 @@
     {/if}
   </div>
 </div>
+
+<style>
+  img {
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+    -ms-interpolation-mode: nearest-neighbor;
+  }
+</style>

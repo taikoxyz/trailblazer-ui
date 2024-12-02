@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import type { Address } from 'viem';
+  import { type Address, isAddressEqual } from 'viem';
 
   import { page } from '$app/stores';
   import BoosterCard from '$lib/domains/profile/components/BoosterCard.svelte';
@@ -13,6 +13,9 @@
   // import { Alert } from '$shared/components/Alert';
   import LeaderboardDisclaimer from '$shared/components/Disclaimer/LeaderboardDisclaimer.svelte';
   import { classNames } from '$shared/utils/classNames';
+  import getConnectedAddress from '$shared/utils/getConnectedAddress';
+
+  let isSelfProfile: boolean;
 
   const disclaimerWrapperClasses = classNames('mt-[100px]', 'px-[24px]', 'md:px-0');
   const containerClasses = classNames('flex', 'flex-col', 'items-center');
@@ -33,6 +36,7 @@
 
   onMount(async () => {
     const urlAddress = $page.url.pathname.split('/').pop() as Address;
+    isSelfProfile = isAddressEqual(urlAddress, getConnectedAddress());
     await profileService?.getProfile(urlAddress, $activeSeason);
   });
 </script>
@@ -40,7 +44,7 @@
 <div class={containerClasses}>
   <div class={sectionClasses}>
     <div class={innerContainerClasses}>
-      <ProfileCard loading={$profileLoading} />
+      <ProfileCard loading={$profileLoading} {isSelfProfile} />
       <BoosterCard />
     </div>
 
@@ -52,7 +56,7 @@
     </div> -->
 
     <div class={tabsClasses}>
-      <ProfileTabs />
+      <ProfileTabs {isSelfProfile} />
 
       <div class={disclaimerWrapperClasses}>
         <LeaderboardDisclaimer />

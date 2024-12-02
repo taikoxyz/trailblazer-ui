@@ -22,7 +22,9 @@
       | typeof ProfileRewardClaim;
   };
 
-  export let tabs: TabContent[] = [
+  export let isSelfProfile: boolean;
+
+  $: tabs = [
     {
       slug: 'activity',
       name: 'Activity',
@@ -33,11 +35,15 @@
       name: 'NFT Collection',
       content: ProfileNFTs,
     },
-    {
-      slug: 'badge-recruitment',
-      name: 'Badge Recruitment',
-      content: BadgeRecruitment,
-    },
+    ...(isSelfProfile
+      ? [
+          {
+            slug: 'badge-recruitment',
+            name: 'Badge Recruitment',
+            content: BadgeRecruitment,
+          },
+        ]
+      : []),
     ...(isDevelopmentEnv
       ? [
           {
@@ -47,17 +53,18 @@
           },
         ]
       : []),
+    /*
     {
       slug: 'claim',
       name: 'Claim',
       content: ProfileRewardClaim,
-    },
+    },*/
     {
       slug: 'lockdown',
       name: 'Lockdown',
       content: ProfileLockdownTab,
     },
-  ];
+  ] as TabContent[];
 
   let activeTab = 0;
 
