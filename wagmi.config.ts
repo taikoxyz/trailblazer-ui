@@ -25,7 +25,7 @@ export default defineConfig({
       address: {
         // use s2 for hekla, as it re-deploys s1 contracts
         167009: TrailblazerBadgesS2HeklaDeployment.TrailblazersBadges as Address,
-        167000: TrailblazerBadgesS2HeklaDeployment.TrailblazersBadges as Address,
+        167000: TrailblazerBadgesS2MainnetDeployment.TrailblazersBadges as Address,
       },
       abi: TrailblazersS1BadgesV4.abi as Abi,
     },
@@ -33,7 +33,7 @@ export default defineConfig({
       name: 'BadgeRecruitment',
       address: {
         167009: TrailblazerBadgesS2HeklaDeployment.BadgeRecruitment as Address,
-        167000: TrailblazerBadgesS2HeklaDeployment.BadgeRecruitment as Address,
+        167000: TrailblazerBadgesS2MainnetDeployment.BadgeRecruitment as Address,
       },
       abi: BadgeRecruitment.abi as Abi,
     },
