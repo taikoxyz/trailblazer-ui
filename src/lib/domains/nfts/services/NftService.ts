@@ -33,9 +33,8 @@ export class NftService {
     if (!nft.tokenUri) return null;
     try {
       let tokenBaseUri = nft.tokenUri;
-      const ipfsMatch = tokenBaseUri.match(/bafy[a-z2-7]{59,}/g);
-      if (ipfsMatch) {
-        tokenBaseUri = `https://taikonfts.4everland.link/ipfs/${ipfsMatch[0]}`;
+      if (!tokenBaseUri.startsWith('https://')) {
+        tokenBaseUri = `https://taikonfts.4everland.link/ipfs/${tokenBaseUri}`;
       }
 
       const tokenUriUrl = `/api/proxy?url=${encodeURIComponent(tokenBaseUri)}`;
@@ -78,7 +77,12 @@ export class NftService {
             },
           });
         } else {
-          const res = await axios.get(`/api/proxy?url=${token.tokenUri}`, globalAxiosConfig);
+          let tokenBaseUri = token.tokenUri;
+          if (!tokenBaseUri.startsWith('https://')) {
+            tokenBaseUri = `https://taikonfts.4everland.link/ipfs/${tokenBaseUri}`;
+          }
+
+          const res = await axios.get(`/api/proxy?url=${tokenBaseUri}`, globalAxiosConfig);
 
           flatTokens.push({
             ...token,
