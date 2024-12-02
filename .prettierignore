@@ -16,3 +16,12 @@ CHANGELOG.md
 pnpm-lock.yaml
 package-lock.json
 yarn.lock
+
+# Media files
+*.png
+*.webm
+*.webp
+*.jpg
+*.jpeg
+*.svg
+*.mp4

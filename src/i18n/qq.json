@@ -1,0 +1,591 @@
+{
+  "badges": {
+    "claimable": "QQQQQ",
+    "movement": {
+      "banner": "QQQQQ",
+      "modal": {
+        "continueButton": "QQQQQ",
+        "description": "QQQQQ",
+        "title": "QQQQQ"
+      },
+      "selectButton": "QQQQQ"
+    },
+    "nonClaimable": "QQQQQ",
+    "nonClaimableLinkText": "QQQQQ",
+    "notEnoughGas": "QQQQQ",
+    "pendingTx": "QQQQQ"
+  },
+  "banner": {
+    "s1claimbanner": {
+      "title_1": "QQQQQ",
+      "title_2": "QQQQQ"
+    },
+    "s2startbanner": {
+      "subtext": "QQQQQ",
+      "title_1": "QQQQQ",
+      "title_2": "QQQQQ"
+    }
+  },
+  "blackist_modal": {
+    "title": "QQQQQ"
+  },
+  "blacklist_modal": {
+    "description": "QQQQQ"
+  },
+  "booster": {
+    "breakdown": {
+      "factionBadges": "QQQQQ",
+      "snaefellNft": "QQQQQ",
+      "taikoonNft": "QQQQQ"
+    },
+    "cta": {
+      "howToEarn": "QQQQQ",
+      "yourMultipliers": "QQQQQ"
+    },
+    "title": "QQQQQ",
+    "tooltip": {
+      "description": "QQQQQ",
+      "title": "QQQQQ"
+    }
+  },
+  "bridge": {
+    "ended": {
+      "description": "QQQQQ",
+      "title": "QQQQQ"
+    }
+  },
+  "buttons": {
+    "connect_wallet": "QQQQQ",
+    "explore_more": "QQQQQ",
+    "factions": {
+      "get_yours": "QQQQQ",
+      "learn_about": "QQQQQ"
+    },
+    "get_started": "QQQQQ",
+    "home": "QQQQQ",
+    "leaderboard": {
+      "bridge": "QQQQQ",
+      "dapp": "QQQQQ",
+      "gaming": "QQQQQ",
+      "user": "QQQQQ"
+    },
+    "learn_more": "QQQQQ"
+  },
+  "claim": {
+    "panels": {
+      "claim": {
+        "button": "QQQQQ",
+        "title": "QQQQQ"
+      },
+      "error": {
+        "button": "QQQQQ",
+        "text": "QQQQQ",
+        "title": "QQQQQ"
+      },
+      "review": {
+        "button": "QQQQQ",
+        "text": "QQQQQ",
+        "title": "QQQQQ"
+      },
+      "success": {
+        "buttons": ["QQQQQ", "QQQQQ"],
+        "text": "QQQQQ",
+        "title": "QQQQQ"
+      }
+    },
+    "terms_agree": "QQQQQ"
+  },
+  "common": {
+    "badge_claimed": "QQQQQ",
+    "claim": "QQQQQ",
+    "claiming": "QQQQQ",
+    "explorer": "QQQQQ",
+    "learn_more": "QQQQQ",
+    "locked": "QQQQQ",
+    "migrate": "QQQQQ",
+    "not_eligible": "QQQQQ",
+    "trail": "QQQQQ",
+    "week": "QQQQQ"
+  },
+  "disclaimer": {
+    "leaderboard": "QQQQQ"
+  },
+  "factions": {
+    "about": {
+      "description": "QQQQQ",
+      "title": "QQQQQ"
+    },
+    "gallery": {
+      "description": "QQQQQ"
+    },
+    "landing": {
+      "description": "QQQQQ",
+      "title": "QQQQQ"
+    },
+    "subtitle": "QQQQQ"
+  },
+  "faq": [
+    {
+      "items": [
+        {
+          "answer": "QQQQQ",
+          "question": "QQQQQ"
+        },
+        {
+          "answer": "QQQQQ",
+          "question": "QQQQQ"
+        },
+        {
+          "answer": "QQQQQ",
+          "question": "QQQQQ"
+        },
+        {
+          "answer": "QQQQQ",
+          "question": "QQQQQ"
+        },
+        {
+          "answer": "QQQQQ",
+          "question": "QQQQQ"
+        }
+      ],
+      "section": "QQQQQ"
+    },
+    {
+      "items": [
+        {
+          "answer": "QQQQQ",
+          "question": "QQQQQ"
+        },
+        {
+          "answer": "QQQQQ",
+          "question": "QQQQQ"
+        },
+        {
+          "answer": "QQQQQ",
+          "question": "QQQQQ"
+        },
+        {
+          "answer": "QQQQQ",
+          "question": "QQQQQ"
+        },
+        {
+          "answer": "QQQQQ",
+          "question": "QQQQQ"
+        },
+        {
+          "answer": "QQQQQ",
+          "question": "QQQQQ"
+        }
+      ],
+      "section": "QQQQQ"
+    },
+    {
+      "items": [
+        {
+          "answer": "QQQQQ",
+          "question": "QQQQQ"
+        }
+      ],
+      "section": "QQQQQ"
+    },
+    {
+      "items": [
+        {
+          "answer": "QQQQQ",
+          "question": "QQQQQ"
+        }
+      ],
+      "section": "QQQQQ"
+    },
+    {
+      "items": [
+        {
+          "answer": "QQQQQ",
+          "question": "QQQQQ"
+        },
+        {
+          "answer": "QQQQQ",
+          "question": "QQQQQ"
+        },
+        {
+          "answer": "QQQQQ",
+          "question": "QQQQQ"
+        }
+      ],
+      "section": "QQQQQ"
+    }
+  ],
+  "leaderboard": {
+    "bridge": {
+      "ended": {
+        "description": "QQQQQ",
+        "title": "QQQQQ"
+      }
+    },
+    "competitions": {
+      "s2": {
+        "dapp": {
+          "banner": {
+            "description": "QQQQQ",
+            "title": "QQQQQ"
+          },
+          "ended": {
+            "description": "QQQQQ",
+            "title": "QQQQQ"
+          },
+          "prize": {}
+        }
+      }
+    },
+    "dapp": {
+      "ended": {
+        "s1": {
+          "description": "QQQQQ",
+          "title": "QQQQQ"
+        }
+      }
+    },
+    "defi": {
+      "banner": {
+        "description": "QQQQQ",
+        "title": "QQQQQ"
+      },
+      "ended": {
+        "description": "QQQQQ",
+        "title": "QQQQQ"
+      },
+      "prize": {
+        "1": "QQQQQ",
+        "2": "QQQQQ"
+      },
+      "prize_breakdown": {
+        "first": {
+          "amount": "QQQQQ"
+        },
+        "second": {
+          "amount": "QQQQQ"
+        },
+        "third": {
+          "amount": "QQQQQ"
+        }
+      },
+      "tokenName": "QQQQQ"
+    },
+    "gaming": {
+      "banner": {
+        "description": "QQQQQ",
+        "title": "QQQQQ"
+      },
+      "ended": {
+        "s1": {
+          "description": "QQQQQ",
+          "title": "QQQQQ"
+        },
+        "s2": {
+          "description": "QQQQQ",
+          "title": "QQQQQ"
+        }
+      },
+      "prize": {
+        "1": "QQQQQ",
+        "2": "QQQQQ"
+      },
+      "prize_breakdown": {
+        "first": {
+          "amount": "QQQQQ"
+        },
+        "second": {
+          "amount": "QQQQQ"
+        },
+        "third": {
+          "amount": "QQQQQ"
+        }
+      },
+      "tokenName": "QQQQQ"
+    },
+    "thrillblazer": {
+      "prize_breakdown": {
+        "fifth": {
+          "amount": "QQQQQ"
+        },
+        "first": {
+          "amount": "QQQQQ"
+        },
+        "fourth": {
+          "amount": "QQQQQ"
+        },
+        "second": {
+          "amount": "QQQQQ"
+        },
+        "third": {
+          "amount": "QQQQQ"
+        }
+      }
+    },
+    "user": {
+      "booster": "QQQQQ",
+      "dailyMaxReached": "QQQQQ",
+      "ended": {
+        "s1": {
+          "description": "QQQQQ",
+          "title": "QQQQQ"
+        }
+      },
+      "event": {
+        "block_proposed": "QQQQQ",
+        "bridged": "QQQQQ",
+        "transaction": "QQQQQ",
+        "transaction_value": "QQQQQ"
+      },
+      "points": "QQQQQ",
+      "rank": "QQQQQ"
+    },
+    "whitelist": {
+      "cta": "QQQQQ"
+    }
+  },
+  "legal": {
+    "confirm": "QQQQQ",
+    "link": "QQQQQ",
+    "textPost": "QQQQQ",
+    "textPre": "QQQQQ",
+    "title": "QQQQQ"
+  },
+  "lockdown": {
+    "content": "QQQQQ",
+    "title": "QQQQQ"
+  },
+  "messages": {
+    "account": {
+      "connected": "QQQQQ",
+      "disconnected": "QQQQQ",
+      "required": "QQQQQ"
+    },
+    "bridge": {
+      "nft_scanning": "QQQQQ"
+    },
+    "network": {
+      "pending": {
+        "message": "QQQQQ",
+        "title": "QQQQQ"
+      },
+      "rejected": {
+        "message": "QQQQQ",
+        "title": "QQQQQ"
+      },
+      "required": "QQQQQ",
+      "required_dest": "QQQQQ",
+      "success": {
+        "message": "QQQQQ",
+        "title": "QQQQQ"
+      },
+      "switching": "QQQQQ"
+    }
+  },
+  "pagetitle": {
+    "competition": {
+      "dapp": "QQQQQ"
+    },
+    "competitions": {
+      "dapp": "QQQQQ"
+    },
+    "leaderboards": {
+      "dapp": "QQQQQ",
+      "user": "QQQQQ"
+    }
+  },
+  "paginator": {
+    "of": "QQQQQ",
+    "page": "QQQQQ"
+  },
+  "partners": {
+    "common": {
+      "useNow": "QQQQQ"
+    },
+    "ens": {
+      "subtitle": "QQQQQ",
+      "title": "QQQQQ"
+    },
+    "nft": {
+      "conft": {
+        "description": "QQQQQ",
+        "title": "QQQQQ"
+      },
+      "loopex": {
+        "description": "QQQQQ",
+        "title": "QQQQQ"
+      },
+      "mintpad": {
+        "description": "QQQQQ",
+        "title": "QQQQQ"
+      },
+      "nfts2me": {
+        "description": "QQQQQ",
+        "title": "QQQQQ"
+      },
+      "okx": {
+        "description": "QQQQQ",
+        "title": "QQQQQ"
+      },
+      "omnihub": {
+        "description": "QQQQQ",
+        "title": "QQQQQ"
+      },
+      "subtitle": "QQQQQ",
+      "title": "QQQQQ"
+    }
+  },
+  "pfp": {
+    "modal": {
+      "buttons": {
+        "apply": "QQQQQ",
+        "cancel": "QQQQQ",
+        "go_back": "QQQQQ",
+        "save": "QQQQQ",
+        "scan": "QQQQQ"
+      },
+      "error": {
+        "title": "QQQQQ"
+      },
+      "item_plural": "QQQQQ",
+      "item_singular": "QQQQQ",
+      "success": {
+        "message": "QQQQQ",
+        "title": "QQQQQ"
+      },
+      "title": "QQQQQ",
+      "yourNfts": "QQQQQ"
+    }
+  },
+  "switch_modal": {
+    "description": "QQQQQ",
+    "title": "QQQQQ"
+  },
+  "trailbanner": {
+    "defi": {
+      "description": "QQQQQ",
+      "title": "QQQQQ"
+    },
+    "domain": {
+      "description": "QQQQQ",
+      "title": "QQQQQ"
+    },
+    "gaming": {
+      "description": "QQQQQ",
+      "title": "QQQQQ"
+    },
+    "nft": {
+      "description": "QQQQQ",
+      "title": "QQQQQ"
+    },
+    "stargate": {
+      "description": "QQQQQ",
+      "title": "QQQQQ"
+    }
+  },
+  "trailblazer_guide": {
+    "step_1": {
+      "description": "QQQQQ",
+      "title": "QQQQQ"
+    },
+    "step_2": {
+      "description": "QQQQQ",
+      "title": "QQQQQ"
+    },
+    "step_3": {
+      "description": "QQQQQ",
+      "title": "QQQQQ"
+    }
+  },
+  "trails": {
+    "general": {
+      "has_ended": "QQQQQ"
+    }
+  },
+  "wallet": {
+    "connect": "QQQQQ",
+    "status": {
+      "connected": "QQQQQ",
+      "connecting": "QQQQQ",
+      "disconnected": "QQQQQ"
+    }
+  },
+  "badge_recruitment": {
+    "buttons": {
+      "not_eligible": "QQQQQ",
+      "influence": "QQQQQ",
+      "start_recruitment": "QQQQQ",
+      "end_recruitment": "QQQQQ",
+      "reveal": "QQQQQ"
+    },
+    "labels": {
+      "season": "QQQQQ",
+      "trail": "QQQQQ"
+    },
+    "main": {
+      "can_influence_in": "QQQQQ",
+      "can_claim_in": "QQQQQ",
+      "no_enabled_recruitments": "QQQQQ"
+    },
+    "modal": {
+      "start_recruitment": {
+        "title": "QQQQQ",
+        "description": "QQQQQ",
+        "warning": "QQQQQ",
+        "toast": {
+          "success": {
+            "title": "QQQQQ",
+            "message": "QQQQQ"
+          },
+          "error": {
+            "title": "QQQQQ",
+            "message": {
+              "default": "QQQQQ",
+              "rejected": "QQQQQ",
+              "already_started": "QQQQQ"
+            }
+          }
+        }
+      },
+      "influence_recruitment": {
+        "title": "QQQQQ",
+        "description": "QQQQQ"
+      },
+      "end_recruitment": {
+        "title": "QQQQQ",
+        "description": "QQQQQ",
+        "toast": {
+          "success": {
+            "title": "QQQQQ",
+            "message": "QQQQQ"
+          },
+          "error": {
+            "title": "QQQQQ",
+            "default_message": "QQQQQ"
+          }
+        }
+      }
+    },
+    "faq": {
+      "title": "QQQQQ",
+      "entries": [
+        {
+          "question": "QQQQQ",
+          "answer": "QQQQQ"
+        },
+        {
+          "question": "QQQQQ",
+          "answer": "QQQQQ"
+        }
+      ]
+    }
+  },
+  "date": {
+    "labels": {
+      "days": "QQQQQ",
+      "hours": "QQQQQ",
+      "minutes": "QQQQQ",
+      "seconds": "QQQQQ"
+    }
+  }
+}

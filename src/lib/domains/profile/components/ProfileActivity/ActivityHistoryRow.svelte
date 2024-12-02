@@ -35,7 +35,7 @@
 
   const negativeSentimentClass = classNames('text-negative-sentiment', 'truncate');
   const pointsInnerClass = classNames('flex', 'gap-2', 'items-center');
-  const pillClass = classNames('bg-gradient-to-r from-[#5d08c8] via-[#9f00b8] via-[#ca00a8] to-secondary');
+  const pillClass = classNames('bg-gradient-to-r from-purple-600 via-[#9f00b8] via-[#ca00a8] to-secondary');
   const eventClasses = classNames('w-full', 'text-sm');
 </script>
 

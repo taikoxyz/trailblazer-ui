@@ -21,7 +21,7 @@
   import ClaimPanel from './ClaimPanel.svelte';
   import { type IClaimButton, type IClaimPanelType } from './types';
 
-  const linkClasses = classNames('underline', 'text-[#FF6FC8]', 'hover:text-primary');
+  const linkClasses = classNames('underline', 'text-pink-200', 'hover:text-primary');
   const checkboxWrapperClasses = classNames('form-control', 'pt-[24px]');
   const checkboxLabelClasses = classNames(
     'cursor-pointer',
@@ -53,7 +53,7 @@
     isSelfProfile = getAddress(urlAddress) === getAddress(getConnectedAddress());
 
     if (isSelfProfile) {
-      profileService.getBlacklistStatus(urlAddress, $activeSeason).then((result) => {
+      profileService?.getBlacklistStatus(urlAddress, $activeSeason).then((result) => {
         isBlacklisted = result;
       });
       TokenClaim.hasClaimed(urlAddress).then(async (hasClaimed) => {
@@ -134,7 +134,6 @@
     {
       title: $t('claim.panels.claim.title'),
       type: 'prepare' as IClaimPanelType,
-
       buttons: [
         {
           priority: 'primary',

@@ -1,23 +1,24 @@
 import { getAccount } from '@wagmi/core';
 import { type Address, getAddress, type Hash } from 'viem';
 
+import BadgeRecruitmentService from '$lib/domains/badges/services/BadgeRecruitmentService';
 import type { UserLeaderboardItem } from '$lib/domains/leaderboard/types/user/types';
-import { BadgeService } from '$lib/domains/nfts/services/BadgeService';
-import { CombinedNFTService } from '$lib/domains/nfts/services/CombinedNFTService';
+import { NftService } from '$lib/domains/nfts/services/NftService';
 import { ProfileApiAdapter } from '$lib/domains/profile/adapter/ProfileAdapter';
 import UserRepository from '$lib/domains/profile/repositories/UserRepository';
 import { multipliersLoading, profileLoading } from '$lib/domains/profile/stores/profileStore';
 import { defaultUserProfile } from '$lib/domains/profile/types/defaultUserProfile';
 import type { DomainInfo } from '$lib/domains/profile/types/DomainInfo';
 import { levelTiers } from '$lib/domains/profile/types/LevelTiers';
-import { DomainType } from '$lib/domains/profile/types/types';
+import { DomainType, Movements } from '$lib/domains/profile/types/types';
 import type { UserInfoForLeaderboard } from '$lib/domains/profile/types/UserInfoForLeaderboard';
 import type { UserProfile } from '$lib/domains/profile/types/UserProfile';
 import type { SeasonHistoryEntry, UserStats } from '$lib/domains/profile/types/UserStats';
 import type { PaginationInfo } from '$lib/shared/dto/CommonPageApiResponse';
+import type { IBadgeRecruitment } from '$lib/shared/types/BadgeRecruitment';
 import type { NFT } from '$lib/shared/types/NFT';
 import { wagmiConfig } from '$lib/shared/wagmi';
-import { isDevelopmentEnv } from '$shared/utils/isDevelopmentEnv';
+import { activeRecruitment } from '$shared/stores/recruitment';
 import { getLogger } from '$shared/utils/logger';
 
 import type { UserPointsAndRankResponse } from '../dto/profile.dto';
@@ -36,28 +37,29 @@ export class ProfileService implements IProfileService {
   private userRepository: UserRepository;
 
   //Services
-  private combinedNFTService: CombinedNFTService;
-  private badgeService: BadgeService;
+  private combinedNFTService: NftService;
+  private badgeRecruitmentService: BadgeRecruitmentService;
 
   private localStorageKey = 'taikoENSdomain';
 
   constructor(
     apiAdapter?: ProfileApiAdapter,
     userRepository?: UserRepository,
-    combinedNFTService?: CombinedNFTService,
-    badgeService?: BadgeService,
+    combinedNFTService?: NftService,
+    badgeRecruitmentService?: BadgeRecruitmentService,
   ) {
     this.apiAdapter = apiAdapter || new ProfileApiAdapter();
     this.userRepository = userRepository || new UserRepository();
-    this.combinedNFTService = combinedNFTService || new CombinedNFTService();
-    this.badgeService = badgeService || new BadgeService();
+    this.combinedNFTService = combinedNFTService || new NftService();
+    this.badgeRecruitmentService = badgeRecruitmentService || new BadgeRecruitmentService();
   }
 
-  public static getInstance(): ProfileService {
-    if (!ProfileService.instance) {
-      ProfileService.instance = new ProfileService();
+  public static getInstance(): ProfileService | null {
+    try {
+      return new ProfileService();
+    } catch (e) {
+      return null;
     }
-    return ProfileService.instance;
   }
 
   /**
@@ -82,7 +84,7 @@ export class ProfileService implements IProfileService {
         this.apiAdapter.fetchUserPointsAndRank(address, season),
         this.fetchDomainInfo(address),
         this.apiAdapter.fetchUserActivity(address, season, 0),
-        this.combinedNFTService.fetchAllNFTsForUser(address),
+        this.combinedNFTService.fetchTaikoTokensForUser(address),
         this.getProfilePicture(address),
       ]);
       log('Fetched data:', { pointsAndRank, userDomainInfo, activity, nftsResult, avatarResult });
@@ -112,7 +114,7 @@ export class ProfileService implements IProfileService {
             total: activity.total,
           },
         },
-        nfts: [...nftsResult.taikoonNFTs, ...nftsResult.badgeNFTs],
+        nfts: [...nftsResult],
         multipliers: defaultUserProfile.multipliers,
         domainInfo: {
           ...userDomainInfo.domainInfo,
@@ -126,9 +128,10 @@ export class ProfileService implements IProfileService {
       // Do additional config
       await Promise.all([
         this.handleDomainSelection(userDomainInfo),
-        this.fetchAndCalculateMultipliers(address),
+        // this.fetchAndCalculateMultipliers(address),
         this.performAdditionalCalculations(),
         this.previousSeasonFinalScores(address, season - 1),
+        this.getBadgeRecruitments(address),
       ]);
       // const [multiplierResult] = await Promise.all([this.handleDomainSelection(info)]);
 
@@ -293,81 +296,6 @@ export class ProfileService implements IProfileService {
   }
 
   /**
-   * Fetches NFTs and calculates multipliers.
-   * @param address - The user's address.
-   */
-  private async fetchAndCalculateMultipliers(address: Address): Promise<void> {
-    const badges: NFT[] = [];
-    try {
-      if (!isDevelopmentEnv) {
-        const found = await this.badgeService.getBadgesForUser(address);
-        badges.push(...found);
-        // graphqlResponse = await graphqlClient.query({
-        //   query: USER_NFTS_QUERY,
-        //   variables: { address: address.toLocaleLowerCase() },
-        // });
-      } else {
-        //TODO: implement again
-        // const { data } = await axios.get(`/user/graphql`, {
-        //   params: { address },
-        //   ...globalAxiosConfig,
-        // });
-        // graphqlResponse = data;
-      }
-
-      if (badges) {
-        log('Found badges', badges);
-
-        //TODO: implement again
-        // const userNFTs: UserNFT[] = graphqlResponse.data.account.s1MultiplierNfts.map(
-        //   (token: { contract: { name: string }; tokenId: string; badgeId: string }) => ({
-        //     name: token.contract.name,
-        //     tokenId: token.tokenId,
-        //     badgeId: token.badgeId,
-        //   }),
-        // );
-
-        // // Calculate Multipliers
-        // const taikoonCount = userNFTs.filter((nft) => nft.name === 'Taikoon').length;
-        // const taikoonMultiplier = taikoonCount >= 1 ? 1000 : 0;
-
-        // const snaefellCount = userNFTs.filter((nft) => nft.name === 'SnaefellToken').length;
-        // const snaefellMultiplier = snaefellCount >= 1 ? 100 : 0;
-
-        // const factionBadges = userNFTs
-        //   .filter((nft) => nft.name === 'Trailblazers Badges')
-        //   .reduce(
-        //     (acc, nft) => {
-        //       if (nft.badgeId) {
-        //         acc[nft.badgeId] = (acc[nft.badgeId] || 0) + 1;
-        //       }
-        //       return acc;
-        //     },
-        //     {} as Record<string, number>,
-        //   );
-
-        // const multiplierTable = [0, 100, 210, 331, 464, 611, 772, 949, 1144];
-        // const uniqueFactionBadgesCount = Object.keys(factionBadges).length;
-        // const factionMultiplier = multiplierTable[uniqueFactionBadgesCount] || 0;
-
-        // const totalMultiplier = taikoonMultiplier + snaefellMultiplier + factionMultiplier;
-
-        // const userMultiplier: UserMultiplier = {
-        //   totalMultiplier: Math.min(Number(totalMultiplier || 0), 2000), // max of 3x
-        //   taikoonMultiplier: Number(taikoonMultiplier || 0),
-        //   factionMultiplier: Number(factionMultiplier || 0),
-        //   snaefellMultiplier: Number(snaefellMultiplier || 0),
-        // };
-
-        // // Update profile with multipliers and NFTs via UserRepository
-        // await this.userRepository.update({ multipliers: userMultiplier, nfts: userNFTs });
-      }
-    } catch (error) {
-      log('Error in fetchAndCalculateMultipliers:', error);
-    }
-  }
-
-  /**
    * Fetches the user's points and rank for a given season.
    *
    * @param {Address} address
@@ -484,12 +412,14 @@ export class ProfileService implements IProfileService {
 
     try {
       // Fetch NFTs (badges, avatars, etc.)
-      const nfts = await this.combinedNFTService.fetchAllNFTsForUser(address);
+      const nfts = await this.combinedNFTService.fetchTaikoTokensForUser(address);
       log('result of fetchAllNFTsForUser:', nfts);
       // Combine and update the profile with NFT data
       await this.userRepository.update({
-        nfts: [...nfts.taikoonNFTs, ...nfts.badgeNFTs],
+        nfts,
       });
+
+      await this.getBadgeRecruitments(address);
 
       log('Profile with NFTs:', await this.userRepository.get());
     } catch (error) {
@@ -542,12 +472,8 @@ export class ProfileService implements IProfileService {
       // If pfpNFT lacks necessary details, fetch all NFTs and find a match
       if (!pfpNFT.address || !pfpNFT.tokenId) {
         // Fetch all NFTs for the user
-        const allNFTs = await this.combinedNFTService.fetchAllNFTsForUser(address);
-
-        // Combine all NFTs into a single array
-        const allNFTsFlat: NFT[] = [...allNFTs.taikoonNFTs, ...allNFTs.badgeNFTs];
+        const allNFTsFlat: NFT[] = await this.combinedNFTService.fetchTaikoTokensForUser(address);
         log('All NFTs:', allNFTsFlat);
-
         // Find the matching NFT
         const match = allNFTsFlat.find(
           (nft) => nft.tokenId === Number(pfpNFT.tokenId) && getAddress(nft.address) === getAddress(pfpNFT.address),
@@ -620,6 +546,110 @@ export class ProfileService implements IProfileService {
       return {};
     }
   }
+
+  /**
+   * Fetches enabled recruitments
+   *
+   * @return {*}  {Promise<number[]>}
+   * @memberof ProfileService
+   */
+  async getEnabledRecruitments(): Promise<number[]> {
+    log('getEnabledRecruitments');
+    return this.badgeRecruitmentService.getEnabledRecruitments();
+  }
+
+  private async _updateRecruitment(recruitment: IBadgeRecruitment): Promise<void> {
+    const oldUser = await this.userRepository.get();
+    const badgeRecruitment = oldUser.badgeRecruitment || [];
+
+    // Find the recruitment to update
+    const existingRecruitment = badgeRecruitment.find((m) => m.id === recruitment.id);
+    if (existingRecruitment) {
+      // Update the recruitment
+      const index = badgeRecruitment.indexOf(existingRecruitment);
+      badgeRecruitment[index] = recruitment;
+    } else {
+      badgeRecruitment.push(recruitment);
+    }
+
+    // Update the profile
+    await this.userRepository.update({
+      ...oldUser,
+      badgeRecruitment,
+    });
+
+    activeRecruitment.set(recruitment);
+    log('Updating recruitment:', recruitment);
+  }
+
+  /**
+   * Starts a recruitment process
+   *
+   * @param {Address} address
+   * @param {NFT} nft
+   * @return {*}  {Promise<NFT>}
+   * @memberof ProfileService
+   */
+  async startRecruitment(address: Address, nft: NFT, recruitment: IBadgeRecruitment): Promise<void> {
+    log('startRecruitment', { address, nft, recruitment });
+    const updatedRecruitment = await this.badgeRecruitmentService.startRecruitment(address, nft, recruitment);
+    await this._updateRecruitment(updatedRecruitment);
+  }
+
+  /**
+   * Starts a recruitment process
+   *
+   * @param {Address} address
+   * @param {NFT} nft
+   * @param {Movements} selectedMovement
+   * @return {*}  {Promise<NFT>}
+   * @memberof ProfileService
+   */
+  async influenceRecruitment(
+    address: Address,
+    nft: NFT,
+    selectedMovement: Movements,
+    recruitment: IBadgeRecruitment,
+  ): Promise<void> {
+    log('influenceRecruitment', { address, nft, selectedMovement });
+    const updatedRecruitment = await this.badgeRecruitmentService.influenceRecruitment(
+      address,
+      nft,
+      selectedMovement,
+      recruitment,
+    );
+    await this._updateRecruitment(updatedRecruitment);
+  }
+
+  /**
+   * Starts a recruitment process
+   *
+   * @param {Address} address
+   * @param {NFT} nft
+   * @return {*}  {Promise<NFT>}
+   * @memberof ProfileService
+   */
+  async endRecruitment(address: Address, nft: NFT, recruitment: IBadgeRecruitment): Promise<void> {
+    log('endRecruitment', { address, nft, recruitment });
+    const updatedRecruitment = await this.badgeRecruitmentService.endRecruitment(address, nft, recruitment);
+    await this._updateRecruitment(updatedRecruitment);
+  }
+
+  /**
+   * Starts a recruitment process
+   *
+   * @param {Address} address
+   * @return {*}  {Promise<void>}
+   * @memberof ProfileService
+   */
+  async getBadgeRecruitments(address: Address): Promise<void> {
+    log('getRecruitmentStatus', { address });
+    const recruitments = await this.badgeRecruitmentService.getRecruitmentStatus(address);
+    await this.userRepository.update({
+      badgeRecruitment: recruitments,
+    });
+  }
+
   /**
    * Retrieves the user's blacklist status for the given season.
    *
@@ -675,5 +705,11 @@ export class ProfileService implements IProfileService {
     } catch (error) {
       log('Error in previousSeasonFinalScores:', error);
     }
+  }
+
+  async getMaxInfluences(): Promise<number> {
+    log('getMaxInfluences');
+    const user = await this.userRepository.get();
+    return this.badgeRecruitmentService.getMaxInfluences(user.userStats?.score || 0);
   }
 }

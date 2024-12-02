@@ -60,11 +60,15 @@ export default {
             opacity: '0.5',
           },
         },
+        'flip-y': {
+          '100%': { transform: 'rotateY(360deg)' },
+        },
       },
       animation: {
         'slide-right': 'slide-right 0.3s ease-in-out',
         marquee: 'marquee 25s linear infinite',
         marquee2: 'marquee2 25s linear infinite',
+        'flip-card': 'flip-y 1s ease-in-out infinite',
         flicker: 'flicker 2.5s infinite alternate',
       },
       colors: {
@@ -129,6 +133,7 @@ export default {
         purple: {
           1000: 'rgb(27 14 62)',
           900: '#1B0E3E',
+          600: '#5D08C8',
         },
 
         red: {
@@ -336,6 +341,10 @@ export default {
             drop-shadow(0 0 6px rgba(255, 113, 91, 0.4))
             drop-shadow(0 0 9px rgba(255, 113, 91, 0.1))
           `,
+        },
+        '.fancy-background': {
+          background:
+            'var(--influence-button, linear-gradient(177deg, #5D08C8 -59.85%, #9F00B8 36.97%, #CA00A8 133.8%, #E81899 230.62%))',
         },
       };
       addUtilities(newUtilities);

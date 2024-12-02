@@ -9,7 +9,7 @@
   import ActionButton from '$shared/components/Button/ActionButton.svelte';
   import { classNames } from '$shared/utils/classNames';
 
-  export let title: string | undefined = undefined;
+  export let title: string | null = null;
   export let entries: IFaqEntry[] = [];
 
   const wrapperClasses = classNames(
@@ -24,7 +24,7 @@
     'justify-center',
   );
 
-  const slotClasses = classNames('h-full md:w-2/6', 'flex lg:justify-end');
+  const slotClasses = classNames('h-full', 'w-max', 'flex', 'lg:justify-start');
 
   const blockWrapperClasses = classNames(
     'join join-vertical ',
@@ -45,6 +45,7 @@
     'font-[400]',
     'border-[1px]',
     'border',
+    'text-left',
   );
   const questionClasses = classNames('collapse-title');
   const answerClasses = classNames('collapse-content');
@@ -56,7 +57,6 @@
     'justify-center',
     'items-center',
     'h-full',
-    // 'pr-[60px]',
     'mb-[50px]',
     'md:mb-0',
   );
@@ -96,6 +96,8 @@
     'font-[700]',
   );
 
+  $: checkedItem = '';
+
   $: uuid = Math.random().toString(36).substring(7);
 </script>
 
@@ -123,13 +125,16 @@
 
   <div class={blockWrapperClasses}>
     {#each entries as { question, answer }}
-      <div class={itemClasses}>
-        <input type="radio" name="faq-accordion-{uuid}" />
+      <button
+        class={itemClasses}
+        on:click={() => (checkedItem === question ? (checkedItem = '') : (checkedItem = question))}>
+        <input type="radio" name="faq-accordion-{uuid}" checked={checkedItem === question} />
         <div class={questionClasses}>{question}</div>
         <div class={answerClasses}>
-          <p>{answer}</p>
+          <!-- eslint-disable-next-line svelte/no-at-html-tags -->
+          <p>{@html answer}</p>
         </div>
-      </div>
+      </button>
     {/each}
   </div>
 </div>

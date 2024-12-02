@@ -42,18 +42,18 @@
       locked: false,
     },
     {
+      image: '/factions/gallery/android.png',
+      name: 'Androids',
+      description:
+        'Dealers in underground boosted technology the Androids are constantly updating their kernel and neural vapourware, they’ll help you keep the vibe alive.',
+      locked: false,
+    },
+    {
       image: '/factions/gallery/drummer.png',
       name: 'Drummers',
       description:
         'Our drum leaders bring the very latest patterns to the rave to have us all beating in unison along with the DJ drumming up a frenzy as the ravers ‘Get Boosted’.',
 
-      locked: false,
-    },
-    {
-      image: '/factions/gallery/android.png',
-      name: 'Androids',
-      description:
-        'Dealers in underground boosted technology the Androids are constantly updating their kernel and neural vapourware, they’ll help you keep the vibe alive.',
       locked: false,
     },
     {

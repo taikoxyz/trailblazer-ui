@@ -10,7 +10,7 @@ import { activeSeason } from '$shared/stores/activeSeason';
 import { pendingTransactions } from '$shared/stores/pendingTransactions';
 
 export default async function claim(address: Address, amount: number, proof: string): Promise<void> {
-  const blacklisted = await profileService.getBlacklistStatus(address, get(activeSeason));
+  const blacklisted = await profileService?.getBlacklistStatus(address, get(activeSeason));
   if (blacklisted) {
     throw new Error('You are blacklisted');
   }
