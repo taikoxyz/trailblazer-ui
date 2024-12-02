@@ -224,7 +224,7 @@ export default class BadgeRecruitmentAdapter {
           abi: badgeRecruitmentAbi,
           address: badgeRecruitmentAddress[chainId],
           functionName: 'influenceRecruitment',
-          args: [hash, Number(v), r, s, BigInt(points), selectedMovement],
+          args: [hash, Number(v), r, s, BigInt(Math.trunc(points)), selectedMovement],
           chainId,
         }).catch(reject);
       } catch (e) {
@@ -283,7 +283,7 @@ export default class BadgeRecruitmentAdapter {
           abi: badgeRecruitmentAbi,
           address: badgeRecruitmentAddress[chainId],
           functionName: 'endRecruitment',
-          args: [hash, Number(v), r, s, BigInt(points)],
+          args: [hash, Number(v), r, s, BigInt(Math.trunc(points))],
           chainId,
         }).catch(reject);
       } catch (e) {
