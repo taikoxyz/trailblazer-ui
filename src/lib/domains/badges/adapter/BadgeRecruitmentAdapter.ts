@@ -171,7 +171,7 @@ export default class BadgeRecruitmentAdapter {
       abi: badgeRecruitmentAbi,
       address: badgeRecruitmentAddress[chainId],
       functionName: 'generateClaimHash',
-      args: [hashType, address, BigInt(points)],
+      args: [hashType, address, BigInt(Math.trunc(points))],
       chainId,
     });
 
@@ -345,7 +345,7 @@ export default class BadgeRecruitmentAdapter {
       abi: badgeRecruitmentAbi,
       address: badgeRecruitmentAddress[chainId],
       functionName: 'maxInfluences',
-      args: [BigInt(exp)],
+      args: [BigInt(Math.trunc(exp))],
       chainId,
     });
 
