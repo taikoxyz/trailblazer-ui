@@ -72,8 +72,8 @@
 
 <style>
   img {
-    image-rendering: pixelated; /* Makes the image scale without smoothing */
-    image-rendering: crisp-edges; /* Fallback for older browsers */
-    -ms-interpolation-mode: nearest-neighbor; /* For IE */
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+    -ms-interpolation-mode: nearest-neighbor;
   }
 </style>
