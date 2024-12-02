@@ -24,7 +24,7 @@
 
   export let isSelfProfile: boolean;
 
-  export let tabs: TabContent[] = [
+  $: tabs = [
     {
       slug: 'activity',
       name: 'Activity',
@@ -64,7 +64,7 @@
       name: 'Lockdown',
       content: ProfileLockdownTab,
     },
-  ];
+  ] as TabContent[];
 
   let activeTab = 0;
 
