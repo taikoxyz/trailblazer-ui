@@ -341,14 +341,19 @@ export default class BadgeRecruitmentAdapter {
   }
 
   async getMaxInfluences(exp: number): Promise<number> {
-    const max = await readContract(wagmiConfig, {
-      abi: badgeRecruitmentAbi,
-      address: badgeRecruitmentAddress[chainId],
-      functionName: 'maxInfluences',
-      args: [BigInt(Math.trunc(exp))],
-      chainId,
-    });
+    try {
+      const max = await readContract(wagmiConfig, {
+        abi: badgeRecruitmentAbi,
+        address: badgeRecruitmentAddress[chainId],
+        functionName: 'maxInfluences',
+        args: [BigInt(Math.trunc(exp))],
+        chainId,
+      });
 
-    return Number(max);
+      return Number(max);
+    } catch (e) {
+      console.error(e);
+      return 0;
+    }
   }
 }
