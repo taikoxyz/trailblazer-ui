@@ -32,6 +32,7 @@ export class NftAdapter {
         return [];
       }
       const { tokens } = graphqlResponse.data;
+
       const flatTokens = tokens.map((token: Token) => {
         const address = token.contract as Address;
         const tokenId = parseInt(token.tokenId);
