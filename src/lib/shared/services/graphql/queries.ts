@@ -52,7 +52,7 @@ export const USER_PROFILE_PICTURES_QUERY = gql`
 
 export const USER_NFTS_FETCH_QUERY = gql`
   query UserBadges($address: Bytes) {
-    tokens(where: { owner: $address }) {
+    tokens(orderBy: id, first: 1000, where: { owner: $address }) {
       id
       erc
       tokenId
