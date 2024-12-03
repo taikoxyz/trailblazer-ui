@@ -708,8 +708,13 @@ export class ProfileService implements IProfileService {
   }
 
   async getMaxInfluences(): Promise<number> {
-    log('getMaxInfluences');
-    const user = await this.userRepository.get();
-    return this.badgeRecruitmentService.getMaxInfluences(user.userStats?.score || 0);
+    try {
+      log('getMaxInfluences');
+      const user = await this.userRepository.get();
+      return this.badgeRecruitmentService.getMaxInfluences(user.userStats?.score || 0);
+    } catch (error) {
+      log('Error in getMaxInfluences:', error);
+      return 0;
+    }
   }
 }
