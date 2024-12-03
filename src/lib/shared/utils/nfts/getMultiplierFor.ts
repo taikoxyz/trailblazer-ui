@@ -21,7 +21,7 @@ export default function getMultiplierFor(token: NFT): {
   if (isAddressEqual(token.address, trailblazersBadgesAddress[chainId]) || token.metadata.season === Seasons.Season1) {
     // Trailblazers Badges, season 1
     return {
-      multiplier: 0.5,
+      multiplier: 0.05,
       tooltip: 'Global and Proposer XP',
     };
   }
@@ -33,7 +33,7 @@ export default function getMultiplierFor(token: NFT): {
     // Trailblazers Badges, season 2
     const movement = token.metadata.movement as Movements;
     return {
-      multiplier: 0.5,
+      multiplier: 0.05,
       tooltip: movement === Movements.Minnow ? 'Transaction Count XP' : 'Transaction Value XP',
     };
   }
