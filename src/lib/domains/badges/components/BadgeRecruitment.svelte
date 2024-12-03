@@ -64,10 +64,6 @@
 
   $: enabledBadgeIds = [] as number[];
 
-  onMount(async () => {
-    enabledBadgeIds = (await profileService?.getEnabledRecruitments()) || [];
-  });
-
   $: forceRenderFlag = true;
   async function onCounterEnd() {
     if (!$account || !$account.address) return;
@@ -93,7 +89,9 @@
 
   $: isLoading = false;
   const handleRefresh = async () => {
-    if (!browser) return;
+    if (!browser || isLoading) return;
+    // prevent reloads with open modals
+    if ($startRecruitmentModal || $influenceRecruitmentModal || $endRecruitmentModal) return;
     isLoading = true;
     enabledBadgeIds = (await profileService?.getEnabledRecruitments()) || [];
     // match address in url
