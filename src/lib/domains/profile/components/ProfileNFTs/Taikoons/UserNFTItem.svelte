@@ -2,10 +2,12 @@
   import type { NFT } from '$shared/types/NFT';
   import { classNames } from '$shared/utils/classNames';
 
+  import MultiplierBadge from '../MultiplierBadge.svelte';
+
   export let token: NFT;
 
   $: image = token.metadata.image as string;
-  $: name = token.metadata.name as string;
+
   // CSS classes
   const wrapperClasses = classNames(
     'w-[277px]',
@@ -40,15 +42,6 @@
     'items-end',
     'gap-[5px]',
   );
-  const bubbleClasses = classNames(
-    'badge',
-    'py-[15px]',
-    'px-[12px]',
-    'text-[16px]/[24px]',
-    'font-[700]',
-    'border-transparent',
-    'bg-[rgba(0,0,0,.4)]',
-  );
 
   function prefixIpfsGateway(url: string) {
     if (url.startsWith('http') || url.startsWith('/')) {
@@ -64,9 +57,7 @@
   </div>
 
   <div class={bubbleWrapperClasses}>
-    {#if token.metadata.name}
-      <div class={bubbleClasses}>{name}</div>
-    {/if}
+    <MultiplierBadge {token} />
   </div>
 </div>
 

@@ -1,12 +1,11 @@
 <script lang="ts">
-  import { t } from 'svelte-i18n';
-
   import type { FactionBadgeButton } from '$lib/domains/profile/types/FactionBadgeButton';
-  import { MovementNames, Movements, Seasons } from '$lib/domains/profile/types/types';
+  import { MovementNames, Movements } from '$lib/domains/profile/types/types';
   import { ActionButton } from '$shared/components/Button';
   import type { NFT } from '$shared/types/NFT';
   import { classNames } from '$shared/utils/classNames';
 
+  import MultiplierBadge from '../MultiplierBadge.svelte';
   import FactionImage from './FactionImage.svelte';
 
   export let blurred: boolean = false;
@@ -18,8 +17,6 @@
   export let token: NFT;
 
   $: badgeId = (token.metadata.badgeId as number) || 0;
-  $: season = token.metadata.season as Seasons;
-  $: movementName = MovementNames[(token.metadata.movement as Movements) || Movements.Dev];
 
   // CSS classes
   $: wrapperClasses = classNames(
@@ -55,15 +52,6 @@
     'items-end',
     'gap-[5px]',
   );
-  const bubbleClasses = classNames(
-    'badge',
-    'py-[15px]',
-    'px-[12px]',
-    'text-[16px]/[24px]',
-    'font-[700]',
-    'border-transparent',
-    'bg-[rgba(0,0,0,.4)]',
-  );
 
   const buttonWrapperClasses = classNames('absolute', 'w-full', 'bottom-0', 'p-[20px]', 'h-[88px]');
 
@@ -84,19 +72,7 @@
 
   {#if !hideBubbles}
     <div class={bubbleWrapperClasses}>
-      <div class={bubbleClasses}>
-        {$t('badge_recruitment.labels.season')}
-        {season}
-      </div>
-      <div class={bubbleClasses}>
-        {$t('badge_recruitment.labels.trail')}
-        {badgeId + 1}
-      </div>
-      {#if season > 1}
-        <div class={bubbleClasses}>
-          {movementName}
-        </div>
-      {/if}
+      <MultiplierBadge {token} />
     </div>
   {/if}
 
