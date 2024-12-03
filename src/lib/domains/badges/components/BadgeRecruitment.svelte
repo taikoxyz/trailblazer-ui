@@ -100,7 +100,9 @@
     const match = window.location.pathname.match(/0x[a-fA-F0-9]{40}/);
     const address = match ? match[0] : null;
     if (!address) return;
-    await profileService?.getProfileWithNFTs(address as Address);
+    //await profileService?.getProfileWithNFTs(address as Address);
+    await profileService?.getBadgeRecruitments(address as Address);
+
     isLoading = false;
   };
 
