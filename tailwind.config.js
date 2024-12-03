@@ -346,6 +346,10 @@ export default {
           background:
             'var(--influence-button, linear-gradient(177deg, #5D08C8 -59.85%, #9F00B8 36.97%, #CA00A8 133.8%, #E81899 230.62%))',
         },
+        '.multiplier-background': {
+          background:
+            'var(--Gradient-Pink-purple, linear-gradient(236deg, #5D08C8 -23.1%, #9F00B8 20.64%, #CA00A8 64.38%, #E81899 108.12%))',
+        },
       };
       addUtilities(newUtilities);
     },
