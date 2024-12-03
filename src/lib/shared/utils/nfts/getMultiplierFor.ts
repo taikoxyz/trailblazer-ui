@@ -22,7 +22,7 @@ export default function getMultiplierFor(token: NFT): {
     // Trailblazers Badges, season 1
     return {
       multiplier: 0.05,
-      tooltip: 'Global and Proposer XP',
+      tooltip: 'Applied globally',
     };
   }
 
