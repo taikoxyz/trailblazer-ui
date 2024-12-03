@@ -12,6 +12,7 @@ import * as TrailblazerBadgesS2HeklaDeployment from '../taiko-mono.git/packages/
 import * as TrailblazerBadgesS2MainnetDeployment from '../taiko-mono.git/packages/nfts/deployments/trailblazers-season-2/mainnet.json';
 import BadgeRecruitment from '../taiko-mono.git/packages/nfts/out/BadgeRecruitment.sol/BadgeRecruitment.json';
 import ERC20Airdrop from '../taiko-mono.git/packages/nfts/out/ERC20Airdrop.sol/ERC20Airdrop.json';
+import EventRegister from '../taiko-mono.git/packages/nfts/out/EventRegister.sol/EventRegister.json';
 import RegisterProfilePicture from '../taiko-mono.git/packages/nfts/out/RegisterProfilePicture.sol/RegisterProfilePicture.json';
 import TaikoonToken from '../taiko-mono.git/packages/nfts/out/TaikoonToken.sol/TaikoonToken.json';
 import TrailblazersBadgesS2 from '../taiko-mono.git/packages/nfts/out/TrailblazersBadgesS2.sol/TrailblazersBadgesS2.json';
@@ -62,29 +63,6 @@ export default defineConfig({
       abi: [],
     },
     {
-      name: 'ClaimGalxePoints',
-      address: {
-        167009: '0x7Db9D3533704675Cb2BCc672E5F702cc46f6EdDC',
-        167000: '0xD68BF51E2d73A7c7D023f1fd58e2F66F602A8088',
-      },
-      abi: [
-        {
-          type: 'function',
-          name: 'alreadyRegistered',
-          inputs: [{ name: '', type: 'address', internalType: 'address' }],
-          outputs: [{ name: '', type: 'bool', internalType: 'bool' }],
-          stateMutability: 'view',
-        },
-        { type: 'function', name: 'register', inputs: [], outputs: [], stateMutability: 'nonpayable' },
-        {
-          type: 'event',
-          name: 'Registered',
-          inputs: [{ name: 'registrant', type: 'address', indexed: false, internalType: 'address' }],
-          anonymous: false,
-        },
-      ] as Abi,
-    },
-    {
       name: 'RegisterProfilePicture',
       address: {
         167009: ProfilePictureHeklaDeployment.RegisterProfilePicture as Address,
@@ -111,11 +89,20 @@ export default defineConfig({
     {
       name: 'ERC20TaikoToken',
       address: {
-        167009: S1ClaimHeklaDeployment.ERC20Token as Address,
-        167000: S1ClaimMainnetDeployment.ERC20Token as Address,
+        167009: S1ClaimHeklaDeployment.ERC20Airdrop as Address,
+        167000: S1ClaimMainnetDeployment.ERC20Airdrop as Address,
       },
       abi: [],
     },
+    {
+      name: 'EventRegister',
+      address: {
+        167009: '0x0805EFc6A797bc81168807A2f244fBA551FD7354',
+        167000: '0x0805EFc6A797bc81168807A2f244fBA551FD7354',
+      },
+      abi: EventRegister.abi as Abi,
+    },
   ],
+
   plugins: [actions()],
 });

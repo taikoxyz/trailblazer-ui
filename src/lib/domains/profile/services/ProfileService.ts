@@ -693,13 +693,41 @@ export class ProfileService implements IProfileService {
     }
   }
 
-  async claimSeasonBonus(address: Address, season: number): Promise<void> {
+  /**
+   * Claims the user's bonus points for the given season.
+   *
+   * @param {Address} address
+   * @param {number} season
+   * @return {*}  {Promise<void>}
+   * @memberof ProfileService
+   */
+  async claimSeasonBonus(address: Address, season: number): Promise<Hash | void> {
     log('Claiming bonus points for address:', address, 'season:', season);
     try {
-      await this.seasonBonusAdapter.claimUserBonusPoints(address, season);
+      return await this.seasonBonusAdapter.claimUserBonusPoints(address, season);
       log('Claimed bonus points successfully.');
     } catch (error) {
       log('Error claiming bonus points:', error);
+    }
+  }
+
+  /**
+   * Checks if the user has already registered their bonus point claim.
+   *
+   * @param {Address} address
+   * @param {number} season
+   * @return {*}  {Promise<boolean>}
+   * @memberof ProfileService
+   */
+  async checkBonusClaimRegistered(address: Address, season: number): Promise<boolean> {
+    log('Checking if bonus claim is registered for address:', address, 'season:', season);
+    try {
+      const isRegistered = await this.seasonBonusAdapter.checkRegistered(address, season);
+      log('Bonus claim registered:', isRegistered);
+      return isRegistered;
+    } catch (error) {
+      log('Error checking bonus claim registration:', error);
+      return false;
     }
   }
 
