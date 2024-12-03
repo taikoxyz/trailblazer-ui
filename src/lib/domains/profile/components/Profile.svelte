@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import { type Address,getAddress } from 'viem';
+  import { type Address, getAddress } from 'viem';
 
   import { page } from '$app/stores';
   import BoosterCard from '$lib/domains/profile/components/BoosterCard.svelte';
