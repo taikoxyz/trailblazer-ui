@@ -1,14 +1,20 @@
 import type { Address } from 'viem';
 
-import { readClaimGalxePointsAlreadyRegistered } from '$generated/abi';
+import { readEventRegisterRegistrations, writeEventRegisterRegister } from '$generated/abi';
 import { getAxiosInstance, globalAxiosConfig } from '$lib/shared/services/api/axiosClient';
 import { chainId } from '$lib/shared/utils/chain';
 import { wagmiConfig } from '$lib/shared/wagmi';
+import { pendingTransactions } from '$shared/stores/pendingTransactions';
 import { getLogger } from '$shared/utils/logger';
 
 import type { BonusDTO } from '../dto/bonus.dto';
 
 const log = getLogger('SeasonBonusPointsAdapter');
+
+enum EventIds {
+  SEASON1 = 0,
+}
+
 export class SeasonBonusPointsAdapter {
   /**
    * Fetches the user's bonus points from the /user/bonus endpoint.
@@ -37,25 +43,34 @@ export class SeasonBonusPointsAdapter {
    */
   async claimUserBonusPoints(address: Address, season: number) {
     log('claimUserBonusPoints', { address, season });
-    throw new Error('Not implemented');
+    const txHash = await writeEventRegisterRegister(wagmiConfig, {
+      args: [BigInt(EventIds.SEASON1)],
+      chainId,
+    });
+    await pendingTransactions.add(txHash);
+
+    return txHash;
   }
 
   /**
-   * Checks if the user has already claimed their bonus points
+   * Checks if the user has already registered their bonus point claim
    *
    * @param {Address} address
    * @param {number} season
    * @return {*}  {Promise<boolean>}
    * @memberof SeasonBonusPointsAdapter
    */
-  async checkClaimed(address: Address, season: number): Promise<boolean> {
-    log('checkClaimed for address', { address, season });
+  async checkRegistered(address: Address, season: number): Promise<boolean> {
+    log('checkRegistered for address', { address, season });
 
     if (!address) {
       throw new Error('Address not found');
     }
 
-    const isClaimed = await readClaimGalxePointsAlreadyRegistered(wagmiConfig, { args: [address], chainId });
-    return isClaimed;
+    const isRegistered = await readEventRegisterRegistrations(wagmiConfig, {
+      args: [BigInt(EventIds.SEASON1), address],
+      chainId,
+    });
+    return isRegistered;
   }
 }

@@ -11,6 +11,7 @@
   import getConnectedAddress from '$lib/shared/utils/getConnectedAddress';
   import { Spinner } from '$shared/components';
   import { ActionButton } from '$shared/components/Button';
+  import { successToast } from '$shared/components/NotificationToast';
 
   import { AbstractProfileCard } from '../templates';
 
@@ -29,16 +30,33 @@
 
   $: bonusClaimActive = PUBLIC_SEASON_BONUS_CLAIM_ACTIVE === 'true' && hasBonusPoints;
 
+  $: claimButtonDisabled = !bonusClaimActive || $bonusLoading || claiming || alreadyClaimed;
+
+  let claiming: boolean = false;
+
+  let alreadyClaimed = false;
+
   async function handleBonusClaim() {
-    $bonusLoading = true;
-    await profileService.claimSeasonBonus(getConnectedAddress(), $activeSeason);
-    $bonusLoading = false;
+    claiming = true;
+    const txhash = await profileService.claimSeasonBonus(getConnectedAddress(), $activeSeason);
+    if (txhash) {
+      claiming = false;
+      alreadyClaimed = true;
+      successToast({
+        title: 'Claim submitted',
+        message: 'Your points will be updated within the next few hours',
+      });
+    }
+
+    claiming = false;
   }
 
   const loadPoints = async () => {
     if (getConnectedAddress() && getConnectedAddress() !== zeroAddress && $activeSeason) {
       $bonusLoading = true;
       seasonBonusPoints = await profileService.getProfileBonusPoints(getConnectedAddress(), $activeSeason);
+
+      alreadyClaimed = await profileService.checkBonusClaimRegistered(getConnectedAddress(), $activeSeason);
 
       if (seasonBonusPoints > 0) hasBonusPoints = true;
       previousSeasonPointsAndRank = await profileService.getPointsAndRankForAddress(
@@ -82,15 +100,17 @@
     <ActionButton
       slot="cta"
       class="h-fit"
-      disabled={!bonusClaimActive}
+      disabled={claimButtonDisabled}
       loading={$bonusLoading}
       priority="primary"
       on:click={handleBonusClaim}>
-      {#if bonusClaimActive}
-        {#if $bonusLoading}
-          <Spinner />
+      {#if bonusClaimActive && !$bonusLoading}
+        {#if alreadyClaimed}
+          Already claimed
+        {:else if claiming}
+          {$t('common.claiming')} <Spinner />
         {:else}
-          {$t('claim.panels.claim.button')}
+          {$t('common.claim')}
         {/if}
       {:else}
         {$t('claim.season1Bonus.cta.soon')}
