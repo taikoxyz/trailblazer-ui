@@ -41,9 +41,9 @@
   const whaleClasses = classNames(commonCardClasses, 'bg-purple-600');
   const minnowClasses = classNames(commonCardClasses, 'bg-secondary-brand');
 
-  const devBackgroundImage = 'bg-[url("/factions/s2/cards/devs.png")]';
-  const whaleBackgroundImage = 'bg-[url("/factions/s2/cards/whales.png")]';
-  const minnowBackgroundImage = 'bg-[url("/factions/s2/cards/minnows.png")]';
+  const devBackgroundImage = 'bg-[url("/factions/cards/devs.png")]';
+  const whaleBackgroundImage = 'bg-[url("/factions/cards/whales.png")]';
+  const minnowBackgroundImage = 'bg-[url("/factions/cards/minnows.png")]';
 </script>
 
 <div class="f-space-between w-full f-col lg:f-row gap-[24px]">
@@ -52,7 +52,7 @@
     <div class={backgroundColorWrapperClasses}>
       <div class={classNames(backgroundImageClasses, devBackgroundImage)}>
         <div class={overlayClasses}>
-          <img src="/factions/s2/cards/devs_overlay.svg" alt="Devs" class="h-[29px]" />
+          <img src="/factions/cards/devs_overlay.svg" alt="Devs" class="h-[29px]" />
         </div>
       </div>
     </div>
@@ -63,7 +63,7 @@
     <div class={backgroundColorWrapperClasses}>
       <div class={classNames(backgroundImageClasses, whaleBackgroundImage)}>
         <div class={overlayClasses}>
-          <img src="/factions/s2/cards/whales_overlay.svg" alt="Whales" class="h-[29px]" />
+          <img src="/factions/cards/whales_overlay.svg" alt="Whales" class="h-[29px]" />
         </div>
       </div>
     </div>
@@ -74,7 +74,7 @@
     <div class={backgroundColorWrapperClasses}>
       <div class={classNames(backgroundImageClasses, minnowBackgroundImage)}>
         <div class={overlayClasses}>
-          <img src="/factions/s2/cards/minnows_overlay.svg" alt="Minnows" class="h-[29px]" />
+          <img src="/factions/cards/minnows_overlay.svg" alt="Minnows" class="h-[29px]" />
         </div>
       </div>
     </div>
