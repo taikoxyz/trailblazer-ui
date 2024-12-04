@@ -13,7 +13,7 @@ export default function getMultiplierFor(token: NFT): {
   if (isAddressEqual(token.address, taikoonTokenAddress[chainId])) {
     // Taikoon
     return {
-      multiplier: 0.1,
+      multiplier: 1,
       tooltip: 'Applied globally',
     };
   }
