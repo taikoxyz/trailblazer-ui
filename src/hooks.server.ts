@@ -59,7 +59,7 @@ export const handle: Handle = async ({ event, resolve }) => {
   const isBypassed = PUBLIC_BYPASS_GEOBLOCK === 'true';
 
   if (isBypassed || isDev) {
-    return resolve(event);
+    //return resolve(event);
   }
 
   if (!country || bannedCountryCodes.includes(country)) {
