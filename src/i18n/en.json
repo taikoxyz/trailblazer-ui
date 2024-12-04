@@ -1,134 +1,4 @@
 {
-  "badge_recruitment": {
-    "buttons": {
-      "end_recruitment": "Claim",
-      "influence": "Influence",
-      "not_eligible": "Not eligible",
-      "ongoing_recruitment": "Recruiting another badge",
-      "reveal": "Reveal",
-      "start_recruitment": "Start recruitment"
-    },
-    "faq": {
-      "entries": [
-        {
-          "answer": "The Devs are out in full force looking for new recruits to join their Faction. The Recruit tab is where you can send any Devs you control out to find new members to join your cause. Your Dev will always find one new member that belongs to one of two Teams: the Minnows, or the Whales, and will always be the same Faction of the Dev that Recruited them. It takes 24 hours for your Dev to return with a new member. Once you have sent your Dev out it will be staked for the rest of the Season.",
-          "question": "What is Recruiting?"
-        },
-        {
-          "answer": "As your Dev is out looking for Recruits you can give them orders to target a specific Team to join your cause. Every time you give your Dev the order to Influence a particular Team, it will increase your chances of your Dev returning with a member of that Team by 5%. Every time you give your Dev orders to Influence a particular Team you will see the number increase above that Team on the Recruit Influence page.<br/><br/>If you change your mind about which Team you want to Influence you can select the other Team, and it will reset the Influence counter to 1 for your new target. You can give Influence orders to your Dev once every 1 hour.",
-          "question": "What does Influence do?"
-        },
-        {
-          "answer": "<b>The Devs</b> (S1 Badges) are the OGs, the ones that build and make things possible. For every unique Dev you control you will receive +0.05x to your <b>Global xp</b> multiplier as well as your Proposer xp.<br/><br/><b>The Whales</b> are the big bagged ones, they make splashes in DeFi. For every unique Whale you control you will receive +0.05x to your <b>Transaction Value</b> xp multiplier.<br/><br/><b>The Minnows</b> are small but plenty, what they lack in funds they make up for with activity. For every unique Minnow you control you will receive +0.05x to your <b>Transaction</b> xp multiplier.",
-          "question": "What are the different Teams and what do they do?"
-        },
-        {
-          "answer": "While your Dev is staked you will not be able to take advantage of all of their skills, so you will lose all the multipliers that it would normally give you. ",
-          "question": "What can my Dev do while it is staked?"
-        },
-        {
-          "answer": "The Faction Battle Arena is where you can send the characters under your control to battle it out for fame, glory, and of course prizes. For more details on the FBA visit:",
-          "question": "What is the Faction Battle Arena?"
-        },
-        {
-          "answer": "There are a total of 24 Trailblazer Faction Badges. There are 3 Teams: Devs, Minnows and Whales, and those Teams are split into 8 Factions: Ravers, Robots, Bouncers, Masters, Monk, Androids, Drummers, and Shinto.",
-          "question": "How many Faction Badges are there to collect?"
-        },
-        {
-          "answer": "Recruitments happen in cycles. At the beginning of each cycle it will be announced which Factions are able to be obtained during the limited Recruitment period. During each cycle, every user will only be able to Recruit one member from the available Faction(s) PLUS 1 Free Recruitment that they are qualified to make. ",
-          "question": "How often can I recruit new members?"
-        },
-        {
-          "answer": "Sometimes you don’t even have to send a Dev out to do your dirty work and the Recruits come looking for you. This normally happens when you are making a big name for yourself by participating in other events, like the Faction Battle Arena or Liquidity Royale. During a Free Recruitment you will also be able to Influence the Team you get, but you do not have to Stake a Dev to do so. ",
-          "question": "What are Free Recruitment?"
-        }
-      ],
-      "entries[2]": {
-        "answer": "",
-        "question": ""
-      },
-      "entries[3]": {
-        "answer": "",
-        "question": ""
-      },
-      "entries[4]": {
-        "answer": "",
-        "question": ""
-      },
-      "entries[5]": {
-        "answer": "",
-        "question": ""
-      },
-      "entries[6]": {
-        "answer": "",
-        "question": ""
-      },
-      "entries[7]": {
-        "answer": "",
-        "question": ""
-      },
-      "title": "Badge Recruitment FAQ"
-    },
-    "labels": {
-      "season": "Season",
-      "trail": "Trail"
-    },
-    "main": {
-      "can_claim_in": "Badge recruited in:",
-      "can_influence_in": "You can influence again in:",
-      "cta": "Learn about badge recruitment",
-      "no_enabled_recruitments": "No recruitments are currently enabled. Stay tuned!"
-    },
-    "modal": {
-      "end_recruitment": {
-        "description": "You have successfully recruited your badge. You can now claim it.",
-        "title": "Congratulations!",
-        "toast": {
-          "error": {
-            "default_message": "Error claiming your badge recruitment",
-            "title": "Badge recruitment claim error"
-          },
-          "success": {
-            "message": "You have successfully claimed your badge",
-            "title": "Badge recruitment claim"
-          }
-        }
-      },
-      "influence_recruitment": {
-        "description": "Influence your badge to favor the path of your Season 2 badge.",
-        "title": "Your Season 2 Badge is being recruited",
-        "toast": {
-          "error": {
-            "message": "Error refining your recruitment process",
-            "title": "Influence error"
-          },
-          "success": {
-            "message": "You have successfully influenced your badge to {movement}.",
-            "title": "Influence success"
-          }
-        }
-      },
-      "start_recruitment": {
-        "description": "Time to recruit your Season 2 {badgeName} badge!",
-        "title": "Start your recruitment process",
-        "toast": {
-          "error": {
-            "message": {
-              "already_started": "You have already started another recruitment.",
-              "default": "Could not start your recruitment. Please try again later.",
-              "rejected": "You have rejected the recruitment."
-            },
-            "title": "Error"
-          },
-          "success": {
-            "message": "You have successfully started the recruitment of your badge.",
-            "title": "Success"
-          }
-        },
-        "warning": "Warning: Once you click 'Start Recruitment', your Season 1 badge will be locked for the rest of season 2."
-      }
-    }
-  },
   "badges": {
     "claimable": "You have a claimable badge. Unlock now!",
     "movement": {
@@ -778,6 +648,164 @@
       "connected": "Connected",
       "connecting": "Connecting",
       "disconnected": "Disconnected"
+    }
+  },
+  "badge_recruitment": {
+    "buttons": {
+      "not_eligible": "Not eligible",
+      "influence": "Influence",
+      "start_recruitment": "Start recruitment",
+      "end_recruitment": "Claim",
+      "reveal": "Reveal",
+      "ongoing_recruitment": "Recruiting another badge"
+    },
+    "labels": {
+      "season": "Season",
+      "trail": "Trail"
+    },
+    "main": {
+      "can_influence_in": "You can influence again in:",
+      "can_claim_in": "Badge recruited in:",
+      "no_enabled_recruitments": "No recruitments are currently enabled. Stay tuned!",
+      "cta": "Have questions?"
+    },
+    "modal": {
+      "start_recruitment": {
+        "title": "Start your recruitment process",
+        "description": "Time to recruit your Season 2 {badgeName} badge!",
+        "warning": "Warning: Once you click 'Start Recruitment', your Season 1 badge will be locked for the rest of season 2.",
+        "toast": {
+          "success": {
+            "title": "Success",
+            "message": "You have successfully started the recruitment of your badge."
+          },
+          "error": {
+            "title": "Error",
+            "message": {
+              "default": "Could not start your recruitment. Please try again later.",
+              "rejected": "You have rejected the recruitment.",
+              "already_started": "You have already started another recruitment."
+            }
+          }
+        }
+      },
+      "influence_recruitment": {
+        "title": "Your Season 2 Badge is being recruited",
+        "description": "Influence your badge to favor the path of your Season 2 badge.",
+        "toast": {
+          "success": {
+            "title": "Influence success",
+            "message": "You have successfully influenced your badge to {movement}."
+          },
+          "error": {
+            "title": "Influence error",
+            "message": "Error refining your recruitment process"
+          }
+        }
+      },
+      "end_recruitment": {
+        "title": "Congratulations!",
+        "description": "You have successfully recruited your badge. You can now claim it.",
+        "toast": {
+          "success": {
+            "title": "Badge recruitment claim",
+            "message": "You have successfully claimed your badge"
+          },
+          "error": {
+            "title": "Badge recruitment claim error",
+            "default_message": "Error claiming your badge recruitment"
+          }
+        }
+      }
+    },
+    "faq": {
+      "title": "Badge Recruitment FAQ",
+      "entries": [
+        {
+          "question": "What is Recruiting?",
+          "answer": "The Devs are out in full force looking for new recruits to join their Faction. The Recruit tab is where you can send any Devs you control out to find new members to join your cause. Your Dev will always find one new member that belongs to one of two Teams: the Minnows, or the Whales, and will always be the same Faction of the Dev that Recruited them. It takes 24 hours for your Dev to return with a new member. Once you have sent your Dev out it will be staked for the rest of the Season."
+        },
+        {
+          "question": "What does Influence do?",
+          "answer": "As your Dev is out looking for Recruits you can give them orders to target a specific Team to join your cause. Every time you give your Dev the order to Influence a particular Team, it will increase your chances of your Dev returning with a member of that Team by 5%. Every time you give your Dev orders to Influence a particular Team you will see the number increase above that Team on the Recruit Influence page.<br/><br/>If you change your mind about which Team you want to Influence you can select the other Team, and it will reset the Influence counter to 1 for your new target. You can give Influence orders to your Dev once every 1 hour."
+        },
+        {
+          "question": "What are the different Teams and what do they do?",
+          "answer": "<b>The Devs</b> (S1 Badges) are the OGs, the ones that build and make things possible. For every unique Dev you control you will receive +0.05x to your <b>Global xp</b> multiplier as well as your Proposer xp.<br/><br/><b>The Whales</b> are the big bagged ones, they make splashes in DeFi. For every unique Whale you control you will receive +0.05x to your <b>Transaction Value</b> xp multiplier.<br/><br/><b>The Minnows</b> are small but plenty, what they lack in funds they make up for with activity. For every unique Minnow you control you will receive +0.05x to your <b>Transaction</b> xp multiplier."
+        },
+        {
+          "question": "What can my Dev do while it is staked?",
+          "answer": "While your Dev is staked you will not be able to take advantage of all of their skills, so you will lose all the multipliers that it would normally give you. "
+        },
+        {
+          "question": "What is the Faction Battle Arena?",
+          "answer": "The Faction Battle Arena is where you can send the characters under your control to battle it out for fame, glory, and of course prizes. For more details on the FBA visit:"
+        },
+        {
+          "question": "How many Faction Badges are there to collect?",
+          "answer": "There are a total of 24 Trailblazer Faction Badges. There are 3 Teams: Devs, Minnows and Whales, and those Teams are split into 8 Factions: Ravers, Robots, Bouncers, Masters, Monk, Androids, Drummers, and Shinto."
+        },
+        {
+          "question": "How often can I recruit new members?",
+          "answer": "Recruitments happen in cycles. At the beginning of each cycle it will be announced which Factions are able to be obtained during the limited Recruitment period. During each cycle, every user will only be able to Recruit one member from the available Faction(s) PLUS 1 Free Recruitment that they are qualified to make. "
+        },
+        {
+          "question": "What are Free Recruitment?",
+          "answer": "Sometimes you don’t even have to send a Dev out to do your dirty work and the Recruits come looking for you. This normally happens when you are making a big name for yourself by participating in other events, like the Faction Battle Arena or Liquidity Royale. During a Free Recruitment you will also be able to Influence the Team you get, but you do not have to Stake a Dev to do so. "
+        },
+        {
+          "question": "Will I lose my global multiplier at the end of the season if I recruit?",
+          "answer": "No, you will only lose the global multiplier for the time your Dev NFT is staked. In Season 2, you earn multipliers only while holding NFTs, and bonuses apply solely during that time. "
+        },
+        {
+          "question": "With NFT bonuses, can I earn more than 73k points per day on Tx Value and Transactions?",
+          "answer": "Yes. Multipliers increase your daily cap. Whale badges boost the daily Tx Value cap, while Minnow NFTs boost the daily Transaction points cap."
+        },
+        {
+          "question": "If I have 2 Ravers, and 1 Raver is out recruiting, will I still have my global bonus?",
+          "answer": "Yes. The staked NFT used for recruiting won’t provide a multiplier, but the unstaked one will still give you the global bonus."
+        },
+        {
+          "question": "What are the chances of getting a badge if I apply 5 Influences?",
+          "answer": "Applying Influence increases your chances of getting the NFT from your preferred team to up to 65%, though there’s still a chance to get another team’s NFT."
+        },
+        {
+          "question": "If I buy a Dev or Taikoon NFT mid/late in Season 2, will it boost my points for the entire season?",
+          "answer": "No. You only earn bonus points for the days you hold the NFT. If you buy on the last day, you’ll receive the bonus for that day only."
+        },
+        {
+          "question": "What if I recruit with different wallets and transfer NFTs to my main account? Will this be considered Sybil activity?",
+          "answer": "Yes. Please keep the process fair."
+        },
+        {
+          "question": "Will S2 Badges act as multipliers in Season 3?",
+          "answer": "Yes. They will still have relevance and impact in Season 3."
+        },
+        {
+          "question": "Can I use the same S1 badge to recruit both Whales and Minnows, or do I need two sets of S1 badges?",
+          "answer": "No, you cannot. The NFT used for recruiting will be staked, so you’ll need separate NFTs for each recruitment."
+        },
+        {
+          "question": "What happens to staked NFTs and the recruited NFTs after S2 ends?",
+          "answer": "You’ll get your staked NFT back. Your Dev remains loyal to you."
+        },
+        {
+          "question": "If I have 3 Raver badges, can I send out 2 Devs and have both return with badges from the same team?",
+          "answer": "Yes, but in this recruitment cycle, you can only get one badge per faction."
+        },
+        {
+          "question": "Do I get 5 Influences everyday?",
+          "answer": "Yes."
+        },
+        {
+          "question": "Will there be more Season 1 NFTs?",
+          "answer": "No, there are no plans to expand the existing Season 1 NFTs."
+        },
+        {
+          "question": "What are the multipliers this season? ",
+          "answer": "Minnows Multiplier = 0.05 * Num Of Minnow NFTs (max 1.4x) - Effects Transaction Points<br/><br/>Whales Multiplier = 0.05 * Num Of Whale NFTs (max 1.4x) - Effects Tx Value Points<br/><br/>Global Multiplier = 1 + Devs Global Multiplier (8 Season 1 NFTs, 0.05* each) + Snaefel Multiplier (0.1)+ Taikoon Multiplier (1)  (new max 2.5x) - Effects Total Points"
+        }
+      ]
     }
   }
 }

@@ -10,7 +10,7 @@
     },
     {
       title: 'Taikoon Multiplier',
-      description: '= 0.1 (unchanged from S1)',
+      description: '= +1x (unchanged from S1)',
       iconPath: '/multipliers/taikoon.svg',
     },
     {

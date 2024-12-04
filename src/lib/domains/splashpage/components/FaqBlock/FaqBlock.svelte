@@ -11,10 +11,9 @@
 
   export let title: string | null = null;
   export let entries: IFaqEntry[] = [];
+  export let titleSize: 'md' | 'lg' = 'md';
 
   const wrapperClasses = classNames(
-    'md:f-row',
-    'f-col',
     'gap-6',
     'w-full',
     'h-max',
@@ -22,15 +21,23 @@
     'md:justify-between',
     'md:items-start',
     'justify-center',
+    'grid',
+    'lg:grid-cols-6',
+    'md:grid-cols-4',
   );
 
-  const slotClasses = classNames('h-full', 'w-max', 'flex', 'lg:justify-start');
+  const slotClasses = classNames('h-full', 'w-full', 'flex', 'lg:justify-start');
 
   const blockWrapperClasses = classNames(
-    'join join-vertical ',
-    'md:w-4/6',
+    'join',
+    'join-vertical ',
+    // 'md:w-4/6',
+    'w-full',
     'rounded-[20px]',
     'bg-gradient-to-b from-[rgba(93,99,111,.1)] to-[rgba(25,30,40,.2)]',
+
+    'lg:col-span-5',
+    'md:col-span-3',
   );
   const itemClasses = classNames(
     'collapse',
@@ -83,18 +90,21 @@
 
   const readMoreButtonClasses = classNames('w-full', 'min-w-[200px]', 'py-[8px]', 'px-[20px]');
 
-  const titleClasses = classNames(
-    'text-secondary',
-    'min-w-[146px]',
-    'lg:mr-[24px]',
-    'text-[16px]/[24px]',
-    'uppercase',
-    'md:w-min',
-    'w-full',
-    'text-center',
-    'md:text-left',
-    'font-[700]',
-  );
+  $: titleClasses =
+    titleSize === 'md'
+      ? classNames(
+          'text-secondary',
+          'min-w-[146px]',
+          'lg:mr-[24px]',
+          'text-[16px]/[24px]',
+          'uppercase',
+          'md:w-min',
+          'w-full',
+          'text-center',
+          'md:text-left',
+          'font-[700]',
+        )
+      : classNames('font-clash-grotesk', 'text-[35px]/[42px]', 'font-[500]');
 
   $: checkedItem = '';
 

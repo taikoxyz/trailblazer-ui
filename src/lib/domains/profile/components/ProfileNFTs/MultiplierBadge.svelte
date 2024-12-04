@@ -36,7 +36,7 @@
 </script>
 
 <div class={wrapperClasses} data-tip={tooltip}>
-  {multiplier}x Multiplier
+  +{multiplier}x Multiplier
   <Icon type="question-circle" />
 
   <div class={classNames(borderOverlayClasses, 'top-[-1px]')}></div>

@@ -142,8 +142,8 @@
   </div>
 
   <div class={faqWrapperClasses}>
-    <div class="md:w-1/2 w-full">
-      <ActionButton href="/badge" priority="primary">
+    <div class="md:w-1/2 w-full mb-[25px]">
+      <ActionButton href="/badge#faq" priority="primary">
         {$t('badge_recruitment.main.cta')}
       </ActionButton>
     </div>

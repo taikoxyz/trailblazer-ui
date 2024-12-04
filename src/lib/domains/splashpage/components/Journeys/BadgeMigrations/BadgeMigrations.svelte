@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { onMount } from 'svelte';
   import { json, t } from 'svelte-i18n';
 
   import { goto } from '$app/navigation';
@@ -12,6 +13,26 @@
   import Multipliers from './Multipliers.svelte';
   import Note from './Note.svelte';
   import Teams from './Teams.svelte';
+
+  let faqElement: HTMLElement;
+
+  function scrollToHash() {
+    const hash = window.location.hash;
+    if (hash === '#faq' && faqElement) {
+      faqElement.scrollIntoView({ behavior: 'smooth' });
+    }
+  }
+
+  onMount(() => {
+    scrollToHash();
+
+    const handleHashChange = () => scrollToHash();
+    window.addEventListener('hashchange', handleHashChange);
+
+    return () => {
+      window.removeEventListener('hashchange', handleHashChange);
+    };
+  });
 
   const wrapperClasses =
     'f-col items-center gap-[100px] px-[48px] container justify-center self-center mx-auto mt-[70px] mb-[150px]';
@@ -162,5 +183,7 @@
   </div>
 
   <!-- FAQ -->
-  <FaqBlock entries={faqEntries} />
+  <div bind:this={faqElement}>
+    <FaqBlock title="FAQs" titleSize="lg" entries={faqEntries} />
+  </div>
 </div>
