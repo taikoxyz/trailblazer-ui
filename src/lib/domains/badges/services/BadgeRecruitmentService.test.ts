@@ -1,5 +1,4 @@
 import type { Address } from 'viem';
-import type { Mocked } from 'vitest';
 
 import { Movements, Seasons } from '$lib/domains/profile/types/types';
 import { type IBadgeRecruitment, RecruitmentStatus } from '$shared/types/BadgeRecruitment';
@@ -19,12 +18,23 @@ vi.mock('@wagmi/core', () => ({
   watchContractEvent: vi.fn(),
 }));
 
-vi.mock('../adapter/BadgeRecruitmentAdapter');
+vi.mock('$lib/domains/badges/adapter/BadgeRecruitmentAdapter', () => {
+  return {
+    default: vi.fn().mockImplementation(() => ({
+      fetchEnabledRecruitments: vi.fn(),
+      startRecruitment: vi.fn(),
+      influenceRecruitment: vi.fn(),
+      endRecruitment: vi.fn(),
+      getRecruitmentStatus: vi.fn(),
+      getMaxInfluences: vi.fn(),
+    })),
+  };
+});
 
 vi.mock('$lib/shared/wagmi/watcher');
 
 describe('BadgeRecruitmentService', () => {
-  let mockBadgeRecruitmentAdapter: Mocked<BadgeRecruitmentAdapter>;
+  let mockBadgeRecruitmentAdapter: BadgeRecruitmentAdapter;
   let badgeRecruitmentService: BadgeRecruitmentService;
 
   beforeEach(() => {
@@ -38,7 +48,8 @@ describe('BadgeRecruitmentService', () => {
       endRecruitment: vi.fn(),
       getRecruitmentStatus: vi.fn(),
       getMaxInfluences: vi.fn(),
-    } as unknown as Mocked<BadgeRecruitmentAdapter>;
+      _getRecruitmentSignature: vi.fn(),
+    } as unknown as BadgeRecruitmentAdapter;
 
     // Inject the mocked adapter into the service
     badgeRecruitmentService = new BadgeRecruitmentService(mockBadgeRecruitmentAdapter);
@@ -46,7 +57,7 @@ describe('BadgeRecruitmentService', () => {
 
   it('should exercise the `getEnabledRecruitments`, happy-path', async () => {
     // Given
-    mockBadgeRecruitmentAdapter.fetchEnabledRecruitments.mockResolvedValue([1, 2, 3]); // Mock the adapter's method
+    vi.mocked(mockBadgeRecruitmentAdapter).fetchEnabledRecruitments.mockResolvedValue([1, 2, 3]); // Mock the adapter's method
 
     // When
     const res = await badgeRecruitmentService.getEnabledRecruitments();
@@ -76,7 +87,7 @@ describe('BadgeRecruitmentService', () => {
     };
 
     // Mock the adapter's startRecruitment method
-    mockBadgeRecruitmentAdapter.startRecruitment.mockResolvedValue(mockResponse);
+    vi.mocked(mockBadgeRecruitmentAdapter).startRecruitment.mockResolvedValue(mockResponse);
 
     // When
     const result = await badgeRecruitmentService.startRecruitment(mockAddress, mockNFT, mockRecruitment);
@@ -108,7 +119,7 @@ describe('BadgeRecruitmentService', () => {
     };
 
     // Mock the adapter's influenceRecruitment method
-    mockBadgeRecruitmentAdapter.influenceRecruitment.mockResolvedValue(mockResponse);
+    vi.mocked(mockBadgeRecruitmentAdapter).influenceRecruitment.mockResolvedValue(mockResponse);
 
     // When
     const result = await badgeRecruitmentService.influenceRecruitment(
@@ -149,7 +160,7 @@ describe('BadgeRecruitmentService', () => {
     };
 
     // Mock the adapter's endRecruitment method
-    mockBadgeRecruitmentAdapter.endRecruitment.mockResolvedValue(mockResponse);
+    vi.mocked(mockBadgeRecruitmentAdapter).endRecruitment.mockResolvedValue(mockResponse);
 
     // When
     const result = await badgeRecruitmentService.endRecruitment(mockAddress, mockNFT, mockRecruitment);
@@ -185,7 +196,7 @@ describe('BadgeRecruitmentService', () => {
     ];
 
     // Mock the adapter's getRecruitmentStatus method
-    mockBadgeRecruitmentAdapter.getRecruitmentStatus.mockResolvedValue(mockRecruitments);
+    vi.mocked(mockBadgeRecruitmentAdapter).getRecruitmentStatus.mockResolvedValue(mockRecruitments);
 
     // When
     const result = await badgeRecruitmentService.getRecruitmentStatus(mockAddress);
@@ -202,7 +213,7 @@ describe('BadgeRecruitmentService', () => {
     const mockMaxInfluences = 5;
 
     // Mock the adapter's getMaxInfluences method
-    mockBadgeRecruitmentAdapter.getMaxInfluences.mockResolvedValue(mockMaxInfluences);
+    vi.mocked(mockBadgeRecruitmentAdapter).getMaxInfluences.mockResolvedValue(mockMaxInfluences);
 
     // When
     const result = await badgeRecruitmentService.getMaxInfluences(mockExp);
