@@ -63,7 +63,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 
   if (!country || bannedCountryCodes.includes(country)) {
     return error(403, {
-      message: `The site is not available on the following countries: ${Object.values(bannedCountries).join(', ')}`,
+      message: `The site is not available in the following countries: ${Object.values(bannedCountries).join(', ')}`,
     });
   }
 
