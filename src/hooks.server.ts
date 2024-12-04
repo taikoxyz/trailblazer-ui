@@ -3,7 +3,6 @@ import { type Handle } from '@sveltejs/kit';
 import { error } from '@sveltejs/kit';
 
 import { PUBLIC_BYPASS_GEOBLOCK } from '$env/static/public';
-import { isDevelopmentEnv } from '$shared/utils/isDevelopmentEnv';
 
 const bannedCountries: Record<string, string> = {
   AF: 'Afghanistan',
@@ -55,11 +54,11 @@ const bannedCountryCodes = Object.keys(bannedCountries);
 
 export const handle: Handle = async ({ event, resolve }) => {
   const country = event.request.headers.get('x-vercel-ip-country') ?? false;
-  const isDev = isDevelopmentEnv || event.url.hostname === 'localhost' || event.url.port === '5173';
+  const isDev = event.url.hostname === 'localhost' || event.url.port === '5173';
   const isBypassed = PUBLIC_BYPASS_GEOBLOCK === 'true';
 
   if (isBypassed || isDev) {
-    //return resolve(event);
+    return resolve(event);
   }
 
   if (!country || bannedCountryCodes.includes(country)) {
@@ -70,27 +69,3 @@ export const handle: Handle = async ({ event, resolve }) => {
 
   return resolve(event);
 };
-
-/*
-export function load(event) {
-  const country = event.request.headers.get('x-vercel-ip-country') ?? false;
-  const isDev = event.url.hostname === 'localhost' || event.url.port === '5173';
-  const isBypassed = PUBLIC_BYPASS_GEOBLOCK === 'true';
-
-  if (isBypassed || isDev) {
-    return {
-      location: { country },
-    };
-  }
-
-  if (!country || bannedCountryCodes.includes(country)) {
-    return error(400, {
-      message: `The site is not available in the following countries: ${Object.values(bannedCountries).join(', ')}`,
-    });
-  }
-
-  return {
-    location: { country },
-  };
-}
-*/
