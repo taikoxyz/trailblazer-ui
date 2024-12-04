@@ -1,6 +1,6 @@
 import type { Address } from 'viem';
 
-import { readEventRegisterRegistrations, writeEventRegisterRegister } from '$generated/abi';
+import { readEventRegisterEvents, readEventRegisterRegistrations, writeEventRegisterRegister } from '$generated/abi';
 import { getAxiosInstance, globalAxiosConfig } from '$lib/shared/services/api/axiosClient';
 import { chainId } from '$lib/shared/utils/chain';
 import { wagmiConfig } from '$lib/shared/wagmi';
@@ -14,6 +14,17 @@ const log = getLogger('SeasonBonusPointsAdapter');
 enum EventIds {
   SEASON1 = 0,
 }
+
+const mapSeasonToEventId = (season: number): number => {
+  switch (season) {
+    case 2:
+      return EventIds.SEASON1;
+    default:
+      throw new Error('Invalid season');
+  }
+};
+
+type Event = readonly [id: bigint, name: string, exists: boolean, registrationOpen: boolean];
 
 export class SeasonBonusPointsAdapter {
   /**
@@ -44,7 +55,7 @@ export class SeasonBonusPointsAdapter {
   async claimUserBonusPoints(address: Address, season: number) {
     log('claimUserBonusPoints', { address, season });
     const txHash = await writeEventRegisterRegister(wagmiConfig, {
-      args: [BigInt(EventIds.SEASON1)],
+      args: [BigInt(mapSeasonToEventId(season))],
       chainId,
     });
     await pendingTransactions.add(txHash);
@@ -68,9 +79,27 @@ export class SeasonBonusPointsAdapter {
     }
 
     const isRegistered = await readEventRegisterRegistrations(wagmiConfig, {
-      args: [BigInt(EventIds.SEASON1), address],
+      args: [BigInt(mapSeasonToEventId(season)), address],
       chainId,
     });
     return isRegistered;
+  }
+
+  /**
+   * Checks if the registration for the event is open
+   * @param {number} eventId
+   * @return {*}  {Promise<boolean>}
+   * @memberof SeasonBonusPointsAdapter
+   * */
+  async checkRegistrationOpen(eventId: number): Promise<boolean> {
+    log('checkRegistrationOpen for event', { eventId });
+
+    const [id, name, exists, registrationOpen]: Event = await readEventRegisterEvents(wagmiConfig, {
+      args: [BigInt(eventId)],
+      chainId,
+    });
+    log('checkRegistrationOpen', { id, name, exists, registrationOpen });
+
+    return registrationOpen;
   }
 }

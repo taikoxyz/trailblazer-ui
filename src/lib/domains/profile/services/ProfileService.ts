@@ -57,14 +57,6 @@ export class ProfileService implements IProfileService {
     this.seasonBonusAdapter = seasonBonusAdapter || new SeasonBonusPointsAdapter();
   }
 
-  public static getInstance(): ProfileService | null {
-    try {
-      return new ProfileService();
-    } catch (e) {
-      return null;
-    }
-  }
-
   /**
    * Fetches the user profile and updates the store.
    * @param address - The user's address.
@@ -731,6 +723,29 @@ export class ProfileService implements IProfileService {
     }
   }
 
+  /**
+   * Checks if the registration for the event is open
+   * @param {number} eventId
+   * @return {*}  {Promise<boolean>}
+   * @memberof ProfileService
+   * */
+  async checkRegistrationOpen(eventId: number): Promise<boolean> {
+    log('checkRegistrationOpen for event', { eventId });
+
+    const registrationOpen = await this.seasonBonusAdapter.checkRegistrationOpen(eventId);
+    log('checkRegistrationOpen', { eventId, registrationOpen });
+
+    return registrationOpen;
+  }
+
+  /**
+   *  Fetches the user's final scores for the previous season.
+   *
+   * @param {Address} address
+   * @param {number} season
+   * @return {*}  {Promise<void>}
+   * @memberof ProfileService
+   */
   async previousSeasonFinalScores(address: Address, season: number): Promise<void> {
     log('Fetching previous season final scores for season:', season);
     try {

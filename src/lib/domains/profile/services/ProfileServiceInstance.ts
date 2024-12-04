@@ -1,5 +1,5 @@
 import { ProfileService } from './ProfileService';
 
-const profileService = ProfileService.getInstance();
+const profileService = new ProfileService();
 
 export default profileService;
