@@ -23,7 +23,6 @@ describe('ProtocolAdapter', () => {
 
   beforeEach(() => {
     protocolAdapter = new ProtocolAdapter('mock');
-
     vi.clearAllMocks();
   });
 

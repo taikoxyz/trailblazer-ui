@@ -4,8 +4,8 @@ import { type Address, getAddress, type Hash } from 'viem';
 import BadgeRecruitmentService from '$lib/domains/badges/services/BadgeRecruitmentService';
 import type { UserLeaderboardItem } from '$lib/domains/leaderboard/types/user/types';
 import { NftService } from '$lib/domains/nfts/services/NftService';
-import { SeasonBonusPointsAdapter } from '$lib/domains/profile/adapter/BonusPointsAdapter';
 import { ProfileApiAdapter } from '$lib/domains/profile/adapter/ProfileAdapter';
+import { SeasonBonusPointsAdapter } from '$lib/domains/profile/adapter/SeasonBonusPointsAdapter';
 import type { UserPointsAndRankResponse } from '$lib/domains/profile/dto/profile.dto';
 import UserRepository from '$lib/domains/profile/repositories/UserRepository';
 import type { IProfileService } from '$lib/domains/profile/services/IProfileService';
@@ -732,10 +732,15 @@ export class ProfileService implements IProfileService {
   async checkRegistrationOpen(eventId: number): Promise<boolean> {
     log('checkRegistrationOpen for event', { eventId });
 
-    const registrationOpen = await this.seasonBonusAdapter.checkRegistrationOpen(eventId);
-    log('checkRegistrationOpen', { eventId, registrationOpen });
+    try {
+      const registrationOpen = await this.seasonBonusAdapter.checkRegistrationOpen(eventId);
+      log('checkRegistrationOpen', { eventId, registrationOpen });
 
-    return registrationOpen;
+      return registrationOpen;
+    } catch (error) {
+      console.error('Error checking registration open:', error);
+      return false;
+    }
   }
 
   /**
