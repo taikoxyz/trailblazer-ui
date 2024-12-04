@@ -42,7 +42,7 @@ export class DappLeaderboardService {
   ): Promise<DappLeaderboardPage> {
     const leaderboardPage: DappLeaderboardPage = {
       items: [],
-      lastUpdated: Date.now(),
+      lastUpdated: 0,
       pagination: { ...args },
     };
     log('fetching leaderboard data', args, season);
@@ -79,7 +79,12 @@ export class DappLeaderboardService {
       const unifiedRows = settledRows.filter((row): row is UnifiedLeaderboardRow => row !== null);
       log('filtered rows', unifiedRows);
       leaderboardPage.items.push(...unifiedRows);
-      leaderboardPage.pagination = { ...args, total: leaderboardData.data.total };
+      leaderboardPage.lastUpdated = leaderboardData.lastUpdated;
+      leaderboardPage.pagination = {
+        page: args.page,
+        size: args.size,
+        total: leaderboardData.data.total,
+      };
 
       log('updating leaderboard page', leaderboardPage);
       this.leaderboardRepository.update(leaderboardPage);
