@@ -116,6 +116,8 @@
           Already claimed
         {:else if claiming}
           {$t('common.claiming')} <Spinner />
+        {:else if !claimActive}
+          {$t('claim.season1Bonus.cta.closed')}
         {:else}
           {$t('common.claim')}
         {/if}
