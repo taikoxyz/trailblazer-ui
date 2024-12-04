@@ -1,6 +1,4 @@
-// import { isDevelopmentEnv } from '$libs/util/isDevelopmentEnv';
 import { type Handle } from '@sveltejs/kit';
-import { error } from '@sveltejs/kit';
 
 import { PUBLIC_BYPASS_GEOBLOCK } from '$env/static/public';
 
@@ -57,15 +55,9 @@ export const handle: Handle = async ({ event, resolve }) => {
   const isDev = event.url.hostname === 'localhost' || event.url.port === '5173';
   const isBypassed = PUBLIC_BYPASS_GEOBLOCK === 'true';
 
-  if (isBypassed || isDev) {
-    return resolve(event);
-  }
+  const allowed = isDev || isBypassed || (country && !bannedCountryCodes.includes(country));
 
-  if (!country || bannedCountryCodes.includes(country)) {
-    return error(403, {
-      message: `The site is not available on the following countries: ${Object.values(bannedCountries).join(', ')}`,
-    });
-  }
+  event.locals.allowed = Boolean(allowed);
 
   return resolve(event);
 };
