@@ -163,7 +163,7 @@
   </div>
 
   <!-- FAQ -->
-  <FaqBlock entries={faqEntries} />
+  <FaqBlock title="FAQs" titleSize="lg" entries={faqEntries} />
 </div>
 
 <style>

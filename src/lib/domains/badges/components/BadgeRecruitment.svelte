@@ -149,6 +149,6 @@
         {$t('badge_recruitment.main.cta')}
       </ActionButton>
     </div>
-    <FaqBlock title="FAQs" entries={faqEntries} />
+    <FaqBlock title="FAQs" titleSize="lg" entries={faqEntries} />
   </div>
 </div>
