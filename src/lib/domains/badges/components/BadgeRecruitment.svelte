@@ -88,17 +88,19 @@
   );
 
   $: isLoading = false;
+
   const handleRefresh = async () => {
     if (!browser || isLoading) return;
     // prevent reloads with open modals
     if ($startRecruitmentModal || $influenceRecruitmentModal || $endRecruitmentModal) return;
     isLoading = true;
-    enabledBadgeIds = (await profileService?.getEnabledRecruitments()) || [];
+    enabledBadgeIds = (await profileService.getEnabledRecruitments()) || [];
     // match address in url
     const match = window.location.pathname.match(/0x[a-fA-F0-9]{40}/);
     const address = match ? match[0] : null;
+
     if (!address) return;
-    await profileService?.getBadgeRecruitments(address as Address);
+    await profileService.getBadgeRecruitments(address as Address);
 
     isLoading = false;
   };

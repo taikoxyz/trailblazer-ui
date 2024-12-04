@@ -38,7 +38,7 @@
     if (!userAddress) {
       return;
     }
-    await profileService?.updateProfilePointHistoryPage(args, userAddress, 2);
+    await profileService.updateProfilePointHistoryPage(args, userAddress, 2);
   }
 
   // CSS classes

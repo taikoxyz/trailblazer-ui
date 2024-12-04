@@ -28,7 +28,7 @@
       if (!$account || !$account.address || !$activeRecruitment || selectedMovement === null) return;
       isLoading = true;
 
-      await profileService?.influenceRecruitment(
+      await profileService.influenceRecruitment(
         $account.address,
         $activeRecruitment.s1Badge,
         selectedMovement,
@@ -59,7 +59,7 @@
 
   $: maxInfluences = 0;
   onMount(async () => {
-    maxInfluences = (await profileService?.getMaxInfluences()) || 5;
+    maxInfluences = (await profileService.getMaxInfluences()) || 5;
   });
 
   const detailsClasses = classNames('flex', 'flex-col', 'w-full', 'justify-center', 'items-center', 'gap-[8px]');

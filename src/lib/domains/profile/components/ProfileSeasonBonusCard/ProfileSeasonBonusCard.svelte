@@ -30,15 +30,18 @@
 
   $: bonusClaimActive = PUBLIC_SEASON_BONUS_CLAIM_ACTIVE === 'true' && hasBonusPoints;
 
-  $: claimButtonDisabled = !bonusClaimActive || $bonusLoading || claiming || alreadyClaimed;
+  $: claimButtonDisabled = !bonusClaimActive || $bonusLoading || claiming || alreadyClaimed || !claimActive;
 
   let claiming: boolean = false;
 
   let alreadyClaimed = false;
 
+  let claimActive = false;
+
   async function handleBonusClaim() {
     claiming = true;
-    const txhash = await profileService?.claimSeasonBonus(getConnectedAddress(), $activeSeason);
+
+    const txhash = await profileService.claimSeasonBonus(getConnectedAddress(), $activeSeason);
     if (txhash) {
       claiming = false;
       alreadyClaimed = true;
@@ -52,16 +55,21 @@
   }
 
   const loadPoints = async () => {
-    if (getConnectedAddress() && getConnectedAddress() !== zeroAddress && $activeSeason) {
+    const address = getConnectedAddress();
+    if (address && address !== zeroAddress && $activeSeason) {
       $bonusLoading = true;
-      seasonBonusPoints = (await profileService?.getProfileBonusPoints(getConnectedAddress(), $activeSeason)) || 0;
+      const [isOpen, bonusPoints, claimed, pointsAndRank] = await Promise.all([
+        profileService.checkRegistrationOpen(0),
+        profileService.getProfileBonusPoints(address, $activeSeason),
+        profileService.checkBonusClaimRegistered(address, $activeSeason),
+        profileService.getPointsAndRankForAddress(address, $activeSeason - 1),
+      ]);
+      claimActive = isOpen;
+      seasonBonusPoints = bonusPoints || 0;
+      hasBonusPoints = seasonBonusPoints > 0;
+      alreadyClaimed = claimed;
+      previousSeasonPointsAndRank = pointsAndRank;
 
-      if (seasonBonusPoints > 0) hasBonusPoints = true;
-      alreadyClaimed = await profileService!.checkBonusClaimRegistered(getConnectedAddress(), $activeSeason);
-      previousSeasonPointsAndRank = await profileService!.getPointsAndRankForAddress(
-        getConnectedAddress(),
-        $activeSeason - 1,
-      );
       $bonusLoading = false;
     }
   };
