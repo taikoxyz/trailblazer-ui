@@ -1,13 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import type { Address } from 'viem';
 
-import type { FACTIONS } from '$configs/badges';
-
 import getMintSignature from './getMintSignature';
 import isSignatureValid from './isSignatureValid';
 import mint from './mint';
 
-export default async function claimBadge(address: Address, factionId: FACTIONS): Promise<string> {
+export default async function claimBadge(address: Address, factionId: number): Promise<string> {
   let signature: Address;
   try {
     const res = await getMintSignature(address, factionId);

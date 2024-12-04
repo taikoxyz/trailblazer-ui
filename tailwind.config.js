@@ -60,12 +60,16 @@ export default {
             opacity: '0.5',
           },
         },
+        'flip-y': {
+          '100%': { transform: 'rotateY(360deg)' },
+        },
       },
       animation: {
         'slide-right': 'slide-right 0.3s ease-in-out',
         marquee: 'marquee 25s linear infinite',
         marquee2: 'marquee2 25s linear infinite',
-        flicker: 'flicker 1.5s infinite alternate',
+        'flip-card': 'flip-y 1s ease-in-out infinite',
+        flicker: 'flicker 2.5s infinite alternate',
       },
       colors: {
         'partner-light': '#FFE7F6',
@@ -129,6 +133,7 @@ export default {
         purple: {
           1000: 'rgb(27 14 62)',
           900: '#1B0E3E',
+          600: '#5D08C8',
         },
 
         red: {
@@ -289,16 +294,63 @@ export default {
         '.stroke-2': {
           '-webkit-text-stroke-width': '2px',
         },
-        '.text-stroke-neon': {
-          '-webkit-text-stroke-color': 'var(--neon-green-color)',
+        '.stroke-3': {
+          '-webkit-text-stroke-width': '3px',
         },
-        '.drop-shadow-neon': {
-          filter: `drop-shadow(0 0 3px rgba(93, 222, 181, 0.4))
-                   drop-shadow(0 0 6px rgba(93, 222, 181, 0.4))
-                   drop-shadow(0 0 9px rgba(93, 222, 181, 0.1))`,
+        '.stroke-4': {
+          '-webkit-text-stroke-width': '4px',
+        },
+        /* Neon Green Text Stroke */
+        '.text-stroke-neon-green': {
+          '-webkit-text-stroke-color': 'var(--neon-green-color)',
+          'text-stroke-color': 'var(--neon-green-color)',
+        },
+
+        /* Neon Red Text Stroke */
+        '.text-stroke-neon-red': {
+          '-webkit-text-stroke-color': 'var(--neon-red-color)',
+          'text-stroke-color': 'var(--neon-red-color)',
+        },
+
+        /* Neon Blue Text Stroke */
+        '.text-stroke-neon-blue': {
+          '-webkit-text-stroke-color': 'var(--neon-blue-color)',
+          'text-stroke-color': 'var(--neon-blue-color)',
+        },
+
+        /* Neon Green Drop Shadow */
+        '.drop-shadow-neon-green': {
+          filter: `
+            drop-shadow(0 0 3px rgba(93, 222, 181, 0.4))
+            drop-shadow(0 0 6px rgba(93, 222, 181, 0.4))
+            drop-shadow(0 0 9px rgba(93, 222, 181, 0.1))
+          `,
+        },
+        /* Neon Blue Drop Shadow */
+        '.drop-shadow-neon-blue': {
+          filter: `
+            drop-shadow(0 0 3px rgba(30, 184, 255, 0.8))
+            drop-shadow(0 0 6px rgba(30, 184, 255, 0.4))
+            drop-shadow(0 0 9px rgba(30, 184, 255, 0.1))
+          `,
+        },
+        /* Neon Red Drop Shadow */
+        '.drop-shadow-neon-red': {
+          filter: `
+            drop-shadow(0 0 3px rgba(255, 90, 30, 0.8))
+            drop-shadow(0 0 6px rgba(255, 113, 91, 0.4))
+            drop-shadow(0 0 9px rgba(255, 113, 91, 0.1))
+          `,
+        },
+        '.fancy-background': {
+          background:
+            'var(--influence-button, linear-gradient(177deg, #5D08C8 -59.85%, #9F00B8 36.97%, #CA00A8 133.8%, #E81899 230.62%))',
+        },
+        '.multiplier-background': {
+          background:
+            'var(--Gradient-Pink-purple, linear-gradient(236deg, #5D08C8 -23.1%, #9F00B8 20.64%, #CA00A8 64.38%, #E81899 108.12%))',
         },
       };
-
       addUtilities(newUtilities);
     },
   ],
@@ -368,6 +420,8 @@ export default {
           '--gradient-pink': 'linear-gradient(to right, #EA36A4 0%, #F997D0 100%)',
 
           '--neon-green-color': '#5DDEB5',
+          '--neon-red-color': '#FF715B',
+          '--neon-blue-color': '#5AAAFF',
 
           // ================================ //
 

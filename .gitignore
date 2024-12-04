@@ -12,8 +12,4 @@ vite.config.ts.timestamp-*
 vitest.config.ts*
 test-results
 
-# Bridge config files
-/config/*
-!/config/sample/
-!/config/schemas/
-
+coverage/*

@@ -24,7 +24,15 @@
   $: disabledColor = onPopup && $$restProps.disabled ? '!bg-dialog-interactive-disabled' : '';
 
   $: commonClasses = classNames(
-    'btn size-[56px] px-[20px] py-[8px] rounded-full flex-1 items-center body-medium',
+    'relative',
+    'btn',
+    'size-[56px]',
+    'px-[20px]',
+    'py-[8px]',
+    'rounded-full',
+    'flex-1',
+    'items-center',
+    'body-medium',
     $$restProps.disabled ? 'cursor-not-allowed' : 'cursor-pointer',
     withArrow ? 'min-w-[180px]' : 'w-full',
     disabledColor,
@@ -39,9 +47,25 @@
       : 'border-primary-brand text-white hover:bg-secondary btn-secondary bg-transparent ',
   );
 
+  $: tertiaryClasses = classNames('btn-primary', 'border-none');
+
+  const tertiaryBorderClasses = classNames(
+    'bg-[green]',
+    'absolute',
+    'w-[calc(100%+4px)]',
+    'h-[calc(100%+4px)]',
+    'rounded-full',
+    'z-[-1]',
+    'bg-gradient-to-r',
+    'from-primary',
+    'via-[#FFC6E9]',
+    'to-primary',
+  );
+
   $: priorityToClassMap = {
     primary: primaryClasses,
     secondary: secondaryClasses,
+    tertiary: tertiaryClasses,
   };
 
   $: classes = classNames(commonClasses, priorityToClassMap[priority], $$props.class);
@@ -49,6 +73,9 @@
 
 {#if $$restProps.href}
   <a {...$$restProps} href={$$restProps.href} target="_blank" class={classes}>
+    {#if priority === 'tertiary'}
+      <div class={tertiaryBorderClasses}></div>
+    {/if}
     {#if loading}
       <Spinner />
     {/if}
@@ -66,6 +93,9 @@
   </a>
 {:else}
   <button {...$$restProps} class={classes} on:click>
+    {#if priority === 'tertiary'}
+      <div class={tertiaryBorderClasses}></div>
+    {/if}
     {#if loading}
       <Spinner />
     {/if}

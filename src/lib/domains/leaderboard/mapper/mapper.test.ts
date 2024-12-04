@@ -1,18 +1,15 @@
 import { zeroAddress } from 'viem';
 
-import type {
-  DappLeaderboardRow,
-  GamingLeaderboardRow,
-  UserLeaderboardRow,
-} from '$lib/domains/leaderboard/types/dapps/types';
+import type { DappLeaderboardRow, GamingLeaderboardRow } from '$lib/domains/leaderboard/types/dapps/types';
 import type { UnifiedLeaderboardRow } from '$lib/domains/leaderboard/types/shared/types';
+import type { UserLeaderboardRow } from '$lib/domains/leaderboard/types/user/types';
 
 import { mapDappLeaderboardRow, mapGamingLeaderboardRow, mapUserLeaderboardRow } from './mapper';
 
 describe('mapDappLeaderboardRow', () => {
   it('should correctly map DappLeaderboardRow to UnifiedLeaderboardRow', () => {
     const input: DappLeaderboardRow = {
-      address: zeroAddress,
+      name: 'Test Dapp',
       data: [
         {
           address: zeroAddress,
@@ -20,21 +17,22 @@ describe('mapDappLeaderboardRow', () => {
         },
       ],
       metadata: {
-        name: 'Test DApp',
+        name: 'Test Dapp',
         slug: 'test-dapp',
         twitter: '@testdapp',
         logo: 'https://example.com/logo.png',
       },
       totalScore: 200,
+      rank: 1,
     };
 
     const expected: UnifiedLeaderboardRow = {
-      address: input.address,
-      icon: input.metadata!.logo,
       handle: input.metadata!.twitter,
       data: input.data,
       name: input.metadata!.name,
       totalScore: input.totalScore,
+      icon: input.metadata!.logo,
+      rank: input.rank,
     };
 
     const result = mapDappLeaderboardRow(input);
@@ -46,7 +44,7 @@ describe('mapDappLeaderboardRow', () => {
 describe('mapGamingLeaderboardRow', () => {
   it('should correctly map GamingLeaderboardRow to UnifiedLeaderboardRow', () => {
     const input: GamingLeaderboardRow = {
-      address: zeroAddress,
+      name: 'Test Game',
       data: [
         {
           address: zeroAddress,
@@ -59,16 +57,17 @@ describe('mapGamingLeaderboardRow', () => {
         twitter: '@testgame',
         logo: 'https://example.com/game-logo.png',
       },
+      rank: 1,
       totalScore: 250,
     };
 
     const expected: UnifiedLeaderboardRow = {
-      address: input.address,
       icon: input.metadata!.logo,
       handle: input.metadata!.twitter,
       data: input.data,
       name: input.metadata!.name,
       totalScore: input.totalScore,
+      rank: input.rank,
     };
 
     const result = mapGamingLeaderboardRow(input);
@@ -97,7 +96,8 @@ describe('mapUserLeaderboardRow', () => {
       handle: '',
       rank: input.rank,
       data: [],
-      totalScore: input.score,
+      totalScore: input.totalScore!,
+      score: input.score,
     };
 
     const result = mapUserLeaderboardRow(input);
@@ -109,6 +109,7 @@ describe('mapUserLeaderboardRow', () => {
     const input: UserLeaderboardRow = {
       address: zeroAddress,
       score: 300,
+      totalScore: 400,
       rank: 2,
       // level and title are missing
       icon: 'https://example.com/user-icon.png',
@@ -122,7 +123,8 @@ describe('mapUserLeaderboardRow', () => {
       handle: '',
       data: [],
       rank: input.rank,
-      totalScore: input.score,
+      totalScore: input.totalScore!,
+      score: input.score,
     };
 
     const result = mapUserLeaderboardRow(input);

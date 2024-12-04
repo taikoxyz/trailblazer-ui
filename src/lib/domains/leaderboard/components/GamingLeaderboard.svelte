@@ -12,6 +12,7 @@
   import type { PaginationInfo } from '$lib/shared/dto/CommonPageApiResponse';
   import { getLogger } from '$shared/utils/logger';
 
+  import type { GamingLeaderboardPage } from '../types/dapps/types';
   import CampaignEndedInfoBox from './CampaignEndedInfoBox/CampaignEndedInfoBox.svelte';
 
   const log = getLogger('DappsLeaderboard');
@@ -19,7 +20,8 @@
   export let pageInfo: PaginationInfo<DappLeaderboardItem>;
   export let season: number;
 
-  const endedSeasons = [1];
+  // Todo: think about moving this to a global store for each leaderboard
+  const endedSeasons = [1, 2];
 
   $: totalItems = pageInfo?.total || 0;
   $: pageSize = pageInfo?.size || leaderboardConfig.pageSize;
@@ -38,11 +40,20 @@
       size: pageSize,
       total: totalItems,
     };
-    const leaderboardPage = await gamingLeaderboardService.getGamingLeaderboardData(args, season);
+    const leaderboardPage: GamingLeaderboardPage | undefined = await gamingLeaderboardService.getGamingLeaderboardData(
+      args,
+      season,
+    );
     totalItems = leaderboardPage?.pagination.total || $currentGamingLeaderboard.items.length;
     log('loadLeaderboardData', leaderboardPage);
     loading = false;
   }
+
+  // Dynamically fetch the correct text for the ended season
+  $: seasonEndedTitle = endedSeasons.includes(season) ? $t(`leaderboard.gaming.ended.s${season}.title`) : '';
+  $: seasonEndedDescription = endedSeasons.includes(season)
+    ? $t(`leaderboard.gaming.ended.s${season}.description`)
+    : '';
 
   setContext('loadDappsLeaderboardData', loadLeaderboardData);
   setContext('dappsPageInfo', pageInfo);
@@ -50,15 +61,17 @@
 
 <AbstractLeaderboard
   headers={['No.', 'Game', '', 'Points']}
+  {season}
   data={$currentGamingLeaderboard.items}
   showTrophy={true}
+  lastUpdated={new Date($currentGamingLeaderboard.lastUpdated)}
   isLoading={loading}
   {handlePageChange}
   {totalItems}
   ended={hasEnded}
   endedComponent={CampaignEndedInfoBox}
-  endTitleText={$t('leaderboard.gaming.ended.s1.title')}
-  endDescriptionText={$t('leaderboard.gaming.ended.s1.description')}
+  endTitleText={seasonEndedTitle}
+  endDescriptionText={seasonEndedDescription}
   showPagination={true}
   additionalInfoComponent={GamingCompetitionInformation}
   headerComponent={GamingHeader}

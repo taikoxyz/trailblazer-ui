@@ -3,12 +3,12 @@ import type { Address } from 'viem';
 import { UserLeaderboardAdapter } from '$lib/domains/leaderboard/adapter/UserLeaderboardAdapter';
 import { mapUserLeaderboardRow } from '$lib/domains/leaderboard/mapper/mapper';
 import { UserLeaderboardRepository } from '$lib/domains/leaderboard/repository/UserLeaderboardRepository';
+import type { UnifiedLeaderboardRow } from '$lib/domains/leaderboard/types/shared/types';
 import type {
   UserLeaderboardItem,
   UserLeaderboardPage,
   UserLeaderboardRow,
-} from '$lib/domains/leaderboard/types/dapps/types';
-import type { UnifiedLeaderboardRow } from '$lib/domains/leaderboard/types/shared/types';
+} from '$lib/domains/leaderboard/types/user/types';
 import type { IProfileService } from '$lib/domains/profile/services/IProfileService';
 import { ProfileService } from '$lib/domains/profile/services/ProfileService';
 import type { UserInfoForLeaderboard } from '$lib/domains/profile/types/UserInfoForLeaderboard';
@@ -99,6 +99,7 @@ export class UserLeaderboardService {
             const entry: UserLeaderboardRow = {
               address: item.address,
               score: item.score,
+              totalScore: item.totalScore,
               icon: userDetails.profilePicture,
               level: userDetails.level,
               rank: index + 1 + args.page * args.size,
@@ -136,6 +137,60 @@ export class UserLeaderboardService {
         lastUpdated: Date.now(),
         pagination: { ...args },
       };
+    }
+  }
+
+  /**
+   * Retrieves the leaderboard data for a given user address.
+   *
+   * @param {number} season
+   * @param {Address} address
+   * @return {*}  {(Promise<UnifiedLeaderboardRow | null>)}
+   * @memberof UserLeaderboardService
+   */
+  async getUserLeaderboardDataForAddress(season: number, address: Address): Promise<UnifiedLeaderboardRow | null> {
+    log('Fetching leaderboard data for address', { season, address });
+    try {
+      const leaderboardData = await this.leaderboardAdapter.fetchLeaderboardPositionForAddress(season, address);
+      log('Fetched leaderboard data', { leaderboardData });
+
+      if (!leaderboardData.items?.length) {
+        log('No leaderboard items found', { season, address });
+        return null;
+      }
+
+      const profilePicture = await this.profileService.getProfilePicture(address);
+
+      const { total, score, totalScore } = await this.profileService.getPointsAndRankForAddress(address, season);
+      const userLeaderboardItem = leaderboardData.items[0];
+      log('total, score, totalScore', { total, score, totalScore });
+      log('User leaderboard item', userLeaderboardItem);
+      const percentile = this.profileService.calculatePercentile(userLeaderboardItem.rank, total);
+      const { level, title } = this.profileService.getLevel(percentile);
+
+      log('percentile and level', { percentile, level, title });
+
+      const userLeaderboardRow: UserLeaderboardRow = {
+        address: userLeaderboardItem.address,
+        score: score,
+        totalScore: userLeaderboardItem.totalScore,
+        rank: userLeaderboardItem.rank,
+        level,
+        title,
+      };
+
+      const entry: UserLeaderboardRow = {
+        ...userLeaderboardRow,
+        icon: profilePicture || '',
+      };
+      log('User leaderboard row', entry);
+      const mapped = mapUserLeaderboardRow(entry);
+      log('Mapped user leaderboard row', mapped);
+
+      return mapped;
+    } catch (error) {
+      log('Error fetching user leaderboard data', { error, season, address });
+      return null;
     }
   }
 

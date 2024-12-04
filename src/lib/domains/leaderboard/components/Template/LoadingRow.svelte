@@ -1,10 +1,6 @@
 <script lang="ts">
-  import { Icon } from '$shared/components/Icon';
   import Skeleton from '$shared/components/Mock/Skeleton.svelte';
   import Spinner from '$shared/components/Spinner/Spinner.svelte';
-  export let rank: number;
-  export let fillClass: string;
-  export let showTrophy: boolean;
 
   const rowClass = 'row h-[80px] hover:bg-neutral-background';
   const rankCellClass = 'h-full table-cell body-bold w-1/12';
@@ -18,12 +14,7 @@
 
 <tr class={rowClass}>
   <td class={rankCellClass}>
-    <div class={rankDivClass}>
-      {#if showTrophy}
-        <Icon type="trophy" {fillClass} />
-      {/if}
-      {rank}
-    </div>
+    <div class={rankDivClass}></div>
   </td>
   <td class={mainCellClass}>
     <div class={mainDivClass}>

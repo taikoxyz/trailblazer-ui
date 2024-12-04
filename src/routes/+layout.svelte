@@ -6,11 +6,13 @@
 
   import { browser } from '$app/environment';
   import { startWatching, stopWatching } from '$lib/shared/wagmi';
-  import { AccountConnectionToast } from '$shared/components/AccountConnectionToast';
+  // import { AccountConnectionToast } from '$shared/components/AccountConnectionToast';
   import { Footer } from '$shared/components/Footer';
   import { Header } from '$shared/components/Header';
+  import { BlacklistModal } from '$shared/components/Modals/BlacklistModal';
   import { SwitchChainModal } from '$shared/components/Modals/SwitchChainModal';
   import { NotificationToast } from '$shared/components/NotificationToast';
+  // import { Ribbon } from '$shared/components/Ribbon';
   import {
     desktopQuery,
     initializeMediaQueries,
@@ -78,5 +80,7 @@
 -->
 
 <NotificationToast />
-<AccountConnectionToast />
+<!-- <AccountConnectionToast /> -->
+<!-- Todo renable in the future -->
 <SwitchChainModal />
+<BlacklistModal />

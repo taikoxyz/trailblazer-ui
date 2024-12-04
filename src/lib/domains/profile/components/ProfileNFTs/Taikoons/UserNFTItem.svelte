@@ -1,12 +1,16 @@
 <script lang="ts">
+  import type { NFT } from '$shared/types/NFT';
   import { classNames } from '$shared/utils/classNames';
 
-  export let imageUrl: string | undefined;
+  import MultiplierBadge from '../MultiplierBadge.svelte';
+
+  export let token: NFT;
+
+  $: image = token.metadata.image as string;
 
   // CSS classes
   const wrapperClasses = classNames(
     'w-[277px]',
-
     'relative',
     'overflow-hidden',
     'flex',
@@ -16,10 +20,51 @@
     'bg-[#310E2F]',
     'transition-all',
   );
+  const imageWrapperClasses = classNames('relative', 'w-full', 'h-full', 'z-0');
+
+  const imageClasses = classNames(
+    'pointer-events-none',
+    'rounded-[20px]',
+    'absolute',
+    'left-0',
+    'top-0',
+    'z-20',
+    'w-full',
+  );
+
+  const bubbleWrapperClasses = classNames(
+    'absolute',
+    'top-[20px]',
+    'right-[20px]',
+    'flex',
+    'flex-col',
+    'justify-end',
+    'items-end',
+    'gap-[5px]',
+  );
+
+  function prefixIpfsGateway(url: string) {
+    if (url.startsWith('http') || url.startsWith('/')) {
+      return url;
+    }
+    return `https://ipfs.io/ipfs/${url}`;
+  }
 </script>
 
 <div class={wrapperClasses}>
-  <div class="relative w-full h-full z-0">
-    <img src={imageUrl} alt={imageUrl} class="pointer-events-none rounded-[20px] absolute left-0 top-0 z-20 w-full" />
+  <div class={imageWrapperClasses}>
+    <img src={prefixIpfsGateway(image)} alt={`NFT #${token.tokenId}`} class={imageClasses} />
+  </div>
+
+  <div class={bubbleWrapperClasses}>
+    <MultiplierBadge {token} />
   </div>
 </div>
+
+<style>
+  img {
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+    -ms-interpolation-mode: nearest-neighbor;
+  }
+</style>

@@ -16,11 +16,21 @@
     "pendingTx": "Your transaction is pending. Please wait for confirmation."
   },
   "banner": {
+    "s1claimbanner": {
+      "title_1": "Season 1 claiming",
+      "title_2": "now live"
+    },
     "s2startbanner": {
       "subtext": "Get ready for an exciting journey with new features, challenges, and rewards!",
       "title_1": "Season 2",
       "title_2": "NOW LIVE"
     }
+  },
+  "blackist_modal": {
+    "title": "Sorry, but you’re blacklisted!"
+  },
+  "blacklist_modal": {
+    "description": "Your previous actions have been found to have severely <span class='text-primary-link'>violated our rules</span>. As a result, your address is permanently banned from participating in Trailblazers. This decision is final and cannot be appealed."
   },
   "booster": {
     "breakdown": {
@@ -78,7 +88,7 @@
         "title": "Are you ready to claim your tokens?"
       },
       "success": {
-        "button": "Claimed",
+        "buttons": ["Add to wallet", "Earn more TAIKO"],
         "text": "Congratulations! You've successfully claimed your tokens. You can now add them to your wallet.",
         "title": "Claim successful"
       }
@@ -92,10 +102,21 @@
     "explorer": "Explorer",
     "learn_more": "Learn more",
     "locked": "Locked",
-    "migrate": "Migration",
+    "migrate": "Recruitment",
     "not_eligible": "Not eligible",
     "trail": "Trail",
     "week": "Week"
+  },
+  "date": {
+    "labels": {
+      "days": "d",
+      "hours": "h",
+      "minutes": "min",
+      "seconds": "s"
+    }
+  },
+  "disclaimer": {
+    "leaderboard": "Please note that rankings are subject to change with fair play enforcement. Final standings will be confirmed at season’s end. Non-compliant wallets or dapps may be removed or have their points slashed."
   },
   "factions": {
     "about": {
@@ -209,6 +230,40 @@
         "title": "Campaign ended"
       }
     },
+    "chillblazers": {
+      "ended": {
+        "description": "Our journey concluded on December 18th, 2024. Congratulations to the winners!",
+        "title": "Journey ended"
+      },
+      "prize": {
+        "2": "100K TAIKO Tokens"
+      },
+      "prize_breakdown": {
+        "first": {
+          "amount": "50k"
+        },
+        "fourth": {
+          "amount": "5k"
+        },
+        "second": {
+          "amount": "30k"
+        },
+        "third": {
+          "amount": "15k"
+        }
+      }
+    },
+    "competitions": {
+      "s2": {
+        "dapp": {
+          "ended": {
+            "description": "Our journey concluded on December 18th, 2024. Congratulations to the winners!",
+            "title": "Season ended"
+          },
+          "prize": {}
+        }
+      }
+    },
     "dapp": {
       "ended": {
         "s1": {
@@ -275,8 +330,65 @@
       },
       "tokenName": "TAIKO Tokens"
     },
+    "liquidityRoyale": {
+      "blogpost": {
+        "url": "https://taiko.mirror.xyz/sB3dVLrVRn3DPKaAi6ed1C1qKLCtpaCfyaQdw7LD0XI"
+      },
+      "carousel": {
+        "description": "Liquidity Royale gives you the chance to grow your liquidity while earning rewards. Check out new products designed to boost adoption and participation in the Taiko ecosystem.",
+        "headline": "Boost liquidity;<br />Earn rewards!",
+        "title": "Boost your Taiko score"
+      },
+      "description": "  Ready to supercharge your liquidity and get rewarded for it? The Taiko Liquidity Royale is here, offering a         massive 1M Taiko tokens in rewards! Whether you’re a seasoned liquidity provider or looking to get started, this         is your chance to dive in and earn juicy prizes.",
+      "infobox": {
+        "boost": {
+          "text": "Random snapshot rewards mean every contribution counts! The more liquidity you provide, the higher your points, stacking across all protocols.",
+          "title": "Boost your points"
+        },
+        "campaign": {
+          "text": "This campaign runs until the end of Season 2, but don’t worry—the fun will continue through Season 3.",
+          "title": "All season long"
+        },
+        "random": {
+          "text": "Random snapshots can happen at any time during the campaign, so stay ready to rack up points and maximize your rewards!",
+          "title": "Random rewards"
+        },
+        "rewards": {
+          "text": "The top 100 will each win a guaranteed 10K Taiko tokens, no matter your final ranking!",
+          "title": "Earn 10K TAIKO"
+        },
+        "title": "🏆&nbsp;&nbsp;What’s in it for you?"
+      },
+      "readmore": {
+        "text": "Do you still have questions about earning points and how they're calculated? Visit our blog post for all the       answers!"
+      }
+    },
+    "thrillblazer": {
+      "ended": {
+        "description": "Our journey concluded on November 18th, 2024. Congratulations to the winners!",
+        "title": "Journey ended"
+      },
+      "prize_breakdown": {
+        "fifth": {
+          "amount": "5k"
+        },
+        "first": {
+          "amount": "65k"
+        },
+        "fourth": {
+          "amount": "10k"
+        },
+        "second": {
+          "amount": "40k"
+        },
+        "third": {
+          "amount": "20k"
+        }
+      }
+    },
     "user": {
       "booster": "{multiplier}x boosted",
+      "cta": "Explore our <a href=\"https://trailblazers.taiko.xyz/ecosystem\" class=\" link\">ecosystem</a> and stay tuned for competitions to rank up.",
       "dailyMaxReached": "Daily Max Reached",
       "ended": {
         "s1": {
@@ -287,6 +399,7 @@
       "event": {
         "block_proposed": "Block Proposed",
         "bridged": "Bridged",
+        "prediction": "Prediction",
         "transaction": "Transaction",
         "transaction_value": "Tx Value"
       },
@@ -303,6 +416,10 @@
     "textPost": " of the token distribution and authorize the transfer of tokens directly to your wallet.",
     "textPre": "By confirming your claim, you agree to the ",
     "title": "Token claim"
+  },
+  "lockdown": {
+    "content": "Introducing Trailblazers Lockdown, an exciting campaign where you can use Taiko tokens and earn Trailblazers multipliers along with with participating projects offering boosted rewards and exclusive benefits for users who commit to locking their tokens.",
+    "title": "How it works"
   },
   "messages": {
     "account": {
@@ -331,7 +448,74 @@
       "switching": "Switching network"
     }
   },
+  "pages": {
+    "badge_recruitment": {
+      "content": {
+        "migrate": {
+          "p1": ""
+        },
+        "overview": {
+          "p1": "In Season 1 participants collected 8 unique Faction Badges (Ravers, Robots, Bouncers, Masters, Monk, Androids, Drummers, and Shinto). It turns out all those Badges belonged to the same “Team”; the Devs.",
+          "p2": "In this season we will be introducing 2 new Teams; the Whales and the Minnows. The introduction of all three Teams will play a thematic role throughout the Season. Each  Team will have a corresponding Faction edition, meaning there will be a Dev Raver, a Minnow Raver, and Whale Raver, etc. for all Factions.",
+          "p3": "With this change also comes a revised multiplier system where each Faction Badge Team will provide a multiplier to specific point categories (Transaction/Transaction Value)"
+        },
+        "recruit": {
+          "p1": "A core mechanic in Season 2 will be the ability for participants to Recruit new Season 2 badges by sending their Season 1 Devs out to Influence them. The basic concept is that participants will be able to stake a Season 1 Badge they own, and it will give them a 50/50 chance of Recruiting a Whale or Minnow of the same Faction.",
+          "p2": "Participants will also have the ability to increase their chances of getting the Team they want, through a mechanism called Influencing."
+        }
+      },
+      "teams": {
+        "devs": {
+          "description": "The Devs are original builders from Season 1 with an overall points multiplier and bonus. To balance things out we have lowered the global multiplier to 1.4x max. ",
+          "title": "The Devs"
+        },
+        "forumla": " The new formula for all Faction Team bonuses will be 0.05 * n where n is the number of Badges the participant owns       when performing any action.",
+        "minnows": {
+          "description": "The Minnows are small but plenty, what they lack in funds they make up for with activity. So they will get a multiplier on all Transaction points they earn.",
+          "title": "The Minnows"
+        },
+        "note": "Note: Participants are not required to pick a single Team to collect Badges for, but rather they are encouraged to collect the ones that suit their style and needs the best. The multipliers do stack, so for the max multiplier, a participant would need to collect them all.",
+        "title": "Meet the Teams",
+        "whales": {
+          "description": "The Whales are the big bagged ones, they make splashes in DeFi. So they will get a multiplier on all Transaction Value points they earn.",
+          "title": "The Whales"
+        }
+      },
+      "ways_to_get": {
+        "title": "Ways to get",
+        "liquidity_royale": {
+          "description": "To go alongside the rewards offered in the Liquidity Royale program, participants who are not in the top 100, but who still meet minimum liquidity requirements will earn Free Recruits on a weekly basis.",
+          "title": "Liquidity Royale Perk"
+        },
+        "taikoon": {
+          "description": "   Taikoon holders can get excited for the first additional perk coming their way. Participants who were holding a Taikoon during the Season 1 final snapshot will be eligible to receive a Free Recruit from the Minnow Team or the Whale Team.",
+          "title": "Taikoon Perk"
+        }
+      },
+      "journey": {
+        "begin": {
+          "title": "Season 1 badges are evolving - Here’s how to get your season 2 badge",
+          "timer": "Recruitment phase beginning: Nov 28th 2024",
+          "description": "Recruit new Season 2 members to your cause by sending your Season 1 Devs out to find them. Stake one Season 1 badge per cycle, and after 24 hours, receive a new Season 2 badge of the same Faction but from a random Team (Minnow or Whale). Boost your chances of getting your preferred Team by giving your Dev orders through on-chain transactions. This feature is called Influencing.",
+          "note": "These transactions won’t add any TB points but will enhance your customization options."
+        }
+      },
+      "buttons": {
+        "start": "Start recruiting now"
+      }
+    }
+  },
   "pagetitle": {
+    "competition": {
+      "dapp": "Thrillblazer - Competition 18.10 - 18.11.24",
+      "liquidity": "Taiko Trailblazers - Liquidity Royale"
+    },
+    "competitions": {
+      "dapp": "Taiko Trailblazer - Dapp Competition Leaderboard"
+    },
+    "journeys": {
+      "chillblazers": "Taiko - Chillblazer"
+    },
     "leaderboards": {
       "dapp": "Taiko Trailblazer - Dapp Leaderboard",
       "user": "Taiko Trailblazer - User Leaderboard"
@@ -451,6 +635,161 @@
       "connected": "Connected",
       "connecting": "Connecting",
       "disconnected": "Disconnected"
+    }
+  },
+  "badge_recruitment": {
+    "buttons": {
+      "not_eligible": "Not eligible",
+      "influence": "Influence",
+      "start_recruitment": "Start recruitment",
+      "end_recruitment": "Claim",
+      "reveal": "Reveal",
+      "ongoing_recruitment": "Recruiting another badge"
+    },
+    "labels": {
+      "season": "Season",
+      "trail": "Trail"
+    },
+    "main": {
+      "can_influence_in": "You can influence again in:",
+      "can_claim_in": "Badge recruited in:",
+      "no_enabled_recruitments": "No recruitments are currently enabled. Stay tuned!",
+      "cta": "Have questions?"
+    },
+    "modal": {
+      "start_recruitment": {
+        "title": "Start your recruitment process",
+        "description": "Time to recruit your Season 2 {badgeName} badge!",
+        "warning": "Warning: Once you click 'Start Recruitment', your Season 1 badge will be locked for the rest of season 2.",
+        "toast": {
+          "success": {
+            "title": "Success",
+            "message": "You have successfully started the recruitment of your badge."
+          },
+          "error": {
+            "title": "Error",
+            "message": {
+              "default": "Could not start your recruitment. Please try again later.",
+              "rejected": "You have rejected the recruitment.",
+              "already_started": "You have already started another recruitment."
+            }
+          }
+        }
+      },
+      "influence_recruitment": {
+        "title": "Your Season 2 Badge is being recruited",
+        "description": "Influence your badge to favor the path of your Season 2 badge.",
+        "toast": {
+          "success": {
+            "title": "Influence success",
+            "message": "You have successfully influenced your badge to {movement}."
+          },
+          "error": {
+            "title": "Influence error",
+            "message": "Error refining your recruitment process"
+          }
+        }
+      },
+      "end_recruitment": {
+        "title": "Congratulations!",
+        "description": "You have successfully recruited your badge. You can now claim it.",
+        "toast": {
+          "success": {
+            "title": "Badge recruitment claim",
+            "message": "You have successfully claimed your badge"
+          },
+          "error": {
+            "title": "Badge recruitment claim error",
+            "default_message": "Error claiming your badge recruitment"
+          }
+        }
+      }
+    },
+    "faq": {
+      "title": "Badge Recruitment FAQ",
+      "entries": [
+        {
+          "question": "What is Recruiting?",
+          "answer": "The Devs are out in full force looking for new recruits to join their Faction. The Recruit tab is where you can send any Devs you control out to find new members to join your cause. Your Dev will always find one new member that belongs to one of two Teams: the Minnows, or the Whales, and will always be the same Faction of the Dev that Recruited them. It takes 24 hours for your Dev to return with a new member. Once you have sent your Dev out it will be staked for the rest of the Season."
+        },
+        {
+          "question": "What does Influence do?",
+          "answer": "As your Dev is out looking for Recruits you can give them orders to target a specific Team to join your cause. Every time you give your Dev the order to Influence a particular Team, it will increase your chances of your Dev returning with a member of that Team by 5%. Every time you give your Dev orders to Influence a particular Team you will see the number increase above that Team on the Recruit Influence page.<br/><br/>If you change your mind about which Team you want to Influence you can select the other Team, and it will reset the Influence counter to 1 for your new target. You can give Influence orders to your Dev once every 1 hour."
+        },
+        {
+          "question": "What are the different Teams and what do they do?",
+          "answer": "<b>The Devs</b> (S1 Badges) are the OGs, the ones that build and make things possible. For every unique Dev you control you will receive +0.05x to your <b>Global xp</b> multiplier as well as your Proposer xp.<br/><br/><b>The Whales</b> are the big bagged ones, they make splashes in DeFi. For every unique Whale you control you will receive +0.05x to your <b>Transaction Value</b> xp multiplier.<br/><br/><b>The Minnows</b> are small but plenty, what they lack in funds they make up for with activity. For every unique Minnow you control you will receive +0.05x to your <b>Transaction</b> xp multiplier."
+        },
+        {
+          "question": "What can my Dev do while it is staked?",
+          "answer": "While your Dev is staked you will not be able to take advantage of all of their skills, so you will lose all the multipliers that it would normally give you. "
+        },
+        {
+          "question": "What is the Faction Battle Arena?",
+          "answer": "The Faction Battle Arena is where you can send the characters under your control to battle it out for fame, glory, and of course prizes. For more details on the FBA visit:"
+        },
+        {
+          "question": "How many Faction Badges are there to collect?",
+          "answer": "There are a total of 24 Trailblazer Faction Badges. There are 3 Teams: Devs, Minnows and Whales, and those Teams are split into 8 Factions: Ravers, Robots, Bouncers, Masters, Monk, Androids, Drummers, and Shinto."
+        },
+        {
+          "question": "How often can I recruit new members?",
+          "answer": "Recruitments happen in cycles. At the beginning of each cycle it will be announced which Factions are able to be obtained during the limited Recruitment period. During each cycle, every user will only be able to Recruit one member from the available Faction(s) PLUS 1 Free Recruitment that they are qualified to make. "
+        },
+        {
+          "question": "What are Free Recruitment?",
+          "answer": "Sometimes you don’t even have to send a Dev out to do your dirty work and the Recruits come looking for you. This normally happens when you are making a big name for yourself by participating in other events, like the Faction Battle Arena or Liquidity Royale. During a Free Recruitment you will also be able to Influence the Team you get, but you do not have to Stake a Dev to do so. "
+        },
+        {
+          "question": "Will I lose my global multiplier at the end of the season if I recruit?",
+          "answer": "No, you will only lose the global multiplier for the time your Dev NFT is staked. In Season 2, you earn multipliers only while holding NFTs, and bonuses apply solely during that time. "
+        },
+        {
+          "question": "With NFT bonuses, can I earn more than 73k points per day on Tx Value and Transactions?",
+          "answer": "Yes. Multipliers increase your daily cap. Whale badges boost the daily Tx Value cap, while Minnow NFTs boost the daily Transaction points cap."
+        },
+        {
+          "question": "If I have 2 Ravers, and 1 Raver is out recruiting, will I still have my global bonus?",
+          "answer": "Yes. The staked NFT used for recruiting won’t provide a multiplier, but the unstaked one will still give you the global bonus."
+        },
+        {
+          "question": "What are the chances of getting a badge if I apply 5 Influences?",
+          "answer": "Applying Influence increases your chances of getting the NFT from your preferred team to up to 65%, though there’s still a chance to get another team’s NFT."
+        },
+        {
+          "question": "If I buy a Dev or Taikoon NFT mid/late in Season 2, will it boost my points for the entire season?",
+          "answer": "No. You only earn bonus points for the days you hold the NFT. If you buy on the last day, you’ll receive the bonus for that day only."
+        },
+        {
+          "question": "What if I recruit with different wallets and transfer NFTs to my main account? Will this be considered Sybil activity?",
+          "answer": "Yes. Please keep the process fair."
+        },
+        {
+          "question": "Will S2 Badges act as multipliers in Season 3?",
+          "answer": "Yes. They will still have relevance and impact in Season 3."
+        },
+        {
+          "question": "Can I use the same S1 badge to recruit both Whales and Minnows, or do I need two sets of S1 badges?",
+          "answer": "No, you cannot. The NFT used for recruiting will be staked, so you’ll need separate NFTs for each recruitment."
+        },
+        {
+          "question": "What happens to staked NFTs and the recruited NFTs after S2 ends?",
+          "answer": "You’ll get your staked NFT back. Your Dev remains loyal to you."
+        },
+        {
+          "question": "If I have 3 Raver badges, can I send out 2 Devs and have both return with badges from the same team?",
+          "answer": "Yes, but in this recruitment cycle, you can only get one badge per faction."
+        },
+        { "question": "Do I get 5 Influences everyday?", "answer": "Yes." },
+        {
+          "question": "Will there be more Season 1 NFTs?",
+          "answer": "No, there are no plans to expand the existing Season 1 NFTs."
+        },
+        {
+          "question": "What are the multipliers this season? ",
+          "answer": "Minnows Multiplier = 0.05 * Num Of Minnow NFTs (max 1.4x) - Effects Transaction Points<br/><br/>Whales Multiplier = 0.05 * Num Of Whale NFTs (max 1.4x) - Effects Tx Value Points<br/><br/>Global Multiplier = 1 + Devs Global Multiplier (8 Season 1 NFTs, 0.05* each) + Snaefel Multiplier (0.1)+ Taikoon Multiplier (1)  (new max 2.5x) - Effects Total Points"
+        }
+      ]
     }
   }
 }

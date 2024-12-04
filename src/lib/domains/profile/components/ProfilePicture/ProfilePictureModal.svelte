@@ -12,6 +12,7 @@
   import Spinner from '$shared/components/Spinner/Spinner.svelte';
   import { classNames } from '$shared/utils/classNames';
   import { getLogger } from '$shared/utils/logger';
+  import getNftImage from '$shared/utils/nfts/getNftImage';
 
   const log = getLogger('ProfilePictureModal');
 
@@ -161,7 +162,7 @@
       }
       isLoading = true;
       log('Setting profile picture', selectedPfp);
-      await profileService.setProfilePicture(selectedPfp);
+      await profileService?.setProfilePicture(selectedPfp);
 
       isLoading = false;
       successToast({
@@ -220,7 +221,7 @@
     <div class={modalBodyClasses}>
       {#if previewVisible && selectedPfp}
         <!-- svelte-ignore a11y-img-redundant-alt -->
-        <img alt="Profile picture preview" class={pfpPreviewClasses} src={selectedPfp.src} />
+        <img alt="Profile picture preview" class={pfpPreviewClasses} src={getNftImage(selectedPfp)} />
       {:else}
         <div class={selectorWrapperClasses}>
           <div class={selectorTitleRowClasses}>
@@ -248,7 +249,7 @@
             <div class={selectorGridClasses}>
               {#each possiblePFPs as pfp}
                 <button on:click={() => selectPfp(pfp)} class={selectorGridItemClasses}>
-                  <img src={pfp.src} alt="pfp" />
+                  <img src={getNftImage(pfp)} alt="pfp" />
                 </button>
               {/each}
             </div>

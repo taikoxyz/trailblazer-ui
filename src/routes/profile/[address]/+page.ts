@@ -20,7 +20,7 @@ export const load = async ({ params }) => {
   log('Fetching profile data', address);
   if (browser) {
     try {
-      await profileService.getProfile(address, get(activeSeason));
+      await profileService?.getProfile(address, get(activeSeason));
     } catch (e) {
       console.error(e);
     }

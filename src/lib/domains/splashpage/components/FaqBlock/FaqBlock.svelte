@@ -9,12 +9,11 @@
   import ActionButton from '$shared/components/Button/ActionButton.svelte';
   import { classNames } from '$shared/utils/classNames';
 
-  export let title: string | undefined = undefined;
+  export let title: string | null = null;
   export let entries: IFaqEntry[] = [];
+  export let titleSize: 'md' | 'lg' = 'md';
 
   const wrapperClasses = classNames(
-    'md:f-row',
-    'f-col',
     'gap-6',
     'w-full',
     'h-max',
@@ -22,15 +21,23 @@
     'md:justify-between',
     'md:items-start',
     'justify-center',
+    'grid',
+    'lg:grid-cols-6',
+    'md:grid-cols-4',
   );
 
-  const slotClasses = classNames('h-full md:w-2/6', 'flex lg:justify-end');
+  const slotClasses = classNames('h-full', 'w-full', 'flex', 'lg:justify-start');
 
   const blockWrapperClasses = classNames(
-    'join join-vertical ',
-    'md:w-4/6',
+    'join',
+    'join-vertical ',
+    // 'md:w-4/6',
+    'w-full',
     'rounded-[20px]',
     'bg-gradient-to-b from-[rgba(93,99,111,.1)] to-[rgba(25,30,40,.2)]',
+
+    'lg:col-span-5',
+    'md:col-span-3',
   );
   const itemClasses = classNames(
     'collapse',
@@ -45,6 +52,7 @@
     'font-[400]',
     'border-[1px]',
     'border',
+    'text-left',
   );
   const questionClasses = classNames('collapse-title');
   const answerClasses = classNames('collapse-content');
@@ -56,7 +64,6 @@
     'justify-center',
     'items-center',
     'h-full',
-    // 'pr-[60px]',
     'mb-[50px]',
     'md:mb-0',
   );
@@ -83,18 +90,23 @@
 
   const readMoreButtonClasses = classNames('w-full', 'min-w-[200px]', 'py-[8px]', 'px-[20px]');
 
-  const titleClasses = classNames(
-    'text-secondary',
-    'min-w-[146px]',
-    'lg:mr-[24px]',
-    'text-[16px]/[24px]',
-    'uppercase',
-    'md:w-min',
-    'w-full',
-    'text-center',
-    'md:text-left',
-    'font-[700]',
-  );
+  $: titleClasses =
+    titleSize === 'md'
+      ? classNames(
+          'text-secondary',
+          'min-w-[146px]',
+          'lg:mr-[24px]',
+          'text-[16px]/[24px]',
+          'uppercase',
+          'md:w-min',
+          'w-full',
+          'text-center',
+          'md:text-left',
+          'font-[700]',
+        )
+      : classNames('font-clash-grotesk', 'text-[35px]/[42px]', 'font-[500]');
+
+  $: checkedItem = '';
 
   $: uuid = Math.random().toString(36).substring(7);
 </script>
@@ -123,13 +135,16 @@
 
   <div class={blockWrapperClasses}>
     {#each entries as { question, answer }}
-      <div class={itemClasses}>
-        <input type="radio" name="faq-accordion-{uuid}" />
+      <button
+        class={itemClasses}
+        on:click={() => (checkedItem === question ? (checkedItem = '') : (checkedItem = question))}>
+        <input type="radio" name="faq-accordion-{uuid}" checked={checkedItem === question} />
         <div class={questionClasses}>{question}</div>
         <div class={answerClasses}>
-          <p>{answer}</p>
+          <!-- eslint-disable-next-line svelte/no-at-html-tags -->
+          <p>{@html answer}</p>
         </div>
-      </div>
+      </button>
     {/each}
   </div>
 </div>

@@ -1,25 +1,23 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
-  import { type Address, getAddress } from 'viem';
-
-  import { page } from '$app/stores';
   import { userProfile } from '$lib/domains/profile/stores/profileStore';
   import { Spinner } from '$lib/shared/components';
   import { formatNumbers } from '$lib/shared/utils';
+  import { activeSeason } from '$shared/stores/activeSeason';
   import { classNames } from '$shared/utils/classNames';
-  import getConnectedAddress from '$shared/utils/getConnectedAddress';
 
   import ProfileName from './ProfileName.svelte';
   import ProfilePicture from './ProfilePicture/ProfilePicture.svelte';
   import ProfileRank from './ProfileRank.svelte';
 
   export let loading: boolean;
+  export let isSelfProfile: boolean;
 
   let profile;
-  let isSelfProfile: boolean;
 
   $: profile = $userProfile;
-  $: displayedScore = profile?.userStats?.score;
+  $: displayedScore = profile?.userStats?.score || 0;
+
+  $: seasonHistoryPoints = profile?.userStats?.seasonHistory?.[$activeSeason - 1]?.total ?? 0;
 
   const cardClasses = classNames(
     'relative',
@@ -37,11 +35,6 @@
     'xl:w-1/2',
     'xl:max-w-[680px]',
   );
-
-  onMount(async () => {
-    const urlAddress = $page.url.pathname.split('/').pop() as Address;
-    isSelfProfile = getAddress(urlAddress) === getAddress(getConnectedAddress());
-  });
 </script>
 
 <div class={cardClasses}>
@@ -55,7 +48,7 @@
     <ProfilePicture {profile} {isSelfProfile} />
   </div>
   {#if !loading}
-    <div class="flex md:items-start items-center flex-col self-center md:min-w-[300px] w-full">
+    <div class="flex md:items-start items-center flex-col self-end md:min-w-[300px] w-full">
       <!-- Name (mobile)-->
       <div class="md:hidden flex items-center gap-1 py-[20px] md:py-0">
         <ProfileName {profile} />
@@ -64,7 +57,7 @@
       <div class="flex flex-col items-center md:items-start gap-2 w-full mb-[20px]">
         <div class="f-col md:f-row items-center gap-2 md:mt-[14px]">
           <div class="font-clash-grotesk font-semibold text-[45px] leading-none">
-            {displayedScore?.toFixed(0) && formatNumbers(displayedScore?.toFixed(0))}
+            {displayedScore ? formatNumbers(displayedScore.toFixed(2)) : '0.00'}
           </div>
           <div class="text-secondary-content">points</div>
         </div>
@@ -79,6 +72,10 @@
           </div>
         </div>
         <ProfileRank {profile} />
+      </div>
+      <div class="mt-[20px]">
+        <span class="text-secondary-content">Final Season 1 score: </span>
+        <span>{seasonHistoryPoints}</span>
       </div>
     </div>
   {:else}

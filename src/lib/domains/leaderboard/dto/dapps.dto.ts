@@ -1,14 +1,10 @@
-import type { Address } from 'viem';
-
 import type { CommonPageApiResponse } from '$lib/shared/dto/CommonPageApiResponse';
 
-export type DappLeaderboardPageApiResponse = {
-  lastUpdated: number;
-  data: CommonPageApiResponse<DappLeaderboardItem>;
-};
+export type DappLeaderboardPageApiResponse = CommonPageApiResponse<DappLeaderboardItem>;
 
 export type DappLeaderboardItem = {
-  address: Address;
+  name: string;
   score: number;
   slug: string;
+  rank: number;
 };

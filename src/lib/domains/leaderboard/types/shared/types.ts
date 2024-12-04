@@ -1,15 +1,16 @@
 import type { Address } from 'viem';
 
 export type UnifiedLeaderboardRow = {
-  address: string;
+  name?: string;
+  rank: number;
+  data: ProtocolData[];
+  score?: number;
+  totalScore: number;
   icon?: string;
   handle?: string;
-  data: ProtocolData[];
-  totalScore: number;
   level?: string;
   title?: string;
-  name?: string;
-  rank?: number | string;
+  address?: Address | string;
 };
 
 type ProtocolData = {
@@ -27,3 +28,5 @@ export type PaginationInfo = {
   first?: number;
   visible?: number;
 };
+
+export type LoadLeaderboardDataType = (page: number, name?: string) => Promise<void>;

@@ -1,119 +1,181 @@
 <script lang="ts">
   import type { ComponentType } from 'svelte';
+  import { isAddress, zeroAddress } from 'viem';
 
   import { leaderboardConfig } from '$config';
   import type { UnifiedLeaderboardRow } from '$lib/domains/leaderboard/types/shared/types';
   import { DisabledMask } from '$shared/components/Masks';
   import Paginator from '$shared/components/Paginator/Paginator.svelte';
   import { classNames } from '$shared/utils/classNames';
+  import getConnectedAddress from '$shared/utils/getConnectedAddress';
 
   import LoadingRow from './LoadingRow.svelte';
   import TableHeader from './TableHeader.svelte';
   import TableRow from './TableRow.svelte';
 
+  // Component Props
   export let headers: string[];
   export let data: UnifiedLeaderboardRow[];
-  export let showTrophy: boolean = true;
-  export let isLoading: boolean = false;
+  export let highlightedUserPosition: UnifiedLeaderboardRow | null = null;
+  export let showTrophy = true;
+  export let isLoading = false;
   export let handlePageChange: (page: number) => void;
-  export let currentPage: number = 1;
-  export let totalItems: number = 0;
+  export let currentPage = 1;
+  export let totalItems = 0;
   export let headerComponent: ComponentType;
-  export let ended: boolean = false;
+  export let ended = false;
   export let scoreComponent: ComponentType;
+  export let season: number;
 
   export let additionalInfoComponent: ComponentType | null = null;
-  // export let showCTA: boolean = true;
-
-  // End info and components
   export let endedComponent: ComponentType | null = null;
-  export let endTitleText: string = '';
-  export let endDescriptionText: string = '';
-  export let lastUpdated: Date = new Date();
+  export let endTitleText = '';
+  export let endDescriptionText = '';
+  export let lastUpdated = new Date();
 
-  export let showPagination: boolean = true;
-  export let showDetailsColumn: boolean = true;
+  export let showPagination = true;
+  export let showDetailsColumn = true;
+  export let qualifyingPositions = 3;
 
+  // Reactive Variables
   $: pageSize = leaderboardConfig.pageSize;
 
-  // State for expanded rows
+  // Local State
   let expandedRow = -1;
 
+  // Helper Functions
   function toggleRow(index: number) {
     expandedRow = expandedRow === index ? -1 : index;
   }
 
-  // CSS classes extracted to variables
-  const containerClass = classNames('overflow-x-auto', 'lg:w-full', 'px-8', 'lg:mt-0');
+  function getFillClass(rank: number): string {
+    // return 'fill-primary-brand';
+    if (qualifyingPositions > 5 && rank <= qualifyingPositions) {
+      return 'fill-fixed-icon';
+    }
+    switch (rank) {
+      case 1:
+        return 'fill-warning-sentiment';
+      case 2:
+        return 'fill-grey-300';
+      case 3:
+        return 'fill-yellow-700';
+      case 4:
+        return 'fill-secondary-brand';
+      case 5:
+        return 'fill-secondary-brand';
+      default:
+        return '';
+    }
+  }
+
+  function getRank(entry: UnifiedLeaderboardRow, index: number): number {
+    return entry.rank ?? index + 1 + (currentPage - 1) * pageSize;
+  }
+
+  // CSS Classes
+  const containerClass = classNames('overflow-x-auto', 'lg:w-full', 'px-8', 'md:px-0', 'lg:mt-0');
   const headerMarginClass = classNames('mt-[60px]', 'lg:mt-[80px]', 'block', 'lg:hidden');
   const additionalInfoMarginClass = classNames('mt-[60px]', 'lg:mt-[80px]');
   const textCenterClass = classNames('text-center', 'mt-[30px]', 'text-xl');
-  const tableWrapperClass = classNames('overflow-x-auto', 'rounded-3xl');
-  const tableClass = classNames('relative', 'table-lg', 'w-full', 'body-regular', 'text-white', 'rounded-3xl');
-  const tableStyle = 'background: rgba(25, 30, 40, .50)';
+  const tableWrapperClass = classNames('overflow-x-auto', 'rounded-3xl', 'p-6', 'bg-gray-800/10');
+  const tableClass = classNames(
+    'relative',
+    'table-lg',
+    'w-full',
+    'body-regular',
+    'text-white',
+    'rounded-3xl',
+    'border-separate',
+    'border-spacing-y-4',
+    'border-spacing-x-0',
+  );
   const tbodyClass = classNames('rounded-lg', ended ? 'blur-[1.5px]' : '');
   const noDataRowClass = classNames('row', 'h-12');
   const paginationMarginClass = classNames('mt-[38px]');
 </script>
 
 <div class={containerClass}>
-  <svelte:component this={headerComponent} {lastUpdated} />
+  <!-- The leaderboard header -->
+  <svelte:component this={headerComponent} {lastUpdated} {season} />
+
+  <!-- Leaderboard or season ended overlay -->
   {#if ended && endedComponent}
     <div class={headerMarginClass}>
       <svelte:component this={endedComponent} title={endTitleText} description={endDescriptionText} />
     </div>
   {/if}
+
+  <!-- Additional component such as prize pool -->
   {#if additionalInfoComponent && !ended}
     <div class={additionalInfoMarginClass}>
-      <svelte:component this={additionalInfoComponent} />
+      <svelte:component this={additionalInfoComponent} {lastUpdated} {season} />
     </div>
   {/if}
+
   <div class={textCenterClass}></div>
   <slot />
+
   <div class={tableWrapperClass}>
-    <table class={tableClass} style={tableStyle}>
+    <table class={tableClass}>
       <TableHeader {headers} />
+      <div class="h-[4px]" />
+
       {#if ended && data.length > 0}
         <DisabledMask title={endTitleText} description={endDescriptionText} />
       {/if}
+
       <tbody class={tbodyClass}>
+        <!-- A single row to highlight a position -->
+        {#if highlightedUserPosition && getConnectedAddress() !== zeroAddress}
+          {@const rank = highlightedUserPosition.rank}
+          {@const userEntry = { ...highlightedUserPosition, address: 'Your position' }}
+          {@const fillClass = getFillClass(rank)}
+
+          <TableRow
+            entry={userEntry}
+            index={-1}
+            {rank}
+            {fillClass}
+            {showTrophy}
+            {expandedRow}
+            {toggleRow}
+            {scoreComponent}
+            {showDetailsColumn}
+            {qualifyingPositions} />
+        {/if}
+
+        <!-- Loading rows -->
         {#if isLoading}
           <!-- eslint-disable-next-line @typescript-eslint/no-unused-vars -->
           {#each Array(pageSize) as _, index}
-            {@const rank = index + 1 + (currentPage - 1) * pageSize}
-            {@const fillClass =
-              rank === 1
-                ? 'fill-warning-sentiment'
-                : rank === 2
-                  ? 'fill-grey-300'
-                  : rank === 3
-                    ? 'fill-yellow-700'
-                    : ''}
-            <LoadingRow {rank} {fillClass} {showTrophy} />
+            <LoadingRow />
           {/each}
         {:else}
+          <!-- The actual data rows -->
           {#each data as entry, index}
-            {@const rank = index + 1 + (currentPage - 1) * pageSize}
-            {@const fillClass =
-              rank === 1
-                ? 'fill-warning-sentiment'
-                : rank === 2
-                  ? 'fill-grey-300'
-                  : rank === 3
-                    ? 'fill-yellow-700'
-                    : ''}
+            {@const rank = getRank(entry, index)}
+            {@const highlightIndexPosition =
+              entry.address && isAddress(entry.address) && entry.address === highlightedUserPosition?.address
+                ? index
+                : null}
+            {@const fillClass = getFillClass(rank)}
+
             <TableRow
               {entry}
               {index}
               {rank}
+              {highlightIndexPosition}
               {fillClass}
               {showTrophy}
               {expandedRow}
               {toggleRow}
               {scoreComponent}
-              {showDetailsColumn} />
+              {showDetailsColumn}
+              {qualifyingPositions} />
           {/each}
         {/if}
+
         {#if data.length === 0 && !isLoading}
           <tr class={noDataRowClass}>
             <td class="lg:px-10" colspan="3">No data available yet</td>
@@ -128,7 +190,7 @@
       <Paginator
         {pageSize}
         {currentPage}
-        limitPages={true}
+        limitPages
         maxPages={Math.ceil(totalItems / pageSize)}
         bind:totalItems
         on:pageChange={({ detail: selectedPage }) => handlePageChange(selectedPage)} />

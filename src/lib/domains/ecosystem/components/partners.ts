@@ -4,6 +4,7 @@ export interface IEcosystemPartner {
   description: string;
   category: string;
   url: string;
+  button?: string;
 }
 
 const EcosystemPartners: IEcosystemPartner[] = [
@@ -288,7 +289,7 @@ const EcosystemPartners: IEcosystemPartner[] = [
       'LogX uses charts that are powered By TradingView. A comprehensive trading and investment platform, offering an exceptional charting solution',
     logo: '/dapps/logx.jpg',
     category: 'Derivatives',
-    url: 'https://www.logx.trade/',
+    url: 'https://app.logx.network/trade/BTC',
   },
   {
     name: 'Tanuki',
@@ -298,6 +299,15 @@ const EcosystemPartners: IEcosystemPartner[] = [
     category: 'DEX',
     url: 'https://www.tanukix.com/',
   },
+  {
+    name: 'TakoTako',
+    description:
+      'TAKOTAKO emphasizes on real yield by offering competitive rates and sharing almost half of its revenue with users.',
+    logo: '/dapps/defi/takotako.png',
+    category: 'DEX',
+    url: 'https://takotako.xyz',
+  },
+
   {
     name: 'Rubic',
     description:

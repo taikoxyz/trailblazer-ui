@@ -1,7 +1,7 @@
 import type { Address } from 'viem';
 
 import type { UserPointHistory } from '$lib/domains/profile/types/ActivityHistory';
-import type { CommonPageApiResponse } from '$lib/shared/dto/CommonPageApiResponse';
+import type { PaginationInfo } from '$lib/shared/dto/CommonPageApiResponse';
 
 export interface UserPointsAndRankResponse {
   rank: number;
@@ -36,4 +36,10 @@ export type UserPointHistoryPage = {
   visible: number;
 };
 
-export type UserHistoryApiResponse = CommonPageApiResponse<UserPointHistory>;
+export type UserFinalScoreResponse = {
+  score: number;
+  multiplier: number;
+  total: number;
+};
+
+export type UserHistoryApiResponse = PaginationInfo<UserPointHistory> | { data: PaginationInfo<UserPointHistory> };

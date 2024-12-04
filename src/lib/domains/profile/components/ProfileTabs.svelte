@@ -1,49 +1,70 @@
 <script lang="ts">
-  import BadgeMigration from '$lib/domains/nfts/components/BadgeMigration.svelte';
+  import { onMount } from 'svelte';
+
+  import BadgeRecruitment from '$lib/domains/badges/components/BadgeRecruitment.svelte';
   import DevRoom from '$lib/domains/profile/components/DevRoom/DevRoom.svelte';
   import { ProfileNFTs } from '$lib/domains/profile/components/ProfileNFTs';
   import { classNames } from '$shared/utils/classNames';
   import { isDevelopmentEnv } from '$shared/utils/isDevelopmentEnv';
 
   import ProfileTransactions from './ProfileActivity/ProfileTransactions.svelte';
+  import ProfileLockdownTab from './ProfileLockdownTab.svelte';
   import ProfileRewardClaim from './ProfileRewardClaim/ProfileRewardClaim.svelte';
 
   type TabContent = {
     name: string;
+    slug: string;
     content:
       | typeof ProfileTransactions
       | typeof ProfileNFTs
-      | typeof BadgeMigration
+      | typeof BadgeRecruitment
       | typeof DevRoom
       | typeof ProfileRewardClaim;
   };
 
-  export let tabs: TabContent[] = [
+  export let isSelfProfile: boolean;
+
+  $: tabs = [
     {
+      slug: 'activity',
       name: 'Activity',
       content: ProfileTransactions,
     },
     {
+      slug: 'nft-collection',
       name: 'NFT Collection',
       content: ProfileNFTs,
     },
-    {
-      name: 'Badge Migration',
-      content: BadgeMigration,
-    },
+    ...(isSelfProfile
+      ? [
+          {
+            slug: 'badge-recruitment',
+            name: 'Badge Recruitment',
+            content: BadgeRecruitment,
+          },
+        ]
+      : []),
     ...(isDevelopmentEnv
       ? [
           {
-            name: 'Dev Room',
+            slug: 'dev-room',
+            name: '[Dev Room]',
             content: DevRoom,
           },
         ]
       : []),
+    /*
     {
+      slug: 'claim',
       name: 'Claim',
       content: ProfileRewardClaim,
+    },*/
+    {
+      slug: 'lockdown',
+      name: 'Lockdown',
+      content: ProfileLockdownTab,
     },
-  ];
+  ] as TabContent[];
 
   let activeTab = 0;
 
@@ -83,7 +104,23 @@
     'mb-[30px]',
     'md:mb-0',
   );
+
+  function onHashChange() {
+    const hash = window.location.hash;
+    if (hash) {
+      const tab = tabs.find((tab) => tab.slug === hash.slice(1));
+      if (tab) {
+        activeTab = tabs.indexOf(tab);
+      }
+    }
+  }
+
+  onMount(() => {
+    onHashChange();
+  });
 </script>
+
+<svelte:window on:hashchange={onHashChange} />
 
 <!-- Tab List -->
 <div role="tablist" class={tablistClasses}>
@@ -93,7 +130,9 @@
       role="tab"
       class={tabClasses}
       aria-selected={index === activeTab}
-      on:click={() => (activeTab = index)}
+      on:click={() => {
+        window.location.hash = tab.slug;
+      }}
       aria-controls={`tabpanel-${index}`}
       id={`tab-${index}`}
       tabindex={index === activeTab ? 0 : -1}>

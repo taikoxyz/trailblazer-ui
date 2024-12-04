@@ -6,8 +6,14 @@ import { getLogger } from '$shared/utils/logger';
 const log = getLogger('ProtocolAdapter');
 
 export class ProtocolAdapter {
+  private protocolUrl: string;
+
+  constructor(protocolUrl: string) {
+    this.protocolUrl = protocolUrl;
+  }
+
   /**
-   * Fetches protocol details from the /protocol/details endpoint.
+   * Fetches protocol details from the /protocol/ endpoint.
    *
    * @param {string} protocolSlug the protocol's slug
    * @param {number} season the season the protocol's details are being fetched for
@@ -22,7 +28,7 @@ export class ProtocolAdapter {
 
     log(`Cache miss for ${protocolSlug}, fetching from API`);
     const client = getAxiosInstance(season);
-    const response = await client.get<ProtocolApiResponse>(`/protocol/details`, {
+    const response = await client.get<ProtocolApiResponse>(`/protocol/${this.protocolUrl}`, {
       ...globalAxiosConfig,
       params: { slug: protocolSlug },
     });
@@ -40,19 +46,30 @@ export class ProtocolAdapter {
    * @memberof ProtocolAdapter
    */
   async fetchGamingProtocolDetails(protocolSlug: string, season: number): Promise<ProtocolApiResponse> {
-    const cachedData = protocolDetailsCache.get(protocolSlug, season);
-    if (cachedData) {
-      return cachedData;
-    }
-
-    log(`Cache miss for ${protocolSlug}, fetching from API`);
     const client = getAxiosInstance(season);
     const response = await client.get<ProtocolApiResponse>(`/protocol/gaming`, {
       ...globalAxiosConfig,
       params: { slug: protocolSlug },
     });
     log(`Fetched protocol details for ${protocolSlug}`, response.data);
-    protocolDetailsCache.set(protocolSlug, season, response.data);
+    return response.data;
+  }
+
+  /**
+   * Fetches competition data from the /protocol/competition endpoint.
+   *
+   * @param {string} protocolSlug
+   * @param {number} season
+   * @return {*}  {Promise<ProtocolApiResponse>}
+   * @memberof ProtocolAdapter
+   */
+  async fetchCompetitionData(protocolSlug: string, season: number): Promise<ProtocolApiResponse> {
+    const client = getAxiosInstance(season);
+    const response = await client.get<ProtocolApiResponse>(`/protocol/competition`, {
+      ...globalAxiosConfig,
+      params: { slug: protocolSlug },
+    });
+    log(`Fetched protocol details for ${protocolSlug}`, response.data);
     return response.data;
   }
 }

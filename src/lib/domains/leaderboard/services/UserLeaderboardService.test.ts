@@ -3,8 +3,8 @@ import type { Address } from 'viem';
 import { UserLeaderboardAdapter } from '$lib/domains/leaderboard/adapter/UserLeaderboardAdapter';
 import { mapUserLeaderboardRow } from '$lib/domains/leaderboard/mapper/mapper';
 import { UserLeaderboardRepository } from '$lib/domains/leaderboard/repository/UserLeaderboardRepository';
-import type { UserLeaderboardItem } from '$lib/domains/leaderboard/types/dapps/types';
 import type { UnifiedLeaderboardRow } from '$lib/domains/leaderboard/types/shared/types';
+import type { UserLeaderboardItem } from '$lib/domains/leaderboard/types/user/types';
 import { ProfileService } from '$lib/domains/profile/services/ProfileService';
 import type { UserInfoForLeaderboard } from '$lib/domains/profile/types/UserInfoForLeaderboard';
 import type { PaginationInfo } from '$lib/shared/dto/CommonPageApiResponse';
@@ -32,6 +32,7 @@ describe('UserLeaderboardService', () => {
 
     mockLeaderboardAdapter = {
       fetchLeaderboardData: vi.fn(),
+      fetchLeaderboardPositionForAddress: vi.fn(),
     } as UserLeaderboardAdapter;
 
     mockLeaderboardRepository = {
@@ -97,7 +98,7 @@ describe('UserLeaderboardService', () => {
     ];
 
     const mappedRow1: UnifiedLeaderboardRow = {
-      address: '0x123',
+      name: 'Dapp 1',
       icon: 'https://example.com/avatar1.png',
       level: '5',
       rank: 1,
@@ -108,7 +109,7 @@ describe('UserLeaderboardService', () => {
     };
 
     const mappedRow2: UnifiedLeaderboardRow = {
-      address: '0x456',
+      name: 'Dapp 1',
       icon: 'https://example.com/avatar2.png',
       level: '6',
       rank: 2,
@@ -306,7 +307,7 @@ describe('UserLeaderboardService', () => {
     ];
 
     const mappedRow1: UnifiedLeaderboardRow = {
-      address: '0x123',
+      name: 'Dapp 1',
       icon: 'https://example.com/avatar1.png',
       level: '5',
       rank: 1,
@@ -317,7 +318,7 @@ describe('UserLeaderboardService', () => {
     };
 
     const defaultMappedRow: UnifiedLeaderboardRow = {
-      address: '0x456',
+      name: 'Dapp 1',
       icon: '',
       level: '',
       rank: 2,
@@ -407,7 +408,7 @@ describe('UserLeaderboardService', () => {
     ];
 
     const mappedRow1: UnifiedLeaderboardRow = {
-      address: '0x123',
+      name: 'Dapp 1',
       icon: 'https://example.com/avatar1.png',
       level: '5',
       rank: 1,

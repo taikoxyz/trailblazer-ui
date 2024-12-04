@@ -7,6 +7,7 @@ import { registerProfilePictureAbi, registerProfilePictureAddress } from '$gener
 import { profilePictureCache } from '$lib/domains/leaderboard/stores/cache';
 import type {
   DomainResponse,
+  UserFinalScoreResponse,
   UserHistoryApiResponse,
   UserPointsAndRankResponse,
 } from '$lib/domains/profile/dto/profile.dto';
@@ -17,7 +18,10 @@ import { pendingTransactions } from '$lib/shared/stores/pendingTransactions';
 import type { NFT } from '$lib/shared/types/NFT';
 import { chainId } from '$lib/shared/utils/chain';
 import { wagmiConfig } from '$lib/shared/wagmi';
+import type { PaginationInfo } from '$shared/dto/CommonPageApiResponse';
 import { getLogger } from '$shared/utils/logger';
+
+import type { UserPointHistory } from '../types/ActivityHistory';
 
 const log = getLogger('ProfileApiAdapter');
 
@@ -35,7 +39,7 @@ export class ProfileApiAdapter {
       params: { address },
       ...globalAxiosConfig,
     });
-
+    log('fetchUserPointsAndRank response', response.data);
     return response.data;
   }
 
@@ -47,14 +51,14 @@ export class ProfileApiAdapter {
    * @param {number} [page] the page number of the activity
    * @return {Promise<UserHistoryApiResponse>} the user's activity
    */
-  async fetchUserActivity(address: Address, season: number, page?: number): Promise<UserHistoryApiResponse> {
+  async fetchUserActivity(address: Address, season: number, page?: number): Promise<PaginationInfo<UserPointHistory>> {
     const client = getAxiosInstance(season);
     const params = page ? { address, page } : { address };
     const response = await client.get<UserHistoryApiResponse>(`/user/history`, {
       params,
       ...globalAxiosConfig,
     });
-    return response.data;
+    return normalizeUserHistoryResponse(response.data);
   }
 
   /**
@@ -128,7 +132,7 @@ export class ProfileApiAdapter {
       const pfp: NFT = {
         address: tokenAddress,
         tokenId: tokenId,
-        src: '', // You might want to resolve tokenURI to an actual image URL
+        metadata: { image: '' },
         tokenUri: tokenURI,
       };
 
@@ -183,7 +187,7 @@ export class ProfileApiAdapter {
             const pfp: NFT = {
               address: tokenAddress,
               tokenId: tokenId,
-              src: '',
+              metadata: { image: '' },
               tokenUri: tokenURI,
             };
             fetchedData[checksummedOwner] = pfp;
@@ -223,4 +227,25 @@ export class ProfileApiAdapter {
 
     return combinedData;
   }
+
+  /**
+   * Fetches the user's previous season final scores from the /user/finalscore endpoint.
+   *
+   *
+   * @param {number} season the season the user's final scores are being fetched for
+   * @return {Promise<UserFinalScoreResponse>} the user's final scores
+   */
+  async getPreviousSeasonFinalScores(address: Address, season: number): Promise<UserFinalScoreResponse> {
+    const client = getAxiosInstance(season);
+    const response = await client.get<UserFinalScoreResponse>(`/user/final`, {
+      ...globalAxiosConfig,
+      params: { address },
+    });
+    return response.data;
+  }
 }
+
+// Helper function to normalize the user history response
+const normalizeUserHistoryResponse = (response: UserHistoryApiResponse): PaginationInfo<UserPointHistory> => {
+  return 'data' in response ? response.data! : response;
+};
