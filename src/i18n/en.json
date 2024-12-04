@@ -654,7 +654,7 @@
       "can_influence_in": "You can influence again in:",
       "can_claim_in": "Badge recruited in:",
       "no_enabled_recruitments": "No recruitments are currently enabled. Stay tuned!",
-      "cta": "Learn about badge recruitment"
+      "cta": "Have questions?"
     },
     "modal": {
       "start_recruitment": {
@@ -739,6 +739,55 @@
         {
           "question": "What are Free Recruitment?",
           "answer": "Sometimes you don’t even have to send a Dev out to do your dirty work and the Recruits come looking for you. This normally happens when you are making a big name for yourself by participating in other events, like the Faction Battle Arena or Liquidity Royale. During a Free Recruitment you will also be able to Influence the Team you get, but you do not have to Stake a Dev to do so. "
+        },
+        {
+          "question": "Will I lose my global multiplier at the end of the season if I recruit?",
+          "answer": "No, you will only lose the global multiplier for the time your Dev NFT is staked. In Season 2, you earn multipliers only while holding NFTs, and bonuses apply solely during that time. "
+        },
+        {
+          "question": "With NFT bonuses, can I earn more than 73k points per day on Tx Value and Transactions?",
+          "answer": "Yes. Multipliers increase your daily cap. Whale badges boost the daily Tx Value cap, while Minnow NFTs boost the daily Transaction points cap."
+        },
+        {
+          "question": "If I have 2 Ravers, and 1 Raver is out recruiting, will I still have my global bonus?",
+          "answer": "Yes. The staked NFT used for recruiting won’t provide a multiplier, but the unstaked one will still give you the global bonus."
+        },
+        {
+          "question": "What are the chances of getting a badge if I apply 5 Influences?",
+          "answer": "Applying Influence increases your chances of getting the NFT from your preferred team to up to 65%, though there’s still a chance to get another team’s NFT."
+        },
+        {
+          "question": "If I buy a Dev or Taikoon NFT mid/late in Season 2, will it boost my points for the entire season?",
+          "answer": "No. You only earn bonus points for the days you hold the NFT. If you buy on the last day, you’ll receive the bonus for that day only."
+        },
+        {
+          "question": "What if I recruit with different wallets and transfer NFTs to my main account? Will this be considered Sybil activity?",
+          "answer": "Yes. Please keep the process fair."
+        },
+        {
+          "question": "Will S2 Badges act as multipliers in Season 3?",
+          "answer": "Yes. They will still have relevance and impact in Season 3."
+        },
+        {
+          "question": "Can I use the same S1 badge to recruit both Whales and Minnows, or do I need two sets of S1 badges?",
+          "answer": "No, you cannot. The NFT used for recruiting will be staked, so you’ll need separate NFTs for each recruitment."
+        },
+        {
+          "question": "What happens to staked NFTs and the recruited NFTs after S2 ends?",
+          "answer": "You’ll get your staked NFT back. Your Dev remains loyal to you."
+        },
+        {
+          "question": "If I have 3 Raver badges, can I send out 2 Devs and have both return with badges from the same team?",
+          "answer": "Yes, but in this recruitment cycle, you can only get one badge per faction."
+        },
+        { "question": "Do I get 5 Influences everyday?", "answer": "Yes." },
+        {
+          "question": "Will there be more Season 1 NFTs?",
+          "answer": "No, there are no plans to expand the existing Season 1 NFTs."
+        },
+        {
+          "question": "What are the multipliers this season? ",
+          "answer": "Minnows Multiplier = 0.05 * Num Of Minnow NFTs (max 1.4x) - Effects Transaction Points<br/><br/>Whales Multiplier = 0.05 * Num Of Whale NFTs (max 1.4x) - Effects Tx Value Points<br/><br/>Global Multiplier = 1 + Devs Global Multiplier (8 Season 1 NFTs, 0.05* each) + Snaefel Multiplier (0.1)+ Taikoon Multiplier (1)  (new max 2.5x) - Effects Total Points"
         }
       ]
     }
