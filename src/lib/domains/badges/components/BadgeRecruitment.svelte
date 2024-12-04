@@ -1,12 +1,10 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import { json, t } from 'svelte-i18n';
+  import { t } from 'svelte-i18n';
   import type { Address } from 'viem';
 
   import { browser } from '$app/environment';
   import profileService from '$lib/domains/profile/services/ProfileServiceInstance';
-  import { FaqBlock } from '$lib/domains/splashpage/components/FaqBlock';
-  import type { IFaqEntry } from '$lib/domains/splashpage/components/FaqBlock/FaqBlock.svelte';
   import { Spinner } from '$shared/components';
   import { ActionButton, Button } from '$shared/components/Button';
   import RotatingIcon from '$shared/components/Icon/RotatingIcon.svelte';
@@ -108,8 +106,6 @@
   onMount(async () => {
     await handleRefresh();
   });
-
-  const faqEntries = $json('badge_recruitment.faq.entries') as IFaqEntry[];
 </script>
 
 <div class={containerClass}>
@@ -145,10 +141,9 @@
 
   <div class={faqWrapperClasses}>
     <div class="md:w-1/2 w-full mb-[25px]">
-      <ActionButton href="/badge" priority="primary">
+      <ActionButton href="/badge#faq" priority="primary">
         {$t('badge_recruitment.main.cta')}
       </ActionButton>
     </div>
-    <FaqBlock title="FAQs" titleSize="lg" entries={faqEntries} />
   </div>
 </div>
