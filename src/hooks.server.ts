@@ -1,4 +1,4 @@
-import { error } from '@sveltejs/kit';
+import { type Handle } from '@sveltejs/kit';
 
 import { PUBLIC_BYPASS_GEOBLOCK } from '$env/static/public';
 
@@ -50,24 +50,14 @@ const bannedCountries: Record<string, string> = {
 
 const bannedCountryCodes = Object.keys(bannedCountries);
 
-export function load(event) {
+export const handle: Handle = async ({ event, resolve }) => {
   const country = event.request.headers.get('x-vercel-ip-country') ?? false;
   const isDev = event.url.hostname === 'localhost' || event.url.port === '5173';
   const isBypassed = PUBLIC_BYPASS_GEOBLOCK === 'true';
 
-  if (isBypassed || isDev) {
-    return {
-      location: { country },
-    };
-  }
+  const allowed = isDev || isBypassed || (country && !bannedCountryCodes.includes(country));
 
-  if (!country || bannedCountryCodes.includes(country)) {
-    return error(400, {
-      message: `The site is not available in the following countries: ${Object.values(bannedCountries).join(', ')}`,
-    });
-  }
+  event.locals.allowed = Boolean(allowed);
 
-  return {
-    location: { country },
-  };
-}
+  return resolve(event);
+};
