@@ -3,10 +3,11 @@
 
   const wrapperClasses = classNames(
     'flex',
+    'relative',
+    'w-full',
     'justify-center',
     'items-center',
     'flex-col',
-    //'h-[60vh]',
     'px-[48px]',
     'py-[112px]',
   );
@@ -23,6 +24,7 @@
     'mt-[180px]',
     'md:block',
     'hidden',
+    'container',
   );
 </script>
 
