@@ -22,7 +22,7 @@ export default class BadgeRecruitmentService {
    */
   async getEnabledRecruitments(): Promise<number[]> {
     log('getEnabledRecruitments');
-    const recruitments = this.adapter.fetchEnabledRecruitments();
+    const recruitments = await this.adapter.fetchEnabledRecruitments();
     console.info('getEnabledRecruitments', { recruitments });
     log('getEnabledRecruitments', { recruitments });
     return recruitments;
