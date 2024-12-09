@@ -1,5 +1,4 @@
 <script lang="ts">
-  import * as Sentry from '@sentry/sveltekit';
   import type { Address } from 'viem';
 
   import ActionButton from '$shared/components/Button/ActionButton.svelte';
@@ -53,8 +52,6 @@
         title: 'Error',
         message: e.message,
       });
-
-      Sentry.captureException(e);
     }
   }
 
