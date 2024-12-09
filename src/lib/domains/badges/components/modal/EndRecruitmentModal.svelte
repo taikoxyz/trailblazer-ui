@@ -1,4 +1,5 @@
 <script lang="ts">
+  import * as Sentry from '@sentry/sveltekit';
   import Flippable from 'svelte-flip';
   import { t } from 'svelte-i18n';
 
@@ -53,6 +54,7 @@
           ? e.shortMessage
           : $t('badge_recruitment.modal.end_recruitment.toast.error.default_message'),
       });
+      Sentry.captureException(e);
     } finally {
       isLoading = false;
     }

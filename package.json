@@ -74,6 +74,7 @@
   "dependencies": {
     "@ethereumjs/util": "^9.0.3",
     "@metamask/eth-sig-util": "^7.0.2",
+    "@sentry/sveltekit": "^8",
     "@sveltejs/adapter-node": "^5.2.5",
     "@sveltejs/adapter-vercel": "^5.3.1",
     "@sveltejs/vite-plugin-svelte": "^3.1.1",
