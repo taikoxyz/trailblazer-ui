@@ -2,6 +2,8 @@ import { defineConfig } from '@wagmi/cli';
 import { actions } from '@wagmi/cli/plugins';
 import type { Abi, Address } from 'abitype';
 
+import * as EventRegisterHeklaDeployment from '../taiko-mono/packages/nfts/deployments/eventRegister/hekla.json';
+import * as EventRegisterMainnetDeployment from '../taiko-mono/packages/nfts/deployments/eventRegister/hekla.json';
 import * as ProfilePictureHeklaDeployment from '../taiko-mono/packages/nfts/deployments/profile/hekla.json';
 import * as ProfilePictureMainnetDeployment from '../taiko-mono/packages/nfts/deployments/profile/mainnet.json';
 import * as TaikoonHeklaDeployment from '../taiko-mono/packages/nfts/deployments/taikoon/hekla.json';
@@ -97,8 +99,8 @@ export default defineConfig({
     {
       name: 'EventRegister',
       address: {
-        167009: '0x0805EFc6A797bc81168807A2f244fBA551FD7354',
-        167000: '0x0805EFc6A797bc81168807A2f244fBA551FD7354',
+        167009: EventRegisterHeklaDeployment.EventRegister as Address,
+        167000: EventRegisterMainnetDeployment.EventRegister as Address,
       },
       abi: EventRegister.abi as Abi,
     },
