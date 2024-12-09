@@ -1,3 +1,4 @@
+import { sentrySvelteKit } from '@sentry/sveltekit';
 import { sveltekit } from '@sveltejs/kit/vite';
 import dotenv from 'dotenv';
 import { defineConfig } from 'vite';
@@ -12,8 +13,13 @@ export default defineConfig({
     sourcemap: true,
   },
   plugins: [
-    sveltekit(),
-    // This plugin gives vite the ability to resolve imports using TypeScript's path mapping.
+    sentrySvelteKit({
+      sourceMapsUploadOptions: {
+        org: 'taiko-gg',
+        project: 'javascript-sveltekit',
+      },
+    }),
+    sveltekit(), // This plugin gives vite the ability to resolve imports using TypeScript's path mapping.
     // https://www.npmjs.com/package/vite-tsconfig-paths
     tsconfigPaths({ ignoreConfigErrors: true }),
   ],
