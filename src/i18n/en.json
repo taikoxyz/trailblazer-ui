@@ -475,7 +475,7 @@
     },
     "chillblazers": {
       "ended": {
-        "description": "Our journey concluded on December 18th, 2024. Congratulations to the winners!",
+        "description": "Our journey concluded on December 16th, 2024. Congratulations to the winners!",
         "title": "Journey ended"
       },
       "prize": {
@@ -515,7 +515,11 @@
       "ended": {
         "s1": {
           "description": "Our journey concluded on Sept. 16th, 2024. Congratulations to the winners!",
-          "title": "Season ended"
+          "title": "Season 1 ended"
+        },
+        "s2": {
+          "description": "Our journey concluded on December 16th, 2024. Congratulations to the winners!",
+          "title": "Season 2 ended"
         }
       }
     },
@@ -586,7 +590,13 @@
         "headline": "Boost liquidity;<br />Earn rewards!",
         "title": "Boost your Taiko score"
       },
-      "description": "  Ready to supercharge your liquidity and get rewarded for it? The Taiko Liquidity Royale is here, offering a         massive 1M Taiko tokens in rewards! Whether you’re a seasoned liquidity provider or looking to get started, this         is your chance to dive in and earn juicy prizes.",
+      "description": " Ready to supercharge your liquidity and get rewarded for it? The Taiko Liquidity Royale is here, offering a         massive 1M Taiko tokens in rewards! Whether you’re a seasoned liquidity provider or looking to get started, this         is your chance to dive in and earn juicy prizes.",
+      "ended": {
+        "s2": {
+          "description": "Our journey concluded on Dec. 16th, 2024. Congratulations to the winners!",
+          "title": "Season 2 ended"
+        }
+      },
       "infobox": {
         "boost": {
           "text": "Random snapshot rewards mean every contribution counts! The more liquidity you provide, the higher your points, stacking across all protocols.",
@@ -640,7 +650,11 @@
       "ended": {
         "s1": {
           "description": "Our journey concluded on Sept. 16th, 2024. Congratulations to the winners!",
-          "title": "Season ended"
+          "title": "Season 1 ended"
+        },
+        "s2": {
+          "description": "Our journey concluded on December 16th, 2024. Congratulations to the winners!",
+          "title": "Season 2 ended"
         }
       },
       "event": {
