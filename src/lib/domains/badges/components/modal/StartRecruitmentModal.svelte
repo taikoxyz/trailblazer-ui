@@ -1,4 +1,5 @@
 <script lang="ts">
+  import * as Sentry from '@sentry/sveltekit';
   import { format, t } from 'svelte-i18n';
 
   import RecruitmentBadgeItem from '$lib/domains/badges/components/RecruitmentBadgeItem.svelte';
@@ -56,6 +57,8 @@
         title,
         message,
       });
+
+      Sentry.captureException(e);
 
       isLoading = false;
     }

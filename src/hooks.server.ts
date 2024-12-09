@@ -1,6 +1,13 @@
+import * as Sentry from '@sentry/sveltekit';
 import { type Handle } from '@sveltejs/kit';
+import { sequence } from '@sveltejs/kit/hooks';
 
 import { PUBLIC_BYPASS_GEOBLOCK } from '$env/static/public';
+
+Sentry.init({
+  dsn: 'https://6bdb4f67e973da4fe670da91c8cd49a7@o4508437597782016.ingest.de.sentry.io/4508437605384272',
+  tracesSampleRate: 1,
+});
 
 const bannedCountries: Record<string, string> = {
   AF: 'Afghanistan',
@@ -50,7 +57,7 @@ const bannedCountries: Record<string, string> = {
 
 const bannedCountryCodes = Object.keys(bannedCountries);
 
-export const handle: Handle = async ({ event, resolve }) => {
+export const handle: Handle = sequence(Sentry.sentryHandle(), async ({ event, resolve }) => {
   const country = event.request.headers.get('x-vercel-ip-country') ?? false;
   const isDev = event.url.hostname === 'localhost' || event.url.port === '5173';
   const isBypassed = PUBLIC_BYPASS_GEOBLOCK === 'true';
@@ -60,4 +67,5 @@ export const handle: Handle = async ({ event, resolve }) => {
   event.locals.allowed = Boolean(allowed);
 
   return resolve(event);
-};
+});
+export const handleError = Sentry.handleErrorWithSentry();
