@@ -93,6 +93,15 @@
         "title": "Claim successful"
       }
     },
+    "season1Bonus": {
+      "cta": {
+        "closed": "Claiming not active",
+        "soon": "Claiming starting soon"
+      },
+      "tooltip": {
+        "message": " If you participated in Season 1, you will be rewarded some bonus points for season 2. These will be capped.           Have a look at our official Season 2 announcement for more details."
+      }
+    },
     "terms_agree": "I agree to the terms and conditions mentioned above."
   },
   "common": {
@@ -256,6 +265,10 @@
     "competitions": {
       "s2": {
         "dapp": {
+          "banner": {
+            "description": "",
+            "title": ""
+          },
           "ended": {
             "description": "Our journey concluded on December 18th, 2024. Congratulations to the winners!",
             "title": "Season ended"
@@ -450,6 +463,9 @@
   },
   "pages": {
     "badge_recruitment": {
+      "buttons": {
+        "start": "Start recruiting now"
+      },
       "content": {
         "migrate": {
           "p1": ""
@@ -462,6 +478,14 @@
         "recruit": {
           "p1": "A core mechanic in Season 2 will be the ability for participants to Recruit new Season 2 badges by sending their Season 1 Devs out to Influence them. The basic concept is that participants will be able to stake a Season 1 Badge they own, and it will give them a 50/50 chance of Recruiting a Whale or Minnow of the same Faction.",
           "p2": "Participants will also have the ability to increase their chances of getting the Team they want, through a mechanism called Influencing."
+        }
+      },
+      "journey": {
+        "begin": {
+          "description": "Recruit new Season 2 members to your cause by sending your Season 1 Devs out to find them. Stake one Season 1 badge per cycle, and after 24 hours, receive a new Season 2 badge of the same Faction but from a random Team (Minnow or Whale). Boost your chances of getting your preferred Team by giving your Dev orders through on-chain transactions. This feature is called Influencing.",
+          "note": "These transactions won’t add any TB points but will enhance your customization options.",
+          "timer": "Recruitment phase beginning: Nov 28th 2024",
+          "title": "Season 1 badges are evolving - Here’s how to get your season 2 badge"
         }
       },
       "teams": {
@@ -482,7 +506,6 @@
         }
       },
       "ways_to_get": {
-        "title": "Ways to get",
         "liquidity_royale": {
           "description": "To go alongside the rewards offered in the Liquidity Royale program, participants who are not in the top 100, but who still meet minimum liquidity requirements will earn Free Recruits on a weekly basis.",
           "title": "Liquidity Royale Perk"
@@ -490,18 +513,8 @@
         "taikoon": {
           "description": "   Taikoon holders can get excited for the first additional perk coming their way. Participants who were holding a Taikoon during the Season 1 final snapshot will be eligible to receive a Free Recruit from the Minnow Team or the Whale Team.",
           "title": "Taikoon Perk"
-        }
-      },
-      "journey": {
-        "begin": {
-          "title": "Season 1 badges are evolving - Here’s how to get your season 2 badge",
-          "timer": "Recruitment phase beginning: Nov 28th 2024",
-          "description": "Recruit new Season 2 members to your cause by sending your Season 1 Devs out to find them. Stake one Season 1 badge per cycle, and after 24 hours, receive a new Season 2 badge of the same Faction but from a random Team (Minnow or Whale). Boost your chances of getting your preferred Team by giving your Dev orders through on-chain transactions. This feature is called Influencing.",
-          "note": "These transactions won’t add any TB points but will enhance your customization options."
-        }
-      },
-      "buttons": {
-        "start": "Start recruiting now"
+        },
+        "title": "Ways to get"
       }
     }
   },
@@ -780,7 +793,10 @@
           "question": "If I have 3 Raver badges, can I send out 2 Devs and have both return with badges from the same team?",
           "answer": "Yes, but in this recruitment cycle, you can only get one badge per faction."
         },
-        { "question": "Do I get 5 Influences everyday?", "answer": "Yes." },
+        {
+          "question": "Do I get 5 Influences everyday?",
+          "answer": "Yes."
+        },
         {
           "question": "Will there be more Season 1 NFTs?",
           "answer": "No, there are no plans to expand the existing Season 1 NFTs."

@@ -9,3 +9,4 @@ export const pfpModal = writable<boolean>(false);
 // Loading states
 export const profileLoading = writable<boolean>(true);
 export const multipliersLoading = writable<boolean>(true);
+export const bonusLoading = writable<boolean>(true);

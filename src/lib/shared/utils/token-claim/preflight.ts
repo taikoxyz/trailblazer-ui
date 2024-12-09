@@ -10,7 +10,7 @@ import { activeSeason } from '$shared/stores/activeSeason';
 import type { ITokenClaimPreflight } from './types';
 
 export default async function preflight(address: Address): Promise<ITokenClaimPreflight> {
-  const blacklisted = await profileService?.getBlacklistStatus(address, get(activeSeason));
+  const blacklisted = await profileService.getBlacklistStatus(address, get(activeSeason));
   if (blacklisted) {
     throw new Error('You are blacklisted');
   }

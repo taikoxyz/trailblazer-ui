@@ -1,4 +1,110 @@
 {
+  "badge_recruitment": {
+    "buttons": {
+      "end_recruitment": "QQQQQ",
+      "influence": "QQQQQ",
+      "not_eligible": "QQQQQ",
+      "ongoing_recruitment": "",
+      "reveal": "QQQQQ",
+      "start_recruitment": "QQQQQ"
+    },
+    "faq": {
+      "entries": [
+        {
+          "answer": "QQQQQ",
+          "question": "QQQQQ"
+        },
+        {
+          "answer": "QQQQQ",
+          "question": "QQQQQ"
+        }
+      ],
+      "entries[2]": {
+        "answer": "",
+        "question": ""
+      },
+      "entries[3]": {
+        "answer": "",
+        "question": ""
+      },
+      "entries[4]": {
+        "answer": "",
+        "question": ""
+      },
+      "entries[5]": {
+        "answer": "",
+        "question": ""
+      },
+      "entries[6]": {
+        "answer": "",
+        "question": ""
+      },
+      "entries[7]": {
+        "answer": "",
+        "question": ""
+      },
+      "title": "QQQQQ"
+    },
+    "labels": {
+      "season": "QQQQQ",
+      "trail": "QQQQQ"
+    },
+    "main": {
+      "can_claim_in": "QQQQQ",
+      "can_influence_in": "QQQQQ",
+      "cta": "",
+      "no_enabled_recruitments": "QQQQQ"
+    },
+    "modal": {
+      "end_recruitment": {
+        "description": "QQQQQ",
+        "title": "QQQQQ",
+        "toast": {
+          "error": {
+            "default_message": "QQQQQ",
+            "title": "QQQQQ"
+          },
+          "success": {
+            "message": "QQQQQ",
+            "title": "QQQQQ"
+          }
+        }
+      },
+      "influence_recruitment": {
+        "description": "QQQQQ",
+        "title": "QQQQQ",
+        "toast": {
+          "error": {
+            "message": "",
+            "title": ""
+          },
+          "success": {
+            "message": "",
+            "title": ""
+          }
+        }
+      },
+      "start_recruitment": {
+        "description": "QQQQQ",
+        "title": "QQQQQ",
+        "toast": {
+          "error": {
+            "message": {
+              "already_started": "QQQQQ",
+              "default": "QQQQQ",
+              "rejected": "QQQQQ"
+            },
+            "title": "QQQQQ"
+          },
+          "success": {
+            "message": "QQQQQ",
+            "title": "QQQQQ"
+          }
+        },
+        "warning": "QQQQQ"
+      }
+    }
+  },
   "badges": {
     "claimable": "QQQQQ",
     "movement": {
@@ -93,6 +199,15 @@
         "title": "QQQQQ"
       }
     },
+    "season1Bonus": {
+      "cta": {
+        "closed": "",
+        "soon": ""
+      },
+      "tooltip": {
+        "message": ""
+      }
+    },
     "terms_agree": "QQQQQ"
   },
   "common": {
@@ -106,6 +221,14 @@
     "not_eligible": "QQQQQ",
     "trail": "QQQQQ",
     "week": "QQQQQ"
+  },
+  "date": {
+    "labels": {
+      "days": "QQQQQ",
+      "hours": "QQQQQ",
+      "minutes": "QQQQQ",
+      "seconds": "QQQQQ"
+    }
   },
   "disclaimer": {
     "leaderboard": "QQQQQ"
@@ -222,6 +345,29 @@
         "title": "QQQQQ"
       }
     },
+    "chillblazers": {
+      "ended": {
+        "description": "",
+        "title": ""
+      },
+      "prize": {
+        "2": ""
+      },
+      "prize_breakdown": {
+        "first": {
+          "amount": ""
+        },
+        "fourth": {
+          "amount": ""
+        },
+        "second": {
+          "amount": ""
+        },
+        "third": {
+          "amount": ""
+        }
+      }
+    },
     "competitions": {
       "s2": {
         "dapp": {
@@ -303,7 +449,44 @@
       },
       "tokenName": "QQQQQ"
     },
+    "liquidityRoyale": {
+      "blogpost": {
+        "url": ""
+      },
+      "carousel": {
+        "description": "",
+        "headline": "",
+        "title": ""
+      },
+      "description": "",
+      "infobox": {
+        "boost": {
+          "text": "",
+          "title": ""
+        },
+        "campaign": {
+          "text": "",
+          "title": ""
+        },
+        "random": {
+          "text": "",
+          "title": ""
+        },
+        "rewards": {
+          "text": "",
+          "title": ""
+        },
+        "title": ""
+      },
+      "readmore": {
+        "text": ""
+      }
+    },
     "thrillblazer": {
+      "ended": {
+        "description": "",
+        "title": ""
+      },
       "prize_breakdown": {
         "fifth": {
           "amount": "QQQQQ"
@@ -324,6 +507,7 @@
     },
     "user": {
       "booster": "QQQQQ",
+      "cta": "",
       "dailyMaxReached": "QQQQQ",
       "ended": {
         "s1": {
@@ -334,6 +518,7 @@
       "event": {
         "block_proposed": "QQQQQ",
         "bridged": "QQQQQ",
+        "prediction": "",
         "transaction": "QQQQQ",
         "transaction_value": "QQQQQ"
       },
@@ -382,12 +567,73 @@
       "switching": "QQQQQ"
     }
   },
+  "pages": {
+    "badge_recruitment": {
+      "buttons": {
+        "start": ""
+      },
+      "content": {
+        "migrate": {
+          "p1": ""
+        },
+        "overview": {
+          "p1": "",
+          "p2": "",
+          "p3": ""
+        },
+        "recruit": {
+          "p1": "",
+          "p2": ""
+        }
+      },
+      "journey": {
+        "begin": {
+          "description": "",
+          "note": "",
+          "timer": "",
+          "title": ""
+        }
+      },
+      "teams": {
+        "devs": {
+          "description": "",
+          "title": ""
+        },
+        "forumla": "",
+        "minnows": {
+          "description": "",
+          "title": ""
+        },
+        "note": "",
+        "title": "",
+        "whales": {
+          "description": "",
+          "title": ""
+        }
+      },
+      "ways_to_get": {
+        "liquidity_royale": {
+          "description": "",
+          "title": ""
+        },
+        "taikoon": {
+          "description": "",
+          "title": ""
+        },
+        "title": ""
+      }
+    }
+  },
   "pagetitle": {
     "competition": {
-      "dapp": "QQQQQ"
+      "dapp": "QQQQQ",
+      "liquidity": ""
     },
     "competitions": {
       "dapp": "QQQQQ"
+    },
+    "journeys": {
+      "chillblazers": ""
     },
     "leaderboards": {
       "dapp": "QQQQQ",
@@ -508,84 +754,6 @@
       "connected": "QQQQQ",
       "connecting": "QQQQQ",
       "disconnected": "QQQQQ"
-    }
-  },
-  "badge_recruitment": {
-    "buttons": {
-      "not_eligible": "QQQQQ",
-      "influence": "QQQQQ",
-      "start_recruitment": "QQQQQ",
-      "end_recruitment": "QQQQQ",
-      "reveal": "QQQQQ"
-    },
-    "labels": {
-      "season": "QQQQQ",
-      "trail": "QQQQQ"
-    },
-    "main": {
-      "can_influence_in": "QQQQQ",
-      "can_claim_in": "QQQQQ",
-      "no_enabled_recruitments": "QQQQQ"
-    },
-    "modal": {
-      "start_recruitment": {
-        "title": "QQQQQ",
-        "description": "QQQQQ",
-        "warning": "QQQQQ",
-        "toast": {
-          "success": {
-            "title": "QQQQQ",
-            "message": "QQQQQ"
-          },
-          "error": {
-            "title": "QQQQQ",
-            "message": {
-              "default": "QQQQQ",
-              "rejected": "QQQQQ",
-              "already_started": "QQQQQ"
-            }
-          }
-        }
-      },
-      "influence_recruitment": {
-        "title": "QQQQQ",
-        "description": "QQQQQ"
-      },
-      "end_recruitment": {
-        "title": "QQQQQ",
-        "description": "QQQQQ",
-        "toast": {
-          "success": {
-            "title": "QQQQQ",
-            "message": "QQQQQ"
-          },
-          "error": {
-            "title": "QQQQQ",
-            "default_message": "QQQQQ"
-          }
-        }
-      }
-    },
-    "faq": {
-      "title": "QQQQQ",
-      "entries": [
-        {
-          "question": "QQQQQ",
-          "answer": "QQQQQ"
-        },
-        {
-          "question": "QQQQQ",
-          "answer": "QQQQQ"
-        }
-      ]
-    }
-  },
-  "date": {
-    "labels": {
-      "days": "QQQQQ",
-      "hours": "QQQQQ",
-      "minutes": "QQQQQ",
-      "seconds": "QQQQQ"
     }
   }
 }

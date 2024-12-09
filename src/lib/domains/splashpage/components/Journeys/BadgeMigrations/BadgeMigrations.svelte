@@ -40,7 +40,6 @@
   const startTimeClasses = classNames(
     'mb-[20px]',
     'text-primary-link',
-    'custom-text',
     'text-center',
     'lg:text-left',
     'font-clash-grotesk',
@@ -188,10 +187,3 @@
     <FaqBlock title="FAQs" titleSize="lg" entries={faqEntries} />
   </div>
 </div>
-
-<style>
-  .custom-text {
-    leading-trim: both;
-    text-edge: cap;
-  }
-</style>

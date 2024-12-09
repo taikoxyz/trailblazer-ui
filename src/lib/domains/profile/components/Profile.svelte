@@ -15,6 +15,8 @@
   import { classNames } from '$shared/utils/classNames';
   import getConnectedAddress from '$shared/utils/getConnectedAddress';
 
+  import ProfileSeasonBonusCard from './ProfileSeasonBonusCard/ProfileSeasonBonusCard.svelte';
+
   let isSelfProfile: boolean;
 
   const disclaimerWrapperClasses = classNames('mt-[100px]', 'px-[24px]', 'md:px-0');
@@ -33,11 +35,11 @@
   );
   // const alertClasses = classNames('mt-[28px]');
   const tabsClasses = classNames('mt-[28px]');
-
+  $: isSelfProfile = false;
   onMount(async () => {
     const urlAddress = $page.url.pathname.split('/').pop() as Address;
     isSelfProfile = isAddressEqual(urlAddress, getConnectedAddress());
-    await profileService?.getProfile(urlAddress, $activeSeason);
+    await profileService.getProfile(urlAddress, $activeSeason);
   });
 </script>
 
@@ -46,6 +48,9 @@
     <div class={innerContainerClasses}>
       <ProfileCard loading={$profileLoading} {isSelfProfile} />
       <BoosterCard />
+      {#if isSelfProfile}
+        <ProfileSeasonBonusCard />
+      {/if}
     </div>
 
     <!-- <div class={alertClasses}>

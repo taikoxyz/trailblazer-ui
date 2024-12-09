@@ -22,15 +22,14 @@ describe('ProtocolAdapter', () => {
   let protocolAdapter: ProtocolAdapter;
 
   beforeEach(() => {
-    protocolAdapter = new ProtocolAdapter('');
+    protocolAdapter = new ProtocolAdapter('mock');
     vi.clearAllMocks();
   });
 
   describe('fetchProtocolDetails', () => {
     const protocolSlug = 'example-protocol';
     const season = 1;
-
-    it.skip('should fetch protocol details when cache is empty (cache miss)', async () => {
+    it('should fetch protocol details when cache is empty (cache miss)', async () => {
       // Given
       const mockResponseData: ProtocolApiResponse = {
         protocols: [
@@ -64,17 +63,17 @@ describe('ProtocolAdapter', () => {
       const result = await protocolAdapter.fetchProtocolDetails(protocolSlug, season);
 
       // Then
-      expect(protocolDetailsCache.get).toHaveBeenCalledWith(protocolSlug, season);
+      expect(protocolDetailsCache.get).toHaveBeenCalledWith(protocolSlug, season, 'mock');
       expect(getAxiosInstance).toHaveBeenCalledWith(season);
-      expect(mockClient.get).toHaveBeenCalledWith('/protocol/details', {
+      expect(mockClient.get).toHaveBeenCalledWith('/protocol/mock', {
         ...globalAxiosConfig,
         params: { slug: protocolSlug },
       });
-      expect(protocolDetailsCache.set).toHaveBeenCalledWith(protocolSlug, season, mockResponseData);
+      expect(protocolDetailsCache.set).toHaveBeenCalledWith(protocolSlug, season, 'mock', mockResponseData);
       expect(result).toEqual(mockResponseData);
     });
 
-    it.skip('should return cached protocol details when available (cache hit)', async () => {
+    it('should return cached protocol details when available (cache hit)', async () => {
       // Given
       const cachedData: ProtocolApiResponse = {
         protocols: [
@@ -97,7 +96,7 @@ describe('ProtocolAdapter', () => {
       const result = await protocolAdapter.fetchProtocolDetails(protocolSlug, season);
 
       // Then
-      expect(protocolDetailsCache.get).toHaveBeenCalledWith(protocolSlug, season);
+      expect(protocolDetailsCache.get).toHaveBeenCalledWith(protocolSlug, season, 'mock');
       expect(getAxiosInstance).not.toHaveBeenCalled();
       expect(result).toEqual(cachedData);
     });
@@ -107,7 +106,7 @@ describe('ProtocolAdapter', () => {
     const protocolSlug = 'example-gaming-protocol';
     const season = 1;
 
-    it.skip('should fetch gaming protocol details when cache is empty (cache miss)', async () => {
+    it('should fetch gaming protocol details when cache is empty (cache miss)', async () => {
       // Given
       const mockResponseData: ProtocolApiResponse = {
         protocols: [
@@ -142,17 +141,17 @@ describe('ProtocolAdapter', () => {
       const result = await protocolAdapter.fetchGamingProtocolDetails(protocolSlug, season);
 
       // Then
-      expect(protocolDetailsCache.get).toHaveBeenCalledWith(protocolSlug, season);
+      expect(protocolDetailsCache.get).toHaveBeenCalledWith(protocolSlug, season, 'gaming');
       expect(getAxiosInstance).toHaveBeenCalledWith(season);
       expect(mockClient.get).toHaveBeenCalledWith('/protocol/gaming', {
         ...globalAxiosConfig,
         params: { slug: protocolSlug },
       });
-      expect(protocolDetailsCache.set).toHaveBeenCalledWith(protocolSlug, season, mockResponseData);
+      expect(protocolDetailsCache.set).toHaveBeenCalledWith(protocolSlug, season, 'gaming', mockResponseData);
       expect(result).toEqual(mockResponseData);
     });
 
-    it.skip('should return cached gaming protocol details when available (cache hit)', async () => {
+    it('should return cached gaming protocol details when available (cache hit)', async () => {
       // Given
       const cachedData: ProtocolApiResponse = {
         protocols: [
@@ -176,7 +175,7 @@ describe('ProtocolAdapter', () => {
       const result = await protocolAdapter.fetchGamingProtocolDetails(protocolSlug, season);
 
       // Then
-      expect(protocolDetailsCache.get).toHaveBeenCalledWith(protocolSlug, season);
+      expect(protocolDetailsCache.get).toHaveBeenCalledWith(protocolSlug, season, 'gaming');
       expect(getAxiosInstance).not.toHaveBeenCalled();
       expect(result).toEqual(cachedData);
     });

@@ -53,7 +53,7 @@
     isSelfProfile = getAddress(urlAddress) === getAddress(getConnectedAddress());
 
     if (isSelfProfile) {
-      profileService?.getBlacklistStatus(urlAddress, $activeSeason).then((result) => {
+      profileService.getBlacklistStatus(urlAddress, $activeSeason).then((result) => {
         isBlacklisted = result;
       });
       TokenClaim.hasClaimed(urlAddress).then(async (hasClaimed) => {

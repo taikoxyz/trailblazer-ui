@@ -5,8 +5,12 @@ import BadgeRecruitmentService from '$lib/domains/badges/services/BadgeRecruitme
 import type { UserLeaderboardItem } from '$lib/domains/leaderboard/types/user/types';
 import { NftService } from '$lib/domains/nfts/services/NftService';
 import { ProfileApiAdapter } from '$lib/domains/profile/adapter/ProfileAdapter';
+import { SeasonBonusPointsAdapter } from '$lib/domains/profile/adapter/SeasonBonusPointsAdapter';
+import type { UserPointsAndRankResponse } from '$lib/domains/profile/dto/profile.dto';
 import UserRepository from '$lib/domains/profile/repositories/UserRepository';
+import type { IProfileService } from '$lib/domains/profile/services/IProfileService';
 import { multipliersLoading, profileLoading } from '$lib/domains/profile/stores/profileStore';
+import type { UserPointHistory } from '$lib/domains/profile/types/ActivityHistory';
 import { defaultUserProfile } from '$lib/domains/profile/types/defaultUserProfile';
 import type { DomainInfo } from '$lib/domains/profile/types/DomainInfo';
 import { levelTiers } from '$lib/domains/profile/types/LevelTiers';
@@ -21,10 +25,6 @@ import { wagmiConfig } from '$lib/shared/wagmi';
 import { activeRecruitment } from '$shared/stores/recruitment';
 import { getLogger } from '$shared/utils/logger';
 
-import type { UserPointsAndRankResponse } from '../dto/profile.dto';
-import type { UserPointHistory } from '../types/ActivityHistory';
-import type { IProfileService } from './IProfileService';
-
 const log = getLogger('ProfileService');
 
 export class ProfileService implements IProfileService {
@@ -32,6 +32,7 @@ export class ProfileService implements IProfileService {
 
   // Adapters
   private apiAdapter: ProfileApiAdapter;
+  private seasonBonusAdapter: SeasonBonusPointsAdapter;
 
   // Repositories
   private userRepository: UserRepository;
@@ -47,19 +48,13 @@ export class ProfileService implements IProfileService {
     userRepository?: UserRepository,
     combinedNFTService?: NftService,
     badgeRecruitmentService?: BadgeRecruitmentService,
+    seasonBonusAdapter?: SeasonBonusPointsAdapter,
   ) {
     this.apiAdapter = apiAdapter || new ProfileApiAdapter();
     this.userRepository = userRepository || new UserRepository();
     this.combinedNFTService = combinedNFTService || new NftService();
     this.badgeRecruitmentService = badgeRecruitmentService || new BadgeRecruitmentService();
-  }
-
-  public static getInstance(): ProfileService | null {
-    try {
-      return new ProfileService();
-    } catch (e) {
-      return null;
-    }
+    this.seasonBonusAdapter = seasonBonusAdapter || new SeasonBonusPointsAdapter();
   }
 
   /**
@@ -670,6 +665,92 @@ export class ProfileService implements IProfileService {
     }
   }
 
+  /**
+   * Retrieves the user's bonus points for the given season.
+   *
+   * @param {Address} address
+   * @param {number} season
+   * @return {*}  {Promise<number>}
+   * @memberof ProfileService
+   */
+  async getProfileBonusPoints(address: Address, season: number): Promise<number> {
+    log('Fetching bonus points for address:', address, 'season:', season);
+    try {
+      const bonusPoints = await this.seasonBonusAdapter.fetchUserBonusPoints(address, season);
+      log('Bonus points:', bonusPoints);
+      return bonusPoints;
+    } catch (error) {
+      log('Error fetching bonus points:', error);
+      return 0;
+    }
+  }
+
+  /**
+   * Claims the user's bonus points for the given season.
+   *
+   * @param {Address} address
+   * @param {number} season
+   * @return {*}  {Promise<void>}
+   * @memberof ProfileService
+   */
+  async claimSeasonBonus(address: Address, season: number): Promise<Hash | void> {
+    log('Claiming bonus points for address:', address, 'season:', season);
+    try {
+      return await this.seasonBonusAdapter.claimUserBonusPoints(address, season);
+      log('Claimed bonus points successfully.');
+    } catch (error) {
+      log('Error claiming bonus points:', error);
+    }
+  }
+
+  /**
+   * Checks if the user has already registered their bonus point claim.
+   *
+   * @param {Address} address
+   * @param {number} season
+   * @return {*}  {Promise<boolean>}
+   * @memberof ProfileService
+   */
+  async checkBonusClaimRegistered(address: Address, season: number): Promise<boolean> {
+    log('Checking if bonus claim is registered for address:', address, 'season:', season);
+    try {
+      const isRegistered = await this.seasonBonusAdapter.checkRegistered(address, season);
+      log('Bonus claim registered:', isRegistered);
+      return isRegistered;
+    } catch (error) {
+      log('Error checking bonus claim registration:', error);
+      return false;
+    }
+  }
+
+  /**
+   * Checks if the registration for the event is open
+   * @param {number} eventId
+   * @return {*}  {Promise<boolean>}
+   * @memberof ProfileService
+   * */
+  async checkRegistrationOpen(eventId: number): Promise<boolean> {
+    log('checkRegistrationOpen for event', { eventId });
+
+    try {
+      const registrationOpen = await this.seasonBonusAdapter.checkRegistrationOpen(eventId);
+      log('checkRegistrationOpen', { eventId, registrationOpen });
+
+      return registrationOpen;
+    } catch (error) {
+      console.error('Error checking registration open:', error);
+      return false;
+    }
+  }
+
+  /**
+   *  Fetches the user's final scores for the previous season.
+   *
+   * @param {Address} address
+   * @param {number} season
+   * @return {*}  {Promise<void>}
+   * @memberof ProfileService
+   */
   async previousSeasonFinalScores(address: Address, season: number): Promise<void> {
     log('Fetching previous season final scores for season:', season);
     try {

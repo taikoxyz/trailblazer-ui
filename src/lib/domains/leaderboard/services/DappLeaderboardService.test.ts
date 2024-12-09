@@ -34,7 +34,7 @@ describe('DappLeaderboardService', () => {
     service = new DappLeaderboardService(mockLeaderboardAdapter, mockProtocolAdapter, mockLeaderboardRepository);
   });
 
-  it.skip('should fetch leaderboard data, map it, and update the repository', async () => {
+  it('should fetch leaderboard data, map it, and update the repository', async () => {
     // Given
     const args: PaginationInfo<DappLeaderboardItem> = {
       page: 0,
@@ -55,7 +55,7 @@ describe('DappLeaderboardService', () => {
         size: 10,
         total: 100,
       },
-      lastUpdated: 1730244198,
+      lastUpdated: 1733346467924,
     };
 
     const protocolDetails1: ProtocolApiResponse = {
@@ -114,17 +114,25 @@ describe('DappLeaderboardService', () => {
     expect(mapDappLeaderboardRow).toHaveBeenCalledTimes(2);
     expect(mockLeaderboardRepository.update).toHaveBeenCalledWith({
       items: [mappedRow1, mappedRow2],
-      lastUpdated: 1730244198,
-      pagination: leaderboardData.data,
+      lastUpdated: 1733346467924,
+      pagination: {
+        page: 0,
+        size: 10,
+        total: 100,
+      },
     });
     expect(result).toEqual({
       items: [mappedRow1, mappedRow2],
-      lastUpdated: 1730244198,
-      pagination: leaderboardData.data,
+      lastUpdated: 1733346467924,
+      pagination: {
+        page: 0,
+        size: 10,
+        total: 100,
+      },
     });
   });
 
-  it.skip('should handle errors from fetchLeaderboardData gracefully', async () => {
+  it('should handle errors from fetchLeaderboardData gracefully', async () => {
     // Given
     const args: PaginationInfo<DappLeaderboardItem> = {
       page: 0,
@@ -152,7 +160,7 @@ describe('DappLeaderboardService', () => {
     expect(mockLeaderboardRepository.update).not.toHaveBeenCalled();
   });
 
-  it.skip('should handle errors from fetchProtocolDetails and continue processing other items', async () => {
+  it('should handle errors from fetchProtocolDetails and continue processing other items', async () => {
     // Given
     const args: PaginationInfo<DappLeaderboardItem> = {
       page: 0,
@@ -214,17 +222,25 @@ describe('DappLeaderboardService', () => {
     expect(mapDappLeaderboardRow).toHaveBeenCalledTimes(1);
     expect(mockLeaderboardRepository.update).toHaveBeenCalledWith({
       items: [mappedRow1],
-      lastUpdated: expect.any(Number),
-      pagination: leaderboardData.data,
+      lastUpdated: 1730244198,
+      pagination: {
+        page: 0,
+        size: 2,
+        total: 100,
+      },
     });
     expect(result).toEqual({
       items: [mappedRow1],
-      lastUpdated: expect.any(Number),
-      pagination: leaderboardData.data,
+      lastUpdated: 1730244198,
+      pagination: {
+        page: 0,
+        size: 2,
+        total: 100,
+      },
     });
   });
 
-  it.skip('should handle unexpected data from mapDappLeaderboardRow', async () => {
+  it('should handle unexpected data from mapDappLeaderboardRow', async () => {
     // Given
     const args: PaginationInfo<DappLeaderboardItem> = {
       page: 0,
@@ -272,17 +288,25 @@ describe('DappLeaderboardService', () => {
     expect(mapDappLeaderboardRow).toHaveBeenCalledTimes(1);
     expect(mockLeaderboardRepository.update).toHaveBeenCalledWith({
       items: [unexpectedMappedRow],
-      lastUpdated: expect.any(Number),
-      pagination: leaderboardData.data,
+      lastUpdated: 1730244198,
+      pagination: {
+        page: 0,
+        size: 1,
+        total: 100,
+      },
     });
     expect(result).toEqual({
       items: [unexpectedMappedRow],
-      lastUpdated: expect.any(Number),
-      pagination: leaderboardData.data,
+      lastUpdated: 1730244198,
+      pagination: {
+        page: 0,
+        size: 1,
+        total: 100,
+      },
     });
   });
 
-  it.skip('should process a large dataset efficiently', async () => {
+  it('should process a large dataset efficiently', async () => {
     // Given
 
     const dataSize = 50;
@@ -346,7 +370,11 @@ describe('DappLeaderboardService', () => {
     expect(result).toEqual({
       items: Array(dataSize).fill(mappedRow),
       lastUpdated: expect.any(Number),
-      pagination: leaderboardData.data,
+      pagination: {
+        page: 0,
+        size: 50,
+        total: 1000,
+      },
     });
   });
 });

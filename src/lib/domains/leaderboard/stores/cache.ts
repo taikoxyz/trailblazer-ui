@@ -9,14 +9,14 @@ function createProtocolDetailsStore() {
 
   return {
     subscribe: store.subscribe,
-    get: (protocolSlug: string, season: number): ProtocolApiResponse | undefined => {
-      const cacheKey = `${protocolSlug}_${season}`;
+    get: (protocolSlug: string, season: number, type: string): ProtocolApiResponse | undefined => {
+      const cacheKey = `${type}_${protocolSlug}_${season}`;
       const cache = get(store);
       return cache.get(cacheKey);
     },
-    set: (protocolSlug: string, season: number, data: ProtocolApiResponse): void => {
+    set: (protocolSlug: string, season: number, type: string, data: ProtocolApiResponse): void => {
       store.update((cache) => {
-        const cacheKey = `${protocolSlug}_${season}`;
+        const cacheKey = `${type}_${protocolSlug}_${season}`;
         cache.set(cacheKey, data);
         return cache;
       });
