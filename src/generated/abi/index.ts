@@ -1314,8 +1314,8 @@ export const erc20TaikoTokenConfig = {
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 /**
- * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x0805EFc6A797bc81168807A2f244fBA551FD7354)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x0805EFc6A797bc81168807A2f244fBA551FD7354)
+ * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x7cbec64D099D49eA91062746B38182455c94862C)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6439Bb31dE508Dc36B8D3A39C389EB8E6C214ebE)
  */
 export const eventRegisterAbi = [
   { type: 'constructor', inputs: [], stateMutability: 'nonpayable' },
@@ -1332,6 +1332,13 @@ export const eventRegisterAbi = [
     name: 'EVENT_MANAGER_ROLE',
     outputs: [{ name: '', internalType: 'bytes32', type: 'bytes32' }],
     stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [],
+    name: 'acceptOwnership',
+    outputs: [],
+    stateMutability: 'nonpayable',
   },
   {
     type: 'function',
@@ -1413,10 +1420,41 @@ export const eventRegisterAbi = [
   },
   {
     type: 'function',
+    inputs: [],
+    name: 'initialize',
+    outputs: [],
+    stateMutability: 'nonpayable',
+  },
+  {
+    type: 'function',
+    inputs: [
+      { name: 'eventId', internalType: 'uint256', type: 'uint256' },
+      { name: 'registrant', internalType: 'address', type: 'address' },
+    ],
+    name: 'isRegistered',
+    outputs: [{ name: 'isRegistered', internalType: 'bool', type: 'bool' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
     inputs: [{ name: '_eventId', internalType: 'uint256', type: 'uint256' }],
     name: 'openRegistration',
     outputs: [],
     stateMutability: 'nonpayable',
+  },
+  {
+    type: 'function',
+    inputs: [],
+    name: 'owner',
+    outputs: [{ name: '', internalType: 'address', type: 'address' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [],
+    name: 'pendingOwner',
+    outputs: [{ name: '', internalType: 'address', type: 'address' }],
+    stateMutability: 'view',
   },
   {
     type: 'function',
@@ -1427,13 +1465,10 @@ export const eventRegisterAbi = [
   },
   {
     type: 'function',
-    inputs: [
-      { name: 'eventId', internalType: 'uint256', type: 'uint256' },
-      { name: 'registrant', internalType: 'address', type: 'address' },
-    ],
-    name: 'registrations',
-    outputs: [{ name: 'isRegistered', internalType: 'bool', type: 'bool' }],
-    stateMutability: 'view',
+    inputs: [],
+    name: 'renounceOwnership',
+    outputs: [],
+    stateMutability: 'nonpayable',
   },
   {
     type: 'function',
@@ -1471,6 +1506,13 @@ export const eventRegisterAbi = [
   },
   {
     type: 'function',
+    inputs: [{ name: 'newOwner', internalType: 'address', type: 'address' }],
+    name: 'transferOwnership',
+    outputs: [],
+    stateMutability: 'nonpayable',
+  },
+  {
+    type: 'function',
     inputs: [
       { name: '_eventId', internalType: 'uint256', type: 'uint256' },
       { name: '_user', internalType: 'address', type: 'address' },
@@ -1487,6 +1529,57 @@ export const eventRegisterAbi = [
       { name: 'name', internalType: 'string', type: 'string', indexed: false },
     ],
     name: 'EventCreated',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      {
+        name: 'version',
+        internalType: 'uint64',
+        type: 'uint64',
+        indexed: false,
+      },
+    ],
+    name: 'Initialized',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      {
+        name: 'previousOwner',
+        internalType: 'address',
+        type: 'address',
+        indexed: true,
+      },
+      {
+        name: 'newOwner',
+        internalType: 'address',
+        type: 'address',
+        indexed: true,
+      },
+    ],
+    name: 'OwnershipTransferStarted',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      {
+        name: 'previousOwner',
+        internalType: 'address',
+        type: 'address',
+        indexed: true,
+      },
+      {
+        name: 'newOwner',
+        internalType: 'address',
+        type: 'address',
+        indexed: true,
+      },
+    ],
+    name: 'OwnershipTransferred',
   },
   {
     type: 'event',
@@ -1621,20 +1714,32 @@ export const eventRegisterAbi = [
     ],
     name: 'AccessControlUnauthorizedAccount',
   },
+  { type: 'error', inputs: [], name: 'InvalidInitialization' },
+  { type: 'error', inputs: [], name: 'NotInitializing' },
+  {
+    type: 'error',
+    inputs: [{ name: 'owner', internalType: 'address', type: 'address' }],
+    name: 'OwnableInvalidOwner',
+  },
+  {
+    type: 'error',
+    inputs: [{ name: 'account', internalType: 'address', type: 'address' }],
+    name: 'OwnableUnauthorizedAccount',
+  },
 ] as const;
 
 /**
- * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x0805EFc6A797bc81168807A2f244fBA551FD7354)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x0805EFc6A797bc81168807A2f244fBA551FD7354)
+ * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x7cbec64D099D49eA91062746B38182455c94862C)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6439Bb31dE508Dc36B8D3A39C389EB8E6C214ebE)
  */
 export const eventRegisterAddress = {
-  167000: '0x0805EFc6A797bc81168807A2f244fBA551FD7354',
-  167009: '0x0805EFc6A797bc81168807A2f244fBA551FD7354',
+  167000: '0x7cbec64D099D49eA91062746B38182455c94862C',
+  167009: '0x6439Bb31dE508Dc36B8D3A39C389EB8E6C214ebE',
 } as const;
 
 /**
- * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x0805EFc6A797bc81168807A2f244fBA551FD7354)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x0805EFc6A797bc81168807A2f244fBA551FD7354)
+ * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x7cbec64D099D49eA91062746B38182455c94862C)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6439Bb31dE508Dc36B8D3A39C389EB8E6C214ebE)
  */
 export const eventRegisterConfig = {
   address: eventRegisterAddress,
@@ -5421,8 +5526,8 @@ export const watchErc20AirdropUpgradedEvent = /*#__PURE__*/ createWatchContractE
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link eventRegisterAbi}__
  *
- * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x0805EFc6A797bc81168807A2f244fBA551FD7354)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x0805EFc6A797bc81168807A2f244fBA551FD7354)
+ * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x7cbec64D099D49eA91062746B38182455c94862C)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6439Bb31dE508Dc36B8D3A39C389EB8E6C214ebE)
  */
 export const readEventRegister = /*#__PURE__*/ createReadContract({
   abi: eventRegisterAbi,
@@ -5432,8 +5537,8 @@ export const readEventRegister = /*#__PURE__*/ createReadContract({
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link eventRegisterAbi}__ and `functionName` set to `"DEFAULT_ADMIN_ROLE"`
  *
- * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x0805EFc6A797bc81168807A2f244fBA551FD7354)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x0805EFc6A797bc81168807A2f244fBA551FD7354)
+ * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x7cbec64D099D49eA91062746B38182455c94862C)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6439Bb31dE508Dc36B8D3A39C389EB8E6C214ebE)
  */
 export const readEventRegisterDefaultAdminRole = /*#__PURE__*/ createReadContract({
   abi: eventRegisterAbi,
@@ -5444,8 +5549,8 @@ export const readEventRegisterDefaultAdminRole = /*#__PURE__*/ createReadContrac
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link eventRegisterAbi}__ and `functionName` set to `"EVENT_MANAGER_ROLE"`
  *
- * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x0805EFc6A797bc81168807A2f244fBA551FD7354)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x0805EFc6A797bc81168807A2f244fBA551FD7354)
+ * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x7cbec64D099D49eA91062746B38182455c94862C)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6439Bb31dE508Dc36B8D3A39C389EB8E6C214ebE)
  */
 export const readEventRegisterEventManagerRole = /*#__PURE__*/ createReadContract({
   abi: eventRegisterAbi,
@@ -5456,8 +5561,8 @@ export const readEventRegisterEventManagerRole = /*#__PURE__*/ createReadContrac
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link eventRegisterAbi}__ and `functionName` set to `"events"`
  *
- * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x0805EFc6A797bc81168807A2f244fBA551FD7354)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x0805EFc6A797bc81168807A2f244fBA551FD7354)
+ * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x7cbec64D099D49eA91062746B38182455c94862C)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6439Bb31dE508Dc36B8D3A39C389EB8E6C214ebE)
  */
 export const readEventRegisterEvents = /*#__PURE__*/ createReadContract({
   abi: eventRegisterAbi,
@@ -5468,8 +5573,8 @@ export const readEventRegisterEvents = /*#__PURE__*/ createReadContract({
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link eventRegisterAbi}__ and `functionName` set to `"getEvent"`
  *
- * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x0805EFc6A797bc81168807A2f244fBA551FD7354)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x0805EFc6A797bc81168807A2f244fBA551FD7354)
+ * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x7cbec64D099D49eA91062746B38182455c94862C)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6439Bb31dE508Dc36B8D3A39C389EB8E6C214ebE)
  */
 export const readEventRegisterGetEvent = /*#__PURE__*/ createReadContract({
   abi: eventRegisterAbi,
@@ -5480,8 +5585,8 @@ export const readEventRegisterGetEvent = /*#__PURE__*/ createReadContract({
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link eventRegisterAbi}__ and `functionName` set to `"getRegisteredEvents"`
  *
- * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x0805EFc6A797bc81168807A2f244fBA551FD7354)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x0805EFc6A797bc81168807A2f244fBA551FD7354)
+ * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x7cbec64D099D49eA91062746B38182455c94862C)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6439Bb31dE508Dc36B8D3A39C389EB8E6C214ebE)
  */
 export const readEventRegisterGetRegisteredEvents = /*#__PURE__*/ createReadContract({
   abi: eventRegisterAbi,
@@ -5492,8 +5597,8 @@ export const readEventRegisterGetRegisteredEvents = /*#__PURE__*/ createReadCont
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link eventRegisterAbi}__ and `functionName` set to `"getRoleAdmin"`
  *
- * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x0805EFc6A797bc81168807A2f244fBA551FD7354)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x0805EFc6A797bc81168807A2f244fBA551FD7354)
+ * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x7cbec64D099D49eA91062746B38182455c94862C)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6439Bb31dE508Dc36B8D3A39C389EB8E6C214ebE)
  */
 export const readEventRegisterGetRoleAdmin = /*#__PURE__*/ createReadContract({
   abi: eventRegisterAbi,
@@ -5504,8 +5609,8 @@ export const readEventRegisterGetRoleAdmin = /*#__PURE__*/ createReadContract({
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link eventRegisterAbi}__ and `functionName` set to `"hasRole"`
  *
- * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x0805EFc6A797bc81168807A2f244fBA551FD7354)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x0805EFc6A797bc81168807A2f244fBA551FD7354)
+ * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x7cbec64D099D49eA91062746B38182455c94862C)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6439Bb31dE508Dc36B8D3A39C389EB8E6C214ebE)
  */
 export const readEventRegisterHasRole = /*#__PURE__*/ createReadContract({
   abi: eventRegisterAbi,
@@ -5514,22 +5619,46 @@ export const readEventRegisterHasRole = /*#__PURE__*/ createReadContract({
 });
 
 /**
- * Wraps __{@link readContract}__ with `abi` set to __{@link eventRegisterAbi}__ and `functionName` set to `"registrations"`
+ * Wraps __{@link readContract}__ with `abi` set to __{@link eventRegisterAbi}__ and `functionName` set to `"isRegistered"`
  *
- * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x0805EFc6A797bc81168807A2f244fBA551FD7354)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x0805EFc6A797bc81168807A2f244fBA551FD7354)
+ * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x7cbec64D099D49eA91062746B38182455c94862C)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6439Bb31dE508Dc36B8D3A39C389EB8E6C214ebE)
  */
-export const readEventRegisterRegistrations = /*#__PURE__*/ createReadContract({
+export const readEventRegisterIsRegistered = /*#__PURE__*/ createReadContract({
   abi: eventRegisterAbi,
   address: eventRegisterAddress,
-  functionName: 'registrations',
+  functionName: 'isRegistered',
+});
+
+/**
+ * Wraps __{@link readContract}__ with `abi` set to __{@link eventRegisterAbi}__ and `functionName` set to `"owner"`
+ *
+ * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x7cbec64D099D49eA91062746B38182455c94862C)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6439Bb31dE508Dc36B8D3A39C389EB8E6C214ebE)
+ */
+export const readEventRegisterOwner = /*#__PURE__*/ createReadContract({
+  abi: eventRegisterAbi,
+  address: eventRegisterAddress,
+  functionName: 'owner',
+});
+
+/**
+ * Wraps __{@link readContract}__ with `abi` set to __{@link eventRegisterAbi}__ and `functionName` set to `"pendingOwner"`
+ *
+ * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x7cbec64D099D49eA91062746B38182455c94862C)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6439Bb31dE508Dc36B8D3A39C389EB8E6C214ebE)
+ */
+export const readEventRegisterPendingOwner = /*#__PURE__*/ createReadContract({
+  abi: eventRegisterAbi,
+  address: eventRegisterAddress,
+  functionName: 'pendingOwner',
 });
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link eventRegisterAbi}__ and `functionName` set to `"supportsInterface"`
  *
- * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x0805EFc6A797bc81168807A2f244fBA551FD7354)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x0805EFc6A797bc81168807A2f244fBA551FD7354)
+ * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x7cbec64D099D49eA91062746B38182455c94862C)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6439Bb31dE508Dc36B8D3A39C389EB8E6C214ebE)
  */
 export const readEventRegisterSupportsInterface = /*#__PURE__*/ createReadContract({
   abi: eventRegisterAbi,
@@ -5540,8 +5669,8 @@ export const readEventRegisterSupportsInterface = /*#__PURE__*/ createReadContra
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link eventRegisterAbi}__
  *
- * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x0805EFc6A797bc81168807A2f244fBA551FD7354)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x0805EFc6A797bc81168807A2f244fBA551FD7354)
+ * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x7cbec64D099D49eA91062746B38182455c94862C)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6439Bb31dE508Dc36B8D3A39C389EB8E6C214ebE)
  */
 export const writeEventRegister = /*#__PURE__*/ createWriteContract({
   abi: eventRegisterAbi,
@@ -5549,10 +5678,22 @@ export const writeEventRegister = /*#__PURE__*/ createWriteContract({
 });
 
 /**
+ * Wraps __{@link writeContract}__ with `abi` set to __{@link eventRegisterAbi}__ and `functionName` set to `"acceptOwnership"`
+ *
+ * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x7cbec64D099D49eA91062746B38182455c94862C)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6439Bb31dE508Dc36B8D3A39C389EB8E6C214ebE)
+ */
+export const writeEventRegisterAcceptOwnership = /*#__PURE__*/ createWriteContract({
+  abi: eventRegisterAbi,
+  address: eventRegisterAddress,
+  functionName: 'acceptOwnership',
+});
+
+/**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link eventRegisterAbi}__ and `functionName` set to `"closeRegistration"`
  *
- * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x0805EFc6A797bc81168807A2f244fBA551FD7354)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x0805EFc6A797bc81168807A2f244fBA551FD7354)
+ * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x7cbec64D099D49eA91062746B38182455c94862C)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6439Bb31dE508Dc36B8D3A39C389EB8E6C214ebE)
  */
 export const writeEventRegisterCloseRegistration = /*#__PURE__*/ createWriteContract({
   abi: eventRegisterAbi,
@@ -5563,8 +5704,8 @@ export const writeEventRegisterCloseRegistration = /*#__PURE__*/ createWriteCont
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link eventRegisterAbi}__ and `functionName` set to `"createEvent"`
  *
- * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x0805EFc6A797bc81168807A2f244fBA551FD7354)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x0805EFc6A797bc81168807A2f244fBA551FD7354)
+ * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x7cbec64D099D49eA91062746B38182455c94862C)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6439Bb31dE508Dc36B8D3A39C389EB8E6C214ebE)
  */
 export const writeEventRegisterCreateEvent = /*#__PURE__*/ createWriteContract({
   abi: eventRegisterAbi,
@@ -5575,8 +5716,8 @@ export const writeEventRegisterCreateEvent = /*#__PURE__*/ createWriteContract({
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link eventRegisterAbi}__ and `functionName` set to `"grantEventManagerRole"`
  *
- * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x0805EFc6A797bc81168807A2f244fBA551FD7354)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x0805EFc6A797bc81168807A2f244fBA551FD7354)
+ * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x7cbec64D099D49eA91062746B38182455c94862C)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6439Bb31dE508Dc36B8D3A39C389EB8E6C214ebE)
  */
 export const writeEventRegisterGrantEventManagerRole = /*#__PURE__*/ createWriteContract({
   abi: eventRegisterAbi,
@@ -5587,8 +5728,8 @@ export const writeEventRegisterGrantEventManagerRole = /*#__PURE__*/ createWrite
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link eventRegisterAbi}__ and `functionName` set to `"grantRole"`
  *
- * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x0805EFc6A797bc81168807A2f244fBA551FD7354)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x0805EFc6A797bc81168807A2f244fBA551FD7354)
+ * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x7cbec64D099D49eA91062746B38182455c94862C)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6439Bb31dE508Dc36B8D3A39C389EB8E6C214ebE)
  */
 export const writeEventRegisterGrantRole = /*#__PURE__*/ createWriteContract({
   abi: eventRegisterAbi,
@@ -5597,10 +5738,22 @@ export const writeEventRegisterGrantRole = /*#__PURE__*/ createWriteContract({
 });
 
 /**
+ * Wraps __{@link writeContract}__ with `abi` set to __{@link eventRegisterAbi}__ and `functionName` set to `"initialize"`
+ *
+ * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x7cbec64D099D49eA91062746B38182455c94862C)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6439Bb31dE508Dc36B8D3A39C389EB8E6C214ebE)
+ */
+export const writeEventRegisterInitialize = /*#__PURE__*/ createWriteContract({
+  abi: eventRegisterAbi,
+  address: eventRegisterAddress,
+  functionName: 'initialize',
+});
+
+/**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link eventRegisterAbi}__ and `functionName` set to `"openRegistration"`
  *
- * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x0805EFc6A797bc81168807A2f244fBA551FD7354)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x0805EFc6A797bc81168807A2f244fBA551FD7354)
+ * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x7cbec64D099D49eA91062746B38182455c94862C)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6439Bb31dE508Dc36B8D3A39C389EB8E6C214ebE)
  */
 export const writeEventRegisterOpenRegistration = /*#__PURE__*/ createWriteContract({
   abi: eventRegisterAbi,
@@ -5611,8 +5764,8 @@ export const writeEventRegisterOpenRegistration = /*#__PURE__*/ createWriteContr
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link eventRegisterAbi}__ and `functionName` set to `"register"`
  *
- * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x0805EFc6A797bc81168807A2f244fBA551FD7354)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x0805EFc6A797bc81168807A2f244fBA551FD7354)
+ * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x7cbec64D099D49eA91062746B38182455c94862C)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6439Bb31dE508Dc36B8D3A39C389EB8E6C214ebE)
  */
 export const writeEventRegisterRegister = /*#__PURE__*/ createWriteContract({
   abi: eventRegisterAbi,
@@ -5621,10 +5774,22 @@ export const writeEventRegisterRegister = /*#__PURE__*/ createWriteContract({
 });
 
 /**
+ * Wraps __{@link writeContract}__ with `abi` set to __{@link eventRegisterAbi}__ and `functionName` set to `"renounceOwnership"`
+ *
+ * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x7cbec64D099D49eA91062746B38182455c94862C)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6439Bb31dE508Dc36B8D3A39C389EB8E6C214ebE)
+ */
+export const writeEventRegisterRenounceOwnership = /*#__PURE__*/ createWriteContract({
+  abi: eventRegisterAbi,
+  address: eventRegisterAddress,
+  functionName: 'renounceOwnership',
+});
+
+/**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link eventRegisterAbi}__ and `functionName` set to `"renounceRole"`
  *
- * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x0805EFc6A797bc81168807A2f244fBA551FD7354)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x0805EFc6A797bc81168807A2f244fBA551FD7354)
+ * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x7cbec64D099D49eA91062746B38182455c94862C)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6439Bb31dE508Dc36B8D3A39C389EB8E6C214ebE)
  */
 export const writeEventRegisterRenounceRole = /*#__PURE__*/ createWriteContract({
   abi: eventRegisterAbi,
@@ -5635,8 +5800,8 @@ export const writeEventRegisterRenounceRole = /*#__PURE__*/ createWriteContract(
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link eventRegisterAbi}__ and `functionName` set to `"revokeEventManagerRole"`
  *
- * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x0805EFc6A797bc81168807A2f244fBA551FD7354)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x0805EFc6A797bc81168807A2f244fBA551FD7354)
+ * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x7cbec64D099D49eA91062746B38182455c94862C)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6439Bb31dE508Dc36B8D3A39C389EB8E6C214ebE)
  */
 export const writeEventRegisterRevokeEventManagerRole = /*#__PURE__*/ createWriteContract({
   abi: eventRegisterAbi,
@@ -5647,8 +5812,8 @@ export const writeEventRegisterRevokeEventManagerRole = /*#__PURE__*/ createWrit
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link eventRegisterAbi}__ and `functionName` set to `"revokeRole"`
  *
- * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x0805EFc6A797bc81168807A2f244fBA551FD7354)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x0805EFc6A797bc81168807A2f244fBA551FD7354)
+ * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x7cbec64D099D49eA91062746B38182455c94862C)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6439Bb31dE508Dc36B8D3A39C389EB8E6C214ebE)
  */
 export const writeEventRegisterRevokeRole = /*#__PURE__*/ createWriteContract({
   abi: eventRegisterAbi,
@@ -5657,10 +5822,22 @@ export const writeEventRegisterRevokeRole = /*#__PURE__*/ createWriteContract({
 });
 
 /**
+ * Wraps __{@link writeContract}__ with `abi` set to __{@link eventRegisterAbi}__ and `functionName` set to `"transferOwnership"`
+ *
+ * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x7cbec64D099D49eA91062746B38182455c94862C)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6439Bb31dE508Dc36B8D3A39C389EB8E6C214ebE)
+ */
+export const writeEventRegisterTransferOwnership = /*#__PURE__*/ createWriteContract({
+  abi: eventRegisterAbi,
+  address: eventRegisterAddress,
+  functionName: 'transferOwnership',
+});
+
+/**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link eventRegisterAbi}__ and `functionName` set to `"unregister"`
  *
- * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x0805EFc6A797bc81168807A2f244fBA551FD7354)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x0805EFc6A797bc81168807A2f244fBA551FD7354)
+ * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x7cbec64D099D49eA91062746B38182455c94862C)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6439Bb31dE508Dc36B8D3A39C389EB8E6C214ebE)
  */
 export const writeEventRegisterUnregister = /*#__PURE__*/ createWriteContract({
   abi: eventRegisterAbi,
@@ -5671,8 +5848,8 @@ export const writeEventRegisterUnregister = /*#__PURE__*/ createWriteContract({
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link eventRegisterAbi}__
  *
- * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x0805EFc6A797bc81168807A2f244fBA551FD7354)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x0805EFc6A797bc81168807A2f244fBA551FD7354)
+ * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x7cbec64D099D49eA91062746B38182455c94862C)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6439Bb31dE508Dc36B8D3A39C389EB8E6C214ebE)
  */
 export const simulateEventRegister = /*#__PURE__*/ createSimulateContract({
   abi: eventRegisterAbi,
@@ -5680,10 +5857,22 @@ export const simulateEventRegister = /*#__PURE__*/ createSimulateContract({
 });
 
 /**
+ * Wraps __{@link simulateContract}__ with `abi` set to __{@link eventRegisterAbi}__ and `functionName` set to `"acceptOwnership"`
+ *
+ * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x7cbec64D099D49eA91062746B38182455c94862C)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6439Bb31dE508Dc36B8D3A39C389EB8E6C214ebE)
+ */
+export const simulateEventRegisterAcceptOwnership = /*#__PURE__*/ createSimulateContract({
+  abi: eventRegisterAbi,
+  address: eventRegisterAddress,
+  functionName: 'acceptOwnership',
+});
+
+/**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link eventRegisterAbi}__ and `functionName` set to `"closeRegistration"`
  *
- * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x0805EFc6A797bc81168807A2f244fBA551FD7354)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x0805EFc6A797bc81168807A2f244fBA551FD7354)
+ * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x7cbec64D099D49eA91062746B38182455c94862C)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6439Bb31dE508Dc36B8D3A39C389EB8E6C214ebE)
  */
 export const simulateEventRegisterCloseRegistration = /*#__PURE__*/ createSimulateContract({
   abi: eventRegisterAbi,
@@ -5694,8 +5883,8 @@ export const simulateEventRegisterCloseRegistration = /*#__PURE__*/ createSimula
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link eventRegisterAbi}__ and `functionName` set to `"createEvent"`
  *
- * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x0805EFc6A797bc81168807A2f244fBA551FD7354)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x0805EFc6A797bc81168807A2f244fBA551FD7354)
+ * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x7cbec64D099D49eA91062746B38182455c94862C)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6439Bb31dE508Dc36B8D3A39C389EB8E6C214ebE)
  */
 export const simulateEventRegisterCreateEvent = /*#__PURE__*/ createSimulateContract({
   abi: eventRegisterAbi,
@@ -5706,8 +5895,8 @@ export const simulateEventRegisterCreateEvent = /*#__PURE__*/ createSimulateCont
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link eventRegisterAbi}__ and `functionName` set to `"grantEventManagerRole"`
  *
- * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x0805EFc6A797bc81168807A2f244fBA551FD7354)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x0805EFc6A797bc81168807A2f244fBA551FD7354)
+ * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x7cbec64D099D49eA91062746B38182455c94862C)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6439Bb31dE508Dc36B8D3A39C389EB8E6C214ebE)
  */
 export const simulateEventRegisterGrantEventManagerRole = /*#__PURE__*/ createSimulateContract({
   abi: eventRegisterAbi,
@@ -5718,8 +5907,8 @@ export const simulateEventRegisterGrantEventManagerRole = /*#__PURE__*/ createSi
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link eventRegisterAbi}__ and `functionName` set to `"grantRole"`
  *
- * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x0805EFc6A797bc81168807A2f244fBA551FD7354)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x0805EFc6A797bc81168807A2f244fBA551FD7354)
+ * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x7cbec64D099D49eA91062746B38182455c94862C)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6439Bb31dE508Dc36B8D3A39C389EB8E6C214ebE)
  */
 export const simulateEventRegisterGrantRole = /*#__PURE__*/ createSimulateContract({
   abi: eventRegisterAbi,
@@ -5728,10 +5917,22 @@ export const simulateEventRegisterGrantRole = /*#__PURE__*/ createSimulateContra
 });
 
 /**
+ * Wraps __{@link simulateContract}__ with `abi` set to __{@link eventRegisterAbi}__ and `functionName` set to `"initialize"`
+ *
+ * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x7cbec64D099D49eA91062746B38182455c94862C)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6439Bb31dE508Dc36B8D3A39C389EB8E6C214ebE)
+ */
+export const simulateEventRegisterInitialize = /*#__PURE__*/ createSimulateContract({
+  abi: eventRegisterAbi,
+  address: eventRegisterAddress,
+  functionName: 'initialize',
+});
+
+/**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link eventRegisterAbi}__ and `functionName` set to `"openRegistration"`
  *
- * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x0805EFc6A797bc81168807A2f244fBA551FD7354)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x0805EFc6A797bc81168807A2f244fBA551FD7354)
+ * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x7cbec64D099D49eA91062746B38182455c94862C)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6439Bb31dE508Dc36B8D3A39C389EB8E6C214ebE)
  */
 export const simulateEventRegisterOpenRegistration = /*#__PURE__*/ createSimulateContract({
   abi: eventRegisterAbi,
@@ -5742,8 +5943,8 @@ export const simulateEventRegisterOpenRegistration = /*#__PURE__*/ createSimulat
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link eventRegisterAbi}__ and `functionName` set to `"register"`
  *
- * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x0805EFc6A797bc81168807A2f244fBA551FD7354)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x0805EFc6A797bc81168807A2f244fBA551FD7354)
+ * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x7cbec64D099D49eA91062746B38182455c94862C)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6439Bb31dE508Dc36B8D3A39C389EB8E6C214ebE)
  */
 export const simulateEventRegisterRegister = /*#__PURE__*/ createSimulateContract({
   abi: eventRegisterAbi,
@@ -5752,10 +5953,22 @@ export const simulateEventRegisterRegister = /*#__PURE__*/ createSimulateContrac
 });
 
 /**
+ * Wraps __{@link simulateContract}__ with `abi` set to __{@link eventRegisterAbi}__ and `functionName` set to `"renounceOwnership"`
+ *
+ * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x7cbec64D099D49eA91062746B38182455c94862C)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6439Bb31dE508Dc36B8D3A39C389EB8E6C214ebE)
+ */
+export const simulateEventRegisterRenounceOwnership = /*#__PURE__*/ createSimulateContract({
+  abi: eventRegisterAbi,
+  address: eventRegisterAddress,
+  functionName: 'renounceOwnership',
+});
+
+/**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link eventRegisterAbi}__ and `functionName` set to `"renounceRole"`
  *
- * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x0805EFc6A797bc81168807A2f244fBA551FD7354)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x0805EFc6A797bc81168807A2f244fBA551FD7354)
+ * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x7cbec64D099D49eA91062746B38182455c94862C)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6439Bb31dE508Dc36B8D3A39C389EB8E6C214ebE)
  */
 export const simulateEventRegisterRenounceRole = /*#__PURE__*/ createSimulateContract({
   abi: eventRegisterAbi,
@@ -5766,8 +5979,8 @@ export const simulateEventRegisterRenounceRole = /*#__PURE__*/ createSimulateCon
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link eventRegisterAbi}__ and `functionName` set to `"revokeEventManagerRole"`
  *
- * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x0805EFc6A797bc81168807A2f244fBA551FD7354)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x0805EFc6A797bc81168807A2f244fBA551FD7354)
+ * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x7cbec64D099D49eA91062746B38182455c94862C)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6439Bb31dE508Dc36B8D3A39C389EB8E6C214ebE)
  */
 export const simulateEventRegisterRevokeEventManagerRole = /*#__PURE__*/ createSimulateContract({
   abi: eventRegisterAbi,
@@ -5778,8 +5991,8 @@ export const simulateEventRegisterRevokeEventManagerRole = /*#__PURE__*/ createS
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link eventRegisterAbi}__ and `functionName` set to `"revokeRole"`
  *
- * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x0805EFc6A797bc81168807A2f244fBA551FD7354)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x0805EFc6A797bc81168807A2f244fBA551FD7354)
+ * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x7cbec64D099D49eA91062746B38182455c94862C)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6439Bb31dE508Dc36B8D3A39C389EB8E6C214ebE)
  */
 export const simulateEventRegisterRevokeRole = /*#__PURE__*/ createSimulateContract({
   abi: eventRegisterAbi,
@@ -5788,10 +6001,22 @@ export const simulateEventRegisterRevokeRole = /*#__PURE__*/ createSimulateContr
 });
 
 /**
+ * Wraps __{@link simulateContract}__ with `abi` set to __{@link eventRegisterAbi}__ and `functionName` set to `"transferOwnership"`
+ *
+ * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x7cbec64D099D49eA91062746B38182455c94862C)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6439Bb31dE508Dc36B8D3A39C389EB8E6C214ebE)
+ */
+export const simulateEventRegisterTransferOwnership = /*#__PURE__*/ createSimulateContract({
+  abi: eventRegisterAbi,
+  address: eventRegisterAddress,
+  functionName: 'transferOwnership',
+});
+
+/**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link eventRegisterAbi}__ and `functionName` set to `"unregister"`
  *
- * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x0805EFc6A797bc81168807A2f244fBA551FD7354)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x0805EFc6A797bc81168807A2f244fBA551FD7354)
+ * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x7cbec64D099D49eA91062746B38182455c94862C)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6439Bb31dE508Dc36B8D3A39C389EB8E6C214ebE)
  */
 export const simulateEventRegisterUnregister = /*#__PURE__*/ createSimulateContract({
   abi: eventRegisterAbi,
@@ -5802,8 +6027,8 @@ export const simulateEventRegisterUnregister = /*#__PURE__*/ createSimulateContr
 /**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link eventRegisterAbi}__
  *
- * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x0805EFc6A797bc81168807A2f244fBA551FD7354)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x0805EFc6A797bc81168807A2f244fBA551FD7354)
+ * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x7cbec64D099D49eA91062746B38182455c94862C)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6439Bb31dE508Dc36B8D3A39C389EB8E6C214ebE)
  */
 export const watchEventRegisterEvent = /*#__PURE__*/ createWatchContractEvent({
   abi: eventRegisterAbi,
@@ -5813,8 +6038,8 @@ export const watchEventRegisterEvent = /*#__PURE__*/ createWatchContractEvent({
 /**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link eventRegisterAbi}__ and `eventName` set to `"EventCreated"`
  *
- * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x0805EFc6A797bc81168807A2f244fBA551FD7354)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x0805EFc6A797bc81168807A2f244fBA551FD7354)
+ * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x7cbec64D099D49eA91062746B38182455c94862C)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6439Bb31dE508Dc36B8D3A39C389EB8E6C214ebE)
  */
 export const watchEventRegisterEventCreatedEvent = /*#__PURE__*/ createWatchContractEvent({
   abi: eventRegisterAbi,
@@ -5823,10 +6048,46 @@ export const watchEventRegisterEventCreatedEvent = /*#__PURE__*/ createWatchCont
 });
 
 /**
+ * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link eventRegisterAbi}__ and `eventName` set to `"Initialized"`
+ *
+ * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x7cbec64D099D49eA91062746B38182455c94862C)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6439Bb31dE508Dc36B8D3A39C389EB8E6C214ebE)
+ */
+export const watchEventRegisterInitializedEvent = /*#__PURE__*/ createWatchContractEvent({
+  abi: eventRegisterAbi,
+  address: eventRegisterAddress,
+  eventName: 'Initialized',
+});
+
+/**
+ * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link eventRegisterAbi}__ and `eventName` set to `"OwnershipTransferStarted"`
+ *
+ * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x7cbec64D099D49eA91062746B38182455c94862C)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6439Bb31dE508Dc36B8D3A39C389EB8E6C214ebE)
+ */
+export const watchEventRegisterOwnershipTransferStartedEvent = /*#__PURE__*/ createWatchContractEvent({
+  abi: eventRegisterAbi,
+  address: eventRegisterAddress,
+  eventName: 'OwnershipTransferStarted',
+});
+
+/**
+ * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link eventRegisterAbi}__ and `eventName` set to `"OwnershipTransferred"`
+ *
+ * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x7cbec64D099D49eA91062746B38182455c94862C)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6439Bb31dE508Dc36B8D3A39C389EB8E6C214ebE)
+ */
+export const watchEventRegisterOwnershipTransferredEvent = /*#__PURE__*/ createWatchContractEvent({
+  abi: eventRegisterAbi,
+  address: eventRegisterAddress,
+  eventName: 'OwnershipTransferred',
+});
+
+/**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link eventRegisterAbi}__ and `eventName` set to `"Registered"`
  *
- * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x0805EFc6A797bc81168807A2f244fBA551FD7354)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x0805EFc6A797bc81168807A2f244fBA551FD7354)
+ * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x7cbec64D099D49eA91062746B38182455c94862C)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6439Bb31dE508Dc36B8D3A39C389EB8E6C214ebE)
  */
 export const watchEventRegisterRegisteredEvent = /*#__PURE__*/ createWatchContractEvent({
   abi: eventRegisterAbi,
@@ -5837,8 +6098,8 @@ export const watchEventRegisterRegisteredEvent = /*#__PURE__*/ createWatchContra
 /**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link eventRegisterAbi}__ and `eventName` set to `"RegistrationClosed"`
  *
- * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x0805EFc6A797bc81168807A2f244fBA551FD7354)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x0805EFc6A797bc81168807A2f244fBA551FD7354)
+ * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x7cbec64D099D49eA91062746B38182455c94862C)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6439Bb31dE508Dc36B8D3A39C389EB8E6C214ebE)
  */
 export const watchEventRegisterRegistrationClosedEvent = /*#__PURE__*/ createWatchContractEvent({
   abi: eventRegisterAbi,
@@ -5849,8 +6110,8 @@ export const watchEventRegisterRegistrationClosedEvent = /*#__PURE__*/ createWat
 /**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link eventRegisterAbi}__ and `eventName` set to `"RegistrationOpened"`
  *
- * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x0805EFc6A797bc81168807A2f244fBA551FD7354)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x0805EFc6A797bc81168807A2f244fBA551FD7354)
+ * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x7cbec64D099D49eA91062746B38182455c94862C)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6439Bb31dE508Dc36B8D3A39C389EB8E6C214ebE)
  */
 export const watchEventRegisterRegistrationOpenedEvent = /*#__PURE__*/ createWatchContractEvent({
   abi: eventRegisterAbi,
@@ -5861,8 +6122,8 @@ export const watchEventRegisterRegistrationOpenedEvent = /*#__PURE__*/ createWat
 /**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link eventRegisterAbi}__ and `eventName` set to `"RoleAdminChanged"`
  *
- * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x0805EFc6A797bc81168807A2f244fBA551FD7354)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x0805EFc6A797bc81168807A2f244fBA551FD7354)
+ * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x7cbec64D099D49eA91062746B38182455c94862C)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6439Bb31dE508Dc36B8D3A39C389EB8E6C214ebE)
  */
 export const watchEventRegisterRoleAdminChangedEvent = /*#__PURE__*/ createWatchContractEvent({
   abi: eventRegisterAbi,
@@ -5873,8 +6134,8 @@ export const watchEventRegisterRoleAdminChangedEvent = /*#__PURE__*/ createWatch
 /**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link eventRegisterAbi}__ and `eventName` set to `"RoleGranted"`
  *
- * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x0805EFc6A797bc81168807A2f244fBA551FD7354)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x0805EFc6A797bc81168807A2f244fBA551FD7354)
+ * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x7cbec64D099D49eA91062746B38182455c94862C)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6439Bb31dE508Dc36B8D3A39C389EB8E6C214ebE)
  */
 export const watchEventRegisterRoleGrantedEvent = /*#__PURE__*/ createWatchContractEvent({
   abi: eventRegisterAbi,
@@ -5885,8 +6146,8 @@ export const watchEventRegisterRoleGrantedEvent = /*#__PURE__*/ createWatchContr
 /**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link eventRegisterAbi}__ and `eventName` set to `"RoleRevoked"`
  *
- * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x0805EFc6A797bc81168807A2f244fBA551FD7354)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x0805EFc6A797bc81168807A2f244fBA551FD7354)
+ * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x7cbec64D099D49eA91062746B38182455c94862C)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6439Bb31dE508Dc36B8D3A39C389EB8E6C214ebE)
  */
 export const watchEventRegisterRoleRevokedEvent = /*#__PURE__*/ createWatchContractEvent({
   abi: eventRegisterAbi,
@@ -5897,8 +6158,8 @@ export const watchEventRegisterRoleRevokedEvent = /*#__PURE__*/ createWatchContr
 /**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link eventRegisterAbi}__ and `eventName` set to `"Unregistered"`
  *
- * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x0805EFc6A797bc81168807A2f244fBA551FD7354)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x0805EFc6A797bc81168807A2f244fBA551FD7354)
+ * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x7cbec64D099D49eA91062746B38182455c94862C)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6439Bb31dE508Dc36B8D3A39C389EB8E6C214ebE)
  */
 export const watchEventRegisterUnregisteredEvent = /*#__PURE__*/ createWatchContractEvent({
   abi: eventRegisterAbi,

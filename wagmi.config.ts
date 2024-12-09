@@ -3,7 +3,7 @@ import { actions } from '@wagmi/cli/plugins';
 import type { Abi, Address } from 'abitype';
 
 import * as EventRegisterHeklaDeployment from '../taiko-mono/packages/nfts/deployments/eventRegister/hekla.json';
-import * as EventRegisterMainnetDeployment from '../taiko-mono/packages/nfts/deployments/eventRegister/hekla.json';
+import * as EventRegisterMainnetDeployment from '../taiko-mono/packages/nfts/deployments/eventRegister/mainnet.json';
 import * as ProfilePictureHeklaDeployment from '../taiko-mono/packages/nfts/deployments/profile/hekla.json';
 import * as ProfilePictureMainnetDeployment from '../taiko-mono/packages/nfts/deployments/profile/mainnet.json';
 import * as TaikoonHeklaDeployment from '../taiko-mono/packages/nfts/deployments/taikoon/hekla.json';

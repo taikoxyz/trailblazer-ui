@@ -3,7 +3,7 @@ import type { Address } from 'viem';
 import { zeroAddress } from 'viem';
 import { vi } from 'vitest';
 
-import { readEventRegisterEvents, readEventRegisterRegistrations, writeEventRegisterRegister } from '$generated/abi';
+import { readEventRegisterEvents, readEventRegisterIsRegistered, writeEventRegisterRegister } from '$generated/abi';
 import { getAxiosInstance, globalAxiosConfig } from '$lib/shared/services/api/axiosClient';
 import { pendingTransactions } from '$shared/stores/pendingTransactions';
 
@@ -11,7 +11,7 @@ import { SeasonBonusPointsAdapter } from './SeasonBonusPointsAdapter';
 
 vi.mock('$generated/abi', () => ({
   readEventRegisterEvents: vi.fn(),
-  readEventRegisterRegistrations: vi.fn(),
+  readEventRegisterIsRegistered: vi.fn(),
   writeEventRegisterRegister: vi.fn(),
 }));
 
@@ -79,11 +79,11 @@ describe('SeasonBonusPointsAdapter', () => {
 
   describe('checkRegistered', () => {
     it('should check if the user has registered their bonus points', async () => {
-      vi.mocked(readEventRegisterRegistrations).mockResolvedValue(true);
+      vi.mocked(readEventRegisterIsRegistered).mockResolvedValue(true);
 
       const result = await adapter.checkRegistered(mockAddress, 2);
 
-      expect(readEventRegisterRegistrations).toHaveBeenCalledWith(expect.any(Object), {
+      expect(readEventRegisterIsRegistered).toHaveBeenCalledWith(expect.any(Object), {
         args: [BigInt(0), mockAddress],
         chainId: expect.any(Number),
       });

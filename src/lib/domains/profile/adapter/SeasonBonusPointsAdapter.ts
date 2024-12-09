@@ -1,6 +1,6 @@
 import type { Address } from 'viem';
 
-import { readEventRegisterEvents, readEventRegisterRegistrations, writeEventRegisterRegister } from '$generated/abi';
+import { readEventRegisterEvents, readEventRegisterIsRegistered, writeEventRegisterRegister } from '$generated/abi';
 import { getAxiosInstance, globalAxiosConfig } from '$lib/shared/services/api/axiosClient';
 import { chainId } from '$lib/shared/utils/chain';
 import { wagmiConfig } from '$lib/shared/wagmi';
@@ -78,7 +78,7 @@ export class SeasonBonusPointsAdapter {
       throw new Error('Address not found');
     }
 
-    const isRegistered = await readEventRegisterRegistrations(wagmiConfig, {
+    const isRegistered = await readEventRegisterIsRegistered(wagmiConfig, {
       args: [BigInt(mapSeasonToEventId(season)), address],
       chainId,
     });
