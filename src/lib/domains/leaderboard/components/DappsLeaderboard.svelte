@@ -11,6 +11,7 @@
   import { dappLeaderboardService } from '$lib/domains/leaderboard/services/LeaderboardServiceInstances';
   import { currentDappLeaderboard } from '$lib/domains/leaderboard/stores';
   import type { PaginationInfo } from '$lib/shared/dto/CommonPageApiResponse';
+  import { activeSeason } from '$shared/stores/activeSeason';
   import { getLogger } from '$shared/utils/logger';
 
   import type { DappLeaderboardPage } from '../types/dapps/types';
@@ -23,7 +24,7 @@
   export let pageInfo: PaginationInfo<DappLeaderboardItem>;
   export let season: number;
 
-  const endedSeasons = [1];
+  const endedSeasons = [1, 2];
 
   $: totalItems = pageInfo?.total || 0;
   $: pageSize = pageInfo?.size || leaderboardConfig.pageSize;
@@ -71,8 +72,8 @@
   isLoading={loading}
   ended={hasEnded}
   endedComponent={CampaignEndedInfoBox}
-  endTitleText={$t('leaderboard.dapp.ended.s1.title')}
-  endDescriptionText={$t('leaderboard.dapp.ended.s1.description')}
+  endTitleText={$t(`leaderboard.dapp.ended.s${$activeSeason - 1}.title`)}
+  endDescriptionText={$t(`leaderboard.dapp.ended.s${$activeSeason - 1}.description`)}
   {handlePageChange}
   {totalItems}
   showPagination={true}

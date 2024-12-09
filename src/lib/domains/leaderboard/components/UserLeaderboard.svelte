@@ -13,6 +13,7 @@
   } from '$lib/domains/leaderboard/stores/userLeaderboard';
   import type { UserLeaderboardItem } from '$lib/domains/leaderboard/types/user/types';
   import type { PaginationInfo } from '$lib/shared/dto/CommonPageApiResponse';
+  import { activeSeason } from '$shared/stores/activeSeason';
   import getConnectedAddress from '$shared/utils/getConnectedAddress';
 
   let headers = ['No.', 'Address', 'Level', '', 'Points'];
@@ -20,7 +21,7 @@
   export let loading = false;
   export let pageInfo: PaginationInfo<UserLeaderboardItem>;
   export let season: number;
-  const endedSeasons = [1];
+  const endedSeasons = [1, 2];
 
   $: totalItems = pageInfo?.total || 0;
   $: pageSize = pageInfo?.size || leaderboardConfig.pageSize;
@@ -65,8 +66,8 @@
   ended={hasEnded}
   highlightedUserPosition={$currentUserLeaderboardUserEntry}
   endedComponent={CampaignEndedInfoBox}
-  endTitleText={$t('leaderboard.user.ended.s1.title')}
-  endDescriptionText={$t('leaderboard.user.ended.s1.description')}
+  endTitleText={$t(`leaderboard.user.ended.s${$activeSeason - 1}.title`)}
+  endDescriptionText={$t(`leaderboard.user.ended.s${$activeSeason - 1}.description`)}
   {handlePageChange}
   {totalItems}
   headerComponent={UserLeaderboardHeader}

@@ -18,7 +18,7 @@
   export let pageInfo: PaginationInfo<DappLeaderboardItem>;
   export let season: number;
 
-  const endedSeasons: number[] = [];
+  const endedSeasons: number[] = [2];
 
   $: totalItems = pageInfo?.total || 0;
   $: pageSize = pageInfo?.size || leaderboardConfig.pageSize;

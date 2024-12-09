@@ -12,6 +12,7 @@
   } from '$lib/domains/leaderboard/stores/liquidityCompetitionLeaderboard';
   import type { UserLeaderboardItem } from '$lib/domains/leaderboard/types/user/types';
   import type { PaginationInfo } from '$lib/shared/dto/CommonPageApiResponse';
+  import { activeSeason } from '$shared/stores/activeSeason';
   import getConnectedAddress from '$shared/utils/getConnectedAddress';
 
   import LiquidityRoyaleHeader from '../../Header/LiquidityRoyaleHeader/LiquidityRoyaleHeader.svelte';
@@ -21,7 +22,7 @@
   export let loading = false;
   export let pageInfo: PaginationInfo<UserLeaderboardItem>;
   export let season: number;
-  const endedSeasons: number[] = [];
+  const endedSeasons: number[] = [2];
 
   $: totalItems = pageInfo?.total || 0;
   $: pageSize = pageInfo?.size || leaderboardConfig.pageSize;
@@ -69,8 +70,8 @@
   isLoading={loading}
   ended={hasEnded}
   endedComponent={CampaignEndedInfoBox}
-  endTitleText={$t('leaderboard.user.ended.s1.title')}
-  endDescriptionText={$t('leaderboard.user.ended.s1.description')}
+  endTitleText={$t(`leaderboard.liquidityRoyale.ended.s${$activeSeason - 1}.title`)}
+  endDescriptionText={$t(`leaderboard.liquidityRoyale.ended.s${$activeSeason - 1}.description`)}
   {handlePageChange}
   {totalItems}
   headerComponent={LiquidityRoyaleHeader}
