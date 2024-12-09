@@ -46,9 +46,9 @@ input[type='number'] {
 }
 
 .modal-box {
-  @apply z-40;
+  @apply z-40 rounded-[30px];
   display: inline-flex;
-  padding: 20px 24px 45px 24px;
+  padding: 20px 24px 20px 24px;
   flex-direction: column;
   align-items: center;
 }

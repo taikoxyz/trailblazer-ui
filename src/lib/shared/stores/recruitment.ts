@@ -8,3 +8,4 @@ export const influenceRecruitmentModal = writable<boolean>(false);
 export const startRecruitmentModal = writable<boolean>(false);
 export const recruitmentApprovalModal = writable<boolean>(false);
 export const endRecruitmentModal = writable<boolean>(false);
+export const freeRecruitmentModal = writable<boolean>(true);
