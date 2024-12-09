@@ -22,7 +22,10 @@ export default class BadgeRecruitmentService {
    */
   async getEnabledRecruitments(): Promise<number[]> {
     log('getEnabledRecruitments');
-    return this.adapter.fetchEnabledRecruitments();
+    const recruitments = this.adapter.fetchEnabledRecruitments();
+    console.info('getEnabledRecruitments', { recruitments });
+    log('getEnabledRecruitments', { recruitments });
+    return recruitments;
   }
 
   /**
@@ -83,6 +86,10 @@ export default class BadgeRecruitmentService {
     );
 
     activeRecruitment.set(foundActive as IBadgeRecruitment);
+
+    console.info('getRecruitmentStatus', { recruitments, foundActive });
+    log('getRecruitmentStatus', { recruitments, foundActive });
+
     return recruitments as IBadgeRecruitment[];
   }
 
