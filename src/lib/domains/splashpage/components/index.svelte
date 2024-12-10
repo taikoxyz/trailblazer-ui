@@ -9,7 +9,7 @@
 
   import Factions from './Factions/Factions.svelte';
   import { TrailblazerGuide } from './Guide';
-  import TrailblazerMain from './HeroSection/HeroSection.svelte';
+  import HeroSection from './HeroSection/HeroSection.svelte';
   import { RankUp } from './RankUp';
 
   const wrapperClasses = classNames(
@@ -36,7 +36,7 @@
 </script>
 
 <div class={wrapperClasses}>
-  <TrailblazerMain />
+  <HeroSection />
   <div class={separator40pxClasses} />
 
   <TrailblazerGuide />
