@@ -26,12 +26,12 @@
   $: url = data.url;
   $: category = data.category;
 
-  function getButtonText() {
-    if (category === 'DeFi') {
+  function getButtonText(cat: string) {
+    if (cat === 'DeFi') {
       return 'Learn more';
     }
 
-    if (category === 'Gaming') {
+    if (cat === 'Gaming') {
       return 'Play now';
     }
 
@@ -92,7 +92,7 @@
       {#if data.button}
         {data.button}
       {:else}
-        {getButtonText()}
+        {getButtonText(category)}
       {/if}</a>
   </div>
   <div class={categoryClasses}>{category}</div>
