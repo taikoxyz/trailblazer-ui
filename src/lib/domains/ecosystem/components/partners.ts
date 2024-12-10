@@ -9,6 +9,14 @@ export interface IEcosystemPartner {
 
 const EcosystemPartners: IEcosystemPartner[] = [
   {
+    name: 'Materia Prima',
+    description:
+      'Collect, craft and battle! We are a RPG set within the mystical world of Alka Sowa. Master the arts of alchemy, craft powerful items and create life in form of homunculi. Forge mighty alliances within the alchemist guild and fight against your opponents in PvE and PvP battles.',
+    logo: '/dapps/gaming/materiaprima.png',
+    url: 'https://materiaprimanft.com',
+    category: 'Gaming',
+  },
+  {
     name: 'EVM Warfare',
     description:
       'Fight, Earn, Dominate. Thrilling third-person shooter powered by Unreal Engine 5. Dominate deathmatches, claim instant rewards based on performance.',
@@ -61,14 +69,6 @@ const EcosystemPartners: IEcosystemPartner[] = [
       'Top-down multiplayer game. Enter the Ethereum mines, set traps, mine ores, escape the goblins and escape with your loot.',
     logo: '/dapps/gaming/crackandstack.svg',
     url: 'https://crackandstack.com/',
-    category: 'Gaming',
-  },
-  {
-    name: 'Looper Lands',
-    description:
-      'LooperLands is a free-to-play community-pixelverse. Traverse between captivating creator made worlds, each with its own complete stories and unique minigames.',
-    logo: '/dapps/gaming/looperlands.svg',
-    url: 'https://looperlands.io/',
     category: 'Gaming',
   },
   {
@@ -133,13 +133,6 @@ const EcosystemPartners: IEcosystemPartner[] = [
     description: 'Liquidity Redefined - A multi-chain DeFi protocol providing One-Stop Liquidity as a Service (LaaS).',
     logo: '/dapps/defi/izumi_finance.png',
     url: 'https://izumi.finance/trade/swap',
-    category: 'DEX', // from defiCarouselItems.ts
-  },
-  {
-    name: 'Henjin DEX',
-    description: 'Henjin is an ecosystem-focused, community-driven DEX and Launchpad built on Taiko.',
-    logo: '/dapps/defi/henjin_dex.png',
-    url: 'https://app.henjin.xyz/',
     category: 'DEX', // from defiCarouselItems.ts
   },
   {
