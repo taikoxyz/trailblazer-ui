@@ -3,6 +3,7 @@
   import BannerCarousel from '$lib/domains/splashpage/components/Banner/BannerCarousel.svelte';
   import S2StartBanner from '$lib/domains/splashpage/components/Banner/S2StartBanner.svelte';
   import type { Slide } from '$lib/domains/splashpage/components/Banner/types';
+  import { Countdown } from '$shared/components/Countdown';
   import FeaturedCampaigns from '$shared/components/FeaturedCampaigns/FeaturedCampaigns.svelte';
   import { classNames } from '$shared/utils/classNames';
 
@@ -39,6 +40,9 @@
   <div class={separator40pxClasses} />
 
   <TrailblazerGuide />
+
+  <!-- dec 16th 2024, 12:00-->
+  <Countdown title="Season 3 starts in" countdown={new Date(1734346800000)} />
 
   <FeaturedCampaigns />
 
