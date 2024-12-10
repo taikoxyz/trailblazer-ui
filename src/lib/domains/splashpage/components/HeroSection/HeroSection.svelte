@@ -4,8 +4,6 @@
   import { goto } from '$app/navigation';
   import { web3modal } from '$lib/shared/utils/connect';
   import ActionButton from '$shared/components/Button/ActionButton.svelte';
-  import { PlusIcon } from '$shared/components/Icon';
-  import { TaikoTrailblazersLogo } from '$shared/components/Logo';
   import { account } from '$shared/stores/account';
   import { classNames } from '$shared/utils/classNames';
 
@@ -15,85 +13,109 @@
 
   $: primaryButtonText = $account?.isConnected ? $t('buttons.get_started') : $t('buttons.connect_wallet');
 
-  const wrapperClasses = classNames('w-full', 'flex', 'h-[746px]', 'xl:max-w-[1440px]');
+  const wrapperClasses = classNames(
+    'w-full',
+    'flex',
+    'h-[746px]',
+    'xl:max-w-[1440px]',
+    'relative',
+    'rounded-[30px]',
+    'overflow-hidden',
+  );
 
   const backgroundImageClasses = classNames(
+    'absolute',
     'f-center',
     'md:f-left',
-    'relative',
     'flex-col',
     'w-dvw',
     'rounded-[30px]',
     'overflow-hidden',
     'bg-center',
-    'xl:bg-[url(/splash/xl/splash.png)]',
-    'lg:bg-[url(/splash/lg/splash.png)]',
-    'md:bg-[url(/splash/md/splash.png)]',
-    'bg-[url(/splash/sm/splash.png)]',
     'w-full',
     'h-full',
     'bg-cover',
-    'px-[57px]',
-    'after:absolute',
-    'after:top-0',
-    'after:left-0',
-    'after:w-full',
-    'after:h-full',
-    'after:opacity-50',
-    'after:bg-[#0c111c]',
-    'after:z-2',
+    'px-[20px]',
   );
 
-  const contentWrapperClasses = classNames(
-    'flex',
-    'flex-col',
-    'xl:flex-row',
-    'h-full',
-    'justify-end',
-    'items-end',
-    'mb-12',
+  const contentWrapperClasses = classNames('f-col', 'w-full', 'h-full', 'justify-end', 'items-end', 'mb-[30px]');
+  const innerContentClasses = classNames(
+    'f-col',
+    'md:f-row',
+    'w-full',
+    'z-10',
+    'bg-white',
+    'rounded-[30px]',
+    'md:rounded-full',
+    'p-[30px]',
+    'md:p-[8px]',
+    'md:pl-[30px]',
+    'md:gap-[20px]',
+    'pr-[45px]',
+    'items-center',
+    'max-w-[728px]',
+    'lg:self-start',
   );
-  const innerContentClasses = classNames('flex-col', 'w-full', 'z-10');
-  const titleClasses = classNames(
-    'self-start',
-    'font-clash-grotesk',
-    'text-[23px]/[28px]',
-    'tracking-[10px]',
-    'xl:text-[45px]/[45px]',
-    'xl:tracking-[22.5px]',
-    'mb-[30px]',
-  );
-  const logoWrapperClasses = classNames('w-full', 'flex-col', 'gap-5');
-  const logoClasses = classNames('w-[242px]', 'md:w-[395px]', 'rounded-[20px]');
-  const descriptionWrapperClasses = classNames('flex-col', 'f-left', 'xl:self-start', 'pb-6');
-  const plusIconClasses = classNames('md:self-start', 'block', 'mb-6');
+
+  const descriptionWrapperClasses = classNames('flex-col', 'w-full', 'f-left', 'pb-6', 'md:pb-0');
   const descriptionTextClasses = classNames(
-    'max-w-[262px]',
-    'md:max-w-[343px]',
     'text-left',
-    'lg:title-subsection-regular',
-    'body-regular',
+    'font-clash-grotesk',
+    'text-elevated-background',
+    'text-[18px]',
+    'font-medium',
+    'leading-[20px]',
+    'tracking-[0.09px]',
   );
-  const buttonWrapperClasses = classNames('gap-4', 'self-center', 'xl:self-start', 'f-col', 'md:f-row', 'w-[150px]');
+  const buttonWrapperClasses = classNames('gap-4', 'self-start', 'f-col', 'md:f-row', 'w-[200px]');
+
+  // padding: 8px 16px 8px 8px;
+  const pillClasses = classNames(
+    'flex',
+    'items-center',
+    'pill-bg',
+    'rounded-full',
+    'p-[8px]',
+    'pr-[16px]',
+    'h-[72px]',
+    'backdrop-blur-[2.5px]',
+    'text-[18px]',
+    'font-medium',
+    'leading-[24px]',
+    'tracking-[0.09px]',
+    'mt-[24px]',
+    'self-start',
+  );
+  const innerPillClasses = classNames('f-row', 'text-black', 'items-center', 'gap-[12px]');
+
+  const seasonClasses = classNames(
+    'bg-pink-50',
+    'p-[16px]',
+    'rounded-full',
+    'gap-[10px]',
+    'h-[56px]',
+    'flex',
+    'items-center',
+  );
 </script>
 
 <div class={wrapperClasses}>
+  <img alt="fallback splash" class="absolute h-full object-cover w-full" src="/splash/fallback.png" />
+  <video autoplay loop muted playsinline class="relative h-full object-cover" src="/splash/xl/evergreen.mp4" />
   <div class={backgroundImageClasses}>
+    <div class={pillClasses}>
+      <div class={innerPillClasses}>
+        <div class={seasonClasses}>Season 3</div>
+        Now live
+      </div>
+    </div>
     <div class={contentWrapperClasses}>
       <div class={innerContentClasses}>
-        <div class={titleClasses}>
-          <div class={logoWrapperClasses}>
-            <TaikoTrailblazersLogo class={logoClasses} />
-          </div>
-        </div>
         <div class={descriptionWrapperClasses}>
-          <PlusIcon class={plusIconClasses} />
-          <div class={descriptionTextClasses}>
-            Embark on the Trailblazers Journey: Unleash your potential in the Taiko universe!
-          </div>
+          <div class={descriptionTextClasses}>Embark on the Trailblazers Journey and unleash your potential!</div>
         </div>
         <div class={buttonWrapperClasses}>
-          <ActionButton priority="primary" on:click={handlePrimaryAction}>
+          <ActionButton priority="primary" on:click={handlePrimaryAction} class="font-bold" withArrow>
             {primaryButtonText}
           </ActionButton>
         </div>
@@ -101,3 +123,9 @@
     </div>
   </div>
 </div>
+
+<style>
+  .pill-bg {
+    background-color: rgba(255, 198, 233, 0.7);
+  }
+</style>
