@@ -1,0 +1,12 @@
+
+# Allow all search engine bots to crawl everything
+User-agent: *
+Disallow:
+
+# Block specific paths (optional)
+Disallow: /pinkify/
+Disallow: /leaderboard/s1/
+Disallow: /sentry-example/
+
+# Sitemap (important for SEO)
+Sitemap: https://www.trailblazers.taiko.xyz/sitemap.xml
