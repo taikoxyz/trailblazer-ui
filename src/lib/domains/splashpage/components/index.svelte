@@ -40,9 +40,9 @@
 
   <TrailblazerGuide />
 
-  <FeaturedCampaigns />
-
   <BannerCarousel interval={5000} transitionDuration={700} transitionDistance={200} {slides} withDots />
+
+  <FeaturedCampaigns />
 
   <div class={separator120pxClasses} />
 

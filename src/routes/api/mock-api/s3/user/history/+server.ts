@@ -28,6 +28,7 @@ export function GET({ url }) {
         event: eventToActivityTypeMap['TransactionValue'],
         date: 1721642099,
         multiplier: 4,
+        tx_hash: '0x1234567890abcdef',
       },
       {
         address: address,
@@ -35,6 +36,7 @@ export function GET({ url }) {
         event: eventToActivityTypeMap['Transaction'],
         date: 1721642099,
         multiplier: 1,
+        tx_hash: '0x1234567890abcdef',
       },
       {
         address: address,
@@ -42,6 +44,7 @@ export function GET({ url }) {
         event: eventToActivityTypeMap['Bridged'],
         date: 1721642039,
         multiplier: 1,
+        tx_hash: '0x1234567890abcdef',
       },
       {
         address: address,
@@ -60,9 +63,9 @@ export function GET({ url }) {
       {
         address: address,
         points: 1234,
-        event: eventToActivityTypeMap['Transaction'],
+        event: eventToActivityTypeMap['Prediction'],
         date: 1721641943,
-        multiplier: 1,
+        multiplier: 3,
       },
       {
         address: address,
