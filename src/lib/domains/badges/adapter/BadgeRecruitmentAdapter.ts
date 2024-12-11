@@ -113,7 +113,7 @@ export default class BadgeRecruitmentAdapter {
           abi: trailblazersBadgesAbi,
           address: trailblazersBadgesAddress[chainId],
           functionName: 'startRecruitment',
-          args: [BigInt(badgeId)],
+          args: [BigInt(badgeId), BigInt(nft.tokenId)],
           chainId,
         })
           .then(() => {

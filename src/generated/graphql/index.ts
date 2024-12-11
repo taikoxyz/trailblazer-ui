@@ -1,4 +1,4 @@
-import client from 'https://api.goldsky.com/api/public/project_clz85cxrvng3n01ughcv5e7hg/subgraphs/tbz-hekla/0.3.1/gn';
+import client from 'https://api.goldsky.com/api/public/project_clz85cxrvng3n01ughcv5e7hg/subgraphs/tbz-hekla/0.3.5/gn';
 import type {} from '@apollo/client';
 import { readable } from 'svelte/store';
 import type { Readable } from 'svelte/store';
@@ -278,6 +278,7 @@ export enum BadgeRecruitment_OrderBy {
   S1BadgeBadgeId = 's1Badge__badgeId',
   S1BadgeContract = 's1Badge__contract',
   S1BadgeErc = 's1Badge__erc',
+  S1BadgeFrozen = 's1Badge__frozen',
   S1BadgeId = 's1Badge__id',
   S1BadgeMovement = 's1Badge__movement',
   S1BadgeSeason = 's1Badge__season',
@@ -287,6 +288,7 @@ export enum BadgeRecruitment_OrderBy {
   S2BadgeBadgeId = 's2Badge__badgeId',
   S2BadgeContract = 's2Badge__contract',
   S2BadgeErc = 's2Badge__erc',
+  S2BadgeFrozen = 's2Badge__frozen',
   S2BadgeId = 's2Badge__id',
   S2BadgeMovement = 's2Badge__movement',
   S2BadgeSeason = 's2Badge__season',
@@ -1381,6 +1383,7 @@ export type Token = {
   badgeId?: Maybe<Scalars['BigInt']['output']>;
   contract: Scalars['Bytes']['output'];
   erc: Scalars['BigInt']['output'];
+  frozen?: Maybe<Scalars['Boolean']['output']>;
   id: Scalars['ID']['output'];
   movement?: Maybe<Scalars['BigInt']['output']>;
   owner: Account;
@@ -1419,6 +1422,10 @@ export type Token_Filter = {
   erc_lte?: InputMaybe<Scalars['BigInt']['input']>;
   erc_not?: InputMaybe<Scalars['BigInt']['input']>;
   erc_not_in?: InputMaybe<Array<Scalars['BigInt']['input']>>;
+  frozen?: InputMaybe<Scalars['Boolean']['input']>;
+  frozen_in?: InputMaybe<Array<Scalars['Boolean']['input']>>;
+  frozen_not?: InputMaybe<Scalars['Boolean']['input']>;
+  frozen_not_in?: InputMaybe<Array<Scalars['Boolean']['input']>>;
   id?: InputMaybe<Scalars['ID']['input']>;
   id_gt?: InputMaybe<Scalars['ID']['input']>;
   id_gte?: InputMaybe<Scalars['ID']['input']>;
@@ -1499,6 +1506,7 @@ export enum Token_OrderBy {
   BadgeId = 'badgeId',
   Contract = 'contract',
   Erc = 'erc',
+  Frozen = 'frozen',
   Id = 'id',
   Movement = 'movement',
   Owner = 'owner',
