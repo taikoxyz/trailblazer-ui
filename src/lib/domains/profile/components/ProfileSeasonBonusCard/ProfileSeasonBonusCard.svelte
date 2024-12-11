@@ -62,7 +62,7 @@
 
   const loadPoints = async () => {
     const address = getConnectedAddress();
-    if (address && address !== zeroAddress && $activeSeason) {
+    if (address && address !== zeroAddress && $activeSeason && bonusClaimActive) {
       $bonusLoading = true;
       const [isOpen, bonusPoints, claimed, pointsAndRank] = await Promise.all([
         profileService.checkRegistrationOpen(0),
