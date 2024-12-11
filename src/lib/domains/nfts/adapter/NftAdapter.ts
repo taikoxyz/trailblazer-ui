@@ -40,6 +40,7 @@ export class NftAdapter {
         const erc = parseInt(token.erc) as TokenType;
         const movement = parseInt(token.movement);
         const tokenUri = token.uri || '';
+        const frozen = token.frozen || false;
 
         return {
           address,
@@ -49,6 +50,7 @@ export class NftAdapter {
             badgeId: isNaN(badgeId) ? undefined : badgeId,
             erc,
             movement: isNaN(movement) ? undefined : movement,
+            frozen,
           },
         } satisfies NFT;
       });

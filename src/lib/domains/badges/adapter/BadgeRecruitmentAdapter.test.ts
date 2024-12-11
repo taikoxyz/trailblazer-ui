@@ -155,7 +155,7 @@ describe('BadgeRecruitmentAdapter', () => {
         abi: trailblazersBadgesAbi,
         address: trailblazersBadgesAddress[chainId],
         functionName: 'startRecruitment',
-        args: [BigInt(mockBadge.metadata.badgeId as number)],
+        args: [BigInt(mockBadge.metadata.badgeId as number), BigInt(mockBadge.tokenId)],
         chainId,
       });
 

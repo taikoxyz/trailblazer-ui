@@ -50,10 +50,21 @@
   async function handleStartRecruitment(badgeId: number) {
     if (!$account || !$account.address) return;
 
+    const nfts = $userProfile.nfts;
+
+    const s1Badge = nfts?.find(
+      (nft) => !nft.metadata.frozen && nft.metadata.season === Seasons.Season1 && nft.metadata.badgeId === badgeId,
+    );
+
+    if (!s1Badge) {
+      console.error(`No eligible badge found`);
+      return;
+    }
+
     $activeRecruitment = {
       badgeId,
       status: RecruitmentStatus.NOT_STARTED,
-      s1Badge: getMockBadge(Seasons.Season1, badgeId),
+      s1Badge,
       id: '',
       whaleInfluences: 0,
       minnowInfluences: 0,
