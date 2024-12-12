@@ -1,4 +1,4 @@
-import client from 'https://api.goldsky.com/api/public/project_clz85cxrvng3n01ughcv5e7hg/subgraphs/tbz-hekla/0.3.12/gn';
+import client from 'https://api.goldsky.com/api/public/project_clz85cxrvng3n01ughcv5e7hg/subgraphs/tbz-hekla/0.3.18/gn';
 import type {} from '@apollo/client';
 import { readable } from 'svelte/store';
 import type { Readable } from 'svelte/store';
@@ -133,7 +133,7 @@ export type BadgeRecruitment = {
   claimExpirationTimeout: Scalars['BigInt']['output'];
   cycleId: Scalars['BigInt']['output'];
   /** owner:s1BadgeTokenId */
-  id: Scalars['Bytes']['output'];
+  id: Scalars['ID']['output'];
   influenceExpirationTimeout: Scalars['BigInt']['output'];
   isCompleted?: Maybe<Scalars['Boolean']['output']>;
   isStarted?: Maybe<Scalars['Boolean']['output']>;
@@ -164,16 +164,14 @@ export type BadgeRecruitment_Filter = {
   cycleId_lte?: InputMaybe<Scalars['BigInt']['input']>;
   cycleId_not?: InputMaybe<Scalars['BigInt']['input']>;
   cycleId_not_in?: InputMaybe<Array<Scalars['BigInt']['input']>>;
-  id?: InputMaybe<Scalars['Bytes']['input']>;
-  id_contains?: InputMaybe<Scalars['Bytes']['input']>;
-  id_gt?: InputMaybe<Scalars['Bytes']['input']>;
-  id_gte?: InputMaybe<Scalars['Bytes']['input']>;
-  id_in?: InputMaybe<Array<Scalars['Bytes']['input']>>;
-  id_lt?: InputMaybe<Scalars['Bytes']['input']>;
-  id_lte?: InputMaybe<Scalars['Bytes']['input']>;
-  id_not?: InputMaybe<Scalars['Bytes']['input']>;
-  id_not_contains?: InputMaybe<Scalars['Bytes']['input']>;
-  id_not_in?: InputMaybe<Array<Scalars['Bytes']['input']>>;
+  id?: InputMaybe<Scalars['ID']['input']>;
+  id_gt?: InputMaybe<Scalars['ID']['input']>;
+  id_gte?: InputMaybe<Scalars['ID']['input']>;
+  id_in?: InputMaybe<Array<Scalars['ID']['input']>>;
+  id_lt?: InputMaybe<Scalars['ID']['input']>;
+  id_lte?: InputMaybe<Scalars['ID']['input']>;
+  id_not?: InputMaybe<Scalars['ID']['input']>;
+  id_not_in?: InputMaybe<Array<Scalars['ID']['input']>>;
   influenceExpirationTimeout?: InputMaybe<Scalars['BigInt']['input']>;
   influenceExpirationTimeout_gt?: InputMaybe<Scalars['BigInt']['input']>;
   influenceExpirationTimeout_gte?: InputMaybe<Scalars['BigInt']['input']>;

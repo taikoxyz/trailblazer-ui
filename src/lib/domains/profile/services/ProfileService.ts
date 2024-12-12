@@ -863,8 +863,8 @@ export class ProfileService implements IProfileService {
     return this.badgeRecruitmentService.getRecruitmentCycleId();
   }
 
-  async resetMigration(tokenId: number): Promise<void> {
-    log('resetMigration', { tokenId });
-    await this.badgeRecruitmentService.resetMigration(tokenId);
+  async resetMigration(tokenId: number, badgeId: number, cycleId: number): Promise<void> {
+    log('resetMigration', { tokenId, badgeId, cycleId });
+    await this.badgeRecruitmentService.resetMigration(tokenId, badgeId, cycleId);
   }
 }
