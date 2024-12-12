@@ -9,6 +9,7 @@ import generateBadgeMetadata from './generateBadgeMetadata';
 
 export default function parseGqlBadgeRecruitment(raw: GqlBadgeRecruitment): IBadgeRecruitment {
   const s1BadgeId = parseInt(raw.s1Badge.badgeId.toString());
+
   const s1Badge = {
     tokenId: parseInt(raw.s1Badge.tokenId.toString()),
     address: trailblazersBadgesAddress[chainId],
@@ -53,6 +54,7 @@ export default function parseGqlBadgeRecruitment(raw: GqlBadgeRecruitment): IBad
   }
 
   return {
+    cycleId: Number(raw.cycleId),
     badgeId: s1BadgeId,
     status,
     id: raw.id,

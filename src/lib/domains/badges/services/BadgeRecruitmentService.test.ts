@@ -79,7 +79,8 @@ describe('BadgeRecruitmentService', () => {
       whaleInfluences: 0,
       minnowInfluences: 0,
       claimExpirationTimeout: new Date(),
-    }; // Replace with your IBadgeRecruitment structure
+      cycleId: 1,
+    };
 
     const mockResponse: IBadgeRecruitment = {
       ...mockRecruitment,
@@ -110,6 +111,7 @@ describe('BadgeRecruitmentService', () => {
       whaleInfluences: 1,
       minnowInfluences: 0,
       claimExpirationTimeout: new Date(),
+      cycleId: 1,
     }; // Recruitment object
     const mockSelectedMovement = Movements.Whale;
 
@@ -152,6 +154,7 @@ describe('BadgeRecruitmentService', () => {
       whaleInfluences: 2,
       minnowInfluences: 0,
       claimExpirationTimeout: new Date(),
+      cycleId: 1,
     }; // Recruitment object
 
     const mockResponse: IBadgeRecruitment = {
@@ -183,6 +186,7 @@ describe('BadgeRecruitmentService', () => {
         whaleInfluences: 0,
         minnowInfluences: 0,
         claimExpirationTimeout: new Date(),
+        cycleId: 1,
       },
       {
         id: 'r2',
@@ -192,6 +196,7 @@ describe('BadgeRecruitmentService', () => {
         whaleInfluences: 1,
         minnowInfluences: 2,
         claimExpirationTimeout: new Date(),
+        cycleId: 1,
       },
     ];
 

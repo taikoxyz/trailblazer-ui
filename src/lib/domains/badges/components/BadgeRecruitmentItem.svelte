@@ -7,6 +7,7 @@
   import type { FactionBadgeButton } from '$lib/domains/profile/types/FactionBadgeButton';
   import { Movements, Seasons } from '$lib/domains/profile/types/types';
   import { type IBadgeRecruitment, RecruitmentStatus } from '$lib/shared/types/BadgeRecruitment';
+  import { ActionButton } from '$shared/components/Button';
   import { account } from '$shared/stores';
   import {
     activeRecruitment,
@@ -20,6 +21,7 @@
   import Countdown from './Countdown.svelte';
 
   export let badgeId: number;
+  export let enabled: boolean; // contract-level disabling
 
   $: recruitment =
     $activeRecruitment && $activeRecruitment.badgeId === badgeId
@@ -27,7 +29,9 @@
       : $userProfile?.badgeRecruitment?.find((m) => m.badgeId === badgeId);
 
   $: s1TokenOwned = Boolean(
-    $userProfile.nfts?.find((nft) => nft.metadata.season === Seasons.Season1 && nft.metadata.badgeId === badgeId),
+    $userProfile.nfts?.find(
+      (nft) => nft.metadata.season === Seasons.Season1 && nft.metadata.badgeId === badgeId && !nft.metadata.frozen,
+    ),
   );
   $: movement = getBadgeMovement(badgeId);
   $: influenceExpiration = addGraceCoolDown(recruitment?.influenceExpirationTimeout);
@@ -40,11 +44,10 @@
   $: canInfluence = recruitment?.status === RecruitmentStatus.CAN_REFINE;
   $: isComplete = recruitment?.status === RecruitmentStatus.COMPLETED;
   $: blurred = canInfluence || isStarted || (influenceExpiration && influenceExpiration > new Date());
-  $: inColor = isEligible || canClaim || canInfluence || isComplete;
+  $: inColor = !enabled || isEligible || canClaim || canInfluence || isComplete;
   $: buttonDisabled =
     isInfluenceActive ||
     Boolean($activeRecruitment ? $activeRecruitment.badgeId !== recruitment?.badgeId : $activeRecruitment);
-
   const dispatch = createEventDispatcher();
 
   async function handleStartRecruitment(badgeId: number) {
@@ -62,6 +65,7 @@
     }
 
     $activeRecruitment = {
+      cycleId: -1,
       badgeId,
       status: RecruitmentStatus.NOT_STARTED,
       s1Badge,
@@ -188,23 +192,25 @@
   const countdownItemClasses = classNames('h-min');
 </script>
 
-{#if recruitment}
-  <div
-    class={canClaim || canInfluence
-      ? pinkShadowed
-      : isComplete
-        ? greenBordered
-        : isEligible
-          ? $activeRecruitment && isActiveBadge
-            ? pinkShadowed
-            : pinkBordered
-          : neutralBordered}>
-    <FactionBadgeItem
-      token={getMockBadge(isComplete ? Seasons.Season2 : Seasons.Season1, badgeId, movement)}
-      {inColor}
-      {blurred}
-      {buttonDisabled}
-      button={canInfluence || isStarted
+<div
+  class={canClaim || canInfluence
+    ? pinkShadowed
+    : isComplete
+      ? greenBordered
+      : isEligible
+        ? $activeRecruitment && isActiveBadge
+          ? pinkShadowed
+          : pinkBordered
+        : neutralBordered}>
+  <FactionBadgeItem
+    hideBubbles={!enabled}
+    token={getMockBadge(isComplete ? Seasons.Season2 : Seasons.Season1, badgeId, movement)}
+    {inColor}
+    {blurred}
+    {buttonDisabled}
+    button={!enabled
+      ? null
+      : canInfluence || isStarted
         ? buttons.Influence
         : canClaim
           ? buttons.EndRecruitment
@@ -215,34 +221,45 @@
               : isEligible
                 ? buttons.StartRecruitment
                 : buttons.NotEligible}>
-      {#if recruitment}
-        <div class={blurred ? timerOverlayClasses : emptyOverlayClasses}>
-          <div class={timerLabelClasses}>
-            {#if influenceExpiration && influenceExpiration > new Date()}
-              <!-- cannot re-influence yet-->
-              {$t('badge_recruitment.main.can_influence_in')}
-            {:else if claimExpiration && claimExpiration > new Date()}
-              <!-- logic for uninfluenced, time 0 -->
-              {$t('badge_recruitment.main.can_claim_in')}
-            {/if}
-          </div>
+    {#if recruitment}
+      <div class={blurred ? timerOverlayClasses : emptyOverlayClasses}>
+        <div class={timerLabelClasses}>
           {#if influenceExpiration && influenceExpiration > new Date()}
             <!-- cannot re-influence yet-->
-            <Countdown
-              on:end={() => dispatch('counterEnd')}
-              class={countdownWrapperClasses}
-              itemClasses={countdownItemClasses}
-              target={influenceExpiration} />
+            {$t('badge_recruitment.main.can_influence_in')}
           {:else if claimExpiration && claimExpiration > new Date()}
-            <!-- logic for uninfluenceed -->
-            <Countdown
-              on:end={() => dispatch('counterEnd')}
-              class={countdownWrapperClasses}
-              itemClasses={countdownItemClasses}
-              target={claimExpiration} />
+            <!-- logic for uninfluenced, time 0 -->
+            {$t('badge_recruitment.main.can_claim_in')}
           {/if}
         </div>
-      {/if}
-    </FactionBadgeItem>
-  </div>
-{/if}
+        {#if influenceExpiration && influenceExpiration > new Date()}
+          <!-- cannot re-influence yet-->
+          <Countdown
+            on:end={() => dispatch('counterEnd')}
+            class={countdownWrapperClasses}
+            itemClasses={countdownItemClasses}
+            target={influenceExpiration} />
+        {:else if claimExpiration && claimExpiration > new Date()}
+          <!-- logic for uninfluenceed -->
+          <Countdown
+            on:end={() => dispatch('counterEnd')}
+            class={countdownWrapperClasses}
+            itemClasses={countdownItemClasses}
+            target={claimExpiration} />
+        {/if}
+      </div>
+    {/if}
+
+    {#if !enabled}
+      <div class="absolute glassy-background-lg flex justify-center items-center w-full h-full">
+        {#if badgeId % 3 === 0}
+          <div class="p-[16px] w-full">
+            <ActionButton priority="secondary">Reset</ActionButton>
+          </div>
+        {:else}
+          <p>Currently not recruitable</p>
+        {/if}
+      </div>
+    {/if}
+  </FactionBadgeItem>
+</div>

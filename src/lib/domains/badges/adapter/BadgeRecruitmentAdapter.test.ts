@@ -109,6 +109,7 @@ describe('BadgeRecruitmentAdapter', () => {
       const mockBadge = getMockBadge(SEASON_1, 1);
       const mockRecruitment: IBadgeRecruitment = {
         id: '1',
+        cycleId: 1,
         badgeId: mockBadge.metadata.badgeId as number,
         status: RecruitmentStatus.ELIGIBLE,
         s1Badge: mockBadge,
@@ -161,6 +162,7 @@ describe('BadgeRecruitmentAdapter', () => {
 
       expect(result).toStrictEqual({
         badgeId: 1,
+        cycleId: 1,
         claimExpirationTimeout: new Date('1970-01-02T10:17:36.000Z'),
         id: '1',
         influenceExpirationTimeout: new Date('1970-01-01T00:31:00.000Z'),
@@ -204,6 +206,7 @@ describe('BadgeRecruitmentAdapter', () => {
       const mockBadge = getMockBadge(SEASON_1, 1);
       const mockRecruitment: IBadgeRecruitment = {
         id: '1',
+        cycleId: 1,
         badgeId: mockBadge.metadata.badgeId as number,
         status: RecruitmentStatus.ELIGIBLE,
         s1Badge: mockBadge,
@@ -271,6 +274,7 @@ describe('BadgeRecruitmentAdapter', () => {
 
       expect(result).toStrictEqual({
         badgeId: 1,
+        cycleId: 1,
         claimExpirationTimeout: new Date('1970-01-01T01:01:00.000Z'),
         id: '1',
         influenceExpirationTimeout: new Date('1970-01-02T10:17:36.000Z'),
@@ -314,6 +318,7 @@ describe('BadgeRecruitmentAdapter', () => {
       const mockBadge = getMockBadge(SEASON_1, 1);
       const mockRecruitment: IBadgeRecruitment = {
         id: '1',
+        cycleId: 1,
         badgeId: mockBadge.metadata.badgeId as number,
         status: RecruitmentStatus.ELIGIBLE,
         s1Badge: mockBadge,
@@ -377,6 +382,7 @@ describe('BadgeRecruitmentAdapter', () => {
 
       expect(result).toStrictEqual({
         badgeId: 1,
+        cycleId: 1,
         claimExpirationTimeout: new Date('1970-01-01T01:01:00.000Z'),
         id: '1',
         influenceExpirationTimeout: new Date('1970-01-01T00:31:00.000Z'),
@@ -404,7 +410,6 @@ describe('BadgeRecruitmentAdapter', () => {
     describe('getRecruitmentStatus', () => {
       it('should fetch recruitment status', async () => {
         const mockAddress = '0x1234567890abcdef1234567890abcdef12345678';
-
         vi.mocked(graphqlClient.query).mockResolvedValue({
           loading: false,
           networkStatus: 7,
@@ -421,6 +426,7 @@ describe('BadgeRecruitmentAdapter', () => {
                   minnowInfluences: 0,
                   claimExpirationTimeout: 3600,
                   influenceExpirationTimeout: 1800,
+                  cycleId: 1,
                 },
               ],
             },
@@ -429,7 +435,7 @@ describe('BadgeRecruitmentAdapter', () => {
 
         vi.spyOn(adapter, 'fetchEnabledRecruitments').mockResolvedValue([1, 2]);
 
-        const result = await adapter.getRecruitmentStatus(mockAddress);
+        const result = await adapter.getRecruitmentStatus(mockAddress, 1);
 
         expect(graphqlClient.query).toHaveBeenCalledWith({
           query: GET_MIGRATION_STATUS_QUERY,
@@ -441,6 +447,7 @@ describe('BadgeRecruitmentAdapter', () => {
           {
             id: '1',
             badgeId: 1,
+            cycleId: 1,
             status: RecruitmentStatus.CAN_CLAIM,
             s1Badge: {
               tokenId: 1,

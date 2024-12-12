@@ -1,4 +1,4 @@
-import client from 'https://api.goldsky.com/api/public/project_clz85cxrvng3n01ughcv5e7hg/subgraphs/tbz-hekla/0.3.6/gn';
+import client from 'https://api.goldsky.com/api/public/project_clz85cxrvng3n01ughcv5e7hg/subgraphs/tbz-hekla/0.3.11/gn';
 import type {} from '@apollo/client';
 import { readable } from 'svelte/store';
 import type { Readable } from 'svelte/store';
@@ -131,6 +131,7 @@ export enum Aggregation_Interval {
 export type BadgeRecruitment = {
   __typename?: 'BadgeRecruitment';
   claimExpirationTimeout: Scalars['BigInt']['output'];
+  cycleId: Scalars['BigInt']['output'];
   /** owner:s1BadgeTokenId */
   id: Scalars['Bytes']['output'];
   influenceExpirationTimeout: Scalars['BigInt']['output'];
@@ -155,6 +156,14 @@ export type BadgeRecruitment_Filter = {
   claimExpirationTimeout_lte?: InputMaybe<Scalars['BigInt']['input']>;
   claimExpirationTimeout_not?: InputMaybe<Scalars['BigInt']['input']>;
   claimExpirationTimeout_not_in?: InputMaybe<Array<Scalars['BigInt']['input']>>;
+  cycleId?: InputMaybe<Scalars['BigInt']['input']>;
+  cycleId_gt?: InputMaybe<Scalars['BigInt']['input']>;
+  cycleId_gte?: InputMaybe<Scalars['BigInt']['input']>;
+  cycleId_in?: InputMaybe<Array<Scalars['BigInt']['input']>>;
+  cycleId_lt?: InputMaybe<Scalars['BigInt']['input']>;
+  cycleId_lte?: InputMaybe<Scalars['BigInt']['input']>;
+  cycleId_not?: InputMaybe<Scalars['BigInt']['input']>;
+  cycleId_not_in?: InputMaybe<Array<Scalars['BigInt']['input']>>;
   id?: InputMaybe<Scalars['Bytes']['input']>;
   id_contains?: InputMaybe<Scalars['Bytes']['input']>;
   id_gt?: InputMaybe<Scalars['Bytes']['input']>;
@@ -265,6 +274,7 @@ export type BadgeRecruitment_Filter = {
 
 export enum BadgeRecruitment_OrderBy {
   ClaimExpirationTimeout = 'claimExpirationTimeout',
+  CycleId = 'cycleId',
   Id = 'id',
   InfluenceExpirationTimeout = 'influenceExpirationTimeout',
   IsCompleted = 'isCompleted',
