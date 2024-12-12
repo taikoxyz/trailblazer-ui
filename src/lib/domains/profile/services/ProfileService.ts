@@ -1,6 +1,7 @@
 import { getAccount } from '@wagmi/core';
 import { type Address, getAddress, type Hash } from 'viem';
 
+import { BadgeMultiplierService } from '$lib/domains/badges/services/BadgeMultiplierService';
 import BadgeRecruitmentService from '$lib/domains/badges/services/BadgeRecruitmentService';
 import type { UserLeaderboardItem } from '$lib/domains/leaderboard/types/user/types';
 import { NftService } from '$lib/domains/nfts/services/NftService';
@@ -25,6 +26,8 @@ import { wagmiConfig } from '$lib/shared/wagmi';
 import { activeRecruitment } from '$shared/stores/recruitment';
 import { getLogger } from '$shared/utils/logger';
 
+import type { Multipliers } from '../types/Multipliers';
+
 const log = getLogger('ProfileService');
 
 export class ProfileService implements IProfileService {
@@ -33,6 +36,7 @@ export class ProfileService implements IProfileService {
   // Adapters
   private apiAdapter: ProfileApiAdapter;
   private seasonBonusAdapter: SeasonBonusPointsAdapter;
+  private badgeMultiplierService: BadgeMultiplierService;
 
   // Repositories
   private userRepository: UserRepository;
@@ -49,12 +53,14 @@ export class ProfileService implements IProfileService {
     combinedNFTService?: NftService,
     badgeRecruitmentService?: BadgeRecruitmentService,
     seasonBonusAdapter?: SeasonBonusPointsAdapter,
+    badgeMultiplierService?: BadgeMultiplierService,
   ) {
     this.apiAdapter = apiAdapter || new ProfileApiAdapter();
     this.userRepository = userRepository || new UserRepository();
     this.combinedNFTService = combinedNFTService || new NftService();
     this.badgeRecruitmentService = badgeRecruitmentService || new BadgeRecruitmentService();
     this.seasonBonusAdapter = seasonBonusAdapter || new SeasonBonusPointsAdapter();
+    this.badgeMultiplierService = badgeMultiplierService || new BadgeMultiplierService();
   }
 
   /**
@@ -785,6 +791,58 @@ export class ProfileService implements IProfileService {
       log('Profile with final scores:', await this.userRepository.get());
     } catch (error) {
       log('Error in previousSeasonFinalScores:', error);
+    }
+  }
+
+  /**
+   * Fetches the badge multiplier for the given address and season.
+   *
+   * @param {Address} address
+   * @param {number} season
+   * @return {*}
+   * @memberof ProfileService
+   */
+  async getBadgeMultiplier(address: Address, season: number): Promise<Multipliers> {
+    log('Fetching badge multiplier for address:', address);
+    const mp = {
+      multipliers: {
+        transationMultiplier: {
+          multiplier: 1,
+          max: false as boolean,
+        },
+        transactionVolumeMultiplier: {
+          multiplier: 1,
+          max: false as boolean,
+        },
+        globalMultiplier: {
+          multiplier: 1,
+          max: false as boolean,
+        },
+      },
+    } satisfies Multipliers;
+    try {
+      const multiplier = await this.badgeMultiplierService.getBadgeMultiplier(address, season);
+      const { minnowMultiplier, whaleMultiplier, globalMultiplier } = multiplier;
+      log('Fetched badge multiplier:', multiplier);
+      mp.multipliers = {
+        transationMultiplier: {
+          multiplier: minnowMultiplier / 100,
+          max: minnowMultiplier === 140,
+        },
+        transactionVolumeMultiplier: {
+          multiplier: whaleMultiplier / 100,
+          max: whaleMultiplier === 140,
+        },
+        globalMultiplier: {
+          multiplier: globalMultiplier / 100,
+          max: globalMultiplier === 240,
+        },
+      };
+      log('Updated badge multiplier:', mp);
+      return mp;
+    } catch (error) {
+      log('Error fetching badge multiplier:', error);
+      return mp;
     }
   }
 

@@ -3,7 +3,6 @@
   import { type Address, isAddressEqual } from 'viem';
 
   import { page } from '$app/stores';
-  import BoosterCard from '$lib/domains/profile/components/BoosterCard.svelte';
   import ProfileCard from '$lib/domains/profile/components/ProfileCard.svelte';
   import ProfileModals from '$lib/domains/profile/components/ProfileModals.svelte';
   import ProfileTabs from '$lib/domains/profile/components/ProfileTabs.svelte';
@@ -15,6 +14,7 @@
   import { classNames } from '$shared/utils/classNames';
   import getConnectedAddress from '$shared/utils/getConnectedAddress';
 
+  import MultiplierCard from './ProfileMultiplierCard/MultiplierCard.svelte';
   import ProfileSeasonBonusCard from './ProfileSeasonBonusCard/ProfileSeasonBonusCard.svelte';
 
   let isSelfProfile: boolean;
@@ -23,14 +23,13 @@
   const containerClasses = classNames('flex', 'flex-col', 'items-center');
   const sectionClasses = classNames('flex', 'flex-col', 'max-w-section', 'w-full', 'lg:gap-8');
   const innerContainerClasses = classNames(
-    'flex',
     'px-4',
     'lg:px-0',
     'gap-8',
     'h-full',
     'box-content',
-    'flex-col',
-    'lg:flex-row',
+    'f-col',
+    'xl:f-row',
     'justify-center',
   );
   // const alertClasses = classNames('mt-[28px]');
@@ -47,7 +46,7 @@
   <div class={sectionClasses}>
     <div class={innerContainerClasses}>
       <ProfileCard loading={$profileLoading} {isSelfProfile} />
-      <BoosterCard />
+      <MultiplierCard />
       {#if isSelfProfile}
         <ProfileSeasonBonusCard />
       {/if}

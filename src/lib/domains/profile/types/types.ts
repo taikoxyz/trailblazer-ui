@@ -32,13 +32,6 @@ export type UserNFT = {
   explorerLink?: string;
 };
 
-export type UserMultiplier = {
-  totalMultiplier: number;
-  taikoonMultiplier: number;
-  factionMultiplier: number;
-  snaefellMultiplier: number;
-};
-
 export type UserBooster = {
   title: string;
   boost: number;

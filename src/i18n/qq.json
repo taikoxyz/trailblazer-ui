@@ -19,6 +19,50 @@
           "question": "QQQQQ"
         }
       ],
+      "entries[10]": {
+        "answer": "",
+        "question": ""
+      },
+      "entries[11]": {
+        "answer": "",
+        "question": ""
+      },
+      "entries[12]": {
+        "answer": "",
+        "question": ""
+      },
+      "entries[13]": {
+        "answer": "",
+        "question": ""
+      },
+      "entries[14]": {
+        "answer": "",
+        "question": ""
+      },
+      "entries[15]": {
+        "answer": "",
+        "question": ""
+      },
+      "entries[16]": {
+        "answer": "",
+        "question": ""
+      },
+      "entries[17]": {
+        "answer": "",
+        "question": ""
+      },
+      "entries[18]": {
+        "answer": "",
+        "question": ""
+      },
+      "entries[19]": {
+        "answer": "",
+        "question": ""
+      },
+      "entries[20]": {
+        "answer": "",
+        "question": ""
+      },
       "entries[2]": {
         "answer": "",
         "question": ""
@@ -40,6 +84,14 @@
         "question": ""
       },
       "entries[7]": {
+        "answer": "",
+        "question": ""
+      },
+      "entries[8]": {
+        "answer": "",
+        "question": ""
+      },
+      "entries[9]": {
         "answer": "",
         "question": ""
       },
@@ -701,6 +753,16 @@
       },
       "title": "QQQQQ",
       "yourNfts": "QQQQQ"
+    }
+  },
+  "profile": {
+    "multipliers": {
+      "card": {
+        "cta": "",
+        "global": "",
+        "tx": "",
+        "txValue": ""
+      }
     }
   },
   "switch_modal": {

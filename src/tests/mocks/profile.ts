@@ -20,10 +20,18 @@ export const MOCK_PROFILE: UserProfile = {
   },
   activityHistory: {},
   multipliers: {
-    totalMultiplier: 3,
-    taikoonMultiplier: 1,
-    factionMultiplier: 2,
-    snaefellMultiplier: 1,
+    transationMultiplier: {
+      multiplier: 1,
+      max: false,
+    },
+    transactionVolumeMultiplier: {
+      multiplier: 1,
+      max: false,
+    },
+    globalMultiplier: {
+      multiplier: 1,
+      max: false,
+    },
   },
   domainInfo: {
     dotTaiko: 'jane.test.taiko',
@@ -49,10 +57,18 @@ export const MOCK_PROFILE_2: UserProfile = {
   },
   activityHistory: {},
   multipliers: {
-    totalMultiplier: 1,
-    taikoonMultiplier: 0,
-    factionMultiplier: 1,
-    snaefellMultiplier: 1,
+    transationMultiplier: {
+      multiplier: 1,
+      max: false,
+    },
+    transactionVolumeMultiplier: {
+      multiplier: 1,
+      max: false,
+    },
+    globalMultiplier: {
+      multiplier: 1,
+      max: false,
+    },
   },
   domainInfo: {
     selected: DomainType.ADDRESS,
