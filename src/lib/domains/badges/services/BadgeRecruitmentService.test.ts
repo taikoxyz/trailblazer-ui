@@ -26,6 +26,7 @@ vi.mock('$lib/domains/badges/adapter/BadgeRecruitmentAdapter', () => {
       influenceRecruitment: vi.fn(),
       endRecruitment: vi.fn(),
       getRecruitmentStatus: vi.fn(),
+      getRecruitmentCycleId: vi.fn(),
       getMaxInfluences: vi.fn(),
     })),
   };
@@ -47,6 +48,7 @@ describe('BadgeRecruitmentService', () => {
       influenceRecruitment: vi.fn(),
       endRecruitment: vi.fn(),
       getRecruitmentStatus: vi.fn(),
+      getRecruitmentCycleId: vi.fn(),
       getMaxInfluences: vi.fn(),
       _getRecruitmentSignature: vi.fn(),
     } as unknown as BadgeRecruitmentAdapter;

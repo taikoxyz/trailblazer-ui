@@ -3,11 +3,12 @@
   import { t } from 'svelte-i18n';
 
   import { FactionBadgeItem } from '$lib/domains/profile/components/ProfileNFTs/FactionBadges';
+  import profileService from '$lib/domains/profile/services/ProfileServiceInstance';
   import { userProfile } from '$lib/domains/profile/stores';
   import type { FactionBadgeButton } from '$lib/domains/profile/types/FactionBadgeButton';
   import { Movements, Seasons } from '$lib/domains/profile/types/types';
   import { type IBadgeRecruitment, RecruitmentStatus } from '$lib/shared/types/BadgeRecruitment';
-  import { ActionButton } from '$shared/components/Button';
+  import { errorToast, successToast } from '$shared/components/NotificationToast';
   import { account } from '$shared/stores';
   import {
     activeRecruitment,
@@ -23,6 +24,8 @@
   export let badgeId: number;
   export let enabled: boolean; // contract-level disabling
 
+  export let cycleId: number;
+
   $: recruitment =
     $activeRecruitment && $activeRecruitment.badgeId === badgeId
       ? $activeRecruitment
@@ -36,18 +39,35 @@
   $: movement = getBadgeMovement(badgeId);
   $: influenceExpiration = addGraceCoolDown(recruitment?.influenceExpirationTimeout);
   $: claimExpiration = addGraceCoolDown(recruitment?.claimExpirationTimeout);
-  $: isInfluenceActive = influenceExpiration && influenceExpiration > new Date();
-  $: isActiveBadge = $activeRecruitment ? $activeRecruitment.badgeId === recruitment?.badgeId : false;
-  $: isEligible = recruitment?.status === RecruitmentStatus.ELIGIBLE || s1TokenOwned;
-  $: isStarted = recruitment?.status === RecruitmentStatus.STARTED;
-  $: canClaim = recruitment?.status === RecruitmentStatus.CAN_CLAIM;
-  $: canInfluence = recruitment?.status === RecruitmentStatus.CAN_REFINE;
-  $: isComplete = recruitment?.status === RecruitmentStatus.COMPLETED;
-  $: blurred = canInfluence || isStarted || (influenceExpiration && influenceExpiration > new Date());
-  $: inColor = !enabled || isEligible || canClaim || canInfluence || isComplete;
+  $: isInfluenceActive = recruitment?.cycleId === cycleId && influenceExpiration && influenceExpiration > new Date();
+  $: isActiveBadge =
+    recruitment?.cycleId === cycleId && $activeRecruitment
+      ? $activeRecruitment.badgeId === recruitment?.badgeId
+      : false;
+  $: isEligible =
+    (recruitment?.cycleId === cycleId && recruitment?.status === RecruitmentStatus.ELIGIBLE) || s1TokenOwned;
+  $: isStarted = recruitment?.cycleId === cycleId && recruitment?.status === RecruitmentStatus.STARTED;
+  $: canClaim = recruitment?.cycleId === cycleId && recruitment?.status === RecruitmentStatus.CAN_CLAIM;
+  $: canInfluence = recruitment?.cycleId === cycleId && recruitment?.status === RecruitmentStatus.CAN_REFINE;
+  $: isComplete = recruitment?.cycleId === cycleId && recruitment?.status === RecruitmentStatus.COMPLETED;
   $: buttonDisabled =
     isInfluenceActive ||
     Boolean($activeRecruitment ? $activeRecruitment.badgeId !== recruitment?.badgeId : $activeRecruitment);
+
+  $: canReset =
+    !isEligible &&
+    !canInfluence &&
+    !canClaim &&
+    recruitment?.cycleId !== cycleId &&
+    (
+      $userProfile.badgeRecruitment?.filter(
+        (m) => m.status !== RecruitmentStatus.NOT_STARTED && m.badgeId === badgeId,
+      ) || []
+    ).length > 0;
+
+  $: inColor = canReset || !enabled || isEligible || canClaim || canInfluence || isComplete;
+  $: blurred = canReset || canInfluence || isStarted || (influenceExpiration && influenceExpiration > new Date());
+
   const dispatch = createEventDispatcher();
 
   async function handleStartRecruitment(badgeId: number) {
@@ -98,6 +118,32 @@
     $endRecruitmentModal = true;
   }
 
+  async function handleResetRecruitment(badgeId: number) {
+    try {
+      const recruitment = $userProfile.badgeRecruitment?.find(
+        (m) => m.badgeId === badgeId && m.status !== RecruitmentStatus.NOT_STARTED,
+      );
+      const tokenId = recruitment?.s1Badge?.tokenId;
+      if (!tokenId) {
+        throw new Error('No token id found');
+      }
+
+      await profileService.resetMigration(tokenId);
+
+      successToast({
+        title: 'Success',
+        message: `Recruitment for token ID #${tokenId} has been reset`,
+      });
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (e: any) {
+      console.error(e);
+      errorToast({
+        title: 'Error',
+        message: e.shortMessage || 'Error resetting your recruitment',
+      });
+    }
+  }
+
   $: buttons = {
     NotEligible: {
       disabled: true,
@@ -123,6 +169,11 @@
       type: 'primary',
       label: $t('badge_recruitment.buttons.ongoing_recruitment'),
       disabled: true,
+    },
+    ResetRecruitment: {
+      type: 'secondary',
+      label: 'Reset',
+      handler: handleResetRecruitment,
     },
   } as Record<string, FactionBadgeButton>;
 
@@ -208,19 +259,21 @@
     {inColor}
     {blurred}
     {buttonDisabled}
-    button={!enabled
-      ? null
-      : canInfluence || isStarted
-        ? buttons.Influence
-        : canClaim
-          ? buttons.EndRecruitment
-          : isComplete
-            ? null
-            : isEligible && !isActiveBadge && $activeRecruitment
-              ? buttons.OngoingRecruitment
-              : isEligible
-                ? buttons.StartRecruitment
-                : buttons.NotEligible}>
+    button={canReset
+      ? buttons.ResetRecruitment
+      : !enabled
+        ? null
+        : canInfluence || isStarted
+          ? buttons.Influence
+          : canClaim
+            ? buttons.EndRecruitment
+            : isComplete
+              ? null
+              : isEligible && !isActiveBadge && $activeRecruitment
+                ? buttons.OngoingRecruitment
+                : isEligible
+                  ? buttons.StartRecruitment
+                  : buttons.NotEligible}>
     {#if recruitment}
       <div class={blurred ? timerOverlayClasses : emptyOverlayClasses}>
         <div class={timerLabelClasses}>
@@ -252,13 +305,7 @@
 
     {#if !enabled}
       <div class="absolute glassy-background-lg flex justify-center items-center w-full h-full">
-        {#if badgeId % 3 === 0}
-          <div class="p-[16px] w-full">
-            <ActionButton priority="secondary">Reset</ActionButton>
-          </div>
-        {:else}
-          <p>Currently not recruitable</p>
-        {/if}
+        <p>Currently not recruitable</p>
       </div>
     {/if}
   </FactionBadgeItem>

@@ -90,12 +90,14 @@
   $: isLoading = false;
 
   const badgeIds = [0, 1, 2, 3, 4, 5, 6, 7];
-
+  $: cycleId = -1;
   const handleRefresh = async () => {
     if (!browser || isLoading) return;
     // prevent reloads with open modals
     if ($startRecruitmentModal || $influenceRecruitmentModal || $endRecruitmentModal) return;
     isLoading = true;
+
+    cycleId = await profileService.getRecruitmentCycleId();
 
     enabledBadgeIds = (await profileService.getEnabledRecruitments()) || [];
     // match address in url
@@ -133,7 +135,11 @@
       {:else if forceRenderFlag && badgeIds.length}
         <div class={nftGridClasses}>
           {#each badgeIds as badgeId}
-            <BadgeRecruitmentItem enabled={enabledBadgeIds.includes(badgeId)} {badgeId} on:counterEnd={onCounterEnd} />
+            <BadgeRecruitmentItem
+              {cycleId}
+              enabled={enabledBadgeIds.includes(badgeId)}
+              {badgeId}
+              on:counterEnd={onCounterEnd} />
           {/each}
         </div>
       {:else}

@@ -80,7 +80,6 @@ export default class BadgeRecruitmentAdapter {
    * @memberof BadgeRecruitmentAdapter
    */
   async startRecruitment(address: Address, nft: NFT, recruitment: IBadgeRecruitment): Promise<IBadgeRecruitment> {
-    console.info('startRecruitment', { address, nft });
     log('startRecruitment', { address, nft });
     return new Promise((resolve, reject) => {
       try {
@@ -92,7 +91,6 @@ export default class BadgeRecruitmentAdapter {
             user: address,
           },
           onLogs(logs) {
-            console.info('startRecruitment logs', logs);
             log('startRecruitment logs', logs);
             const cooldownExpiration = new Date(parseInt(logs[0].args.cooldownExpiration!.toString()) * 1000);
             const s1TokenId = parseInt(logs[0].args.s1TokenId!.toString());
@@ -117,7 +115,6 @@ export default class BadgeRecruitmentAdapter {
           chainId,
         })
           .then(() => {
-            console.info('startRecruitment contract write success');
             log('startRecruitment contract write success');
           })
           .catch(reject);
@@ -308,7 +305,7 @@ export default class BadgeRecruitmentAdapter {
    * @return {*}  {Promise<BadgeRecruitment>}
    * @memberof BadgeRecruitmentAdapter
    */
-  async getRecruitmentStatus(address: Address, cycleId: number): Promise<Partial<IBadgeRecruitment>[]> {
+  async getRecruitmentStatus(address: Address): Promise<Partial<IBadgeRecruitment>[]> {
     log('getRecruitmentStatus', { address });
     try {
       await graphqlClient.cache.reset();
@@ -330,7 +327,7 @@ export default class BadgeRecruitmentAdapter {
 
       const recruitments = enabledBadgeIds.map((badgeId) => {
         const rawRecruitment = s2Recruitments.find((recruitment) => Number(recruitment.s1Badge.badgeId) === badgeId);
-        if (!rawRecruitment || Number(rawRecruitment.cycleId) !== cycleId) {
+        if (!rawRecruitment) {
           return {
             badgeId,
             status: RecruitmentStatus.NOT_STARTED,
@@ -367,5 +364,15 @@ export default class BadgeRecruitmentAdapter {
     });
 
     return Number(cycleId);
+  }
+
+  async resetMigration(tokenId: number): Promise<void> {
+    await writeContract(wagmiConfig, {
+      abi: trailblazersBadgesAbi,
+      address: trailblazersBadgesAddress[chainId],
+      functionName: 'resetMigration',
+      args: [BigInt(tokenId)],
+      chainId,
+    });
   }
 }

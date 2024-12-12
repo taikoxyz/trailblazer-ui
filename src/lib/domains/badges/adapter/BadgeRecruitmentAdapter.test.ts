@@ -435,7 +435,7 @@ describe('BadgeRecruitmentAdapter', () => {
 
         vi.spyOn(adapter, 'fetchEnabledRecruitments').mockResolvedValue([1, 2]);
 
-        const result = await adapter.getRecruitmentStatus(mockAddress, 1);
+        const result = await adapter.getRecruitmentStatus(mockAddress);
 
         expect(graphqlClient.query).toHaveBeenCalledWith({
           query: GET_MIGRATION_STATUS_QUERY,

@@ -23,7 +23,6 @@ export default class BadgeRecruitmentService {
   async getEnabledRecruitments(): Promise<number[]> {
     log('getEnabledRecruitments');
     const recruitments = await this.adapter.fetchEnabledRecruitments();
-    console.info('getEnabledRecruitments', { recruitments });
     log('getEnabledRecruitments', { recruitments });
     return recruitments;
   }
@@ -77,9 +76,8 @@ export default class BadgeRecruitmentService {
    */
   async getRecruitmentStatus(address: Address): Promise<IBadgeRecruitment[]> {
     log('getRecruitmentStatus', { address });
+    const recruitments = await this.adapter.getRecruitmentStatus(address);
     const cycleId = await this.adapter.getRecruitmentCycleId();
-    const recruitments = await this.adapter.getRecruitmentStatus(address, cycleId);
-
     const foundActive = recruitments.find(
       (recruitment) =>
         recruitment.cycleId === cycleId &&
@@ -90,7 +88,6 @@ export default class BadgeRecruitmentService {
 
     activeRecruitment.set(foundActive as IBadgeRecruitment);
 
-    console.info('getRecruitmentStatus', { recruitments, foundActive });
     log('getRecruitmentStatus', { recruitments, foundActive });
 
     return recruitments as IBadgeRecruitment[];
@@ -104,5 +101,15 @@ export default class BadgeRecruitmentService {
   async getMaxInfluences(exp: number): Promise<number> {
     log('getMaxInfluences', { exp });
     return this.adapter.getMaxInfluences(exp);
+  }
+
+  async getRecruitmentCycleId(): Promise<number> {
+    log('getRecruitmentCycleId');
+    return this.adapter.getRecruitmentCycleId();
+  }
+
+  async resetMigration(tokenId: number): Promise<void> {
+    log('resetMigration', { tokenId });
+    return this.adapter.resetMigration(tokenId);
   }
 }
