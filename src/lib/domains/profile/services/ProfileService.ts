@@ -802,7 +802,7 @@ export class ProfileService implements IProfileService {
    * @return {*}
    * @memberof ProfileService
    */
-  async getBadgeMultiplier(address: Address, season: number): Promise<Multipliers> {
+  async getBadgeMultiplierForProfile(address: Address, season: number): Promise<Multipliers> {
     log('Fetching badge multiplier for address:', address);
     const mp = {
       multipliers: {

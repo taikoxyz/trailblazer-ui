@@ -18,7 +18,7 @@
   $: transationMultiplierView = { multiplier: 0, max: false };
 
   onMount(async () => {
-    const mp: Multipliers = await profileService.getBadgeMultiplier(getConnectedAddress(), $activeSeason);
+    const mp: Multipliers = await profileService.getBadgeMultiplierForProfile(getConnectedAddress(), $activeSeason);
     const { globalMultiplier, transactionVolumeMultiplier, transationMultiplier } = mp.multipliers;
     globalMultiplierView = globalMultiplier;
     transactionVolumeMultiplierView = transactionVolumeMultiplier;
