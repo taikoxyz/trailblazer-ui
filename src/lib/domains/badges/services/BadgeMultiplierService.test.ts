@@ -1,5 +1,5 @@
 import type { Address } from 'viem';
-import { beforeEach,describe, expect, it, vi } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import BadgeMultiplierAdapter from '../adapter/BadgeMultiplierAdapter';
 import type { S2Multipliers } from '../dto/multipliers';

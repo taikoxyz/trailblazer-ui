@@ -1,6 +1,6 @@
 import type { ApolloQueryResult } from '@apollo/client';
 import type { Address } from 'viem';
-import { beforeEach,describe, expect, it, vi } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { graphqlClient } from '$shared/services/graphql/client';
 import { GET_S2_BADGE_MULTIPLIER_QUERY } from '$shared/services/graphql/queries';
