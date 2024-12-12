@@ -89,11 +89,14 @@
 
   $: isLoading = false;
 
+  const badgeIds = [0, 1, 2, 3, 4, 5, 6, 7];
+
   const handleRefresh = async () => {
     if (!browser || isLoading) return;
     // prevent reloads with open modals
     if ($startRecruitmentModal || $influenceRecruitmentModal || $endRecruitmentModal) return;
     isLoading = true;
+
     enabledBadgeIds = (await profileService.getEnabledRecruitments()) || [];
     // match address in url
     const match = window.location.pathname.match(/0x[a-fA-F0-9]{40}/);
@@ -127,10 +130,10 @@
         <div class="w-full flex justify-center">
           <Spinner size="lg" />
         </div>
-      {:else if forceRenderFlag && enabledBadgeIds.length}
+      {:else if forceRenderFlag && badgeIds.length}
         <div class={nftGridClasses}>
-          {#each enabledBadgeIds as badgeId}
-            <BadgeRecruitmentItem {badgeId} on:counterEnd={onCounterEnd} />
+          {#each badgeIds as badgeId}
+            <BadgeRecruitmentItem enabled={enabledBadgeIds.includes(badgeId)} {badgeId} on:counterEnd={onCounterEnd} />
           {/each}
         </div>
       {:else}

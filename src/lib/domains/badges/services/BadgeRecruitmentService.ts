@@ -77,12 +77,15 @@ export default class BadgeRecruitmentService {
    */
   async getRecruitmentStatus(address: Address): Promise<IBadgeRecruitment[]> {
     log('getRecruitmentStatus', { address });
-    const recruitments = await this.adapter.getRecruitmentStatus(address);
+    const cycleId = await this.adapter.getRecruitmentCycleId();
+    const recruitments = await this.adapter.getRecruitmentStatus(address, cycleId);
+
     const foundActive = recruitments.find(
       (recruitment) =>
-        recruitment.status === RecruitmentStatus.STARTED ||
-        recruitment.status === RecruitmentStatus.CAN_REFINE ||
-        recruitment.status === RecruitmentStatus.CAN_CLAIM,
+        recruitment.cycleId === cycleId &&
+        (recruitment.status === RecruitmentStatus.STARTED ||
+          recruitment.status === RecruitmentStatus.CAN_REFINE ||
+          recruitment.status === RecruitmentStatus.CAN_CLAIM),
     );
 
     activeRecruitment.set(foundActive as IBadgeRecruitment);

@@ -308,9 +308,8 @@ export default class BadgeRecruitmentAdapter {
    * @return {*}  {Promise<BadgeRecruitment>}
    * @memberof BadgeRecruitmentAdapter
    */
-  async getRecruitmentStatus(address: Address): Promise<Partial<IBadgeRecruitment>[]> {
+  async getRecruitmentStatus(address: Address, cycleId: number): Promise<Partial<IBadgeRecruitment>[]> {
     log('getRecruitmentStatus', { address });
-
     try {
       await graphqlClient.cache.reset();
       const graphqlResponse = await graphqlClient.query({
@@ -330,10 +329,8 @@ export default class BadgeRecruitmentAdapter {
       }) || { s2Recruitments: [] };
 
       const recruitments = enabledBadgeIds.map((badgeId) => {
-        const rawRecruitment = s2Recruitments.find(
-          (recruitment) => parseInt(recruitment.s1Badge.badgeId.toString()) === badgeId,
-        );
-        if (!rawRecruitment) {
+        const rawRecruitment = s2Recruitments.find((recruitment) => Number(recruitment.s1Badge.badgeId) === badgeId);
+        if (!rawRecruitment || Number(rawRecruitment.cycleId) !== cycleId) {
           return {
             badgeId,
             status: RecruitmentStatus.NOT_STARTED,
@@ -359,5 +356,16 @@ export default class BadgeRecruitmentAdapter {
     });
 
     return Number(max);
+  }
+
+  async getRecruitmentCycleId(): Promise<number> {
+    const cycleId = await readContract(wagmiConfig, {
+      abi: badgeRecruitmentAbi,
+      address: badgeRecruitmentAddress[chainId],
+      functionName: 'recruitmentCycleId',
+      chainId,
+    });
+
+    return Number(cycleId);
   }
 }
