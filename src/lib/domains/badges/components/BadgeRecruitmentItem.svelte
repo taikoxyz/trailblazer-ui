@@ -8,6 +8,7 @@
   import type { FactionBadgeButton } from '$lib/domains/profile/types/FactionBadgeButton';
   import { Movements, Seasons } from '$lib/domains/profile/types/types';
   import { type IBadgeRecruitment, RecruitmentStatus } from '$lib/shared/types/BadgeRecruitment';
+  import { ActionButton } from '$shared/components/Button';
   import { errorToast, successToast } from '$shared/components/NotificationToast';
   import { account } from '$shared/stores';
   import {
@@ -118,22 +119,33 @@
     $endRecruitmentModal = true;
   }
 
+  $: disableResetButton = false;
   async function handleResetRecruitment(badgeId: number) {
     try {
-      const recruitment = $userProfile.badgeRecruitment?.find(
-        (m) => m.badgeId === badgeId && m.status !== RecruitmentStatus.NOT_STARTED,
-      );
-      const tokenId = recruitment?.s1Badge?.tokenId;
-      if (!tokenId) {
-        throw new Error('No token id found');
+      if (!$account || !$account.address) {
+        throw new Error('No account found');
       }
 
-      await profileService.resetMigration(tokenId);
+      const recruitment = $userProfile.badgeRecruitment?.find(
+        (m) =>
+          m.badgeId === badgeId &&
+          m.status !== RecruitmentStatus.NOT_STARTED &&
+          m.status !== RecruitmentStatus.COMPLETED,
+      );
+
+      const s1Badge = recruitment?.s1Badge;
+      if (!s1Badge) {
+        throw new Error('No token id found');
+      }
+      disableResetButton = true;
+      await profileService.resetMigration(s1Badge.tokenId, badgeId, recruitment.cycleId);
 
       successToast({
         title: 'Success',
-        message: `Recruitment for token ID #${tokenId} has been reset`,
+        message: `Recruitment for token ID #${s1Badge.tokenId} has been reset`,
       });
+
+      await profileService.getProfileWithNFTs($account.address);
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (e: any) {
       console.error(e);
@@ -141,6 +153,8 @@
         title: 'Error',
         message: e.shortMessage || 'Error resetting your recruitment',
       });
+    } finally {
+      disableResetButton = false;
     }
   }
 
@@ -169,11 +183,6 @@
       type: 'primary',
       label: $t('badge_recruitment.buttons.ongoing_recruitment'),
       disabled: true,
-    },
-    ResetRecruitment: {
-      type: 'secondary',
-      label: 'Reset',
-      handler: handleResetRecruitment,
     },
   } as Record<string, FactionBadgeButton>;
 
@@ -254,27 +263,25 @@
           : pinkBordered
         : neutralBordered}>
   <FactionBadgeItem
-    hideBubbles={!enabled}
+    hideBubbles={canReset || !enabled}
     token={getMockBadge(isComplete ? Seasons.Season2 : Seasons.Season1, badgeId, movement)}
     {inColor}
     {blurred}
     {buttonDisabled}
-    button={canReset
-      ? buttons.ResetRecruitment
-      : !enabled
-        ? null
-        : canInfluence || isStarted
-          ? buttons.Influence
-          : canClaim
-            ? buttons.EndRecruitment
-            : isComplete
-              ? null
-              : isEligible && !isActiveBadge && $activeRecruitment
-                ? buttons.OngoingRecruitment
-                : isEligible
-                  ? buttons.StartRecruitment
-                  : buttons.NotEligible}>
-    {#if recruitment}
+    button={canReset || !enabled
+      ? null
+      : canInfluence || isStarted
+        ? buttons.Influence
+        : canClaim
+          ? buttons.EndRecruitment
+          : isComplete
+            ? null
+            : isEligible && !isActiveBadge && $activeRecruitment
+              ? buttons.OngoingRecruitment
+              : isEligible
+                ? buttons.StartRecruitment
+                : buttons.NotEligible}>
+    {#if !canReset && recruitment}
       <div class={blurred ? timerOverlayClasses : emptyOverlayClasses}>
         <div class={timerLabelClasses}>
           {#if influenceExpiration && influenceExpiration > new Date()}
@@ -303,9 +310,20 @@
       </div>
     {/if}
 
-    {#if !enabled}
-      <div class="absolute glassy-background-lg flex justify-center items-center w-full h-full">
-        <p>Currently not recruitable</p>
+    {#if canReset || !enabled}
+      <div class="absolute glassy-background-lg px-[20px] flex justify-center items-center w-full h-full">
+        {#if !enabled}
+          <p>Currently not recruitable</p>
+        {/if}
+        {#if canReset}
+          <ActionButton
+            priority="secondary"
+            class="!w-[200px]"
+            disabled={disableResetButton}
+            on:click={() => handleResetRecruitment(badgeId)}>
+            Reset
+          </ActionButton>
+        {/if}
       </div>
     {/if}
   </FactionBadgeItem>

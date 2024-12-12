@@ -108,8 +108,8 @@ export default class BadgeRecruitmentService {
     return this.adapter.getRecruitmentCycleId();
   }
 
-  async resetMigration(tokenId: number): Promise<void> {
-    log('resetMigration', { tokenId });
-    return this.adapter.resetMigration(tokenId);
+  async resetMigration(tokenId: number, badgeId: number, cycleId: number): Promise<void> {
+    log('resetMigration', { tokenId, badgeId, cycleId });
+    return this.adapter.resetMigration(tokenId, badgeId, cycleId);
   }
 }

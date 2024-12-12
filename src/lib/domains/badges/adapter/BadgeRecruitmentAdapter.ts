@@ -1,4 +1,4 @@
-import { readContract, signMessage, watchContractEvent, writeContract } from '@wagmi/core';
+import { readContract, signMessage, waitForTransactionReceipt, watchContractEvent, writeContract } from '@wagmi/core';
 import axios from 'axios';
 import { type Address, parseSignature } from 'viem';
 
@@ -326,17 +326,20 @@ export default class BadgeRecruitmentAdapter {
       }) || { s2Recruitments: [] };
 
       const recruitments = enabledBadgeIds.map((badgeId) => {
-        const rawRecruitment = s2Recruitments.find((recruitment) => Number(recruitment.s1Badge.badgeId) === badgeId);
-        if (!rawRecruitment) {
-          return {
-            badgeId,
-            status: RecruitmentStatus.NOT_STARTED,
-          } as Partial<IBadgeRecruitment>;
-        }
-        return parseGqlBadgeRecruitment(rawRecruitment);
+        const rawRecruitments = s2Recruitments.filter((recruitment) => Number(recruitment.s1Badge.badgeId) === badgeId);
+
+        return rawRecruitments.map((rawRecruitment) => {
+          if (!rawRecruitment) {
+            return {
+              badgeId,
+              status: RecruitmentStatus.NOT_STARTED,
+            } as Partial<IBadgeRecruitment>;
+          }
+          return parseGqlBadgeRecruitment(rawRecruitment);
+        });
       });
 
-      return recruitments;
+      return recruitments.flat();
     } catch (e) {
       console.error(e);
       return [];
@@ -344,6 +347,7 @@ export default class BadgeRecruitmentAdapter {
   }
 
   async getMaxInfluences(exp: number): Promise<number> {
+    log('getMaxInfluences', { exp });
     const max = await readContract(wagmiConfig, {
       abi: badgeRecruitmentAbi,
       address: badgeRecruitmentAddress[chainId],
@@ -356,23 +360,26 @@ export default class BadgeRecruitmentAdapter {
   }
 
   async getRecruitmentCycleId(): Promise<number> {
+    log('getRecruitmentCycleId');
     const cycleId = await readContract(wagmiConfig, {
       abi: badgeRecruitmentAbi,
       address: badgeRecruitmentAddress[chainId],
       functionName: 'recruitmentCycleId',
       chainId,
     });
-
     return Number(cycleId);
   }
 
-  async resetMigration(tokenId: number): Promise<void> {
-    await writeContract(wagmiConfig, {
+  async resetMigration(tokenId: number, badgeId: number, cycleId: number): Promise<void> {
+    log('resetMigration', { tokenId, badgeId, cycleId });
+    const hash = await writeContract(wagmiConfig, {
       abi: trailblazersBadgesAbi,
       address: trailblazersBadgesAddress[chainId],
       functionName: 'resetMigration',
-      args: [BigInt(tokenId)],
+      args: [BigInt(tokenId), BigInt(badgeId), BigInt(cycleId)],
       chainId,
     });
+
+    await waitForTransactionReceipt(wagmiConfig, { hash });
   }
 }

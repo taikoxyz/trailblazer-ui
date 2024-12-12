@@ -466,10 +466,6 @@ describe('BadgeRecruitmentAdapter', () => {
             claimExpirationTimeout: new Date('1970-01-01T01:00:00.000Z'),
             influenceExpirationTimeout: new Date('1970-01-01T00:30:00.000Z'),
           },
-          {
-            badgeId: 2,
-            status: RecruitmentStatus.NOT_STARTED,
-          },
         ]);
       });
     });
