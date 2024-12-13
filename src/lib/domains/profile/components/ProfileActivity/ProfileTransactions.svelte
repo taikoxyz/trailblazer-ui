@@ -32,6 +32,7 @@
       page: selectedPageNo,
       size: pageSize,
       total: totalItems,
+      total_pages: totalPages,
     };
     const userAddress = $page.url.pathname.split('/').pop() as Address;
 

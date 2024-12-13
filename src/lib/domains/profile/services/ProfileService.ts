@@ -107,6 +107,7 @@ export class ProfileService implements IProfileService {
             page: 0,
             size: activity.size,
             total: activity.total,
+            total_pages: activity.total_pages,
           },
         },
         nfts: [...nftsResult],
@@ -696,8 +697,8 @@ export class ProfileService implements IProfileService {
   async claimSeasonBonus(address: Address, season: number): Promise<Hash | void> {
     log('Claiming bonus points for address:', address, 'season:', season);
     try {
-      return await this.seasonBonusAdapter.claimUserBonusPoints(address, season);
       log('Claimed bonus points successfully.');
+      return await this.seasonBonusAdapter.claimUserBonusPoints(address, season);
     } catch (error) {
       log('Error claiming bonus points:', error);
     }
