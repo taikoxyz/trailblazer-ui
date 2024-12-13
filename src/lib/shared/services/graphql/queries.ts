@@ -131,3 +131,16 @@ export const GET_MIGRATION_APPROVALS_QUERY = gql`
     }
   }
 `;
+
+export const GET_S2_BADGE_MULTIPLIER_QUERY = gql`
+  query getS2BadgeMultiplier($address: Bytes) {
+    s2Multiplier(id: $address) {
+      devMultiplier
+      minnowMultiplier
+      snaefellMultiplier
+      taikoonMultiplier
+      whaleMultiplier
+      globalMultiplier
+    }
+  }
+`;
