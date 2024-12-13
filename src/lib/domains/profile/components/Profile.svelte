@@ -15,7 +15,7 @@
   import getConnectedAddress from '$shared/utils/getConnectedAddress';
 
   import MultiplierCard from './ProfileMultiplierCard/MultiplierCard.svelte';
-  import ProfileSeasonBonusCard from './ProfileSeasonBonusCard/ProfileSeasonBonusCard.svelte';
+  // import ProfileSeasonBonusCard from './ProfileSeasonBonusCard/ProfileSeasonBonusCard.svelte';
 
   let isSelfProfile: boolean;
 
@@ -32,6 +32,21 @@
     'xl:f-row',
     'justify-center',
   );
+
+  const profileCardWrapperClasses = classNames(
+    'border',
+    'border-divider-border',
+    'glassy-gradient-card',
+    'dark-glass-background-gradient',
+    'flex',
+    'w-full',
+    'rounded-[30px]',
+    'px-[24px]',
+    'f-col',
+    'gap-[24px]',
+    'pb-[24px]',
+  );
+
   // const alertClasses = classNames('mt-[28px]');
   const tabsClasses = classNames('mt-[28px]');
   $: isSelfProfile = false;
@@ -45,13 +60,14 @@
 <div class={containerClasses}>
   <div class={sectionClasses}>
     <div class={innerContainerClasses}>
-      <ProfileCard loading={$profileLoading} {isSelfProfile} />
-      <MultiplierCard />
-      {#if isSelfProfile}
+      <div class={profileCardWrapperClasses}>
+        <ProfileCard loading={$profileLoading} {isSelfProfile} />
+        <MultiplierCard />
+        <!-- {#if isSelfProfile}
         <ProfileSeasonBonusCard />
-      {/if}
+      {/if} -->
+      </div>
     </div>
-
     <!-- <div class={alertClasses}>
       <Alert type="info">
         <b>Note:</b>
