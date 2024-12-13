@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { activeSeason } from '$shared/stores/activeSeason';
   import { classNames } from '$shared/utils/classNames';
 
   const wrapperClasses = classNames(
@@ -41,7 +42,7 @@
   <span class={badgeClasses}> Prize pool </span>
 
   <div class={prizeWrapperClasses}>
-    <span class={prizeClasses}> 1M </span>
+    <span class={prizeClasses}>{$activeSeason === 2 ? '1M' : '1.2M'}</span>
     <span class={tokenClasses}> Taiko tokens </span>
   </div>
 </div>
