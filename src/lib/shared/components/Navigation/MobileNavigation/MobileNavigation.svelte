@@ -73,6 +73,7 @@
       <!-- Navigation Links -->
       <div class="flex flex-col w-full gap-2">
         {#each routes as route}
+          {@const { flamboyant } = route}
           {#if route.children}
             <div
               class="collapse collapse-arrow bg-elevated-background w-full {expandedMenus[route.name]
@@ -80,7 +81,9 @@
                 : 'rounded-full'} pl-6 py-2 min-h-[75px]">
               <input type="checkbox" checked={expandedMenus[route.name]} on:click={() => toggleMenu(route.name)} />
               <div
-                class="collapse-title flex items-center w-full p-0 font-clash-grotesk title-subsection-medium text-[22px]">
+                class="collapse-title flex items-center w-full p-0 font-clash-grotesk title-subsection-medium text-[22px] {flamboyant
+                  ? 'gradient-text'
+                  : ''}">
                 {route.name}
               </div>
               <div class="collapse-content bg-elevated-background w-full rounded-full flex flex-col gap-4 pl-0">
@@ -97,7 +100,11 @@
                 closeMenu();
                 if (route.route) goto(route.route);
               }}>
-              <a href={route.route} class="font-clash-grotesk title-subsection-medium text-[22px]/[24px]">
+              <a
+                href={route.route}
+                class="font-clash-grotesk title-subsection-medium text-[22px]/[24px] {flamboyant
+                  ? 'gradient-text'
+                  : ''}">
                 {route.name}
               </a>
             </button>
@@ -107,3 +114,16 @@
     </div>
   </div>
 {/if}
+
+<style>
+  .gradient-text {
+    background: linear-gradient(84deg, #ffc6e9 -33.76%, #e81899 77.6%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+  }
+</style>
