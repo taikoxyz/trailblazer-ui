@@ -240,6 +240,32 @@
       }
     },
     "chillblazers": {
+      "s2": {
+        "ended": {
+          "description": "Our journey concluded on January 17th, 2025. Congratulations to the winners!",
+          "title": "Journey ended"
+        },
+        "prize": {
+          "2": "150K TAIKO Tokens"
+        },
+        "prize_breakdown": {
+          "fifth": {
+            "amount": "5k"
+          },
+          "first": {
+            "amount": "65k"
+          },
+          "fourth": {
+            "amount": "15k"
+          },
+          "second": {
+            "amount": "40k"
+          },
+          "third": {
+            "amount": "25k"
+          }
+        }
+      },
       "ended": {
         "description": "Our journey concluded on December 16th, 2024. Congratulations to the winners!",
         "title": "Journey ended"

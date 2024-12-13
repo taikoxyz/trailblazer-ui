@@ -3,7 +3,7 @@
   import { classNames } from '$shared/utils/classNames';
 
   const wrapperClasses = classNames(
-    'w-[138px]',
+    'w-[150px]',
     'items-center',
     'justify-center',
     'f-col',
@@ -36,13 +36,15 @@
     'tracking-[1.6px]',
     'text-primary-link',
   );
+
+  $: prize = Number($activeSeason) === 2 ? '1M' : '1.2M';
 </script>
 
 <div class={wrapperClasses}>
   <span class={badgeClasses}> Prize pool </span>
 
   <div class={prizeWrapperClasses}>
-    <span class={prizeClasses}>{$activeSeason === 2 ? '1M' : '1.2M'}</span>
+    <span class={prizeClasses}>{prize}</span>
     <span class={tokenClasses}> Taiko tokens </span>
   </div>
 </div>
