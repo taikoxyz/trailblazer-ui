@@ -3,12 +3,12 @@
 
   import { goto } from '$app/navigation';
   import { page } from '$app/stores';
-  import LiquidityDisclaimer from '$lib/domains/leaderboard/components/Competition/LiquidityRoyale/LiquidityDisclaimer.svelte';
   import LiquidityRoyaleLeaderboard from '$lib/domains/leaderboard/components/Competition/LiquidityRoyale/LiquidityRoyaleLeaderboard.svelte';
   import type { UserLeaderboardItem } from '$lib/domains/leaderboard/types/user/types';
   import type { PaginationInfo } from '$lib/shared/dto/CommonPageApiResponse';
   import { ActionButton } from '$shared/components/Button';
   import { Page } from '$shared/components/Page';
+  import { activeSeason } from '$shared/stores/activeSeason';
   import { classNames } from '$shared/utils/classNames';
 
   let pageInfo: PaginationInfo<UserLeaderboardItem>;
@@ -20,7 +20,7 @@
   const buttonClasses = classNames('max-w-[280px]');
 
   const handleClick = () => {
-    goto('/leaderboard/s2/user');
+    goto(`/leaderboard/${activeSeason}/user`);
   };
 </script>
 
@@ -29,8 +29,7 @@
 </svelte:head>
 
 <Page>
-  <LiquidityRoyaleLeaderboard {pageInfo} {loading} season={2} />
-  <LiquidityDisclaimer />
+  <LiquidityRoyaleLeaderboard {pageInfo} {loading} />
 
   <div class={wrapperClasses}>
     <ActionButton class={buttonClasses} priority="primary" on:click={handleClick} withArrow>

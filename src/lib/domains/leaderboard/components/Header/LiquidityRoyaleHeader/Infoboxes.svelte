@@ -2,32 +2,33 @@
   import { t } from 'svelte-i18n';
 
   import type { InfoBoxType } from '$lib/domains/leaderboard/types/liquidity/types';
+  import { activeSeason } from '$shared/stores/activeSeason';
   import { classNames } from '$shared/utils/classNames';
 
   import Infobox from './Infobox.svelte';
 
-  const boxes: InfoBoxType[] = [
+  $: boxes = [
     {
-      title: $t('leaderboard.liquidityRoyale.infobox.rewards.title'),
+      title: $t(`leaderboard.liquidityRoyale.infobox.s${$activeSeason}.rewards.title`),
       icon: '/icons/coins.svg',
-      text: $t('leaderboard.liquidityRoyale.infobox.rewards.text'),
+      text: $t(`leaderboard.liquidityRoyale.infobox.s${$activeSeason}.rewards.text`),
     },
     {
-      title: $t('leaderboard.liquidityRoyale.infobox.boost.title'),
+      title: $t(`leaderboard.liquidityRoyale.infobox.s${$activeSeason}.boost.title`),
       icon: '/icons/rocket.svg',
-      text: $t('leaderboard.liquidityRoyale.infobox.boost.text'),
+      text: $t(`leaderboard.liquidityRoyale.infobox.s${$activeSeason}.boost.text`),
     },
     {
-      title: $t('leaderboard.liquidityRoyale.infobox.random.title'),
+      title: $t(`leaderboard.liquidityRoyale.infobox.s${$activeSeason}.random.title`),
       icon: '/icons/gift.svg',
-      text: $t('leaderboard.liquidityRoyale.infobox.random.text'),
+      text: $t(`leaderboard.liquidityRoyale.infobox.s${$activeSeason}.random.text`),
     },
     {
-      title: $t('leaderboard.liquidityRoyale.infobox.campaign.title'),
+      title: $t(`leaderboard.liquidityRoyale.infobox.s${$activeSeason}.campaign.title`),
       icon: '/icons/flame.svg',
-      text: $t('leaderboard.liquidityRoyale.infobox.campaign.text'),
+      text: $t(`leaderboard.liquidityRoyale.infobox.s${$activeSeason}.campaign.text`),
     },
-  ];
+  ] satisfies InfoBoxType[];
 
   const gridClasses = classNames('grid', 'grid-cols-1', 'md:grid-cols-2', 'gap-[74px]');
 
@@ -48,13 +49,15 @@
   const wrapperClasses = classNames();
 
   const lineClasses = classNames('border border-primary-brand w-16', 'mb-[70px]');
+
+  $: title = $t(`leaderboard.liquidityRoyale.infobox.s${$activeSeason}.title`);
 </script>
 
 <div class={wrapperClasses}>
   <div class={titleSectionClasses}>
     <div class="flex flex-col gap-5 items-center md:items-start">
       <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-      <div class={titleTextClasses}>{@html $t('leaderboard.liquidityRoyale.infobox.title')}</div>
+      <div class={titleTextClasses}>{@html title}</div>
       <div class={lineClasses} />
     </div>
   </div>

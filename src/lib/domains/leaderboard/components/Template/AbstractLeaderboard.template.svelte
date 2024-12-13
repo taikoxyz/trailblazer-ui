@@ -90,7 +90,7 @@
     'border-spacing-y-4',
     'border-spacing-x-0',
   );
-  const tbodyClass = classNames('rounded-lg', ended ? 'blur-[1.5px]' : '');
+  $: tbodyClass = ended ? 'rounded-lg blur-[1.5px]' : 'rounded-lg';
   const noDataRowClass = classNames('row', 'h-12');
   const paginationMarginClass = classNames('mt-[38px]');
 </script>
