@@ -13,16 +13,26 @@
 
   const wrapperClasses = classNames(
     'w-[100vw]',
-    'px-[24px]',
     'md:px-[48px]',
-    'h-[104px]',
     'relative',
     'justify-center',
     'flex',
     'bg-[#0c0f1b]',
+    'z-30',
+    'my-[30px]',
+    'h-[56px]',
   );
 
-  const containerClasses = classNames('f-center', 'w-full', 'fixed', 'relative', 'bg-[#0c0f1b]', 'xl:max-w-[1440px]');
+  const containerClasses = classNames(
+    'f-center',
+    'w-full',
+    'bg-[#0c0f1b]',
+    'xl:max-w-[1440px]',
+    'fixed',
+    'px-[24px]',
+    'md:px-[48px]',
+    'xl:px-0',
+  );
 
   const headerClasses = classNames(
     'flex',
@@ -30,13 +40,20 @@
     'items-center',
     'box-border',
     'lg:bg-none',
-
-    'h-[104px]',
     'w-full',
     'justify-center',
   );
 
-  const innerHeaderClasses = classNames('f-between-center', 'w-full', 'gap-2', 'xl:top-[12px]', 'pl-[8px]');
+  const innerHeaderClasses = classNames(
+    'f-between-center',
+    'w-full',
+    'gap-2',
+    'min-h-[56px]',
+    'xl:top-[12px]',
+    'pl-[24px]',
+    'bg-elevated-background',
+    'rounded-full',
+  );
 
   const logoLinkClasses = classNames('flex', 'gap-2', 'items-end', 'z-10');
   const mobileLogoClasses = classNames('md:hidden');

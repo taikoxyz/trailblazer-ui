@@ -6,13 +6,10 @@ export interface NavigationItem {
   redirect?: string;
   icon?: IconType;
   children?: NavigationItem[];
+  flamboyant?: boolean;
 }
 
 export const routes: NavigationItem[] = [
-  {
-    name: 'Profile',
-    route: '/profile',
-  },
   {
     name: 'Leaderboards',
     children: [
@@ -34,11 +31,16 @@ export const routes: NavigationItem[] = [
   },
   {
     name: 'Journeys',
+    flamboyant: true,
     children: [
       { name: 'Chillblazers', route: '/journeys/s2/chillblazers', icon: 'nav-conway' },
       { name: 'Thrillblazers', route: '/journeys/s2/thrillblazers', icon: 'flower-circle' },
       { name: 'Liquidity Royale', route: '/journeys/liquidity', icon: 'nav-cross' },
       { name: 'Badges', route: '/badge', icon: 'badge-migration' },
     ],
+  },
+  {
+    name: 'Profile',
+    route: '/profile',
   },
 ];
