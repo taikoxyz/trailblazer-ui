@@ -20,7 +20,7 @@
   const buttonClasses = classNames('max-w-[280px]');
 
   const handleClick = () => {
-    goto(`/leaderboard/${activeSeason}/user`);
+    goto(`/leaderboard/s${activeSeason}/user`);
   };
 </script>
 

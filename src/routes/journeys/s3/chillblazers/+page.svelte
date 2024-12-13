@@ -3,7 +3,7 @@
 
   import { goto } from '$app/navigation';
   import { page } from '$app/stores';
-  import ChillblazerLeaderboard from '$lib/domains/leaderboard/components/Competition/DappCompetition/Chillblazer/ChillblazerLeaderboard.svelte';
+  import ChillblazerLeaderboard from '$lib/domains/leaderboard/components/Competition/DappCompetition/Chillblazer2/ChillblazerLeaderboard.svelte';
   import type { DappLeaderboardItem } from '$lib/domains/leaderboard/dto/dapps.dto';
   import type { PaginationInfo } from '$lib/shared/dto/CommonPageApiResponse';
   import { ActionButton } from '$shared/components/Button';

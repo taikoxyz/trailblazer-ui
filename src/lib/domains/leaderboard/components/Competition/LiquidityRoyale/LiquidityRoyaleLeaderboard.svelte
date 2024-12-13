@@ -2,7 +2,6 @@
   import { setContext } from 'svelte';
   import { t } from 'svelte-i18n';
 
-  import { goto } from '$app/navigation';
   import { leaderboardConfig } from '$config';
   import { CampaignEndedInfoBox } from '$lib/domains/leaderboard/components/CampaignEndedInfoBox';
   import { AbstractLeaderboard, PointScore } from '$lib/domains/leaderboard/components/Template';
@@ -77,5 +76,5 @@
     scoreComponent={PointScore} />
   <LiquidityDisclaimer />
 {:else}
-  {goto('/404')}
+  No data
 {/if}
