@@ -15,7 +15,6 @@
     'relative',
     'justify-center',
     'flex',
-    'bg-[#0c0f1b]',
     'z-30',
     'my-[30px]',
     'h-[56px]',
@@ -24,7 +23,6 @@
   const containerClasses = classNames(
     'f-center',
     'w-full',
-    'bg-[#0c0f1b]',
     'xl:max-w-[1440px]',
     'fixed',
     'px-[24px]',
