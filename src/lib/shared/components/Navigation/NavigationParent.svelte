@@ -2,8 +2,8 @@
   import { derived } from 'svelte/store';
 
   import { page } from '$app/stores';
+  import type { NavigationItem } from '$shared/routes';
   import { classNames } from '$shared/utils/classNames';
-  import type { NavigationItem } from '$shared/utils/routes';
 
   import Icon from '../Icon/Icon.svelte';
 

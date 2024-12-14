@@ -4,8 +4,8 @@
 
   import { goto } from '$app/navigation';
   import ConnectButton from '$shared/components/ConnectButton/ConnectButton.svelte';
+  import { routes } from '$shared/routes/';
   import { classNames } from '$shared/utils/classNames';
-  import { routes } from '$shared/utils/routes/routes';
 
   import MobileNavigationLink from './MobileNavigationLink.svelte';
 
