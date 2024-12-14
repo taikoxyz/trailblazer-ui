@@ -54,7 +54,7 @@
       </span>
     </div>
     <span
-      class="flex items-center text-secondary-content lg:text-tertiary-content btn-glass-bg rounded-full px-[10px] py-[19px] lg:py-[4px] min-h-[65px] xl:min-h-[38px] bg-interactive-primary font-normal lg:font-bold font-medium text-[22px] lg:text-sm">
+      class="flex w-full justify-center items-center text-secondary-content lg:text-tertiary-content btn-glass-bg rounded-full px-[10px] py-[19px] lg:py-[4px] min-h-[65px] xl:min-h-[38px] bg-interactive-primary font-normal lg:font-bold font-medium text-[22px] lg:text-sm">
       {shortenAddress(accountAddress, 4, 4)}
     </span>
   </button>

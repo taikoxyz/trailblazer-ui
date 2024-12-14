@@ -3,7 +3,7 @@
 
   import { page } from '$app/stores';
   import { Icon } from '$shared/components/Icon';
-  import type { NavigationItem } from '$shared/utils/routes';
+  import type { NavigationItem } from '$shared/routes';
 
   export let navigation: NavigationItem;
 
@@ -39,7 +39,7 @@
     class:text-primary-brand={$currentPath === navigation.route}
     class="flex items-center gap-4 whitespace-nowrap">
     {#if navigation.icon}
-      <Icon size={15} type={navigation.icon} />
+      <Icon size={20} type={navigation.icon} fillClass="fill-primary-interactive-accent" />
     {/if}
     {navigation.name}
   </a>

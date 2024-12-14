@@ -1,7 +1,6 @@
 <script lang="ts">
+  import { type NavigationItem,routes } from '$shared/routes';
   import { classNames } from '$shared/utils/classNames';
-  import type { NavigationItem } from '$shared/utils/routes';
-  import { routes } from '$shared/utils/routes';
 
   import NavigationChild from './NavigationChild.svelte';
   import NavigationParent from './NavigationParent.svelte';
