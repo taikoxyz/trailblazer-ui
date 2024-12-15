@@ -78,7 +78,17 @@
   const headerMarginClass = classNames('mt-[60px]', 'lg:mt-[80px]', 'block', 'lg:hidden');
   const additionalInfoMarginClass = classNames('mt-[60px]', 'lg:mt-[80px]');
   const textCenterClass = classNames('text-center', 'mt-[30px]', 'text-xl');
-  const tableWrapperClass = classNames('overflow-x-auto', 'rounded-3xl', 'p-6', 'bg-gray-800/10');
+  const tableWrapperClass = classNames(
+    'relative',
+    'overflow-x-auto',
+    'rounded-3xl',
+    'p-6',
+    'rounded-[30px]',
+    'border',
+    'border-divider-border',
+    'glassy-gradient-card',
+    'dark-glass-background-gradient',
+  );
   const tableClass = classNames(
     'relative',
     'table-lg',
@@ -117,13 +127,12 @@
   <slot />
 
   <div class={tableWrapperClass}>
+    {#if ended && data.length > 0}
+      <DisabledMask title={endTitleText} description={endDescriptionText} />
+    {/if}
     <table class={tableClass}>
       <TableHeader {headers} />
       <div class="h-[4px]" />
-
-      {#if ended && data.length > 0}
-        <DisabledMask title={endTitleText} description={endDescriptionText} />
-      {/if}
 
       <tbody class={tbodyClass}>
         <!-- A single row to highlight a position -->
@@ -184,7 +193,6 @@
       </tbody>
     </table>
   </div>
-
   {#if showPagination}
     <div class={paginationMarginClass}>
       <Paginator

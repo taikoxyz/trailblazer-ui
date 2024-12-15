@@ -28,7 +28,7 @@
   const seasons: number[] = [2, 3];
 
   $: totalItems = pageInfo?.total || 0;
-  $: pageSize = pageInfo?.size || leaderboardConfig.pageSizeSmall;
+  $: pageSize = pageInfo?.size || leaderboardConfig.pageSizeXlarge;
   $: hasEnded = endedSeasons.includes(Number($activeSeason));
 
   function handlePageChange(page: number) {
