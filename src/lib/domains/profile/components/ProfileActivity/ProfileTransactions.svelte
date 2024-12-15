@@ -51,9 +51,6 @@
     'glassy-gradient-card',
     'dark-glass-background-gradient',
     'xl:max-w-[1344px]',
-    'sm:rounded-b-[30px]',
-    'rounded-t-[30px]',
-    'md:rounded-tl-none',
     'rounded-[30px]',
     'relative',
   );
