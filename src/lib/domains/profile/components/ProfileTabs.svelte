@@ -98,7 +98,7 @@
     'w-full',
     'justify-center',
     'md:justify-start',
-    'lg:px-0',
+    'md:px-[26px]',
     'tabs',
     'gap-[10px]',
     'mb-[30px]',

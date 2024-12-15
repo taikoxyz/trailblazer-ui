@@ -38,7 +38,7 @@
   );
 
   const cardClasses = classNames('bg-purple-900', 'relative', 'flex', 'flex-col', 'h-full');
-  const statusClasses = classNames('flex-1', 'mt-[65px]');
+  const statusClasses = classNames('flex-1', 'mt-[80px]', 'xl:mt-0');
   const fontBoldTextLeftClasses = classNames('font-bold', 'text-left');
   const listClasses = classNames('f-col', 'gap-[8px]');
   const ctaClasses = classNames('absolute', 'bottom-0', 'w-full', 'pb-[27px]', 'px-[24px]');

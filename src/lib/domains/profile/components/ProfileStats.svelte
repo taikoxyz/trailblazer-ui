@@ -9,7 +9,7 @@
   $: percentile = profile?.userStats?.rankPercentile || '0%';
 </script>
 
-<div class="f-col w-full gap-[8px]">
+<div class="f-col w-full gap-[8px] w-[280px]">
   <div class="f-between-center">
     <span class="text-secondary-content">Level</span>
     <span class="font-bold">

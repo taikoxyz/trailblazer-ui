@@ -7,7 +7,6 @@
   import ProfileName from './ProfileName.svelte';
   import ProfilePicture from './ProfilePicture/ProfilePicture.svelte';
   import ProfileStats from './ProfileStats.svelte';
-  import SeasonDetails from './SeasonDetails.svelte';
 
   export let loading: boolean;
   export let isSelfProfile: boolean;
@@ -31,6 +30,7 @@
     'md:items-start',
     'items-center',
     'w-full',
+    'lg:min-w-[566px]',
     'md:h-[290px]',
     'xl:w-1/2',
     'xl:max-w-[680px]',
@@ -76,8 +76,6 @@
 
   const spinnerContainerClasses = classNames('flex', 'h-full', 'w-full', 'items-center', 'justify-center');
 </script>
-
-<SeasonDetails />
 
 <div class={cardClasses}>
   <div class={gradientClasses}>
