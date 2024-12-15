@@ -35,7 +35,7 @@
   });
 
   const wrapperClasses =
-    'f-col items-center gap-[100px] px-[48px] container justify-center self-center mx-auto mt-[70px] mb-[150px]';
+    'f-col items-center gap-[100px] container justify-center self-center mx-auto mt-[70px] mb-[150px]';
   const headlineClasses = 'lg:text-left text-white font-bold leading-[28px]';
   const startTimeClasses = classNames(
     'mb-[20px]',

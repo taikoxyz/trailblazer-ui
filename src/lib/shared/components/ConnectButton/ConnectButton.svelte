@@ -54,7 +54,7 @@
       </span>
     </div>
     <span
-      class="flex w-full justify-center items-center text-secondary-content lg:text-tertiary-content btn-glass-bg rounded-full px-[10px] py-[19px] lg:py-[4px] min-h-[65px] xl:min-h-[38px] bg-interactive-primary font-normal lg:font-bold font-medium text-[22px] lg:text-sm">
+      class="flex items-center text-secondary-content lg:text-tertiary-content btn-glass-bg rounded-full px-[10px] py-[19px] lg:py-[4px] min-h-[65px] xl:min-h-[38px] bg-interactive-primary font-normal lg:font-bold font-medium text-[22px] lg:text-sm">
       {shortenAddress(accountAddress, 4, 4)}
     </span>
   </button>
@@ -64,8 +64,9 @@
     priority="primary"
     class="lg:!max-w-[215px] max-h-[75px] {$$props.class} lg:!f-items-center font-clash-grotesk lg:max-h-[44px] xl:min-h-[40px] !min-w-[250px] py-[24px] px-[24px] lg:py-[0px] w-full justify-start"
     loading={web3modalOpen}
+    disabled={web3modalOpen}
     on:click={connectWallet}>
-    <div class="flex items-center lg:body-regular text-[22px] font-medium space-x-2">
+    <div class="f-row items-center lg:body-regular text-[22px] font-medium space-x-2">
       {#if web3modalOpen}
         <span>{$t('wallet.status.connecting')}</span>
       {:else}

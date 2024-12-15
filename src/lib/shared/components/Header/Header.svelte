@@ -15,30 +15,14 @@
     'relative',
     'justify-center',
     'flex',
-    'z-30',
+    'z-50',
     'my-[30px]',
     'h-[56px]',
   );
 
-  const containerClasses = classNames(
-    'f-center',
-    'w-full',
-    'xl:max-w-[1440px]',
-    'fixed',
-    'px-[24px]',
-    'md:px-[48px]',
-    'xl:px-0',
-  );
+  const containerClasses = classNames('f-center', 'w-full', 'fixed', 'px-[24px]', 'md:px-[48px]', 'xl:px-0');
 
-  const headerClasses = classNames(
-    'flex',
-    'body-regular',
-    'items-center',
-    'box-border',
-    'lg:bg-none',
-    'w-full',
-    'justify-center',
-  );
+  const headerClasses = classNames('ml-[-12px]', 'container');
 
   const innerHeaderClasses = classNames(
     'f-between-center',
@@ -47,6 +31,7 @@
     'min-h-[56px]',
     'xl:top-[12px]',
     'pl-[24px]',
+    'pr-[6px]',
     'bg-elevated-background',
     'rounded-full',
   );
