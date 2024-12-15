@@ -13,7 +13,7 @@ export const load = async () => {
   let loading = true;
   let pageInfo: PaginationInfo<UserLeaderboardItem> = {
     page: 0,
-    size: leaderboardConfig.pageSizeSmall,
+    size: leaderboardConfig.pageSizeXlarge,
     first: 0,
     last: 1,
     total: 0,
