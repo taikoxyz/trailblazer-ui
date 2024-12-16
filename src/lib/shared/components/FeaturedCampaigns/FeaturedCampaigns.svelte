@@ -96,7 +96,7 @@
     if (!card) return;
 
     const cardWidth = card.offsetWidth;
-    const gap = 16; // gap-4
+    const gap = 23;
     const totalCardWidth = cardWidth + gap;
 
     const currentScroll = carouselElement.scrollLeft;
@@ -111,7 +111,7 @@
     if (!card) return;
 
     const cardWidth = card.offsetWidth;
-    const gap = 16; // gap-4
+    const gap = 23;
     const totalCardWidth = cardWidth + gap;
 
     const currentScroll = carouselElement.scrollLeft;
@@ -183,9 +183,9 @@
     'scrollable',
   );
 
-  const cardContainerClasses = classNames('flex', 'w-full', 'gap-4', 'lg:gap-8', 'snap-x', 'snap-mandatory');
+  const cardContainerClasses = classNames('flex', 'w-full', 'gap-[23px]', 'snap-x', 'snap-mandatory');
 
-  const cardClasses = classNames('snap-start', 'flex-shrink-0', 'w-full', 'md:w-[400px]', 'min-h-[470px]', 'h-full');
+  const cardClasses = classNames('snap-start', 'flex-shrink-0', 'w-full', 'md:w-[432px]', 'min-h-[470px]', 'h-full');
 </script>
 
 <div class={containerClasses}>
