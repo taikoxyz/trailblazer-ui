@@ -9,19 +9,21 @@
   import profileService from '$lib/domains/profile/services/ProfileServiceInstance';
   import { profileLoading } from '$lib/domains/profile/stores/profileStore';
   import { activeSeason } from '$lib/shared/stores/activeSeason';
-  // import { Alert } from '$shared/components/Alert';
+  import { Alert } from '$shared/components/Alert';
   import LeaderboardDisclaimer from '$shared/components/Disclaimer/LeaderboardDisclaimer.svelte';
   import { classNames } from '$shared/utils/classNames';
   import getConnectedAddress from '$shared/utils/getConnectedAddress';
 
+  import NewsCard from './NewsCard/NewsCard.svelte';
   import MultiplierCard from './ProfileMultiplierCard/MultiplierCard.svelte';
-  import ProfileSeasonBonusCard from './ProfileSeasonBonusCard/ProfileSeasonBonusCard.svelte';
+  import SeasonDetails from './SeasonDetails.svelte';
+  // import ProfileSeasonBonusCard from './ProfileSeasonBonusCard/ProfileSeasonBonusCard.svelte';
 
   let isSelfProfile: boolean;
 
   const disclaimerWrapperClasses = classNames('mt-[100px]', 'px-[24px]', 'md:px-0');
   const containerClasses = classNames('flex', 'flex-col', 'items-center');
-  const sectionClasses = classNames('flex', 'flex-col', 'max-w-section', 'w-full', 'lg:gap-8');
+  const sectionClasses = classNames('flex', 'flex-col', 'container', 'w-full', 'lg:gap-8', 'mt-[24px]');
   const innerContainerClasses = classNames(
     'px-4',
     'lg:px-0',
@@ -31,8 +33,24 @@
     'f-col',
     'xl:f-row',
     'justify-center',
+    'lg:justify-between',
   );
-  // const alertClasses = classNames('mt-[28px]');
+
+  const profileCardWrapperClasses = classNames(
+    'border',
+    'border-divider-border',
+    'glassy-gradient-card',
+    'dark-glass-background-gradient',
+    'w-full',
+    'rounded-[30px]',
+    'px-[24px]',
+    'f-col',
+    'gap-[24px]',
+    'pb-[24px]',
+    'max-w-[1016px]',
+  );
+
+  const alertClasses = classNames('mt-[28px]', 'mx-[12px]', 'lg:mx-0');
   const tabsClasses = classNames('mt-[28px]');
   $: isSelfProfile = false;
   onMount(async () => {
@@ -45,19 +63,24 @@
 <div class={containerClasses}>
   <div class={sectionClasses}>
     <div class={innerContainerClasses}>
-      <ProfileCard loading={$profileLoading} {isSelfProfile} />
-      <MultiplierCard />
-      {#if isSelfProfile}
+      <div class={profileCardWrapperClasses}>
+        <SeasonDetails />
+        <div class="f-col lg:f-row justify-between gap-[24px]">
+          <ProfileCard loading={$profileLoading} {isSelfProfile} />
+          <MultiplierCard />
+        </div>
+        <!-- {#if isSelfProfile}
         <ProfileSeasonBonusCard />
-      {/if}
+      {/if} -->
+      </div>
+      <NewsCard />
     </div>
-
-    <!-- <div class={alertClasses}>
+    <div class={alertClasses}>
       <Alert type="info">
         <b>Note:</b>
-        Season 1 rewards can be claimed now! Check the claim tab!
+        Final Season 2 stats will be calculated and accessible shortly!
       </Alert>
-    </div> -->
+    </div>
 
     <div class={tabsClasses}>
       <ProfileTabs {isSelfProfile} />

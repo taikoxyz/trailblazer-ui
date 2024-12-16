@@ -13,7 +13,6 @@
     <slot name="title" />
     <slot name="tooltip" />
   </div>
-  <div class="divider m-0"></div>
   <div class="flex items-center flex-col px-6 gap-4 py-2 w-full h-full">
     <div class="f-center h-full w-full">
       <slot name="status" />

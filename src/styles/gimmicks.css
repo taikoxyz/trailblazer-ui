@@ -14,7 +14,7 @@
     ),
     transparent
   );
-  border-radius: 20px;
+  border-radius: 30px;
   background-color: var(--backdrop, transparent);
   background-size: calc(100% + (2 * var(--border-size))) calc(100% + (2 * var(--border-size)));
   background-position: 50% 50%;
@@ -26,7 +26,7 @@
 
 [data-glow-border]::before,
 [data-glow-border]::after {
-  border-radius: 20px;
+  border-radius: 30px;
   pointer-events: none;
   content: '';
   position: absolute;
@@ -43,7 +43,7 @@
 
 /* This is the emphasis light */
 [data-glow-border]::before {
-  border-radius: 20px;
+  border-radius: 30px;
   background-image: radial-gradient(
     calc(var(--spotlight-size) * 0.75) calc(var(--spotlight-size) * 0.75) at calc(var(--x, 0) * 1px)
       calc(var(--y, 0) * 1px),
@@ -70,7 +70,7 @@
   opacity: var(--outer, 1);
 }
 [data-glow-border] > [data-glow-border] {
-  border-radius: 20px;
+  border-radius: 30px;
   border-width: calc(var(--border-size) * 20);
   filter: blur(calc(var(--border-size) * 10));
   background: none;

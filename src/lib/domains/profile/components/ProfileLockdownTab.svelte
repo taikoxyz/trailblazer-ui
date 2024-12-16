@@ -7,11 +7,10 @@
   const wrapperClasses = classNames(
     'container',
     'w-full',
-    'bg-elevated-background',
-    'xl:max-w-[1344px]',
-    'sm:rounded-b-[30px]',
-    'rounded-t-[30px]',
-    'md:rounded-tl-none',
+    'border',
+    'border-divider-border',
+    'glassy-gradient-card',
+    'dark-glass-background-gradient',
     'rounded-[30px]',
     'relative',
     'pt-[60px]',
@@ -54,8 +53,9 @@
     'md:px-[24px]',
     'md:gap-[20px]',
     'gap-[24px]',
-    'lg:grid-cols-4',
-    'md:grid-cols-3',
+    'xl:grid-cols-4',
+    'lg:grid-cols-3',
+    'md:grid-cols-2',
     'grid-cols-1',
   );
 </script>
@@ -80,7 +80,7 @@
       data={{
         name: 'Symmetric',
         description:
-          'Symmetric is a Balancer fork and you can boost your earnings by locking your 80TAIKO-20WETH LP tokens in a Symmetric Taiko LP Vault until December 19th.',
+          'Symmetric is a Balancer fork and you can boost your earnings by locking your 80TAIKO-20WETH LP tokens in a Symmetric Taiko LP Vault until March 17th.',
         logo: '/lockdown/symmetric.png',
         url: 'https://app.symm.fi/#/taiko',
         category: 'DeFi',

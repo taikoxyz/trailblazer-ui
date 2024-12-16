@@ -46,11 +46,10 @@
   const containerClass = classNames(
     'container',
     'w-full',
-    'bg-elevated-background',
-    'xl:max-w-[1344px]',
-    'sm:rounded-b-[30px]',
-    'rounded-t-[30px]',
-    'md:rounded-tl-none',
+    'border',
+    'border-divider-border',
+    'glassy-gradient-card',
+    'dark-glass-background-gradient',
     'rounded-[30px]',
     'relative',
   );
@@ -93,38 +92,39 @@
   const paginatorWrapper = classNames('w-full', 'mt-[20px]', 'flex', 'justify-center', 'lg:justify-end', 'max-w-full');
 </script>
 
-<div class={containerClass}>
-  <!-- Header Row -->
-  <div class={headerRowClass}>
-    <!-- Activity Header -->
-    <div class={headerCellClass}>{headers[0]}</div>
-    <!-- Points Header -->
-    <div class={headerCellClass}>{headers[1]}</div>
-    <!-- Icon Header (Visible on mobile, hidden on large screens) -->
-    <div class={iconHeaderCellClass}></div>
-    <!-- Time Header (Hidden on mobile, visible on large screens) -->
-    <div class={timeHeaderCellClass}>{'Time'}</div>
-  </div>
-
-  <!-- Divider -->
-  <div class={dividerClass}></div>
-
-  {#if $profileLoading}
-    <div class={loadingOverlayClass}>
-      <Spinner size="md" />
+<div>
+  <div class={containerClass}>
+    <!-- Header Row -->
+    <div class={headerRowClass}>
+      <!-- Activity Header -->
+      <div class={headerCellClass}>{headers[0]}</div>
+      <!-- Points Header -->
+      <div class={headerCellClass}>{headers[1]}</div>
+      <!-- Icon Header (Visible on mobile, hidden on large screens) -->
+      <div class={iconHeaderCellClass}></div>
+      <!-- Time Header (Hidden on mobile, visible on large screens) -->
+      <div class={timeHeaderCellClass}>{'Time'}</div>
     </div>
-  {:else}
-    <!-- Activity History Rows -->
-    {#if pointsHistory && hasPointHistory}
-      {#each pointsHistory as historyEntry}
-        <ActivityHistoryRow {historyEntry} />
-      {/each}
-    {:else}
-      <div class="p-5 text-center">No activity history available.</div>
-    {/if}
-  {/if}
-</div>
 
+    <!-- Divider -->
+    <div class={dividerClass}></div>
+
+    {#if $profileLoading}
+      <div class={loadingOverlayClass}>
+        <Spinner size="md" />
+      </div>
+    {:else}
+      <!-- Activity History Rows -->
+      {#if pointsHistory && hasPointHistory}
+        {#each pointsHistory as historyEntry}
+          <ActivityHistoryRow {historyEntry} />
+        {/each}
+      {:else}
+        <div class="p-5 text-center">No activity history available.</div>
+      {/if}
+    {/if}
+  </div>
+</div>
 <!-- Paginator -->
 <div class={paginatorWrapper}>
   <Paginator

@@ -3,15 +3,13 @@
   import { profileLoading, userProfile } from '$lib/domains/profile/stores/profileStore';
   import { DomainType } from '$lib/domains/profile/types/types';
   import type { UserProfile } from '$lib/domains/profile/types/UserProfile';
-  import { Icon, IconFlipper } from '$shared/components/Icon';
+  import { Icon } from '$shared/components/Icon';
   import { shortenAddress } from '$shared/utils/shortenAddress';
 
   export let profile: UserProfile;
   let dropdown: HTMLDivElement;
 
   $: profile = $userProfile;
-
-  $: open = false;
 
   function handleSetDomain(selectedDomain: DomainType) {
     profileService.setSelectedDomain(selectedDomain);
@@ -34,7 +32,7 @@
   }
 </script>
 
-<div class="flex items-center gap-1">
+<div class="flex items-center gap-1 group">
   {#if !$profileLoading}
     <Icon type="user-circle" fillClass="fill-base-content" />
     <a
@@ -45,17 +43,13 @@
     </a>
   {/if}
   {#if profile?.domainInfo?.dotTaiko || profile?.domainInfo?.zns}
-    <div class="dropdown dropdown-bottom" bind:this={dropdown}>
+    <div class="dropdown dropdown-end group-hover:dropdown-open" bind:this={dropdown}>
       <div tabindex="0" role="button" class="btn btn-ghost btn-circle btn-sm p-0 items-center justify-center">
-        <IconFlipper
-          type="swap-rotate"
-          iconType1="chevron-left"
-          iconType2="chevron-down"
-          selectedDefault="chevron-left"
-          class="w-[24px] h-[24px] rounded-full"
-          size={20}
-          bind:flipped={open}
-          on:labelclick={() => (open = !open)} />
+        <Icon
+          type="chevron-left"
+          fillClass="fill-base-content"
+          size={12}
+          class="transition-transform duration-200 ease-in-out group-hover:-rotate-90" />
       </div>
       <ul class="menu dropdown-content bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
         {#if profile?.domainInfo.dotTaiko && profile?.domainInfo.selected != DomainType.DOTTAIKO}

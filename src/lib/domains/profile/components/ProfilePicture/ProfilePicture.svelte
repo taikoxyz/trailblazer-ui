@@ -21,13 +21,25 @@
     'opacity-50',
     'hover:opacity-100',
   );
+  const wrapperClasses = classNames(
+    'h-[175px]',
+    'w-[175px]',
+    'min-w-[175px]',
+    'min-h-[175px]',
+    'rounded-[20px]',
+    'relative',
+    'overflow-hidden',
+    ' skeleton',
+    ' bg-neutral-background',
+  );
+  const pfpClasses = classNames('rounded-[20px]', 'min-w-[175px]', 'min-h-[175px]');
 
   $: profilePictureUrl = profile?.personalInfo?.avatar || '/avatar.png';
 </script>
 
-<div class=" h-full skeleton bg-neutral-background rounded-3xl">
+<div class={wrapperClasses}>
   {#if !$profileLoading}
-    <img src={profilePictureUrl} alt="avatar" />
+    <img src={profilePictureUrl} class={pfpClasses} alt="avatar" />
   {/if}
 
   {#if isSelfProfile}

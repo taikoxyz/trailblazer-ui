@@ -2,12 +2,11 @@
   import { userProfile } from '$lib/domains/profile/stores/profileStore';
   import { Spinner } from '$lib/shared/components';
   import { formatNumbers } from '$lib/shared/utils';
-  import { activeSeason } from '$shared/stores/activeSeason';
   import { classNames } from '$shared/utils/classNames';
 
   import ProfileName from './ProfileName.svelte';
   import ProfilePicture from './ProfilePicture/ProfilePicture.svelte';
-  import ProfileRank from './ProfileRank.svelte';
+  import ProfileStats from './ProfileStats.svelte';
 
   export let loading: boolean;
   export let isSelfProfile: boolean;
@@ -17,13 +16,13 @@
   $: profile = $userProfile;
   $: displayedScore = profile?.userStats?.score || 0;
 
-  $: seasonHistoryPoints = profile?.userStats?.seasonHistory?.[$activeSeason - 1]?.total ?? 0;
-
   const cardClasses = classNames(
     'relative',
     'bg-elevated-background',
     'p-[20px]',
+    'pb-[36px]',
     'overflow-hidden',
+    'gap-[24px]',
     'md:pt-5',
     'rounded-3xl',
     'f-col',
@@ -31,55 +30,85 @@
     'md:items-start',
     'items-center',
     'w-full',
+    'lg:min-w-[566px]',
+    'xl:min-w-[654px]',
     'md:h-[290px]',
     'xl:w-1/2',
     'xl:max-w-[680px]',
   );
+
+  const gradientClasses = classNames('absolute', 'h-[66px]', 'w-full', 'profile-card-gradient', 'left-0', 'top-0');
+
+  const hiddenDesktopNameClasses = classNames('hidden', 'md:flex', 'pl-[218px]', 'pt-[27px]');
+
+  const contentWrapperClasses = classNames(
+    'flex',
+    'md:items-start',
+    'items-center',
+    'flex-col',
+    'self-end',
+    'md:min-w-[300px]',
+    'h-full',
+    'md:pt-[65px]',
+    'w-full',
+  );
+
+  const mobileNameWrapperClasses = classNames('md:hidden', 'flex', 'items-center', 'gap-1', 'py-[20px]', 'md:py-1');
+
+  const pointsWrapperClasses = classNames(
+    'flex',
+    'flex-col',
+    'items-center',
+    'md:items-start',
+    'gap-2',
+    'w-full',
+    'mb-[20px]',
+  );
+
+  const scoreClasses = classNames(
+    'font-clash-grotesk',
+    'font-semibold',
+    'text-[35px]',
+    'md:text-[45px]',
+    'leading-none',
+  );
+
+  const rankWrapperClasses = classNames('flex', 'md:items-start', 'items-center', 'flex-col', 'gap-[10px]', 'w-full');
+
+  const spinnerContainerClasses = classNames('flex', 'h-full', 'w-full', 'items-center', 'justify-center');
 </script>
 
 <div class={cardClasses}>
-  <div class="absolute h-[66px] w-full profile-card-gradient left-0 top-0">
-    <div class="hidden md:flex pl-[218px] pt-[27px]">
+  <div class={gradientClasses}>
+    <div class={hiddenDesktopNameClasses}>
       <ProfileName {profile} />
     </div>
   </div>
 
-  <div class="avatar md:size-[175px] size-[250px] md:mr-8 md:justify-self-start justify-self-center">
-    <ProfilePicture {profile} {isSelfProfile} />
-  </div>
+  <!-- Profile Picture -->
+  <ProfilePicture {profile} {isSelfProfile} />
+
   {#if !loading}
-    <div class="flex md:items-start items-center flex-col self-end md:min-w-[300px] w-full">
+    <div class={contentWrapperClasses}>
       <!-- Name (mobile)-->
-      <div class="md:hidden flex items-center gap-1 py-[20px] md:py-1">
+      <div class={mobileNameWrapperClasses}>
         <ProfileName {profile} />
       </div>
       <!-- Points -->
-      <div class="flex flex-col items-center md:items-start gap-2 w-full mb-[20px]">
-        <div class="f-col md:f-row items-center gap-2 md:mt-[14px]">
-          <div class="font-clash-grotesk font-semibold text-[45px] leading-none">
-            {displayedScore ? formatNumbers(displayedScore.toFixed(2)) : '0.00'}
+      <div class={pointsWrapperClasses}>
+        <div class="f-col md:f-row items-center gap-2">
+          <div class={scoreClasses}>
+            {displayedScore ? formatNumbers(displayedScore.toFixed(0)) : '0.00'}
           </div>
-          <div class="text-secondary-content">points</div>
         </div>
       </div>
 
-      <!-- Rank & Experience -->
-      <div class="flex md:items-start items-center flex-col gap-[10px] w-full">
-        <div class="flex gap-[10px] border border-divider-border rounded-full w-fit p-1">
-          <div class="body-bold pl-[15px] py-1">Level {profile?.userStats?.level || 0}</div>
-          <div class="f-center rounded-full body-bold bg-pink-400 w-fit px-[10px]">
-            {profile?.userStats?.title || 'Beginner'}
-          </div>
-        </div>
-        <ProfileRank {profile} />
-      </div>
-      <div class="mt-[20px]">
-        <span class="text-secondary-content">Final Season 1 score: </span>
-        <span>{seasonHistoryPoints}</span>
+      <div class={rankWrapperClasses}>
+        <ProfileStats {profile} />
       </div>
     </div>
   {:else}
-    <div class="flex h-full w-full items-center justify-center">
+    <div class={spinnerContainerClasses}>
       <Spinner />
     </div>
   {/if}
