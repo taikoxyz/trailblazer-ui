@@ -345,7 +345,13 @@ export default class BadgeRecruitmentAdapter {
       return [];
     }
   }
-
+  /**
+   * Fetch the user's max influences, based on exp
+   *
+   * @param exp
+   * @return {*}  {Promise<number>}
+   * @memberof BadgeRecruitmentAdapter
+   */
   async getMaxInfluences(exp: number): Promise<number> {
     log('getMaxInfluences', { exp });
     const max = await readContract(wagmiConfig, {
@@ -358,7 +364,12 @@ export default class BadgeRecruitmentAdapter {
 
     return Number(max);
   }
-
+  /**
+   * Fetch current recruitment cycle id
+   *
+   * @return {*}  {Promise<number>}
+   * @memberof BadgeRecruitmentAdapter
+   */
   async getRecruitmentCycleId(): Promise<number> {
     log('getRecruitmentCycleId');
     const cycleId = await readContract(wagmiConfig, {
@@ -369,7 +380,15 @@ export default class BadgeRecruitmentAdapter {
     });
     return Number(cycleId);
   }
-
+  /**
+   * Resets the migration for a given token, cycle and user
+   *
+   * @param tokenId
+   * @param badgeId
+   * @param cycleId
+   * @return {*}  {Promise<void>}
+   * @memberof BadgeRecruitmentAdapter
+   */
   async resetMigration(tokenId: number, badgeId: number, cycleId: number): Promise<void> {
     log('resetMigration', { tokenId, badgeId, cycleId });
     const hash = await writeContract(wagmiConfig, {

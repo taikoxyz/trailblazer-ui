@@ -102,12 +102,25 @@ export default class BadgeRecruitmentService {
     log('getMaxInfluences', { exp });
     return this.adapter.getMaxInfluences(exp);
   }
-
+  /**
+   * Fetch current recruitment cycle id
+   *
+   * @return {*}  {Promise<number>}
+   * @memberof BadgeRecruitmentAdapter
+   */
   async getRecruitmentCycleId(): Promise<number> {
     log('getRecruitmentCycleId');
     return this.adapter.getRecruitmentCycleId();
   }
-
+  /**
+   * Resets the migration for a given token, cycle and user
+   *
+   * @param tokenId
+   * @param badgeId
+   * @param cycleId
+   * @return {*}  {Promise<void>}
+   * @memberof BadgeRecruitmentAdapter
+   */
   async resetMigration(tokenId: number, badgeId: number, cycleId: number): Promise<void> {
     log('resetMigration', { tokenId, badgeId, cycleId });
     return this.adapter.resetMigration(tokenId, badgeId, cycleId);
