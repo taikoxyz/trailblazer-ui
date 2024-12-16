@@ -34,7 +34,7 @@
     'flex-1',
     'items-center',
     'body-medium',
-    'justify-between',
+    'justify-center',
     withArrow ? 'pr-[8px]' : '',
     $$restProps.disabled ? 'cursor-not-allowed' : 'cursor-pointer',
     withArrow ? 'min-w-[161px]' : 'w-full',
