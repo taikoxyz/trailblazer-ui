@@ -5,19 +5,18 @@
   import { classNames } from '$shared/utils/classNames';
 
   export let title: string | undefined = undefined;
-  import getConnectedAddress from '$shared/utils/getConnectedAddress';
 
   import Card from '../Card/Card.svelte';
   import type { CampaignCardType } from './types';
 
   const cards: CampaignCardType[] = [
     {
-      title: 'Recruit Season 2 members',
-      text: 'Recruit new Season 2 members to your cause by sending your Season 1 Devs out to find them.',
+      title: 'Evolve your Faction Badges',
+      text: 'The Devs are out in full force looking for new recruits to join their Faction. Will you join them?',
       btn: {
         text: 'Recruit now',
         external: false,
-        destination: `profile/${getConnectedAddress()}#badge-recruitment`,
+        destination: `profile/`,
       },
       images: {
         sm: '/campaign/cards/sm/recruit.png',
@@ -27,42 +26,27 @@
       },
     },
     {
-      title: 'Taiko x Robinos',
-      text: 'Gain bonus points for correct predictions on select events with Robinos.',
+      title: 'Play, Socialize, and Win Big!',
+      text: 'Explore top Gaming and SocialFi DApps, compete, and claim your share of 150k in prizes.',
       btn: {
-        text: 'Learn more',
-        external: true,
-        destination: 'https://predict.robinos.finance',
-      },
-      images: {
-        sm: '/campaign/cards/sm/robinos.png',
-        md: '/campaign/cards/xl/robinos.png',
-        lg: '/campaign/cards/xl/robinos.png',
-        xl: '/campaign/cards/xl/robinos.png',
-      },
-    },
-    {
-      title: 'Chillblazers',
-      text: 'Prize pool 100K TAIKO tokens for all gaming and sociafi dapps!',
-      btn: {
-        text: 'Start now',
+        text: 'Explore now',
         external: false,
-        destination: 'journeys/s2/chillblazers',
+        destination: 'journeys/s3/chillblazers',
       },
       images: {
-        sm: '/campaign/cards/sm/chillblazers.png',
-        md: '/campaign/cards/xl/chillblazers.png',
-        lg: '/campaign/cards/xl/chillblazers.png',
-        xl: '/campaign/cards/xl/chillblazers.png',
+        sm: '/campaign/cards/sm/chillblazer.png',
+        md: '/campaign/cards/xl/chillblazer.png',
+        lg: '/campaign/cards/xl/chillblazer.png',
+        xl: '/campaign/cards/xl/chillblazer.png',
       },
     },
     {
-      title: 'Liquidity Royale',
-      text: 'Taiko Edition, Battle for Liquidity: Taiko Rewards Race, Taiko TVL Rush',
+      title: 'Liquidity Royale Season 3',
+      text: 'Supercharge your liquidity and get rewarded for it. Season 3 is offering a massive 1.2M Taiko tokens!',
       btn: {
         text: 'Earn now',
         external: false,
-        destination: 'journeys/s2/liquidity',
+        destination: 'journeys/liquidity',
       },
       images: {
         sm: '/campaign/cards/sm/liquidity-royale.png',
