@@ -28,6 +28,7 @@ vi.mock('$lib/domains/badges/adapter/BadgeRecruitmentAdapter', () => {
       getRecruitmentStatus: vi.fn(),
       getRecruitmentCycleId: vi.fn(),
       getMaxInfluences: vi.fn(),
+      resetMigration: vi.fn(),
     })),
   };
 });
@@ -50,6 +51,7 @@ describe('BadgeRecruitmentService', () => {
       getRecruitmentStatus: vi.fn(),
       getRecruitmentCycleId: vi.fn(),
       getMaxInfluences: vi.fn(),
+      resetMigration: vi.fn(),
       _getRecruitmentSignature: vi.fn(),
     } as unknown as BadgeRecruitmentAdapter;
 
@@ -232,14 +234,57 @@ describe('BadgeRecruitmentService', () => {
   });
 
   describe('getMaxInfluences', () => {
-    it('should fetch max influences', async () => {});
-  });
+    it('should exercise the `getMaxInfluences` method, happy-path', async () => {
+      // Given
+      const mockExp = 150; // Input experience value
+      const mockMaxInfluences = 10; // Simulated max influences return value
 
+      // Mock the adapter's getMaxInfluences method
+      vi.mocked(mockBadgeRecruitmentAdapter).getMaxInfluences.mockResolvedValue(mockMaxInfluences);
+
+      // When
+      const result = await badgeRecruitmentService.getMaxInfluences(mockExp);
+
+      // Then
+      expect(mockBadgeRecruitmentAdapter.getMaxInfluences).toHaveBeenCalledTimes(1); // Ensure the dependency is called
+      expect(mockBadgeRecruitmentAdapter.getMaxInfluences).toHaveBeenCalledWith(mockExp); // Ensure the correct argument is passed
+      expect(result).toEqual(mockMaxInfluences); // Ensure the result matches the mocked value
+    });
+  });
   describe('getRecruitmentCycleId', () => {
-    it('should fetch recruitment cycle id', async () => {});
+    it('should exercise the `getRecruitmentCycleId` method, happy-path', async () => {
+      // Given
+      const mockCycleId = 7;
+
+      // Mock the adapter's getRecruitmentCycleId method
+      vi.mocked(mockBadgeRecruitmentAdapter).getRecruitmentCycleId.mockResolvedValue(mockCycleId);
+
+      // When
+      const result = await badgeRecruitmentService.getRecruitmentCycleId();
+
+      // Then
+      expect(mockBadgeRecruitmentAdapter.getRecruitmentCycleId).toHaveBeenCalledTimes(1); // Ensure the dependency is called
+      expect(mockBadgeRecruitmentAdapter.getRecruitmentCycleId).toHaveBeenCalledWith(); // Ensure no arguments are passed
+      expect(result).toEqual(mockCycleId); // Ensure the result matches the mocked value
+    });
   });
 
   describe('resetMigration', () => {
-    it('should reset migration', async () => {});
+    it('should exercise the `resetMigration` method, happy-path', async () => {
+      // Given
+      const mockTokenId = 1;
+      const mockBadgeId = 2;
+      const mockCycleId = 3;
+
+      // Mock the adapter's resetMigration method
+      vi.mocked(mockBadgeRecruitmentAdapter).resetMigration.mockResolvedValue(undefined);
+
+      // When
+      await badgeRecruitmentService.resetMigration(mockTokenId, mockBadgeId, mockCycleId);
+
+      // Then
+      expect(mockBadgeRecruitmentAdapter.resetMigration).toHaveBeenCalledTimes(1); // Ensure the dependency is called
+      expect(mockBadgeRecruitmentAdapter.resetMigration).toHaveBeenCalledWith(mockTokenId, mockBadgeId, mockCycleId); // Ensure the correct arguments are passed
+    });
   });
 });
