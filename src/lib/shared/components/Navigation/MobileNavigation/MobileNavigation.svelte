@@ -68,7 +68,7 @@
   <div class="z-30 fixed top-[100px] left-0 overflow-y-scroll h-full w-full" transition:fly={{ x: '600' }}>
     <div class="relative z-21 flex flex-col gap-2 px-[24px] md:px-[48px] min-h-full bg-primary-background">
       <!-- Wallet -->
-      <ConnectButton class="min-h-[75px] min-w-full" />
+      <ConnectButton class="min-h-[75px] min-w-full !max-w-full lg:!max-w-full" />
 
       <!-- Navigation Links -->
       <div class="flex flex-col w-full gap-2">

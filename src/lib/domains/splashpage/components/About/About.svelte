@@ -35,7 +35,7 @@
     'w-full',
     'h-[600px]',
     'max-w-[100vw]',
-    'xl:max-w-[1440px]',
+    'xl:max-w-[1344px]',
     'bg-cover',
     'bg-center',
     'xl:bg-[url(/about/xl/about-illustration-s2.png)]',

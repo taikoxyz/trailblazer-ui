@@ -6,7 +6,7 @@
   import TrailblazerGuideStep from './TrailblazerGuideStep.svelte';
 
   const wrapperClasses = classNames(
-    'xl:max-w-[1440px]',
+    'xl:max-w-[1344px]',
     'items-start',
     'lg:mt-[12px]',
     'mt-[80px]',

@@ -32,7 +32,7 @@
     'px-[24px]',
   );
 
-  const sectionClasses = classNames('w-full', 'xl:max-w-[1440px]', 'relative', 'flex', 'mb-8');
+  const sectionClasses = classNames('w-full', 'xl:max-w-[1344px]', 'relative', 'flex', 'mb-8');
   const earnSectionClasses = classNames(sectionClasses, 'mb-20');
   const contentClasses = classNames(
     'flex',

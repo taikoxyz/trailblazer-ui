@@ -25,7 +25,7 @@
   const containerClasses = classNames(
     'f-center',
     'w-full',
-    'xl:max-w-[1440px]',
+    'xl:max-w-[1344px]',
     'fixed',
     'px-[24px]',
     'md:px-[48px]',
@@ -40,6 +40,7 @@
     'lg:bg-none',
     'w-full',
     'justify-center',
+    'ml-[-12px]',
   );
 
   const innerHeaderClasses = classNames(
@@ -51,6 +52,7 @@
     'pl-[24px]',
     'bg-elevated-background',
     'rounded-full',
+    'pr-[6px]',
   );
 
   const logoLinkClasses = classNames('flex', 'gap-2', 'items-end', 'z-10');

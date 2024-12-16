@@ -17,7 +17,7 @@
     'w-full',
     'flex',
     'h-[746px]',
-    'xl:max-w-[1440px]',
+    'xl:max-w-[1344px]',
     'relative',
     'rounded-[30px]',
     'overflow-hidden',
@@ -106,7 +106,7 @@
     playsinline
     poster="/splash/fallback.webp"
     class="relative h-full object-cover"
-    src="/splash/xl/evergreen.mp4"></video>
+    src="/splash/xl/evergreen.webm"></video>
 
   <div class={backgroundImageClasses}>
     <div class={pillClasses}>
