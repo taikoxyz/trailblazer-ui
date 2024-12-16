@@ -42,7 +42,7 @@
     },
     {
       title: 'Liquidity Royale Season 3',
-      text: 'Supercharge your liquidity and get rewarded for it. Season 3 is offering a massive 1.2M Taiko tokens!',
+      text: 'Supercharge your liquidity and get rewarded for it. Season 3 is offering a massive 1.2M TAIKO tokens!',
       btn: {
         text: 'Earn now',
         external: false,
