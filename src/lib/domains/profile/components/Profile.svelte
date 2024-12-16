@@ -23,7 +23,7 @@
 
   const disclaimerWrapperClasses = classNames('mt-[100px]', 'px-[24px]', 'md:px-0');
   const containerClasses = classNames('flex', 'flex-col', 'items-center');
-  const sectionClasses = classNames('flex', 'flex-col', 'max-w-section', 'w-full', 'lg:gap-8');
+  const sectionClasses = classNames('flex', 'flex-col', 'container', 'w-full', 'lg:gap-8', 'mt-[24px]');
   const innerContainerClasses = classNames(
     'px-4',
     'lg:px-0',

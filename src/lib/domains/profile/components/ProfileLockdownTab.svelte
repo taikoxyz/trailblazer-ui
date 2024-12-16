@@ -11,7 +11,6 @@
     'border-divider-border',
     'glassy-gradient-card',
     'dark-glass-background-gradient',
-    'xl:max-w-[1344px]',
     'rounded-[30px]',
     'relative',
     'pt-[60px]',
