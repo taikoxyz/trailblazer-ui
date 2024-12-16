@@ -1,5 +1,5 @@
 import type { ApolloQueryResult } from '@apollo/client';
-import { readContract, signMessage, watchContractEvent, writeContract } from '@wagmi/core';
+import { readContract, signMessage, waitForTransactionReceipt, watchContractEvent, writeContract } from '@wagmi/core';
 import axios from 'axios';
 import { type Address, type Hash } from 'viem';
 
@@ -42,6 +42,7 @@ vi.mock('@wagmi/core', () => ({
   signMessage: vi.fn(),
   reconnect: vi.fn(),
   watchContractEvent: vi.fn(),
+  waitForTransactionReceipt: vi.fn(),
 }));
 
 vi.mock('$lib/shared/services/api/axiosClient', async () => {
@@ -467,6 +468,124 @@ describe('BadgeRecruitmentAdapter', () => {
             influenceExpirationTimeout: new Date('1970-01-01T00:30:00.000Z'),
           },
         ]);
+      });
+    });
+  });
+
+  describe('getMaxInfluences', () => {
+    let adapter: BadgeRecruitmentAdapter;
+
+    beforeEach(() => {
+      adapter = new BadgeRecruitmentAdapter();
+      vi.clearAllMocks();
+    });
+
+    it('should fetch the max influences based on experience (exp)', async () => {
+      const exp = 1234;
+      const expectedMaxInfluences = 10; // Simulated return value
+
+      // Mock `readContract` to return the expected max influences
+      vi.mocked(readContract).mockResolvedValue(BigInt(expectedMaxInfluences));
+
+      const result = await adapter.getMaxInfluences(exp);
+
+      // Verify `readContract` was called with the correct arguments
+      expect(readContract).toHaveBeenCalledWith(expect.any(Object), {
+        abi: badgeRecruitmentAbi,
+        address: badgeRecruitmentAddress[chainId],
+        functionName: 'maxInfluences',
+        args: [BigInt(Math.trunc(exp))],
+        chainId,
+      });
+
+      // Ensure the result matches the mocked value
+      expect(result).toBe(expectedMaxInfluences);
+    });
+  });
+
+  describe('getRecruitmentCycleId', () => {
+    let adapter: BadgeRecruitmentAdapter;
+
+    beforeEach(() => {
+      adapter = new BadgeRecruitmentAdapter();
+      vi.clearAllMocks();
+    });
+
+    it('should fetch the current recruitment cycle ID', async () => {
+      const expectedCycleId = 5; // Simulated recruitment cycle ID
+
+      // Mock `readContract` to return the expected recruitment cycle ID
+      vi.mocked(readContract).mockResolvedValue(BigInt(expectedCycleId));
+
+      const result = await adapter.getRecruitmentCycleId();
+
+      // Verify `readContract` was called with the correct arguments
+      expect(readContract).toHaveBeenCalledWith(expect.any(Object), {
+        abi: badgeRecruitmentAbi,
+        address: badgeRecruitmentAddress[chainId],
+        functionName: 'recruitmentCycleId',
+        chainId,
+      });
+
+      // Ensure the result matches the mocked value
+      expect(result).toBe(expectedCycleId);
+    });
+  });
+
+  describe('resetMigration', () => {
+    let adapter: BadgeRecruitmentAdapter;
+
+    beforeEach(() => {
+      adapter = new BadgeRecruitmentAdapter();
+      vi.clearAllMocks();
+    });
+
+    it('should reset migration for a given token, badge, and cycle', async () => {
+      const tokenId = 1;
+      const badgeId = 2;
+      const cycleId = 3;
+
+      const mockHash = '0xmockedhash1234567890abcdef1234567890abcdef12345678' as Address;
+
+      // Mock `writeContract` to return a hash
+      vi.mocked(writeContract).mockResolvedValue(mockHash);
+
+      // Full mock of the transaction receipt
+      const mockReceipt = {
+        blockHash: '0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef' as Address,
+        blockNumber: BigInt(123456),
+        contractAddress: null,
+        cumulativeGasUsed: BigInt(21000),
+        effectiveGasPrice: BigInt(1000000000),
+        from: '0xabcdef1234567890abcdef1234567890abcdef1234' as Address,
+        gasUsed: BigInt(21000),
+        logs: [],
+        logsBloom: ('0x' + '0'.repeat(512)) as Address,
+        status: 'success' as const,
+        to: '0xabcdef1234567890abcdef1234567890abcdef5678' as Address,
+        transactionHash: mockHash,
+        transactionIndex: 1,
+        type: '0x2',
+        chainId: chainId,
+      };
+
+      // Mock `waitForTransactionReceipt` to resolve with a proper receipt
+      vi.mocked(waitForTransactionReceipt).mockResolvedValue(mockReceipt);
+
+      await adapter.resetMigration(tokenId, badgeId, cycleId);
+
+      // Verify `writeContract` was called with correct arguments
+      expect(writeContract).toHaveBeenCalledWith(expect.any(Object), {
+        abi: trailblazersBadgesAbi,
+        address: trailblazersBadgesAddress[chainId],
+        functionName: 'resetMigration',
+        args: [BigInt(tokenId), BigInt(badgeId), BigInt(cycleId)],
+        chainId,
+      });
+
+      // Verify `waitForTransactionReceipt` was called with the returned hash
+      expect(waitForTransactionReceipt).toHaveBeenCalledWith(expect.any(Object), {
+        hash: mockHash,
       });
     });
   });

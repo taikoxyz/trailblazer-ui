@@ -230,4 +230,16 @@ describe('BadgeRecruitmentService', () => {
     expect(mockBadgeRecruitmentAdapter.getMaxInfluences).toHaveBeenCalledWith(mockExp); // Ensure the correct argument is passed
     expect(result).toEqual(mockMaxInfluences); // Ensure the result matches the mocked value
   });
+
+  describe('getMaxInfluences', () => {
+    it('should fetch max influences', async () => {});
+  });
+
+  describe('getRecruitmentCycleId', () => {
+    it('should fetch recruitment cycle id', async () => {});
+  });
+
+  describe('resetMigration', () => {
+    it('should reset migration', async () => {});
+  });
 });
