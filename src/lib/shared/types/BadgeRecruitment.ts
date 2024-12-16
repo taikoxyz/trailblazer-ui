@@ -10,6 +10,7 @@ export enum RecruitmentStatus {
 }
 
 export interface IBadgeRecruitment {
+  cycleId: number;
   id: string;
   badgeId: number;
   status: RecruitmentStatus;

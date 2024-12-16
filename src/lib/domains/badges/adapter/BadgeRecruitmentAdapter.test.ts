@@ -1,5 +1,5 @@
 import type { ApolloQueryResult } from '@apollo/client';
-import { readContract, signMessage, watchContractEvent, writeContract } from '@wagmi/core';
+import { readContract, signMessage, waitForTransactionReceipt, watchContractEvent, writeContract } from '@wagmi/core';
 import axios from 'axios';
 import { type Address, type Hash } from 'viem';
 
@@ -42,6 +42,7 @@ vi.mock('@wagmi/core', () => ({
   signMessage: vi.fn(),
   reconnect: vi.fn(),
   watchContractEvent: vi.fn(),
+  waitForTransactionReceipt: vi.fn(),
 }));
 
 vi.mock('$lib/shared/services/api/axiosClient', async () => {
@@ -109,6 +110,7 @@ describe('BadgeRecruitmentAdapter', () => {
       const mockBadge = getMockBadge(SEASON_1, 1);
       const mockRecruitment: IBadgeRecruitment = {
         id: '1',
+        cycleId: 1,
         badgeId: mockBadge.metadata.badgeId as number,
         status: RecruitmentStatus.ELIGIBLE,
         s1Badge: mockBadge,
@@ -155,12 +157,13 @@ describe('BadgeRecruitmentAdapter', () => {
         abi: trailblazersBadgesAbi,
         address: trailblazersBadgesAddress[chainId],
         functionName: 'startRecruitment',
-        args: [BigInt(mockBadge.metadata.badgeId as number)],
+        args: [BigInt(mockBadge.metadata.badgeId as number), BigInt(mockBadge.tokenId)],
         chainId,
       });
 
       expect(result).toStrictEqual({
         badgeId: 1,
+        cycleId: 1,
         claimExpirationTimeout: new Date('1970-01-02T10:17:36.000Z'),
         id: '1',
         influenceExpirationTimeout: new Date('1970-01-01T00:31:00.000Z'),
@@ -204,6 +207,7 @@ describe('BadgeRecruitmentAdapter', () => {
       const mockBadge = getMockBadge(SEASON_1, 1);
       const mockRecruitment: IBadgeRecruitment = {
         id: '1',
+        cycleId: 1,
         badgeId: mockBadge.metadata.badgeId as number,
         status: RecruitmentStatus.ELIGIBLE,
         s1Badge: mockBadge,
@@ -271,6 +275,7 @@ describe('BadgeRecruitmentAdapter', () => {
 
       expect(result).toStrictEqual({
         badgeId: 1,
+        cycleId: 1,
         claimExpirationTimeout: new Date('1970-01-01T01:01:00.000Z'),
         id: '1',
         influenceExpirationTimeout: new Date('1970-01-02T10:17:36.000Z'),
@@ -314,6 +319,7 @@ describe('BadgeRecruitmentAdapter', () => {
       const mockBadge = getMockBadge(SEASON_1, 1);
       const mockRecruitment: IBadgeRecruitment = {
         id: '1',
+        cycleId: 1,
         badgeId: mockBadge.metadata.badgeId as number,
         status: RecruitmentStatus.ELIGIBLE,
         s1Badge: mockBadge,
@@ -377,6 +383,7 @@ describe('BadgeRecruitmentAdapter', () => {
 
       expect(result).toStrictEqual({
         badgeId: 1,
+        cycleId: 1,
         claimExpirationTimeout: new Date('1970-01-01T01:01:00.000Z'),
         id: '1',
         influenceExpirationTimeout: new Date('1970-01-01T00:31:00.000Z'),
@@ -404,7 +411,6 @@ describe('BadgeRecruitmentAdapter', () => {
     describe('getRecruitmentStatus', () => {
       it('should fetch recruitment status', async () => {
         const mockAddress = '0x1234567890abcdef1234567890abcdef12345678';
-
         vi.mocked(graphqlClient.query).mockResolvedValue({
           loading: false,
           networkStatus: 7,
@@ -421,6 +427,7 @@ describe('BadgeRecruitmentAdapter', () => {
                   minnowInfluences: 0,
                   claimExpirationTimeout: 3600,
                   influenceExpirationTimeout: 1800,
+                  cycleId: 1,
                 },
               ],
             },
@@ -441,6 +448,7 @@ describe('BadgeRecruitmentAdapter', () => {
           {
             id: '1',
             badgeId: 1,
+            cycleId: 1,
             status: RecruitmentStatus.CAN_CLAIM,
             s1Badge: {
               tokenId: 1,
@@ -459,11 +467,125 @@ describe('BadgeRecruitmentAdapter', () => {
             claimExpirationTimeout: new Date('1970-01-01T01:00:00.000Z'),
             influenceExpirationTimeout: new Date('1970-01-01T00:30:00.000Z'),
           },
-          {
-            badgeId: 2,
-            status: RecruitmentStatus.NOT_STARTED,
-          },
         ]);
+      });
+    });
+  });
+
+  describe('getMaxInfluences', () => {
+    let adapter: BadgeRecruitmentAdapter;
+
+    beforeEach(() => {
+      adapter = new BadgeRecruitmentAdapter();
+      vi.clearAllMocks();
+    });
+
+    it('should fetch the max influences based on experience (exp)', async () => {
+      const exp = 1234;
+      const expectedMaxInfluences = 10; // Simulated return value
+
+      // Mock `readContract` to return the expected max influences
+      vi.mocked(readContract).mockResolvedValue(BigInt(expectedMaxInfluences));
+
+      const result = await adapter.getMaxInfluences(exp);
+
+      // Verify `readContract` was called with the correct arguments
+      expect(readContract).toHaveBeenCalledWith(expect.any(Object), {
+        abi: badgeRecruitmentAbi,
+        address: badgeRecruitmentAddress[chainId],
+        functionName: 'maxInfluences',
+        args: [BigInt(Math.trunc(exp))],
+        chainId,
+      });
+
+      // Ensure the result matches the mocked value
+      expect(result).toBe(expectedMaxInfluences);
+    });
+  });
+
+  describe('getRecruitmentCycleId', () => {
+    let adapter: BadgeRecruitmentAdapter;
+
+    beforeEach(() => {
+      adapter = new BadgeRecruitmentAdapter();
+      vi.clearAllMocks();
+    });
+
+    it('should fetch the current recruitment cycle ID', async () => {
+      const expectedCycleId = 5; // Simulated recruitment cycle ID
+
+      // Mock `readContract` to return the expected recruitment cycle ID
+      vi.mocked(readContract).mockResolvedValue(BigInt(expectedCycleId));
+
+      const result = await adapter.getRecruitmentCycleId();
+
+      // Verify `readContract` was called with the correct arguments
+      expect(readContract).toHaveBeenCalledWith(expect.any(Object), {
+        abi: badgeRecruitmentAbi,
+        address: badgeRecruitmentAddress[chainId],
+        functionName: 'recruitmentCycleId',
+        chainId,
+      });
+
+      // Ensure the result matches the mocked value
+      expect(result).toBe(expectedCycleId);
+    });
+  });
+
+  describe('resetMigration', () => {
+    let adapter: BadgeRecruitmentAdapter;
+
+    beforeEach(() => {
+      adapter = new BadgeRecruitmentAdapter();
+      vi.clearAllMocks();
+    });
+
+    it('should reset migration for a given token, badge, and cycle', async () => {
+      const tokenId = 1;
+      const badgeId = 2;
+      const cycleId = 3;
+
+      const mockHash = '0xmockedhash1234567890abcdef1234567890abcdef12345678' as Address;
+
+      // Mock `writeContract` to return a hash
+      vi.mocked(writeContract).mockResolvedValue(mockHash);
+
+      // Full mock of the transaction receipt
+      const mockReceipt = {
+        blockHash: '0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef' as Address,
+        blockNumber: BigInt(123456),
+        contractAddress: null,
+        cumulativeGasUsed: BigInt(21000),
+        effectiveGasPrice: BigInt(1000000000),
+        from: '0xabcdef1234567890abcdef1234567890abcdef1234' as Address,
+        gasUsed: BigInt(21000),
+        logs: [],
+        logsBloom: ('0x' + '0'.repeat(512)) as Address,
+        status: 'success' as const,
+        to: '0xabcdef1234567890abcdef1234567890abcdef5678' as Address,
+        transactionHash: mockHash,
+        transactionIndex: 1,
+        type: '0x2',
+        chainId: chainId,
+      };
+
+      // Mock `waitForTransactionReceipt` to resolve with a proper receipt
+      vi.mocked(waitForTransactionReceipt).mockResolvedValue(mockReceipt);
+
+      await adapter.resetMigration(tokenId, badgeId, cycleId);
+
+      // Verify `writeContract` was called with correct arguments
+      expect(writeContract).toHaveBeenCalledWith(expect.any(Object), {
+        abi: trailblazersBadgesAbi,
+        address: trailblazersBadgesAddress[chainId],
+        functionName: 'resetMigration',
+        args: [BigInt(tokenId), BigInt(badgeId), BigInt(cycleId)],
+        chainId,
+      });
+
+      // Verify `waitForTransactionReceipt` was called with the returned hash
+      expect(waitForTransactionReceipt).toHaveBeenCalledWith(expect.any(Object), {
+        hash: mockHash,
       });
     });
   });

@@ -857,4 +857,14 @@ export class ProfileService implements IProfileService {
       return 0;
     }
   }
+
+  async getRecruitmentCycleId(): Promise<number> {
+    log('getRecruitmentCycleId');
+    return this.badgeRecruitmentService.getRecruitmentCycleId();
+  }
+
+  async resetMigration(tokenId: number, badgeId: number, cycleId: number): Promise<void> {
+    log('resetMigration', { tokenId, badgeId, cycleId });
+    await this.badgeRecruitmentService.resetMigration(tokenId, badgeId, cycleId);
+  }
 }
