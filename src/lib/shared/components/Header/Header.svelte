@@ -40,7 +40,6 @@
     'lg:bg-none',
     'w-full',
     'justify-center',
-    'ml-[-12px]',
   );
 
   const innerHeaderClasses = classNames(
