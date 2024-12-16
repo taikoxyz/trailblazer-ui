@@ -1,12 +1,16 @@
 import { type Address, zeroAddress } from 'viem';
 
-import { graphqlClient } from '$lib/shared/services/graphql/client';
+import { Movements } from '$lib/domains/profile/types/types';
+import { badgesSubgraphClient } from '$lib/shared/services/graphql/client';
 import { createMockQueryResult } from '$lib/shared/utils/test/createMockQueryResult';
 
 import { NftAdapter } from './NftAdapter';
 
 vi.mock('$lib/shared/services/graphql/client', () => ({
-  graphqlClient: {
+  badgesSubgraphClient: {
+    query: vi.fn(),
+  },
+  taikoonsSubgraphClient: {
     query: vi.fn(),
   },
 }));
@@ -41,7 +45,7 @@ describe('NftAdapter', () => {
         },
       ];
 
-      vi.mocked(graphqlClient.query).mockResolvedValue({
+      vi.mocked(badgesSubgraphClient.query).mockResolvedValue({
         loading: false,
         networkStatus: 7,
         data: {
@@ -53,7 +57,7 @@ describe('NftAdapter', () => {
       const result = await nftAdapter.fetchTaikoTokensForUser(mockAddress);
 
       // Then
-      expect(graphqlClient.query).toHaveBeenCalledWith({
+      expect(badgesSubgraphClient.query).toHaveBeenCalledWith({
         query: expect.any(Object),
         variables: { address: mockAddress.toLowerCase() },
       });
@@ -64,7 +68,7 @@ describe('NftAdapter', () => {
           metadata: {
             badgeId: 1,
             erc: 777,
-            movement: undefined,
+            movement: Movements.Dev,
             frozen: false,
           },
           tokenId: 33,
@@ -75,7 +79,7 @@ describe('NftAdapter', () => {
 
     it('should return all false when user has no S1 badges', async () => {
       // Given
-      vi.mocked(graphqlClient.query).mockResolvedValue(
+      vi.mocked(badgesSubgraphClient.query).mockResolvedValue(
         createMockQueryResult({
           account: {
             id: mockAddress.toLowerCase(),
@@ -88,7 +92,7 @@ describe('NftAdapter', () => {
       const result = await nftAdapter.fetchTaikoTokensForUser(mockAddress);
 
       // Then
-      expect(graphqlClient.query).toHaveBeenCalledWith({
+      expect(badgesSubgraphClient.query).toHaveBeenCalledWith({
         query: expect.any(Object),
         variables: { address: mockAddress.toLowerCase() },
       });
@@ -98,7 +102,7 @@ describe('NftAdapter', () => {
 
     it('should return all false when account does not exist', async () => {
       // Given
-      vi.mocked(graphqlClient.query).mockResolvedValue(
+      vi.mocked(badgesSubgraphClient.query).mockResolvedValue(
         createMockQueryResult({
           account: null,
         }),
@@ -108,7 +112,7 @@ describe('NftAdapter', () => {
       const result = await nftAdapter.fetchTaikoTokensForUser(mockAddress);
 
       // Then
-      expect(graphqlClient.query).toHaveBeenCalledWith({
+      expect(badgesSubgraphClient.query).toHaveBeenCalledWith({
         query: expect.any(Object),
         variables: { address: mockAddress.toLowerCase() },
       });
@@ -118,13 +122,13 @@ describe('NftAdapter', () => {
 
     it('should handle GraphQL errors gracefully', async () => {
       // Given
-      vi.mocked(graphqlClient.query).mockRejectedValue(new Error('GraphQL Error'));
+      vi.mocked(badgesSubgraphClient.query).mockRejectedValue(new Error('GraphQL Error'));
 
       // When
       await expect(nftAdapter.fetchTaikoTokensForUser(mockAddress)).rejects.toThrow('GraphQL Error');
 
       //Then
-      expect(graphqlClient.query).toHaveBeenCalledWith({
+      expect(badgesSubgraphClient.query).toHaveBeenCalledWith({
         query: expect.any(Object),
         variables: { address: mockAddress.toLowerCase() },
       });

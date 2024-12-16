@@ -2,14 +2,14 @@ import type { ApolloQueryResult } from '@apollo/client';
 import type { Address } from 'viem';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
-import { graphqlClient } from '$shared/services/graphql/client';
+import { badgesSubgraphClient } from '$shared/services/graphql/client';
 import { GET_S2_BADGE_MULTIPLIER_QUERY } from '$shared/services/graphql/queries';
 
 import type { S2Multipliers } from '../dto/multipliers';
 import BadgeMultiplierAdapter from './BadgeMultiplierAdapter';
 
 vi.mock('$shared/services/graphql/client', () => ({
-  graphqlClient: {
+  badgesSubgraphClient: {
     query: vi.fn(),
   },
 }));
@@ -33,7 +33,7 @@ describe('BadgeMultiplierAdapter', () => {
   describe('fetchS2BadgeMultiplier', () => {
     it('should return valid multipliers', async () => {
       // Given
-      vi.mocked(graphqlClient.query).mockResolvedValue(
+      vi.mocked(badgesSubgraphClient.query).mockResolvedValue(
         createMockQueryResult({
           s2Multiplier: {
             devMultiplier: '1',
@@ -59,7 +59,7 @@ describe('BadgeMultiplierAdapter', () => {
         globalMultiplier: 6,
       };
       expect(result).toStrictEqual(expected);
-      expect(graphqlClient.query).toHaveBeenCalledWith({
+      expect(badgesSubgraphClient.query).toHaveBeenCalledWith({
         query: GET_S2_BADGE_MULTIPLIER_QUERY,
         variables: { address: mockAddress.toLowerCase() },
       });
@@ -67,7 +67,7 @@ describe('BadgeMultiplierAdapter', () => {
 
     it('should throw if no data in response', async () => {
       // Given
-      vi.mocked(graphqlClient.query).mockResolvedValue(createMockQueryResult({}));
+      vi.mocked(badgesSubgraphClient.query).mockResolvedValue(createMockQueryResult({}));
 
       // When // Then
       await expect(adapter.fetchS2BadgeMultiplier(mockAddress, mockSeason)).rejects.toThrowError(

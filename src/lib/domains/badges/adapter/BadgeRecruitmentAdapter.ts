@@ -11,7 +11,7 @@ import {
 } from '$generated/abi';
 import type { BadgeRecruitment as GqlBadgeRecruitment } from '$generated/graphql';
 import { type Movements, Seasons } from '$lib/domains/profile/types/types';
-import { graphqlClient } from '$lib/shared/services/graphql/client';
+import { badgesSubgraphClient } from '$lib/shared/services/graphql/client';
 import { type IBadgeRecruitment, RecruitmentStatus } from '$lib/shared/types/BadgeRecruitment';
 import type { NFT } from '$lib/shared/types/NFT';
 import { chainId } from '$lib/shared/utils/chain';
@@ -36,7 +36,7 @@ export default class BadgeRecruitmentAdapter {
     const out: number[] = [];
 
     try {
-      const graphqlResponse = await graphqlClient.query({
+      const graphqlResponse = await badgesSubgraphClient.query({
         query: FETCH_ENABLED_MIGRATIONS_QUERY,
       });
 
@@ -308,8 +308,8 @@ export default class BadgeRecruitmentAdapter {
   async getRecruitmentStatus(address: Address): Promise<Partial<IBadgeRecruitment>[]> {
     log('getRecruitmentStatus', { address });
     try {
-      await graphqlClient.cache.reset();
-      const graphqlResponse = await graphqlClient.query({
+      await badgesSubgraphClient.cache.reset();
+      const graphqlResponse = await badgesSubgraphClient.query({
         query: GET_MIGRATION_STATUS_QUERY,
         variables: { address: address.toLocaleLowerCase() },
         fetchPolicy: 'no-cache',

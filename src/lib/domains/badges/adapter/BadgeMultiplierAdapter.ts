@@ -1,6 +1,6 @@
 import type { Address } from 'viem';
 
-import { graphqlClient } from '$shared/services/graphql/client';
+import { badgesSubgraphClient } from '$shared/services/graphql/client';
 import { GET_S2_BADGE_MULTIPLIER_QUERY } from '$shared/services/graphql/queries';
 import { getLogger } from '$shared/utils/logger';
 
@@ -15,10 +15,12 @@ export default class BadgeMultiplierAdapter {
    * @return {*}
    * @memberof BadgeMultiplierAdapter
    */
+
+  // TODO: rework to calculate based on ownership
   async fetchS2BadgeMultiplier(address: Address, season: number): Promise<S2Multipliers> {
     log('Fetching S2 badge multiplier', { address, season });
     try {
-      const graphqlResponse = await graphqlClient.query({
+      const graphqlResponse = await badgesSubgraphClient.query({
         query: GET_S2_BADGE_MULTIPLIER_QUERY,
         variables: { address: address.toLowerCase() },
       });

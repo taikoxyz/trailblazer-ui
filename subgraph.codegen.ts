@@ -4,21 +4,57 @@ import { existsSync, mkdirSync, writeFileSync } from 'fs';
 
 dotenv.config();
 
-const config: CodegenConfig = {
-  schema: process.env.PUBLIC_SUBGRAPH_URL,
-  ignoreNoDocuments: true,
-  generates: {
-    './src/generated/graphql/index.ts': {
-      plugins: ['typescript', 'typescript-operations', 'graphql-codegen-svelte-apollo'],
-      config: {
-        clientPath: process.env.PUBLIC_SUBGRAPH_URL,
-      },
-    },
+// Define an array of subgraph configurations
+const subgraphs = [
+  {
+    name: 'taikoons',
+    url: process.env.PUBLIC_TAIKOONS_SUBGRAPH_URL,
+    outputDir: './src/generated/graphql/taikoons/',
   },
-};
-export default config;
+  {
+    name: 'badges',
+    url: process.env.PUBLIC_BADGES_SUBGRAPH_URL,
+    outputDir: './src/generated/graphql/badges/',
+  },
+  {
+    name: 'pfp',
+    url: process.env.PUBLIC_PFP_SUBGRAPH_URL,
+    outputDir: './src/generated/graphql/pfp/',
+  },
+];
 
-if (!existsSync('./src/generated/graphql')) {
-  mkdirSync('./src/generated/graphql', { recursive: true });
-}
-writeFileSync('./src/generated/graphql/types.d.ts', `declare module "${process.env.PUBLIC_SUBGRAPH_URL}"`);
+// Generates object to hold dynamic codegen configuration
+const generates: CodegenConfig['generates'] = {};
+
+// Loop through each subgraph and create codegen configuration dynamically
+subgraphs.forEach(({ name, url, outputDir }) => {
+  if (!url) {
+    console.warn(`Missing URL for ${name} subgraph. Skipping codegen.`);
+    return;
+  }
+
+  // Ensure the output directory exists
+  if (!existsSync(outputDir)) {
+    mkdirSync(outputDir, { recursive: true });
+  }
+
+  // Assign the generates configuration for this subgraph
+  generates[`${outputDir}index.ts`] = {
+    schema: url,
+    plugins: ['typescript', 'typescript-operations', 'graphql-codegen-svelte-apollo'],
+    config: {
+      clientPath: url, // The URL of the subgraph is treated as the client path
+    },
+  };
+
+  // Write a module declaration file to prevent TypeScript errors
+  writeFileSync(`${outputDir}types.d.ts`, `declare module "${url}";`);
+});
+
+// Final GraphQL Codegen configuration
+const config: CodegenConfig = {
+  ignoreNoDocuments: true,
+  generates,
+};
+
+export default config;
