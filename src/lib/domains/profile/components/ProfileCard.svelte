@@ -38,8 +38,8 @@
 </script>
 
 <div class={cardClasses}>
-  <div class="absolute h-[75px] w-full custom left-0 top-0">
-    <div class="hidden md:flex pl-[218px] pt-[37px]">
+  <div class="absolute h-[66px] w-full profile-card-gradient left-0 top-0">
+    <div class="hidden md:flex pl-[218px] pt-[27px]">
       <ProfileName {profile} />
     </div>
   </div>
@@ -50,7 +50,7 @@
   {#if !loading}
     <div class="flex md:items-start items-center flex-col self-end md:min-w-[300px] w-full">
       <!-- Name (mobile)-->
-      <div class="md:hidden flex items-center gap-1 py-[20px] md:py-0">
+      <div class="md:hidden flex items-center gap-1 py-[20px] md:py-1">
         <ProfileName {profile} />
       </div>
       <!-- Points -->
@@ -84,9 +84,3 @@
     </div>
   {/if}
 </div>
-
-<style>
-  .custom {
-    background: linear-gradient(272deg, #5d08c8 -25.65%, #e81899 160.57%);
-  }
-</style>

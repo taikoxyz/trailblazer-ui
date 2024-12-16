@@ -354,4 +354,8 @@
     transition-property: unset !important;
     transition-duration: 1000ms !important;
   }
+
+  .profile-card-gradient {
+    background: linear-gradient(272deg, #5d08c8 -25.65%, #e81899 160.57%);
+  }
 }
