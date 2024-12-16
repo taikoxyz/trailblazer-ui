@@ -2,7 +2,7 @@
   import { createEventDispatcher } from 'svelte';
 
   import { Icon } from '$shared/components/Icon';
-  import type { NavigationItem } from '$shared/utils/routes/routes';
+  import type { NavigationItem } from '$shared/routes';
 
   const dispatch = createEventDispatcher();
   function handleClick() {
@@ -17,5 +17,6 @@
 </script>
 
 <button on:click={handleClick}>
-  <a href={url} class="flex items-center gap-4 hover:text-primary-brand"> <Icon size={14} type={icon}></Icon>{label}</a>
+  <a href={url} class="flex items-center gap-4 hover:text-primary-brand">
+    <Icon size={20} type={icon} fillClass="fill-primary-interactive-accent" />{label}</a>
 </button>
