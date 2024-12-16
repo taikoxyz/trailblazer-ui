@@ -1,6 +1,6 @@
 <script lang="ts">
   import { writeContract } from '@wagmi/core';
-  import { type Address, zeroAddress } from 'viem';
+  import { type Address, isAddressEqual, zeroAddress } from 'viem';
 
   import { trailblazersBadgesAbi, trailblazersBadgesAddress } from '$generated/abi';
   import ActionButton from '$shared/components/Button/ActionButton.svelte';
@@ -110,14 +110,20 @@
     },
   ];
 
-  $: receiverAddress = zeroAddress as string;
+  function handleReceiverChanged(e: Event) {
+    const target = e.target as HTMLInputElement;
+    receiverAddress = target.value as Address;
+  }
+
+  $: receiverAddress = zeroAddress as Address;
   $: tokenId = -1;
   $: canTransfer = true;
   async function handleTransferClick() {
     try {
-      if (!canTransfer || !$account.address || tokenId < 0) {
+      if (!canTransfer || !$account.address || tokenId < 0 || isAddressEqual(receiverAddress, zeroAddress)) {
         return;
       }
+
       canTransfer = false;
       await writeContract(wagmiConfig, {
         abi: trailblazersBadgesAbi,
@@ -136,7 +142,7 @@
       console.error(error);
       errorToast({
         title: 'Transfer Error',
-        message: error.message,
+        message: error.shortMessage || `Error transferring token ${tokenId} to ${receiverAddress}`,
       });
     } finally {
       canTransfer = true;
@@ -171,9 +177,7 @@
           class="w-full h-full rounded-full text-center" />
         <input
           value={receiverAddress}
-          on:change={(e) => {
-            receiverAddress = e.currentTarget?.value;
-          }}
+          on:change={handleReceiverChanged}
           placeholder="Receiver Address"
           class="w-full h-full rounded-full text-center" />
         <ActionButton disabled={!canTransfer} on:click={handleTransferClick} priority="primary">Transfer</ActionButton>
