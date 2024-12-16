@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import { t } from 'svelte-i18n';
-  import { type Address,isAddressEqual } from 'viem';
+  import { type Address, isAddressEqual } from 'viem';
 
   import { page } from '$app/stores';
   import Icon from '$shared/components/Icon/Icon.svelte';
@@ -58,7 +58,6 @@
   const tooltipContentClasses = classNames('bg-white', 'text-black');
 </script>
 
-{isSelfProfile} ! {urlAddress}
 <AbstractProfileCard class={cardClasses}>
   <div slot="title" class={headerClasses}>
     <span class="text-center font-bold">{$t('booster.title')}</span>
