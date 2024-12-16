@@ -3,10 +3,13 @@
   import { t } from 'svelte-i18n';
 
   import { FactionBadgeItem } from '$lib/domains/profile/components/ProfileNFTs/FactionBadges';
+  import profileService from '$lib/domains/profile/services/ProfileServiceInstance';
   import { userProfile } from '$lib/domains/profile/stores';
   import type { FactionBadgeButton } from '$lib/domains/profile/types/FactionBadgeButton';
   import { Movements, Seasons } from '$lib/domains/profile/types/types';
   import { type IBadgeRecruitment, RecruitmentStatus } from '$lib/shared/types/BadgeRecruitment';
+  import { ActionButton } from '$shared/components/Button';
+  import { errorToast, successToast } from '$shared/components/NotificationToast';
   import { account } from '$shared/stores';
   import {
     activeRecruitment,
@@ -20,6 +23,9 @@
   import Countdown from './Countdown.svelte';
 
   export let badgeId: number;
+  export let enabled: boolean; // contract-level disabling
+
+  export let cycleId: number;
 
   $: recruitment =
     $activeRecruitment && $activeRecruitment.badgeId === badgeId
@@ -27,33 +33,63 @@
       : $userProfile?.badgeRecruitment?.find((m) => m.badgeId === badgeId);
 
   $: s1TokenOwned = Boolean(
-    $userProfile.nfts?.find((nft) => nft.metadata.season === Seasons.Season1 && nft.metadata.badgeId === badgeId),
+    $userProfile.nfts?.find(
+      (nft) => nft.metadata.season === Seasons.Season1 && nft.metadata.badgeId === badgeId && !nft.metadata.frozen,
+    ),
   );
   $: movement = getBadgeMovement(badgeId);
   $: influenceExpiration = addGraceCoolDown(recruitment?.influenceExpirationTimeout);
   $: claimExpiration = addGraceCoolDown(recruitment?.claimExpirationTimeout);
-  $: isInfluenceActive = influenceExpiration && influenceExpiration > new Date();
-  $: isActiveBadge = $activeRecruitment ? $activeRecruitment.badgeId === recruitment?.badgeId : false;
-  $: isEligible = recruitment?.status === RecruitmentStatus.ELIGIBLE || s1TokenOwned;
-  $: isStarted = recruitment?.status === RecruitmentStatus.STARTED;
-  $: canClaim = recruitment?.status === RecruitmentStatus.CAN_CLAIM;
-  $: canInfluence = recruitment?.status === RecruitmentStatus.CAN_REFINE;
-  $: isComplete = recruitment?.status === RecruitmentStatus.COMPLETED;
-  $: blurred = canInfluence || isStarted || (influenceExpiration && influenceExpiration > new Date());
-  $: inColor = isEligible || canClaim || canInfluence || isComplete;
+  $: isInfluenceActive = recruitment?.cycleId === cycleId && influenceExpiration && influenceExpiration > new Date();
+  $: isActiveBadge =
+    recruitment?.cycleId === cycleId && $activeRecruitment
+      ? $activeRecruitment.badgeId === recruitment?.badgeId
+      : false;
+  $: isEligible =
+    (recruitment?.cycleId === cycleId && recruitment?.status === RecruitmentStatus.ELIGIBLE) || s1TokenOwned;
+  $: isStarted = recruitment?.cycleId === cycleId && recruitment?.status === RecruitmentStatus.STARTED;
+  $: canClaim = recruitment?.cycleId === cycleId && recruitment?.status === RecruitmentStatus.CAN_CLAIM;
+  $: canInfluence = recruitment?.cycleId === cycleId && recruitment?.status === RecruitmentStatus.CAN_REFINE;
+  $: isComplete = recruitment?.cycleId === cycleId && recruitment?.status === RecruitmentStatus.COMPLETED;
   $: buttonDisabled =
     isInfluenceActive ||
     Boolean($activeRecruitment ? $activeRecruitment.badgeId !== recruitment?.badgeId : $activeRecruitment);
+
+  $: canReset =
+    !isEligible &&
+    !canInfluence &&
+    !canClaim &&
+    recruitment?.cycleId !== cycleId &&
+    (
+      $userProfile.badgeRecruitment?.filter(
+        (m) => m.status !== RecruitmentStatus.NOT_STARTED && m.badgeId === badgeId,
+      ) || []
+    ).length > 0;
+
+  $: inColor = canReset || !enabled || isEligible || canClaim || canInfluence || isComplete;
+  $: blurred = canReset || canInfluence || isStarted || (influenceExpiration && influenceExpiration > new Date());
 
   const dispatch = createEventDispatcher();
 
   async function handleStartRecruitment(badgeId: number) {
     if (!$account || !$account.address) return;
 
+    const nfts = $userProfile.nfts;
+
+    const s1Badge = nfts?.find(
+      (nft) => !nft.metadata.frozen && nft.metadata.season === Seasons.Season1 && nft.metadata.badgeId === badgeId,
+    );
+
+    if (!s1Badge) {
+      console.error(`No eligible badge found`);
+      return;
+    }
+
     $activeRecruitment = {
+      cycleId: -1,
       badgeId,
       status: RecruitmentStatus.NOT_STARTED,
-      s1Badge: getMockBadge(Seasons.Season1, badgeId),
+      s1Badge,
       id: '',
       whaleInfluences: 0,
       minnowInfluences: 0,
@@ -81,6 +117,45 @@
     }
     $activeRecruitment = recruitment;
     $endRecruitmentModal = true;
+  }
+
+  $: disableResetButton = false;
+  async function handleResetRecruitment(badgeId: number) {
+    try {
+      if (!$account || !$account.address) {
+        throw new Error('No account found');
+      }
+
+      const recruitment = $userProfile.badgeRecruitment?.find(
+        (m) =>
+          m.badgeId === badgeId &&
+          m.status !== RecruitmentStatus.NOT_STARTED &&
+          m.status !== RecruitmentStatus.COMPLETED,
+      );
+
+      const s1Badge = recruitment?.s1Badge;
+      if (!s1Badge) {
+        throw new Error('No token id found');
+      }
+      disableResetButton = true;
+      await profileService.resetMigration(s1Badge.tokenId, badgeId, recruitment.cycleId);
+
+      successToast({
+        title: 'Success',
+        message: `Recruitment for token ID #${s1Badge.tokenId} has been reset`,
+      });
+
+      await profileService.getProfileWithNFTs($account.address);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (e: any) {
+      console.error(e);
+      errorToast({
+        title: 'Error',
+        message: e.shortMessage || 'Error resetting your recruitment',
+      });
+    } finally {
+      disableResetButton = false;
+    }
   }
 
   $: buttons = {
@@ -177,23 +252,25 @@
   const countdownItemClasses = classNames('h-min');
 </script>
 
-{#if recruitment}
-  <div
-    class={canClaim || canInfluence
-      ? pinkShadowed
-      : isComplete
-        ? greenBordered
-        : isEligible
-          ? $activeRecruitment && isActiveBadge
-            ? pinkShadowed
-            : pinkBordered
-          : neutralBordered}>
-    <FactionBadgeItem
-      token={getMockBadge(isComplete ? Seasons.Season2 : Seasons.Season1, badgeId, movement)}
-      {inColor}
-      {blurred}
-      {buttonDisabled}
-      button={canInfluence || isStarted
+<div
+  class={canClaim || canInfluence
+    ? pinkShadowed
+    : isComplete
+      ? greenBordered
+      : isEligible
+        ? $activeRecruitment && isActiveBadge
+          ? pinkShadowed
+          : pinkBordered
+        : neutralBordered}>
+  <FactionBadgeItem
+    hideBubbles={canReset || !enabled}
+    token={getMockBadge(isComplete ? Seasons.Season2 : Seasons.Season1, badgeId, movement)}
+    {inColor}
+    {blurred}
+    {buttonDisabled}
+    button={canReset || !enabled
+      ? null
+      : canInfluence || isStarted
         ? buttons.Influence
         : canClaim
           ? buttons.EndRecruitment
@@ -204,34 +281,50 @@
               : isEligible
                 ? buttons.StartRecruitment
                 : buttons.NotEligible}>
-      {#if recruitment}
-        <div class={blurred ? timerOverlayClasses : emptyOverlayClasses}>
-          <div class={timerLabelClasses}>
-            {#if influenceExpiration && influenceExpiration > new Date()}
-              <!-- cannot re-influence yet-->
-              {$t('badge_recruitment.main.can_influence_in')}
-            {:else if claimExpiration && claimExpiration > new Date()}
-              <!-- logic for uninfluenced, time 0 -->
-              {$t('badge_recruitment.main.can_claim_in')}
-            {/if}
-          </div>
+    {#if !canReset && recruitment}
+      <div class={blurred ? timerOverlayClasses : emptyOverlayClasses}>
+        <div class={timerLabelClasses}>
           {#if influenceExpiration && influenceExpiration > new Date()}
             <!-- cannot re-influence yet-->
-            <Countdown
-              on:end={() => dispatch('counterEnd')}
-              class={countdownWrapperClasses}
-              itemClasses={countdownItemClasses}
-              target={influenceExpiration} />
+            {$t('badge_recruitment.main.can_influence_in')}
           {:else if claimExpiration && claimExpiration > new Date()}
-            <!-- logic for uninfluenceed -->
-            <Countdown
-              on:end={() => dispatch('counterEnd')}
-              class={countdownWrapperClasses}
-              itemClasses={countdownItemClasses}
-              target={claimExpiration} />
+            <!-- logic for uninfluenced, time 0 -->
+            {$t('badge_recruitment.main.can_claim_in')}
           {/if}
         </div>
-      {/if}
-    </FactionBadgeItem>
-  </div>
-{/if}
+        {#if influenceExpiration && influenceExpiration > new Date()}
+          <!-- cannot re-influence yet-->
+          <Countdown
+            on:end={() => dispatch('counterEnd')}
+            class={countdownWrapperClasses}
+            itemClasses={countdownItemClasses}
+            target={influenceExpiration} />
+        {:else if claimExpiration && claimExpiration > new Date()}
+          <!-- logic for uninfluenceed -->
+          <Countdown
+            on:end={() => dispatch('counterEnd')}
+            class={countdownWrapperClasses}
+            itemClasses={countdownItemClasses}
+            target={claimExpiration} />
+        {/if}
+      </div>
+    {/if}
+
+    {#if canReset || !enabled}
+      <div class="absolute glassy-background-lg px-[20px] flex justify-center items-center w-full h-full">
+        {#if !enabled}
+          <p>Currently not recruitable</p>
+        {/if}
+        {#if canReset}
+          <ActionButton
+            priority="secondary"
+            class="!w-[200px]"
+            disabled={disableResetButton}
+            on:click={() => handleResetRecruitment(badgeId)}>
+            Reset
+          </ActionButton>
+        {/if}
+      </div>
+    {/if}
+  </FactionBadgeItem>
+</div>

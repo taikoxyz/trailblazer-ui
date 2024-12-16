@@ -10,7 +10,7 @@
   const currentPath = derived(page, ($page) => $page.url.pathname);
 </script>
 
-<div class="dropdown dropdown-hover dropdown-bottom rounded-full lg:bg-container">
+<div class="dropdown dropdown-hover dropdown-bottom rounded-full lg:bg-container z-20">
   {#if navigation.route}
     <a
       class:text-primary-brand={$currentPath.split('/').includes(navigation.route.split('/')[1])}

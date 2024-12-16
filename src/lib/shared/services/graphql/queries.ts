@@ -61,6 +61,7 @@ export const USER_NFTS_FETCH_QUERY = gql`
       movement
       season
       uri
+      frozen
     }
   }
 `;
@@ -78,7 +79,7 @@ export const FETCH_ENABLED_MIGRATIONS_QUERY = gql`
 `;
 
 export const GET_MIGRATION_STATUS_QUERY = gql`
-  query getRecruitmentStatus($address: Bytes) {
+  query getRecruitmentStatus($address: Bytes, $cycleId: Int) {
     account(id: $address) {
       id
       approvedForAll
@@ -86,8 +87,9 @@ export const GET_MIGRATION_STATUS_QUERY = gql`
         id
         badgeId
       }
-      s2Recruitments {
+      s2Recruitments(cycleId: $cycleId) {
         id
+        cycleId
         isStarted
         isCompleted
         whaleInfluences
@@ -128,6 +130,19 @@ export const GET_MIGRATION_APPROVALS_QUERY = gql`
         id
         badgeId
       }
+    }
+  }
+`;
+
+export const GET_S2_BADGE_MULTIPLIER_QUERY = gql`
+  query getS2BadgeMultiplier($address: Bytes) {
+    s2Multiplier(id: $address) {
+      devMultiplier
+      minnowMultiplier
+      snaefellMultiplier
+      taikoonMultiplier
+      whaleMultiplier
+      globalMultiplier
     }
   }
 `;

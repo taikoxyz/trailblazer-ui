@@ -1,5 +1,12 @@
-import type { UserMultiplier } from './types';
-
 export type Multipliers = {
-  multipliers: UserMultiplier;
+  multipliers: {
+    transationMultiplier: Multiplier;
+    transactionVolumeMultiplier: Multiplier;
+    globalMultiplier: Multiplier;
+  };
+};
+
+type Multiplier = {
+  multiplier: number;
+  max: boolean;
 };

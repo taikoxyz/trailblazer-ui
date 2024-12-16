@@ -12,10 +12,16 @@
   import { Spinner } from '$shared/components';
   import { ActionButton } from '$shared/components/Button';
   import { successToast } from '$shared/components/NotificationToast';
+  import { classNames } from '$shared/utils/classNames';
 
   import { AbstractProfileCard } from '../templates';
 
-  const titleClass = 'font-size-[20px] font-weight-500 flex justify-center w-full';
+  const titleClass = classNames(
+    'font-size-[20px] font-weight-500 f-center w-full',
+    'items-center',
+    'h-[66px]',
+    'gap-[5px]',
+  );
   const tooltipClass = 'bg-white text-black';
   const statusContainerClass = 'f-center flex-col px-6 w-full justify-between';
   const scoreClass = 'f-center flex-col';
@@ -79,17 +85,18 @@
 
 {#if hasBonusPoints}
   <AbstractProfileCard class={bgPartnerDarkClass}>
-    <div slot="title" class={titleClass}>Season 1 Bonus</div>
+    <div slot="title" class={titleClass}>
+      <span class="text-center font-bold">Season 1 Bonus</span>
 
-    <Tooltip class="z-10" slot="tooltip" position="bottom-left">
-      <div class={tooltipClass}>
-        <h2 class="text-black">Participated in Season 1?</h2>
-        <div class="body-regular text-black">
-          {$t('claim.season1Bonus.tooltip.message')}
+      <Tooltip slot="tooltip" position="bottom">
+        <div class={tooltipClass}>
+          <h2 class="text-black">Participated in Season 1?</h2>
+          <div class="body-regular text-black">
+            {$t('claim.season1Bonus.tooltip.message')}
+          </div>
         </div>
-      </div>
-    </Tooltip>
-
+      </Tooltip>
+    </div>
     <div slot="status" class={statusContainerClass}>
       <div class={scoreClass}>
         {#if $bonusLoading}

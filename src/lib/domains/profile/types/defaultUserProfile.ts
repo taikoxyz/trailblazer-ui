@@ -19,10 +19,18 @@ export const defaultUserProfile: UserProfile = {
   },
   activityHistory: {},
   multipliers: {
-    totalMultiplier: 0,
-    taikoonMultiplier: 0,
-    factionMultiplier: 0,
-    snaefellMultiplier: 0,
+    transationMultiplier: {
+      multiplier: 1,
+      max: false,
+    },
+    transactionVolumeMultiplier: {
+      multiplier: 1,
+      max: false,
+    },
+    globalMultiplier: {
+      multiplier: 1,
+      max: false,
+    },
   },
   domainInfo: {},
 };

@@ -1,6 +1,7 @@
 import { getAccount } from '@wagmi/core';
 import { type Address, getAddress, type Hash } from 'viem';
 
+import { BadgeMultiplierService } from '$lib/domains/badges/services/BadgeMultiplierService';
 import BadgeRecruitmentService from '$lib/domains/badges/services/BadgeRecruitmentService';
 import type { UserLeaderboardItem } from '$lib/domains/leaderboard/types/user/types';
 import { NftService } from '$lib/domains/nfts/services/NftService';
@@ -25,6 +26,8 @@ import { wagmiConfig } from '$lib/shared/wagmi';
 import { activeRecruitment } from '$shared/stores/recruitment';
 import { getLogger } from '$shared/utils/logger';
 
+import type { Multipliers } from '../types/Multipliers';
+
 const log = getLogger('ProfileService');
 
 export class ProfileService implements IProfileService {
@@ -33,6 +36,7 @@ export class ProfileService implements IProfileService {
   // Adapters
   private apiAdapter: ProfileApiAdapter;
   private seasonBonusAdapter: SeasonBonusPointsAdapter;
+  private badgeMultiplierService: BadgeMultiplierService;
 
   // Repositories
   private userRepository: UserRepository;
@@ -49,12 +53,14 @@ export class ProfileService implements IProfileService {
     combinedNFTService?: NftService,
     badgeRecruitmentService?: BadgeRecruitmentService,
     seasonBonusAdapter?: SeasonBonusPointsAdapter,
+    badgeMultiplierService?: BadgeMultiplierService,
   ) {
     this.apiAdapter = apiAdapter || new ProfileApiAdapter();
     this.userRepository = userRepository || new UserRepository();
     this.combinedNFTService = combinedNFTService || new NftService();
     this.badgeRecruitmentService = badgeRecruitmentService || new BadgeRecruitmentService();
     this.seasonBonusAdapter = seasonBonusAdapter || new SeasonBonusPointsAdapter();
+    this.badgeMultiplierService = badgeMultiplierService || new BadgeMultiplierService();
   }
 
   /**
@@ -107,6 +113,7 @@ export class ProfileService implements IProfileService {
             page: 0,
             size: activity.size,
             total: activity.total,
+            total_pages: activity.total_pages,
           },
         },
         nfts: [...nftsResult],
@@ -696,8 +703,8 @@ export class ProfileService implements IProfileService {
   async claimSeasonBonus(address: Address, season: number): Promise<Hash | void> {
     log('Claiming bonus points for address:', address, 'season:', season);
     try {
-      return await this.seasonBonusAdapter.claimUserBonusPoints(address, season);
       log('Claimed bonus points successfully.');
+      return await this.seasonBonusAdapter.claimUserBonusPoints(address, season);
     } catch (error) {
       log('Error claiming bonus points:', error);
     }
@@ -788,6 +795,58 @@ export class ProfileService implements IProfileService {
     }
   }
 
+  /**
+   * Fetches the badge multiplier for the given address and season.
+   *
+   * @param {Address} address
+   * @param {number} season
+   * @return {*}
+   * @memberof ProfileService
+   */
+  async getBadgeMultiplierForProfile(address: Address, season: number): Promise<Multipliers> {
+    log('Fetching badge multiplier for address:', address);
+    const mp = {
+      multipliers: {
+        transationMultiplier: {
+          multiplier: 1,
+          max: false as boolean,
+        },
+        transactionVolumeMultiplier: {
+          multiplier: 1,
+          max: false as boolean,
+        },
+        globalMultiplier: {
+          multiplier: 1,
+          max: false as boolean,
+        },
+      },
+    } satisfies Multipliers;
+    try {
+      const multiplier = await this.badgeMultiplierService.getBadgeMultiplier(address, season);
+      const { minnowMultiplier, whaleMultiplier, globalMultiplier } = multiplier;
+      log('Fetched badge multiplier:', multiplier);
+      mp.multipliers = {
+        transationMultiplier: {
+          multiplier: minnowMultiplier / 100,
+          max: minnowMultiplier === 140,
+        },
+        transactionVolumeMultiplier: {
+          multiplier: whaleMultiplier / 100,
+          max: whaleMultiplier === 140,
+        },
+        globalMultiplier: {
+          multiplier: globalMultiplier / 100,
+          max: globalMultiplier === 240,
+        },
+      };
+      log('Updated badge multiplier:', mp);
+      return mp;
+    } catch (error) {
+      log('Error fetching badge multiplier:', error);
+      return mp;
+    }
+  }
+
   async getMaxInfluences(): Promise<number> {
     try {
       log('getMaxInfluences');
@@ -797,5 +856,15 @@ export class ProfileService implements IProfileService {
       log('Error in getMaxInfluences:', error);
       return 0;
     }
+  }
+
+  async getRecruitmentCycleId(): Promise<number> {
+    log('getRecruitmentCycleId');
+    return this.badgeRecruitmentService.getRecruitmentCycleId();
+  }
+
+  async resetMigration(tokenId: number, badgeId: number, cycleId: number): Promise<void> {
+    log('resetMigration', { tokenId, badgeId, cycleId });
+    await this.badgeRecruitmentService.resetMigration(tokenId, badgeId, cycleId);
   }
 }
