@@ -51,10 +51,11 @@
   on:mouseleave={handleMouseLeave}>
   {#if navigation.route}
     <a
+      class="w-full flex items-center justify-between {buttonClasses}"
       class:text-primary-brand={$currentPath.split('/').includes(navigation.route.split('/')[1])}
-      class={buttonClasses}
+      class:btn={!isOpen}
       href={navigation.route}>
-      <div tabindex="0" role="button">
+      <div tabindex="0" role="button" class="w-full flex justify-between items-center">
         <span class={flamboyant ? 'gradient-text' : ''}>{navigation.name}</span>
         {#if children.length > 0}
           <Icon type="chevron-down" size={12} class="transform transition-transform group-hover:rotate-180" />
@@ -73,7 +74,8 @@
   {#if children.length > 0}
     <ul
       class="dropdown-content absolute top-full left-0 flex flex-col items-start p-[6px] w-auto bg-elevated-background z-[1] shadow rounded-box body-regular mt-[14px] min-w-[220px]"
-      style="pointer-events: all; visibility: {isOpen ? 'visible' : 'hidden'}; opacity: {isOpen ? 1 : 0};">
+      style="pointer-events: all; visibility: {isOpen ? 'visible' : 'hidden'}; opacity: {isOpen ? 1 : 0};"
+      class:btn={!isOpen}>
       <slot />
     </ul>
   {/if}

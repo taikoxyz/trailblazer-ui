@@ -1,13 +1,8 @@
 <script lang="ts">
-  import { derived } from 'svelte/store';
-
-  import { page } from '$app/stores';
   import { Icon } from '$shared/components/Icon';
   import type { NavigationItem } from '$shared/routes';
 
   export let navigation: NavigationItem;
-
-  $: currentPath = derived(page, ($page) => $page.url.pathname);
 
   let arrowState: 'hidden' | 'in' | 'out' = 'hidden';
 
@@ -33,25 +28,24 @@
 <li
   on:mouseenter={handleMouseEnter}
   on:mouseleave={handleMouseLeave}
-  class="w-full pl-[16px] pr-[6px] py-[12px] rounded-full max-h-[44px] leading-none flex items-center justify-between hover:cursor-pointer hover:bg-neutral-background">
+  class="w-full rounded-full hover:bg-neutral-background">
   <a
     href={navigation.route}
-    class:text-primary-brand={$currentPath === navigation.route}
-    class="flex items-center gap-4 whitespace-nowrap">
-    {#if navigation.icon}
-      <Icon size={20} type={navigation.icon} fillClass="fill-primary-interactive-accent" />
-    {/if}
-    {navigation.name}
-  </a>
-
-  <div class="f-center w-[32px] min-h-[32px] rounded-full overflow-hidden relative">
-    <!-- Apply display:none when hidden -->
-    <div
-      class={`arrow-container ${arrowState === 'hidden' ? 'hidden' : 'block'} ${arrowState === 'in' ? 'arrow-in' : ''} ${arrowState === 'out' ? 'arrow-out' : ''}`}
-      on:animationend={handleAnimationEnd}>
-      <Icon type="arrow-right" width={14} />
+    class="flex w-full h-full pl-[16px] pr-[6px] py-[12px] rounded-full max-h-[44px] leading-none items-center justify-between hover:cursor-pointer">
+    <div class="flex items-center gap-4 whitespace-nowrap">
+      {#if navigation.icon}
+        <Icon size={20} type={navigation.icon} fillClass="fill-primary-interactive-accent" />
+      {/if}
+      {navigation.name}
     </div>
-  </div>
+    <div class="f-center w-[32px] min-h-[32px] rounded-full overflow-hidden relative">
+      <div
+        class={`arrow-container ${arrowState === 'hidden' ? 'hidden' : 'block'} ${arrowState === 'in' ? 'arrow-in' : ''} ${arrowState === 'out' ? 'arrow-out' : ''}`}
+        on:animationend={handleAnimationEnd}>
+        <Icon type="arrow-right" width={14} />
+      </div>
+    </div>
+  </a>
 </li>
 
 <style>
