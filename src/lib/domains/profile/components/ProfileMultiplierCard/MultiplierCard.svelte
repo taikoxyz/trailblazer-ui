@@ -1,7 +1,9 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import { t } from 'svelte-i18n';
+  import { type Address, isAddressEqual } from 'viem';
 
+  import { page } from '$app/stores';
   import Icon from '$shared/components/Icon/Icon.svelte';
   import { Tooltip } from '$shared/components/Tooltip';
   import { activeSeason } from '$shared/stores/activeSeason';
@@ -17,9 +19,19 @@
   $: transactionVolumeMultiplierView = { multiplier: 0, max: false };
   $: transationMultiplierView = { multiplier: 0, max: false };
 
+  let isSelfProfile: boolean;
+  let urlAddress: Address;
+
   onMount(async () => {
-    const mp: Multipliers = await profileService.getBadgeMultiplierForProfile(getConnectedAddress(), $activeSeason);
+    urlAddress = $page.url.pathname.split('/').pop() as Address;
+    isSelfProfile = isAddressEqual(urlAddress, getConnectedAddress());
+
+    const mp: Multipliers = await profileService.getBadgeMultiplierForProfile(
+      isSelfProfile ? getConnectedAddress() : urlAddress,
+      $activeSeason,
+    );
     const { globalMultiplier, transactionVolumeMultiplier, transationMultiplier } = mp.multipliers;
+
     globalMultiplierView = globalMultiplier;
     transactionVolumeMultiplierView = transactionVolumeMultiplier;
     transationMultiplierView = transationMultiplier;

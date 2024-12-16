@@ -9,6 +9,7 @@
   import type { PaginationInfo } from '$lib/shared/dto/CommonPageApiResponse';
   import { Paginator } from '$shared/components/Paginator';
   import { Spinner } from '$shared/components/Spinner';
+  import { activeSeason } from '$shared/stores/activeSeason';
   import { classNames } from '$shared/utils/classNames';
 
   import ActivityHistoryRow from './ActivityHistoryRow.svelte';
@@ -39,7 +40,7 @@
     if (!userAddress) {
       return;
     }
-    await profileService.updateProfilePointHistoryPage(args, userAddress, 2);
+    await profileService.updateProfilePointHistoryPage(args, userAddress, $activeSeason);
   }
 
   // CSS classes
