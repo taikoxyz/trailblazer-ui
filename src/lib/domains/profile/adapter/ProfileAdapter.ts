@@ -52,12 +52,14 @@ export class ProfileApiAdapter {
    * @return {Promise<UserHistoryApiResponse>} the user's activity
    */
   async fetchUserActivity(address: Address, season: number, page?: number): Promise<PaginationInfo<UserPointHistory>> {
+    log('fetchUserActivity', { address, season, page });
     const client = getAxiosInstance(season);
     const params = page ? { address, page } : { address };
     const response = await client.get<UserHistoryApiResponse>(`/user/history`, {
       params,
       ...globalAxiosConfig,
     });
+    log('fetchUserActivity response', response.data);
     return normalizeUserHistoryResponse(response.data);
   }
 
