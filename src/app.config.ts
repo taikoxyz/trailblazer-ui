@@ -12,5 +12,8 @@ export const claimPreflightConfig = {
 };
 
 export const leaderboardConfig = {
+  pageSizeXlarge: 100,
+  pageSizeLarge: 50,
+  pageSizeSmall: 12,
   pageSize: 50,
 };

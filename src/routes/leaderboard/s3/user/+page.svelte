@@ -3,8 +3,7 @@
 
   import { goto } from '$app/navigation';
   import { page } from '$app/stores';
-  import LiquidityDisclaimer from '$lib/domains/leaderboard/components/Competition/LiquidityRoyale/LiquidityDisclaimer.svelte';
-  import LiquidityRoyaleLeaderboard from '$lib/domains/leaderboard/components/Competition/LiquidityRoyale/LiquidityRoyaleLeaderboard.svelte';
+  import UserLeaderboard from '$lib/domains/leaderboard/components/UserLeaderboard.svelte';
   import type { UserLeaderboardItem } from '$lib/domains/leaderboard/types/user/types';
   import type { PaginationInfo } from '$lib/shared/dto/CommonPageApiResponse';
   import { ActionButton } from '$shared/components/Button';
@@ -14,27 +13,25 @@
   let pageInfo: PaginationInfo<UserLeaderboardItem>;
   let loading: boolean;
 
-  $: ({ pageInfo, loading } = $page.data);
-
   const wrapperClasses = classNames('w-full', 'flex', 'justify-center', 'mt-[58px]');
   const buttonClasses = classNames('max-w-[280px]');
 
+  $: ({ pageInfo, loading } = $page.data);
+
   const handleClick = () => {
-    goto('/leaderboard/s2/user');
+    goto('/leaderboard/s3/dapp');
   };
 </script>
 
 <svelte:head>
-  <title>{$t('pagetitle.competition.liquidity')}</title>
+  <title>Taiko Trailblazer - User Leaderboard</title>
 </svelte:head>
 
 <Page>
-  <LiquidityRoyaleLeaderboard {pageInfo} {loading} season={2} />
-  <LiquidityDisclaimer />
-
+  <UserLeaderboard {pageInfo} {loading} season={3} />
   <div class={wrapperClasses}>
     <ActionButton class={buttonClasses} priority="primary" on:click={handleClick} withArrow>
-      {$t('buttons.leaderboard.user')}
+      {$t('buttons.leaderboard.dapp')}
     </ActionButton>
   </div>
 </Page>

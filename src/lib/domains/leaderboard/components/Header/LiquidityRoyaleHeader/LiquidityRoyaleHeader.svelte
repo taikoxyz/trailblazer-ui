@@ -2,12 +2,15 @@
   import { getContext } from 'svelte';
   import { t } from 'svelte-i18n';
 
+  import { browser } from '$app/environment';
   import type { LoadLeaderboardDataType } from '$lib/domains/leaderboard/types/shared/types';
   import type { UserLeaderboardItem } from '$lib/domains/leaderboard/types/user/types';
   import { PlusIcon } from '$shared/components/Icon';
   import LiquidityRoyalCarousel from '$shared/components/PartnerCarousel/LiquidityRoyalCarousel.svelte';
   import type { PaginationInfo } from '$shared/dto/CommonPageApiResponse';
+  import { activeSeason } from '$shared/stores/activeSeason';
   import { classNames } from '$shared/utils/classNames';
+  import { isDesktop, isTablet, isTabletLg } from '$shared/utils/responsiveCheck';
 
   import LastUpdated from '../../LastUpdated.svelte';
   import Search from '../../Search.svelte';
@@ -28,14 +31,33 @@
   const wrapperClasses = classNames('f-col', 'w-full', 'z-10', 'overflow-hidden', 'space-y-[120px]');
   const innerWrapperClasses = classNames('f-col', 'md:f-row', 'justify-between', 'items-center', 'space-y-[50px]');
 
-  const headerImageClasses = classNames(
+  $: smallHeaderImage = `/competitionInfo/liquidityRoyale/s${$activeSeason}/sm/header.png`;
+  $: mediumHeaderImage = `/competitionInfo/liquidityRoyale/s${$activeSeason}/md/header.png`;
+  $: largeHeaderImage = `/competitionInfo/liquidityRoyale/s${$activeSeason}/lg/header.png`;
+  $: xlargeHeaderImage = `/competitionInfo/liquidityRoyale/s${$activeSeason}/xl/header.png`;
+
+  $: imageUrl = $isDesktop
+    ? xlargeHeaderImage
+    : $isTabletLg
+      ? largeHeaderImage
+      : $isTablet
+        ? mediumHeaderImage
+        : smallHeaderImage;
+
+  //Preload images
+  const images = [smallHeaderImage, mediumHeaderImage, largeHeaderImage, xlargeHeaderImage];
+  images.forEach((src) => {
+    if (browser) {
+      const img = new window.Image();
+      img.src = src;
+    }
+  });
+
+  let headerImageClasses = classNames(
     'min-h-[475px]',
     'xl:h-[606px]',
     'xl:max-w-[1520px]',
-    'bg-[url(/competitionInfo/liquidityRoyale/sm/header.png)]',
-    'md:bg-[url(/competitionInfo/liquidityRoyale/md/header.png)]',
-    'lg:bg-[url(/competitionInfo/liquidityRoyale/lg/header.png)]',
-    'xl:bg-[url(/competitionInfo/liquidityRoyale/xl/header.png)]',
+
     'bg-no-repeat',
     'bg-center',
     'bg-contain',
@@ -72,16 +94,22 @@
     'space-y-[24px]',
     'lg:space-y-0',
   );
+
+  const getHeaderImageClasses = () => {
+    return headerImageClasses;
+  };
+  $: $activeSeason && getHeaderImageClasses();
+  $: description = $t(`leaderboard.liquidityRoyale.description.s${$activeSeason}`);
 </script>
 
 <div class={containerClasses}>
-  <div class={headerImageClasses}></div>
+  <div style={`background-image: url(${imageUrl})`} class={headerImageClasses}></div>
 
   <div class={wrapperClasses}>
     <div class={innerWrapperClasses}>
       <span class={descriptionClasses}>
         <PlusIcon class={plusIconClasses} />
-        {$t('leaderboard.liquidityRoyale.description')}
+        {description}
       </span>
       <PrizePool />
     </div>
