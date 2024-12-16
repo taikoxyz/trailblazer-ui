@@ -1,15 +1,14 @@
 <script lang="ts">
   import { EcosystemSection } from '$lib/domains/ecosystem/components/index';
   import BannerCarousel from '$lib/domains/splashpage/components/Banner/BannerCarousel.svelte';
-  import S2StartBanner from '$lib/domains/splashpage/components/Banner/S2StartBanner.svelte';
+  import S3StartBanner from '$lib/domains/splashpage/components/Banner/S3StartBanner.svelte';
   import type { Slide } from '$lib/domains/splashpage/components/Banner/types';
-  import { Countdown } from '$shared/components/Countdown';
   import FeaturedCampaigns from '$shared/components/FeaturedCampaigns/FeaturedCampaigns.svelte';
   import { classNames } from '$shared/utils/classNames';
 
   import Factions from './Factions/Factions.svelte';
   import { TrailblazerGuide } from './Guide';
-  import TrailblazerMain from './HeroSection/HeroSection.svelte';
+  import HeroSection from './HeroSection/HeroSection.svelte';
   import { RankUp } from './RankUp';
 
   const wrapperClasses = classNames(
@@ -30,23 +29,20 @@
 
   const slides: Slide[] = [
     {
-      component: S2StartBanner,
+      component: S3StartBanner,
     },
   ];
 </script>
 
 <div class={wrapperClasses}>
-  <TrailblazerMain />
+  <HeroSection />
   <div class={separator40pxClasses} />
 
   <TrailblazerGuide />
 
-  <!-- dec 16th 2024, 12:00-->
-  <Countdown title="Season 3 starts in" countdown={new Date(1734350400000)} />
+  <BannerCarousel interval={5000} transitionDuration={700} transitionDistance={200} {slides} withDots />
 
   <FeaturedCampaigns />
-
-  <BannerCarousel interval={5000} transitionDuration={700} transitionDistance={200} {slides} withDots />
 
   <div class={separator120pxClasses} />
 

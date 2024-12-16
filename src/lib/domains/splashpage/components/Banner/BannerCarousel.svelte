@@ -91,7 +91,7 @@
     {#if slides.length > 0}
       {#key current}
         <div
-          class="carousel-slide"
+          class="carousel-slide flex items-center justify-center"
           transition:fly={{
             x: transitionDistance,
             duration: transitionDuration,
