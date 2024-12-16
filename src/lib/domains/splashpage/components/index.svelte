@@ -42,7 +42,7 @@
   <TrailblazerGuide />
 
   <!-- dec 16th 2024, 12:00-->
-  <Countdown title="Season 3 starts in" countdown={new Date(1734346800000)} />
+  <Countdown title="Season 3 starts in" countdown={new Date(1734350400000)} />
 
   <FeaturedCampaigns />
 
