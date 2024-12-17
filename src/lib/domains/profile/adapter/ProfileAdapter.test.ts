@@ -6,7 +6,7 @@ import { type Address, getAddress, type Hash, zeroAddress } from 'viem';
 import { registerProfilePictureAbi, registerProfilePictureAddress } from '$generated/abi';
 import { profilePictureCache } from '$lib/domains/leaderboard/stores/cache';
 import { getAxiosInstance, globalAxiosConfig } from '$lib/shared/services/api/axiosClient';
-import { graphqlClient } from '$lib/shared/services/graphql/client';
+import { pfpSubgraphClient } from '$lib/shared/services/graphql/client';
 import { USER_PROFILE_PICTURE_QUERY, USER_PROFILE_PICTURES_QUERY } from '$lib/shared/services/graphql/queries';
 import { pendingTransactions } from '$lib/shared/stores/pendingTransactions';
 import type { NFT } from '$lib/shared/types/NFT';
@@ -21,7 +21,7 @@ vi.mock('@wagmi/core', () => ({
 }));
 
 vi.mock('$lib/shared/services/graphql/client', () => ({
-  graphqlClient: {
+  pfpSubgraphClient: {
     query: vi.fn(),
   },
 }));
@@ -154,7 +154,7 @@ describe('ProfileApiAdapter', () => {
     });
 
     it('should fetch the profile picture for a user', async () => {
-      vi.mocked(graphqlClient.query).mockResolvedValue(
+      vi.mocked(pfpSubgraphClient.query).mockResolvedValue(
         createMockQueryResult({
           profilePicture: {
             id: mockAddress,
@@ -167,7 +167,7 @@ describe('ProfileApiAdapter', () => {
 
       const result = await profileApiAdapter.getProfilePicture(mockAddress);
 
-      expect(graphqlClient.query).toHaveBeenCalledWith({
+      expect(pfpSubgraphClient.query).toHaveBeenCalledWith({
         query: USER_PROFILE_PICTURE_QUERY,
         variables: { address: mockAddress },
       });
@@ -176,7 +176,7 @@ describe('ProfileApiAdapter', () => {
     });
 
     it('should return null if no profile picture is found', async () => {
-      vi.mocked(graphqlClient.query).mockResolvedValue(
+      vi.mocked(pfpSubgraphClient.query).mockResolvedValue(
         createMockQueryResult({
           data: {
             profilePicture: null,
@@ -186,7 +186,7 @@ describe('ProfileApiAdapter', () => {
 
       const result = await profileApiAdapter.getProfilePicture(mockAddress);
 
-      expect(graphqlClient.query).toHaveBeenCalledWith({
+      expect(pfpSubgraphClient.query).toHaveBeenCalledWith({
         query: USER_PROFILE_PICTURE_QUERY,
         variables: { address: getAddress(mockAddress) },
       });
@@ -220,11 +220,11 @@ describe('ProfileApiAdapter', () => {
         ],
       };
 
-      vi.mocked(graphqlClient.query).mockResolvedValue(createMockQueryResult(mockResponse));
+      vi.mocked(pfpSubgraphClient.query).mockResolvedValue(createMockQueryResult(mockResponse));
 
       const result = await profileApiAdapter.getProfilePictures(mockAddresses);
 
-      expect(graphqlClient.query).toHaveBeenCalledWith({
+      expect(pfpSubgraphClient.query).toHaveBeenCalledWith({
         query: USER_PROFILE_PICTURES_QUERY,
         variables: { addresses: mockAddresses },
       });

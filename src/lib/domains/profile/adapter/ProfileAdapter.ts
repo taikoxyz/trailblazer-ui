@@ -12,7 +12,7 @@ import type {
   UserPointsAndRankResponse,
 } from '$lib/domains/profile/dto/profile.dto';
 import { getAxiosInstance, globalAxiosConfig } from '$lib/shared/services/api/axiosClient';
-import { graphqlClient } from '$lib/shared/services/graphql/client';
+import { pfpSubgraphClient } from '$lib/shared/services/graphql/client';
 import { USER_PROFILE_PICTURE_QUERY, USER_PROFILE_PICTURES_QUERY } from '$lib/shared/services/graphql/queries';
 import { pendingTransactions } from '$lib/shared/stores/pendingTransactions';
 import type { NFT } from '$lib/shared/types/NFT';
@@ -116,7 +116,7 @@ export class ProfileApiAdapter {
     }
 
     try {
-      const result = await graphqlClient.query({
+      const result = await pfpSubgraphClient.query({
         query: USER_PROFILE_PICTURE_QUERY,
         variables: { address: checksummedAddress },
       });
@@ -175,7 +175,7 @@ export class ProfileApiAdapter {
 
     if (addressesToFetch.length > 0) {
       try {
-        const result = await graphqlClient.query({
+        const result = await pfpSubgraphClient.query({
           query: USER_PROFILE_PICTURES_QUERY,
           variables: { addresses: addressesToFetch },
         });

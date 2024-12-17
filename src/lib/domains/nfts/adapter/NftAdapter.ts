@@ -1,8 +1,9 @@
 import { type Address } from 'viem';
 
 import type { Token } from '$generated/graphql';
+import type { Movements } from '$lib/domains/profile/types/types';
 import type { NFT, TokenType } from '$lib/shared/types/NFT';
-import { graphqlClient } from '$shared/services/graphql/client';
+import { badgesSubgraphClient, taikoonsSubgraphClient } from '$shared/services/graphql/client';
 import { USER_NFTS_FETCH_QUERY } from '$shared/services/graphql/queries';
 import { getLogger } from '$shared/utils/logger';
 
@@ -22,23 +23,37 @@ export class NftAdapter {
     log('fetchTaikoTokensForUser', { address });
 
     try {
-      const graphqlResponse = await graphqlClient.query({
+      const badgesGraphqlResponse = await badgesSubgraphClient.query({
         query: USER_NFTS_FETCH_QUERY,
-        variables: { address: address.toLocaleLowerCase() },
+        variables: { address: address },
       });
 
-      if (!graphqlResponse || !graphqlResponse.data || !graphqlResponse.data.tokens) {
+      const taikoonsAndSnaefellsGraphqlResponse = await taikoonsSubgraphClient.query({
+        query: USER_NFTS_FETCH_QUERY,
+        variables: { address: address },
+      });
+
+      if (
+        (!badgesGraphqlResponse || !badgesGraphqlResponse.data || !badgesGraphqlResponse.data.tokens) &&
+        (!taikoonsAndSnaefellsGraphqlResponse ||
+          !taikoonsAndSnaefellsGraphqlResponse.data ||
+          !taikoonsAndSnaefellsGraphqlResponse.data.tokens)
+      ) {
         // account does not exist, skip
         return [];
       }
-      const { tokens } = graphqlResponse.data;
+
+      const { tokens: badgeTokens } = badgesGraphqlResponse?.data || { tokens: [] };
+      const { tokens: otherTokens } = taikoonsAndSnaefellsGraphqlResponse?.data || { tokens: [] };
+
+      const tokens = [...badgeTokens, ...otherTokens];
 
       const flatTokens = tokens.map((token: Token) => {
         const address = token.contract as Address;
         const tokenId = parseInt(token.tokenId);
         const badgeId = parseInt(token.badgeId);
         const erc = parseInt(token.erc) as TokenType;
-        const movement = parseInt(token.movement);
+        const movement = parseInt(token.movement || '0') as Movements;
         const tokenUri = token.uri || '';
         const frozen = token.frozen || false;
 

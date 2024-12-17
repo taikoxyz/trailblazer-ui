@@ -11,7 +11,7 @@ import {
   trailblazersBadgesS2Address,
 } from '$generated/abi';
 import { Movements } from '$lib/domains/profile/types/types';
-import { graphqlClient } from '$lib/shared/services/graphql/client';
+import { badgesSubgraphClient } from '$lib/shared/services/graphql/client';
 import { FETCH_ENABLED_MIGRATIONS_QUERY, GET_MIGRATION_STATUS_QUERY } from '$lib/shared/services/graphql/queries';
 import { type IBadgeRecruitment, RecruitmentStatus } from '$shared/types/BadgeRecruitment';
 import { chainId } from '$shared/utils/chain';
@@ -22,7 +22,7 @@ import { wagmiConfig } from '$shared/wagmi';
 import BadgeRecruitmentAdapter from './BadgeRecruitmentAdapter';
 
 vi.mock('$lib/shared/services/graphql/client', () => ({
-  graphqlClient: {
+  badgesSubgraphClient: {
     query: vi.fn(), // Mock the `query` method
     cache: {
       reset: vi.fn(), // Mock the `cache.reset` method
@@ -82,7 +82,7 @@ describe('BadgeRecruitmentAdapter', () => {
 
   describe('fetchEnabledRecruitments', () => {
     it('should fetch enabled recruitments', async () => {
-      vi.mocked(graphqlClient.query).mockResolvedValue(
+      vi.mocked(badgesSubgraphClient.query).mockResolvedValue(
         createMockQueryResult({
           openRecruitments: [
             {
@@ -97,7 +97,7 @@ describe('BadgeRecruitmentAdapter', () => {
       );
 
       const result = await adapter.fetchEnabledRecruitments();
-      expect(graphqlClient.query).toHaveBeenCalledWith({
+      expect(badgesSubgraphClient.query).toHaveBeenCalledWith({
         query: FETCH_ENABLED_MIGRATIONS_QUERY,
       });
 
@@ -411,7 +411,7 @@ describe('BadgeRecruitmentAdapter', () => {
     describe('getRecruitmentStatus', () => {
       it('should fetch recruitment status', async () => {
         const mockAddress = '0x1234567890abcdef1234567890abcdef12345678';
-        vi.mocked(graphqlClient.query).mockResolvedValue({
+        vi.mocked(badgesSubgraphClient.query).mockResolvedValue({
           loading: false,
           networkStatus: 7,
           data: {
@@ -438,7 +438,7 @@ describe('BadgeRecruitmentAdapter', () => {
 
         const result = await adapter.getRecruitmentStatus(mockAddress);
 
-        expect(graphqlClient.query).toHaveBeenCalledWith({
+        expect(badgesSubgraphClient.query).toHaveBeenCalledWith({
           query: GET_MIGRATION_STATUS_QUERY,
           variables: { address: mockAddress.toLocaleLowerCase() },
           fetchPolicy: 'no-cache',

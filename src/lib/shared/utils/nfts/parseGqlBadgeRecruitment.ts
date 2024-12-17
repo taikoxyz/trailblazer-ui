@@ -1,5 +1,5 @@
 import { trailblazersBadgesAddress } from '$generated/abi';
-import type { BadgeRecruitment as GqlBadgeRecruitment } from '$generated/graphql';
+import type { BadgeRecruitment as GqlBadgeRecruitment } from '$generated/graphql/badges';
 import { type Movements, Seasons } from '$lib/domains/profile/types/types';
 import { type IBadgeRecruitment, RecruitmentStatus } from '$shared/types/BadgeRecruitment';
 import type { NFT } from '$shared/types/NFT';
@@ -9,7 +9,6 @@ import generateBadgeMetadata from './generateBadgeMetadata';
 
 export default function parseGqlBadgeRecruitment(raw: GqlBadgeRecruitment): IBadgeRecruitment {
   const s1BadgeId = parseInt(raw.s1Badge.badgeId.toString());
-
   const s1Badge = {
     tokenId: parseInt(raw.s1Badge.tokenId.toString()),
     address: trailblazersBadgesAddress[chainId],
