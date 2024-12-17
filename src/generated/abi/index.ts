@@ -971,6 +971,7 @@ export const badgeRecruitmentAbi = [
   { type: 'error', inputs: [], name: 'INVALID_INFLUENCE_COLOR' },
   { type: 'error', inputs: [], name: 'InvalidInitialization' },
   { type: 'error', inputs: [], name: 'MAX_INFLUENCES_REACHED' },
+  { type: 'error', inputs: [], name: 'NOT_ENOUGH_TIME_LEFT' },
   { type: 'error', inputs: [], name: 'NOT_RANDOM_SIGNER' },
   { type: 'error', inputs: [], name: 'NOT_S1_CONTRACT' },
   { type: 'error', inputs: [], name: 'NotInitializing' },
