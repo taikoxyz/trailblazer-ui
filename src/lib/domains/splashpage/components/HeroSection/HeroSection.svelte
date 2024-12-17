@@ -17,7 +17,7 @@
     'w-full',
     'flex',
     'h-[746px]',
-    'xl:max-w-[1440px]',
+    'xl:max-w-[1344px]',
     'relative',
     'rounded-[30px]',
     'overflow-hidden',
@@ -69,7 +69,6 @@
   );
   const buttonWrapperClasses = classNames('gap-4', 'self-start', 'f-col', 'md:f-row', 'w-[200px]');
 
-  // padding: 8px 16px 8px 8px;
   const pillClasses = classNames(
     'flex',
     'items-center',
@@ -100,8 +99,15 @@
 </script>
 
 <div class={wrapperClasses}>
-  <img alt="fallback splash" class="absolute h-full object-cover w-full" src="/splash/fallback.png" />
-  <video autoplay loop muted playsinline class="relative h-full object-cover" src="/splash/xl/evergreen.mp4" />
+  <video
+    autoplay
+    loop
+    muted
+    playsinline
+    poster="/splash/fallback.webp"
+    class="relative h-full object-cover"
+    src="/splash/xl/evergreen.webm"></video>
+
   <div class={backgroundImageClasses}>
     <div class={pillClasses}>
       <div class={innerPillClasses}>
@@ -127,5 +133,8 @@
 <style>
   .pill-bg {
     background-color: rgba(255, 198, 233, 0.7);
+  }
+  video {
+    transition: opacity 0.3s ease;
   }
 </style>

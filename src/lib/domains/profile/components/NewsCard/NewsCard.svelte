@@ -16,6 +16,10 @@
     imgSrc?: string;
   };
 
+  const profilePath = (slug: string) => {
+    return getConnectedAddress() ? `${getConnectedAddress() + slug}` : '';
+  };
+
   const newsEntries: NewsCardContent[] = [
     {
       featured: true,
@@ -23,7 +27,7 @@
       subtitle: 'Coming soon!',
       cta: {
         disabled: true,
-        href: `profile/${getConnectedAddress()}#claim`,
+        href: profilePath('#claim'),
       },
       imgSrc: '/news/flame.svg',
     },
@@ -31,7 +35,7 @@
       title: 'Get your Badges',
       subtitle: 'Recruit your members to your cause',
       cta: {
-        href: `profile/${getConnectedAddress()}#badge-recruitment`,
+        href: profilePath('#badge-recruitment'),
       },
     },
 

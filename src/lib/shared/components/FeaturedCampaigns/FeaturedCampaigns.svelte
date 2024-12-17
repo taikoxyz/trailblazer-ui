@@ -42,7 +42,7 @@
     },
     {
       title: 'Liquidity Royale Season 3',
-      text: 'Supercharge your liquidity and get rewarded for it. Season 3 is offering a massive 1.2M Taiko tokens!',
+      text: 'Supercharge your liquidity and get rewarded for it. Season 3 is offering a massive 1.2M TAIKO tokens!',
       btn: {
         text: 'Earn now',
         external: false,
@@ -78,7 +78,7 @@
   }
 
   function onDragMove(event: MouseEvent | TouchEvent) {
-    if (!isDragging) return;
+    if (!isDragging || (event instanceof MouseEvent && event.buttons !== 1)) return;
     const currentX = event instanceof MouseEvent ? event.clientX : event.touches[0].clientX;
     const deltaX = currentX - startX;
     carouselElement.scrollLeft = scrollStartX - deltaX;
@@ -96,7 +96,7 @@
     if (!card) return;
 
     const cardWidth = card.offsetWidth;
-    const gap = 16; // gap-4
+    const gap = 23;
     const totalCardWidth = cardWidth + gap;
 
     const currentScroll = carouselElement.scrollLeft;
@@ -111,7 +111,7 @@
     if (!card) return;
 
     const cardWidth = card.offsetWidth;
-    const gap = 16; // gap-4
+    const gap = 23;
     const totalCardWidth = cardWidth + gap;
 
     const currentScroll = carouselElement.scrollLeft;
@@ -130,6 +130,7 @@
     carouselElement?.addEventListener('touchstart', onDragStart);
     carouselElement?.addEventListener('touchmove', onDragMove);
     carouselElement?.addEventListener('touchend', onDragEnd);
+    carouselElement?.addEventListener('wheel', checkScrollPosition); // Add wheel listener for touchpad scrolling
     checkScrollPosition();
   });
 
@@ -141,6 +142,7 @@
     carouselElement?.removeEventListener('touchstart', onDragStart);
     carouselElement?.removeEventListener('touchmove', onDragMove);
     carouselElement?.removeEventListener('touchend', onDragEnd);
+    carouselElement?.removeEventListener('wheel', checkScrollPosition); // Cleanup wheel listener
   });
 
   const containerClasses = classNames('flex', 'flex-col', 'justify-center', 'items-center', 'w-full', 'container');
@@ -175,14 +177,15 @@
     'w-full',
     'pt-[100px]',
     'md:pt-[70px]',
-    'overflow-x-hidden',
+    'overflow-x-auto',
     'overflow-y-hidden',
     'scroll-smooth',
+    'scrollable',
   );
 
-  const cardContainerClasses = classNames('flex', 'w-full', 'gap-4', 'lg:gap-8', 'snap-x', 'snap-mandatory');
+  const cardContainerClasses = classNames('flex', 'w-full', 'gap-[23px]', 'snap-x', 'snap-mandatory');
 
-  const cardClasses = classNames('snap-start', 'flex-shrink-0', 'w-full', 'md:w-[400px]', 'min-h-[444px]', 'h-full');
+  const cardClasses = classNames('snap-start', 'flex-shrink-0', 'w-full', 'md:w-[432px]', 'min-h-[470px]', 'h-full');
 </script>
 
 <div class={containerClasses}>
@@ -222,3 +225,17 @@
     </div>
   </div>
 </div>
+
+<style>
+  .carousel {
+    scroll-behavior: smooth;
+  }
+  .scrollable {
+    scrollbar-width: none; /* For Firefox */
+    -ms-overflow-style: none; /* For IE and Edge */
+  }
+
+  .scrollable::-webkit-scrollbar {
+    display: none; /* For Chrome, Safari, and Opera */
+  }
+</style>

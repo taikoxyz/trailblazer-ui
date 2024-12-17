@@ -2,6 +2,7 @@ import { sentrySvelteKit } from '@sentry/sveltekit';
 import { sveltekit } from '@sveltejs/kit/vite';
 import dotenv from 'dotenv';
 import { defineConfig } from 'vite';
+import { qrcode } from 'vite-plugin-qrcode';
 import tsconfigPaths from 'vite-tsconfig-paths';
 
 if (process.env.NODE_ENV === 'test') {
@@ -13,6 +14,7 @@ export default defineConfig({
     sourcemap: true,
   },
   plugins: [
+    qrcode(),
     sentrySvelteKit({
       sourceMapsUploadOptions: {
         org: 'taiko-gg',

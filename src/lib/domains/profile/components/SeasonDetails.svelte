@@ -23,13 +23,13 @@
   let seasons: SeasonType[] = [
     {
       id: 2,
-      start_date: '17 Sep 2024',
-      end_date: '16 Dec 2024',
+      start_date: 'Sep 17th 2024',
+      end_date: 'Dec 16th 2024',
     },
     {
       id: 3,
-      start_date: '16 Dec 2024',
-      end_date: '17 Marc 2025',
+      start_date: 'Dec 16th. 2024',
+      end_date: 'March 17th 2025',
     },
   ];
 

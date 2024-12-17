@@ -24,7 +24,7 @@
     'md:grid-cols-2',
     'lg:grid-cols-3',
     'xl:grid-cols-4',
-    'xl:max-w-[1440px]',
+    'xl:max-w-[1344px]',
     'gap-[18px]',
   );
 
@@ -74,7 +74,7 @@
     'relative',
     'pb-[60px]',
     'w-full',
-    'xl:max-w-[1440px]',
+    'xl:max-w-[1344px]',
     'md:grid-cols-6',
     'grid-cols-4',
     'grid',
@@ -121,7 +121,7 @@
 
   const contentBackgroundClasses = classNames('absolute', 'top-0', 'h-full', 'bg-white', 'w-full', 'rounded-[30px]');
 
-  const partnersWrapperClasses = classNames('w-full', 'relative', 'pt-[64px]', 'xl:max-w-[1440px]');
+  const partnersWrapperClasses = classNames('w-full', 'relative', 'pt-[64px]', 'xl:max-w-[1344px]');
 
   const partnersClasses = classNames('lg:col-span-3', 'lg:col-start-2', 'md:col-start-2', 'col-span-4');
 </script>

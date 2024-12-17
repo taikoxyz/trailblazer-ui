@@ -219,6 +219,9 @@ importers:
       vite:
         specifier: ^5.2.13
         version: 5.4.10(@types/node@22.10.1)(terser@5.36.0)
+      vite-plugin-qrcode:
+        specifier: ^0.2.3
+        version: 0.2.3(vite@5.4.10(@types/node@22.10.1)(terser@5.36.0))
       vite-tsconfig-paths:
         specifier: ^4.3.2
         version: 4.3.2(typescript@5.6.3)(vite@5.4.10(@types/node@22.10.1)(terser@5.36.0))
@@ -6062,6 +6065,10 @@ packages:
     resolution: {integrity: sha512-jy/kkD0iIMDjTucB+5T6KBsnirlhegDH47vHgrj5MejchSQmi/EAMM0xMFeePgV9CJkkAapNakpVUWYgHvtdKg==}
     hasBin: true
 
+  qrcode-terminal@0.12.0:
+    resolution: {integrity: sha512-EXtzRZmC+YGmGlDFbXKxQiMZNwCLEO6BANKXG4iCtSIM0yqc/pappSx3RIKr4r0uh5JsBckOXeKrB3Iz7mdQpQ==}
+    hasBin: true
+
   qrcode@1.5.3:
     resolution: {integrity: sha512-puyri6ApkEHYiVl4CFzo1tDkAZ+ATcnbJrJ6RiBM1Fhctdn/ix9MTE3hRph33omisEbC/2fcfemsseiKgBPKZg==}
     engines: {node: '>=10.13.0'}
@@ -7145,6 +7152,12 @@ packages:
     resolution: {integrity: sha512-de6HJgzC+TFzOu0NTC4RAIsyf/DY/ibWDYQUcuEA84EMHhcefTUGkjFHKKEJhQN4A+6I0u++kr3l36ZF2d7XRw==}
     engines: {node: ^18.0.0 || >=20.0.0}
     hasBin: true
+
+  vite-plugin-qrcode@0.2.3:
+    resolution: {integrity: sha512-TFzhf20v29hnh2XEoZ2kxg8Ff/ui36pR7PGDaHaKEmsQaRagv31XacHxbw5O07HcC1Mkr4tKcYb+PFASSceHmw==}
+    engines: {node: ^14.13.1 || ^16.0.0 || >=18}
+    peerDependencies:
+      vite: ^3.0.0 || ^4.0.0 || ^5.0.0
 
   vite-tsconfig-paths@4.3.2:
     resolution: {integrity: sha512-0Vd/a6po6Q+86rPlntHye7F31zA2URZMbH8M3saAZ/xR9QoGN/L21bxEGfXdWmFdNkqPpRdxFT7nmNe12e9/uA==}
@@ -15120,6 +15133,8 @@ snapshots:
 
   qrcode-terminal-nooctal@0.12.1: {}
 
+  qrcode-terminal@0.12.0: {}
+
   qrcode@1.5.3:
     dependencies:
       dijkstrajs: 1.0.3
@@ -16255,6 +16270,11 @@ snapshots:
       - sugarss
       - supports-color
       - terser
+
+  vite-plugin-qrcode@0.2.3(vite@5.4.10(@types/node@22.10.1)(terser@5.36.0)):
+    dependencies:
+      qrcode-terminal: 0.12.0
+      vite: 5.4.10(@types/node@22.10.1)(terser@5.36.0)
 
   vite-tsconfig-paths@4.3.2(typescript@5.6.3)(vite@5.4.10(@types/node@22.10.1)(terser@5.36.0)):
     dependencies:

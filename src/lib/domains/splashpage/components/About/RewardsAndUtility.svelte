@@ -4,7 +4,7 @@
 
   const wrapperClasses = classNames(
     'flex',
-    'xl:max-w-[1440px]',
+    'xl:max-w-[1344px]',
     'flex-col',
     'justify-center',
     'md:justify-start',

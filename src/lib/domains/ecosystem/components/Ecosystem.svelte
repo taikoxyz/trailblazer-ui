@@ -5,7 +5,7 @@
   import EcosystemHeader from './components/EcosystemHeader.svelte';
 
   const wrapperClasses = classNames(
-    'xl:max-w-[1440px]',
+    'xl:max-w-[1344px]',
     'justify-center',
     'items-center',
     'w-full',

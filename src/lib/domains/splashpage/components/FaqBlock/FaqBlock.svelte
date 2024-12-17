@@ -17,7 +17,7 @@
     'gap-6',
     'w-full',
     'h-max',
-    'xl:max-w-[1440px]',
+    'xl:max-w-[1344px]',
     'md:justify-between',
     'md:items-start',
     'justify-center',
