@@ -1,6 +1,6 @@
 import { readContract, signMessage, waitForTransactionReceipt, watchContractEvent, writeContract } from '@wagmi/core';
 import axios from 'axios';
-import { type Address, parseSignature } from 'viem';
+import { type Address, parseSignature, recoverAddress } from 'viem';
 
 import { PUBLIC_TRAILBLAZER_API_URL } from '$env/static/public';
 import {
@@ -181,6 +181,12 @@ export default class BadgeRecruitmentAdapter {
       chainId,
     });
 
+    const recoveredSigner = await recoverAddress({
+      hash,
+      signature: mintSignature,
+    });
+
+    log('recoveredSigner', { recoveredSigner });
     return { r, s, v, points, hash };
   }
 
