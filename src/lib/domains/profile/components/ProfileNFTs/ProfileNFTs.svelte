@@ -102,7 +102,7 @@
       {/if}
 
       {#if s2Badges.length}
-        <UserNFTsSection nfts={s2Badges} title="Season 2 Faction Badges" />
+        <UserNFTsSection nfts={s2Badges} title="Recruited Faction Badges" />
       {/if}
 
       {#if nfts.length}
