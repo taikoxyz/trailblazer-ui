@@ -98,7 +98,7 @@
     prizes: [
       {
         image: '/first.svg',
-        amount: $t('leaderboard.chillblazers.prize_breakdown.first.amount'),
+        amount: $t('leaderboard.chillblazers.s2.prize_breakdown.first.amount'),
       },
       {
         image: '/second.svg',
