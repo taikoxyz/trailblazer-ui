@@ -10,6 +10,7 @@
   import MobileNavigationLink from './MobileNavigationLink.svelte';
 
   export let isMenuOpen: boolean;
+  export let ribbonActive: boolean;
 
   function toggleMobileMenu() {
     isMenuOpen = !isMenuOpen;
@@ -65,7 +66,9 @@
 
 {#if isMenuOpen}
   <!-- Overlay -->
-  <div class="z-30 fixed top-[100px] left-0 overflow-y-scroll h-full w-full" transition:fly={{ x: '600' }}>
+  <div
+    class="z-30 fixed {ribbonActive ? 'top-[130px]' : 'top-[100px]'} left-0 overflow-y-scroll h-full w-full"
+    transition:fly={{ x: '600' }}>
     <div class="relative z-21 flex flex-col gap-2 px-[24px] md:px-[48px] min-h-full bg-primary-background">
       <!-- Wallet -->
       <ConnectButton class="min-h-[75px] min-w-full !max-w-full lg:!max-w-full" />

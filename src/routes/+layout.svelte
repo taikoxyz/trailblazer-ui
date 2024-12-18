@@ -12,7 +12,7 @@
   import { BlacklistModal } from '$shared/components/Modals/BlacklistModal';
   import { SwitchChainModal } from '$shared/components/Modals/SwitchChainModal';
   import { NotificationToast } from '$shared/components/NotificationToast';
-  // import { Ribbon } from '$shared/components/Ribbon';
+  import { Ribbon } from '$shared/components/Ribbon';
   import {
     desktopQuery,
     initializeMediaQueries,
@@ -61,26 +61,22 @@
       mobileQuery.removeEventListener('change', mediaQueryHandler);
     }
   });
+
+  let showRibbon = true;
 </script>
 
-<!-- App components -->
+{#if showRibbon}
+  <Ribbon />
+{/if}
 
-<div class="relative z-10">
-  <!-- <Ribbon /> -->
-
-  <Header />
-
+<!-- Main content with dynamic margin-top -->
+<div class={`relative ${showRibbon ? 'mt-[60px]' : 'mt-0'}`}>
+  <Header ribbonActive={showRibbon} />
   <slot />
-
   <Footer />
 </div>
-<!--
-  The following UI is global and should be rendered
-  at the root of the app.
--->
 
+<!-- Global UI Components -->
 <NotificationToast />
-<!-- <AccountConnectionToast /> -->
-<!-- Todo renable in the future -->
 <SwitchChainModal />
 <BlacklistModal />
