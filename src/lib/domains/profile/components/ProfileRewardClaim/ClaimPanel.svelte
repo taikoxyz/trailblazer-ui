@@ -3,7 +3,17 @@
   import { Spinner } from '$shared/components/Spinner';
   import { classNames } from '$shared/utils/classNames';
 
-  import type { IClaimAmount, IClaimButton, IClaimPanelType } from './types';
+  import ClaimTerms from './ClaimTerms.svelte';
+  import { ClaimStates, type IClaimButton } from './types';
+
+  export let loading: boolean = false;
+  export let state: ClaimStates = ClaimStates.START;
+  export let title: string;
+  export let text: string;
+  export let amount: number | null = null;
+  export let buttons: IClaimButton[] = [];
+  export let disableButton: boolean = false;
+  export let additionalContent: { type: string; component?: string } | null = null;
 
   const contentWrapperClasses = classNames(
     'gap-[40px]',
@@ -30,8 +40,7 @@
     'text-secondary-content',
     'w-[294px]',
     'md:w-[392px]',
-    ' xl:w-[412px]',
-    'text-secondary-content',
+    'xl:w-[412px]',
     'font-[400]',
     'text-[16px]/[24px]',
     'text-center',
@@ -52,7 +61,6 @@
     'md:gap-0',
   );
 
-  const rewardInputLabelClasses = classNames('text-primary-content', 'font-[400]', 'text-[16px]/[24px]');
   const rewardInputValueWrapperClasses = classNames(
     'md:bg-[#2B303B]',
     'rounded-full',
@@ -73,23 +81,6 @@
 
   const iconClasses = classNames('w-[150px]', 'h-[150px]');
 
-  export let loading = false;
-  export let type: IClaimPanelType = 'claim';
-
-  export let title: string;
-  export let text: string;
-
-  export let amount: IClaimAmount | null = null;
-  export let buttons: IClaimButton[] = [
-    {
-      handler: async () => {},
-      priority: 'primary',
-      label: 'Claim now',
-    },
-  ];
-
-  export let disableButton: boolean = false;
-
   function numberWithCommas(x: number) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
   }
@@ -98,46 +89,52 @@
 <div class={contentWrapperClasses}>
   {#if loading}
     <Spinner size="lg" />
-  {:else}
-    {#if type === 'claim'}
-      <img class={iconClasses} alt="Coin" src="/coin.svg" />
-    {:else if type === 'prepare'}
-      <img class={iconClasses} alt="Coin" src="/claim-confirm.svg" />
-    {:else if type === 'success'}
-      <img class={iconClasses} alt="Success" src="/success.svg" />
-    {:else if type === 'error'}
-      <img class={iconClasses} alt="Error" src="/not-eligible.png" />
-    {/if}
-
+  {:else if amount && amount === 0}
+    <img class={iconClasses} alt="Error" src="/not-eligible.png" />
     <div class={textWrapperClasses}>
-      <div class={titleClasses}>
-        {title}
-      </div>
-
+      <div class={titleClasses}>{title}</div>
       <div class={contentClasses}>
         {text}
         <slot />
       </div>
     </div>
+  {:else}
+    {#if state === ClaimStates.START}
+      <img class={iconClasses} alt="Coin" src="/coin.svg" />
+    {:else if state === ClaimStates.CLAIM}
+      <img class={iconClasses} alt="Coin" src="/claim-confirm.svg" />
+    {:else if state === ClaimStates.INELIGIBLE}
+      <img class={iconClasses} alt="Error" src="/not-eligible.png" />
+    {:else if state === ClaimStates.SUCCESS}
+      <img class={iconClasses} alt="Success" src="/success.svg" />
+    {:else if state === ClaimStates.ERROR}
+      <img class={iconClasses} alt="Error" src="/not-eligible.png" />
+    {/if}
 
+    <div class={textWrapperClasses}>
+      <div class={titleClasses}>{title}</div>
+      <div class={contentClasses}>
+        {text}
+        <slot />
+      </div>
+    </div>
+    {#if additionalContent && additionalContent.type === 'component' && additionalContent.component === 'ClaimTerms'}
+      <ClaimTerms />
+    {/if}
     {#if amount}
       <div class={rewardInputClasses}>
-        <div class={rewardInputLabelClasses}>
-          {amount.label}
-        </div>
         <div class={rewardInputValueWrapperClasses}>
-          <img alt="TKO Icon" src="/tko-icon.svg" />
-          <div>
-            {numberWithCommas(amount.value)} TAIKO
-          </div>
+          <img alt="TAIKO Icon" src="/tko-icon.svg" />
+          <div>{numberWithCommas(amount)} TAIKO</div>
         </div>
       </div>
     {/if}
 
     <div class={buttonsWrapperClasses}>
       {#each buttons as button}
-        <ActionButton on:click={button.handler} disabled={disableButton} priority={button.priority}
-          >{button.label}</ActionButton>
+        <ActionButton on:click={button.handler} disabled={disableButton} priority={button.priority}>
+          {button.label}
+        </ActionButton>
       {/each}
     </div>
   {/if}

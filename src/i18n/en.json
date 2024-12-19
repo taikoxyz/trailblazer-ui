@@ -307,6 +307,11 @@
   },
   "claim": {
     "panels": {
+      "start": {
+        "title": "Season 2 claiming is now live!",
+        "text": "Click on review below to check your eligibility and claim your rewards.",
+        "button": "Review"
+      },
       "claim": {
         "button": "Claim now",
         "title": "Are you ready to claim your tokens?"

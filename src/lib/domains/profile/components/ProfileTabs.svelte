@@ -53,12 +53,11 @@
           },
         ]
       : []),
-    /*
     {
       slug: 'claim',
       name: 'Claim',
       content: ProfileRewardClaim,
-    },*/
+    },
     {
       slug: 'lockdown',
       name: 'Lockdown',
