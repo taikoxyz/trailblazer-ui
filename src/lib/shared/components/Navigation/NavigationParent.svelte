@@ -20,6 +20,7 @@
     'text-base',
     'leading-none',
     'hover:cursor-pointer',
+    'hover:text-primary-content',
     'h-[44px]',
     'rounded-full',
     'lg:hover:bg-neutral-background',
@@ -51,7 +52,7 @@
   on:mouseleave={handleMouseLeave}>
   {#if navigation.route}
     <a
-      class:text-primary-brand={$currentPath.split('/').includes(navigation.route.split('/')[1])}
+      class:text-primary-content={$currentPath.split('/').includes(navigation.route.split('/')[1])}
       class={buttonClasses}
       href={navigation.route}>
       <div tabindex="0" role="button">

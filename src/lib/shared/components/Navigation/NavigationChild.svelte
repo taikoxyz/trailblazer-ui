@@ -33,10 +33,10 @@
 <li
   on:mouseenter={handleMouseEnter}
   on:mouseleave={handleMouseLeave}
-  class="w-full pl-[16px] pr-[6px] py-[12px] rounded-full max-h-[44px] leading-none flex items-center justify-between hover:cursor-pointer hover:bg-neutral-background">
+  class="w-full pl-[16px] pr-[6px] py-[12px] rounded-full max-h-[44px] leading-none flex items-center justify-between hover:cursor-pointer hover:bg-neutral-background text-primary-content">
   <a
     href={navigation.route}
-    class:text-primary-brand={$currentPath === navigation.route}
+    class:text-primary-content={$currentPath === navigation.route}
     class="flex items-center gap-4 whitespace-nowrap">
     {#if navigation.icon}
       <Icon size={20} type={navigation.icon} fillClass="fill-primary-interactive-accent" />
