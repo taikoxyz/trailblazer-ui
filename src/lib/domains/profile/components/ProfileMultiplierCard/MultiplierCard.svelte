@@ -50,8 +50,8 @@
   );
 
   const cardClasses = classNames('bg-purple-900', 'relative', 'flex', 'flex-col', 'h-full');
-  const statusClasses = classNames('flex-1', 'mt-[80px]', 'xl:mt-0', 'text-center');
-  const fontBoldTextLeftClasses = classNames('font-bold');
+  const statusClasses = classNames('flex-1', 'mt-[80px]', 'xl:mt-0', 'text-center', 'h-full');
+  const fontBoldTextLeftClasses = classNames('font-bold', 'f-col', 'h-full');
   // const listClasses = classNames('f-col', 'gap-[8px]');
   const ctaClasses = classNames('absolute', 'bottom-0', 'w-full', 'pb-[27px]', 'px-[24px]');
   const linkClasses = classNames('f-row', 'justify-between', 'items-center', 'w-full');
@@ -73,7 +73,8 @@
 
   <div slot="status" class={statusClasses}>
     <div class={fontBoldTextLeftClasses}>
-      <span>We are working on the known issues.<br /><br />Please be patient!</span>
+      <span class="text-secondary-content font-normal pt-[20px]"
+        >We’re aware of the issues and are actively working to resolve them. Thank you for your patience.</span>
       <!-- <ul class={listClasses}>
         <MultiplierItem label={$t('profile.multipliers.card.tx')} multiplierView={transationMultiplierView} />
         <MultiplierItem
