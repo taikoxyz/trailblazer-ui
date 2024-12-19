@@ -104,7 +104,7 @@
     {:else if state === ClaimStates.CLAIM}
       <img class={iconClasses} alt="Coin" src="/claim-confirm.svg" />
     {:else if state === ClaimStates.INELIGIBLE}
-      <img class={iconClasses} alt="Error" src="/not-eligible.png" />
+      <img class={iconClasses} alt="Not eligible" src="/not-eligible.png" />
     {:else if state === ClaimStates.SUCCESS}
       <img class={iconClasses} alt="Success" src="/success.svg" />
     {:else if state === ClaimStates.ERROR}
@@ -123,6 +123,7 @@
     {/if}
     {#if amount}
       <div class={rewardInputClasses}>
+        <span class="text-base font-normal">You will receive</span>
         <div class={rewardInputValueWrapperClasses}>
           <img alt="TAIKO Icon" src="/tko-icon.svg" />
           <div>{numberWithCommas(amount)} TAIKO</div>

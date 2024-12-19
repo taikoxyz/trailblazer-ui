@@ -19,7 +19,7 @@
     of the token distribution and authorize the transfer of tokens directly to your wallet.
   </p>
   <div class="form-control pt-[24px] f-row items-center justify-center">
-    <label class="cursor-pointer f-row gap-[5px] md:flex-row md:gap-0 label font-[400]">
+    <label class="cursor-pointer f-col md:f-row gap-0 md:flex-row md:gap-[10px] label font-[400]">
       <input
         type="checkbox"
         bind:checked={$tokenClaimTermsAccepted}

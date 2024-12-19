@@ -96,12 +96,12 @@
     'flex-wrap',
     'w-full',
     'justify-center',
-    'md:justify-start',
-    'md:px-[26px]',
+    'lg:justify-start',
+    'lg:px-[26px]',
     'tabs',
     'gap-[10px]',
     'mb-[30px]',
-    'md:mb-0',
+    'lg:mb-0',
   );
 
   function onHashChange() {
@@ -155,8 +155,8 @@
     outline: none;
   }
 
-  .md\:tab:is(.tab-active, [aria-selected='true']):not(.tab-disabled):not([disabled]),
-  .md\:tab:is(input:checked) {
+  .lg\:tab:is(.tab-active, [aria-selected='true']):not(.tab-disabled):not([disabled]),
+  .lg\:tab:is(input:checked) {
     border-color: transparent !important;
   }
 </style>

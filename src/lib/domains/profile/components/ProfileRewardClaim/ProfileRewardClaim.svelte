@@ -16,6 +16,7 @@
     isLoading,
     isSelfProfile,
   } from '$lib/domains/claim/stores/claimStores';
+  import { errorToast } from '$shared/components/NotificationToast';
   import { Spinner } from '$shared/components/Spinner';
   import { account } from '$shared/stores/account';
   import { activeSeason } from '$shared/stores/activeSeason';
@@ -27,7 +28,7 @@
   import profileService from '../../services/ProfileServiceInstance';
   import ClaimPanel from './ClaimPanel.svelte';
   import { getPanels } from './claimpanels';
-  import { type ClaimPanelType,ClaimStates } from './types';
+  import { type ClaimPanelType, ClaimStates } from './types';
 
   const containerClass = classNames(
     'container',
@@ -125,6 +126,11 @@
       } catch (e) {
         console.error(e);
         currentStep.set(ClaimStates.ERROR);
+        errorToast({
+          title: 'Error',
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          message: (e as any).shortMessage || 'An error occurred while claiming.',
+        });
       } finally {
         isLoading.set(false);
       }
@@ -154,10 +160,6 @@
 <button class="btn btn-primary" on:click={() => currentStep.set(ClaimStates.START)}>reset</button>
 state {$currentStep}
 
-{disableButton}
-{$tokenClaimTermsAccepted}
-{$claimAmount}
-{$isClaimSuccessful}
 <div class={containerClass}>
   {#if claimingLive}
     <div class={rowClass}>

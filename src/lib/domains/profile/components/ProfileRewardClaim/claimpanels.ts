@@ -35,7 +35,7 @@ export const getPanels = (): Record<ClaimStates, ClaimPanelType> => ({
   },
   [ClaimStates.CLAIM]: {
     title: get(t)('claim.panels.claim.title'),
-    text: get(t)('claim.panels.claim.text'),
+    text: '',
     state: ClaimStates.CLAIM,
     additionalContent: {
       type: 'component',

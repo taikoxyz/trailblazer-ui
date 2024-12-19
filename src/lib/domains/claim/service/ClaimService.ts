@@ -1,7 +1,9 @@
+import * as Sentry from '@sentry/sveltekit';
 import type { Address } from 'viem';
 
 import profileService from '$lib/domains/profile/services/ProfileServiceInstance';
 import { pendingTransactions } from '$shared/stores/pendingTransactions';
+import { InvalidClaimAmount, MissingClaimProof, UnknownClaimError, UnknownPreflightError } from '$shared/types/errors';
 import { getLogger } from '$shared/utils/logger';
 
 import { ClaimAdapter } from '../adapter/ClaimAdapter';
@@ -34,12 +36,19 @@ export class ClaimService implements IClaimService {
     if (blacklisted) {
       throw new Error('You are blacklisted');
     }
+    if (!proof) {
+      throw new MissingClaimProof('Invalid proof');
+    }
+    if (amount <= 0) {
+      throw new InvalidClaimAmount('Invalid amount');
+    }
     try {
       const txHash = await this.claimAdapter.claim(address, amount, proof);
       await pendingTransactions.add(txHash);
     } catch (e) {
+      Sentry.captureException(e);
       console.error(e);
-      throw new Error('Error claiming token');
+      throw new UnknownClaimError('Error claiming token');
     }
   }
 
@@ -81,8 +90,9 @@ export class ClaimService implements IClaimService {
       return { address, value: parseFloat(value || '0'), proof };
       // return { address, value: 10000.14, proof };
     } catch (e) {
+      Sentry.captureException(e);
       console.error(e);
-      throw new Error('Error preflight');
+      throw new UnknownPreflightError('Error preflight');
     }
   }
 
