@@ -62,7 +62,7 @@
 
   <!-- Points Cell -->
   <div class={pointsCellClass}>
-    {#if historyEntry?.points === 0}
+    {#if historyEntry?.points === -1}
       <span class={negativeSentimentClass}>{$t('leaderboard.user.dailyMaxReached')}</span>
     {:else}
       <div class={pointsInnerClass}>
