@@ -86,7 +86,7 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     font-size: 16px;
-    font-weight: 500;
+    font-weight: 700;
     line-height: 125.5%; /* 20.08px */
     letter-spacing: -0.32px;
   }

@@ -126,7 +126,7 @@
     -webkit-text-fill-color: transparent;
     font-size: 22px;
     font-style: normal;
-    font-weight: 500;
+    font-weight: 700;
     line-height: normal;
   }
 </style>
