@@ -73,7 +73,7 @@
 
   <div slot="status" class={statusClasses}>
     <div class={fontBoldTextLeftClasses}>
-      <span class="text-secondary-content font-normal pt-[20px]"
+      <span class="text-secondary-content font-normal pt-[20px] xl:pt-[90px] items-center"
         >We’re aware of the issues and are actively working to resolve them. Thank you for your patience.</span>
       <!-- <ul class={listClasses}>
         <MultiplierItem label={$t('profile.multipliers.card.tx')} multiplierView={transationMultiplierView} />
