@@ -62,7 +62,10 @@
     recruitment?.cycleId !== cycleId &&
     (
       $userProfile.badgeRecruitment?.filter(
-        (m) => m.status !== RecruitmentStatus.NOT_STARTED && m.badgeId === badgeId,
+        (m) =>
+          m.status !== RecruitmentStatus.NOT_STARTED &&
+          m.status !== RecruitmentStatus.COMPLETED &&
+          m.badgeId === badgeId,
       ) || []
     ).length > 0;
 
@@ -316,13 +319,21 @@
           <p>Currently not recruitable</p>
         {/if}
         {#if canReset}
-          <ActionButton
-            priority="secondary"
-            class="!w-[200px]"
-            disabled={disableResetButton}
-            on:click={() => handleResetRecruitment(badgeId)}>
-            Reset
-          </ActionButton>
+          <div class="f-col items-stretch text-center justify-center items-center space-y-[10px] h-full">
+            <h1 class="text-[20px]">Incomplete recruitment</h1>
+            <p class="text-secondary-content font-normal">
+              You did not finish your recruitment in the previous cycle.
+              <br /><br />
+              Unlock your dev badge again and try in another cycle.
+            </p>
+            <ActionButton
+              priority="secondary"
+              class="!w-[200px] self-center max-h-[40px]"
+              disabled={disableResetButton}
+              on:click={() => handleResetRecruitment(badgeId)}>
+              Cancel recruitment
+            </ActionButton>
+          </div>
         {/if}
       </div>
     {/if}
