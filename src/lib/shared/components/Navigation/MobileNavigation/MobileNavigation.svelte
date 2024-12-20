@@ -89,7 +89,7 @@
                   : ''}">
                 {route.name}
               </div>
-              <div class="collapse-content bg-elevated-background w-full rounded-full flex flex-col gap-4 pl-0">
+              <div class="collapse-content bg-elevated-background w-full rounded-full flex flex-col pl-0">
                 {#each route.children as child}
                   <MobileNavigationLink navigation={child} on:navigate={closeMenu} />
                 {/each}
@@ -105,9 +105,7 @@
               }}>
               <a
                 href={route.route}
-                class="font-clash-grotesk title-subsection-medium text-[22px]/[24px] {flamboyant
-                  ? 'gradient-text'
-                  : ''}">
+                class="font-clash-grotesk title-subsection-medium text-[22px] {flamboyant ? 'gradient-text' : ''}">
                 {route.name}
               </a>
             </button>
@@ -124,9 +122,7 @@
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
-    font-size: 22px;
     font-style: normal;
-    font-weight: 700;
     line-height: normal;
   }
 </style>
