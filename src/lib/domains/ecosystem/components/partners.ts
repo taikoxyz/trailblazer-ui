@@ -17,11 +17,11 @@ const EcosystemPartners: IEcosystemPartner[] = [
     category: 'Gaming',
   },
   {
-    name: 'EVM Warfare',
+    name: 'Rupture Labs',
     description:
-      'Fight, Earn, Dominate. Thrilling third-person shooter powered by Unreal Engine 5. Dominate deathmatches, claim instant rewards based on performance.',
-    logo: '/dapps/gaming/evmwarfare.png',
-    url: 'https://evmwarfare.com/',
+      'At Rupture Labs, we are building the future next generation web3 gaming ecosystem experience with EVM Warfare & fun to play Telegram-based games catering both competitive gamers and casual web3 audience.',
+    logo: '/dapps/gaming/rupturelabs.png',
+    url: 'https://rupturelabs.xyz/',
     category: 'Gaming',
   },
   {

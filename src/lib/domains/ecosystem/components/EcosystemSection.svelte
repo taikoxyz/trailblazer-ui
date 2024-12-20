@@ -42,7 +42,7 @@
     'Zypher z2048',
     'World of Dypians',
     'Looper Lands',
-    'EVM Warfare',
+    'Rupture Labs',
     'Brigade',
     'OKU Trade (Uniswap V3)',
     'iZUMi Finance',
