@@ -317,7 +317,7 @@
         "title": "Claim Unsuccessful"
       },
       "ineligible": {
-        "text": "You’re not eligible to claim tokens this time, but don’t worry! Season 3 is here—join now for your chance to earn rewards this season.",
+        "text": "You’re not eligible to claim tokens this time, but don’t worry! Season 3 is here—join now for your chance to earn rewards this season.<br/><br/> Read more about our token distribution and eligibility <a target=\"_blank\" href=\"{blogUrl}\" class=\"link\"> here</a>.",
         "title": "Sorry, you’re not eligible"
       },
       "not_eligible": {

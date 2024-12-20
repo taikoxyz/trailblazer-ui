@@ -3,7 +3,6 @@
   import type { Address } from 'viem';
   import { getAddress } from 'viem';
 
-  import { goto } from '$app/navigation';
   import { page } from '$app/stores';
   import { PUBLIC_CLAIMING_ACTIVE } from '$env/static/public';
   import { claimServiceInstance } from '$lib/domains/claim/service/ClaimServiceInstance';
@@ -73,15 +72,20 @@
       const blacklistStatus = await profileService.getBlacklistStatus(urlAddress, $activeSeason);
       isBlacklisted.set(blacklistStatus);
 
-      const hasClaimed = await claimServiceInstance.hasClaimed(urlAddress, $activeSeason);
-      if (hasClaimed) {
-        currentStep.set(ClaimStates.SUCCESS);
-        isClaimSuccessful.set(true);
-        claimLabel.set('You have claimed');
-        // we need to go back 1 season as the current season is not claimable yet
-        const { value, proof } = await claimServiceInstance.preflight(urlAddress, $activeSeason - 1);
-        claimAmount.set(value);
-        claimProof.set(proof);
+      try {
+        const hasClaimed = await claimServiceInstance.hasClaimed(urlAddress, $activeSeason);
+        if (hasClaimed) {
+          currentStep.set(ClaimStates.SUCCESS);
+          isClaimSuccessful.set(true);
+          claimLabel.set('You have claimed');
+          // we need to go back 1 season as the current season is not claimable yet
+          const { value, proof } = await claimServiceInstance.preflight(urlAddress, $activeSeason - 1);
+          claimAmount.set(value);
+          claimProof.set(proof);
+        }
+      } catch (error) {
+        console.error(error);
+        currentStep.set(ClaimStates.ERROR);
       }
     }
   });
@@ -121,6 +125,7 @@
     if (state === ClaimStates.CLAIM) {
       isLoading.set(true);
       $tokenClaimTermsAccepted = false;
+      // currentStep.set(ClaimStates.SUCCESS);
       try {
         await claimServiceInstance.claim(address, $claimAmount, $claimProof, $activeSeason);
         claimLabel.set('You have claimed');
@@ -149,7 +154,6 @@
 
     if (state === ClaimStates.INELIGIBLE) {
       currentStep.set(ClaimStates.INELIGIBLE);
-      goto('/profile');
     }
   }
 
@@ -178,7 +182,7 @@ state {$currentStep}
         <ClaimPanel
           {disableButton}
           title={panels[$currentStep].title}
-          amount={$currentStep === ClaimStates.CLAIM ? $claimAmount : null}
+          amount={$currentStep === ClaimStates.CLAIM || $currentStep === ClaimStates.SUCCESS ? $claimAmount : null}
           text={panels[$currentStep].text || ''}
           state={panels[$currentStep].state}
           buttons={mappedButtons}

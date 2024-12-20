@@ -27,17 +27,13 @@ export const getPanels = (): Record<ClaimStates, ClaimPanelType> => ({
   },
   [ClaimStates.INELIGIBLE]: {
     title: get(t)('claim.panels.ineligible.title'),
-    text: get(t)('claim.panels.ineligible.text'),
+    text: get(t)('claim.panels.ineligible.text', {
+      values: { blogUrl: 'https://taiko.mirror.xyz/FzcMa0qlAeIVuZlQelZDSlQZlnINCCOOxrDRmduiflk ' },
+    }),
     state: ClaimStates.INELIGIBLE,
     additionalContent: null,
     disableButtonCondition: () => false,
-    buttons: [
-      {
-        priority: 'primary',
-        label: get(t)('claim.panels.not_eligible.button'),
-        handler: () => {},
-      },
-    ],
+    buttons: [],
   },
   [ClaimStates.CLAIM]: {
     title: get(t)('claim.panels.claim.title'),

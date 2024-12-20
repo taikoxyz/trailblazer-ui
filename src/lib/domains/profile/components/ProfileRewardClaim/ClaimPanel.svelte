@@ -32,14 +32,14 @@
     'text-primary-content',
     'text-[35px]/[42px]',
     'font-[500]',
-    'md:max-w-[316px]',
+    'md:max-w-[392px]',
     'font-clash-grotesk',
     'text-center',
   );
   const contentClasses = classNames(
     'text-secondary-content',
     'w-[294px]',
-    'md:w-[392px]',
+    'md:w-[494px]',
     'xl:w-[412px]',
     'font-[400]',
     'text-[16px]/[24px]',
@@ -114,7 +114,8 @@
     <div class={textWrapperClasses}>
       <div class={titleClasses}>{title}</div>
       <div class={contentClasses}>
-        {text}
+        <!-- eslint-disable-next-line svelte/no-at-html-tags -->
+        {@html text}
         <slot />
       </div>
     </div>
@@ -123,7 +124,13 @@
     {/if}
     {#if amount}
       <div class={rewardInputClasses}>
-        <span class="text-base font-normal">You will receive</span>
+        <span class="text-base font-normal">
+          {#if ClaimStates.SUCCESS === state}
+            You have claimed
+          {:else}
+            You will receive
+          {/if}
+        </span>
         <div class={rewardInputValueWrapperClasses}>
           <img alt="TAIKO Icon" src="/tko-icon.svg" />
           <div>{numberWithCommas(amount)} TAIKO</div>
