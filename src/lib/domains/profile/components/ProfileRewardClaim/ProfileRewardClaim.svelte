@@ -78,7 +78,8 @@
         currentStep.set(ClaimStates.SUCCESS);
         isClaimSuccessful.set(true);
         claimLabel.set('You have claimed');
-        const { value, proof } = await claimServiceInstance.preflight(urlAddress, $activeSeason);
+        // we need to go back 1 season as the current season is not claimable yet
+        const { value, proof } = await claimServiceInstance.preflight(urlAddress, $activeSeason - 1);
         claimAmount.set(value);
         claimProof.set(proof);
       }
@@ -97,7 +98,8 @@
     if (state === ClaimStates.START) {
       isLoading.set(true);
       try {
-        const { value, proof } = await claimServiceInstance.preflight(address, $activeSeason);
+        // we need to go back 1 season as the current season is not claimable yet
+        const { value, proof } = await claimServiceInstance.preflight(address, $activeSeason - 1);
         claimAmount.set(value);
         claimProof.set(proof);
         claimLabel.set('Start');
