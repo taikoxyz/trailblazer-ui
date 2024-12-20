@@ -31,7 +31,13 @@ export const getPanels = (): Record<ClaimStates, ClaimPanelType> => ({
     state: ClaimStates.INELIGIBLE,
     additionalContent: null,
     disableButtonCondition: () => false,
-    buttons: [],
+    buttons: [
+      {
+        priority: 'primary',
+        label: get(t)('claim.panels.not_eligible.button'),
+        handler: () => {},
+      },
+    ],
   },
   [ClaimStates.CLAIM]: {
     title: get(t)('claim.panels.claim.title'),

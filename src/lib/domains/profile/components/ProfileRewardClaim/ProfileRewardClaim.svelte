@@ -3,6 +3,7 @@
   import type { Address } from 'viem';
   import { getAddress } from 'viem';
 
+  import { goto } from '$app/navigation';
   import { page } from '$app/stores';
   import { PUBLIC_CLAIMING_ACTIVE } from '$env/static/public';
   import { claimServiceInstance } from '$lib/domains/claim/service/ClaimServiceInstance';
@@ -146,6 +147,7 @@
 
     if (state === ClaimStates.INELIGIBLE) {
       currentStep.set(ClaimStates.INELIGIBLE);
+      goto('/profile');
     }
   }
 

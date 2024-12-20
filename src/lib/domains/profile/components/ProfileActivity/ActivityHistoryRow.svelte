@@ -71,7 +71,7 @@
             values: { value: truncateDecimal(historyEntry?.points, 3) },
           })}
         </span>
-        {#if historyEntry?.multiplier && historyEntry?.multiplier > 1}
+        {#if historyEntry?.multiplier && historyEntry?.multiplier > 1 && historyEntry.points > 0}
           <Pill class={pillClass}>
             {$t('leaderboard.user.booster', { values: { multiplier: historyEntry?.multiplier } })}
           </Pill>

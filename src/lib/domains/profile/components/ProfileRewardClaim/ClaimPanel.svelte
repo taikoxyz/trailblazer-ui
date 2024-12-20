@@ -104,11 +104,11 @@
     {:else if state === ClaimStates.CLAIM}
       <img class={iconClasses} alt="Coin" src="/claim-confirm.svg" />
     {:else if state === ClaimStates.INELIGIBLE}
-      <img class={iconClasses} alt="Not eligible" src="/not-eligible.png" />
+      <img class={iconClasses} alt="Not eligible" src="/claim/not-eligible.svg" />
     {:else if state === ClaimStates.SUCCESS}
       <img class={iconClasses} alt="Success" src="/success.svg" />
     {:else if state === ClaimStates.ERROR}
-      <img class={iconClasses} alt="Error" src="/not-eligible.png" />
+      <img class={iconClasses} alt="Error" src="/claim/claim-error.png" />
     {/if}
 
     <div class={textWrapperClasses}>
