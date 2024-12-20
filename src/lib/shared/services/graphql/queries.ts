@@ -50,7 +50,7 @@ export const USER_PROFILE_PICTURES_QUERY = gql`
   }
 `;
 
-export const USER_NFTS_FETCH_QUERY = gql`
+export const USER_NFTS_FETCH_BADGES_QUERY = gql`
   query UserBadges($address: Bytes) {
     tokens(orderBy: id, first: 1000, where: { owner: $address }) {
       id
@@ -61,7 +61,23 @@ export const USER_NFTS_FETCH_QUERY = gql`
       movement
       season
       uri
-      frozen
+      frozenS2
+      frozenS3
+    }
+  }
+`;
+
+export const USER_NFTS_FETCH_TAIKOONS_AND_SNAEFELLS_QUERY = gql`
+  query UserBadges($address: Bytes) {
+    tokens(orderBy: id, first: 1000, where: { owner: $address }) {
+      id
+      erc
+      tokenId
+      contract
+      badgeId
+      movement
+      season
+      uri
     }
   }
 `;

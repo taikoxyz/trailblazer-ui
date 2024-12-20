@@ -9,7 +9,7 @@ import {
   trailblazersBadgesAbi,
   trailblazersBadgesAddress,
 } from '$generated/abi';
-import type { BadgeRecruitment as GqlBadgeRecruitment } from '$generated/graphql';
+import type { BadgeRecruitment as GqlBadgeRecruitment } from '$generated/graphql/badges';
 import { type Movements, Seasons } from '$lib/domains/profile/types/types';
 import { badgesSubgraphClient } from '$lib/shared/services/graphql/client';
 import { type IBadgeRecruitment, RecruitmentStatus } from '$lib/shared/types/BadgeRecruitment';
