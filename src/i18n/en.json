@@ -311,10 +311,15 @@
         "button": "Claim now",
         "title": "Are you ready to claim your tokens?"
       },
-      "error": {
+      "error_claim": {
         "button": "Try again",
         "text": "Your attempt to claim the tokens was not successful. Try claiming your tokens again when you are ready.",
         "title": "Claim Unsuccessful"
+      },
+      "error_generic": {
+        "button": "Try again",
+        "text": "Your attempt to review the tokens was not successful. Try again later.",
+        "title": "Review Unsuccessful"
       },
       "ineligible": {
         "text": "You’re not eligible to claim tokens this time, but don’t worry! Season 3 is here—join now for your chance to earn rewards this season.<br/><br/> Read more about our token distribution and eligibility <a target=\"_blank\" href=\"{blogUrl}\" class=\"link\"> here</a>.",

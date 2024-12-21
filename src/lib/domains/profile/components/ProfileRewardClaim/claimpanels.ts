@@ -71,16 +71,30 @@ export const getPanels = (): Record<ClaimStates, ClaimPanelType> => ({
       },
     ],
   },
-  [ClaimStates.ERROR]: {
-    title: get(t)('claim.panels.error.title'),
-    text: get(t)('claim.panels.error.text'),
-    state: ClaimStates.ERROR,
+  [ClaimStates.ERROR_CLAIM]: {
+    title: get(t)('claim.panels.error_claim.title'),
+    text: get(t)('claim.panels.error_claim.text'),
+    state: ClaimStates.ERROR_CLAIM,
     additionalContent: null,
     disableButtonCondition: () => false,
     buttons: [
       {
         priority: 'secondary',
-        label: get(t)('claim.panels.error.button'),
+        label: get(t)('claim.panels.error_claim.button'),
+        handler: () => {},
+      },
+    ],
+  },
+  [ClaimStates.ERROR_GENERIC]: {
+    title: get(t)('claim.panels.error_generic.title'),
+    text: get(t)('claim.panels.error_generic.text'),
+    state: ClaimStates.ERROR_GENERIC,
+    additionalContent: null,
+    disableButtonCondition: () => false,
+    buttons: [
+      {
+        priority: 'secondary',
+        label: get(t)('claim.panels.error_generic.button'),
         handler: () => {},
       },
     ],

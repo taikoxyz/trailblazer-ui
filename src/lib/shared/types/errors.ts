@@ -23,3 +23,8 @@ export class UnknownPreflightError extends Error {
   name = 'UnknownPreflightError';
   shortMessage = 'An unknown error occurred during preflight check';
 }
+
+export class ClaimContractError extends Error {
+  name = 'ClaimContractError';
+  shortMessage = 'An error occurred while checking the claim contract';
+}

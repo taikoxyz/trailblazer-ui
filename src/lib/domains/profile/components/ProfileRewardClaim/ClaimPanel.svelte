@@ -1,6 +1,5 @@
 <script lang="ts">
   import { ActionButton } from '$shared/components/Button';
-  import { Spinner } from '$shared/components/Spinner';
   import { classNames } from '$shared/utils/classNames';
 
   import ClaimTerms from './ClaimTerms.svelte';
@@ -88,9 +87,9 @@
 
 <div class={contentWrapperClasses}>
   {#if loading}
-    <Spinner size="lg" />
+    Test
   {:else if amount && amount === 0}
-    <img class={iconClasses} alt="Error" src="/not-eligible.png" />
+    <img class={iconClasses} alt="Error" src="/claim/claim-error.png" />
     <div class={textWrapperClasses}>
       <div class={titleClasses}>{title}</div>
       <div class={contentClasses}>
@@ -102,18 +101,21 @@
     {#if state === ClaimStates.START}
       <img class={iconClasses} alt="Coin" src="/coin.svg" />
     {:else if state === ClaimStates.CLAIM}
-      <img class={iconClasses} alt="Coin" src="/claim-confirm.svg" />
+      <img class={iconClasses} alt="Coin" src="/blobby/happy_blobby.svg" />
     {:else if state === ClaimStates.INELIGIBLE}
-      <img class={iconClasses} alt="Not eligible" src="/claim/not-eligible.svg" />
+      <img class={iconClasses} alt="Not eligible" src="/blobby/sad_blobby.svg" />
     {:else if state === ClaimStates.SUCCESS}
       <img class={iconClasses} alt="Success" src="/success.svg" />
-    {:else if state === ClaimStates.ERROR}
+    {:else if state === ClaimStates.ERROR_CLAIM || state === ClaimStates.ERROR_GENERIC}
       <img class={iconClasses} alt="Error" src="/claim/claim-error.png" />
     {/if}
 
     <div class={textWrapperClasses}>
       <div class={titleClasses}>{title}</div>
       <div class={contentClasses}>
+        {#if state === ClaimStates.CLAIM && loading}
+          Claiming
+        {/if}
         <!-- eslint-disable-next-line svelte/no-at-html-tags -->
         {@html text}
         <slot />

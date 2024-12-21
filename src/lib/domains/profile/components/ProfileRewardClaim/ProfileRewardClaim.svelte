@@ -16,8 +16,7 @@
     isLoading,
     isSelfProfile,
   } from '$lib/domains/claim/stores/claimStores';
-  import { errorToast } from '$shared/components/NotificationToast';
-  import { Spinner } from '$shared/components/Spinner';
+  import { errorToast, warningToast } from '$shared/components/NotificationToast';
   import { account } from '$shared/stores/account';
   import { activeSeason } from '$shared/stores/activeSeason';
   import { pendingTransactions } from '$shared/stores/pendingTransactions';
@@ -58,6 +57,15 @@
     'md:px-[55px]',
   );
 
+  const titleClasses = classNames(
+    'text-primary-content',
+    'text-[35px]/[42px]',
+    'font-[500]',
+    'md:max-w-[392px]',
+    'font-clash-grotesk',
+    'text-center',
+  );
+
   let panels: Record<ClaimStates, ClaimPanelType> = {} as Record<ClaimStates, ClaimPanelType>;
 
   const claimingLive = PUBLIC_CLAIMING_ACTIVE === 'true';
@@ -80,12 +88,20 @@
           claimLabel.set('You have claimed');
           // we need to go back 1 season as the current season is not claimable yet
           const { value, proof } = await claimServiceInstance.preflight(urlAddress, $activeSeason - 1);
-          claimAmount.set(value);
-          claimProof.set(proof);
+          if (value) {
+            claimAmount.set(value);
+            claimProof.set(proof);
+          } else {
+            currentStep.set(ClaimStates.ERROR_CLAIM);
+            warningToast({
+              title: 'Error',
+              message: 'An error occurred while claiming.',
+            });
+          }
         }
       } catch (error) {
         console.error(error);
-        currentStep.set(ClaimStates.ERROR);
+        currentStep.set(ClaimStates.ERROR_CLAIM);
       }
     }
   });
@@ -108,7 +124,7 @@
         claimProof.set(proof);
         claimLabel.set('Start');
         if (value === -1) {
-          currentStep.set(ClaimStates.ERROR);
+          currentStep.set(ClaimStates.ERROR_GENERIC);
         } else if (value === 0) {
           currentStep.set(ClaimStates.INELIGIBLE);
         } else {
@@ -116,7 +132,7 @@
         }
       } catch (error) {
         console.error(error);
-        currentStep.set(ClaimStates.ERROR);
+        currentStep.set(ClaimStates.ERROR_GENERIC);
       } finally {
         isLoading.set(false);
       }
@@ -133,7 +149,7 @@
         currentStep.set(ClaimStates.SUCCESS);
       } catch (e) {
         console.error(e);
-        currentStep.set(ClaimStates.ERROR);
+        currentStep.set(ClaimStates.ERROR_CLAIM);
         errorToast({
           title: 'Error',
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -148,7 +164,7 @@
       // Handle success buttons if needed
     }
 
-    if (state === ClaimStates.ERROR) {
+    if (state === ClaimStates.ERROR_CLAIM || state === ClaimStates.ERROR_GENERIC) {
       currentStep.set(ClaimStates.START);
     }
 
@@ -165,19 +181,22 @@
   }));
 </script>
 
-<button class="btn btn-primary" on:click={() => currentStep.set(ClaimStates.START)}>reset</button>
-state {$currentStep}
-
 <div class={containerClass}>
   {#if claimingLive}
     <div class={rowClass}>
       {#if $isBlacklisted}
         <div class="text-center space-y-[15px]">
-          <h1 class="text-3xl font-bold">You have been blacklisted</h1>
+          <h1 class={titleClasses}>You have been blacklisted</h1>
           <p class="text-lg">You will not be able to claim.</p>
         </div>
       {:else if $isLoading || $pendingTransactions.length > 0}
-        <Spinner size="lg" />
+        <img alt="loading" src="/blobby/jumping_blobby.gif" class="w-[150px] h-[150px]" />
+        {#if $currentStep === ClaimStates.CLAIM}
+          <div class="text-center space-y-[15px]">
+            <h1 class={titleClasses}>Claiming</h1>
+            <p class="text-secondary-content">Please wait while the transaction is pending.</p>
+          </div>
+        {/if}
       {:else if $isSelfProfile}
         <ClaimPanel
           {disableButton}
@@ -193,6 +212,19 @@ state {$currentStep}
       {/if}
     </div>
   {:else}
-    <div class={rowClass}>The claim period has ended.</div>
+    <div class={rowClass}>
+      <img alt="loading" src="/blobby/sad_blobby.svg" class="w-[150px] h-[150px] mb-[24px]" />
+      <span>The claim period has ended.</span>
+    </div>
   {/if}
 </div>
+<!-- 
+<button class="btn btn-primary" on:click={() => currentStep.set(ClaimStates.START)}>reset</button>
+
+<button class="btn btn-primary" on:click={() => ($isLoading = !$isLoading)}>toggle loading</button>
+
+<select class="select" bind:value={$currentStep}>
+  {#each Object.values(ClaimStates) as state}
+    <option value={state}>{state}</option>
+  {/each}
+</select> -->

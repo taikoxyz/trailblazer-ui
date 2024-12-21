@@ -3,7 +3,13 @@ import type { Address } from 'viem';
 
 import profileService from '$lib/domains/profile/services/ProfileServiceInstance';
 import { pendingTransactions } from '$shared/stores/pendingTransactions';
-import { InvalidClaimAmount, MissingClaimProof, UnknownClaimError, UnknownPreflightError } from '$shared/types/errors';
+import {
+  ClaimContractError,
+  InvalidClaimAmount,
+  MissingClaimProof,
+  UnknownClaimError,
+  UnknownPreflightError,
+} from '$shared/types/errors';
 import { getLogger } from '$shared/utils/logger';
 
 import { ClaimAdapter } from '../adapter/ClaimAdapter';
@@ -63,7 +69,13 @@ export class ClaimService implements IClaimService {
   async hasClaimed(address: Address, season: number): Promise<boolean> {
     log('Checking if %s has claimed in season %s', address, season);
     try {
-      return this.claimAdapter.hasClaimed(address, season);
+      const hasClaimed = await this.claimAdapter.hasClaimed(address, season);
+      if (hasClaimed) {
+        log('Has claimed %s', hasClaimed);
+        return hasClaimed;
+      } else {
+        throw new ClaimContractError('Error checking hasClaimed status');
+      }
     } catch (e) {
       console.warn(e);
       return false;

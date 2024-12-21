@@ -19,18 +19,24 @@ export class ClaimAdapter {
    * @return {*}  {Promise<boolean>}
    * @memberof ClaimAdapter
    */
-  async hasClaimed(address: Address, season: number): Promise<boolean> {
+  async hasClaimed(address: Address, season: number): Promise<boolean | null> {
     log('Checking if %s has claimed in season %s', address, season);
-    const { value } = await this.preflight(address, season);
-    log('claim contract address: %s', erc20AirdropAddress[chainId]);
-    const res = await readContract(wagmiConfig, {
-      abi: erc20AirdropAbi,
-      address: erc20AirdropAddress[chainId],
-      functionName: 'hasClaimed',
-      args: [address, parseEther(value.toString())],
-    });
-    log('Has claimed %s', res);
-    return res;
+    try {
+      const { value } = await this.preflight(address, season);
+
+      log('claim contract address: %s', erc20AirdropAddress[chainId]);
+      const res = await readContract(wagmiConfig, {
+        abi: erc20AirdropAbi,
+        address: erc20AirdropAddress[chainId],
+        functionName: 'hasClaimed',
+        args: [address, parseEther(value.toString())],
+      });
+      log('Has claimed %s', res);
+      return res;
+    } catch (error) {
+      log('Error checking if %s has claimed in season %s', address, season);
+      return null;
+    }
   }
 
   /**
