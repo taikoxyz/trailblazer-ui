@@ -731,7 +731,7 @@
       }
     },
     "user": {
-      "booster": "{multiplier}x boosted",
+      "booster": "{multiplier}x",
       "cta": "Explore our <a href=\"https://trailblazers.taiko.xyz/ecosystem\" class=\" link\">ecosystem</a> and stay tuned for competitions to rank up.",
       "dailyMaxReached": "Daily Max Reached",
       "ended": {
