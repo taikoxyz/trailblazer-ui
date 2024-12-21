@@ -32,6 +32,11 @@
   const containerClass = classNames(
     'container',
     'w-full',
+    'min-h-[800px]',
+    'py-[89px]',
+    'f-col',
+    'justify-center',
+    'items-center',
     'border',
     'border-divider-border',
     'glassy-gradient-card',
@@ -218,7 +223,7 @@
     </div>
   {/if}
 </div>
-<!-- 
+
 <button class="btn btn-primary" on:click={() => currentStep.set(ClaimStates.START)}>reset</button>
 
 <button class="btn btn-primary" on:click={() => ($isLoading = !$isLoading)}>toggle loading</button>
@@ -227,4 +232,4 @@
   {#each Object.values(ClaimStates) as state}
     <option value={state}>{state}</option>
   {/each}
-</select> -->
+</select>
