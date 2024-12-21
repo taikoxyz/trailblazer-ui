@@ -72,8 +72,8 @@
   const tabClasses = classNames(
     'text-center',
     'rounded-full',
-    'md:rounded-none',
-    'md:rounded-t-[20px]',
+    'lg:rounded-none',
+    'lg:rounded-t-[20px]',
     'h-[44px]',
     'btn',
     'md:tab',
@@ -87,8 +87,8 @@
     'hover:border-primary-brand',
     'whitespace-nowrap',
     'body-bold',
-    'md:bg-transparent',
-    'md:border-none',
+    'lg:bg-transparent',
+    'lg:border-none',
   );
 
   const tablistClasses = classNames(
@@ -155,8 +155,8 @@
     outline: none;
   }
 
-  .lg\:tab:is(.tab-active, [aria-selected='true']):not(.tab-disabled):not([disabled]),
-  .lg\:tab:is(input:checked) {
-    border-color: transparent !important;
+  .md\:tab:is(.tab-active, [aria-selected='true']):not(.tab-disabled):not([disabled]),
+  .md\:tab:is(input:checked) {
+    border-color: transparent;
   }
 </style>
