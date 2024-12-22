@@ -89,7 +89,7 @@
   {#if loading}
     Test
   {:else if amount && amount === 0}
-    <img class={iconClasses} alt="Error" src="/claim/claim-error.png" />
+    <img class={iconClasses} alt="Error" src="/error/error.png" />
     <div class={textWrapperClasses}>
       <div class={titleClasses}>{title}</div>
       <div class={contentClasses}>
@@ -107,7 +107,7 @@
     {:else if state === ClaimStates.SUCCESS}
       <img class={iconClasses} alt="Success" src="/success.svg" />
     {:else if state === ClaimStates.ERROR_CLAIM || state === ClaimStates.ERROR_GENERIC}
-      <img class={iconClasses} alt="Error" src="/claim/claim-error.png" />
+      <img class={iconClasses} alt="Error" src="/error/error.png" />
     {/if}
 
     <div class={textWrapperClasses}>
