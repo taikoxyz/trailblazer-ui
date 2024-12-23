@@ -1,25 +1,22 @@
-import { createWeb3Modal } from '@web3modal/wagmi';
+import { createAppKit } from '@reown/appkit';
 
 import { PUBLIC_WALLETCONNECT_PROJECT_ID } from '$env/static/public';
-import { getChainImages } from '$lib/shared/utils/chain';
-import { wagmiConfig } from '$lib/shared/wagmi';
+import { chains } from '$lib/shared/utils/chain';
+import { wagmiAdapter } from '$shared/wagmi/client';
 
-const projectId = PUBLIC_WALLETCONNECT_PROJECT_ID;
-const chainImages = getChainImages();
+const metadata = {
+  name: 'Taiko Trailblazer',
+  description: 'Taiko Trailblazer',
+  url: 'https://trailblazers.taiko.xyz/',
+  icons: ['https://avatars.githubusercontent.com/u/99078433'],
+};
 
-export const web3modal = createWeb3Modal({
-  wagmiConfig: wagmiConfig,
-  projectId,
-  featuredWalletIds: [],
-  allowUnsupportedChain: true,
-  excludeWalletIds: [],
-  // chains,
-  chainImages,
-  themeVariables: {
-    '--w3m-color-mix': 'var(--neutral-background)',
-    '--w3m-color-mix-strength': 20,
-    '--w3m-font-family': '"Public Sans", sans-serif',
-    '--w3m-border-radius-master': '9999px',
-    '--w3m-accent': 'var(--primary-brand)',
+export const web3modal = createAppKit({
+  adapters: [wagmiAdapter],
+  networks: chains,
+  metadata: metadata,
+  projectId: PUBLIC_WALLETCONNECT_PROJECT_ID,
+  features: {
+    analytics: true,
   },
 });
