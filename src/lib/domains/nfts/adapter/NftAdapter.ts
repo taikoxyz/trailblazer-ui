@@ -1,10 +1,13 @@
 import { type Address } from 'viem';
 
-import type { Token } from '$generated/graphql';
+import type { Token } from '$generated/graphql/badges';
 import type { Movements } from '$lib/domains/profile/types/types';
 import type { NFT, TokenType } from '$lib/shared/types/NFT';
 import { badgesSubgraphClient, taikoonsSubgraphClient } from '$shared/services/graphql/client';
-import { USER_NFTS_FETCH_QUERY } from '$shared/services/graphql/queries';
+import {
+  USER_NFTS_FETCH_BADGES_QUERY,
+  USER_NFTS_FETCH_TAIKOONS_AND_SNAEFELLS_QUERY,
+} from '$shared/services/graphql/queries';
 import { getLogger } from '$shared/utils/logger';
 
 const log = getLogger('NftAdapter');
@@ -24,12 +27,12 @@ export class NftAdapter {
 
     try {
       const badgesGraphqlResponse = await badgesSubgraphClient.query({
-        query: USER_NFTS_FETCH_QUERY,
+        query: USER_NFTS_FETCH_BADGES_QUERY,
         variables: { address: address },
       });
 
       const taikoonsAndSnaefellsGraphqlResponse = await taikoonsSubgraphClient.query({
-        query: USER_NFTS_FETCH_QUERY,
+        query: USER_NFTS_FETCH_TAIKOONS_AND_SNAEFELLS_QUERY,
         variables: { address: address },
       });
 
@@ -55,7 +58,6 @@ export class NftAdapter {
         const erc = parseInt(token.erc) as TokenType;
         const movement = parseInt(token.movement || '0') as Movements;
         const tokenUri = token.uri || '';
-        const frozen = token.frozen || false;
 
         return {
           address,
@@ -65,7 +67,8 @@ export class NftAdapter {
             badgeId: isNaN(badgeId) ? undefined : badgeId,
             erc,
             movement: isNaN(movement) ? undefined : movement,
-            frozen,
+            frozenS2: token.frozenS2 || false,
+            frozenS3: token.frozenS3 || false,
           },
         } satisfies NFT;
       });

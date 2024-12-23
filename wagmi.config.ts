@@ -18,7 +18,7 @@ import EventRegister from '../taiko-mono/packages/nfts/out/EventRegister.sol/Eve
 import RegisterProfilePicture from '../taiko-mono/packages/nfts/out/RegisterProfilePicture.sol/RegisterProfilePicture.json';
 import TaikoonToken from '../taiko-mono/packages/nfts/out/TaikoonToken.sol/TaikoonToken.json';
 import TrailblazersBadgesS2 from '../taiko-mono/packages/nfts/out/TrailblazersBadgesS2.sol/TrailblazersBadgesS2.json';
-import TrailblazersS1BadgesV5 from '../taiko-mono/packages/nfts/out/TrailblazersS1BadgesV5.sol/TrailblazersBadgesV5.json';
+import TrailblazersS1BadgesV8 from '../taiko-mono/packages/nfts/out/TrailblazersS1BadgesV8.sol/TrailblazersBadgesV8.json';
 
 export default defineConfig({
   out: 'src/generated/abi/index.ts',
@@ -30,7 +30,7 @@ export default defineConfig({
         167009: TrailblazerBadgesS2HeklaDeployment.TrailblazersBadges as Address,
         167000: TrailblazerBadgesS2MainnetDeployment.TrailblazersBadges as Address,
       },
-      abi: TrailblazersS1BadgesV5.abi as Abi,
+      abi: TrailblazersS1BadgesV8.abi as Abi,
     },
     {
       name: 'BadgeRecruitment',

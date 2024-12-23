@@ -80,7 +80,7 @@
     const nfts = $userProfile.nfts;
 
     const s1Badge = nfts?.find(
-      (nft) => !nft.metadata.frozen && nft.metadata.season === Seasons.Season1 && nft.metadata.badgeId === badgeId,
+      (nft) => !nft.metadata.frozenS3 && nft.metadata.season === Seasons.Season1 && nft.metadata.badgeId === badgeId,
     );
 
     if (!s1Badge) {
