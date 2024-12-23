@@ -11,12 +11,6 @@ import type { PaginationInfo } from '$lib/shared/dto/CommonPageApiResponse';
 
 import { UserLeaderboardService } from './UserLeaderboardService';
 
-vi.mock('@wagmi/core', () => ({
-  createStorage: vi.fn(),
-  cookieStorage: vi.fn(),
-  reconnect: vi.fn(),
-}));
-
 vi.mock('$lib/domains/profile/services/ProfileServiceInstance', () => ({
   default: {
     getUserInfoForLeaderboard: vi.fn(),
