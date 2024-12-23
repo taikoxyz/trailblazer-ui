@@ -43,6 +43,8 @@ vi.mock('@wagmi/core', () => ({
   reconnect: vi.fn(),
   watchContractEvent: vi.fn(),
   waitForTransactionReceipt: vi.fn(),
+  createStorage: vi.fn(),
+  cookieStorage: vi.fn(),
 }));
 
 vi.mock('$lib/shared/services/api/axiosClient', async () => {

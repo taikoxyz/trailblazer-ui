@@ -18,6 +18,8 @@ import { ProfileApiAdapter } from './ProfileAdapter';
 vi.mock('@wagmi/core', () => ({
   writeContract: vi.fn(),
   reconnect: vi.fn(),
+  createStorage: vi.fn(),
+  cookieStorage: vi.fn(),
 }));
 
 vi.mock('$lib/shared/services/graphql/client', () => ({

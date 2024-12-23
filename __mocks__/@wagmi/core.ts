@@ -55,3 +55,6 @@ export const createConfig = vi.fn(() => {
 export const config = createConfig();
 
 export const reconnect = vi.fn();
+
+export const createStorage = vi.fn();
+export const cookieStorage = vi.fn();

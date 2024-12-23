@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { type PublicStateControllerState } from '@reown/appkit';
   import { onDestroy, onMount } from 'svelte';
   import { t } from 'svelte-i18n';
 
@@ -21,7 +22,7 @@
     web3modal.open();
   }
 
-  function onWeb3Modal(state: { open: boolean }) {
+  function onWeb3Modal(state: PublicStateControllerState) {
     web3modalOpen = state.open;
   }
 

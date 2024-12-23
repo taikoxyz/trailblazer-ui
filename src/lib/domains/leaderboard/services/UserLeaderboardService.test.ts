@@ -10,6 +10,7 @@ import type { UserInfoForLeaderboard } from '$lib/domains/profile/types/UserInfo
 import type { PaginationInfo } from '$lib/shared/dto/CommonPageApiResponse';
 
 import { UserLeaderboardService } from './UserLeaderboardService';
+
 vi.mock('$lib/domains/profile/services/ProfileServiceInstance', () => ({
   default: {
     getUserInfoForLeaderboard: vi.fn(),
