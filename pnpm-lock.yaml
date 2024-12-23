@@ -39,7 +39,7 @@ importers:
         specifier: ^5.0.9
         version: 5.7.1(@wagmi/core@2.16.1(@tanstack/query-core@5.62.9)(react@19.0.0-rc-fb9a90fa48-20240614)(typescript@5.7.2)(use-sync-external-store@1.2.0(react@19.0.0-rc-fb9a90fa48-20240614))(viem@2.21.57(bufferutil@4.0.8)(typescript@5.7.2)(utf-8-validate@5.0.10)(zod@3.24.1)))(bufferutil@4.0.8)(encoding@0.1.13)(react@19.0.0-rc-fb9a90fa48-20240614)(typescript@5.7.2)(utf-8-validate@5.0.10)(viem@2.21.57(bufferutil@4.0.8)(typescript@5.7.2)(utf-8-validate@5.0.10)(zod@3.24.1))(zod@3.24.1)
       '@wagmi/core':
-        specifier: ^2.10.5
+        specifier: ^2.16.1
         version: 2.16.1(@tanstack/query-core@5.62.9)(react@19.0.0-rc-fb9a90fa48-20240614)(typescript@5.7.2)(use-sync-external-store@1.2.0(react@19.0.0-rc-fb9a90fa48-20240614))(viem@2.21.57(bufferutil@4.0.8)(typescript@5.7.2)(utf-8-validate@5.0.10)(zod@3.24.1))
       '@walletconnect/core':
         specifier: ^2.17.3
