@@ -1,5 +1,11 @@
 import { renderBalance, renderEthBalance } from './balance';
 
+vi.mock('@wagmi/core', () => ({
+  createStorage: vi.fn(),
+  cookieStorage: vi.fn(),
+  reconnect: vi.fn(),
+}));
+
 describe('renderBalance', () => {
   it('should return "0.00" when balance is null', () => {
     expect(renderBalance(null)).toBe('0.00');

@@ -11,6 +11,12 @@ import type { UnifiedLeaderboardRow } from '../types/shared/types';
 import type { UserLeaderboardItem } from '../types/user/types';
 import { LiquidityCompetitionService } from './LiquidityCompetitionService';
 
+vi.mock('@wagmi/core', () => ({
+  createStorage: vi.fn(),
+  cookieStorage: vi.fn(),
+  reconnect: vi.fn(),
+}));
+
 vi.mock('$lib/domains/profile/services/ProfileServiceInstance', () => ({
   default: {
     getUserInfoForLeaderboard: vi.fn(),
