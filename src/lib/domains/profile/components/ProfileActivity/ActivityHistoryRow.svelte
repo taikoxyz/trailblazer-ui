@@ -62,16 +62,21 @@
 
   <!-- Points Cell -->
   <div class={pointsCellClass}>
-    {#if historyEntry?.points === 0}
+    {#if historyEntry?.points === -1}
       <span class={negativeSentimentClass}>{$t('leaderboard.user.dailyMaxReached')}</span>
     {:else}
       <div class={pointsInnerClass}>
-        <span>
+        <span class="md:hidden">
           {$t('leaderboard.user.points', {
-            values: { value: truncateDecimal(historyEntry?.points, 3) },
+            values: { value: Math.round(historyEntry?.points) },
           })}
         </span>
-        {#if historyEntry?.multiplier && historyEntry?.multiplier > 1}
+        <span class="hidden md:flex">
+          {$t('leaderboard.user.points', {
+            values: { value: truncateDecimal(historyEntry?.points, 2) },
+          })}
+        </span>
+        {#if historyEntry?.multiplier && historyEntry?.multiplier > 1 && historyEntry.points > 0}
           <Pill class={pillClass}>
             {$t('leaderboard.user.booster', { values: { multiplier: historyEntry?.multiplier } })}
           </Pill>

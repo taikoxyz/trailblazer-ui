@@ -28,7 +28,7 @@
         class="h-fit flex flex-col rounded-[30px] lg:bg-gradient-background items-center justify-center lg:p-[50px] lg:max-w-[570px] w-full align-center">
         <div class="flex flex-col h-full w-full items-center justify-between break-words gap-12">
           <div class="flex flex-col gap-8 items-center w-full">
-            <img src="/not-eligible.png" alt="not-eligible" class="size-[120px]" />
+            <img src="/error/error.png" alt="not-eligible" class="size-[120px]" />
             <div class="display-small-medium text-center">Connect your wallet to view dashboard</div>
             <button
               on:click={handleConnectWallet}

@@ -20,6 +20,7 @@
     'text-base',
     'leading-none',
     'hover:cursor-pointer',
+    'hover:text-primary-content',
     'h-[44px]',
     'rounded-full',
     'lg:hover:bg-neutral-background',
@@ -27,6 +28,7 @@
     'f-center',
     'group',
   );
+  const linkClasses = classNames('text-[16px]', 'leading-[20.08px]', 'tracking-[-0.32px]');
 
   // Dropdown visibility state
   let isOpen = false;
@@ -51,11 +53,11 @@
   on:mouseleave={handleMouseLeave}>
   {#if navigation.route}
     <a
-      class:text-primary-brand={$currentPath.split('/').includes(navigation.route.split('/')[1])}
+      class:text-primary-content={$currentPath.split('/').includes(navigation.route.split('/')[1])}
       class={buttonClasses}
       href={navigation.route}>
       <div tabindex="0" role="button">
-        <span class={flamboyant ? 'gradient-text' : ''}>{navigation.name}</span>
+        <span class="{linkClasses} {flamboyant ? 'gradient-text' : ''}">{navigation.name}</span>
         {#if children.length > 0}
           <Icon type="chevron-down" size={12} class="transform transition-transform group-hover:rotate-180" />
         {/if}
@@ -63,7 +65,7 @@
     </a>
   {:else}
     <div class={buttonClasses}>
-      <span class={flamboyant ? 'gradient-text' : ''}>{navigation.name}</span>
+      <span class="{linkClasses} {flamboyant ? 'gradient-text' : ''}">{navigation.name}</span>
       {#if children.length > 0}
         <Icon type="chevron-down" size={12} class="transform transition-transform group-hover:rotate-180" />
       {/if}
@@ -85,10 +87,6 @@
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    font-size: 16px;
-    font-weight: 500;
-    line-height: 125.5%; /* 20.08px */
-    letter-spacing: -0.32px;
   }
 
   .dropdown-content {

@@ -10,6 +10,7 @@
   import { isDevelopmentEnv } from '$shared/utils/isDevelopmentEnv';
 
   let isMenuOpen = false;
+  export let ribbonActive = false;
 
   const wrapperClasses = classNames(
     'w-[100vw]',
@@ -88,7 +89,7 @@
 
         <!-- Desktop Navigation -->
         <Navigation />
-        <MobileNavigation bind:isMenuOpen />
+        <MobileNavigation bind:isMenuOpen {ribbonActive} />
         <div class="hidden xl:flex">
           <ConnectButton />
         </div>

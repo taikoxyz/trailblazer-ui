@@ -53,12 +53,11 @@
           },
         ]
       : []),
-    /*
     {
       slug: 'claim',
       name: 'Claim',
       content: ProfileRewardClaim,
-    },*/
+    },
     {
       slug: 'lockdown',
       name: 'Lockdown',
@@ -73,8 +72,8 @@
   const tabClasses = classNames(
     'text-center',
     'rounded-full',
-    'md:rounded-none',
-    'md:rounded-t-[20px]',
+    'lg:rounded-none',
+    'lg:rounded-t-[20px]',
     'h-[44px]',
     'btn',
     'md:tab',
@@ -88,8 +87,8 @@
     'hover:border-primary-brand',
     'whitespace-nowrap',
     'body-bold',
-    'md:bg-transparent',
-    'md:border-none',
+    'lg:bg-transparent',
+    'lg:border-none',
   );
 
   const tablistClasses = classNames(
@@ -97,12 +96,12 @@
     'flex-wrap',
     'w-full',
     'justify-center',
-    'md:justify-start',
-    'md:px-[26px]',
+    'lg:justify-start',
+    'lg:px-[26px]',
     'tabs',
     'gap-[10px]',
     'mb-[30px]',
-    'md:mb-0',
+    'lg:mb-0',
   );
 
   function onHashChange() {
@@ -158,6 +157,6 @@
 
   .md\:tab:is(.tab-active, [aria-selected='true']):not(.tab-disabled):not([disabled]),
   .md\:tab:is(input:checked) {
-    border-color: transparent !important;
+    border-color: transparent;
   }
 </style>

@@ -311,15 +311,32 @@
         "button": "Claim now",
         "title": "Are you ready to claim your tokens?"
       },
-      "error": {
+      "error_claim": {
         "button": "Try again",
         "text": "Your attempt to claim the tokens was not successful. Try claiming your tokens again when you are ready.",
         "title": "Claim Unsuccessful"
+      },
+      "error_generic": {
+        "button": "Try again",
+        "text": "Your attempt to review the tokens was not successful. Try again later.",
+        "title": "Review Unsuccessful"
+      },
+      "ineligible": {
+        "text": "You’re not eligible to claim tokens this time, but don’t worry! Season 3 is here—join now for your chance to earn rewards this season.<br/><br/> Read more about our token distribution and eligibility <a target=\"_blank\" href=\"{blogUrl}\" class=\"link\"> here</a>.",
+        "title": "Sorry, you’re not eligible"
+      },
+      "not_eligible": {
+        "button": "Join Season 3"
       },
       "review": {
         "button": "Review amount",
         "text": "You are eligible to claim the token. Click to review your token amount and proceed with your claim.",
         "title": "Are you ready to claim your tokens?"
+      },
+      "start": {
+        "button": "Review",
+        "text": "Click on review below to check your eligibility and claim your rewards.",
+        "title": "Season 2 claiming is now live!"
       },
       "success": {
         "buttons": ["Add to wallet", "Earn more TAIKO"],
@@ -474,6 +491,27 @@
       }
     },
     "chillblazers": {
+      "ended": {
+        "description": "Our journey concluded on December 16th, 2024. Congratulations to the winners!",
+        "title": "Journey ended"
+      },
+      "prize": {
+        "2": "100K TAIKO Tokens"
+      },
+      "prize_breakdown": {
+        "first": {
+          "amount": "50k"
+        },
+        "fourth": {
+          "amount": "5k"
+        },
+        "second": {
+          "amount": "30k"
+        },
+        "third": {
+          "amount": "15k"
+        }
+      },
       "s2": {
         "ended": {
           "description": "Our journey concluded on January 17th, 2025. Congratulations to the winners!",
@@ -498,27 +536,6 @@
           "third": {
             "amount": "25k"
           }
-        }
-      },
-      "ended": {
-        "description": "Our journey concluded on December 16th, 2024. Congratulations to the winners!",
-        "title": "Journey ended"
-      },
-      "prize": {
-        "2": "100K TAIKO Tokens"
-      },
-      "prize_breakdown": {
-        "first": {
-          "amount": "50k"
-        },
-        "fourth": {
-          "amount": "5k"
-        },
-        "second": {
-          "amount": "30k"
-        },
-        "third": {
-          "amount": "15k"
         }
       }
     },
@@ -630,6 +647,22 @@
         }
       },
       "infobox": {
+        "boost": {
+          "text": "",
+          "title": ""
+        },
+        "campaign": {
+          "text": "",
+          "title": ""
+        },
+        "random": {
+          "text": "",
+          "title": ""
+        },
+        "rewards": {
+          "text": "",
+          "title": ""
+        },
         "s2": {
           "boost": {
             "text": "Random snapshot rewards mean every contribution counts! The more liquidity you provide, the higher your points, stacking across all protocols.",
@@ -667,7 +700,8 @@
             "title": "Earn 12K TAIKO"
           },
           "title": "🏆&nbsp;&nbsp;What’s in it for you?"
-        }
+        },
+        "title": ""
       },
       "readmore": {
         "text": "Do you still have questions about earning points and how they're calculated? Visit our blog post for all the answers!"
@@ -697,7 +731,7 @@
       }
     },
     "user": {
-      "booster": "{multiplier}x boosted",
+      "booster": "{multiplier}x",
       "cta": "Explore our <a href=\"https://trailblazers.taiko.xyz/ecosystem\" class=\" link\">ecosystem</a> and stay tuned for competitions to rank up.",
       "dailyMaxReached": "Daily Max Reached",
       "ended": {
