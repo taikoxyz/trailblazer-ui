@@ -52,7 +52,9 @@
 
   const alertClasses = classNames('mt-[28px]', 'mx-[12px]', 'lg:mx-0');
   const tabsClasses = classNames('mt-[28px]');
+
   $: isSelfProfile = false;
+
   onMount(async () => {
     const urlAddress = $page.url.pathname.split('/').pop() as Address;
     isSelfProfile = isAddressEqual(urlAddress, getConnectedAddress());
@@ -78,7 +80,7 @@
     <div class={alertClasses}>
       <Alert type="info">
         <b>Note:</b>
-        Final Season 2 stats will be calculated and accessible shortly!
+        Final Season 2 stats will be accessible shortly!
       </Alert>
     </div>
 

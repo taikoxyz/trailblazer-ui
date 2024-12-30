@@ -24,9 +24,8 @@
     {
       featured: true,
       title: 'Season 2 Claim',
-      subtitle: 'Coming soon!',
+      subtitle: 'Now live!',
       cta: {
-        disabled: true,
         href: profilePath('#claim'),
       },
       imgSrc: '/news/flame.svg',
