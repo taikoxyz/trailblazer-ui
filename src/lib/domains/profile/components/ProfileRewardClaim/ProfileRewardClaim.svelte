@@ -227,13 +227,3 @@
     </div>
   {/if}
 </div>
-
-<button class="btn btn-primary" on:click={() => currentStep.set(ClaimStates.START)}>reset</button>
-
-<button class="btn btn-primary" on:click={() => ($isLoading = !$isLoading)}>toggle loading</button>
-
-<select class="select" bind:value={$currentStep}>
-  {#each Object.values(ClaimStates) as state}
-    <option value={state}>{state}</option>
-  {/each}
-</select>
