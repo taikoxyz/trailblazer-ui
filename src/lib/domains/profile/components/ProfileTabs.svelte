@@ -110,7 +110,7 @@
   const hash = derived(page, ($page) => $page.url.hash);
 
   const updateActiveTab = (newHash: string) => {
-    if (newHash) {
+    if (newHash && tabs) {
       const tab = tabs.find((tab) => tab.slug === newHash.slice(1));
       if (tab) {
         activeTab = tabs.indexOf(tab);

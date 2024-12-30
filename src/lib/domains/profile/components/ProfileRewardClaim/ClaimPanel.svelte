@@ -106,7 +106,7 @@
       <img class={iconClasses} alt="Not eligible" src="/blobby/sad_blobby.svg" />
     {:else if state === ClaimStates.SUCCESS}
       <img class={iconClasses} alt="Success" src="/blobby/success_blobby.gif" />
-    {:else if state === ClaimStates.ERROR_CLAIM || state === ClaimStates.ERROR_GENERIC}
+    {:else if state === ClaimStates.ERROR_CLAIM || state === ClaimStates.ERROR_GENERIC || state === ClaimStates.ERROR_TIMEOUT}
       <img class={iconClasses} alt="Error" src="/error/error.png" />
     {/if}
 

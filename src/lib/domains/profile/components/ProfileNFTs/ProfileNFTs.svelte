@@ -11,11 +11,11 @@
   import { chainId } from '$lib/shared/utils/chain';
   import { Button } from '$shared/components/Button';
   import RotatingIcon from '$shared/components/Icon/RotatingIcon.svelte';
-  import { Spinner } from '$shared/components/Spinner';
   import { classNames } from '$shared/utils/classNames';
   import filterBadges from '$shared/utils/nfts/filterBadges';
 
   import { Seasons } from '../../types/types';
+  import LoadingBlobby from '../LoadingBlobby.svelte';
   import UserNFTsSection from './UserNFTsSection.svelte';
 
   // Reactive variables
@@ -44,9 +44,6 @@
     s1Badges = filterBadges(Seasons.Season1, allNfts);
     s2Badges = filterBadges(Seasons.Season2, allNfts);
   });
-
-  // CSS classes
-  const spinnerWrapperClasses = classNames('w-full', ' flex', ' justify-center', ' items-center', 'h-[70px]');
 
   const containerClass = classNames(
     'container',
@@ -93,9 +90,7 @@
       <RotatingIcon loading={isLoading} type="refresh" size={13} />
     </Button>
     {#if isLoading}
-      <div class={spinnerWrapperClasses}>
-        <Spinner size="md" />
-      </div>
+      <LoadingBlobby />
     {:else}
       {#if s1Badges.length}
         <UserNFTsSection nfts={s1Badges} title="Season 1 Faction Badges" />

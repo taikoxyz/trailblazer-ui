@@ -311,6 +311,11 @@
         "button": "Claim now",
         "title": "Are you ready to claim your tokens?"
       },
+      "error": {
+        "button": "",
+        "text": "",
+        "title": ""
+      },
       "error_claim": {
         "button": "Try again",
         "text": "Your attempt to claim the tokens was not successful. Try claiming your tokens again when you are ready.",
@@ -320,6 +325,10 @@
         "button": "Try again",
         "text": "Your attempt to review the tokens was not successful. Try again later.",
         "title": "Review Unsuccessful"
+      },
+      "error_timeout": {
+        "text": "The claim process took longer than expected. Please check your wallet to confirm the transaction status.",
+        "title": "Timeout"
       },
       "ineligible": {
         "text": "You’re not eligible to claim tokens this time, but don’t worry! Season 3 is here—join now for your chance to earn rewards this season.<br/><br/> Read more about our token distribution and eligibility <a target=\"_blank\" href=\"{blogUrl}\" class=\"link\"> here</a>.",

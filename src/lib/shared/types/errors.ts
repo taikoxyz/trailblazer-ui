@@ -28,3 +28,8 @@ export class ClaimContractError extends Error {
   name = 'ClaimContractError';
   shortMessage = 'An error occurred while checking the claim contract';
 }
+
+export class TransactionTimedOutError extends Error {
+  name = 'TransactionTimedOutError';
+  shortMessage = 'Transaction timed out';
+}
