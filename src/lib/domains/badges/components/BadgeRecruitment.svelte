@@ -4,8 +4,8 @@
   import type { Address } from 'viem';
 
   import { browser } from '$app/environment';
+  import LoadingBlobby from '$lib/domains/profile/components/LoadingBlobby.svelte';
   import profileService from '$lib/domains/profile/services/ProfileServiceInstance';
-  import { Spinner } from '$shared/components';
   import { ActionButton, Button } from '$shared/components/Button';
   import RotatingIcon from '$shared/components/Icon/RotatingIcon.svelte';
   import { account } from '$shared/stores';
@@ -128,9 +128,7 @@
     <div class={dividerClasses} />
     <div class={boxClasses}>
       {#if isLoading}
-        <div class="w-full flex justify-center">
-          <Spinner size="lg" />
-        </div>
+        <LoadingBlobby />
       {:else if forceRenderFlag && badgeIds.length}
         <div class={nftGridClasses}>
           {#each badgeIds as badgeId}

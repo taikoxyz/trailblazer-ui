@@ -1,6 +1,8 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
+  import { onDestroy, onMount } from 'svelte';
+  import { derived } from 'svelte/store';
 
+  import { page } from '$app/stores';
   import BadgeRecruitment from '$lib/domains/badges/components/BadgeRecruitment.svelte';
   import DevRoom from '$lib/domains/profile/components/DevRoom/DevRoom.svelte';
   import { ProfileNFTs } from '$lib/domains/profile/components/ProfileNFTs';
@@ -42,6 +44,11 @@
             name: 'Badge Recruitment',
             content: BadgeRecruitment,
           },
+          {
+            slug: 'claim',
+            name: 'Claim',
+            content: ProfileRewardClaim,
+          },
         ]
       : []),
     ...(isDevelopmentEnv
@@ -53,11 +60,7 @@
           },
         ]
       : []),
-    {
-      slug: 'claim',
-      name: 'Claim',
-      content: ProfileRewardClaim,
-    },
+
     {
       slug: 'lockdown',
       name: 'Lockdown',
@@ -65,7 +68,7 @@
     },
   ] as TabContent[];
 
-  let activeTab = 0;
+  $: activeTab = 0;
 
   const tabPanelClasses = classNames('mx-4', 'md:mx-0', 'relative', '');
 
@@ -104,22 +107,29 @@
     'lg:mb-0',
   );
 
-  function onHashChange() {
-    const hash = window.location.hash;
-    if (hash) {
-      const tab = tabs.find((tab) => tab.slug === hash.slice(1));
+  const hash = derived(page, ($page) => $page.url.hash);
+
+  const updateActiveTab = (newHash: string) => {
+    if (newHash && tabs) {
+      const tab = tabs.find((tab) => tab.slug === newHash.slice(1));
       if (tab) {
         activeTab = tabs.indexOf(tab);
       }
     }
-  }
+  };
+
+  const unsubscribe = hash.subscribe((newHash) => {
+    updateActiveTab(newHash);
+  });
 
   onMount(() => {
-    onHashChange();
+    updateActiveTab(window.location.hash);
+  });
+
+  onDestroy(() => {
+    unsubscribe();
   });
 </script>
-
-<svelte:window on:hashchange={onHashChange} />
 
 <!-- Tab List -->
 <div role="tablist" class={tablistClasses}>

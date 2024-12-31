@@ -8,10 +8,10 @@
   import type { UserPointHistory } from '$lib/domains/profile/types/ActivityHistory';
   import type { PaginationInfo } from '$lib/shared/dto/CommonPageApiResponse';
   import { Paginator } from '$shared/components/Paginator';
-  import { Spinner } from '$shared/components/Spinner';
   import { activeSeason } from '$shared/stores/activeSeason';
   import { classNames } from '$shared/utils/classNames';
 
+  import LoadingBlobby from '../LoadingBlobby.svelte';
   import ActivityHistoryRow from './ActivityHistoryRow.svelte';
 
   $: pointsHistory = $userProfile?.activityHistory?.items;
@@ -79,16 +79,6 @@
 
   const dividerClass = classNames('divider', '!my-0', 'mx-[16px]', 'md:mx-[24px]', 'h-1');
 
-  const loadingOverlayClass = classNames(
-    'w-full',
-    'h-full',
-    'flex',
-    'mt-4',
-    'justify-center',
-    'items-center',
-    'h-[70px]',
-  );
-
   const paginatorClasses = classNames('!justify-center');
   const paginatorWrapper = classNames('w-full', 'mt-[20px]', 'flex', 'justify-center', 'lg:justify-end', 'max-w-full');
 </script>
@@ -111,9 +101,7 @@
     <div class={dividerClass}></div>
 
     {#if $profileLoading}
-      <div class={loadingOverlayClass}>
-        <Spinner size="md" />
-      </div>
+      <LoadingBlobby />
     {:else}
       <!-- Activity History Rows -->
       {#if pointsHistory && hasPointHistory}

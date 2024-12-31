@@ -7,6 +7,7 @@ import {
   ClaimContractError,
   InvalidClaimAmount,
   MissingClaimProof,
+  TransactionTimedOutError,
   UnknownClaimError,
   UnknownPreflightError,
 } from '$shared/types/errors';
@@ -54,6 +55,9 @@ export class ClaimService implements IClaimService {
     } catch (e) {
       Sentry.captureException(e);
       console.error(e);
+      if (e instanceof TransactionTimedOutError) {
+        throw e;
+      }
       throw new UnknownClaimError('Error claiming token');
     }
   }

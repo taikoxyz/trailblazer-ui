@@ -7,6 +7,7 @@ export enum ClaimStates {
   SUCCESS = 'SUCCESS',
   ERROR_CLAIM = 'ERROR_CLAIM',
   ERROR_GENERIC = 'ERROR_GENERIC',
+  ERROR_TIMEOUT = 'ERROR_TIMEOUT',
 }
 
 export interface IClaimButton {

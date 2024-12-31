@@ -21,6 +21,7 @@
   import { activeSeason } from '$shared/stores/activeSeason';
   import { pendingTransactions } from '$shared/stores/pendingTransactions';
   import { tokenClaimTermsAccepted } from '$shared/stores/tokenClaim';
+  import { TransactionTimedOutError } from '$shared/types/errors';
   import { classNames } from '$shared/utils/classNames';
   import getConnectedAddress from '$shared/utils/getConnectedAddress';
 
@@ -153,6 +154,13 @@
         isClaimSuccessful.set(true);
         currentStep.set(ClaimStates.SUCCESS);
       } catch (e) {
+        if (e instanceof TransactionTimedOutError) {
+          currentStep.set(ClaimStates.ERROR_TIMEOUT);
+          warningToast({
+            title: 'Timeout',
+            message: 'The transaction receipt took too long. Please check your wallet for the transaction status.',
+          });
+        }
         console.error(e);
         currentStep.set(ClaimStates.ERROR_CLAIM);
         errorToast({
@@ -163,10 +171,6 @@
       } finally {
         isLoading.set(false);
       }
-    }
-
-    if (state === ClaimStates.SUCCESS) {
-      // Handle success buttons if needed
     }
 
     if (state === ClaimStates.ERROR_CLAIM || state === ClaimStates.ERROR_GENERIC) {
@@ -223,13 +227,3 @@
     </div>
   {/if}
 </div>
-
-<button class="btn btn-primary" on:click={() => currentStep.set(ClaimStates.START)}>reset</button>
-
-<button class="btn btn-primary" on:click={() => ($isLoading = !$isLoading)}>toggle loading</button>
-
-<select class="select" bind:value={$currentStep}>
-  {#each Object.values(ClaimStates) as state}
-    <option value={state}>{state}</option>
-  {/each}
-</select>

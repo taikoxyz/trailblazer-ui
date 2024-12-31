@@ -99,4 +99,12 @@ export const getPanels = (): Record<ClaimStates, ClaimPanelType> => ({
       },
     ],
   },
+  [ClaimStates.ERROR_TIMEOUT]: {
+    title: get(t)('claim.panels.error_timeout.title'),
+    text: get(t)('claim.panels.error_timeout.text'),
+    state: ClaimStates.ERROR_TIMEOUT,
+    additionalContent: null,
+    disableButtonCondition: () => false,
+    buttons: [],
+  },
 });
