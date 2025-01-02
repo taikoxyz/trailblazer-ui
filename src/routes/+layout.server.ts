@@ -1,9 +1,9 @@
 import { redirect, type ServerLoad } from '@sveltejs/kit';
 
 export const load: ServerLoad = async ({ locals, url }) => {
-  const { allowed } = locals;
+  const isPrerender = url.protocol === 'file:';
 
-  if (!allowed && url.pathname !== '/error') {
+  if (!locals.allowed && url.pathname !== '/error' && !isPrerender) {
     throw redirect(302, '/error');
   }
 };
