@@ -96,7 +96,7 @@ export const handle: Handle = sequence(Sentry.sentryHandle(), async ({ event, re
   const isBypassed = PUBLIC_BYPASS_GEOBLOCK === 'true';
 
   const isKnownCrawler = allowedUserAgents.some((crawler) => userAgent.includes(crawler));
-  const isPrerender = event.url.protocol === 'file:';
+  const isPrerender = event.route !== undefined;
 
   const allowed =
     isPrerender || isDev || isBypassed || isKnownCrawler || (country && !bannedCountryCodes.includes(country));
