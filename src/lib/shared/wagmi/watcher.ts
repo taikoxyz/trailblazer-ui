@@ -1,5 +1,3 @@
-// wagmiWatcher.ts
-
 import { getAccount, watchAccount } from '@wagmi/core';
 import { get } from 'svelte/store';
 import type { Address } from 'viem';

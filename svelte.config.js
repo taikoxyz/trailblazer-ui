@@ -5,6 +5,15 @@ import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
 const config = {
   preprocess: [vitePreprocess()],
   kit: {
+    prerender: {
+      handleHttpError: ({ status, path, message }) => {
+        if (status === 405) {
+          console.warn(`Skipping prerender for ${path}: ${message}`);
+          return;
+        }
+        throw new Error(`${status} error on ${path}: ${message}`);
+      },
+    },
     adapter: adapter(),
     files: {
       assets: 'static',

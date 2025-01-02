@@ -5,7 +5,7 @@
   import { onDestroy, onMount } from 'svelte';
 
   import { browser } from '$app/environment';
-  import { startWatching, stopWatching } from '$lib/shared/wagmi';
+  import { startWatching, stopWatching } from '$lib/shared/wagmi/watcher';
   // import { AccountConnectionToast } from '$shared/components/AccountConnectionToast';
   import { Footer } from '$shared/components/Footer';
   import { Header } from '$shared/components/Header';
