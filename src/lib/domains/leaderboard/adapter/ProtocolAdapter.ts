@@ -21,6 +21,7 @@ export class ProtocolAdapter {
    * @memberof ProtocolAdapter
    */
   async fetchProtocolDetails(protocolSlug: string, season: number): Promise<ProtocolApiResponse> {
+    log(`Fetching protocol details for ${protocolSlug} from ${this.protocolUrl} endpoint for season ${season}`);
     const cachedData = protocolDetailsCache.get(protocolSlug, season, this.protocolUrl);
     if (cachedData) {
       return cachedData;
