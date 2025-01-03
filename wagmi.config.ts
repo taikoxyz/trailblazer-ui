@@ -84,7 +84,7 @@ export default defineConfig({
       name: 'ERC20Airdrop',
       address: {
         167009: S1ClaimHeklaDeployment.ERC20Airdrop as Address,
-        167000: S1ClaimMainnetDeployment.ERC20Airdrop as Address,
+        167000: '0x95345D5A092623D79a56a016001f7878FA9Da3Ef' as Address,
       },
       abi: ERC20Airdrop.abi as Abi,
     },
