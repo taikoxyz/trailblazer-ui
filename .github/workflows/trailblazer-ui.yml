@@ -14,18 +14,6 @@ jobs:
     uses: ./.github/workflows/trailblazer-ui--ci.yml
 
   # QA
-  deploy_trailblazer-ui_qa_preview:
-    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/qa' }}
-    needs: build-and-test
-    uses: ./.github/workflows/repo--vercel-deploy.yml
-    with:
-      environment: 'preview'
-      flags: ''
-    secrets:
-      vercel_project_id: ${{ secrets.VERCEL_PROJECT_ID_TRAILBLAZER_UI_QA }}
-      vercel_org_id: ${{ secrets.VERCEL_ORG_ID }}
-      vercel_token: ${{ secrets.VERCEL_TOKEN }}
-
   deploy_trailblazer-ui_qa_production:
     if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/qa' }}
     needs: build-and-test

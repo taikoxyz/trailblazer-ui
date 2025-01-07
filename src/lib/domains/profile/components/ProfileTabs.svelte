@@ -1,6 +1,8 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
+  import { onDestroy, onMount } from 'svelte';
+  import { derived } from 'svelte/store';
 
+  import { page } from '$app/stores';
   import BadgeRecruitment from '$lib/domains/badges/components/BadgeRecruitment.svelte';
   import DevRoom from '$lib/domains/profile/components/DevRoom/DevRoom.svelte';
   import { ProfileNFTs } from '$lib/domains/profile/components/ProfileNFTs';
@@ -42,6 +44,11 @@
             name: 'Badge Recruitment',
             content: BadgeRecruitment,
           },
+          {
+            slug: 'claim',
+            name: 'Claim',
+            content: ProfileRewardClaim,
+          },
         ]
       : []),
     ...(isDevelopmentEnv
@@ -53,12 +60,7 @@
           },
         ]
       : []),
-    /*
-    {
-      slug: 'claim',
-      name: 'Claim',
-      content: ProfileRewardClaim,
-    },*/
+
     {
       slug: 'lockdown',
       name: 'Lockdown',
@@ -66,15 +68,15 @@
     },
   ] as TabContent[];
 
-  let activeTab = 0;
+  $: activeTab = 0;
 
   const tabPanelClasses = classNames('mx-4', 'md:mx-0', 'relative', '');
 
   const tabClasses = classNames(
     'text-center',
     'rounded-full',
-    'md:rounded-none',
-    'md:rounded-t-[20px]',
+    'lg:rounded-none',
+    'lg:rounded-t-[20px]',
     'h-[44px]',
     'btn',
     'md:tab',
@@ -88,8 +90,8 @@
     'hover:border-primary-brand',
     'whitespace-nowrap',
     'body-bold',
-    'md:bg-transparent',
-    'md:border-none',
+    'lg:bg-transparent',
+    'lg:border-none',
   );
 
   const tablistClasses = classNames(
@@ -97,30 +99,37 @@
     'flex-wrap',
     'w-full',
     'justify-center',
-    'md:justify-start',
-    'md:px-[26px]',
+    'lg:justify-start',
+    'lg:px-[26px]',
     'tabs',
     'gap-[10px]',
     'mb-[30px]',
-    'md:mb-0',
+    'lg:mb-0',
   );
 
-  function onHashChange() {
-    const hash = window.location.hash;
-    if (hash) {
-      const tab = tabs.find((tab) => tab.slug === hash.slice(1));
+  const hash = derived(page, ($page) => $page.url.hash);
+
+  const updateActiveTab = (newHash: string) => {
+    if (newHash && tabs) {
+      const tab = tabs.find((tab) => tab.slug === newHash.slice(1));
       if (tab) {
         activeTab = tabs.indexOf(tab);
       }
     }
-  }
+  };
+
+  const unsubscribe = hash.subscribe((newHash) => {
+    updateActiveTab(newHash);
+  });
 
   onMount(() => {
-    onHashChange();
+    updateActiveTab(window.location.hash);
+  });
+
+  onDestroy(() => {
+    unsubscribe();
   });
 </script>
-
-<svelte:window on:hashchange={onHashChange} />
 
 <!-- Tab List -->
 <div role="tablist" class={tablistClasses}>
@@ -158,6 +167,6 @@
 
   .md\:tab:is(.tab-active, [aria-selected='true']):not(.tab-disabled):not([disabled]),
   .md\:tab:is(input:checked) {
-    border-color: transparent !important;
+    border-color: transparent;
   }
 </style>

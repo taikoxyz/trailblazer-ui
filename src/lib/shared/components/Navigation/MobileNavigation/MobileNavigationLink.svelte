@@ -16,7 +16,9 @@
   let icon = navigation.icon || 'nav-about';
 </script>
 
-<button on:click={handleClick}>
-  <a href={url} class="flex items-center gap-4 hover:text-primary-brand">
-    <Icon size={20} type={icon} fillClass="fill-primary-interactive-accent" />{label}</a>
+<button class="hover:bg-neutral-background px-[16px] py-[14px] rounded-full" on:click={handleClick}>
+  <a href={url} class="flex items-center hover:text-primary-content gap-[12px]">
+    <Icon size={20} type={icon} fillClass="fill-primary-interactive-accent" />
+    {label}
+  </a>
 </button>

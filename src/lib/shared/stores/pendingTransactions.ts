@@ -4,6 +4,7 @@ import { type Hex, type TransactionReceipt, WaitForTransactionReceiptTimeoutErro
 
 import { chainId } from '$lib/shared/utils/chain';
 import { wagmiConfig } from '$lib/shared/wagmi';
+import { TransactionTimedOutError } from '$shared/types/errors';
 import { refreshUserBalance } from '$shared/utils/balance';
 import { getLogger } from '$shared/utils/logger';
 import { noop } from '$shared/utils/noop';
@@ -84,7 +85,7 @@ export const pendingTransactions = {
         .catch((err) => {
           console.error(err);
           if (err instanceof WaitForTransactionReceiptTimeoutError) {
-            deferred.reject(new Error(`transaction with hash "${hash}" timed out`, { cause: err }));
+            deferred.reject(new TransactionTimedOutError(`transaction with hash "${hash}" timed out`, { cause: err }));
           }
           deferred.reject(new Error(`transaction with hash "${hash}" failed`, { cause: err }));
         })

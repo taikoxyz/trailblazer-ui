@@ -9,9 +9,6 @@
   import { warningToast } from '$shared/components/NotificationToast';
   import { switchChainModal } from '$shared/stores/modal';
 
-  // TODO: We should combine this with the ChainSelector component.
-  // Or at least share the same base component. There is a lot of code duplication
-
   let switchingNetwork = false;
 
   function closeModal() {

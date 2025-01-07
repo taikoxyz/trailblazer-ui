@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { goto } from '$app/navigation';
   import { ActionButton } from '$shared/components/Button';
   import { Icon } from '$shared/components/Icon';
   import { truncateString } from '$shared/utils/truncateString';
@@ -27,8 +28,11 @@
         <div class="text-secondary-content text-sm">{truncateString(entry.subtitle, 70)}</div>
       </div>
     </div>
-    <ActionButton priority="primary" disabled={entry.cta.disabled} href={entry.cta.href} class="max-w-[62px]"
-      >Go</ActionButton>
+    <ActionButton
+      priority="primary"
+      disabled={entry.cta.disabled}
+      on:click={() => goto(entry.cta.href)}
+      class="max-w-[62px]">Go</ActionButton>
   </div>
   <div class="h-sep my-2" />
 {:else}
