@@ -11,6 +11,7 @@
 
   import ProfileTransactions from './ProfileActivity/ProfileTransactions.svelte';
   import ProfileLockdownTab from './ProfileLockdownTab.svelte';
+  import ProfileNftCollection from './ProfileNFTs/NFTCollection/ProfileNFTCollection.svelte';
   import ProfileRewardClaim from './ProfileRewardClaim/ProfileRewardClaim.svelte';
 
   type TabContent = {
@@ -35,7 +36,7 @@
     {
       slug: 'nft-collection',
       name: 'NFT Collection',
-      content: ProfileNFTs,
+      content: ProfileNftCollection,
     },
     ...(isSelfProfile
       ? [
