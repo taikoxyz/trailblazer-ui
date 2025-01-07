@@ -12,7 +12,7 @@ export default function generateBadgeMetadata(
   return {
     season,
     badgeId,
-    movement: movement || Movements.Dev,
+    movement: season === Seasons.Season1 ? Movements.Dev : movement || Movements.Dev,
     image: `${uri}.png`,
     'video/mp4': `${uri}-sm.mp4`,
     'video/webm': `${uri}-sm.webm`,

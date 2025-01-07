@@ -34,7 +34,7 @@
 
   $: s1TokenOwned = Boolean(
     $userProfile.nfts?.find(
-      (nft) => nft.metadata.season === Seasons.Season1 && nft.metadata.badgeId === badgeId && !nft.metadata.frozen,
+      (nft) => nft.metadata.season === Seasons.Season1 && nft.metadata.badgeId === badgeId && !nft.metadata.frozenS3,
     ),
   );
   $: movement = getBadgeMovement(badgeId);

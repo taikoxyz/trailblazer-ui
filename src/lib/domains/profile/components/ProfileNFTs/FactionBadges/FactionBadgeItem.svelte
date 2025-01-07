@@ -18,6 +18,9 @@
 
   $: badgeId = (token.metadata.badgeId as number) || 0;
 
+  // season-relevant value
+  $: isFrozen = token.metadata.frozenS3;
+
   // CSS classes
   $: wrapperClasses = classNames(
     'w-[277px]',
@@ -28,7 +31,7 @@
     'aspect-square',
     'rounded-[30px]',
     'transition-all',
-    inColor ? 'grayscale-0' : 'grayscale',
+    inColor && !isFrozen ? 'grayscale-0' : 'grayscale',
   );
 
   const contentWrapperClasses = classNames(

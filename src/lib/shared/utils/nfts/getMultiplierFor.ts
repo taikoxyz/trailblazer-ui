@@ -10,6 +10,12 @@ export default function getMultiplierFor(token: NFT): {
   multiplier: number;
   tooltip: string;
 } {
+  if (token.metadata.frozenS3) {
+    return {
+      multiplier: 0,
+      tooltip: 'Already used to recruit',
+    };
+  }
   if (isAddressEqual(token.address, taikoonTokenAddress[chainId])) {
     // Taikoon
     return {
