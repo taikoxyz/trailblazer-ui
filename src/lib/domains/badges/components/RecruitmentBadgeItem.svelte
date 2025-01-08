@@ -35,13 +35,13 @@
     'justify-center',
     hasSlotContent ? 'pb-0' : null,
     'transition-all',
-    shadow && (token.metadata.movement as Movements) === Movements.Minnow
+    shadow && (token.metadata.movement as Movements) === Movements.Minnows
       ? 'border-secondary  shadow-[0_0px_50px_0px_#E81899]'
       : null,
-    shadow && (token.metadata.movement as Movements) === Movements.Whale
+    shadow && (token.metadata.movement as Movements) === Movements.Whales
       ? 'border-purple-600 shadow-[0_0px_50px_0px_#5D08C8]'
       : null,
-    shadow && (token.metadata.movement as Movements) === Movements.Dev
+    shadow && (token.metadata.movement as Movements) === Movements.Devs
       ? 'border-[white] shadow-[0_0px_50px_0px_white]'
       : null,
   );

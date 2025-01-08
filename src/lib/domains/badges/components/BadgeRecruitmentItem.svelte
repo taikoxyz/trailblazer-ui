@@ -194,7 +194,7 @@
       (nft) => nft.metadata.season === Seasons.Season2 && nft.metadata.badgeId === badgeId,
     );
     if (!nft) {
-      return Movements.Dev;
+      return Movements.Devs;
     }
 
     return nft.metadata.movement as Movements;

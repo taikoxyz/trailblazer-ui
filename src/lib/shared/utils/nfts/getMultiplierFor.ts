@@ -40,7 +40,7 @@ export default function getMultiplierFor(token: NFT): {
     const movement = token.metadata.movement as Movements;
     return {
       multiplier: 0.05,
-      tooltip: movement === Movements.Minnow ? 'Transaction Count XP' : 'Transaction Value XP',
+      tooltip: movement === Movements.Minnows ? 'Transaction Count XP' : 'Transaction Value XP',
     };
   }
 

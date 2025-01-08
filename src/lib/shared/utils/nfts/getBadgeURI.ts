@@ -3,7 +3,7 @@ import { MovementNames, Movements, Seasons } from '$lib/domains/profile/types/ty
 
 export default function getBadgeURI(season: Seasons, badgeId: number, movement?: Movements) {
   if (!movement) {
-    movement = Movements.Dev;
+    movement = Movements.Devs;
   }
 
   const movementStr = MovementNames[movement].toLowerCase();

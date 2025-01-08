@@ -1,6 +1,12 @@
 <script lang="ts">
+  import nftService from '$lib/domains/nfts/services/NFTServiceInstance';
   import ActionButton from '$shared/components/Button/ActionButton.svelte';
+  import Spinner from '$shared/components/Spinner/Spinner.svelte';
+  import type { NFT } from '$shared/types/NFT';
   import { classNames } from '$shared/utils/classNames';
+
+  import FactionImage from '../FactionBadges/FactionImage.svelte';
+  import Placeholder from './Placeholder.svelte';
 
   // CSS classes
   const wrapperClasses = classNames('');
@@ -13,9 +19,7 @@
   );
 
   const buttonClasses = classNames('w-[157px]', 'font-bold');
-
   const collectionInfoWrapper = classNames('f-col', 'space-y-[30px]');
-
   const titleClasses = classNames(
     'text-[35px]',
     'font-medium',
@@ -26,13 +30,40 @@
     'gap-[16px]',
   );
   const collectionDetailsRowClasses = classNames('f-row', 'justify-between', 'font-bold');
-
-  const badgeWrapperClasses = classNames('');
+  const badgeWrapperClasses = classNames('grid', 'grid-cols-2', 'gap-[15px]');
 
   export let collectionName: string;
   export let multiplier: number;
   export let collected: number;
   export let image: string;
+  export let nfts: NFT[];
+
+  let nftsToDisplay: NFT[] = [];
+  let loading = true;
+
+  $: if (nfts?.length > 0) {
+    Promise.all(
+      nfts.map(async (nft) => {
+        const path = await nftService.getStataticPath({ ...nft });
+        return { ...nft, metadata: { ...nft.metadata, image: `${path}.png` } } as NFT;
+      }),
+    ).then((updatedNfts) => {
+      // fill badges array with null values as placeholders
+      const badges = Array(8).fill(null);
+      updatedNfts.forEach((nft) => {
+        const badgeId = nft.metadata.badgeId as number;
+        if (badgeId >= 0 && badgeId < 8) {
+          badges[badgeId] = nft;
+        }
+      });
+      nftsToDisplay = badges;
+      loading = false;
+    });
+  } else {
+    // fill badges array with null values as placeholders
+    nftsToDisplay = Array(8).fill(null);
+    loading = false;
+  }
 </script>
 
 <div class={wrapperClasses}>
@@ -51,6 +82,22 @@
       </div>
       <ActionButton class={buttonClasses} priority="primary">View collection</ActionButton>
     </div>
-    <div class={badgeWrapperClasses}>badges here</div>
+    <div class={badgeWrapperClasses}>
+      {#if loading}
+        <Spinner size="sm" />
+      {:else}
+        {#each nftsToDisplay as nft}
+          {#if nft}
+            <div>
+              <FactionImage class="h-[130px] w-[130px]" token={nft} />
+            </div>
+          {:else}
+            <div>
+              <Placeholder />
+            </div>
+          {/if}
+        {/each}
+      {/if}
+    </div>
   </div>
 </div>

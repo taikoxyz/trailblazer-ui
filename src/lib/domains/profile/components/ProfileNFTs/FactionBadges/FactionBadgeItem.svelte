@@ -65,6 +65,7 @@
   $: overlayImage = `/factions/recruitment/overlay-${MovementNames[token.metadata.movement as Movements].toLowerCase()}.svg`;
 </script>
 
+{JSON.stringify(token)}
 <div class={wrapperClasses} role="button">
   <div class={contentWrapperClasses}>
     <div class={imageWrapperClasses}>

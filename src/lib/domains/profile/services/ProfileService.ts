@@ -81,14 +81,13 @@ export class ProfileService implements IProfileService {
       // address = '0x081A919A2e2e43EEdfc6a618B76be5A2381adc00';
       // Fetch data from multiple endpoints
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const [pointsAndRank, userDomainInfo, activity, nftsResult, avatarResult] = await Promise.all([
+      const [pointsAndRank, userDomainInfo, activity, avatarResult] = await Promise.all([
         this.apiAdapter.fetchUserPointsAndRank(address, season),
         this.fetchDomainInfo(address),
         this.apiAdapter.fetchUserActivity(address, season, 0),
-        this.combinedNFTService.fetchTaikoTokensForUser(address),
         this.getProfilePicture(address),
       ]);
-      log('Fetched data:', { pointsAndRank, userDomainInfo, activity, nftsResult, avatarResult });
+      log('Fetched data:', { pointsAndRank, userDomainInfo, activity, avatarResult });
 
       // Assemble the complete UserProfile with default values
       const userProfile: UserProfile = {
@@ -116,7 +115,7 @@ export class ProfileService implements IProfileService {
             total_pages: activity.total_pages,
           },
         },
-        nfts: [...nftsResult],
+        nfts: [],
         multipliers: defaultUserProfile.multipliers,
         domainInfo: {
           ...userDomainInfo.domainInfo,
@@ -133,7 +132,7 @@ export class ProfileService implements IProfileService {
         // this.fetchAndCalculateMultipliers(address),
         this.performAdditionalCalculations(),
         this.previousSeasonFinalScores(address, season - 1),
-        this.getBadgeRecruitments(address),
+        // this.getBadgeRecruitments(address),
       ]);
       // const [multiplierResult] = await Promise.all([this.handleDomainSelection(info)]);
 
