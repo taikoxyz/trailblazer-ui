@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { FactionBadgeButton } from '$lib/domains/profile/types/FactionBadgeButton';
-  import { MovementNames, Movements } from '$lib/domains/profile/types/types';
   import { ActionButton } from '$shared/components/Button';
+  import { Icon } from '$shared/components/Icon';
   import type { NFT } from '$shared/types/NFT';
   import { classNames } from '$shared/utils/classNames';
 
@@ -13,7 +13,6 @@
   export let buttonDisabled = false;
   export let button: null | FactionBadgeButton = null;
   export let hideBubbles = false;
-  export let locked: boolean = false;
   export let token: NFT;
 
   $: badgeId = (token.metadata.badgeId as number) || 0;
@@ -29,6 +28,7 @@
     'rounded-[30px]',
     'transition-all',
     inColor ? 'grayscale-0' : 'grayscale',
+    $$props.class,
   );
 
   const contentWrapperClasses = classNames(
@@ -55,14 +55,9 @@
 
   const buttonWrapperClasses = classNames('absolute', 'w-full', 'bottom-0', 'p-[20px]', 'h-[88px]');
 
-  const lockedOverlayClasses = classNames('w-full', 'h-full');
-
-  const lockedOverlayGlassClasses = classNames('glassy-background', 'absolute', 'w-full', 'h-full');
-
-  $: overlayImage = `/factions/recruitment/overlay-${MovementNames[token.metadata.movement as Movements].toLowerCase()}.svg`;
+  const lockedOverlayClasses = classNames('absolute', 'w-full', 'h-full', 'items-center', 'justify-center', 'f-col');
 </script>
 
-{JSON.stringify(token)}
 <div class={wrapperClasses} role="button">
   <div class={contentWrapperClasses}>
     <div class={imageWrapperClasses}>
@@ -88,9 +83,10 @@
     </div>
   {/if}
 
-  {#if locked}
-    <div class={lockedOverlayGlassClasses}>
-      <img class={lockedOverlayClasses} alt="Overlay" src={overlayImage} />
+  {#if token.frozen}
+    <div class={lockedOverlayClasses}>
+      <Icon type="lock" size={80} />
+      <span class="text-sm hidden lg:block">Locked for current season</span>
     </div>
   {/if}
 </div>

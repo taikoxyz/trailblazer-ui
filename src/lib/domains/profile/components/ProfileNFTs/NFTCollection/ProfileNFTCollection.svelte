@@ -74,9 +74,8 @@
     {#each Object.entries(badgeMovements) as [movement, factions]}
       {@const movementName = getMovementName(Number(movement))}
       <Collection
-        collectionName={movementName}
+        movement={Number(movement)}
         collected={Object.values(factions).flat().length}
-        multiplier={Object.values(factions).flat().length / 8}
         nfts={getFlatNFTs(factions)}
         image={`/multipliers/collection_${movementName.toLowerCase()}.svg`} />
     {/each}

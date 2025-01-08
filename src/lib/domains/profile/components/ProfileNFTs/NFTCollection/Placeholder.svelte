@@ -6,6 +6,8 @@
   const placeholderClasses = classNames(
     'h-[130px]',
     'w-[130px]',
+    'lg:w-[186px]',
+    'lg:h-[186px]',
     'bg-primary-background',
     'rounded-[20px]',
     'justify-center',

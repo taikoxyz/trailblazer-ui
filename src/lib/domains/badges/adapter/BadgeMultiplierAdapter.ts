@@ -1,22 +1,42 @@
 import type { Address } from 'viem';
 
+import { getAxiosInstance, globalAxiosConfig } from '$shared/services/api/axiosClient';
 import { badgesSubgraphClient } from '$shared/services/graphql/client';
 import { GET_S2_BADGE_MULTIPLIER_QUERY } from '$shared/services/graphql/queries';
 import { getLogger } from '$shared/utils/logger';
 
-import type { S2Multipliers } from '../dto/multipliers';
+import type { MultiplierApiResponse, S2Multipliers } from '../dto/multipliers';
 
 const log = getLogger('BadgeMultiplierAdapter');
 
 export default class BadgeMultiplierAdapter {
+  /**
+   * Fetches the badge multipliers
+   *
+   * @return {*}
+   * @memberof BadgeMultiplierAdapter
+   */
+
+  async fetchBadgeMultiplier(address: Address, season: number) {
+    log('Fetching badge multiplier', { address, season });
+    try {
+      const client = getAxiosInstance(season);
+      const response = await client.get<MultiplierApiResponse>(`user/multiplier`, {
+        ...globalAxiosConfig,
+        params: address,
+      });
+      return response.data;
+    } catch (error) {
+      throw new Error('Error fetching badge multiplier');
+    }
+  }
+
   /**
    * Fetches the S2 badge multiplier
    *
    * @return {*}
    * @memberof BadgeMultiplierAdapter
    */
-
-  // TODO: rework to calculate based on ownership
   async fetchS2BadgeMultiplier(address: Address, season: number): Promise<S2Multipliers> {
     log('Fetching S2 badge multiplier', { address, season });
     try {

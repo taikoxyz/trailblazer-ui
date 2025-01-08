@@ -55,10 +55,11 @@ export class NftAdapter {
       });
       log('fetchBadgesByMovementForUser response', { badgesGraphqlResponse });
       if (!badgesGraphqlResponse || !badgesGraphqlResponse.data || !badgesGraphqlResponse.data.tokens) {
-        // account does not exist, skip
+        // account does not exist, skip and return empty
         return badgesByMovement;
       }
       const { tokens } = badgesGraphqlResponse.data;
+      log('fetchBadgesByMovementForUser tokens', { tokens });
 
       tokens.forEach((token: Token) => {
         const address = token.contract as Address;
@@ -86,6 +87,7 @@ export class NftAdapter {
           tokenId,
           metadata,
           tokenUri,
+          frozen: token.frozenS3 || false,
         } satisfies NFT);
       });
 
@@ -126,7 +128,7 @@ export class NftAdapter {
         return badgesByFaction;
       }
       const { tokens } = badgesGraphqlResponse.data;
-
+      log('fetchBadgesForUser tokens', { tokens });
       tokens.forEach((token: Token) => {
         const address = token.contract as Address;
         const tokenId = parseInt(token.tokenId);
@@ -153,6 +155,7 @@ export class NftAdapter {
           tokenId,
           metadata,
           tokenUri,
+          frozen: token.frozenS3 || false,
         } satisfies NFT);
       });
       log('fetchBadgesForUser badgesByFaction', { badgesByFaction });
