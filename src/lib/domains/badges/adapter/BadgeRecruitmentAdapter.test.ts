@@ -116,7 +116,7 @@ describe('BadgeRecruitmentAdapter', () => {
         badgeId: mockBadge.metadata.badgeId as number,
         status: RecruitmentStatus.ELIGIBLE,
         s1Badge: mockBadge,
-        s2Badge: getMockBadge(SEASON_2, 2, Movements.Whale),
+        s2Badge: getMockBadge(SEASON_2, 2, Movements.Whales),
         whaleInfluences: 0,
         minnowInfluences: 0,
         claimExpirationTimeout: new Date('1970-01-01T01:01:00.000Z'),
@@ -213,7 +213,7 @@ describe('BadgeRecruitmentAdapter', () => {
         badgeId: mockBadge.metadata.badgeId as number,
         status: RecruitmentStatus.ELIGIBLE,
         s1Badge: mockBadge,
-        s2Badge: getMockBadge(SEASON_2, 2, Movements.Whale),
+        s2Badge: getMockBadge(SEASON_2, 2, Movements.Whales),
         whaleInfluences: 0,
         minnowInfluences: 0,
         claimExpirationTimeout: new Date('1970-01-01T01:01:00.000Z'),
@@ -239,7 +239,7 @@ describe('BadgeRecruitmentAdapter', () => {
         },
       ];
 
-      const mockMovement = Movements.Dev;
+      const mockMovement = Movements.Devs;
 
       // Mock the signature response and parsing
       vi.mocked(axios.post).mockResolvedValue(mockSignatureResponse);
@@ -325,7 +325,7 @@ describe('BadgeRecruitmentAdapter', () => {
         badgeId: mockBadge.metadata.badgeId as number,
         status: RecruitmentStatus.ELIGIBLE,
         s1Badge: mockBadge,
-        s2Badge: getMockBadge(SEASON_2, 2, Movements.Whale),
+        s2Badge: getMockBadge(SEASON_2, 2, Movements.Whales),
         whaleInfluences: 0,
         minnowInfluences: 0,
         claimExpirationTimeout: new Date('1970-01-01T01:01:00.000Z'),
@@ -345,7 +345,7 @@ describe('BadgeRecruitmentAdapter', () => {
           removed: false,
           args: {
             s2TokenId: BigInt(2),
-            finalColor: Movements.Minnow,
+            finalColor: Movements.Minnows,
           },
         },
       ];
@@ -397,7 +397,7 @@ describe('BadgeRecruitmentAdapter', () => {
             badgeId: 1,
             erc: 0,
             image: '/factions/robots/minnow.png',
-            movement: Movements.Minnow,
+            movement: Movements.Minnows,
             season: 2,
             'video/mp4': '/factions/robots/minnow-sm.mp4',
             'video/webm': '/factions/robots/minnow-sm.webm',
@@ -461,7 +461,7 @@ describe('BadgeRecruitmentAdapter', () => {
             s2Badge: {
               tokenId: 2,
               address: trailblazersBadgesAddress[chainId],
-              metadata: generateBadgeMetadata(SEASON_2, 2, Movements.Whale),
+              metadata: generateBadgeMetadata(SEASON_2, 2, Movements.Whales),
               tokenUri: '',
             },
             whaleInfluences: 0,

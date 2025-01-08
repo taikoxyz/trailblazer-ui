@@ -1,8 +1,8 @@
 import { type Address } from 'viem';
 
 import type { Token } from '$generated/graphql/badges';
-import type { Movements } from '$lib/domains/profile/types/types';
-import type { NFT, TokenType } from '$lib/shared/types/NFT';
+import { Movements } from '$lib/domains/profile/types/types';
+import type { BadgesByFaction, BadgesByMovement, NFT, TokenType } from '$lib/shared/types/NFT';
 import { badgesSubgraphClient, taikoonsSubgraphClient } from '$shared/services/graphql/client';
 import {
   USER_NFTS_FETCH_BADGES_QUERY,
@@ -10,8 +10,159 @@ import {
 } from '$shared/services/graphql/queries';
 import { getLogger } from '$shared/utils/logger';
 
+import { FactionNames, getFactionName } from '../types/badges/types';
+
 const log = getLogger('NftAdapter');
 export class NftAdapter {
+  async fetchBadgesByMovementForUser(address: Address): Promise<BadgesByMovement> {
+    log('fetchBadgesByMovementForUser', { address });
+    try {
+      const badgesByMovement = {
+        [Movements.Devs]: {
+          [FactionNames.Ravers]: [],
+          [FactionNames.Robots]: [],
+          [FactionNames.Bouncers]: [],
+          [FactionNames.Masters]: [],
+          [FactionNames.Monks]: [],
+          [FactionNames.Drummers]: [],
+          [FactionNames.Androids]: [],
+          [FactionNames.Shinto]: [],
+        },
+        [Movements.Minnows]: {
+          [FactionNames.Ravers]: [],
+          [FactionNames.Robots]: [],
+          [FactionNames.Bouncers]: [],
+          [FactionNames.Masters]: [],
+          [FactionNames.Monks]: [],
+          [FactionNames.Drummers]: [],
+          [FactionNames.Androids]: [],
+          [FactionNames.Shinto]: [],
+        },
+        [Movements.Whales]: {
+          [FactionNames.Ravers]: [],
+          [FactionNames.Robots]: [],
+          [FactionNames.Bouncers]: [],
+          [FactionNames.Masters]: [],
+          [FactionNames.Monks]: [],
+          [FactionNames.Drummers]: [],
+          [FactionNames.Androids]: [],
+          [FactionNames.Shinto]: [],
+        },
+      } as BadgesByMovement;
+      const badgesGraphqlResponse = await badgesSubgraphClient.query({
+        query: USER_NFTS_FETCH_BADGES_QUERY,
+        variables: { address: address },
+      });
+      log('fetchBadgesByMovementForUser response', { badgesGraphqlResponse });
+      if (!badgesGraphqlResponse || !badgesGraphqlResponse.data || !badgesGraphqlResponse.data.tokens) {
+        // account does not exist, skip
+        return badgesByMovement;
+      }
+      const { tokens } = badgesGraphqlResponse.data;
+
+      tokens.forEach((token: Token) => {
+        const address = token.contract as Address;
+        const tokenId = parseInt(token.tokenId);
+        const badgeId = parseInt(token.badgeId);
+        const erc = parseInt(token.erc) as TokenType;
+        const movement = parseInt(token.movement || '0') as Movements;
+        const tokenUri = token.uri || '';
+        const faction = getFactionName(badgeId);
+
+        if (!faction) {
+          log(`Unknown faction for badgeId: ${badgeId} token:`, token);
+          return;
+        }
+
+        const metadata = {
+          badgeId,
+          erc,
+          movement,
+          tokenUri,
+        };
+
+        badgesByMovement[movement][faction].push({
+          address,
+          tokenId,
+          metadata,
+          tokenUri,
+        } satisfies NFT);
+      });
+
+      log('fetchBadgesByMovementForUser badgesByMovement', { badgesByMovement });
+      return badgesByMovement;
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  }
+
+  /**
+   * Fetches the badges for a user collected by faction
+   * @param {Address} address
+   * @return {*}  {Promise<BadgeByFaction>}
+   * @memberof NftAdapter
+   */
+  async fetchBadgesAsFactionsForUser(address: Address): Promise<BadgesByFaction> {
+    log('fetchBadgesForUser', { address });
+    try {
+      const badgesByFaction = {
+        [FactionNames.Ravers]: [],
+        [FactionNames.Robots]: [],
+        [FactionNames.Bouncers]: [],
+        [FactionNames.Masters]: [],
+        [FactionNames.Monks]: [],
+        [FactionNames.Drummers]: [],
+        [FactionNames.Androids]: [],
+        [FactionNames.Shinto]: [],
+      } as BadgesByFaction;
+      const badgesGraphqlResponse = await badgesSubgraphClient.query({
+        query: USER_NFTS_FETCH_BADGES_QUERY,
+        variables: { address: address },
+      });
+      log('fetchBadgesForUser response', { badgesGraphqlResponse });
+      if (!badgesGraphqlResponse || !badgesGraphqlResponse.data || !badgesGraphqlResponse.data.tokens) {
+        // account does not exist, skip
+        return badgesByFaction;
+      }
+      const { tokens } = badgesGraphqlResponse.data;
+
+      tokens.forEach((token: Token) => {
+        const address = token.contract as Address;
+        const tokenId = parseInt(token.tokenId);
+        const badgeId = parseInt(token.badgeId);
+        const erc = parseInt(token.erc) as TokenType;
+        const movement = parseInt(token.movement || '0') as Movements;
+        const tokenUri = token.uri || '';
+        const faction = getFactionName(badgeId);
+
+        if (!faction) {
+          log(`Unknown faction for badgeId: ${badgeId}`);
+          return;
+        }
+
+        const metadata = {
+          badgeId,
+          erc,
+          movement,
+          tokenUri,
+        };
+
+        badgesByFaction[faction].push({
+          address,
+          tokenId,
+          metadata,
+          tokenUri,
+        } satisfies NFT);
+      });
+      log('fetchBadgesForUser badgesByFaction', { badgesByFaction });
+      return badgesByFaction;
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  }
+
   /**
    * Fetches the NFTs for a user
    * - snaefell
@@ -26,15 +177,16 @@ export class NftAdapter {
     log('fetchTaikoTokensForUser', { address });
 
     try {
-      const badgesGraphqlResponse = await badgesSubgraphClient.query({
-        query: USER_NFTS_FETCH_BADGES_QUERY,
-        variables: { address: address },
-      });
-
-      const taikoonsAndSnaefellsGraphqlResponse = await taikoonsSubgraphClient.query({
-        query: USER_NFTS_FETCH_TAIKOONS_AND_SNAEFELLS_QUERY,
-        variables: { address: address },
-      });
+      const [badgesGraphqlResponse, taikoonsAndSnaefellsGraphqlResponse] = await Promise.all([
+        badgesSubgraphClient.query({
+          query: USER_NFTS_FETCH_BADGES_QUERY,
+          variables: { address },
+        }),
+        taikoonsSubgraphClient.query({
+          query: USER_NFTS_FETCH_TAIKOONS_AND_SNAEFELLS_QUERY,
+          variables: { address },
+        }),
+      ]);
 
       if (
         (!badgesGraphqlResponse || !badgesGraphqlResponse.data || !badgesGraphqlResponse.data.tokens) &&

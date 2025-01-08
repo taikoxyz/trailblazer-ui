@@ -1,6 +1,7 @@
 import type { Address } from 'viem';
 
-import type { FactionNames } from '$lib/domains/nfts/types/badges/types';
+import { FactionNames } from '$lib/domains/nfts/types/badges/types';
+import type { Movements } from '$lib/domains/profile/types/types';
 
 export enum TokenType {
   Unknown = 0,
@@ -15,7 +16,24 @@ export interface NFT {
   metadata: Record<string, string | number | boolean | undefined | TokenType>;
 }
 
-export interface IUserBadges {
+export interface BadgesByMovement {
+  [Movements.Devs]: BadgesByFaction;
+  [Movements.Minnows]: BadgesByFaction;
+  [Movements.Whales]: BadgesByFaction;
+}
+
+export interface BadgesByFaction {
+  [FactionNames.Ravers]: NFT[];
+  [FactionNames.Robots]: NFT[];
+  [FactionNames.Bouncers]: NFT[];
+  [FactionNames.Masters]: NFT[];
+  [FactionNames.Monks]: NFT[];
+  [FactionNames.Drummers]: NFT[];
+  [FactionNames.Androids]: NFT[];
+  [FactionNames.Shinto]: NFT[];
+}
+
+export interface Badge {
   [FactionNames.Ravers]: boolean;
   [FactionNames.Robots]: boolean;
   [FactionNames.Bouncers]: boolean;

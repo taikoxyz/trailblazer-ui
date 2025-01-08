@@ -7,12 +7,12 @@ export default function generateBadgeMetadata(
   badgeId: number,
   movement?: Movements,
 ): Record<string, string | Seasons | Movements> {
-  const uri = getBadgeURI(season, badgeId, movement || Movements.Dev);
+  const uri = getBadgeURI(season, badgeId, movement || Movements.Devs);
 
   return {
     season,
     badgeId,
-    movement: movement || Movements.Dev,
+    movement: movement || Movements.Devs,
     image: `${uri}.png`,
     'video/mp4': `${uri}-sm.mp4`,
     'video/webm': `${uri}-sm.webm`,

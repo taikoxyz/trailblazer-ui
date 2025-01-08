@@ -117,7 +117,7 @@ describe('BadgeRecruitmentService', () => {
       claimExpirationTimeout: new Date(),
       cycleId: 1,
     }; // Recruitment object
-    const mockSelectedMovement = Movements.Whale;
+    const mockSelectedMovement = Movements.Whales;
 
     const mockResponse: IBadgeRecruitment = {
       ...mockRecruitment,

@@ -68,7 +68,7 @@ describe('NftAdapter', () => {
           metadata: {
             badgeId: 1,
             erc: 777,
-            movement: Movements.Dev,
+            movement: Movements.Devs,
             frozenS2: false,
             frozenS3: false,
           },

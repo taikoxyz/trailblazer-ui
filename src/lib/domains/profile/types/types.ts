@@ -61,13 +61,16 @@ export type Faction = 'Ravers' | 'Robots' | 'Bouncers' | 'Masters' | 'Monks' | '
 export type MinnowOrWhale = 'Minnow' | 'Whale';
 
 export enum Movements {
-  Dev, // Unused
-  Whale, // Based, pink
-  Minnow, // Boosted, purple
+  Devs, // Unused
+  Whales, // Based, pink
+  Minnows, // Boosted, purple
   // Dev, // s1
 }
 
 export const MovementNames: string[] = Object.keys(Movements).filter((key) => isNaN(Number(key)));
+
+export const getMovementName = (movementId: Movements): string =>
+  MovementNames[movementId] || MovementNames[Movements.Devs];
 
 export enum Seasons {
   Season1 = 1,
