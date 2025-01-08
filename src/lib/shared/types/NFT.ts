@@ -14,6 +14,7 @@ export interface NFT {
   tokenId: number;
   tokenUri: string;
   metadata: Record<string, string | number | boolean | undefined | TokenType>;
+  frozen?: boolean;
 }
 
 export interface BadgesByMovement {

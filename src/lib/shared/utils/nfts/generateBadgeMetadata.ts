@@ -14,7 +14,7 @@ export default function generateBadgeMetadata(
     badgeId,
     movement: movement || Movements.Devs,
     image: `${uri}.png`,
-    'video/mp4': `${uri}-sm.mp4`,
-    'video/webm': `${uri}-sm.webm`,
+    'video/mp4': `${uri}.mp4`,
+    'video/webm': `${uri}.webm`,
   };
 }

@@ -1,11 +1,12 @@
 <script lang="ts">
   import nftService from '$lib/domains/nfts/services/NFTServiceInstance';
+  import { getMovementName, Movements } from '$lib/domains/profile/types/types';
   import ActionButton from '$shared/components/Button/ActionButton.svelte';
   import Spinner from '$shared/components/Spinner/Spinner.svelte';
   import type { NFT } from '$shared/types/NFT';
   import { classNames } from '$shared/utils/classNames';
 
-  import FactionImage from '../FactionBadges/FactionImage.svelte';
+  import FactionBadgeItem from '../FactionBadges/FactionBadgeItem.svelte';
   import Placeholder from './Placeholder.svelte';
 
   // CSS classes
@@ -30,16 +31,33 @@
     'gap-[16px]',
   );
   const collectionDetailsRowClasses = classNames('f-row', 'justify-between', 'font-bold');
-  const badgeWrapperClasses = classNames('grid', 'grid-cols-2', 'gap-[15px]');
+  const badgeWrapperClasses = classNames('grid', 'grid-cols-2', 'md:grid-cols-4', 'gap-[15px]', 'items-center');
 
-  export let collectionName: string;
-  export let multiplier: number;
+  export let movement: Movements;
   export let collected: number;
   export let image: string;
   export let nfts: NFT[];
 
   let nftsToDisplay: NFT[] = [];
   let loading = true;
+
+  $: collectionName = getMovementName(movement);
+
+  const BadgeMultiplier = {
+    [Movements.Devs]: 0.05,
+    [Movements.Whales]: 0.05,
+    [Movements.Minnows]: 0.05,
+  };
+
+  const calculateMultiplier = () => {
+    // get base multiplier from BadgeMultiplier object based on passed Movement
+    const base = BadgeMultiplier[movement];
+
+    // only nfts that are not frozen are counted
+    return nfts.filter((nft) => !nft.frozen).reduce((acc) => acc + base, 0);
+  };
+
+  $: multiplier = calculateMultiplier();
 
   $: if (nfts?.length > 0) {
     Promise.all(
@@ -87,15 +105,13 @@
         <Spinner size="sm" />
       {:else}
         {#each nftsToDisplay as nft}
-          {#if nft}
-            <div>
-              <FactionImage class="h-[130px] w-[130px]" token={nft} />
-            </div>
-          {:else}
-            <div>
+          <div class="flex justify-center">
+            {#if nft}
+              <FactionBadgeItem class="h-[130px] w-[130px] lg:w-[186px] lg:h-[186px]" token={nft} hideBubbles />
+            {:else}
               <Placeholder />
-            </div>
-          {/if}
+            {/if}
+          </div>
         {/each}
       {/if}
     </div>

@@ -9,6 +9,6 @@ export default function getBadgeURI(season: Seasons, badgeId: number, movement?:
   const movementStr = MovementNames[movement].toLowerCase();
   const factionStr = Object.values(FactionNames)[badgeId].toLowerCase();
 
-  const uri = `/factions/${factionStr}/${movementStr}`;
+  const uri = `/badges/${movementStr}/${factionStr}`;
   return uri;
 }

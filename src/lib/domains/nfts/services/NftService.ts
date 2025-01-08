@@ -165,7 +165,11 @@ export class NftService {
     return Object.entries(defaultFactionStructure).reduce((acc, [faction]) => {
       const nfts = factions[faction as keyof BadgesByFaction] || [];
       const firstNft = nfts[0] ? [nfts[0]] : [];
-      acc[faction as keyof BadgesByFaction] = firstNft;
+      const firstNftNotFrozen = nfts.find((nft) => !nft.frozen)
+        ? ([nfts.find((nft) => !nft.frozen)].filter(Boolean) as NFT[])
+        : [];
+
+      acc[faction as keyof BadgesByFaction] = firstNftNotFrozen.length > 0 ? firstNftNotFrozen : firstNft;
       return acc;
     }, defaultFactionStructure);
   }

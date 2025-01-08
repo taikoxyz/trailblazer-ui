@@ -8,7 +8,15 @@
   $: videoMp4 = token.metadata['video/mp4'] as string;
   $: videoWebm = token.metadata['video/webm'] as string;
 
-  const wrapperClasses = classNames('relative', 'w-full', 'h-full', 'z-0', 'aspect-square', $$props.class);
+  const wrapperClasses = classNames(
+    'relative',
+    'w-full',
+    'h-full',
+    'z-0',
+    'aspect-square',
+    token.frozen ? 'blur-sm' : '',
+    $$props.class,
+  );
 
   const videoClasses = classNames(
     'pointer-events-none',
