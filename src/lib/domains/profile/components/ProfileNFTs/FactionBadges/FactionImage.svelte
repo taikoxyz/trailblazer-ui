@@ -1,12 +1,13 @@
 <script lang="ts">
   import type { NFT } from '$shared/types/NFT';
+  import { cdnBase } from '$shared/utils/cdnBase';
   import { classNames } from '$shared/utils/classNames';
 
   export let token: NFT;
 
-  $: image = token.metadata.image as string;
-  $: videoMp4 = token.metadata['video/mp4'] as string;
-  $: videoWebm = token.metadata['video/webm'] as string;
+  $: image = `${cdnBase}${token.metadata.image}` as string;
+  $: videoMp4 = `${cdnBase}${token.metadata['video/mp4']}` as string;
+  $: videoWebm = `${cdnBase}${token.metadata['video/webm']}` as string;
 
   const wrapperClasses = classNames(
     'relative',
