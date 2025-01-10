@@ -1,7 +1,6 @@
 import type { Address } from 'viem';
 
 import BadgeMultiplierAdapter from '../adapter/BadgeMultiplierAdapter';
-import type { S2Multipliers } from '../dto/multipliers';
 
 export class BadgeMultiplierService {
   // adapters
@@ -17,7 +16,7 @@ export class BadgeMultiplierService {
    * @return {*}  {Promise<number>}
    * @memberof BadgeMultiplierService
    */
-  async getBadgeMultiplier(address: Address, season: number): Promise<S2Multipliers> {
-    return this.adapter.fetchS2BadgeMultiplier(address, season);
+  async getBadgeMultiplier(address: Address, season: number) {
+    return this.adapter.fetchBadgeMultiplier(address, season);
   }
 }

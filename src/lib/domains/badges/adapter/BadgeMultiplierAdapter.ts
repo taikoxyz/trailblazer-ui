@@ -23,10 +23,12 @@ export default class BadgeMultiplierAdapter {
       const client = getAxiosInstance(season);
       const response = await client.get<MultiplierApiResponse>(`user/multiplier`, {
         ...globalAxiosConfig,
-        params: address,
+        params: { address },
       });
+      log('Fetched badge multiplier', response);
       return response.data;
     } catch (error) {
+      log('Error fetching badge multiplier', { error });
       throw new Error('Error fetching badge multiplier');
     }
   }
