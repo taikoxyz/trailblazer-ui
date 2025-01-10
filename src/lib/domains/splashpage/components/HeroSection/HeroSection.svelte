@@ -5,6 +5,7 @@
   import { web3modal } from '$lib/shared/utils/connect';
   import ActionButton from '$shared/components/Button/ActionButton.svelte';
   import { account } from '$shared/stores/account';
+  import { cdnBase } from '$shared/utils/cdnBase';
   import { classNames } from '$shared/utils/classNames';
 
   const handlePrimaryAction = () => {
@@ -96,6 +97,8 @@
     'flex',
     'items-center',
   );
+
+  const videoPath = `${cdnBase}/splash/xl/evergreen.webm`;
 </script>
 
 <div class={wrapperClasses}>
@@ -106,7 +109,7 @@
     playsinline
     poster="/splash/fallback.webp"
     class="relative h-full object-cover"
-    src="/splash/xl/evergreen.webm"></video>
+    src={videoPath}></video>
 
   <div class={backgroundImageClasses}>
     <div class={pillClasses}>
