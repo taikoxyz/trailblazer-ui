@@ -17,10 +17,32 @@ export interface NFT {
   frozen?: boolean;
 }
 
+export interface BadgeDetails {
+  badge: NFT | null;
+  total: number;
+}
+
 export interface BadgesByMovement {
   [Movements.Devs]: BadgesByFaction;
   [Movements.Minnows]: BadgesByFaction;
   [Movements.Whales]: BadgesByFaction;
+}
+
+export interface BadgeDetailsByMovement {
+  [Movements.Devs]: BadgeDetailsByFaction;
+  [Movements.Minnows]: BadgeDetailsByFaction;
+  [Movements.Whales]: BadgeDetailsByFaction;
+}
+
+export interface BadgeDetailsByFaction {
+  [FactionNames.Ravers]: BadgeDetails;
+  [FactionNames.Robots]: BadgeDetails;
+  [FactionNames.Bouncers]: BadgeDetails;
+  [FactionNames.Masters]: BadgeDetails;
+  [FactionNames.Monks]: BadgeDetails;
+  [FactionNames.Drummers]: BadgeDetails;
+  [FactionNames.Androids]: BadgeDetails;
+  [FactionNames.Shinto]: BadgeDetails;
 }
 
 export interface BadgesByFaction {

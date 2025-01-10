@@ -1,83 +1,58 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
-  import { zeroAddress } from 'viem';
+  import { onDestroy, onMount } from 'svelte';
 
-  import nftService from '$lib/domains/nfts/services/NFTServiceInstance';
-  import { FactionNames } from '$lib/domains/nfts/types/badges/types';
-  import { getMovementName, Movements } from '$lib/domains/profile/types/types';
-  import type { BadgesByMovement, NFT } from '$shared/types/NFT';
-  import getConnectedAddress from '$shared/utils/getConnectedAddress';
+  import { badgeStore, fetchBadges } from '$lib/domains/nfts/stores/nft.store';
+  import { getMovementName } from '$lib/domains/profile/types/types';
+  import type { BadgeDetailsByFaction } from '$shared/types/NFT';
 
   import ProfileTab from '../../ProfileTab.svelte';
   import Collection from './Collection.svelte';
 
-  // Initialize badgeMovements with an empty object for each movement
-  let badgeMovements: BadgesByMovement = {
-    [Movements.Devs]: {
-      [FactionNames.Ravers]: [],
-      [FactionNames.Robots]: [],
-      [FactionNames.Bouncers]: [],
-      [FactionNames.Masters]: [],
-      [FactionNames.Monks]: [],
-      [FactionNames.Drummers]: [],
-      [FactionNames.Androids]: [],
-      [FactionNames.Shinto]: [],
-    },
-    [Movements.Whales]: {
-      [FactionNames.Ravers]: [],
-      [FactionNames.Robots]: [],
-      [FactionNames.Bouncers]: [],
-      [FactionNames.Masters]: [],
-      [FactionNames.Monks]: [],
-      [FactionNames.Drummers]: [],
-      [FactionNames.Androids]: [],
-      [FactionNames.Shinto]: [],
-    },
-    [Movements.Minnows]: {
-      [FactionNames.Ravers]: [],
-      [FactionNames.Robots]: [],
-      [FactionNames.Bouncers]: [],
-      [FactionNames.Masters]: [],
-      [FactionNames.Monks]: [],
-      [FactionNames.Drummers]: [],
-      [FactionNames.Androids]: [],
-      [FactionNames.Shinto]: [],
-    },
-  };
+  let badgeMovements = $badgeStore;
+  let loading = true;
 
-  onMount(async () => {
-    try {
-      const connectedAddress = getConnectedAddress();
-      if (connectedAddress !== zeroAddress) {
-        const fetchedBadges = await nftService.fetchBadgesForUser(connectedAddress);
-
-        Object.entries(fetchedBadges).forEach(([movement, factions]) => {
-          const movementKey = movement as unknown as Movements;
-
-          Object.entries(factions).forEach(([faction, nfts]) => {
-            const factionKey = faction as keyof typeof FactionNames;
-            badgeMovements[movementKey][factionKey] = nfts as NFT[];
-          });
-        });
-      }
-    } catch (error) {
-      console.error('Error fetching badges:', error);
-    }
+  const unsubscribe = badgeStore.subscribe((value) => {
+    badgeMovements = value;
+    loading = !value;
   });
-  const getFlatNFTs = (factions: BadgesByMovement[Movements.Devs]): NFT[] => {
-    return Object.values(factions).flat() as NFT[];
+
+  // Get faction details and count unique badges
+  const getFactionDetailsAndCount = (factions: BadgeDetailsByFaction) => {
+    const details = Object.entries(factions).map(([faction, details]) => ({
+      faction,
+      ...details,
+    }));
+
+    const collected = details.filter(({ badge }) => badge !== null).length; // Count unique badges
+    return { details, collected };
   };
+
+  onMount(() => {
+    fetchBadges();
+  });
+
+  onDestroy(() => {
+    unsubscribe();
+  });
 </script>
 
 <ProfileTab>
-  <div class="space-y-[20px]">
-    {#each Object.entries(badgeMovements) as [movement, factions]}
-      {@const movementName = getMovementName(Number(movement))}
-      <Collection
-        movement={Number(movement)}
-        collected={Object.values(factions).flat().length}
-        nfts={getFlatNFTs(factions)}
-        image={`/multipliers/collection_${movementName.toLowerCase()}.svg`} />
-    {/each}
-  </div>
+  {#if loading}
+    <p>Loading badges...</p>
+  {:else if badgeMovements}
+    <div class="space-y-[20px]">
+      {#each Object.entries(badgeMovements) as [movement, factions]}
+        {@const movementName = getMovementName(Number(movement))}
+        {@const { details, collected } = getFactionDetailsAndCount(factions)}
+        <Collection
+          {collected}
+          max={details.length}
+          movement={Number(movement)}
+          badges={details}
+          image={`/multipliers/collection_${movementName.toLowerCase()}.svg`} />
+      {/each}
+    </div>
+  {:else}
+    <p>No badges available.</p>
+  {/if}
 </ProfileTab>

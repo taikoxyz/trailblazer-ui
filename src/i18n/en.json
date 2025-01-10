@@ -805,6 +805,12 @@
       "switching": "Switching network"
     }
   },
+  "nfts": {
+    "collection": {
+      "collected": "Collected",
+      "multiplier": "Your multiplier"
+    }
+  },
   "pages": {
     "badge_recruitment": {
       "buttons": {
