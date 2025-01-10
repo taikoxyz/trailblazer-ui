@@ -822,20 +822,20 @@ export class ProfileService implements IProfileService {
     } satisfies Multipliers;
     try {
       const multiplier = await this.badgeMultiplierService.getBadgeMultiplier(address, season);
-      const { minnowMultiplier, whaleMultiplier, globalMultiplier } = multiplier;
+      const { global, tx, txValue } = multiplier;
       log('Fetched badge multiplier:', multiplier);
       mp.multipliers = {
         transationMultiplier: {
-          multiplier: minnowMultiplier / 100,
-          max: minnowMultiplier === 140,
+          multiplier: tx.value,
+          max: tx.max,
         },
         transactionVolumeMultiplier: {
-          multiplier: whaleMultiplier / 100,
-          max: whaleMultiplier === 140,
+          multiplier: txValue.value,
+          max: txValue.max,
         },
         globalMultiplier: {
-          multiplier: globalMultiplier / 100,
-          max: globalMultiplier === 240,
+          multiplier: global.value,
+          max: global.max,
         },
       };
       log('Updated badge multiplier:', mp);
