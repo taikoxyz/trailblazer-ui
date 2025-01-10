@@ -21,8 +21,8 @@ export const getFactionName = (badgeId: number): FactionNames | undefined => {
     2: FactionNames.Bouncers,
     3: FactionNames.Masters,
     4: FactionNames.Monks,
-    5: FactionNames.Drummers,
-    6: FactionNames.Androids,
+    5: FactionNames.Androids,
+    6: FactionNames.Drummers,
     7: FactionNames.Shinto,
   };
 

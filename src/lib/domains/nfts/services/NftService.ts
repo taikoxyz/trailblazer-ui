@@ -4,7 +4,12 @@ import { type Address, isAddressEqual } from 'viem';
 import { trailblazersBadgesAddress } from '$generated/abi';
 import type { NFTMetadata } from '$lib/domains/nfts/types/shared/types';
 import { getMovementName, Movements, Seasons } from '$lib/domains/profile/types/types';
-import { type BadgesByFaction, type BadgesByMovement, type NFT } from '$lib/shared/types/NFT';
+import {
+  type BadgeDetailsByFaction,
+  type BadgeDetailsByMovement,
+  type BadgesByFaction,
+  type NFT,
+} from '$lib/shared/types/NFT';
 import { globalAxiosConfig } from '$shared/services/api/axiosClient';
 import { chainId } from '$shared/utils/chain';
 import { getLogger } from '$shared/utils/logger';
@@ -126,17 +131,17 @@ export class NftService {
    * @return {*}  {(Promise<BadgeCollection[]>)}
    * @memberof NftService
    */
-  async fetchBadgesForUser(address: Address): Promise<BadgesByMovement> {
+  async fetchBadgesForUser(address: Address): Promise<BadgeDetailsByMovement> {
     log('fetchBadgesForUser', { address });
     try {
       const badgesByMovement = await this.adapter.fetchBadgesByMovementForUser(address);
 
-      const simplifiedBadgesByMovement: BadgesByMovement = {
+      const simplifiedBadgesByMovement: BadgeDetailsByMovement = {
         [Movements.Devs]: this.mapFactions(badgesByMovement[Movements.Devs]),
         [Movements.Minnows]: this.mapFactions(badgesByMovement[Movements.Minnows]),
         [Movements.Whales]: this.mapFactions(badgesByMovement[Movements.Whales]),
       };
-
+      log('simplifiedBadgesByMovement', simplifiedBadgesByMovement);
       return simplifiedBadgesByMovement;
     } catch (e) {
       console.error(e);
@@ -148,28 +153,29 @@ export class NftService {
    * Maps factions to simplified structure with one NFT per faction and total count.
    *
    * @param factions
-   * @returns Simplified factions
+   * @returns Simplified factions with badge and total count
    */
-  mapFactions(factions: BadgesByFaction): BadgesByFaction {
-    const defaultFactionStructure: BadgesByFaction = {
-      [FactionNames.Ravers]: [],
-      [FactionNames.Robots]: [],
-      [FactionNames.Bouncers]: [],
-      [FactionNames.Masters]: [],
-      [FactionNames.Monks]: [],
-      [FactionNames.Drummers]: [],
-      [FactionNames.Androids]: [],
-      [FactionNames.Shinto]: [],
+  mapFactions(factions: BadgesByFaction): BadgeDetailsByFaction {
+    const defaultFactionStructure: BadgeDetailsByFaction = {
+      [FactionNames.Ravers]: { badge: null, total: 0 },
+      [FactionNames.Robots]: { badge: null, total: 0 },
+      [FactionNames.Bouncers]: { badge: null, total: 0 },
+      [FactionNames.Masters]: { badge: null, total: 0 },
+      [FactionNames.Monks]: { badge: null, total: 0 },
+      [FactionNames.Drummers]: { badge: null, total: 0 },
+      [FactionNames.Androids]: { badge: null, total: 0 },
+      [FactionNames.Shinto]: { badge: null, total: 0 },
     };
 
     return Object.entries(defaultFactionStructure).reduce((acc, [faction]) => {
       const nfts = factions[faction as keyof BadgesByFaction] || [];
-      const firstNft = nfts[0] ? [nfts[0]] : [];
-      const firstNftNotFrozen = nfts.find((nft) => !nft.frozen)
-        ? ([nfts.find((nft) => !nft.frozen)].filter(Boolean) as NFT[])
-        : [];
+      const firstNftNotFrozen = nfts.find((nft) => !nft.frozen);
+      const firstNft = firstNftNotFrozen || nfts[0] || null;
 
-      acc[faction as keyof BadgesByFaction] = firstNftNotFrozen.length > 0 ? firstNftNotFrozen : firstNft;
+      acc[faction as keyof BadgesByFaction] = {
+        badge: firstNft,
+        total: nfts.length,
+      };
       return acc;
     }, defaultFactionStructure);
   }
