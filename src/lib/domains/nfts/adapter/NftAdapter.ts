@@ -180,11 +180,7 @@ export class NftAdapter {
     log('fetchTaikoTokensForUser', { address });
 
     try {
-      const [badgesGraphqlResponse, taikoonsAndSnaefellsGraphqlResponse] = await Promise.all([
-        badgesSubgraphClient.query({
-          query: USER_NFTS_FETCH_BADGES_QUERY,
-          variables: { address },
-        }),
+      const [taikoonsAndSnaefellsGraphqlResponse] = await Promise.all([
         taikoonsSubgraphClient.query({
           query: USER_NFTS_FETCH_TAIKOONS_AND_SNAEFELLS_QUERY,
           variables: { address },
@@ -192,19 +188,17 @@ export class NftAdapter {
       ]);
 
       if (
-        (!badgesGraphqlResponse || !badgesGraphqlResponse.data || !badgesGraphqlResponse.data.tokens) &&
-        (!taikoonsAndSnaefellsGraphqlResponse ||
-          !taikoonsAndSnaefellsGraphqlResponse.data ||
-          !taikoonsAndSnaefellsGraphqlResponse.data.tokens)
+        !taikoonsAndSnaefellsGraphqlResponse ||
+        !taikoonsAndSnaefellsGraphqlResponse.data ||
+        !taikoonsAndSnaefellsGraphqlResponse.data.tokens
       ) {
         // account does not exist, skip
         return [];
       }
 
-      const { tokens: badgeTokens } = badgesGraphqlResponse?.data || { tokens: [] };
       const { tokens: otherTokens } = taikoonsAndSnaefellsGraphqlResponse?.data || { tokens: [] };
 
-      const tokens = [...badgeTokens, ...otherTokens];
+      const tokens = [...otherTokens];
 
       const flatTokens = tokens.map((token: Token) => {
         const address = token.contract as Address;

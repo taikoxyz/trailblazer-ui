@@ -1,23 +1,7 @@
 import { writable } from 'svelte/store';
-import { zeroAddress } from 'viem';
 
-import nftService from '$lib/domains/nfts/services/NFTServiceInstance';
-import type { BadgeDetailsByMovement } from '$shared/types/NFT';
-import getConnectedAddress from '$shared/utils/getConnectedAddress';
+import type { BadgeDetailsByMovement, NFT } from '$shared/types/NFT';
 
 export const badgeStore = writable<BadgeDetailsByMovement | null>(null);
-
-export async function fetchBadges() {
-  try {
-    const address = getConnectedAddress();
-    if (address !== zeroAddress) {
-      const badges = await nftService.fetchBadgesForUser(address);
-      badgeStore.set(badges);
-    } else {
-      badgeStore.set(null);
-    }
-  } catch (error) {
-    console.error('Error fetching badges:', error);
-    badgeStore.set(null);
-  }
-}
+export const taikoonStore = writable<NFT[]>([]);
+export const snaefellStore = writable<NFT | null>(null);
