@@ -1,10 +1,13 @@
 <script lang="ts">
+  import { Icon } from '$shared/components/Icon';
   import type { NFT } from '$shared/types/NFT';
   import { classNames } from '$shared/utils/classNames';
 
   import MultiplierBadge from '../MultiplierBadge.svelte';
 
   export let token: NFT;
+  export let hideBubbles = false;
+  export let locked = false;
 
   $: image = token.metadata.image as string;
 
@@ -30,9 +33,11 @@
     'top-0',
     'z-20',
     'w-full',
+    locked ? 'blur-md' : null,
   );
 
   const bubbleWrapperClasses = classNames(
+    hideBubbles ? 'hidden' : 'block',
     'absolute',
     'top-[20px]',
     'right-[20px]',
@@ -49,6 +54,8 @@
     }
     return `https://ipfs.io/ipfs/${url}`;
   }
+
+  const lockedOverlayClasses = classNames('absolute', 'w-full', 'h-full', 'items-center', 'justify-center', 'f-col');
 </script>
 
 <div class={wrapperClasses}>
@@ -59,6 +66,13 @@
   <div class={bubbleWrapperClasses}>
     <MultiplierBadge {token} />
   </div>
+
+  {#if locked}
+    <div class={lockedOverlayClasses}>
+      <Icon type="lock" size={80} />
+      <span class="text-sm hidden lg:block">Locked for current season</span>
+    </div>
+  {/if}
 </div>
 
 <style>

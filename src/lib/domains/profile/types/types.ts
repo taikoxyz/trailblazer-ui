@@ -64,6 +64,7 @@ export enum Movements {
   Devs, // Unused
   Whales, // Based, pink
   Minnows, // Boosted, purple
+
   // Dev, // s1
 }
 

@@ -1,9 +1,8 @@
 import axios from 'axios';
-import { type Address, isAddressEqual } from 'viem';
+import { type Address } from 'viem';
 
-import { trailblazersBadgesAddress } from '$generated/abi';
 import type { NFTMetadata } from '$lib/domains/nfts/types/shared/types';
-import { getMovementName, Movements, Seasons } from '$lib/domains/profile/types/types';
+import { getMovementName, Movements } from '$lib/domains/profile/types/types';
 import {
   type BadgeDetailsByFaction,
   type BadgeDetailsByMovement,
@@ -11,9 +10,7 @@ import {
   type NFT,
 } from '$lib/shared/types/NFT';
 import { globalAxiosConfig } from '$shared/services/api/axiosClient';
-import { chainId } from '$shared/utils/chain';
 import { getLogger } from '$shared/utils/logger';
-import generateBadgeMetadata from '$shared/utils/nfts/generateBadgeMetadata';
 
 import { NftAdapter } from '../adapter/NftAdapter';
 import { FactionNames, getFactionName } from '../types/badges/types';
@@ -69,7 +66,6 @@ export class NftService {
    * Fetches the NFTs for a user
    * - Taikoons
    * - Snaefell
-   * - s1 & s1 Trailblazer Badges
    *
    * @param {NFT} nft
    * @return {*}  {(Promise<NFT[]>)}
@@ -82,21 +78,7 @@ export class NftService {
       const tokens = await this.adapter.fetchTaikoTokensForUser(address);
       const flatTokens: NFT[] = [];
       for (const token of tokens) {
-        if (token.metadata.badgeId !== undefined) {
-          const badgeId = token.metadata.badgeId as number;
-          const movement = token.metadata.movement as Movements;
-          const season = isAddressEqual(trailblazersBadgesAddress[chainId], token.address)
-            ? Seasons.Season1
-            : Seasons.Season2;
-
-          flatTokens.push({
-            ...token,
-            metadata: {
-              ...token.metadata,
-              ...generateBadgeMetadata(season, badgeId, movement),
-            },
-          });
-        } else {
+        {
           let tokenBaseUri = token.tokenUri;
           if (!tokenBaseUri.startsWith('https://')) {
             tokenBaseUri = `https://taikonfts.4everland.link/ipfs/${tokenBaseUri}`;
