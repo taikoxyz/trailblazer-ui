@@ -15,7 +15,6 @@
   import { AbstractProfileCard } from '../templates';
   import MultiplierItem from './MultiplierItem.svelte';
 
-  $: globalMultiplierView = { multiplier: 0, max: false };
   $: transactionVolumeMultiplierView = { multiplier: 0, max: false };
   $: transationMultiplierView = { multiplier: 0, max: false };
 
@@ -32,9 +31,14 @@
     );
     const { globalMultiplier, transactionVolumeMultiplier, transationMultiplier } = mp.multipliers;
 
-    globalMultiplierView = globalMultiplier;
-    transactionVolumeMultiplierView = transactionVolumeMultiplier;
-    transationMultiplierView = transationMultiplier;
+    transactionVolumeMultiplierView = {
+      ...transactionVolumeMultiplier,
+      multiplier: transactionVolumeMultiplier.multiplier * globalMultiplier.multiplier,
+    };
+    transationMultiplierView = {
+      ...transationMultiplier,
+      multiplier: transationMultiplier.multiplier * globalMultiplier.multiplier,
+    };
   });
 
   const headerClasses = classNames(
@@ -50,7 +54,7 @@
   );
 
   const cardClasses = classNames('bg-purple-900', 'relative', 'flex', 'flex-col', 'h-full');
-  const statusClasses = classNames('flex-1', 'mt-[80px]', 'xl:mt-0', 'text-center', 'h-full');
+  const statusClasses = classNames('flex-1', 'mt-[80px]', 'xl:mt-[150px]', 'text-center', 'h-full');
   const fontBoldTextLeftClasses = classNames('font-bold', 'f-col', 'h-full');
   const listClasses = classNames('f-col', 'gap-[8px]');
   const ctaClasses = classNames('absolute', 'bottom-0', 'w-full', 'pb-[27px]', 'px-[24px]');
@@ -78,7 +82,6 @@
         <MultiplierItem
           label={$t('profile.multipliers.card.txValue')}
           multiplierView={transactionVolumeMultiplierView} />
-        <MultiplierItem label={$t('profile.multipliers.card.global')} multiplierView={globalMultiplierView} />
       </ul>
     </div>
   </div>
