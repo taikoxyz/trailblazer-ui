@@ -37,14 +37,13 @@ export class DappCompetitionService {
       lastUpdated: Date.now(),
       pagination: { ...args },
     };
-    log('fetching leaderboard data', args, season);
 
     const leaderboardData: PaginationInfo<DappLeaderboardItem> = await this.competitionAdapter.fetchCompetitionData(
       args,
       season,
     );
 
-    log('leaderboardData', leaderboardData);
+    log('fetched leaderboardData', leaderboardData);
 
     if (leaderboardData.items && leaderboardData.items.length > 0) {
       const protocolDetailsPromises = leaderboardData.items.map(async (item) => {

@@ -633,6 +633,57 @@
       },
       "tokenName": "TAIKO Tokens"
     },
+    "thrillblazers": {
+      "description": {
+        "s2": " Thrill-Blazer launches Oct 18th. Calling all gaming and SocialFi dApps: Blaze new trails, fuel Taiko's momentum, and seize your chance for legendary rewards!",
+        "s3": " Thrill-Blazer launches Jan 20th. Calling all gaming and SocialFi dApps: Blaze new trails, fuel Taiko's momentum, and seize your chance for legendary rewards!"
+      },
+      "ended": {
+        "s2": {
+          "description": "Our journey concluded on November 18th, 2024. Congratulations to the winners!",
+          "title": "Journey ended"
+        },
+        "s3": {
+          "description": "Our journey concluded on February 20th, 2025. Congratulations to the winners!",
+          "title": "Journey ended"
+        }
+      },
+      "prize_breakdown": {
+        "s2": {
+          "total": "140k TAIKO Tokens",
+          "fifth": {
+            "amount": "5k"
+          },
+          "first": {
+            "amount": "65k"
+          },
+          "fourth": {
+            "amount": "10k"
+          },
+          "second": {
+            "amount": "40k"
+          },
+          "third": {
+            "amount": "20k"
+          }
+        },
+        "s3": {
+          "total": "100k TAIKO Tokens",
+          "first": {
+            "amount": "55k"
+          },
+          "fourth": {
+            "amount": "5k"
+          },
+          "second": {
+            "amount": "25k"
+          },
+          "third": {
+            "amount": "15k"
+          }
+        }
+      }
+    },
     "liquidityRoyale": {
       "blogpost": {
         "url": {
@@ -714,29 +765,6 @@
       },
       "readmore": {
         "text": "Do you still have questions about earning points and how they're calculated? Visit our blog post for all the answers!"
-      }
-    },
-    "thrillblazer": {
-      "ended": {
-        "description": "Our journey concluded on November 18th, 2024. Congratulations to the winners!",
-        "title": "Journey ended"
-      },
-      "prize_breakdown": {
-        "fifth": {
-          "amount": "5k"
-        },
-        "first": {
-          "amount": "65k"
-        },
-        "fourth": {
-          "amount": "10k"
-        },
-        "second": {
-          "amount": "40k"
-        },
-        "third": {
-          "amount": "20k"
-        }
       }
     },
     "user": {
@@ -871,7 +899,8 @@
       "dapp": "Taiko Trailblazer - Dapp Competition Leaderboard"
     },
     "journeys": {
-      "chillblazers": "Taiko - Chillblazer"
+      "chillblazers": "Taiko - Chillblazer",
+      "thrillblazers": "Thrillblazers"
     },
     "leaderboards": {
       "dapp": "Taiko Trailblazer - Dapp Leaderboard",
