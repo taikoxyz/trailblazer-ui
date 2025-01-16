@@ -1,9 +1,9 @@
 import type { Address } from 'viem';
 
 import { FactionNames } from '$lib/domains/nfts/types/badges/types';
+import type { NFTMetadata } from '$lib/domains/nfts/types/shared/types';
 import type { Movements } from '$lib/domains/profile/types/types';
 import type { NftTypes } from '$lib/domains/profile/types/UserNFTs';
-import type { NFTMetadata } from '$lib/domains/nfts/types/shared/types';
 
 export enum TokenType {
   Unknown = 0,

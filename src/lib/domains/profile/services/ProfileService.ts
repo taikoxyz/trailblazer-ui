@@ -2,7 +2,7 @@ import { getAccount } from '@wagmi/core';
 import { type Address, getAddress, type Hash } from 'viem';
 
 import { BadgeMultiplierService } from '$lib/domains/badges/services/BadgeMultiplierService';
-import BadgeRecruitmentService from '$lib/domains/badges/services/BadgeRecruitmentService';
+// import BadgeRecruitmentService from '$lib/domains/badges/services/BadgeRecruitmentService';
 import type { UserLeaderboardItem } from '$lib/domains/leaderboard/types/user/types';
 import { NftService } from '$lib/domains/nfts/services/NftService';
 import { ProfileApiAdapter } from '$lib/domains/profile/adapter/ProfileAdapter';
@@ -15,7 +15,7 @@ import type { UserPointHistory } from '$lib/domains/profile/types/ActivityHistor
 import { defaultUserProfile } from '$lib/domains/profile/types/defaultUserProfile';
 import type { DomainInfo } from '$lib/domains/profile/types/DomainInfo';
 import { levelTiers } from '$lib/domains/profile/types/LevelTiers';
-import { DomainType, Movements } from '$lib/domains/profile/types/types';
+import { DomainType } from '$lib/domains/profile/types/types';
 import type { UserInfoForLeaderboard } from '$lib/domains/profile/types/UserInfoForLeaderboard';
 import type { UserProfile } from '$lib/domains/profile/types/UserProfile';
 import type { SeasonHistoryEntry, UserStats } from '$lib/domains/profile/types/UserStats';
@@ -43,7 +43,7 @@ export class ProfileService implements IProfileService {
 
   //Services
   private combinedNFTService: NftService;
-  private badgeRecruitmentService: BadgeRecruitmentService;
+  // private badgeRecruitmentService: BadgeRecruitmentService;
 
   private localStorageKey = 'taikoENSdomain';
 
@@ -51,14 +51,14 @@ export class ProfileService implements IProfileService {
     apiAdapter?: ProfileApiAdapter,
     userRepository?: UserRepository,
     combinedNFTService?: NftService,
-    badgeRecruitmentService?: BadgeRecruitmentService,
+    // badgeRecruitmentService?: BadgeRecruitmentService,
     seasonBonusAdapter?: SeasonBonusPointsAdapter,
     badgeMultiplierService?: BadgeMultiplierService,
   ) {
     this.apiAdapter = apiAdapter || new ProfileApiAdapter();
     this.userRepository = userRepository || new UserRepository();
     this.combinedNFTService = combinedNFTService || new NftService();
-    this.badgeRecruitmentService = badgeRecruitmentService || new BadgeRecruitmentService();
+    // this.badgeRecruitmentService = badgeRecruitmentService || new BadgeRecruitmentService();
     this.seasonBonusAdapter = seasonBonusAdapter || new SeasonBonusPointsAdapter();
     this.badgeMultiplierService = badgeMultiplierService || new BadgeMultiplierService();
   }
@@ -131,7 +131,6 @@ export class ProfileService implements IProfileService {
         this.handleDomainSelection(userDomainInfo),
         // this.fetchAndCalculateMultipliers(address),
         this.performAdditionalCalculations(),
-        this.previousSeasonFinalScores(address, season - 1),
         // this.getBadgeRecruitments(address),
       ]);
       // const [multiplierResult] = await Promise.all([this.handleDomainSelection(info)]);
@@ -420,7 +419,7 @@ export class ProfileService implements IProfileService {
         nfts,
       });
 
-      await this.getBadgeRecruitments(address);
+      // await this.getBadgeRecruitments(address);
 
       log('Profile with NFTs:', await this.userRepository.get());
     } catch (error) {
@@ -554,10 +553,10 @@ export class ProfileService implements IProfileService {
    * @return {*}  {Promise<number[]>}
    * @memberof ProfileService
    */
-  async getEnabledRecruitments(): Promise<number[]> {
-    log('getEnabledRecruitments');
-    return this.badgeRecruitmentService.getEnabledRecruitments();
-  }
+  // async getEnabledRecruitments(): Promise<number[]> {
+  //   log('getEnabledRecruitments');
+  //   return this.badgeRecruitmentService.getEnabledRecruitments();
+  // }
 
   private async _updateRecruitment(recruitment: IBadgeRecruitment): Promise<void> {
     const oldUser = await this.userRepository.get();
@@ -591,11 +590,11 @@ export class ProfileService implements IProfileService {
    * @return {*}  {Promise<NFT>}
    * @memberof ProfileService
    */
-  async startRecruitment(address: Address, nft: NFT, recruitment: IBadgeRecruitment): Promise<void> {
-    log('startRecruitment', { address, nft, recruitment });
-    const updatedRecruitment = await this.badgeRecruitmentService.startRecruitment(address, nft, recruitment);
-    await this._updateRecruitment(updatedRecruitment);
-  }
+  // async startRecruitment(address: Address, nft: TBBadge, recruitment: IBadgeRecruitment): Promise<void> {
+  //   log('startRecruitment', { address, nft, recruitment });
+  //   const updatedRecruitment = await this.badgeRecruitmentService.startRecruitment(address, nft, recruitment);
+  //   await this._updateRecruitment(updatedRecruitment);
+  // }
 
   /**
    * Starts a recruitment process
@@ -606,21 +605,21 @@ export class ProfileService implements IProfileService {
    * @return {*}  {Promise<NFT>}
    * @memberof ProfileService
    */
-  async influenceRecruitment(
-    address: Address,
-    nft: NFT,
-    selectedMovement: Movements,
-    recruitment: IBadgeRecruitment,
-  ): Promise<void> {
-    log('influenceRecruitment', { address, nft, selectedMovement });
-    const updatedRecruitment = await this.badgeRecruitmentService.influenceRecruitment(
-      address,
-      nft,
-      selectedMovement,
-      recruitment,
-    );
-    await this._updateRecruitment(updatedRecruitment);
-  }
+  // async influenceRecruitment(
+  //   address: Address,
+  //   nft: TBBadge,
+  //   selectedMovement: Movements,
+  //   recruitment: IBadgeRecruitment,
+  // ): Promise<void> {
+  //   log('influenceRecruitment', { address, nft, selectedMovement });
+  //   const updatedRecruitment = await this.badgeRecruitmentService.influenceRecruitment(
+  //     address,
+  //     nft,
+  //     selectedMovement,
+  //     recruitment,
+  //   );
+  //   await this._updateRecruitment(updatedRecruitment);
+  // }
 
   /**
    * Starts a recruitment process
@@ -630,11 +629,11 @@ export class ProfileService implements IProfileService {
    * @return {*}  {Promise<NFT>}
    * @memberof ProfileService
    */
-  async endRecruitment(address: Address, nft: NFT, recruitment: IBadgeRecruitment): Promise<void> {
-    log('endRecruitment', { address, nft, recruitment });
-    const updatedRecruitment = await this.badgeRecruitmentService.endRecruitment(address, nft, recruitment);
-    await this._updateRecruitment(updatedRecruitment);
-  }
+  // async endRecruitment(address: Address, nft: TBBadge, recruitment: IBadgeRecruitment): Promise<void> {
+  //   log('endRecruitment', { address, nft, recruitment });
+  //   const updatedRecruitment = await this.badgeRecruitmentService.endRecruitment(address, nft, recruitment);
+  //   await this._updateRecruitment(updatedRecruitment);
+  // }
 
   /**
    * Starts a recruitment process
@@ -643,13 +642,13 @@ export class ProfileService implements IProfileService {
    * @return {*}  {Promise<void>}
    * @memberof ProfileService
    */
-  async getBadgeRecruitments(address: Address): Promise<void> {
-    log('getRecruitmentStatus', { address });
-    const recruitments = await this.badgeRecruitmentService.getRecruitmentStatus(address);
-    await this.userRepository.update({
-      badgeRecruitment: recruitments,
-    });
-  }
+  // async getBadgeRecruitments(address: Address): Promise<void> {
+  //   log('getRecruitmentStatus', { address });
+  //   const recruitments = await this.badgeRecruitmentService.getRecruitmentStatus(address);
+  //   await this.userRepository.update({
+  //     badgeRecruitment: recruitments,
+  //   });
+  // }
 
   /**
    * Retrieves the user's blacklist status for the given season.
@@ -846,24 +845,24 @@ export class ProfileService implements IProfileService {
     }
   }
 
-  async getMaxInfluences(): Promise<number> {
-    try {
-      log('getMaxInfluences');
-      const user = await this.userRepository.get();
-      return this.badgeRecruitmentService.getMaxInfluences(user.userStats?.score || 0);
-    } catch (error) {
-      log('Error in getMaxInfluences:', error);
-      return 0;
-    }
-  }
+  //   async getMaxInfluences(): Promise<number> {
+  //     try {
+  //       log('getMaxInfluences');
+  //       const user = await this.userRepository.get();
+  //       return this.badgeRecruitmentService.getMaxInfluences(user.userStats?.score || 0);
+  //     } catch (error) {
+  //       log('Error in getMaxInfluences:', error);
+  //       return 0;
+  //     }
+  //   }
 
-  async getRecruitmentCycleId(): Promise<number> {
-    log('getRecruitmentCycleId');
-    return this.badgeRecruitmentService.getRecruitmentCycleId();
-  }
+  //   async getRecruitmentCycleId(): Promise<number> {
+  //     log('getRecruitmentCycleId');
+  //     return this.badgeRecruitmentService.getRecruitmentCycleId();
+  //   }
 
-  async resetMigration(tokenId: number, badgeId: number, cycleId: number): Promise<void> {
-    log('resetMigration', { tokenId, badgeId, cycleId });
-    await this.badgeRecruitmentService.resetMigration(tokenId, badgeId, cycleId);
-  }
+  //   async resetMigration(tokenId: number, badgeId: number, cycleId: number): Promise<void> {
+  //     log('resetMigration', { tokenId, badgeId, cycleId });
+  //     await this.badgeRecruitmentService.resetMigration(tokenId, badgeId, cycleId);
+  //   }
 }

@@ -10,7 +10,7 @@ export type UnifiedLeaderboardRow = {
   handle?: string;
   level?: string;
   title?: string;
-  address?: Address;
+  address?: Address | string;
 };
 
 type ProtocolData = {

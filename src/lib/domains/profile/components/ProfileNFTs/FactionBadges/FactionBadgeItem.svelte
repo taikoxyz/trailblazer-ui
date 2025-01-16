@@ -1,19 +1,18 @@
 <script lang="ts">
+  import { createEventDispatcher } from 'svelte';
+
   import type { FactionBadgeButton } from '$lib/domains/profile/types/FactionBadgeButton';
   import { ActionButton } from '$shared/components/Button';
   import { Icon } from '$shared/components/Icon';
   import type { TBBadge } from '$shared/types/NFT';
   import { classNames } from '$shared/utils/classNames';
-  import { createEventDispatcher } from 'svelte';
 
-  import MultiplierBadge from '../MultiplierBadge.svelte';
   import FactionImage from './FactionImage.svelte';
 
   export let blurred: boolean = false;
   export let inColor: boolean = true;
   export let buttonDisabled = false;
   export let button: null | FactionBadgeButton = null;
-  export let hideBubbles = false;
   export let token: TBBadge;
 
   const dispatch = createEventDispatcher();
@@ -48,16 +47,16 @@
 
   $: imageWrapperClasses = classNames('w-full', 'f-col', 'items-center', blurred ? 'blur-md' : null);
 
-  const bubbleWrapperClasses = classNames(
-    'absolute',
-    'top-[20px]',
-    'right-[20px]',
-    'flex',
-    'flex-col',
-    'justify-end',
-    'items-end',
-    'gap-[5px]',
-  );
+  // const bubbleWrapperClasses = classNames(
+  //   'absolute',
+  //   'top-[20px]',
+  //   'right-[20px]',
+  //   'flex',
+  //   'flex-col',
+  //   'justify-end',
+  //   'items-end',
+  //   'gap-[5px]',
+  // );
 
   const buttonWrapperClasses = classNames('absolute', 'w-full', 'bottom-0', 'p-[20px]', 'h-[88px]');
 
@@ -74,11 +73,11 @@
   </div>
   <slot />
 
-  {#if !hideBubbles}
+  <!-- {#if !hideBubbles}
     <div class={bubbleWrapperClasses}>
       <MultiplierBadge {token} />
     </div>
-  {/if}
+  {/if} -->
 
   {#if button}
     <div class={buttonWrapperClasses}>

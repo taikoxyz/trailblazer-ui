@@ -1,4 +1,4 @@
-<script lang="ts">
+<!-- <script lang="ts">
   import * as Sentry from '@sentry/sveltekit';
   import { format, t } from 'svelte-i18n';
 
@@ -88,7 +88,7 @@
     'items-center',
   );
 
-  $: badgeName = Object.values(FactionNames)[$activeRecruitment?.s1Badge?.metadata.badgeId as number] || '';
+  $: badgeName = Object.values(FactionNames)[$activeRecruitment?.s1Badge?.badgeId as number] || '';
 </script>
 
 <CoreModal bind:open={$startRecruitmentModal}>
@@ -124,4 +124,4 @@
       {$t('badge_recruitment.buttons.start_recruitment')}
     </ActionButton>
   </CoreModalFooter>
-</CoreModal>
+</CoreModal> -->

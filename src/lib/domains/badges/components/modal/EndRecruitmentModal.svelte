@@ -1,4 +1,4 @@
-<script lang="ts">
+<!-- <script lang="ts">
   import * as Sentry from '@sentry/sveltekit';
   import Flippable from 'svelte-flip';
   import { t } from 'svelte-i18n';
@@ -11,7 +11,7 @@
   import { errorToast, successToast } from '$shared/components/NotificationToast';
   import { account } from '$shared/stores';
   import { activeRecruitment, endRecruitmentModal } from '$shared/stores/recruitment';
-  import type { NFT } from '$shared/types/NFT';
+  import type { TBBadge } from '$shared/types/NFT';
   import { classNames } from '$shared/utils/classNames';
 
   import FancyButton from '../FancyButton.svelte';
@@ -23,7 +23,7 @@
 
   $: isLoading = false;
 
-  $: backToken = null as null | NFT;
+  $: backToken = null as null | TBBadge;
 
   async function handleEndRecruitment() {
     try {
@@ -62,8 +62,8 @@
 
   $: isRevealed = false;
 
-  function getMovementName(token: NFT) {
-    return MovementNames[token.metadata.movement as Movements];
+  function getMovementName(token: TBBadge) {
+    return MovementNames[token.movement as Movements];
   }
 
   const badgeWrapperClasses = classNames('w-full', 'flex', 'justify-center', 'items-center');
@@ -85,7 +85,7 @@
         <RecruitmentBadgeItem locked token={$activeRecruitment.s1Badge} slot="front" />
 
         <div slot="back">
-          {#if backToken && backToken.metadata.movement !== undefined}
+          {#if backToken && backToken.movement !== undefined}
             <RecruitmentBadgeItem hideBubbles token={backToken}>
               {getMovementName(backToken)}
             </RecruitmentBadgeItem>
@@ -106,4 +106,4 @@
       <ActionButton on:click={() => ($endRecruitmentModal = false)} priority="primary">Confirm</ActionButton>
     {/if}
   </CoreModalFooter>
-</CoreModal>
+</CoreModal> -->
