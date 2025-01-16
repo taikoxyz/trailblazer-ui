@@ -2,8 +2,9 @@
   import type { FactionBadgeButton } from '$lib/domains/profile/types/FactionBadgeButton';
   import { ActionButton } from '$shared/components/Button';
   import { Icon } from '$shared/components/Icon';
-  import type { NFT } from '$shared/types/NFT';
+  import type { TBBadge } from '$shared/types/NFT';
   import { classNames } from '$shared/utils/classNames';
+  import { createEventDispatcher } from 'svelte';
 
   import MultiplierBadge from '../MultiplierBadge.svelte';
   import FactionImage from './FactionImage.svelte';
@@ -13,16 +14,21 @@
   export let buttonDisabled = false;
   export let button: null | FactionBadgeButton = null;
   export let hideBubbles = false;
-  export let token: NFT;
+  export let token: TBBadge;
 
-  $: badgeId = (token.metadata.badgeId as number) || 0;
+  const dispatch = createEventDispatcher();
+
+  const handleClick = () => {
+    dispatch('badgeclick', { badge: token });
+  };
+
+  $: badgeId = 'badgeId' in token ? (token.badgeId as number) : 0;
 
   // season-relevant value
   $: isFrozen = token.metadata.frozenS3;
 
   // CSS classes
   $: wrapperClasses = classNames(
-    'w-[277px]',
     'relative',
     'overflow-hidden',
     'flex',
@@ -59,12 +65,14 @@
   const buttonWrapperClasses = classNames('absolute', 'w-full', 'bottom-0', 'p-[20px]', 'h-[88px]');
 
   const lockedOverlayClasses = classNames('absolute', 'w-full', 'h-full', 'items-center', 'justify-center', 'f-col');
+
+  $: reactiveToken = { ...token };
 </script>
 
-<div class={wrapperClasses} role="button">
+<div class={wrapperClasses} role="button" on:click={handleClick} on:keydown tabindex="0">
   <div class={contentWrapperClasses}>
     <div class={imageWrapperClasses}>
-      <FactionImage {token} />
+      <FactionImage token={reactiveToken} />
     </div>
   </div>
   <slot />

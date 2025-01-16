@@ -1,51 +1,54 @@
 <script lang="ts">
   import { t } from 'svelte-i18n';
-
   import nftService from '$lib/domains/nfts/services/NFTServiceInstance';
-  import { Movements } from '$lib/domains/profile/types/types';
-  import { type BadgeType, NftTypes } from '$lib/domains/profile/types/UserNFTs';
+  import { Movements, Multipliers } from '$lib/domains/profile/types/types';
+  import { NftTypes } from '$lib/domains/profile/types/UserNFTs';
   import { Spinner } from '$shared/components';
-  import { ActionButton } from '$shared/components/Button';
-  import type { NFT } from '$shared/types/NFT';
+  import type { BadgeDetails, NFT, TBBadge } from '$shared/types/NFT';
   import { classNames } from '$shared/utils/classNames';
-
   import FactionBadgeItem from '../FactionBadges/FactionBadgeItem.svelte';
   import UserNftItem from '../Taikoons/UserNFTItem.svelte';
   import Placeholder from './Placeholder.svelte';
+  import { createEventDispatcher } from 'svelte';
+
+  const dispatch = createEventDispatcher();
+
+  const uuid = crypto.randomUUID();
+
+  export let collectionType: NftTypes;
+  export let movement: Movements | 'taikoon' | 'snaefell';
+  export let collected: number;
+  export let image: string;
+  export let max = -1;
+  export let badges: BadgeDetails[] = [];
+  export let nfts: NFT[] = [];
+  export let collectionName: string;
+
+  let loading = true;
+  let badgesToDisplay = [...badges];
+  let nftsToDisplay = [...nfts];
 
   const wrapperClasses = classNames('');
-  const innerWrapperClasses = classNames(
+  const containerClasses = classNames(
+    'collapse',
+    'collapse-arrow',
     'rounded-[30px]',
-    'px-[16px]',
-    'py-[30px]',
+    'p-[25px]',
     'bg-primary-base-content',
-    'space-y-[50px]',
     'f-col',
     'items-center',
     'justify-center',
   );
-  const buttonClasses = classNames(
-    'max-w-[157px]',
-    'font-bold',
-    'order-4',
-    'md:order-1',
-    'justify-end',
-    'md:my-[-30px]',
-    '!min-h-[48px]',
-    '!max-h-[48px]',
-  );
   const collectionInfoWrapper = classNames(
     'w-full',
-    'md:w-[565px]',
-    'lg:w-[818px]',
-    'flex',
-    'flex-wrap',
+    'md:f-row',
+    'f-col',
     'justify-between',
-    'items-center',
+    'md:items-center',
     'gap-[30px]',
   );
   const titleClasses = classNames(
-    'w-1/2',
+    'min-w-[220px]',
     'text-[35px]',
     'font-medium',
     'leading-[42px]',
@@ -53,53 +56,22 @@
     'f-row',
     'items-center',
     'gap-[16px]',
-    'order-1',
   );
-  const collectionDetailsWrapperClasses = classNames('space-y-[10px]', 'w-full', 'order-3');
-  const collectionDetailsRowClasses = classNames(
-    'f-row',
-    'justify-between',
-    'font-bold',
-    'w-full',
-    'min-w-[274px]',
-    'md:w-[565px]',
-    'lg:w-[818px]',
-  );
+  const collectionDetailsWrapperClasses = classNames('w-full', 'justify-between', 'f-row', 'space-x-[50px]');
+  const collectionDetailsRowClasses = classNames('f-col', 'justify-between', 'font-bold', 'w-full');
   const badgeWrapperClasses = classNames(
     'grid',
     'grid-cols-2',
     'md:grid-cols-4',
     'gap-[15px]',
     'items-center',
-    'md:w-[565px]',
-    'lg:w-[818px]',
+    'w-full',
     'justify-self-center',
     'justify-center',
+    'mt-[50px]',
   );
-
   const titleImageClasses = classNames('w-[50px]', 'h-[50px]');
 
-  export let collectionType: NftTypes;
-  export let movement: Movements | 'taikoon' | 'snaefell';
-  export let collected: number;
-  export let image: string;
-  export let max = -1;
-  export let badges: BadgeType[] = [];
-  export let collectionName: string;
-
-  let loading = true;
-  let badgesToDisplay = [...badges];
-
-  // Base multipliers
-  const Multipliers = {
-    [Movements.Devs]: 0.05,
-    [Movements.Whales]: 0.05,
-    [Movements.Minnows]: 0.05,
-    taikoon: 1,
-    snaefell: 0.1,
-  };
-
-  // Calculate final multiplier
   const calculateMultiplier = () => {
     const base = Multipliers[movement];
     return badgesToDisplay.reduce((acc, { badge }) => {
@@ -112,28 +84,34 @@
 
   $: multiplier = calculateMultiplier();
 
-  // Helper to load badge image
-  const loadBadgeImage = async (badge: NFT) => {
+  const loadBadgeImage = async (badge: TBBadge) => {
     const path = await nftService.getStataticPath({ ...badge });
     return {
       ...badge,
       metadata: { ...badge.metadata, image: `${path}.png`, 'video/mp4': `${path}.mp4` },
-    } as NFT;
+    } as TBBadge;
   };
 
-  // Helper to load single NFT
+  const viewFullCollection = () => {
+    const allBadges = badges.map(({ allBadges }) => allBadges || []).flat();
+    dispatch('fullscreen', {
+      collectionType,
+      movement,
+      allBadges,
+    });
+  };
+
   const loadSingleNft = async (token: NFT) => {
     const nft = await nftService.getNFTMetadata({ ...token });
     if (!nft) return null;
     return { ...token, metadata: { ...token.metadata, image: nft.image } } as NFT;
   };
 
-  // Fetch images for all badges
   const fetchBadges = async () => {
     const promises = badges.map(async ({ badge }) => {
       if (!badge) return null;
       if (collectionType === NftTypes.BADGE && !Array.isArray(badge)) {
-        return loadBadgeImage(badge);
+        return loadBadgeImage(badge as TBBadge);
       }
       if (collectionType === NftTypes.SNAEFELL || collectionType === NftTypes.TAIKOON) {
         if (Array.isArray(badge)) {
@@ -147,7 +125,6 @@
     return Promise.all(promises);
   };
 
-  // Trigger fetch on mount if needed
   $: if (badges.length > 0 && loading) {
     loading = true;
     fetchBadges()
@@ -155,11 +132,11 @@
         badgesToDisplay = badges.map((item, idx) => {
           const data = results[idx];
           if (Array.isArray(data)) {
-            const filtered = data.filter((t): t is NFT => !!t);
-            return { ...item, badge: filtered.length ? filtered : null };
+            const filtered = data.filter((t): t is TBBadge => !!t);
+            return { ...item, badge: filtered.length ? filtered : null, faction: item.faction };
           }
-          return { ...item, badge: data || item.badge };
-        });
+          return { ...item, badge: (data as TBBadge) || item.badge, faction: item.faction };
+        }) as BadgeDetails[];
         loading = false;
       })
       .catch((err) => {
@@ -167,68 +144,93 @@
         loading = false;
       });
   }
+  if (nfts.length > 0) {
+    loading = false;
+  }
 </script>
 
 <div class={wrapperClasses}>
-  <div class={innerWrapperClasses}>
-    <div class={collectionInfoWrapper}>
-      <div class={titleClasses}>
-        <img class={titleImageClasses} src={image} alt={collectionName} />
-        {collectionName}
-      </div>
-      <div class={collectionDetailsWrapperClasses}>
-        <div class={collectionDetailsRowClasses}>
-          <span class="text-secondary-content">{$t('nfts.collection.collected')}</span>
-          <div>
-            {collected}
-            {#if max > 0}
-              <span class="text-secondary-content">/{max}</span>
-            {/if}
+  <div class={containerClasses}>
+    <input type="checkbox" id={uuid} class="collapse-checkbox peer hidden" />
+
+    <label for={uuid} class="collapse-title items-center cursor-pointer p-0 m-0 w-full flex">
+      <div class={collectionInfoWrapper}>
+        <div class={titleClasses}>
+          <img class={titleImageClasses} src={image} alt={collectionName} />
+          {collectionName}
+        </div>
+        <div class={collectionDetailsWrapperClasses}>
+          <div class={collectionDetailsRowClasses}>
+            <span class="text-secondary-content">{$t('nfts.collection.collected')}</span>
+            <div>
+              {collected}
+              {#if max > 0}
+                <span class="text-secondary-content">/{max}</span>
+              {/if}
+            </div>
+          </div>
+          <div class={collectionDetailsRowClasses}>
+            <span class="text-secondary-content">Multiplier per Badge</span>
+            <span>+{Multipliers[movement]}x</span>
+          </div>
+          <div class={collectionDetailsRowClasses}>
+            <span class="text-secondary-content">{$t('nfts.collection.multiplier')}</span>
+            <span>+{multiplier.toFixed(2)}x</span>
           </div>
         </div>
-        <div class={collectionDetailsRowClasses}>
-          <span class="text-secondary-content">Multiplier per Badge</span>
-          <span>+{Multipliers[movement]}x</span>
-        </div>
-        <div class={collectionDetailsRowClasses}>
-          <span class="text-secondary-content">{$t('nfts.collection.multiplier')}</span>
-          <span>+{multiplier.toFixed(2)}x</span>
-        </div>
       </div>
-      <ActionButton class={buttonClasses} priority="primary">View collection</ActionButton>
-    </div>
+    </label>
 
-    <div class={badgeWrapperClasses}>
+    <div
+      class="collapse-content peer-checked:max-h-[100rem] max-h-0 overflow-hidden peer-checked:overflow-visible transition-all">
       {#if loading}
-        <Spinner size="sm" />
+        <div class="flex justify-center">
+          <Spinner size="sm" />
+        </div>
       {:else}
-        {#each badgesToDisplay as { faction, badge, total }}
-          {#if badge && collectionType === NftTypes.BADGE && !Array.isArray(badge)}
-            <div class="flex flex-col items-center">
-              <FactionBadgeItem class="h-[130px] w-[130px] lg:w-[186px] lg:h-[186px]" token={badge} hideBubbles />
-              <div class="mt-2 text-center">
-                <p class="font-bold capitalize">{faction}</p>
-                <p class="text-secondary-content">Total: {total}</p>
-              </div>
-            </div>
-          {:else if badge && (collectionType === NftTypes.SNAEFELL || collectionType === NftTypes.TAIKOON)}
-            {#if Array.isArray(badge)}
-              {#each badge as token, index}
-                <UserNftItem {token} locked={index > 0} hideBubbles />
+        <div class={badgeWrapperClasses}>
+          <!-- Badges -->
+          {#if badgesToDisplay.length > 0}
+            {#each badgesToDisplay as { badge, total, faction }}
+              {#if badge && collectionType === NftTypes.BADGE && !Array.isArray(badge)}
+                <div class="flex flex-col items-center">
+                  <FactionBadgeItem
+                    class="h-[130px] w-[130px] lg:w-[186px] lg:h-[186px] xl:w-[290px] xl:h-[290px]"
+                    token={badge}
+                    hideBubbles
+                    on:badgeclick={viewFullCollection} />
+                  <div class="mt-2 text-center">
+                    <p class="font-bold capitalize">{faction}</p>
+                    <p class="text-secondary-content">Total: {total}</p>
+                  </div>
+                </div>
+              {:else}
+                <div class="flex flex-col items-center">
+                  <Placeholder />
+                  <div class="mt-2 text-center">
+                    <p class="font-bold capitalize">{faction}</p>
+                    <p class="text-secondary-content">Total: {total}</p>
+                  </div>
+                </div>
+              {/if}
+            {/each}
+            <!-- NFTS -->
+          {:else if nftsToDisplay.length > 0}
+            {#if Array.isArray(nftsToDisplay)}
+              {#each nftsToDisplay as token, index}
+                <UserNftItem
+                  class="h-[130px] w-[130px] lg:w-[186px] lg:h-[186px] xl:w-[290px] xl:h-[290px]"
+                  {token}
+                  locked={index > 0}
+                  hideBubbles />
               {/each}
             {:else}
-              <UserNftItem token={badge} hideBubbles />
+              <UserNftItem token={nftsToDisplay} hideBubbles />
             {/if}
           {:else}
-            <div class="flex flex-col items-center">
-              <Placeholder />
-              <div class="mt-2 text-center">
-                <p class="font-bold capitalize">{faction}</p>
-                <p class="text-secondary-content">Total: {total}</p>
-              </div>
-            </div>
+            <p>No badges available.</p>
           {/if}
-        {/each}
+        </div>
       {/if}
     </div>
   </div>

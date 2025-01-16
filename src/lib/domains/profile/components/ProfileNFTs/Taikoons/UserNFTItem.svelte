@@ -23,7 +23,7 @@
     'bg-[#310E2F]',
     'transition-all',
   );
-  const imageWrapperClasses = classNames('relative', 'w-full', 'h-full', 'z-0');
+  const imageWrapperClasses = classNames('relative', 'w-full', 'h-full', 'z-0', $$props.class);
 
   const imageClasses = classNames(
     'pointer-events-none',
