@@ -3,7 +3,7 @@ import type { Address } from 'viem';
 import type { Movements } from '$lib/domains/profile/types/types';
 import { type IBadgeRecruitment, RecruitmentStatus } from '$lib/shared/types/BadgeRecruitment';
 import { activeRecruitment } from '$shared/stores/recruitment';
-import type { NFT } from '$shared/types/NFT';
+import type { TBBadge } from '$shared/types/NFT';
 import { getLogger } from '$shared/utils/logger';
 
 import BadgeRecruitmentAdapter from '../adapter/BadgeRecruitmentAdapter';
@@ -34,7 +34,7 @@ export default class BadgeRecruitmentService {
    * @param recruitment
    * @returns {*} {Promise<IBadgeRecruitment>}
    */
-  async startRecruitment(address: Address, nft: NFT, recruitment: IBadgeRecruitment): Promise<IBadgeRecruitment> {
+  async startRecruitment(address: Address, nft: TBBadge, recruitment: IBadgeRecruitment): Promise<IBadgeRecruitment> {
     log('startRecruitment', { address, nft, recruitment });
     return this.adapter.startRecruitment(address, nft, recruitment);
   }
@@ -49,7 +49,7 @@ export default class BadgeRecruitmentService {
    * */
   async influenceRecruitment(
     address: Address,
-    nft: NFT,
+    nft: TBBadge,
     selectedMovement: Movements,
     recruitment: IBadgeRecruitment,
   ): Promise<IBadgeRecruitment> {
@@ -64,7 +64,7 @@ export default class BadgeRecruitmentService {
    * @param recruitment
    * @returns {*} {Promise<IBadgeRecruitment>}
    */
-  async endRecruitment(address: Address, nft: NFT, recruitment: IBadgeRecruitment): Promise<IBadgeRecruitment> {
+  async endRecruitment(address: Address, nft: TBBadge, recruitment: IBadgeRecruitment): Promise<IBadgeRecruitment> {
     log('endRecruitment', { address, nft, recruitment });
     return this.adapter.endRecruitment(address, nft, recruitment);
   }

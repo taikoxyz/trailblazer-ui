@@ -8,6 +8,7 @@ import {
   type BadgeDetailsByMovement,
   type BadgesByFaction,
   type NFT,
+  type TBBadge,
 } from '$lib/shared/types/NFT';
 import { globalAxiosConfig } from '$shared/services/api/axiosClient';
 import { getLogger } from '$shared/utils/logger';
@@ -32,7 +33,6 @@ export class NftService {
    * @memberof NftService
    */
   async getNFTMetadata(nft: NFT): Promise<NFTMetadata | null> {
-    log('getNFTMetadata', { nft });
     if (!nft.tokenUri) return null;
     try {
       let tokenBaseUri = nft.tokenUri;
@@ -49,16 +49,13 @@ export class NftService {
     }
   }
 
-  async getStataticPath(nft: NFT): Promise<string | null> {
-    log('getStataticPath', { nft });
-
+  async getStataticPath(nft: TBBadge): Promise<string | null> {
     if (!nft.metadata) throw new Error('NFT does not have metadata');
 
-    const badgeType: FactionNames = getFactionName(nft.metadata.badgeId as number) as FactionNames;
-    const movement = getMovementName(nft.metadata.movement as Movements);
+    const badgeType: FactionNames = getFactionName(nft.badgeId as number) as FactionNames;
+    const movement = getMovementName(nft.movement as Movements);
 
     const path = `/badges/${movement}/${badgeType}`.toLowerCase();
-    log('getStataticPath result', { path });
     return path;
   }
 
@@ -139,14 +136,14 @@ export class NftService {
    */
   mapFactions(factions: BadgesByFaction): BadgeDetailsByFaction {
     const defaultFactionStructure: BadgeDetailsByFaction = {
-      [FactionNames.Ravers]: { badge: null, total: 0 },
-      [FactionNames.Robots]: { badge: null, total: 0 },
-      [FactionNames.Bouncers]: { badge: null, total: 0 },
-      [FactionNames.Masters]: { badge: null, total: 0 },
-      [FactionNames.Monks]: { badge: null, total: 0 },
-      [FactionNames.Drummers]: { badge: null, total: 0 },
-      [FactionNames.Androids]: { badge: null, total: 0 },
-      [FactionNames.Shinto]: { badge: null, total: 0 },
+      [FactionNames.Ravers]: { badge: null, total: 0, allBadges: null, faction: FactionNames.Ravers },
+      [FactionNames.Robots]: { badge: null, total: 0, allBadges: null, faction: FactionNames.Robots },
+      [FactionNames.Bouncers]: { badge: null, total: 0, allBadges: null, faction: FactionNames.Bouncers },
+      [FactionNames.Masters]: { badge: null, total: 0, allBadges: null, faction: FactionNames.Masters },
+      [FactionNames.Monks]: { badge: null, total: 0, allBadges: null, faction: FactionNames.Monks },
+      [FactionNames.Drummers]: { badge: null, total: 0, allBadges: null, faction: FactionNames.Drummers },
+      [FactionNames.Androids]: { badge: null, total: 0, allBadges: null, faction: FactionNames.Androids },
+      [FactionNames.Shinto]: { badge: null, total: 0, allBadges: null, faction: FactionNames.Shinto },
     };
 
     return Object.entries(defaultFactionStructure).reduce((acc, [faction]) => {
@@ -157,6 +154,8 @@ export class NftService {
       acc[faction as keyof BadgesByFaction] = {
         badge: firstNft,
         total: nfts.length,
+        allBadges: nfts,
+        faction: faction as FactionNames,
       };
       return acc;
     }, defaultFactionStructure);

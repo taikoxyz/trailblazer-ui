@@ -113,7 +113,7 @@ describe('BadgeRecruitmentAdapter', () => {
       const mockRecruitment: IBadgeRecruitment = {
         id: '1',
         cycleId: 1,
-        badgeId: mockBadge.metadata.badgeId as number,
+        badgeId: mockBadge.badgeId as number,
         status: RecruitmentStatus.ELIGIBLE,
         s1Badge: mockBadge,
         s2Badge: getMockBadge(SEASON_2, 2, Movements.Whales),
@@ -159,7 +159,7 @@ describe('BadgeRecruitmentAdapter', () => {
         abi: trailblazersBadgesAbi,
         address: trailblazersBadgesAddress[chainId],
         functionName: 'startRecruitment',
-        args: [BigInt(mockBadge.metadata.badgeId as number), BigInt(mockBadge.tokenId)],
+        args: [BigInt(mockBadge.badgeId as number), BigInt(mockBadge.tokenId)],
         chainId,
       });
 
@@ -210,7 +210,7 @@ describe('BadgeRecruitmentAdapter', () => {
       const mockRecruitment: IBadgeRecruitment = {
         id: '1',
         cycleId: 1,
-        badgeId: mockBadge.metadata.badgeId as number,
+        badgeId: mockBadge.badgeId as number,
         status: RecruitmentStatus.ELIGIBLE,
         s1Badge: mockBadge,
         s2Badge: getMockBadge(SEASON_2, 2, Movements.Whales),
@@ -322,7 +322,7 @@ describe('BadgeRecruitmentAdapter', () => {
       const mockRecruitment: IBadgeRecruitment = {
         id: '1',
         cycleId: 1,
-        badgeId: mockBadge.metadata.badgeId as number,
+        badgeId: mockBadge.badgeId as number,
         status: RecruitmentStatus.ELIGIBLE,
         s1Badge: mockBadge,
         s2Badge: getMockBadge(SEASON_2, 2, Movements.Whales),

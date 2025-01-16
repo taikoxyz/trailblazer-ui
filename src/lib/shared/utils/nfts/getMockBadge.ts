@@ -1,11 +1,11 @@
 import { trailblazersBadgesAddress, trailblazersBadgesS2Address } from '$generated/abi';
 import { Movements, Seasons } from '$lib/domains/profile/types/types';
-import { type NFT, TokenType } from '$shared/types/NFT';
+import { type TBBadge } from '$shared/types/NFT';
 
 import { chainId } from '../chain';
 import generateBadgeMetadata from './generateBadgeMetadata';
 
-export default function getMockBadge(season: Seasons, badgeId: number, movement?: Movements): NFT {
+export default function getMockBadge(season: Seasons, badgeId: number, movement?: Movements): TBBadge {
   const contract =
     season === Seasons.Season1 ? trailblazersBadgesAddress[chainId] : trailblazersBadgesS2Address[chainId];
 
@@ -13,11 +13,12 @@ export default function getMockBadge(season: Seasons, badgeId: number, movement?
     tokenId: -1,
     tokenUri: '',
     address: contract,
+    badgeId,
+    movement: movement || Movements.Devs,
     metadata: {
-      erc: TokenType.Unknown,
       ...generateBadgeMetadata(season, badgeId, movement),
     },
-  } satisfies NFT;
+  } satisfies TBBadge;
 
   return badge;
 }

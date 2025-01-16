@@ -2,6 +2,8 @@ import type { Address } from 'viem';
 
 import { FactionNames } from '$lib/domains/nfts/types/badges/types';
 import type { Movements } from '$lib/domains/profile/types/types';
+import type { NftTypes } from '$lib/domains/profile/types/UserNFTs';
+import type { NFTMetadata } from '$lib/domains/nfts/types/shared/types';
 
 export enum TokenType {
   Unknown = 0,
@@ -13,13 +15,24 @@ export interface NFT {
   address: Address;
   tokenId: number;
   tokenUri: string;
-  metadata: Record<string, string | number | boolean | undefined | TokenType>;
+  metadata: NFTMetadata;
   frozen?: boolean;
 }
 
+export interface TBBadge extends NFT {
+  badgeId: number;
+  movement: Movements;
+  faction: FactionNames;
+  tokenUri: string;
+}
+
+// export type Metadata = Record<string, string | number | boolean | undefined | TokenType>;
+
 export interface BadgeDetails {
-  badge: NFT | null;
+  badge: TBBadge | TBBadge[] | null;
+  allBadges: TBBadge[] | NFT[] | null;
   total: number;
+  faction: FactionNames | NftTypes;
 }
 
 export interface BadgesByMovement {
@@ -46,14 +59,14 @@ export interface BadgeDetailsByFaction {
 }
 
 export interface BadgesByFaction {
-  [FactionNames.Ravers]: NFT[];
-  [FactionNames.Robots]: NFT[];
-  [FactionNames.Bouncers]: NFT[];
-  [FactionNames.Masters]: NFT[];
-  [FactionNames.Monks]: NFT[];
-  [FactionNames.Drummers]: NFT[];
-  [FactionNames.Androids]: NFT[];
-  [FactionNames.Shinto]: NFT[];
+  [FactionNames.Ravers]: TBBadge[];
+  [FactionNames.Robots]: TBBadge[];
+  [FactionNames.Bouncers]: TBBadge[];
+  [FactionNames.Masters]: TBBadge[];
+  [FactionNames.Monks]: TBBadge[];
+  [FactionNames.Drummers]: TBBadge[];
+  [FactionNames.Androids]: TBBadge[];
+  [FactionNames.Shinto]: TBBadge[];
 }
 
 export interface Badge {

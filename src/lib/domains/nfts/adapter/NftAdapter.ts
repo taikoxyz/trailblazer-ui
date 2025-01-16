@@ -2,7 +2,7 @@ import { type Address } from 'viem';
 
 import type { Token } from '$generated/graphql/badges';
 import { Movements } from '$lib/domains/profile/types/types';
-import type { BadgesByFaction, BadgesByMovement, NFT, TokenType } from '$lib/shared/types/NFT';
+import type { BadgesByFaction, BadgesByMovement, NFT, TBBadge } from '$lib/shared/types/NFT';
 import { badgesSubgraphClient, taikoonsSubgraphClient } from '$shared/services/graphql/client';
 import {
   USER_NFTS_FETCH_BADGES_QUERY,
@@ -11,6 +11,7 @@ import {
 import { getLogger } from '$shared/utils/logger';
 
 import { FactionNames, getFactionName } from '../types/badges/types';
+import type { NFTMetadata } from '../types/shared/types';
 
 const log = getLogger('NftAdapter');
 export class NftAdapter {
@@ -65,7 +66,6 @@ export class NftAdapter {
         const address = token.contract as Address;
         const tokenId = parseInt(token.tokenId);
         const badgeId = parseInt(token.badgeId);
-        const erc = parseInt(token.erc) as TokenType;
         const movement = parseInt(token.movement || '0') as Movements;
         const tokenUri = token.uri || '';
         const faction = getFactionName(badgeId);
@@ -75,20 +75,27 @@ export class NftAdapter {
           return;
         }
 
-        const metadata = {
-          badgeId,
-          erc,
-          movement,
-          tokenUri,
+        const metadata: NFTMetadata = {
+          name: '',
+          description: '',
+          image: '',
+          animation_url: '',
+          external_url: '',
+          attributes: [],
         };
 
-        badgesByMovement[movement][faction].push({
+        const badge = {
           address,
+          badgeId,
+          movement,
           tokenId,
           metadata,
           tokenUri,
+          faction,
           frozen: token.frozenS3 || false,
-        } satisfies NFT);
+        } satisfies TBBadge;
+
+        badgesByMovement[movement][faction].push(badge);
       });
 
       log('fetchBadgesByMovementForUser badgesByMovement', { badgesByMovement });
@@ -133,7 +140,6 @@ export class NftAdapter {
         const address = token.contract as Address;
         const tokenId = parseInt(token.tokenId);
         const badgeId = parseInt(token.badgeId);
-        const erc = parseInt(token.erc) as TokenType;
         const movement = parseInt(token.movement || '0') as Movements;
         const tokenUri = token.uri || '';
         const faction = getFactionName(badgeId);
@@ -142,21 +148,25 @@ export class NftAdapter {
           log(`Unknown faction for badgeId: ${badgeId}`);
           return;
         }
-
-        const metadata = {
-          badgeId,
-          erc,
-          movement,
-          tokenUri,
+        const metadata: NFTMetadata = {
+          name: '',
+          description: '',
+          image: '',
+          animation_url: '',
+          external_url: '',
+          attributes: [],
         };
 
         badgesByFaction[faction].push({
           address,
           tokenId,
+          badgeId,
+          movement,
           metadata,
+          faction,
           tokenUri,
           frozen: token.frozenS3 || false,
-        } satisfies NFT);
+        } satisfies TBBadge);
       });
       log('fetchBadgesForUser badgesByFaction', { badgesByFaction });
       return badgesByFaction;
@@ -203,22 +213,22 @@ export class NftAdapter {
       const flatTokens = tokens.map((token: Token) => {
         const address = token.contract as Address;
         const tokenId = parseInt(token.tokenId);
-        const badgeId = parseInt(token.badgeId);
-        const erc = parseInt(token.erc) as TokenType;
-        const movement = parseInt(token.movement || '0') as Movements;
         const tokenUri = token.uri || '';
 
+        const metadata: NFTMetadata = {
+          name: '',
+          description: '',
+          image: '',
+          animation_url: '',
+          external_url: '',
+          attributes: [],
+        };
         return {
           address,
           tokenId,
+          metadata,
           tokenUri,
-          metadata: {
-            badgeId: isNaN(badgeId) ? undefined : badgeId,
-            erc,
-            movement: isNaN(movement) ? undefined : movement,
-            frozenS2: token.frozenS2 || false,
-            frozenS3: token.frozenS3 || false,
-          },
+          frozen: token.frozenS3 || false,
         } satisfies NFT;
       });
 

@@ -3,7 +3,7 @@
 
   import { FactionBadgeItem } from '$lib/domains/profile/components/ProfileNFTs';
   import { Movements } from '$lib/domains/profile/types/types';
-  import type { NFT } from '$shared/types/NFT';
+  import type { TBBadge } from '$shared/types/NFT';
   import { classNames } from '$shared/utils/classNames';
 
   export let blurred: boolean = false;
@@ -12,7 +12,7 @@
   export let hideBubbles = false;
   export let locked = false;
 
-  export let token: NFT;
+  export let token: TBBadge;
   const hasSlotContent = Object.keys($$slots).includes('default');
   const dispatch = createEventDispatcher();
 
@@ -35,15 +35,13 @@
     'justify-center',
     hasSlotContent ? 'pb-0' : null,
     'transition-all',
-    shadow && (token.metadata.movement as Movements) === Movements.Minnows
+    shadow && (token.movement as Movements) === Movements.Minnows
       ? 'border-secondary  shadow-[0_0px_50px_0px_#E81899]'
       : null,
-    shadow && (token.metadata.movement as Movements) === Movements.Whales
+    shadow && (token.movement as Movements) === Movements.Whales
       ? 'border-purple-600 shadow-[0_0px_50px_0px_#5D08C8]'
       : null,
-    shadow && (token.metadata.movement as Movements) === Movements.Devs
-      ? 'border-[white] shadow-[0_0px_50px_0px_white]'
-      : null,
+    shadow && (token.movement as Movements) === Movements.Devs ? 'border-[white] shadow-[0_0px_50px_0px_white]' : null,
   );
 
   const imageWrapperClasses = classNames(

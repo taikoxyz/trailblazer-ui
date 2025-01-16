@@ -13,7 +13,7 @@ import type { BadgeRecruitment as GqlBadgeRecruitment } from '$generated/graphql
 import { type Movements, Seasons } from '$lib/domains/profile/types/types';
 import { badgesSubgraphClient } from '$lib/shared/services/graphql/client';
 import { type IBadgeRecruitment, RecruitmentStatus } from '$lib/shared/types/BadgeRecruitment';
-import type { NFT } from '$lib/shared/types/NFT';
+import type { NFT, TBBadge } from '$lib/shared/types/NFT';
 import { chainId } from '$lib/shared/utils/chain';
 import parseGqlBadgeRecruitment from '$lib/shared/utils/nfts/parseGqlBadgeRecruitment';
 import { wagmiConfig } from '$lib/shared/wagmi';
@@ -79,7 +79,7 @@ export default class BadgeRecruitmentAdapter {
    * @return {*}  {Promise<string>}
    * @memberof BadgeRecruitmentAdapter
    */
-  async startRecruitment(address: Address, nft: NFT, recruitment: IBadgeRecruitment): Promise<IBadgeRecruitment> {
+  async startRecruitment(address: Address, nft: TBBadge, recruitment: IBadgeRecruitment): Promise<IBadgeRecruitment> {
     log('startRecruitment', { address, nft });
     return new Promise((resolve, reject) => {
       try {
@@ -106,7 +106,7 @@ export default class BadgeRecruitmentAdapter {
             });
           },
         });
-        const badgeId = nft.metadata.badgeId as number;
+        const badgeId = nft.badgeId as number;
         writeContract(wagmiConfig, {
           abi: trailblazersBadgesAbi,
           address: trailblazersBadgesAddress[chainId],
@@ -252,16 +252,12 @@ export default class BadgeRecruitmentAdapter {
    * @return {*}  {Promise<NFT>}
    * @memberof BadgeRecruitmentAdapter
    */
-  async endRecruitment(address: Address, nft: NFT, recruitment: IBadgeRecruitment): Promise<IBadgeRecruitment> {
-    if (nft.metadata.badgeId === undefined) {
+  async endRecruitment(address: Address, nft: TBBadge, recruitment: IBadgeRecruitment): Promise<IBadgeRecruitment> {
+    if (nft.badgeId === undefined) {
       throw new Error('Badge ID is required for ending recruitment');
     }
 
-    const { r, s, v, points, hash } = await this._getRecruitmentSignature(
-      address,
-      nft.metadata.badgeId as number,
-      'end',
-    );
+    const { r, s, v, points, hash } = await this._getRecruitmentSignature(address, nft.badgeId as number, 'end');
 
     return new Promise((resolve, reject) => {
       try {
@@ -284,7 +280,7 @@ export default class BadgeRecruitmentAdapter {
                 tokenId: parseInt(s2TokenId!.toString()),
                 metadata: {
                   ...recruitment.s1Badge.metadata,
-                  ...generateBadgeMetadata(Seasons.Season2, recruitment.s1Badge.metadata.badgeId as number, movement),
+                  ...generateBadgeMetadata(Seasons.Season2, recruitment.s1Badge.badgeId as number, movement),
                 },
               },
             });

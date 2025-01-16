@@ -8,6 +8,8 @@
     'w-[130px]',
     'lg:w-[186px]',
     'lg:h-[186px]',
+    'xl:w-[290px]',
+    'xl:h-[290px]',
     'bg-primary-background',
     'rounded-[20px]',
     'justify-center',

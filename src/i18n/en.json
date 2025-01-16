@@ -348,7 +348,10 @@
         "title": "Season 2 claiming is now live!"
       },
       "success": {
-        "buttons": ["Add to wallet", "Earn more TAIKO"],
+        "buttons": [
+          "Add to wallet",
+          "Earn more TAIKO"
+        ],
         "text": "Congratulations! You've successfully claimed your tokens. You can now add them to your wallet.",
         "title": "Claim successful"
       }
@@ -808,7 +811,11 @@
   "nfts": {
     "collection": {
       "collected": "Collected",
-      "multiplier": "Your multiplier"
+      "contract_address": "Contract Address",
+      "faction": "Faction",
+      "multiplier": "Multiplier",
+      "team": "Team",
+      "token_id": "Token ID"
     }
   },
   "pages": {
