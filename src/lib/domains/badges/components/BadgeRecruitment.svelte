@@ -1,4 +1,4 @@
-<script lang="ts">
+<!-- <script lang="ts">
   import { onMount } from 'svelte';
   import { t } from 'svelte-i18n';
   import type { Address } from 'viem';
@@ -154,4 +154,4 @@
       </ActionButton>
     </div>
   </div>
-</div>
+</div> -->

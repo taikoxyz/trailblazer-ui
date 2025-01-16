@@ -1,4 +1,4 @@
-<script lang="ts">
+<!-- <script lang="ts">
   import { Icon } from '$shared/components/Icon';
   import type { NFT } from '$shared/types/NFT';
   import { classNames } from '$shared/utils/classNames';
@@ -41,4 +41,4 @@
 
   <div class={classNames(borderOverlayClasses, 'top-[-1px]')}></div>
   <div class={classNames(borderOverlayClasses, 'bottom-[-1px]')}></div>
-</div>
+</div> -->

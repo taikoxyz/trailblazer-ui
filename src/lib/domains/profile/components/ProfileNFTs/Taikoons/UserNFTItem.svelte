@@ -3,10 +3,10 @@
   import type { NFT } from '$shared/types/NFT';
   import { classNames } from '$shared/utils/classNames';
 
-  import MultiplierBadge from '../MultiplierBadge.svelte';
+  // import MultiplierBadge from '../MultiplierBadge.svelte';
 
   export let token: NFT;
-  export let hideBubbles = false;
+  // export let hideBubbles = false;
   export let locked = false;
 
   $: image = token.metadata.image as string;
@@ -36,17 +36,17 @@
     locked ? 'blur-md' : null,
   );
 
-  const bubbleWrapperClasses = classNames(
-    hideBubbles ? 'hidden' : 'block',
-    'absolute',
-    'top-[20px]',
-    'right-[20px]',
-    'flex',
-    'flex-col',
-    'justify-end',
-    'items-end',
-    'gap-[5px]',
-  );
+  // const bubbleWrapperClasses = classNames(
+  //   hideBubbles ? 'hidden' : 'block',
+  //   'absolute',
+  //   'top-[20px]',
+  //   'right-[20px]',
+  //   'flex',
+  //   'flex-col',
+  //   'justify-end',
+  //   'items-end',
+  //   'gap-[5px]',
+  // );
 
   function prefixIpfsGateway(url: string) {
     if (url.startsWith('http') || url.startsWith('/')) {
@@ -63,9 +63,9 @@
     <img src={prefixIpfsGateway(image)} alt={`NFT #${token.tokenId}`} class={imageClasses} />
   </div>
 
-  <div class={bubbleWrapperClasses}>
+  <!-- <div class={bubbleWrapperClasses}>
     <MultiplierBadge {token} />
-  </div>
+  </div> -->
 
   {#if locked}
     <div class={lockedOverlayClasses}>

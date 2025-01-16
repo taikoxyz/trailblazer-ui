@@ -7,7 +7,7 @@
 
   type ExplorerCategory = 'address' | 'transaction' | 'token' | 'contract';
 
-  export let urlParam: Hash | Address;
+  export let urlParam: Hash | Address | string;
   export let category: ExplorerCategory = 'address';
   export let shorten: boolean = false;
   export let linkText: string = '';

@@ -1,14 +1,16 @@
 <script lang="ts">
   import { createEventDispatcher, onMount } from 'svelte';
-  import type { NFT, TBBadge } from '$shared/types/NFT';
-  import { Spinner } from '$shared/components';
-  import { classNames } from '$shared/utils/classNames';
-  import { FactionBadgeItem } from '../FactionBadges';
-  import nftService from '$lib/domains/nfts/services/NFTServiceInstance';
-  import { Icon } from '$shared/components/Icon';
   import { t } from 'svelte-i18n';
+
+  import nftService from '$lib/domains/nfts/services/NFTServiceInstance';
   import { getMovementName, Movements, Multipliers } from '$lib/domains/profile/types/types';
+  import { Spinner } from '$shared/components';
+  import { Icon } from '$shared/components/Icon';
   import { ExplorerLink } from '$shared/components/Links';
+  import type { NFT, TBBadge } from '$shared/types/NFT';
+  import { classNames } from '$shared/utils/classNames';
+
+  import { FactionBadgeItem } from '../FactionBadges';
 
   const wrapperClasses = classNames('p-[20px]', 'f-col', 'gap-[30px]', 'justify-center', 'w-full');
   const gridClasses = classNames(

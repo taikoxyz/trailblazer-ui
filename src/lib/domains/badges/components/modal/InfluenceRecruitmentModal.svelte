@@ -1,4 +1,5 @@
-<script lang="ts">
+<!-- <script lang="ts">
+  import * as Sentry from '@sentry/sveltekit';
   import { onMount } from 'svelte';
   import { t } from 'svelte-i18n';
 
@@ -128,4 +129,4 @@
       ( {influenceCounter} / {maxInfluences})
     </FancyButton>
   </CoreModalFooter>
-</CoreModal>
+</CoreModal> -->

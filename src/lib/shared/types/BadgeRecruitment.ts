@@ -1,4 +1,4 @@
-import type { NFT } from './NFT';
+import type { TBBadge } from '$lib/shared/types/NFT';
 
 export enum RecruitmentStatus {
   ELIGIBLE = 'ELIGIBLE',
@@ -14,8 +14,8 @@ export interface IBadgeRecruitment {
   id: string;
   badgeId: number;
   status: RecruitmentStatus;
-  s1Badge: NFT;
-  s2Badge?: NFT;
+  s1Badge: TBBadge;
+  s2Badge?: TBBadge;
   whaleInfluences: number;
   minnowInfluences: number;
   claimExpirationTimeout: Date;
