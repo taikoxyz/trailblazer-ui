@@ -9,9 +9,10 @@
   import { thrillblazerService } from '$lib/domains/leaderboard/services/LeaderboardServiceInstances';
   import type { DappLeaderboardPage } from '$lib/domains/leaderboard/types/dapps/types';
   import type { PaginationInfo } from '$lib/shared/dto/CommonPageApiResponse';
+  import { activeSeason } from '$shared/stores/activeSeason';
   import { getLogger } from '$shared/utils/logger';
 
-  import ThrillblazerHeader from './ThrillblazerHeader.svelte';
+  import ThrillblazerHeader from '../../../Header/ThrillblazersHeader/ThrillblazerHeader.svelte';
 
   const log = getLogger('DappsLeaderboard');
   export let loading = false;
@@ -20,9 +21,11 @@
 
   const endedSeasons: number[] = [2];
 
+  // The seasons this campaign was active
+  const seasons: number[] = [2, 3];
+
   $: totalItems = pageInfo?.total || 0;
   $: pageSize = pageInfo?.size || leaderboardConfig.pageSize;
-
   $: hasEnded = endedSeasons.includes(season);
 
   function handlePageChange(page: number) {
@@ -43,31 +46,37 @@
       total: totalItems,
     };
 
-    const leaderboardPage: DappLeaderboardPage = await thrillblazerService.fetchCompetitionData(args, season);
+    const leaderboardPage: DappLeaderboardPage = await thrillblazerService.fetchCompetitionData(args, $activeSeason);
 
     // date from timestamp
     totalItems = leaderboardPage?.pagination.total || $currentDappCompetitionLeaderboard.items.length;
     loading = false;
   }
 
+  $: $activeSeason && loadLeaderboardData(pageInfo.page);
+
   setContext('loadCompetitionLeaderboardData', loadLeaderboardData);
   setContext('dappsCompetitionPageInfo', pageInfo);
 </script>
 
-<AbstractLeaderboard
-  headers={['No.', 'Dapp', '', 'Points']}
-  data={$currentDappCompetitionLeaderboard.items}
-  showTrophy={true}
-  lastUpdated={new Date($currentDappCompetitionLeaderboard.lastUpdated)}
-  isLoading={loading}
-  {handlePageChange}
-  {totalItems}
-  ended={hasEnded}
-  qualifyingPositions={4}
-  endedComponent={CampaignEndedInfoBox}
-  endTitleText={$t('leaderboard.thrillblazer.ended.title')}
-  endDescriptionText={$t('leaderboard.thrillblazer.ended.description')}
-  showPagination={true}
-  {season}
-  headerComponent={ThrillblazerHeader}
-  scoreComponent={PointScore} />
+{#if seasons.includes(Number($activeSeason))}
+  <AbstractLeaderboard
+    headers={['No.', 'Dapp', '', 'Points']}
+    season={$activeSeason}
+    data={$currentDappCompetitionLeaderboard.items}
+    showTrophy={true}
+    lastUpdated={new Date($currentDappCompetitionLeaderboard.lastUpdated)}
+    isLoading={loading}
+    {handlePageChange}
+    {totalItems}
+    ended={hasEnded}
+    qualifyingPositions={4}
+    endedComponent={CampaignEndedInfoBox}
+    endTitleText={$t('leaderboard.thrillblazer.ended.title')}
+    endDescriptionText={$t('leaderboard.thrillblazer.ended.description')}
+    showPagination={true}
+    headerComponent={ThrillblazerHeader}
+    scoreComponent={PointScore} />
+{:else}
+  No data
+{/if}

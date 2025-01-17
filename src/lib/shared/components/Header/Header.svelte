@@ -59,6 +59,16 @@
   const mobileLogoClasses = classNames('md:hidden');
   const desktopLogoClasses = classNames('hidden', 'md:flex', 'h-[25px]', 'w-[90px]');
   const trailblazersLogoClasses = classNames('max-w-[125px]', 'pb-[2px]', 'max-h-[25px]', 'min-h-[25px]');
+  function handleSeasonChange(event: Event) {
+    const select = event.target as HTMLSelectElement;
+    const selectedValue = parseInt(select.value, 10);
+
+    if (!isNaN(selectedValue)) {
+      activeSeason.set(selectedValue);
+    } else {
+      console.error(`Invalid season selected: ${select.value}`);
+    }
+  }
 </script>
 
 {#if isDevelopmentEnv}
@@ -68,11 +78,11 @@
         <span class="label-text">Select season</span>
         <span class="label-text-alt">Active: {$activeSeason}</span>
       </div>
-      <select class="select select-bordered w-full max-w-xs" bind:value={$activeSeason}>
-        <option disabled selected>Select season</option>
-        <option>1</option>
-        <option>2</option>
-        <option>3</option>
+      <select class="select select-bordered w-full max-w-xs" on:change={handleSeasonChange} value={$activeSeason}>
+        <option disabled>Select season</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
       </select>
     </label>
   </div>
