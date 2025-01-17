@@ -245,8 +245,8 @@
   <img src="/blazers.svg" alt="Thrillblazers" class={blazersClasses} />
 
   <span class={descriptionClasses}>
-    Chill-Blazers v2 launches Dec 17th. Calling all gaming and SocialFi dApps: Blaze new trails, fuel Taiko's momentum,
-    and seize your chance for legendary rewards!
+    Chill-Blazers is back and launches Dec 17th. Calling all gaming and SocialFi dApps: Blaze new trails, fuel Taiko's
+    momentum, and seize your chance for legendary rewards!
   </span>
 
   <img src="/header/thrillblazer/runes-right.svg" alt="runes" class={runesRightClasses} />

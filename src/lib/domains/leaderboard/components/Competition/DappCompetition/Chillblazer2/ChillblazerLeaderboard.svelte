@@ -9,6 +9,7 @@
   import { chillblazerService } from '$lib/domains/leaderboard/services/LeaderboardServiceInstances';
   import type { DappLeaderboardPage } from '$lib/domains/leaderboard/types/dapps/types';
   import type { PaginationInfo } from '$lib/shared/dto/CommonPageApiResponse';
+  import { activeSeason } from '$shared/stores/activeSeason';
   import { getLogger } from '$shared/utils/logger';
 
   import ChillblazerHeader from './ChillblazerHeader.svelte';
@@ -18,7 +19,7 @@
   export let pageInfo: PaginationInfo<DappLeaderboardItem>;
   export let season: number;
 
-  const endedSeasons: number[] = [2];
+  const endedSeasons: number[] = [2, 3];
 
   $: totalItems = pageInfo?.total || 0;
   $: pageSize = pageInfo?.size || leaderboardConfig.pageSize;
@@ -66,7 +67,7 @@
   qualifyingPositions={4}
   endedComponent={CampaignEndedInfoBox}
   endTitleText={$t('leaderboard.chillblazers.ended.title')}
-  endDescriptionText={$t('leaderboard.chillblazers.ended.description')}
+  endDescriptionText={$t(`leaderboard.chillblazers.ended.s${$activeSeason}.description`)}
   showPagination={true}
   {season}
   headerComponent={ChillblazerHeader}

@@ -501,6 +501,10 @@
     },
     "chillblazers": {
       "ended": {
+        "s3": {
+          "description": "Our journey concluded on January 17th, 2025. Congratulations to the winners!",
+          "title": "Journey ended"
+        },
         "description": "Our journey concluded on December 16th, 2024. Congratulations to the winners!",
         "title": "Journey ended"
       },
@@ -636,7 +640,7 @@
     "thrillblazers": {
       "description": {
         "s2": " Thrill-Blazer launches Oct 18th. Calling all gaming and SocialFi dApps: Blaze new trails, fuel Taiko's momentum, and seize your chance for legendary rewards!",
-        "s3": " Thrill-Blazer launches Jan 20th. Calling all gaming and SocialFi dApps: Blaze new trails, fuel Taiko's momentum, and seize your chance for legendary rewards!"
+        "s3": " Thrill-Blazer launches Jan 17th. Calling all gaming and SocialFi dApps: Blaze new trails, fuel Taiko's momentum, and seize your chance for legendary rewards!"
       },
       "ended": {
         "s2": {
@@ -644,7 +648,7 @@
           "title": "Journey ended"
         },
         "s3": {
-          "description": "Our journey concluded on February 20th, 2025. Congratulations to the winners!",
+          "description": "Our journey concluded on February 17th, 2025. Congratulations to the winners!",
           "title": "Journey ended"
         }
       },
