@@ -6,6 +6,15 @@
 
   const partners: PartnerCarouselItem[] = [
     {
+      title: 'LayerBank',
+      description: 'The decentralized universal liquidity hub designed for all chains',
+      imageSrc: '/dapps/defi/layerbank.svg',
+      imageAlt: 'LayerBank logo',
+      tagText: 'Lending',
+      buttonText: 'Borrow now',
+      buttonLink: 'https://app.layerbank.finance/taiko/bank/',
+    },
+    {
       title: 'Avalon',
       description: 'The Hub of BTCFi - Borrow stablecoins against your BTC.',
       imageSrc: '/dapps/defi/avalon.svg',
