@@ -1,31 +1,11 @@
 <script lang="ts">
-  // import { createEventDispatcher } from 'svelte';
-  // import { t } from 'svelte-i18n';
+  import { FactionBadgeItem } from '$lib/domains/profile/components/ProfileNFTs';
+  import type { TBBadge } from '$shared/types/NFT';
 
-  // import { FactionBadgeItem } from '$lib/domains/profile/components/ProfileNFTs/FactionBadges';
-  // import profileService from '$lib/domains/profile/services/ProfileServiceInstance';
-  // import { userProfile } from '$lib/domains/profile/stores';
-  // import type { FactionBadgeButton } from '$lib/domains/profile/types/FactionBadgeButton';
-  // import { Movements, Seasons } from '$lib/domains/profile/types/types';
-  // import { type IBadgeRecruitment, RecruitmentStatus } from '$lib/shared/types/BadgeRecruitment';
-  // import { ActionButton } from '$shared/components/Button';
-  // import { errorToast, successToast } from '$shared/components/NotificationToast';
-  // import { account } from '$shared/stores';
-  // import {
-  //   activeRecruitment,
-  //   endRecruitmentModal,
-  //   influenceRecruitmentModal,
-  //   startRecruitmentModal,
-  // } from '$shared/stores/recruitment';
-  // import { classNames } from '$shared/utils/classNames';
-  // import getMockBadge from '$shared/utils/nfts/getMockBadge';
-
-  // import Countdown from './Countdown.svelte';
-
-  // export let badgeId: number;
-  // export let enabled: boolean; // contract-level disabling
-
-  // export let cycleId: number;
+  export let badgeId: number;
+  export let enabled: boolean; // contract-level disabling
+  export let badge: TBBadge;
+  export let cycleId: number;
 
   // $: recruitment =
   //   $activeRecruitment && $activeRecruitment.badgeId === badgeId
@@ -253,6 +233,8 @@
   // );
   // const countdownItemClasses = classNames('h-min');
 </script>
+
+<FactionBadgeItem hideBubbles token={badge} />
 
 <!-- <div
   class={canClaim || canInfluence

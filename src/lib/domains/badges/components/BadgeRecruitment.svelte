@@ -1,20 +1,25 @@
-<!-- <script lang="ts">
+<script lang="ts">
   import { onMount } from 'svelte';
   import { t } from 'svelte-i18n';
-  import type { Address } from 'viem';
 
   import { browser } from '$app/environment';
   import LoadingBlobby from '$lib/domains/profile/components/LoadingBlobby.svelte';
-  import profileService from '$lib/domains/profile/services/ProfileServiceInstance';
   import { ActionButton, Button } from '$shared/components/Button';
   import RotatingIcon from '$shared/components/Icon/RotatingIcon.svelte';
   import { account } from '$shared/stores';
   import { endRecruitmentModal, influenceRecruitmentModal, startRecruitmentModal } from '$shared/stores/recruitment';
   import { classNames } from '$shared/utils/classNames';
-
   import BadgeRecruitmentItem from './BadgeRecruitmentItem.svelte';
+  import getConnectedAddress from '$shared/utils/getConnectedAddress';
+  import { zeroAddress } from 'viem';
+  import { getLogger } from '$shared/utils/logger';
+  import badgeRecruitmentService from '../services/BadgeRecruitmentServiceInstance';
+  import type { TBBadge } from '$shared/types/NFT';
+  import { FactionBadgeItem } from '$lib/domains/profile/components/ProfileNFTs';
 
   export let title: string = 'Badge Recruitment';
+
+  const log = getLogger('BadgeRecruitment');
 
   const containerClass = classNames(
     'container',
@@ -61,19 +66,17 @@
     'h-[70px]',
   );
 
-  $: enabledBadgeIds = [] as number[];
-
-  $: forceRenderFlag = true;
+  // $: forceRenderFlag = true;
   async function onCounterEnd() {
     if (!$account || !$account.address) return;
-    forceRenderFlag = false;
+    // forceRenderFlag = false;
     await handleRefresh();
-    forceRenderFlag = true;
+    // forceRenderFlag = true;
   }
 
-  $: $startRecruitmentModal, !$startRecruitmentModal && handleRefresh();
-  $: $influenceRecruitmentModal, !$influenceRecruitmentModal && handleRefresh();
-  $: $endRecruitmentModal, !$startRecruitmentModal && handleRefresh();
+  // $: $startRecruitmentModal, !$startRecruitmentModal && handleRefresh();
+  // $: $influenceRecruitmentModal, !$influenceRecruitmentModal && handleRefresh();
+  // $: $endRecruitmentModal, !$startRecruitmentModal && handleRefresh();
 
   const faqWrapperClasses = classNames(
     'pt-[60px]',
@@ -87,26 +90,39 @@
   );
 
   $: isLoading = false;
-
-  const badgeIds = [0, 1, 2, 3, 4, 5, 6, 7];
   $: cycleId = -1;
+  $: enabledRecruitments = [] as number[];
+  $: displayAvailableRecruitmentBadges = [] as TBBadge[];
+
+  // const badgeIds = [0, 1, 2, 3, 4, 5, 6, 7];
+
   const handleRefresh = async () => {
     if (!browser || isLoading) return;
-    // prevent reloads with open modals
-    if ($startRecruitmentModal || $influenceRecruitmentModal || $endRecruitmentModal) return;
-    isLoading = true;
+    const address = getConnectedAddress();
+    if (!address || address === zeroAddress) return;
+    cycleId = await badgeRecruitmentService.getRecruitmentCycleId();
+    enabledRecruitments = (await badgeRecruitmentService.getEnabledRecruitments()) || [];
 
-    cycleId = await profileService.getRecruitmentCycleId();
+    displayAvailableRecruitmentBadges = await Promise.all(
+      enabledRecruitments.map(async (badgeId) => {
+        const badge = await badgeRecruitmentService.getBadge(badgeId);
+        return badge;
+      }),
+    );
 
-    enabledBadgeIds = (await profileService.getEnabledRecruitments()) || [];
-    // match address in url
-    const match = window.location.pathname.match(/0x[a-fA-F0-9]{40}/);
-    const address = match ? match[0] : null;
+    log('enabled recruitments', enabledRecruitments);
 
-    if (!address) return;
-    await profileService.getBadgeRecruitments(address as Address);
-
-    isLoading = false;
+    // // prevent reloads with open modals
+    // if ($startRecruitmentModal || $influenceRecruitmentModal || $endRecruitmentModal) return;
+    // isLoading = true;
+    // cycleId = await badgeRecruitmentService.startRecruitment(address, nft, recruitment);
+    // enabledBadgeIds = (await profileService.getEnabledRecruitments()) || [];
+    // // match address in url
+    // const match = window.location.pathname.match(/0x[a-fA-F0-9]{40}/);
+    // const address = match ? match[0] : null;
+    // if (!address) return;
+    // await profileService.getBadgeRecruitments(address as Address);
+    // isLoading = false;
   };
 
   onMount(async () => {
@@ -129,14 +145,11 @@
     <div class={boxClasses}>
       {#if isLoading}
         <LoadingBlobby />
-      {:else if forceRenderFlag && badgeIds.length}
+      {:else if displayAvailableRecruitmentBadges.length}
         <div class={nftGridClasses}>
-          {#each badgeIds as badgeId}
-            <BadgeRecruitmentItem
-              {cycleId}
-              enabled={enabledBadgeIds.includes(badgeId)}
-              {badgeId}
-              on:counterEnd={onCounterEnd} />
+          Current Cylce: {cycleId}
+          {#each displayAvailableRecruitmentBadges as badge}
+            <BadgeRecruitmentItem {cycleId} enabled={true} {badge} on:counterEnd={onCounterEnd} />
           {/each}
         </div>
       {:else}
@@ -154,4 +167,4 @@
       </ActionButton>
     </div>
   </div>
-</div> -->
+</div>
