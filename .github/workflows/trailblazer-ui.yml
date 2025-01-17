@@ -16,7 +16,6 @@ jobs:
   # QA
   deploy_trailblazer-ui_qa_production:
     if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/qa' }}
-    needs: build-and-test
     uses: ./.github/workflows/repo--vercel-deploy.yml
     with:
       environment: 'production'
