@@ -4,11 +4,15 @@
 // import { type IBadgeRecruitment, RecruitmentStatus } from '$lib/shared/types/BadgeRecruitment';
 // import { activeRecruitment } from '$shared/stores/recruitment';
 // import type { TBBadge } from '$shared/types/NFT';
-import { getFactionName, type FactionNames } from '$lib/domains/nfts/types/badges/types';
+import { type Address,zeroAddress } from 'viem';
+
+import { type FactionNames,getFactionName } from '$lib/domains/nfts/types/badges/types';
 import { getMovementName, Movements } from '$lib/domains/profile/types/types';
+import { activeRecruitment } from '$shared/stores/recruitment';
+import { type IBadgeRecruitment,RecruitmentStatus } from '$shared/types/BadgeRecruitment';
 import type { TBBadge } from '$shared/types/NFT';
 import { getLogger } from '$shared/utils/logger';
-import { zeroAddress } from 'viem';
+
 import BadgeRecruitmentAdapter from '../adapter/BadgeRecruitmentAdapter';
 
 const log = getLogger('BadgeRecruitmentService');
@@ -53,17 +57,17 @@ export default class BadgeRecruitmentService {
     return badge;
   }
 
-  //   /**
-  //    * Initiate a recruitment (migration) process
-  //    * @param address
-  //    * @param nft
-  //    * @param recruitment
-  //    * @returns {*} {Promise<IBadgeRecruitment>}
-  //    */
-  //   async startRecruitment(address: Address, nft: TBBadge, recruitment: IBadgeRecruitment): Promise<IBadgeRecruitment> {
-  //     log('startRecruitment', { address, nft, recruitment });
-  //     return this.adapter.startRecruitment(address, nft, recruitment);
-  //   }
+  /**
+   * Initiate a recruitment (migration) process
+   * @param address
+   * @param nft
+   * @param recruitment
+   * @returns {*} {Promise<IBadgeRecruitment>}
+   */
+  async startRecruitment(address: Address, nft: TBBadge, recruitment: IBadgeRecruitment): Promise<IBadgeRecruitment> {
+    log('startRecruitment', { address, nft, recruitment });
+    return this.adapter.startRecruitment(address, nft, recruitment);
+  }
 
   //   /**
   //    * Influence (tamper) the recruitment process
@@ -95,29 +99,29 @@ export default class BadgeRecruitmentService {
   //     return this.adapter.endRecruitment(address, nft, recruitment);
   //   }
 
-  //   /**
-  //    * Get the recruitment status for a particular user
-  //    * @param address
-  //    * @returns {*} {Promise<IBadgeRecruitment[]>}
-  //    */
-  //   async getRecruitmentStatus(address: Address): Promise<IBadgeRecruitment[]> {
-  //     log('getRecruitmentStatus', { address });
-  //     const recruitments = await this.adapter.getRecruitmentStatus(address);
-  //     const cycleId = await this.adapter.getRecruitmentCycleId();
-  //     const foundActive = recruitments.find(
-  //       (recruitment) =>
-  //         recruitment.cycleId === cycleId &&
-  //         (recruitment.status === RecruitmentStatus.STARTED ||
-  //           recruitment.status === RecruitmentStatus.CAN_REFINE ||
-  //           recruitment.status === RecruitmentStatus.CAN_CLAIM),
-  //     );
+  /**
+   * Get the recruitment status for a particular user
+   * @param address
+   * @returns {*} {Promise<IBadgeRecruitment[]>}
+   */
+  async getRecruitmentStatus(address: Address): Promise<IBadgeRecruitment[]> {
+    log('getRecruitmentStatus', { address });
+    const recruitments = await this.adapter.getRecruitmentStatusForUser(address);
+    const cycleId = await this.adapter.getRecruitmentCycleId();
+    const foundActive = recruitments.find(
+      (recruitment) =>
+        recruitment.cycleId === cycleId &&
+        (recruitment.status === RecruitmentStatus.STARTED ||
+          recruitment.status === RecruitmentStatus.CAN_REFINE ||
+          recruitment.status === RecruitmentStatus.CAN_CLAIM),
+    );
 
-  //     activeRecruitment.set(foundActive as IBadgeRecruitment);
+    activeRecruitment.set(foundActive as IBadgeRecruitment);
 
-  //     log('getRecruitmentStatus', { recruitments, foundActive });
+    log('getRecruitmentStatus', { recruitments, foundActive });
 
-  //     return recruitments as IBadgeRecruitment[];
-  //   }
+    return recruitments as IBadgeRecruitment[];
+  }
 
   //   /**
   //    * Fetch the max amount of influences allowed

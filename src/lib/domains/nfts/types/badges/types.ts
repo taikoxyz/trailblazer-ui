@@ -14,7 +14,7 @@ export enum FactionNames {
   Shinto = 'Shinto',
 }
 
-export const getFactionName = (badgeId: number): FactionNames | undefined => {
+export const getFactionName = (badgeId: number): FactionNames => {
   const badgeIdToFaction: Record<number, FactionNames> = {
     0: FactionNames.Ravers,
     1: FactionNames.Robots,

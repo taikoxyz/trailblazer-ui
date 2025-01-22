@@ -1,11 +1,19 @@
-import { badgeRecruitmentAbi, badgeRecruitmentAddress } from '$generated/abi';
-import { badgesSubgraphClient } from '$lib/shared/services/graphql/client';
+import { readContract, watchContractEvent, writeContract } from '@wagmi/core';
+import type { Address } from 'viem';
 
+import {
+  badgeRecruitmentAbi,
+  badgeRecruitmentAddress,
+  trailblazersBadgesAbi,
+  trailblazersBadgesAddress,
+} from '$generated/abi';
+import { badgesSubgraphClient } from '$lib/shared/services/graphql/client';
 import { FETCH_ENABLED_MIGRATIONS_QUERY } from '$shared/services/graphql/queries';
+import { type IBadgeRecruitment,RecruitmentStatus } from '$shared/types/BadgeRecruitment';
+import type { TBBadge } from '$shared/types/NFT';
 import { chainId } from '$shared/utils/chain';
 import { getLogger } from '$shared/utils/logger';
 import { wagmiConfig } from '$shared/wagmi';
-import { readContract } from '@wagmi/core';
 
 const log = getLogger('BadgeRecruitmentAdapter');
 
@@ -56,60 +64,60 @@ export default class BadgeRecruitmentAdapter {
     }
   }
 
-  //   /**
-  //    * Calls the `startRecruitment` method through the s1 badges
-  //    * @param address
-  //    * @param nft
-  //    * @param recruitment
-  //    * @return {*}  {Promise<string>}
-  //    * @memberof BadgeRecruitmentAdapter
-  //    */
-  //   async startRecruitment(address: Address, nft: TBBadge, recruitment: IBadgeRecruitment): Promise<IBadgeRecruitment> {
-  //     log('startRecruitment', { address, nft });
-  //     return new Promise((resolve, reject) => {
-  //       try {
-  //         const unwatch = watchContractEvent(wagmiConfig, {
-  //           address: badgeRecruitmentAddress[chainId],
-  //           abi: badgeRecruitmentAbi,
-  //           eventName: 'RecruitmentUpdated',
-  //           args: {
-  //             user: address,
-  //           },
-  //           onLogs(logs) {
-  //             log('startRecruitment logs', logs);
-  //             const cooldownExpiration = new Date(parseInt(logs[0].args.cooldownExpiration!.toString()) * 1000);
-  //             const s1TokenId = parseInt(logs[0].args.s1TokenId!.toString());
-  //             unwatch();
-  //             resolve({
-  //               ...recruitment,
-  //               claimExpirationTimeout: cooldownExpiration,
-  //               status: RecruitmentStatus.CAN_REFINE,
-  //               s1Badge: {
-  //                 ...recruitment.s1Badge,
-  //                 tokenId: s1TokenId,
-  //               },
-  //             });
-  //           },
-  //         });
-  //         const badgeId = nft.badgeId as number;
-  //         writeContract(wagmiConfig, {
-  //           abi: trailblazersBadgesAbi,
-  //           address: trailblazersBadgesAddress[chainId],
-  //           functionName: 'startRecruitment',
-  //           args: [BigInt(badgeId), BigInt(nft.tokenId)],
-  //           chainId,
-  //         })
-  //           .then(() => {
-  //             log('startRecruitment contract write success');
-  //           })
-  //           .catch(reject);
-  //       } catch (e) {
-  //         console.error(e);
-  //         log('startRecruitment error', e);
-  //         reject(e);
-  //       }
-  //     });
-  //   }
+  /**
+   * Calls the `startRecruitment` method through the s1 badges
+   * @param address
+   * @param nft
+   * @param recruitment
+   * @return {*}  {Promise<string>}
+   * @memberof BadgeRecruitmentAdapter
+   */
+  async startRecruitment(address: Address, nft: TBBadge, recruitment: IBadgeRecruitment): Promise<IBadgeRecruitment> {
+    log('startRecruitment', { address, nft });
+    return new Promise((resolve, reject) => {
+      try {
+        const unwatch = watchContractEvent(wagmiConfig, {
+          address: badgeRecruitmentAddress[chainId],
+          abi: badgeRecruitmentAbi,
+          eventName: 'RecruitmentUpdated',
+          args: {
+            user: address,
+          },
+          onLogs(logs) {
+            log('startRecruitment logs', logs);
+            const cooldownExpiration = new Date(parseInt(logs[0].args.cooldownExpiration!.toString()) * 1000);
+            const s1TokenId = parseInt(logs[0].args.s1TokenId!.toString());
+            unwatch();
+            resolve({
+              ...recruitment,
+              claimExpirationTimeout: cooldownExpiration,
+              status: RecruitmentStatus.CAN_REFINE,
+              s1Badge: {
+                ...recruitment.s1Badge,
+                tokenId: s1TokenId,
+              },
+            });
+          },
+        });
+        const badgeId = nft.badgeId as number;
+        writeContract(wagmiConfig, {
+          abi: trailblazersBadgesAbi,
+          address: trailblazersBadgesAddress[chainId],
+          functionName: 'startRecruitment',
+          args: [BigInt(badgeId), BigInt(nft.tokenId)],
+          chainId,
+        })
+          .then(() => {
+            log('startRecruitment contract write success');
+          })
+          .catch(reject);
+      } catch (e) {
+        console.error(e);
+        log('startRecruitment error', e);
+        reject(e);
+      }
+    });
+  }
 
   //   /**
   //    * Internal method to fetch the recruitment signature's from the backend
@@ -282,52 +290,69 @@ export default class BadgeRecruitmentAdapter {
   //     });
   //   }
 
-  //   /**
-  //    * Fetch recruitments for the user
-  //    *
-  //    * @return {*}  {Promise<BadgeRecruitment>}
-  //    * @memberof BadgeRecruitmentAdapter
-  //    */
-  //   async getRecruitmentStatus(address: Address): Promise<Partial<IBadgeRecruitment>[]> {
-  //     log('getRecruitmentStatus', { address });
-  //     try {
-  //       await badgesSubgraphClient.cache.reset();
-  //       const graphqlResponse = await badgesSubgraphClient.query({
-  //         query: GET_MIGRATION_STATUS_QUERY,
-  //         variables: { address: address.toLocaleLowerCase() },
-  //         fetchPolicy: 'no-cache',
-  //       });
+  // /**
+  //  * Fetch recruitments for the user
+  //  *
+  //  * @return {*}  {Promise<BadgeRecruitment>}
+  //  * @memberof BadgeRecruitmentAdapter
+  //  */
+  // async getRecruitmentStatus(address: Address): Promise<Partial<IBadgeRecruitment>[]> {
+  //   log('getRecruitmentStatus', { address });
+  //   try {
+  //     await badgesSubgraphClient.cache.reset();
+  //     const graphqlResponse = await badgesSubgraphClient.query({
+  //       query: GET_MIGRATION_STATUS_QUERY,
+  //       variables: { address: address.toLocaleLowerCase() },
+  //       fetchPolicy: 'no-cache',
+  //     });
 
-  //       const enabledBadgeIds = await this.fetchEnabledRecruitments();
+  //     const enabledBadgeIds = await this.fetchEnabledRecruitments();
 
-  //       if (!graphqlResponse) {
-  //         return [];
-  //       }
-
-  //       const { s2Recruitments } = (graphqlResponse.data?.account as {
-  //         s2Recruitments: GqlBadgeRecruitment[];
-  //       }) || { s2Recruitments: [] };
-
-  //       const recruitments = enabledBadgeIds.map((badgeId) => {
-  //         const rawRecruitments = s2Recruitments.filter((recruitment) => Number(recruitment.s1Badge.badgeId) === badgeId);
-
-  //         return rawRecruitments.map((rawRecruitment) => {
-  //           if (!rawRecruitment) {
-  //             return {
-  //               badgeId,
-  //               status: RecruitmentStatus.NOT_STARTED,
-  //             } as Partial<IBadgeRecruitment>;
-  //           }
-  //           return parseGqlBadgeRecruitment(rawRecruitment);
-  //         });
-  //       });
-
-  //       return recruitments.flat();
-  //     } catch (e) {
-  //       console.error(e);
+  //     if (!graphqlResponse) {
   //       return [];
   //     }
+
+  //     const { s2Recruitments } = (graphqlResponse.data?.account as {
+  //       s2Recruitments: GqlBadgeRecruitment[];
+  //     }) || { s2Recruitments: [] };
+
+  //     const recruitments = enabledBadgeIds.map((badgeId) => {
+  //       const rawRecruitments = s2Recruitments.filter((recruitment) => Number(recruitment.s1Badge.badgeId) === badgeId);
+
+  //       return rawRecruitments.map((rawRecruitment) => {
+  //         if (!rawRecruitment) {
+  //           return {
+  //             badgeId,
+  //             status: RecruitmentStatus.NOT_STARTED,
+  //           } as Partial<IBadgeRecruitment>;
+  //         }
+  //         return parseGqlBadgeRecruitment(rawRecruitment);
+  //       });
+  //     });
+
+  //     const resolvedRecruitments = await Promise.all(recruitments.flat());
+  //     return resolvedRecruitments;
+  //   } catch (e) {
+  //     console.error(e);
+  //     return [];
   //   }
+  // }
+
+  async getRecruitmentStatusForUser(address: Address): Promise<IBadgeRecruitment[]> {
+    const recruitment = await readContract(wagmiConfig, {
+      abi: badgeRecruitmentAbi,
+      address: badgeRecruitmentAddress[chainId],
+      functionName: 'getActiveRecruitmentFor',
+      args: [address],
+      chainId,
+    });
+
+    const parsedRecruitment: IBadgeRecruitment[] = [];
+
+    log('getRecruitmentStatusForUser', { recruitment });
+    return parsedRecruitment;
+  }
+
   //   /**
   //    * Fetch the user's max influences, based on exp
   //    *

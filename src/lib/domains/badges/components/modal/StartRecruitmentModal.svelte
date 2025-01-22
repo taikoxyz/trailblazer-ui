@@ -1,34 +1,52 @@
-<!-- <script lang="ts">
-  import * as Sentry from '@sentry/sveltekit';
+<script lang="ts">
+  // import * as Sentry from '@sentry/sveltekit';
   import { format, t } from 'svelte-i18n';
 
-  import RecruitmentBadgeItem from '$lib/domains/badges/components/RecruitmentBadgeItem.svelte';
   import { FactionNames } from '$lib/domains/nfts/types/badges/types';
-  import profileService from '$lib/domains/profile/services/ProfileServiceInstance';
   import { ActionButton } from '$shared/components/Button';
   import { Icon } from '$shared/components/Icon';
   import { errorToast, successToast } from '$shared/components/NotificationToast';
-  import { account } from '$shared/stores';
   import { activeRecruitment, influenceRecruitmentModal, startRecruitmentModal } from '$shared/stores/recruitment';
   import { classNames } from '$shared/utils/classNames';
+  import getConnectedAddress from '$shared/utils/getConnectedAddress';
+  import { getLogger } from '$shared/utils/logger';
 
-  import CoreModal from './components/CoreModal.svelte';
-  import CoreModalDescription from './components/CoreModalDescription.svelte';
-  import CoreModalFooter from './components/CoreModalFooter.svelte';
-  import CoreModalHeader from './components/CoreModalHeader.svelte';
-  import CoreModalTitle from './components/CoreModalTitle.svelte';
+  import badgeRecruitmentService from '../../services/BadgeRecruitmentServiceInstance';
+  import RecruitmentBadgeItem from '../RecruitmentBadgeItem.svelte';
+  import { CoreModal, CoreModalDescription, CoreModalFooter, CoreModalHeader, CoreModalTitle } from './components';
+
+  // import RecruitmentBadgeItem from '$lib/domains/badges/components/RecruitmentBadgeItem.svelte';
+  // import { FactionNames } from '$lib/domains/nfts/types/badges/types';
+  // import profileService from '$lib/domains/profile/services/ProfileServiceInstance';
+  // import { ActionButton } from '$shared/components/Button';
+  // import { Icon } from '$shared/components/Icon';
+  // import { errorToast, successToast } from '$shared/components/NotificationToast';
+  // import { account } from '$shared/stores';
+  // import { activeRecruitment, influenceRecruitmentModal, startRecruitmentModal } from '$shared/stores/recruitment';
+  // import { classNames } from '$shared/utils/classNames';
+
+  // import CoreModal from './components/CoreModal.svelte';
+  // import CoreModalDescription from './components/CoreModalDescription.svelte';
+  // import CoreModalFooter from './components/CoreModalFooter.svelte';
+  // import CoreModalHeader from './components/CoreModalHeader.svelte';
+  // import CoreModalTitle from './components/CoreModalTitle.svelte';
 
   $: isLoading = false;
 
+  const log = getLogger('StartRecruitmentModal');
+
   async function handleStartRecruitment() {
+    log('Start recruitment');
     try {
-      if (!$account || !$account.address || !$activeRecruitment) {
+      if (!getConnectedAddress()) {
         return;
       }
       isLoading = true;
-      const address = $account.address;
+      const address = getConnectedAddress();
+      const test = await badgeRecruitmentService.getRecruitmentStatus(address);
+      log('test', test);
 
-      await profileService.startRecruitment(address, $activeRecruitment.s1Badge, $activeRecruitment);
+      // await badgeRecruitmentService.startRecruitment(address, $activeRecruitment.s1Badge, $activeRecruitment);
 
       successToast({
         title: $t('badge_recruitment.modal.start_recruitment.toast.success.title'),
@@ -58,7 +76,7 @@
         message,
       });
 
-      Sentry.captureException(e);
+      // Sentry.captureException(e);
 
       isLoading = false;
     }
@@ -124,4 +142,4 @@
       {$t('badge_recruitment.buttons.start_recruitment')}
     </ActionButton>
   </CoreModalFooter>
-</CoreModal> -->
+</CoreModal>

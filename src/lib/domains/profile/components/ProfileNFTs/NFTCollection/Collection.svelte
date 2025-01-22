@@ -200,7 +200,7 @@
                     class="h-[130px] w-[130px] lg:w-[186px] lg:h-[186px] xl:w-[290px] xl:h-[290px]"
                     token={badge}
                     hideBubbles
-                    on:badgeclick={viewFullCollection} />
+                    on:badgeClick={viewFullCollection} />
                   <div class="mt-2 text-center">
                     <p class="font-bold capitalize">{faction}</p>
                     <p class="text-secondary-content">Total: {total}</p>
