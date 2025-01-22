@@ -1,8 +1,8 @@
 <script lang="ts">
   import { classNames } from '$shared/utils/classNames';
 
-  import EcosystemGrid from './components/EcosystemGrid.svelte';
-  import EcosystemHeader from './components/EcosystemHeader.svelte';
+  import EcosystemGrid from './EcosystemGrid.svelte';
+  import EcosystemHeader from './EcosystemHeader.svelte';
 
   const wrapperClasses = classNames(
     'xl:max-w-[1344px]',

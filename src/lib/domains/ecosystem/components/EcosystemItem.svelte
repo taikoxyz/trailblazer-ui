@@ -1,5 +1,6 @@
 <script lang="ts">
   import type { IEcosystemPartner } from '$lib/domains/ecosystem/components/partners';
+  import { Skeleton } from '$shared/components/Mock';
   import { classNames } from '$shared/utils/classNames';
 
   export let data: IEcosystemPartner;
@@ -25,8 +26,12 @@
   $: description = data.description;
   $: url = data.url;
   $: category = data.category;
+  $: disabled = url ? false : true;
 
   function getButtonText(cat: string) {
+    if (!cat) {
+      return 'coming soon...';
+    }
     if (cat === 'DeFi') {
       return 'Learn more';
     }
@@ -52,20 +57,20 @@
     'text-[14px]/[20px]',
   );
   const urlClasses = classNames(
-    'border',
-    'border-[2px]',
     'rounded-full',
     'font-[700]',
     style === 'dark' ? 'text-primary-content' : 'text-grey-800',
     'text-[16px]/[24px]',
     'w-fit',
-    'border-primary',
     'px-[20px]',
     'py-[8px]',
+    'btn',
+    'btn-ghost',
     'hover:bg-primary',
-    'transition-colors',
     'absolute',
     'bottom-[35px]',
+    disabled ? 'cursor-not-allowed border-none' : 'cursor-pointer border border-[2px] border-primary',
+    disabled ? 'border-none' : 'border border-[2px] border-primary',
   );
   const categoryClasses = classNames(
     style === 'dark' ? 'text-elevated-background' : 'text-grey-800',
@@ -84,16 +89,20 @@
 </script>
 
 <div class={wrapperClasses}>
-  <img class={logoClasses} src={logo} alt={name} />
+  {#if logo}
+    <img class={logoClasses} src={logo} alt={name} />
+  {:else}
+    <Skeleton class={logoClasses} bgColor="bg-pink-200" shineColor="bg-pink-100" />
+  {/if}
   <div class={nameClasses}>{name}</div>
-  <div class={descriptionClasses}>{description}</div>
+  <div class={descriptionClasses}>{description || 'n/a'}</div>
   <div class={urlRowClasses}>
-    <a class={urlClasses} target="_blank" href={url}>
+    <button class={urlClasses} disabled={url ? false : true} on:click={() => window.open(url, '_blank')}>
       {#if data.button}
         {data.button}
       {:else}
         {getButtonText(category)}
-      {/if}</a>
+      {/if}</button>
   </div>
-  <div class={categoryClasses}>{category}</div>
+  <div class={categoryClasses}>{category || 'n/a'}</div>
 </div>
