@@ -9,6 +9,13 @@ export interface IEcosystemPartner {
 
 const EcosystemPartners: IEcosystemPartner[] = [
   {
+    name: 'Intraverse',
+    description: 'The craziest Kart Race on Taiko powered by Intraverse',
+    logo: '/dapps/gaming/intraverse.jpg',
+    url: 'https://play.intraverse.io/',
+    category: 'Gaming',
+  },
+  {
     name: 'Materia Prima',
     description:
       'Collect, craft and battle! We are a RPG set within the mystical world of Alka Sowa. Master the arts of alchemy, craft powerful items and create life in form of homunculi. Forge mighty alliances within the alchemist guild and fight against your opponents in PvE and PvP battles.',
