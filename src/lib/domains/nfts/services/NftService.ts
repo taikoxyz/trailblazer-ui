@@ -49,6 +49,30 @@ export class NftService {
     }
   }
 
+  /**
+   * Fetches the metadata for a badge NFT.
+   *
+   * @param {number} badgeId
+   * @param {Movements} movement
+   * @return {*}  {(Promise<NFTMetadata | null>)}
+   * @memberof NftService
+   */
+  async getBadgeNFTMetadata(badgeId: number, movement: Movements): Promise<NFTMetadata | null> {
+    try {
+      const badgeType: FactionNames = getFactionName(badgeId) as FactionNames;
+      const movementName = getMovementName(movement as Movements);
+
+      const path = `/badges/${movementName}/${badgeType}`.toLowerCase();
+      return {
+        image: `${path}.png`,
+        'video/mp4': `${path}.mp4`,
+      } satisfies NFTMetadata;
+    } catch (error) {
+      log('getNFTMetadata error', { error });
+      return null;
+    }
+  }
+
   async getStataticPath(nft: TBBadge): Promise<string | null> {
     if (!nft.metadata) throw new Error('NFT does not have metadata');
 

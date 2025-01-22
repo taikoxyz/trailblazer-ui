@@ -1,21 +1,25 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
+  import { onMount, setContext } from 'svelte';
   import { t } from 'svelte-i18n';
+  import { zeroAddress } from 'viem';
 
   import { browser } from '$app/environment';
   import LoadingBlobby from '$lib/domains/profile/components/LoadingBlobby.svelte';
+  import FullCollection from '$lib/domains/profile/components/ProfileNFTs/NFTCollection/FullCollection.svelte';
+  import { Movements } from '$lib/domains/profile/types/types';
   import { ActionButton, Button } from '$shared/components/Button';
   import RotatingIcon from '$shared/components/Icon/RotatingIcon.svelte';
   import { account } from '$shared/stores';
-  import { endRecruitmentModal, influenceRecruitmentModal, startRecruitmentModal } from '$shared/stores/recruitment';
-  import { classNames } from '$shared/utils/classNames';
-  import BadgeRecruitmentItem from './BadgeRecruitmentItem.svelte';
-  import getConnectedAddress from '$shared/utils/getConnectedAddress';
-  import { zeroAddress } from 'viem';
-  import { getLogger } from '$shared/utils/logger';
-  import badgeRecruitmentService from '../services/BadgeRecruitmentServiceInstance';
+  import { startRecruitmentModal } from '$shared/stores/recruitment';
   import type { TBBadge } from '$shared/types/NFT';
-  import { FactionBadgeItem } from '$lib/domains/profile/components/ProfileNFTs';
+  import { classNames } from '$shared/utils/classNames';
+  import getConnectedAddress from '$shared/utils/getConnectedAddress';
+  import { getLogger } from '$shared/utils/logger';
+
+  import badgeRecruitmentService from '../services/BadgeRecruitmentServiceInstance';
+  import BadgeRecruitmentItem from './BadgeRecruitmentItem.svelte';
+  import Countdown from './Countdown.svelte';
+  // import { RecruitmentStatus } from '$shared/types/BadgeRecruitment';
 
   export let title: string = 'Badge Recruitment';
 
@@ -44,7 +48,7 @@
     'body-bold',
     'text-sm',
   );
-  const boxClasses = classNames('w-full');
+  const boxClasses = classNames('w-full', 'gap-[30px]', 'f-col');
   const nftGridClasses = classNames(
     'grid',
     'items-center',
@@ -66,11 +70,21 @@
     'h-[70px]',
   );
 
+  const countdownWrapperClasses = classNames(
+    'flex',
+    'gap-[5px]',
+    'font-clash-grotesk',
+    'text-[16px]',
+    'font-[500]',
+    'text-primary-content',
+  );
+  const countdownItemClasses = classNames('h-min');
+
   // $: forceRenderFlag = true;
   async function onCounterEnd() {
     if (!$account || !$account.address) return;
     // forceRenderFlag = false;
-    await handleRefresh();
+    // await handleRefresh();
     // forceRenderFlag = true;
   }
 
@@ -93,15 +107,29 @@
   $: cycleId = -1;
   $: enabledRecruitments = [] as number[];
   $: displayAvailableRecruitmentBadges = [] as TBBadge[];
+  $: selectedDevBadges = [] as TBBadge[];
+  // $: status = RecruitmentStatus.NOT_STARTED as RecruitmentStatus;
 
   // const badgeIds = [0, 1, 2, 3, 4, 5, 6, 7];
 
-  const handleRefresh = async () => {
+  // 4 days from now as timestamp
+  const cycleEndDate = new Date(Date.now() + 4 * 24 * 60 * 60 * 1000);
+
+  const initialise = async () => {
     if (!browser || isLoading) return;
+    isLoading = true;
     const address = getConnectedAddress();
     if (!address || address === zeroAddress) return;
-    cycleId = await badgeRecruitmentService.getRecruitmentCycleId();
-    enabledRecruitments = (await badgeRecruitmentService.getEnabledRecruitments()) || [];
+    const [cycleIdResult, enabledRecruitmentsResult, recruitmentsOfUser] = await Promise.all([
+      badgeRecruitmentService.getRecruitmentCycleId(),
+      badgeRecruitmentService.getEnabledRecruitments(),
+      badgeRecruitmentService.getRecruitmentStatus(address),
+    ]);
+
+    cycleId = cycleIdResult;
+    enabledRecruitments = enabledRecruitmentsResult || [];
+
+    log('recruitmentsOfUser', recruitmentsOfUser);
 
     displayAvailableRecruitmentBadges = await Promise.all(
       enabledRecruitments.map(async (badgeId) => {
@@ -122,44 +150,76 @@
     // const address = match ? match[0] : null;
     // if (!address) return;
     // await profileService.getBadgeRecruitments(address as Address);
-    // isLoading = false;
+    isLoading = false;
+  };
+
+  const handleCollectionOpen = (event: CustomEvent<{ badges: TBBadge[] }>) => {
+    log('Collection open', event);
+    selectedDevBadges = event.detail.badges;
+  };
+
+  const handleClose = () => {
+    selectedDevBadges = [];
+  };
+
+  const recruit = async (badge: TBBadge) => {
+    log('Recruit', badge);
+    const address = getConnectedAddress();
+    if (!address || address === zeroAddress) return;
+    $startRecruitmentModal = true;
   };
 
   onMount(async () => {
-    await handleRefresh();
+    await initialise();
   });
+
+  setContext('recruit', recruit);
 </script>
 
 <div class={containerClass}>
-  <div class={rowClass}>
-    <Button
-      type="neutral"
-      shape="circle"
-      class="bg-neutral rounded-full !w-[28px] !h-[28px] border-none absolute right-[20px] md:right-[48px] top-[30px]"
-      on:click={handleRefresh}>
-      <RotatingIcon loading={isLoading} type="refresh" size={13} />
-    </Button>
+  {#if selectedDevBadges.length}
+    <div class={rowClass}>
+      <div class={titleClasses}>Recruit:</div>
+      <div class={dividerClasses} />
 
-    <div class={titleClasses}>{title}</div>
-    <div class={dividerClasses} />
-    <div class={boxClasses}>
-      {#if isLoading}
-        <LoadingBlobby />
-      {:else if displayAvailableRecruitmentBadges.length}
-        <div class={nftGridClasses}>
-          Current Cylce: {cycleId}
-          {#each displayAvailableRecruitmentBadges as badge}
-            <BadgeRecruitmentItem {cycleId} enabled={true} {badge} on:counterEnd={onCounterEnd} />
-          {/each}
-        </div>
-      {:else}
-        <div class={infoTextClasses}>
-          <p>{$t('badge_recruitment.main.no_enabled_recruitments')}</p>
-        </div>
-      {/if}
+      <FullCollection badges={selectedDevBadges} movement={Movements.Devs} recruiting on:close={handleClose} />
     </div>
-  </div>
+  {:else}
+    <div class={rowClass}>
+      <Button
+        type="neutral"
+        shape="circle"
+        class="bg-neutral rounded-full !w-[28px] !h-[28px] border-none absolute right-[20px] md:right-[48px] top-[30px]"
+        on:click={initialise}>
+        <RotatingIcon loading={isLoading} type="refresh" size={13} />
+      </Button>
 
+      <div class={titleClasses}>{title}</div>
+      <div class={dividerClasses} />
+      <div class={boxClasses}>
+        {#if isLoading}
+          <LoadingBlobby />
+        {:else if displayAvailableRecruitmentBadges.length}
+          <div class="f-col">
+            <div>Current cycle: {cycleId}</div>
+            <div class="f-row items-center gap-[10px]">
+              <Countdown class={countdownWrapperClasses} itemClasses={countdownItemClasses} target={cycleEndDate} /> until
+              next cycle
+            </div>
+          </div>
+          <div class={nftGridClasses}>
+            {#each displayAvailableRecruitmentBadges as badge}
+              <BadgeRecruitmentItem {badge} on:counterEnd={onCounterEnd} on:open={handleCollectionOpen} />
+            {/each}
+          </div>
+        {:else}
+          <div class={infoTextClasses}>
+            <p>{$t('badge_recruitment.main.no_enabled_recruitments')}</p>
+          </div>
+        {/if}
+      </div>
+    </div>
+  {/if}
   <div class={faqWrapperClasses}>
     <div class="md:w-1/2 w-full mb-[25px]">
       <ActionButton href="/badge#faq" priority="primary">

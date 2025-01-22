@@ -14,7 +14,7 @@
     'h-full',
     'z-0',
     'aspect-square',
-    token.frozen ? 'blur-sm' : '',
+
     $$props.class,
   );
 

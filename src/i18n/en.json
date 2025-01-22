@@ -6,7 +6,7 @@
       "not_eligible": "Not eligible",
       "ongoing_recruitment": "Recruiting another badge",
       "reveal": "Reveal",
-      "start_recruitment": "Start recruitment"
+      "start_recruitment": "Recruit now"
     },
     "faq": {
       "entries": [
@@ -376,6 +376,7 @@
     "locked": "Locked",
     "migrate": "Recruitment",
     "not_eligible": "Not eligible",
+    "status": "Stats",
     "trail": "Trail",
     "week": "Week"
   },
@@ -562,7 +563,8 @@
             "description": "Our journey concluded on December 18th, 2024. Congratulations to the winners!",
             "title": "Season ended"
           },
-          "prize": {}
+          "prize": {
+          }
         }
       }
     },

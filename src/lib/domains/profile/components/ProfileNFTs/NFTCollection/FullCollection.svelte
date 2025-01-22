@@ -2,6 +2,7 @@
   import { createEventDispatcher, onMount } from 'svelte';
   import { t } from 'svelte-i18n';
 
+  import RecruitingStatus from '$lib/domains/badges/components/RecruitingStatus.svelte';
   import nftService from '$lib/domains/nfts/services/NFTServiceInstance';
   import { getMovementName, Movements, Multipliers } from '$lib/domains/profile/types/types';
   import { Spinner } from '$shared/components';
@@ -9,6 +10,7 @@
   import { ExplorerLink } from '$shared/components/Links';
   import type { NFT, TBBadge } from '$shared/types/NFT';
   import { classNames } from '$shared/utils/classNames';
+  import { getLogger } from '$shared/utils/logger';
 
   import { FactionBadgeItem } from '../FactionBadges';
 
@@ -46,22 +48,29 @@
 
   export let badges: TBBadge[] | NFT[] = [];
   export let movement: Movements | 'taikoon' | 'snaefell';
+  export let hasBackButton: boolean = true;
+  export let recruiting: boolean = false;
 
   const dispatch = createEventDispatcher();
+  const log = getLogger('FullCollection');
 
   const closeView = () => {
     dispatch('close');
+    log('Close view');
   };
 
   let loading = true;
-  let processedBadges: NFT[] | TBBadge[] = [];
+
+  $: reactiveBadges = [...badges];
 
   // Cache for media by movement
   const mediaCache: Map<string, NFT[]> = new Map();
 
-  $: selectedBadge = badges[0];
+  $: selectedBadge = reactiveBadges[0];
 
   const handleBadgeClick = async (event: CustomEvent<{ badge: TBBadge }>) => {
+    log('handleBadgeClick', event.detail.badge.tokenId);
+
     const badge = event.detail.badge;
     const metadata = await nftService.getNFTMetadata(selectedBadge);
     if (metadata) {
@@ -82,11 +91,11 @@
   onMount(async () => {
     const cacheKey = typeof movement !== 'string' ? getMovementName(movement) : movement;
     if (mediaCache.has(cacheKey)) {
-      processedBadges = mediaCache.get(cacheKey) || [];
+      reactiveBadges = mediaCache.get(cacheKey) || [];
       loading = false;
     } else {
       loading = true;
-      processedBadges = await Promise.all(
+      reactiveBadges = await Promise.all(
         badges.map(async (badge) => {
           if (!badge.metadata.image) {
             // check whetcher its TBBadge or NFT
@@ -103,8 +112,9 @@
         }),
       );
       // set selected badge to first non frozen
-      selectedBadge = processedBadges.find((badge) => !badge.frozen) || processedBadges[0];
-      mediaCache.set(cacheKey, processedBadges);
+      selectedBadge = reactiveBadges.find((badge) => !badge.frozen) || reactiveBadges[0];
+      reactiveBadges = [...reactiveBadges];
+      mediaCache.set(cacheKey, reactiveBadges);
       loading = false;
     }
   });
@@ -114,9 +124,11 @@
 </script>
 
 <div class={wrapperClasses}>
-  <button on:click={closeView} class="btn btn-ghost rounded-full w-[50px] h-[50px] bg-neutral-background">
-    <Icon type="chevron-left" />
-  </button>
+  {#if hasBackButton}
+    <button on:click={closeView} class="btn btn-ghost rounded-full w-[50px] h-[50px] bg-neutral-background">
+      <Icon type="chevron-left" />
+    </button>
+  {/if}
   <div class="f-row w-full gap-[24px]">
     {#if selectedBadge && 'badgeId' in selectedBadge}
       <div class="md:w-[324px] bg-elevated-background p-[24px] gap-[60px] rounded-[20px]">
@@ -148,6 +160,11 @@
             <span class="text-secondary-content">{$t('nfts.collection.token_id')}</span>
             <span> {selectedBadge.tokenId}</span>
           </div>
+
+          {#if recruiting}
+            <div class="h-sep py-2" />
+            <RecruitingStatus badge={selectedBadge} />
+          {/if}
         </div>
       </div>
     {/if}
@@ -156,7 +173,7 @@
     {:else}
       <div class="flex justify-center">
         <div class={gridClasses}>
-          {#each processedBadges as badge}
+          {#each reactiveBadges as badge}
             {#if 'badgeId' in badge}
               {@const isSelected = selectedBadge.tokenId === badge.tokenId}
               <FactionBadgeItem
@@ -164,8 +181,9 @@
                   ? pinkShadowed
                   : ''} "
                 token={badge}
+                blurred={badge.frozen}
                 hideBubbles
-                on:badgeclick={handleBadgeClick} />
+                on:badgeClick={handleBadgeClick} />
             {/if}
           {/each}
         </div>

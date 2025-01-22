@@ -7,6 +7,7 @@ export enum RecruitmentStatus {
   CAN_REFINE = 'CAN_REFINE',
   CAN_CLAIM = 'CAN_CLAIM',
   COMPLETED = 'COMPLETED',
+  LOCKED = 'LOCKED',
 }
 
 export interface IBadgeRecruitment {

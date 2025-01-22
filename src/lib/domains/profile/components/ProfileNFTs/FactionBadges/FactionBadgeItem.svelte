@@ -6,6 +6,7 @@
   import { Icon } from '$shared/components/Icon';
   import type { TBBadge } from '$shared/types/NFT';
   import { classNames } from '$shared/utils/classNames';
+  import { getLogger } from '$shared/utils/logger';
 
   import FactionImage from './FactionImage.svelte';
 
@@ -16,9 +17,16 @@
   export let token: TBBadge;
 
   const dispatch = createEventDispatcher();
+  const log = getLogger('FactionBadgeItem');
 
-  const handleClick = () => {
-    dispatch('badgeclick', { badge: token });
+  const handleButtonClick = () => {
+    dispatch('buttonClick', { badge: token, badgeId });
+    log('Button clicked', token);
+  };
+
+  const handleBadgeClick = () => {
+    log('Badge clicked', token);
+    dispatch('badgeClick', { badge: token, badgeId });
   };
 
   $: badgeId = 'badgeId' in token ? (token.badgeId as number) : 0;
@@ -61,14 +69,16 @@
   //   'gap-[5px]',
   // );
 
-  const buttonWrapperClasses = classNames('absolute', 'w-full', 'bottom-0', 'p-[20px]', 'h-[88px]');
+  const buttonWrapperClasses = classNames('absolute', 'w-full', 'bottom-[10px]', 'px-[20px]');
 
   const lockedOverlayClasses = classNames('absolute', 'w-full', 'h-full', 'items-center', 'justify-center', 'f-col');
+
+  const buttonClasses = classNames('max-h-[40px]', 'min-h-[40px]');
 
   $: reactiveToken = { ...token };
 </script>
 
-<div class={wrapperClasses} role="button" on:click={handleClick} on:keydown tabindex="0">
+<div class={wrapperClasses} on:click={handleBadgeClick} role="button" on:keydown tabindex="0">
   <div class={contentWrapperClasses}>
     <div class={imageWrapperClasses}>
       <FactionImage token={reactiveToken} />
@@ -86,14 +96,18 @@
     <div class={buttonWrapperClasses}>
       <ActionButton
         disabled={buttonDisabled || button.disabled}
-        on:click={() => button.handler && button.handler(badgeId)}
+        class={buttonClasses}
+        on:click={(event) => {
+          event.stopPropagation();
+          handleButtonClick();
+        }}
         priority={button.type}>
         {button.label}
       </ActionButton>
     </div>
   {/if}
 
-  {#if token.frozen}
+  {#if reactiveToken.frozen}
     <div class={lockedOverlayClasses}>
       <Icon type="lock" size={80} />
       <span class="text-sm hidden lg:block">Locked for current season</span>
