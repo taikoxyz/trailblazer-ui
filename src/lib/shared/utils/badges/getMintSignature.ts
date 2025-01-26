@@ -9,8 +9,8 @@ import { chainId } from '$lib/shared/utils/chain';
 import { wagmiConfig } from '$lib/shared/wagmi';
 import { isDevelopmentEnv } from '$shared/utils/isDevelopmentEnv';
 
-import { mockSignHash } from './getMockMintSignature';
 import { getLogger } from '../logger';
+import { mockSignHash } from './getMockMintSignature';
 
 const log = getLogger('getMintSignature');
 
