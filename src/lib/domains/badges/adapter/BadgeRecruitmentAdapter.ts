@@ -7,9 +7,7 @@ import {
   trailblazersBadgesAbi,
   trailblazersBadgesAddress,
 } from '$generated/abi';
-import { badgesSubgraphClient } from '$lib/shared/services/graphql/client';
-import { FETCH_ENABLED_MIGRATIONS_QUERY } from '$shared/services/graphql/queries';
-import { type IBadgeRecruitment,RecruitmentStatus } from '$shared/types/BadgeRecruitment';
+import { type IBadgeRecruitment, RecruitmentStatus } from '$shared/types/BadgeRecruitment';
 import type { TBBadge } from '$shared/types/NFT';
 import { chainId } from '$shared/utils/chain';
 import { getLogger } from '$shared/utils/logger';
@@ -24,41 +22,36 @@ export default class BadgeRecruitmentAdapter {
    * @return {*}  {Promise<number[]>}
    * @memberof BadgeRecruitmentAdapter
    */
-  async fetchEnabledRecruitments(): Promise<number[]> {
+  async fetchEnabledRecruitments(cycleId: number): Promise<number[]> {
     log('fetchEnabledRecruitments');
     const out: number[] = [];
 
+    type RecruitmentContractResponse = {
+      cycleId: bigint;
+      startTime: bigint;
+      endTime: bigint;
+      s1BadgeIds: readonly bigint[];
+    };
     try {
-      const graphqlResponse = await badgesSubgraphClient.query({
-        query: FETCH_ENABLED_MIGRATIONS_QUERY,
+      const recruitments: RecruitmentContractResponse = await readContract(wagmiConfig, {
+        abi: badgeRecruitmentAbi,
+        address: badgeRecruitmentAddress[chainId],
+        functionName: 'getRecruitmentCycle',
+        args: [BigInt(cycleId)],
+        chainId,
       });
+      log('fetchEnabledRecruitments result for openRecruitments', { recruitments });
 
-      if (!graphqlResponse || !graphqlResponse.data || !graphqlResponse.data.openRecruitments) {
-        // no open recruitments, skip
-        return out;
+      const { startTime, endTime, s1BadgeIds } = recruitments;
+
+      const start = new Date(Number(startTime) * 1000);
+      const end = new Date(Number(endTime) * 1000);
+      if (Date.now() >= start.getTime() && Date.now() <= end.getTime()) {
+        out.push(...s1BadgeIds.map((badgeId: bigint) => Number(badgeId)));
       }
-
-      const { openRecruitments } = graphqlResponse.data;
-      log('fetchEnabledRecruitments result for openRecruitments', { openRecruitments });
-      for (const recruitment of openRecruitments) {
-        if (!recruitment.enabled) continue;
-        const startTime = new Date(Number(recruitment.startTime) * 1000);
-        const endTime = new Date(Number(recruitment.endTime) * 1000);
-        if (Date.now() < startTime.getTime() || Date.now() > endTime.getTime()) {
-          // recruitment is not active
-          continue;
-        }
-        out.push(...recruitment.badgeIds.map((badgeId: bigint) => Number(badgeId)));
-      }
-
-      log('fetchEnabledRecruitments', { out });
       return out;
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (e: any) {
-      if (e.message === 'graphqlResponse.data.openRecruitments is null') {
-        // no open recruitments, skip
-        return out;
-      }
       console.error(e);
       throw e;
     }

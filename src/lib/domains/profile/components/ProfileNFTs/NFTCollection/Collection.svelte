@@ -25,6 +25,7 @@
   export let badges: BadgeDetails[] = [];
   export let nfts: NFT[] = [];
   export let collectionName: string;
+  export let checked: boolean = false;
 
   let loading = true;
   let badgesToDisplay = [...badges];
@@ -73,6 +74,21 @@
     'mt-[50px]',
   );
   const titleImageClasses = classNames('w-[50px]', 'h-[50px]');
+
+  const pinkShadowed = classNames(
+    'w-full',
+    'transition-all',
+    'rounded-[30px]',
+    'box-border',
+    'aspect-square',
+    'border',
+    'border-[3px]',
+    'border-transparent',
+    'hover:bg-pink-200',
+    'hover:border-pink-200',
+    'hover:shadow-[0_0_20px_0px_rgba(255,111,200,1)]',
+    'hover:shadow-[0_0_30px_0px_rgba(255,111,200,1)]',
+  );
 
   const calculateMultiplier = () => {
     const base = Multipliers[movement];
@@ -153,7 +169,7 @@
 
 <div class={wrapperClasses}>
   <div class={containerClasses}>
-    <input type="checkbox" id={uuid} class="collapse-checkbox peer hidden" />
+    <input type="checkbox" id={uuid} class="collapse-checkbox peer hidden" bind:checked />
 
     <label for={uuid} class="collapse-title items-center cursor-pointer p-0 m-0 w-full flex">
       <div class={collectionInfoWrapper}>
@@ -197,7 +213,7 @@
               {#if badge && collectionType === NftTypes.BADGE && !Array.isArray(badge)}
                 <div class="flex flex-col items-center">
                   <FactionBadgeItem
-                    class="h-[130px] w-[130px] lg:w-[186px] lg:h-[186px] xl:w-[290px] xl:h-[290px]"
+                    class="h-[130px] w-[130px] lg:w-[186px] lg:h-[186px] xl:w-[290px] xl:h-[290px] hover:{pinkShadowed}"
                     token={badge}
                     hideBubbles
                     on:badgeClick={viewFullCollection} />

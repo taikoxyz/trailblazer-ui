@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onDestroy, onMount } from 'svelte';
-  import { type Address, isAddressEqual, zeroAddress } from 'viem';
+  import { type Address, getAddress, isAddressEqual } from 'viem';
 
   import { page } from '$app/stores';
   import { taikoonTokenAddress } from '$generated/abi';
@@ -63,12 +63,14 @@
 
   onMount(async () => {
     loading = true;
-    let address = getConnectedAddress();
-    if (!address || address === zeroAddress) {
-      console.warn('No connected address found, using address from URL');
-      address = $page.url.pathname.split('/').pop() as Address;
-    }
-    if (!address) return;
+    const userAddress = getConnectedAddress();
+    const urlAddress = $page.url.pathname.split('/').pop() as Address;
+
+    if (!userAddress && !urlAddress) return;
+
+    const isSelfProfile = getAddress(urlAddress) === getAddress(userAddress);
+    const address = isSelfProfile ? userAddress : urlAddress;
+
     const badges = await nftService.fetchBadgesForUser(address);
     const taikoonsAndSnaefell = await nftService.fetchTaikoTokensForUser(address);
 
@@ -105,15 +107,17 @@
       {:else if badgeMovements}
         <span class="text-[18px] font-bold ml-[30px]">Badges</span>
         <div class="!mb-[50px] space-y-[30px]">
-          {#each Object.entries(badgeMovements) as [movement, factions]}
+          {#each Object.entries(badgeMovements) as [movement, factions], index}
             {@const movementName = getMovementName(Number(movement))}
             {@const { details, collected } = getFactionDetailsAndCount(factions)}
             {@const collectionName = getMovementName(Number(movement))}
+            {@const isFirst = index === 0}
             <Collection
               on:fullscreen={handleFullCollectionView}
               collectionType={NftTypes.BADGE}
               {collectionName}
               {collected}
+              checked={isFirst}
               max={details.length}
               movement={Number(movement)}
               badges={details}
