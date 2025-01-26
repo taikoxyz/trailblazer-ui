@@ -19,6 +19,7 @@
   import badgeRecruitmentService from '../services/BadgeRecruitmentServiceInstance';
   import BadgeRecruitmentItem from './BadgeRecruitmentItem.svelte';
   import Countdown from './Countdown.svelte';
+  import { Icon } from '$shared/components/Icon';
   // import { RecruitmentStatus } from '$shared/types/BadgeRecruitment';
 
   export let title: string = 'Badge Recruitment';
@@ -58,17 +59,10 @@
     'gap-[24px]',
   );
 
-  const titleClasses = classNames('text-grey-200', 'text-[16px]/[24px]');
+  const titleClasses = classNames('f-col', 'gap-[24px]', 'text-grey-200', 'text-[16px]/[24px]');
   const dividerClasses = classNames('divider', 'mt-[18px]', 'mb-[30px]', 'p-0');
 
-  const infoTextClasses = classNames(
-    'w-full',
-    'text-center',
-    'justify-center',
-    'text-secondary-content',
-    'flex',
-    'h-[70px]',
-  );
+  const infoTextClassWrapper = classNames('w-full', 'text-center', 'justify-center', 'text-secondary-content', 'f-col');
 
   const countdownWrapperClasses = classNames(
     'flex',
@@ -87,6 +81,8 @@
     // await handleRefresh();
     // forceRenderFlag = true;
   }
+
+  const iconClasses = classNames('w-[150px]', 'h-[150px]');
 
   // $: $startRecruitmentModal, !$startRecruitmentModal && handleRefresh();
   // $: $influenceRecruitmentModal, !$influenceRecruitmentModal && handleRefresh();
@@ -107,7 +103,7 @@
   $: cycleId = -1;
   $: enabledRecruitments = [] as number[];
   $: displayAvailableRecruitmentBadges = [] as TBBadge[];
-  $: selectedDevBadges = [] as TBBadge[];
+  $: selectedDevBadges = null as TBBadge[] | null;
   // $: status = RecruitmentStatus.NOT_STARTED as RecruitmentStatus;
 
   // const badgeIds = [0, 1, 2, 3, 4, 5, 6, 7];
@@ -159,7 +155,7 @@
   };
 
   const handleClose = () => {
-    selectedDevBadges = [];
+    selectedDevBadges = null;
   };
 
   const recruit = async (badge: TBBadge) => {
@@ -177,12 +173,30 @@
 </script>
 
 <div class={containerClass}>
-  {#if selectedDevBadges.length}
+  {#if selectedDevBadges?.length}
     <div class={rowClass}>
       <div class={titleClasses}>Recruit:</div>
       <div class={dividerClasses} />
 
       <FullCollection badges={selectedDevBadges} movement={Movements.Devs} recruiting on:close={handleClose} />
+    </div>
+  {:else if selectedDevBadges?.length === 0}
+    <div class={rowClass}>
+      <div class={titleClasses}>
+        <button
+          on:click={() => (selectedDevBadges = null)}
+          class="btn btn-ghost rounded-full w-[50px] h-[50px] bg-neutral-background">
+          <Icon type="chevron-left" />
+        </button>
+        <div>No badges found</div>
+      </div>
+      <div class={dividerClasses} />
+      <div class={infoTextClassWrapper}>
+        <div class="f-col max-w-[400px] self-center items-center">
+          <img class={iconClasses} alt="Not eligible" src="/blobby/sad_blobby.svg" />
+          <p>{$t('badge_recruitment.main.no_badges_to_recruit')}</p>
+        </div>
+      </div>
     </div>
   {:else}
     <div class={rowClass}>
@@ -213,7 +227,7 @@
             {/each}
           </div>
         {:else}
-          <div class={infoTextClasses}>
+          <div class={infoTextClassWrapper}>
             <p>{$t('badge_recruitment.main.no_enabled_recruitments')}</p>
           </div>
         {/if}

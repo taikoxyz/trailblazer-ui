@@ -2,7 +2,12 @@
   import { writeContract } from '@wagmi/core';
   import { type Address, isAddressEqual, zeroAddress } from 'viem';
 
-  import { trailblazersBadgesAbi, trailblazersBadgesAddress } from '$generated/abi';
+  import {
+    badgeRecruitmentAbi,
+    badgeRecruitmentAddress,
+    trailblazersBadgesAbi,
+    trailblazersBadgesAddress,
+  } from '$generated/abi';
   import ActionButton from '$shared/components/Button/ActionButton.svelte';
   import { errorToast, successToast } from '$shared/components/NotificationToast';
   import { account } from '$shared/stores/account';
@@ -11,6 +16,8 @@
   import { classNames } from '$shared/utils/classNames';
   import { isDevelopmentEnv } from '$shared/utils/isDevelopmentEnv';
   import { wagmiConfig } from '$shared/wagmi';
+  import { getFactionName } from '$lib/domains/nfts/types/badges/types';
+  import { pendingTransactions } from '$shared/stores/pendingTransactions';
 
   const containerClass = classNames(
     'container',
@@ -147,8 +154,68 @@
       canTransfer = true;
     }
   }
+
+  const stopRecruitmentCylce = async () => {
+    try {
+      const tx = await writeContract(wagmiConfig, {
+        abi: badgeRecruitmentAbi,
+        address: badgeRecruitmentAddress[chainId],
+        functionName: 'forceDisableAllRecruitments',
+        args: [],
+        chainId,
+      });
+      await pendingTransactions.add(tx);
+
+      successToast({
+        title: 'Success',
+        message: 'Recruitment cycle stopped',
+      });
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      console.error(error);
+      errorToast({
+        title: 'Error',
+        message: error.shortMessage || 'Error stopping recruitment cycle',
+      });
+    }
+  };
+
+  const startRecruitments = async () => {
+    try {
+      const tx = await writeContract(wagmiConfig, {
+        abi: badgeRecruitmentAbi,
+        address: badgeRecruitmentAddress[chainId],
+        functionName: 'enableRecruitments',
+        args: [selectedRecruitments],
+        chainId,
+      });
+      await pendingTransactions.add(tx);
+      successToast({
+        title: 'Success',
+        message: 'Recruitment cycle started',
+      });
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      console.error(error);
+      errorToast({
+        title: 'Error',
+        message: error.shortMessage || 'Error starting recruitment cycle',
+      });
+    }
+  };
+
+  $: recruitmentArray = [false, false, false, false, false, false, false, false];
+
+  $: selectedRecruitments = recruitmentArray.reduce((acc, curr, index) => {
+    if (curr) {
+      acc.push(BigInt(index));
+    }
+    return acc;
+  }, [] as bigint[]);
 </script>
 
+{recruitmentArray}
+{selectedRecruitments}
 {#if isDevelopmentEnv}
   <div class={containerClass}>
     <div class={rowClass}>
@@ -164,8 +231,35 @@
       {/each}
     </div>
 
-    <div class="mt-6 py-6 flex flex-col">
-      <h1>Badge transfer</h1>
+    <div class="f-row w-full space-y-[20px] mt-[50px] px-[47px] pt-[34px]">
+      <div class="f-col w-full">
+        <h2>Recruitments</h2>
+        <ActionButton class="max-w-[240px] !min-h-[30px]" priority="primary" on:click={stopRecruitmentCylce}>
+          Stop Recruitment Cycle</ActionButton>
+
+        <div class="f-row w-full space-[25px]">
+          <div class="grid grid-cols-4 gap-[40px] mt-6">
+            {#each recruitmentArray as _, index}
+              <div class="form-control">
+                <label class="label cursor-pointer">
+                  <span class="label-text">{getFactionName(index)} </span>
+                  <input
+                    type="checkbox"
+                    bind:checked={recruitmentArray[index]}
+                    class="checkbox checkbox-primary bg-black bg-opacity-50" />
+                </label>
+              </div>
+            {/each}
+          </div>
+        </div>
+        <ActionButton class="max-w-[240px] !min-h-[30px] mt-6" priority="primary" on:click={startRecruitments}>
+          Start Recruitment Cycle
+        </ActionButton>
+      </div>
+    </div>
+
+    <div class="mt-6 py-6 flex flex-col space-y-[20px] mt-[50px] px-[47px] pt-[34px]">
+      <h2>Badge transfer</h2>
       <div class={rowClass}>
         <input
           value={tokenId}

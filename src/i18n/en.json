@@ -181,6 +181,7 @@
       "can_claim_in": "Badge recruited in:",
       "can_influence_in": "You can influence again in:",
       "cta": "Have questions?",
+      "no_badges_to_recruit": "You don't own any dev badges of this type. Visit NFT marketplaces and have a look for available ones.",
       "no_enabled_recruitments": "No recruitments are currently enabled. Stay tuned!"
     },
     "modal": {

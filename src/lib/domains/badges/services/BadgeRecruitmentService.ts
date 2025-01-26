@@ -4,12 +4,12 @@
 // import { type IBadgeRecruitment, RecruitmentStatus } from '$lib/shared/types/BadgeRecruitment';
 // import { activeRecruitment } from '$shared/stores/recruitment';
 // import type { TBBadge } from '$shared/types/NFT';
-import { type Address,zeroAddress } from 'viem';
+import { type Address, zeroAddress } from 'viem';
 
-import { type FactionNames,getFactionName } from '$lib/domains/nfts/types/badges/types';
+import { type FactionNames, getFactionName } from '$lib/domains/nfts/types/badges/types';
 import { getMovementName, Movements } from '$lib/domains/profile/types/types';
 import { activeRecruitment } from '$shared/stores/recruitment';
-import { type IBadgeRecruitment,RecruitmentStatus } from '$shared/types/BadgeRecruitment';
+import { type IBadgeRecruitment, RecruitmentStatus } from '$shared/types/BadgeRecruitment';
 import type { TBBadge } from '$shared/types/NFT';
 import { getLogger } from '$shared/utils/logger';
 
@@ -29,7 +29,8 @@ export default class BadgeRecruitmentService {
    */
   async getEnabledRecruitments(): Promise<number[]> {
     log('getEnabledRecruitments');
-    const recruitments = await this.adapter.fetchEnabledRecruitments();
+    const currentCylce = await this.adapter.getRecruitmentCycleId();
+    const recruitments = await this.adapter.fetchEnabledRecruitments(currentCylce);
     log('getEnabledRecruitments', { recruitments });
     return recruitments;
   }
@@ -106,21 +107,29 @@ export default class BadgeRecruitmentService {
    */
   async getRecruitmentStatus(address: Address): Promise<IBadgeRecruitment[]> {
     log('getRecruitmentStatus', { address });
-    const recruitments = await this.adapter.getRecruitmentStatusForUser(address);
-    const cycleId = await this.adapter.getRecruitmentCycleId();
-    const foundActive = recruitments.find(
-      (recruitment) =>
-        recruitment.cycleId === cycleId &&
-        (recruitment.status === RecruitmentStatus.STARTED ||
-          recruitment.status === RecruitmentStatus.CAN_REFINE ||
-          recruitment.status === RecruitmentStatus.CAN_CLAIM),
-    );
+    try {
+      const [recruitments, cycleId] = await Promise.all([
+        this.adapter.getRecruitmentStatusForUser(address),
+        this.adapter.getRecruitmentCycleId(),
+      ]);
 
-    activeRecruitment.set(foundActive as IBadgeRecruitment);
+      const foundActive = recruitments.find(
+        (recruitment) =>
+          recruitment.cycleId === cycleId &&
+          (recruitment.status === RecruitmentStatus.STARTED ||
+            recruitment.status === RecruitmentStatus.CAN_REFINE ||
+            recruitment.status === RecruitmentStatus.CAN_CLAIM),
+      );
 
-    log('getRecruitmentStatus', { recruitments, foundActive });
+      activeRecruitment.set(foundActive as IBadgeRecruitment);
 
-    return recruitments as IBadgeRecruitment[];
+      log('getRecruitmentStatus', { recruitments, foundActive });
+
+      return recruitments as IBadgeRecruitment[];
+    } catch (error) {
+      console.error('Error in getRecruitmentStatus', error);
+      return [];
+    }
   }
 
   //   /**
