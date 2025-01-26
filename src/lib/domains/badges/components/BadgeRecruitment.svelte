@@ -8,6 +8,7 @@
   import FullCollection from '$lib/domains/profile/components/ProfileNFTs/NFTCollection/FullCollection.svelte';
   import { Movements } from '$lib/domains/profile/types/types';
   import { ActionButton, Button } from '$shared/components/Button';
+  import { Icon } from '$shared/components/Icon';
   import RotatingIcon from '$shared/components/Icon/RotatingIcon.svelte';
   import { account } from '$shared/stores';
   import { startRecruitmentModal } from '$shared/stores/recruitment';
@@ -19,7 +20,6 @@
   import badgeRecruitmentService from '../services/BadgeRecruitmentServiceInstance';
   import BadgeRecruitmentItem from './BadgeRecruitmentItem.svelte';
   import Countdown from './Countdown.svelte';
-  import { Icon } from '$shared/components/Icon';
   // import { RecruitmentStatus } from '$shared/types/BadgeRecruitment';
 
   export let title: string = 'Badge Recruitment';

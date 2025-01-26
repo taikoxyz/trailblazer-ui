@@ -8,16 +8,16 @@
     trailblazersBadgesAbi,
     trailblazersBadgesAddress,
   } from '$generated/abi';
+  import { getFactionName } from '$lib/domains/nfts/types/badges/types';
   import ActionButton from '$shared/components/Button/ActionButton.svelte';
   import { errorToast, successToast } from '$shared/components/NotificationToast';
   import { account } from '$shared/stores/account';
+  import { pendingTransactions } from '$shared/stores/pendingTransactions';
   import claimBadge from '$shared/utils/badges/claimBadge';
   import { chainId } from '$shared/utils/chain';
   import { classNames } from '$shared/utils/classNames';
   import { isDevelopmentEnv } from '$shared/utils/isDevelopmentEnv';
   import { wagmiConfig } from '$shared/wagmi';
-  import { getFactionName } from '$lib/domains/nfts/types/badges/types';
-  import { pendingTransactions } from '$shared/stores/pendingTransactions';
 
   const containerClass = classNames(
     'container',
