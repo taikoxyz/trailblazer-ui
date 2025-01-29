@@ -2,7 +2,7 @@ import type { CommonPageApiResponse, PaginationInfo } from '$shared/dto/CommonPa
 import { getAxiosInstance, globalAxiosConfig } from '$shared/services/api/axiosClient';
 import { getLogger } from '$shared/utils/logger';
 
-import type { EcosystemEntry,EcosystemPageApiResponse } from '../dto/ecosystem.dto';
+import type { EcosystemEntry, EcosystemPageApiResponse } from '../dto/ecosystem.dto';
 
 const log = getLogger('EcosystemAdapter');
 
