@@ -185,8 +185,8 @@ export default class BadgeRecruitmentService {
 
   async canRecruitInCycle(address: Address, cylce: number, badge: TBBadge): Promise<boolean> {
     log('canRecruitInCycle', { address, cylce, badge });
-    const canRecruit = await this.adapter.hasRecruitedInCycle(address, cylce, badge.badgeId);
-    return canRecruit;
+    const alreadyRecruited = await this.adapter.hasRecruitedInCycle(address, cylce, badge.badgeId);
+    return !alreadyRecruited;
   }
 
   //   /**

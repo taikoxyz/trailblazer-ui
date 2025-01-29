@@ -214,8 +214,6 @@
   }, [] as bigint[]);
 </script>
 
-{recruitmentArray}
-{selectedRecruitments}
 {#if isDevelopmentEnv}
   <div class={containerClass}>
     <div class={rowClass}>

@@ -381,6 +381,7 @@ export default class BadgeRecruitmentAdapter {
    * @memberof BadgeRecruitmentAdapter
    */
   async hasRecruitedInCycle(address: Address, cycle: number, badgeId: number): Promise<boolean> {
+    log('hasRecruitedInCycle', { address, cycle, badgeId });
     const recruitmentCall = {
       abi: badgeRecruitmentAbi,
       address: badgeRecruitmentAddress[chainId],

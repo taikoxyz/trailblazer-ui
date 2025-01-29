@@ -189,7 +189,7 @@
     <div class={rowClass}>
       <div class={titleClasses}>Recruit:</div>
       <div class={dividerClasses} />
-      <FullCollection badges={selectedDevBadges} movement={Movements.Devs} on:close={handleClose} recruitingView />
+      <FullCollection badges={selectedDevBadges} movement={Movements.Devs} on:close={handleClose} />
     </div>
   {:else if selectedDevBadges?.length === 0}
     <div class={rowClass}>
@@ -240,21 +240,6 @@
         {:else}
           <div class={infoTextClassWrapper}>
             <p>{$t('badge_recruitment.main.no_enabled_recruitments')}</p>
-          </div>
-        {/if}
-
-        <div class={titleClasses}>Your active recruitments:</div>
-
-        {#if $activeRecruitmentStore?.badge}
-          <div class={nftGridClasses}>
-            <BadgeRecruitmentItem
-              badge={$activeRecruitmentStore.badge}
-              recruitment={$activeRecruitmentStore}
-              on:counterEnd={onCounterEnd} />
-          </div>
-        {:else}
-          <div class={infoTextClassWrapper}>
-            <p>{$t('badge_recruitment.main.no_active_recruitments')}</p>
           </div>
         {/if}
       </div>
