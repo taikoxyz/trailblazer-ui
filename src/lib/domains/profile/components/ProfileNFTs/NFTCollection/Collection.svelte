@@ -110,12 +110,13 @@
     } as TBBadge;
   };
 
-  const viewFullCollection = () => {
+  const viewFullCollection = (event: { detail: { badge: TBBadge; badgeId: number } }) => {
     const allBadges = badges.map(({ allBadges }) => allBadges || []).flat();
     dispatch('fullscreen', {
       collectionType,
       movement,
       allBadges,
+      clickedBadge: event.detail.badge,
     });
   };
 

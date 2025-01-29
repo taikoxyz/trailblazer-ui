@@ -23,7 +23,6 @@ import type { PaginationInfo } from '$lib/shared/dto/CommonPageApiResponse';
 import type { IBadgeRecruitment } from '$lib/shared/types/BadgeRecruitment';
 import type { NFT } from '$lib/shared/types/NFT';
 import { wagmiConfig } from '$lib/shared/wagmi';
-import { activeRecruitment } from '$shared/stores/recruitment';
 import { getLogger } from '$shared/utils/logger';
 
 import type { Multipliers } from '../types/Multipliers';
@@ -547,40 +546,40 @@ export class ProfileService implements IProfileService {
     }
   }
 
-  /**
-   * Fetches enabled recruitments
-   *
-   * @return {*}  {Promise<number[]>}
-   * @memberof ProfileService
-   */
-  // async getEnabledRecruitments(): Promise<number[]> {
-  //   log('getEnabledRecruitments');
-  //   return this.badgeRecruitmentService.getEnabledRecruitments();
+  // /**
+  //  * Fetches enabled recruitments
+  //  *
+  //  * @return {*}  {Promise<number[]>}
+  //  * @memberof ProfileService
+  //  */
+  // // async getEnabledRecruitments(): Promise<number[]> {
+  // //   log('getEnabledRecruitments');
+  // //   return this.badgeRecruitmentService.getEnabledRecruitments();
+  // // }
+
+  // private async _updateRecruitment(recruitment: IBadgeRecruitment): Promise<void> {
+  //   const oldUser = await this.userRepository.get();
+  //   const badgeRecruitment = oldUser.badgeRecruitment || [];
+
+  //   // Find the recruitment to update
+  //   const existingRecruitment = badgeRecruitment.find((m) => m.id === recruitment.id);
+  //   if (existingRecruitment) {
+  //     // Update the recruitment
+  //     const index = badgeRecruitment.indexOf(existingRecruitment);
+  //     badgeRecruitment[index] = recruitment;
+  //   } else {
+  //     badgeRecruitment.push(recruitment);
+  //   }
+
+  //   // Update the profile
+  //   await this.userRepository.update({
+  //     ...oldUser,
+  //     badgeRecruitment,
+  //   });
+
+  //   activeRecruitment.set(recruitment);
+  //   log('Updating recruitment:', recruitment);
   // }
-
-  private async _updateRecruitment(recruitment: IBadgeRecruitment): Promise<void> {
-    const oldUser = await this.userRepository.get();
-    const badgeRecruitment = oldUser.badgeRecruitment || [];
-
-    // Find the recruitment to update
-    const existingRecruitment = badgeRecruitment.find((m) => m.id === recruitment.id);
-    if (existingRecruitment) {
-      // Update the recruitment
-      const index = badgeRecruitment.indexOf(existingRecruitment);
-      badgeRecruitment[index] = recruitment;
-    } else {
-      badgeRecruitment.push(recruitment);
-    }
-
-    // Update the profile
-    await this.userRepository.update({
-      ...oldUser,
-      badgeRecruitment,
-    });
-
-    activeRecruitment.set(recruitment);
-    log('Updating recruitment:', recruitment);
-  }
 
   /**
    * Retrieves the user's blacklist status for the given season.

@@ -1,5 +1,12 @@
-import { readContract, watchContractEvent, writeContract } from '@wagmi/core';
-import type { Address } from 'viem';
+import {
+  readContract,
+  readContracts,
+  signMessage,
+  simulateContract,
+  watchContractEvent,
+  writeContract,
+} from '@wagmi/core';
+import { parseSignature, recoverAddress, type Address } from 'viem';
 
 import {
   badgeRecruitmentAbi,
@@ -7,11 +14,12 @@ import {
   trailblazersBadgesAbi,
   trailblazersBadgesAddress,
 } from '$generated/abi';
-import { type IBadgeRecruitment, RecruitmentStatus } from '$shared/types/BadgeRecruitment';
+import { type IBadgeRecruitment } from '$shared/types/BadgeRecruitment';
 import type { TBBadge } from '$shared/types/NFT';
 import { chainId } from '$shared/utils/chain';
 import { getLogger } from '$shared/utils/logger';
 import { wagmiConfig } from '$shared/wagmi';
+import { getAxiosInstance } from '$shared/services/api/axiosClient';
 
 const log = getLogger('BadgeRecruitmentAdapter');
 
@@ -65,8 +73,8 @@ export default class BadgeRecruitmentAdapter {
    * @return {*}  {Promise<string>}
    * @memberof BadgeRecruitmentAdapter
    */
-  async startRecruitment(address: Address, nft: TBBadge, recruitment: IBadgeRecruitment): Promise<IBadgeRecruitment> {
-    log('startRecruitment', { address, nft });
+  async startRecruitment(address: Address, badge: TBBadge): Promise<IBadgeRecruitment> {
+    log('startRecruitment', { address, badge });
     return new Promise((resolve, reject) => {
       try {
         const unwatch = watchContractEvent(wagmiConfig, {
@@ -78,26 +86,42 @@ export default class BadgeRecruitmentAdapter {
           },
           onLogs(logs) {
             log('startRecruitment logs', logs);
-            const cooldownExpiration = new Date(parseInt(logs[0].args.cooldownExpiration!.toString()) * 1000);
-            const s1TokenId = parseInt(logs[0].args.s1TokenId!.toString());
+            // const cooldownExpiration = new Date(parseInt(logs[0].args.cooldownExpiration!.toString()) * 1000);
+            // const s1TokenId = parseInt(logs[0].args.s1TokenId!.toString());
             unwatch();
             resolve({
-              ...recruitment,
-              claimExpirationTimeout: cooldownExpiration,
-              status: RecruitmentStatus.CAN_REFINE,
-              s1Badge: {
-                ...recruitment.s1Badge,
-                tokenId: s1TokenId,
-              },
-            });
+              whaleInfluences: 0n,
+              minnowInfluences: 0n,
+              influenceExpiration: 0n,
+              cooldownExpiration: 0n,
+              s1BadgeId: BigInt(badge.badgeId),
+              s1TokenId: BigInt(badge.tokenId),
+              s2TokenId: 0n,
+              user: address,
+              recruitmentCycle: 0n,
+            } satisfies IBadgeRecruitment);
           },
         });
-        const badgeId = nft.badgeId as number;
+        const badgeId = badge.badgeId as number;
+        log('startRecruitment with', badgeId, badge.tokenId);
+
+        simulateContract(wagmiConfig, {
+          abi: trailblazersBadgesAbi,
+          address: trailblazersBadgesAddress[chainId],
+          functionName: 'startRecruitment',
+          args: [BigInt(badgeId), BigInt(badge.tokenId)],
+          chainId,
+        })
+          .then(() => {
+            log('startRecruitment contract write success');
+          })
+          .catch(reject);
+
         writeContract(wagmiConfig, {
           abi: trailblazersBadgesAbi,
           address: trailblazersBadgesAddress[chainId],
           functionName: 'startRecruitment',
-          args: [BigInt(badgeId), BigInt(nft.tokenId)],
+          args: [BigInt(badgeId), BigInt(badge.tokenId)],
           chainId,
         })
           .then(() => {
@@ -112,69 +136,64 @@ export default class BadgeRecruitmentAdapter {
     });
   }
 
-  //   /**
-  //    * Internal method to fetch the recruitment signature's from the backend
-  //    *
-  //    * @return {*}  {Promise<{ hash: Address; r: Address; s: Address; v: bigint; points: number;}>}
-  //    * @memberof BadgeRecruitmentAdapter
-  //    */
-  //   private async _getRecruitmentSignature(
-  //     address: Address,
-  //     factionId: number,
-  //     action: 'start' | 'end' | 'influence',
-  //   ): Promise<{
-  //     hash: Address;
-  //     r: Address;
-  //     s: Address;
-  //     v: bigint;
-  //     points: number;
-  //   }> {
-  //     // arbitrary challenge to prove the user owns the calling address
-  //     const challenge = Date.now().toString();
-  //     const challengeSignature = await signMessage(wagmiConfig, { message: challenge });
-  //     const hashType = action === 'start' ? 1 : action === 'end' ? 2 : 3;
-  //     const res = await axios.post(
-  //       `${PUBLIC_TRAILBLAZER_API_URL}/s2/faction/migrate`,
-  //       {
-  //         address,
-  //         signature: challengeSignature,
-  //         message: challenge,
-  //         badgeId: factionId,
-  //         chainId,
-  //         hashType,
-  //       },
-  //       {
-  //         headers: {
-  //           'Content-Type': 'application/json',
-  //         },
-  //         ...globalAxiosConfig,
-  //       },
-  //     );
+  /**
+   * Internal method to fetch the recruitment signature's from the backend
+   *
+   * @return {*}  {Promise<{ hash: Address; r: Address; s: Address; v: bigint; points: number;}>}
+   * @memberof BadgeRecruitmentAdapter
+   */
+  private async _getRecruitmentSignature(
+    address: Address,
+    factionId: number,
+    action: 'start' | 'end' | 'influence',
+  ): Promise<{
+    hash: Address;
+    r: Address;
+    s: Address;
+    v: bigint;
+    points: number;
+  }> {
+    // arbitrary challenge to prove the user owns the calling address
+    const challenge = Date.now().toString();
+    const challengeSignature = await signMessage(wagmiConfig, { message: challenge });
+    const hashType = action === 'start' ? 1 : action === 'end' ? 2 : 3;
 
-  //     const { signature: rawSignature, points } = res.data;
-  //     const mintSignature = `0x${rawSignature}` as Address;
-  //     const { r, s, v } = parseSignature(mintSignature);
+    const bypassMockApi = true;
+    const season = 2;
+    const client = getAxiosInstance(season, bypassMockApi);
+    const res = await client.post('/faction/migrate', {
+      address,
+      signature: challengeSignature,
+      message: challenge,
+      badgeId: factionId,
+      chainId,
+      hashType,
+    });
 
-  //     if (!r || !s || !v) {
-  //       throw new Error('Invalid signature: r, s, or v value is missing or incorrect');
-  //     }
+    const { signature: rawSignature, points } = res.data;
+    const mintSignature = `0x${rawSignature}` as Address;
+    const { r, s, v } = parseSignature(mintSignature);
 
-  //     const hash = await readContract(wagmiConfig, {
-  //       abi: badgeRecruitmentAbi,
-  //       address: badgeRecruitmentAddress[chainId],
-  //       functionName: 'generateClaimHash',
-  //       args: [hashType, address, BigInt(Math.trunc(points))],
-  //       chainId,
-  //     });
+    if (!r || !s || !v) {
+      throw new Error('Invalid signature: r, s, or v value is missing or incorrect');
+    }
 
-  //     const recoveredSigner = await recoverAddress({
-  //       hash,
-  //       signature: mintSignature,
-  //     });
+    const hash = await readContract(wagmiConfig, {
+      abi: badgeRecruitmentAbi,
+      address: badgeRecruitmentAddress[chainId],
+      functionName: 'generateClaimHash',
+      args: [hashType, address, BigInt(Math.trunc(points))],
+      chainId,
+    });
 
-  //     log('recoveredSigner', { recoveredSigner });
-  //     return { r, s, v, points, hash };
-  //   }
+    const recoveredSigner = await recoverAddress({
+      hash,
+      signature: mintSignature,
+    });
+
+    log('recoveredSigner', { recoveredSigner });
+    return { r, s, v, points, hash };
+  }
 
   //   /**
   //    * Execute a influence/influence on the recruitment
@@ -228,60 +247,63 @@ export default class BadgeRecruitmentAdapter {
   //     });
   //   }
 
-  //   /**
-  //    * Complete/end the recruitment
-  //    *
-  //    * @return {*}  {Promise<NFT>}
-  //    * @memberof BadgeRecruitmentAdapter
-  //    */
-  //   async endRecruitment(address: Address, nft: TBBadge, recruitment: IBadgeRecruitment): Promise<IBadgeRecruitment> {
-  //     if (nft.badgeId === undefined) {
-  //       throw new Error('Badge ID is required for ending recruitment');
-  //     }
+  /**
+   * Complete/end the recruitment
+   *
+   * @return {*}  {Promise<NFT>}
+   * @memberof BadgeRecruitmentAdapter
+   */
+  async endRecruitment(address: Address, nft: TBBadge) {
+    if (nft.badgeId === undefined) {
+      throw new Error('Badge ID is required for ending recruitment');
+    }
 
-  //     const { r, s, v, points, hash } = await this._getRecruitmentSignature(address, nft.badgeId as number, 'end');
+    const { r, s, v, points, hash } = await this._getRecruitmentSignature(address, nft.badgeId as number, 'end');
 
-  //     return new Promise((resolve, reject) => {
-  //       try {
-  //         const unwatch = watchContractEvent(wagmiConfig, {
-  //           address: badgeRecruitmentAddress[chainId],
-  //           abi: badgeRecruitmentAbi,
-  //           eventName: 'RecruitmentComplete',
-  //           args: {
-  //             user: address,
-  //           },
-  //           onLogs(logs) {
-  //             const { finalColor, s2TokenId } = logs[0].args;
-  //             const movement = parseInt(finalColor!.toString()) as Movements;
-  //             unwatch();
-  //             resolve({
-  //               ...recruitment,
-  //               status: RecruitmentStatus.COMPLETED,
-  //               s2Badge: {
-  //                 ...recruitment.s1Badge,
-  //                 tokenId: parseInt(s2TokenId!.toString()),
-  //                 metadata: {
-  //                   ...recruitment.s1Badge.metadata,
-  //                   ...generateBadgeMetadata(Seasons.Season2, recruitment.s1Badge.badgeId as number, movement),
-  //                 },
-  //               },
-  //             });
-  //           },
-  //         });
+    return new Promise((resolve, reject) => {
+      try {
+        const unwatch = watchContractEvent(wagmiConfig, {
+          address: badgeRecruitmentAddress[chainId],
+          abi: badgeRecruitmentAbi,
+          eventName: 'RecruitmentComplete',
+          args: {
+            user: address,
+          },
+          onLogs(logs) {
+            log('endRecruitment logs', logs);
+            unwatch();
+            // const { finalColor, s2TokenId } = logs[0].args;
+            // const movement = parseInt(finalColor!.toString()) as Movements;
+            unwatch();
+            resolve(logs);
 
-  //         writeContract(wagmiConfig, {
-  //           abi: badgeRecruitmentAbi,
-  //           address: badgeRecruitmentAddress[chainId],
-  //           functionName: 'endRecruitment',
-  //           args: [hash, Number(v), r, s, BigInt(Math.trunc(points))],
-  //           chainId,
-  //         }).catch(reject);
-  //       } catch (e) {
-  //         console.error(e);
-  //         reject(e);
-  //       }
-  //     });
-  //   }
+            // ...(recruitment as ActiveRecruitment),
+            // status: RecruitmentStatus.COMPLETED,
+            // resultingMovement: movement,
+            //   s2Badge: {
+            //     ...recruitment.s1Badge,
+            //     tokenId: parseInt(s2TokenId!.toString()),
+            //     metadata: {
+            //       ...recruitment.s1Badge.metadata,
+            //       ...generateBadgeMetadata(Seasons.Season2, recruitment.s1Badge.badgeId as number, movement),
+            //     },
+            //   },
+          },
+        });
+
+        writeContract(wagmiConfig, {
+          abi: badgeRecruitmentAbi,
+          address: badgeRecruitmentAddress[chainId],
+          functionName: 'endRecruitment',
+          args: [hash, Number(v), r, s, BigInt(Math.trunc(points))],
+          chainId,
+        }).catch(reject);
+      } catch (e) {
+        console.error(e);
+        reject(e);
+      }
+    });
+  }
 
   // /**
   //  * Fetch recruitments for the user
@@ -331,8 +353,8 @@ export default class BadgeRecruitmentAdapter {
   //   }
   // }
 
-  async getRecruitmentStatusForUser(address: Address): Promise<IBadgeRecruitment[]> {
-    const recruitment = await readContract(wagmiConfig, {
+  async getRecruitmentStatusForUser(address: Address): Promise<IBadgeRecruitment> {
+    const recruitment: IBadgeRecruitment = await readContract(wagmiConfig, {
       abi: badgeRecruitmentAbi,
       address: badgeRecruitmentAddress[chainId],
       functionName: 'getActiveRecruitmentFor',
@@ -340,10 +362,53 @@ export default class BadgeRecruitmentAdapter {
       chainId,
     });
 
-    const parsedRecruitment: IBadgeRecruitment[] = [];
+    // const parsedRecruitment: Partial<IBadgeRecruitment> = {
+    //   badgeId: Number(recruitment.s1BadgeId),
+    //   whaleInfluences: Number(recruitment.whaleInfluences),
+    //   minnowInfluences: Number(recruitment.minnowInfluences),
+    //   claimExpirationTimeout: new Date(Number(recruitment.cooldownExpiration) * 1000),
+    // };
 
     log('getRecruitmentStatusForUser', { recruitment });
-    return parsedRecruitment;
+    return recruitment;
+  }
+
+  /**
+   * Check if a wallet has recruited a badge in a given cycle
+   *
+   * @param badgeId
+   * @return {*}  {Promise<TBBadge>}
+   * @memberof BadgeRecruitmentAdapter
+   */
+  async hasRecruitedInCycle(address: Address, cycle: number, badgeId: number): Promise<boolean> {
+    const recruitmentCall = {
+      abi: badgeRecruitmentAbi,
+      address: badgeRecruitmentAddress[chainId],
+    } as const;
+
+    const result = await readContracts(wagmiConfig, {
+      contracts: [
+        {
+          ...recruitmentCall,
+          functionName: 'recruitmentCycleUniqueMints',
+          args: [BigInt(cycle), address, BigInt(badgeId), 0],
+        },
+        {
+          ...recruitmentCall,
+          functionName: 'recruitmentCycleUniqueMints',
+          args: [BigInt(cycle), address, BigInt(badgeId), 1],
+        },
+        {
+          ...recruitmentCall,
+          functionName: 'recruitmentCycleUniqueMints',
+          args: [BigInt(cycle), address, BigInt(badgeId), 2],
+        },
+      ],
+    });
+
+    const hasRecruited = result.some((r) => r.result === true);
+    log('hasRecruitedInCycle', { result, hasRecruited });
+    return hasRecruited;
   }
 
   //   /**

@@ -13,6 +13,8 @@
   import { getLogger } from '$shared/utils/logger';
 
   import { FactionBadgeItem } from '../FactionBadges';
+  import { activeRecruitmentStore } from '$shared/stores/recruitment';
+  import BadgeRecruitmentItem from '$lib/domains/badges/components/BadgeRecruitmentItem.svelte';
 
   const wrapperClasses = classNames('p-[20px]', 'f-col', 'gap-[30px]', 'justify-center', 'w-full');
   const gridClasses = classNames(
@@ -49,7 +51,8 @@
   export let badges: TBBadge[] | NFT[] = [];
   export let movement: Movements | 'taikoon' | 'snaefell';
   export let hasBackButton: boolean = true;
-  export let recruiting: boolean = false;
+  export let recruitingView: boolean = false;
+  export let clickedBadge: TBBadge | null = null;
 
   const dispatch = createEventDispatcher();
   const log = getLogger('FullCollection');
@@ -66,7 +69,7 @@
   // Cache for media by movement
   const mediaCache: Map<string, NFT[]> = new Map();
 
-  $: selectedBadge = reactiveBadges[0];
+  $: selectedBadge = (clickedBadge || reactiveBadges[0]) as TBBadge;
 
   const handleBadgeClick = async (event: CustomEvent<{ badge: TBBadge }>) => {
     log('handleBadgeClick', event.detail.badge.tokenId);
@@ -112,7 +115,7 @@
         }),
       );
       // set selected badge to first non frozen
-      selectedBadge = reactiveBadges.find((badge) => !badge.frozen) || reactiveBadges[0];
+      selectedBadge = (reactiveBadges.find((badge) => !badge.frozen) || reactiveBadges[0]) as TBBadge;
       reactiveBadges = [...reactiveBadges];
       mediaCache.set(cacheKey, reactiveBadges);
       loading = false;
@@ -132,11 +135,15 @@
   <div class="f-row w-full gap-[24px]">
     {#if selectedBadge && 'badgeId' in selectedBadge}
       <div class="md:w-[324px] bg-elevated-background p-[24px] gap-[60px] rounded-[20px]">
-        <FactionBadgeItem
-          token={selectedBadge}
-          class="max-h-[276px] max-w-[276px] lg:h-[276px] lg:w-[276px] rounded-[30px] "
-          blurred={selectedBadge.frozen}
-          hideBubbles />
+        {#if $activeRecruitmentStore?.badge?.tokenId === selectedBadge.tokenId}
+          <BadgeRecruitmentItem badge={$activeRecruitmentStore.badge} recruitment={$activeRecruitmentStore} />
+        {:else}
+          <FactionBadgeItem
+            token={selectedBadge}
+            class="max-h-[276px] max-w-[276px] lg:h-[276px] lg:w-[276px] rounded-[30px] "
+            blurred={selectedBadge.frozen}
+            hideBubbles />
+        {/if}
         <div class={collectionDetailsWrapperClasses}>
           <div class={collectionDetailsRowClasses}>
             <span class="text-secondary-content">{$t('nfts.collection.faction')}</span>
@@ -160,14 +167,21 @@
             <span class="text-secondary-content">{$t('nfts.collection.token_id')}</span>
             <span> {selectedBadge.tokenId}</span>
           </div>
+          {#if selectedBadge.frozen}
+            <div class={collectionDetailsRowClasses}>
+              <span class="text-secondary-content">{$t('common.status')}</span>
+              <span>{$t('nfts.collection.locked')}</span>
+            </div>
+          {/if}
 
-          {#if recruiting}
+          {#if recruitingView}
             <div class="h-sep py-2" />
             <RecruitingStatus badge={selectedBadge} />
           {/if}
         </div>
       </div>
     {/if}
+
     {#if loading}
       <Spinner size="sm" />
     {:else}
@@ -181,7 +195,6 @@
                   ? pinkShadowed
                   : ''} "
                 token={badge}
-                blurred={badge.frozen}
                 hideBubbles
                 on:badgeClick={handleBadgeClick} />
             {/if}

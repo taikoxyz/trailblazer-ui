@@ -11,7 +11,12 @@
   import { Icon } from '$shared/components/Icon';
   import RotatingIcon from '$shared/components/Icon/RotatingIcon.svelte';
   import { account } from '$shared/stores';
-  import { startRecruitmentModal } from '$shared/stores/recruitment';
+  import {
+    activeRecruitmentStore,
+    badgeToRecruit,
+    endRecruitmentModal,
+    startRecruitmentModal,
+  } from '$shared/stores/recruitment';
   import type { TBBadge } from '$shared/types/NFT';
   import { classNames } from '$shared/utils/classNames';
   import getConnectedAddress from '$shared/utils/getConnectedAddress';
@@ -119,7 +124,7 @@
     const [cycleIdResult, enabledRecruitmentsResult, recruitmentsOfUser] = await Promise.all([
       badgeRecruitmentService.getRecruitmentCycleId(),
       badgeRecruitmentService.getEnabledRecruitments(),
-      badgeRecruitmentService.getRecruitmentStatus(address),
+      badgeRecruitmentService.getUserRecruitments(address),
     ]);
 
     cycleId = cycleIdResult;
@@ -129,7 +134,7 @@
 
     displayAvailableRecruitmentBadges = await Promise.all(
       enabledRecruitments.map(async (badgeId) => {
-        const badge = await badgeRecruitmentService.getBadge(badgeId);
+        const badge = await badgeRecruitmentService.getDefaultBadge(badgeId);
         return badge;
       }),
     );
@@ -163,13 +168,20 @@
     const address = getConnectedAddress();
     if (!address || address === zeroAddress) return;
     $startRecruitmentModal = true;
+    $badgeToRecruit = badge;
+  };
+
+  const claim = () => {
+    $endRecruitmentModal = true;
+    log('Claim');
   };
 
   onMount(async () => {
     await initialise();
   });
 
-  setContext('recruit', recruit);
+  setContext('badgeRecruitRecruit', recruit);
+  setContext('badgeRecruitClaim', claim);
 </script>
 
 <div class={containerClass}>
@@ -177,8 +189,7 @@
     <div class={rowClass}>
       <div class={titleClasses}>Recruit:</div>
       <div class={dividerClasses} />
-
-      <FullCollection badges={selectedDevBadges} movement={Movements.Devs} recruiting on:close={handleClose} />
+      <FullCollection badges={selectedDevBadges} movement={Movements.Devs} on:close={handleClose} recruitingView />
     </div>
   {:else if selectedDevBadges?.length === 0}
     <div class={rowClass}>
@@ -218,7 +229,7 @@
             <div>Current cycle: {cycleId}</div>
             <div class="f-row items-center gap-[10px]">
               <Countdown class={countdownWrapperClasses} itemClasses={countdownItemClasses} target={cycleEndDate} /> until
-              next cycle
+              next cycle TODO CHANGE TO REAL DATE
             </div>
           </div>
           <div class={nftGridClasses}>
@@ -231,14 +242,29 @@
             <p>{$t('badge_recruitment.main.no_enabled_recruitments')}</p>
           </div>
         {/if}
+
+        <div class={titleClasses}>Your active recruitments:</div>
+
+        {#if $activeRecruitmentStore?.badge}
+          <div class={nftGridClasses}>
+            <BadgeRecruitmentItem
+              badge={$activeRecruitmentStore.badge}
+              recruitment={$activeRecruitmentStore}
+              on:counterEnd={onCounterEnd} />
+          </div>
+        {:else}
+          <div class={infoTextClassWrapper}>
+            <p>{$t('badge_recruitment.main.no_active_recruitments')}</p>
+          </div>
+        {/if}
       </div>
     </div>
   {/if}
-  <div class={faqWrapperClasses}>
-    <div class="md:w-1/2 w-full mb-[25px]">
-      <ActionButton href="/badge#faq" priority="primary">
-        {$t('badge_recruitment.main.cta')}
-      </ActionButton>
-    </div>
+</div>
+<div class={faqWrapperClasses}>
+  <div class="md:w-1/2 w-full mb-[25px]">
+    <ActionButton href="/badge#faq" priority="primary">
+      {$t('badge_recruitment.main.cta')}
+    </ActionButton>
   </div>
 </div>

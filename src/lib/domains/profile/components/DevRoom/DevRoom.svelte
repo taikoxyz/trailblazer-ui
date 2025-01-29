@@ -239,6 +239,7 @@
 
         <div class="f-row w-full space-[25px]">
           <div class="grid grid-cols-4 gap-[40px] mt-6">
+            <!-- eslint-disable-next-line @typescript-eslint/no-unused-vars -->
             {#each recruitmentArray as _, index}
               <div class="form-control">
                 <label class="label cursor-pointer">
@@ -261,19 +262,33 @@
     <div class="mt-6 py-6 flex flex-col space-y-[20px] mt-[50px] px-[47px] pt-[34px]">
       <h2>Badge transfer</h2>
       <div class={rowClass}>
-        <input
-          value={tokenId}
-          on:change={(e) => {
-            tokenId = parseInt(e.currentTarget?.value);
-          }}
-          placeholder="Token ID"
-          class="w-full h-full rounded-full text-center" />
-        <input
-          value={receiverAddress}
-          on:change={handleReceiverChanged}
-          placeholder="Receiver Address"
-          class="w-full h-full rounded-full text-center" />
-        <ActionButton disabled={!canTransfer} on:click={handleTransferClick} priority="primary">Transfer</ActionButton>
+        <label class="form-control w-full max-w-xs gap-1">
+          <div class="label">
+            <span class="label-text">TokenId</span>
+          </div>
+          <input
+            value={tokenId}
+            on:change={(e) => {
+              tokenId = parseInt(e.currentTarget?.value);
+            }}
+            placeholder="Token ID"
+            class=" input input-bordered input-primary w-full max-w-xs w-full h-[48px] rounded-full text-center" />
+        </label>
+
+        <label class="form-control w-full max-w-xs gap-1">
+          <div class="label">
+            <span class="label-text">Receiver Address</span>
+          </div>
+
+          <input
+            value={receiverAddress}
+            on:change={handleReceiverChanged}
+            placeholder="Receiver Address"
+            class="input input-bordered input-primary w-full max-w-xs w-full h-[48px] rounded-full text-center" />
+        </label>
+
+        <ActionButton class="place-self-end" disabled={!canTransfer} on:click={handleTransferClick} priority="primary"
+          >Transfer</ActionButton>
       </div>
     </div>
   </div>

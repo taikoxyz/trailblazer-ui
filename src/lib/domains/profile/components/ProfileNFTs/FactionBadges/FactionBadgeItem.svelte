@@ -1,28 +1,27 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
 
-  import type { FactionBadgeButton } from '$lib/domains/profile/types/FactionBadgeButton';
-  import { ActionButton } from '$shared/components/Button';
   import { Icon } from '$shared/components/Icon';
   import type { TBBadge } from '$shared/types/NFT';
   import { classNames } from '$shared/utils/classNames';
   import { getLogger } from '$shared/utils/logger';
 
   import FactionImage from './FactionImage.svelte';
+  import { activeRecruitmentStore } from '$shared/stores/recruitment';
+  import { RecruitmentStatus } from '$shared/types/BadgeRecruitment';
 
-  export let blurred: boolean = false;
   export let inColor: boolean = true;
-  export let buttonDisabled = false;
-  export let button: null | FactionBadgeButton = null;
+  // export let buttonDisabled = false;
+  // export let button: null | FactionBadgeButton = null;
   export let token: TBBadge;
 
   const dispatch = createEventDispatcher();
   const log = getLogger('FactionBadgeItem');
 
-  const handleButtonClick = () => {
-    dispatch('buttonClick', { badge: token, badgeId });
-    log('Button clicked', token);
-  };
+  // const handleButtonClick = () => {
+  //   dispatch('buttonClick', { badge: token, badgeId });
+  //   log('Button clicked', token);
+  // };
 
   const handleBadgeClick = () => {
     log('Badge clicked', token);
@@ -69,13 +68,19 @@
   //   'gap-[5px]',
   // );
 
-  const buttonWrapperClasses = classNames('absolute', 'w-full', 'bottom-[10px]', 'px-[20px]');
+  // const buttonWrapperClasses = classNames('absolute', 'w-full', 'bottom-[10px]', 'px-[20px]');
 
   const lockedOverlayClasses = classNames('absolute', 'w-full', 'h-full', 'items-center', 'justify-center', 'f-col');
 
-  const buttonClasses = classNames('max-h-[40px]', 'min-h-[40px]');
+  // const buttonClasses = classNames('max-h-[40px]', 'min-h-[40px]');
 
   $: reactiveToken = { ...token };
+
+  $: isRecruiting =
+    $activeRecruitmentStore?.badge?.tokenId === token.tokenId &&
+    $activeRecruitmentStore?.status !== RecruitmentStatus.COMPLETED;
+
+  $: blurred = isRecruiting ? false : token.frozen;
 </script>
 
 <div class={wrapperClasses} on:click={handleBadgeClick} role="button" on:keydown tabindex="0">
@@ -92,7 +97,7 @@
     </div>
   {/if} -->
 
-  {#if button}
+  <!-- {#if button}
     <div class={buttonWrapperClasses}>
       <ActionButton
         disabled={buttonDisabled || button.disabled}
@@ -105,12 +110,11 @@
         {button.label}
       </ActionButton>
     </div>
-  {/if}
+  {/if} -->
 
-  {#if reactiveToken.frozen}
+  {#if reactiveToken.frozen && !isRecruiting}
     <div class={lockedOverlayClasses}>
       <Icon type="lock" size={80} />
-      <span class="text-sm hidden lg:block">Locked for current season</span>
     </div>
   {/if}
 </div>

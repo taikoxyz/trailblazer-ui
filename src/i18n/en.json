@@ -214,7 +214,7 @@
         }
       },
       "start_recruitment": {
-        "description": "Time to recruit your Season 2 {badgeName} badge!",
+        "description": "Time to recruit your new {badgeName} badge!",
         "title": "Start your recruitment process",
         "toast": {
           "error": {
@@ -230,7 +230,7 @@
             "title": "Success"
           }
         },
-        "warning": "Warning: Once you click 'Start Recruitment', your Season 1 badge will be locked for the rest of the season."
+        "warning": "Warning: Once you click 'Start Recruitment', your Dev badge will be locked for the rest of the season."
       }
     }
   },
@@ -377,7 +377,7 @@
     "locked": "Locked",
     "migrate": "Recruitment",
     "not_eligible": "Not eligible",
-    "status": "Stats",
+    "status": "Status",
     "trail": "Trail",
     "week": "Week"
   },
@@ -564,8 +564,7 @@
             "description": "Our journey concluded on December 18th, 2024. Congratulations to the winners!",
             "title": "Season ended"
           },
-          "prize": {
-          }
+          "prize": {}
         }
       }
     },
@@ -869,6 +868,7 @@
       "collected": "Collected",
       "contract_address": "Contract Address",
       "faction": "Faction",
+      "locked": "Locked for this season",
       "multiplier": "Multiplier",
       "team": "Team",
       "token_id": "Token ID"
