@@ -15,17 +15,17 @@ export default defineConfig({
   },
   server: {
     watch: {
-        followSymlinks: false,
-    }
+      followSymlinks: false,
+    },
   },
   plugins: [
-    qrcode(),/*
+    qrcode() /*
     sentrySvelteKit({
       sourceMapsUploadOptions: {
         org: 'taiko-gg',
         project: 'javascript-sveltekit',
       },
-    }),*/
+    }),*/,
     sveltekit(), // This plugin gives vite the ability to resolve imports using TypeScript's path mapping.
     // https://www.npmjs.com/package/vite-tsconfig-paths
     tsconfigPaths({ ignoreConfigErrors: true }),
