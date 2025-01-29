@@ -11,10 +11,27 @@
   import type { TBBadge } from '$shared/types/NFT';
   import getConnectedAddress from '$shared/utils/getConnectedAddress';
   import { getLogger } from '$shared/utils/logger';
+  import { RecruitmentStatus, type ActiveRecruitment } from '$shared/types/BadgeRecruitment';
 
   const log = getLogger('BadgeRecruitmentItem');
 
   export let badge: TBBadge;
+
+  export let recruitment: ActiveRecruitment | null = null;
+
+  const getButton = () => {
+    const recruitmentStatus = recruitment?.status;
+    if (!recruitmentStatus) {
+      return buttons.StartRecruitment;
+    }
+    if (recruitmentStatus === RecruitmentStatus.NOT_STARTED) {
+      return buttons.StartRecruitment;
+    }
+    if (recruitmentStatus === RecruitmentStatus.CAN_CLAIM) {
+      return buttons.Claim;
+    }
+    return buttons.NotEligible;
+  };
 
   $: buttons = {
     NotEligible: {
@@ -22,7 +39,11 @@
       type: 'primary',
       label: $t('badge_recruitment.buttons.not_eligible'),
     },
-
+    Claim: {
+      type: 'primary',
+      label: $t('badge_recruitment.buttons.end_recruitment'),
+      handler: handleClaim,
+    },
     StartRecruitment: {
       type: 'primary',
       label: $t('badge_recruitment.buttons.start_recruitment'),
@@ -35,6 +56,30 @@
   const handleStartRecruitment = () => {
     log('Start recruitment');
   };
+
+  const handleClaim = () => {
+    log('Claim recruitment');
+  };
+
+  const handleBadgeClick = (event: { detail: { badge: TBBadge; badgeId: number } }) => {
+    log('Badge clicked', badge);
+    openRecruitment(event);
+  };
+
+  // const handleButtonClick = async (event: { detail: { badge: TBBadge; badgeId: number } }) => {
+  //   log('Button clicked with recruitmentStatus:', recruitment?.status);
+  //   if (!recruitment?.status) {
+  //     // if no recruitmentstatus is set, default to openRecruitment
+  //     return await openRecruitment(event);
+  //   }
+  //   const button = getButton();
+  //   if (button && button.handler) {
+  //     button.handler(badge.badgeId);
+  //   } else {
+  //     log('No handler defined, defaulting to openRecruitment');
+  //     openRecruitment({ detail: { badge, badgeId: badge.badgeId } });
+  //   }
+  // };
 
   const openRecruitment = async (event: { detail: { badge: TBBadge; badgeId: number } }) => {
     const { badge: recruitBadge } = event.detail;
@@ -88,5 +133,5 @@
 </script>
 
 <div class="f-col w-full">
-  <FactionBadgeItem hideBubbles token={badge} on:buttonClick={openRecruitment} button={buttons.StartRecruitment} />
+  <FactionBadgeItem hideBubbles token={badge} on:badgeClick={handleBadgeClick} button={getButton()} />
 </div>

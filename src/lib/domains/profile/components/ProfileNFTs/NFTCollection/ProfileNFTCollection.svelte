@@ -9,7 +9,7 @@
   import { getMovementName, Movements } from '$lib/domains/profile/types/types';
   import { NftTypes } from '$lib/domains/profile/types/UserNFTs';
   import { chainId } from '$lib/shared/utils/chain';
-  import type { BadgeDetailsByFaction, BadgeDetailsByMovement, NFT } from '$shared/types/NFT';
+  import type { BadgeDetailsByFaction, BadgeDetailsByMovement, NFT, TBBadge } from '$shared/types/NFT';
   import getConnectedAddress from '$shared/utils/getConnectedAddress';
 
   import LoadingBlobby from '../../LoadingBlobby.svelte';
@@ -49,12 +49,17 @@
 
   let selectedCollectionNFTs: NFT[] = [];
 
+  let clickedBadge: TBBadge;
+
   let selectedMovement: Movements | 'taikoon' | 'snaefell';
 
-  const handleFullCollectionView = (event: CustomEvent<{ allBadges: NFT[]; movement: number }>) => {
+  const handleFullCollectionView = (
+    event: CustomEvent<{ allBadges: NFT[]; movement: number; clickedBadge: TBBadge }>,
+  ) => {
     fullscreen = true;
     selectedCollectionNFTs = event.detail.allBadges;
     selectedMovement = event.detail.movement;
+    clickedBadge = event.detail.clickedBadge;
   };
 
   const handleClose = () => {
@@ -99,7 +104,7 @@
 
 <ProfileTab>
   {#if fullscreen}
-    <FullCollection badges={selectedCollectionNFTs} movement={selectedMovement} on:close={handleClose} />
+    <FullCollection badges={selectedCollectionNFTs} movement={selectedMovement} {clickedBadge} on:close={handleClose} />
   {:else}
     <div class="space-y-[20px]">
       {#if loading}

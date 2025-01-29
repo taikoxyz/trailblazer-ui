@@ -6,7 +6,12 @@
   import { ActionButton } from '$shared/components/Button';
   import { Icon } from '$shared/components/Icon';
   import { errorToast, successToast } from '$shared/components/NotificationToast';
-  import { activeRecruitment, influenceRecruitmentModal, startRecruitmentModal } from '$shared/stores/recruitment';
+  import {
+    activeRecruitmentStore,
+    badgeToRecruit,
+    influenceRecruitmentModal,
+    startRecruitmentModal,
+  } from '$shared/stores/recruitment';
   import { classNames } from '$shared/utils/classNames';
   import getConnectedAddress from '$shared/utils/getConnectedAddress';
   import { getLogger } from '$shared/utils/logger';
@@ -14,22 +19,6 @@
   import badgeRecruitmentService from '../../services/BadgeRecruitmentServiceInstance';
   import RecruitmentBadgeItem from '../RecruitmentBadgeItem.svelte';
   import { CoreModal, CoreModalDescription, CoreModalFooter, CoreModalHeader, CoreModalTitle } from './components';
-
-  // import RecruitmentBadgeItem from '$lib/domains/badges/components/RecruitmentBadgeItem.svelte';
-  // import { FactionNames } from '$lib/domains/nfts/types/badges/types';
-  // import profileService from '$lib/domains/profile/services/ProfileServiceInstance';
-  // import { ActionButton } from '$shared/components/Button';
-  // import { Icon } from '$shared/components/Icon';
-  // import { errorToast, successToast } from '$shared/components/NotificationToast';
-  // import { account } from '$shared/stores';
-  // import { activeRecruitment, influenceRecruitmentModal, startRecruitmentModal } from '$shared/stores/recruitment';
-  // import { classNames } from '$shared/utils/classNames';
-
-  // import CoreModal from './components/CoreModal.svelte';
-  // import CoreModalDescription from './components/CoreModalDescription.svelte';
-  // import CoreModalFooter from './components/CoreModalFooter.svelte';
-  // import CoreModalHeader from './components/CoreModalHeader.svelte';
-  // import CoreModalTitle from './components/CoreModalTitle.svelte';
 
   $: isLoading = false;
 
@@ -43,10 +32,17 @@
       }
       isLoading = true;
       const address = getConnectedAddress();
-      const test = await badgeRecruitmentService.getRecruitmentStatus(address);
-      log('test', test);
 
-      // await badgeRecruitmentService.startRecruitment(address, $activeRecruitment.s1Badge, $activeRecruitment);
+      // const test = await badgeRecruitmentService.getRecruitmentStatus(address);
+
+      if (!$badgeToRecruit) {
+        return;
+      }
+      const recruitment = await badgeRecruitmentService.startRecruitment(address, $badgeToRecruit);
+
+      // todo add to store?
+
+      log('recruitmenth', recruitment);
 
       successToast({
         title: $t('badge_recruitment.modal.start_recruitment.toast.success.title'),
@@ -106,7 +102,7 @@
     'items-center',
   );
 
-  $: badgeName = Object.values(FactionNames)[$activeRecruitment?.s1Badge?.badgeId as number] || '';
+  $: badgeName = Object.values(FactionNames)[$activeRecruitmentStore?.badge?.badgeId as number] || '';
 </script>
 
 <CoreModal bind:open={$startRecruitmentModal}>
@@ -124,10 +120,10 @@
     </CoreModalDescription>
   </CoreModalHeader>
 
-  {#if $activeRecruitment}
+  {#if $badgeToRecruit}
     <div class={badgesWrapperClasses}>
-      <RecruitmentBadgeItem token={$activeRecruitment.s1Badge}>
-        {badgeName}
+      <RecruitmentBadgeItem token={$badgeToRecruit}>
+        {$badgeToRecruit.faction}
       </RecruitmentBadgeItem>
     </div>
   {/if}

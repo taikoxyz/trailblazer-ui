@@ -1,16 +1,15 @@
-<!-- <script lang="ts">
+<script lang="ts">
   import * as Sentry from '@sentry/sveltekit';
   import Flippable from 'svelte-flip';
   import { t } from 'svelte-i18n';
 
   import RecruitmentBadgeItem from '$lib/domains/badges/components/RecruitmentBadgeItem.svelte';
-  import profileService from '$lib/domains/profile/services/ProfileServiceInstance';
   import { MovementNames, Movements } from '$lib/domains/profile/types/types';
   import { Spinner } from '$shared/components';
   import { ActionButton } from '$shared/components/Button';
   import { errorToast, successToast } from '$shared/components/NotificationToast';
   import { account } from '$shared/stores';
-  import { activeRecruitment, endRecruitmentModal } from '$shared/stores/recruitment';
+  import { activeRecruitmentStore, endRecruitmentModal } from '$shared/stores/recruitment';
   import type { TBBadge } from '$shared/types/NFT';
   import { classNames } from '$shared/utils/classNames';
 
@@ -20,6 +19,7 @@
   import CoreModalFooter from './components/CoreModalFooter.svelte';
   import CoreModalHeader from './components/CoreModalHeader.svelte';
   import CoreModalTitle from './components/CoreModalTitle.svelte';
+  import badgeRecruitmentService from '../../services/BadgeRecruitmentServiceInstance';
 
   $: isLoading = false;
 
@@ -31,12 +31,12 @@
         return;
       }
 
-      if (!$activeRecruitment || !$activeRecruitment.s1Badge) {
+      if (!$activeRecruitmentStore || !$activeRecruitmentStore.badge) {
         return;
       }
       isLoading = true;
-      await profileService.endRecruitment($account.address, $activeRecruitment.s1Badge, $activeRecruitment);
-      backToken = $activeRecruitment.s2Badge!;
+      await badgeRecruitmentService.endRecruitment($account.address, $activeRecruitmentStore.badge);
+      backToken = $activeRecruitmentStore.recruitedBadge!;
       // give 1s of buffer before re-fetching
       isRevealed = true;
 
@@ -79,10 +79,10 @@
     </CoreModalDescription>
   </CoreModalHeader>
 
-  {#if $activeRecruitment}
+  {#if $activeRecruitmentStore}
     <div class={badgeWrapperClasses}>
       <Flippable height="400px" width="300px" flip={isRevealed}>
-        <RecruitmentBadgeItem locked token={$activeRecruitment.s1Badge} slot="front" />
+        <RecruitmentBadgeItem locked token={$activeRecruitmentStore.badge} slot="front" />
 
         <div slot="back">
           {#if backToken && backToken.movement !== undefined}
@@ -106,4 +106,4 @@
       <ActionButton on:click={() => ($endRecruitmentModal = false)} priority="primary">Confirm</ActionButton>
     {/if}
   </CoreModalFooter>
-</CoreModal> -->
+</CoreModal>
