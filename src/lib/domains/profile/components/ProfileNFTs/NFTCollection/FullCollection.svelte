@@ -1,20 +1,16 @@
 <script lang="ts">
   import { createEventDispatcher, onMount } from 'svelte';
-  import { t } from 'svelte-i18n';
 
-  import RecruitingStatus from '$lib/domains/badges/components/RecruitingStatus.svelte';
   import nftService from '$lib/domains/nfts/services/NFTServiceInstance';
-  import { getMovementName, Movements, Multipliers } from '$lib/domains/profile/types/types';
+  import { getMovementName, Movements } from '$lib/domains/profile/types/types';
   import { Spinner } from '$shared/components';
   import { Icon } from '$shared/components/Icon';
-  import { ExplorerLink } from '$shared/components/Links';
   import type { NFT, TBBadge } from '$shared/types/NFT';
   import { classNames } from '$shared/utils/classNames';
   import { getLogger } from '$shared/utils/logger';
 
   import { FactionBadgeItem } from '../FactionBadges';
-  import { activeRecruitmentStore } from '$shared/stores/recruitment';
-  import BadgeRecruitmentItem from '$lib/domains/badges/components/BadgeRecruitmentItem.svelte';
+  import FullCollectionSidePanel from './FullCollectionSidePanel.svelte';
 
   const wrapperClasses = classNames('p-[20px]', 'f-col', 'gap-[30px]', 'justify-center', 'w-full');
   const gridClasses = classNames(
@@ -37,6 +33,15 @@
     'border-[3px]',
   );
 
+  const hoverBorder = classNames(
+    'border',
+    'border-transparent',
+    'border-[3px]',
+    'hover:bg-pink-200',
+    'hover:border-pink-200',
+    'hover:shadow-[0_0_30px_0px_rgba(255,111,200,1)]',
+  );
+
   const pinkBordered = classNames(borderedBadgeBaseClasses, 'bg-pink-200', 'border-pink-200');
 
   const pinkShadowed = classNames(
@@ -51,7 +56,6 @@
   export let badges: TBBadge[] | NFT[] = [];
   export let movement: Movements | 'taikoon' | 'snaefell';
   export let hasBackButton: boolean = true;
-  export let recruitingView: boolean = false;
   export let clickedBadge: TBBadge | null = null;
 
   const dispatch = createEventDispatcher();
@@ -121,9 +125,6 @@
       loading = false;
     }
   });
-
-  const collectionDetailsWrapperClasses = classNames('space-y-[10px]', 'mt-[60px]', 'w-full', 'order-3');
-  const collectionDetailsRowClasses = classNames('f-row', 'justify-between', 'font-bold', 'w-full');
 </script>
 
 <div class={wrapperClasses}>
@@ -134,52 +135,7 @@
   {/if}
   <div class="f-row w-full gap-[24px]">
     {#if selectedBadge && 'badgeId' in selectedBadge}
-      <div class="md:w-[324px] bg-elevated-background p-[24px] gap-[60px] rounded-[20px]">
-        {#if $activeRecruitmentStore?.badge?.tokenId === selectedBadge.tokenId}
-          <BadgeRecruitmentItem badge={$activeRecruitmentStore.badge} recruitment={$activeRecruitmentStore} />
-        {:else}
-          <FactionBadgeItem
-            token={selectedBadge}
-            class="max-h-[276px] max-w-[276px] lg:h-[276px] lg:w-[276px] rounded-[30px] "
-            blurred={selectedBadge.frozen}
-            hideBubbles />
-        {/if}
-        <div class={collectionDetailsWrapperClasses}>
-          <div class={collectionDetailsRowClasses}>
-            <span class="text-secondary-content">{$t('nfts.collection.faction')}</span>
-            <div>
-              {selectedBadge.faction}
-            </div>
-          </div>
-          <div class={collectionDetailsRowClasses}>
-            <span class="text-secondary-content">{$t('nfts.collection.team')}</span>
-            <span> {typeof movement !== 'string' ? getMovementName(movement) : movement}</span>
-          </div>
-          <div class={collectionDetailsRowClasses}>
-            <span class="text-secondary-content">{$t('nfts.collection.multiplier')}</span>
-            <span>+{Multipliers[movement]}x</span>
-          </div>
-          <div class={collectionDetailsRowClasses}>
-            <span class="text-secondary-content">{$t('nfts.collection.contract_address')}</span>
-            <ExplorerLink shorten noIcon category="contract" urlParam={selectedBadge.address}>test</ExplorerLink>
-          </div>
-          <div class={collectionDetailsRowClasses}>
-            <span class="text-secondary-content">{$t('nfts.collection.token_id')}</span>
-            <span> {selectedBadge.tokenId}</span>
-          </div>
-          {#if selectedBadge.frozen}
-            <div class={collectionDetailsRowClasses}>
-              <span class="text-secondary-content">{$t('common.status')}</span>
-              <span>{$t('nfts.collection.locked')}</span>
-            </div>
-          {/if}
-
-          {#if recruitingView}
-            <div class="h-sep py-2" />
-            <RecruitingStatus badge={selectedBadge} />
-          {/if}
-        </div>
-      </div>
+      <FullCollectionSidePanel {selectedBadge} {movement} recruitingView />
     {/if}
 
     {#if loading}
@@ -191,7 +147,7 @@
             {#if 'badgeId' in badge}
               {@const isSelected = selectedBadge.tokenId === badge.tokenId}
               <FactionBadgeItem
-                class="max-h-[150px] max-w-[150px] lg:max-h-[186px] lg:max-w-[186px] xl:max-h-[205px] xl:max-w-[205px] {isSelected
+                class="max-h-[150px] max-w-[150px] lg:max-h-[186px] lg:max-w-[186px] xl:max-h-[205px] {hoverBorder} xl:max-w-[205px] {isSelected
                   ? pinkShadowed
                   : ''} "
                 token={badge}

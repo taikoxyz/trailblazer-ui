@@ -16,7 +16,7 @@
   const log = getLogger('BadgeRecruitmentItem');
 
   export let badge: TBBadge;
-
+  export let blurred: boolean = false;
   export let recruitment: ActiveRecruitment | null = null;
 
   const getButton = () => {
@@ -65,21 +65,6 @@
     log('Badge clicked', badge);
     openRecruitment(event);
   };
-
-  // const handleButtonClick = async (event: { detail: { badge: TBBadge; badgeId: number } }) => {
-  //   log('Button clicked with recruitmentStatus:', recruitment?.status);
-  //   if (!recruitment?.status) {
-  //     // if no recruitmentstatus is set, default to openRecruitment
-  //     return await openRecruitment(event);
-  //   }
-  //   const button = getButton();
-  //   if (button && button.handler) {
-  //     button.handler(badge.badgeId);
-  //   } else {
-  //     log('No handler defined, defaulting to openRecruitment');
-  //     openRecruitment({ detail: { badge, badgeId: badge.badgeId } });
-  //   }
-  // };
 
   const openRecruitment = async (event: { detail: { badge: TBBadge; badgeId: number } }) => {
     const { badge: recruitBadge } = event.detail;
@@ -133,5 +118,5 @@
 </script>
 
 <div class="f-col w-full">
-  <FactionBadgeItem hideBubbles token={badge} on:badgeClick={handleBadgeClick} button={getButton()} />
+  <FactionBadgeItem {blurred} hideBubbles token={badge} on:badgeClick={handleBadgeClick} button={getButton()} />
 </div>
