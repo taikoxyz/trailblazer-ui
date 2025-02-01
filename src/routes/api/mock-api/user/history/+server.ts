@@ -23,14 +23,14 @@ export function GET({ url }) {
     items: [
       {
         address: address,
-        points: 0,
-        event: ActivityType.TRANSACTION,
+        points: 50_000,
+        event: ActivityType.DORAHACKS_VOTE,
         date: 1721642099,
-        multiplier: 3,
+        multiplier: 1,
       },
       {
         address: address,
-        points: 0,
+        points: -1,
         event: ActivityType.TRANSACTION_VALUE,
         date: 1721642099,
         multiplier: 4,

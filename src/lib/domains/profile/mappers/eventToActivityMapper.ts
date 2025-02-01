@@ -7,4 +7,5 @@ export const eventToActivityTypeMap: Record<string, ActivityType> = {
   BlockProposed: ActivityType.BLOCK_PROPOSED,
   BlockProven: ActivityType.BLOCK_PROVEN,
   Prediction: ActivityType.PREDICTION,
+  DoraHacksVoting: ActivityType.DORAHACKS_VOTE,
 };

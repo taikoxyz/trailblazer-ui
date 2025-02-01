@@ -501,11 +501,11 @@
     },
     "chillblazers": {
       "ended": {
+        "description": "Our journey concluded on December 16th, 2024. Congratulations to the winners!",
         "s3": {
           "description": "Our journey concluded on January 17th, 2025. Congratulations to the winners!",
           "title": "Journey ended"
         },
-        "description": "Our journey concluded on December 16th, 2024. Congratulations to the winners!",
         "title": "Journey ended"
       },
       "prize": {
@@ -637,57 +637,6 @@
       },
       "tokenName": "TAIKO Tokens"
     },
-    "thrillblazers": {
-      "description": {
-        "s2": " Thrill-Blazer launches Oct 18th. Calling all gaming and SocialFi dApps: Blaze new trails, fuel Taiko's momentum, and seize your chance for legendary rewards!",
-        "s3": " Thrill-Blazer launches Jan 17th. Calling all gaming and SocialFi dApps: Blaze new trails, fuel Taiko's momentum, and seize your chance for legendary rewards!"
-      },
-      "ended": {
-        "s2": {
-          "description": "Our journey concluded on November 18th, 2024. Congratulations to the winners!",
-          "title": "Journey ended"
-        },
-        "s3": {
-          "description": "Our journey concluded on February 17th, 2025. Congratulations to the winners!",
-          "title": "Journey ended"
-        }
-      },
-      "prize_breakdown": {
-        "s2": {
-          "total": "140k TAIKO Tokens",
-          "fifth": {
-            "amount": "5k"
-          },
-          "first": {
-            "amount": "65k"
-          },
-          "fourth": {
-            "amount": "10k"
-          },
-          "second": {
-            "amount": "40k"
-          },
-          "third": {
-            "amount": "20k"
-          }
-        },
-        "s3": {
-          "total": "100k TAIKO Tokens",
-          "first": {
-            "amount": "55k"
-          },
-          "fourth": {
-            "amount": "5k"
-          },
-          "second": {
-            "amount": "25k"
-          },
-          "third": {
-            "amount": "15k"
-          }
-        }
-      }
-    },
     "liquidityRoyale": {
       "blogpost": {
         "url": {
@@ -771,6 +720,80 @@
         "text": "Do you still have questions about earning points and how they're calculated? Visit our blog post for all the answers!"
       }
     },
+    "thrillblazer": {
+      "ended": {
+        "description": "",
+        "title": ""
+      },
+      "prize_breakdown": {
+        "fifth": {
+          "amount": ""
+        },
+        "first": {
+          "amount": ""
+        },
+        "fourth": {
+          "amount": ""
+        },
+        "second": {
+          "amount": ""
+        },
+        "third": {
+          "amount": ""
+        }
+      }
+    },
+    "thrillblazers": {
+      "description": {
+        "s2": " Thrill-Blazer launches Oct 18th. Calling all gaming and SocialFi dApps: Blaze new trails, fuel Taiko's momentum, and seize your chance for legendary rewards!",
+        "s3": " Thrill-Blazer launches Jan 17th. Calling all gaming and SocialFi dApps: Blaze new trails, fuel Taiko's momentum, and seize your chance for legendary rewards!"
+      },
+      "ended": {
+        "s2": {
+          "description": "Our journey concluded on November 18th, 2024. Congratulations to the winners!",
+          "title": "Journey ended"
+        },
+        "s3": {
+          "description": "Our journey concluded on February 17th, 2025. Congratulations to the winners!",
+          "title": "Journey ended"
+        }
+      },
+      "prize_breakdown": {
+        "s2": {
+          "fifth": {
+            "amount": "5k"
+          },
+          "first": {
+            "amount": "65k"
+          },
+          "fourth": {
+            "amount": "10k"
+          },
+          "second": {
+            "amount": "40k"
+          },
+          "third": {
+            "amount": "20k"
+          },
+          "total": "140k TAIKO Tokens"
+        },
+        "s3": {
+          "first": {
+            "amount": "55k"
+          },
+          "fourth": {
+            "amount": "5k"
+          },
+          "second": {
+            "amount": "25k"
+          },
+          "third": {
+            "amount": "15k"
+          },
+          "total": "100k TAIKO Tokens"
+        }
+      }
+    },
     "user": {
       "booster": "{multiplier}x",
       "cta": "Explore our <a href=\"https://trailblazers.taiko.xyz/ecosystem\" class=\" link\">ecosystem</a> and stay tuned for competitions to rank up.",
@@ -788,6 +811,7 @@
       "event": {
         "block_proposed": "Block Proposed",
         "bridged": "Bridged",
+        "dora_hacks": "DoraHacks Vote",
         "prediction": "Prediction",
         "transaction": "Transaction",
         "transaction_value": "Tx Value"
