@@ -208,6 +208,7 @@ export class NftAdapter {
 
       const { tokens: otherTokens } = taikoonsAndSnaefellsGraphqlResponse?.data || { tokens: [] };
 
+      log('fetchTaikoTokensForUser tokens', { otherTokens });
       const tokens = [...otherTokens];
 
       const flatTokens = tokens.map((token: Token) => {
@@ -232,6 +233,7 @@ export class NftAdapter {
         } satisfies NFT;
       });
 
+      log('fetchTaikoTokensForUser flatTokens', { flatTokens });
       return flatTokens;
 
       // eslint-disable-next-line @typescript-eslint/no-explicit-any

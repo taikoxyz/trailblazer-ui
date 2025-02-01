@@ -12,12 +12,24 @@
   import getConnectedAddress from '$shared/utils/getConnectedAddress';
   import { getLogger } from '$shared/utils/logger';
   import { RecruitmentStatus, type ActiveRecruitment } from '$shared/types/BadgeRecruitment';
+  import { classNames } from '$shared/utils/classNames';
+  import ActionButton from '$shared/components/Button/ActionButton.svelte';
 
   const log = getLogger('BadgeRecruitmentItem');
 
   export let badge: TBBadge;
   export let blurred: boolean = false;
   export let recruitment: ActiveRecruitment | null = null;
+  export let hasHover: boolean = false;
+
+  const hoverBorder = classNames(
+    'border',
+    'border-transparent',
+    'border-[3px]',
+    'hover:bg-pink-200',
+    'hover:border-pink-200',
+    'hover:shadow-[0_0_30px_0px_rgba(255,111,200,1)]',
+  );
 
   const getButton = () => {
     const recruitmentStatus = recruitment?.status;
@@ -115,8 +127,34 @@
 
     dispatch('open', { badges: filtered });
   };
+
+  $: isHovered = false;
+
+  const handleMouseEnter = () => {
+    isHovered = true;
+  };
+
+  const handleMouseLeave = () => {
+    isHovered = false;
+  };
 </script>
 
-<div class="f-col w-full">
-  <FactionBadgeItem {blurred} hideBubbles token={badge} on:badgeClick={handleBadgeClick} button={getButton()} />
-</div>
+{#if hasHover}
+  <div
+    role="button"
+    tabindex="0"
+    class="f-col w-full relative"
+    on:mouseenter={handleMouseEnter}
+    on:mouseleave={handleMouseLeave}>
+    <FactionBadgeItem
+      recruitingView
+      {isHovered}
+      {blurred}
+      class={hoverBorder}
+      token={badge}
+      on:badgeClick={handleBadgeClick}
+      button={getButton()} />
+  </div>
+{:else}
+  <FactionBadgeItem recruitingView {blurred} token={badge} on:badgeClick={handleBadgeClick} button={getButton()} />
+{/if}

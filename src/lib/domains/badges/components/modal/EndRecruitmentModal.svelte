@@ -20,6 +20,7 @@
   import CoreModalHeader from './components/CoreModalHeader.svelte';
   import CoreModalTitle from './components/CoreModalTitle.svelte';
   import badgeRecruitmentService from '../../services/BadgeRecruitmentServiceInstance';
+  import { tick } from 'svelte';
 
   $: isLoading = false;
 
@@ -37,7 +38,7 @@
       isLoading = true;
       await badgeRecruitmentService.endRecruitment($account.address, $activeRecruitmentStore.badge);
       backToken = $activeRecruitmentStore.recruitedBadge!;
-      // give 1s of buffer before re-fetching
+      tick();
       isRevealed = true;
 
       successToast({
@@ -81,11 +82,12 @@
   {#if $activeRecruitmentStore}
     <div class={badgeWrapperClasses}>
       <Flippable height="400px" width="300px" flip={isRevealed}>
-        <RecruitmentBadgeItem locked token={$activeRecruitmentStore.badge} slot="front" />
-
+        <RecruitmentBadgeItem locked token={$activeRecruitmentStore.badge} slot="front">
+          {getMovementName($activeRecruitmentStore.badge)}
+        </RecruitmentBadgeItem>
         <div slot="back">
           {#if backToken && backToken.movement !== undefined}
-            <RecruitmentBadgeItem hideBubbles token={backToken}>
+            <RecruitmentBadgeItem token={backToken}>
               {getMovementName(backToken)}
             </RecruitmentBadgeItem>
           {:else}

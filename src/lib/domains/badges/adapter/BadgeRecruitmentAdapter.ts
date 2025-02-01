@@ -1,4 +1,5 @@
 import {
+  getPublicClient,
   readContract,
   readContracts,
   signMessage,
@@ -14,12 +15,14 @@ import {
   trailblazersBadgesAbi,
   trailblazersBadgesAddress,
 } from '$generated/abi';
-import { type IBadgeRecruitment } from '$shared/types/BadgeRecruitment';
+import { type ActiveRecruitment, type IBadgeRecruitment } from '$shared/types/BadgeRecruitment';
 import type { TBBadge } from '$shared/types/NFT';
 import { chainId } from '$shared/utils/chain';
 import { getLogger } from '$shared/utils/logger';
 import { wagmiConfig } from '$shared/wagmi';
 import { getAxiosInstance } from '$shared/services/api/axiosClient';
+import type { Movements } from '$lib/domains/profile/types/types';
+import { InfluenceError } from '$shared/types/errors';
 
 const log = getLogger('BadgeRecruitmentAdapter');
 
@@ -195,57 +198,129 @@ export default class BadgeRecruitmentAdapter {
     return { r, s, v, points, hash };
   }
 
-  //   /**
-  //    * Execute a influence/influence on the recruitment
-  //    *
-  //    * @return {*}  {Promise<ActiveBadgeRecruitment>}
-  //    * @memberof BadgeRecruitmentAdapter
-  //    */
-  //   async influenceRecruitment(
-  //     address: Address,
-  //     nft: TBBadge,
-  //     selectedMovement: Movements,
-  //     recruitment: IBadgeRecruitment,
-  //   ): Promise<IBadgeRecruitment> {
-  //     log('influenceRecruitment', { address, nft, recruitment });
+  /**
+   * Execute a influence/influence on the recruitment
+   *
+   * @return {*}  {Promise<ActiveBadgeRecruitment>}
+   * @memberof BadgeRecruitmentAdapter
+   */
+  async influenceRecruitment(address: Address, nft: TBBadge, selectedMovement: Movements) {
+    log('influenceRecruitment', { address, nft });
 
-  //     const { r, s, v, points, hash } = await this._getRecruitmentSignature(address, nft.badgeId as number, 'influence');
+    const { r, s, v, points, hash } = await this._getRecruitmentSignature(address, nft.badgeId as number, 'influence');
 
-  //     return new Promise((resolve, reject) => {
-  //       try {
-  //         const unwatch = watchContractEvent(wagmiConfig, {
-  //           address: badgeRecruitmentAddress[chainId],
-  //           abi: badgeRecruitmentAbi,
-  //           eventName: 'RecruitmentUpdated',
-  //           args: {
-  //             user: address,
-  //           },
-  //           onLogs(logs) {
-  //             const influenceExpiration = new Date(parseInt(logs[0].args.influenceExpiration!.toString()) * 1000);
-  //             const whaleInfluences = parseInt(logs[0].args.whaleInfluences!.toString());
-  //             const minnowInfluences = parseInt(logs[0].args.minnowInfluences!.toString());
-  //             unwatch();
-  //             resolve({
-  //               ...recruitment,
-  //               influenceExpirationTimeout: influenceExpiration,
-  //               whaleInfluences,
-  //               minnowInfluences,
-  //             });
-  //           },
-  //         });
-  //         writeContract(wagmiConfig, {
-  //           abi: badgeRecruitmentAbi,
-  //           address: badgeRecruitmentAddress[chainId],
-  //           functionName: 'influenceRecruitment',
-  //           args: [hash, Number(v), r, s, BigInt(Math.trunc(points)), selectedMovement],
-  //           chainId,
-  //         }).catch(reject);
-  //       } catch (e) {
-  //         console.error(e);
-  //         reject(e);
-  //       }
-  //     });
-  //   }
+    try {
+      simulateContract(wagmiConfig, {
+        abi: badgeRecruitmentAbi,
+        address: badgeRecruitmentAddress[chainId],
+        functionName: 'influenceRecruitment',
+        args: [hash, Number(v), r, s, BigInt(Math.trunc(points)), selectedMovement],
+        chainId,
+      });
+    } catch (error) {
+      console.error(error);
+      throw new InfluenceError('An error occurred while influencing');
+    }
+
+    return new Promise((resolve, reject) => {
+      try {
+        writeContract(wagmiConfig, {
+          abi: badgeRecruitmentAbi,
+          address: badgeRecruitmentAddress[chainId],
+          functionName: 'influenceRecruitment',
+          args: [hash, Number(v), r, s, BigInt(Math.trunc(points)), selectedMovement],
+          chainId,
+        })
+          .then(async (txHash) => {
+            const client = getPublicClient(wagmiConfig);
+            if (!client) {
+              return reject(new Error('Could not get public client'));
+            }
+
+            // Wait for transaction confirmation
+            const receipt = await client.waitForTransactionReceipt({ hash: txHash });
+            log('influenceRecruitment receipt', receipt);
+
+            if (receipt.status !== 'success') {
+              return reject(new Error('Transaction failed'));
+            }
+
+            // Fetch event logs directly from the transaction receipt
+            const logs = await client.getLogs({
+              address: badgeRecruitmentAddress[chainId],
+              event: {
+                type: 'event',
+                inputs: [
+                  {
+                    name: 'recruitmentCycle',
+                    internalType: 'uint256',
+                    type: 'uint256',
+                    indexed: true,
+                  },
+                  { name: 'user', internalType: 'address', type: 'address', indexed: true },
+                  {
+                    name: 's1BadgeId',
+                    internalType: 'uint256',
+                    type: 'uint256',
+                    indexed: false,
+                  },
+                  {
+                    name: 's1TokenId',
+                    internalType: 'uint256',
+                    type: 'uint256',
+                    indexed: false,
+                  },
+                  {
+                    name: 's2TokenId',
+                    internalType: 'uint256',
+                    type: 'uint256',
+                    indexed: false,
+                  },
+                  {
+                    name: 'cooldownExpiration',
+                    internalType: 'uint256',
+                    type: 'uint256',
+                    indexed: false,
+                  },
+                  {
+                    name: 'influenceExpiration',
+                    internalType: 'uint256',
+                    type: 'uint256',
+                    indexed: false,
+                  },
+                  {
+                    name: 'whaleInfluences',
+                    internalType: 'uint256',
+                    type: 'uint256',
+                    indexed: false,
+                  },
+                  {
+                    name: 'minnowInfluences',
+                    internalType: 'uint256',
+                    type: 'uint256',
+                    indexed: false,
+                  },
+                ],
+                name: 'RecruitmentUpdated',
+              },
+              fromBlock: receipt.blockNumber,
+              toBlock: receipt.blockNumber,
+            });
+
+            if (!logs || logs.length === 0) {
+              return reject(new Error('No event logs found'));
+            }
+
+            log('influenceRecruitment logs', logs);
+            resolve(logs);
+          })
+          .catch(reject);
+      } catch (e) {
+        console.error(e);
+        reject(e);
+      }
+    });
+  }
 
   /**
    * Complete/end the recruitment
@@ -262,42 +337,41 @@ export default class BadgeRecruitmentAdapter {
 
     return new Promise((resolve, reject) => {
       try {
-        const unwatch = watchContractEvent(wagmiConfig, {
-          address: badgeRecruitmentAddress[chainId],
-          abi: badgeRecruitmentAbi,
-          eventName: 'RecruitmentComplete',
-          args: {
-            user: address,
-          },
-          onLogs(logs) {
-            log('endRecruitment logs', logs);
-            unwatch();
-            // const { finalColor, s2TokenId } = logs[0].args;
-            // const movement = parseInt(finalColor!.toString()) as Movements;
-            unwatch();
-            resolve(logs);
-
-            // ...(recruitment as ActiveRecruitment),
-            // status: RecruitmentStatus.COMPLETED,
-            // resultingMovement: movement,
-            //   s2Badge: {
-            //     ...recruitment.s1Badge,
-            //     tokenId: parseInt(s2TokenId!.toString()),
-            //     metadata: {
-            //       ...recruitment.s1Badge.metadata,
-            //       ...generateBadgeMetadata(Seasons.Season2, recruitment.s1Badge.badgeId as number, movement),
-            //     },
-            //   },
-          },
-        });
-
+        // Send the transaction
         writeContract(wagmiConfig, {
           abi: badgeRecruitmentAbi,
           address: badgeRecruitmentAddress[chainId],
           functionName: 'endRecruitment',
           args: [hash, Number(v), r, s, BigInt(Math.trunc(points))],
           chainId,
-        }).catch(reject);
+        })
+          .then(async (txHash) => {
+            // Wait for transaction confirmation
+            const client = getPublicClient(wagmiConfig);
+            if (!client) {
+              return reject(new Error('Could not get public client'));
+            }
+            log('endRecruitment txHash', txHash);
+            const receipt = await client.waitForTransactionReceipt({ hash: txHash });
+            log('endRecruitment receipt', receipt);
+
+            if (receipt.status !== 'success') {
+              return reject(new Error('Transaction failed'));
+            }
+            // Start listening for the event after transaction confirmation
+            const unwatch = watchContractEvent(wagmiConfig, {
+              address: badgeRecruitmentAddress[chainId],
+              abi: badgeRecruitmentAbi,
+              eventName: 'RecruitmentComplete',
+              args: { user: address },
+              onLogs(logs) {
+                log('endRecruitment logs', logs);
+                resolve(logs);
+                unwatch();
+              },
+            });
+          })
+          .catch(reject);
       } catch (e) {
         console.error(e);
         reject(e);

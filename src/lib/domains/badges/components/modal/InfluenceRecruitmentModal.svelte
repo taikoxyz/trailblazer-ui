@@ -1,39 +1,48 @@
-<!-- <script lang="ts">
-  import * as Sentry from '@sentry/sveltekit';
+<script lang="ts">
   import { onMount } from 'svelte';
   import { t } from 'svelte-i18n';
 
-  import profileService from '$lib/domains/profile/services/ProfileServiceInstance';
-  import { MovementNames, Movements, Seasons } from '$lib/domains/profile/types/types';
+  import { getMovementName, MovementNames, Movements } from '$lib/domains/profile/types/types';
   import { errorToast, successToast } from '$shared/components/NotificationToast';
   import { account } from '$shared/stores';
-  import { activeRecruitment, influenceRecruitmentModal } from '$shared/stores/recruitment';
+  import { activeRecruitmentStore, influenceRecruitmentModal } from '$shared/stores/recruitment';
   import { classNames } from '$shared/utils/classNames';
-  import getMockBadge from '$shared/utils/nfts/getMockBadge';
 
   import FancyButton from '../FancyButton.svelte';
   import InfluenceRadio from '../InfluenceRadio.svelte';
   import RecruitmentBadgeItem from '../RecruitmentBadgeItem.svelte';
   import { CoreModal, CoreModalDescription, CoreModalFooter, CoreModalHeader, CoreModalTitle } from './components';
+  import badgeRecruitmentService from '../../services/BadgeRecruitmentServiceInstance';
+  import type { TBBadge } from '$shared/types/NFT';
 
-  $: isLoading = false;
-  $: selectedMovement = null as null | Movements;
+  // Reactive state
+  let isLoading = false;
+  let selectedMovement: Movements | null = null;
+  let whaleBadge: TBBadge | null = null;
+  let minnowBadge: TBBadge | null = null;
 
-  $: s1BadgeId = ($activeRecruitment?.s1Badge?.metadata.badgeId as number) || 0;
-  $: influenceCounter = $activeRecruitment
-    ? $activeRecruitment.minnowInfluences + $activeRecruitment?.whaleInfluences
+  $: s1BadgeId = ($activeRecruitmentStore?.badge?.badgeId as number) || 0;
+  $: influenceCounter = $activeRecruitmentStore
+    ? $activeRecruitmentStore.influences.minnow + $activeRecruitmentStore.influences.whale
     : 0;
+
+  // Fetch badges reactively when s1BadgeId updates
+  $: (async () => {
+    if (s1BadgeId !== undefined) {
+      whaleBadge = await badgeRecruitmentService.getDefaultBadge(s1BadgeId, Movements.Whales);
+      minnowBadge = await badgeRecruitmentService.getDefaultBadge(s1BadgeId, Movements.Minnows);
+    }
+  })();
 
   async function handleInfluence() {
     try {
-      if (!$account || !$account.address || !$activeRecruitment || selectedMovement === null) return;
+      if (!$account || !$account.address || !$activeRecruitmentStore || selectedMovement === null) return;
       isLoading = true;
 
-      await profileService.influenceRecruitment(
+      await badgeRecruitmentService.influenceRecruitment(
         $account.address,
-        $activeRecruitment.s1Badge,
+        $activeRecruitmentStore.badge,
         selectedMovement,
-        $activeRecruitment,
       );
 
       isLoading = false;
@@ -45,7 +54,6 @@
           values: { movement: MovementNames[selectedMovement] },
         }),
       });
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (e: any) {
       isLoading = false;
       console.error(e);
@@ -58,9 +66,13 @@
     }
   }
 
-  $: maxInfluences = 0;
+  $: influenceRecruitmentModal && $account?.address && badgeRecruitmentService.getUserRecruitments($account.address);
+
+  let maxInfluences = 0;
+
   onMount(async () => {
-    maxInfluences = (await profileService.getMaxInfluences()) || 5;
+    // maxInfluences = (await profileService.getMaxInfluences()) || 5;
+    maxInfluences = 5;
   });
 
   const detailsClasses = classNames('flex', 'flex-col', 'w-full', 'justify-center', 'items-center', 'gap-[8px]');
@@ -89,18 +101,19 @@
     </CoreModalDescription>
   </CoreModalHeader>
 
-  {#if $activeRecruitment}
+  {#if $activeRecruitmentStore && whaleBadge && minnowBadge}
     <div class={badgesWrapperClasses}>
       <RecruitmentBadgeItem
-        locked
         on:click={() => {
           selectedMovement = Movements.Whales;
         }}
+        locked
         hideBubbles
-        value={$activeRecruitment?.whaleInfluences}
+        value={$activeRecruitmentStore?.influences.whale}
         shadow={selectedMovement === Movements.Whales}
-        token={getMockBadge(Seasons.Season2, s1BadgeId, Movements.Whales)}>
+        token={whaleBadge}>
         <div class={detailsClasses}>
+          {getMovementName(Movements.Whales)}
           <InfluenceRadio checked={selectedMovement === Movements.Whales} name={radioGroupName} />
         </div>
       </RecruitmentBadgeItem>
@@ -112,21 +125,27 @@
           selectedMovement = Movements.Minnows;
         }}
         shadow={selectedMovement === Movements.Minnows}
-        value={$activeRecruitment?.minnowInfluences}
-        token={getMockBadge(Seasons.Season2, s1BadgeId, Movements.Minnows)}>
+        value={$activeRecruitmentStore?.influences.minnow}
+        token={minnowBadge}>
         <div class={detailsClasses}>
+          {getMovementName(Movements.Minnows)}
           <InfluenceRadio checked={selectedMovement === Movements.Minnows} name={radioGroupName} />
         </div>
       </RecruitmentBadgeItem>
     </div>
   {/if}
+
   <CoreModalFooter>
     <FancyButton
       loading={isLoading}
       disabled={isLoading || selectedMovement === null || influenceCounter === maxInfluences}
       on:click={handleInfluence}>
-      {$t('badge_recruitment.buttons.influence')}
+      {#if isLoading}
+        {$t('badge_recruitment.buttons.influencing')}
+      {:else}
+        {$t('badge_recruitment.buttons.influence')}
+      {/if}
       ( {influenceCounter} / {maxInfluences})
     </FancyButton>
   </CoreModalFooter>
-</CoreModal> -->
+</CoreModal>

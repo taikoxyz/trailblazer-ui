@@ -11,16 +11,17 @@
 
   import { FactionBadgeItem } from '../FactionBadges';
   import FullCollectionSidePanel from './FullCollectionSidePanel.svelte';
+  import { activeRecruitmentStore } from '$shared/stores/recruitment';
 
   const wrapperClasses = classNames('p-[20px]', 'f-col', 'gap-[30px]', 'justify-center', 'w-full');
   const gridClasses = classNames(
     'grid',
     'grid-cols-2',
     'xl:grid-cols-4',
+    'h-fit',
     'gap-[24px]',
     'w-[325px]',
     'xl:w-[888px]',
-    'justify-items-center',
   );
 
   const borderedBadgeBaseClasses = classNames(
@@ -57,6 +58,7 @@
   export let movement: Movements | 'taikoon' | 'snaefell';
   export let hasBackButton: boolean = true;
   export let clickedBadge: TBBadge | null = null;
+  export let recruitingView: boolean = false;
 
   const dispatch = createEventDispatcher();
   const log = getLogger('FullCollection');
@@ -135,7 +137,7 @@
   {/if}
   <div class="f-row w-full gap-[24px]">
     {#if selectedBadge && 'badgeId' in selectedBadge}
-      <FullCollectionSidePanel {selectedBadge} {movement} recruitingView />
+      <FullCollectionSidePanel {selectedBadge} {movement} {recruitingView} />
     {/if}
 
     {#if loading}
@@ -146,13 +148,25 @@
           {#each reactiveBadges as badge}
             {#if 'badgeId' in badge}
               {@const isSelected = selectedBadge.tokenId === badge.tokenId}
-              <FactionBadgeItem
-                class="max-h-[150px] max-w-[150px] lg:max-h-[186px] lg:max-w-[186px] xl:max-h-[205px] {hoverBorder} xl:max-w-[205px] {isSelected
-                  ? pinkShadowed
-                  : ''} "
-                token={badge}
-                hideBubbles
-                on:badgeClick={handleBadgeClick} />
+              {@const displayIndicator =
+                $activeRecruitmentStore?.badge?.tokenId === badge.tokenId &&
+                $activeRecruitmentStore?.status !== 'COMPLETED'}
+              <div class="indicator w-full">
+                {#if displayIndicator}
+                  <span
+                    class="indicator-item badge size-[50px] bg-transparent border-none text-primary-content rounded-full p-0 z-50">
+                    <Icon type="exclamation-circle" size={30} fillClass="fill-primary-brand" />
+                  </span>
+                {/if}
+                <FactionBadgeItem
+                  class="max-h-[150px] max-w-[150px] lg:max-h-[186px] lg:max-w-[186px] xl:max-h-[205px] {hoverBorder} xl:max-w-[205px] {isSelected
+                    ? pinkShadowed
+                    : ''} "
+                  token={badge}
+                  {recruitingView}
+                  hideBubbles
+                  on:badgeClick={handleBadgeClick} />
+              </div>
             {/if}
           {/each}
         </div>

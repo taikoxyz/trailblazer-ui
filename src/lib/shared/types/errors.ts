@@ -33,3 +33,10 @@ export class TransactionTimedOutError extends Error {
   name = 'TransactionTimedOutError';
   shortMessage = 'Transaction timed out';
 }
+
+// Recruiting errors
+
+export class InfluenceError extends Error {
+  name = 'InfluenceError';
+  shortMessage = 'An error occurred while influencing';
+}

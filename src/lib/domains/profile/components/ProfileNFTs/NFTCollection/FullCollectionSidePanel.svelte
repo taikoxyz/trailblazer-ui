@@ -9,6 +9,8 @@
   import { t } from 'svelte-i18n';
   import { ExplorerLink } from '$shared/components/Links';
   import { classNames } from '$shared/utils/classNames';
+  import { RecruitmentStatus } from '$shared/types/BadgeRecruitment';
+  import Countdown from '$lib/domains/badges/components/Countdown.svelte';
 
   export let selectedBadge: TBBadge;
   export let movement: Movements | 'taikoon' | 'snaefell';
@@ -30,16 +32,63 @@
     'rounded-[30px]',
   );
 
+  const countdownClasses = classNames(
+    'flex',
+    'gap-[5px]',
+    'font-clash-grotesk',
+    'text-[16px]',
+    'font-[500]',
+    'text-primary-content',
+  );
+
   const collectionDetailsWrapperClasses = classNames('space-y-[10px]', 'mt-[60px]', 'w-full', 'order-3');
   const collectionDetailsRowClasses = classNames('f-row', 'justify-between', 'font-bold', 'w-full');
+
+  $: isRecruiting = $activeRecruitmentStore?.cooldowns.claim
+    ? new Date($activeRecruitmentStore.cooldowns.claim) > new Date()
+    : false;
+
+  $: isInfluencing = $activeRecruitmentStore?.cooldowns.influence
+    ? new Date($activeRecruitmentStore.cooldowns.influence) > new Date()
+    : false;
 </script>
 
 <div class={wrapperClasses}>
   {#if $activeRecruitmentStore?.badge?.tokenId === selectedBadge.tokenId}
-    <BadgeRecruitmentItem
-      badge={$activeRecruitmentStore.badge}
-      recruitment={$activeRecruitmentStore}
-      blurred={selectedBadge.frozen} />
+    {#if isRecruiting && !isInfluencing}
+      <div class="relative">
+        <div class="absolute inset-0 flex items-center justify-center z-50 gap-5 f-col">
+          Recruiting
+          <Countdown
+            class="f-row gap-2"
+            itemClasses={countdownClasses}
+            target={$activeRecruitmentStore?.cooldowns.claim} />
+        </div>
+        <BadgeRecruitmentItem
+          badge={$activeRecruitmentStore.badge}
+          recruitment={$activeRecruitmentStore}
+          blurred={selectedBadge.frozen} />
+      </div>
+    {:else if isInfluencing}
+      <div class="relative">
+        <div class="absolute inset-0 flex items-center justify-center z-50 gap-5 f-col">
+          Influencing
+          <Countdown
+            class="f-row gap-2"
+            itemClasses={countdownClasses}
+            target={$activeRecruitmentStore?.cooldowns.influence} />
+        </div>
+        <BadgeRecruitmentItem
+          badge={$activeRecruitmentStore.badge}
+          recruitment={$activeRecruitmentStore}
+          blurred={selectedBadge.frozen} />
+      </div>
+    {:else}
+      <BadgeRecruitmentItem
+        badge={$activeRecruitmentStore.badge}
+        recruitment={$activeRecruitmentStore}
+        blurred={selectedBadge.frozen} />
+    {/if}
   {:else}
     <FactionBadgeItem token={selectedBadge} class={badgeItemClasses} blurred={selectedBadge.frozen} hideBubbles />
   {/if}
