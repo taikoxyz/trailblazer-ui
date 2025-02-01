@@ -31,4 +31,5 @@ export enum ActivityType {
   BRIDGED = 'Bridged',
   BLOCK_PROPOSED = 'BlockProposed',
   BLOCK_PROVEN = 'BlockProven',
+  DORAHACKS_VOTE = 'DoraHacksVoting',
 }

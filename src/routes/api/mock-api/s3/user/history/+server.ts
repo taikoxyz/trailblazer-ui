@@ -24,15 +24,15 @@ export function GET({ url }) {
     items: [
       {
         address: address,
-        points: 0,
-        event: eventToActivityTypeMap['TransactionValue'],
+        points: 50_000,
+        event: eventToActivityTypeMap['DoraHacksVoting'],
         date: 1721642099,
-        multiplier: 4,
+        multiplier: 1,
         tx_hash: '0x1234567890abcdef',
       },
       {
         address: address,
-        points: 0,
+        points: -1,
         event: eventToActivityTypeMap['Transaction'],
         date: 1721642099,
         multiplier: 1,
