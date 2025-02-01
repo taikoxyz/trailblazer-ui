@@ -42,7 +42,7 @@
 
       // todo add to store?
 
-      log('recruitmenth', recruitment);
+      log('recruitment', recruitment);
 
       successToast({
         title: $t('badge_recruitment.modal.start_recruitment.toast.success.title'),

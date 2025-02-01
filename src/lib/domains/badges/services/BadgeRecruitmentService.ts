@@ -15,6 +15,7 @@ import { getLogger } from '$shared/utils/logger';
 
 import BadgeRecruitmentAdapter from '../adapter/BadgeRecruitmentAdapter';
 import { getRecruitmentStatus } from '$shared/utils/badges/getRecruitmentStatus';
+import { get } from 'svelte/store';
 
 const log = getLogger('BadgeRecruitmentService');
 
@@ -36,10 +37,10 @@ export default class BadgeRecruitmentService {
     return recruitments;
   }
 
-  async getDefaultBadge(badgeId: number): Promise<TBBadge> {
+  async getDefaultBadge(badgeId: number, movement: Movements = Movements.Devs): Promise<TBBadge> {
     log('getDefaultBadge');
     const faction: FactionNames = getFactionName(badgeId) as FactionNames;
-    const movement: Movements = Movements.Devs;
+
     const movementName = getMovementName(movement);
     const path = `/badges/${movementName}/${faction}`.toLowerCase();
 
@@ -70,23 +71,33 @@ export default class BadgeRecruitmentService {
     return this.adapter.startRecruitment(address, badge);
   }
 
-  //   /**
-  //    * Influence (tamper) the recruitment process
-  //    * @param address
-  //    * @param nft
-  //    * @param selectedMovement
-  //    * @param recruitment
-  //    * @returns {*} {Promise<IBadgeRecruitment>}
-  //    * */
-  //   async influenceRecruitment(
-  //     address: Address,
-  //     nft: TBBadge,
-  //     selectedMovement: Movements,
-  //     recruitment: IBadgeRecruitment,
-  //   ): Promise<IBadgeRecruitment> {
-  //     log('influenceRecruitment', { address, nft, selectedMovement });
-  //     return this.adapter.influenceRecruitment(address, nft, selectedMovement, recruitment);
-  //   }
+  /**
+   * Influence (tamper) the recruitment process
+   * @param address
+   * @param nft
+   * @param selectedMovement
+   * @param recruitment
+   * @returns {*} {Promise<IBadgeRecruitment>}
+   * */
+  async influenceRecruitment(address: Address, nft: TBBadge, selectedMovement: Movements): Promise<ActiveRecruitment> {
+    log('influenceRecruitment', { address, nft, selectedMovement });
+    const logs = await this.adapter.influenceRecruitment(address, nft, selectedMovement);
+    log('influenceRecruitment logs', { logs });
+    const influenceExpiration = new Date(parseInt(logs[0].args.influenceExpiration!.toString()) * 1000);
+    const whaleInfluences = parseInt(logs[0].args.whaleInfluences!.toString());
+    const minnowInfluences = parseInt(logs[0].args.minnowInfluences!.toString());
+    const activeRecruitment = get(activeRecruitmentStore);
+
+    if (!activeRecruitment) {
+      throw new Error('Active recruitment not found');
+    }
+    activeRecruitment.influences.whale = whaleInfluences;
+    activeRecruitment.influences.minnow = minnowInfluences;
+    activeRecruitment.cooldowns.influence = influenceExpiration;
+    activeRecruitmentStore.set(activeRecruitment);
+    log('influenceRecruitment update', { activeRecruitment });
+    return activeRecruitment;
+  }
 
   /**
    * End (claim) the recruitment process
@@ -101,19 +112,7 @@ export default class BadgeRecruitmentService {
 
     const { finalColor, s2TokenId } = logs[0].args;
     const movement = parseInt(finalColor!.toString()) as Movements;
-    // const { finalColor, s2TokenId } = logs[0].args;
-    // const movement = parseInt(finalColor!.toString()) as Movements;
-    // ...(recruitment as ActiveRecruitment),
-    // status: RecruitmentStatus.COMPLETED,
-    // resultingMovement: movement,
-    //   s2Badge: {
-    //     ...recruitment.s1Badge,
-    //     tokenId: parseInt(s2TokenId!.toString()),
-    //     metadata: {
-    //       ...recruitment.s1Badge.metadata,
-    //       ...generateBadgeMetadata(Seasons.Season2, recruitment.s1Badge.badgeId as number, movement),
-    //     },
-    //   },
+
     const defaultBadge = await this.getDefaultBadge(badge.badgeId);
     const recruitedBadge = {
       ...defaultBadge,
@@ -123,12 +122,11 @@ export default class BadgeRecruitmentService {
     } satisfies TBBadge;
 
     const endRecruitment = {
-      whaleInfluences: 0,
-      minnowInfluences: 0,
+      ...get(activeRecruitmentStore),
       status: RecruitmentStatus.COMPLETED,
       badge,
       recruitedBadge,
-    } satisfies ActiveRecruitment;
+    } as ActiveRecruitment;
 
     return endRecruitment;
   }
@@ -166,8 +164,14 @@ export default class BadgeRecruitmentService {
       };
 
       const activeRecruitment: ActiveRecruitment = {
-        whaleInfluences: Number(recruitment.whaleInfluences),
-        minnowInfluences: Number(recruitment.minnowInfluences),
+        influences: {
+          whale: Number(recruitment.whaleInfluences),
+          minnow: Number(recruitment.minnowInfluences),
+        },
+        cooldowns: {
+          claim: new Date(Number(recruitment.cooldownExpiration) * 1000),
+          influence: new Date(Number(recruitment.influenceExpiration) * 1000),
+        },
         status,
         badge,
       };

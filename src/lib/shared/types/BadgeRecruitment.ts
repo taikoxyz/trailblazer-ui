@@ -5,6 +5,7 @@ export enum RecruitmentStatus {
   ELIGIBLE = 'ELIGIBLE',
   NOT_STARTED = 'NOT_STARTED',
   STARTED = 'STARTED',
+  REFINING = 'REFINING',
   CAN_REFINE = 'CAN_REFINE',
   CAN_CLAIM = 'CAN_CLAIM',
   COMPLETED = 'COMPLETED',
@@ -50,9 +51,15 @@ export interface IBadgeRecruitment {
 }
 
 export interface ActiveRecruitment {
-  whaleInfluences: number;
-  minnowInfluences: number;
   status: RecruitmentStatus;
   badge: TBBadge;
   recruitedBadge?: TBBadge;
+  influences: {
+    whale: number;
+    minnow: number;
+  };
+  cooldowns: {
+    claim: Date;
+    influence: Date;
+  };
 }

@@ -1,12 +1,13 @@
 {
   "badge_recruitment": {
     "buttons": {
+      "already_recruited": "Already recruited this season",
       "end_recruitment": "Claim",
       "influence": "Influence",
+      "influencing": "Influencing",
       "not_eligible": "Not eligible",
       "ongoing_recruitment": "Recruiting another badge",
       "reveal": "Reveal",
-      "already_recruited": "Already recruited this season",
       "start_recruitment": "Recruit now"
     },
     "faq": {
@@ -231,7 +232,7 @@
             "title": "Success"
           }
         },
-        "warning": "Warning: Once you click 'Start Recruitment', your Dev badge will be locked for the rest of the season."
+        "warning": "Warning: Once you click 'Start Recruitment', your Dev badge will be locked for the rest of the season and its multiplier will not apply."
       }
     }
   },
@@ -565,7 +566,8 @@
             "description": "Our journey concluded on December 18th, 2024. Congratulations to the winners!",
             "title": "Season ended"
           },
-          "prize": {}
+          "prize": {
+          }
         }
       }
     },

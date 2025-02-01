@@ -6,7 +6,6 @@
   import type { TBBadge } from '$shared/types/NFT';
   import { classNames } from '$shared/utils/classNames';
 
-  export let blurred: boolean = false;
   export let value: number = 0;
   export let shadow: boolean = false;
   export let hideBubbles = false;
@@ -16,7 +15,6 @@
   const hasSlotContent = Object.keys($$slots).includes('default');
   const dispatch = createEventDispatcher();
 
-  $: unlocked = !blurred;
   $: wrapperClasses = classNames(
     'indicator',
     'bg-white',
@@ -84,7 +82,7 @@
   {/if}
   <div class={imageWrapperClasses}>
     <FactionBadgeItem {locked} {hideBubbles} {token} />
-    {#if !unlocked}
+    {#if locked}
       <div class={lockImageOverlayClasses}></div>{/if}
   </div>
   {#if hasSlotContent}

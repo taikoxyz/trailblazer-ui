@@ -43,7 +43,7 @@
       faction,
       ...data,
     }));
-    const collected = details.filter(({ badge }) => badge !== null).length;
+    const collected = details.filter(({ badge }) => badge !== null && !badge.frozen).length;
     return { details, collected };
   };
 

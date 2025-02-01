@@ -189,7 +189,7 @@
     <div class={rowClass}>
       <div class={titleClasses}>Recruit:</div>
       <div class={dividerClasses} />
-      <FullCollection badges={selectedDevBadges} movement={Movements.Devs} on:close={handleClose} />
+      <FullCollection badges={selectedDevBadges} movement={Movements.Devs} on:close={handleClose} recruitingView />
     </div>
   {:else if selectedDevBadges?.length === 0}
     <div class={rowClass}>
@@ -234,7 +234,11 @@
           </div>
           <div class={nftGridClasses}>
             {#each displayAvailableRecruitmentBadges as badge}
-              <BadgeRecruitmentItem {badge} on:counterEnd={onCounterEnd} on:open={handleCollectionOpen} />
+              <BadgeRecruitmentItem
+                {badge}
+                on:counterEnd={onCounterEnd}
+                on:open={handleCollectionOpen}
+                hasHover={true} />
             {/each}
           </div>
         {:else}
