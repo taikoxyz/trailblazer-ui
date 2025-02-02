@@ -28,11 +28,16 @@
         <div class="text-secondary-content text-sm">{truncateString(entry.subtitle, 70)}</div>
       </div>
     </div>
-    <ActionButton
-      priority="primary"
-      disabled={entry.cta.disabled}
-      on:click={() => goto(entry.cta.href)}
-      class="max-w-[62px]">Go</ActionButton>
+    {#if entry.cta.external}
+      <ActionButton priority="primary" disabled={entry.cta.disabled} href={entry.cta.href} class="max-w-[62px]"
+        >Go</ActionButton>
+    {:else}
+      <ActionButton
+        priority="primary"
+        disabled={entry.cta.disabled}
+        on:click={() => goto(entry.cta.href)}
+        class="max-w-[62px]">Go</ActionButton>
+    {/if}
   </div>
   <div class="h-sep my-2" />
 {:else}

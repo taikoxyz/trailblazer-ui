@@ -22,9 +22,20 @@
 
   const newsEntries: NewsCardContent[] = [
     {
+      title: 'Avalon Airdrop',
+      subtitle: '100x points on your tx value and tx points if you claim on Taiko',
+      imgSrc: '/news/flame.svg',
+
       featured: true,
+      cta: {
+        href: 'https://avl.avalonfinance.xyz/airdrop/',
+        external: true,
+      },
+    },
+    {
+      featured: false,
       title: 'Season 2 Claim',
-      subtitle: 'Now live!',
+      subtitle: 'has ended.',
       cta: {
         href: profilePath('#claim'),
       },
