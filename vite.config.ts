@@ -17,6 +17,9 @@ export default defineConfig({
       followSymlinks: false,
     },
   },
+  esbuild: {
+    sourcemap: true,
+  },
   plugins: [
     qrcode(),
     sveltekit(), // This plugin gives vite the ability to resolve imports using TypeScript's path mapping.
