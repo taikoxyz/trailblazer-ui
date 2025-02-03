@@ -78,6 +78,8 @@
     'hidden',
     'xl:block',
   );
+
+  $: currentSlide = slides.length > 0 ? slides[current] : null;
 </script>
 
 <div
@@ -88,8 +90,21 @@
   role="region"
   aria-roledescription="carousel">
   <div class="relative w-full h-full">
-    {#if slides.length > 0}
-      {#key current}
+    {#if currentSlide}
+      {#if currentSlide.url}
+        <a
+          class="carousel-slide flex items-center justify-center"
+          transition:fly={{
+            x: transitionDistance,
+            duration: transitionDuration,
+            easing: cubicInOut,
+          }}
+          target="_blank"
+          aria-hidden="false"
+          href={currentSlide.url}>
+          <svelte:component this={currentSlide.component} />
+        </a>
+      {:else}
         <div
           class="carousel-slide flex items-center justify-center"
           transition:fly={{
@@ -98,9 +113,9 @@
             easing: cubicInOut,
           }}
           aria-hidden="false">
-          <svelte:component this={slides[current].component} />
+          <svelte:component this={currentSlide.component} />
         </div>
-      {/key}
+      {/if}
     {/if}
   </div>
 
