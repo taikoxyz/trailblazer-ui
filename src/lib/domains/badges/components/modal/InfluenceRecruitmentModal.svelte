@@ -1,5 +1,4 @@
 <script lang="ts">
-  import * as Sentry from '@sentry/sveltekit';
   import { onMount } from 'svelte';
   import { t } from 'svelte-i18n';
 
@@ -55,7 +54,6 @@
           ? e.shortMessage
           : $t('badge_recruitment.modal.influence_recruitment.toast.error.message'),
       });
-      Sentry.captureException(e);
     }
   }
 
