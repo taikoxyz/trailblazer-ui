@@ -48,8 +48,9 @@
     expandedRow = expandedRow === index ? -1 : index;
   }
 
-  function getFillClass(rank: number): string {
-    // return 'fill-primary-brand';
+  function getFillClass(rank: number | null): string {
+    if (!rank) return '';
+
     if (qualifyingPositions > 5 && rank <= qualifyingPositions) {
       return 'fill-fixed-icon';
     }
@@ -61,7 +62,6 @@
       case 3:
         return 'fill-yellow-700';
       case 4:
-        return 'fill-secondary-brand';
       case 5:
         return 'fill-secondary-brand';
       default:
@@ -162,7 +162,7 @@
           {/each}
         {:else}
           <!-- The actual data rows -->
-          {#each data as entry, index}
+          {#each data ?? [] as entry, index}
             {@const rank = getRank(entry, index)}
             {@const highlightIndexPosition =
               entry.address && isAddress(entry.address) && entry.address === highlightedUserPosition?.address
