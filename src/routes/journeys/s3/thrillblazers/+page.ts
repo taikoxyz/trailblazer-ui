@@ -14,18 +14,19 @@ export const load = async () => {
     total: 0,
   };
 
-  if (browser) {
-    try {
+  try {
+    if (browser) {
       const page = await chillblazerService.fetchCompetitionData(pageInfo, 3);
       if (page) {
         pageInfo = page.pagination;
       }
-    } catch (error) {
-      console.error('Error loading leaderboard data:', error);
-    } finally {
-      loading = false;
     }
+  } catch (error) {
+    console.error('Error loading leaderboard data:', error);
+  } finally {
+    loading = false;
   }
+
   return {
     pageInfo,
     loading,
