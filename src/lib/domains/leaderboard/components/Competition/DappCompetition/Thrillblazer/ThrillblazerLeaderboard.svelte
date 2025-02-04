@@ -55,16 +55,18 @@
   }
 
   $: $activeSeason && loadLeaderboardData(pageInfo.page);
-
+  let displayData = [];
+  $: displayData = [...$currentDappCompetitionLeaderboard.items];
   setContext('loadCompetitionLeaderboardData', loadLeaderboardData);
   setContext('dappsCompetitionPageInfo', pageInfo);
 </script>
 
 {#if seasons.includes(Number($activeSeason))}
+  <h1>{displayData.length}</h1>
   <AbstractLeaderboard
     headers={['No.', 'Dapp', '', 'Points']}
     season={$activeSeason}
-    data={$currentDappCompetitionLeaderboard.items}
+    data={displayData}
     showTrophy={true}
     lastUpdated={new Date($currentDappCompetitionLeaderboard.lastUpdated)}
     {isLoading}

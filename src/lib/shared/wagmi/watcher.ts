@@ -4,7 +4,8 @@ import { getAccount, watchAccount } from '@wagmi/core';
 import { get } from 'svelte/store';
 import type { Address } from 'viem';
 
-import profileService from '$lib/domains/profile/services/ProfileServiceInstance';
+import { browser } from '$app/environment';
+import { ProfileService } from '$lib/domains/profile/services/ProfileService';
 import { account } from '$shared/stores/account';
 import { activeSeason } from '$shared/stores/activeSeason';
 import { blacklistModal, switchChainModal } from '$shared/stores/modal';
@@ -27,11 +28,14 @@ let previousChainId: number | null = null;
  */
 async function checkBlacklist(address: Address) {
   try {
-    const blacklisted = await profileService.getBlacklistStatus(address, get(activeSeason));
-    if (blacklisted) {
-      blacklistModal.set(true);
-    } else {
-      blacklistModal.set(false);
+    if (browser) {
+      const profileService = new ProfileService();
+      const blacklisted = await profileService.getBlacklistStatus(address, get(activeSeason));
+      if (blacklisted) {
+        blacklistModal.set(true);
+      } else {
+        blacklistModal.set(false);
+      }
     }
   } catch (error) {
     log('Error fetching profile:', error);
