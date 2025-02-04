@@ -9,7 +9,7 @@
     text: string;
   }
 
-  const items: MarqueeItem[] = [{ highlight: 'SEASON 2 CLAIMING', text: 'NOW LIVE' }];
+  const items: MarqueeItem[] = [{ highlight: 'Avalon Airdrop', text: 'Claim on Taiko and get 100X' }];
 
   let containerRef: HTMLDivElement;
   let contentWidth = 0;
