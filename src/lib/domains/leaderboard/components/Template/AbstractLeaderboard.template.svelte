@@ -183,7 +183,6 @@
               entry.address && isAddress(entry.address) && entry.address === highlightedUserPosition?.address
                 ? index
                 : null}
-            {log('Index:', index, 'Rank:', computedRank, 'Fill Class:', fillClass)}
 
             <TableRow
               {entry}
