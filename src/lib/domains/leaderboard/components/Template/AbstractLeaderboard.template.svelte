@@ -8,6 +8,7 @@
   import Paginator from '$shared/components/Paginator/Paginator.svelte';
   import { classNames } from '$shared/utils/classNames';
   import getConnectedAddress from '$shared/utils/getConnectedAddress';
+  import { getLogger } from '$shared/utils/logger';
 
   import LoadingRow from './LoadingRow.svelte';
   import TableHeader from './TableHeader.svelte';
@@ -37,6 +38,8 @@
   export let showDetailsColumn = true;
   export let qualifyingPositions = 3;
 
+  const log = getLogger('AbstractLeaderboard');
+
   // Reactive Variables
   $: pageSize = leaderboardConfig.pageSize;
 
@@ -48,8 +51,14 @@
     expandedRow = expandedRow === index ? -1 : index;
   }
 
-  function getFillClass(rank: number): string {
-    // return 'fill-primary-brand';
+  function getFillClass(rank: number | null | undefined): string {
+    log('getFillClass called with rank:', rank);
+
+    if (rank === null || rank === undefined) {
+      console.warn('getFillClass received an invalid rank:', rank);
+      return '';
+    }
+
     if (qualifyingPositions > 5 && rank <= qualifyingPositions) {
       return 'fill-fixed-icon';
     }
@@ -61,7 +70,6 @@
       case 3:
         return 'fill-yellow-700';
       case 4:
-        return 'fill-secondary-brand';
       case 5:
         return 'fill-secondary-brand';
       default:
@@ -69,7 +77,12 @@
     }
   }
 
-  function getRank(entry: UnifiedLeaderboardRow, index: number): number {
+  function getRank(entry: UnifiedLeaderboardRow | undefined, index: number): number {
+    if (!entry) {
+      console.warn('getRank called with undefined entry at index:', index);
+      return index + 1 + (currentPage - 1) * pageSize; // Default rank
+    }
+
     return entry.rank ?? index + 1 + (currentPage - 1) * pageSize;
   }
 
@@ -132,7 +145,9 @@
     {/if}
     <table class={tableClass}>
       <TableHeader {headers} />
-      <div class="h-[4px]" />
+      <tr class="h-[4px]">
+        <td colspan={headers.length}></td>
+      </tr>
 
       <tbody class={tbodyClass}>
         <!-- A single row to highlight a position -->
@@ -163,12 +178,13 @@
         {:else}
           <!-- The actual data rows -->
           {#each data as entry, index}
+            {@const computedRank = getRank(entry, index)}
+            {@const fillClass = getFillClass(computedRank) || ''}
             {@const rank = getRank(entry, index)}
             {@const highlightIndexPosition =
               entry.address && isAddress(entry.address) && entry.address === highlightedUserPosition?.address
                 ? index
                 : null}
-            {@const fillClass = getFillClass(rank)}
 
             <TableRow
               {entry}

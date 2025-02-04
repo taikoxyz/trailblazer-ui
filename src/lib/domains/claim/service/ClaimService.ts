@@ -1,4 +1,3 @@
-import * as Sentry from '@sentry/sveltekit';
 import type { Address } from 'viem';
 
 import profileService from '$lib/domains/profile/services/ProfileServiceInstance';
@@ -53,7 +52,6 @@ export class ClaimService implements IClaimService {
       const txHash = await this.claimAdapter.claim(address, amount, proof);
       await pendingTransactions.add(txHash);
     } catch (e) {
-      Sentry.captureException(e);
       console.error(e);
       if (e instanceof TransactionTimedOutError) {
         throw e;
@@ -106,7 +104,6 @@ export class ClaimService implements IClaimService {
       return { address, value: parseFloat(value || '0'), proof };
       // return { address, value: 10000.14, proof };
     } catch (e) {
-      Sentry.captureException(e);
       console.error(e);
       throw new UnknownPreflightError('Error preflight');
     }

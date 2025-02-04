@@ -9,7 +9,6 @@
 
 <svelte:head>
   <title>Taiko Trailblazers: Call of Taiko</title>
-  <meta property="og:image" content="/call-of-taiko.webp" />
   <meta property="og:title" content="Taiko Trailblazers: Call of Taiko" />
   <meta property="og:description" content="Will you answer the call?" />
   <meta property="og:url" content="https://trailblazers.taiko.xyz" />

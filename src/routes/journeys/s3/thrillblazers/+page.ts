@@ -1,7 +1,7 @@
 import { browser } from '$app/environment';
 import { leaderboardConfig } from '$config';
 import type { DappLeaderboardItem } from '$lib/domains/leaderboard/dto/dapps.dto';
-import { chillblazerService } from '$lib/domains/leaderboard/services/LeaderboardServiceInstances';
+import { thrillblazerService } from '$lib/domains/leaderboard/services/LeaderboardServiceInstances';
 import type { PaginationInfo } from '$lib/shared/dto/CommonPageApiResponse';
 
 export const load = async () => {
@@ -14,18 +14,19 @@ export const load = async () => {
     total: 0,
   };
 
-  if (browser) {
-    try {
-      const page = await chillblazerService.fetchCompetitionData(pageInfo, 3);
+  try {
+    if (browser) {
+      const page = await thrillblazerService.fetchCompetitionData(pageInfo, 3);
       if (page) {
         pageInfo = page.pagination;
       }
-    } catch (error) {
-      console.error('Error loading leaderboard data:', error);
-    } finally {
-      loading = false;
     }
+  } catch (error) {
+    console.error('Error loading leaderboard data:', error);
+  } finally {
+    loading = false;
   }
+
   return {
     pageInfo,
     loading,
