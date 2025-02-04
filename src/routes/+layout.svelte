@@ -62,7 +62,7 @@
     }
   });
 
-  let showRibbon = false;
+  let showRibbon = true;
 </script>
 
 {#if showRibbon}
