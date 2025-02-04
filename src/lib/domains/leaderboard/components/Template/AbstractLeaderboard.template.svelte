@@ -145,7 +145,9 @@
     {/if}
     <table class={tableClass}>
       <TableHeader {headers} />
-      <div class="h-[4px]" />
+      <tr class="h-[4px]">
+        <td colspan={headers.length}></td>
+      </tr>
 
       <tbody class={tbodyClass}>
         <!-- A single row to highlight a position -->
