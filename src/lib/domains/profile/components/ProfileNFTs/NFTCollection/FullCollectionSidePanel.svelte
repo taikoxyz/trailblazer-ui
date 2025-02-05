@@ -41,8 +41,25 @@
     'text-primary-content',
   );
 
-  const collectionDetailsWrapperClasses = classNames('space-y-[10px]', 'mt-[60px]', 'w-full', 'order-3');
+  const collectionDetailsWrapperClasses = classNames('space-y-[10px]', 'w-full', 'order-3');
   const collectionDetailsRowClasses = classNames('f-row', 'justify-between', 'font-bold', 'w-full');
+
+  const detailsContainerClasses = classNames('collapse', 'collapse-arrow', 'mt-[25px]');
+  const detailsTitleClasses = classNames('collapse-title', 'cursor-pointer', 'w-full', 'text-left', 'px-0');
+  // const detailsContentClasses =
+  //   'collapse-content peer-checked:max-h-[100rem] max-h-0 overflow-hidden peer-checked:overflow-visible transition-all';
+
+  const detailsContentClasses = classNames(
+    'p-0',
+    'collapse-content',
+    'peer-checked:max-h-[100rem]',
+    'max-h-0',
+    'overflow-hidden',
+    'peer-checked:overflow-visible',
+    'transition-all',
+  );
+
+  const detailsUuid = crypto.randomUUID();
 
   $: isRecruiting = $activeRecruitmentStore?.cooldowns.claim
     ? new Date($activeRecruitmentStore.cooldowns.claim) > new Date()
@@ -92,39 +109,44 @@
   {:else}
     <FactionBadgeItem token={selectedBadge} class={badgeItemClasses} blurred={selectedBadge.frozen} hideBubbles />
   {/if}
-  <div class={collectionDetailsWrapperClasses}>
-    <div class={collectionDetailsRowClasses}>
-      <span class="text-secondary-content">{$t('nfts.collection.faction')}</span>
-      <div>
-        {selectedBadge.faction}
-      </div>
-    </div>
-    <div class={collectionDetailsRowClasses}>
-      <span class="text-secondary-content">{$t('nfts.collection.team')}</span>
-      <span> {typeof movement !== 'string' ? getMovementName(movement) : movement}</span>
-    </div>
-    <div class={collectionDetailsRowClasses}>
-      <span class="text-secondary-content">{$t('nfts.collection.multiplier')}</span>
-      <span>+{Multipliers[movement]}x</span>
-    </div>
-    <div class={collectionDetailsRowClasses}>
-      <span class="text-secondary-content">{$t('nfts.collection.contract_address')}</span>
-      <ExplorerLink shorten category="address" urlParam={selectedBadge.address} />
-    </div>
-    <div class={collectionDetailsRowClasses}>
-      <span class="text-secondary-content">{$t('nfts.collection.token_id')}</span>
-      <span> {selectedBadge.tokenId}</span>
-    </div>
-    {#if selectedBadge.frozen}
-      <div class={collectionDetailsRowClasses}>
-        <span class="text-secondary-content">{$t('common.status')}</span>
-        <span>{$t('nfts.collection.locked')}</span>
-      </div>
-    {/if}
 
-    {#if recruitingView}
-      <div class="h-sep py-2" />
-      <RecruitingStatus badge={selectedBadge} />
-    {/if}
+  {#if recruitingView}
+    <div class="h-sep py-2" />
+    <RecruitingStatus badge={selectedBadge} />
+  {/if}
+
+  <div class={detailsContainerClasses}>
+    <input type="checkbox" id={detailsUuid} class="collapse-checkbox peer hidden" />
+    <label for={detailsUuid} class={detailsTitleClasses}>Badge Details</label>
+    <div class={detailsContentClasses}>
+      <div class={collectionDetailsWrapperClasses}>
+        <div class={collectionDetailsRowClasses}>
+          <span class="text-secondary-content">{$t('nfts.collection.faction')}</span>
+          <div>{selectedBadge.faction}</div>
+        </div>
+        <div class={collectionDetailsRowClasses}>
+          <span class="text-secondary-content">{$t('nfts.collection.team')}</span>
+          <span>{typeof movement !== 'string' ? getMovementName(movement) : movement}</span>
+        </div>
+        <div class={collectionDetailsRowClasses}>
+          <span class="text-secondary-content">{$t('nfts.collection.multiplier')}</span>
+          <span>+{Multipliers[movement]}x</span>
+        </div>
+        <div class={collectionDetailsRowClasses}>
+          <span class="text-secondary-content">{$t('nfts.collection.contract_address')}</span>
+          <ExplorerLink shorten category="address" urlParam={selectedBadge.address} />
+        </div>
+        <div class={collectionDetailsRowClasses}>
+          <span class="text-secondary-content">{$t('nfts.collection.token_id')}</span>
+          <span>{selectedBadge.tokenId}</span>
+        </div>
+        {#if selectedBadge.frozen}
+          <div class={collectionDetailsRowClasses}>
+            <span class="text-secondary-content">{$t('common.status')}</span>
+            <span>{$t('nfts.collection.locked')}</span>
+          </div>
+        {/if}
+      </div>
+    </div>
   </div>
 </div>
