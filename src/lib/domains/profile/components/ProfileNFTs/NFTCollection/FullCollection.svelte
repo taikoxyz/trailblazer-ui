@@ -149,6 +149,7 @@
             {#if 'badgeId' in badge}
               {@const isSelected = selectedBadge.tokenId === badge.tokenId}
               {@const displayIndicator =
+                recruitingView &&
                 $activeRecruitmentStore?.badge?.tokenId === badge.tokenId &&
                 $activeRecruitmentStore?.status !== 'COMPLETED'}
               <div class="indicator w-full">
