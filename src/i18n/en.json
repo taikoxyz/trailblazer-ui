@@ -7,6 +7,7 @@
       "influencing": "Influencing",
       "not_eligible": "Not eligible",
       "ongoing_recruitment": "Recruiting another badge",
+      "reset": "Reset recruitment",
       "reveal": "Reveal",
       "start_recruitment": "Recruit now"
     },
@@ -202,8 +203,8 @@
         }
       },
       "influence_recruitment": {
-        "description": "Influence your badge to favor the path of your Season 2 badge.",
-        "title": "Your Season 2 Badge is being recruited",
+        "description": "Influence your badge to favor the path of your new badge.",
+        "title": "Your new Badge is being recruited",
         "toast": {
           "error": {
             "message": "Error refining your recruitment process",
@@ -566,8 +567,7 @@
             "description": "Our journey concluded on December 18th, 2024. Congratulations to the winners!",
             "title": "Season ended"
           },
-          "prize": {
-          }
+          "prize": {}
         }
       }
     },

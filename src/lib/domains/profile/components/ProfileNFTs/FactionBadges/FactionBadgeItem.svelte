@@ -6,14 +6,15 @@
   import { getLogger } from '$shared/utils/logger';
   import FactionImage from './FactionImage.svelte';
   import { ActionButton } from '$shared/components/Button';
-  import { t } from 'svelte-i18n';
   import { activeRecruitmentStore } from '$shared/stores/recruitment';
+  import type { ActionButtonType } from '$shared/components/Button/types';
 
   export let inColor: boolean = true;
   export let token: TBBadge;
   export let blurred: boolean = false;
   export let recruitingView: boolean = false;
   export let isHovered: boolean = false;
+  export let button: { label: string; type: ActionButtonType } | null = null;
 
   const dispatch = createEventDispatcher();
   const log = getLogger('FactionBadgeItem');
@@ -53,15 +54,10 @@
 
   $: reactiveToken = { ...token };
 
-  // $: isRecruiting =
-  //   $activeRecruitmentStore?.badge?.tokenId === token.tokenId &&
-  //   $activeRecruitmentStore?.status !== RecruitmentStatus.COMPLETED;
   $: isRecruiting = $activeRecruitmentStore?.cooldowns.claim
     ? new Date($activeRecruitmentStore.cooldowns.claim) > new Date()
     : false;
-  $: isBlurred = blurred || (token.frozen && !isRecruiting);
-  //  && $activeRecruitmentStore?.badge?.tokenId !== token.tokenId
-  // && $activeRecruitmentStore?.status === RecruitmentStatus.COMPLETED;
+  $: isBlurred = blurred || (token.frozen && (!isRecruiting || recruitingView));
 </script>
 
 <div class={wrapperClasses} on:click={handleBadgeClick} role="button" on:keydown tabindex="0">
@@ -71,18 +67,17 @@
     </div>
   </div>
   <slot />
+
   {#if isBlurred}
     <div class={lockedOverlayClasses}>
       {#if !recruitingView || !isRecruiting}
-        <Icon type="lock" size={80} />
-        Locked for this season
+        <Icon type="lock" size={60} />
       {/if}
     </div>
   {/if}
-  {#if isHovered}
+  {#if isHovered && button}
     <div class="absolute flex w-full h-full bg-black bg-opacity-20 z-10">
-      <ActionButton class="self-end m-2 !min-h-[48px] h-[48px]" priority="primary"
-        >{$t('badge_recruitment.buttons.start_recruitment')}</ActionButton>
+      <ActionButton class="self-end m-2 !min-h-[48px] h-[48px]" priority={button.type}>{button.label}</ActionButton>
     </div>
   {/if}
 </div>

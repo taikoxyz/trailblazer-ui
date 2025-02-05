@@ -165,6 +165,7 @@
                     : ''} "
                   token={badge}
                   {recruitingView}
+                  blurred={!recruitingView}
                   hideBubbles
                   on:badgeClick={handleBadgeClick} />
               </div>

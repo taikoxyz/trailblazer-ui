@@ -13,7 +13,6 @@
   import { getLogger } from '$shared/utils/logger';
   import { RecruitmentStatus, type ActiveRecruitment } from '$shared/types/BadgeRecruitment';
   import { classNames } from '$shared/utils/classNames';
-  import ActionButton from '$shared/components/Button/ActionButton.svelte';
 
   const log = getLogger('BadgeRecruitmentItem');
 
@@ -36,6 +35,9 @@
     if (!recruitmentStatus) {
       return buttons.StartRecruitment;
     }
+    if (recruitmentStatus === RecruitmentStatus.UNFINISHED) {
+      return buttons.Reset;
+    }
     if (recruitmentStatus === RecruitmentStatus.NOT_STARTED) {
       return buttons.StartRecruitment;
     }
@@ -54,24 +56,18 @@
     Claim: {
       type: 'primary',
       label: $t('badge_recruitment.buttons.end_recruitment'),
-      handler: handleClaim,
     },
     StartRecruitment: {
       type: 'primary',
       label: $t('badge_recruitment.buttons.start_recruitment'),
-      handler: handleStartRecruitment,
+    },
+    Reset: {
+      type: 'primary',
+      label: $t('badge_recruitment.buttons.reset'),
     },
   } as Record<string, FactionBadgeButton>;
 
   const dispatch = createEventDispatcher();
-
-  const handleStartRecruitment = () => {
-    log('Start recruitment');
-  };
-
-  const handleClaim = () => {
-    log('Claim recruitment');
-  };
 
   const handleBadgeClick = (event: { detail: { badge: TBBadge; badgeId: number } }) => {
     log('Badge clicked', badge);
