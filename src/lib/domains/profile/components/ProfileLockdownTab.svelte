@@ -1,7 +1,7 @@
 <script lang="ts">
   import { t } from 'svelte-i18n';
 
-  import EcosystemItem from '$lib/domains/ecosystem/components/components/EcosystemItem.svelte';
+  import EcosystemItem from '$lib/domains/ecosystem/components/EcosystemItem.svelte';
   import { classNames } from '$shared/utils/classNames';
   import { isMobile, isTablet } from '$shared/utils/responsiveCheck';
   const wrapperClasses = classNames(

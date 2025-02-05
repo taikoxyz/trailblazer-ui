@@ -1,9 +1,13 @@
 <script lang="ts">
-  import EcosystemPartners from '$lib/domains/ecosystem/components/partners';
+  import { onMount } from 'svelte';
+
   import Icon from '$shared/components/Icon/Icon.svelte';
+  import { activeSeason } from '$shared/stores/activeSeason';
   import { classNames } from '$shared/utils/classNames';
 
+  import { ecosystemService } from '../service/EcosystemServiceInstance';
   import EcosystemItem from './EcosystemItem.svelte';
+  import type { IEcosystemPartner } from './partners';
 
   const wrapperClasses = classNames('flex', 'w-full', 'flex-col', 'gap-[20px]');
   const gridClasses = classNames(
@@ -61,28 +65,40 @@
 
   $: filterText = '';
 
+  $: entries = [] as IEcosystemPartner[];
+
   function onFilterTextChange() {
     // clear the category
     filterCategory = 'ALL CATEGORIES';
 
     if (filterText === '') {
-      filteredPartners = EcosystemPartners;
+      filteredPartners = entries;
     } else {
-      filteredPartners = EcosystemPartners.filter((partner) => {
-        return (
-          partner.name.toLowerCase().includes(filterText.toLowerCase()) ||
-          partner.description.toLowerCase().includes(filterText.toLowerCase()) ||
-          partner.category.toLowerCase().includes(filterText.toLowerCase())
-        );
+      filteredPartners = entries.filter((partner) => {
+        const name = partner.name?.toLowerCase() || '';
+        const description = partner.description?.toLowerCase() || '';
+        const category = partner.category?.toLowerCase() || '';
+        const filter = filterText.toLowerCase();
+
+        return name.includes(filter) || description.includes(filter) || category.includes(filter);
       });
     }
   }
 
   $: filterText, onFilterTextChange();
-  let filteredPartners = EcosystemPartners;
+  $: filteredPartners =
+    filterCategory === 'ALL CATEGORIES'
+      ? entries
+      : entries.filter((partner) => partner.category && partner.category.toUpperCase() === filterCategory);
 
   $: filterCategory = 'ALL CATEGORIES';
-  $: categories = ['ALL CATEGORIES', ...new Set(EcosystemPartners.map((partner) => partner.category.toUpperCase()))];
+  $: categories =
+    entries.length > 0
+      ? [
+          'ALL CATEGORIES',
+          ...new Set(entries.filter((partner) => partner.category).map((partner) => partner.category.toUpperCase())),
+        ]
+      : [];
 
   function onSelectCategory(event: Event) {
     const category = (event.target as HTMLSelectElement).value;
@@ -90,13 +106,16 @@
     // clear the filter text
     filterText = '';
     if (category === 'ALL CATEGORIES') {
-      filteredPartners = EcosystemPartners;
+      filteredPartners = entries;
     } else {
-      filteredPartners = EcosystemPartners.filter((partner) => partner.category.toUpperCase() === category);
+      filteredPartners = entries.filter((partner) => partner.category && partner.category.toUpperCase() === category);
     }
-
     filterCategory = category;
   }
+
+  onMount(async () => {
+    entries = await ecosystemService.getEcosystemEntries($activeSeason);
+  });
 </script>
 
 <div class={wrapperClasses}>

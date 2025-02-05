@@ -2,19 +2,8 @@
   import { classNames } from '$shared/utils/classNames';
   import getConnectedAddress from '$shared/utils/getConnectedAddress';
 
+  import type { NewsCardContent } from '../../types/NewsCardContent';
   import NewsEntry from './NewsEntry.svelte';
-
-  type NewsCardContent = {
-    title: string;
-    subtitle: string;
-    featured?: boolean;
-    cta: {
-      disabled?: boolean;
-      href: string;
-      external?: boolean;
-    };
-    imgSrc?: string;
-  };
 
   const profilePath = (slug: string) => {
     return getConnectedAddress() ? `${getConnectedAddress() + slug}` : '';
@@ -22,9 +11,21 @@
 
   const newsEntries: NewsCardContent[] = [
     {
+      title: 'Avalon Airdrop',
+      subtitle: 'Live now!',
+      text: 'Claim on Taiko for 100x your TX value and points!',
+      imgSrc: '/news/flame.svg',
+
       featured: true,
+      cta: {
+        href: 'https://avl.avalonfinance.xyz/airdrop/',
+        external: true,
+      },
+    },
+    {
+      featured: false,
       title: 'Season 2 Claim',
-      subtitle: 'Now live!',
+      subtitle: 'has ended.',
       cta: {
         href: profilePath('#claim'),
       },

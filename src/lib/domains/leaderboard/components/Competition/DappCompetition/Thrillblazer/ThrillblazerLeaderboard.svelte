@@ -27,6 +27,7 @@
   $: totalItems = pageInfo?.total || 0;
   $: pageSize = pageInfo?.size || leaderboardConfig.pageSize;
   $: hasEnded = endedSeasons.includes(season);
+  $: isLoading = loading;
 
   function handlePageChange(page: number) {
     log('handlePageChange', page);
@@ -66,7 +67,7 @@
     data={$currentDappCompetitionLeaderboard.items}
     showTrophy={true}
     lastUpdated={new Date($currentDappCompetitionLeaderboard.lastUpdated)}
-    isLoading={loading}
+    {isLoading}
     {handlePageChange}
     {totalItems}
     ended={hasEnded}

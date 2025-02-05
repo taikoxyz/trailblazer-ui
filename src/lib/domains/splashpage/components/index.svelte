@@ -1,5 +1,6 @@
 <script lang="ts">
   import { EcosystemSection } from '$lib/domains/ecosystem/components/index';
+  import AvalonAirdropBanner from '$lib/domains/splashpage/components/Banner/AvalonAirdropBanner.svelte';
   import BannerCarousel from '$lib/domains/splashpage/components/Banner/BannerCarousel.svelte';
   import S3StartBanner from '$lib/domains/splashpage/components/Banner/S3StartBanner.svelte';
   import type { Slide } from '$lib/domains/splashpage/components/Banner/types';
@@ -28,6 +29,10 @@
   const separator120pxClasses = classNames(separatorBaseClasses, 'h-[120px]');
 
   const slides: Slide[] = [
+    {
+      component: AvalonAirdropBanner,
+      url: 'https://avl.avalonfinance.xyz/airdrop/',
+    },
     {
       component: S3StartBanner,
     },

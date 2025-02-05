@@ -3,6 +3,7 @@
   import { derived } from 'svelte/store';
 
   import { page } from '$app/stores';
+  import { PUBLIC_CLAIMING_ACTIVE } from '$env/static/public';
   import BadgeRecruitment from '$lib/domains/badges/components/BadgeRecruitment.svelte';
   import DevRoom from '$lib/domains/profile/components/DevRoom/DevRoom.svelte';
   import { ProfileNFTs } from '$lib/domains/profile/components/ProfileNFTs';
@@ -44,11 +45,15 @@
             name: 'Badge Recruitment',
             content: BadgeRecruitment,
           },
-          {
-            slug: 'claim',
-            name: 'Claim',
-            content: ProfileRewardClaim,
-          },
+          ...(PUBLIC_CLAIMING_ACTIVE === 'true'
+            ? [
+                {
+                  slug: 'claim',
+                  name: 'Claim',
+                  content: ProfileRewardClaim,
+                },
+              ]
+            : []),
         ]
       : []),
     ...(isDevelopmentEnv

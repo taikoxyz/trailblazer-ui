@@ -54,6 +54,9 @@
     {:else if eventToActivityTypeMap[historyEntry?.event] === ActivityType.PREDICTION}
       <ActivityIcon type="event-prediction" />
       <span class={eventClasses}>{$t('leaderboard.user.event.prediction')}</span>
+    {:else if eventToActivityTypeMap[historyEntry?.event] === ActivityType.DORAHACKS_VOTE}
+      <ActivityIcon type="double-diamond" />
+      <span class={eventClasses}>{$t('leaderboard.user.event.dora_hacks')}</span>
     {:else}
       <ActivityIcon type="triple-coin-stacked" />
       <span class={eventClasses}>{$t('leaderboard.user.event.transaction')}</span>

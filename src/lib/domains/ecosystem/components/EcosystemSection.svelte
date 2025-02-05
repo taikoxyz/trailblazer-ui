@@ -3,7 +3,7 @@
   import { Title } from '$shared/components/Title';
   import { classNames } from '$shared/utils/classNames';
 
-  import EcosystemItem from './components/EcosystemItem.svelte';
+  import EcosystemItem from './EcosystemItem.svelte';
   import EcosystemPartners from './partners';
 
   const wrapperClasses = classNames(
