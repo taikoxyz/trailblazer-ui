@@ -11,12 +11,7 @@
   import { Icon } from '$shared/components/Icon';
   import RotatingIcon from '$shared/components/Icon/RotatingIcon.svelte';
   import { account } from '$shared/stores';
-  import {
-    activeRecruitmentStore,
-    badgeToRecruit,
-    endRecruitmentModal,
-    startRecruitmentModal,
-  } from '$shared/stores/recruitment';
+  import { badgeToRecruit, endRecruitmentModal, startRecruitmentModal } from '$shared/stores/recruitment';
   import type { TBBadge } from '$shared/types/NFT';
   import { classNames } from '$shared/utils/classNames';
   import getConnectedAddress from '$shared/utils/getConnectedAddress';
@@ -25,6 +20,9 @@
   import badgeRecruitmentService from '../services/BadgeRecruitmentServiceInstance';
   import BadgeRecruitmentItem from './BadgeRecruitmentItem.svelte';
   import Countdown from './Countdown.svelte';
+  import { RecruitmentStatus, type ActiveRecruitment } from '$shared/types/BadgeRecruitment';
+  import RecruitingStatus from './RecruitingStatus.svelte';
+  import { successToast } from '$shared/components/NotificationToast';
   // import { RecruitmentStatus } from '$shared/types/BadgeRecruitment';
 
   export let title: string = 'Badge Recruitment';
@@ -64,7 +62,7 @@
     'gap-[24px]',
   );
 
-  const titleClasses = classNames('f-col', 'gap-[24px]', 'text-grey-200', 'text-[16px]/[24px]');
+  const titleClasses = classNames('f-col', 'gap-[24px]', 'text-[16px]/[24px]');
   const dividerClasses = classNames('divider', 'mt-[18px]', 'mb-[30px]', 'p-0');
 
   const infoTextClassWrapper = classNames('w-full', 'text-center', 'justify-center', 'text-secondary-content', 'f-col');
@@ -109,12 +107,17 @@
   $: enabledRecruitments = [] as number[];
   $: displayAvailableRecruitmentBadges = [] as TBBadge[];
   $: selectedDevBadges = null as TBBadge[] | null;
+
+  $: cycleEndDate = new Date();
+
+  $: hasStuckRecruitment = false;
+  $: userRecruitment = null as ActiveRecruitment | null;
   // $: status = RecruitmentStatus.NOT_STARTED as RecruitmentStatus;
 
   // const badgeIds = [0, 1, 2, 3, 4, 5, 6, 7];
 
-  // 4 days from now as timestamp
-  const cycleEndDate = new Date(Date.now() + 4 * 24 * 60 * 60 * 1000);
+  // // 4 days from now as timestamp
+  // const cycleEndDate = new Date(Date.now() + 4 * 24 * 60 * 60 * 1000);
 
   const initialise = async () => {
     if (!browser || isLoading) return;
@@ -123,14 +126,23 @@
     if (!address || address === zeroAddress) return;
     const [cycleIdResult, enabledRecruitmentsResult, recruitmentsOfUser] = await Promise.all([
       badgeRecruitmentService.getRecruitmentCycleId(),
-      badgeRecruitmentService.getEnabledRecruitments(),
+      badgeRecruitmentService.getEnabledRecruitmentDetails(),
       badgeRecruitmentService.getUserRecruitments(address),
     ]);
 
     cycleId = cycleIdResult;
-    enabledRecruitments = enabledRecruitmentsResult || [];
+    enabledRecruitments = enabledRecruitmentsResult.activeBadgeIds || [];
+    cycleEndDate = enabledRecruitmentsResult.endTime;
 
     log('recruitmentsOfUser', recruitmentsOfUser);
+
+    // check if user has recruitment that is not in the enabledRecruitment
+
+    if (recruitmentsOfUser && recruitmentsOfUser.cycle !== cycleId) {
+      hasStuckRecruitment = !enabledRecruitments.includes(recruitmentsOfUser.badge.badgeId);
+      recruitmentsOfUser.status = RecruitmentStatus.UNFINISHED;
+      userRecruitment = recruitmentsOfUser;
+    }
 
     displayAvailableRecruitmentBadges = await Promise.all(
       enabledRecruitments.map(async (badgeId) => {
@@ -171,6 +183,17 @@
     $badgeToRecruit = badge;
   };
 
+  const reset = async (badge: TBBadge) => {
+    log('Reset', badge);
+    const address = getConnectedAddress();
+    if (!address || address === zeroAddress || !userRecruitment?.badge) return;
+    badgeRecruitmentService.resetMigration(userRecruitment.badge, userRecruitment.cycle);
+    successToast({
+      title: $t('badge_recruitment.main.reset_recruitment.toast.success.title'),
+      message: $t('badge_recruitment.main.reset_recruitment.toast.success.message'),
+    });
+  };
+
   const claim = () => {
     $endRecruitmentModal = true;
     log('Claim');
@@ -182,6 +205,7 @@
 
   setContext('badgeRecruitRecruit', recruit);
   setContext('badgeRecruitClaim', claim);
+  setContext('badgeRecruitReset', reset);
 </script>
 
 <div class={containerClass}>
@@ -225,20 +249,25 @@
         {#if isLoading}
           <LoadingBlobby />
         {:else if displayAvailableRecruitmentBadges.length}
-          <div class="f-col">
-            <div>Current cycle: {cycleId}</div>
-            <div class="f-row items-center gap-[10px]">
-              <Countdown class={countdownWrapperClasses} itemClasses={countdownItemClasses} target={cycleEndDate} /> until
-              next cycle TODO CHANGE TO REAL DATE
+          <div class="f-row gap-[80px]">
+            <div class="f-col space-y-[6px]">
+              <div class="text-secondary-content">Current cycle</div>
+              <div>{cycleId}</div>
+            </div>
+            <div class="f-col space-y-[6px]">
+              <div class="text-secondary-content">Time left until next cycle</div>
+              <Countdown class={countdownWrapperClasses} itemClasses={countdownItemClasses} target={cycleEndDate} />
             </div>
           </div>
+
           <div class={nftGridClasses}>
             {#each displayAvailableRecruitmentBadges as badge}
               <BadgeRecruitmentItem
+                blurred={hasStuckRecruitment}
                 {badge}
                 on:counterEnd={onCounterEnd}
                 on:open={handleCollectionOpen}
-                hasHover={true} />
+                hasHover={!hasStuckRecruitment} />
             {/each}
           </div>
         {:else}
@@ -248,8 +277,37 @@
         {/if}
       </div>
     </div>
+
+    {#if hasStuckRecruitment}
+      <div class={rowClass}>
+        <div class={titleClasses}>Unfinished Recruitments</div>
+        <div class={dividerClasses} />
+        <div class={boxClasses}>
+          {#if !isLoading && hasStuckRecruitment && userRecruitment}
+            <div class="f-row gap-[80px]">
+              This recruitment was started in a previous cycle but was never claimed. You can cancel this recruitment
+              and try again in a different cycle.
+            </div>
+
+            <div class={nftGridClasses}>
+              <BadgeRecruitmentItem
+                badge={userRecruitment.badge}
+                on:counterEnd={onCounterEnd}
+                on:open={handleCollectionOpen}
+                recruitment={userRecruitment}
+                hasHover={true} />
+            </div>
+          {:else}
+            <div class={infoTextClassWrapper}>
+              <p>{$t('badge_recruitment.main.no_enabled_recruitments')}</p>
+            </div>
+          {/if}
+        </div>
+      </div>
+    {/if}
   {/if}
 </div>
+
 <div class={faqWrapperClasses}>
   <div class="md:w-1/2 w-full mb-[25px]">
     <ActionButton href="/badge#faq" priority="primary">

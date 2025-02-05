@@ -16,6 +16,7 @@ import { getLogger } from '$shared/utils/logger';
 import BadgeRecruitmentAdapter from '../adapter/BadgeRecruitmentAdapter';
 import { getRecruitmentStatus } from '$shared/utils/badges/getRecruitmentStatus';
 import { get } from 'svelte/store';
+import type { RecruitmentDetails } from '$lib/domains/profile/types/RecruitmentDetails';
 
 const log = getLogger('BadgeRecruitmentService');
 
@@ -27,14 +28,14 @@ export default class BadgeRecruitmentService {
   }
   /**
    * Fetches the system's enabled migrations
-   * @return {*}  {Promise<number[]>}
+   * @return {*}  {Promise<RecruitmentDetails>}
    */
-  async getEnabledRecruitments(): Promise<number[]> {
+  async getEnabledRecruitmentDetails(): Promise<RecruitmentDetails> {
     log('getEnabledRecruitments');
-    const currentCylce = await this.adapter.getRecruitmentCycleId();
-    const recruitments = await this.adapter.fetchEnabledRecruitments(currentCylce);
-    log('getEnabledRecruitments', { recruitments });
-    return recruitments;
+    const currentCycle = await this.adapter.getRecruitmentCycleId();
+    const recruitmentDetails: RecruitmentDetails = await this.adapter.fetchEnabledRecruitments(currentCycle);
+    log('getEnabledRecruitments', { recruitmentDetails });
+    return recruitmentDetails;
   }
 
   async getDefaultBadge(badgeId: number, movement: Movements = Movements.Devs): Promise<TBBadge> {
@@ -87,11 +88,13 @@ export default class BadgeRecruitmentService {
     const whaleInfluences = parseInt(logs[0].args.whaleInfluences!.toString());
     const minnowInfluences = parseInt(logs[0].args.minnowInfluences!.toString());
     const activeRecruitment = get(activeRecruitmentStore);
+    const cycle = parseInt(logs[0].args.recruitmentCycle!.toString());
 
     if (!activeRecruitment) {
       throw new Error('Active recruitment not found');
     }
     activeRecruitment.influences.whale = whaleInfluences;
+    activeRecruitment.cycle = cycle;
     activeRecruitment.influences.minnow = minnowInfluences;
     activeRecruitment.cooldowns.influence = influenceExpiration;
     activeRecruitmentStore.set(activeRecruitment);
@@ -136,7 +139,7 @@ export default class BadgeRecruitmentService {
    * @param address
    * @returns {*} {Promise<ActiveRecruitment>}
    */
-  async getUserRecruitments(address: Address): Promise<ActiveRecruitment> {
+  async getUserRecruitments(address: Address): Promise<ActiveRecruitment | null> {
     log('getUserRecruitments', { address });
     try {
       const [recruitment, cycleId] = await Promise.all([
@@ -144,6 +147,10 @@ export default class BadgeRecruitmentService {
         this.adapter.getRecruitmentCycleId(),
       ]);
 
+      if (recruitment.user === zeroAddress) {
+        log('no recruitment found for user', { address, recruitment });
+        return null;
+      }
       const status = await getRecruitmentStatus(recruitment);
       log('getRecruitmentStatus', { recruitment, status, cycleId });
 
@@ -164,6 +171,7 @@ export default class BadgeRecruitmentService {
       };
 
       const activeRecruitment: ActiveRecruitment = {
+        cycle: Number(recruitment.recruitmentCycle),
         influences: {
           whale: Number(recruitment.whaleInfluences),
           minnow: Number(recruitment.minnowInfluences),
@@ -217,17 +225,17 @@ export default class BadgeRecruitmentService {
 
     return cycle;
   }
-  //   /**
-  //    * Resets the migration for a given token, cycle and user
-  //    *
-  //    * @param tokenId
-  //    * @param badgeId
-  //    * @param cycleId
-  //    * @return {*}  {Promise<void>}
-  //    * @memberof BadgeRecruitmentAdapter
-  //    */
-  //   async resetMigration(tokenId: number, badgeId: number, cycleId: number): Promise<void> {
-  //     log('resetMigration', { tokenId, badgeId, cycleId });
-  //     return this.adapter.resetMigration(tokenId, badgeId, cycleId);
-  //   }
+  /**
+   * Resets the migration for a given token, cycle and user
+   *
+   * @param tokenId
+   * @param badgeId
+   * @param cycleId
+   * @return {*}  {Promise<void>}
+   * @memberof BadgeRecruitmentAdapter
+   */
+  async resetMigration(badge: TBBadge, cycleId: number): Promise<void> {
+    log('resetMigration', { badge, cycleId });
+    return this.adapter.resetMigration(badge, cycleId);
+  }
 }

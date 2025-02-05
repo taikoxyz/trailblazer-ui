@@ -11,6 +11,7 @@ export enum RecruitmentStatus {
   COMPLETED = 'COMPLETED',
   LOCKED = 'LOCKED',
   ALREADY_RECRUITED = 'ALREADY_RECRUITED',
+  UNFINISHED = 'UNFINISHED',
 }
 
 // export interface IBadgeRecruitment {
@@ -51,6 +52,7 @@ export interface IBadgeRecruitment {
 }
 
 export interface ActiveRecruitment {
+  cycle: number;
   status: RecruitmentStatus;
   badge: TBBadge;
   recruitedBadge?: TBBadge;

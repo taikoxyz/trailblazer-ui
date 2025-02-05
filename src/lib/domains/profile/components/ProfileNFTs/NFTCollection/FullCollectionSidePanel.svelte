@@ -9,7 +9,6 @@
   import { t } from 'svelte-i18n';
   import { ExplorerLink } from '$shared/components/Links';
   import { classNames } from '$shared/utils/classNames';
-  import { RecruitmentStatus } from '$shared/types/BadgeRecruitment';
   import Countdown from '$lib/domains/badges/components/Countdown.svelte';
 
   export let selectedBadge: TBBadge;
@@ -46,8 +45,6 @@
 
   const detailsContainerClasses = classNames('collapse', 'collapse-arrow', 'mt-[25px]');
   const detailsTitleClasses = classNames('collapse-title', 'cursor-pointer', 'w-full', 'text-left', 'px-0');
-  // const detailsContentClasses =
-  //   'collapse-content peer-checked:max-h-[100rem] max-h-0 overflow-hidden peer-checked:overflow-visible transition-all';
 
   const detailsContentClasses = classNames(
     'p-0',
@@ -84,7 +81,7 @@
         <BadgeRecruitmentItem
           badge={$activeRecruitmentStore.badge}
           recruitment={$activeRecruitmentStore}
-          blurred={selectedBadge.frozen} />
+          blurred={true} />
       </div>
     {:else if isInfluencing}
       <div class="relative">
@@ -93,12 +90,13 @@
           <Countdown
             class="f-row gap-2"
             itemClasses={countdownClasses}
-            target={$activeRecruitmentStore?.cooldowns.influence} />
+            target={$activeRecruitmentStore?.cooldowns.influence}
+            on:end={() => (isInfluencing = false)} />
         </div>
         <BadgeRecruitmentItem
           badge={$activeRecruitmentStore.badge}
           recruitment={$activeRecruitmentStore}
-          blurred={selectedBadge.frozen} />
+          blurred={true} />
       </div>
     {:else}
       <BadgeRecruitmentItem

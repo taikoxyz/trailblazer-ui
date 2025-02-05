@@ -7,9 +7,6 @@
   import type { TBBadge } from '$shared/types/NFT';
   import { classNames } from '$shared/utils/classNames';
   import { activeRecruitmentStore, currentCycleStore, influenceRecruitmentModal } from '$shared/stores/recruitment';
-  import getConnectedAddress from '$shared/utils/getConnectedAddress';
-  import badgeRecruitmentService from '../services/BadgeRecruitmentServiceInstance';
-  import { zeroAddress } from 'viem';
   import { getLogger } from '$shared/utils/logger';
   import { Spinner } from '$shared/components';
   import Countdown from './Countdown.svelte';
@@ -33,21 +30,23 @@
     'text-primary-content',
   );
 
-  const rowClasses = classNames('f-row', 'justify-between', 'font-bold', 'w-full');
+  const buttonClasses = classNames('!min-h-[48px]', 'h-[48px]', 'my-4');
+
+  const rowClasses = classNames('f-row', 'justify-between', 'font-bold', 'w-full', 'my-[8px]');
 
   const determineStatus = async (badge: TBBadge): Promise<RecruitmentStatus> => {
     if (!badge) return RecruitmentStatus.NOT_STARTED;
     log('Determining status for badge:', badge, recruitment);
 
-    isInfluencing = $activeRecruitmentStore?.cooldowns.influence
+    influencing = $activeRecruitmentStore?.cooldowns.influence
       ? new Date($activeRecruitmentStore.cooldowns.influence) > new Date()
       : false;
 
-    isRecruiting = $activeRecruitmentStore?.cooldowns.claim
+    recruiting = $activeRecruitmentStore?.cooldowns.claim
       ? new Date($activeRecruitmentStore.cooldowns.claim) > new Date()
       : false;
 
-    if (isInfluencing) return RecruitmentStatus.REFINING;
+    if (influencing) return RecruitmentStatus.REFINING;
 
     if (recruitment && isCurrentRecruitment) {
       log('Recruitment found for badge:', badge);
@@ -104,6 +103,7 @@
   $: if (badge) updateStatus();
 
   const handleButtonClick = () => {
+    if (status === RecruitmentStatus.UNFINISHED) reset(badge);
     if (status === RecruitmentStatus.CAN_CLAIM) claim(badge);
     if (status === RecruitmentStatus.ELIGIBLE) recruit(badge);
     if (status === RecruitmentStatus.CAN_REFINE) {
@@ -113,71 +113,96 @@
 
   const recruit: (badge: TBBadge) => void = getContext('badgeRecruitRecruit');
   const claim: (badge: TBBadge) => void = getContext('badgeRecruitClaim');
+  const reset: (badge: TBBadge) => void = getContext('badgeRecruitReset');
 
-  $: isCurrentRecruitment = $activeRecruitmentStore?.badge?.tokenId === badge.tokenId;
+  $: isCurrentRecruitment = $activeRecruitmentStore && $activeRecruitmentStore?.badge?.tokenId === badge.tokenId;
 
-  $: isInfluencing = $activeRecruitmentStore?.cooldowns.influence
+  $: recruitmentNotFinished = $activeRecruitmentStore?.status !== RecruitmentStatus.COMPLETED;
+
+  $: influencing = $activeRecruitmentStore?.cooldowns.influence
     ? new Date($activeRecruitmentStore.cooldowns.influence) > new Date()
     : false;
 
-  $: isRecruiting = $activeRecruitmentStore?.cooldowns.claim
+  $: recruiting = $activeRecruitmentStore?.cooldowns.claim
     ? new Date($activeRecruitmentStore.cooldowns.claim) > new Date()
     : false;
+
+  $: $influenceRecruitmentModal && updateStatus();
+
+  $: $activeRecruitmentStore?.cooldowns.claim && updateStatus();
+  $: $activeRecruitmentStore?.cooldowns.influence && updateStatus();
+
+  $: canClaim = isCurrentRecruitment && $activeRecruitmentStore?.status === RecruitmentStatus.CAN_CLAIM;
+
+  $: isRecruitingAnotherBadge =
+    ($activeRecruitmentStore && recruiting && !isCurrentRecruitment) ||
+    ($activeRecruitmentStore && recruitmentNotFinished && !isCurrentRecruitment);
+
+  $: alreadyRecruitedThisSeason =
+    status === RecruitmentStatus.LOCKED ||
+    status === RecruitmentStatus.COMPLETED ||
+    status === RecruitmentStatus.ALREADY_RECRUITED;
+
+  $: canRecruit = status === RecruitmentStatus.ELIGIBLE && recruitmentNotFinished;
+
+  $: isRefining = status === RecruitmentStatus.REFINING && $activeRecruitmentStore?.cooldowns.influence && influencing;
+
+  $: canRefine = status === RecruitmentStatus.CAN_REFINE && isCurrentRecruitment && recruitmentNotFinished;
+  $: disableInfluence = recruiting && influencing;
+
+  $: displayRecrutingCooldown =
+    isCurrentRecruitment &&
+    $activeRecruitmentStore?.cooldowns.claim &&
+    (status === RecruitmentStatus.CAN_REFINE || status === RecruitmentStatus.REFINING);
+
+  $: resettable = status === RecruitmentStatus.UNFINISHED;
 </script>
 
+<h1>Recruitment</h1>
+
 {#if loading}
-  <ActionButton priority="primary" disabled={true}><Spinner /></ActionButton>
-{:else if isRecruiting && !isCurrentRecruitment}
-  <ActionButton priority="primary" disabled={true}>{$t('badge_recruitment.buttons.ongoing_recruitment')}</ActionButton>
-{:else if status === RecruitmentStatus.LOCKED || status === RecruitmentStatus.COMPLETED || status === RecruitmentStatus.ALREADY_RECRUITED}
-  <ActionButton priority="primary" disabled={true}>{$t('badge_recruitment.buttons.already_recruited')}</ActionButton>
-{:else if status === RecruitmentStatus.CAN_CLAIM}
-  <ActionButton priority="primary" on:click={handleButtonClick}
+  <ActionButton class={buttonClasses} priority="primary" disabled={true}><Spinner /></ActionButton>
+{:else if resettable}
+  <ActionButton class={buttonClasses} priority="primary" on:click={handleButtonClick}
+    >{$t('badge_recruitment.buttons.reset')}</ActionButton>
+{:else if isRecruitingAnotherBadge}
+  <ActionButton class={buttonClasses} priority="primary" disabled={true}
+    >{$t('badge_recruitment.buttons.ongoing_recruitment')}</ActionButton>
+{:else if alreadyRecruitedThisSeason}
+  <ActionButton class={buttonClasses} priority="primary" disabled={true}
+    >{$t('badge_recruitment.buttons.already_recruited')}</ActionButton>
+{:else if canClaim}
+  <ActionButton class={buttonClasses} priority="primary" on:click={handleButtonClick}
     >{$t('badge_recruitment.buttons.end_recruitment')}</ActionButton>
-{:else if status === RecruitmentStatus.ELIGIBLE}
-  <ActionButton priority="primary" on:click={handleButtonClick}
+{:else if canRecruit}
+  <ActionButton class={buttonClasses} priority="primary" on:click={handleButtonClick}
     >{$t('badge_recruitment.buttons.start_recruitment')}</ActionButton>
-{:else if status === RecruitmentStatus.REFINING && $activeRecruitmentStore?.cooldowns.influence}
+{:else if isRefining}
   <div class="f-col">
-    <ActionButton priority="primary" disabled={isRecruiting && isInfluencing} on:click={handleButtonClick}>
-      <span>Influencing</span>
-      <div class="f-row gap-2">
-        <Countdown
-          class="f-row  gap-2 text-secondary-content!"
-          itemClasses={countdownClasses}
-          target={$activeRecruitmentStore?.cooldowns.influence}
-          on:end={handleCountdownEnd} /> left
-      </div>
+    <ActionButton class={buttonClasses} priority="primary" disabled={disableInfluence} on:click={handleButtonClick}>
+      Influencing...
     </ActionButton>
   </div>
-{:else if status === RecruitmentStatus.CAN_REFINE}
-  <ActionButton priority="primary" disabled={isRecruiting && isInfluencing} on:click={handleButtonClick}>
+{:else if canRefine}
+  <ActionButton class={buttonClasses} priority="primary" disabled={disableInfluence} on:click={handleButtonClick}>
     {$t('badge_recruitment.buttons.influence')}
   </ActionButton>
 {/if}
 
-<h1>DEBUG INFO</h1>
-<div class={rowClasses}>
-  <span class="text-secondary-content">{$t('common.status')}</span>
-  <span>{status}</span>
-</div>
+{#if isRefining && $activeRecruitmentStore?.cooldowns.influence}
+  <div class="f-row gap-2">
+    <div class={rowClasses}>
+      <span class="text-secondary-content">Influence cooldown </span>
+      <Countdown
+        class="f-row  gap-2 text-secondary-content!"
+        itemClasses={countdownClasses}
+        target={$activeRecruitmentStore?.cooldowns.influence}
+        on:end={handleCountdownEnd} />
+    </div>
+  </div>
+{/if}
 
-<div class={rowClasses}>
-  <span class="text-secondary-content">Influencing</span>
-  <span>{isInfluencing ? 'Yes' : 'No'}</span>
-</div>
-
-<div class={rowClasses}>
-  <span class="text-secondary-content">Recruiting</span>
-  <span>{isRecruiting ? 'Yes' : 'No'}</span>
-</div>
-
-<div class={rowClasses}>
-  <span class="text-secondary-content">Cycle</span>
-  <span>{activeCycle}</span>
-</div>
-
-{#if isCurrentRecruitment && $activeRecruitmentStore?.cooldowns.claim && status === RecruitmentStatus.CAN_REFINE}
+{#if displayRecrutingCooldown && $activeRecruitmentStore?.cooldowns.claim}
   <div class={rowClasses}>
     <span class="text-secondary-content">Claimable in</span>
     <Countdown
@@ -186,8 +211,56 @@
       target={$activeRecruitmentStore?.cooldowns.claim}
       on:end={() => (status = RecruitmentStatus.CAN_CLAIM)} />
   </div>
-
-  <textarea placeholder="active recruitment" class="textarea textarea-bordered textarea-lg w-full max-w-xs" readonly>
-    {JSON.stringify(recruitment, null, 2)}
-  </textarea>
 {/if}
+<br />
+<br />
+
+<h1>
+  Debug info
+  <span class="text-sm"> (to be removed)</span>
+</h1>
+
+<div class={rowClasses}>
+  <span class="text-secondary-content">recruiting</span>
+  <span> {recruiting}</span>
+</div>
+
+<div class={rowClasses}>
+  <span class="text-secondary-content">isCurrentRecruitment</span>
+  <span>{isCurrentRecruitment}</span>
+</div>
+
+<div class={rowClasses}>
+  <span class="text-secondary-content">recruitmentNotFinished</span>
+  <span>{recruitmentNotFinished}</span>
+</div>
+
+<div class={rowClasses}>
+  <span class="text-secondary-content">recruiting && !isCurrentRecruitment</span>
+  <span>{recruiting && !isCurrentRecruitment}</span>
+</div>
+
+<div class={rowClasses}>
+  <span class="text-secondary-content">recruitmentNotFinished && !isCurrentRecruitment</span>
+  <span>{recruitmentNotFinished && !isCurrentRecruitment}</span>
+</div>
+
+<div class={rowClasses}>
+  <span class="text-secondary-content">{$t('common.status')}</span>
+  <span>{status}</span>
+</div>
+
+<div class={rowClasses}>
+  <span class="text-secondary-content">Influencing</span>
+  <span>{influencing ? 'Yes' : 'No'}</span>
+</div>
+
+<div class={rowClasses}>
+  <span class="text-secondary-content">Recruiting</span>
+  <span>{recruiting ? 'Yes' : 'No'}</span>
+</div>
+
+<div class={rowClasses}>
+  <span class="text-secondary-content">Cycle</span>
+  <span>{activeCycle}</span>
+</div>
