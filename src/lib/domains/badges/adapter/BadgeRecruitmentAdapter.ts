@@ -7,7 +7,7 @@ import {
   watchContractEvent,
   writeContract,
 } from '@wagmi/core';
-import { type Address,parseSignature, recoverAddress } from 'viem';
+import { type Address, parseSignature, recoverAddress } from 'viem';
 
 import {
   badgeRecruitmentAbi,

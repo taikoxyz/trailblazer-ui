@@ -5,7 +5,7 @@
   import { Spinner } from '$shared/components';
   import ActionButton from '$shared/components/Button/ActionButton.svelte';
   import { activeRecruitmentStore, currentCycleStore, influenceRecruitmentModal } from '$shared/stores/recruitment';
-  import { type ActiveRecruitment,RecruitmentStatus } from '$shared/types/BadgeRecruitment';
+  import { type ActiveRecruitment, RecruitmentStatus } from '$shared/types/BadgeRecruitment';
   import type { TBBadge } from '$shared/types/NFT';
   import { classNames } from '$shared/utils/classNames';
   import { getLogger } from '$shared/utils/logger';
