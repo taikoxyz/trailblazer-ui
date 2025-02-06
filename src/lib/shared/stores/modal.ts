@@ -13,3 +13,5 @@ export function isMintDisclaimerAccepted() {
 }
 
 export const blacklistModal = writable<boolean>(false);
+
+export const doraHacksModal = writable<boolean>(false);
