@@ -1,52 +1,8 @@
 <script lang="ts">
   import { classNames } from '$shared/utils/classNames';
-  import getConnectedAddress from '$shared/utils/getConnectedAddress';
 
-  import type { NewsCardContent } from '../../types/NewsCardContent';
+  import { newsEntries } from './newsEntries';
   import NewsEntry from './NewsEntry.svelte';
-
-  const profilePath = (slug: string) => {
-    return getConnectedAddress() ? `${getConnectedAddress() + slug}` : '';
-  };
-
-  const newsEntries: NewsCardContent[] = [
-    {
-      title: 'Avalon Airdrop',
-      subtitle: 'Live now!',
-      text: 'Claim on Taiko for 100x your TX value and points!',
-      imgSrc: '/news/flame.svg',
-
-      featured: true,
-      cta: {
-        href: 'https://avl.avalonfinance.xyz/airdrop/',
-        external: true,
-      },
-    },
-    {
-      featured: false,
-      title: 'Season 2 Claim',
-      subtitle: 'has ended.',
-      cta: {
-        href: profilePath('#claim'),
-      },
-      imgSrc: '/news/flame.svg',
-    },
-    {
-      title: 'Get your Badges',
-      subtitle: 'Recruit your members to your cause',
-      cta: {
-        href: profilePath('#badge-recruitment'),
-      },
-    },
-
-    {
-      title: 'Liquidity Royale',
-      subtitle: 'Supercharge your liquidity and get rewarded for it',
-      cta: {
-        href: '/journeys/liquidity',
-      },
-    },
-  ];
 
   const cardClasses = classNames(
     'card',
@@ -66,7 +22,7 @@
   const titleClasses = classNames('font-bold', 'leading-normal');
 
   const activitiesWrapper = classNames('f-col', 'gap-[12px]', 'overflow-scroll', 'h-[290px]');
-  const featuredActivityWrapper = classNames('f-col', 'mb-[24px]', 'mb-0');
+  const featuredActivityWrapper = classNames('f-col');
 </script>
 
 <div class={cardClasses}>
