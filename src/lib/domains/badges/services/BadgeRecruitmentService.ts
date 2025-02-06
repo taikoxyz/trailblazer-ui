@@ -5,7 +5,7 @@ import { type FactionNames, getFactionName } from '$lib/domains/nfts/types/badge
 import type { RecruitmentDetails } from '$lib/domains/profile/types/RecruitmentDetails';
 import { getMovementName, Movements } from '$lib/domains/profile/types/types';
 import { activeRecruitmentStore, currentCycleStore } from '$shared/stores/recruitment';
-import { type ActiveRecruitment, type IBadgeRecruitment,RecruitmentStatus } from '$shared/types/BadgeRecruitment';
+import { type ActiveRecruitment, type IBadgeRecruitment, RecruitmentStatus } from '$shared/types/BadgeRecruitment';
 import type { TBBadge } from '$shared/types/NFT';
 import { getRecruitmentStatus } from '$shared/utils/badges/getRecruitmentStatus';
 import { getLogger } from '$shared/utils/logger';

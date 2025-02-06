@@ -1,4 +1,4 @@
-import { type IBadgeRecruitment,RecruitmentStatus } from '$shared/types/BadgeRecruitment';
+import { type IBadgeRecruitment, RecruitmentStatus } from '$shared/types/BadgeRecruitment';
 
 import { getLogger } from '../logger';
 

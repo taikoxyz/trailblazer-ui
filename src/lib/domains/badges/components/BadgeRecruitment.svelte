@@ -14,7 +14,7 @@
   import { account } from '$shared/stores';
   import { pendingTransactions } from '$shared/stores/pendingTransactions';
   import { badgeToRecruit, endRecruitmentModal, startRecruitmentModal } from '$shared/stores/recruitment';
-  import { type ActiveRecruitment,RecruitmentStatus } from '$shared/types/BadgeRecruitment';
+  import { type ActiveRecruitment, RecruitmentStatus } from '$shared/types/BadgeRecruitment';
   import type { TBBadge } from '$shared/types/NFT';
   import { classNames } from '$shared/utils/classNames';
   import getConnectedAddress from '$shared/utils/getConnectedAddress';
