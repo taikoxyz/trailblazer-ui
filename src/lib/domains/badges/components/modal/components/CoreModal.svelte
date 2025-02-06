@@ -4,6 +4,8 @@
 
   export let open = false;
 
+  export let bindModal: HTMLDialogElement | undefined = undefined;
+
   const wrapperClasses = classNames('modal');
   const contentWrapperClasses = classNames(
     'z-100',
@@ -68,7 +70,7 @@
 </script>
 
 {#if open}
-  <dialog class={wrapperClasses} class:modal-open={open}>
+  <dialog bind:this={bindModal} class={wrapperClasses} class:modal-open={open}>
     <div class={contentWrapperClasses}>
       <div class={contentClasses}>
         <slot />
