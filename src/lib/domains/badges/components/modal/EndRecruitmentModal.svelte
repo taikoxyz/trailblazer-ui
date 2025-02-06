@@ -1,5 +1,6 @@
 <script lang="ts">
   import * as Sentry from '@sentry/sveltekit';
+  import { tick } from 'svelte';
   import Flippable from 'svelte-flip';
   import { t } from 'svelte-i18n';
 
@@ -13,14 +14,13 @@
   import type { TBBadge } from '$shared/types/NFT';
   import { classNames } from '$shared/utils/classNames';
 
+  import badgeRecruitmentService from '../../services/BadgeRecruitmentServiceInstance';
   import FancyButton from '../FancyButton.svelte';
   import CoreModal from './components/CoreModal.svelte';
   import CoreModalDescription from './components/CoreModalDescription.svelte';
   import CoreModalFooter from './components/CoreModalFooter.svelte';
   import CoreModalHeader from './components/CoreModalHeader.svelte';
   import CoreModalTitle from './components/CoreModalTitle.svelte';
-  import badgeRecruitmentService from '../../services/BadgeRecruitmentServiceInstance';
-  import { tick } from 'svelte';
 
   $: isLoading = false;
 

@@ -1,4 +1,5 @@
-import { RecruitmentStatus, type IBadgeRecruitment } from '$shared/types/BadgeRecruitment';
+import { type IBadgeRecruitment,RecruitmentStatus } from '$shared/types/BadgeRecruitment';
+
 import { getLogger } from '../logger';
 
 const log = getLogger('getRecruitmentStatus');

@@ -6,14 +6,14 @@
   import { errorToast, successToast } from '$shared/components/NotificationToast';
   import { account } from '$shared/stores';
   import { activeRecruitmentStore, influenceRecruitmentModal } from '$shared/stores/recruitment';
+  import type { TBBadge } from '$shared/types/NFT';
   import { classNames } from '$shared/utils/classNames';
 
+  import badgeRecruitmentService from '../../services/BadgeRecruitmentServiceInstance';
   import FancyButton from '../FancyButton.svelte';
   import InfluenceRadio from '../InfluenceRadio.svelte';
   import RecruitmentBadgeItem from '../RecruitmentBadgeItem.svelte';
   import { CoreModal, CoreModalDescription, CoreModalFooter, CoreModalHeader, CoreModalTitle } from './components';
-  import badgeRecruitmentService from '../../services/BadgeRecruitmentServiceInstance';
-  import type { TBBadge } from '$shared/types/NFT';
 
   // Reactive state
   let isLoading = false;
@@ -54,6 +54,7 @@
           values: { movement: MovementNames[selectedMovement] },
         }),
       });
+      // eslint-disable-next-line
     } catch (e: any) {
       isLoading = false;
       console.error(e);

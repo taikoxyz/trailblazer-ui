@@ -53,7 +53,7 @@
     'gap-[5px]',
   );
 
-  const cardClasses = classNames('bg-purple-900', 'relative', 'flex', 'flex-col', 'h-full');
+  const cardClasses = classNames(' bg-elevated-background', 'relative', 'flex', 'flex-col', 'h-full');
   const statusClasses = classNames('flex-1', 'mt-[80px]', 'xl:mt-[150px]', 'text-center', 'h-full');
   const fontBoldTextLeftClasses = classNames('font-bold', 'f-col', 'h-full');
   const listClasses = classNames('f-col', 'gap-[8px]');

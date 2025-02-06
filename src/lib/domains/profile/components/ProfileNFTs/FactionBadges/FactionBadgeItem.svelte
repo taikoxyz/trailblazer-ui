@@ -1,13 +1,15 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
+
+  import { ActionButton } from '$shared/components/Button';
+  import type { ActionButtonType } from '$shared/components/Button/types';
   import { Icon } from '$shared/components/Icon';
+  import { activeRecruitmentStore } from '$shared/stores/recruitment';
   import type { TBBadge } from '$shared/types/NFT';
   import { classNames } from '$shared/utils/classNames';
   import { getLogger } from '$shared/utils/logger';
+
   import FactionImage from './FactionImage.svelte';
-  import { ActionButton } from '$shared/components/Button';
-  import { activeRecruitmentStore } from '$shared/stores/recruitment';
-  import type { ActionButtonType } from '$shared/components/Button/types';
 
   export let inColor: boolean = true;
   export let token: TBBadge;

@@ -8,11 +8,11 @@
   import { FactionBadgeItem } from '$lib/domains/profile/components/ProfileNFTs';
   import type { FactionBadgeButton } from '$lib/domains/profile/types/FactionBadgeButton';
   import { Movements } from '$lib/domains/profile/types/types';
+  import { type ActiveRecruitment,RecruitmentStatus } from '$shared/types/BadgeRecruitment';
   import type { TBBadge } from '$shared/types/NFT';
+  import { classNames } from '$shared/utils/classNames';
   import getConnectedAddress from '$shared/utils/getConnectedAddress';
   import { getLogger } from '$shared/utils/logger';
-  import { RecruitmentStatus, type ActiveRecruitment } from '$shared/types/BadgeRecruitment';
-  import { classNames } from '$shared/utils/classNames';
 
   const log = getLogger('BadgeRecruitmentItem');
 

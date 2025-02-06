@@ -4,11 +4,10 @@ import {
   readContracts,
   signMessage,
   simulateContract,
-  waitForTransactionReceipt,
   watchContractEvent,
   writeContract,
 } from '@wagmi/core';
-import { parseSignature, recoverAddress, type Address } from 'viem';
+import { type Address,parseSignature, recoverAddress } from 'viem';
 
 import {
   badgeRecruitmentAbi,
@@ -16,15 +15,17 @@ import {
   trailblazersBadgesAbi,
   trailblazersBadgesAddress,
 } from '$generated/abi';
+import type { RecruitmentDetails } from '$lib/domains/profile/types/RecruitmentDetails';
+import type { Movements } from '$lib/domains/profile/types/types';
+import { getAxiosInstance } from '$shared/services/api/axiosClient';
 import { type IBadgeRecruitment } from '$shared/types/BadgeRecruitment';
+import { InfluenceError } from '$shared/types/errors';
 import type { TBBadge } from '$shared/types/NFT';
 import { chainId } from '$shared/utils/chain';
 import { getLogger } from '$shared/utils/logger';
 import { wagmiConfig } from '$shared/wagmi';
-import { getAxiosInstance } from '$shared/services/api/axiosClient';
-import type { Movements } from '$lib/domains/profile/types/types';
-import { InfluenceError } from '$shared/types/errors';
-import type { RecruitmentDetails } from '$lib/domains/profile/types/RecruitmentDetails';
+
+import type { RecruitmentCompleteLog, RecruitmentUpdatedLog } from '../dto/RecruitmentLogs';
 
 const log = getLogger('BadgeRecruitmentAdapter');
 
@@ -215,7 +216,11 @@ export default class BadgeRecruitmentAdapter {
    * @return {*}  {Promise<ActiveBadgeRecruitment>}
    * @memberof BadgeRecruitmentAdapter
    */
-  async influenceRecruitment(address: Address, nft: TBBadge, selectedMovement: Movements) {
+  async influenceRecruitment(
+    address: Address,
+    nft: TBBadge,
+    selectedMovement: Movements,
+  ): Promise<RecruitmentUpdatedLog> {
     log('influenceRecruitment', { address, nft });
 
     const { r, s, v, points, hash } = await this._getRecruitmentSignature(address, nft.badgeId as number, 'influence');
@@ -339,7 +344,7 @@ export default class BadgeRecruitmentAdapter {
    * @return {*}  {Promise<NFT>}
    * @memberof BadgeRecruitmentAdapter
    */
-  async endRecruitment(address: Address, nft: TBBadge) {
+  async endRecruitment(address: Address, nft: TBBadge): Promise<RecruitmentCompleteLog> {
     if (nft.badgeId === undefined) {
       throw new Error('Badge ID is required for ending recruitment');
     }
@@ -389,54 +394,6 @@ export default class BadgeRecruitmentAdapter {
       }
     });
   }
-
-  // /**
-  //  * Fetch recruitments for the user
-  //  *
-  //  * @return {*}  {Promise<BadgeRecruitment>}
-  //  * @memberof BadgeRecruitmentAdapter
-  //  */
-  // async getRecruitmentStatus(address: Address): Promise<Partial<IBadgeRecruitment>[]> {
-  //   log('getRecruitmentStatus', { address });
-  //   try {
-  //     await badgesSubgraphClient.cache.reset();
-  //     const graphqlResponse = await badgesSubgraphClient.query({
-  //       query: GET_MIGRATION_STATUS_QUERY,
-  //       variables: { address: address.toLocaleLowerCase() },
-  //       fetchPolicy: 'no-cache',
-  //     });
-
-  //     const enabledBadgeIds = await this.fetchEnabledRecruitments();
-
-  //     if (!graphqlResponse) {
-  //       return [];
-  //     }
-
-  //     const { s2Recruitments } = (graphqlResponse.data?.account as {
-  //       s2Recruitments: GqlBadgeRecruitment[];
-  //     }) || { s2Recruitments: [] };
-
-  //     const recruitments = enabledBadgeIds.map((badgeId) => {
-  //       const rawRecruitments = s2Recruitments.filter((recruitment) => Number(recruitment.s1Badge.badgeId) === badgeId);
-
-  //       return rawRecruitments.map((rawRecruitment) => {
-  //         if (!rawRecruitment) {
-  //           return {
-  //             badgeId,
-  //             status: RecruitmentStatus.NOT_STARTED,
-  //           } as Partial<IBadgeRecruitment>;
-  //         }
-  //         return parseGqlBadgeRecruitment(rawRecruitment);
-  //       });
-  //     });
-
-  //     const resolvedRecruitments = await Promise.all(recruitments.flat());
-  //     return resolvedRecruitments;
-  //   } catch (e) {
-  //     console.error(e);
-  //     return [];
-  //   }
-  // }
 
   async getRecruitmentStatusForUser(address: Address): Promise<IBadgeRecruitment> {
     const recruitment: IBadgeRecruitment = await readContract(wagmiConfig, {
@@ -535,10 +492,10 @@ export default class BadgeRecruitmentAdapter {
    * @return {*}  {Promise<void>}
    * @memberof BadgeRecruitmentAdapter
    */
-  async resetMigration(badge: TBBadge, cycleId: number): Promise<void> {
+  async resetMigration(badge: TBBadge, cycleId: number): Promise<Address> {
     log('resetMigration', { badge, cycleId });
 
-    const tx = await simulateContract(wagmiConfig, {
+    const { request } = await simulateContract(wagmiConfig, {
       abi: trailblazersBadgesAbi,
       address: trailblazersBadgesAddress[chainId],
       functionName: 'resetMigration',
@@ -546,14 +503,6 @@ export default class BadgeRecruitmentAdapter {
       chainId,
     });
 
-    const hash = await writeContract(wagmiConfig, {
-      abi: trailblazersBadgesAbi,
-      address: trailblazersBadgesAddress[chainId],
-      functionName: 'resetMigration',
-      args: [BigInt(badge.tokenId), BigInt(badge.badgeId), BigInt(cycleId)],
-      chainId,
-    });
-
-    await waitForTransactionReceipt(wagmiConfig, { hash });
+    return await writeContract(wagmiConfig, request);
   }
 }

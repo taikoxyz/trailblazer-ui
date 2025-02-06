@@ -78,6 +78,8 @@
       </div>
       <NewsCard />
     </div>
+
+    <FeaturedCampaigns />
     <div class={alertClasses}>
       <Alert type="info">
         <b>Note:</b>

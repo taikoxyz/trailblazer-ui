@@ -10,8 +10,11 @@
   import { ActionButton, Button } from '$shared/components/Button';
   import { Icon } from '$shared/components/Icon';
   import RotatingIcon from '$shared/components/Icon/RotatingIcon.svelte';
+  import { successToast } from '$shared/components/NotificationToast';
   import { account } from '$shared/stores';
+  import { pendingTransactions } from '$shared/stores/pendingTransactions';
   import { badgeToRecruit, endRecruitmentModal, startRecruitmentModal } from '$shared/stores/recruitment';
+  import { type ActiveRecruitment,RecruitmentStatus } from '$shared/types/BadgeRecruitment';
   import type { TBBadge } from '$shared/types/NFT';
   import { classNames } from '$shared/utils/classNames';
   import getConnectedAddress from '$shared/utils/getConnectedAddress';
@@ -20,10 +23,6 @@
   import badgeRecruitmentService from '../services/BadgeRecruitmentServiceInstance';
   import BadgeRecruitmentItem from './BadgeRecruitmentItem.svelte';
   import Countdown from './Countdown.svelte';
-  import { RecruitmentStatus, type ActiveRecruitment } from '$shared/types/BadgeRecruitment';
-  import RecruitingStatus from './RecruitingStatus.svelte';
-  import { successToast } from '$shared/components/NotificationToast';
-  // import { RecruitmentStatus } from '$shared/types/BadgeRecruitment';
 
   export let title: string = 'Badge Recruitment';
 
@@ -187,7 +186,11 @@
     log('Reset', badge);
     const address = getConnectedAddress();
     if (!address || address === zeroAddress || !userRecruitment?.badge) return;
-    badgeRecruitmentService.resetMigration(userRecruitment.badge, userRecruitment.cycle);
+
+    const tx = await badgeRecruitmentService.resetMigration(userRecruitment.badge, userRecruitment.cycle);
+
+    await pendingTransactions.add(tx);
+
     successToast({
       title: $t('badge_recruitment.main.reset_recruitment.toast.success.title'),
       message: $t('badge_recruitment.main.reset_recruitment.toast.success.message'),
