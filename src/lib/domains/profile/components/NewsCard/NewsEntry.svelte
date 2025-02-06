@@ -11,9 +11,9 @@
 
 {#if entry.featured}
   <div class="f-col">
-    <div class="f-row justify-between mb-[14px]">
+    <div class="f-row justify-between items-start mb-[14px]">
       <img src={entry.imgSrc} alt={entry.title} class="w-[44px] h-[44px]" />
-      <div class="f-col justify-self-start">
+      <div class="f-col flex-1 ml-[12px]">
         <div class="font-bold">{entry.title}</div>
         <div class="text-primary-link text-sm">{truncateString(entry.subtitle, 70)}</div>
       </div>
