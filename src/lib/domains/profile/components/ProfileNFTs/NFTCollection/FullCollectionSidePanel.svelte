@@ -1,15 +1,17 @@
 <script lang="ts">
+  import { t } from 'svelte-i18n';
+
   import BadgeRecruitmentItem from '$lib/domains/badges/components/BadgeRecruitmentItem.svelte';
+  import Countdown from '$lib/domains/badges/components/Countdown.svelte';
+  import RecruitingStatus from '$lib/domains/badges/components/RecruitingStatus.svelte';
   import type { Movements } from '$lib/domains/profile/types/types';
+  import { getMovementName, Multipliers } from '$lib/domains/profile/types/types';
+  import { ExplorerLink } from '$shared/components/Links';
   import { activeRecruitmentStore } from '$shared/stores/recruitment';
   import type { TBBadge } from '$shared/types/NFT';
-  import { FactionBadgeItem } from '../FactionBadges';
-  import { getMovementName, Multipliers } from '$lib/domains/profile/types/types';
-  import RecruitingStatus from '$lib/domains/badges/components/RecruitingStatus.svelte';
-  import { t } from 'svelte-i18n';
-  import { ExplorerLink } from '$shared/components/Links';
   import { classNames } from '$shared/utils/classNames';
-  import Countdown from '$lib/domains/badges/components/Countdown.svelte';
+
+  import { FactionBadgeItem } from '../FactionBadges';
 
   export let selectedBadge: TBBadge;
   export let movement: Movements | 'taikoon' | 'snaefell';

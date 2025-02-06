@@ -1,22 +1,17 @@
-// import type { Address } from 'viem';
-
-// import type { Movements } from '$lib/domains/profile/types/types';
-// import { type IBadgeRecruitment, RecruitmentStatus } from '$lib/shared/types/BadgeRecruitment';
-// import { activeRecruitment } from '$shared/stores/recruitment';
-// import type { TBBadge } from '$shared/types/NFT';
+import { get } from 'svelte/store';
 import { type Address, zeroAddress } from 'viem';
 
 import { type FactionNames, getFactionName } from '$lib/domains/nfts/types/badges/types';
+import type { RecruitmentDetails } from '$lib/domains/profile/types/RecruitmentDetails';
 import { getMovementName, Movements } from '$lib/domains/profile/types/types';
 import { activeRecruitmentStore, currentCycleStore } from '$shared/stores/recruitment';
-import { RecruitmentStatus, type ActiveRecruitment, type IBadgeRecruitment } from '$shared/types/BadgeRecruitment';
+import { type ActiveRecruitment, type IBadgeRecruitment,RecruitmentStatus } from '$shared/types/BadgeRecruitment';
 import type { TBBadge } from '$shared/types/NFT';
+import { getRecruitmentStatus } from '$shared/utils/badges/getRecruitmentStatus';
 import { getLogger } from '$shared/utils/logger';
 
 import BadgeRecruitmentAdapter from '../adapter/BadgeRecruitmentAdapter';
-import { getRecruitmentStatus } from '$shared/utils/badges/getRecruitmentStatus';
-import { get } from 'svelte/store';
-import type { RecruitmentDetails } from '$lib/domains/profile/types/RecruitmentDetails';
+import type { RecruitmentCompleteLog, RecruitmentUpdatedLog } from '../dto/RecruitmentLogs';
 
 const log = getLogger('BadgeRecruitmentService');
 
@@ -82,7 +77,7 @@ export default class BadgeRecruitmentService {
    * */
   async influenceRecruitment(address: Address, nft: TBBadge, selectedMovement: Movements): Promise<ActiveRecruitment> {
     log('influenceRecruitment', { address, nft, selectedMovement });
-    const logs = await this.adapter.influenceRecruitment(address, nft, selectedMovement);
+    const logs: RecruitmentUpdatedLog = await this.adapter.influenceRecruitment(address, nft, selectedMovement);
     log('influenceRecruitment logs', { logs });
     const influenceExpiration = new Date(parseInt(logs[0].args.influenceExpiration!.toString()) * 1000);
     const whaleInfluences = parseInt(logs[0].args.whaleInfluences!.toString());
@@ -111,9 +106,10 @@ export default class BadgeRecruitmentService {
   async endRecruitment(address: Address, badge: TBBadge): Promise<ActiveRecruitment> {
     log('endRecruitment', { address, badge });
 
-    const logs = await this.adapter.endRecruitment(address, badge);
+    const logs: RecruitmentCompleteLog = await this.adapter.endRecruitment(address, badge);
 
     const { finalColor, s2TokenId } = logs[0].args;
+
     const movement = parseInt(finalColor!.toString()) as Movements;
 
     const defaultBadge = await this.getDefaultBadge(badge.badgeId);
@@ -121,7 +117,7 @@ export default class BadgeRecruitmentService {
       ...defaultBadge,
       movement,
       badgeId: badge.badgeId,
-      tokenId: parseInt(s2TokenId),
+      tokenId: Number(s2TokenId),
     } satisfies TBBadge;
 
     const endRecruitment = {
@@ -231,11 +227,12 @@ export default class BadgeRecruitmentService {
    * @param tokenId
    * @param badgeId
    * @param cycleId
-   * @return {*}  {Promise<void>}
+   * @return {*}  {Promise<Address>}
    * @memberof BadgeRecruitmentAdapter
    */
-  async resetMigration(badge: TBBadge, cycleId: number): Promise<void> {
+  async resetMigration(badge: TBBadge, cycleId: number): Promise<Address> {
     log('resetMigration', { badge, cycleId });
-    return this.adapter.resetMigration(badge, cycleId);
+    const txHash = await this.adapter.resetMigration(badge, cycleId);
+    return txHash;
   }
 }

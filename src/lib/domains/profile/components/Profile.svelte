@@ -11,6 +11,7 @@
   import { activeSeason } from '$lib/shared/stores/activeSeason';
   import { Alert } from '$shared/components/Alert';
   import LeaderboardDisclaimer from '$shared/components/Disclaimer/LeaderboardDisclaimer.svelte';
+  import FeaturedCampaigns from '$shared/components/FeaturedCampaigns/FeaturedCampaigns.svelte';
   import { classNames } from '$shared/utils/classNames';
   import getConnectedAddress from '$shared/utils/getConnectedAddress';
 
@@ -77,6 +78,8 @@
       </div>
       <NewsCard />
     </div>
+
+    <FeaturedCampaigns />
     <div class={alertClasses}>
       <Alert type="info">
         <b>Note:</b>

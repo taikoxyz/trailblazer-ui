@@ -2,7 +2,6 @@ import { getAccount } from '@wagmi/core';
 import { type Address, getAddress, type Hash } from 'viem';
 
 import { BadgeMultiplierService } from '$lib/domains/badges/services/BadgeMultiplierService';
-// import BadgeRecruitmentService from '$lib/domains/badges/services/BadgeRecruitmentService';
 import type { UserLeaderboardItem } from '$lib/domains/leaderboard/types/user/types';
 import { NftService } from '$lib/domains/nfts/services/NftService';
 import { ProfileApiAdapter } from '$lib/domains/profile/adapter/ProfileAdapter';
@@ -20,7 +19,6 @@ import type { UserInfoForLeaderboard } from '$lib/domains/profile/types/UserInfo
 import type { UserProfile } from '$lib/domains/profile/types/UserProfile';
 import type { SeasonHistoryEntry, UserStats } from '$lib/domains/profile/types/UserStats';
 import type { PaginationInfo } from '$lib/shared/dto/CommonPageApiResponse';
-import type { IBadgeRecruitment } from '$lib/shared/types/BadgeRecruitment';
 import type { NFT } from '$lib/shared/types/NFT';
 import { wagmiConfig } from '$lib/shared/wagmi';
 import { getLogger } from '$shared/utils/logger';
@@ -546,41 +544,6 @@ export class ProfileService implements IProfileService {
     }
   }
 
-  // /**
-  //  * Fetches enabled recruitments
-  //  *
-  //  * @return {*}  {Promise<number[]>}
-  //  * @memberof ProfileService
-  //  */
-  // // async getEnabledRecruitments(): Promise<number[]> {
-  // //   log('getEnabledRecruitments');
-  // //   return this.badgeRecruitmentService.getEnabledRecruitments();
-  // // }
-
-  // private async _updateRecruitment(recruitment: IBadgeRecruitment): Promise<void> {
-  //   const oldUser = await this.userRepository.get();
-  //   const badgeRecruitment = oldUser.badgeRecruitment || [];
-
-  //   // Find the recruitment to update
-  //   const existingRecruitment = badgeRecruitment.find((m) => m.id === recruitment.id);
-  //   if (existingRecruitment) {
-  //     // Update the recruitment
-  //     const index = badgeRecruitment.indexOf(existingRecruitment);
-  //     badgeRecruitment[index] = recruitment;
-  //   } else {
-  //     badgeRecruitment.push(recruitment);
-  //   }
-
-  //   // Update the profile
-  //   await this.userRepository.update({
-  //     ...oldUser,
-  //     badgeRecruitment,
-  //   });
-
-  //   activeRecruitment.set(recruitment);
-  //   log('Updating recruitment:', recruitment);
-  // }
-
   /**
    * Retrieves the user's blacklist status for the given season.
    *
@@ -775,93 +738,4 @@ export class ProfileService implements IProfileService {
       return mp;
     }
   }
-
-  //   async getMaxInfluences(): Promise<number> {
-  //     try {
-  //       log('getMaxInfluences');
-  //       const user = await this.userRepository.get();
-  //       return this.badgeRecruitmentService.getMaxInfluences(user.userStats?.score || 0);
-  //     } catch (error) {
-  //       log('Error in getMaxInfluences:', error);
-  //       return 0;
-  //     }
-  //   }
-
-  //   async getRecruitmentCycleId(): Promise<number> {
-  //     log('getRecruitmentCycleId');
-  //     return this.badgeRecruitmentService.getRecruitmentCycleId();
-  //   }
-
-  //   async resetMigration(tokenId: number, badgeId: number, cycleId: number): Promise<void> {
-  //     log('resetMigration', { tokenId, badgeId, cycleId });
-  //     await this.badgeRecruitmentService.resetMigration(tokenId, badgeId, cycleId);
-  //   }
-
-  /**
-   * Starts a recruitment process
-   *
-   * @param {Address} address
-   * @param {NFT} nft
-   * @return {*}  {Promise<NFT>}
-   * @memberof ProfileService
-   */
-  // async startRecruitment(address: Address, nft: TBBadge, recruitment: IBadgeRecruitment): Promise<void> {
-  //   log('startRecruitment', { address, nft, recruitment });
-  //   const updatedRecruitment = await this.badgeRecruitmentService.startRecruitment(address, nft, recruitment);
-  //   await this._updateRecruitment(updatedRecruitment);
-  // }
-
-  /**
-   * Starts a recruitment process
-   *
-   * @param {Address} address
-   * @param {NFT} nft
-   * @param {Movements} selectedMovement
-   * @return {*}  {Promise<NFT>}
-   * @memberof ProfileService
-   */
-  // async influenceRecruitment(
-  //   address: Address,
-  //   nft: TBBadge,
-  //   selectedMovement: Movements,
-  //   recruitment: IBadgeRecruitment,
-  // ): Promise<void> {
-  //   log('influenceRecruitment', { address, nft, selectedMovement });
-  //   const updatedRecruitment = await this.badgeRecruitmentService.influenceRecruitment(
-  //     address,
-  //     nft,
-  //     selectedMovement,
-  //     recruitment,
-  //   );
-  //   await this._updateRecruitment(updatedRecruitment);
-  // }
-
-  /**
-   * Starts a recruitment process
-   *
-   * @param {Address} address
-   * @param {NFT} nft
-   * @return {*}  {Promise<NFT>}
-   * @memberof ProfileService
-   */
-  // async endRecruitment(address: Address, nft: TBBadge, recruitment: IBadgeRecruitment): Promise<void> {
-  //   log('endRecruitment', { address, nft, recruitment });
-  //   const updatedRecruitment = await this.badgeRecruitmentService.endRecruitment(address, nft, recruitment);
-  //   await this._updateRecruitment(updatedRecruitment);
-  // }
-
-  /**
-   * Starts a recruitment process
-   *
-   * @param {Address} address
-   * @return {*}  {Promise<void>}
-   * @memberof ProfileService
-   */
-  // async getBadgeRecruitments(address: Address): Promise<void> {
-  //   log('getRecruitmentStatus', { address });
-  //   const recruitments = await this.badgeRecruitmentService.getRecruitmentStatus(address);
-  //   await this.userRepository.update({
-  //     badgeRecruitment: recruitments,
-  //   });
-  // }
 }

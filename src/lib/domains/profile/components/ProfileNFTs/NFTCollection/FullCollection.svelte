@@ -5,13 +5,13 @@
   import { getMovementName, Movements } from '$lib/domains/profile/types/types';
   import { Spinner } from '$shared/components';
   import { Icon } from '$shared/components/Icon';
+  import { activeRecruitmentStore } from '$shared/stores/recruitment';
   import type { NFT, TBBadge } from '$shared/types/NFT';
   import { classNames } from '$shared/utils/classNames';
   import { getLogger } from '$shared/utils/logger';
 
   import { FactionBadgeItem } from '../FactionBadges';
   import FullCollectionSidePanel from './FullCollectionSidePanel.svelte';
-  import { activeRecruitmentStore } from '$shared/stores/recruitment';
 
   const wrapperClasses = classNames('p-[20px]', 'f-col', 'gap-[30px]', 'justify-center', 'w-full');
   const gridClasses = classNames(

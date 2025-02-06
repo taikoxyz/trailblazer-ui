@@ -1,5 +1,6 @@
-import type { TBBadge } from '$lib/shared/types/NFT';
 import type { Address } from 'viem';
+
+import type { TBBadge } from '$lib/shared/types/NFT';
 
 export enum RecruitmentStatus {
   ELIGIBLE = 'ELIGIBLE',
@@ -13,31 +14,6 @@ export enum RecruitmentStatus {
   ALREADY_RECRUITED = 'ALREADY_RECRUITED',
   UNFINISHED = 'UNFINISHED',
 }
-
-// export interface IBadgeRecruitment {
-//   cycleId: number;
-//   id: string;
-//   badgeId: number;
-//   status?: RecruitmentStatus;
-//   // s1Badge: TBBadge;
-//   // s2Badge?: TBBadge;
-//   whaleInfluences: number;
-//   minnowInfluences: number;
-//   claimExpirationTimeout: Date;
-//   influenceExpirationTimeout?: Date;
-// }
-
-// struct Recruitment {
-//     uint256 recruitmentCycle;
-//     address user;
-//     uint256 s1BadgeId;
-//     uint256 s1TokenId;
-//     uint256 s2TokenId;
-//     uint256 cooldownExpiration;
-//     uint256 influenceExpiration;
-//     uint256 whaleInfluences;
-//     uint256 minnowInfluences;
-// }
 
 export interface IBadgeRecruitment {
   recruitmentCycle: bigint;
