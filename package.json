@@ -105,6 +105,5 @@
     "wagmi": "^2.14.4"
   },
   "type": "module",
-  "dependencies": {
-  }
+  "dependencies": {}
 }
