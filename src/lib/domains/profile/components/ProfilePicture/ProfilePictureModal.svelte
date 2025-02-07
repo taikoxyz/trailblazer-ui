@@ -78,8 +78,7 @@
 
   const modalBodyClasses = classNames(
     'w-full',
-    'h-max',
-
+    'h-full',
     'py-[20px]',
     'px-[24px]',
     'flex',
@@ -88,7 +87,7 @@
     'justify-center',
   );
 
-  const selectorWrapperClasses = classNames('w-full', 'h-max', 'flex', 'flex-col', 'gap-[20px]');
+  const selectorWrapperClasses = classNames('w-full', 'h-full', 'max-h-[85vh]', 'flex', 'flex-col', 'gap-[20px]');
 
   const selectorTitleRowClasses = classNames(
     'text-[16px]/[24px]',
@@ -106,28 +105,35 @@
     'w-full',
     'grid',
     'grid-cols-2',
+    'sm:grid-cols-2',
     'md:grid-cols-3',
     'lg:grid-cols-4',
-    'gap-[20px]',
-    'h-[600px]',
-    'md:h-[350px]',
+    'md:gap-[20px]',
+    'auto-rows-[1fr]',
+    'gap-[10px]',
+    'h-full',
     'transition-all',
     'bg-elevated-background',
-    'p-[20px]',
-    'overflow-x-scroll',
+    'md:p-[20px]',
+    'p-[10px]',
     'relative',
+    'overflow-y-scroll',
     'min-h-[100px]',
   );
-  const selectorGridItemClasses = classNames(
-    'overflow-hidden',
+  const selectorGridItemClasses = classNames('flex', 'justify-center', 'w-full', 'h-[30vw]', 'md:h-[124px]');
+
+  const selectorGridItemImageClasses = classNames(
+    'rounded-[10px]',
     'border',
     'border-[3px]',
     'border-transparent',
-    'hover:border-primary-focus',
+    'hover:border-primary',
     'transition-all',
-    'w-[124px]',
-    'h-[124px]',
-    'rounded-[10px]',
+    'max-w-full',
+    'w-[30vw]',
+    'h-[30vw]',
+    'md:w-[124px]',
+    'md:h-[124px]',
   );
 
   $: modal = undefined as HTMLDialogElement | undefined;
@@ -270,7 +276,11 @@
             <div class={selectorGridClasses}>
               {#each possiblePFPs as pfp}
                 <button on:click={() => selectPfp(pfp)} class={selectorGridItemClasses}>
-                  <img src={getNftImage(pfp)} alt="pfp" class="w-full" style="image-rendering:pixelated" />
+                  <img
+                    src={getNftImage(pfp)}
+                    alt="pfp"
+                    class={selectorGridItemImageClasses}
+                    style="image-rendering:pixelated" />
                 </button>
               {/each}
             </div>
