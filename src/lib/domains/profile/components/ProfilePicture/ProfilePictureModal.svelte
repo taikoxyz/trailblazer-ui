@@ -198,8 +198,25 @@
     'p-[20px]',
   );
 
+  function filterUniqueNfts(nfts: NFT[]) {
+    // filters unique badges to not clog the ui
+    const uq: string[] = [];
+    return nfts.filter((nft) => {
+      if (
+        nft.metadata.season === undefined ||
+        nft.metadata.movement === undefined ||
+        nft.metadata.badgeId === undefined
+      )
+        return true;
+      const key = `${nft.metadata.season}:${nft.metadata.movement}:${nft.metadata.badgeId}`;
+      if (uq.includes(key)) return false;
+      uq.push(key);
+      return true;
+    });
+  }
+
   onMount(() => {
-    possiblePFPs = $userProfile?.nfts || [];
+    possiblePFPs = filterUniqueNfts($userProfile?.nfts || []);
   });
 </script>
 
@@ -221,7 +238,11 @@
     <div class={modalBodyClasses}>
       {#if previewVisible && selectedPfp}
         <!-- svelte-ignore a11y-img-redundant-alt -->
-        <img alt="Profile picture preview" class={pfpPreviewClasses} src={getNftImage(selectedPfp)} />
+        <img
+          alt="Profile picture preview"
+          style="image-rendering:pixelated"
+          class={pfpPreviewClasses}
+          src={getNftImage(selectedPfp)} />
       {:else}
         <div class={selectorWrapperClasses}>
           <div class={selectorTitleRowClasses}>
@@ -249,7 +270,7 @@
             <div class={selectorGridClasses}>
               {#each possiblePFPs as pfp}
                 <button on:click={() => selectPfp(pfp)} class={selectorGridItemClasses}>
-                  <img src={getNftImage(pfp)} alt="pfp" />
+                  <img src={getNftImage(pfp)} alt="pfp" class="w-full" style="image-rendering:pixelated" />
                 </button>
               {/each}
             </div>
