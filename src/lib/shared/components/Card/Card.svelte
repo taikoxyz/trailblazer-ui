@@ -1,6 +1,4 @@
 <script lang="ts">
-  import { t } from 'svelte-i18n';
-
   import { goto } from '$app/navigation';
   import { classNames } from '$shared/utils/classNames';
   import { isMobile, isTablet, isTabletLg } from '$shared/utils/responsiveCheck';
@@ -25,7 +23,7 @@
 
   const cardClasses = classNames(
     'card',
-    'rounded-[20px]',
+    'rounded-[30px]',
     'border',
     'border-divider-border',
     'glassy-gradient-card',
@@ -63,7 +61,7 @@
     <div class="mt-auto">
       {#if content.btn.external}
         <ActionButton priority="primary" class={buttonClasses} href={content.btn.destination}>
-          {$t('common.learn_more')}
+          {content.btn.text}
         </ActionButton>
       {:else}
         <ActionButton priority="primary" class={buttonClasses} on:click={() => goto(content.btn.destination)}>

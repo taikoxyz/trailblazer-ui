@@ -11,6 +11,36 @@
 
   const cards: CampaignCardType[] = [
     {
+      title: 'Claim your 50K points now!',
+      text: 'Vote for your favorite projects on DoraHacks. Don’t miss out—claim your 50,000 points today!',
+      btn: {
+        text: 'Vote now',
+        external: true,
+        destination: 'https://dorahacks.io/grant/taiko/buidl',
+      },
+      images: {
+        sm: '/campaign/cards/sm/dorahacks.png',
+        md: '/campaign/cards/xl/dorahacks.png',
+        lg: '/campaign/cards/xl/dorahacks.png',
+        xl: '/campaign/cards/xl/dorahacks.png',
+      },
+    },
+    {
+      title: 'Avalon x Taiko: Exclusive rewards await',
+      text: 'Supply TAIKO on Avalon to unlock airdrops, 100K TAIKO incentives, and 100x Trailblazers XP! ⏳',
+      btn: {
+        text: 'Earn now',
+        external: true,
+        destination: 'https://usdalend.avalonfinance.xyz/?marketName=proto_usda_taiko_v3',
+      },
+      images: {
+        sm: '/campaign/cards/sm/avalon.png',
+        md: '/campaign/cards/sm/avalon.png',
+        lg: '/campaign/cards/sm/avalon.png',
+        xl: '/campaign/cards/sm/avalon.png',
+      },
+    },
+    {
       title: 'Evolve your Faction Badges',
       text: 'The Devs are out in full force looking for new recruits to join their Faction. Will you join them?',
       btn: {
@@ -157,15 +187,21 @@
     'bottom-0',
   );
 
-  const headerClasses = classNames('relative', 'right-0', 'flex-row', 'flex', 'justify-end', 'items-end', 'w-full');
+  const headerClasses = classNames(
+    'relative',
+    'left-0',
+    'flex-row',
+    'flex',
+    title ? 'justify-between' : 'justify-end',
+    'items-end',
+    'w-full',
+  );
 
   const titleWrapperClasses = classNames('flex', 'flex-col', 'justify-start', 'gap-[40px]');
 
   const titleInnerClasses = classNames('flex', 'flex-col', 'gap-[20px]', 'items-start', 'xl:items-start');
 
   const titleClasses = classNames('font-clash-grotesk', 'text-[40px]/[49.2px]');
-
-  const underlineClasses = classNames('border', 'border-primary-brand', 'w-[66px]', 'h-[0px]');
 
   const buttonWrapperClasses = classNames('flex', 'gap-4');
 
@@ -195,7 +231,6 @@
         <div class={titleWrapperClasses}>
           <div class={titleInnerClasses}>
             <div class={titleClasses}>{title}</div>
-            <div class={underlineClasses}></div>
           </div>
         </div>
       {/if}

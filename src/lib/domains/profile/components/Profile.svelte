@@ -11,6 +11,7 @@
   import { activeSeason } from '$lib/shared/stores/activeSeason';
   import { Alert } from '$shared/components/Alert';
   import LeaderboardDisclaimer from '$shared/components/Disclaimer/LeaderboardDisclaimer.svelte';
+  import FeaturedCampaigns from '$shared/components/FeaturedCampaigns/FeaturedCampaigns.svelte';
   import { classNames } from '$shared/utils/classNames';
   import getConnectedAddress from '$shared/utils/getConnectedAddress';
 
@@ -83,6 +84,8 @@
         Final Season 2 stats will be accessible shortly!
       </Alert>
     </div>
+
+    <FeaturedCampaigns title="Featured campaigns" />
 
     <div class={tabsClasses}>
       <ProfileTabs {isSelfProfile} />
