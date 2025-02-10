@@ -2,6 +2,8 @@
   "name": "trailblazer-ui",
   "version": "2.2.0",
   "private": true,
+  "type": "module",
+  "dependencies": {},
   "scripts": {
     "dev": "vite dev --host",
     "dev:prod": "vite dev --mode production",
@@ -74,15 +76,13 @@
     "trailblazer-contracts": "git+https://github.com:taikoxyz/trailblazer-contracts.git",
     "@sentry/sveltekit": "^8",
     "graphql-codegen": "^0.4.0",
-    "graphql-tag": "^2.12.6"
-  },
-  "type": "module",
-  "dependencies": {
-    "@ethereumjs/util": "^9.0.3",
-    "@metamask/eth-sig-util": "^7.0.2",
+    "graphql-tag": "^2.12.6",
     "@reown/appkit": "^1.6.2",
     "@reown/appkit-adapter-wagmi": "^1.6.2",
     "@reown/walletkit": "^1.1.2",
+    "viem": "^2.21.57",
+    "@ethereumjs/util": "^9.0.3",
+    "@metamask/eth-sig-util": "^7.0.2",
     "@sveltejs/adapter-node": "^5.2.5",
     "@sveltejs/adapter-vercel": "^5.3.1",
     "@sveltejs/vite-plugin-svelte": "^3.1.1",
@@ -104,7 +104,6 @@
     "svelte-countdown": "^1.1.2",
     "svelte-flip": "^0.0.11",
     "svelte-i18n": "^4.0.0",
-    "viem": "^2.21.57",
     "wagmi": "^2.14.4"
   }
 }
