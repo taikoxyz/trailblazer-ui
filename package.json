@@ -2,6 +2,8 @@
   "name": "trailblazer-ui",
   "version": "2.2.0",
   "private": true,
+  "type": "module",
+  "dependencies": {},
   "scripts": {
     "dev": "vite dev --host",
     "dev:prod": "vite dev --mode production",
@@ -103,7 +105,5 @@
     "svelte-flip": "^0.0.11",
     "svelte-i18n": "^4.0.0",
     "wagmi": "^2.14.4"
-  },
-  "type": "module",
-  "dependencies": {}
+  }
 }
