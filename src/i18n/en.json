@@ -809,6 +809,7 @@
         }
       },
       "event": {
+        "avalon_claim": "Avalon Claim",
         "block_proposed": "Block Proposed",
         "bridged": "Bridged",
         "dora_hacks": "DoraHacks Vote",
