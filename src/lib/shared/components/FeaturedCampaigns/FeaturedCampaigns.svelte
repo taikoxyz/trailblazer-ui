@@ -133,8 +133,7 @@
 
   const carouselWrapperClasses = classNames(
     'w-full',
-    'pt-[100px]',
-    'md:pt-[70px]',
+    'md:pt-[30px]',
     'overflow-x-auto',
     'overflow-y-hidden',
     'scroll-smooth',
