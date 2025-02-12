@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { createEventDispatcher } from 'svelte';
+  import { createEventDispatcher, getContext } from 'svelte';
   import { t } from 'svelte-i18n';
   import { zeroAddress } from 'viem';
 
@@ -71,6 +71,10 @@
 
   const handleBadgeClick = (event: { detail: { badge: TBBadge; badgeId: number } }) => {
     log('Badge clicked', badge);
+    if (recruitment?.status === RecruitmentStatus.UNFINISHED) {
+      reset(recruitment);
+      return;
+    }
     openRecruitment(event);
   };
 
@@ -133,6 +137,8 @@
   const handleMouseLeave = () => {
     isHovered = false;
   };
+
+  const reset: (recruitment: ActiveRecruitment) => void = getContext('badgeRecruitReset');
 </script>
 
 {#if hasHover}

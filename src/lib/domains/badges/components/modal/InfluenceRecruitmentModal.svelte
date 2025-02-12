@@ -5,7 +5,11 @@
   import { getMovementName, MovementNames, Movements } from '$lib/domains/profile/types/types';
   import { errorToast, successToast } from '$shared/components/NotificationToast';
   import { account } from '$shared/stores';
-  import { activeRecruitmentStore, influenceRecruitmentModal } from '$shared/stores/recruitment';
+  import {
+    activeRecruitmentStore,
+    currentRecruitmentStore,
+    influenceRecruitmentModal,
+  } from '$shared/stores/recruitment';
   import type { TBBadge } from '$shared/types/NFT';
   import { classNames } from '$shared/utils/classNames';
 
@@ -21,9 +25,9 @@
   let whaleBadge: TBBadge | null = null;
   let minnowBadge: TBBadge | null = null;
 
-  $: s1BadgeId = ($activeRecruitmentStore?.badge?.badgeId as number) || 0;
-  $: influenceCounter = $activeRecruitmentStore
-    ? $activeRecruitmentStore.influences.minnow + $activeRecruitmentStore.influences.whale
+  $: s1BadgeId = ($currentRecruitmentStore?.badge?.badgeId as number) || 0;
+  $: influenceCounter = $currentRecruitmentStore
+    ? $currentRecruitmentStore.influences.minnow + $currentRecruitmentStore.influences.whale
     : 0;
 
   // Fetch badges reactively when s1BadgeId updates
@@ -36,12 +40,12 @@
 
   async function handleInfluence() {
     try {
-      if (!$account || !$account.address || !$activeRecruitmentStore || selectedMovement === null) return;
+      if (!$account || !$account.address || !$currentRecruitmentStore || selectedMovement === null) return;
       isLoading = true;
 
       await badgeRecruitmentService.influenceRecruitment(
         $account.address,
-        $activeRecruitmentStore.badge,
+        $currentRecruitmentStore.badge,
         selectedMovement,
       );
 
@@ -110,7 +114,7 @@
         }}
         locked
         hideBubbles
-        value={$activeRecruitmentStore?.influences.whale}
+        value={$currentRecruitmentStore?.influences.whale}
         shadow={selectedMovement === Movements.Whales}
         token={whaleBadge}>
         <div class={detailsClasses}>
@@ -126,7 +130,7 @@
           selectedMovement = Movements.Minnows;
         }}
         shadow={selectedMovement === Movements.Minnows}
-        value={$activeRecruitmentStore?.influences.minnow}
+        value={$currentRecruitmentStore?.influences.minnow}
         token={minnowBadge}>
         <div class={detailsClasses}>
           {getMovementName(Movements.Minnows)}

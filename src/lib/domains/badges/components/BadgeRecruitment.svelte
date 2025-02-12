@@ -110,18 +110,13 @@
   $: cycleEndDate = new Date();
 
   $: hasStuckRecruitment = false;
-  $: userRecruitment = null as ActiveRecruitment | null;
-  // $: status = RecruitmentStatus.NOT_STARTED as RecruitmentStatus;
-
-  // const badgeIds = [0, 1, 2, 3, 4, 5, 6, 7];
-
-  // // 4 days from now as timestamp
-  // const cycleEndDate = new Date(Date.now() + 4 * 24 * 60 * 60 * 1000);
+  $: userRecruitments = null as ActiveRecruitment[] | null;
 
   const initialise = async () => {
     if (!browser || isLoading) return;
     isLoading = true;
     const address = getConnectedAddress();
+    // const address = '0x69Bd1321Bea82fE4D4d022d19F8c28499D1282b3';
     if (!address || address === zeroAddress) return;
     const [cycleIdResult, enabledRecruitmentsResult, recruitmentsOfUser] = await Promise.all([
       badgeRecruitmentService.getRecruitmentCycleId(),
@@ -135,12 +130,19 @@
 
     log('recruitmentsOfUser', recruitmentsOfUser);
 
-    // check if user has recruitment that is not in the enabledRecruitment
+    // check if user has any recruitment recruitmentsOfUser array that is not in the enabledRecruitments
 
-    if (recruitmentsOfUser && recruitmentsOfUser.cycle !== cycleId) {
-      hasStuckRecruitment = !enabledRecruitments.includes(recruitmentsOfUser.badge.badgeId);
-      recruitmentsOfUser.status = RecruitmentStatus.UNFINISHED;
-      userRecruitment = recruitmentsOfUser;
+    const outdatedRecruitments = badgeRecruitmentService.getOutdatedRecruitments(
+      enabledRecruitments,
+      cycleId,
+      recruitmentsOfUser,
+    );
+
+    log('outdatedRecruitments', outdatedRecruitments);
+
+    if (outdatedRecruitments) {
+      hasStuckRecruitment = outdatedRecruitments.length > 0;
+      userRecruitments = outdatedRecruitments;
     }
 
     displayAvailableRecruitmentBadges = await Promise.all(
@@ -182,12 +184,12 @@
     $badgeToRecruit = badge;
   };
 
-  const reset = async (badge: TBBadge) => {
-    log('Reset', badge);
+  const reset = async (recruitment: ActiveRecruitment) => {
+    log('Reset', recruitment);
     const address = getConnectedAddress();
-    if (!address || address === zeroAddress || !userRecruitment?.badge) return;
+    if (!address || address === zeroAddress) return;
 
-    const tx = await badgeRecruitmentService.resetMigration(userRecruitment.badge, userRecruitment.cycle);
+    const tx = await badgeRecruitmentService.resetMigration(recruitment.badge, recruitment.cycle);
 
     await pendingTransactions.add(tx);
 
@@ -266,7 +268,7 @@
           <div class={nftGridClasses}>
             {#each displayAvailableRecruitmentBadges as badge}
               <BadgeRecruitmentItem
-                blurred={hasStuckRecruitment}
+                blurred={false}
                 {badge}
                 on:counterEnd={onCounterEnd}
                 on:open={handleCollectionOpen}
@@ -286,19 +288,21 @@
         <div class={titleClasses}>Unfinished Recruitments</div>
         <div class={dividerClasses} />
         <div class={boxClasses}>
-          {#if !isLoading && hasStuckRecruitment && userRecruitment}
+          {#if !isLoading && hasStuckRecruitment && userRecruitments}
             <div class="f-row gap-[80px]">
-              This recruitment was started in a previous cycle but was never claimed. You can cancel this recruitment
-              and try again in a different cycle.
+              These recruitments were started in a previous cycle but never claimed. You can cancel the process and try
+              again in a different cycle.
             </div>
 
             <div class={nftGridClasses}>
-              <BadgeRecruitmentItem
-                badge={userRecruitment.badge}
-                on:counterEnd={onCounterEnd}
-                on:open={handleCollectionOpen}
-                recruitment={userRecruitment}
-                hasHover={true} />
+              {#each userRecruitments as userRecruitment}
+                <BadgeRecruitmentItem
+                  badge={userRecruitment.badge}
+                  on:counterEnd={onCounterEnd}
+                  on:open={handleCollectionOpen}
+                  recruitment={userRecruitment}
+                  hasHover={true} />
+              {/each}
             </div>
           {:else}
             <div class={infoTextClassWrapper}>

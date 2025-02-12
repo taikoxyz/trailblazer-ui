@@ -7,7 +7,7 @@
   import type { Movements } from '$lib/domains/profile/types/types';
   import { getMovementName, Multipliers } from '$lib/domains/profile/types/types';
   import { ExplorerLink } from '$shared/components/Links';
-  import { activeRecruitmentStore } from '$shared/stores/recruitment';
+  import { currentRecruitmentStore } from '$shared/stores/recruitment';
   import type { TBBadge } from '$shared/types/NFT';
   import { classNames } from '$shared/utils/classNames';
 
@@ -60,17 +60,17 @@
 
   const detailsUuid = crypto.randomUUID();
 
-  $: isRecruiting = $activeRecruitmentStore?.cooldowns.claim
-    ? new Date($activeRecruitmentStore.cooldowns.claim) > new Date()
+  $: isRecruiting = $currentRecruitmentStore?.cooldowns.claim
+    ? new Date($currentRecruitmentStore.cooldowns.claim) > new Date()
     : false;
 
-  $: isInfluencing = $activeRecruitmentStore?.cooldowns.influence
-    ? new Date($activeRecruitmentStore.cooldowns.influence) > new Date()
+  $: isInfluencing = $currentRecruitmentStore?.cooldowns.influence
+    ? new Date($currentRecruitmentStore.cooldowns.influence) > new Date()
     : false;
 </script>
 
 <div class={wrapperClasses}>
-  {#if $activeRecruitmentStore?.badge?.tokenId === selectedBadge.tokenId}
+  {#if $currentRecruitmentStore?.badge?.tokenId === selectedBadge.tokenId}
     {#if isRecruiting && !isInfluencing}
       <div class="relative">
         <div class="absolute inset-0 flex items-center justify-center z-50 gap-5 f-col">
@@ -78,11 +78,11 @@
           <Countdown
             class="f-row gap-2"
             itemClasses={countdownClasses}
-            target={$activeRecruitmentStore?.cooldowns.claim} />
+            target={$currentRecruitmentStore?.cooldowns.claim} />
         </div>
         <BadgeRecruitmentItem
-          badge={$activeRecruitmentStore.badge}
-          recruitment={$activeRecruitmentStore}
+          badge={$currentRecruitmentStore.badge}
+          recruitment={$currentRecruitmentStore}
           blurred={true} />
       </div>
     {:else if isInfluencing}
@@ -92,18 +92,18 @@
           <Countdown
             class="f-row gap-2"
             itemClasses={countdownClasses}
-            target={$activeRecruitmentStore?.cooldowns.influence}
+            target={$currentRecruitmentStore?.cooldowns.influence}
             on:end={() => (isInfluencing = false)} />
         </div>
         <BadgeRecruitmentItem
-          badge={$activeRecruitmentStore.badge}
-          recruitment={$activeRecruitmentStore}
+          badge={$currentRecruitmentStore.badge}
+          recruitment={$currentRecruitmentStore}
           blurred={true} />
       </div>
     {:else}
       <BadgeRecruitmentItem
-        badge={$activeRecruitmentStore.badge}
-        recruitment={$activeRecruitmentStore}
+        badge={$currentRecruitmentStore.badge}
+        recruitment={$currentRecruitmentStore}
         blurred={selectedBadge.frozen} />
     {/if}
   {:else}
@@ -116,7 +116,7 @@
   {/if}
 
   <div class={detailsContainerClasses}>
-    <input type="checkbox" id={detailsUuid} class="collapse-checkbox peer hidden" />
+    <input type="checkbox" checked={!recruitingView} id={detailsUuid} class="collapse-checkbox peer hidden" />
     <label for={detailsUuid} class={detailsTitleClasses}>Badge Details</label>
     <div class={detailsContentClasses}>
       <div class={collectionDetailsWrapperClasses}>
