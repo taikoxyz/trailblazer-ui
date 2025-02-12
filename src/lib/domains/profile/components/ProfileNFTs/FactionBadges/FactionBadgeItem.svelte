@@ -4,7 +4,7 @@
   import { ActionButton } from '$shared/components/Button';
   import type { ActionButtonType } from '$shared/components/Button/types';
   import { Icon } from '$shared/components/Icon';
-  import { activeRecruitmentStore } from '$shared/stores/recruitment';
+  import { currentRecruitmentStore } from '$shared/stores/recruitment';
   import type { TBBadge } from '$shared/types/NFT';
   import { classNames } from '$shared/utils/classNames';
   import { getLogger } from '$shared/utils/logger';
@@ -59,8 +59,8 @@
 
   $: reactiveToken = { ...token };
 
-  $: isRecruiting = $activeRecruitmentStore?.cooldowns.claim
-    ? new Date($activeRecruitmentStore.cooldowns.claim) > new Date()
+  $: isRecruiting = $currentRecruitmentStore?.cooldowns.claim
+    ? new Date($currentRecruitmentStore.cooldowns.claim) > new Date()
     : false;
   $: isBlurred = blurred || (token.frozen && (!isRecruiting || recruitingView));
 </script>

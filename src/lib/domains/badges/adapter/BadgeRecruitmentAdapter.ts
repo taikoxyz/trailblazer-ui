@@ -395,14 +395,25 @@ export default class BadgeRecruitmentAdapter {
     });
   }
 
-  async getRecruitmentStatusForUser(address: Address): Promise<IBadgeRecruitment> {
-    const recruitment: IBadgeRecruitment = await readContract(wagmiConfig, {
+  async getRecruitmentStatusForUser(address: Address): Promise<IBadgeRecruitment[]> {
+    const recruitmentResponse = (await readContract(wagmiConfig, {
       abi: badgeRecruitmentAbi,
       address: badgeRecruitmentAddress[chainId],
-      functionName: 'getActiveRecruitmentFor',
+      functionName: 'getActiveRecruitmentsFor',
       args: [address],
       chainId,
-    });
+    })) as readonly IBadgeRecruitment[];
+    const recruitment: IBadgeRecruitment[] = recruitmentResponse.map((r) => ({
+      recruitmentCycle: r.recruitmentCycle,
+      user: r.user,
+      s1BadgeId: r.s1BadgeId,
+      s1TokenId: r.s1TokenId,
+      s2TokenId: r.s2TokenId,
+      cooldownExpiration: r.cooldownExpiration,
+      influenceExpiration: r.influenceExpiration,
+      whaleInfluences: r.whaleInfluences,
+      minnowInfluences: r.minnowInfluences,
+    }));
     log('getRecruitmentStatusForUser', { recruitment });
     return recruitment;
   }

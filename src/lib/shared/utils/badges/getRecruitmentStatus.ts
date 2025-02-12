@@ -1,34 +1,41 @@
-import { type IBadgeRecruitment, RecruitmentStatus } from '$shared/types/BadgeRecruitment';
+import { type ActiveRecruitment, RecruitmentStatus } from '$shared/types/BadgeRecruitment';
 
 import { getLogger } from '../logger';
 
 const log = getLogger('getRecruitmentStatus');
 
-export const getRecruitmentStatus = (recruitment: IBadgeRecruitment): RecruitmentStatus => {
+export const getRecruitmentStatus = (recruitment: ActiveRecruitment, cycle: number): RecruitmentStatus => {
   log('getRecruitmentStatus for', { recruitment });
 
-  const { cooldownExpiration, influenceExpiration, s2TokenId } = recruitment;
+  const { claim, influence } = recruitment.cooldowns;
+  const { recruitedBadge } = recruitment;
 
-  const cooldown = Number(cooldownExpiration) * 1000;
+  const claimCooldown = Number(claim) * 1000;
+  const influenceCooldown = Number(influence) * 1000;
 
   const now = new Date().getTime();
 
-  if (now > cooldown && s2TokenId > 0n) {
+  if (now > claimCooldown && recruitedBadge && recruitedBadge.tokenId > 0n) {
     log('Recruitment is completed');
     return RecruitmentStatus.COMPLETED;
   }
 
-  if (now > cooldown) {
-    log('Recruitment can be claimed', { now, cooldown });
+  if (Number(recruitment.cycle) !== cycle) {
+    log('Recruitment is unfinished');
+    return RecruitmentStatus.UNFINISHED;
+  }
+
+  if (now > claimCooldown) {
+    log('Recruitment can be claimed', { now, claimCooldown });
     return RecruitmentStatus.CAN_CLAIM;
   }
 
-  if (influenceExpiration < now) {
+  if (influenceCooldown < now) {
     log('Recruitment can be refined');
     return RecruitmentStatus.CAN_REFINE;
   }
 
-  if (now < cooldown) {
+  if (now < claimCooldown) {
     log('Recruitment can be claimed');
     return RecruitmentStatus.STARTED;
   }

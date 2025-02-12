@@ -4,7 +4,7 @@ import { type Address, zeroAddress } from 'viem';
 import { type FactionNames, getFactionName } from '$lib/domains/nfts/types/badges/types';
 import type { RecruitmentDetails } from '$lib/domains/profile/types/RecruitmentDetails';
 import { getMovementName, Movements } from '$lib/domains/profile/types/types';
-import { activeRecruitmentStore, currentCycleStore } from '$shared/stores/recruitment';
+import { activeRecruitmentStore, currentCycleStore, currentRecruitmentStore } from '$shared/stores/recruitment';
 import { type ActiveRecruitment, type IBadgeRecruitment, RecruitmentStatus } from '$shared/types/BadgeRecruitment';
 import type { TBBadge } from '$shared/types/NFT';
 import { getRecruitmentStatus } from '$shared/utils/badges/getRecruitmentStatus';
@@ -97,6 +97,21 @@ export default class BadgeRecruitmentService {
     return activeRecruitment;
   }
 
+  getOutdatedRecruitments(
+    enabledRecruitments: number[],
+    cycleId: number,
+    recruitmentsOfUser: ActiveRecruitment[] | null,
+  ) {
+    if (!recruitmentsOfUser || recruitmentsOfUser?.length === 0) {
+      return;
+    }
+    return recruitmentsOfUser.filter((recruitment) => {
+      if (recruitment.cycle !== cycleId) {
+        if (recruitment.status !== RecruitmentStatus.COMPLETED) return recruitment;
+      }
+    });
+  }
+
   /**
    * End (claim) the recruitment process
    * @param address
@@ -135,59 +150,70 @@ export default class BadgeRecruitmentService {
    * @param address
    * @returns {*} {Promise<ActiveRecruitment>}
    */
-  async getUserRecruitments(address: Address): Promise<ActiveRecruitment | null> {
+  async getUserRecruitments(address: Address): Promise<ActiveRecruitment[] | null> {
     log('getUserRecruitments', { address });
     try {
-      const [recruitment, cycleId] = await Promise.all([
+      const [openRecruitments, cycleId] = await Promise.all([
         this.adapter.getRecruitmentStatusForUser(address),
         this.adapter.getRecruitmentCycleId(),
       ]);
 
-      if (recruitment.user === zeroAddress) {
-        log('no recruitment found for user', { address, recruitment });
+      if (openRecruitments.length === 0) {
+        log('no recruitment found for user', { address });
         return null;
       }
-      const status = await getRecruitmentStatus(recruitment);
-      log('getRecruitmentStatus', { recruitment, status, cycleId });
 
-      // const foundActive = recruitments.find(
-      //   (recruitment) =>
-      //     recruitment.cycleId === cycleId &&
-      //     (recruitment.status === RecruitmentStatus.STARTED ||
-      //       recruitment.status === RecruitmentStatus.CAN_REFINE ||
-      //       recruitment.status === RecruitmentStatus.CAN_CLAIM),
-      // );
+      const activeRecruitments = await Promise.all(
+        openRecruitments.map(async (recruitment) => {
+          log('getUserRecruitments', { recruitment });
 
-      const defaultBadgeData = await this.getDefaultBadge(Number(recruitment.s1BadgeId));
+          const mapped: ActiveRecruitment = {
+            cycle: Number(recruitment.recruitmentCycle),
+            influences: {
+              whale: Number(recruitment.whaleInfluences),
+              minnow: Number(recruitment.minnowInfluences),
+            },
+            cooldowns: {
+              claim: new Date(Number(recruitment.cooldownExpiration) * 1000),
+              influence: new Date(Number(recruitment.influenceExpiration) * 1000),
+            },
+            status: RecruitmentStatus.NOT_STARTED,
+            badge: await this.getDefaultBadge(Number(recruitment.s1BadgeId)),
+          };
+          const status = await getRecruitmentStatus(mapped, cycleId);
+          log('getRecruitmentStatus', { recruitment, status, cycleId });
 
-      const badge: TBBadge = {
-        ...defaultBadgeData,
-        tokenId: Number(recruitment.s1TokenId),
-        badgeId: Number(recruitment.s1BadgeId),
-      };
+          const defaultBadgeData = await this.getDefaultBadge(Number(recruitment.s1BadgeId));
 
-      const activeRecruitment: ActiveRecruitment = {
-        cycle: Number(recruitment.recruitmentCycle),
-        influences: {
-          whale: Number(recruitment.whaleInfluences),
-          minnow: Number(recruitment.minnowInfluences),
-        },
-        cooldowns: {
-          claim: new Date(Number(recruitment.cooldownExpiration) * 1000),
-          influence: new Date(Number(recruitment.influenceExpiration) * 1000),
-        },
-        status,
-        badge,
-      };
+          const badge: TBBadge = {
+            ...defaultBadgeData,
+            tokenId: Number(recruitment.s1TokenId),
+            badgeId: Number(recruitment.s1BadgeId),
+          };
 
-      activeRecruitmentStore.set(activeRecruitment);
-
-      log('getUserRecruitments', { recruitment });
-
-      return activeRecruitment;
+          const activeRecruitment: ActiveRecruitment = {
+            cycle: Number(recruitment.recruitmentCycle),
+            influences: {
+              whale: Number(recruitment.whaleInfluences),
+              minnow: Number(recruitment.minnowInfluences),
+            },
+            cooldowns: {
+              claim: new Date(Number(recruitment.cooldownExpiration) * 1000),
+              influence: new Date(Number(recruitment.influenceExpiration) * 1000),
+            },
+            status,
+            badge,
+          };
+          log('getUserRecruitments', { recruitment });
+          return activeRecruitment;
+        }),
+      );
+      activeRecruitmentStore.set(await Promise.all(activeRecruitments));
+      currentRecruitmentStore.set(activeRecruitments[activeRecruitments.length - 1]);
+      return activeRecruitments;
     } catch (error) {
       console.error('Error in getUserRecruitments', error);
-      return {} as ActiveRecruitment;
+      return [] as ActiveRecruitment[];
     }
   }
 
@@ -234,5 +260,40 @@ export default class BadgeRecruitmentService {
     log('resetMigration', { badge, cycleId });
     const txHash = await this.adapter.resetMigration(badge, cycleId);
     return txHash;
+  }
+
+  async determineRecruitmentStatus(recruitment: ActiveRecruitment, cycleId: number): Promise<RecruitmentStatus> {
+    if (!recruitment) return RecruitmentStatus.NOT_STARTED;
+    log('Determining status for recruitment:', recruitment);
+
+    if (recruitment.status === RecruitmentStatus.COMPLETED) {
+      return RecruitmentStatus.COMPLETED;
+    }
+
+    const influencing = recruitment?.cooldowns.influence
+      ? new Date(recruitment.cooldowns.influence) > new Date()
+      : false;
+
+    const recruiting = recruitment?.cooldowns.claim ? new Date(recruitment.cooldowns.claim) > new Date() : false;
+
+    if (influencing) {
+      log('Influencing', recruitment);
+      return RecruitmentStatus.REFINING;
+    }
+
+    if (recruiting) {
+      log('Recruiting', recruitment);
+      return RecruitmentStatus.CAN_REFINE;
+    }
+
+    if (recruitment.cycle !== cycleId) {
+      return RecruitmentStatus.UNFINISHED;
+    }
+
+    return RecruitmentStatus.CAN_CLAIM;
+
+    // if (badge.frozen) return RecruitmentStatus.LOCKED;
+    // log('Eligible', badge);
+    return RecruitmentStatus.ELIGIBLE;
   }
 }
