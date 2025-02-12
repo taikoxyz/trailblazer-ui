@@ -32,5 +32,5 @@ export enum ActivityType {
   BLOCK_PROPOSED = 'BlockProposed',
   BLOCK_PROVEN = 'BlockProven',
   DORAHACKS_VOTE = 'DoraHacksVoting',
-  AVALON_CLAIN = 'AvalonClaim',
+  AVALON_CLAIM = 'AvalonClaim',
 }
