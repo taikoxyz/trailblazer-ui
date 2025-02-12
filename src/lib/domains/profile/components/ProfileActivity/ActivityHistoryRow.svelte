@@ -57,7 +57,7 @@
     {:else if eventToActivityTypeMap[historyEntry?.event] === ActivityType.DORAHACKS_VOTE}
       <ActivityIcon type="double-diamond" />
       <span class={eventClasses}>{$t('leaderboard.user.event.dora_hacks')}</span>
-    {:else if eventToActivityTypeMap[historyEntry?.event] === ActivityType.AVALON_CLAIN}
+    {:else if eventToActivityTypeMap[historyEntry?.event] === ActivityType.AVALON_CLAIM}
       <ActivityIcon type="double-diamond" />
       <span class={eventClasses}>{$t('leaderboard.user.event.avalon_claim')}</span>
     {:else}
