@@ -85,8 +85,9 @@
       </Alert>
     </div>
 
-    <FeaturedCampaigns title="Featured campaigns" />
-
+    <div class="m-[24px] md:m-0">
+      <FeaturedCampaigns title="Featured campaigns" />
+    </div>
     <div class={tabsClasses}>
       <ProfileTabs {isSelfProfile} />
 

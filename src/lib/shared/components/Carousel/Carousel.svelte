@@ -90,7 +90,7 @@
       </div>
     </div>
   </div>
-  <div bind:this={carouselWrapper} class="w-full pt-[100px] md:pt-[70px]">
+  <div bind:this={carouselWrapper} class="w-full pt-[30px]">
     <div bind:this={carouselElement} class="flex carousel w-full overflow-scroll rounded-box gap-4 lg:gap-8">
       {#each carouselItems as carouselItem}
         <CarouselItem {carouselItem} width={itemWidth} />
