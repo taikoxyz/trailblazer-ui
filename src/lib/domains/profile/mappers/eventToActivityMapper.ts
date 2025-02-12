@@ -8,4 +8,5 @@ export const eventToActivityTypeMap: Record<string, ActivityType> = {
   BlockProven: ActivityType.BLOCK_PROVEN,
   Prediction: ActivityType.PREDICTION,
   DoraHacksVoting: ActivityType.DORAHACKS_VOTE,
+  AvalonClaim: ActivityType.AVALON_CLAIM,
 };
