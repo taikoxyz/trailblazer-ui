@@ -7,55 +7,7 @@
   export let title: string | undefined = undefined;
 
   import Card from '../Card/Card.svelte';
-  import type { CampaignCardType } from './types';
-
-  const cards: CampaignCardType[] = [
-    {
-      title: 'Evolve your Faction Badges',
-      text: 'The Devs are out in full force looking for new recruits to join their Faction. Will you join them?',
-      btn: {
-        text: 'Recruit now',
-        external: false,
-        destination: `profile/`,
-      },
-      images: {
-        sm: '/campaign/cards/sm/recruit.png',
-        md: '/campaign/cards/xl/recruit.png',
-        lg: '/campaign/cards/xl/recruit.png',
-        xl: '/campaign/cards/xl/recruit.png',
-      },
-    },
-    {
-      title: 'Play, Socialize, and Win Big!',
-      text: 'Explore top Gaming and SocialFi DApps, compete, and claim your share of 150k in prizes.',
-      btn: {
-        text: 'Explore now',
-        external: false,
-        destination: 'journeys/s3/chillblazers',
-      },
-      images: {
-        sm: '/campaign/cards/sm/chillblazer.png',
-        md: '/campaign/cards/xl/chillblazer.png',
-        lg: '/campaign/cards/xl/chillblazer.png',
-        xl: '/campaign/cards/xl/chillblazer.png',
-      },
-    },
-    {
-      title: 'Liquidity Royale Season 3',
-      text: 'Supercharge your liquidity and get rewarded for it. Season 3 is offering a massive 1.2M TAIKO tokens!',
-      btn: {
-        text: 'Earn now',
-        external: false,
-        destination: 'journeys/liquidity',
-      },
-      images: {
-        sm: '/campaign/cards/sm/liquidity-royale.png',
-        md: '/campaign/cards/xl/liquidity-royale.png',
-        lg: '/campaign/cards/xl/liquidity-royale.png',
-        xl: '/campaign/cards/xl/liquidity-royale.png',
-      },
-    },
-  ];
+  import { cards } from './cards';
 
   let carouselElement: HTMLDivElement;
   let isDragging = false;
@@ -157,15 +109,21 @@
     'bottom-0',
   );
 
-  const headerClasses = classNames('relative', 'right-0', 'flex-row', 'flex', 'justify-end', 'items-end', 'w-full');
+  const headerClasses = classNames(
+    'relative',
+    'left-0',
+    'flex-row',
+    'flex',
+    title ? 'justify-between' : 'justify-end',
+    'items-end',
+    'w-full',
+  );
 
   const titleWrapperClasses = classNames('flex', 'flex-col', 'justify-start', 'gap-[40px]');
 
   const titleInnerClasses = classNames('flex', 'flex-col', 'gap-[20px]', 'items-start', 'xl:items-start');
 
   const titleClasses = classNames('font-clash-grotesk', 'text-[40px]/[49.2px]');
-
-  const underlineClasses = classNames('border', 'border-primary-brand', 'w-[66px]', 'h-[0px]');
 
   const buttonWrapperClasses = classNames('flex', 'gap-4');
 
@@ -195,7 +153,6 @@
         <div class={titleWrapperClasses}>
           <div class={titleInnerClasses}>
             <div class={titleClasses}>{title}</div>
-            <div class={underlineClasses}></div>
           </div>
         </div>
       {/if}
