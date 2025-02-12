@@ -633,6 +633,40 @@
       },
       "tokenName": "TAIKO Tokens"
     },
+    "trading_carnival": {
+      "blogpost": {
+        "url": {
+          "s3": ""
+        }
+      },
+      "description": {
+        "s3": "This is not just another trading competition—it’s a battle between top exchanges to secure the biggest share of a $500,000 prize pool! Trade TAIKO, boost our trading volume, and help us claim a bigger slice of the rewards!"
+      },
+      "infobox": {
+        "s3": {
+          "win": {
+            "title": "Win your share of $500K",
+            "text": "Compete in spot and perpetual trading competitions for a share of the massive TAIKO prize pool."
+          },
+          "trade": {
+            "title": "Trade more, rank higher",
+            "text": "Climb the leaderboard based on absolute trading volume and growth metrics—fair rewards for top traders and exchanges."
+          },
+          "ecosystem": {
+            "text": "Strengthen the Taiko ecosystem",
+            "title": "Random rewards"
+          },
+          "moment": {
+            "title": "Be part of a historic moment",
+            "text": "Celebrate Taiko’s journey as the first based rollup on track to achieve preconfirmation in March 2025—trade and make history!"
+          },
+          "title": "🏆&nbsp;&nbsp;What’s in it for you?"
+        }
+      },
+      "readmore": {
+        "text": "Do you still have questions about earning points and how they're calculated? Visit our blog post for all the answers!"
+      }
+    },
     "liquidityRoyale": {
       "blogpost": {
         "url": {
@@ -918,7 +952,8 @@
   "pagetitle": {
     "competition": {
       "dapp": "Thrillblazer - Competition 18.10 - 18.11.24",
-      "liquidity": "Taiko Trailblazers - Liquidity Royale"
+      "liquidity": "Taiko Trailblazers - Liquidity Royale",
+      "trading_carnival": "Trading Carnival"
     },
     "competitions": {
       "dapp": "Taiko Trailblazer - Dapp Competition Leaderboard"

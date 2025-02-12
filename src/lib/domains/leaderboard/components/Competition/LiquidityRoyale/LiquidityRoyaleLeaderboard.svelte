@@ -50,7 +50,7 @@
 
   $: $activeSeason && loadLeaderboardData(pageInfo.page);
 
-  setContext('loadDappsLiquidityCompetitionLeaderboardData', loadLeaderboardData);
+  setContext('loadLiquidityCompetitionLeaderboardData', loadLeaderboardData);
   setContext('loadLiquidityCompetitionPageInfo', pageInfo);
 </script>
 

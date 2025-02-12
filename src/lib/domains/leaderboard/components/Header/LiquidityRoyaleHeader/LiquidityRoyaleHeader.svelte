@@ -20,7 +20,7 @@
 
   export let lastUpdated: Date;
 
-  const loadLeaderboardData = getContext<LoadLeaderboardDataType>('loadDappsLiquidityCompetitionLeaderboardData');
+  const loadLeaderboardData = getContext<LoadLeaderboardDataType>('loadLiquidityCompetitionLeaderboardData');
   const pageInfo = getContext<PaginationInfo<UserLeaderboardItem>>('loadLiquidityCompetitionPageInfo');
 
   const handleSearch = async (value: string) => {
