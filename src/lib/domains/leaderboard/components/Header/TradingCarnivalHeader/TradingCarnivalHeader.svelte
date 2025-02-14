@@ -100,7 +100,6 @@
   const backgroundImageClasses = classNames(
     'absolute',
     'f-col',
-    'lg:f-row',
     'f-center',
     'md:f-left',
     'flex-col',
