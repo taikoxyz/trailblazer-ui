@@ -19,7 +19,7 @@ export class NftIndexerAdapter {
         167009: 'https://eventindexer.hekla.taiko.xyz',
         167000: 'https://eventindexer.mainnet.taiko.xyz',
       };
-
+      console.info({ baseUrls });
       const url = [baseUrls[chainId], '/nftsByAddress?', `address=${address}&`, `chainID=${chainId}`].join('');
       const res = await axios(url);
 
