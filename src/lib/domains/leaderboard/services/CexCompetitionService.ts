@@ -35,23 +35,23 @@ export class CexCompetitionService {
     season: number,
   ): Promise<CexCompetitionPage> {
     log('Fetching leaderboard data', { args, season });
-    const leaderboardData = await this.leaderboardAdapter.fetchLeaderboardData(args, type, season);
-    log('Fetched leaderboard data', leaderboardData);
 
-    if (!leaderboardData.data.items?.length) {
-      log('No leaderboard items found', { args, season });
-      return {
-        items: [],
-        lastUpdated: Date.now(),
-        pagination: { ...args, total: leaderboardData.data.total, total_pages: leaderboardData.data.total_pages },
-      };
-    }
+    try {
+      const leaderboardData = await this.leaderboardAdapter.fetchLeaderboardData(args, type, season);
+      log('Fetched leaderboard data', leaderboardData);
 
-    const itemsWithDetails: UnifiedLeaderboardRow[] = [];
-    for (let index = 0; index < leaderboardData.data.items.length; index++) {
-      const item = leaderboardData.data.items[index];
+      if (!leaderboardData.data.items?.length) {
+        log('No leaderboard items found', { args, season });
+        return {
+          items: [],
+          lastUpdated: Date.now(),
+          pagination: { ...args, total: leaderboardData.data.total, total_pages: leaderboardData.data.total_pages },
+        };
+      }
 
-      try {
+      const itemsWithDetails: UnifiedLeaderboardRow[] = [];
+      for (let index = 0; index < leaderboardData.data.items.length; index++) {
+        const item = leaderboardData.data.items[index];
         const entry: CexCompetitionRow = {
           name: item.name,
           score: item.score,
@@ -60,26 +60,31 @@ export class CexCompetitionService {
         };
         const mapped = mapCexLeaderboardRow(entry);
         itemsWithDetails.push(mapped);
-      } catch (mapError) {
-        log(`Error mapping leaderboard row for address ${item.name}:`, mapError);
       }
+
+      const cexCompetionPage: CexCompetitionPage = {
+        items: itemsWithDetails,
+        lastUpdated: leaderboardData.lastUpdated,
+        pagination: {
+          ...args,
+          total: leaderboardData.data.total,
+        },
+      };
+      log('Liquidity competition leaderboard page', cexCompetionPage, cexCompetionPage.lastUpdated);
+
+      if (itemsWithDetails.length > 0) {
+        await this.cexCompetitionRepository.update(cexCompetionPage);
+        log('Updated leaderboard repository', cexCompetionPage);
+      }
+
+      return cexCompetionPage;
+    } catch (error) {
+      log('Error fetching leaderboard data', error);
+      return {
+        items: [],
+        lastUpdated: Date.now(),
+        pagination: { ...args, total: 0 },
+      };
     }
-
-    const cexCompetionPage: CexCompetitionPage = {
-      items: itemsWithDetails,
-      lastUpdated: leaderboardData.lastUpdated,
-      pagination: {
-        ...args,
-        total: leaderboardData.data.total,
-      },
-    };
-    log('Liquidity competition leaderboard page', cexCompetionPage, cexCompetionPage.lastUpdated);
-
-    if (itemsWithDetails.length > 0) {
-      await this.cexCompetitionRepository.update(cexCompetionPage);
-      log('Updated leaderboard repository', cexCompetionPage);
-    }
-
-    return cexCompetionPage;
   }
 }

@@ -92,6 +92,7 @@
     'lg:f-row',
     'space-y-[24px]',
     'lg:space-y-0',
+    'mt-[100px]',
   );
 
   const getHeaderImageClasses = () => {

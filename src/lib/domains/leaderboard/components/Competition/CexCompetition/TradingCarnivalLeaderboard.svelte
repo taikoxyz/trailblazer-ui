@@ -40,12 +40,8 @@
     log('loadLeaderboardData', args);
     const leaderboardData = await cexCompetitionService.getCexCompetitionLeaderboard(args, selectedType, $activeSeason);
     log('leadeboardData', leaderboardData);
-    // const [leaderboardPage] = await Promise.all([
-    //   // liquidityCompetitionService.getLiquidityCompetitionLeaderboard(args, $activeSeason),
-    //   // liquidityCompetitionService.getLiquidityCompetitionDataForAddress($activeSeason, getConnectedAddress()),
-    // ]);
 
-    // totalItems = leaderboardPage?.pagination.total || $currentCexCompetitionLeaderboard.items.length;
+    totalItems = leaderboardData?.pagination.total || $currentCexCompetitionLeaderboard.items.length;
     loading = false;
   }
 
