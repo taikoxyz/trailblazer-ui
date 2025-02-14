@@ -5,7 +5,7 @@
   import { browser } from '$app/environment';
   import type { LoadLeaderboardDataType } from '$lib/domains/leaderboard/types/shared/types';
   import type { UserLeaderboardItem } from '$lib/domains/leaderboard/types/user/types';
-  import { PlusIcon } from '$shared/components/Icon';
+  import { Icon, PlusIcon } from '$shared/components/Icon';
   import type { PaginationInfo } from '$shared/dto/CommonPageApiResponse';
   import { activeSeason } from '$shared/stores/activeSeason';
   import { classNames } from '$shared/utils/classNames';
@@ -26,7 +26,7 @@
     await loadLeaderboardData(pageInfo.page, value);
   };
 
-  const containerClasses = classNames('f-col', 'justify-center', 'items-center', 'w-full');
+  const containerClasses = classNames('f-col', 'justify-center', 'items-center', 'w-full', 'relative');
   const wrapperClasses = classNames('f-col', 'w-full', 'z-10', 'overflow-hidden', 'space-y-[120px]');
   const innerWrapperClasses = classNames('f-col', 'md:f-row', 'justify-between', 'items-center', 'space-y-[50px]');
 
@@ -43,6 +43,8 @@
         ? mediumHeaderImage
         : smallHeaderImage;
 
+  $: videoUrl = `/competitionInfo/tradingCarnival/s${$activeSeason}/xl/trading_carnival.mp4`;
+
   //Preload images
   const images = [smallHeaderImage, mediumHeaderImage, largeHeaderImage, xlargeHeaderImage];
   images.forEach((src) => {
@@ -52,7 +54,7 @@
     }
   });
 
-  let headerImageClasses = classNames(
+  const headerImageClasses = classNames(
     'min-h-[475px]',
     'xl:h-[606px]',
     'xl:max-w-[1520px]',
@@ -95,6 +97,87 @@
     'mt-[100px]',
   );
 
+  const backgroundImageClasses = classNames(
+    'absolute',
+    'f-col',
+    'lg:f-row',
+    'f-center',
+    'md:f-left',
+    'flex-col',
+    'w-dvw',
+    'rounded-[30px]',
+    'overflow-hidden',
+    'bg-center',
+    'w-full',
+    'h-full',
+    'bg-cover',
+    'px-[20px]',
+    'bottom-[35px]',
+  );
+
+  const liveNowClasses = classNames(
+    'f-row',
+    'items-center',
+    'gap-[17px]',
+    'mt-[70px]',
+    'font-clash-grotesk',
+    'text-[24px]',
+    'uppercase',
+    'font-semibold',
+    'leading-normal',
+    'tracking-[2.4px]',
+  );
+
+  const contentWrapperClasses = classNames(
+    'f-col',
+    'w-full',
+    'h-full',
+    'justify-end',
+    'items-end',
+    'px-[20px]',
+    'relative',
+  );
+
+  const innerContentClasses = classNames(
+    'f-row',
+    'md:f-col',
+    'w-full',
+    'z-10',
+    'bg-white',
+    'absolute',
+    'left-0',
+    'bottom-[10px]',
+    'rounded-[30px]',
+    'md:rounded-full',
+    'p-[30px]',
+    'md:p-[8px]',
+    'md:pl-[30px]',
+    'md:gap-[20px]',
+    'pr-[45px]',
+    'items-center',
+  );
+  const descriptionWrapperClasses = classNames('f-col', 'md:f-row', 'w-full', 'f-left', 'gap-[14px]');
+  const descriptionTextClasses = classNames(
+    'text-center',
+    'f-col',
+    'w-full',
+    'font-clash-grotesk',
+    'text-elevated-background',
+    'text-[18px]',
+    'font-medium',
+    'leading-[20px]',
+    'tracking-[0.09px]',
+  );
+
+  const videoWrapperClasses = classNames(
+    'w-full',
+    'flex',
+    'h-[746px]',
+    'xl:max-w-[1344px]',
+    'relative',
+    'rounded-[30px]',
+    'overflow-hidden',
+  );
   const getHeaderImageClasses = () => {
     return headerImageClasses;
   };
@@ -103,8 +186,29 @@
 </script>
 
 <div class={containerClasses}>
-  <div style={`background-image: url(${imageUrl})`} class={headerImageClasses}></div>
-
+  <div class={videoWrapperClasses}>
+    <video autoplay loop muted playsinline poster={imageUrl} class=" w-full object-cover left-0" src={videoUrl}></video>
+    <div class={backgroundImageClasses}>
+      <div class="f-col w-full h-full justify-start items-center md:items-start">
+        <div class={liveNowClasses}><Icon type="circle" fillClass="fill-positive-sentiment" />Live now</div>
+        <div class="text-[18px] font-bold text-primary-link-hover">Sarting on Feb 27th, 2025</div>
+      </div>
+      <div class={contentWrapperClasses}>
+        <div class={innerContentClasses}>
+          <div class={descriptionWrapperClasses}>
+            <div class={descriptionTextClasses}>
+              <span>Spot trading competition</span>
+              <span>27/02 - 13/03 </span>
+            </div>
+            <div class={descriptionTextClasses}>
+              <span>Perp trading competition</span>
+              <span>14/03 - 28/03 </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
   <div class={wrapperClasses}>
     <div class={innerWrapperClasses}>
       <span class={descriptionClasses}>

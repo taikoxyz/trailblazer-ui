@@ -80,7 +80,7 @@
   const dividerClass = classNames('divider', '!my-0', 'mx-[16px]', 'md:mx-[24px]', 'h-1');
 
   const paginatorClasses = classNames('!justify-center');
-  const paginatorWrapper = classNames('w-full', 'mt-[20px]', 'flex', 'justify-center', 'lg:justify-end', 'max-w-full');
+  const paginatorWrapper = classNames('w-full', 'mt-[20px]', 'flex', 'justify-center', 'lg:', 'max-w-full');
 </script>
 
 <div>
