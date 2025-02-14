@@ -1,7 +1,7 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
   import { t } from 'svelte-i18n';
 
+  import { NftIndexerAdapter } from '$lib/domains/nfts/adapter/NftIndexerAdapter';
   import profileService from '$lib/domains/profile/services/ProfileServiceInstance';
   import { pfpModal, userProfile } from '$lib/domains/profile/stores';
   import type { NFT } from '$lib/shared/types/NFT';
@@ -221,9 +221,16 @@
     });
   }
 
-  onMount(() => {
-    possiblePFPs = filterUniqueNfts($userProfile?.nfts || []);
-  });
+  const indexer = new NftIndexerAdapter();
+
+  async function onLoad() {
+    if (!$userProfile || !$userProfile.address || !$pfpModal || possiblePFPs.length) return;
+    possiblePFPs = [
+      ...filterUniqueNfts($userProfile?.nfts || []),
+      ...(await indexer.fetchTokenForUser($userProfile.address)),
+    ];
+  }
+  $: $pfpModal, onLoad();
 </script>
 
 <dialog
