@@ -1,6 +1,7 @@
 import type { PaginationInfo, UnifiedLeaderboardRow } from '$lib/domains/leaderboard/types/shared/types';
 
 export type CexCompetitionRow = {
+  name: string;
   score: number;
   rank: number;
   icon?: string;
@@ -17,3 +18,7 @@ export type InfoBoxType = {
   icon: string;
   text: string;
 };
+
+export enum CexCompetitionType {
+  SPOT = 'spot',
+}

@@ -3,6 +3,7 @@ import type { DefiDappLeaderboardRow } from '$lib/domains/leaderboard/types/defi
 import type { UnifiedLeaderboardRow } from '$lib/domains/leaderboard/types/shared/types';
 import type { UserLeaderboardRow } from '$lib/domains/leaderboard/types/user/types';
 
+import type { CexCompetitionRow } from '../types/cex/types';
 import type { LiquidityCompetitionRow } from '../types/liquidity/types';
 
 export function mapDappLeaderboardRow(row: DappLeaderboardRow): UnifiedLeaderboardRow {
@@ -55,6 +56,17 @@ export function mapLiquidityLeaderboardRow(row: LiquidityCompetitionRow): Unifie
     address: row.address,
     rank: row.rank,
     icon: row.icon,
+    data: [],
+    totalScore: row.score,
+  };
+}
+
+export function mapCexLeaderboardRow(row: CexCompetitionRow): UnifiedLeaderboardRow {
+  return {
+    name: row.name,
+    rank: row.rank,
+    icon: row.icon,
+    handle: '',
     data: [],
     totalScore: row.score,
   };

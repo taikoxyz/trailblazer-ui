@@ -21,8 +21,8 @@ export class LiquidityCompetitionAdapter {
     season: number,
   ): Promise<CommonPageApiResponse<UserLeaderboardItem>> {
     log('fetching leaderboard data', args, season);
-
     const client = getAxiosInstance(season);
+    log('Axios Request URL:', client.defaults.baseURL, `/v2/leaderboard/competition/liquidity}`);
     const response = await client.get<LiquidityLeaderboardPageApiResponse>(`/v2/leaderboard/competition/liquidity`, {
       ...globalAxiosConfig,
       params: args,

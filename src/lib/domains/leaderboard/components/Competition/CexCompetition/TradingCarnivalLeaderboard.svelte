@@ -5,8 +5,9 @@
   import { leaderboardConfig } from '$config';
   import { CampaignEndedInfoBox } from '$lib/domains/leaderboard/components/CampaignEndedInfoBox';
   import { AbstractLeaderboard, PointScore } from '$lib/domains/leaderboard/components/Template';
+  import { cexCompetitionService } from '$lib/domains/leaderboard/services/LeaderboardServiceInstances';
   import { currentCexCompetitionLeaderboard } from '$lib/domains/leaderboard/stores/cexLeaderboard';
-  import type { CexCompetitionRow } from '$lib/domains/leaderboard/types/cex/types';
+  import { type CexCompetitionRow, CexCompetitionType } from '$lib/domains/leaderboard/types/cex/types';
   import type { PaginationInfo } from '$lib/shared/dto/CommonPageApiResponse';
   import { activeSeason } from '$shared/stores/activeSeason';
   import { getLogger } from '$shared/utils/logger';
@@ -27,6 +28,8 @@
   $: pageSize = pageInfo?.size || leaderboardConfig.pageSizeXlarge;
   $: hasEnded = endedSeasons.includes(Number($activeSeason));
 
+  $: selectedType = CexCompetitionType.SPOT as CexCompetitionType;
+
   function handlePageChange(page: number) {
     loadLeaderboardData(page);
   }
@@ -35,6 +38,8 @@
     loading = true;
     const args: PaginationInfo<CexCompetitionRow> = { page, size: pageSize, total: totalItems, address };
     log('loadLeaderboardData', args);
+    const leaderboardData = await cexCompetitionService.getCexCompetitionLeaderboard(args, selectedType, $activeSeason);
+    log('leadeboardData', leaderboardData);
     // const [leaderboardPage] = await Promise.all([
     //   // liquidityCompetitionService.getLiquidityCompetitionLeaderboard(args, $activeSeason),
     //   // liquidityCompetitionService.getLiquidityCompetitionDataForAddress($activeSeason, getConnectedAddress()),
