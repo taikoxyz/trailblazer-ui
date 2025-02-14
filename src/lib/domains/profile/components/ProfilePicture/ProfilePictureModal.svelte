@@ -11,6 +11,7 @@
   import { errorToast, successToast } from '$shared/components/NotificationToast';
   import Spinner from '$shared/components/Spinner/Spinner.svelte';
   import { classNames } from '$shared/utils/classNames';
+  import getConnectedAddress from '$shared/utils/getConnectedAddress';
   import { getLogger } from '$shared/utils/logger';
   import getNftImage from '$shared/utils/nfts/getNftImage';
 
@@ -224,11 +225,11 @@
   const indexer = new NftIndexerAdapter();
 
   async function onLoad() {
-    if (!$userProfile || !$userProfile.address || !$pfpModal || possiblePFPs.length) return;
-    possiblePFPs = [
-      ...filterUniqueNfts($userProfile?.nfts || []),
-      ...(await indexer.fetchTokenForUser($userProfile.address)),
-    ];
+    const address = getConnectedAddress();
+    if (!address || !$pfpModal || possiblePFPs.length) return;
+    isLoading = true;
+    possiblePFPs = [...filterUniqueNfts($userProfile?.nfts || []), ...(await indexer.fetchTokenForUser(address))];
+    isLoading = false;
   }
   $: $pfpModal, onLoad();
 </script>
