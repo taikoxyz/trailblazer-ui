@@ -1,8 +1,7 @@
 import { zeroAddress } from 'viem';
 
+import type { NewsCardContent } from '$lib/domains/profile/types/NewsCardContent';
 import getConnectedAddress from '$shared/utils/getConnectedAddress';
-
-import type { NewsCardContent } from '../../types/NewsCardContent';
 
 const profilePath = (slug: string) => {
   const address = getConnectedAddress();
@@ -12,16 +11,17 @@ const profilePath = (slug: string) => {
 export const newsEntries: NewsCardContent[] = [
   {
     featured: true,
-    title: 'Dorahacks Vote',
-    subtitle: 'Vote now!',
-    text: 'Claim your 50k points by voting for your favorite projects',
+    title: 'TAKOTAKO Galxe Campaign',
+    subtitle: 'Join now!',
+    text: '8,888 TAIKO tokens and a Taikoon are up for grabs! Join the Galxe campaign now!',
     imgSrc: '/news/flame.svg',
     cta: {
-      href: 'https://dorahacks.io/grant/taiko/buidl',
+      href: 'https://app.galxe.com/quest/VnWkqAtB2Row8KdwpFHW9n/GC6MbtpuTp',
       external: true,
     },
   },
   {
+    featured: false,
     title: 'Avalon Airdrop',
     subtitle: 'Live now!',
     text: 'Claim on Taiko for 100x your TX value and points!',
