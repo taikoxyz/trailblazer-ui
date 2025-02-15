@@ -19,16 +19,16 @@
   const buttonClasses = classNames('max-w-[280px]');
 
   const handleClick = () => {
-    goto('/leaderboard/s2/user');
+    goto('/leaderboard/s3/dapps');
   };
 </script>
 
 <svelte:head>
-  <title>{$t('pagetitle.competition.dapp')}</title>
+  <title>{$t('pagetitle.journeys.thrillblazers')}</title>
 </svelte:head>
 
 <Page>
-  <ThrillblazerLeaderboard {pageInfo} {loading} season={2} />
+  <ThrillblazerLeaderboard {pageInfo} {loading} edition={3} />
 
   <div class={wrapperClasses}>
     <ActionButton class={buttonClasses} priority="primary" on:click={handleClick} withArrow>

@@ -7,6 +7,10 @@ settings:
 importers:
 
   .:
+    dependencies:
+      axios:
+        specifier: ^1.7.2
+        version: 1.7.9(debug@4.4.0)
     devDependencies:
       '@apollo/client':
         specifier: ^3.11.4
@@ -107,9 +111,6 @@ importers:
       autoprefixer:
         specifier: ^10.4.19
         version: 10.4.20(postcss@8.5.1)
-      axios:
-        specifier: ^1.7.2
-        version: 1.7.9(debug@4.4.0)
       buffer:
         specifier: ^6.0.3
         version: 6.0.3
@@ -4339,8 +4340,8 @@ packages:
     resolution: {integrity: sha512-Ld2g8rrAyMYFXBhEqMz8ZAHBi4J4uS1i/CxGMDnjyFWddMXLVcDp051DZfu+t7+ab7Wv6SMqpWmyFIj5UbfFvg==}
     engines: {node: '>=14'}
 
-  forge-std@https://codeload.github.com/foundry-rs/forge-std/tar.gz/3b20d60d14b343ee4f908cb8079495c07f5e8981:
-    resolution: {tarball: https://codeload.github.com/foundry-rs/forge-std/tar.gz/3b20d60d14b343ee4f908cb8079495c07f5e8981}
+  forge-std@https://codeload.github.com/foundry-rs/forge-std/tar.gz/bf909b22fa55e244796dfa920c9639fdffa1c545:
+    resolution: {tarball: https://codeload.github.com/foundry-rs/forge-std/tar.gz/bf909b22fa55e244796dfa920c9639fdffa1c545}
     version: 1.9.6
 
   form-data@4.0.1:
@@ -6518,8 +6519,8 @@ packages:
     resolution: {integrity: sha512-qd/R7n5rQTRFi+Zf2sk5XVVd9UQl6ZkduPFC3S7WEGJAmetDTjY3qPN50eSKzwuzEyQKy5TN2TiZdkIjos2L6A==}
     engines: {node: '>=8.0.0'}
 
-  taiko-mono@https://codeload.github.com/taikoxyz/taiko-mono/tar.gz/cdeadc09401ed8f1dab4588c4296a46af68d73a6:
-    resolution: {tarball: https://codeload.github.com/taikoxyz/taiko-mono/tar.gz/cdeadc09401ed8f1dab4588c4296a46af68d73a6}
+  taiko-mono@https://codeload.github.com/taikoxyz/taiko-mono/tar.gz/0ea61049d40676c3da646b5110f27e79603b307d:
+    resolution: {tarball: https://codeload.github.com/taikoxyz/taiko-mono/tar.gz/0ea61049d40676c3da646b5110f27e79603b307d}
     version: 0.23.0
 
   tailwindcss@3.4.17:
@@ -13246,7 +13247,7 @@ snapshots:
       cross-spawn: 7.0.6
       signal-exit: 4.1.0
 
-  forge-std@https://codeload.github.com/foundry-rs/forge-std/tar.gz/3b20d60d14b343ee4f908cb8079495c07f5e8981: {}
+  forge-std@https://codeload.github.com/foundry-rs/forge-std/tar.gz/bf909b22fa55e244796dfa920c9639fdffa1c545: {}
 
   form-data@4.0.1:
     dependencies:
@@ -15549,7 +15550,7 @@ snapshots:
       typical: 5.2.0
       wordwrapjs: 4.0.1
 
-  taiko-mono@https://codeload.github.com/taikoxyz/taiko-mono/tar.gz/cdeadc09401ed8f1dab4588c4296a46af68d73a6: {}
+  taiko-mono@https://codeload.github.com/taikoxyz/taiko-mono/tar.gz/0ea61049d40676c3da646b5110f27e79603b307d: {}
 
   tailwindcss@3.4.17:
     dependencies:
@@ -15675,7 +15676,7 @@ snapshots:
       convert-csv-to-json: 2.50.0
       dotenv: 16.4.7
       ds-test: https://codeload.github.com/dapphub/ds-test/tar.gz/e282159d5170298eb2455a6c05280ab5a73a4ef0
-      forge-std: https://codeload.github.com/foundry-rs/forge-std/tar.gz/3b20d60d14b343ee4f908cb8079495c07f5e8981
+      forge-std: https://codeload.github.com/foundry-rs/forge-std/tar.gz/bf909b22fa55e244796dfa920c9639fdffa1c545
       ipfs-http-client: 60.0.1(encoding@0.1.13)
       merkletreejs: 0.4.1
       murky: https://codeload.github.com/dmfxyz/murky/tar.gz/6f67641219549ca78f575a12493e25fe193da727
@@ -15683,7 +15684,7 @@ snapshots:
       sharp: 0.33.5
       solady: https://codeload.github.com/Vectorized/solady/tar.gz/de0f336d2033d04e0f77c923d639c7fbffd48b6d
       solidity-stringutils: https://codeload.github.com/Arachnid/solidity-stringutils/tar.gz/4b2fcc43fa0426e19ce88b1f1ec16f5903a2e461
-      taiko-mono: https://codeload.github.com/taikoxyz/taiko-mono/tar.gz/cdeadc09401ed8f1dab4588c4296a46af68d73a6
+      taiko-mono: https://codeload.github.com/taikoxyz/taiko-mono/tar.gz/0ea61049d40676c3da646b5110f27e79603b307d
     transitivePeerDependencies:
       - aws-crt
       - encoding

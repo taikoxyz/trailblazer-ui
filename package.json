@@ -3,7 +3,9 @@
   "version": "2.2.0",
   "private": true,
   "type": "module",
-  "dependencies": {},
+  "dependencies": {
+    "axios": "^1.7.2"
+  },
   "scripts": {
     "dev": "vite dev --host",
     "dev:prod": "vite dev --mode production",
@@ -91,7 +93,6 @@
     "@walletconnect/core": "^2.17.3",
     "@walletconnect/utils": "^2.17.3",
     "@zerodevx/svelte-toast": "^0.9.5",
-    "axios": "^1.7.2",
     "buffer": "^6.0.3",
     "dayjs": "^1.11.13",
     "debug": "^4.3.5",

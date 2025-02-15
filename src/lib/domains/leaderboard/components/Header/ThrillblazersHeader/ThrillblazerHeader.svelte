@@ -9,6 +9,7 @@
   import type { PaginationInfo } from '$shared/dto/CommonPageApiResponse';
   import { activeSeason } from '$shared/stores/activeSeason';
   import { classNames } from '$shared/utils/classNames';
+  import { numberToRoman } from '$shared/utils/numberToRoman';
 
   import PrizePool from './PrizePool.svelte';
 
@@ -155,6 +156,8 @@
   const searchClasses = classNames('w-full', 'lg:w-[400px]', 'lg:order-1', 'order-last', 'z-0');
 
   $: description = $t(`leaderboard.thrillblazers.description.s${$activeSeason}`);
+
+  const edition = getContext('thrillblazerEdition') as number;
 </script>
 
 <div class={wrapperCLasses}>
@@ -164,6 +167,9 @@
   <img class={runesLeftClassesXl} src="/header/thrillblazer/runes-left-xl.svg" alt="runes" />
 
   <img src="/blazers.svg" alt="Thrillblazers" class={blazersClasses} />
+  {#if edition}
+    <h1 class="mt-[20px]">- Edition {numberToRoman(edition)} -</h1>
+  {/if}
 
   <span class={descriptionClasses}>
     {description}

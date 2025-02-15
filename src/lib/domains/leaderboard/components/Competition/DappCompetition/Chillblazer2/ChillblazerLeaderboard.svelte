@@ -1,4 +1,4 @@
-<script lang="ts">
+<!-- <script lang="ts">
   import { setContext } from 'svelte';
   import { t } from 'svelte-i18n';
 
@@ -6,7 +6,6 @@
   import { CampaignEndedInfoBox } from '$lib/domains/leaderboard/components/CampaignEndedInfoBox';
   import { AbstractLeaderboard, PointScore } from '$lib/domains/leaderboard/components/Template';
   import type { DappLeaderboardItem } from '$lib/domains/leaderboard/dto/dapps.dto';
-  import { chillblazerService } from '$lib/domains/leaderboard/services/LeaderboardServiceInstances';
   import type { DappLeaderboardPage } from '$lib/domains/leaderboard/types/dapps/types';
   import type { PaginationInfo } from '$lib/shared/dto/CommonPageApiResponse';
   import { activeSeason } from '$shared/stores/activeSeason';
@@ -71,4 +70,4 @@
   showPagination={true}
   {season}
   headerComponent={ChillblazerHeader}
-  scoreComponent={PointScore} />
+  scoreComponent={PointScore} /> -->

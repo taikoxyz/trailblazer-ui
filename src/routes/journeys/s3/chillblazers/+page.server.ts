@@ -1,7 +1,7 @@
 // import { browser } from '$app/environment';
 // import { leaderboardConfig } from '$config';
 // import type { DappLeaderboardItem } from '$lib/domains/leaderboard/dto/dapps.dto';
-// import { chillblazerService } from '$lib/domains/leaderboard/services/LeaderboardServiceInstances';
+// import { chillblazerService } from '$lib/domains/leaderboard/services/LeaderboardServiceInstances.server';
 // import type { PaginationInfo } from '$lib/shared/dto/CommonPageApiResponse';
 
 // export const load = async () => {
@@ -16,7 +16,7 @@
 
 //   if (browser) {
 //     try {
-//       const page = await chillblazerService.fetchCompetitionData(pageInfo, 2);
+//       const page = await chillblazerService.fetchCompetitionData(pageInfo, 3);
 //       if (page) {
 //         pageInfo = page.pagination;
 //       }

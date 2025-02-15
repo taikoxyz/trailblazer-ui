@@ -1,4 +1,4 @@
-<script lang="ts">
+<!-- <script lang="ts">
   import { t } from 'svelte-i18n';
 
   import { goto } from '$app/navigation';
@@ -35,4 +35,4 @@
       {$t('buttons.leaderboard.user')}
     </ActionButton>
   </div>
-</Page>
+</Page> -->

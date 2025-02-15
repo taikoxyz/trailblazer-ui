@@ -10,6 +10,10 @@
   import { Page } from '$shared/components/Page';
   import { classNames } from '$shared/utils/classNames';
 
+  export let data;
+
+  const { slug } = data;
+
   let pageInfo: PaginationInfo<DappLeaderboardItem>;
   let loading: boolean;
 
@@ -28,7 +32,7 @@
 </svelte:head>
 
 <Page>
-  <ThrillblazerLeaderboard {pageInfo} {loading} season={3} />
+  <ThrillblazerLeaderboard {pageInfo} {loading} edition={parseInt(slug)} />
 
   <div class={wrapperClasses}>
     <ActionButton class={buttonClasses} priority="primary" on:click={handleClick} withArrow>
