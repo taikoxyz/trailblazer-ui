@@ -20,6 +20,7 @@ export default defineProject({
       $generated: path.resolve(__dirname, './src/generated'),
       '$app/environment': path.resolve(__dirname, './__mocks__/$app/environment/browser.ts'),
       '$env/static/public': path.resolve(__dirname, './__mocks__/$env/static/public.ts'),
+      '$env/static/private': path.resolve(__dirname, './__mocks__/$env/static/private.ts'),
       $fonts: path.resolve(__dirname, './src/public/fonts'),
       $domain: path.resolve(__dirname, './src/domain'),
       $configs: path.resolve(__dirname, './src/configs'),
