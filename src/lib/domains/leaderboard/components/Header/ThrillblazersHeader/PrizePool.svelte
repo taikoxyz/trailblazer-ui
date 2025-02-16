@@ -1,7 +1,7 @@
 <script lang="ts">
+  import { getContext } from 'svelte';
   import { t } from 'svelte-i18n';
 
-  import { activeSeason } from '$shared/stores/activeSeason';
   import { classNames } from '$shared/utils/classNames';
   import { getLogger } from '$shared/utils/logger';
 
@@ -65,36 +65,65 @@
 
   // Reactive block to update selectedCompetitionInfo and totalAmount
   $: {
-    log('type of activeSeason', typeof $activeSeason, $activeSeason === 2);
-    if ($activeSeason === 2) {
+    if (edition === 1) {
       selectedCompetitionInfo = {
         title: '',
         description: '',
         prizeTitle: $t('leaderboard.gaming.prize.1'),
         prizeSubtitle: '',
         prizes: [
-          { image: '/first.svg', amount: $t('leaderboard.thrillblazers.prize_breakdown.s2.first.amount') },
-          { image: '/second.svg', amount: $t('leaderboard.thrillblazers.prize_breakdown.s2.second.amount') },
-          { image: '/third.svg', amount: $t('leaderboard.thrillblazers.prize_breakdown.s2.third.amount') },
-          { image: '/default-prize.svg', amount: $t('leaderboard.thrillblazers.prize_breakdown.s2.fourth.amount') },
-          { image: '/default-prize.svg', amount: $t('leaderboard.thrillblazers.prize_breakdown.s2.fifth.amount') },
+          { image: '/first.svg', amount: $t(`leaderboard.thrillblazers.${edition}.prize_breakdown.first.amount`) },
+          { image: '/second.svg', amount: $t(`leaderboard.thrillblazers.${edition}.prize_breakdown.second.amount`) },
+          { image: '/third.svg', amount: $t(`leaderboard.thrillblazers.${edition}.prize_breakdown.third.amount`) },
+          {
+            image: '/default-prize.svg',
+            amount: $t(`leaderboard.thrillblazers.${edition}.prize_breakdown.fourth.amount`),
+          },
+          {
+            image: '/default-prize.svg',
+            amount: $t(`leaderboard.thrillblazers.${edition}.prize_breakdown.fifth.amount`),
+          },
         ],
       };
-      log('season 3', selectedCompetitionInfo);
-    } else if ($activeSeason === 3) {
+      log('edition 1', selectedCompetitionInfo);
+    } else if (edition === 2) {
       selectedCompetitionInfo = {
         title: '',
         description: '',
         prizeTitle: $t('leaderboard.gaming.prize.1'),
         prizeSubtitle: '',
         prizes: [
-          { image: '/first.svg', amount: $t('leaderboard.thrillblazers.prize_breakdown.s3.first.amount') },
-          { image: '/second.svg', amount: $t('leaderboard.thrillblazers.prize_breakdown.s3.second.amount') },
-          { image: '/third.svg', amount: $t('leaderboard.thrillblazers.prize_breakdown.s3.third.amount') },
-          { image: '/default-prize.svg', amount: $t('leaderboard.thrillblazers.prize_breakdown.s3.fourth.amount') },
+          { image: '/first.svg', amount: $t(`leaderboard.thrillblazers.${edition}.prize_breakdown.first.amount`) },
+          { image: '/second.svg', amount: $t(`leaderboard.thrillblazers.${edition}.prize_breakdown.second.amount`) },
+          { image: '/third.svg', amount: $t(`leaderboard.thrillblazers.${edition}.prize_breakdown.third.amount`) },
+          {
+            image: '/default-prize.svg',
+            amount: $t(`leaderboard.thrillblazers.${edition}.prize_breakdown.fourth.amount`),
+          },
         ],
       };
-      log('season 3', selectedCompetitionInfo);
+      log('edition 3', selectedCompetitionInfo);
+    } else if (edition === 3) {
+      selectedCompetitionInfo = {
+        title: '',
+        description: '',
+        prizeTitle: $t('leaderboard.gaming.prize.1'),
+        prizeSubtitle: '',
+        prizes: [
+          { image: '/first.svg', amount: $t(`leaderboard.thrillblazers.${edition}.prize_breakdown.first.amount`) },
+          { image: '/second.svg', amount: $t(`leaderboard.thrillblazers.${edition}.prize_breakdown.second.amount`) },
+          { image: '/third.svg', amount: $t(`leaderboard.thrillblazers.${edition}.prize_breakdown.third.amount`) },
+          {
+            image: '/default-prize.svg',
+            amount: $t(`leaderboard.thrillblazers.${edition}.prize_breakdown.fourth.amount`),
+          },
+          {
+            image: '/default-prize.svg',
+            amount: $t(`leaderboard.thrillblazers.${edition}.prize_breakdown.fifth.amount`),
+          },
+        ],
+      };
+      log('edition 3', selectedCompetitionInfo);
     } else {
       // Fallback for other seasons
       selectedCompetitionInfo = { title: '', description: '', prizeTitle: '', prizeSubtitle: '', prizes: [] };
@@ -102,8 +131,10 @@
     }
 
     // Update totalAmount based on activeSeason
-    totalAmount = $t(`leaderboard.thrillblazers.prize_breakdown.s${$activeSeason}.total`);
+    totalAmount = $t(`leaderboard.thrillblazers.${edition}.prize_breakdown.total`);
   }
+
+  const edition = getContext('thrillblazerEdition') as number;
 </script>
 
 <h2 class={h2Classes}>

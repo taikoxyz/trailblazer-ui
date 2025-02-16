@@ -767,6 +767,31 @@
           },
           "total": "100k TAIKO Tokens"
         }
+      },
+      "3": {
+        "description": "Thrill-Blazer III launches Feb 27th. Calling all gaming and SocialFi dApps: Blaze new trails, fuel Taiko's momentum, and seize your chance for legendary rewards!",
+        "ended": {
+          "description": "Our journey concluded on March 28th, 2025. Congratulations to the winners!",
+          "title": "Journey ended"
+        },
+        "prize_breakdown": {
+          "first": {
+            "amount": "45k"
+          },
+          "second": {
+            "amount": "25k"
+          },
+          "third": {
+            "amount": "15k"
+          },
+          "fourth": {
+            "amount": "10k"
+          },
+          "fifth": {
+            "amount": "5k"
+          },
+          "total": "100k TAIKO Tokens"
+        }
       }
     },
     "user": {

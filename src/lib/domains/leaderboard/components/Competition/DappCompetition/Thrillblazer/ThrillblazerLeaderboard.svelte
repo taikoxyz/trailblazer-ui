@@ -52,7 +52,6 @@
   setContext('thrillblazerEdition', edition);
 </script>
 
-{leaderboard.items.length}
 {#if edition <= currentEdition}
   <AbstractLeaderboard
     headers={['No.', 'Dapp', '', 'Points']}
