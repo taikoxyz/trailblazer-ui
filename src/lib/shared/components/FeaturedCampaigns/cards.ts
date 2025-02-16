@@ -2,6 +2,21 @@ import type { CampaignCardType } from './types';
 
 export const cards: CampaignCardType[] = [
   {
+    title: 'TAKOTAKO Tales x Taiko',
+    text: 'Score 8,888 TAIKO and a Taikoon. Join the TAKOTAKO Galxe campaign and complete tasks.',
+    btn: {
+      text: 'Join now',
+      external: true,
+      destination: `https://app.galxe.com/quest/VnWkqAtB2Row8KdwpFHW9n/GC6MbtpuTp`,
+    },
+    images: {
+      sm: '/campaign/cards/sm/takotako.png',
+      md: '/campaign/cards/xl/takotako.png',
+      lg: '/campaign/cards/xl/takotako.png',
+      xl: '/campaign/cards/xl/takotako.png',
+    },
+  },
+  {
     title: 'Evolve your Faction Badges',
     text: 'The Devs are out in full force looking for new recruits to join their Faction. Will you join them?',
     btn: {
