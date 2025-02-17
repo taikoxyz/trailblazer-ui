@@ -1,4 +1,4 @@
-<!-- <script lang="ts">
+<script lang="ts">
   import { t } from 'svelte-i18n';
 
   import { goto } from '$app/navigation';
@@ -9,6 +9,10 @@
   import { ActionButton } from '$shared/components/Button';
   import { Page } from '$shared/components/Page';
   import { classNames } from '$shared/utils/classNames';
+
+  export let data;
+
+  const { slug } = data;
 
   let pageInfo: PaginationInfo<DappLeaderboardItem>;
   let loading: boolean;
@@ -28,11 +32,11 @@
 </svelte:head>
 
 <Page>
-  <ChillblazerLeaderboard {pageInfo} {loading} season={3} />
+  <ChillblazerLeaderboard {pageInfo} {loading} edition={parseInt(slug)} />
 
   <div class={wrapperClasses}>
     <ActionButton class={buttonClasses} priority="primary" on:click={handleClick} withArrow>
       {$t('buttons.leaderboard.user')}
     </ActionButton>
   </div>
-</Page> -->
+</Page>

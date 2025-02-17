@@ -31,7 +31,7 @@ export const routes: NavigationItem[] = [
     flamboyant: true,
     children: [
       { name: 'Thrillblazers', route: '/journeys/thrillblazers/2', icon: 'nav-cross' },
-      { name: 'Chillblazers', route: '/journeys/s3/chillblazers', icon: 'nav-conway' },
+      { name: 'Chillblazers', route: '/journeys/chillblazers/2', icon: 'nav-conway' },
       { name: 'Liquidity Royale', route: '/journeys/liquidity', icon: 'nav-liquidity' },
       { name: 'Badges', route: '/badge', icon: 'badge-migration' },
     ],

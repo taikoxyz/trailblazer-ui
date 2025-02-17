@@ -6,8 +6,7 @@ export const thrillblazerInstances: Record<number, DappCompetition> = {
   3: new DappCompetition('thrillblazer', 'thrillblazer', 'Thrillblazers Edition 3', 3),
 };
 
-export const chillblazerService: Record<number, DappCompetition> = {
+export const chillblazerServiceInstances: Record<number, DappCompetition> = {
   1: new DappCompetition('chillblazer', 'chillblazer', 'Chillblazers Edition 1', 1),
   2: new DappCompetition('chillblazer', 'chillblazer', 'Chillblazers Edition 2', 2),
-  3: new DappCompetition('chillblazer', 'chillblazer', 'Chillblazers Edition 3', 3),
 };
