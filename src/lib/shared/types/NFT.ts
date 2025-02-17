@@ -12,7 +12,7 @@ export interface NFT {
   address: Address;
   tokenId: number;
   tokenUri: string;
-  metadata: Record<string, string | number | boolean | undefined | TokenType>;
+  metadata: Record<string, string | number | boolean | Date | undefined | TokenType>;
 }
 
 export interface IUserBadges {
