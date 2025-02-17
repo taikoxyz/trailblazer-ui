@@ -9,6 +9,7 @@ export const GET: RequestHandler = async () => {
   return await sitemap.response({
     origin: 'https://trailblazers.taiko.xyz',
     paramValues: {
+      '/journeys/thrillblazers/[slug]': ['1', '2', '3'],
       '/journeys/chillblazers/[slug]': ['1', '2', '3'],
     },
     excludeRoutePatterns: ['^/mock-api.*', '.*\\[page=integer\\].*', '.*\\/pinkify\\/.*', '.*\\/profile\\/.*'],
