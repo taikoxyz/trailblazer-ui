@@ -1,5 +1,4 @@
 import { zeroAddress } from 'viem';
-import { beforeEach,describe, expect, it, vi } from 'vitest';
 
 import { API_KEY } from '$env/static/private';
 import type { ProtocolApiResponse } from '$lib/domains/leaderboard/dto/protocol.dto';
