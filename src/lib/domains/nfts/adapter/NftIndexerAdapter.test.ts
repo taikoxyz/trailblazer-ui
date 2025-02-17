@@ -1,137 +1,70 @@
-/*import { type Address, zeroAddress } from 'viem';
+import { readContract } from '@wagmi/core';
+import axios from 'axios';
+import { vi } from 'vitest';
 
-import { Movements } from '$lib/domains/profile/types/types';
-import { badgesSubgraphClient } from '$lib/shared/services/graphql/client';
+import { globalAxiosConfig } from '$shared/services/api/axiosClient';
 
-import { NftIndexerAdapter } from './NftIndexerAdapter';
-*/
-describe('NftIndexerAdapter', () => {
-  it('should return badges when user has S1 badges', async () => {});
-});
-/*
+import { NftIndexerAdapter, PfpIndexedTokens } from './NftIndexerAdapter';
+
 vi.mock('axios', () => ({
+  default: {
     get: vi.fn(),
-}))
-vi.mock('@wagmi/core', () => ({
-  readContract: vi.fn(),
+  },
 }));
 
-describe('NftIndexerAdapter', () => {
-  let indexerAdapter: NftIndexerAdapter;
-  const mockAddress: Address = zeroAddress;
+vi.mock('@wagmi/core', async (importOriginal) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const actual = (await importOriginal()) as any;
+  return {
+    ...actual,
+    readContract: vi.fn(),
+  };
+});
 
-  beforeEach(() => {
-    indexerAdapter = new NftIndexerAdapter();
-    vi.clearAllMocks();
+describe('NftIndexerAdapter', () => {
+  const indexer = new NftIndexerAdapter();
+
+  beforeAll(() => {
+    vi.mocked(axios.get).mockResolvedValue({ data: { items: [] } });
   });
 
-  describe('fetchTaikoTokensForUser', () => {
-    it('should return sentinels when the user has any', async () => {
-      // Given
-      const mockTokens = [
-        {
-          badgeId: 1,
-          contract: '0xContract',
-          erc: 777,
-          id: '',
-          movement: '',
-          owner: '',
-          tokenId: 33,
-          uri: 'uri',
-        },
-      ];
+  afterEach(() => {
+    vi.resetAllMocks();
+  });
 
-      vi.mocked(badgesSubgraphClient.query).mockResolvedValue({
-        loading: false,
-        networkStatus: 7,
-        data: {
-          tokens: mockTokens,
-        },
-      });
+  it('should return NFTs for valid token contracts', async () => {
+    const mockNfts = [
+      {
+        tokenID: '1',
+        contractType: 'ERC1155',
+        contractAddress: PfpIndexedTokens[0],
+      },
+    ];
 
-      // When
-      const result = await indexerAdapter.fetchTokenForUser(mockAddress);
+    const mockMetadata = { image: 'https://mock-image.com/123' };
 
-      // Then
-      expect(badgesSubgraphClient.query).toHaveBeenCalledWith({
-        query: expect.any(Object),
-        variables: { address: mockAddress.toLowerCase() },
-      });
+    vi.mocked(axios.get).mockResolvedValueOnce({ data: { items: mockNfts } });
+    vi.mocked(readContract).mockResolvedValueOnce('https://mock-uri.com');
+    vi.mocked(axios.get).mockResolvedValueOnce({ data: mockMetadata });
 
-      expect(result).toStrictEqual([
-        {
-          address: '0xContract',
-          metadata: {
-            badgeId: 1,
-            erc: 777,
-            movement: Movements.Dev,
-            frozenS2: false,
-            frozenS3: false,
-          },
-          tokenId: 33,
-          tokenUri: 'uri',
-        },
-      ]);
-    });
+    const res = await indexer.fetchTokenForUser('0x123');
 
-    /*
-    it('should return all false when user has no S1 badges', async () => {
-      // Given
-      vi.mocked(badgesSubgraphClient.query).mockResolvedValue(
-        createMockQueryResult({
-          account: {
-            id: mockAddress.toLowerCase(),
-            tokens: [],
-          },
-        }),
-      );
+    expect(axios.get).toHaveBeenCalledTimes(2);
 
-      // When
-      const result = await indexerAdapter.fetchTaikoTokensForUser(mockAddress);
+    expect(axios.get).toHaveBeenCalledWith(
+      'https://eventindexer.mainnet.taiko.xyz/nftsByAddress?address=0x123&chainID=167000',
+      globalAxiosConfig,
+    );
 
-      // Then
-      expect(badgesSubgraphClient.query).toHaveBeenCalledWith({
-        query: expect.any(Object),
-        variables: { address: mockAddress.toLowerCase() },
-      });
+    expect(axios.get).toHaveBeenCalledWith('https://mock-uri.com', globalAxiosConfig);
 
-      expect(result).toStrictEqual([]);
-    });
-
-    it('should return all false when account does not exist', async () => {
-      // Given
-      vi.mocked(badgesSubgraphClient.query).mockResolvedValue(
-        createMockQueryResult({
-          account: null,
-        }),
-      );
-
-      // When
-      const result = await indexerAdapter.fetchTaikoTokensForUser(mockAddress);
-
-      // Then
-      expect(badgesSubgraphClient.query).toHaveBeenCalledWith({
-        query: expect.any(Object),
-        variables: { address: mockAddress.toLowerCase() },
-      });
-
-      expect(result).toEqual([]);
-    });
-
-    it('should handle GraphQL errors gracefully', async () => {
-      // Given
-      vi.mocked(badgesSubgraphClient.query).mockRejectedValue(new Error('GraphQL Error'));
-
-      // When
-      await expect(indexerAdapter.fetchTaikoTokensForUser(mockAddress)).rejects.toThrow('GraphQL Error');
-
-      //Then
-      expect(badgesSubgraphClient.query).toHaveBeenCalledWith({
-        query: expect.any(Object),
-        variables: { address: mockAddress.toLowerCase() },
-      });
-    });
-
+    expect(res).toEqual([
+      {
+        address: PfpIndexedTokens[0],
+        tokenId: '1',
+        tokenUri: 'https://mock-uri.com',
+        metadata: { image: 'https://mock-image.com/123' },
+      },
+    ]);
   });
 });
-*/

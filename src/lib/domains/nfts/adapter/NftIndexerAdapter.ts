@@ -3,11 +3,12 @@ import axios from 'axios';
 import { type Address, erc721Abi } from 'viem';
 
 import { trailblazersBadgesS2Abi } from '$generated/abi';
+import { globalAxiosConfig } from '$shared/services/api/axiosClient';
 import type { NFT } from '$shared/types/NFT';
 import { chainId } from '$shared/utils/chain';
 import { wagmiConfig } from '$shared/wagmi';
 
-const ValidTokens = [
+export const PfpIndexedTokens = [
   '0x56b0d8d04de22f2539945258ddb288c123026775', //taikonauts
   '0xb941ac9ad2f10f38d9852b58cbff709573e665aa', //sentinels
 ];
@@ -20,13 +21,13 @@ export class NftIndexerAdapter {
         167000: 'https://eventindexer.mainnet.taiko.xyz',
       };
       const url = [baseUrls[chainId], '/nftsByAddress?', `address=${address}&`, `chainID=${chainId}`].join('');
-      const res = await axios(url);
+      const res = await axios.get(url, globalAxiosConfig);
       const { items } = res.data;
 
       const nfts: NFT[] = [];
 
       for (const item of items) {
-        if (!ValidTokens.includes(item.contractAddress.toLowerCase())) {
+        if (!PfpIndexedTokens.includes(item.contractAddress.toLowerCase())) {
           console.warn('irrelevant nft found', item);
           continue;
         }
@@ -40,7 +41,7 @@ export class NftIndexerAdapter {
             chainId,
           });
 
-          const { data: metadata } = await axios.get(uri);
+          const { data: metadata } = await axios.get(uri, globalAxiosConfig);
           const { image } = metadata;
           nfts.push({
             address: item.contractAddress,
@@ -57,7 +58,7 @@ export class NftIndexerAdapter {
             chainId,
           });
 
-          const { data: metadata } = await axios.get(uri);
+          const { data: metadata } = await axios.get(uri, globalAxiosConfig);
           const { video, image } = metadata;
 
           nfts.push({
