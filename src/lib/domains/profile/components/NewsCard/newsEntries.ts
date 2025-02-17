@@ -11,9 +11,9 @@ const profilePath = (slug: string) => {
 export const newsEntries: NewsCardContent[] = [
   {
     featured: true,
-    title: 'TAKOTAKO Galxe Campaign',
+    title: 'TakoTako Tales',
     subtitle: 'Join now!',
-    text: '8,888 TAIKO tokens and a Taikoon are up for grabs! Join the Galxe campaign now!',
+    text: 'The based DeFi Quest - Score 8,888 TAIKO and a Taikoon.',
     imgSrc: '/news/flame.svg',
     cta: {
       href: 'https://app.galxe.com/quest/VnWkqAtB2Row8KdwpFHW9n/GC6MbtpuTp',
