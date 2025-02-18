@@ -170,7 +170,13 @@
       isLoading = true;
       log('Setting profile picture', selectedPfp);
       await profileService.setProfilePicture(selectedPfp);
-
+      userProfile.set({
+        ...$userProfile,
+        personalInfo: {
+          ...$userProfile?.personalInfo,
+          avatar: selectedPfp.metadata.image as string,
+        },
+      });
       isLoading = false;
       successToast({
         title: $t('pfp.modal.success.title'),
