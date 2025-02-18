@@ -185,7 +185,15 @@
       "can_influence_in": "You can influence again in:",
       "cta": "Have questions?",
       "no_badges_to_recruit": "You don't own any dev badges of this type. Visit NFT marketplaces and have a look for available ones.",
-      "no_enabled_recruitments": "No recruitments are currently enabled. Stay tuned!"
+      "no_enabled_recruitments": "No recruitments are currently enabled. Stay tuned!",
+      "reset_recruitment": {
+        "toast": {
+          "success": {
+            "message": "Badge can be recruited again in a future cycle",
+            "title": "Recruitment reset"
+          }
+        }
+      }
     },
     "modal": {
       "end_recruitment": {
@@ -352,7 +360,10 @@
         "title": "Season 2 claiming is now live!"
       },
       "success": {
-        "buttons": ["Add to wallet", "Earn more TAIKO"],
+        "buttons": [
+          "Add to wallet",
+          "Earn more TAIKO"
+        ],
         "text": "Congratulations! You've successfully claimed your tokens. You can now add them to your wallet.",
         "title": "Claim successful"
       }
@@ -564,7 +575,8 @@
             "description": "Our journey concluded on December 18th, 2024. Congratulations to the winners!",
             "title": "Season ended"
           },
-          "prize": {}
+          "prize": {
+          }
         }
       }
     },

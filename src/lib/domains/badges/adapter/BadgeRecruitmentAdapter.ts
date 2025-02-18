@@ -403,7 +403,7 @@ export default class BadgeRecruitmentAdapter {
       args: [address],
       chainId,
     })) as readonly IBadgeRecruitment[];
-    const recruitment: IBadgeRecruitment[] = recruitmentResponse.map((r) => ({
+    const recruitments: IBadgeRecruitment[] = recruitmentResponse.map((r) => ({
       recruitmentCycle: r.recruitmentCycle,
       user: r.user,
       s1BadgeId: r.s1BadgeId,
@@ -414,8 +414,10 @@ export default class BadgeRecruitmentAdapter {
       whaleInfluences: r.whaleInfluences,
       minnowInfluences: r.minnowInfluences,
     }));
-    log('getRecruitmentStatusForUser', { recruitment });
-    return recruitment;
+
+    const filtered = recruitments.filter((r) => r.user === address);
+    log('getRecruitmentStatusForUser', { recruitments: filtered });
+    return filtered;
   }
 
   /**

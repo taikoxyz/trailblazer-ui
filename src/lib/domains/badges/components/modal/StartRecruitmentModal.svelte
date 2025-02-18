@@ -10,6 +10,7 @@
     activeRecruitmentStore,
     badgeToRecruit,
     influenceRecruitmentModal,
+    startedRecuitment,
     startRecruitmentModal,
   } from '$shared/stores/recruitment';
   import { classNames } from '$shared/utils/classNames';
@@ -41,6 +42,7 @@
       const recruitment = await badgeRecruitmentService.startRecruitment(address, $badgeToRecruit);
 
       // todo add to store?
+      startedRecuitment.set(true);
 
       log('recruitment', recruitment);
 

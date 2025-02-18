@@ -12,6 +12,7 @@
   import { classNames } from '$shared/utils/classNames';
 
   import { FactionBadgeItem } from '../FactionBadges';
+  import { isBadgeLocked } from '$shared/utils/badges/isBadgeLocked';
 
   export let selectedBadge: TBBadge;
   export let movement: Movements | 'taikoon' | 'snaefell';
@@ -104,10 +105,14 @@
       <BadgeRecruitmentItem
         badge={$currentRecruitmentStore.badge}
         recruitment={$currentRecruitmentStore}
-        blurred={selectedBadge.frozen} />
+        blurred={isBadgeLocked(selectedBadge)} />
     {/if}
   {:else}
-    <FactionBadgeItem token={selectedBadge} class={badgeItemClasses} blurred={selectedBadge.frozen} hideBubbles />
+    <FactionBadgeItem
+      token={selectedBadge}
+      class={badgeItemClasses}
+      blurred={isBadgeLocked(selectedBadge)}
+      hideBubbles />
   {/if}
 
   {#if recruitingView}
@@ -140,7 +145,7 @@
           <span class="text-secondary-content">{$t('nfts.collection.token_id')}</span>
           <span>{selectedBadge.tokenId}</span>
         </div>
-        {#if selectedBadge.frozen}
+        {#if isBadgeLocked(selectedBadge)}
           <div class={collectionDetailsRowClasses}>
             <span class="text-secondary-content">{$t('common.status')}</span>
             <span>{$t('nfts.collection.locked')}</span>
