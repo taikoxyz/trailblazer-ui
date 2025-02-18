@@ -1,4 +1,4 @@
-import { DappCompetition } from '../factory/DappCompetition';
+// import { DappCompetition } from '../factory/DappCompetition';
 // import { DappCompetitionService } from './DappCompetitionService';
 import { DappLeaderboardService } from './DappLeaderboardService';
 import { GamingLeaderboardService } from './GamingLeaderboardService';
@@ -12,5 +12,5 @@ export const gamingLeaderboardService = new GamingLeaderboardService();
 // export const dappCompetitionService = new DappCompetitionService();
 export const liquidityCompetitionService = new LiquidityCompetitionService();
 
-export const thrillblazerService = new DappCompetition('thrillblazer', 'thrillblazer', 'Thrillblazers');
-export const chillblazerService = new DappCompetition('chillblazer', 'chillblazer', 'Chillblazers');
+// export const thrillblazerService = new DappCompetition('thrillblazer', 'thrillblazer', 'Thrillblazers');
+// export const chillblazerService = new DappCompetition('chillblazer', 'chillblazer', 'Chillblazers');

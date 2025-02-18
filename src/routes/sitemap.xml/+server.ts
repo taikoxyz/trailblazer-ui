@@ -8,12 +8,11 @@ export const prerender = true; // optional
 export const GET: RequestHandler = async () => {
   return await sitemap.response({
     origin: 'https://trailblazers.taiko.xyz',
-    excludeRoutePatterns: [
-      '^/mock-api.*', // i.e. routes starting with `/dashboard`
-      '.*\\[page=integer\\].*', // i.e. routes containing `[page=integer]`–e.g. `/blog/2`
-      '.*\\/pinkify\\/.*',
-      '.*\\/profile\\/.*',
-    ],
+    paramValues: {
+      '/journeys/thrillblazers/[slug]': ['1', '2', '3'],
+      '/journeys/chillblazers/[slug]': ['1', '2', '3'],
+    },
+    excludeRoutePatterns: ['^/mock-api.*', '.*\\[page=integer\\].*', '.*\\/pinkify\\/.*', '.*\\/profile\\/.*'],
     defaultChangefreq: 'daily',
     defaultPriority: 0.7,
     sort: 'alpha', // default is false; 'alpha' sorts all paths alphabetically.

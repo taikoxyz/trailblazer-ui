@@ -2,33 +2,18 @@ import type { CampaignCardType } from './types';
 
 export const cards: CampaignCardType[] = [
   {
-    title: 'Claim your 50K points now!',
-    text: 'Vote for your favorite projects on DoraHacks. Don’t miss out—claim your 50,000 points today!',
+    title: 'TAKOTAKO Tales x Taiko',
+    text: 'Score 8,888 TAIKO and a Taikoon. Join the TAKOTAKO Galxe campaign and complete tasks.',
     btn: {
-      text: 'Vote now',
+      text: 'Join now',
       external: true,
-      destination: 'https://dorahacks.io/grant/taiko/buidl',
+      destination: `https://app.galxe.com/quest/VnWkqAtB2Row8KdwpFHW9n/GC6MbtpuTp`,
     },
     images: {
-      sm: '/campaign/cards/sm/dorahacks.png',
-      md: '/campaign/cards/xl/dorahacks.png',
-      lg: '/campaign/cards/xl/dorahacks.png',
-      xl: '/campaign/cards/xl/dorahacks.png',
-    },
-  },
-  {
-    title: 'Avalon x Taiko: Exclusive rewards await',
-    text: 'Supply TAIKO on Avalon to unlock airdrops, 100K TAIKO incentives, and 100x Trailblazers XP! ⏳',
-    btn: {
-      text: 'Earn now',
-      external: true,
-      destination: 'https://usdalend.avalonfinance.xyz/?marketName=proto_usda_taiko_v3',
-    },
-    images: {
-      sm: '/campaign/cards/sm/avalon.png',
-      md: '/campaign/cards/sm/avalon.png',
-      lg: '/campaign/cards/sm/avalon.png',
-      xl: '/campaign/cards/sm/avalon.png',
+      sm: '/campaign/cards/sm/takotako.png',
+      md: '/campaign/cards/xl/takotako.png',
+      lg: '/campaign/cards/xl/takotako.png',
+      xl: '/campaign/cards/xl/takotako.png',
     },
   },
   {

@@ -500,54 +500,50 @@
       }
     },
     "chillblazers": {
-      "ended": {
-        "description": "Our journey concluded on December 16th, 2024. Congratulations to the winners!",
-        "s3": {
-          "description": "Our journey concluded on January 17th, 2025. Congratulations to the winners!",
+      "1": {
+        "description": "Chill-Blazers launches Nov 19th. Calling all gaming and SocialFi dApps: Blaze new trails, fuel Taiko's momentum, and seize your chance for legendary rewards!",
+        "ended": {
+          "description": "Our journey concluded on December 16th, 2024. Congratulations to the winners!",
           "title": "Journey ended"
         },
-        "title": "Journey ended"
-      },
-      "prize": {
-        "2": "100K TAIKO Tokens"
-      },
-      "prize_breakdown": {
-        "first": {
-          "amount": "50k"
-        },
-        "fourth": {
-          "amount": "5k"
-        },
-        "second": {
-          "amount": "30k"
-        },
-        "third": {
-          "amount": "15k"
+        "prize": "100K TAIKO Tokens",
+        "prize_breakdown": {
+          "first": {
+            "amount": "50k"
+          },
+          "second": {
+            "amount": "30k"
+          },
+          "third": {
+            "amount": "15k"
+          },
+          "fourth": {
+            "amount": "5k"
+          }
         }
       },
-      "s2": {
+      "2": {
+        "description": "Chill-Blazers is back and launches Dec 17th. Calling all gaming and SocialFi dApps: Blaze new trails, fuel Taiko's momentum, and seize your chance for legendary rewards!",
         "ended": {
           "description": "Our journey concluded on January 17th, 2025. Congratulations to the winners!",
           "title": "Journey ended"
         },
-        "prize": {
-          "2": "150K TAIKO Tokens"
-        },
+        "prize": "150K TAIKO Tokens",
         "prize_breakdown": {
-          "fifth": {
-            "amount": "5k"
-          },
           "first": {
             "amount": "65k"
-          },
-          "fourth": {
-            "amount": "15k"
           },
           "second": {
             "amount": "40k"
           },
           "third": {
             "amount": "25k"
+          },
+          "fourth": {
+            "amount": "15k"
+          },
+          "fifth": {
+            "amount": "5k"
           }
         }
       }
@@ -720,54 +716,16 @@
         "text": "Do you still have questions about earning points and how they're calculated? Visit our blog post for all the answers!"
       }
     },
-    "thrillblazer": {
-      "ended": {
-        "description": "",
-        "title": ""
-      },
-      "prize_breakdown": {
-        "fifth": {
-          "amount": ""
-        },
-        "first": {
-          "amount": ""
-        },
-        "fourth": {
-          "amount": ""
-        },
-        "second": {
-          "amount": ""
-        },
-        "third": {
-          "amount": ""
-        }
-      }
-    },
     "thrillblazers": {
-      "description": {
-        "s2": " Thrill-Blazer launches Oct 18th. Calling all gaming and SocialFi dApps: Blaze new trails, fuel Taiko's momentum, and seize your chance for legendary rewards!",
-        "s3": " Thrill-Blazer launches Jan 17th. Calling all gaming and SocialFi dApps: Blaze new trails, fuel Taiko's momentum, and seize your chance for legendary rewards!"
-      },
-      "ended": {
-        "s2": {
+      "1": {
+        "description": "Thrill-Blazer launches Oct 18th. Calling all gaming and SocialFi dApps: Blaze new trails, fuel Taiko's momentum, and seize your chance for legendary rewards!",
+        "ended": {
           "description": "Our journey concluded on November 18th, 2024. Congratulations to the winners!",
           "title": "Journey ended"
         },
-        "s3": {
-          "description": "Our journey concluded on February 17th, 2025. Congratulations to the winners!",
-          "title": "Journey ended"
-        }
-      },
-      "prize_breakdown": {
-        "s2": {
-          "fifth": {
-            "amount": "5k"
-          },
+        "prize_breakdown": {
           "first": {
             "amount": "65k"
-          },
-          "fourth": {
-            "amount": "10k"
           },
           "second": {
             "amount": "40k"
@@ -775,20 +733,58 @@
           "third": {
             "amount": "20k"
           },
+          "fourth": {
+            "amount": "10k"
+          },
+          "fifth": {
+            "amount": "5k"
+          },
           "total": "140k TAIKO Tokens"
+        }
+      },
+      "2": {
+        "description": "Thrill-Blazer launches Jan 17th. Calling all gaming and SocialFi dApps: Blaze new trails, fuel Taiko's momentum, and seize your chance for legendary rewards!",
+        "ended": {
+          "description": "Our journey concluded on February 17th, 2025. Congratulations to the winners!",
+          "title": "Journey ended"
         },
-        "s3": {
+        "prize_breakdown": {
           "first": {
             "amount": "55k"
-          },
-          "fourth": {
-            "amount": "5k"
           },
           "second": {
             "amount": "25k"
           },
           "third": {
             "amount": "15k"
+          },
+          "fourth": {
+            "amount": "5k"
+          },
+          "total": "100k TAIKO Tokens"
+        }
+      },
+      "3": {
+        "description": "Thrill-Blazer III launches Feb 27th. Calling all gaming and SocialFi dApps: Blaze new trails, fuel Taiko's momentum, and seize your chance for legendary rewards!",
+        "ended": {
+          "description": "Our journey concluded on March 28th, 2025. Congratulations to the winners!",
+          "title": "Journey ended"
+        },
+        "prize_breakdown": {
+          "first": {
+            "amount": "45k"
+          },
+          "second": {
+            "amount": "25k"
+          },
+          "third": {
+            "amount": "15k"
+          },
+          "fourth": {
+            "amount": "10k"
+          },
+          "fifth": {
+            "amount": "5k"
           },
           "total": "100k TAIKO Tokens"
         }

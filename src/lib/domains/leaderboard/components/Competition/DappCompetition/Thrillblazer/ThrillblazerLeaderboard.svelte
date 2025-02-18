@@ -1,13 +1,14 @@
 <script lang="ts">
-  import { setContext } from 'svelte';
+  import { onMount, setContext } from 'svelte';
   import { t } from 'svelte-i18n';
 
-  import { leaderboardConfig } from '$config';
+  import { browser } from '$app/environment';
   import { CampaignEndedInfoBox } from '$lib/domains/leaderboard/components/CampaignEndedInfoBox';
   import { AbstractLeaderboard, PointScore } from '$lib/domains/leaderboard/components/Template';
   import type { DappLeaderboardItem } from '$lib/domains/leaderboard/dto/dapps.dto';
-  import { thrillblazerService } from '$lib/domains/leaderboard/services/LeaderboardServiceInstances';
-  import type { DappLeaderboardPage } from '$lib/domains/leaderboard/types/dapps/types';
+  import { leaderboardLoading } from '$lib/domains/leaderboard/stores/dappCompetitionLeaderboard';
+  import { fetchLeaderboard, leaderboardStore } from '$lib/domains/leaderboard/stores/dappCompetitionStore';
+  import { CompetitionType } from '$lib/domains/leaderboard/types/competition/types';
   import type { PaginationInfo } from '$lib/shared/dto/CommonPageApiResponse';
   import { activeSeason } from '$shared/stores/activeSeason';
   import { getLogger } from '$shared/utils/logger';
@@ -15,66 +16,56 @@
   import ThrillblazerHeader from '../../../Header/ThrillblazersHeader/ThrillblazerHeader.svelte';
 
   const log = getLogger('DappsLeaderboard');
-  export let loading = false;
   export let pageInfo: PaginationInfo<DappLeaderboardItem>;
-  export let season: number;
+  export let edition: number;
 
-  const endedSeasons: number[] = [2];
+  $: reactiveEdition = edition;
 
-  // The seasons this campaign was active
-  const seasons: number[] = [2, 3];
+  const currentEdition: number = 3;
 
   $: totalItems = pageInfo?.total || 0;
-  $: pageSize = pageInfo?.size || leaderboardConfig.pageSize;
-  $: hasEnded = endedSeasons.includes(season);
-  $: isLoading = loading;
+  $: hasEnded = reactiveEdition !== currentEdition;
 
   function handlePageChange(page: number) {
     log('handlePageChange', page);
-    loadLeaderboardData(page);
+    if (browser) fetchLeaderboard(page, CompetitionType.THRILLBLAZER, reactiveEdition);
   }
 
-  const currentDappCompetitionLeaderboard = thrillblazerService.getStore();
-
-  async function loadLeaderboardData(page: number, name = '') {
-    log('loadLeaderboardData', page, name);
-    loading = true;
-    // Fetch the leaderboard data for the given page
-    const args: PaginationInfo<DappLeaderboardItem> = {
-      page,
-      size: pageSize,
-      slug: name,
-      total: totalItems,
-    };
-
-    const leaderboardPage: DappLeaderboardPage = await thrillblazerService.fetchCompetitionData(args, $activeSeason);
-
-    // date from timestamp
-    totalItems = leaderboardPage?.pagination.total || $currentDappCompetitionLeaderboard.items.length;
-    loading = false;
+  async function loadLeaderboardData(page: number) {
+    log('loadLeaderboardData', page);
+    if (browser) await fetchLeaderboard(page, CompetitionType.THRILLBLAZER, reactiveEdition);
   }
 
-  $: $activeSeason && loadLeaderboardData(pageInfo.page);
+  let leaderboard;
+  $: leaderboard = $leaderboardStore;
+
+  onMount(() => {
+    if (browser && $activeSeason && pageInfo) {
+      loadLeaderboardData(pageInfo.page);
+    }
+  });
 
   setContext('loadCompetitionLeaderboardData', loadLeaderboardData);
   setContext('dappsCompetitionPageInfo', pageInfo);
+
+  setContext('thrillblazerEdition', reactiveEdition);
 </script>
 
-{#if seasons.includes(Number($activeSeason))}
+{#if edition <= currentEdition}
   <AbstractLeaderboard
     headers={['No.', 'Dapp', '', 'Points']}
     season={$activeSeason}
-    data={$currentDappCompetitionLeaderboard.items}
+    data={leaderboard.items}
     showTrophy={true}
-    lastUpdated={new Date($currentDappCompetitionLeaderboard.lastUpdated)}
-    {isLoading}
+    lastUpdated={new Date(leaderboard.lastUpdated)}
+    isLoading={$leaderboardLoading}
     {handlePageChange}
     {totalItems}
     ended={hasEnded}
     qualifyingPositions={4}
     endedComponent={CampaignEndedInfoBox}
-    endTitleText={$t('leaderboard.thrillblazer.ended.title')}
-    endDescriptionText={$t('leaderboard.thrillblazer.ended.description')}
+    endTitleText={$t(`leaderboard.thrillblazers.${edition}.ended.title`)}
+    endDescriptionText={$t(`leaderboard.thrillblazers.${edition}.ended.description`)}
     showPagination={true}
     headerComponent={ThrillblazerHeader}
     scoreComponent={PointScore} />
