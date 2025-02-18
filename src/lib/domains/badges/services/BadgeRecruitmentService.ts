@@ -12,6 +12,7 @@ import { getLogger } from '$shared/utils/logger';
 
 import BadgeRecruitmentAdapter from '../adapter/BadgeRecruitmentAdapter';
 import type { RecruitmentCompleteLog, RecruitmentUpdatedLog } from '../dto/RecruitmentLogs';
+import { getCurrentSeasonEnd } from '$shared/utils/getCurrentSeasonEnd';
 
 const log = getLogger('BadgeRecruitmentService');
 
@@ -151,7 +152,7 @@ export default class BadgeRecruitmentService {
    * @returns {*} {Promise<ActiveRecruitment>}
    */
   async getUserRecruitments(address: Address): Promise<ActiveRecruitment[] | null> {
-    log('getUserRecruitments', { address });
+    log('getUserRecruitments 1', { address });
     try {
       const [openRecruitments, cycleId] = await Promise.all([
         this.adapter.getRecruitmentStatusForUser(address),
@@ -163,9 +164,10 @@ export default class BadgeRecruitmentService {
         return null;
       }
 
+      log('openRecruitments', { openRecruitments, cycleId });
       const activeRecruitments = await Promise.all(
         openRecruitments.map(async (recruitment) => {
-          log('getUserRecruitments', { recruitment });
+          log('getUserRecruitments map', { recruitment });
 
           const mapped: ActiveRecruitment = {
             cycle: Number(recruitment.recruitmentCycle),
@@ -208,9 +210,11 @@ export default class BadgeRecruitmentService {
           return activeRecruitment;
         }),
       );
-      activeRecruitmentStore.set(await Promise.all(activeRecruitments));
-      currentRecruitmentStore.set(activeRecruitments[activeRecruitments.length - 1]);
-      return activeRecruitments;
+      // filter out null
+      const filtered = activeRecruitments.filter((recruitment) => recruitment !== null);
+      activeRecruitmentStore.set(await Promise.all(filtered));
+      currentRecruitmentStore.set(activeRecruitments[filtered.length - 1]);
+      return filtered;
     } catch (error) {
       console.error('Error in getUserRecruitments', error);
       return [] as ActiveRecruitment[];
@@ -270,6 +274,10 @@ export default class BadgeRecruitmentService {
       return RecruitmentStatus.COMPLETED;
     }
 
+    if (recruitment.badge.frozenUntil && recruitment.badge.frozenUntil >= getCurrentSeasonEnd()) {
+      log('Badge is frozen until next season', recruitment);
+      return RecruitmentStatus.LOCKED;
+    }
     const influencing = recruitment?.cooldowns.influence
       ? new Date(recruitment.cooldowns.influence) > new Date()
       : false;
@@ -291,9 +299,5 @@ export default class BadgeRecruitmentService {
     }
 
     return RecruitmentStatus.CAN_CLAIM;
-
-    // if (badge.frozen) return RecruitmentStatus.LOCKED;
-    // log('Eligible', badge);
-    return RecruitmentStatus.ELIGIBLE;
   }
 }

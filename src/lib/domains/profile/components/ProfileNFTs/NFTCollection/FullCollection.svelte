@@ -12,6 +12,7 @@
 
   import { FactionBadgeItem } from '../FactionBadges';
   import FullCollectionSidePanel from './FullCollectionSidePanel.svelte';
+  import { isBadgeLocked } from '$shared/utils/badges/isBadgeLocked';
 
   const wrapperClasses = classNames('p-[20px]', 'f-col', 'gap-[30px]', 'justify-center', 'w-full');
   const gridClasses = classNames(
@@ -121,7 +122,8 @@
         }),
       );
       // set selected badge to first non frozen
-      selectedBadge = (reactiveBadges.find((badge) => !badge.frozen) || reactiveBadges[0]) as TBBadge;
+      selectedBadge = (reactiveBadges.find((badge) => !isBadgeLocked(badge as TBBadge)) ||
+        reactiveBadges[0]) as TBBadge;
       reactiveBadges = [...reactiveBadges];
       mediaCache.set(cacheKey, reactiveBadges);
       loading = false;
@@ -150,8 +152,14 @@
               {@const isSelected = selectedBadge.tokenId === badge.tokenId}
               {@const displayIndicator =
                 recruitingView &&
-                $activeRecruitmentStore?.badge?.tokenId === badge.tokenId &&
-                $activeRecruitmentStore?.status !== 'COMPLETED'}
+                $activeRecruitmentStore?.some((recruitment) => {
+                  log(recruitment.badge.tokenId, badge.tokenId, recruitment.status);
+                  return (
+                    recruitment.badge.tokenId === badge.tokenId &&
+                    recruitment.status !== 'COMPLETED' &&
+                    badge.badgeId === recruitment.badge.badgeId
+                  );
+                })}
               <div class="indicator w-full">
                 {#if displayIndicator}
                   <span

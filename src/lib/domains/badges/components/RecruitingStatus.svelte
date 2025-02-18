@@ -108,7 +108,7 @@
   const handleButtonClick = () => {
     if (status === RecruitmentStatus.UNFINISHED && recruitment) reset(recruitment);
     if (status === RecruitmentStatus.CAN_CLAIM) claim(badge);
-    if (status === RecruitmentStatus.ELIGIBLE) recruit(badge);
+    if (status === RecruitmentStatus.NOT_STARTED) recruit(badge);
     if (status === RecruitmentStatus.CAN_REFINE) {
       $influenceRecruitmentModal = true;
     }
@@ -146,7 +146,7 @@
     status === RecruitmentStatus.COMPLETED ||
     status === RecruitmentStatus.ALREADY_RECRUITED;
 
-  $: canRecruit = status === RecruitmentStatus.ELIGIBLE && recruitmentNotFinished;
+  $: canRecruit = status === RecruitmentStatus.NOT_STARTED && recruitmentNotFinished;
 
   $: isRefining = status === RecruitmentStatus.REFINING && $currentRecruitmentStore?.cooldowns.influence && influencing;
 

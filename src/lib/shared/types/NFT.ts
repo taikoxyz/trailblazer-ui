@@ -16,7 +16,7 @@ export interface NFT {
   tokenId: number;
   tokenUri: string;
   metadata: NFTMetadata;
-  frozen?: boolean;
+  frozenUntil?: number | null;
 }
 
 export interface TBBadge extends NFT {
