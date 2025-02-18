@@ -1,7 +1,7 @@
 <script lang="ts">
-  import { getContext } from 'svelte';
   import { t } from 'svelte-i18n';
 
+  import { competitionSlug } from '$lib/domains/leaderboard/stores/dappCompetitionStore';
   import { classNames } from '$shared/utils/classNames';
   import { getLogger } from '$shared/utils/logger';
 
@@ -62,6 +62,8 @@
     prizes: [],
   };
   let totalAmount = '';
+
+  $: edition = parseInt($competitionSlug);
 
   // Reactive block to update selectedCompetitionInfo and totalAmount
   $: {
@@ -133,8 +135,6 @@
     // Update totalAmount based on activeSeason
     totalAmount = $t(`leaderboard.thrillblazers.${edition}.prize_breakdown.total`);
   }
-
-  const edition = getContext('thrillblazerEdition') as number;
 </script>
 
 <h2 class={h2Classes}>

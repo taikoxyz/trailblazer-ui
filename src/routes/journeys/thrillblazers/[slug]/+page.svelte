@@ -6,6 +6,7 @@
   import ThrillblazerLeaderboard from '$lib/domains/leaderboard/components/Competition/DappCompetition/Thrillblazer/ThrillblazerLeaderboard.svelte';
   import type { DappLeaderboardItem } from '$lib/domains/leaderboard/dto/dapps.dto';
   import { leaderboardLoading } from '$lib/domains/leaderboard/stores/dappCompetitionLeaderboard';
+  import { competitionSlug } from '$lib/domains/leaderboard/stores/dappCompetitionStore.js';
   import type { PaginationInfo } from '$lib/shared/dto/CommonPageApiResponse';
   import { ActionButton } from '$shared/components/Button';
   import { Page } from '$shared/components/Page';
@@ -13,11 +14,11 @@
 
   export let data;
 
-  const { slug } = data;
-
   let pageInfo: PaginationInfo<DappLeaderboardItem>;
 
   $: ({ pageInfo } = $page.data);
+
+  $: competitionSlug.set(data.slug);
 
   const wrapperClasses = classNames('w-full', 'flex', 'justify-center', 'mt-[58px]');
   const buttonClasses = classNames('max-w-[280px]');
@@ -38,7 +39,7 @@
 </svelte:head>
 
 <Page>
-  <ThrillblazerLeaderboard {pageInfo} edition={parseInt(slug)} />
+  <ThrillblazerLeaderboard {pageInfo} edition={parseInt($competitionSlug)} />
 
   <div class={wrapperClasses}>
     <ActionButton class={buttonClasses} priority="primary" on:click={handleClick} withArrow>

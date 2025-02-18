@@ -5,6 +5,7 @@
   import { LastUpdated } from '$lib/domains/leaderboard/components';
   import Search from '$lib/domains/leaderboard/components/Search.svelte';
   import type { DappLeaderboardItem } from '$lib/domains/leaderboard/dto/dapps.dto';
+  import { competitionSlug } from '$lib/domains/leaderboard/stores/dappCompetitionStore';
   import type { LoadLeaderboardDataType } from '$lib/domains/leaderboard/types/shared/types';
   import type { PaginationInfo } from '$shared/dto/CommonPageApiResponse';
   import { classNames } from '$shared/utils/classNames';
@@ -156,7 +157,7 @@
 
   $: description = $t(`leaderboard.thrillblazers.${edition}.description`);
 
-  const edition = getContext('thrillblazerEdition') as number;
+  $: edition = parseInt($competitionSlug);
 </script>
 
 <div class={wrapperCLasses}>

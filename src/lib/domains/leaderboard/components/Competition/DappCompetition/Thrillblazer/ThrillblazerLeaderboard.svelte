@@ -19,19 +19,21 @@
   export let pageInfo: PaginationInfo<DappLeaderboardItem>;
   export let edition: number;
 
+  $: reactiveEdition = edition;
+
   const currentEdition: number = 3;
 
   $: totalItems = pageInfo?.total || 0;
-  $: hasEnded = edition !== currentEdition;
+  $: hasEnded = reactiveEdition !== currentEdition;
 
   function handlePageChange(page: number) {
     log('handlePageChange', page);
-    if (browser) fetchLeaderboard(page, CompetitionType.THRILLBLAZER, edition);
+    if (browser) fetchLeaderboard(page, CompetitionType.THRILLBLAZER, reactiveEdition);
   }
 
   async function loadLeaderboardData(page: number) {
     log('loadLeaderboardData', page);
-    if (browser) await fetchLeaderboard(page, CompetitionType.THRILLBLAZER, edition);
+    if (browser) await fetchLeaderboard(page, CompetitionType.THRILLBLAZER, reactiveEdition);
   }
 
   let leaderboard;
@@ -46,7 +48,7 @@
   setContext('loadCompetitionLeaderboardData', loadLeaderboardData);
   setContext('dappsCompetitionPageInfo', pageInfo);
 
-  setContext('thrillblazerEdition', edition);
+  setContext('thrillblazerEdition', reactiveEdition);
 </script>
 
 {#if edition <= currentEdition}

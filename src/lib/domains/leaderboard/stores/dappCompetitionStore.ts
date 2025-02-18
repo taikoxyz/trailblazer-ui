@@ -30,3 +30,5 @@ export async function fetchLeaderboard(page: number, type: CompetitionType, edit
     console.error(error);
   }
 }
+
+export const competitionSlug = writable('');
