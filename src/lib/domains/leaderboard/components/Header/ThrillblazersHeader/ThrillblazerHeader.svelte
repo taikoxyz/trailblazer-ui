@@ -5,10 +5,11 @@
   import { LastUpdated } from '$lib/domains/leaderboard/components';
   import Search from '$lib/domains/leaderboard/components/Search.svelte';
   import type { DappLeaderboardItem } from '$lib/domains/leaderboard/dto/dapps.dto';
+  import { competitionSlug } from '$lib/domains/leaderboard/stores/dappCompetitionStore';
   import type { LoadLeaderboardDataType } from '$lib/domains/leaderboard/types/shared/types';
   import type { PaginationInfo } from '$shared/dto/CommonPageApiResponse';
-  import { activeSeason } from '$shared/stores/activeSeason';
   import { classNames } from '$shared/utils/classNames';
+  import { numberToRoman } from '$shared/utils/numberToRoman';
 
   import PrizePool from './PrizePool.svelte';
 
@@ -127,7 +128,7 @@
     'md:text-[16px]',
     'md:font-normal',
     'md:leading-[24px]',
-    'md:my-[50px]',
+    'my-[50px]',
     //lg
     'lg:max-w-[538px]',
     //xl
@@ -152,9 +153,11 @@
 
   const lastUpdatedClasses = classNames('mt-[30px]', 'mb-[40px]', 'md:my-[20px]', 'lg:my-[10px]', 'lg:order-1');
 
-  const searchClasses = classNames('w-full', 'lg:w-[400px]', 'lg:order-1', 'order-last', 'z-0');
+  const searchClasses = classNames('w-full', 'lg:w-[400px]', 'lg:order-1', 'order-last', 'z-0', 'ml-[3px]');
 
-  $: description = $t(`leaderboard.thrillblazers.description.s${$activeSeason}`);
+  $: description = $t(`leaderboard.thrillblazers.${edition}.description`);
+
+  $: edition = parseInt($competitionSlug);
 </script>
 
 <div class={wrapperCLasses}>
@@ -164,6 +167,10 @@
   <img class={runesLeftClassesXl} src="/header/thrillblazer/runes-left-xl.svg" alt="runes" />
 
   <img src="/blazers.svg" alt="Thrillblazers" class={blazersClasses} />
+
+  {#if edition}
+    <h1 class="mt-[40px]">- Edition {numberToRoman(edition)} -</h1>
+  {/if}
 
   <span class={descriptionClasses}>
     {description}

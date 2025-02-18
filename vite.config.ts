@@ -17,6 +17,10 @@ export default defineConfig({
       followSymlinks: false,
     },
   },
+  define: {
+    'process.env.API_KEY': JSON.stringify(process.env.API_KEY),
+    'process.env.API_BASE_URL': JSON.stringify(process.env.PUBLIC_TRAILBLAZER_API_URL),
+  },
   esbuild: {
     sourcemap: true,
   },
