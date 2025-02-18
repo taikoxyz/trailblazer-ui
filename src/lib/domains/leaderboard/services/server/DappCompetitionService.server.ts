@@ -3,13 +3,15 @@ import { log } from 'debug';
 import { DappsCompetitionRepository } from '$lib/domains/leaderboard/repository/DappsCompetitionRepository';
 import type { PaginationInfo } from '$shared/dto/CommonPageApiResponse';
 
-import type { DappCompetitionAdapter } from '../adapter/server/DappCompetitionAdapter.server';
-import type { ProtocolDetailsAdapter } from '../adapter/server/ProtocolDetailsAdapter.server';
+import type { DappCompetitionAdapter } from '../../adapter/server/DappCompetitionAdapter.server';
+import type { ProtocolDetailsAdapter } from '../../adapter/server/ProtocolDetailsAdapter.server';
 // import { DappCompetitionAdapter } from '../adapter/DappCompetitionAdapter';
-import type { DappLeaderboardItem } from '../dto/dapps.dto';
-import { mapDappLeaderboardRow } from '../mapper/mapper';
-import type { DappLeaderboardPage, DappLeaderboardRow } from '../types/dapps/types';
-import type { UnifiedLeaderboardRow } from '../types/shared/types';
+import type { DappLeaderboardItem } from '../../dto/dapps.dto';
+import { mapDappLeaderboardRow } from '../../mapper/mapper';
+import { CompetitionType, type DappCompetitionArgs } from '../../types/competition/types';
+import type { DappLeaderboardPage, DappLeaderboardRow } from '../../types/dapps/types';
+import type { UnifiedLeaderboardRow } from '../../types/shared/types';
+import { getSeasonForChillblazerEdition, getSeasonForThrillblazerEdition } from '../../utils/mapEditionToSeason';
 
 export class DappCompetitionService {
   // adapters
@@ -29,20 +31,30 @@ export class DappCompetitionService {
     this.competitionAdapter = competitionAdapter;
   }
 
-  async getCompetitionData(args: PaginationInfo<DappLeaderboardItem>, season: number): Promise<DappLeaderboardPage> {
-    log('fetching competition data', args, season, this.competitionAdapter);
-
+  async getCompetitionData(args: DappCompetitionArgs): Promise<DappLeaderboardPage> {
+    log('fetching competition data', args, this.competitionAdapter);
     try {
+      const { competitionType, edition, pagination } = args;
+
+      let season = 0;
+      if (competitionType === CompetitionType.CHILLBLAZER) {
+        season = getSeasonForChillblazerEdition(edition);
+      } else if (competitionType === CompetitionType.THRILLBLAZER) {
+        season = getSeasonForThrillblazerEdition(edition);
+      } else {
+        throw new Error('Invalid competition type', competitionType);
+      }
+
       const leaderboardPage: DappLeaderboardPage = {
         items: [],
         lastUpdated: Date.now(),
-        pagination: { ...args },
+        pagination: { ...pagination },
       };
 
       log('competitionAdapter', this.competitionAdapter);
 
       const leaderboardData: PaginationInfo<DappLeaderboardItem> = await this.competitionAdapter.fetchCompetitionData(
-        args,
+        pagination,
         season,
       );
 
@@ -52,7 +64,8 @@ export class DappCompetitionService {
         log('fetching protocol details for leaderboard items', leaderboardData.items.length);
         const protocolDetailsPromises = leaderboardData.items.map(async (item) => {
           try {
-            const protocolDetails = await this.protocolAdapter.fetchProtocolDetails(item.slug, season);
+            const protocolDetails = await this.protocolAdapter.fetchProtocolDetails(item.slug, season, edition);
+            log('fetched protocol details', JSON.stringify(protocolDetails));
             const entry: DappLeaderboardRow = {
               name: item.name,
               data: protocolDetails.protocols,
@@ -65,7 +78,7 @@ export class DappCompetitionService {
               totalScore: item.score,
               rank: item.rank,
             };
-
+            log('mapped leaderboard row', entry);
             const unifiedRow: UnifiedLeaderboardRow = mapDappLeaderboardRow(entry);
 
             return unifiedRow;

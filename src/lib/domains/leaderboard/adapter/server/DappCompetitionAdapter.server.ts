@@ -65,7 +65,7 @@ export class DappCompetitionAdapter {
         .map(([key, value]) => [key, String(value)]),
     );
     // For editions 1 and 2, leave the slug unchanged; for edition 3+, append the dash and edition.
-    const endpointSlug = this.edition < 3 ? this.competitionUrl : `${this.competitionUrl}-${this.edition}`;
+    const endpointSlug = this.edition < 3 ? this.competitionUrl : `${this.competitionUrl}/${this.edition}`;
     const endpoint = `/v2/leaderboard/competition/${endpointSlug}?${params.toString()}`;
     log('Built endpoint:', endpoint);
     return endpoint;

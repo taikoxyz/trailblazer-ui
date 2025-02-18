@@ -1,3 +1,5 @@
+import { beforeEach,describe, expect, it, vi } from 'vitest';
+
 import { API_KEY } from '$env/static/private';
 import type { DappLeaderboardItem, DappLeaderboardPageApiResponse } from '$lib/domains/leaderboard/dto/dapps.dto';
 import type { PaginationInfo } from '$shared/dto/CommonPageApiResponse';
@@ -5,7 +7,6 @@ import { fetchFromApi } from '$shared/services/api/fetchClient';
 
 import { DappCompetitionAdapter } from './DappCompetitionAdapter.server';
 
-// Mock the fetchFromApi function
 vi.mock('$shared/services/api/fetchClient', () => ({
   fetchFromApi: vi.fn(),
 }));
@@ -13,7 +14,7 @@ vi.mock('$shared/services/api/fetchClient', () => ({
 describe('DappCompetitionAdapter', () => {
   let adapter: DappCompetitionAdapter;
   const competitionUrl = 'thrillblazer';
-  const edition = 3; // This will cause the adapter to append "-3" to the slug.
+  const edition = 3; // for edition >= 3, endpoint becomes "thrillblazer/3"
   const season = 1;
   const args: PaginationInfo<DappLeaderboardItem> = {
     items: [],
@@ -49,7 +50,8 @@ describe('DappCompetitionAdapter', () => {
         .filter(([, value]) => value !== undefined && value !== null)
         .map(([key, value]) => [key, String(value)]),
     );
-    const expectedSlug = edition < 3 ? competitionUrl : `${competitionUrl}-${edition}`;
+    // For edition >= 3, endpointSlug = `${competitionUrl}/${edition}`
+    const expectedSlug = `${competitionUrl}/${edition}`;
     const expectedEndpoint = `/v2/leaderboard/competition/${expectedSlug}?${params.toString()}`;
 
     // When

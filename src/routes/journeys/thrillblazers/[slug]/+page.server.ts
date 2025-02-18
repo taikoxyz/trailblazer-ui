@@ -1,7 +1,7 @@
 import { leaderboardConfig } from '$config';
 import type { DappLeaderboardItem } from '$lib/domains/leaderboard/dto/dapps.dto';
 import { thrillblazerInstances } from '$lib/domains/leaderboard/services/LeaderboardServiceInstances.server';
-import { getSeasonForThrillblazerEdition } from '$lib/domains/leaderboard/utils/mapEditionToSeason';
+import { CompetitionType } from '$lib/domains/leaderboard/types/competition/types';
 import type { PaginationInfo } from '$lib/shared/dto/CommonPageApiResponse';
 
 export const load = async ({ params }) => {
@@ -13,14 +13,18 @@ export const load = async ({ params }) => {
 
   const { slug } = params;
   const edition = Number(slug) || 1;
-  const season = getSeasonForThrillblazerEdition(edition);
+
   const service = thrillblazerInstances[edition];
   if (!service) {
     throw new Error(`No service found for edition ${edition}`);
   }
 
   try {
-    const page = await service.fetchCompetitionData(pageInfo, season);
+    const page = await service.fetchCompetitionData({
+      pagination: pageInfo,
+      competitionType: CompetitionType.THRILLBLAZER,
+      edition,
+    });
     if (page) {
       pageInfo = page.pagination;
     }

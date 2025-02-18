@@ -1,12 +1,10 @@
 import { type Writable, writable } from 'svelte/store';
 
-import type { PaginationInfo } from '$shared/dto/CommonPageApiResponse';
-
 import { DappCompetitionAdapter } from '../adapter/server/DappCompetitionAdapter.server';
 import { ProtocolDetailsAdapter } from '../adapter/server/ProtocolDetailsAdapter.server';
-import type { DappLeaderboardItem } from '../dto/dapps.dto';
 import { DappsCompetitionRepository } from '../repository/DappsCompetitionRepository';
-import { DappCompetitionService } from '../services/DappCompetitionService.server';
+import { DappCompetitionService } from '../services/server/DappCompetitionService.server';
+import type { DappCompetitionArgs } from '../types/competition/types';
 import type { DappLeaderboardPage } from '../types/dapps/types';
 
 export class DappCompetition {
@@ -40,7 +38,7 @@ export class DappCompetition {
     return this.store;
   }
 
-  async fetchCompetitionData(args: PaginationInfo<DappLeaderboardItem>, season: number) {
-    return this.service.getCompetitionData(args, season);
+  async fetchCompetitionData(args: DappCompetitionArgs) {
+    return this.service.getCompetitionData(args);
   }
 }

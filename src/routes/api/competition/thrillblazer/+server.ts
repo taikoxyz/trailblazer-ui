@@ -3,6 +3,7 @@ import type { RequestHandler } from '@sveltejs/kit';
 import { leaderboardConfig } from '$config';
 import type { DappLeaderboardItem } from '$lib/domains/leaderboard/dto/dapps.dto';
 import { thrillblazerInstances } from '$lib/domains/leaderboard/services/LeaderboardServiceInstances.server';
+import { CompetitionType } from '$lib/domains/leaderboard/types/competition/types';
 import { getSeasonForThrillblazerEdition } from '$lib/domains/leaderboard/utils/mapEditionToSeason';
 import type { PaginationInfo } from '$shared/dto/CommonPageApiResponse';
 import { getLogger } from '$shared/utils/logger';
@@ -26,7 +27,11 @@ export const GET: RequestHandler = async ({ url }) => {
     if (!instance) {
       throw new Error(`No instance for edition ${edition}`);
     }
-    const leaderboardPage = await instance.fetchCompetitionData(initialPagination, season);
+    const leaderboardPage = await instance.fetchCompetitionData({
+      pagination: initialPagination,
+      competitionType: CompetitionType.THRILLBLAZER,
+      edition,
+    });
     return new Response(JSON.stringify(leaderboardPage));
   } catch (error) {
     log('Error fetching leaderboard data:', error);

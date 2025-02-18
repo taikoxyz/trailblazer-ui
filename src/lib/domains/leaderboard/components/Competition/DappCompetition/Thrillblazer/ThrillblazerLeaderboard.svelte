@@ -6,6 +6,7 @@
   import { CampaignEndedInfoBox } from '$lib/domains/leaderboard/components/CampaignEndedInfoBox';
   import { AbstractLeaderboard, PointScore } from '$lib/domains/leaderboard/components/Template';
   import type { DappLeaderboardItem } from '$lib/domains/leaderboard/dto/dapps.dto';
+  import { leaderboardLoading } from '$lib/domains/leaderboard/stores/dappCompetitionLeaderboard';
   import { fetchLeaderboard, leaderboardStore } from '$lib/domains/leaderboard/stores/dappCompetitionStore';
   import { CompetitionType } from '$lib/domains/leaderboard/types/competition/types';
   import type { PaginationInfo } from '$lib/shared/dto/CommonPageApiResponse';
@@ -15,7 +16,6 @@
   import ThrillblazerHeader from '../../../Header/ThrillblazersHeader/ThrillblazerHeader.svelte';
 
   const log = getLogger('DappsLeaderboard');
-  export let loading = false;
   export let pageInfo: PaginationInfo<DappLeaderboardItem>;
   export let edition: number;
 
@@ -23,7 +23,6 @@
 
   $: totalItems = pageInfo?.total || 0;
   $: hasEnded = edition !== currentEdition;
-  $: isLoading = loading;
 
   function handlePageChange(page: number) {
     log('handlePageChange', page);
@@ -32,9 +31,7 @@
 
   async function loadLeaderboardData(page: number) {
     log('loadLeaderboardData', page);
-    loading = true;
     if (browser) await fetchLeaderboard(page, CompetitionType.THRILLBLAZER, edition);
-    loading = false;
   }
 
   let leaderboard;
@@ -59,7 +56,7 @@
     data={leaderboard.items}
     showTrophy={true}
     lastUpdated={new Date(leaderboard.lastUpdated)}
-    {isLoading}
+    isLoading={$leaderboardLoading}
     {handlePageChange}
     {totalItems}
     ended={hasEnded}
