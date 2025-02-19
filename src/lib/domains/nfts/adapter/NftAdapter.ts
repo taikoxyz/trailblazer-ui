@@ -94,7 +94,7 @@ export class NftAdapter {
           faction,
           frozenUntil: token.frozenUntil || null,
         } satisfies TBBadge;
-
+        log('fetchBadgesByMovementForUser badge', { badge });
         badgesByMovement[movement][faction].push(badge);
       });
 
@@ -131,6 +131,7 @@ export class NftAdapter {
       });
       log('fetchBadgesForUser response', { badgesGraphqlResponse });
       if (!badgesGraphqlResponse || !badgesGraphqlResponse.data || !badgesGraphqlResponse.data.tokens) {
+        log('fetchBadgesForUser no tokens found');
         // account does not exist, skip
         return badgesByFaction;
       }

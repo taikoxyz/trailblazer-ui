@@ -15,6 +15,7 @@ import { getLogger } from '$shared/utils/logger';
 
 import { NftAdapter } from '../adapter/NftAdapter';
 import { FactionNames, getFactionName } from '../types/badges/types';
+import { isBadgeLocked } from '$shared/utils/badges/isBadgeLocked';
 
 const log = getLogger('NftService');
 
@@ -172,7 +173,7 @@ export class NftService {
 
     return Object.entries(defaultFactionStructure).reduce((acc, [faction]) => {
       const nfts = factions[faction as keyof BadgesByFaction] || [];
-      const firstNftNotFrozen = nfts.find((nft) => !nft.frozen);
+      const firstNftNotFrozen = nfts.find((nft) => isBadgeLocked(nft) === false);
       const firstNft = firstNftNotFrozen || nfts[0] || null;
 
       acc[faction as keyof BadgesByFaction] = {

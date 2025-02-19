@@ -10,7 +10,7 @@
   import { ActionButton } from '$shared/components/Button';
   import { errorToast, successToast } from '$shared/components/NotificationToast';
   import { account } from '$shared/stores';
-  import { activeRecruitmentStore, endRecruitmentModal } from '$shared/stores/recruitment';
+  import { currentRecruitmentStore, endRecruitmentModal } from '$shared/stores/recruitment';
   import type { TBBadge } from '$shared/types/NFT';
   import { classNames } from '$shared/utils/classNames';
 
@@ -32,12 +32,12 @@
         return;
       }
 
-      if (!$activeRecruitmentStore || !$activeRecruitmentStore.badge) {
+      if (!$currentRecruitmentStore || !$currentRecruitmentStore.badge) {
         return;
       }
       isLoading = true;
-      await badgeRecruitmentService.endRecruitment($account.address, $activeRecruitmentStore.badge);
-      backToken = $activeRecruitmentStore.recruitedBadge!;
+      await badgeRecruitmentService.endRecruitment($account.address, $currentRecruitmentStore.badge);
+      backToken = $currentRecruitmentStore.recruitedBadge!;
       tick();
       isRevealed = true;
 
@@ -79,12 +79,10 @@
     </CoreModalDescription>
   </CoreModalHeader>
 
-  {#if $activeRecruitmentStore}
+  {#if $currentRecruitmentStore}
     <div class={badgeWrapperClasses}>
       <Flippable height="400px" width="300px" flip={isRevealed}>
-        <RecruitmentBadgeItem locked token={$activeRecruitmentStore.badge} slot="front">
-          {getMovementName($activeRecruitmentStore.badge)}
-        </RecruitmentBadgeItem>
+        <RecruitmentBadgeItem locked token={$currentRecruitmentStore.badge} slot="front">?</RecruitmentBadgeItem>
         <div slot="back">
           {#if backToken && backToken.movement !== undefined}
             <RecruitmentBadgeItem token={backToken}>

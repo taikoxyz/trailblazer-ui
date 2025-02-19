@@ -10,6 +10,7 @@
   import { getLogger } from '$shared/utils/logger';
 
   import FactionImage from './FactionImage.svelte';
+  import { isBadgeLocked } from '$shared/utils/badges/isBadgeLocked';
 
   export let inColor: boolean = true;
   export let token: TBBadge;
@@ -62,7 +63,8 @@
   $: isRecruiting = $currentRecruitmentStore?.cooldowns.claim
     ? new Date($currentRecruitmentStore.cooldowns.claim) > new Date()
     : false;
-  $: isBlurred = blurred || (token.frozen && (!isRecruiting || recruitingView));
+
+  $: isBlurred = blurred || (isBadgeLocked(token) && (!isRecruiting || recruitingView));
 </script>
 
 <div class={wrapperClasses} on:click={handleBadgeClick} role="button" on:keydown tabindex="0">

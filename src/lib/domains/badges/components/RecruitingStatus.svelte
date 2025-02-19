@@ -4,7 +4,12 @@
 
   import { Spinner } from '$shared/components';
   import ActionButton from '$shared/components/Button/ActionButton.svelte';
-  import { currentCycleStore, currentRecruitmentStore, influenceRecruitmentModal } from '$shared/stores/recruitment';
+  import {
+    activeRecruitmentStore,
+    currentCycleStore,
+    currentRecruitmentStore,
+    influenceRecruitmentModal,
+  } from '$shared/stores/recruitment';
   import { type ActiveRecruitment, RecruitmentStatus } from '$shared/types/BadgeRecruitment';
   import type { TBBadge } from '$shared/types/NFT';
   import { classNames } from '$shared/utils/classNames';
@@ -12,6 +17,7 @@
 
   import Countdown from './Countdown.svelte';
   import { getRecruitmentStatus } from '$shared/utils/badges/getRecruitmentStatus';
+  import { isDevelopmentEnv } from '$shared/utils/isDevelopmentEnv';
 
   const log = getLogger('BadgeRecruitmentItem');
 
@@ -19,9 +25,8 @@
 
   let loading = false;
 
-  let recruitment: ActiveRecruitment | null;
-  let activeCycle: number;
-  $: status = RecruitmentStatus.NOT_STARTED;
+  $: recruitment = null as ActiveRecruitment | null;
+  let activeCycle: number = $currentCycleStore || -1;
 
   const countdownClasses = classNames(
     'flex',
@@ -36,36 +41,20 @@
 
   const rowClasses = classNames('f-row', 'justify-between', 'font-bold', 'w-full', 'my-[8px]');
 
-  // const determineStatus = async (badge: TBBadge): Promise<RecruitmentStatus> => {
-  //   if (!badge) return RecruitmentStatus.NOT_STARTED;
-  //   log('Determining status for badge:', badge, recruitment);
-
-  //   influencing = $currentRecruitmentStore?.cooldowns.influence
-  //     ? new Date($currentRecruitmentStore.cooldowns.influence) > new Date()
-  //     : false;
-
-  //   recruiting = $currentRecruitmentStore?.cooldowns.claim
-  //     ? new Date($currentRecruitmentStore.cooldowns.claim) > new Date()
-  //     : false;
-
-  //   if (influencing) return RecruitmentStatus.REFINING;
-
-  //   if (recruitment && isCurrentRecruitment) {
-  //     log('Recruitment found for badge:', badge);
-  //     return recruitment.status;
-  //   }
-
-  //   if (badge.frozen) return RecruitmentStatus.LOCKED;
-  //   log('Eligible', badge);
-  //   return RecruitmentStatus.ELIGIBLE;
-  // };
-
-  $: $influenceRecruitmentModal && updateStatus();
-
   let updating = false;
 
   const updateStatus = async () => {
-    if (updating || !recruitment) return;
+    if (updating || !recruitment) {
+      log('Skipping update status for badge:', badge, recruitment);
+      return;
+    }
+    const filter = $activeRecruitmentStore?.filter((r) => r.badge.tokenId === badge.tokenId)[0];
+    if (!filter) {
+      status = RecruitmentStatus.NOT_STARTED;
+      log('No recruitment found for badge:', badge, status);
+      return;
+    }
+    recruitment = filter;
     updating = true;
     loading = true;
     log('Updating status for badge:', badge, recruitment);
@@ -76,7 +65,7 @@
     // Only update if status actually changed
     if (newStatus !== status) {
       status = newStatus;
-      log('Status updated:', status);
+      log('Status updated:', status, recruitment);
     }
   };
 
@@ -107,7 +96,7 @@
 
   const handleButtonClick = () => {
     if (status === RecruitmentStatus.UNFINISHED && recruitment) reset(recruitment);
-    if (status === RecruitmentStatus.CAN_CLAIM) claim(badge);
+    if (status === RecruitmentStatus.CAN_CLAIM && $currentRecruitmentStore) claim($currentRecruitmentStore);
     if (status === RecruitmentStatus.NOT_STARTED) recruit(badge);
     if (status === RecruitmentStatus.CAN_REFINE) {
       $influenceRecruitmentModal = true;
@@ -115,19 +104,23 @@
   };
 
   const recruit: (badge: TBBadge) => void = getContext('badgeRecruitRecruit');
-  const claim: (badge: TBBadge) => void = getContext('badgeRecruitClaim');
+  const claim: (recruitment: ActiveRecruitment) => void = getContext('badgeRecruitClaim');
   const reset: (recruitment: ActiveRecruitment) => void = getContext('badgeRecruitReset');
+
+  $: status = recruitment?.status || RecruitmentStatus.NOT_STARTED;
+
+  $: $influenceRecruitmentModal && updateStatus();
 
   $: isCurrentRecruitment = $currentRecruitmentStore && $currentRecruitmentStore?.badge?.tokenId === badge.tokenId;
 
-  $: recruitmentNotFinished = $currentRecruitmentStore?.status !== RecruitmentStatus.COMPLETED;
+  $: recruitmentFinished = status === RecruitmentStatus.COMPLETED;
 
   $: influencing = $currentRecruitmentStore?.cooldowns.influence
-    ? new Date($currentRecruitmentStore.cooldowns.influence) > new Date()
+    ? $currentRecruitmentStore.cooldowns.influence > new Date()
     : false;
 
   $: recruiting = $currentRecruitmentStore?.cooldowns.claim
-    ? new Date($currentRecruitmentStore.cooldowns.claim) > new Date()
+    ? $currentRecruitmentStore.cooldowns.claim > new Date()
     : false;
 
   $: $influenceRecruitmentModal && updateStatus();
@@ -135,22 +128,20 @@
   $: $currentRecruitmentStore?.cooldowns.claim && updateStatus();
   $: $currentRecruitmentStore?.cooldowns.influence && updateStatus();
 
-  $: canClaim = isCurrentRecruitment && $currentRecruitmentStore?.status === RecruitmentStatus.CAN_CLAIM;
+  $: canClaim = isCurrentRecruitment && status === RecruitmentStatus.CAN_CLAIM;
 
-  $: isRecruitingAnotherBadge =
-    ($currentRecruitmentStore && recruiting && !isCurrentRecruitment) ||
-    ($currentRecruitmentStore && recruitmentNotFinished && !isCurrentRecruitment);
+  $: isRecruitingAnotherBadge = $currentRecruitmentStore && recruiting && !isCurrentRecruitment;
 
   $: alreadyRecruitedThisSeason =
     status === RecruitmentStatus.LOCKED ||
     status === RecruitmentStatus.COMPLETED ||
     status === RecruitmentStatus.ALREADY_RECRUITED;
 
-  $: canRecruit = status === RecruitmentStatus.NOT_STARTED && recruitmentNotFinished;
+  $: canRecruit = status === RecruitmentStatus.NOT_STARTED && !recruitmentFinished;
 
   $: isRefining = status === RecruitmentStatus.REFINING && $currentRecruitmentStore?.cooldowns.influence && influencing;
 
-  $: canRefine = status === RecruitmentStatus.CAN_REFINE && isCurrentRecruitment && recruitmentNotFinished;
+  $: canRefine = status === RecruitmentStatus.CAN_REFINE && isCurrentRecruitment && !recruitmentFinished;
   $: disableInfluence = recruiting && influencing;
 
   $: displayRecrutingCooldown =
@@ -162,13 +153,6 @@
 </script>
 
 <h1>Recruitment</h1>
-
-{isRecruitingAnotherBadge} <br />
-{$currentRecruitmentStore} <br />
-{recruiting} <br />
-{isCurrentRecruitment} <br />
-{recruitmentNotFinished} <br />
-{!isCurrentRecruitment} <br />
 
 {#if loading}
   <ActionButton class={buttonClasses} priority="primary" disabled={true}><Spinner /></ActionButton>
@@ -225,52 +209,74 @@
 <br />
 <br />
 
-<h1>
-  Debug info
-  <span class="text-sm"> (to be removed)</span>
-</h1>
+{#if isDevelopmentEnv}
+  <h1>
+    Debug info
+    <span class="text-sm"> (to be removed)</span>
+  </h1>
 
-<div class={rowClasses}>
-  <span class="text-secondary-content">recruiting</span>
-  <span> {recruiting}</span>
-</div>
+  canClaim {canClaim}
 
-<div class={rowClasses}>
-  <span class="text-secondary-content">isCurrentRecruitment</span>
-  <span>{isCurrentRecruitment}</span>
-</div>
+  <div class={rowClasses}>
+    <span class="text-secondary-content">recruiting</span>
+    <span> {recruiting}</span>
+  </div>
 
-<div class={rowClasses}>
-  <span class="text-secondary-content">recruitmentNotFinished</span>
-  <span>{recruitmentNotFinished}</span>
-</div>
+  <div class={rowClasses}>
+    <span class="text-secondary-content">isCurrentRecruitment</span>
+    <span>{isCurrentRecruitment}</span>
+  </div>
 
-<div class={rowClasses}>
-  <span class="text-secondary-content">recruiting && !isCurrentRecruitment</span>
-  <span>{recruiting && !isCurrentRecruitment}</span>
-</div>
+  <div class={rowClasses}>
+    <span class="text-secondary-content">recruitmentFinished</span>
+    <span>{recruitmentFinished}</span>
+  </div>
 
-<div class={rowClasses}>
-  <span class="text-secondary-content">recruitmentNotFinished && !isCurrentRecruitment</span>
-  <span>{recruitmentNotFinished && !isCurrentRecruitment}</span>
-</div>
+  <div class={rowClasses}>
+    <span class="text-secondary-content">recruiting && !isCurrentRecruitment</span>
+    <span>{recruiting && !isCurrentRecruitment}</span>
+  </div>
 
-<div class={rowClasses}>
-  <span class="text-secondary-content">{$t('common.status')}</span>
-  <span>{status}</span>
-</div>
+  <div class={rowClasses}>
+    <span class="text-secondary-content">alreadyRecruitedThisSeason</span>
+    <span>{alreadyRecruitedThisSeason}</span>
+  </div>
 
-<div class={rowClasses}>
-  <span class="text-secondary-content">Influencing</span>
-  <span>{influencing ? 'Yes' : 'No'}</span>
-</div>
+  <div class={rowClasses}>
+    <span class="text-secondary-content">!recruitmentFinished && !isCurrentRecruitment</span>
+    <span>{!recruitmentFinished && !isCurrentRecruitment}</span>
+  </div>
 
-<div class={rowClasses}>
-  <span class="text-secondary-content">Recruiting</span>
-  <span>{recruiting ? 'Yes' : 'No'}</span>
-</div>
+  <div class={rowClasses}>
+    <span class="text-secondary-content">{$t('common.status')}</span>
+    <span>{status}</span>
+  </div>
 
-<div class={rowClasses}>
-  <span class="text-secondary-content">Cycle</span>
-  <span>{activeCycle}</span>
-</div>
+  <div class={rowClasses}>
+    <span class="text-secondary-content">Influencing</span>
+    <span>{influencing ? 'Yes' : 'No'}</span>
+  </div>
+
+  <div class={rowClasses}>
+    <span class="text-secondary-content">Recruiting</span>
+    <span>{recruiting ? 'Yes' : 'No'}</span>
+  </div>
+
+  <div class={rowClasses}>
+    <span class="text-secondary-content">Cycle</span>
+    <span>{activeCycle}</span>
+  </div>
+
+  <div class={rowClasses}>
+    <span class="text-secondary-content"> cooldowns.claim</span>
+    <span>{$currentRecruitmentStore?.cooldowns.claim}</span>
+  </div>
+
+  <div class={rowClasses}>
+    <span class="text-secondary-content">cooldowns.influence</span>
+    <span>{$currentRecruitmentStore?.cooldowns.influence}</span>
+  </div>
+
+  <textarea class="w-full h-[200px]">{JSON.stringify(badge, null, 2)}</textarea>
+  <textarea class="w-full h-[200px]">{JSON.stringify($currentRecruitmentStore, null, 2)}</textarea>
+{/if}

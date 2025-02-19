@@ -7,8 +7,8 @@
   import { Icon } from '$shared/components/Icon';
   import { errorToast, successToast } from '$shared/components/NotificationToast';
   import {
-    activeRecruitmentStore,
     badgeToRecruit,
+    currentRecruitmentStore,
     influenceRecruitmentModal,
     startedRecuitment,
     startRecruitmentModal,
@@ -41,8 +41,9 @@
       }
       const recruitment = await badgeRecruitmentService.startRecruitment(address, $badgeToRecruit);
 
-      // todo add to store?
       startedRecuitment.set(true);
+
+      $currentRecruitmentStore = recruitment;
 
       log('recruitment', recruitment);
 
@@ -104,7 +105,7 @@
     'items-center',
   );
 
-  $: badgeName = Object.values(FactionNames)[$activeRecruitmentStore?.badge?.badgeId as number] || '';
+  $: badgeName = Object.values(FactionNames)[$currentRecruitmentStore?.badge?.badgeId as number] || '';
 </script>
 
 <CoreModal bind:open={$startRecruitmentModal}>

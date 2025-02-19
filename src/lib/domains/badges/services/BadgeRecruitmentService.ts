@@ -61,11 +61,25 @@ export default class BadgeRecruitmentService {
    * Initiate a recruitment (migration) process
    * @param isAddressEqual
    * @param badge
-   * @returns {*} {Promise<IBadgeRecruitment>}
+   * @returns {*} {Promise<ActiveRecruitment>}
    */
-  async startRecruitment(address: Address, badge: TBBadge): Promise<IBadgeRecruitment> {
+  async startRecruitment(address: Address, badge: TBBadge): Promise<ActiveRecruitment> {
     log('startRecruitment', { address, badge });
-    return this.adapter.startRecruitment(address, badge);
+    const response: IBadgeRecruitment = await this.adapter.startRecruitment(address, badge);
+    // map to ActiveRecruitment
+    return {
+      cycle: Number(response.recruitmentCycle),
+      status: RecruitmentStatus.STARTED,
+      badge,
+      influences: {
+        whale: Number(response.whaleInfluences),
+        minnow: Number(response.minnowInfluences),
+      },
+      cooldowns: {
+        claim: new Date(Number(response.cooldownExpiration) * 1000),
+        influence: new Date(Number(response.influenceExpiration) * 1000),
+      },
+    };
   }
 
   /**
@@ -83,7 +97,7 @@ export default class BadgeRecruitmentService {
     const influenceExpiration = new Date(parseInt(logs[0].args.influenceExpiration!.toString()) * 1000);
     const whaleInfluences = parseInt(logs[0].args.whaleInfluences!.toString());
     const minnowInfluences = parseInt(logs[0].args.minnowInfluences!.toString());
-    const activeRecruitment = get(activeRecruitmentStore);
+    const activeRecruitment = get(currentRecruitmentStore);
     const cycle = parseInt(logs[0].args.recruitmentCycle!.toString());
 
     if (!activeRecruitment) {
@@ -93,7 +107,7 @@ export default class BadgeRecruitmentService {
     activeRecruitment.cycle = cycle;
     activeRecruitment.influences.minnow = minnowInfluences;
     activeRecruitment.cooldowns.influence = influenceExpiration;
-    activeRecruitmentStore.set(activeRecruitment);
+    currentRecruitmentStore.set(activeRecruitment);
     log('influenceRecruitment update', { activeRecruitment });
     return activeRecruitment;
   }
@@ -149,10 +163,11 @@ export default class BadgeRecruitmentService {
   /**
    * Get the recruitment status for a particular user
    * @param address
-   * @returns {*} {Promise<ActiveRecruitment>}
+   * @returns {*} {Promise<ActiveRecruitment[]>}
    */
   async getUserRecruitments(address: Address): Promise<ActiveRecruitment[] | null> {
     log('getUserRecruitments 1', { address });
+
     try {
       const [openRecruitments, cycleId] = await Promise.all([
         this.adapter.getRecruitmentStatusForUser(address),
@@ -165,55 +180,64 @@ export default class BadgeRecruitmentService {
       }
 
       log('openRecruitments', { openRecruitments, cycleId });
+
       const activeRecruitments = await Promise.all(
         openRecruitments.map(async (recruitment) => {
           log('getUserRecruitments map', { recruitment });
 
-          const mapped: ActiveRecruitment = {
-            cycle: Number(recruitment.recruitmentCycle),
-            influences: {
-              whale: Number(recruitment.whaleInfluences),
-              minnow: Number(recruitment.minnowInfluences),
-            },
-            cooldowns: {
-              claim: new Date(Number(recruitment.cooldownExpiration) * 1000),
-              influence: new Date(Number(recruitment.influenceExpiration) * 1000),
-            },
-            status: RecruitmentStatus.NOT_STARTED,
-            badge: await this.getDefaultBadge(Number(recruitment.s1BadgeId)),
+          const cycle = Number(recruitment.recruitmentCycle);
+          const influences = {
+            whale: Number(recruitment.whaleInfluences),
+            minnow: Number(recruitment.minnowInfluences),
           };
-          const status = await getRecruitmentStatus(mapped, cycleId);
-          log('getRecruitmentStatus', { recruitment, status, cycleId });
+          const cooldowns = {
+            claim: new Date(Number(recruitment.cooldownExpiration) * 1000),
+            influence: new Date(Number(recruitment.influenceExpiration) * 1000),
+          };
 
           const defaultBadgeData = await this.getDefaultBadge(Number(recruitment.s1BadgeId));
-
           const badge: TBBadge = {
             ...defaultBadgeData,
             tokenId: Number(recruitment.s1TokenId),
             badgeId: Number(recruitment.s1BadgeId),
           };
 
-          const activeRecruitment: ActiveRecruitment = {
-            cycle: Number(recruitment.recruitmentCycle),
-            influences: {
-              whale: Number(recruitment.whaleInfluences),
-              minnow: Number(recruitment.minnowInfluences),
-            },
-            cooldowns: {
-              claim: new Date(Number(recruitment.cooldownExpiration) * 1000),
-              influence: new Date(Number(recruitment.influenceExpiration) * 1000),
-            },
-            status,
+          let s2Badge: TBBadge | null = null;
+          if (recruitment.s2TokenId) {
+            s2Badge = {
+              ...defaultBadgeData,
+              tokenId: Number(recruitment.s2TokenId),
+              badgeId: Number(recruitment.s1BadgeId),
+            };
+          }
+
+          let activeRecruitment: ActiveRecruitment = {
+            cycle,
+            influences,
+            cooldowns,
+            status: RecruitmentStatus.NOT_STARTED, // Default status
             badge,
+            recruitedBadge: s2Badge ? s2Badge : undefined,
           };
-          log('getUserRecruitments', { recruitment });
+          log('getUserRecruitments activeRecruitment 1', { activeRecruitment });
+
+          // Determine actual recruitment status
+          const status = await getRecruitmentStatus(activeRecruitment, cycleId);
+          activeRecruitment = { ...activeRecruitment, status };
+
+          log('getRecruitmentStatus activeRecruitment 2', { activeRecruitment });
           return activeRecruitment;
         }),
       );
-      // filter out null
-      const filtered = activeRecruitments.filter((recruitment) => recruitment !== null);
-      activeRecruitmentStore.set(await Promise.all(filtered));
-      currentRecruitmentStore.set(activeRecruitments[filtered.length - 1]);
+
+      // Filter out null values
+      const filtered = activeRecruitments.filter(Boolean);
+      activeRecruitmentStore.set(filtered);
+
+      if (filtered.length > 0) {
+        currentRecruitmentStore.set(filtered[filtered.length - 1]);
+      }
+
       return filtered;
     } catch (error) {
       console.error('Error in getUserRecruitments', error);
