@@ -200,8 +200,8 @@
   };
 
   const claim = () => {
-    $endRecruitmentModal = true;
     log('Claim');
+    $endRecruitmentModal = true;
   };
 
   onMount(async () => {

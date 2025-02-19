@@ -12,6 +12,7 @@
   import FactionBadgeItem from '../FactionBadges/FactionBadgeItem.svelte';
   import UserNftItem from '../Taikoons/UserNFTItem.svelte';
   import Placeholder from './Placeholder.svelte';
+  import { isBadgeLocked } from '$shared/utils/badges/isBadgeLocked';
 
   const dispatch = createEventDispatcher();
 
@@ -36,7 +37,8 @@
     'collapse',
     'collapse-arrow',
     'rounded-[30px]',
-    'p-[25px]',
+    'p-[5px]',
+    'md:p-[25px]',
     'bg-primary-base-content',
     'f-col',
     'items-center',
@@ -46,6 +48,8 @@
     'w-full',
     'md:f-row',
     'f-col',
+    'p-[25px]',
+    'md:p-0',
     'justify-between',
     'md:items-center',
     'gap-[30px]',
@@ -60,7 +64,15 @@
     'items-center',
     'gap-[16px]',
   );
-  const collectionDetailsWrapperClasses = classNames('w-full', 'justify-between', 'f-row', 'space-x-[50px]');
+  const collectionDetailsWrapperClasses = classNames(
+    'w-full',
+    'justify-between',
+    'md:f-row',
+    'f-col',
+    'space-y-[20px]',
+    'md:space-y-0',
+    'md:space-x-[50px]',
+  );
   const collectionDetailsRowClasses = classNames('f-col', 'justify-between', 'font-bold', 'w-full');
   const badgeWrapperClasses = classNames(
     'grid',
@@ -94,9 +106,9 @@
     const base = Multipliers[movement];
     return badgesToDisplay.reduce((acc, { badge }) => {
       if (Array.isArray(badge)) {
-        return badge[0] && !badge[0].frozen ? acc + base : acc;
+        return badge[0] && !isBadgeLocked(badge[0]) ? acc + base : acc;
       }
-      return badge && !badge.frozen ? acc + base : acc;
+      return badge && !isBadgeLocked(badge) ? acc + base : acc;
     }, 0);
   };
 
@@ -202,7 +214,7 @@
     </label>
 
     <div
-      class="collapse-content peer-checked:max-h-[100rem] max-h-0 overflow-hidden peer-checked:overflow-visible transition-all">
+      class="collapse-content w-full px-0 peer-checked:max-h-[100rem] max-h-0 overflow-hidden peer-checked:overflow-visible transition-all">
       {#if loading}
         <div class="flex justify-center">
           <Spinner size="sm" />
@@ -215,7 +227,7 @@
               {#if badge && collectionType === NftTypes.BADGE && !Array.isArray(badge)}
                 <div class="flex flex-col items-center">
                   <FactionBadgeItem
-                    class="h-[130px] w-[130px] lg:w-[186px] lg:h-[186px] xl:w-[290px] xl:h-[290px] hover:{pinkShadowed}"
+                    class="size-[130px] lg:size-[186px] xl:size-[290px] max-w-[130px] lg:max-w-[186px] xl:max-w-[290px] hover:{pinkShadowed}"
                     token={badge}
                     hideBubbles
                     on:badgeClick={viewFullCollection} />

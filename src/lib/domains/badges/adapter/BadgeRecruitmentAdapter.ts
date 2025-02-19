@@ -91,63 +91,58 @@ export default class BadgeRecruitmentAdapter {
   async startRecruitment(address: Address, badge: TBBadge): Promise<IBadgeRecruitment> {
     log('startRecruitment', { address, badge });
     return new Promise((resolve, reject) => {
-      try {
-        const unwatch = watchContractEvent(wagmiConfig, {
-          address: badgeRecruitmentAddress[chainId],
-          abi: badgeRecruitmentAbi,
-          eventName: 'RecruitmentUpdated',
-          args: {
+      // Attach the event watcher
+      const unwatch = watchContractEvent(wagmiConfig, {
+        address: badgeRecruitmentAddress[chainId],
+        abi: badgeRecruitmentAbi,
+        eventName: 'RecruitmentUpdated',
+        args: { user: address },
+        onLogs(logs) {
+          log('startRecruitment logs', logs);
+          unwatch();
+          resolve({
+            whaleInfluences: 0n,
+            minnowInfluences: 0n,
+            influenceExpiration: 0n,
+            cooldownExpiration: 0n,
+            s1BadgeId: BigInt(badge.badgeId),
+            s1TokenId: BigInt(badge.tokenId),
+            s2TokenId: 0n,
             user: address,
-          },
-          onLogs(logs) {
-            log('startRecruitment logs', logs);
-            // const cooldownExpiration = new Date(parseInt(logs[0].args.cooldownExpiration!.toString()) * 1000);
-            // const s1TokenId = parseInt(logs[0].args.s1TokenId!.toString());
-            unwatch();
-            resolve({
-              whaleInfluences: 0n,
-              minnowInfluences: 0n,
-              influenceExpiration: 0n,
-              cooldownExpiration: 0n,
-              s1BadgeId: BigInt(badge.badgeId),
-              s1TokenId: BigInt(badge.tokenId),
-              s2TokenId: 0n,
-              user: address,
-              recruitmentCycle: 0n,
-            } satisfies IBadgeRecruitment);
-          },
+            recruitmentCycle: 0n,
+          } satisfies IBadgeRecruitment);
+        },
+        onError(error) {
+          unwatch();
+          reject(error);
+        },
+      });
+
+      // Simulate and write the contract
+      const badgeId = badge.badgeId as number;
+      log('startRecruitment with', badgeId, badge.tokenId);
+      simulateContract(wagmiConfig, {
+        abi: trailblazersBadgesAbi,
+        address: trailblazersBadgesAddress[chainId],
+        functionName: 'startRecruitment',
+        args: [BigInt(badgeId), BigInt(badge.tokenId)],
+        chainId,
+      })
+        .then(({ request }) => {
+          log('startRecruitment contract write success');
+          writeContract(wagmiConfig, request)
+            .then(() => {
+              log('startRecruitment contract write success');
+            })
+            .catch((err) => {
+              unwatch();
+              reject(err);
+            });
+        })
+        .catch((err) => {
+          unwatch();
+          reject(err);
         });
-        const badgeId = badge.badgeId as number;
-        log('startRecruitment with', badgeId, badge.tokenId);
-
-        simulateContract(wagmiConfig, {
-          abi: trailblazersBadgesAbi,
-          address: trailblazersBadgesAddress[chainId],
-          functionName: 'startRecruitment',
-          args: [BigInt(badgeId), BigInt(badge.tokenId)],
-          chainId,
-        })
-          .then(() => {
-            log('startRecruitment contract write success');
-          })
-          .catch(reject);
-
-        writeContract(wagmiConfig, {
-          abi: trailblazersBadgesAbi,
-          address: trailblazersBadgesAddress[chainId],
-          functionName: 'startRecruitment',
-          args: [BigInt(badgeId), BigInt(badge.tokenId)],
-          chainId,
-        })
-          .then(() => {
-            log('startRecruitment contract write success');
-          })
-          .catch(reject);
-      } catch (e) {
-        console.error(e);
-        log('startRecruitment error', e);
-        reject(e);
-      }
     });
   }
 
@@ -348,50 +343,51 @@ export default class BadgeRecruitmentAdapter {
     if (nft.badgeId === undefined) {
       throw new Error('Badge ID is required for ending recruitment');
     }
-
     const { r, s, v, points, hash } = await this._getRecruitmentSignature(address, nft.badgeId as number, 'end');
-
+    const { request } = await simulateContract(wagmiConfig, {
+      abi: badgeRecruitmentAbi,
+      address: badgeRecruitmentAddress[chainId],
+      functionName: 'endRecruitment',
+      args: [hash, Number(v), r, s, BigInt(Math.trunc(points))],
+      chainId,
+    });
     return new Promise((resolve, reject) => {
-      try {
-        // Send the transaction
-        writeContract(wagmiConfig, {
-          abi: badgeRecruitmentAbi,
-          address: badgeRecruitmentAddress[chainId],
-          functionName: 'endRecruitment',
-          args: [hash, Number(v), r, s, BigInt(Math.trunc(points))],
-          chainId,
-        })
-          .then(async (txHash) => {
-            // Wait for transaction confirmation
-            const client = getPublicClient(wagmiConfig);
-            if (!client) {
-              return reject(new Error('Could not get public client'));
-            }
-            log('endRecruitment txHash', txHash);
-            const receipt = await client.waitForTransactionReceipt({ hash: txHash });
-            log('endRecruitment receipt', receipt);
+      // Set up the event watcher
+      const unwatch = watchContractEvent(wagmiConfig, {
+        address: badgeRecruitmentAddress[chainId],
+        abi: badgeRecruitmentAbi,
+        eventName: 'RecruitmentComplete',
+        args: { user: address },
+        onLogs(logs) {
+          log('endRecruitment logs', logs);
+          resolve(logs);
+          unwatch();
+        },
+        onError(error) {
+          unwatch();
+          reject(error);
+        },
+      });
 
-            if (receipt.status !== 'success') {
-              return reject(new Error('Transaction failed'));
-            }
-            // Start listening for the event after transaction confirmation
-            const unwatch = watchContractEvent(wagmiConfig, {
-              address: badgeRecruitmentAddress[chainId],
-              abi: badgeRecruitmentAbi,
-              eventName: 'RecruitmentComplete',
-              args: { user: address },
-              onLogs(logs) {
-                log('endRecruitment logs', logs);
-                resolve(logs);
-                unwatch();
-              },
-            });
-          })
-          .catch(reject);
-      } catch (e) {
-        console.error(e);
-        reject(e);
-      }
+      writeContract(wagmiConfig, request)
+        .then(async (txHash) => {
+          const client = getPublicClient(wagmiConfig);
+          if (!client) {
+            unwatch();
+            return reject(new Error('Could not get public client'));
+          }
+          log('endRecruitment txHash', txHash);
+          const receipt = await client.waitForTransactionReceipt({ hash: txHash });
+          log('endRecruitment receipt', receipt);
+          if (receipt.status !== 'success') {
+            unwatch();
+            return reject(new Error('Transaction failed'));
+          }
+        })
+        .catch((err) => {
+          unwatch();
+          reject(err);
+        });
     });
   }
 

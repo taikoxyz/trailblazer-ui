@@ -33,7 +33,8 @@
   const getButton = () => {
     const recruitmentStatus = recruitment?.status;
     if (!recruitmentStatus) {
-      return buttons.StartRecruitment;
+      log('No recruitment status');
+      return buttons.View;
     }
     if (recruitmentStatus === RecruitmentStatus.UNFINISHED) {
       return buttons.Reset;
@@ -48,6 +49,10 @@
   };
 
   $: buttons = {
+    View: {
+      type: 'primary',
+      label: $t('badge_recruitment.buttons.view'),
+    },
     NotEligible: {
       disabled: true,
       type: 'primary',

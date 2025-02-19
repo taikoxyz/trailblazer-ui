@@ -19,7 +19,7 @@
   import RecruitmentBadgeItem from '../RecruitmentBadgeItem.svelte';
   import { CoreModal, CoreModalDescription, CoreModalFooter, CoreModalHeader, CoreModalTitle } from './components';
 
-  // Reactive state
+  // Reactive states
   let isLoading = false;
   let selectedMovement: Movements | null = null;
   let whaleBadge: TBBadge | null = null;
