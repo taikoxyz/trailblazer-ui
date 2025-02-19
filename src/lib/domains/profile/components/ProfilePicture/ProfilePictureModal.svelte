@@ -174,9 +174,10 @@
         ...$userProfile,
         personalInfo: {
           ...$userProfile?.personalInfo,
-          avatar: selectedPfp.metadata.image as string,
+          avatar: getNftImage(selectedPfp),
         },
       });
+
       isLoading = false;
       successToast({
         title: $t('pfp.modal.success.title'),
