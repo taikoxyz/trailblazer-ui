@@ -11,6 +11,7 @@
   import { activeSeason } from '$lib/shared/stores/activeSeason';
   import { Alert } from '$shared/components/Alert';
   import LeaderboardDisclaimer from '$shared/components/Disclaimer/LeaderboardDisclaimer.svelte';
+  import FeaturedCampaigns from '$shared/components/FeaturedCampaigns/FeaturedCampaigns.svelte';
   import { classNames } from '$shared/utils/classNames';
   import getConnectedAddress from '$shared/utils/getConnectedAddress';
 
@@ -84,6 +85,9 @@
       </Alert>
     </div>
 
+    <div class="m-[24px] md:m-0">
+      <FeaturedCampaigns title="Featured campaigns" />
+    </div>
     <div class={tabsClasses}>
       <ProfileTabs {isSelfProfile} />
 

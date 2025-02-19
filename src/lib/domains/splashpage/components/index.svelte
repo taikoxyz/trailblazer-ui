@@ -43,11 +43,11 @@
   <HeroSection />
   <div class={separator40pxClasses} />
 
-  <TrailblazerGuide />
+  <FeaturedCampaigns title="Featured campaigns" />
 
   <BannerCarousel interval={5000} transitionDuration={700} transitionDistance={200} {slides} withDots />
 
-  <FeaturedCampaigns />
+  <TrailblazerGuide />
 
   <div class={separator120pxClasses} />
 

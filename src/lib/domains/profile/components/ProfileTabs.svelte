@@ -75,7 +75,7 @@
 
   $: activeTab = 0;
 
-  const tabPanelClasses = classNames('mx-4', 'md:mx-0', 'relative', '');
+  const tabPanelClasses = classNames('mx-[24px]', 'md:mx-0', 'relative', '');
 
   const tabClasses = classNames(
     'text-center',
