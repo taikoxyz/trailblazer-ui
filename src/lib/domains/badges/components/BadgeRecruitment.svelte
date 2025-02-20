@@ -45,7 +45,7 @@
     'grid',
     'items-center',
     'gap-x-[26px]',
-    'px-[16px]',
+    'px-[25px]',
     'pt-[34px]',
     'md:px-[47px]',
     'body-bold',
@@ -254,7 +254,7 @@
         {#if isLoading}
           <LoadingBlobby />
         {:else if displayAvailableRecruitmentBadges.length}
-          <div class="f-row gap-[80px]">
+          <div class="md:f-row f-col gap-[20px] md:gap-[80px]">
             <div class="f-col space-y-[6px]">
               <div class="text-secondary-content">Current cycle</div>
               <div>{cycleId}</div>

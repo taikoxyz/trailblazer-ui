@@ -32,12 +32,8 @@
       name: 'NFT Collection',
       content: ProfileNftCollection,
     },
-    {
-      slug: 'badge-recruitment',
-      name: 'Badge Recruitment',
-      content: BadgeRecruitment,
-    },
-    ...(isSelfProfile
+
+    ...(isSelfProfile || isDevelopmentEnv
       ? [
           {
             slug: 'badge-recruitment',
