@@ -17,6 +17,7 @@
   import NewsCard from './NewsCard/NewsCard.svelte';
   import MultiplierCard from './ProfileMultiplierCard/MultiplierCard.svelte';
   import SeasonDetails from './SeasonDetails.svelte';
+  import FeaturedCampaigns from '$shared/components/FeaturedCampaigns/FeaturedCampaigns.svelte';
   // import ProfileSeasonBonusCard from './ProfileSeasonBonusCard/ProfileSeasonBonusCard.svelte';
 
   let isSelfProfile: boolean;
