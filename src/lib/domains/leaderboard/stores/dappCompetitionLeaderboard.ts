@@ -13,3 +13,5 @@ const currentDappCompetitionLeaderboard = writable<DappLeaderboardPage>({
 });
 
 export default currentDappCompetitionLeaderboard;
+
+export const leaderboardLoading = writable<boolean>(false);

@@ -4,20 +4,32 @@ import { type Address, getAddress } from 'viem';
 import type { ProtocolApiResponse } from '$lib/domains/leaderboard/dto/protocol.dto';
 import type { NFT } from '$lib/shared/types/NFT';
 
+import type { ProtocolCacheEntry } from '../types/competition/types';
+
+const ONE_HOUR_MS = 60 * 60 * 1000;
+
 function createProtocolDetailsStore() {
-  const store = writable<Map<string, ProtocolApiResponse>>(new Map());
+  const store = writable<Map<string, ProtocolCacheEntry>>(new Map());
 
   return {
     subscribe: store.subscribe,
     get: (protocolSlug: string, season: number, type: string): ProtocolApiResponse | undefined => {
       const cacheKey = `${type}_${protocolSlug}_${season}`;
       const cache = get(store);
-      return cache.get(cacheKey);
+      const entry = cache.get(cacheKey);
+      if (!entry) return undefined;
+      if (Date.now() - entry.timestamp > ONE_HOUR_MS) {
+        // Expire this entry
+        cache.delete(cacheKey);
+        store.set(cache);
+        return undefined;
+      }
+      return entry.data;
     },
     set: (protocolSlug: string, season: number, type: string, data: ProtocolApiResponse): void => {
+      const cacheKey = `${type}_${protocolSlug}_${season}`;
       store.update((cache) => {
-        const cacheKey = `${type}_${protocolSlug}_${season}`;
-        cache.set(cacheKey, data);
+        cache.set(cacheKey, { data, timestamp: Date.now() });
         return cache;
       });
     },

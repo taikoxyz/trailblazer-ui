@@ -1,4 +1,4 @@
-<script lang="ts">
+<!-- <script lang="ts">
   import { setContext } from 'svelte';
   import { t } from 'svelte-i18n';
 
@@ -70,4 +70,4 @@
   showPagination={true}
   {season}
   headerComponent={ChillblazerHeader}
-  scoreComponent={PointScore} />
+  scoreComponent={PointScore} /> -->

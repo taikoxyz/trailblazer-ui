@@ -19,6 +19,8 @@
 
   export let lastUpdated: Date;
 
+  const edition = getContext<number>('chillblazerEdition');
+
   const wrapperCLasses = classNames('f-col', 'relative', 'mt-[40px]', 'w-full', 'items-center');
 
   const h1Classes = classNames(
@@ -90,34 +92,76 @@
     'xl:my-[40px]',
   );
 
-  const competitionInfo: CompetitionInfo = {
+  // Initialize reactive variables
+  let selectedCompetitionInfo: CompetitionInfo = {
     title: '',
-    description: $t('leaderboard.gaming.banner.description'),
-    prizeTitle: $t('leaderboard.gaming.prize.1'),
-    prizeSubtitle: $t('leaderboard.chillblazers.s2.prize.2'),
-    prizes: [
-      {
-        image: '/first.svg',
-        amount: $t('leaderboard.chillblazers.s2.prize_breakdown.first.amount'),
-      },
-      {
-        image: '/second.svg',
-        amount: $t('leaderboard.chillblazers.s2.prize_breakdown.second.amount'),
-      },
-      {
-        image: '/third.svg',
-        amount: $t('leaderboard.chillblazers.s2.prize_breakdown.third.amount'),
-      },
-      {
-        image: '/default-prize.svg',
-        amount: $t('leaderboard.chillblazers.s2.prize_breakdown.fourth.amount'),
-      },
-      {
-        image: '/default-prize.svg',
-        amount: $t('leaderboard.chillblazers.s2.prize_breakdown.fifth.amount'),
-      },
-    ],
+    description: '',
+    prizeTitle: '',
+    prizeSubtitle: '',
+    prizes: [],
   };
+
+  $: description = '';
+
+  $: {
+    if (edition === 1) {
+      description = $t(`leaderboard.chillblazers.${edition}.description`);
+      selectedCompetitionInfo = {
+        title: '',
+        description: $t('leaderboard.gaming.banner.description'),
+        prizeTitle: $t('leaderboard.gaming.prize.1'),
+        prizeSubtitle: $t(`leaderboard.chillblazers.${edition}.prize`),
+        prizes: [
+          {
+            image: '/first.svg',
+            amount: $t(`leaderboard.chillblazers.${edition}.prize_breakdown.first.amount`),
+          },
+          {
+            image: '/second.svg',
+            amount: $t(`leaderboard.chillblazers.${edition}.prize_breakdown.second.amount`),
+          },
+          {
+            image: '/third.svg',
+            amount: $t(`leaderboard.chillblazers.${edition}.prize_breakdown.third.amount`),
+          },
+          {
+            image: '/default-prize.svg',
+            amount: $t(`leaderboard.chillblazers.${edition}.prize_breakdown.fourth.amount`),
+          },
+        ],
+      };
+    } else if (edition === 2) {
+      description = $t(`leaderboard.chillblazers.${edition}.description`);
+      selectedCompetitionInfo = {
+        title: '',
+        description: $t('leaderboard.gaming.banner.description'),
+        prizeTitle: $t('leaderboard.gaming.prize.1'),
+        prizeSubtitle: $t(`leaderboard.chillblazers.${edition}.prize`),
+        prizes: [
+          {
+            image: '/first.svg',
+            amount: $t(`leaderboard.chillblazers.${edition}.prize_breakdown.first.amount`),
+          },
+          {
+            image: '/second.svg',
+            amount: $t(`leaderboard.chillblazers.${edition}.prize_breakdown.second.amount`),
+          },
+          {
+            image: '/third.svg',
+            amount: $t(`leaderboard.chillblazers.${edition}.prize_breakdown.third.amount`),
+          },
+          {
+            image: '/default-prize.svg',
+            amount: $t(`leaderboard.chillblazers.${edition}.prize_breakdown.fourth.amount`),
+          },
+          {
+            image: '/default-prize.svg',
+            amount: $t(`leaderboard.chillblazers.${edition}.prize_breakdown.fifth.amount`),
+          },
+        ],
+      };
+    }
+  }
 
   const h2Classes = classNames(
     'text-center',
@@ -245,8 +289,7 @@
   <img src="/blazers.svg" alt="Thrillblazers" class={blazersClasses} />
 
   <span class={descriptionClasses}>
-    Chill-Blazers is back and launches Dec 17th. Calling all gaming and SocialFi dApps: Blaze new trails, fuel Taiko's
-    momentum, and seize your chance for legendary rewards!
+    {description}
   </span>
 
   <img src="/header/thrillblazer/runes-right.svg" alt="runes" class={runesRightClasses} />
@@ -256,10 +299,10 @@
     Prize pool
     <span class="text-white align-baseline">&#x25C6</span>
   </h2>
-  <h3 class={h3Classes}>{competitionInfo.prizeSubtitle}</h3>
+  <h3 class={h3Classes}>{selectedCompetitionInfo.prizeSubtitle}</h3>
 
   <div class={priceWrapperClasses}>
-    {#each competitionInfo.prizes as prize}
+    {#each selectedCompetitionInfo.prizes as prize}
       <div class={prizeItemClasses}>
         <img src={prize.image} alt="{prize.amount} TAIKO Tokens" class={prizeImageClasses} />
         <div class={prizeInfoClasses}>
