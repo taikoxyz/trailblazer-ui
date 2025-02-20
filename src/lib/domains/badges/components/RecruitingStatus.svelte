@@ -12,12 +12,12 @@
   } from '$shared/stores/recruitment';
   import { type ActiveRecruitment, RecruitmentStatus } from '$shared/types/BadgeRecruitment';
   import type { TBBadge } from '$shared/types/NFT';
+  import { getRecruitmentStatus } from '$shared/utils/badges/getRecruitmentStatus';
   import { classNames } from '$shared/utils/classNames';
+  import { isDevelopmentEnv } from '$shared/utils/isDevelopmentEnv';
   import { getLogger } from '$shared/utils/logger';
 
   import Countdown from './Countdown.svelte';
-  import { getRecruitmentStatus } from '$shared/utils/badges/getRecruitmentStatus';
-  import { isDevelopmentEnv } from '$shared/utils/isDevelopmentEnv';
 
   const log = getLogger('BadgeRecruitmentItem');
 

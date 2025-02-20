@@ -1,16 +1,18 @@
 <script lang="ts">
+  import { t } from 'svelte-i18n';
+
   import BadgeRecruitmentItem from '$lib/domains/badges/components/BadgeRecruitmentItem.svelte';
   import Countdown from '$lib/domains/badges/components/Countdown.svelte';
   import RecruitingStatus from '$lib/domains/badges/components/RecruitingStatus.svelte';
-  import { getMovementName, Multipliers, type Movements } from '$lib/domains/profile/types/types';
+  import { getMovementName, type Movements, Multipliers } from '$lib/domains/profile/types/types';
   import { Icon } from '$shared/components/Icon';
   import { ExplorerLink } from '$shared/components/Links';
   import { currentRecruitmentStore } from '$shared/stores/recruitment';
   import type { TBBadge } from '$shared/types/NFT';
   import { isBadgeLocked } from '$shared/utils/badges/isBadgeLocked';
   import { classNames } from '$shared/utils/classNames';
+
   import { FactionBadgeItem } from '../FactionBadges';
-  import { t } from 'svelte-i18n';
 
   const dialogId = `dialog-${crypto.randomUUID()}`;
   const detailsUuid = crypto.randomUUID();

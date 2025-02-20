@@ -361,10 +361,7 @@
         "title": "Season 2 claiming is now live!"
       },
       "success": {
-        "buttons": [
-          "Add to wallet",
-          "Earn more TAIKO"
-        ],
+        "buttons": ["Add to wallet", "Earn more TAIKO"],
         "text": "Congratulations! You've successfully claimed your tokens. You can now add them to your wallet.",
         "title": "Claim successful"
       }
@@ -576,8 +573,7 @@
             "description": "Our journey concluded on December 18th, 2024. Congratulations to the winners!",
             "title": "Season ended"
           },
-          "prize": {
-          }
+          "prize": {}
         }
       }
     },

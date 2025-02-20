@@ -6,11 +6,11 @@
   import { Icon } from '$shared/components/Icon';
   import { currentRecruitmentStore } from '$shared/stores/recruitment';
   import type { TBBadge } from '$shared/types/NFT';
+  import { isBadgeLocked } from '$shared/utils/badges/isBadgeLocked';
   import { classNames } from '$shared/utils/classNames';
   import { getLogger } from '$shared/utils/logger';
 
   import FactionImage from './FactionImage.svelte';
-  import { isBadgeLocked } from '$shared/utils/badges/isBadgeLocked';
 
   export let inColor: boolean = true;
   export let token: TBBadge;

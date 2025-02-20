@@ -7,12 +7,12 @@
   import { NftTypes } from '$lib/domains/profile/types/UserNFTs';
   import { Spinner } from '$shared/components';
   import type { BadgeDetails, NFT, TBBadge } from '$shared/types/NFT';
+  import { isBadgeLocked } from '$shared/utils/badges/isBadgeLocked';
   import { classNames } from '$shared/utils/classNames';
 
   import FactionBadgeItem from '../FactionBadges/FactionBadgeItem.svelte';
   import UserNftItem from '../Taikoons/UserNFTItem.svelte';
   import Placeholder from './Placeholder.svelte';
-  import { isBadgeLocked } from '$shared/utils/badges/isBadgeLocked';
 
   const dispatch = createEventDispatcher();
 

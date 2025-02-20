@@ -8,11 +8,11 @@ import { activeRecruitmentStore, currentCycleStore, currentRecruitmentStore } fr
 import { type ActiveRecruitment, type IBadgeRecruitment, RecruitmentStatus } from '$shared/types/BadgeRecruitment';
 import type { TBBadge } from '$shared/types/NFT';
 import { getRecruitmentStatus } from '$shared/utils/badges/getRecruitmentStatus';
+import { getCurrentSeasonEnd } from '$shared/utils/getCurrentSeasonEnd';
 import { getLogger } from '$shared/utils/logger';
 
 import BadgeRecruitmentAdapter from '../adapter/BadgeRecruitmentAdapter';
 import type { RecruitmentCompleteLog, RecruitmentUpdatedLog } from '../dto/RecruitmentLogs';
-import { getCurrentSeasonEnd } from '$shared/utils/getCurrentSeasonEnd';
 
 const log = getLogger('BadgeRecruitmentService');
 

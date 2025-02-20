@@ -1,5 +1,4 @@
 <script lang="ts">
-  import * as Sentry from '@sentry/sveltekit';
   import { tick } from 'svelte';
   import Flippable from 'svelte-flip';
   import { t } from 'svelte-i18n';

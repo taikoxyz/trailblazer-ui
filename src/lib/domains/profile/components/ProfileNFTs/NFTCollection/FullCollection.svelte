@@ -7,14 +7,14 @@
   import { Icon } from '$shared/components/Icon';
   import { activeRecruitmentStore } from '$shared/stores/recruitment';
   import type { NFT, TBBadge } from '$shared/types/NFT';
+  import { isBadgeLocked } from '$shared/utils/badges/isBadgeLocked';
   import { classNames } from '$shared/utils/classNames';
   import { getLogger } from '$shared/utils/logger';
+  import { isMobile } from '$shared/utils/responsiveCheck';
 
   import { FactionBadgeItem } from '../FactionBadges';
-  import FullCollectionSidePanel from './FullCollectionSidePanel.svelte';
-  import { isBadgeLocked } from '$shared/utils/badges/isBadgeLocked';
-  import { isMobile } from '$shared/utils/responsiveCheck';
   import FullCollectionMobileModal from './FullCollectionMobileModal.svelte';
+  import FullCollectionSidePanel from './FullCollectionSidePanel.svelte';
 
   const wrapperClasses = classNames(
     'f-col',

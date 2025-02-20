@@ -1,10 +1,8 @@
-import client from "https://api.goldsky.com/api/public/project_clz85cxrvng3n01ughcv5e7hg/subgraphs/tbz-taikoons-and-snaefells-hekla/0.0.1/gn";
-import type {
-        
-      } from "@apollo/client";
-import { readable } from "svelte/store";
-import type { Readable } from "svelte/store";
-import gql from "graphql-tag"
+import client from 'https://api.goldsky.com/api/public/project_clz85cxrvng3n01ughcv5e7hg/subgraphs/tbz-taikoons-and-snaefells-hekla/0.0.1/gn';
+import type {} from '@apollo/client';
+import { readable } from 'svelte/store';
+import type { Readable } from 'svelte/store';
+import gql from 'graphql-tag';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -14,16 +12,16 @@ export type MakeEmpty<T extends { [key: string]: unknown }, K extends keyof T> =
 export type Incremental<T> = T | { [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
-  ID: { input: string; output: string; }
-  String: { input: string; output: string; }
-  Boolean: { input: boolean; output: boolean; }
-  Int: { input: number; output: number; }
-  Float: { input: number; output: number; }
-  BigDecimal: { input: any; output: any; }
-  BigInt: { input: any; output: any; }
-  Bytes: { input: any; output: any; }
-  Int8: { input: any; output: any; }
-  Timestamp: { input: any; output: any; }
+  ID: { input: string; output: string };
+  String: { input: string; output: string };
+  Boolean: { input: boolean; output: boolean };
+  Int: { input: number; output: number };
+  Float: { input: number; output: number };
+  BigDecimal: { input: any; output: any };
+  BigInt: { input: any; output: any };
+  Bytes: { input: any; output: any };
+  Int8: { input: any; output: any };
+  Timestamp: { input: any; output: any };
 };
 
 export type Account = {
@@ -31,7 +29,6 @@ export type Account = {
   id: Scalars['Bytes']['output'];
   tokens: Array<Token>;
 };
-
 
 export type AccountTokensArgs = {
   first?: InputMaybe<Scalars['Int']['input']>;
@@ -61,12 +58,12 @@ export type Account_Filter = {
 
 export enum Account_OrderBy {
   Id = 'id',
-  Tokens = 'tokens'
+  Tokens = 'tokens',
 }
 
 export enum Aggregation_Interval {
   Day = 'day',
-  Hour = 'hour'
+  Hour = 'hour',
 }
 
 export type BlockChangedFilter = {
@@ -82,7 +79,7 @@ export type Block_Height = {
 /** Defines the order direction, either ascending or descending */
 export enum OrderDirection {
   Asc = 'asc',
-  Desc = 'desc'
+  Desc = 'desc',
 }
 
 export type Query = {
@@ -95,18 +92,15 @@ export type Query = {
   tokens: Array<Token>;
 };
 
-
 export type Query_MetaArgs = {
   block?: InputMaybe<Block_Height>;
 };
-
 
 export type QueryAccountArgs = {
   block?: InputMaybe<Block_Height>;
   id: Scalars['ID']['input'];
   subgraphError?: _SubgraphErrorPolicy_;
 };
-
 
 export type QueryAccountsArgs = {
   block?: InputMaybe<Block_Height>;
@@ -118,13 +112,11 @@ export type QueryAccountsArgs = {
   where?: InputMaybe<Account_Filter>;
 };
 
-
 export type QueryTokenArgs = {
   block?: InputMaybe<Block_Height>;
   id: Scalars['ID']['input'];
   subgraphError?: _SubgraphErrorPolicy_;
 };
-
 
 export type QueryTokensArgs = {
   block?: InputMaybe<Block_Height>;
@@ -146,18 +138,15 @@ export type Subscription = {
   tokens: Array<Token>;
 };
 
-
 export type Subscription_MetaArgs = {
   block?: InputMaybe<Block_Height>;
 };
-
 
 export type SubscriptionAccountArgs = {
   block?: InputMaybe<Block_Height>;
   id: Scalars['ID']['input'];
   subgraphError?: _SubgraphErrorPolicy_;
 };
-
 
 export type SubscriptionAccountsArgs = {
   block?: InputMaybe<Block_Height>;
@@ -169,13 +158,11 @@ export type SubscriptionAccountsArgs = {
   where?: InputMaybe<Account_Filter>;
 };
 
-
 export type SubscriptionTokenArgs = {
   block?: InputMaybe<Block_Height>;
   id: Scalars['ID']['input'];
   subgraphError?: _SubgraphErrorPolicy_;
 };
-
 
 export type SubscriptionTokensArgs = {
   block?: InputMaybe<Block_Height>;
@@ -322,7 +309,7 @@ export enum Token_OrderBy {
   OwnerId = 'owner__id',
   Season = 'season',
   TokenId = 'tokenId',
-  Uri = 'uri'
+  Uri = 'uri',
 }
 
 export type _Block_ = {
@@ -358,7 +345,5 @@ export enum _SubgraphErrorPolicy_ {
   /** Data will be returned even if the subgraph has indexing errors */
   Allow = 'allow',
   /** If the subgraph has indexing errors, data will be omitted. The default. */
-  Deny = 'deny'
+  Deny = 'deny',
 }
-
-

@@ -9,10 +9,10 @@
   import { ExplorerLink } from '$shared/components/Links';
   import { currentRecruitmentStore } from '$shared/stores/recruitment';
   import type { TBBadge } from '$shared/types/NFT';
+  import { isBadgeLocked } from '$shared/utils/badges/isBadgeLocked';
   import { classNames } from '$shared/utils/classNames';
 
   import { FactionBadgeItem } from '../FactionBadges';
-  import { isBadgeLocked } from '$shared/utils/badges/isBadgeLocked';
 
   export let selectedBadge: TBBadge;
   export let movement: Movements | 'taikoon' | 'snaefell';

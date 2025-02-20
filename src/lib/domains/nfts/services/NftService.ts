@@ -11,11 +11,11 @@ import {
   type TBBadge,
 } from '$lib/shared/types/NFT';
 import { globalAxiosConfig } from '$shared/services/api/axiosClient';
+import { isBadgeLocked } from '$shared/utils/badges/isBadgeLocked';
 import { getLogger } from '$shared/utils/logger';
 
 import { NftAdapter } from '../adapter/NftAdapter';
 import { FactionNames, getFactionName } from '../types/badges/types';
-import { isBadgeLocked } from '$shared/utils/badges/isBadgeLocked';
 
 const log = getLogger('NftService');
 
