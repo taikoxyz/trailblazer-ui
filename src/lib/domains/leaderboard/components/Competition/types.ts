@@ -9,4 +9,5 @@ export type CompetitionInfo = {
   prizeTitle: string;
   prizeSubtitle: string;
   prizes: Prize[];
+  qualifyingPositions: number;
 };

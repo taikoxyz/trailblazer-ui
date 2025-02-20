@@ -39,7 +39,9 @@
 </svelte:head>
 
 <Page>
-  <ThrillblazerLeaderboard {pageInfo} edition={parseInt($competitionSlug)} />
+  {#key data.slug}
+    <ThrillblazerLeaderboard {pageInfo} edition={parseInt($competitionSlug)} />
+  {/key}
 
   <div class={wrapperClasses}>
     <ActionButton class={buttonClasses} priority="primary" on:click={handleClick} withArrow>
