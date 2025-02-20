@@ -61,7 +61,7 @@ export class DappCompetitionService {
       log('fetched leaderboardData', args, leaderboardData.items?.length);
 
       if (leaderboardData.items && leaderboardData.items.length > 0) {
-        log('fetching protocol details for leaderboard items', leaderboardData.items.length);
+        log('fetching protocol details for leaderboard items', leaderboardData.items.length, edition);
         const protocolDetailsPromises = leaderboardData.items.map(async (item) => {
           try {
             const protocolDetails = await this.protocolAdapter.fetchProtocolDetails(item.slug, season, edition);
