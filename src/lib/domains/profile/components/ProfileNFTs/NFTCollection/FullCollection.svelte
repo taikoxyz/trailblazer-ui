@@ -13,14 +13,27 @@
   import { FactionBadgeItem } from '../FactionBadges';
   import FullCollectionSidePanel from './FullCollectionSidePanel.svelte';
   import { isBadgeLocked } from '$shared/utils/badges/isBadgeLocked';
+  import { isMobile } from '$shared/utils/responsiveCheck';
+  import FullCollectionMobileModal from './FullCollectionMobileModal.svelte';
 
-  const wrapperClasses = classNames('p-[20px]', 'f-col', 'gap-[30px]', 'justify-center', 'w-full');
+  const wrapperClasses = classNames(
+    'f-col',
+    '-mx-[15px]',
+    'flex-1 w-full max-w-none',
+    'md:p-[20px]',
+    'f-col',
+    'gap-[30px]',
+    'items-center',
+    'justify-center',
+    'w-full',
+  );
   const gridClasses = classNames(
     'grid',
     'grid-cols-2',
     'xl:grid-cols-4',
     'h-fit',
-    'gap-[24px]',
+    'md:gap-[24px]',
+    'gap-[12px]',
     'w-[325px]',
     'xl:w-[888px]',
   );
@@ -76,12 +89,15 @@
   // Cache for media by movement
   const mediaCache: Map<string, NFT[]> = new Map();
 
-  $: selectedBadge = (clickedBadge || reactiveBadges[0]) as TBBadge;
+  $: selectedBadge = $isMobile ? null : ((clickedBadge || reactiveBadges[0]) as TBBadge);
+
+  $: detailsOpen = $isMobile && selectedBadge !== null;
 
   const handleBadgeClick = async (event: CustomEvent<{ badge: TBBadge }>) => {
     log('handleBadgeClick', event.detail.badge.tokenId);
 
     const badge = event.detail.badge;
+    selectedBadge = badge;
     const metadata = await nftService.getNFTMetadata(selectedBadge);
     if (metadata) {
       if ('badgeId' in badge) {
@@ -133,23 +149,23 @@
 
 <div class={wrapperClasses}>
   {#if hasBackButton}
-    <button on:click={closeView} class="btn btn-ghost rounded-full w-[50px] h-[50px] bg-neutral-background">
+    <button on:click={closeView} class="self-start btn btn-ghost rounded-full w-[50px] h-[50px] bg-neutral-background">
       <Icon type="chevron-left" />
     </button>
   {/if}
   <div class="f-row w-full gap-[24px]">
-    {#if selectedBadge && 'badgeId' in selectedBadge}
+    {#if selectedBadge && 'badgeId' in selectedBadge && !$isMobile}
       <FullCollectionSidePanel {selectedBadge} {movement} {recruitingView} />
     {/if}
 
     {#if loading}
       <Spinner size="sm" />
     {:else}
-      <div class="flex justify-center">
+      <div class="flex w-full justify-center items-center md:justify-start md:items-start">
         <div class={gridClasses}>
           {#each reactiveBadges as badge}
             {#if 'badgeId' in badge}
-              {@const isSelected = selectedBadge.tokenId === badge.tokenId}
+              {@const isSelected = selectedBadge && selectedBadge.tokenId === badge.tokenId}
               {@const displayIndicator =
                 recruitingView &&
                 $activeRecruitmentStore?.some((recruitment) => {
@@ -185,3 +201,5 @@
     {/if}
   </div>
 </div>
+
+<FullCollectionMobileModal bind:detailsOpen {selectedBadge} {movement} {recruitingView} />
