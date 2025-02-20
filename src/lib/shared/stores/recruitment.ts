@@ -13,6 +13,6 @@ export const currentCycleStore = writable<number | null>(null);
 export const influenceRecruitmentModal = writable<boolean>(false);
 export const startRecruitmentModal = writable<boolean>(false);
 export const recruitmentApprovalModal = writable<boolean>(false);
-export const endRecruitmentModal = writable<boolean>(true);
+export const endRecruitmentModal = writable<boolean>(false);
 
 export const badgeToRecruit = writable<TBBadge | null>(null);
