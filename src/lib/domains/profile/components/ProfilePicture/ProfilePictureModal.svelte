@@ -125,9 +125,6 @@
 
   const selectorGridItemImageClasses = classNames(
     'rounded-[10px]',
-    'border',
-    'border-[3px]',
-    'border-transparent',
     'hover:border-primary',
     'transition-all',
     'max-w-full',
@@ -135,6 +132,7 @@
     'h-[30vw]',
     'md:w-[124px]',
     'md:h-[124px]',
+    'skeleton',
   );
 
   $: modal = undefined as HTMLDialogElement | undefined;
@@ -285,26 +283,26 @@
             <div class={spinnerWrapperClasses}>
               <Spinner size="lg" />
             </div>
-          {/if}
-
-          {#if possiblePFPs.length > 0}
-            <div class={selectorGridClasses}>
-              {#each possiblePFPs as pfp}
-                <button on:click={() => selectPfp(pfp)} class={selectorGridItemClasses}>
-                  <img
-                    src={getNftImage(pfp)}
-                    alt="pfp"
-                    class={selectorGridItemImageClasses}
-                    style="image-rendering:pixelated" />
-                </button>
-              {/each}
-            </div>
-          {/if}
-          {#if possiblePFPs.length === 0}
-            <div class={noNftsClasses}>
-              You don't have any eligible NFTs. Currently only Season 1 badges can be used. But we will enable more
-              soon!
-            </div>
+          {:else}
+            {#if possiblePFPs.length > 0}
+              <div class={selectorGridClasses}>
+                {#each possiblePFPs as pfp}
+                  <button on:click={() => selectPfp(pfp)} class={selectorGridItemClasses}>
+                    <img
+                      src={getNftImage(pfp)}
+                      alt="pfp"
+                      class={selectorGridItemImageClasses}
+                      style="image-rendering:pixelated" />
+                  </button>
+                {/each}
+              </div>
+            {/if}
+            {#if possiblePFPs.length === 0}
+              <div class={noNftsClasses}>
+                You don't have any eligible NFTs. Currently only Season 1 badges can be used. But we will enable more
+                soon!
+              </div>
+            {/if}
           {/if}
         </div>
       {/if}

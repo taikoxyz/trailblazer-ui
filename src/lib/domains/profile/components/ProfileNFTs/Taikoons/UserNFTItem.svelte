@@ -1,12 +1,11 @@
 <script lang="ts">
   import type { NFT } from '$shared/types/NFT';
   import { classNames } from '$shared/utils/classNames';
+  import getNftImage from '$shared/utils/nfts/getNftImage';
 
   import MultiplierBadge from '../MultiplierBadge.svelte';
 
   export let token: NFT;
-
-  $: image = token.metadata.image as string;
 
   // CSS classes
   const wrapperClasses = classNames(
@@ -42,18 +41,11 @@
     'items-end',
     'gap-[5px]',
   );
-
-  function prefixIpfsGateway(url: string) {
-    if (url.startsWith('http') || url.startsWith('/')) {
-      return url;
-    }
-    return `https://ipfs.io/ipfs/${url}`;
-  }
 </script>
 
 <div class={wrapperClasses}>
   <div class={imageWrapperClasses}>
-    <img src={prefixIpfsGateway(image)} alt={`NFT #${token.tokenId}`} class={imageClasses} />
+    <img src={getNftImage(token)} alt={`NFT #${token.tokenId}`} class={imageClasses} />
   </div>
 
   <div class={bubbleWrapperClasses}>

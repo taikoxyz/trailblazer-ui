@@ -7,7 +7,11 @@ import { chainId } from '../chain';
 
 export default function getNftImage(nft: NFT) {
   if (isAddressEqual(nft.address, taikoonTokenAddress[chainId])) {
-    return `https://ipfs.io/ipfs/${nft.metadata.image}`;
+    const image = nft.metadata.image as string;
+    if (image.startsWith('http') || image.startsWith('/')) {
+      return image;
+    }
+    return `https://ipfs.io/ipfs/${image}`;
   }
   return nft.metadata.image as string;
 }
