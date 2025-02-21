@@ -1,6 +1,6 @@
 import type { PaginationInfo, UnifiedLeaderboardRow } from '$lib/domains/leaderboard/types/shared/types';
 
-export type CexCompetitionRow = {
+export type CexCompetitionItem = {
   name: string;
   score: number;
   rank: number;

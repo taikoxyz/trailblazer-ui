@@ -1,5 +1,5 @@
 import type { CommonPageApiResponse } from '$lib/shared/dto/CommonPageApiResponse';
 
-import type { CexCompetitionRow } from '../types/cex/types';
+import type { CexCompetitionItem } from '../types/cex/types';
 
-export type CexLeaderboardPageApiResponse = CommonPageApiResponse<CexCompetitionRow>;
+export type CexLeaderboardPageApiResponse = CommonPageApiResponse<CexCompetitionItem>;

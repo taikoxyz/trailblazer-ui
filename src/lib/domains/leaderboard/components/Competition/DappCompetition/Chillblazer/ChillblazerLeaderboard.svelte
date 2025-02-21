@@ -6,7 +6,7 @@
   import { CampaignEndedInfoBox } from '$lib/domains/leaderboard/components/CampaignEndedInfoBox';
   import { AbstractLeaderboard, PointScore } from '$lib/domains/leaderboard/components/Template';
   import type { DappLeaderboardItem } from '$lib/domains/leaderboard/dto/dapps.dto';
-  import { fetchLeaderboard, leaderboardStore } from '$lib/domains/leaderboard/stores/dappCompetitionStore';
+  import { dappLeaderboardStore, fetchLeaderboard } from '$lib/domains/leaderboard/stores/dappCompetitionStore';
   import { CompetitionType } from '$lib/domains/leaderboard/types/competition/types';
   import type { PaginationInfo } from '$lib/shared/dto/CommonPageApiResponse';
   import { activeSeason } from '$shared/stores/activeSeason';
@@ -41,7 +41,7 @@
   }
 
   let leaderboard;
-  $: leaderboard = $leaderboardStore;
+  $: leaderboard = $dappLeaderboardStore;
 
   onMount(() => {
     if (browser && $activeSeason && pageInfo) {

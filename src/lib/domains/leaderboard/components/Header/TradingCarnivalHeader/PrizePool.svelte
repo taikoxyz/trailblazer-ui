@@ -2,7 +2,7 @@
   import { classNames } from '$shared/utils/classNames';
 
   const wrapperClasses = classNames(
-    'w-[150px]',
+    'w-[200px]',
     'items-center',
     'justify-center',
     'f-col',

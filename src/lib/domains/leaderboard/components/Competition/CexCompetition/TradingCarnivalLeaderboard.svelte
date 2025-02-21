@@ -1,13 +1,12 @@
 <script lang="ts">
-  import { setContext } from 'svelte';
+  import { onMount, setContext } from 'svelte';
   import { t } from 'svelte-i18n';
 
-  import { leaderboardConfig } from '$config';
+  import { browser } from '$app/environment';
   import { CampaignEndedInfoBox } from '$lib/domains/leaderboard/components/CampaignEndedInfoBox';
   import { AbstractLeaderboard, PointScore } from '$lib/domains/leaderboard/components/Template';
-  import { cexCompetitionService } from '$lib/domains/leaderboard/services/LeaderboardServiceInstances';
-  import { currentCexCompetitionLeaderboard } from '$lib/domains/leaderboard/stores/cexLeaderboard';
-  import { type CexCompetitionRow, CexCompetitionType } from '$lib/domains/leaderboard/types/cex/types';
+  import { cexLeaderboardStore, fetchLeaderboard } from '$lib/domains/leaderboard/stores/cexCompetitionStore';
+  import { type CexCompetitionItem, CexCompetitionType } from '$lib/domains/leaderboard/types/cex/types';
   import type { PaginationInfo } from '$lib/shared/dto/CommonPageApiResponse';
   import { activeSeason } from '$shared/stores/activeSeason';
   import { getLogger } from '$shared/utils/logger';
@@ -15,61 +14,68 @@
   import TradingCarnivalHeader from '../../Header/TradingCarnivalHeader/TradingCarnivalHeader.svelte';
 
   const log = getLogger('TradingCarnivalLeaderboard');
-  let headers = ['No.', 'Address', 'Points'];
 
-  export let loading = false;
-  export let pageInfo: PaginationInfo<CexCompetitionRow>;
-  const endedSeasons: number[] = [2];
+  export let pageInfo: PaginationInfo<CexCompetitionItem>;
+  export let edition: number;
 
-  // The seasons this campaign was active
-  const seasons: number[] = [2, 3];
+  const currentEdition: number = 1;
 
-  $: totalItems = pageInfo?.total || 0;
-  $: pageSize = pageInfo?.size || leaderboardConfig.pageSizeXlarge;
-  $: hasEnded = endedSeasons.includes(Number($activeSeason));
+  let headers = ['No.', 'Name', 'Points'];
 
-  $: selectedType = CexCompetitionType.SPOT as CexCompetitionType;
-
-  function handlePageChange(page: number) {
-    loadLeaderboardData(page);
-  }
-
-  async function loadLeaderboardData(page: number, address = '') {
-    loading = true;
-    const args: PaginationInfo<CexCompetitionRow> = { page, size: pageSize, total: totalItems, address };
-    log('loadLeaderboardData', args);
-    const leaderboardData = await cexCompetitionService.getCexCompetitionLeaderboard(args, selectedType, $activeSeason);
-    log('leadeboardData', leaderboardData);
-
-    totalItems = leaderboardData?.pagination.total || $currentCexCompetitionLeaderboard.items.length;
-    loading = false;
-  }
+  $: reactiveEdition = edition;
 
   $: $activeSeason && loadLeaderboardData(pageInfo.page);
 
+  $: totalItems = pageInfo?.total || 0;
+  $: hasEnded = reactiveEdition !== currentEdition;
+
+  $: selectedType = CexCompetitionType.SPOT as CexCompetitionType;
+
+  let leaderboard;
+  $: leaderboard = $cexLeaderboardStore;
+
+  async function handlePageChange(page: number) {
+    log('handlePageChange', page);
+    if (browser) await fetchLeaderboard(page, selectedType, reactiveEdition);
+  }
+
+  async function loadLeaderboardData(page: number) {
+    log('loadLeaderboardData', page);
+    if (browser) await fetchLeaderboard(page, selectedType, reactiveEdition);
+  }
+
+  onMount(() => {
+    if (browser && $activeSeason && pageInfo) {
+      loadLeaderboardData(pageInfo.page);
+    }
+  });
+
   setContext('loadCexCompetitionLeaderboardData', loadLeaderboardData);
   setContext('loadCexCompetitionPageInfo', pageInfo);
+
+  setContext('cexCompetitionEdition', reactiveEdition);
 </script>
 
-{#if seasons.includes(Number($activeSeason))}
-  <AbstractLeaderboard
-    {headers}
-    season={$activeSeason}
-    data={$currentCexCompetitionLeaderboard.items}
-    lastUpdated={new Date($currentCexCompetitionLeaderboard.lastUpdated)}
-    showPagination={true}
-    showDetailsColumn={false}
-    showTrophy={true}
-    qualifyingPositions={3}
-    isLoading={loading}
-    ended={hasEnded}
-    endedComponent={CampaignEndedInfoBox}
-    endTitleText={$t(`leaderboard.trading_carnival.ended.s${$activeSeason}.title`)}
-    endDescriptionText={$t(`leaderboard.trading_carnival.ended.s${$activeSeason}.description`)}
-    {handlePageChange}
-    {totalItems}
-    headerComponent={TradingCarnivalHeader}
-    scoreComponent={PointScore} />
-{:else}
-  No data
-{/if}
+{#key edition}
+  {#if edition <= currentEdition}
+    <AbstractLeaderboard
+      {headers}
+      season={$activeSeason}
+      data={leaderboard.items}
+      lastUpdated={new Date(leaderboard.lastUpdated)}
+      showPagination={true}
+      showDetailsColumn={false}
+      showTrophy={true}
+      qualifyingPositions={3}
+      ended={hasEnded}
+      endedComponent={CampaignEndedInfoBox}
+      endTitleText={$t(`leaderboard.trading_carnival.ended.s${edition}.title`)}
+      endDescriptionText={$t(`leaderboard.trading_carnival.ended.s${edition}.description`)}
+      {handlePageChange}
+      {totalItems}
+      headerComponent={TradingCarnivalHeader}
+      scoreComponent={PointScore} />
+  {:else}
+    No data
+  {/if}
+{/key}

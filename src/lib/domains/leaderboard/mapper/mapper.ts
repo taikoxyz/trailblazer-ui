@@ -3,7 +3,7 @@ import type { DefiDappLeaderboardRow } from '$lib/domains/leaderboard/types/defi
 import type { UnifiedLeaderboardRow } from '$lib/domains/leaderboard/types/shared/types';
 import type { UserLeaderboardRow } from '$lib/domains/leaderboard/types/user/types';
 
-import type { CexCompetitionRow } from '../types/cex/types';
+import type { CexCompetitionItem } from '../types/cex/types';
 import type { LiquidityCompetitionRow } from '../types/liquidity/types';
 
 export function mapDappLeaderboardRow(row: DappLeaderboardRow): UnifiedLeaderboardRow {
@@ -61,7 +61,7 @@ export function mapLiquidityLeaderboardRow(row: LiquidityCompetitionRow): Unifie
   };
 }
 
-export function mapCexLeaderboardRow(row: CexCompetitionRow): UnifiedLeaderboardRow {
+export function mapCexLeaderboardRow(row: CexCompetitionItem): UnifiedLeaderboardRow {
   return {
     name: row.name,
     rank: row.rank,
