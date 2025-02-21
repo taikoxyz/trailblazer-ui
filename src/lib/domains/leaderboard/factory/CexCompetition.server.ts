@@ -2,7 +2,7 @@ import { type Writable } from 'svelte/store';
 
 import { CexCompetitionAdapter } from '../adapter/server/CexCompetitionAdapter.server';
 import { CexCompetitionRepository } from '../repository/CexCompetitionRepository';
-import { CexCompetitionService } from '../services/server/CexCompetitionService.service.server.';
+import { CexCompetitionService } from '../services/server/CexCompetitionService.server.';
 import { cexLeaderboardStore } from '../stores/cexCompetitionStore';
 import type { CexCompetitionPage } from '../types/cex/types';
 import type { CexCompetitionArgs } from '../types/competition/types';

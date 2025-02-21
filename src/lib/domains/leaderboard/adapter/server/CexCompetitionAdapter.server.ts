@@ -1,6 +1,5 @@
 import { API_KEY } from '$env/static/private';
 import type { PaginationInfo } from '$lib/shared/dto/CommonPageApiResponse';
-import { getAxiosInstance, globalAxiosConfig } from '$lib/shared/services/api/axiosClient';
 import { fetchFromApi } from '$shared/services/api/fetchClient';
 import { getLogger } from '$shared/utils/logger';
 
@@ -55,29 +54,32 @@ export class CexCompetitionAdapter {
   }
 
   /**
-   *  Fetches the data for a single exchange from the /leaderboard/competition/tradingcarnival endpoint
+   * Fetches the leaderboard position for a single exchange from the /leaderboard/competition/cex endpoint.
    *
-   * @param {PaginationInfo<>} args
-   * @param {number} season
-   * @param {CexCompetitionType} type of competition
-   * @param {string} address
-   * @return {*}  {Promise<PaginationInfo<CexCompetitionItem>>}
-   * @memberof CexCompetitionAdapter
+   * @param {number} season the season for which data is fetched
+   * @param {CexCompetitionType} type the type of competition
+   * @param {string} exchange the exchange name
+   * @return {Promise<PaginationInfo<CexCompetitionItem>>}
    */
   async fetchLeaderboardPositionForAddress(
     season: number,
     type: CexCompetitionType,
     exchange: string,
   ): Promise<PaginationInfo<CexCompetitionItem>> {
-    log('fetching leaderboard data', season, exchange);
-    const client = getAxiosInstance(season);
-    const response = await client.get(`/v2/leaderboard/competition/cex/${type}`, {
-      ...globalAxiosConfig,
-      params: { name: exchange },
+    log('Fetching leaderboard position data', season, exchange);
+    const params = new URLSearchParams({ name: exchange });
+    const endpoint = `/v2/leaderboard/competition/cex/${type}?${params.toString()}`;
+    log('Built endpoint for position:', endpoint);
+    const response = await fetchFromApi<CexLeaderboardPageApiResponse>(endpoint, season, {
+      method: 'GET',
+      headers: { 'x-api-key': `${API_KEY}` },
     });
-    log('cexLeaderboardPosition', response.data.data);
-
-    return response.data.data;
+    if (!response || !response.data) {
+      log('No valid data returned for position, using default values.');
+      return { page: 0, size: 10, total: 0, items: [] };
+    }
+    log('cexLeaderboardPosition', response.data);
+    return response.data;
   }
 
   private buildEndpoint(args: PaginationInfo<CexCompetitionItem>, type: CexCompetitionType): string {

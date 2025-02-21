@@ -51,8 +51,6 @@ export class DappCompetitionService {
         pagination: { ...pagination },
       };
 
-      log('competitionAdapter', this.competitionAdapter);
-
       const leaderboardData: PaginationInfo<DappLeaderboardItem> = await this.competitionAdapter.fetchCompetitionData(
         pagination,
         season,
