@@ -1,11 +1,11 @@
-import { beforeEach,describe, expect, it, vi } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { API_KEY } from '$env/static/private';
 import type { PaginationInfo } from '$shared/dto/CommonPageApiResponse';
 import { fetchFromApi } from '$shared/services/api/fetchClient';
 
 import type { CexLeaderboardPageApiResponse } from '../../dto/cex.dto';
-import { type CexCompetitionItem,CexCompetitionType } from '../../types/cex/types';
+import { type CexCompetitionItem, CexCompetitionType } from '../../types/cex/types';
 import { CexCompetitionAdapter } from './CexCompetitionAdapter.server';
 
 vi.mock('$shared/services/api/fetchClient', () => ({

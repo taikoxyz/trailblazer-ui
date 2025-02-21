@@ -1,5 +1,5 @@
 import { cexLeaderboardStore } from '../stores/cexCompetitionStore';
-import { type CexCompetitionPage,CexCompetitionType } from '../types/cex/types';
+import { type CexCompetitionPage, CexCompetitionType } from '../types/cex/types';
 import type { CexCompetitionArgs } from '../types/competition/types';
 import { CexCompetition } from './CexCompetition.server';
 

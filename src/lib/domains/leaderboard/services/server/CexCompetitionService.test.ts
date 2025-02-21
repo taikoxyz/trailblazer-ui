@@ -6,7 +6,7 @@ import type { PaginationInfo } from '$shared/dto/CommonPageApiResponse';
 import { CexCompetitionAdapter } from '../../adapter/server/CexCompetitionAdapter.server';
 import { mapCexLeaderboardRow } from '../../mapper/mapper';
 import { CexCompetitionRepository } from '../../repository/CexCompetitionRepository';
-import { type CexCompetitionItem, type CexCompetitionPage,CexCompetitionType } from '../../types/cex/types';
+import { type CexCompetitionItem, type CexCompetitionPage, CexCompetitionType } from '../../types/cex/types';
 import { type CexCompetitionArgs } from '../../types/competition/types';
 import type { UnifiedLeaderboardRow } from '../../types/shared/types';
 import { getSeasonForCexEdition } from '../../utils/mapEditionToSeason';
