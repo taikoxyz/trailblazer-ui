@@ -80,7 +80,7 @@ export class ProfileService implements IProfileService {
       }
       // address = '0x081A919A2e2e43EEdfc6a618B76be5A2381adc00';
       // Fetch data from multiple endpoints
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+
       const [pointsAndRank, userDomainInfo, activity, nftsResult, avatarResult] = await Promise.all([
         this.apiAdapter.fetchUserPointsAndRank(address, season),
         this.fetchDomainInfo(address),

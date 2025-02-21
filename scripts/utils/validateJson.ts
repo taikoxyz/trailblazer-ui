@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import Ajv, { type Schema } from 'ajv';
 
 import { PluginLogger } from './PluginLogger';
