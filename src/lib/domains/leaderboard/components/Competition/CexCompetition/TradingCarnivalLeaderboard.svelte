@@ -11,12 +11,14 @@
   import { activeSeason } from '$shared/stores/activeSeason';
   import { getLogger } from '$shared/utils/logger';
 
-  import TradingCarnivalHeader from '../../Header/TradingCarnivalHeader/TradingCarnivalHeader.svelte';
+  import TradingCarnivalHeader from './TradingCarnivalHeader/TradingCarnivalHeader.svelte';
 
   const log = getLogger('TradingCarnivalLeaderboard');
 
   export let pageInfo: PaginationInfo<CexCompetitionItem>;
   export let edition: number;
+
+  $: isObfuscated = new Date() <= new Date('2025-02-27T12:00:00Z');
 
   const currentEdition: number = 1;
 
@@ -56,9 +58,11 @@
   setContext('cexCompetitionEdition', reactiveEdition);
 </script>
 
+{isObfuscated}
 {#key edition}
   {#if edition <= currentEdition}
     <AbstractLeaderboard
+      obfuscate={isObfuscated}
       {headers}
       season={$activeSeason}
       data={leaderboard.items}

@@ -38,6 +38,8 @@
   export let showDetailsColumn = true;
   export let qualifyingPositions = 3;
 
+  export let obfuscate = false;
+
   const log = getLogger('AbstractLeaderboard');
 
   // Reactive Variables
@@ -187,6 +189,7 @@
                 : null}
 
             <TableRow
+              {obfuscate}
               {entry}
               {index}
               {rank}

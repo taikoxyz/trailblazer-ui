@@ -7,6 +7,7 @@
   import ExplorerLink from '$shared/components/Links/ExplorerLink.svelte';
   import { Skeleton } from '$shared/components/Mock';
   import { classNames } from '$shared/utils/classNames';
+  import { obfuscateString } from '$shared/utils/obfuscate';
   import { shortenAddress } from '$shared/utils/shortenAddress';
 
   export let entry: UnifiedLeaderboardRow;
@@ -20,6 +21,8 @@
   export let scoreComponent: ComponentType;
   export let qualifyingPositions: number;
   export let highlightIndexPosition: number | null = null;
+
+  export let obfuscate: boolean = false;
 
   const rowClasses = classNames(
     'row',
@@ -83,6 +86,10 @@
               <div class="body-bold">Your position</div>
             {:else if entry.address && isAddress(entry.address)}
               <div class="body-bold">{shortenAddress(entry.address, 8, 4)}</div>
+            {:else if obfuscate && entry.name}
+              <div class="body-bold blur-sm">
+                {obfuscateString(entry.name)}
+              </div>
             {:else}
               <div class="body-bold">{entry.name}</div>
             {/if}
