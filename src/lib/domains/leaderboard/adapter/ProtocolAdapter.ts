@@ -21,7 +21,8 @@ export class ProtocolAdapter {
    * @memberof ProtocolAdapter
    */
   async fetchProtocolDetails(protocolSlug: string, season: number): Promise<ProtocolApiResponse> {
-    const cachedData = protocolDetailsCache.get(protocolSlug, season, this.protocolUrl);
+    const cacheKey = `${protocolSlug}-${this.protocolUrl}-${season}`;
+    const cachedData = protocolDetailsCache.get(cacheKey);
     if (cachedData) {
       return cachedData;
     }
@@ -33,7 +34,7 @@ export class ProtocolAdapter {
       params: { slug: protocolSlug },
     });
     log(`Fetched protocol details for ${protocolSlug}`, response.data);
-    protocolDetailsCache.set(protocolSlug, season, this.protocolUrl, response.data);
+    protocolDetailsCache.set(cacheKey, response.data);
     return response.data;
   }
 
@@ -42,7 +43,8 @@ export class ProtocolAdapter {
    */
   async fetchGamingProtocolDetails(protocolSlug: string, season: number): Promise<ProtocolApiResponse> {
     const cacheType = 'gaming';
-    const cachedData = protocolDetailsCache.get(protocolSlug, season, cacheType);
+    const cacheKey = `${protocolSlug}-${this.protocolUrl}-${season}-${cacheType}`;
+    const cachedData = protocolDetailsCache.get(cacheKey);
     if (cachedData) {
       return cachedData;
     }
@@ -54,7 +56,7 @@ export class ProtocolAdapter {
       params: { slug: protocolSlug },
     });
     log(`Fetched gaming protocol details for ${protocolSlug}`, response.data);
-    protocolDetailsCache.set(protocolSlug, season, cacheType, response.data);
+    protocolDetailsCache.set(cacheKey, response.data);
     return response.data;
   }
 
@@ -63,7 +65,8 @@ export class ProtocolAdapter {
    */
   async fetchCompetitionData(protocolSlug: string, season: number): Promise<ProtocolApiResponse> {
     const cacheType = 'competition';
-    const cachedData = protocolDetailsCache.get(protocolSlug, season, cacheType);
+    const cacheKey = `${protocolSlug}-${this.protocolUrl}-${season}-${cacheType}`;
+    const cachedData = protocolDetailsCache.get(cacheKey);
     if (cachedData) {
       return cachedData;
     }
@@ -75,7 +78,7 @@ export class ProtocolAdapter {
       params: { slug: protocolSlug },
     });
     log(`Fetched competition protocol details for ${protocolSlug}`, response.data);
-    protocolDetailsCache.set(protocolSlug, season, cacheType, response.data);
+    protocolDetailsCache.set(cacheKey, response.data);
     return response.data;
   }
 }

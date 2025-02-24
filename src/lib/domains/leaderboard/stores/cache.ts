@@ -13,8 +13,7 @@ function createProtocolDetailsStore() {
 
   return {
     subscribe: store.subscribe,
-    get: (protocolSlug: string, season: number, type: string): ProtocolApiResponse | undefined => {
-      const cacheKey = `${type}_${protocolSlug}_${season}`;
+    get: (cacheKey: string): ProtocolApiResponse | undefined => {
       const cache = get(store);
       const entry = cache.get(cacheKey);
       if (!entry) return undefined;
@@ -26,8 +25,7 @@ function createProtocolDetailsStore() {
       }
       return entry.data;
     },
-    set: (protocolSlug: string, season: number, type: string, data: ProtocolApiResponse): void => {
-      const cacheKey = `${type}_${protocolSlug}_${season}`;
+    set: (cacheKey: string, data: ProtocolApiResponse): void => {
       store.update((cache) => {
         cache.set(cacheKey, { data, timestamp: Date.now() });
         return cache;
