@@ -65,7 +65,7 @@ export class DappCompetitionService {
         const protocolDetailsPromises = leaderboardData.items.map(async (item) => {
           try {
             const protocolDetails = await this.protocolAdapter.fetchProtocolDetails(item.slug, season, edition);
-            log('fetched protocol details', JSON.stringify(protocolDetails));
+            log('fetched protocol details');
             const entry: DappLeaderboardRow = {
               name: item.name,
               data: protocolDetails.protocols,
