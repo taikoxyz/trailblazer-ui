@@ -79,9 +79,6 @@
     "@sentry/sveltekit": "^8",
     "graphql-codegen": "^0.4.0",
     "graphql-tag": "^2.12.6",
-    "@reown/appkit": "^1.6.2",
-    "@reown/appkit-adapter-wagmi": "^1.6.2",
-    "@reown/walletkit": "^1.1.2",
     "viem": "^2.21.57",
     "@ethereumjs/util": "^9.0.3",
     "@metamask/eth-sig-util": "^7.0.2",
@@ -105,6 +102,8 @@
     "svelte-countdown": "^1.1.2",
     "svelte-flip": "^0.0.11",
     "svelte-i18n": "^4.0.0",
-    "wagmi": "^2.14.4"
+    "wagmi": "^2.14.4",
+    "@walletconnect/web3wallet": "^1.16.1",
+    "@web3modal/wagmi": "^5.1.11"
   }
 }
