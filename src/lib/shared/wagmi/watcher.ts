@@ -45,7 +45,7 @@ async function checkBlacklist(address: Address) {
 const handleChange = debounce(async (data) => {
   log('Account changed', data);
   account.set(data);
-
+console.log('set account', data)
   const { chainId, address } = data;
 
   // Prevent redundant profile fetching

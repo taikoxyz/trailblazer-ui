@@ -17,7 +17,7 @@
 
   const log = getLogger('ProfilePictureModal');
 
-  const dialogId = crypto.randomUUID();
+  const dialogId = Math.random().toString(36).substring(7);
 
   $: modalContentWrapperClasses = classNames(
     'w-[100vw]',
