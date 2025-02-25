@@ -1,7 +1,7 @@
 <script lang="ts">
+  import { onMount } from 'svelte';
   import { t } from 'svelte-i18n';
 
-  import { NftIndexerAdapter } from '$lib/domains/nfts/adapter/NftIndexerAdapter';
   import profileService from '$lib/domains/profile/services/ProfileServiceInstance';
   import { pfpModal, userProfile } from '$lib/domains/profile/stores';
   import type { NFT } from '$lib/shared/types/NFT';
@@ -11,13 +11,12 @@
   import { errorToast, successToast } from '$shared/components/NotificationToast';
   import Spinner from '$shared/components/Spinner/Spinner.svelte';
   import { classNames } from '$shared/utils/classNames';
-  import getConnectedAddress from '$shared/utils/getConnectedAddress';
   import { getLogger } from '$shared/utils/logger';
   import getNftImage from '$shared/utils/nfts/getNftImage';
 
   const log = getLogger('ProfilePictureModal');
 
-  const dialogId = Math.random().toString(36).substring(7);
+  const dialogId = crypto.randomUUID();
 
   $: modalContentWrapperClasses = classNames(
     'w-[100vw]',
@@ -79,7 +78,8 @@
 
   const modalBodyClasses = classNames(
     'w-full',
-    'h-full',
+    'h-max',
+
     'py-[20px]',
     'px-[24px]',
     'flex',
@@ -88,7 +88,7 @@
     'justify-center',
   );
 
-  const selectorWrapperClasses = classNames('w-full', 'h-full', 'max-h-[85vh]', 'flex', 'flex-col', 'gap-[20px]');
+  const selectorWrapperClasses = classNames('w-full', 'h-max', 'flex', 'flex-col', 'gap-[20px]');
 
   const selectorTitleRowClasses = classNames(
     'text-[16px]/[24px]',
@@ -106,33 +106,28 @@
     'w-full',
     'grid',
     'grid-cols-2',
-    'sm:grid-cols-2',
     'md:grid-cols-3',
     'lg:grid-cols-4',
-    'md:gap-[20px]',
-    'auto-rows-[1fr]',
-    'gap-[10px]',
-    'h-full',
+    'gap-[20px]',
+    'h-[600px]',
+    'md:h-[350px]',
     'transition-all',
     'bg-elevated-background',
-    'md:p-[20px]',
-    'p-[10px]',
+    'p-[20px]',
+    'overflow-x-scroll',
     'relative',
-    'overflow-y-scroll',
     'min-h-[100px]',
   );
-  const selectorGridItemClasses = classNames('flex', 'justify-center', 'w-full', 'h-[30vw]', 'md:h-[124px]');
-
-  const selectorGridItemImageClasses = classNames(
-    'rounded-[10px]',
-    'hover:border-primary',
+  const selectorGridItemClasses = classNames(
+    'overflow-hidden',
+    'border',
+    'border-[3px]',
+    'border-transparent',
+    'hover:border-primary-focus',
     'transition-all',
-    'max-w-full',
-    'w-[30vw]',
-    'h-[30vw]',
-    'md:w-[124px]',
-    'md:h-[124px]',
-    'skeleton',
+    'w-[124px]',
+    'h-[124px]',
+    'rounded-[10px]',
   );
 
   $: modal = undefined as HTMLDialogElement | undefined;
@@ -168,13 +163,6 @@
       isLoading = true;
       log('Setting profile picture', selectedPfp);
       await profileService.setProfilePicture(selectedPfp);
-      userProfile.set({
-        ...$userProfile,
-        personalInfo: {
-          ...$userProfile?.personalInfo,
-          avatar: getNftImage(selectedPfp),
-        },
-      });
 
       isLoading = false;
       successToast({
@@ -210,33 +198,9 @@
     'p-[20px]',
   );
 
-  function filterUniqueNfts(nfts: NFT[]) {
-    // filters unique badges to not clog the ui
-    const uq: string[] = [];
-    return nfts.filter((nft) => {
-      if (
-        nft.metadata.season === undefined ||
-        nft.metadata.movement === undefined ||
-        nft.metadata.badgeId === undefined
-      )
-        return true;
-      const key = `${nft.metadata.season}:${nft.metadata.movement}:${nft.metadata.badgeId}`;
-      if (uq.includes(key)) return false;
-      uq.push(key);
-      return true;
-    });
-  }
-
-  const indexer = new NftIndexerAdapter();
-
-  async function onLoad() {
-    const address = getConnectedAddress();
-    if (!address || !$pfpModal || possiblePFPs.length) return;
-    isLoading = true;
-    possiblePFPs = [...filterUniqueNfts($userProfile?.nfts || []), ...(await indexer.fetchTokenForUser(address))];
-    isLoading = false;
-  }
-  $: $pfpModal, onLoad();
+  onMount(() => {
+    possiblePFPs = $userProfile?.nfts || [];
+  });
 </script>
 
 <dialog
@@ -257,11 +221,7 @@
     <div class={modalBodyClasses}>
       {#if previewVisible && selectedPfp}
         <!-- svelte-ignore a11y-img-redundant-alt -->
-        <img
-          alt="Profile picture preview"
-          style="image-rendering:pixelated"
-          class={pfpPreviewClasses}
-          src={getNftImage(selectedPfp)} />
+        <img alt="Profile picture preview" class={pfpPreviewClasses} src={getNftImage(selectedPfp)} />
       {:else}
         <div class={selectorWrapperClasses}>
           <div class={selectorTitleRowClasses}>
@@ -283,26 +243,22 @@
             <div class={spinnerWrapperClasses}>
               <Spinner size="lg" />
             </div>
-          {:else}
-            {#if possiblePFPs.length > 0}
-              <div class={selectorGridClasses}>
-                {#each possiblePFPs as pfp}
-                  <button on:click={() => selectPfp(pfp)} class={selectorGridItemClasses}>
-                    <img
-                      src={getNftImage(pfp)}
-                      alt="pfp"
-                      class={selectorGridItemImageClasses}
-                      style="image-rendering:pixelated" />
-                  </button>
-                {/each}
-              </div>
-            {/if}
-            {#if possiblePFPs.length === 0}
-              <div class={noNftsClasses}>
-                You don't have any eligible NFTs. Currently only Season 1 badges can be used. But we will enable more
-                soon!
-              </div>
-            {/if}
+          {/if}
+
+          {#if possiblePFPs.length > 0}
+            <div class={selectorGridClasses}>
+              {#each possiblePFPs as pfp}
+                <button on:click={() => selectPfp(pfp)} class={selectorGridItemClasses}>
+                  <img src={getNftImage(pfp)} alt="pfp" />
+                </button>
+              {/each}
+            </div>
+          {/if}
+          {#if possiblePFPs.length === 0}
+            <div class={noNftsClasses}>
+              You don't have any eligible NFTs. Currently only Season 1 badges can be used. But we will enable more
+              soon!
+            </div>
           {/if}
         </div>
       {/if}

@@ -13,7 +13,8 @@
   import { activeSeason } from '$shared/stores/activeSeason';
   import { getLogger } from '$shared/utils/logger';
 
-  import ThrillblazerHeader from '../../../Header/ThrillblazersHeader/ThrillblazerHeader.svelte';
+  import Header from './Header/Header.svelte';
+  import { thrillblazerDetails } from './thrillblazerDetails';
 
   const log = getLogger('DappsLeaderboard');
   export let pageInfo: PaginationInfo<DappLeaderboardItem>;
@@ -26,9 +27,9 @@
   $: totalItems = pageInfo?.total || 0;
   $: hasEnded = reactiveEdition !== currentEdition;
 
-  function handlePageChange(page: number) {
+  async function handlePageChange(page: number) {
     log('handlePageChange', page);
-    if (browser) fetchLeaderboard(page, CompetitionType.THRILLBLAZER, reactiveEdition);
+    if (browser) await fetchLeaderboard(page, CompetitionType.THRILLBLAZER, reactiveEdition);
   }
 
   async function loadLeaderboardData(page: number) {
@@ -51,24 +52,26 @@
   setContext('thrillblazerEdition', reactiveEdition);
 </script>
 
-{#if edition <= currentEdition}
-  <AbstractLeaderboard
-    headers={['No.', 'Dapp', '', 'Points']}
-    season={$activeSeason}
-    data={leaderboard.items}
-    showTrophy={true}
-    lastUpdated={new Date(leaderboard.lastUpdated)}
-    isLoading={$leaderboardLoading}
-    {handlePageChange}
-    {totalItems}
-    ended={hasEnded}
-    qualifyingPositions={4}
-    endedComponent={CampaignEndedInfoBox}
-    endTitleText={$t(`leaderboard.thrillblazers.${edition}.ended.title`)}
-    endDescriptionText={$t(`leaderboard.thrillblazers.${edition}.ended.description`)}
-    showPagination={true}
-    headerComponent={ThrillblazerHeader}
-    scoreComponent={PointScore} />
-{:else}
-  No data
-{/if}
+{#key edition}
+  {#if edition <= currentEdition}
+    <AbstractLeaderboard
+      headers={['No.', 'Dapp', '', 'Points']}
+      season={$activeSeason}
+      data={leaderboard.items}
+      showTrophy={true}
+      lastUpdated={new Date(leaderboard.lastUpdated)}
+      isLoading={$leaderboardLoading}
+      {handlePageChange}
+      {totalItems}
+      ended={hasEnded}
+      qualifyingPositions={thrillblazerDetails[edition].qualifyingPositions}
+      endedComponent={CampaignEndedInfoBox}
+      endTitleText={$t(`leaderboard.thrillblazers.${edition}.ended.title`)}
+      endDescriptionText={$t(`leaderboard.thrillblazers.${edition}.ended.description`)}
+      showPagination={true}
+      headerComponent={Header}
+      scoreComponent={PointScore} />
+  {:else}
+    No data
+  {/if}
+{/key}

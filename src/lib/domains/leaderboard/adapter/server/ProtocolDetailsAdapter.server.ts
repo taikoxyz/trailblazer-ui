@@ -24,7 +24,8 @@ export class ProtocolDetailsAdapter {
    * @memberof ProtocolAdapter
    */
   async fetchProtocolDetails(protocolSlug: string, season: number, edition: number): Promise<ProtocolApiResponse> {
-    const cachedData = protocolDetailsCache.get(protocolSlug, edition, this.protocolUrl);
+    const cacheKey = `${protocolSlug}-${this.protocolUrl}-${edition}`;
+    const cachedData = protocolDetailsCache.get(cacheKey);
     if (cachedData) {
       log(`Cache hit for ${protocolSlug}, returning cached data`, cachedData);
       return cachedData;
@@ -38,7 +39,7 @@ export class ProtocolDetailsAdapter {
       headers: { 'x-api-key': `${API_KEY}` },
     });
 
-    protocolDetailsCache.set(protocolSlug, season, this.protocolUrl, data);
+    protocolDetailsCache.set(cacheKey, data);
     return data;
   }
 
