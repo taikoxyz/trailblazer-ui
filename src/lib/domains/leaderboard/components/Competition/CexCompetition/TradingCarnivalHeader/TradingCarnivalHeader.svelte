@@ -155,21 +155,15 @@
     'bottom-[10px]',
     'rounded-[30px]',
     'md:rounded-full',
-    'p-[30px]',
+    'pt-[30px]',
+    'px-[20px]',
     'md:p-[8px]',
     'md:pl-[30px]',
     'md:gap-[20px]',
     'pr-[45px]',
     'items-center',
   );
-  const descriptionWrapperClasses = classNames(
-    'f-col',
-    'w-full',
-    'md:f-row',
-    'f-left',
-    'justify-between',
-    'gap-[14px]',
-  );
+  const descriptionWrapperClasses = classNames('f-col', 'w-full', 'md:f-row', 'f-left', 'justify-between');
   const descriptionTextClasses = classNames(
     'text-center',
     'md:text-left',
@@ -178,7 +172,7 @@
     'font-clash-grotesk',
     'text-elevated-background',
     'text-[18px]',
-    'font-medium',
+    'font-semibold',
     'leading-normal',
     'uppercase',
   );
@@ -212,17 +206,19 @@
       <div class={contentWrapperClasses}>
         <div class={innerContentClasses}>
           <div class={descriptionWrapperClasses}>
-            <div class="f-col w-full hidden md:flex h-[54px]">
+            <div class=" w-full hidden md:f-col h-[54px]">
               <div class={liveNowClasses}><Icon type="circle" fillClass="fill-positive-sentiment" />Live now</div>
               <div class="text-[18px] font-bold text-primary-link-hover uppercase">Starting on Feb 27th, 2025</div>
             </div>
-            <div class={descriptionTextClasses}>
-              <span class="text-primary-link-hover">Spot trading</span>
-              <span class="text-white">27/02 - 13/03 </span>
-            </div>
-            <div class={descriptionTextClasses}>
-              <span class="text-primary-link-hover">Perp trading</span>
-              <span class="text-white">14/03 - 28/03 </span>
+            <div class="f-col md:f-row w-full md:min-w-[326px] gap-[20px] md:gap-0">
+              <div class={descriptionTextClasses}>
+                <span class="text-primary-link-hover">Spot trading</span>
+                <span class="text-white">27/02 - 13/03 </span>
+              </div>
+              <div class={descriptionTextClasses}>
+                <span class="text-primary-link-hover">Perp trading</span>
+                <span class="text-white">14/03 - 28/03 </span>
+              </div>
             </div>
           </div>
         </div>
