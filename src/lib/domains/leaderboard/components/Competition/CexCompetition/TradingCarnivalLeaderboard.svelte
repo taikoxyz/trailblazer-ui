@@ -18,7 +18,7 @@
   export let pageInfo: PaginationInfo<CexCompetitionItem>;
   export let edition: number;
 
-  $: isObfuscated = new Date() <= new Date('2025-02-27T12:00:00Z');
+  $: isObfuscated = new Date() <= new Date('2025-02-23T12:00:00Z');
 
   const currentEdition: number = 1;
 
@@ -58,7 +58,6 @@
   setContext('cexCompetitionEdition', reactiveEdition);
 </script>
 
-{isObfuscated}
 {#key edition}
   {#if edition <= currentEdition}
     <AbstractLeaderboard

@@ -43,7 +43,12 @@
         ? mediumHeaderImage
         : smallHeaderImage;
 
-  $: videoUrl = `/competitionInfo/tradingCarnival/s${$activeSeason}/xl/trading_carnival.mp4`;
+  $: videoUrl =
+    $isDesktop || $isTabletLg
+      ? `/competitionInfo/tradingCarnival/s${$activeSeason}/xl/trading_carnival.mp4`
+      : $isTablet
+        ? `/competitionInfo/tradingCarnival/s${$activeSeason}/md/trading_carnival.mp4`
+        : `/competitionInfo/tradingCarnival/s${$activeSeason}/sm/trading_carnival.mp4`;
 
   //Preload images
   const images = [smallHeaderImage, mediumHeaderImage, largeHeaderImage, xlargeHeaderImage];
@@ -69,6 +74,7 @@
   );
 
   const descriptionClasses = classNames(
+    'mt-[120px]',
     'f-col',
     'md:f-row',
     'gap-[24px]',
@@ -119,8 +125,10 @@
     'items-center',
     'gap-[17px]',
     'mt-[70px]',
+    'md:mt-0',
     'font-clash-grotesk',
     'text-[24px]',
+    'md:text-[18px]',
     'uppercase',
     'font-semibold',
     'leading-normal',
@@ -142,7 +150,6 @@
     'md:f-col',
     'w-full',
     'z-10',
-    'bg-white',
     'absolute',
     'left-0',
     'bottom-[10px]',
@@ -155,23 +162,31 @@
     'pr-[45px]',
     'items-center',
   );
-  const descriptionWrapperClasses = classNames('f-col', 'md:f-row', 'w-full', 'f-left', 'gap-[14px]');
+  const descriptionWrapperClasses = classNames(
+    'f-col',
+    'w-full',
+    'md:f-row',
+    'f-left',
+    'justify-between',
+    'gap-[14px]',
+  );
   const descriptionTextClasses = classNames(
     'text-center',
+    'md:text-left',
     'f-col',
     'w-full',
     'font-clash-grotesk',
     'text-elevated-background',
     'text-[18px]',
     'font-medium',
-    'leading-[20px]',
-    'tracking-[0.09px]',
+    'leading-normal',
+    'uppercase',
   );
 
   const videoWrapperClasses = classNames(
     'w-full',
     'flex',
-    'h-[746px]',
+    'h-[800px]',
     'xl:max-w-[1344px]',
     'relative',
     'rounded-[30px]',
@@ -186,22 +201,28 @@
 
 <div class={containerClasses}>
   <div class={videoWrapperClasses}>
+    <div class="absolute w-full h-[342px] custom-gradient bottom-0"></div>
+
     <video autoplay loop muted playsinline poster={imageUrl} class=" w-full object-cover left-0" src={videoUrl}></video>
     <div class={backgroundImageClasses}>
-      <div class="f-col w-full h-full justify-start items-center md:items-start">
+      <div class="f-col w-full justify-start items-center md:items-start md:hidden">
         <div class={liveNowClasses}><Icon type="circle" fillClass="fill-positive-sentiment" />Live now</div>
-        <div class="text-[18px] font-bold text-primary-link-hover">Sarting on Feb 27th, 2025</div>
+        <div class="text-[18px] font-bold text-primary-link-hover uppercase">Starting on Feb 27th, 2025</div>
       </div>
       <div class={contentWrapperClasses}>
         <div class={innerContentClasses}>
           <div class={descriptionWrapperClasses}>
-            <div class={descriptionTextClasses}>
-              <span>Spot trading competition</span>
-              <span>27/02 - 13/03 </span>
+            <div class="f-col w-full hidden md:flex h-[54px]">
+              <div class={liveNowClasses}><Icon type="circle" fillClass="fill-positive-sentiment" />Live now</div>
+              <div class="text-[18px] font-bold text-primary-link-hover uppercase">Starting on Feb 27th, 2025</div>
             </div>
             <div class={descriptionTextClasses}>
-              <span>Perp trading competition</span>
-              <span>14/03 - 28/03 </span>
+              <span class="text-primary-link-hover">Spot trading</span>
+              <span class="text-white">27/02 - 13/03 </span>
+            </div>
+            <div class={descriptionTextClasses}>
+              <span class="text-primary-link-hover">Perp trading</span>
+              <span class="text-white">14/03 - 28/03 </span>
             </div>
           </div>
         </div>
@@ -225,3 +246,9 @@
   <Search className={searchClasses} onSearch={handleSearch} placeholder="Search Address..." />
   <LastUpdated {lastUpdated} class="order-last" />
 </div>
+
+<style lang="css">
+  .custom-gradient {
+    background: linear-gradient(180deg, rgba(33, 24, 52, 0) 0%, rgba(33, 24, 52, 0.7) 100%);
+  }
+</style>
