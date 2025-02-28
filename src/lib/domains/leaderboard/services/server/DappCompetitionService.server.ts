@@ -65,7 +65,6 @@ export class DappCompetitionService {
         const protocolDetailsPromises = leaderboardData.items.map(async (item) => {
           try {
             const protocolDetails = await this.protocolAdapter.fetchProtocolDetails(item.slug, season, edition);
-            log('fetched protocol details');
             const entry: DappLeaderboardRow = {
               name: item.name,
               data: protocolDetails.protocols,
@@ -78,7 +77,6 @@ export class DappCompetitionService {
               totalScore: item.score,
               rank: item.rank,
             };
-            log('mapped leaderboard row', entry);
             const unifiedRow: UnifiedLeaderboardRow = mapDappLeaderboardRow(entry);
 
             return unifiedRow;
