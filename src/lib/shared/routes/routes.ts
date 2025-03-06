@@ -33,7 +33,7 @@ export const routes: NavigationItem[] = [
       { name: 'Thrillblazers III', route: '/journeys/thrillblazers/3', icon: 'nav-cross' },
       { name: 'Thrillblazers II', route: '/journeys/thrillblazers/2', icon: 'nav-cross' },
       { name: 'Chillblazers', route: '/journeys/chillblazers/2', icon: 'nav-conway' },
-      { name: 'Liquidity Royale', route: '/journeys/liquidity', icon: 'nav-liquidity' },
+      { name: 'Liquidity Royale', route: '/journeys/liquidity/3', icon: 'nav-liquidity' },
       { name: 'Badges', route: '/badge', icon: 'badge-migration' },
     ],
   },

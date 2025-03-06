@@ -11,6 +11,10 @@
   import { activeSeason } from '$shared/stores/activeSeason';
   import { classNames } from '$shared/utils/classNames';
 
+  export let data;
+
+  const { slug } = data;
+
   let pageInfo: PaginationInfo<UserLeaderboardItem>;
   let loading: boolean;
 
@@ -29,8 +33,9 @@
 </svelte:head>
 
 <Page>
-  <LiquidityRoyaleLeaderboard {pageInfo} {loading} />
-
+  {#key slug}
+    <LiquidityRoyaleLeaderboard {pageInfo} {loading} edition={parseInt(slug)} />
+  {/key}
   <div class={wrapperClasses}>
     <ActionButton class={buttonClasses} priority="primary" on:click={handleClick} withArrow>
       {$t('buttons.leaderboard.user')}

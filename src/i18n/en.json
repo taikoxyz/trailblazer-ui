@@ -637,7 +637,8 @@
       "blogpost": {
         "url": {
           "s2": "https: //taiko.mirror.xyz/sB3dVLrVRn3DPKaAi6ed1C1qKLCtpaCfyaQdw7LD0XI",
-          "s3": "https://taiko.mirror.xyz/t3T94NzDKne3-agm1M3PTJN6apGYvJRnlvJ5qy-xymk"
+          "s3": "https://taiko.mirror.xyz/t3T94NzDKne3-agm1M3PTJN6apGYvJRnlvJ5qy-xymk",
+          "s4": ""
         }
       },
       "carousel": {
@@ -647,12 +648,21 @@
       },
       "description": {
         "s2": "Ready to supercharge your liquidity and get rewarded for it? The Taiko Liquidity Royale is here, offering a massive 1M Taiko tokens in rewards! Whether you’re a seasoned liquidity provider or looking to get started, this is your chance to dive in and earn juicy prizes.",
-        "s3": "Ready to supercharge your liquidity and get rewarded for it? The Taiko Liquidity Royale is here, offering a massive 1.2M Taiko tokens in rewards! Whether you’re a seasoned liquidity provider or looking to get started, this is your chance to dive in and earn juicy prizes."
+        "s3": "Ready to supercharge your liquidity and get rewarded for it? The Taiko Liquidity Royale is here, offering a massive 1.2M Taiko tokens in rewards! Whether you’re a seasoned liquidity provider or looking to get started, this is your chance to dive in and earn juicy prizes.",
+        "s4": "Ready to supercharge your liquidity and get rewarded for it? 1 Million TAIKO tokens are up for grabs! Provide liquidity, climb the leaderboard, and secure your share of the rewards. Two challenges, double the excitement!"
       },
       "ended": {
         "s2": {
           "description": "Our journey concluded on Dec. 16th, 2024. Congratulations to the winners!",
           "title": "Season 2 ended"
+        },
+        "s3": {
+          "description": "Our journey concluded on Mar. 17th, 2025. Congratulations to the winners!",
+          "title": "Season 3 ended"
+        },
+        "s4": {
+          "description": "Our journey concluded on June 16th, 2025. Congratulations to the winners!",
+          "title": "Season 4 ended"
         }
       },
       "infobox": {
@@ -707,6 +717,25 @@
           "rewards": {
             "text": "The top 100 will each win a guaranteed 12K Taiko tokens, no matter your final ranking!",
             "title": "Earn 12K TAIKO"
+          },
+          "title": "🏆&nbsp;&nbsp;What’s in it for you?"
+        },
+        "s4": {
+          "boost": {
+            "text": "Your contributions to the ecosystem don’t just grow your portfolio—they put you in the running for random snapshot rewards throughout the season.",
+            "title": "Boost liquidity, earn passively"
+          },
+          "campaign": {
+            "title": "Two ways to win",
+            "text": "Choose between Liquidity Royale OGs or Liquidity Royale DeFi Moguls, each with 500K TAIKO tokens allocated for top liquidity providers."
+          },
+          "random": {
+            "text": "Your liquidity helps strengthen Taiko’s DeFi ecosystem, attracting projects and making Taiko a premier destination for on-chain finance.",
+            "title": "Make an impact"
+          },
+          "rewards": {
+            "text": "Compete for a share of 1M TAIKO tokens—every top 100 participant gets 10K TAIKO tokens, no matter their final rank!",
+            "title": "Massive rewards"
           },
           "title": "🏆&nbsp;&nbsp;What’s in it for you?"
         },

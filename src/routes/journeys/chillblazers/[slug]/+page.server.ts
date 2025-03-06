@@ -1,7 +1,7 @@
 import { leaderboardConfig } from '$config';
 import type { DappLeaderboardItem } from '$lib/domains/leaderboard/dto/dapps.dto';
-import { chillblazerServiceInstances } from '$lib/domains/leaderboard/services/LeaderboardServiceInstances.server';
-import { CompetitionType } from '$lib/domains/leaderboard/types/competition/types.js';
+import { chillblazerServiceInstances } from '$lib/domains/leaderboard/services/server/LeaderboardServiceInstances.server';
+import { DappCompetitionType } from '$lib/domains/leaderboard/types/competition/types.js';
 import type { PaginationInfo } from '$lib/shared/dto/CommonPageApiResponse';
 
 export const load = async ({ params }) => {
@@ -21,7 +21,7 @@ export const load = async ({ params }) => {
   try {
     const page = await service.fetchCompetitionData({
       pagination: pageInfo,
-      competitionType: CompetitionType.CHILLBLAZER,
+      competitionType: DappCompetitionType.CHILLBLAZER,
       edition,
     });
     if (page) {

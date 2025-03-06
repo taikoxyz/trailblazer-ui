@@ -4,7 +4,7 @@ import { browser } from '$app/environment';
 import type { DappLeaderboardPage } from '$lib/domains/leaderboard/types/dapps/types';
 import { getLogger } from '$shared/utils/logger';
 
-import type { DappCompetitionType } from '../types/competition/types';
+import type { LiquidityCompetitionType } from '../types/competition/types';
 
 const log = getLogger('LeaderboardStore');
 
@@ -14,10 +14,15 @@ export const leaderboardStore = writable<DappLeaderboardPage>({
   pagination: { page: 0, size: 10, total: 0 },
 });
 
-export async function fetchLeaderboard(page: number, type: DappCompetitionType, edition: number): Promise<void> {
+export async function fetchLeaderboard(
+  page: number,
+  type: LiquidityCompetitionType,
+  edition: number,
+  address?: string,
+): Promise<void> {
   if (!browser) return;
   try {
-    const url = `/api/competition/${type}?page=${page}&edition=${edition}`;
+    const url = `/api/competition/liquidity/${type}?page=${page}&edition=${edition}${address ? `&address=${address}` : ''}`;
     log('Fetching leaderboard from URL:', url);
     const res = await fetch(url);
     if (!res.ok) {

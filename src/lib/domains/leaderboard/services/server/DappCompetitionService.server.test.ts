@@ -9,7 +9,7 @@ import type { DappLeaderboardItem } from '../../dto/dapps.dto';
 import type { ProtocolApiResponse } from '../../dto/protocol.dto';
 import { mapDappLeaderboardRow } from '../../mapper/mapper';
 import { DappsCompetitionRepository } from '../../repository/DappsCompetitionRepository';
-import { CompetitionType, type DappCompetitionArgs } from '../../types/competition/types';
+import { type DappCompetitionArgs, DappCompetitionType } from '../../types/competition/types';
 import type { DappLeaderboardPage } from '../../types/dapps/types';
 import type { UnifiedLeaderboardRow } from '../../types/shared/types';
 import { DappCompetitionService } from './DappCompetitionService.server';
@@ -43,7 +43,7 @@ describe('DappCompetitionService', () => {
   it('should fetch leaderboard data, map it, and update the repository', async () => {
     // Given
     const args: DappCompetitionArgs = {
-      competitionType: CompetitionType.THRILLBLAZER,
+      competitionType: DappCompetitionType.THRILLBLAZER,
       edition: 3,
       pagination: { page: 0, size: 10, total: 100 },
     };

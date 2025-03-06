@@ -1,17 +1,17 @@
 import type { Address } from 'viem';
 
+import { LiquidityCompetitionAdapter } from '$lib/domains/leaderboard/adapter/server/LiquidityCompetitionAdapter.server';
+import { mapLiquidityLeaderboardRow } from '$lib/domains/leaderboard/mapper/mapper';
+import { LiquidityCompetitionRepository } from '$lib/domains/leaderboard/repository/LiquidityCompetitionRepository';
+import type { LiquidityCompetitionPage, LiquidityCompetitionRow } from '$lib/domains/leaderboard/types/liquidity/types';
+import type { UnifiedLeaderboardRow } from '$lib/domains/leaderboard/types/shared/types';
+import type { UserLeaderboardItem } from '$lib/domains/leaderboard/types/user/types';
 import type { IProfileService } from '$lib/domains/profile/services/IProfileService';
-import { ProfileService } from '$lib/domains/profile/services/ProfileService';
 import type { UserInfoForLeaderboard } from '$lib/domains/profile/types/UserInfoForLeaderboard';
-import type { PaginationInfo } from '$lib/shared/dto/CommonPageApiResponse';
 import { getLogger } from '$shared/utils/logger';
 
-import { LiquidityCompetitionAdapter } from '../adapter/LiquidityCompetitionAdapter';
-import { mapLiquidityLeaderboardRow } from '../mapper/mapper';
-import { LiquidityCompetitionRepository } from '../repository/LiquidityCompetitionRepository';
-import type { LiquidityCompetitionPage, LiquidityCompetitionRow } from '../types/liquidity/types';
-import type { UnifiedLeaderboardRow } from '../types/shared/types';
-import type { UserLeaderboardItem } from '../types/user/types';
+import type { LiquidityCompetitionArgs } from '../../types/competition/types';
+import { getSeasonForLiquidityEdition } from '../../utils/mapEditionToSeason';
 
 const log = getLogger('LiquidityCompetitionService');
 
@@ -26,13 +26,13 @@ export class LiquidityCompetitionService {
   private readonly liquidityCompetitionRepository: LiquidityCompetitionRepository;
 
   constructor(
-    leaderboardAdapter?: LiquidityCompetitionAdapter,
-    liquidityCompetitionRepository?: LiquidityCompetitionRepository,
-    profileService?: IProfileService,
+    leaderboardAdapter: LiquidityCompetitionAdapter,
+    liquidityCompetitionRepository: LiquidityCompetitionRepository,
+    profileService: IProfileService,
   ) {
-    this.leaderboardAdapter = leaderboardAdapter || new LiquidityCompetitionAdapter();
-    this.liquidityCompetitionRepository = liquidityCompetitionRepository || new LiquidityCompetitionRepository();
-    this.profileService = profileService || new ProfileService();
+    this.leaderboardAdapter = leaderboardAdapter;
+    this.liquidityCompetitionRepository = liquidityCompetitionRepository;
+    this.profileService = profileService;
   }
 
   /**
@@ -42,28 +42,28 @@ export class LiquidityCompetitionService {
    * @param season - The current season number.
    * @returns A promise that resolves to a LiquidityCompetitionPage.
    */
-  async getLiquidityCompetitionLeaderboard(
-    args: PaginationInfo<UserLeaderboardItem>,
-    season: number,
-  ): Promise<LiquidityCompetitionPage> {
+  async getLiquidityCompetitionLeaderboard(args: LiquidityCompetitionArgs): Promise<LiquidityCompetitionPage> {
     try {
-      log('Fetching leaderboard data', { args, season });
-      const leaderboardData = await this.leaderboardAdapter.fetchLeaderboardData(args, season);
+      const { competitionType, edition, pagination } = args;
+      log('Fetching leaderboard data', { args, edition, competitionType });
+
+      const season = getSeasonForLiquidityEdition(edition);
+      const leaderboardData = await this.leaderboardAdapter.fetchLeaderboardData(pagination, season);
       log('Fetched leaderboard data', leaderboardData);
 
-      if (!leaderboardData.data.items?.length) {
+      if (!leaderboardData.items?.length) {
         log('No leaderboard items found', { args, season });
         return {
           items: [],
           lastUpdated: Date.now(),
-          pagination: { ...args, total: leaderboardData.data.total, total_pages: leaderboardData.data.total_pages },
+          pagination: { ...pagination, total: leaderboardData.total, total_pages: leaderboardData.total_pages },
         };
       }
 
       // Fetch user details in bulk
       const userDetailsList = await this.profileService.getUserInfoForLeaderboard(
-        leaderboardData.data.items,
-        leaderboardData.data.total,
+        leaderboardData.items,
+        leaderboardData.total,
         season,
       );
 
@@ -73,8 +73,8 @@ export class LiquidityCompetitionService {
       });
 
       const itemsWithDetails: UnifiedLeaderboardRow[] = [];
-      for (let index = 0; index < leaderboardData.data.items.length; index++) {
-        const item = leaderboardData.data.items[index];
+      for (let index = 0; index < leaderboardData.items.length; index++) {
+        const item = leaderboardData.items[index];
         const userDetails = userDetailsMap.get(item.address);
 
         try {
@@ -84,7 +84,7 @@ export class LiquidityCompetitionService {
               address: item.address,
               score: item.score,
               icon: '',
-              rank: index + 1 + args.page * args.size,
+              rank: index + 1 + pagination.page * pagination.size,
             };
             const mapped = mapLiquidityLeaderboardRow(entry);
             itemsWithDetails.push(mapped);
@@ -108,10 +108,11 @@ export class LiquidityCompetitionService {
 
       const liquidityCompetionPage: LiquidityCompetitionPage = {
         items: itemsWithDetails,
-        lastUpdated: leaderboardData.lastUpdated,
+        lastUpdated: Date.now(),
         pagination: {
-          ...args,
-          total: leaderboardData.data.total,
+          ...pagination,
+          total: leaderboardData.total,
+          total_pages: leaderboardData.total_pages,
         },
       };
       log('Liquidity competition leaderboard page', liquidityCompetionPage, liquidityCompetionPage.lastUpdated);

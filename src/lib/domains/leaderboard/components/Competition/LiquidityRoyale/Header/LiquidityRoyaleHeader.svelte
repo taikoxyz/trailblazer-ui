@@ -12,8 +12,8 @@
   import { classNames } from '$shared/utils/classNames';
   import { isDesktop, isTablet, isTabletLg } from '$shared/utils/responsiveCheck';
 
-  import LastUpdated from '../../LastUpdated.svelte';
-  import Search from '../../Search.svelte';
+  import LastUpdated from '../../../LastUpdated.svelte';
+  import Search from '../../../Search.svelte';
   import Infoboxes from './Infoboxes.svelte';
   import PrizePool from './PrizePool.svelte';
   import ReadMoreBox from './ReadMoreBox.svelte';
