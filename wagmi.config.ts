@@ -6,7 +6,7 @@ import type { Abi, Address } from 'abitype';
 
 // needed to import .json from node_modules
 const require = createRequire(import.meta.url);
-
+// deployments
 const EventRegisterHeklaDeployment = require('trailblazer-contracts/deployments/eventRegister/hekla.json');
 const EventRegisterMainnetDeployment = require('trailblazer-contracts/deployments/eventRegister/mainnet.json');
 const ProfilePictureHeklaDeployment = require('trailblazer-contracts/deployments/profile/hekla.json');
@@ -17,6 +17,8 @@ const S1ClaimHeklaDeployment = require('trailblazer-contracts/deployments/trailb
 const S1ClaimMainnetDeployment = require('trailblazer-contracts/deployments/trailblazers-airdrop/mainnet.json');
 const TrailblazerBadgesS2HeklaDeployment = require('trailblazer-contracts/deployments/trailblazers-season-2/hekla.json');
 const TrailblazerBadgesS2MainnetDeployment = require('trailblazer-contracts/deployments/trailblazers-season-2/mainnet.json');
+const FactionBattleArenaHeklaDeployment = require('trailblazer-contracts/deployments/faction-battle-arena/hekla.json');
+// abis
 const BadgeRecruitmentV2 = require('trailblazer-contracts/out/BadgeRecruitmentV2.sol/BadgeRecruitmentV2.json');
 const ERC20Airdrop = require('trailblazer-contracts/out/ERC20Airdrop.sol/ERC20Airdrop.json');
 const EventRegister = require('trailblazer-contracts/out/EventRegister.sol/EventRegister.json');
@@ -24,6 +26,7 @@ const RegisterProfilePicture = require('trailblazer-contracts/out/RegisterProfil
 const TaikoonToken = require('trailblazer-contracts/out/TaikoonToken.sol/TaikoonToken.json');
 const TrailblazersBadgesS2 = require('trailblazer-contracts/out/TrailblazersBadgesS2.sol/TrailblazersBadgesS2.json');
 const TrailblazersS1BadgesV8 = require('trailblazer-contracts/out/TrailblazersS1BadgesV8.sol/TrailblazersBadgesV8.json');
+const FactionBattleArena = require('trailblazer-contracts/out/FactionBattleArena.sol/FactionBattleArena.json');
 
 export default defineConfig({
   out: 'src/generated/abi/index.ts',
@@ -109,6 +112,15 @@ export default defineConfig({
       },
       abi: EventRegister.abi as Abi,
     },
+    {
+      name: 'FactionBattleArena',
+      address: {
+        167009: FactionBattleArenaHeklaDeployment.FactionBattleArena as Address,
+        // todo: update mainnet address
+        167000: FactionBattleArenaHeklaDeployment.FactionBattleArena as Address
+      },
+      abi: FactionBattleArena.abi as Abi,
+    }
   ],
 
   plugins: [actions()],

@@ -1,4 +1,4 @@
-import client from "https://api.goldsky.com/api/public/project_clz85cxrvng3n01ughcv5e7hg/subgraphs/tbz-badges-hekla/0.0.3/gn";
+import client from "https://api.goldsky.com/api/public/project_clz85cxrvng3n01ughcv5e7hg/subgraphs/fba-hekla/0.0.1/gn";
 import type {
         
       } from "@apollo/client";
@@ -33,7 +33,6 @@ export type Account = {
   /** An Account is any address that holds any amount of badges */
   id: Scalars['Bytes']['output'];
   s2Badges: Array<Token>;
-  s2Recruitments: Array<BadgeRecruitment>;
   tokens: Array<Token>;
 };
 
@@ -53,15 +52,6 @@ export type AccountS2BadgesArgs = {
   orderDirection?: InputMaybe<OrderDirection>;
   skip?: InputMaybe<Scalars['Int']['input']>;
   where?: InputMaybe<Token_Filter>;
-};
-
-
-export type AccountS2RecruitmentsArgs = {
-  first?: InputMaybe<Scalars['Int']['input']>;
-  orderBy?: InputMaybe<BadgeRecruitment_OrderBy>;
-  orderDirection?: InputMaybe<OrderDirection>;
-  skip?: InputMaybe<Scalars['Int']['input']>;
-  where?: InputMaybe<BadgeRecruitment_Filter>;
 };
 
 
@@ -106,7 +96,6 @@ export type Account_Filter = {
   s2Badges_not?: InputMaybe<Array<Scalars['String']['input']>>;
   s2Badges_not_contains?: InputMaybe<Array<Scalars['String']['input']>>;
   s2Badges_not_contains_nocase?: InputMaybe<Array<Scalars['String']['input']>>;
-  s2Recruitments_?: InputMaybe<BadgeRecruitment_Filter>;
   tokens_?: InputMaybe<Token_Filter>;
 };
 
@@ -115,7 +104,6 @@ export enum Account_OrderBy {
   ApprovedS1Tokens = 'approvedS1Tokens',
   Id = 'id',
   S2Badges = 's2Badges',
-  S2Recruitments = 's2Recruitments',
   Tokens = 'tokens'
 }
 
@@ -124,42 +112,36 @@ export enum Aggregation_Interval {
   Hour = 'hour'
 }
 
-export type BadgeRecruitment = {
-  __typename?: 'BadgeRecruitment';
-  claimExpirationTimeout: Scalars['BigInt']['output'];
-  cycleId: Scalars['BigInt']['output'];
-  /** owner:s1BadgeTokenId */
-  id: Scalars['ID']['output'];
-  influenceExpirationTimeout: Scalars['BigInt']['output'];
-  isCompleted?: Maybe<Scalars['Boolean']['output']>;
-  isStarted?: Maybe<Scalars['Boolean']['output']>;
-  minnowInfluences: Scalars['BigInt']['output'];
-  owner: Account;
-  s1Badge: Token;
-  s2Badge?: Maybe<Token>;
-  whaleInfluences: Scalars['BigInt']['output'];
+export type BlockChangedFilter = {
+  number_gte: Scalars['Int']['input'];
 };
 
-export type BadgeRecruitment_Filter = {
+export type Block_Height = {
+  hash?: InputMaybe<Scalars['Bytes']['input']>;
+  number?: InputMaybe<Scalars['Int']['input']>;
+  number_gte?: InputMaybe<Scalars['Int']['input']>;
+};
+
+export type League = {
+  __typename?: 'League';
+  executeTimestamp: Scalars['BigInt']['output'];
+  id: Scalars['ID']['output'];
+  openTimestamp: Scalars['BigInt']['output'];
+  seed?: Maybe<Scalars['BigInt']['output']>;
+};
+
+export type League_Filter = {
   /** Filter for the block changed event. */
   _change_block?: InputMaybe<BlockChangedFilter>;
-  and?: InputMaybe<Array<InputMaybe<BadgeRecruitment_Filter>>>;
-  claimExpirationTimeout?: InputMaybe<Scalars['BigInt']['input']>;
-  claimExpirationTimeout_gt?: InputMaybe<Scalars['BigInt']['input']>;
-  claimExpirationTimeout_gte?: InputMaybe<Scalars['BigInt']['input']>;
-  claimExpirationTimeout_in?: InputMaybe<Array<Scalars['BigInt']['input']>>;
-  claimExpirationTimeout_lt?: InputMaybe<Scalars['BigInt']['input']>;
-  claimExpirationTimeout_lte?: InputMaybe<Scalars['BigInt']['input']>;
-  claimExpirationTimeout_not?: InputMaybe<Scalars['BigInt']['input']>;
-  claimExpirationTimeout_not_in?: InputMaybe<Array<Scalars['BigInt']['input']>>;
-  cycleId?: InputMaybe<Scalars['BigInt']['input']>;
-  cycleId_gt?: InputMaybe<Scalars['BigInt']['input']>;
-  cycleId_gte?: InputMaybe<Scalars['BigInt']['input']>;
-  cycleId_in?: InputMaybe<Array<Scalars['BigInt']['input']>>;
-  cycleId_lt?: InputMaybe<Scalars['BigInt']['input']>;
-  cycleId_lte?: InputMaybe<Scalars['BigInt']['input']>;
-  cycleId_not?: InputMaybe<Scalars['BigInt']['input']>;
-  cycleId_not_in?: InputMaybe<Array<Scalars['BigInt']['input']>>;
+  and?: InputMaybe<Array<InputMaybe<League_Filter>>>;
+  executeTimestamp?: InputMaybe<Scalars['BigInt']['input']>;
+  executeTimestamp_gt?: InputMaybe<Scalars['BigInt']['input']>;
+  executeTimestamp_gte?: InputMaybe<Scalars['BigInt']['input']>;
+  executeTimestamp_in?: InputMaybe<Array<Scalars['BigInt']['input']>>;
+  executeTimestamp_lt?: InputMaybe<Scalars['BigInt']['input']>;
+  executeTimestamp_lte?: InputMaybe<Scalars['BigInt']['input']>;
+  executeTimestamp_not?: InputMaybe<Scalars['BigInt']['input']>;
+  executeTimestamp_not_in?: InputMaybe<Array<Scalars['BigInt']['input']>>;
   id?: InputMaybe<Scalars['ID']['input']>;
   id_gt?: InputMaybe<Scalars['ID']['input']>;
   id_gte?: InputMaybe<Scalars['ID']['input']>;
@@ -168,31 +150,69 @@ export type BadgeRecruitment_Filter = {
   id_lte?: InputMaybe<Scalars['ID']['input']>;
   id_not?: InputMaybe<Scalars['ID']['input']>;
   id_not_in?: InputMaybe<Array<Scalars['ID']['input']>>;
-  influenceExpirationTimeout?: InputMaybe<Scalars['BigInt']['input']>;
-  influenceExpirationTimeout_gt?: InputMaybe<Scalars['BigInt']['input']>;
-  influenceExpirationTimeout_gte?: InputMaybe<Scalars['BigInt']['input']>;
-  influenceExpirationTimeout_in?: InputMaybe<Array<Scalars['BigInt']['input']>>;
-  influenceExpirationTimeout_lt?: InputMaybe<Scalars['BigInt']['input']>;
-  influenceExpirationTimeout_lte?: InputMaybe<Scalars['BigInt']['input']>;
-  influenceExpirationTimeout_not?: InputMaybe<Scalars['BigInt']['input']>;
-  influenceExpirationTimeout_not_in?: InputMaybe<Array<Scalars['BigInt']['input']>>;
-  isCompleted?: InputMaybe<Scalars['Boolean']['input']>;
-  isCompleted_in?: InputMaybe<Array<Scalars['Boolean']['input']>>;
-  isCompleted_not?: InputMaybe<Scalars['Boolean']['input']>;
-  isCompleted_not_in?: InputMaybe<Array<Scalars['Boolean']['input']>>;
-  isStarted?: InputMaybe<Scalars['Boolean']['input']>;
-  isStarted_in?: InputMaybe<Array<Scalars['Boolean']['input']>>;
-  isStarted_not?: InputMaybe<Scalars['Boolean']['input']>;
-  isStarted_not_in?: InputMaybe<Array<Scalars['Boolean']['input']>>;
-  minnowInfluences?: InputMaybe<Scalars['BigInt']['input']>;
-  minnowInfluences_gt?: InputMaybe<Scalars['BigInt']['input']>;
-  minnowInfluences_gte?: InputMaybe<Scalars['BigInt']['input']>;
-  minnowInfluences_in?: InputMaybe<Array<Scalars['BigInt']['input']>>;
-  minnowInfluences_lt?: InputMaybe<Scalars['BigInt']['input']>;
-  minnowInfluences_lte?: InputMaybe<Scalars['BigInt']['input']>;
-  minnowInfluences_not?: InputMaybe<Scalars['BigInt']['input']>;
-  minnowInfluences_not_in?: InputMaybe<Array<Scalars['BigInt']['input']>>;
-  or?: InputMaybe<Array<InputMaybe<BadgeRecruitment_Filter>>>;
+  openTimestamp?: InputMaybe<Scalars['BigInt']['input']>;
+  openTimestamp_gt?: InputMaybe<Scalars['BigInt']['input']>;
+  openTimestamp_gte?: InputMaybe<Scalars['BigInt']['input']>;
+  openTimestamp_in?: InputMaybe<Array<Scalars['BigInt']['input']>>;
+  openTimestamp_lt?: InputMaybe<Scalars['BigInt']['input']>;
+  openTimestamp_lte?: InputMaybe<Scalars['BigInt']['input']>;
+  openTimestamp_not?: InputMaybe<Scalars['BigInt']['input']>;
+  openTimestamp_not_in?: InputMaybe<Array<Scalars['BigInt']['input']>>;
+  or?: InputMaybe<Array<InputMaybe<League_Filter>>>;
+  seed?: InputMaybe<Scalars['BigInt']['input']>;
+  seed_gt?: InputMaybe<Scalars['BigInt']['input']>;
+  seed_gte?: InputMaybe<Scalars['BigInt']['input']>;
+  seed_in?: InputMaybe<Array<Scalars['BigInt']['input']>>;
+  seed_lt?: InputMaybe<Scalars['BigInt']['input']>;
+  seed_lte?: InputMaybe<Scalars['BigInt']['input']>;
+  seed_not?: InputMaybe<Scalars['BigInt']['input']>;
+  seed_not_in?: InputMaybe<Array<Scalars['BigInt']['input']>>;
+};
+
+export enum League_OrderBy {
+  ExecuteTimestamp = 'executeTimestamp',
+  Id = 'id',
+  OpenTimestamp = 'openTimestamp',
+  Seed = 'seed'
+}
+
+/** Defines the order direction, either ascending or descending */
+export enum OrderDirection {
+  Asc = 'asc',
+  Desc = 'desc'
+}
+
+export type Participant = {
+  __typename?: 'Participant';
+  id: Scalars['Bytes']['output'];
+  leagueId: Scalars['BigInt']['output'];
+  owner: Account;
+  token: Token;
+};
+
+export type Participant_Filter = {
+  /** Filter for the block changed event. */
+  _change_block?: InputMaybe<BlockChangedFilter>;
+  and?: InputMaybe<Array<InputMaybe<Participant_Filter>>>;
+  id?: InputMaybe<Scalars['Bytes']['input']>;
+  id_contains?: InputMaybe<Scalars['Bytes']['input']>;
+  id_gt?: InputMaybe<Scalars['Bytes']['input']>;
+  id_gte?: InputMaybe<Scalars['Bytes']['input']>;
+  id_in?: InputMaybe<Array<Scalars['Bytes']['input']>>;
+  id_lt?: InputMaybe<Scalars['Bytes']['input']>;
+  id_lte?: InputMaybe<Scalars['Bytes']['input']>;
+  id_not?: InputMaybe<Scalars['Bytes']['input']>;
+  id_not_contains?: InputMaybe<Scalars['Bytes']['input']>;
+  id_not_in?: InputMaybe<Array<Scalars['Bytes']['input']>>;
+  leagueId?: InputMaybe<Scalars['BigInt']['input']>;
+  leagueId_gt?: InputMaybe<Scalars['BigInt']['input']>;
+  leagueId_gte?: InputMaybe<Scalars['BigInt']['input']>;
+  leagueId_in?: InputMaybe<Array<Scalars['BigInt']['input']>>;
+  leagueId_lt?: InputMaybe<Scalars['BigInt']['input']>;
+  leagueId_lte?: InputMaybe<Scalars['BigInt']['input']>;
+  leagueId_not?: InputMaybe<Scalars['BigInt']['input']>;
+  leagueId_not_in?: InputMaybe<Array<Scalars['BigInt']['input']>>;
+  or?: InputMaybe<Array<InputMaybe<Participant_Filter>>>;
   owner?: InputMaybe<Scalars['String']['input']>;
   owner_?: InputMaybe<Account_Filter>;
   owner_contains?: InputMaybe<Scalars['String']['input']>;
@@ -214,166 +234,44 @@ export type BadgeRecruitment_Filter = {
   owner_not_starts_with_nocase?: InputMaybe<Scalars['String']['input']>;
   owner_starts_with?: InputMaybe<Scalars['String']['input']>;
   owner_starts_with_nocase?: InputMaybe<Scalars['String']['input']>;
-  s1Badge?: InputMaybe<Scalars['String']['input']>;
-  s1Badge_?: InputMaybe<Token_Filter>;
-  s1Badge_contains?: InputMaybe<Scalars['String']['input']>;
-  s1Badge_contains_nocase?: InputMaybe<Scalars['String']['input']>;
-  s1Badge_ends_with?: InputMaybe<Scalars['String']['input']>;
-  s1Badge_ends_with_nocase?: InputMaybe<Scalars['String']['input']>;
-  s1Badge_gt?: InputMaybe<Scalars['String']['input']>;
-  s1Badge_gte?: InputMaybe<Scalars['String']['input']>;
-  s1Badge_in?: InputMaybe<Array<Scalars['String']['input']>>;
-  s1Badge_lt?: InputMaybe<Scalars['String']['input']>;
-  s1Badge_lte?: InputMaybe<Scalars['String']['input']>;
-  s1Badge_not?: InputMaybe<Scalars['String']['input']>;
-  s1Badge_not_contains?: InputMaybe<Scalars['String']['input']>;
-  s1Badge_not_contains_nocase?: InputMaybe<Scalars['String']['input']>;
-  s1Badge_not_ends_with?: InputMaybe<Scalars['String']['input']>;
-  s1Badge_not_ends_with_nocase?: InputMaybe<Scalars['String']['input']>;
-  s1Badge_not_in?: InputMaybe<Array<Scalars['String']['input']>>;
-  s1Badge_not_starts_with?: InputMaybe<Scalars['String']['input']>;
-  s1Badge_not_starts_with_nocase?: InputMaybe<Scalars['String']['input']>;
-  s1Badge_starts_with?: InputMaybe<Scalars['String']['input']>;
-  s1Badge_starts_with_nocase?: InputMaybe<Scalars['String']['input']>;
-  s2Badge?: InputMaybe<Scalars['String']['input']>;
-  s2Badge_?: InputMaybe<Token_Filter>;
-  s2Badge_contains?: InputMaybe<Scalars['String']['input']>;
-  s2Badge_contains_nocase?: InputMaybe<Scalars['String']['input']>;
-  s2Badge_ends_with?: InputMaybe<Scalars['String']['input']>;
-  s2Badge_ends_with_nocase?: InputMaybe<Scalars['String']['input']>;
-  s2Badge_gt?: InputMaybe<Scalars['String']['input']>;
-  s2Badge_gte?: InputMaybe<Scalars['String']['input']>;
-  s2Badge_in?: InputMaybe<Array<Scalars['String']['input']>>;
-  s2Badge_lt?: InputMaybe<Scalars['String']['input']>;
-  s2Badge_lte?: InputMaybe<Scalars['String']['input']>;
-  s2Badge_not?: InputMaybe<Scalars['String']['input']>;
-  s2Badge_not_contains?: InputMaybe<Scalars['String']['input']>;
-  s2Badge_not_contains_nocase?: InputMaybe<Scalars['String']['input']>;
-  s2Badge_not_ends_with?: InputMaybe<Scalars['String']['input']>;
-  s2Badge_not_ends_with_nocase?: InputMaybe<Scalars['String']['input']>;
-  s2Badge_not_in?: InputMaybe<Array<Scalars['String']['input']>>;
-  s2Badge_not_starts_with?: InputMaybe<Scalars['String']['input']>;
-  s2Badge_not_starts_with_nocase?: InputMaybe<Scalars['String']['input']>;
-  s2Badge_starts_with?: InputMaybe<Scalars['String']['input']>;
-  s2Badge_starts_with_nocase?: InputMaybe<Scalars['String']['input']>;
-  whaleInfluences?: InputMaybe<Scalars['BigInt']['input']>;
-  whaleInfluences_gt?: InputMaybe<Scalars['BigInt']['input']>;
-  whaleInfluences_gte?: InputMaybe<Scalars['BigInt']['input']>;
-  whaleInfluences_in?: InputMaybe<Array<Scalars['BigInt']['input']>>;
-  whaleInfluences_lt?: InputMaybe<Scalars['BigInt']['input']>;
-  whaleInfluences_lte?: InputMaybe<Scalars['BigInt']['input']>;
-  whaleInfluences_not?: InputMaybe<Scalars['BigInt']['input']>;
-  whaleInfluences_not_in?: InputMaybe<Array<Scalars['BigInt']['input']>>;
+  token?: InputMaybe<Scalars['String']['input']>;
+  token_?: InputMaybe<Token_Filter>;
+  token_contains?: InputMaybe<Scalars['String']['input']>;
+  token_contains_nocase?: InputMaybe<Scalars['String']['input']>;
+  token_ends_with?: InputMaybe<Scalars['String']['input']>;
+  token_ends_with_nocase?: InputMaybe<Scalars['String']['input']>;
+  token_gt?: InputMaybe<Scalars['String']['input']>;
+  token_gte?: InputMaybe<Scalars['String']['input']>;
+  token_in?: InputMaybe<Array<Scalars['String']['input']>>;
+  token_lt?: InputMaybe<Scalars['String']['input']>;
+  token_lte?: InputMaybe<Scalars['String']['input']>;
+  token_not?: InputMaybe<Scalars['String']['input']>;
+  token_not_contains?: InputMaybe<Scalars['String']['input']>;
+  token_not_contains_nocase?: InputMaybe<Scalars['String']['input']>;
+  token_not_ends_with?: InputMaybe<Scalars['String']['input']>;
+  token_not_ends_with_nocase?: InputMaybe<Scalars['String']['input']>;
+  token_not_in?: InputMaybe<Array<Scalars['String']['input']>>;
+  token_not_starts_with?: InputMaybe<Scalars['String']['input']>;
+  token_not_starts_with_nocase?: InputMaybe<Scalars['String']['input']>;
+  token_starts_with?: InputMaybe<Scalars['String']['input']>;
+  token_starts_with_nocase?: InputMaybe<Scalars['String']['input']>;
 };
 
-export enum BadgeRecruitment_OrderBy {
-  ClaimExpirationTimeout = 'claimExpirationTimeout',
-  CycleId = 'cycleId',
+export enum Participant_OrderBy {
   Id = 'id',
-  InfluenceExpirationTimeout = 'influenceExpirationTimeout',
-  IsCompleted = 'isCompleted',
-  IsStarted = 'isStarted',
-  MinnowInfluences = 'minnowInfluences',
+  LeagueId = 'leagueId',
   Owner = 'owner',
   OwnerApprovedForAll = 'owner__approvedForAll',
   OwnerId = 'owner__id',
-  S1Badge = 's1Badge',
-  S1BadgeBadgeId = 's1Badge__badgeId',
-  S1BadgeContract = 's1Badge__contract',
-  S1BadgeErc = 's1Badge__erc',
-  S1BadgeFrozenS2 = 's1Badge__frozenS2',
-  S1BadgeFrozenS3 = 's1Badge__frozenS3',
-  S1BadgeId = 's1Badge__id',
-  S1BadgeMovement = 's1Badge__movement',
-  S1BadgeSeason = 's1Badge__season',
-  S1BadgeTokenId = 's1Badge__tokenId',
-  S1BadgeUri = 's1Badge__uri',
-  S2Badge = 's2Badge',
-  S2BadgeBadgeId = 's2Badge__badgeId',
-  S2BadgeContract = 's2Badge__contract',
-  S2BadgeErc = 's2Badge__erc',
-  S2BadgeFrozenS2 = 's2Badge__frozenS2',
-  S2BadgeFrozenS3 = 's2Badge__frozenS3',
-  S2BadgeId = 's2Badge__id',
-  S2BadgeMovement = 's2Badge__movement',
-  S2BadgeSeason = 's2Badge__season',
-  S2BadgeTokenId = 's2Badge__tokenId',
-  S2BadgeUri = 's2Badge__uri',
-  WhaleInfluences = 'whaleInfluences'
-}
-
-export type BlockChangedFilter = {
-  number_gte: Scalars['Int']['input'];
-};
-
-export type Block_Height = {
-  hash?: InputMaybe<Scalars['Bytes']['input']>;
-  number?: InputMaybe<Scalars['Int']['input']>;
-  number_gte?: InputMaybe<Scalars['Int']['input']>;
-};
-
-export type OpenRecruitment = {
-  __typename?: 'OpenRecruitment';
-  badgeIds: Array<Scalars['BigInt']['output']>;
-  enabled: Scalars['Boolean']['output'];
-  endTime: Scalars['BigInt']['output'];
-  id: Scalars['ID']['output'];
-  startTime: Scalars['BigInt']['output'];
-};
-
-export type OpenRecruitment_Filter = {
-  /** Filter for the block changed event. */
-  _change_block?: InputMaybe<BlockChangedFilter>;
-  and?: InputMaybe<Array<InputMaybe<OpenRecruitment_Filter>>>;
-  badgeIds?: InputMaybe<Array<Scalars['BigInt']['input']>>;
-  badgeIds_contains?: InputMaybe<Array<Scalars['BigInt']['input']>>;
-  badgeIds_contains_nocase?: InputMaybe<Array<Scalars['BigInt']['input']>>;
-  badgeIds_not?: InputMaybe<Array<Scalars['BigInt']['input']>>;
-  badgeIds_not_contains?: InputMaybe<Array<Scalars['BigInt']['input']>>;
-  badgeIds_not_contains_nocase?: InputMaybe<Array<Scalars['BigInt']['input']>>;
-  enabled?: InputMaybe<Scalars['Boolean']['input']>;
-  enabled_in?: InputMaybe<Array<Scalars['Boolean']['input']>>;
-  enabled_not?: InputMaybe<Scalars['Boolean']['input']>;
-  enabled_not_in?: InputMaybe<Array<Scalars['Boolean']['input']>>;
-  endTime?: InputMaybe<Scalars['BigInt']['input']>;
-  endTime_gt?: InputMaybe<Scalars['BigInt']['input']>;
-  endTime_gte?: InputMaybe<Scalars['BigInt']['input']>;
-  endTime_in?: InputMaybe<Array<Scalars['BigInt']['input']>>;
-  endTime_lt?: InputMaybe<Scalars['BigInt']['input']>;
-  endTime_lte?: InputMaybe<Scalars['BigInt']['input']>;
-  endTime_not?: InputMaybe<Scalars['BigInt']['input']>;
-  endTime_not_in?: InputMaybe<Array<Scalars['BigInt']['input']>>;
-  id?: InputMaybe<Scalars['ID']['input']>;
-  id_gt?: InputMaybe<Scalars['ID']['input']>;
-  id_gte?: InputMaybe<Scalars['ID']['input']>;
-  id_in?: InputMaybe<Array<Scalars['ID']['input']>>;
-  id_lt?: InputMaybe<Scalars['ID']['input']>;
-  id_lte?: InputMaybe<Scalars['ID']['input']>;
-  id_not?: InputMaybe<Scalars['ID']['input']>;
-  id_not_in?: InputMaybe<Array<Scalars['ID']['input']>>;
-  or?: InputMaybe<Array<InputMaybe<OpenRecruitment_Filter>>>;
-  startTime?: InputMaybe<Scalars['BigInt']['input']>;
-  startTime_gt?: InputMaybe<Scalars['BigInt']['input']>;
-  startTime_gte?: InputMaybe<Scalars['BigInt']['input']>;
-  startTime_in?: InputMaybe<Array<Scalars['BigInt']['input']>>;
-  startTime_lt?: InputMaybe<Scalars['BigInt']['input']>;
-  startTime_lte?: InputMaybe<Scalars['BigInt']['input']>;
-  startTime_not?: InputMaybe<Scalars['BigInt']['input']>;
-  startTime_not_in?: InputMaybe<Array<Scalars['BigInt']['input']>>;
-};
-
-export enum OpenRecruitment_OrderBy {
-  BadgeIds = 'badgeIds',
-  Enabled = 'enabled',
-  EndTime = 'endTime',
-  Id = 'id',
-  StartTime = 'startTime'
-}
-
-/** Defines the order direction, either ascending or descending */
-export enum OrderDirection {
-  Asc = 'asc',
-  Desc = 'desc'
+  Token = 'token',
+  TokenBadgeId = 'token__badgeId',
+  TokenContract = 'token__contract',
+  TokenErc = 'token__erc',
+  TokenId = 'token__id',
+  TokenMovement = 'token__movement',
+  TokenSeason = 'token__season',
+  TokenTokenId = 'token__tokenId',
+  TokenUri = 'token__uri'
 }
 
 export type Query = {
@@ -382,10 +280,10 @@ export type Query = {
   _meta?: Maybe<_Meta_>;
   account?: Maybe<Account>;
   accounts: Array<Account>;
-  badgeRecruitment?: Maybe<BadgeRecruitment>;
-  badgeRecruitments: Array<BadgeRecruitment>;
-  openRecruitment?: Maybe<OpenRecruitment>;
-  openRecruitments: Array<OpenRecruitment>;
+  league?: Maybe<League>;
+  leagues: Array<League>;
+  participant?: Maybe<Participant>;
+  participants: Array<Participant>;
   token?: Maybe<Token>;
   tokens: Array<Token>;
 };
@@ -414,39 +312,39 @@ export type QueryAccountsArgs = {
 };
 
 
-export type QueryBadgeRecruitmentArgs = {
+export type QueryLeagueArgs = {
   block?: InputMaybe<Block_Height>;
   id: Scalars['ID']['input'];
   subgraphError?: _SubgraphErrorPolicy_;
 };
 
 
-export type QueryBadgeRecruitmentsArgs = {
+export type QueryLeaguesArgs = {
   block?: InputMaybe<Block_Height>;
   first?: InputMaybe<Scalars['Int']['input']>;
-  orderBy?: InputMaybe<BadgeRecruitment_OrderBy>;
+  orderBy?: InputMaybe<League_OrderBy>;
   orderDirection?: InputMaybe<OrderDirection>;
   skip?: InputMaybe<Scalars['Int']['input']>;
   subgraphError?: _SubgraphErrorPolicy_;
-  where?: InputMaybe<BadgeRecruitment_Filter>;
+  where?: InputMaybe<League_Filter>;
 };
 
 
-export type QueryOpenRecruitmentArgs = {
+export type QueryParticipantArgs = {
   block?: InputMaybe<Block_Height>;
   id: Scalars['ID']['input'];
   subgraphError?: _SubgraphErrorPolicy_;
 };
 
 
-export type QueryOpenRecruitmentsArgs = {
+export type QueryParticipantsArgs = {
   block?: InputMaybe<Block_Height>;
   first?: InputMaybe<Scalars['Int']['input']>;
-  orderBy?: InputMaybe<OpenRecruitment_OrderBy>;
+  orderBy?: InputMaybe<Participant_OrderBy>;
   orderDirection?: InputMaybe<OrderDirection>;
   skip?: InputMaybe<Scalars['Int']['input']>;
   subgraphError?: _SubgraphErrorPolicy_;
-  where?: InputMaybe<OpenRecruitment_Filter>;
+  where?: InputMaybe<Participant_Filter>;
 };
 
 
@@ -473,10 +371,10 @@ export type Subscription = {
   _meta?: Maybe<_Meta_>;
   account?: Maybe<Account>;
   accounts: Array<Account>;
-  badgeRecruitment?: Maybe<BadgeRecruitment>;
-  badgeRecruitments: Array<BadgeRecruitment>;
-  openRecruitment?: Maybe<OpenRecruitment>;
-  openRecruitments: Array<OpenRecruitment>;
+  league?: Maybe<League>;
+  leagues: Array<League>;
+  participant?: Maybe<Participant>;
+  participants: Array<Participant>;
   token?: Maybe<Token>;
   tokens: Array<Token>;
 };
@@ -505,39 +403,39 @@ export type SubscriptionAccountsArgs = {
 };
 
 
-export type SubscriptionBadgeRecruitmentArgs = {
+export type SubscriptionLeagueArgs = {
   block?: InputMaybe<Block_Height>;
   id: Scalars['ID']['input'];
   subgraphError?: _SubgraphErrorPolicy_;
 };
 
 
-export type SubscriptionBadgeRecruitmentsArgs = {
+export type SubscriptionLeaguesArgs = {
   block?: InputMaybe<Block_Height>;
   first?: InputMaybe<Scalars['Int']['input']>;
-  orderBy?: InputMaybe<BadgeRecruitment_OrderBy>;
+  orderBy?: InputMaybe<League_OrderBy>;
   orderDirection?: InputMaybe<OrderDirection>;
   skip?: InputMaybe<Scalars['Int']['input']>;
   subgraphError?: _SubgraphErrorPolicy_;
-  where?: InputMaybe<BadgeRecruitment_Filter>;
+  where?: InputMaybe<League_Filter>;
 };
 
 
-export type SubscriptionOpenRecruitmentArgs = {
+export type SubscriptionParticipantArgs = {
   block?: InputMaybe<Block_Height>;
   id: Scalars['ID']['input'];
   subgraphError?: _SubgraphErrorPolicy_;
 };
 
 
-export type SubscriptionOpenRecruitmentsArgs = {
+export type SubscriptionParticipantsArgs = {
   block?: InputMaybe<Block_Height>;
   first?: InputMaybe<Scalars['Int']['input']>;
-  orderBy?: InputMaybe<OpenRecruitment_OrderBy>;
+  orderBy?: InputMaybe<Participant_OrderBy>;
   orderDirection?: InputMaybe<OrderDirection>;
   skip?: InputMaybe<Scalars['Int']['input']>;
   subgraphError?: _SubgraphErrorPolicy_;
-  where?: InputMaybe<OpenRecruitment_Filter>;
+  where?: InputMaybe<Participant_Filter>;
 };
 
 
@@ -563,8 +461,6 @@ export type Token = {
   badgeId?: Maybe<Scalars['BigInt']['output']>;
   contract: Scalars['Bytes']['output'];
   erc: Scalars['BigInt']['output'];
-  frozenS2?: Maybe<Scalars['Boolean']['output']>;
-  frozenS3?: Maybe<Scalars['Boolean']['output']>;
   id: Scalars['ID']['output'];
   movement?: Maybe<Scalars['BigInt']['output']>;
   owner: Account;
@@ -603,14 +499,6 @@ export type Token_Filter = {
   erc_lte?: InputMaybe<Scalars['BigInt']['input']>;
   erc_not?: InputMaybe<Scalars['BigInt']['input']>;
   erc_not_in?: InputMaybe<Array<Scalars['BigInt']['input']>>;
-  frozenS2?: InputMaybe<Scalars['Boolean']['input']>;
-  frozenS2_in?: InputMaybe<Array<Scalars['Boolean']['input']>>;
-  frozenS2_not?: InputMaybe<Scalars['Boolean']['input']>;
-  frozenS2_not_in?: InputMaybe<Array<Scalars['Boolean']['input']>>;
-  frozenS3?: InputMaybe<Scalars['Boolean']['input']>;
-  frozenS3_in?: InputMaybe<Array<Scalars['Boolean']['input']>>;
-  frozenS3_not?: InputMaybe<Scalars['Boolean']['input']>;
-  frozenS3_not_in?: InputMaybe<Array<Scalars['Boolean']['input']>>;
   id?: InputMaybe<Scalars['ID']['input']>;
   id_gt?: InputMaybe<Scalars['ID']['input']>;
   id_gte?: InputMaybe<Scalars['ID']['input']>;
@@ -691,8 +579,6 @@ export enum Token_OrderBy {
   BadgeId = 'badgeId',
   Contract = 'contract',
   Erc = 'erc',
-  FrozenS2 = 'frozenS2',
-  FrozenS3 = 'frozenS3',
   Id = 'id',
   Movement = 'movement',
   Owner = 'owner',

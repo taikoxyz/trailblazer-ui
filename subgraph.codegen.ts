@@ -21,6 +21,11 @@ const subgraphs = [
     url: process.env.PUBLIC_PFP_SUBGRAPH_URL,
     outputDir: './src/generated/graphql/pfp/',
   },
+  {
+    name: 'fba',
+    url: process.env.PUBLIC_FBA_SUBGRAPH_URL,
+    outputDir: './src/generated/graphql/fba/',
+  }
 ];
 
 // Generates object to hold dynamic codegen configuration
