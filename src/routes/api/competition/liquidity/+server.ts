@@ -1,4 +1,3 @@
-import type { RequestHandler } from '@sveltejs/kit';
 
 import { leaderboardConfig } from '$config';
 import { liquidityServiceInstances } from '$lib/domains/leaderboard/services/server/LeaderboardServiceInstances.server';
@@ -7,9 +6,11 @@ import type { UserLeaderboardItem } from '$lib/domains/leaderboard/types/user/ty
 import { getSeasonForLiquidityEdition } from '$lib/domains/leaderboard/utils/mapEditionToSeason';
 import type { PaginationInfo } from '$shared/dto/CommonPageApiResponse';
 import { getLogger } from '$shared/utils/logger';
+import type { RequestHandler } from './$types';
 
 const log = getLogger('thrillblazer/+server.ts');
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const GET: RequestHandler = async ({ url }) => {
   const page = Number(url.searchParams.get('page')) || 0;
   const edition = Number(url.searchParams.get('edition')) || 1;
@@ -18,11 +19,10 @@ export const GET: RequestHandler = async ({ url }) => {
 
   const initialPagination: PaginationInfo<UserLeaderboardItem> = {
     page,
-    size: leaderboardConfig.pageSize,
+    size: season < 4 ? leaderboardConfig.pageSizeXlarge : leaderboardConfig.pageSizeLarge,
     total: 0,
   };
 
-  log('Requesting data', { edition, season, initialPagination });
   try {
     const instance = liquidityServiceInstances[edition][type];
     if (!instance) {

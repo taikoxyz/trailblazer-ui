@@ -14,9 +14,11 @@ export const load = async ({ params }) => {
   };
 
   const { slug } = params;
-  const edition = Number(slug) || 1;
+  const edition = Number(slug) || 3;
 
   const ogService = liquidityServiceInstances[edition][LiquidityCompetitionType.OG];
+
+  const defaultType = LiquidityCompetitionType.OG;
   if (!ogService) {
     throw new Error(`No service found for edition ${edition}`);
   }
@@ -38,5 +40,6 @@ export const load = async ({ params }) => {
     pageInfo,
     slug,
     edition,
+    type: defaultType,
   };
 };

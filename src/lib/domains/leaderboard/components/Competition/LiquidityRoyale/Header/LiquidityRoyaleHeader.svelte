@@ -20,8 +20,9 @@
 
   export let lastUpdated: Date;
 
-  const loadLeaderboardData = getContext<LoadLeaderboardDataType>('loadDappsLiquidityCompetitionLeaderboardData');
+  const loadLeaderboardData = getContext<LoadLeaderboardDataType>('loadLiquidityCompetitionLeaderboardData');
   const pageInfo = getContext<PaginationInfo<UserLeaderboardItem>>('loadLiquidityCompetitionPageInfo');
+  const edition = getContext<number>('liquidityEdition');
 
   const handleSearch = async (value: string) => {
     await loadLeaderboardData(pageInfo.page, value);
@@ -31,10 +32,10 @@
   const wrapperClasses = classNames('f-col', 'w-full', 'z-10', 'overflow-hidden', 'space-y-[120px]');
   const innerWrapperClasses = classNames('f-col', 'md:f-row', 'justify-between', 'items-center', 'space-y-[50px]');
 
-  $: smallHeaderImage = `/competitionInfo/liquidityRoyale/s${$activeSeason}/sm/header.png`;
-  $: mediumHeaderImage = `/competitionInfo/liquidityRoyale/s${$activeSeason}/md/header.png`;
-  $: largeHeaderImage = `/competitionInfo/liquidityRoyale/s${$activeSeason}/lg/header.png`;
-  $: xlargeHeaderImage = `/competitionInfo/liquidityRoyale/s${$activeSeason}/xl/header.png`;
+  $: smallHeaderImage = `/competitionInfo/liquidityRoyale/edition${edition}/sm/header.png`;
+  $: mediumHeaderImage = `/competitionInfo/liquidityRoyale/edition${edition}/md/header.png`;
+  $: largeHeaderImage = `/competitionInfo/liquidityRoyale/edition${edition}/lg/header.png`;
+  $: xlargeHeaderImage = `/competitionInfo/liquidityRoyale/edition${edition}/xl/header.png`;
 
   $: imageUrl = $isDesktop
     ? xlargeHeaderImage
@@ -98,7 +99,7 @@
   const getHeaderImageClasses = () => {
     return headerImageClasses;
   };
-  $: $activeSeason && getHeaderImageClasses();
+  $: edition && getHeaderImageClasses();
   $: description = $t(`leaderboard.liquidityRoyale.description.s${$activeSeason}`);
 </script>
 

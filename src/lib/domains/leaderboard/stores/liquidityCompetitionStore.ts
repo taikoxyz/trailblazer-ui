@@ -1,14 +1,16 @@
 import { writable } from 'svelte/store';
 
 import { browser } from '$app/environment';
-import type { DappLeaderboardPage } from '$lib/domains/leaderboard/types/dapps/types';
 import { getLogger } from '$shared/utils/logger';
 
-import type { LiquidityCompetitionType } from '../types/competition/types';
+import { LiquidityCompetitionType } from '../types/competition/types';
+import type { LiquidityCompetitionPage } from '../types/liquidity/types';
 
 const log = getLogger('LeaderboardStore');
 
-export const leaderboardStore = writable<DappLeaderboardPage>({
+export const activeLiquidityType = writable<LiquidityCompetitionType>(LiquidityCompetitionType.OG);
+
+export const leaderboardStore = writable<LiquidityCompetitionPage>({
   items: [],
   lastUpdated: Date.now(),
   pagination: { page: 0, size: 10, total: 0 },
@@ -22,7 +24,7 @@ export async function fetchLeaderboard(
 ): Promise<void> {
   if (!browser) return;
   try {
-    const url = `/api/competition/liquidity/${type}?page=${page}&edition=${edition}${address ? `&address=${address}` : ''}`;
+    const url = `/api/competition/liquidity?page=${page}&edition=${edition}&type=${type}${address ? `&address=${address}` : ''}`;
     log('Fetching leaderboard from URL:', url);
     const res = await fetch(url);
     if (!res.ok) {

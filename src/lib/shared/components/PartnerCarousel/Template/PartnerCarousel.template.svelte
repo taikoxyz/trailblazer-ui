@@ -73,6 +73,7 @@
   });
 
   const rotateLeft = async () => {
+    // console.log('rotateLeft');
     if (isAnimating) return;
     isAnimating = true;
     currentIndex = (currentIndex + 1) % N;

@@ -1,18 +1,11 @@
 <script lang="ts">
-  import { activeSeason } from '$shared/stores/activeSeason';
+  import { Tooltip } from '$shared/components/Tooltip';
   import { classNames } from '$shared/utils/classNames';
+  import { getContext } from 'svelte';
+  import { getEditionDetails } from '../editionDetails';
+  import { t } from 'svelte-i18n';
 
-  const wrapperClasses = classNames(
-    'w-[150px]',
-    'items-center',
-    'justify-center',
-    'f-col',
-    'gap-[15px]',
-    'uppercase',
-    'text-sm',
-    'font-clash-grotesk',
-    'font-medium',
-  );
+  const wrapperClasses = classNames('w-[150px]', 'items-center', 'justify-center', 'f-col', 'gap-[15px]');
   const badgeClasses = classNames(
     'border',
     'border-divider-border',
@@ -20,6 +13,8 @@
     'rounded-full',
     'px-[20px]',
     'py-[10px]',
+    'f-row',
+    'gap-[10px]',
   );
   const prizeWrapperClasses = classNames('f-row', 'gap-[16px]', 'items-center');
   const prizeClasses = classNames(
@@ -37,11 +32,33 @@
     'text-primary-link',
   );
 
-  $: prize = Number($activeSeason) === 2 ? '1M' : '1.2M';
+  const badgeTextClasses = classNames('uppercase', 'text-sm', 'font-clash-grotesk', 'font-medium');
+
+  const tooltipClass = 'bg-white text-black';
+
+  const edition = getContext<number>('liquidityEdition');
+
+  $: editionDetails = getEditionDetails(edition);
+
+  $: hasTooltip = editionDetails?.tooltip || false;
+
+  $: prize = editionDetails?.prizePool || '';
 </script>
 
 <div class={wrapperClasses}>
-  <span class={badgeClasses}> Prize pool </span>
+  <div class={badgeClasses}>
+    <span class={badgeTextClasses}>Prize pool</span>
+    {#if hasTooltip}
+      <Tooltip slot="tooltip" position="top">
+        <div class={tooltipClass}>
+          <h2 class="text-black">{$t(`leaderboard.liquidityRoyale.prizePoolTooltip.edition${edition}.title`)}</h2>
+          <div class="font-normal text-black">
+            {$t(`leaderboard.liquidityRoyale.prizePoolTooltip.edition${edition}.content`)}
+          </div>
+        </div>
+      </Tooltip>
+    {/if}
+  </div>
 
   <div class={prizeWrapperClasses}>
     <span class={prizeClasses}>{prize}</span>
