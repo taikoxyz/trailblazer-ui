@@ -17,6 +17,7 @@
 
   import NewsCard from './NewsCard/NewsCard.svelte';
   import MultiplierCard from './ProfileMultiplierCard/MultiplierCard.svelte';
+  import FloatingClaimButton from './ProfileSeasonBonusCard/FloatingClaimButton.svelte';
   import SeasonDetails from './SeasonDetails.svelte';
   // import ProfileSeasonBonusCard from './ProfileSeasonBonusCard/ProfileSeasonBonusCard.svelte';
 
@@ -97,5 +98,7 @@
     </div>
   </div>
 </div>
+
+<FloatingClaimButton />
 
 <ProfileModals />

@@ -13,12 +13,15 @@ const log = getLogger('SeasonBonusPointsAdapter');
 
 enum EventIds {
   SEASON1 = 0,
+  SEASON2 = 2,
 }
 
 const mapSeasonToEventId = (season: number): number => {
   switch (season) {
     case 2:
       return EventIds.SEASON1;
+    case 3:
+      return EventIds.SEASON2;
     default:
       throw new Error('Invalid season');
   }

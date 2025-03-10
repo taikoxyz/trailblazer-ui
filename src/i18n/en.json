@@ -362,7 +362,12 @@
         "message": " If you participated in Season 1, you will be rewarded some bonus points for season 2. These will be capped.           Have a look at our official Season 2 announcement for more details."
       }
     },
-    "terms_agree": "I agree to the terms and conditions mentioned above."
+    "terms_agree": "I agree to the terms and conditions mentioned above.",
+    "modal": {
+      "title": "Your Season 2 Bonus Points",
+      "body": "Claim your season 2 bonus points now and boost your Trailblazers total instantly.",
+      "button": "Claim bonus points"
+    }
   },
   "common": {
     "badge_claimed": "<a target=\"_blank\" href=\"https://taikoscan.io/tx/{txHash}\">Click here to see your transaction on Taikoscan</a>",
