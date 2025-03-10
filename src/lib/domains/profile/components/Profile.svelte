@@ -73,9 +73,6 @@
           <ProfileCard loading={$profileLoading} {isSelfProfile} />
           <MultiplierCard />
         </div>
-        <!-- {#if isSelfProfile}
-        <ProfileSeasonBonusCard />
-      {/if} -->
       </div>
       <NewsCard />
     </div>
