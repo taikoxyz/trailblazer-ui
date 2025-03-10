@@ -1,6 +1,9 @@
 <script lang="ts">
-  import { onMount, onDestroy, setContext } from 'svelte';
+  import { onDestroy, onMount, setContext } from 'svelte';
+  import type { Unsubscriber } from 'svelte/motion';
+  import { derived } from 'svelte/store';
   import { t } from 'svelte-i18n';
+
   import { browser } from '$app/environment';
   import { CampaignEndedInfoBox } from '$lib/domains/leaderboard/components/CampaignEndedInfoBox';
   import { AbstractLeaderboard, PointScore } from '$lib/domains/leaderboard/components/Template';
@@ -13,15 +16,14 @@
     fetchLeaderboard,
     leaderboardStore,
   } from '$lib/domains/leaderboard/stores/liquidityCompetitionStore';
+  import type { LiquidityCompetitionPage } from '$lib/domains/leaderboard/types/liquidity/types';
   import type { UserLeaderboardItem } from '$lib/domains/leaderboard/types/user/types';
   import type { PaginationInfo } from '$lib/shared/dto/CommonPageApiResponse';
   import { activeSeason } from '$shared/stores/activeSeason';
+
+  import { getEditionDetails } from './editionDetails';
   import LiquidityRoyaleHeader from './Header/LiquidityRoyaleHeader.svelte';
   import LiquidityDisclaimer from './LiquidityDisclaimer.svelte';
-  import type { LiquidityCompetitionPage } from '$lib/domains/leaderboard/types/liquidity/types';
-  import { derived } from 'svelte/store';
-  import type { Unsubscriber } from 'svelte/motion';
-  import { getEditionDetails } from './editionDetails';
 
   let headers = ['No.', 'Address', 'Points'];
   let leaderboard: LiquidityCompetitionPage;

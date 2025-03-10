@@ -4,11 +4,11 @@
   import { goto } from '$app/navigation';
   import { page } from '$app/stores';
   import LiquidityRoyaleLeaderboard from '$lib/domains/leaderboard/components/Competition/LiquidityRoyale/LiquidityRoyaleLeaderboard.svelte';
+  import { activeLiquidityType } from '$lib/domains/leaderboard/stores/liquidityCompetitionStore.js';
   import { ActionButton } from '$shared/components/Button';
   import { Page } from '$shared/components/Page';
   import { activeSeason } from '$shared/stores/activeSeason';
   import { classNames } from '$shared/utils/classNames';
-  import { activeLiquidityType } from '$lib/domains/leaderboard/stores/liquidityCompetitionStore.js';
 
   export let data;
 

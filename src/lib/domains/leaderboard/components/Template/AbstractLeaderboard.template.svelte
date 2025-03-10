@@ -1,12 +1,14 @@
 <script lang="ts">
-  import { onDestroy, type ComponentType } from 'svelte';
+  import { type ComponentType, onDestroy } from 'svelte';
   import { isAddress, zeroAddress } from 'viem';
+
   import { leaderboardConfig } from '$config';
   import type { UnifiedLeaderboardRow } from '$lib/domains/leaderboard/types/shared/types';
   import { DisabledMask } from '$shared/components/Masks';
   import Paginator from '$shared/components/Paginator/Paginator.svelte';
   import { classNames } from '$shared/utils/classNames';
   import getConnectedAddress from '$shared/utils/getConnectedAddress';
+
   // import { getLogger } from '$shared/utils/logger';
   import LoadingRow from './LoadingRow.svelte';
   import TableHeader from './TableHeader.svelte';
@@ -33,7 +35,7 @@
   export let showDetailsColumn = true;
   export let qualifyingPositions = 3;
   export let tabs: { slug: string; name: string }[] = [];
-  export let activeTabStore: import('svelte/store').Writable<string>;
+  export let activeTabStore: import('svelte/store').Writable<string> | null = null;
 
   // const log = getLogger('AbstractLeaderboard');
 
@@ -132,14 +134,18 @@
   );
 
   let activeTab: string;
-  $: activeTab = $activeTabStore;
+  $: activeTab = $activeTabStore ?? '';
 
-  const unsubscribe = activeTabStore.subscribe((val) => {
-    activeTab = val;
-  });
+  const unsubscribe =
+    activeTabStore &&
+    activeTabStore.subscribe((val) => {
+      activeTab = val;
+    });
 
   onDestroy(() => {
-    unsubscribe();
+    if (unsubscribe) {
+      unsubscribe();
+    }
   });
 </script>
 
@@ -157,7 +163,7 @@
   {/if}
   <div class={textCenterClass}></div>
   <slot />
-  {#if tabs.length}
+  {#if tabs.length && activeTabStore}
     <div role="tablist" class={tablistClasses}>
       {#each tabs as tab, index}
         <button

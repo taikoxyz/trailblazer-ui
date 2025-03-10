@@ -348,10 +348,7 @@
         "title": "Season 2 claiming is now live!"
       },
       "success": {
-        "buttons": [
-          "Add to wallet",
-          "Earn more TAIKO"
-        ],
+        "buttons": ["Add to wallet", "Earn more TAIKO"],
         "text": "Congratulations! You've successfully claimed your tokens. You can now add them to your wallet.",
         "title": "Claim successful"
       }
@@ -662,7 +659,7 @@
         "url": {
           "edition1": "https: //taiko.mirror.xyz/sB3dVLrVRn3DPKaAi6ed1C1qKLCtpaCfyaQdw7LD0XI",
           "edition2": "https://taiko.mirror.xyz/t3T94NzDKne3-agm1M3PTJN6apGYvJRnlvJ5qy-xymk",
-          "edition3": ""
+          "edition3": "https://taiko.mirror.xyz/rUY4jIJgW8sX3YlidwBzotrYkhoaXGhAZTu6IZeASwY"
         }
       },
       "carousel": {

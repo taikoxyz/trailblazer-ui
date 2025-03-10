@@ -1,9 +1,11 @@
 <script lang="ts">
+  import { getContext } from 'svelte';
+  import { t } from 'svelte-i18n';
+
   import { Tooltip } from '$shared/components/Tooltip';
   import { classNames } from '$shared/utils/classNames';
-  import { getContext } from 'svelte';
+
   import { getEditionDetails } from '../editionDetails';
-  import { t } from 'svelte-i18n';
 
   const wrapperClasses = classNames('w-[150px]', 'items-center', 'justify-center', 'f-col', 'gap-[15px]');
   const badgeClasses = classNames(

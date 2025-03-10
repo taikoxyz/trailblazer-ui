@@ -1,4 +1,3 @@
-
 import { leaderboardConfig } from '$config';
 import { liquidityServiceInstances } from '$lib/domains/leaderboard/services/server/LeaderboardServiceInstances.server';
 import { LiquidityCompetitionType } from '$lib/domains/leaderboard/types/competition/types';
@@ -6,6 +5,7 @@ import type { UserLeaderboardItem } from '$lib/domains/leaderboard/types/user/ty
 import { getSeasonForLiquidityEdition } from '$lib/domains/leaderboard/utils/mapEditionToSeason';
 import type { PaginationInfo } from '$shared/dto/CommonPageApiResponse';
 import { getLogger } from '$shared/utils/logger';
+
 import type { RequestHandler } from './$types';
 
 const log = getLogger('thrillblazer/+server.ts');

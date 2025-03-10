@@ -1,8 +1,9 @@
 <script lang="ts">
-  import { createEventDispatcher, onMount, onDestroy, tick } from 'svelte';
+  import { createEventDispatcher, onDestroy, onMount, tick } from 'svelte';
+
   import { Icon, type IconType } from '$shared/components/Icon';
-  import { uid } from '$shared/utils/uid';
   import { classNames } from '$shared/utils/classNames';
+  import { uid } from '$shared/utils/uid';
 
   type Position = 'top' | 'bottom' | 'left' | 'right';
 

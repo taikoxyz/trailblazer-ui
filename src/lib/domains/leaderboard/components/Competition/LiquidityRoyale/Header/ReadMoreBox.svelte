@@ -1,8 +1,8 @@
 <script lang="ts">
+  import { getContext } from 'svelte';
   import { t } from 'svelte-i18n';
 
   import ActionButton from '$shared/components/Button/ActionButton.svelte';
-  import { activeSeason } from '$shared/stores/activeSeason';
   import { classNames } from '$shared/utils/classNames';
 
   const innerWrapperClasses = classNames('f-col', 'md:f-row', 'gap-[30px]', 'items-center', 'justify-center');
@@ -36,8 +36,9 @@
   const buttonClasses = classNames('min-w-[140px]', 'max-w-[140px]');
 
   const iconClasses = classNames('w-[56px]', 'h-[56px]');
+  const edition = getContext<number>('liquidityEdition');
 
-  $: url = $t(`leaderboard.liquidityRoyale.blogpost.url.s${$activeSeason}`);
+  $: url = $t(`leaderboard.liquidityRoyale.blogpost.url.edition${edition}`);
 </script>
 
 <div class={boxClasses}>

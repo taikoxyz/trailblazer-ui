@@ -8,7 +8,6 @@
   import { PlusIcon } from '$shared/components/Icon';
   import LiquidityRoyalCarousel from '$shared/components/PartnerCarousel/LiquidityRoyalCarousel.svelte';
   import type { PaginationInfo } from '$shared/dto/CommonPageApiResponse';
-  import { activeSeason } from '$shared/stores/activeSeason';
   import { classNames } from '$shared/utils/classNames';
   import { isDesktop, isTablet, isTabletLg } from '$shared/utils/responsiveCheck';
 
@@ -100,7 +99,7 @@
     return headerImageClasses;
   };
   $: edition && getHeaderImageClasses();
-  $: description = $t(`leaderboard.liquidityRoyale.description.s${$activeSeason}`);
+  $: description = $t(`leaderboard.liquidityRoyale.description.edition${edition}`);
 </script>
 
 <div class={containerClasses}>
