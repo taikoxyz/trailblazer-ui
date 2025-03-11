@@ -217,7 +217,10 @@
     </div>
 
     <div class={footerWrapperClasses}>
-      <ActionButton on:click={handleBonusClaim} disabled={claiming || alreadyClaimed} priority="primary">
+      <ActionButton
+        on:click={handleBonusClaim}
+        disabled={claiming || alreadyClaimed || !seasonBonusPoints}
+        priority="primary">
         {#if claimError}
           {$t('claim.modal.button_retry')}
         {:else}
