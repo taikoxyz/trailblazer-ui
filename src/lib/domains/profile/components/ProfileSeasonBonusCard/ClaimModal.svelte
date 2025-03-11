@@ -46,7 +46,7 @@
     'py-[20px]',
     'w-full',
     'flex',
-    'flex-row',
+    'flex-col',
     'items-center',
     'justify-center',
     'gap-4',
@@ -93,6 +93,14 @@
     'w-full',
     'bg-grey-800',
   );
+
+  const successTitleClasses = classNames(
+    'font-clash-grotesk',
+    'text-center',
+    'text-grey-10',
+    'text-[35px]/[42px]',
+    'font-[500]',
+  );
   function numberWithCommas(x: number) {
     const fixedNumber = x.toFixed(2); // Ensures two decimal places
     const parts = fixedNumber.split('.');
@@ -105,6 +113,8 @@
 
   let alreadyClaimed = false;
   let claiming: boolean = false;
+
+  $: claimError = false;
 
   const loadPoints = async () => {
     const address = getConnectedAddress();
@@ -137,6 +147,8 @@
         title: 'Claim submitted',
         message: 'Your points will be updated within the next few hours',
       });
+    } else {
+      claimError = true;
     }
 
     claiming = false;
@@ -165,8 +177,33 @@
     </div>
 
     <div class={bodyWrapperClasses}>
-      <img alt="Claim" src="/claim.svg" class="w-[120px] h-[120px]" />
-      <div class="text-center">{$t('claim.modal.body')}</div>
+      {#if claimError}
+        <img alt="Warning" src="/warning.svg" class="w-[120px] h-[120px]" />
+      {:else if alreadyClaimed}
+        <img alt="Success" src="/success.svg" class="w-[120px] h-[120px]" />
+      {:else}
+        <img alt="Claim" src="/claim.svg" class="w-[120px] h-[120px]" />
+      {/if}
+
+      {#if alreadyClaimed}
+        <div class={successTitleClasses}>
+          {$t('claim.modal.claimed_title')}
+        </div>
+      {:else if claimError}
+        <div class={successTitleClasses}>
+          {$t('claim.modal.claimed_error_title')}
+        </div>
+      {/if}
+
+      <div class="text-center">
+        {#if alreadyClaimed}
+          {$t('claim.modal.claimed')}
+        {:else if claimError}
+          {$t('claim.modal.claimed_error_body')}
+        {:else}
+          {$t('claim.modal.body')}
+        {/if}
+      </div>
       <div class={rewardInputValueWrapperClasses}>
         <div class={amountInfoClasses}>{numberWithCommas(seasonBonusPoints)}</div>
         <div class={amountInfoTextClasses}>
@@ -177,8 +214,17 @@
     </div>
 
     <div class={footerWrapperClasses}>
-      <ActionButton on:click={handleBonusClaim} disabled={claiming || alreadyClaimed} priority="primary"
-        >{$t('claim.modal.button')}</ActionButton>
+      <ActionButton on:click={handleBonusClaim} disabled={claiming || alreadyClaimed} priority="primary">
+        {#if claimError}
+          {$t('claim.modal.button_retry')}
+        {:else}
+          {$t('claim.modal.button')}
+        {/if}
+      </ActionButton>
+
+      {#if alreadyClaimed || claimError}
+        <ActionButton on:click={closeModal} priority="secondary">{$t('claim.modal.button_close')}</ActionButton>
+      {/if}
     </div>
     <button class="overlay-backdrop" data-modal-uuid={dialogId} />
   </div>

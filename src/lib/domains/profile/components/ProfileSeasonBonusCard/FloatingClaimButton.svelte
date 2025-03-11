@@ -1,6 +1,10 @@
 <script lang="ts">
+  import { type Address, isAddressEqual, zeroAddress } from 'viem';
+
+  import { browser } from '$app/environment';
   import ActionButton from '$shared/components/Button/ActionButton.svelte';
   import { classNames } from '$shared/utils/classNames';
+  import getConnectedAddress from '$shared/utils/getConnectedAddress';
 
   import { claimModal } from '../../stores';
 
@@ -24,12 +28,26 @@
   const labelClasses = classNames('text-grey-10', 'font-[700]', 'text-[16px]/[24px]', 'flex');
 
   const iconClasses = classNames('w-[24px]', 'h-[24px]');
+
+  $: visible = false;
+  function load() {
+    const connectedAddress = getConnectedAddress();
+    if (!browser || !connectedAddress || connectedAddress === zeroAddress) {
+      return;
+    }
+    const urlAddress = window.location.pathname.split('/')[2];
+    visible = isAddressEqual(connectedAddress, urlAddress as Address);
+  }
+
+  $: getConnectedAddress() && load();
 </script>
 
-<div class={wrapperClasses}>
-  <div class={labelClasses}>
-    <img class={iconClasses} src="/news/flame.svg" alt="Flame" />
-    Your S2 Bonus is Ready!
+{#if visible}
+  <div class={wrapperClasses}>
+    <div class={labelClasses}>
+      <img class={iconClasses} src="/news/flame.svg" alt="Flame" />
+      Your S2 Bonus is Ready!
+    </div>
+    <ActionButton on:click={() => claimModal.set(true)} priority="primary">Claim Now</ActionButton>
   </div>
-  <ActionButton on:click={() => claimModal.set(true)} priority="primary">Claim Now</ActionButton>
-</div>
+{/if}

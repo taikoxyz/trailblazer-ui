@@ -11,6 +11,7 @@ import type { BonusDTO } from '../dto/bonus.dto';
 
 const log = getLogger('SeasonBonusPointsAdapter');
 
+// Maps TBZ Seasons to EventRegister Contract EventIds
 enum EventIds {
   SEASON1 = 0,
   SEASON2 = 2,
