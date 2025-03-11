@@ -101,14 +101,17 @@
     'text-[35px]/[42px]',
     'font-[500]',
   );
+
+  const amountInfoTextClasses = classNames('text-grey-200', 'font-[400]', 'flex', 'gap-[4px]', 'text-[16px]/[24px]');
+
   function numberWithCommas(x: number) {
     const fixedNumber = x.toFixed(2); // Ensures two decimal places
     const parts = fixedNumber.split('.');
     parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
     return parts.join('.');
   }
-  const amountInfoTextClasses = classNames('text-grey-200', 'font-[400]', 'flex', 'gap-[4px]', 'text-[16px]/[24px]');
-  $: bonusClaimActive = PUBLIC_SEASON_BONUS_CLAIM_ACTIVE === 'true' /*&& hasBonusPoints*/;
+
+  $: bonusClaimActive = PUBLIC_SEASON_BONUS_CLAIM_ACTIVE === 'true';
   $: seasonBonusPoints = 0;
 
   let alreadyClaimed = false;
