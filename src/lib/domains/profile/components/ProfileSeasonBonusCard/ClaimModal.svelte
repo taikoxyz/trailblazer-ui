@@ -38,6 +38,8 @@
     'px-[50px]',
     'text-grey-200',
     'py-4',
+    'md:h-max',
+    'h-full',
   );
   const footerWrapperClasses = classNames(
     'border-t',
@@ -219,6 +221,7 @@
     <div class={footerWrapperClasses}>
       <ActionButton
         on:click={handleBonusClaim}
+        onPopup
         disabled={claiming || alreadyClaimed || !seasonBonusPoints}
         priority="primary">
         {#if claimError}

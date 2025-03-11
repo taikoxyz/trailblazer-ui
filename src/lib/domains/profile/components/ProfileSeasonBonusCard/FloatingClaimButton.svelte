@@ -9,6 +9,7 @@
   import { claimModal } from '../../stores';
 
   const wrapperClasses = classNames(
+    'z-100',
     'bg-grey-700',
     'fixed',
     'bottom-[30px]',

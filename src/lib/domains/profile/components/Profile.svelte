@@ -96,6 +96,6 @@
   </div>
 </div>
 
-<FloatingClaimButton />
-
 <ProfileModals />
+
+<FloatingClaimButton />
