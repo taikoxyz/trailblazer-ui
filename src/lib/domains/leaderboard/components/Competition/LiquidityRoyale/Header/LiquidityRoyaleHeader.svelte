@@ -1,8 +1,10 @@
 <script lang="ts">
-  import { getContext } from 'svelte';
+  import { getContext, onDestroy, onMount } from 'svelte';
+  import { derived, type Unsubscriber } from 'svelte/store';
   import { t } from 'svelte-i18n';
 
   import { browser } from '$app/environment';
+  import { activeLiquidityType, leaderboardStore } from '$lib/domains/leaderboard/stores/liquidityCompetitionStore';
   import type { LoadLeaderboardDataType } from '$lib/domains/leaderboard/types/shared/types';
   import type { UserLeaderboardItem } from '$lib/domains/leaderboard/types/user/types';
   import { PlusIcon } from '$shared/components/Icon';
@@ -20,8 +22,13 @@
   export let lastUpdated: Date;
 
   const loadLeaderboardData = getContext<LoadLeaderboardDataType>('loadLiquidityCompetitionLeaderboardData');
-  const pageInfo = getContext<PaginationInfo<UserLeaderboardItem>>('loadLiquidityCompetitionPageInfo');
   const edition = getContext<number>('liquidityEdition');
+
+  let pageInfo: PaginationInfo<UserLeaderboardItem>;
+  const pageInfoStore = derived(leaderboardStore, ($leaderboardStore) => $leaderboardStore.pagination);
+  const unsubscribePageInfo = pageInfoStore.subscribe((value) => {
+    pageInfo = value;
+  });
 
   const handleSearch = async (value: string) => {
     await loadLeaderboardData(pageInfo.page, value);
@@ -100,6 +107,18 @@
   };
   $: edition && getHeaderImageClasses();
   $: description = $t(`leaderboard.liquidityRoyale.description.edition${edition}`);
+
+  onDestroy(() => {
+    if (activeTypeUnsubscribe) activeTypeUnsubscribe();
+    unsubscribePageInfo();
+  });
+
+  let activeTypeUnsubscribe: Unsubscriber;
+  onMount(() => {
+    activeTypeUnsubscribe = activeLiquidityType.subscribe(() => {
+      if (pageInfo) loadLeaderboardData(pageInfo.page);
+    });
+  });
 </script>
 
 <div class={containerClasses}>

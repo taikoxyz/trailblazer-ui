@@ -5,6 +5,8 @@ import { fetchFromApi } from '$shared/services/api/fetchClient';
 import { getLogger } from '$shared/utils/logger';
 
 import type { LiquidityLeaderboardPageApiResponse } from '../../dto/liqudity.dto';
+import type { LiquidityCompetitionArgs } from '../../types/competition/types';
+import { getSeasonForLiquidityEdition } from '../../utils/mapEditionToSeason';
 
 const log = getLogger('LiquidityCompetitionAdapter');
 
@@ -20,16 +22,16 @@ export class LiquidityCompetitionAdapter {
   /**
    * Fetches leaderboard data from the /leaderboard/competition/liquidity endpoint.
    *
-   * @param {PaginationInfo<UserLeaderboardItem>} args
+   * @param {LiquidityCompetitionArgs} args
    * @param {number} season
    * @return {*}  {Promise<PaginationInfo<UserLeaderboardItem>>}
    * @memberof LiquidityCompetitionAdapter
    */
-  async fetchLeaderboardData(
-    args: PaginationInfo<UserLeaderboardItem>,
-    season: number,
-  ): Promise<PaginationInfo<UserLeaderboardItem>> {
+  async fetchLeaderboardData(args: LiquidityCompetitionArgs): Promise<PaginationInfo<UserLeaderboardItem>> {
     try {
+      const { edition, pagination } = args;
+      const season = getSeasonForLiquidityEdition(edition);
+
       log('fetching leaderboard data', args, season);
       const endpoint = this.buildEndpoint(args);
       const response = await fetchFromApi<LiquidityLeaderboardPageApiResponse>(endpoint, season, {
@@ -38,7 +40,7 @@ export class LiquidityCompetitionAdapter {
       });
       if (!response || !response.data) {
         log('No valid data returned, using default values.');
-        return { ...args, items: [], total: 0 };
+        return { ...pagination, items: [], total: 0 };
       }
       const result = response.data;
       return {
@@ -47,7 +49,7 @@ export class LiquidityCompetitionAdapter {
       };
     } catch (error) {
       console.error('Error fetching competition data', error);
-      return { ...args, items: [], total: 0 };
+      return { ...args.pagination, items: [], total: 0 };
     }
   }
 
@@ -73,21 +75,25 @@ export class LiquidityCompetitionAdapter {
     return response.data;
   }
 
-  private buildEndpoint(args: PaginationInfo<UserLeaderboardItem>): string {
-    const params = new URLSearchParams(
-      Object.entries(args)
-        .filter(([, value]) => value !== undefined && value !== null)
-        .map(([key, value]) => [key, String(value)]),
-    );
-    const endpoint = `/v2/leaderboard/competition/${this.competitionUrl}?${params.toString()}`;
-    log('Built endpoint:', endpoint);
+  private buildEndpoint(args: LiquidityCompetitionArgs): string {
+    const queryParams = new URLSearchParams();
+    const pagination = args.pagination || {};
+    Object.entries(pagination).forEach(([key, value]) => {
+      queryParams.set(key, String(value));
+    });
+    if (args.address) {
+      queryParams.set('address', String(args.address));
+    }
+    queryParams.set('edition', String(args.edition));
+    queryParams.set('competitionType', String(args.competitionType));
+    const endpoint = `/v2/leaderboard/competition/${this.competitionUrl}?${queryParams.toString()}`;
     return endpoint;
   }
 
   private buildPositionEndpoint(address: string): string {
-    const params = new URLSearchParams({ name: address });
+    const params = new URLSearchParams({ address: address });
     const endpoint = `/v2/leaderboard/competition/${this.competitionUrl}?${params.toString()}`;
-    log('Built endpoint for position:', endpoint);
+    log('built position endpoint', endpoint);
     return endpoint;
   }
 }

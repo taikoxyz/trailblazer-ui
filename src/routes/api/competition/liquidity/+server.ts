@@ -1,3 +1,5 @@
+import type { Address } from 'viem';
+
 import { leaderboardConfig } from '$config';
 import { liquidityServiceInstances } from '$lib/domains/leaderboard/services/server/LeaderboardServiceInstances.server';
 import { LiquidityCompetitionType } from '$lib/domains/leaderboard/types/competition/types';
@@ -16,6 +18,7 @@ export const GET: RequestHandler = async ({ url }) => {
   const edition = Number(url.searchParams.get('edition')) || 1;
   const season = Number(url.searchParams.get('season')) || getSeasonForLiquidityEdition(edition);
   const type = url.searchParams.get('type') || LiquidityCompetitionType.OG;
+  const address = (url.searchParams.get('address') as Address) || null;
 
   const initialPagination: PaginationInfo<UserLeaderboardItem> = {
     page,
@@ -32,6 +35,7 @@ export const GET: RequestHandler = async ({ url }) => {
       pagination: initialPagination,
       competitionType: LiquidityCompetitionType.OG,
       edition,
+      address: address || undefined,
     });
     return new Response(JSON.stringify(leaderboardPage));
   } catch (error) {

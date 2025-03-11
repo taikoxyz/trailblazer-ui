@@ -9,11 +9,11 @@
   import { classNames } from '$shared/utils/classNames';
   import getConnectedAddress from '$shared/utils/getConnectedAddress';
 
-  // import { getLogger } from '$shared/utils/logger';
   import LoadingRow from './LoadingRow.svelte';
   import TableHeader from './TableHeader.svelte';
   import TableRow from './TableRow.svelte';
 
+  // Component Props
   export let headers: string[];
   export let data: UnifiedLeaderboardRow[];
   export let highlightedUserPosition: UnifiedLeaderboardRow | null = null;
@@ -35,12 +35,11 @@
   export let showDetailsColumn = true;
   export let qualifyingPositions = 3;
   export let tabs: { slug: string; name: string }[] = [];
+
+  // A writable store for the active tab (for example, "og" or "moguls")
   export let activeTabStore: import('svelte/store').Writable<string> | null = null;
 
-  // const log = getLogger('AbstractLeaderboard');
-
   $: pageSize = leaderboardConfig.pageSize;
-
   let expandedRow = -1;
   function toggleRow(index: number) {
     expandedRow = expandedRow === index ? -1 : index;
@@ -98,7 +97,6 @@
   $: tbodyClass = ended ? 'rounded-lg blur-[1.5px]' : 'rounded-lg';
   const noDataRowClass = classNames('row', 'h-12');
   const paginationMarginClass = classNames('mt-[38px]');
-  const tabPanelClasses = classNames('mx-[24px]', 'md:mx-0', 'relative', '');
   const tabClasses = classNames(
     'text-center',
     'rounded-full',
@@ -133,20 +131,15 @@
     'lg:mb-0',
   );
 
-  let activeTab: string;
-  $: activeTab = $activeTabStore ?? '';
-
-  const unsubscribe =
-    activeTabStore &&
-    activeTabStore.subscribe((val) => {
+  let activeTab: string = '';
+  if (activeTabStore) {
+    const unsubscribe = activeTabStore.subscribe((val) => {
       activeTab = val;
     });
-
-  onDestroy(() => {
-    if (unsubscribe) {
+    onDestroy(() => {
       unsubscribe();
-    }
-  });
+    });
+  }
 </script>
 
 <div class={containerClass}>
@@ -166,24 +159,21 @@
   {#if tabs.length && activeTabStore}
     <div role="tablist" class={tablistClasses}>
       {#each tabs as tab, index}
+        {@const isSelected = tab.slug === activeTab}
         <button
           type="button"
           role="tab"
           class={tabClasses}
-          aria-selected={tab.slug === activeTab}
-          on:click={() => activeTabStore.set(tab.slug)}
+          aria-selected={isSelected}
+          on:click={() => {
+            activeTabStore.set(tab.slug);
+          }}
           aria-controls={`tabpanel-${index}`}
           id={`tab-${index}`}
           tabindex={tab.slug === activeTab ? 0 : -1}>
           {tab.name}
         </button>
       {/each}
-    </div>
-    <div
-      role="tabpanel"
-      class={tabPanelClasses}
-      aria-labelledby={`tab-${tabs.findIndex((t) => t.slug === activeTab)}`}
-      id={`tabpanel-${activeTab}`}>
     </div>
   {/if}
   <div class={tableWrapperClass}>
@@ -213,9 +203,10 @@
             {qualifyingPositions} />
         {/if}
         {#if isLoading}
-          <!-- eslint-disable-next-line @typescript-eslint/no-unused-vars -->
-          {#each Array(pageSize) as _, index}
-            <LoadingRow />
+          {#each Array(pageSize) as _}
+            {#key _}
+              <LoadingRow />
+            {/key}
           {/each}
         {:else}
           {#each data as entry, index}
@@ -260,3 +251,19 @@
     </div>
   {/if}
 </div>
+
+<style>
+  [role='tab'][aria-selected='true'] {
+    background-color: #e81899;
+    color: white;
+  }
+
+  button:focus {
+    outline: none;
+  }
+
+  .md\:tab:is(.tab-active, [aria-selected='true']):not(.tab-disabled):not([disabled]),
+  .md\:tab:is(input:checked) {
+    border-color: transparent;
+  }
+</style>

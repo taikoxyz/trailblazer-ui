@@ -5,7 +5,6 @@ import type { LiquidityLeaderboardPageApiResponse } from '$lib/domains/leaderboa
 
 export const GET: RequestHandler = async ({ url }) => {
   const address = url.searchParams.get('address');
-
   let filteredData = mockData;
   if (address && mockData.data.items) {
     filteredData = {

@@ -3,6 +3,7 @@
   import type { Unsubscriber } from 'svelte/motion';
   import { derived } from 'svelte/store';
   import { t } from 'svelte-i18n';
+  import { zeroAddress } from 'viem';
 
   import { browser } from '$app/environment';
   import { CampaignEndedInfoBox } from '$lib/domains/leaderboard/components/CampaignEndedInfoBox';
@@ -14,12 +15,14 @@
   import {
     activeLiquidityType,
     fetchLeaderboard,
+    fetchLeaderboardUserEntry,
     leaderboardStore,
   } from '$lib/domains/leaderboard/stores/liquidityCompetitionStore';
   import type { LiquidityCompetitionPage } from '$lib/domains/leaderboard/types/liquidity/types';
   import type { UserLeaderboardItem } from '$lib/domains/leaderboard/types/user/types';
   import type { PaginationInfo } from '$lib/shared/dto/CommonPageApiResponse';
   import { activeSeason } from '$shared/stores/activeSeason';
+  import getConnectedAddress from '$shared/utils/getConnectedAddress';
 
   import { getEditionDetails } from './editionDetails';
   import LiquidityRoyaleHeader from './Header/LiquidityRoyaleHeader.svelte';
@@ -71,6 +74,18 @@
 
   $: details = getEditionDetails(reactiveEdition);
   $: tabs = details?.tabs || [];
+
+  onMount(async () => {
+    const address = await getConnectedAddress();
+    if (address && address !== zeroAddress) {
+      const season = $activeSeason;
+      try {
+        await fetchLeaderboardUserEntry(address, edition, season);
+      } catch (error) {
+        console.error('Error fetching user row:', error);
+      }
+    }
+  });
 </script>
 
 {#key edition}
@@ -96,7 +111,6 @@
       {totalItems}
       headerComponent={LiquidityRoyaleHeader}
       scoreComponent={PointScore} />
-    {pageInfo.page}
     <LiquidityDisclaimer />
   {:else}
     No data

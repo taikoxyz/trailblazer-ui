@@ -10,7 +10,7 @@ import type { IProfileService } from '$lib/domains/profile/services/IProfileServ
 import type { UserInfoForLeaderboard } from '$lib/domains/profile/types/UserInfoForLeaderboard';
 import { getLogger } from '$shared/utils/logger';
 
-import type { LiquidityCompetitionArgs } from '../../types/competition/types';
+import type { LiquidityCompetitionArgs, LiquidityCompetitionUserArgs } from '../../types/competition/types';
 import { getSeasonForLiquidityEdition } from '../../utils/mapEditionToSeason';
 
 const log = getLogger('LiquidityCompetitionService');
@@ -48,7 +48,7 @@ export class LiquidityCompetitionService {
       log('Fetching leaderboard data', { args, edition, competitionType });
 
       const season = getSeasonForLiquidityEdition(edition);
-      const leaderboardData = await this.leaderboardAdapter.fetchLeaderboardData(pagination, season);
+      const leaderboardData = await this.leaderboardAdapter.fetchLeaderboardData(args);
       log('Fetched leaderboard data', leaderboardData);
 
       if (!leaderboardData.items?.length) {
@@ -132,13 +132,15 @@ export class LiquidityCompetitionService {
   /**
    * Fetches a single liquidity competition leaderboard entry for a given season with pagination.
    *
-   * @param {number} season
-   * @param {Address} address of the user
+   * @param {args} season
    * @return {*}  {(Promise<UnifiedLeaderboardRow | null>)}
    * @memberof LiquidityCompetitionService
    */
-  async getLiquidityCompetitionDataForAddress(season: number, address: Address): Promise<UnifiedLeaderboardRow | null> {
+  async getLiquidityCompetitionDataForAddress(
+    args: LiquidityCompetitionUserArgs,
+  ): Promise<UnifiedLeaderboardRow | null> {
     try {
+      const { season, address } = args;
       log('Fetching user leaderboard data', season, address);
       const leaderboardData = await this.leaderboardAdapter.fetchLeaderboardPositionForAddress(season, address);
 

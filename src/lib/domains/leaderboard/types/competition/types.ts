@@ -1,3 +1,5 @@
+import type { Address } from 'viem';
+
 import type { PaginationInfo } from '$shared/dto/CommonPageApiResponse';
 
 import type { DappLeaderboardItem } from '../../dto/dapps.dto';
@@ -29,4 +31,12 @@ export type LiquidityCompetitionArgs = {
   pagination: PaginationInfo<UserLeaderboardItem>;
   edition: number;
   competitionType: LiquidityCompetitionType;
+  address?: Address;
+};
+
+export type LiquidityCompetitionUserArgs = {
+  edition: number;
+  season: number;
+  type: LiquidityCompetitionType;
+  address: Address;
 };

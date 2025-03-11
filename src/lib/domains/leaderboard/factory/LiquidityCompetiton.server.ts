@@ -6,7 +6,7 @@ import profileService from '$lib/domains/profile/services/ProfileServiceInstance
 import { LiquidityCompetitionAdapter } from '../adapter/server/LiquidityCompetitionAdapter.server';
 import { LiquidityCompetitionRepository } from '../repository/LiquidityCompetitionRepository';
 import { LiquidityCompetitionService } from '../services/server/LiquidityCompetitionService.server';
-import type { LiquidityCompetitionArgs } from '../types/competition/types';
+import type { LiquidityCompetitionArgs, LiquidityCompetitionUserArgs } from '../types/competition/types';
 import type { LiquidityCompetitionPage } from '../types/liquidity/types';
 
 export class LiquidityCompetition {
@@ -40,5 +40,9 @@ export class LiquidityCompetition {
 
   async fetchCompetitionData(args: LiquidityCompetitionArgs) {
     return this.service.getLiquidityCompetitionLeaderboard(args);
+  }
+
+  async fetchCompetitionDataForAddress(args: LiquidityCompetitionUserArgs) {
+    return this.service.getLiquidityCompetitionDataForAddress(args);
   }
 }
