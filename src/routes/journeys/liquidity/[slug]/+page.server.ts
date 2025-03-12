@@ -16,6 +16,8 @@ export const load = async ({ params }) => {
   const { slug } = params;
   const edition = Number(slug) || 3;
 
+  if (edition > 3) pageInfo.size = leaderboardConfig.pageSizeLarge;
+
   const ogService = liquidityServiceInstances[edition][LiquidityCompetitionType.OG];
 
   const defaultType = LiquidityCompetitionType.OG;

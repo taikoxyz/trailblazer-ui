@@ -10,9 +10,8 @@ import { getLogger } from '$shared/utils/logger';
 
 import type { RequestHandler } from './$types';
 
-const log = getLogger('thrillblazer/+server.ts');
+const log = getLogger('liquidity/+server.ts');
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const GET: RequestHandler = async ({ url }) => {
   const page = Number(url.searchParams.get('page')) || 0;
   const edition = Number(url.searchParams.get('edition')) || 1;

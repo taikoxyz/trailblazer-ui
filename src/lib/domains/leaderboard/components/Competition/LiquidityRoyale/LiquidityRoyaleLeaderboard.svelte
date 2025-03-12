@@ -105,8 +105,8 @@
       isLoading={loading}
       ended={hasEnded}
       endedComponent={CampaignEndedInfoBox}
-      endTitleText={$t(`leaderboard.liquidityRoyale.ended.${edition}.title`)}
-      endDescriptionText={$t(`leaderboard.liquidityRoyale.ended.${edition}.description`)}
+      endTitleText={$t(`leaderboard.liquidityRoyale.ended.edition${edition}.title`)}
+      endDescriptionText={$t(`leaderboard.liquidityRoyale.ended.edition${edition}.description`)}
       {handlePageChange}
       {totalItems}
       headerComponent={LiquidityRoyaleHeader}
