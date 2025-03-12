@@ -11,14 +11,18 @@ import type { BonusDTO } from '../dto/bonus.dto';
 
 const log = getLogger('SeasonBonusPointsAdapter');
 
+// Maps TBZ Seasons to EventRegister Contract EventIds
 enum EventIds {
   SEASON1 = 0,
+  SEASON2 = 1,
 }
 
 const mapSeasonToEventId = (season: number): number => {
   switch (season) {
     case 2:
       return EventIds.SEASON1;
+    case 3:
+      return EventIds.SEASON2;
     default:
       throw new Error('Invalid season');
   }

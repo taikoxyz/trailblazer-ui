@@ -5,6 +5,7 @@
   import { MintDisclaimerModal } from '$lib/shared/components';
 
   import ProfilePictureModal from './ProfilePicture/ProfilePictureModal.svelte';
+  import ClaimModal from './ProfileSeasonBonusCard/ClaimModal.svelte';
 </script>
 
 <ProfilePictureModal />
@@ -12,3 +13,4 @@
 <StartRecruitmentModal />
 <EndRecruitmentModal />
 <InfluenceRecruitmentModal />
+<ClaimModal />
