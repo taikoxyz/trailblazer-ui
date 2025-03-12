@@ -9,7 +9,6 @@
   import { claimModal } from '../../stores';
 
   const wrapperClasses = classNames(
-    'z-100',
     'bg-grey-700',
     'fixed',
     'bottom-[30px]',
@@ -44,7 +43,7 @@
 </script>
 
 {#if visible}
-  <div class={wrapperClasses}>
+  <div style="z-index:100;" class={wrapperClasses}>
     <div class={labelClasses}>
       <img class={iconClasses} src="/news/flame.svg" alt="Flame" />
       Your S2 Bonus is Ready!
