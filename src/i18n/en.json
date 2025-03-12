@@ -306,6 +306,21 @@
     "learn_more": "Learn more"
   },
   "claim": {
+    "modal": {
+      "body": "Claim your season 2 bonus points now and boost your Trailblazers total instantly.",
+      "button": "Claim bonus points",
+      "button_claimed": "Already claimed",
+      "button_close": "Back to dashboard",
+      "button_retry": "Try again",
+      "claimed": "Your bonus points have been added to your Trailblazers total. Check your updated ranking and status on the dashboard.",
+      "claimed_error_body": "Something went wrong while processing your claim. Please try again later or check your wallet connection.",
+      "claimed_error_title": "Claim unsuccessful",
+      "claimed_title": "Bonus Successfully Claimed!",
+      "float_cta_closed": "Bonus coming soon",
+      "float_cta_open": "Your S2 Bonus is Ready!",
+      "no_points": "No points available",
+      "title": "Your Season 2 Bonus Points"
+    },
     "panels": {
       "claim": {
         "button": "Claim now",
@@ -362,20 +377,7 @@
         "message": " If you participated in Season 1, you will be rewarded some bonus points for season 2. These will be capped.           Have a look at our official Season 2 announcement for more details."
       }
     },
-    "terms_agree": "I agree to the terms and conditions mentioned above.",
-    "modal": {
-      "title": "Your Season 2 Bonus Points",
-      "body": "Claim your season 2 bonus points now and boost your Trailblazers total instantly.",
-      "button": "Claim bonus points",
-      "claimed": "Your bonus points have been added to your Trailblazers total. Check your updated ranking and status on the dashboard.",
-      "claimed_title": "Bonus Successfully Claimed!",
-      "button_close": "Back to dashboard",
-      "claimed_error_title": "Claim unsuccessful",
-      "claimed_error_body": "Something went wrong while processing your claim. Please try again later or check your wallet connection.",
-      "button_retry": "Try again",
-      "float_cta_open": "Your S2 Bonus is Ready!",
-      "float_cta_closed": "Bonus coming soon"
-    }
+    "terms_agree": "I agree to the terms and conditions mentioned above."
   },
   "common": {
     "badge_claimed": "<a target=\"_blank\" href=\"https://taikoscan.io/tx/{txHash}\">Click here to see your transaction on Taikoscan</a>",
@@ -524,14 +526,14 @@
           "first": {
             "amount": "50k"
           },
+          "fourth": {
+            "amount": "5k"
+          },
           "second": {
             "amount": "30k"
           },
           "third": {
             "amount": "15k"
-          },
-          "fourth": {
-            "amount": "5k"
           }
         }
       },
@@ -543,21 +545,42 @@
         },
         "prize": "150K TAIKO Tokens",
         "prize_breakdown": {
+          "fifth": {
+            "amount": "5k"
+          },
           "first": {
             "amount": "65k"
+          },
+          "fourth": {
+            "amount": "15k"
           },
           "second": {
             "amount": "40k"
           },
           "third": {
             "amount": "25k"
-          },
-          "fourth": {
-            "amount": "15k"
-          },
-          "fifth": {
-            "amount": "5k"
           }
+        }
+      },
+      "ended": {
+        "description": "",
+        "title": ""
+      },
+      "prize": {
+        "2": ""
+      },
+      "prize_breakdown": {
+        "first": {
+          "amount": ""
+        },
+        "fourth": {
+          "amount": ""
+        },
+        "second": {
+          "amount": ""
+        },
+        "third": {
+          "amount": ""
         }
       }
     },
@@ -729,6 +752,29 @@
         "text": "Do you still have questions about earning points and how they're calculated? Visit our blog post for all the answers!"
       }
     },
+    "thrillblazer": {
+      "ended": {
+        "description": "",
+        "title": ""
+      },
+      "prize_breakdown": {
+        "fifth": {
+          "amount": ""
+        },
+        "first": {
+          "amount": ""
+        },
+        "fourth": {
+          "amount": ""
+        },
+        "second": {
+          "amount": ""
+        },
+        "third": {
+          "amount": ""
+        }
+      }
+    },
     "thrillblazers": {
       "1": {
         "description": "Thrill-Blazer launches Oct 18th. Calling all gaming and SocialFi dApps: Blaze new trails, fuel Taiko's momentum, and seize your chance for legendary rewards!",
@@ -737,20 +783,20 @@
           "title": "Journey ended"
         },
         "prize_breakdown": {
+          "fifth": {
+            "amount": "5k"
+          },
           "first": {
             "amount": "65k"
+          },
+          "fourth": {
+            "amount": "10k"
           },
           "second": {
             "amount": "40k"
           },
           "third": {
             "amount": "20k"
-          },
-          "fourth": {
-            "amount": "10k"
-          },
-          "fifth": {
-            "amount": "5k"
           },
           "total": "140k TAIKO Tokens"
         }
@@ -765,14 +811,14 @@
           "first": {
             "amount": "55k"
           },
+          "fourth": {
+            "amount": "5k"
+          },
           "second": {
             "amount": "25k"
           },
           "third": {
             "amount": "15k"
-          },
-          "fourth": {
-            "amount": "5k"
           },
           "total": "100k TAIKO Tokens"
         }
@@ -784,20 +830,20 @@
           "title": "Journey ended"
         },
         "prize_breakdown": {
+          "fifth": {
+            "amount": "5k"
+          },
           "first": {
             "amount": "45k"
+          },
+          "fourth": {
+            "amount": "10k"
           },
           "second": {
             "amount": "25k"
           },
           "third": {
             "amount": "15k"
-          },
-          "fourth": {
-            "amount": "10k"
-          },
-          "fifth": {
-            "amount": "5k"
           },
           "total": "100k TAIKO Tokens"
         }

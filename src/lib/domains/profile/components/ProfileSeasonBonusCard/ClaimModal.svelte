@@ -113,14 +113,14 @@
     return parts.join('.');
   }
 
-  $: bonusClaimActive = PUBLIC_SEASON_BONUS_CLAIM_ACTIVE === 'true' && hasBonusPoints;
+  $: bonusClaimActive = PUBLIC_SEASON_BONUS_CLAIM_ACTIVE === 'true';
   $: seasonBonusPoints = 0;
-  $: claimButtonDisabled = !bonusClaimActive || $bonusLoading || claiming || alreadyClaimed || !claimActive;
-  $: hasBonusPoints = seasonBonusPoints > 0;
+  $: claimButtonDisabled = !bonusClaimActive || $bonusLoading || claiming || alreadyClaimed || !claimActive || noPoints;
 
   let alreadyClaimed = false;
   let claiming: boolean = false;
   let claimActive = false;
+  let noPoints = false;
 
   $: claimError = false;
 
@@ -138,6 +138,8 @@
       claimActive = isOpen;
 
       seasonBonusPoints = bonusPoints || 0;
+      noPoints = seasonBonusPoints <= 0;
+
       alreadyClaimed = claimed;
 
       $bonusLoading = false;
@@ -227,6 +229,10 @@
       <ActionButton on:click={handleBonusClaim} onPopup disabled={claimButtonDisabled} priority="primary">
         {#if claimError}
           {$t('claim.modal.button_retry')}
+        {:else if alreadyClaimed}
+          {$t('claim.modal.button_claimed')}
+        {:else if noPoints}
+          {$t('claim.modal.no_points')}
         {:else}
           {$t('claim.modal.button')}
         {/if}
