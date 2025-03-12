@@ -12,6 +12,7 @@
 
   import profileService from '../../services/ProfileServiceInstance';
   import { claimModal } from '../../stores';
+  import { EventIds } from '../../types/EventIds';
 
   const wrapperClasses = classNames(
     'bg-grey-700',
@@ -51,7 +52,7 @@
   onMount(async () => {
     const address = getConnectedAddress();
     if (address && address !== zeroAddress && $activeSeason && bonusClaimActive) {
-      claimActive = await profileService.checkRegistrationOpen(0);
+      claimActive = await profileService.checkRegistrationOpen(EventIds.SEASON2);
     }
   });
 </script>
