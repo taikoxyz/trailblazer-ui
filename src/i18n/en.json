@@ -372,7 +372,9 @@
       "button_close": "Back to dashboard",
       "claimed_error_title": "Claim unsuccessful",
       "claimed_error_body": "Something went wrong while processing your claim. Please try again later or check your wallet connection.",
-      "button_retry": "Try again"
+      "button_retry": "Try again",
+      "float_cta_open": "Your S2 Bonus is Ready!",
+      "float_cta_closed": "Bonus coming soon"
     }
   },
   "common": {

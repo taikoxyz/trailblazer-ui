@@ -113,11 +113,14 @@
     return parts.join('.');
   }
 
-  $: bonusClaimActive = PUBLIC_SEASON_BONUS_CLAIM_ACTIVE === 'true';
+  $: bonusClaimActive = PUBLIC_SEASON_BONUS_CLAIM_ACTIVE === 'true' && hasBonusPoints;
   $: seasonBonusPoints = 0;
+  $: claimButtonDisabled = !bonusClaimActive || $bonusLoading || claiming || alreadyClaimed || !claimActive;
+  $: hasBonusPoints = seasonBonusPoints > 0;
 
   let alreadyClaimed = false;
   let claiming: boolean = false;
+  let claimActive = false;
 
   $: claimError = false;
 
@@ -126,11 +129,13 @@
 
     if (address && address !== zeroAddress && $activeSeason && bonusClaimActive) {
       $bonusLoading = true;
-      const [bonusPoints, claimed] = await Promise.all([
+      const [isOpen, bonusPoints, claimed] = await Promise.all([
+        profileService.checkRegistrationOpen(0),
         profileService.getProfileBonusPoints(address, $activeSeason),
         profileService.checkBonusClaimRegistered(address, $activeSeason),
         profileService.getPointsAndRankForAddress(address, $activeSeason - 1),
       ]);
+      claimActive = isOpen;
 
       seasonBonusPoints = bonusPoints || 0;
       alreadyClaimed = claimed;
@@ -219,11 +224,7 @@
     </div>
 
     <div class={footerWrapperClasses}>
-      <ActionButton
-        on:click={handleBonusClaim}
-        onPopup
-        disabled={claiming || alreadyClaimed || !seasonBonusPoints}
-        priority="primary">
+      <ActionButton on:click={handleBonusClaim} onPopup disabled={claimButtonDisabled} priority="primary">
         {#if claimError}
           {$t('claim.modal.button_retry')}
         {:else}

@@ -1,11 +1,16 @@
 <script lang="ts">
+  import { onMount } from 'svelte';
+  import { t } from 'svelte-i18n';
   import { type Address, isAddressEqual, zeroAddress } from 'viem';
 
   import { browser } from '$app/environment';
+  import { PUBLIC_SEASON_BONUS_CLAIM_ACTIVE } from '$env/static/public';
   import ActionButton from '$shared/components/Button/ActionButton.svelte';
+  import { activeSeason } from '$shared/stores/activeSeason';
   import { classNames } from '$shared/utils/classNames';
   import getConnectedAddress from '$shared/utils/getConnectedAddress';
 
+  import profileService from '../../services/ProfileServiceInstance';
   import { claimModal } from '../../stores';
 
   const wrapperClasses = classNames(
@@ -40,14 +45,28 @@
   }
 
   $: getConnectedAddress() && load();
+  $: claimActive = false;
+
+  $: bonusClaimActive = PUBLIC_SEASON_BONUS_CLAIM_ACTIVE === 'true';
+  onMount(async () => {
+    const address = getConnectedAddress();
+    if (address && address !== zeroAddress && $activeSeason && bonusClaimActive) {
+      claimActive = await profileService.checkRegistrationOpen(0);
+    }
+  });
 </script>
 
 {#if visible}
   <div style="z-index:100;" class={wrapperClasses}>
     <div class={labelClasses}>
       <img class={iconClasses} src="/news/flame.svg" alt="Flame" />
-      Your S2 Bonus is Ready!
+      {#if claimActive}
+        {$t('claim.modal.float_cta_open')}
+      {:else}
+        {$t('claim.modal.float_cta_closed')}
+      {/if}
     </div>
-    <ActionButton on:click={() => claimModal.set(true)} priority="primary">Claim Now</ActionButton>
+    <ActionButton onPopup disabled={!claimActive} on:click={() => claimModal.set(true)} priority="primary"
+      >Claim Now</ActionButton>
   </div>
 {/if}
