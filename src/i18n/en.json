@@ -769,7 +769,15 @@
         }
       },
       "readmore": {
-        "text": "Do you still have questions about earning points and how they're calculated? Visit our blog post for all the answers!"
+        "edition1": {
+          "text": "Do you still have questions about earning points and how they're calculated? Visit our blog post for all the answers!"
+        },
+        "edition2": {
+          "text": "Do you still have questions about earning points and how they're calculated? Visit our blog post for all the answers!"
+        },
+        "edition3": {
+          "text": "Want to learn more about the different pools in OGs Edition and DeFi Moguls? Check out our blog post for all the details"
+        }
       }
     },
     "thrillblazer": {

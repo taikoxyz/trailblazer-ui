@@ -11,8 +11,7 @@
     'font-medium',
     'leading-[24px]',
     'md:min-w-[289px]',
-    'lg:w-[485px]',
-    'xl:w-[603px]',
+
     'xl:justify-self-start',
   );
   const boxClasses = classNames(
@@ -45,7 +44,7 @@
   <div class={innerWrapperClasses}>
     <img src="/questionmark-glow.svg" alt="questionmark icon" class={iconClasses} />
 
-    <span class={textClasses}>{$t('leaderboard.liquidityRoyale.readmore.text')}</span>
+    <span class={textClasses}>{$t(`leaderboard.liquidityRoyale.readmore.edition${edition}.text`)}</span>
   </div>
   <ActionButton priority="primary" class={buttonClasses} href={url}>{$t('common.learn_more')}</ActionButton>
 </div>
