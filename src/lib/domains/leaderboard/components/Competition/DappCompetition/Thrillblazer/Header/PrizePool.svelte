@@ -59,7 +59,7 @@
   $: {
     selectedCompetitionInfo = thrillblazerDetails[edition];
     // Update totalAmount based on activeSeason
-    totalAmount = $t(`leaderboard.thrillblazers.${edition}.prize_breakdown.total`);
+    totalAmount = $t(`leaderboard.thrillblazers.edition${edition}.prize_breakdown.total`);
   }
 </script>
 

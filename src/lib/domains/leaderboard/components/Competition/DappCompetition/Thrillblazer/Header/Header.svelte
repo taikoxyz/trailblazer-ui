@@ -155,7 +155,7 @@
 
   const searchClasses = classNames('w-full', 'lg:w-[400px]', 'lg:order-1', 'order-last', 'z-0', 'ml-[3px]');
 
-  $: description = $t(`leaderboard.thrillblazers.${edition}.description`);
+  $: description = $t(`leaderboard.thrillblazers.edition${edition}.description`);
 
   $: edition = parseInt($competitionSlug);
 </script>

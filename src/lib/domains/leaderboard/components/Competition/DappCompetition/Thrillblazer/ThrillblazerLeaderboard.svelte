@@ -22,7 +22,7 @@
 
   $: reactiveEdition = edition;
 
-  const currentEdition: number = 3;
+  const currentEdition: number = 4;
 
   $: totalItems = pageInfo?.total || 0;
   $: hasEnded = reactiveEdition !== currentEdition;
