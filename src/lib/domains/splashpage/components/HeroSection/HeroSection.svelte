@@ -5,6 +5,7 @@
   import { web3modal } from '$lib/shared/utils/connect';
   import ActionButton from '$shared/components/Button/ActionButton.svelte';
   import { account } from '$shared/stores/account';
+  import { activeSeason } from '$shared/stores/activeSeason';
   import { classNames } from '$shared/utils/classNames';
 
   const handlePrimaryAction = () => {
@@ -99,22 +100,29 @@
 </script>
 
 <div class={wrapperClasses}>
-  <video
-    autoplay
-    loop
-    muted
-    playsinline
-    poster="/splash/fallback.webp"
-    class="relative h-full object-cover"
-    src="/splash/xl/evergreen.webm"></video>
+  {#if $activeSeason === 4}
+    <img src="/splash/s4/evergreen.png" alt="splash" class="absolute w-full h-full object-cover" />
+  {/if}
+  {#if $activeSeason === 3}
+    <video
+      autoplay
+      loop
+      muted
+      playsinline
+      poster="/splash/fallback.webp"
+      class="relative h-full object-cover"
+      src="/splash/xl/evergreen.webm"></video>
+  {/if}
 
   <div class={backgroundImageClasses}>
-    <div class={pillClasses}>
-      <div class={innerPillClasses}>
-        <div class={seasonClasses}>Season 3</div>
-        Now live
+    {#if $activeSeason === 3}
+      <div class={pillClasses}>
+        <div class={innerPillClasses}>
+          <div class={seasonClasses}>Season 3</div>
+          Now live
+        </div>
       </div>
-    </div>
+    {/if}
     <div class={contentWrapperClasses}>
       <div class={innerContentClasses}>
         <div class={descriptionWrapperClasses}>
