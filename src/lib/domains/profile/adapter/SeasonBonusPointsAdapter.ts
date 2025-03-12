@@ -8,14 +8,9 @@ import { pendingTransactions } from '$shared/stores/pendingTransactions';
 import { getLogger } from '$shared/utils/logger';
 
 import type { BonusDTO } from '../dto/bonus.dto';
+import { EventIds } from '../types/EventIds';
 
 const log = getLogger('SeasonBonusPointsAdapter');
-
-// Maps TBZ Seasons to EventRegister Contract EventIds
-enum EventIds {
-  SEASON1 = 0,
-  SEASON2 = 1,
-}
 
 const mapSeasonToEventId = (season: number): number => {
   switch (season) {
