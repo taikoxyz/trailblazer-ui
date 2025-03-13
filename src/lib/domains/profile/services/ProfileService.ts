@@ -598,6 +598,7 @@ export class ProfileService implements IProfileService {
       log('Claimed bonus points successfully.');
       return await this.seasonBonusAdapter.claimUserBonusPoints(address, season);
     } catch (error) {
+      console.error(error);
       log('Error claiming bonus points:', error);
     }
   }

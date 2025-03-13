@@ -8,17 +8,16 @@ import { pendingTransactions } from '$shared/stores/pendingTransactions';
 import { getLogger } from '$shared/utils/logger';
 
 import type { BonusDTO } from '../dto/bonus.dto';
+import { EventIds } from '../types/EventIds';
 
 const log = getLogger('SeasonBonusPointsAdapter');
-
-enum EventIds {
-  SEASON1 = 0,
-}
 
 const mapSeasonToEventId = (season: number): number => {
   switch (season) {
     case 2:
       return EventIds.SEASON1;
+    case 3:
+      return EventIds.SEASON2;
     default:
       throw new Error('Invalid season');
   }

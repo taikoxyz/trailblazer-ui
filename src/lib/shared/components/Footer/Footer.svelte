@@ -1,7 +1,7 @@
 <script lang="ts">
 </script>
 
-<div class="w-full flex justify-center pb-[30px]">
+<div class="w-full flex justify-center pb-[30px] z-0 relative">
   <div
     class="container flex relative bg-elevated-background bg-im rounded-3xl py-6 px-[24px] w-full box-border gap-[9px] items-center">
     <div class="h-full grid grid-cols-5 gap-[24px] box-border w-full">
