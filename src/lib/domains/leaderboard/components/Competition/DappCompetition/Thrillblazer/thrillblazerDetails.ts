@@ -106,23 +106,23 @@ export const thrillblazerDetails: Record<number, CompetitionInfo> = {
     prizeSubtitle: '',
     prizes: [
       {
-        image: '/first.svg',
+        image: '/thrillblazers/prize/first.svg',
         amount: translate('leaderboard.thrillblazers.edition4.prize_breakdown.first.amount'),
       },
       {
-        image: '/second.svg',
+        image: '/thrillblazers/prize/second.svg',
         amount: translate('leaderboard.thrillblazers.edition4.prize_breakdown.second.amount'),
       },
       {
-        image: '/third.svg',
+        image: '/thrillblazers/prize/third.svg',
         amount: translate('leaderboard.thrillblazers.edition4.prize_breakdown.third.amount'),
       },
       {
-        image: '/default-prize.svg',
+        image: '/thrillblazers/prize/default.svg',
         amount: translate('leaderboard.thrillblazers.edition4.prize_breakdown.fourth.amount'),
       },
       {
-        image: '/default-prize.svg',
+        image: '/thrillblazers/prize/default.svg',
         amount: translate('leaderboard.thrillblazers.edition4.prize_breakdown.fifth.amount'),
       },
     ],
