@@ -10,6 +10,7 @@
   import { NftTypes } from '$lib/domains/profile/types/UserNFTs';
   import { chainId } from '$lib/shared/utils/chain';
   import type { BadgeDetailsByFaction, BadgeDetailsByMovement, NFT, TBBadge } from '$shared/types/NFT';
+  import { isBadgeLocked } from '$shared/utils/badges/isBadgeLocked';
   import getConnectedAddress from '$shared/utils/getConnectedAddress';
 
   import LoadingBlobby from '../../LoadingBlobby.svelte';
@@ -43,7 +44,7 @@
       faction,
       ...data,
     }));
-    const collected = details.filter(({ badge }) => badge !== null && !badge.frozen).length;
+    const collected = details.filter(({ badge }: { badge: TBBadge }) => badge !== null && !isBadgeLocked(badge)).length;
     return { details, collected };
   };
 

@@ -1,8 +1,8 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
+  import { getContext, onMount } from 'svelte';
   import { t } from 'svelte-i18n';
 
-  import { getMovementName, MovementNames, Movements } from '$lib/domains/profile/types/types';
+  import { MovementNames, Movements } from '$lib/domains/profile/types/types';
   import { errorToast, successToast } from '$shared/components/NotificationToast';
   import { account } from '$shared/stores';
   import {
@@ -26,17 +26,17 @@
   let minnowBadge: TBBadge | null = null;
 
   $: s1BadgeId = ($currentRecruitmentStore?.badge?.badgeId as number) || 0;
-  $: influenceCounter = $currentRecruitmentStore
-    ? $currentRecruitmentStore.influences.minnow + $currentRecruitmentStore.influences.whale
-    : 0;
+  $: influenceCounter =
+    $influenceRecruitmentModal && $currentRecruitmentStore
+      ? $currentRecruitmentStore.influences.minnow + $currentRecruitmentStore.influences.whale
+      : 0;
 
-  // Fetch badges reactively when s1BadgeId updates
-  $: (async () => {
-    if (s1BadgeId !== undefined) {
+  $: if ($influenceRecruitmentModal && s1BadgeId !== undefined) {
+    (async () => {
       whaleBadge = await badgeRecruitmentService.getDefaultBadge(s1BadgeId, Movements.Whales);
       minnowBadge = await badgeRecruitmentService.getDefaultBadge(s1BadgeId, Movements.Minnows);
-    }
-  })();
+    })();
+  }
 
   async function handleInfluence() {
     try {
@@ -68,6 +68,8 @@
           ? e.shortMessage
           : $t('badge_recruitment.modal.influence_recruitment.toast.error.message'),
       });
+    } finally {
+      updateStatus();
     }
   }
 
@@ -93,6 +95,8 @@
     'md:gap-[40px]',
     'lg:gap-[80px]',
   );
+
+  const updateStatus: () => void = getContext('badgeRecruitUpdate');
 </script>
 
 <CoreModal bind:open={$influenceRecruitmentModal}>
@@ -118,8 +122,13 @@
         shadow={selectedMovement === Movements.Whales}
         token={whaleBadge}>
         <div class={detailsClasses}>
-          {getMovementName(Movements.Whales)}
           <InfluenceRadio checked={selectedMovement === Movements.Whales} name={radioGroupName} />
+        </div>
+        <div slot="overlay">
+          <img
+            src="/factions/recruitment/overlay-whale.svg"
+            alt="Badge Overlay"
+            class="absolute top-0 left-0 w-full h-full pointer-events-none" />
         </div>
       </RecruitmentBadgeItem>
 
@@ -133,8 +142,13 @@
         value={$currentRecruitmentStore?.influences.minnow}
         token={minnowBadge}>
         <div class={detailsClasses}>
-          {getMovementName(Movements.Minnows)}
           <InfluenceRadio checked={selectedMovement === Movements.Minnows} name={radioGroupName} />
+        </div>
+        <div slot="overlay">
+          <img
+            src="/factions/recruitment/overlay-minnow.svg"
+            alt="Badge Overlay"
+            class="absolute top-0 left-0 w-full h-full pointer-events-none" />
         </div>
       </RecruitmentBadgeItem>
     </div>

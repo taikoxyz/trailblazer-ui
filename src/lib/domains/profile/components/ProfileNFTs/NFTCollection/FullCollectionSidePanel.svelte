@@ -7,6 +7,7 @@
   import type { Movements } from '$lib/domains/profile/types/types';
   import { getMovementName, Multipliers } from '$lib/domains/profile/types/types';
   import { ExplorerLink } from '$shared/components/Links';
+  import SnakeBorder from '$shared/components/SnakeBorder/SnakeBorder.svelte';
   import { currentRecruitmentStore } from '$shared/stores/recruitment';
   import type { TBBadge } from '$shared/types/NFT';
   import { isBadgeLocked } from '$shared/utils/badges/isBadgeLocked';
@@ -19,7 +20,9 @@
   export let recruitingView: boolean = false;
 
   const wrapperClasses = classNames(
-    'md:w-[324px]',
+    'md:min-w-[324px]',
+
+    'lg:min-w-[416px]',
     'bg-elevated-background',
     'p-[24px]',
     'gap-[60px]',
@@ -27,10 +30,10 @@
   );
 
   const badgeItemClasses = classNames(
-    'max-h-[276px]',
-    'max-w-[276px]',
-    'lg:h-[276px]',
-    'lg:w-[276px]',
+    'max-h-[359px]',
+    'max-w-[359px]',
+    'lg:h-[359px]',
+    'lg:w-[359px]',
     'rounded-[30px]',
   );
 
@@ -38,7 +41,7 @@
     'flex',
     'gap-[5px]',
     'font-clash-grotesk',
-    'text-[16px]',
+    'text-[35px]',
     'font-[500]',
     'text-primary-content',
   );
@@ -55,9 +58,22 @@
     'peer-checked:max-h-[100rem]',
     'max-h-0',
     'overflow-hidden',
+
     'peer-checked:overflow-visible',
     'transition-all',
   );
+
+  const endInfluencing = () => {
+    isInfluencing = false;
+    if (!$currentRecruitmentStore) return;
+    $currentRecruitmentStore.cooldowns.influence = new Date();
+  };
+
+  const endRecruiting = () => {
+    isRecruiting = false;
+    if (!$currentRecruitmentStore) return;
+    $currentRecruitmentStore.cooldowns.claim = new Date();
+  };
 
   const detailsUuid = crypto.randomUUID();
 
@@ -75,31 +91,36 @@
     {#if isRecruiting && !isInfluencing}
       <div class="relative">
         <div class="absolute inset-0 flex items-center justify-center z-50 gap-5 f-col">
-          Recruiting
+          <span class="text-secondary-content">Recruiting in progress</span>
           <Countdown
             class="f-row gap-2"
             itemClasses={countdownClasses}
-            target={$currentRecruitmentStore?.cooldowns.claim} />
+            target={$currentRecruitmentStore?.cooldowns.claim}
+            on:end={() => endRecruiting()} />
         </div>
-        <BadgeRecruitmentItem
-          badge={$currentRecruitmentStore.badge}
-          recruitment={$currentRecruitmentStore}
-          blurred={true} />
+        <SnakeBorder>
+          <BadgeRecruitmentItem
+            badge={$currentRecruitmentStore.badge}
+            recruitment={$currentRecruitmentStore}
+            blurred={true} />
+        </SnakeBorder>
       </div>
     {:else if isInfluencing}
       <div class="relative">
         <div class="absolute inset-0 flex items-center justify-center z-50 gap-5 f-col">
-          Influencing
+          <span class="text-secondary-content">Influencing in progress</span>
           <Countdown
             class="f-row gap-2"
             itemClasses={countdownClasses}
             target={$currentRecruitmentStore?.cooldowns.influence}
-            on:end={() => (isInfluencing = false)} />
+            on:end={() => endInfluencing()} />
         </div>
-        <BadgeRecruitmentItem
-          badge={$currentRecruitmentStore.badge}
-          recruitment={$currentRecruitmentStore}
-          blurred={true} />
+        <SnakeBorder>
+          <BadgeRecruitmentItem
+            badge={$currentRecruitmentStore.badge}
+            recruitment={$currentRecruitmentStore}
+            blurred={true} />
+        </SnakeBorder>
       </div>
     {:else}
       <BadgeRecruitmentItem
@@ -115,13 +136,8 @@
       hideBubbles />
   {/if}
 
-  {#if recruitingView}
-    <div class="h-sep py-2" />
-    <RecruitingStatus badge={selectedBadge} />
-  {/if}
-
   <div class={detailsContainerClasses}>
-    <input type="checkbox" checked={!recruitingView} id={detailsUuid} class="collapse-checkbox peer hidden" />
+    <input type="checkbox" checked={true} id={detailsUuid} class="collapse-checkbox peer hidden" />
     <label for={detailsUuid} class={detailsTitleClasses}>Badge Details</label>
     <div class={detailsContentClasses}>
       <div class={collectionDetailsWrapperClasses}>
@@ -154,4 +170,11 @@
       </div>
     </div>
   </div>
+
+  {#if recruitingView}
+    <div class="mt-auto">
+      <div class="h-sep py-2" />
+      <RecruitingStatus badge={selectedBadge} />
+    </div>
+  {/if}
 </div>

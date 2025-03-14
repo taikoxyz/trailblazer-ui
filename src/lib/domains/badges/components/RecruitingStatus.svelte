@@ -17,33 +17,22 @@
   import { isDevelopmentEnv } from '$shared/utils/isDevelopmentEnv';
   import { getLogger } from '$shared/utils/logger';
 
-  import Countdown from './Countdown.svelte';
-
   const log = getLogger('BadgeRecruitmentItem');
 
   export let badge: TBBadge;
 
-  let loading = false;
-
   $: recruitment = null as ActiveRecruitment | null;
   let activeCycle: number = $currentCycleStore || -1;
 
-  const countdownClasses = classNames(
-    'flex',
-    'gap-[5px]',
-    'font-clash-grotesk',
-    'text-[16px]',
-    'font-[500]',
-    'text-primary-content',
-  );
-
-  const buttonClasses = classNames('!min-h-[48px]', 'h-[48px]', 'my-4');
+  const buttonClasses = classNames();
 
   const rowClasses = classNames('f-row', 'justify-between', 'font-bold', 'w-full', 'my-[8px]');
 
   let updating = false;
+  let loading = false;
 
   const updateStatus = async () => {
+    log('Updating status for badge:', badge);
     if (updating || !recruitment) {
       log('Skipping update status for badge:', badge, recruitment);
       return;
@@ -67,14 +56,6 @@
       status = newStatus;
       log('Status updated:', status, recruitment);
     }
-  };
-
-  let cooldownEnded = false;
-
-  const handleCountdownEnd = () => {
-    if (cooldownEnded) return;
-    cooldownEnded = true;
-    updateStatus();
   };
 
   const unsubscribeRecruitment = currentRecruitmentStore.subscribe((value) => {
@@ -144,15 +125,8 @@
   $: canRefine = status === RecruitmentStatus.CAN_REFINE && isCurrentRecruitment && !recruitmentFinished;
   $: disableInfluence = recruiting && influencing;
 
-  $: displayRecrutingCooldown =
-    isCurrentRecruitment &&
-    $currentRecruitmentStore?.cooldowns.claim &&
-    (status === RecruitmentStatus.CAN_REFINE || status === RecruitmentStatus.REFINING);
-
   $: resettable = status === RecruitmentStatus.UNFINISHED;
 </script>
-
-<h1>Recruitment</h1>
 
 {#if loading}
   <ActionButton class={buttonClasses} priority="primary" disabled={true}><Spinner /></ActionButton>
@@ -168,44 +142,26 @@
 {:else if canClaim}
   <ActionButton class={buttonClasses} priority="primary" on:click={handleButtonClick}
     >{$t('badge_recruitment.buttons.end_recruitment')}</ActionButton>
-{:else if canRecruit}
+{:else if canRefine}
+  <ActionButton class={buttonClasses} priority="fancy" disabled={disableInfluence} on:click={handleButtonClick}>
+    {$t('badge_recruitment.buttons.influence')}
+  </ActionButton>
+{:else if canRecruit && !influencing}
   <ActionButton class={buttonClasses} priority="primary" on:click={handleButtonClick}
     >{$t('badge_recruitment.buttons.start_recruitment')}</ActionButton>
-{:else if isRefining}
+{:else if influencing}
   <div class="f-col">
-    <ActionButton class={buttonClasses} priority="primary" disabled={disableInfluence} on:click={handleButtonClick}>
+    <ActionButton
+      class={buttonClasses}
+      priority="fancy"
+      disabled={true}
+      loading={disableInfluence}
+      on:click={handleButtonClick}>
       Influencing...
     </ActionButton>
   </div>
-{:else if canRefine}
-  <ActionButton class={buttonClasses} priority="primary" disabled={disableInfluence} on:click={handleButtonClick}>
-    {$t('badge_recruitment.buttons.influence')}
-  </ActionButton>
 {/if}
 
-{#if isRefining && $currentRecruitmentStore?.cooldowns.influence}
-  <div class="f-row gap-2">
-    <div class={rowClasses}>
-      <span class="text-secondary-content">Influence cooldown </span>
-      <Countdown
-        class="f-row  gap-2 text-secondary-content!"
-        itemClasses={countdownClasses}
-        target={$currentRecruitmentStore?.cooldowns.influence}
-        on:end={handleCountdownEnd} />
-    </div>
-  </div>
-{/if}
-
-{#if displayRecrutingCooldown && $currentRecruitmentStore?.cooldowns.claim}
-  <div class={rowClasses}>
-    <span class="text-secondary-content">Claimable in</span>
-    <Countdown
-      class="f-row gap-2"
-      itemClasses={countdownClasses}
-      target={$currentRecruitmentStore?.cooldowns.claim}
-      on:end={() => (status = RecruitmentStatus.CAN_CLAIM)} />
-  </div>
-{/if}
 <br />
 <br />
 
@@ -256,6 +212,8 @@
     <span class="text-secondary-content">Influencing</span>
     <span>{influencing ? 'Yes' : 'No'}</span>
   </div>
+
+  isRefining {isRefining}
 
   <div class={rowClasses}>
     <span class="text-secondary-content">Recruiting</span>

@@ -1,6 +1,7 @@
 import { get } from 'svelte/store';
 import { type Address, zeroAddress } from 'viem';
 
+import nftService from '$lib/domains/nfts/services/NFTServiceInstance';
 import { type FactionNames, getFactionName } from '$lib/domains/nfts/types/badges/types';
 import type { RecruitmentDetails } from '$lib/domains/profile/types/RecruitmentDetails';
 import { getMovementName, Movements } from '$lib/domains/profile/types/types';
@@ -107,6 +108,7 @@ export default class BadgeRecruitmentService {
     activeRecruitment.cycle = cycle;
     activeRecruitment.influences.minnow = minnowInfluences;
     activeRecruitment.cooldowns.influence = influenceExpiration;
+    activeRecruitment.status = RecruitmentStatus.REFINING;
     currentRecruitmentStore.set(activeRecruitment);
     log('influenceRecruitment update', { activeRecruitment });
     return activeRecruitment;
@@ -137,27 +139,46 @@ export default class BadgeRecruitmentService {
     log('endRecruitment', { address, badge });
 
     const logs: RecruitmentCompleteLog = await this.adapter.endRecruitment(address, badge);
+    log('endRecruitment logs', logs);
 
     const { finalColor, s2TokenId } = logs[0].args;
 
     const movement = parseInt(finalColor!.toString()) as Movements;
 
     const defaultBadge = await this.getDefaultBadge(badge.badgeId);
+
+    const metadata = await nftService.getBadgeNFTMetadata(badge.badgeId, movement);
+    if (!metadata) {
+      throw new Error('Metadata not found for badge');
+    }
+
     const recruitedBadge = {
       ...defaultBadge,
+      metadata: {
+        ...metadata,
+      },
       movement,
       badgeId: badge.badgeId,
       tokenId: Number(s2TokenId),
     } satisfies TBBadge;
 
-    const endRecruitment = {
+    const endedRecruitment = {
       ...get(activeRecruitmentStore),
       status: RecruitmentStatus.COMPLETED,
       badge,
       recruitedBadge,
-    } as ActiveRecruitment;
+      cycle: 0,
+      influences: {
+        whale: 0,
+        minnow: 0,
+      },
+      cooldowns: {
+        claim: new Date(),
+        influence: new Date(),
+      },
+    } satisfies ActiveRecruitment;
 
-    return endRecruitment;
+    return endedRecruitment;
   }
 
   /**

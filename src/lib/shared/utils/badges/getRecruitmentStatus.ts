@@ -10,9 +10,13 @@ export const getRecruitmentStatus = (recruitment: ActiveRecruitment, cycle: numb
   const { claim, influence } = recruitment.cooldowns;
   const { recruitedBadge } = recruitment;
 
-  const claimCooldown = claim.getTime(); // FIX: Use getTime() instead of incorrect Number conversion
-  const influenceCooldown = influence.getTime(); // FIX: Use getTime()
+  const claimCooldown = claim.getTime();
+  const influenceCooldown = influence.getTime();
   const now = new Date().getTime();
+
+  log('Cooldowns', { claimCooldown, influenceCooldown, now });
+
+  log('influenceCooldown > now', influenceCooldown > now);
 
   if ((now > claimCooldown && recruitedBadge && recruitedBadge.tokenId > 0n) || recruitment.badge.tokenId === -1) {
     log('Recruitment is completed', recruitment);

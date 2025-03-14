@@ -1,5 +1,5 @@
 <script lang="ts">
-  // import * as Sentry from '@sentry/sveltekit';
+  import { getContext } from 'svelte';
   import { format, t } from 'svelte-i18n';
 
   import { FactionNames } from '$lib/domains/nfts/types/badges/types';
@@ -33,8 +33,6 @@
       }
       isLoading = true;
       const address = getConnectedAddress();
-
-      // const test = await badgeRecruitmentService.getRecruitmentStatus(address);
 
       if (!$badgeToRecruit) {
         return;
@@ -74,10 +72,9 @@
         title,
         message,
       });
-
-      // Sentry.captureException(e);
-
+    } finally {
       isLoading = false;
+      updateStatus();
     }
   }
 
@@ -104,6 +101,7 @@
     'justify-center',
     'items-center',
   );
+  const updateStatus: () => void = getContext('badgeRecruitUpdate');
 
   $: badgeName = Object.values(FactionNames)[$currentRecruitmentStore?.badge?.badgeId as number] || '';
 </script>
@@ -136,9 +134,12 @@
       <Icon type="exclamation-circle" size={48} class="mx-[12px]" fillClass="fill-yellow-400" />
       <p>{$t('badge_recruitment.modal.start_recruitment.warning')}</p>
     </div>
-
-    <ActionButton loading={isLoading} disabled={isLoading} on:click={handleStartRecruitment} priority="primary">
-      {$t('badge_recruitment.buttons.start_recruitment')}
+    <ActionButton loading={isLoading} disabled={isLoading} on:click={handleStartRecruitment} priority="primary" onPopup>
+      {#if isLoading}
+        {$t('badge_recruitment.buttons.recruiting')}
+      {:else}
+        {$t('badge_recruitment.buttons.start_recruitment')}
+      {/if}
     </ActionButton>
   </CoreModalFooter>
 </CoreModal>

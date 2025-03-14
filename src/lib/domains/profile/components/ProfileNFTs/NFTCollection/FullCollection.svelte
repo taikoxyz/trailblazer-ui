@@ -183,7 +183,6 @@
                     <Icon type="exclamation-circle" size={30} fillClass="fill-primary-brand" />
                   </span>
                 {/if}
-
                 <FactionBadgeItem
                   class="max-h-[150px] max-w-[150px] lg:max-h-[186px] lg:max-w-[186px] xl:max-h-[205px] {hoverBorder} xl:max-w-[205px] {isSelected
                     ? pinkShadowed

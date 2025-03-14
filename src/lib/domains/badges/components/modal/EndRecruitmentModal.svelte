@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { tick } from 'svelte';
+  import { getContext, tick } from 'svelte';
   import Flippable from 'svelte-flip';
   import { t } from 'svelte-i18n';
 
@@ -35,8 +35,16 @@
         return;
       }
       isLoading = true;
-      await badgeRecruitmentService.endRecruitment($account.address, $currentRecruitmentStore.badge);
-      backToken = $currentRecruitmentStore.recruitedBadge!;
+      const updatedRecruitment = await badgeRecruitmentService.endRecruitment(
+        $account.address,
+        $currentRecruitmentStore.badge,
+      );
+      currentRecruitmentStore.set(updatedRecruitment);
+      if (!updatedRecruitment.recruitedBadge) {
+        throw new Error('Recruited badge not found');
+      }
+      backToken = updatedRecruitment.recruitedBadge;
+
       tick();
       isRevealed = true;
 
@@ -56,8 +64,10 @@
       });
     } finally {
       isLoading = false;
+      updateStatus();
     }
   }
+  const updateStatus: () => void = getContext('badgeRecruitUpdate');
 
   $: isRevealed = false;
 
@@ -81,7 +91,18 @@
   {#if $currentRecruitmentStore}
     <div class={badgeWrapperClasses}>
       <Flippable height="400px" width="300px" flip={isRevealed}>
-        <RecruitmentBadgeItem locked token={$currentRecruitmentStore.badge} slot="front">?</RecruitmentBadgeItem>
+        <RecruitmentBadgeItem locked token={$currentRecruitmentStore.badge} slot="front">
+          <div slot="overlay">
+            <img
+              src="/factions/recruitment/overlay-dev.svg"
+              alt="Badge Overlay"
+              class="absolute top-0 left-0 w-full h-full pointer-events-none" />
+            <span class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[90px] font-clash-grotesk">
+              ?
+            </span>
+          </div>
+        </RecruitmentBadgeItem>
+
         <div slot="back">
           {#if backToken && backToken.movement !== undefined}
             <RecruitmentBadgeItem token={backToken}>
@@ -98,7 +119,11 @@
   <CoreModalFooter>
     {#if !isRevealed}
       <FancyButton disabled={isLoading} loading={isLoading} on:click={handleEndRecruitment}>
-        {$t('badge_recruitment.buttons.reveal')}
+        {#if isLoading}
+          {$t('badge_recruitment.buttons.revealing')}
+        {:else}
+          {$t('badge_recruitment.buttons.reveal')}
+        {/if}
       </FancyButton>
     {:else}
       <ActionButton on:click={() => ($endRecruitmentModal = false)} priority="primary">Confirm</ActionButton>

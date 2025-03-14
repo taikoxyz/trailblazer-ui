@@ -7,8 +7,10 @@
       "influencing": "Influencing",
       "not_eligible": "Not eligible",
       "ongoing_recruitment": "Recruiting another badge",
+      "recruiting": "Recruiting",
       "reset": "Reset recruitment",
       "reveal": "Reveal",
+      "revealing": "Revealing",
       "start_recruitment": "Recruit now",
       "view": "View"
     },
@@ -198,8 +200,8 @@
     },
     "modal": {
       "end_recruitment": {
-        "description": "You have successfully recruited your badge. You can now claim it.",
-        "title": "Congratulations!",
+        "description": "The countdown is over! See which team your badge has joined—Whales or Minnows.",
+        "title": "Ready to see what you’ve got?",
         "toast": {
           "error": {
             "default_message": "Error claiming your badge recruitment",
@@ -212,7 +214,7 @@
         }
       },
       "influence_recruitment": {
-        "description": "Influence your badge to favor the path of your new badge.",
+        "description": "Your badge is on its way! Influence its path—will it lean toward the Whales or the Minnows? Engage with the contract to sway the outcome in your favor!",
         "title": "Your new Badge is being recruited",
         "toast": {
           "error": {

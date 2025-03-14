@@ -7,6 +7,7 @@
   import { getMovementName, type Movements, Multipliers } from '$lib/domains/profile/types/types';
   import { Icon } from '$shared/components/Icon';
   import { ExplorerLink } from '$shared/components/Links';
+  import SnakeBorder from '$shared/components/SnakeBorder/SnakeBorder.svelte';
   import { currentRecruitmentStore } from '$shared/stores/recruitment';
   import type { TBBadge } from '$shared/types/NFT';
   import { isBadgeLocked } from '$shared/utils/badges/isBadgeLocked';
@@ -25,7 +26,7 @@
     'flex',
     'gap-[5px]',
     'font-clash-grotesk',
-    'text-[16px]',
+    'text-[35px]',
     'font-[500]',
     'text-primary-content',
   );
@@ -35,7 +36,7 @@
   const collectionDetailsWrapperClasses = classNames('space-y-[10px]', 'w-full', 'order-3');
   const collectionDetailsRowClasses = classNames('f-row', 'justify-between', 'font-bold', 'w-full');
 
-  const detailsContainerClasses = classNames('collapse', 'collapse-arrow', 'mt-[25px]');
+  const detailsContainerClasses = classNames('collapse', 'collapse-arrow', 'mt-[25px]', 'overflow-y-scroll');
   const detailsTitleClasses = classNames('collapse-title', 'cursor-pointer', 'w-full', 'text-left', 'px-0');
 
   const detailsContentClasses = classNames(
@@ -52,6 +53,18 @@
     detailsOpen = false;
   };
 
+  const endInfluencing = () => {
+    isInfluencing = false;
+    if (!$currentRecruitmentStore) return;
+    $currentRecruitmentStore.cooldowns.influence = new Date();
+  };
+
+  const endRecruiting = () => {
+    isRecruiting = false;
+    if (!$currentRecruitmentStore) return;
+    $currentRecruitmentStore.cooldowns.claim = new Date();
+  };
+
   $: isRecruiting = $currentRecruitmentStore?.cooldowns.claim
     ? new Date($currentRecruitmentStore.cooldowns.claim) > new Date()
     : false;
@@ -64,7 +77,7 @@
 <dialog id={dialogId} class="modal h-full min-h-[100%]" class:modal-open={detailsOpen}>
   <div
     class="modal-box max-w-[100%] min-h-[100%] relative f-col justify-between w-full h-full rounded-[0px] bg-elevated-background !p-0 !pb-[20px]">
-    <div class="w-full fixed f-col justify-center items-center pt-[20px] px-[24px] z-40 bg-elevated-background">
+    <div class="w-full fixed h-full f-col pt-[20px] px-[24px] z-40 bg-elevated-background">
       <button
         on:click={closeView}
         class="btn btn-ghost rounded-full w-[50px] h-[50px] bg-neutral-background self-start">
@@ -73,33 +86,38 @@
       <div class="f-col w-full justify-center items-center mt-[30px]">
         {#if selectedBadge && $currentRecruitmentStore?.badge?.tokenId === selectedBadge.tokenId}
           {#if isRecruiting && !isInfluencing}
-            <div class="relative">
+            <div class="relative w-[342px]">
               <div class="absolute inset-0 flex items-center justify-center z-50 gap-5 f-col">
-                Recruiting
+                <span class="text-secondary-content">Recruiting in progress</span>
                 <Countdown
                   class="f-row gap-2"
                   itemClasses={countdownClasses}
-                  target={$currentRecruitmentStore?.cooldowns.claim} />
+                  target={$currentRecruitmentStore?.cooldowns.claim}
+                  on:end={() => endRecruiting()} />
               </div>
-              <BadgeRecruitmentItem
-                badge={$currentRecruitmentStore.badge}
-                recruitment={$currentRecruitmentStore}
-                blurred={true} />
+              <SnakeBorder class="flex">
+                <BadgeRecruitmentItem
+                  badge={$currentRecruitmentStore.badge}
+                  recruitment={$currentRecruitmentStore}
+                  blurred={true} />
+              </SnakeBorder>
             </div>
           {:else if isInfluencing}
-            <div class="relative">
+            <div class="relative w-[342px]">
               <div class="absolute inset-0 flex items-center justify-center z-50 gap-5 f-col">
-                Influencing
+                <span class="text-secondary-content">Influencing in progress</span>
                 <Countdown
                   class="f-row gap-2"
                   itemClasses={countdownClasses}
                   target={$currentRecruitmentStore?.cooldowns.influence}
-                  on:end={() => (isInfluencing = false)} />
+                  on:end={() => endInfluencing()} />
               </div>
-              <BadgeRecruitmentItem
-                badge={$currentRecruitmentStore.badge}
-                recruitment={$currentRecruitmentStore}
-                blurred={true} />
+              <SnakeBorder class="flex">
+                <BadgeRecruitmentItem
+                  badge={$currentRecruitmentStore.badge}
+                  recruitment={$currentRecruitmentStore}
+                  blurred={true} />
+              </SnakeBorder>
             </div>
           {:else}
             <BadgeRecruitmentItem
@@ -115,13 +133,10 @@
             hideBubbles />
         {/if}
       </div>
-      {#if recruitingView && selectedBadge}
-        <div class="h-sep py-2" />
-        <RecruitingStatus badge={selectedBadge} />
-      {/if}
+
       {#if selectedBadge}
         <div class={detailsContainerClasses}>
-          <input type="checkbox" checked={!recruitingView} id={detailsUuid} class="collapse-checkbox peer hidden" />
+          <input type="checkbox" checked={true} id={detailsUuid} class="collapse-checkbox peer hidden" />
           <label for={detailsUuid} class={detailsTitleClasses}>Badge Details</label>
           <div class={detailsContentClasses}>
             <div class={collectionDetailsWrapperClasses}>
@@ -153,6 +168,13 @@
               {/if}
             </div>
           </div>
+        </div>
+      {/if}
+
+      {#if recruitingView && selectedBadge}
+        <div class="mt-auto w-full">
+          <div class="h-sep py-2 !-mx-[24px]" />
+          <RecruitingStatus badge={selectedBadge} />
         </div>
       {/if}
     </div>
