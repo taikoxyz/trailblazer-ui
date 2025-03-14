@@ -13,6 +13,7 @@
   import ProfileTransactions from './ProfileActivity/ProfileTransactions.svelte';
   import ProfileLockdownTab from './ProfileLockdownTab.svelte';
   import ProfileRewardClaim from './ProfileRewardClaim/ProfileRewardClaim.svelte';
+  import FbaTab from '$lib/domains/fba/components/FbaTab.svelte';
 
   type TabContent = {
     name: string;
@@ -65,6 +66,11 @@
           },
         ]
       : []),
+      {
+        slug: 'fba',
+        name: 'Faction Battle Arena',
+        content: FbaTab
+      },
 
     {
       slug: 'lockdown',

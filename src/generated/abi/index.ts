@@ -1875,7 +1875,7 @@ export const eventRegisterConfig = {
 
 /**
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x8C75b4c24491e7d2a71030Fb4fe2754ac6FbCFa0)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x8C75b4c24491e7d2a71030Fb4fe2754ac6FbCFa0)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x2682Bc7be092Fba32C5622109b11892eE5db49F2)
  */
 export const factionBattleArenaAbi = [
   {
@@ -2422,16 +2422,16 @@ export const factionBattleArenaAbi = [
 
 /**
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x8C75b4c24491e7d2a71030Fb4fe2754ac6FbCFa0)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x8C75b4c24491e7d2a71030Fb4fe2754ac6FbCFa0)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x2682Bc7be092Fba32C5622109b11892eE5db49F2)
  */
 export const factionBattleArenaAddress = {
   167000: '0x8C75b4c24491e7d2a71030Fb4fe2754ac6FbCFa0',
-  167009: '0x8C75b4c24491e7d2a71030Fb4fe2754ac6FbCFa0',
+  167009: '0x2682Bc7be092Fba32C5622109b11892eE5db49F2',
 } as const
 
 /**
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x8C75b4c24491e7d2a71030Fb4fe2754ac6FbCFa0)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x8C75b4c24491e7d2a71030Fb4fe2754ac6FbCFa0)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x2682Bc7be092Fba32C5622109b11892eE5db49F2)
  */
 export const factionBattleArenaConfig = {
   address: factionBattleArenaAddress,
@@ -7214,7 +7214,7 @@ export const watchEventRegisterUnregisteredEvent =
  * Wraps __{@link readContract}__ with `abi` set to __{@link factionBattleArenaAbi}__
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x8C75b4c24491e7d2a71030Fb4fe2754ac6FbCFa0)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x8C75b4c24491e7d2a71030Fb4fe2754ac6FbCFa0)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x2682Bc7be092Fba32C5622109b11892eE5db49F2)
  */
 export const readFactionBattleArena = /*#__PURE__*/ createReadContract({
   abi: factionBattleArenaAbi,
@@ -7225,7 +7225,7 @@ export const readFactionBattleArena = /*#__PURE__*/ createReadContract({
  * Wraps __{@link readContract}__ with `abi` set to __{@link factionBattleArenaAbi}__ and `functionName` set to `"DEFAULT_ADMIN_ROLE"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x8C75b4c24491e7d2a71030Fb4fe2754ac6FbCFa0)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x8C75b4c24491e7d2a71030Fb4fe2754ac6FbCFa0)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x2682Bc7be092Fba32C5622109b11892eE5db49F2)
  */
 export const readFactionBattleArenaDefaultAdminRole =
   /*#__PURE__*/ createReadContract({
@@ -7238,7 +7238,7 @@ export const readFactionBattleArenaDefaultAdminRole =
  * Wraps __{@link readContract}__ with `abi` set to __{@link factionBattleArenaAbi}__ and `functionName` set to `"UPGRADE_INTERFACE_VERSION"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x8C75b4c24491e7d2a71030Fb4fe2754ac6FbCFa0)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x8C75b4c24491e7d2a71030Fb4fe2754ac6FbCFa0)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x2682Bc7be092Fba32C5622109b11892eE5db49F2)
  */
 export const readFactionBattleArenaUpgradeInterfaceVersion =
   /*#__PURE__*/ createReadContract({
@@ -7251,7 +7251,7 @@ export const readFactionBattleArenaUpgradeInterfaceVersion =
  * Wraps __{@link readContract}__ with `abi` set to __{@link factionBattleArenaAbi}__ and `functionName` set to `"config"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x8C75b4c24491e7d2a71030Fb4fe2754ac6FbCFa0)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x8C75b4c24491e7d2a71030Fb4fe2754ac6FbCFa0)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x2682Bc7be092Fba32C5622109b11892eE5db49F2)
  */
 export const readFactionBattleArenaConfig = /*#__PURE__*/ createReadContract({
   abi: factionBattleArenaAbi,
@@ -7263,7 +7263,7 @@ export const readFactionBattleArenaConfig = /*#__PURE__*/ createReadContract({
  * Wraps __{@link readContract}__ with `abi` set to __{@link factionBattleArenaAbi}__ and `functionName` set to `"currentLeagueId"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x8C75b4c24491e7d2a71030Fb4fe2754ac6FbCFa0)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x8C75b4c24491e7d2a71030Fb4fe2754ac6FbCFa0)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x2682Bc7be092Fba32C5622109b11892eE5db49F2)
  */
 export const readFactionBattleArenaCurrentLeagueId =
   /*#__PURE__*/ createReadContract({
@@ -7276,7 +7276,7 @@ export const readFactionBattleArenaCurrentLeagueId =
  * Wraps __{@link readContract}__ with `abi` set to __{@link factionBattleArenaAbi}__ and `functionName` set to `"getChampionId"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x8C75b4c24491e7d2a71030Fb4fe2754ac6FbCFa0)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x8C75b4c24491e7d2a71030Fb4fe2754ac6FbCFa0)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x2682Bc7be092Fba32C5622109b11892eE5db49F2)
  */
 export const readFactionBattleArenaGetChampionId =
   /*#__PURE__*/ createReadContract({
@@ -7289,7 +7289,7 @@ export const readFactionBattleArenaGetChampionId =
  * Wraps __{@link readContract}__ with `abi` set to __{@link factionBattleArenaAbi}__ and `functionName` set to `"getCurrentLeague"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x8C75b4c24491e7d2a71030Fb4fe2754ac6FbCFa0)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x8C75b4c24491e7d2a71030Fb4fe2754ac6FbCFa0)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x2682Bc7be092Fba32C5622109b11892eE5db49F2)
  */
 export const readFactionBattleArenaGetCurrentLeague =
   /*#__PURE__*/ createReadContract({
@@ -7302,7 +7302,7 @@ export const readFactionBattleArenaGetCurrentLeague =
  * Wraps __{@link readContract}__ with `abi` set to __{@link factionBattleArenaAbi}__ and `functionName` set to `"getRoleAdmin"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x8C75b4c24491e7d2a71030Fb4fe2754ac6FbCFa0)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x8C75b4c24491e7d2a71030Fb4fe2754ac6FbCFa0)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x2682Bc7be092Fba32C5622109b11892eE5db49F2)
  */
 export const readFactionBattleArenaGetRoleAdmin =
   /*#__PURE__*/ createReadContract({
@@ -7315,7 +7315,7 @@ export const readFactionBattleArenaGetRoleAdmin =
  * Wraps __{@link readContract}__ with `abi` set to __{@link factionBattleArenaAbi}__ and `functionName` set to `"hasRole"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x8C75b4c24491e7d2a71030Fb4fe2754ac6FbCFa0)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x8C75b4c24491e7d2a71030Fb4fe2754ac6FbCFa0)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x2682Bc7be092Fba32C5622109b11892eE5db49F2)
  */
 export const readFactionBattleArenaHasRole = /*#__PURE__*/ createReadContract({
   abi: factionBattleArenaAbi,
@@ -7327,7 +7327,7 @@ export const readFactionBattleArenaHasRole = /*#__PURE__*/ createReadContract({
  * Wraps __{@link readContract}__ with `abi` set to __{@link factionBattleArenaAbi}__ and `functionName` set to `"leagues"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x8C75b4c24491e7d2a71030Fb4fe2754ac6FbCFa0)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x8C75b4c24491e7d2a71030Fb4fe2754ac6FbCFa0)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x2682Bc7be092Fba32C5622109b11892eE5db49F2)
  */
 export const readFactionBattleArenaLeagues = /*#__PURE__*/ createReadContract({
   abi: factionBattleArenaAbi,
@@ -7339,7 +7339,7 @@ export const readFactionBattleArenaLeagues = /*#__PURE__*/ createReadContract({
  * Wraps __{@link readContract}__ with `abi` set to __{@link factionBattleArenaAbi}__ and `functionName` set to `"owner"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x8C75b4c24491e7d2a71030Fb4fe2754ac6FbCFa0)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x8C75b4c24491e7d2a71030Fb4fe2754ac6FbCFa0)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x2682Bc7be092Fba32C5622109b11892eE5db49F2)
  */
 export const readFactionBattleArenaOwner = /*#__PURE__*/ createReadContract({
   abi: factionBattleArenaAbi,
@@ -7351,7 +7351,7 @@ export const readFactionBattleArenaOwner = /*#__PURE__*/ createReadContract({
  * Wraps __{@link readContract}__ with `abi` set to __{@link factionBattleArenaAbi}__ and `functionName` set to `"paused"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x8C75b4c24491e7d2a71030Fb4fe2754ac6FbCFa0)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x8C75b4c24491e7d2a71030Fb4fe2754ac6FbCFa0)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x2682Bc7be092Fba32C5622109b11892eE5db49F2)
  */
 export const readFactionBattleArenaPaused = /*#__PURE__*/ createReadContract({
   abi: factionBattleArenaAbi,
@@ -7363,7 +7363,7 @@ export const readFactionBattleArenaPaused = /*#__PURE__*/ createReadContract({
  * Wraps __{@link readContract}__ with `abi` set to __{@link factionBattleArenaAbi}__ and `functionName` set to `"pendingOwner"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x8C75b4c24491e7d2a71030Fb4fe2754ac6FbCFa0)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x8C75b4c24491e7d2a71030Fb4fe2754ac6FbCFa0)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x2682Bc7be092Fba32C5622109b11892eE5db49F2)
  */
 export const readFactionBattleArenaPendingOwner =
   /*#__PURE__*/ createReadContract({
@@ -7376,7 +7376,7 @@ export const readFactionBattleArenaPendingOwner =
  * Wraps __{@link readContract}__ with `abi` set to __{@link factionBattleArenaAbi}__ and `functionName` set to `"proxiableUUID"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x8C75b4c24491e7d2a71030Fb4fe2754ac6FbCFa0)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x8C75b4c24491e7d2a71030Fb4fe2754ac6FbCFa0)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x2682Bc7be092Fba32C5622109b11892eE5db49F2)
  */
 export const readFactionBattleArenaProxiableUuid =
   /*#__PURE__*/ createReadContract({
@@ -7389,7 +7389,7 @@ export const readFactionBattleArenaProxiableUuid =
  * Wraps __{@link readContract}__ with `abi` set to __{@link factionBattleArenaAbi}__ and `functionName` set to `"supportsInterface"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x8C75b4c24491e7d2a71030Fb4fe2754ac6FbCFa0)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x8C75b4c24491e7d2a71030Fb4fe2754ac6FbCFa0)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x2682Bc7be092Fba32C5622109b11892eE5db49F2)
  */
 export const readFactionBattleArenaSupportsInterface =
   /*#__PURE__*/ createReadContract({
@@ -7402,7 +7402,7 @@ export const readFactionBattleArenaSupportsInterface =
  * Wraps __{@link writeContract}__ with `abi` set to __{@link factionBattleArenaAbi}__
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x8C75b4c24491e7d2a71030Fb4fe2754ac6FbCFa0)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x8C75b4c24491e7d2a71030Fb4fe2754ac6FbCFa0)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x2682Bc7be092Fba32C5622109b11892eE5db49F2)
  */
 export const writeFactionBattleArena = /*#__PURE__*/ createWriteContract({
   abi: factionBattleArenaAbi,
@@ -7413,7 +7413,7 @@ export const writeFactionBattleArena = /*#__PURE__*/ createWriteContract({
  * Wraps __{@link writeContract}__ with `abi` set to __{@link factionBattleArenaAbi}__ and `functionName` set to `"abortLeague"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x8C75b4c24491e7d2a71030Fb4fe2754ac6FbCFa0)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x8C75b4c24491e7d2a71030Fb4fe2754ac6FbCFa0)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x2682Bc7be092Fba32C5622109b11892eE5db49F2)
  */
 export const writeFactionBattleArenaAbortLeague =
   /*#__PURE__*/ createWriteContract({
@@ -7426,7 +7426,7 @@ export const writeFactionBattleArenaAbortLeague =
  * Wraps __{@link writeContract}__ with `abi` set to __{@link factionBattleArenaAbi}__ and `functionName` set to `"acceptOwnership"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x8C75b4c24491e7d2a71030Fb4fe2754ac6FbCFa0)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x8C75b4c24491e7d2a71030Fb4fe2754ac6FbCFa0)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x2682Bc7be092Fba32C5622109b11892eE5db49F2)
  */
 export const writeFactionBattleArenaAcceptOwnership =
   /*#__PURE__*/ createWriteContract({
@@ -7439,7 +7439,7 @@ export const writeFactionBattleArenaAcceptOwnership =
  * Wraps __{@link writeContract}__ with `abi` set to __{@link factionBattleArenaAbi}__ and `functionName` set to `"executeLeague"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x8C75b4c24491e7d2a71030Fb4fe2754ac6FbCFa0)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x8C75b4c24491e7d2a71030Fb4fe2754ac6FbCFa0)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x2682Bc7be092Fba32C5622109b11892eE5db49F2)
  */
 export const writeFactionBattleArenaExecuteLeague =
   /*#__PURE__*/ createWriteContract({
@@ -7452,7 +7452,7 @@ export const writeFactionBattleArenaExecuteLeague =
  * Wraps __{@link writeContract}__ with `abi` set to __{@link factionBattleArenaAbi}__ and `functionName` set to `"executeLeagueAndStartNext"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x8C75b4c24491e7d2a71030Fb4fe2754ac6FbCFa0)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x8C75b4c24491e7d2a71030Fb4fe2754ac6FbCFa0)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x2682Bc7be092Fba32C5622109b11892eE5db49F2)
  */
 export const writeFactionBattleArenaExecuteLeagueAndStartNext =
   /*#__PURE__*/ createWriteContract({
@@ -7465,7 +7465,7 @@ export const writeFactionBattleArenaExecuteLeagueAndStartNext =
  * Wraps __{@link writeContract}__ with `abi` set to __{@link factionBattleArenaAbi}__ and `functionName` set to `"grantRole"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x8C75b4c24491e7d2a71030Fb4fe2754ac6FbCFa0)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x8C75b4c24491e7d2a71030Fb4fe2754ac6FbCFa0)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x2682Bc7be092Fba32C5622109b11892eE5db49F2)
  */
 export const writeFactionBattleArenaGrantRole =
   /*#__PURE__*/ createWriteContract({
@@ -7478,7 +7478,7 @@ export const writeFactionBattleArenaGrantRole =
  * Wraps __{@link writeContract}__ with `abi` set to __{@link factionBattleArenaAbi}__ and `functionName` set to `"initialize"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x8C75b4c24491e7d2a71030Fb4fe2754ac6FbCFa0)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x8C75b4c24491e7d2a71030Fb4fe2754ac6FbCFa0)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x2682Bc7be092Fba32C5622109b11892eE5db49F2)
  */
 export const writeFactionBattleArenaInitialize =
   /*#__PURE__*/ createWriteContract({
@@ -7491,7 +7491,7 @@ export const writeFactionBattleArenaInitialize =
  * Wraps __{@link writeContract}__ with `abi` set to __{@link factionBattleArenaAbi}__ and `functionName` set to `"registerParticipant"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x8C75b4c24491e7d2a71030Fb4fe2754ac6FbCFa0)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x8C75b4c24491e7d2a71030Fb4fe2754ac6FbCFa0)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x2682Bc7be092Fba32C5622109b11892eE5db49F2)
  */
 export const writeFactionBattleArenaRegisterParticipant =
   /*#__PURE__*/ createWriteContract({
@@ -7504,7 +7504,7 @@ export const writeFactionBattleArenaRegisterParticipant =
  * Wraps __{@link writeContract}__ with `abi` set to __{@link factionBattleArenaAbi}__ and `functionName` set to `"renounceOwnership"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x8C75b4c24491e7d2a71030Fb4fe2754ac6FbCFa0)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x8C75b4c24491e7d2a71030Fb4fe2754ac6FbCFa0)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x2682Bc7be092Fba32C5622109b11892eE5db49F2)
  */
 export const writeFactionBattleArenaRenounceOwnership =
   /*#__PURE__*/ createWriteContract({
@@ -7517,7 +7517,7 @@ export const writeFactionBattleArenaRenounceOwnership =
  * Wraps __{@link writeContract}__ with `abi` set to __{@link factionBattleArenaAbi}__ and `functionName` set to `"renounceRole"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x8C75b4c24491e7d2a71030Fb4fe2754ac6FbCFa0)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x8C75b4c24491e7d2a71030Fb4fe2754ac6FbCFa0)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x2682Bc7be092Fba32C5622109b11892eE5db49F2)
  */
 export const writeFactionBattleArenaRenounceRole =
   /*#__PURE__*/ createWriteContract({
@@ -7530,7 +7530,7 @@ export const writeFactionBattleArenaRenounceRole =
  * Wraps __{@link writeContract}__ with `abi` set to __{@link factionBattleArenaAbi}__ and `functionName` set to `"revokeRole"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x8C75b4c24491e7d2a71030Fb4fe2754ac6FbCFa0)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x8C75b4c24491e7d2a71030Fb4fe2754ac6FbCFa0)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x2682Bc7be092Fba32C5622109b11892eE5db49F2)
  */
 export const writeFactionBattleArenaRevokeRole =
   /*#__PURE__*/ createWriteContract({
@@ -7543,7 +7543,7 @@ export const writeFactionBattleArenaRevokeRole =
  * Wraps __{@link writeContract}__ with `abi` set to __{@link factionBattleArenaAbi}__ and `functionName` set to `"startLeague"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x8C75b4c24491e7d2a71030Fb4fe2754ac6FbCFa0)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x8C75b4c24491e7d2a71030Fb4fe2754ac6FbCFa0)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x2682Bc7be092Fba32C5622109b11892eE5db49F2)
  */
 export const writeFactionBattleArenaStartLeague =
   /*#__PURE__*/ createWriteContract({
@@ -7556,7 +7556,7 @@ export const writeFactionBattleArenaStartLeague =
  * Wraps __{@link writeContract}__ with `abi` set to __{@link factionBattleArenaAbi}__ and `functionName` set to `"transferOwnership"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x8C75b4c24491e7d2a71030Fb4fe2754ac6FbCFa0)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x8C75b4c24491e7d2a71030Fb4fe2754ac6FbCFa0)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x2682Bc7be092Fba32C5622109b11892eE5db49F2)
  */
 export const writeFactionBattleArenaTransferOwnership =
   /*#__PURE__*/ createWriteContract({
@@ -7569,7 +7569,7 @@ export const writeFactionBattleArenaTransferOwnership =
  * Wraps __{@link writeContract}__ with `abi` set to __{@link factionBattleArenaAbi}__ and `functionName` set to `"upgradeToAndCall"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x8C75b4c24491e7d2a71030Fb4fe2754ac6FbCFa0)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x8C75b4c24491e7d2a71030Fb4fe2754ac6FbCFa0)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x2682Bc7be092Fba32C5622109b11892eE5db49F2)
  */
 export const writeFactionBattleArenaUpgradeToAndCall =
   /*#__PURE__*/ createWriteContract({
@@ -7582,7 +7582,7 @@ export const writeFactionBattleArenaUpgradeToAndCall =
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link factionBattleArenaAbi}__
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x8C75b4c24491e7d2a71030Fb4fe2754ac6FbCFa0)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x8C75b4c24491e7d2a71030Fb4fe2754ac6FbCFa0)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x2682Bc7be092Fba32C5622109b11892eE5db49F2)
  */
 export const simulateFactionBattleArena = /*#__PURE__*/ createSimulateContract({
   abi: factionBattleArenaAbi,
@@ -7593,7 +7593,7 @@ export const simulateFactionBattleArena = /*#__PURE__*/ createSimulateContract({
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link factionBattleArenaAbi}__ and `functionName` set to `"abortLeague"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x8C75b4c24491e7d2a71030Fb4fe2754ac6FbCFa0)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x8C75b4c24491e7d2a71030Fb4fe2754ac6FbCFa0)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x2682Bc7be092Fba32C5622109b11892eE5db49F2)
  */
 export const simulateFactionBattleArenaAbortLeague =
   /*#__PURE__*/ createSimulateContract({
@@ -7606,7 +7606,7 @@ export const simulateFactionBattleArenaAbortLeague =
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link factionBattleArenaAbi}__ and `functionName` set to `"acceptOwnership"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x8C75b4c24491e7d2a71030Fb4fe2754ac6FbCFa0)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x8C75b4c24491e7d2a71030Fb4fe2754ac6FbCFa0)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x2682Bc7be092Fba32C5622109b11892eE5db49F2)
  */
 export const simulateFactionBattleArenaAcceptOwnership =
   /*#__PURE__*/ createSimulateContract({
@@ -7619,7 +7619,7 @@ export const simulateFactionBattleArenaAcceptOwnership =
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link factionBattleArenaAbi}__ and `functionName` set to `"executeLeague"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x8C75b4c24491e7d2a71030Fb4fe2754ac6FbCFa0)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x8C75b4c24491e7d2a71030Fb4fe2754ac6FbCFa0)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x2682Bc7be092Fba32C5622109b11892eE5db49F2)
  */
 export const simulateFactionBattleArenaExecuteLeague =
   /*#__PURE__*/ createSimulateContract({
@@ -7632,7 +7632,7 @@ export const simulateFactionBattleArenaExecuteLeague =
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link factionBattleArenaAbi}__ and `functionName` set to `"executeLeagueAndStartNext"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x8C75b4c24491e7d2a71030Fb4fe2754ac6FbCFa0)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x8C75b4c24491e7d2a71030Fb4fe2754ac6FbCFa0)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x2682Bc7be092Fba32C5622109b11892eE5db49F2)
  */
 export const simulateFactionBattleArenaExecuteLeagueAndStartNext =
   /*#__PURE__*/ createSimulateContract({
@@ -7645,7 +7645,7 @@ export const simulateFactionBattleArenaExecuteLeagueAndStartNext =
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link factionBattleArenaAbi}__ and `functionName` set to `"grantRole"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x8C75b4c24491e7d2a71030Fb4fe2754ac6FbCFa0)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x8C75b4c24491e7d2a71030Fb4fe2754ac6FbCFa0)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x2682Bc7be092Fba32C5622109b11892eE5db49F2)
  */
 export const simulateFactionBattleArenaGrantRole =
   /*#__PURE__*/ createSimulateContract({
@@ -7658,7 +7658,7 @@ export const simulateFactionBattleArenaGrantRole =
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link factionBattleArenaAbi}__ and `functionName` set to `"initialize"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x8C75b4c24491e7d2a71030Fb4fe2754ac6FbCFa0)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x8C75b4c24491e7d2a71030Fb4fe2754ac6FbCFa0)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x2682Bc7be092Fba32C5622109b11892eE5db49F2)
  */
 export const simulateFactionBattleArenaInitialize =
   /*#__PURE__*/ createSimulateContract({
@@ -7671,7 +7671,7 @@ export const simulateFactionBattleArenaInitialize =
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link factionBattleArenaAbi}__ and `functionName` set to `"registerParticipant"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x8C75b4c24491e7d2a71030Fb4fe2754ac6FbCFa0)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x8C75b4c24491e7d2a71030Fb4fe2754ac6FbCFa0)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x2682Bc7be092Fba32C5622109b11892eE5db49F2)
  */
 export const simulateFactionBattleArenaRegisterParticipant =
   /*#__PURE__*/ createSimulateContract({
@@ -7684,7 +7684,7 @@ export const simulateFactionBattleArenaRegisterParticipant =
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link factionBattleArenaAbi}__ and `functionName` set to `"renounceOwnership"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x8C75b4c24491e7d2a71030Fb4fe2754ac6FbCFa0)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x8C75b4c24491e7d2a71030Fb4fe2754ac6FbCFa0)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x2682Bc7be092Fba32C5622109b11892eE5db49F2)
  */
 export const simulateFactionBattleArenaRenounceOwnership =
   /*#__PURE__*/ createSimulateContract({
@@ -7697,7 +7697,7 @@ export const simulateFactionBattleArenaRenounceOwnership =
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link factionBattleArenaAbi}__ and `functionName` set to `"renounceRole"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x8C75b4c24491e7d2a71030Fb4fe2754ac6FbCFa0)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x8C75b4c24491e7d2a71030Fb4fe2754ac6FbCFa0)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x2682Bc7be092Fba32C5622109b11892eE5db49F2)
  */
 export const simulateFactionBattleArenaRenounceRole =
   /*#__PURE__*/ createSimulateContract({
@@ -7710,7 +7710,7 @@ export const simulateFactionBattleArenaRenounceRole =
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link factionBattleArenaAbi}__ and `functionName` set to `"revokeRole"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x8C75b4c24491e7d2a71030Fb4fe2754ac6FbCFa0)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x8C75b4c24491e7d2a71030Fb4fe2754ac6FbCFa0)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x2682Bc7be092Fba32C5622109b11892eE5db49F2)
  */
 export const simulateFactionBattleArenaRevokeRole =
   /*#__PURE__*/ createSimulateContract({
@@ -7723,7 +7723,7 @@ export const simulateFactionBattleArenaRevokeRole =
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link factionBattleArenaAbi}__ and `functionName` set to `"startLeague"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x8C75b4c24491e7d2a71030Fb4fe2754ac6FbCFa0)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x8C75b4c24491e7d2a71030Fb4fe2754ac6FbCFa0)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x2682Bc7be092Fba32C5622109b11892eE5db49F2)
  */
 export const simulateFactionBattleArenaStartLeague =
   /*#__PURE__*/ createSimulateContract({
@@ -7736,7 +7736,7 @@ export const simulateFactionBattleArenaStartLeague =
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link factionBattleArenaAbi}__ and `functionName` set to `"transferOwnership"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x8C75b4c24491e7d2a71030Fb4fe2754ac6FbCFa0)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x8C75b4c24491e7d2a71030Fb4fe2754ac6FbCFa0)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x2682Bc7be092Fba32C5622109b11892eE5db49F2)
  */
 export const simulateFactionBattleArenaTransferOwnership =
   /*#__PURE__*/ createSimulateContract({
@@ -7749,7 +7749,7 @@ export const simulateFactionBattleArenaTransferOwnership =
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link factionBattleArenaAbi}__ and `functionName` set to `"upgradeToAndCall"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x8C75b4c24491e7d2a71030Fb4fe2754ac6FbCFa0)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x8C75b4c24491e7d2a71030Fb4fe2754ac6FbCFa0)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x2682Bc7be092Fba32C5622109b11892eE5db49F2)
  */
 export const simulateFactionBattleArenaUpgradeToAndCall =
   /*#__PURE__*/ createSimulateContract({
@@ -7762,7 +7762,7 @@ export const simulateFactionBattleArenaUpgradeToAndCall =
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link factionBattleArenaAbi}__
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x8C75b4c24491e7d2a71030Fb4fe2754ac6FbCFa0)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x8C75b4c24491e7d2a71030Fb4fe2754ac6FbCFa0)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x2682Bc7be092Fba32C5622109b11892eE5db49F2)
  */
 export const watchFactionBattleArenaEvent =
   /*#__PURE__*/ createWatchContractEvent({
@@ -7774,7 +7774,7 @@ export const watchFactionBattleArenaEvent =
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link factionBattleArenaAbi}__ and `eventName` set to `"Initialized"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x8C75b4c24491e7d2a71030Fb4fe2754ac6FbCFa0)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x8C75b4c24491e7d2a71030Fb4fe2754ac6FbCFa0)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x2682Bc7be092Fba32C5622109b11892eE5db49F2)
  */
 export const watchFactionBattleArenaInitializedEvent =
   /*#__PURE__*/ createWatchContractEvent({
@@ -7787,7 +7787,7 @@ export const watchFactionBattleArenaInitializedEvent =
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link factionBattleArenaAbi}__ and `eventName` set to `"LeagueCreated"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x8C75b4c24491e7d2a71030Fb4fe2754ac6FbCFa0)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x8C75b4c24491e7d2a71030Fb4fe2754ac6FbCFa0)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x2682Bc7be092Fba32C5622109b11892eE5db49F2)
  */
 export const watchFactionBattleArenaLeagueCreatedEvent =
   /*#__PURE__*/ createWatchContractEvent({
@@ -7800,7 +7800,7 @@ export const watchFactionBattleArenaLeagueCreatedEvent =
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link factionBattleArenaAbi}__ and `eventName` set to `"LeagueExecuted"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x8C75b4c24491e7d2a71030Fb4fe2754ac6FbCFa0)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x8C75b4c24491e7d2a71030Fb4fe2754ac6FbCFa0)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x2682Bc7be092Fba32C5622109b11892eE5db49F2)
  */
 export const watchFactionBattleArenaLeagueExecutedEvent =
   /*#__PURE__*/ createWatchContractEvent({
@@ -7813,7 +7813,7 @@ export const watchFactionBattleArenaLeagueExecutedEvent =
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link factionBattleArenaAbi}__ and `eventName` set to `"OwnershipTransferStarted"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x8C75b4c24491e7d2a71030Fb4fe2754ac6FbCFa0)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x8C75b4c24491e7d2a71030Fb4fe2754ac6FbCFa0)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x2682Bc7be092Fba32C5622109b11892eE5db49F2)
  */
 export const watchFactionBattleArenaOwnershipTransferStartedEvent =
   /*#__PURE__*/ createWatchContractEvent({
@@ -7826,7 +7826,7 @@ export const watchFactionBattleArenaOwnershipTransferStartedEvent =
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link factionBattleArenaAbi}__ and `eventName` set to `"OwnershipTransferred"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x8C75b4c24491e7d2a71030Fb4fe2754ac6FbCFa0)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x8C75b4c24491e7d2a71030Fb4fe2754ac6FbCFa0)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x2682Bc7be092Fba32C5622109b11892eE5db49F2)
  */
 export const watchFactionBattleArenaOwnershipTransferredEvent =
   /*#__PURE__*/ createWatchContractEvent({
@@ -7839,7 +7839,7 @@ export const watchFactionBattleArenaOwnershipTransferredEvent =
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link factionBattleArenaAbi}__ and `eventName` set to `"ParticipantRegistered"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x8C75b4c24491e7d2a71030Fb4fe2754ac6FbCFa0)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x8C75b4c24491e7d2a71030Fb4fe2754ac6FbCFa0)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x2682Bc7be092Fba32C5622109b11892eE5db49F2)
  */
 export const watchFactionBattleArenaParticipantRegisteredEvent =
   /*#__PURE__*/ createWatchContractEvent({
@@ -7852,7 +7852,7 @@ export const watchFactionBattleArenaParticipantRegisteredEvent =
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link factionBattleArenaAbi}__ and `eventName` set to `"Paused"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x8C75b4c24491e7d2a71030Fb4fe2754ac6FbCFa0)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x8C75b4c24491e7d2a71030Fb4fe2754ac6FbCFa0)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x2682Bc7be092Fba32C5622109b11892eE5db49F2)
  */
 export const watchFactionBattleArenaPausedEvent =
   /*#__PURE__*/ createWatchContractEvent({
@@ -7865,7 +7865,7 @@ export const watchFactionBattleArenaPausedEvent =
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link factionBattleArenaAbi}__ and `eventName` set to `"RoleAdminChanged"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x8C75b4c24491e7d2a71030Fb4fe2754ac6FbCFa0)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x8C75b4c24491e7d2a71030Fb4fe2754ac6FbCFa0)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x2682Bc7be092Fba32C5622109b11892eE5db49F2)
  */
 export const watchFactionBattleArenaRoleAdminChangedEvent =
   /*#__PURE__*/ createWatchContractEvent({
@@ -7878,7 +7878,7 @@ export const watchFactionBattleArenaRoleAdminChangedEvent =
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link factionBattleArenaAbi}__ and `eventName` set to `"RoleGranted"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x8C75b4c24491e7d2a71030Fb4fe2754ac6FbCFa0)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x8C75b4c24491e7d2a71030Fb4fe2754ac6FbCFa0)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x2682Bc7be092Fba32C5622109b11892eE5db49F2)
  */
 export const watchFactionBattleArenaRoleGrantedEvent =
   /*#__PURE__*/ createWatchContractEvent({
@@ -7891,7 +7891,7 @@ export const watchFactionBattleArenaRoleGrantedEvent =
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link factionBattleArenaAbi}__ and `eventName` set to `"RoleRevoked"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x8C75b4c24491e7d2a71030Fb4fe2754ac6FbCFa0)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x8C75b4c24491e7d2a71030Fb4fe2754ac6FbCFa0)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x2682Bc7be092Fba32C5622109b11892eE5db49F2)
  */
 export const watchFactionBattleArenaRoleRevokedEvent =
   /*#__PURE__*/ createWatchContractEvent({
@@ -7904,7 +7904,7 @@ export const watchFactionBattleArenaRoleRevokedEvent =
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link factionBattleArenaAbi}__ and `eventName` set to `"Unpaused"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x8C75b4c24491e7d2a71030Fb4fe2754ac6FbCFa0)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x8C75b4c24491e7d2a71030Fb4fe2754ac6FbCFa0)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x2682Bc7be092Fba32C5622109b11892eE5db49F2)
  */
 export const watchFactionBattleArenaUnpausedEvent =
   /*#__PURE__*/ createWatchContractEvent({
@@ -7917,7 +7917,7 @@ export const watchFactionBattleArenaUnpausedEvent =
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link factionBattleArenaAbi}__ and `eventName` set to `"Upgraded"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x8C75b4c24491e7d2a71030Fb4fe2754ac6FbCFa0)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x8C75b4c24491e7d2a71030Fb4fe2754ac6FbCFa0)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x2682Bc7be092Fba32C5622109b11892eE5db49F2)
  */
 export const watchFactionBattleArenaUpgradedEvent =
   /*#__PURE__*/ createWatchContractEvent({

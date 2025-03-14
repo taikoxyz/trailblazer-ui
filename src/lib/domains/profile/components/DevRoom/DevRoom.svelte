@@ -185,32 +185,6 @@
         <ActionButton disabled={!canTransfer} on:click={handleTransferClick} priority="primary">Transfer</ActionButton>
       </div>
     </div>
-
-  <div class="border grid grid-cols-2">
-    <h1 class=col-span-2>FBA</h1>
-<div class="flex flex-col gap-2">
-  <h2>Register Participant</h2>
-  <p>Registers the connected account as a participant</p>
-  <input class="w-full py-2 rounded-full text-center" placeholder="badge season" />
-  <input class="w-full py-2 rounded-full text-center" placeholder="badge id" />
-  <input class="w-full py-2 rounded-full text-center" placeholder="token id" />
-  <button class="btn btn-primary btn-sm">Register</button>
-</div>
-
-<div class="flex flex-col gap-2">
-  <h2>Execute league and start next</h2>
-  <button
-  on:click={() => {
-    const service = new FactionBattleArenaService()
-    const seed = Date.now()
-    service._executeLeagueAndStartNext(seed)
-  }}
-  class="btn btn-primary btn-sm">Execute & Start</button>
-</div>
-  </div>
-
-  <h1 class=col-span-2>FBA League View</h1>
-  <FbaTableView />
   </div>
 
 {/if}
