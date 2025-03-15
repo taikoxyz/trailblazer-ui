@@ -306,6 +306,21 @@
     "learn_more": "Learn more"
   },
   "claim": {
+    "modal": {
+      "body": "Claim your season 2 bonus points now and boost your Trailblazers total instantly.",
+      "button": "Claim bonus points",
+      "button_claimed": "Already claimed",
+      "button_close": "Back to dashboard",
+      "button_retry": "Try again",
+      "claimed": "Your bonus points have been added to your Trailblazers total. Check your updated ranking and status on the dashboard.",
+      "claimed_error_body": "Something went wrong while processing your claim. Please try again later or check your wallet connection.",
+      "claimed_error_title": "Claim unsuccessful",
+      "claimed_title": "Bonus Successfully Claimed!",
+      "float_cta_closed": "Bonus coming soon",
+      "float_cta_open": "Your S2 Bonus is Ready!",
+      "no_points": "No points available",
+      "title": "Your Season 2 Bonus Points"
+    },
     "panels": {
       "claim": {
         "button": "Claim now",
@@ -777,6 +792,29 @@
         },
         "edition3": {
           "text": "Want to learn more about the different pools in OGs Edition and DeFi Moguls? Check out our blog post for all the details"
+        }
+      }
+    },
+    "thrillblazer": {
+      "ended": {
+        "description": "",
+        "title": ""
+      },
+      "prize_breakdown": {
+        "fifth": {
+          "amount": ""
+        },
+        "first": {
+          "amount": ""
+        },
+        "fourth": {
+          "amount": ""
+        },
+        "second": {
+          "amount": ""
+        },
+        "third": {
+          "amount": ""
         }
       }
     },

@@ -9,7 +9,7 @@
   import profileService from '$lib/domains/profile/services/ProfileServiceInstance';
   import { profileLoading } from '$lib/domains/profile/stores/profileStore';
   import { activeSeason } from '$lib/shared/stores/activeSeason';
-  import { Alert } from '$shared/components/Alert';
+  // import { Alert } from '$shared/components/Alert';
   import LeaderboardDisclaimer from '$shared/components/Disclaimer/LeaderboardDisclaimer.svelte';
   import FeaturedCampaigns from '$shared/components/FeaturedCampaigns/FeaturedCampaigns.svelte';
   import { classNames } from '$shared/utils/classNames';
@@ -17,6 +17,7 @@
 
   import NewsCard from './NewsCard/NewsCard.svelte';
   import MultiplierCard from './ProfileMultiplierCard/MultiplierCard.svelte';
+  import FloatingClaimButton from './ProfileSeasonBonusCard/FloatingClaimButton.svelte';
   import SeasonDetails from './SeasonDetails.svelte';
   // import ProfileSeasonBonusCard from './ProfileSeasonBonusCard/ProfileSeasonBonusCard.svelte';
 
@@ -51,7 +52,7 @@
     'max-w-[1016px]',
   );
 
-  const alertClasses = classNames('mt-[28px]', 'mx-[12px]', 'lg:mx-0');
+  // const alertClasses = classNames('mt-[28px]', 'mx-[12px]', 'lg:mx-0');
   const tabsClasses = classNames('mt-[28px]');
 
   $: isSelfProfile = false;
@@ -72,20 +73,17 @@
           <ProfileCard loading={$profileLoading} {isSelfProfile} />
           <MultiplierCard />
         </div>
-        <!-- {#if isSelfProfile}
-        <ProfileSeasonBonusCard />
-      {/if} -->
       </div>
       <NewsCard />
     </div>
-    <div class={alertClasses}>
+    <!-- <div class={alertClasses}>
       <Alert type="info">
         <b>Note:</b>
         Final Season 2 stats will be accessible shortly!
       </Alert>
-    </div>
+    </div> -->
 
-    <div class="m-[24px] md:m-0">
+    <div class="m-[24px] lg:m-0">
       <FeaturedCampaigns title="Featured campaigns" />
     </div>
     <div class={tabsClasses}>
@@ -97,5 +95,7 @@
     </div>
   </div>
 </div>
+
+<FloatingClaimButton />
 
 <ProfileModals />
