@@ -20,7 +20,7 @@ export const liquidityServiceInstances: Record<number, Record<string, LiquidityC
     OG: new LiquidityCompetition('liquidity', 'liquidity', 'OG Edition', 2),
   },
   3: {
-    OG: new LiquidityCompetition('liquidity/og', 'liquidity', 'OG Edition', 3),
+    OG: new LiquidityCompetition('liquidity/ogs', 'liquidity', 'OG Edition', 3),
     MOGULS: new LiquidityCompetition('liquidity/moguls', 'liquidity', 'Moguls Edition', 3),
   },
 };
