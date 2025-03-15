@@ -7,6 +7,7 @@
   import { account } from '$shared/stores/account';
   import { activeSeason } from '$shared/stores/activeSeason';
   import { classNames } from '$shared/utils/classNames';
+  import { isDesktop, isTablet, isTabletLg } from '$shared/utils/responsiveCheck';
 
   const handlePrimaryAction = () => {
     $account.isConnected ? goto('/profile') : web3modal.open();
@@ -97,11 +98,24 @@
     'flex',
     'items-center',
   );
+
+  $: smallHeaderImage = `/splash/s4/sm/evergreen.png`;
+  $: mediumHeaderImage = `/splash/s4/md/evergreen.png`;
+  $: largeHeaderImage = `/splash/s4/lg/evergreen.png`;
+  $: xlargeHeaderImage = `/splash/s4/xl/evergreen.png`;
+
+  $: imageUrl = $isDesktop
+    ? xlargeHeaderImage
+    : $isTabletLg
+      ? largeHeaderImage
+      : $isTablet
+        ? mediumHeaderImage
+        : smallHeaderImage;
 </script>
 
 <div class={wrapperClasses}>
   {#if $activeSeason === 4}
-    <img src="/splash/s4/evergreen.png" alt="splash" class="absolute w-full h-full object-cover" />
+    <img src={imageUrl} alt="splash" class="absolute w-full h-full object-cover" />
   {/if}
   {#if $activeSeason === 3}
     <video
