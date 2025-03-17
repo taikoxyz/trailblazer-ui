@@ -59,21 +59,3 @@ export async function fetchLeaderboardUserEntry(address: string, edition: number
 
 export const competitionSlug = writable('');
 
-//  onMount(async () => {
-//    const address = await getConnectedAddress();
-//    if (address && address !== zeroAddress) {
-//      const season = $activeSeason;
-//      try {
-//        const res = await fetch(
-//          `/api/competition/liquidity/user?address=${address}&edition=${edition}&season=${season}`,
-//        );
-//        if (res.ok) {
-//          const data = await res.json();
-//          currentLiquidityCompetitionLeaderboardUserEntry.set(data);
-//          console.log('User row:', data);
-//        }
-//      } catch (error) {
-//        console.error('Error fetching user row:', error);
-//      }
-//    }
-//  });
