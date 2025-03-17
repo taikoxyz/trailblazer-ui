@@ -1,24 +1,23 @@
 import { defineConfig } from '@wagmi/cli';
 import { actions } from '@wagmi/cli/plugins';
 import type { Abi, Address } from 'abitype';
-
-import * as EventRegisterHeklaDeployment from '../trailblazer-contracts.git/deployments/eventRegister/hekla.json';
-import * as EventRegisterMainnetDeployment from '../trailblazer-contracts.git/deployments/eventRegister/mainnet.json';
-import * as ProfilePictureHeklaDeployment from '../trailblazer-contracts.git/deployments/profile/hekla.json';
-import * as ProfilePictureMainnetDeployment from '../trailblazer-contracts.git/deployments/profile/mainnet.json';
-import * as TaikoonHeklaDeployment from '../trailblazer-contracts.git/deployments/taikoon/hekla.json';
-import * as TaikoonMainnetDeployment from '../trailblazer-contracts.git/deployments/taikoon/mainnet.json';
-import * as S1ClaimHeklaDeployment from '../trailblazer-contracts.git/deployments/trailblazers-airdrop/hekla.json';
-import * as S1ClaimMainnetDeployment from '../trailblazer-contracts.git/deployments/trailblazers-airdrop/mainnet.json';
-import * as TrailblazerBadgesS2HeklaDeployment from '../trailblazer-contracts.git/deployments/trailblazers-season-2/hekla.json';
-import * as TrailblazerBadgesS2MainnetDeployment from '../trailblazer-contracts.git/deployments/trailblazers-season-2/mainnet.json';
-import BadgeRecruitmentV2 from '../trailblazer-contracts.git/out/BadgeRecruitmentV2.sol/BadgeRecruitmentV2.json';
-import ERC20Airdrop from '../trailblazer-contracts.git/out/ERC20Airdrop.sol/ERC20Airdrop.json';
-import EventRegister from '../trailblazer-contracts.git/out/EventRegister.sol/EventRegister.json';
-import RegisterProfilePicture from '../trailblazer-contracts.git/out/RegisterProfilePicture.sol/RegisterProfilePicture.json';
-import TaikoonToken from '../trailblazer-contracts.git/out/TaikoonToken.sol/TaikoonToken.json';
-import TrailblazersBadgesS2 from '../trailblazer-contracts.git/out/TrailblazersBadgesS2.sol/TrailblazersBadgesS2.json';
-import TrailblazersS1BadgesV9 from '../trailblazer-contracts.git/out/TrailblazersS1BadgesV9.sol/TrailblazersBadgesV9.json';
+import * as EventRegisterHeklaDeployment from 'trailblazer-contracts/deployments/eventRegister/hekla.json';
+import * as EventRegisterMainnetDeployment from 'trailblazer-contracts/deployments/eventRegister/mainnet.json';
+import * as ProfilePictureHeklaDeployment from 'trailblazer-contracts/deployments/profile/hekla.json';
+import * as ProfilePictureMainnetDeployment from 'trailblazer-contracts/deployments/profile/mainnet.json';
+import * as TaikoonHeklaDeployment from 'trailblazer-contracts/deployments/taikoon/hekla.json';
+import * as TaikoonMainnetDeployment from 'trailblazer-contracts/deployments/taikoon/mainnet.json';
+import * as S1ClaimHeklaDeployment from 'trailblazer-contracts/deployments/trailblazers-airdrop/hekla.json';
+import * as S1ClaimMainnetDeployment from 'trailblazer-contracts/deployments/trailblazers-airdrop/mainnet.json';
+import * as TrailblazerBadgesS2HeklaDeployment from 'trailblazer-contracts/deployments/trailblazers-season-2/hekla.json';
+import * as TrailblazerBadgesS2MainnetDeployment from 'trailblazer-contracts/deployments/trailblazers-season-2/mainnet.json';
+import BadgeRecruitmentV2 from 'trailblazer-contracts/out/BadgeRecruitmentV2.sol/BadgeRecruitmentV2.json';
+import ERC20Airdrop from 'trailblazer-contracts/out/ERC20Airdrop.sol/ERC20Airdrop.json';
+import EventRegister from 'trailblazer-contracts/out/EventRegister.sol/EventRegister.json';
+import RegisterProfilePicture from 'trailblazer-contracts/out/RegisterProfilePicture.sol/RegisterProfilePicture.json';
+import TaikoonToken from 'trailblazer-contracts/out/TaikoonToken.sol/TaikoonToken.json';
+import TrailblazersBadgesS2 from 'trailblazer-contracts/out/TrailblazersBadgesS2.sol/TrailblazersBadgesS2.json';
+import TrailblazersS1BadgesV9 from 'trailblazer-contracts/out/TrailblazersS1BadgesV9.sol/TrailblazersBadgesV9.json';
 
 export default defineConfig({
   out: 'src/generated/abi/index.ts',
