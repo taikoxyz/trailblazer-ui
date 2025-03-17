@@ -5,8 +5,9 @@
   import { web3modal } from '$lib/shared/utils/connect';
   import ActionButton from '$shared/components/Button/ActionButton.svelte';
   import { account } from '$shared/stores/account';
-  import { cdnBase } from '$shared/utils/cdnBase';
+  import { activeSeason } from '$shared/stores/activeSeason';
   import { classNames } from '$shared/utils/classNames';
+  import { isDesktop, isTablet, isTabletLg } from '$shared/utils/responsiveCheck';
 
   const handlePrimaryAction = () => {
     $account.isConnected ? goto('/profile') : web3modal.open();
@@ -98,26 +99,44 @@
     'items-center',
   );
 
-  const videoPath = `${cdnBase}/splash/xl/evergreen.webm`;
+  $: smallHeaderImage = `/splash/s4/sm/evergreen.png`;
+  $: mediumHeaderImage = `/splash/s4/md/evergreen.png`;
+  $: largeHeaderImage = `/splash/s4/lg/evergreen.png`;
+  $: xlargeHeaderImage = `/splash/s4/xl/evergreen.png`;
+
+  $: imageUrl = $isDesktop
+    ? xlargeHeaderImage
+    : $isTabletLg
+      ? largeHeaderImage
+      : $isTablet
+        ? mediumHeaderImage
+        : smallHeaderImage;
 </script>
 
 <div class={wrapperClasses}>
-  <video
-    autoplay
-    loop
-    muted
-    playsinline
-    poster="/splash/fallback.webp"
-    class="relative h-full object-cover"
-    src={videoPath}></video>
+  {#if $activeSeason === 4}
+    <img src={imageUrl} alt="splash" class="absolute w-full h-full object-cover" />
+  {/if}
+  {#if $activeSeason === 3}
+    <video
+      autoplay
+      loop
+      muted
+      playsinline
+      poster="/splash/fallback.webp"
+      class="relative h-full object-cover"
+      src="/splash/xl/evergreen.webm"></video>
+  {/if}
 
   <div class={backgroundImageClasses}>
-    <div class={pillClasses}>
-      <div class={innerPillClasses}>
-        <div class={seasonClasses}>Season 3</div>
-        Now live
+    {#if $activeSeason === 3}
+      <div class={pillClasses}>
+        <div class={innerPillClasses}>
+          <div class={seasonClasses}>Season 3</div>
+          Now live
+        </div>
       </div>
-    </div>
+    {/if}
     <div class={contentWrapperClasses}>
       <div class={innerContentClasses}>
         <div class={descriptionWrapperClasses}>
@@ -136,8 +155,5 @@
 <style>
   .pill-bg {
     background-color: rgba(255, 198, 233, 0.7);
-  }
-  video {
-    transition: opacity 0.3s ease;
   }
 </style>

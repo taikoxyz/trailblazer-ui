@@ -107,6 +107,8 @@
     'items-between',
     'h-full',
     'bottom-0',
+    'my-[24px]',
+    'md:my-[0px]',
   );
 
   const headerClasses = classNames(

@@ -80,9 +80,10 @@
       </div>
       <select class="select select-bordered w-full max-w-xs" on:change={handleSeasonChange} value={$activeSeason}>
         <option disabled>Select season</option>
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
+        <option value="1">Season 1</option>
+        <option value="2">Season 2</option>
+        <option value="3">Season 3</option>
+        <option value="4">Season 4</option>
       </select>
     </label>
   </div>
