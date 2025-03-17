@@ -76,6 +76,7 @@
       </div>
       <NewsCard />
     </div>
+
     <!-- <div class={alertClasses}>
       <Alert type="info">
         <b>Note:</b>

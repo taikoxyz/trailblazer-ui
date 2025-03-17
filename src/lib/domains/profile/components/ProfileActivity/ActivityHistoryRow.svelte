@@ -84,7 +84,7 @@
         </span>
         {#if historyEntry?.multiplier && historyEntry?.multiplier > 1 && historyEntry.points > 0}
           <Pill class={pillClass}>
-            {$t('leaderboard.user.booster', { values: { multiplier: historyEntry?.multiplier } })}
+            {$t('leaderboard.user.booster', { values: { multiplier: historyEntry?.multiplier.toFixed(2) } })}
           </Pill>
         {/if}
       </div>

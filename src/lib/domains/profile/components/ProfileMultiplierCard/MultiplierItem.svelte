@@ -14,9 +14,9 @@
       <Spinner size="sm" />
     {:else if multiplierView.max}
       <span class="text-negative-sentiment uppercase">Max</span>
-      <span class="text-primary-content">{multiplierView.multiplier}x</span>
+      <span class="text-primary-content">{multiplierView.multiplier.toFixed(2)}x</span>
     {:else}
-      <span class="text-primary-content">{multiplierView.multiplier}x</span>
+      <span class="text-primary-content">{multiplierView.multiplier.toFixed(2)}x</span>
     {/if}
   </div>
 </li>

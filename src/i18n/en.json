@@ -1,12 +1,18 @@
 {
   "badge_recruitment": {
     "buttons": {
+      "already_recruited": "Already recruited this season",
       "end_recruitment": "Claim",
       "influence": "Influence",
+      "influencing": "Influencing",
       "not_eligible": "Not eligible",
       "ongoing_recruitment": "Recruiting another badge",
+      "recruiting": "Recruiting",
+      "reset": "Reset recruitment",
       "reveal": "Reveal",
-      "start_recruitment": "Start recruitment"
+      "revealing": "Revealing",
+      "start_recruitment": "Recruit now",
+      "view": "View"
     },
     "faq": {
       "entries": [
@@ -181,12 +187,21 @@
       "can_claim_in": "Badge recruited in:",
       "can_influence_in": "You can influence again in:",
       "cta": "Have questions?",
-      "no_enabled_recruitments": "No recruitments are currently enabled. Stay tuned!"
+      "no_badges_to_recruit": "You don't own any dev badges of this type. Visit NFT marketplaces and have a look for available ones.",
+      "no_enabled_recruitments": "No recruitments are currently enabled. Stay tuned!",
+      "reset_recruitment": {
+        "toast": {
+          "success": {
+            "message": "Badge can be recruited again in a future cycle",
+            "title": "Recruitment reset"
+          }
+        }
+      }
     },
     "modal": {
       "end_recruitment": {
-        "description": "You have successfully recruited your badge. You can now claim it.",
-        "title": "Congratulations!",
+        "description": "The countdown is over! See which team your badge has joined—Whales or Minnows.",
+        "title": "Ready to see what you’ve got?",
         "toast": {
           "error": {
             "default_message": "Error claiming your badge recruitment",
@@ -199,8 +214,8 @@
         }
       },
       "influence_recruitment": {
-        "description": "Influence your badge to favor the path of your Season 2 badge.",
-        "title": "Your Season 2 Badge is being recruited",
+        "description": "Your badge is on its way! Influence its path—will it lean toward the Whales or the Minnows? Engage with the contract to sway the outcome in your favor!",
+        "title": "Your new Badge is being recruited",
         "toast": {
           "error": {
             "message": "Error refining your recruitment process",
@@ -213,7 +228,7 @@
         }
       },
       "start_recruitment": {
-        "description": "Time to recruit your Season 2 {badgeName} badge!",
+        "description": "Time to recruit your new {badgeName} badge!",
         "title": "Start your recruitment process",
         "toast": {
           "error": {
@@ -229,7 +244,7 @@
             "title": "Success"
           }
         },
-        "warning": "Warning: Once you click 'Start Recruitment', your Season 1 badge will be locked for the rest of the season."
+        "warning": "Warning: Once you click 'Start Recruitment', your Dev badge will be locked for the rest of the season and its multiplier will not apply."
       }
     }
   },
@@ -388,6 +403,7 @@
     "locked": "Locked",
     "migrate": "Recruitment",
     "not_eligible": "Not eligible",
+    "status": "Status",
     "trail": "Trail",
     "week": "Week"
   },
@@ -981,6 +997,17 @@
         "title": "Connected"
       },
       "switching": "Switching network"
+    }
+  },
+  "nfts": {
+    "collection": {
+      "collected": "Collected",
+      "contract_address": "Contract Address",
+      "faction": "Faction",
+      "locked": "Locked for this season",
+      "multiplier": "Multiplier",
+      "team": "Team",
+      "token_id": "Token ID"
     }
   },
   "pages": {

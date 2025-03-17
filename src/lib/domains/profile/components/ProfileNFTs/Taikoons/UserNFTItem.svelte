@@ -1,10 +1,13 @@
 <script lang="ts">
+  import { Icon } from '$shared/components/Icon';
   import type { NFT } from '$shared/types/NFT';
   import { classNames } from '$shared/utils/classNames';
 
-  import MultiplierBadge from '../MultiplierBadge.svelte';
+  // import MultiplierBadge from '../MultiplierBadge.svelte';
 
   export let token: NFT;
+  // export let hideBubbles = false;
+  export let locked = false;
 
   $: image = token.metadata.image as string;
 
@@ -20,7 +23,7 @@
     'bg-[#310E2F]',
     'transition-all',
   );
-  const imageWrapperClasses = classNames('relative', 'w-full', 'h-full', 'z-0');
+  const imageWrapperClasses = classNames('relative', 'w-full', 'h-full', 'z-0', $$props.class);
 
   const imageClasses = classNames(
     'pointer-events-none',
@@ -30,18 +33,20 @@
     'top-0',
     'z-20',
     'w-full',
+    locked ? 'blur-md' : null,
   );
 
-  const bubbleWrapperClasses = classNames(
-    'absolute',
-    'top-[20px]',
-    'right-[20px]',
-    'flex',
-    'flex-col',
-    'justify-end',
-    'items-end',
-    'gap-[5px]',
-  );
+  // const bubbleWrapperClasses = classNames(
+  //   hideBubbles ? 'hidden' : 'block',
+  //   'absolute',
+  //   'top-[20px]',
+  //   'right-[20px]',
+  //   'flex',
+  //   'flex-col',
+  //   'justify-end',
+  //   'items-end',
+  //   'gap-[5px]',
+  // );
 
   function prefixIpfsGateway(url: string) {
     if (url.startsWith('http') || url.startsWith('/')) {
@@ -49,6 +54,8 @@
     }
     return `https://ipfs.io/ipfs/${url}`;
   }
+
+  const lockedOverlayClasses = classNames('absolute', 'w-full', 'h-full', 'items-center', 'justify-center', 'f-col');
 </script>
 
 <div class={wrapperClasses}>
@@ -56,9 +63,16 @@
     <img src={prefixIpfsGateway(image)} alt={`NFT #${token.tokenId}`} class={imageClasses} />
   </div>
 
-  <div class={bubbleWrapperClasses}>
+  <!-- <div class={bubbleWrapperClasses}>
     <MultiplierBadge {token} />
-  </div>
+  </div> -->
+
+  {#if locked}
+    <div class={lockedOverlayClasses}>
+      <Icon type="lock" size={80} />
+      <span class="text-sm hidden lg:block">Locked for current season</span>
+    </div>
+  {/if}
 </div>
 
 <style>

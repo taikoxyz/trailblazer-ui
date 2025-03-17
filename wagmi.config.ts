@@ -1,29 +1,24 @@
-import { createRequire } from 'node:module';
-
 import { defineConfig } from '@wagmi/cli';
 import { actions } from '@wagmi/cli/plugins';
 import type { Abi, Address } from 'abitype';
 
-// needed to import .json from node_modules
-const require = createRequire(import.meta.url);
-
-const EventRegisterHeklaDeployment = require('trailblazer-contracts/deployments/eventRegister/hekla.json');
-const EventRegisterMainnetDeployment = require('trailblazer-contracts/deployments/eventRegister/mainnet.json');
-const ProfilePictureHeklaDeployment = require('trailblazer-contracts/deployments/profile/hekla.json');
-const ProfilePictureMainnetDeployment = require('trailblazer-contracts/deployments/profile/mainnet.json');
-const TaikoonHeklaDeployment = require('trailblazer-contracts/deployments/taikoon/hekla.json');
-const TaikoonMainnetDeployment = require('trailblazer-contracts/deployments/taikoon/mainnet.json');
-const S1ClaimHeklaDeployment = require('trailblazer-contracts/deployments/trailblazers-airdrop/hekla.json');
-const S1ClaimMainnetDeployment = require('trailblazer-contracts/deployments/trailblazers-airdrop/mainnet.json');
-const TrailblazerBadgesS2HeklaDeployment = require('trailblazer-contracts/deployments/trailblazers-season-2/hekla.json');
-const TrailblazerBadgesS2MainnetDeployment = require('trailblazer-contracts/deployments/trailblazers-season-2/mainnet.json');
-const BadgeRecruitmentV2 = require('trailblazer-contracts/out/BadgeRecruitmentV2.sol/BadgeRecruitmentV2.json');
-const ERC20Airdrop = require('trailblazer-contracts/out/ERC20Airdrop.sol/ERC20Airdrop.json');
-const EventRegister = require('trailblazer-contracts/out/EventRegister.sol/EventRegister.json');
-const RegisterProfilePicture = require('trailblazer-contracts/out/RegisterProfilePicture.sol/RegisterProfilePicture.json');
-const TaikoonToken = require('trailblazer-contracts/out/TaikoonToken.sol/TaikoonToken.json');
-const TrailblazersBadgesS2 = require('trailblazer-contracts/out/TrailblazersBadgesS2.sol/TrailblazersBadgesS2.json');
-const TrailblazersS1BadgesV8 = require('trailblazer-contracts/out/TrailblazersS1BadgesV8.sol/TrailblazersBadgesV8.json');
+import * as EventRegisterHeklaDeployment from '../trailblazer-contracts/deployments/eventRegister/hekla.json';
+import * as EventRegisterMainnetDeployment from '../trailblazer-contracts/deployments/eventRegister/mainnet.json';
+import * as ProfilePictureHeklaDeployment from '../trailblazer-contracts/deployments/profile/hekla.json';
+import * as ProfilePictureMainnetDeployment from '../trailblazer-contracts/deployments/profile/mainnet.json';
+import * as TaikoonHeklaDeployment from '../trailblazer-contracts/deployments/taikoon/hekla.json';
+import * as TaikoonMainnetDeployment from '../trailblazer-contracts/deployments/taikoon/mainnet.json';
+import * as S1ClaimHeklaDeployment from '../trailblazer-contracts/deployments/trailblazers-airdrop/hekla.json';
+import * as S1ClaimMainnetDeployment from '../trailblazer-contracts/deployments/trailblazers-airdrop/mainnet.json';
+import * as TrailblazerBadgesS2HeklaDeployment from '../trailblazer-contracts/deployments/trailblazers-season-2/hekla.json';
+import * as TrailblazerBadgesS2MainnetDeployment from '../trailblazer-contracts/deployments/trailblazers-season-2/mainnet.json';
+import BadgeRecruitmentV2 from '../trailblazer-contracts/out/BadgeRecruitmentV2.sol/BadgeRecruitmentV2.json';
+import ERC20Airdrop from '../trailblazer-contracts/out/ERC20Airdrop.sol/ERC20Airdrop.json';
+import EventRegister from '../trailblazer-contracts/out/EventRegister.sol/EventRegister.json';
+import RegisterProfilePicture from '../trailblazer-contracts/out/RegisterProfilePicture.sol/RegisterProfilePicture.json';
+import TaikoonToken from '../trailblazer-contracts/out/TaikoonToken.sol/TaikoonToken.json';
+import TrailblazersBadgesS2 from '../trailblazer-contracts/out/TrailblazersBadgesS2.sol/TrailblazersBadgesS2.json';
+import TrailblazersS1BadgesV8 from '../trailblazer-contracts/out/TrailblazersS1BadgesV8.sol/TrailblazersBadgesV8.json';
 
 export default defineConfig({
   out: 'src/generated/abi/index.ts',

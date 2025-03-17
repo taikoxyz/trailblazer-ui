@@ -6,23 +6,18 @@
   import { PUBLIC_CLAIMING_ACTIVE } from '$env/static/public';
   import BadgeRecruitment from '$lib/domains/badges/components/BadgeRecruitment.svelte';
   import DevRoom from '$lib/domains/profile/components/DevRoom/DevRoom.svelte';
-  import { ProfileNFTs } from '$lib/domains/profile/components/ProfileNFTs';
   import { classNames } from '$shared/utils/classNames';
   import { isDevelopmentEnv } from '$shared/utils/isDevelopmentEnv';
 
   import ProfileTransactions from './ProfileActivity/ProfileTransactions.svelte';
   import ProfileLockdownTab from './ProfileLockdownTab.svelte';
+  import ProfileNftCollection from './ProfileNFTs/NFTCollection/ProfileNFTCollection.svelte';
   import ProfileRewardClaim from './ProfileRewardClaim/ProfileRewardClaim.svelte';
 
   type TabContent = {
     name: string;
     slug: string;
-    content:
-      | typeof ProfileTransactions
-      | typeof ProfileNFTs
-      | typeof BadgeRecruitment
-      | typeof DevRoom
-      | typeof ProfileRewardClaim;
+    content: typeof ProfileTransactions | typeof BadgeRecruitment | typeof DevRoom | typeof ProfileRewardClaim;
   };
 
   export let isSelfProfile: boolean;
@@ -36,9 +31,10 @@
     {
       slug: 'nft-collection',
       name: 'NFT Collection',
-      content: ProfileNFTs,
+      content: ProfileNftCollection,
     },
-    ...(isSelfProfile
+
+    ...(isSelfProfile || isDevelopmentEnv
       ? [
           {
             slug: 'badge-recruitment',

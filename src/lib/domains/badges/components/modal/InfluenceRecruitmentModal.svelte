@@ -1,38 +1,52 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
+  import { getContext, onMount } from 'svelte';
   import { t } from 'svelte-i18n';
 
-  import profileService from '$lib/domains/profile/services/ProfileServiceInstance';
-  import { MovementNames, Movements, Seasons } from '$lib/domains/profile/types/types';
+  import { MovementNames, Movements } from '$lib/domains/profile/types/types';
   import { errorToast, successToast } from '$shared/components/NotificationToast';
   import { account } from '$shared/stores';
-  import { activeRecruitment, influenceRecruitmentModal } from '$shared/stores/recruitment';
+  import {
+    activeRecruitmentStore,
+    currentRecruitmentStore,
+    influenceRecruitmentModal,
+  } from '$shared/stores/recruitment';
+  import type { TBBadge } from '$shared/types/NFT';
   import { classNames } from '$shared/utils/classNames';
-  import getMockBadge from '$shared/utils/nfts/getMockBadge';
 
+  import badgeRecruitmentService from '../../services/BadgeRecruitmentServiceInstance';
   import FancyButton from '../FancyButton.svelte';
   import InfluenceRadio from '../InfluenceRadio.svelte';
   import RecruitmentBadgeItem from '../RecruitmentBadgeItem.svelte';
   import { CoreModal, CoreModalDescription, CoreModalFooter, CoreModalHeader, CoreModalTitle } from './components';
 
-  $: isLoading = false;
-  $: selectedMovement = null as null | Movements;
+  // Reactive states
+  let isLoading = false;
+  let selectedMovement: Movements | null = null;
+  let whaleBadge: TBBadge | null = null;
+  let minnowBadge: TBBadge | null = null;
 
-  $: s1BadgeId = ($activeRecruitment?.s1Badge?.metadata.badgeId as number) || 0;
-  $: influenceCounter = $activeRecruitment
-    ? $activeRecruitment.minnowInfluences + $activeRecruitment?.whaleInfluences
-    : 0;
+  $: s1BadgeId = ($currentRecruitmentStore?.badge?.badgeId as number) || 0;
+  $: influenceCounter =
+    $influenceRecruitmentModal && $currentRecruitmentStore
+      ? $currentRecruitmentStore.influences.minnow + $currentRecruitmentStore.influences.whale
+      : 0;
+
+  $: if ($influenceRecruitmentModal && s1BadgeId !== undefined) {
+    (async () => {
+      whaleBadge = await badgeRecruitmentService.getDefaultBadge(s1BadgeId, Movements.Whales);
+      minnowBadge = await badgeRecruitmentService.getDefaultBadge(s1BadgeId, Movements.Minnows);
+    })();
+  }
 
   async function handleInfluence() {
     try {
-      if (!$account || !$account.address || !$activeRecruitment || selectedMovement === null) return;
+      if (!$account || !$account.address || !$currentRecruitmentStore || selectedMovement === null) return;
       isLoading = true;
 
-      await profileService.influenceRecruitment(
+      await badgeRecruitmentService.influenceRecruitment(
         $account.address,
-        $activeRecruitment.s1Badge,
+        $currentRecruitmentStore.badge,
         selectedMovement,
-        $activeRecruitment,
       );
 
       isLoading = false;
@@ -44,7 +58,7 @@
           values: { movement: MovementNames[selectedMovement] },
         }),
       });
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      // eslint-disable-next-line
     } catch (e: any) {
       isLoading = false;
       console.error(e);
@@ -54,12 +68,18 @@
           ? e.shortMessage
           : $t('badge_recruitment.modal.influence_recruitment.toast.error.message'),
       });
+    } finally {
+      updateStatus();
     }
   }
 
-  $: maxInfluences = 0;
+  $: influenceRecruitmentModal && $account?.address && badgeRecruitmentService.getUserRecruitments($account.address);
+
+  let maxInfluences = 0;
+
   onMount(async () => {
-    maxInfluences = (await profileService.getMaxInfluences()) || 5;
+    // maxInfluences = (await profileService.getMaxInfluences()) || 5;
+    maxInfluences = 5;
   });
 
   const detailsClasses = classNames('flex', 'flex-col', 'w-full', 'justify-center', 'items-center', 'gap-[8px]');
@@ -75,6 +95,8 @@
     'md:gap-[40px]',
     'lg:gap-[80px]',
   );
+
+  const updateStatus: () => void = getContext('badgeRecruitUpdate');
 </script>
 
 <CoreModal bind:open={$influenceRecruitmentModal}>
@@ -88,19 +110,25 @@
     </CoreModalDescription>
   </CoreModalHeader>
 
-  {#if $activeRecruitment}
+  {#if $activeRecruitmentStore && whaleBadge && minnowBadge}
     <div class={badgesWrapperClasses}>
       <RecruitmentBadgeItem
-        locked
         on:click={() => {
-          selectedMovement = Movements.Whale;
+          selectedMovement = Movements.Whales;
         }}
+        locked
         hideBubbles
-        value={$activeRecruitment?.whaleInfluences}
-        shadow={selectedMovement === Movements.Whale}
-        token={getMockBadge(Seasons.Season2, s1BadgeId, Movements.Whale)}>
+        value={$currentRecruitmentStore?.influences.whale}
+        shadow={selectedMovement === Movements.Whales}
+        token={whaleBadge}>
         <div class={detailsClasses}>
-          <InfluenceRadio checked={selectedMovement === Movements.Whale} name={radioGroupName} />
+          <InfluenceRadio checked={selectedMovement === Movements.Whales} name={radioGroupName} />
+        </div>
+        <div slot="overlay">
+          <img
+            src="/factions/recruitment/overlay-whale.svg"
+            alt="Badge Overlay"
+            class="absolute top-0 left-0 w-full h-full pointer-events-none" />
         </div>
       </RecruitmentBadgeItem>
 
@@ -108,23 +136,34 @@
         locked
         hideBubbles
         on:click={() => {
-          selectedMovement = Movements.Minnow;
+          selectedMovement = Movements.Minnows;
         }}
-        shadow={selectedMovement === Movements.Minnow}
-        value={$activeRecruitment?.minnowInfluences}
-        token={getMockBadge(Seasons.Season2, s1BadgeId, Movements.Minnow)}>
+        shadow={selectedMovement === Movements.Minnows}
+        value={$currentRecruitmentStore?.influences.minnow}
+        token={minnowBadge}>
         <div class={detailsClasses}>
-          <InfluenceRadio checked={selectedMovement === Movements.Minnow} name={radioGroupName} />
+          <InfluenceRadio checked={selectedMovement === Movements.Minnows} name={radioGroupName} />
+        </div>
+        <div slot="overlay">
+          <img
+            src="/factions/recruitment/overlay-minnow.svg"
+            alt="Badge Overlay"
+            class="absolute top-0 left-0 w-full h-full pointer-events-none" />
         </div>
       </RecruitmentBadgeItem>
     </div>
   {/if}
+
   <CoreModalFooter>
     <FancyButton
       loading={isLoading}
       disabled={isLoading || selectedMovement === null || influenceCounter === maxInfluences}
       on:click={handleInfluence}>
-      {$t('badge_recruitment.buttons.influence')}
+      {#if isLoading}
+        {$t('badge_recruitment.buttons.influencing')}
+      {:else}
+        {$t('badge_recruitment.buttons.influence')}
+      {/if}
       ( {influenceCounter} / {maxInfluences})
     </FancyButton>
   </CoreModalFooter>
