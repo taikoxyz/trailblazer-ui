@@ -20,7 +20,6 @@
     'f-col',
     '-mx-[15px]',
     'flex-1 w-full max-w-none',
-    'md:p-[20px]',
     'f-col',
     'gap-[30px]',
     'items-center',
@@ -35,7 +34,7 @@
     'md:gap-[24px]',
     'gap-[12px]',
     'w-[325px]',
-    'xl:w-[888px]',
+    'xl:w-[856px]',
   );
 
   const borderedBadgeBaseClasses = classNames(
