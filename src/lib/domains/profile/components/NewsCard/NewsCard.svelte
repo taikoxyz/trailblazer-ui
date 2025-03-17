@@ -13,6 +13,7 @@
     'dark-glass-background-gradient',
     'h-full',
     'max-h-[366px]',
+    'xl:w-[304px]',
     'h-[366px]',
     'p-[24px]',
     'gap-[16px]',
