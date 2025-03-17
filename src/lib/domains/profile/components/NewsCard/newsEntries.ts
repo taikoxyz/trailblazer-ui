@@ -11,47 +11,27 @@ const profilePath = (slug: string) => {
 export const newsEntries: NewsCardContent[] = [
   {
     featured: true,
-    title: 'TakoTako Tales',
+    title: 'Season 4 is here!',
     subtitle: 'Join now!',
-    text: 'The based DeFi Quest - Score 8,888 TAIKO and a Taikoon.',
+    text: 'Blaze new trails, fuel Taiko’s momentum, and seize your chance for legendary rewards.',
     imgSrc: '/news/flame.svg',
     cta: {
-      href: 'https://app.galxe.com/quest/VnWkqAtB2Row8KdwpFHW9n/GC6MbtpuTp',
+      href: 'https://taiko.mirror.xyz/6vLNVZ3pgFFenboNt1dD2gwGWwYBnweTu85V30B_CGc',
       external: true,
     },
   },
   {
-    featured: false,
-    title: 'Avalon Airdrop',
-    subtitle: 'Live now!',
-    text: 'Claim on Taiko for 100x your TX value and points!',
-    imgSrc: '/news/flame.svg',
+    title: 'Liquidity Royale Season 4',
+    subtitle: 'Supercharge your liquidity and get rewarded for it',
     cta: {
-      href: 'https://avl.avalonfinance.xyz/airdrop/',
-      external: true,
+      href: '/journeys/liquidity/3',
     },
   },
   {
-    title: 'Season 2 Claim',
-    subtitle: 'has ended.',
-    cta: {
-      href: profilePath('#claim'),
-    },
-    imgSrc: '/news/flame.svg',
-  },
-  {
-    title: 'Get your Badges',
+    title: 'Refreshed Badge recruitment',
     subtitle: 'Recruit your members to your cause',
     cta: {
       href: profilePath('#badge-recruitment'),
-    },
-  },
-
-  {
-    title: 'Liquidity Royale',
-    subtitle: 'Supercharge your liquidity and get rewarded for it',
-    cta: {
-      href: '/journeys/liquidity',
     },
   },
 ];
