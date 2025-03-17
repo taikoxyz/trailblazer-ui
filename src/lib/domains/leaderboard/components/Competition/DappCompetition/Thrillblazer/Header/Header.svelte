@@ -1,6 +1,6 @@
 <script lang="ts">
   import { getContext } from 'svelte';
-  import { json, t } from 'svelte-i18n';
+  import { t } from 'svelte-i18n';
 
   import { LastUpdated } from '$lib/domains/leaderboard/components';
   import Search from '$lib/domains/leaderboard/components/Search.svelte';
@@ -13,8 +13,6 @@
 
   import type { CompetitionInfo } from '../../../types';
   import { thrillblazerDetails } from '../thrillblazerDetails';
-  import PrizePool from './PrizePool.svelte';
-  import SideBar from './SideBar.svelte';
 
   const loadLeaderboardData = getContext<LoadLeaderboardDataType>('loadCompetitionLeaderboardData');
   const pageInfo = getContext<PaginationInfo<DappLeaderboardItem>>('dappsCompetitionPageInfo');
@@ -26,37 +24,19 @@
   export let lastUpdated: Date;
 
   let selectedCompetitionInfo = null as CompetitionInfo | null;
-  let totalAmount = '';
   $: {
     selectedCompetitionInfo = thrillblazerDetails[edition];
-    // Update totalAmount based on activeSeason
-    totalAmount = $t(`leaderboard.thrillblazers.edition${edition}.prize_breakdown.total`);
   }
   const wrapperClasses = classNames(
     'flex',
-    'justify-start',
-    'border',
-    'border-[yellow]',
-    'w-full',
-    'h-full',
-    'relative',
-    'w-full',
-    'items-start',
-  );
-
-  const headerContentClasses = classNames(
-    'flex',
     'flex-col',
     'border',
-    'border-[red]',
+    'border-grey-600',
+    'justify-stretch',
+    'items-stretch',
     'h-full',
-    'xl:max-w-[1229px]',
-    'lg:max-w-[927px]',
-    'md:max-w-[670px]',
     'relative',
-    // 'mt-[40px]',
     'w-full',
-    'items-center',
   );
 
   const h1Classes = classNames(
@@ -76,8 +56,8 @@
     'drop-shadow-neon-red',
     'mb-[85px]',
     //md
-    'md:self-start',
-    'md:ml-[80px]',
+    // 'md:self-start',
+    // 'md:ml-[80px]',
     'md:text-[101.775px]',
     'md:font-semibold',
     'md:leading-[101.775px]',
@@ -91,75 +71,17 @@
     'lg:uppercase',
     'lg:stroke-4',
     //  'lg:mt-[83px]',
-    'lg:ml-[85px]',
+    //  'lg:ml-[85px]',
     //xl
-    'xl:ml-[293px]',
+    //  'xl:ml-[293px]',
   );
 
-  const runesLeftClasses = classNames(
-    'hidden',
-    'md:block',
-    'lg:hidden',
-    'absolute',
-    'top-[0px]',
-    'left-0',
-    'z-10',
-    'h-[500.118px]',
-    'w-[87.395px]',
-  );
-
-  const runesLeftClassesLg = classNames(
-    'hidden',
-    'lg:block',
-    'xl:hidden',
-    'absolute',
-    'top-[0px]',
-    'left-0',
-    'z-10',
-    'h-[500.118px]',
-    'w-[87.395px]',
-  );
-
-  const runesLeftClassesXl = classNames(
-    'hidden',
-    'xl:block',
-    'absolute',
-    'top-[0px]',
-    'left-0',
-    'z-10',
-    'h-[555.141]',
-    'w-[185.21px]',
-  );
-
-  const runesRightClasses = classNames(
-    'hidden',
-    'md:block',
-    'absolute',
-    'right-0',
-    'top-[24px]',
-    'w-[21.7px]',
-    'lg:w-[30px]',
-  );
-  const blazersClasses = classNames(
-    'absolute',
-    'top-[80px]',
-    'w-[440px]',
-    //  'top-[35px]',
-    // 'left-[95px]',
-    //md
-    // 'md:w-[372.246px]',
-    //   'md:top-[165px]',
-    // 'md:left-[223.53px]',
-    //lg
-    //'lg:w-[550.059px]',
-    // 'lg:left-[300px]',
-    //xl
-    // 'xl:left-[481.059px]',
-  );
+  const blazersClasses = classNames('absolute', 'top-[50%]', 'w-[440px]');
   const descriptionClasses = classNames(
     ' text-secondary-content',
     'text-center',
     'max-w-[297px]',
+    'mt-[20px]',
     //md
     'md:max-w-[449px]',
     'md:text-[16px]',
@@ -182,6 +104,7 @@
     'text-center',
     'mb-[40px]',
     'lg:space-y-0',
+    'mt-[100px]',
   );
 
   const ctaWrapperClasses = classNames('flex', 'flex-col', 'order-2');
@@ -193,20 +116,7 @@
   const searchClasses = classNames('w-full', 'lg:w-[400px]', 'lg:order-1', 'order-last', 'z-0', 'ml-[3px]');
 
   $: description = $t(`leaderboard.thrillblazers.edition${edition}.description`);
-  $: prizes = $json(`leaderboard.thrillblazers.edition${edition}.prize_breakdown`) as Record<string, string>;
   $: edition = parseInt($competitionSlug);
-
-  // ===============================================================================================
-
-  const borderedRowClasses = classNames(
-    'flex',
-    'justify-center',
-    'items-center',
-    'border',
-    'border-grey-600',
-    'h-[57px]',
-    'w-full',
-  );
 
   const editionClasses = classNames(
     'uppercase',
@@ -226,15 +136,31 @@
 
   const frameClasses = classNames(
     'f-col',
-    'border border-[blue]',
+    'mt-[20px]',
     'relative',
-    // 'mt-[40px]',
-    'w-full',
+    'w-[calc(100%-100px]',
+    'lg:w-[calc(100%-212px)]',
     'items-center',
   );
 
-  const prizePoolWrapperClasses = classNames('py-[30px]', 'w-full', 'flex', 'justify-between', 'items-center');
-  const prizePoolClasses = classNames('w-full', 'gap-[5px]', 'flex', 'flex-col', 'justify-center', 'items-center');
+  const prizePoolWrapperClasses = classNames(
+    'absolute',
+    'bottom-[50%]',
+    'left-[25%]',
+    'w-[50%]',
+    'flex',
+    'justify-between',
+    'items-center',
+  );
+  const prizePoolClasses = classNames(
+    'bg-grey-900',
+    'w-full',
+    'gap-[5px]',
+    'flex',
+    'flex-col',
+    'justify-center',
+    'items-center',
+  );
   const prizePoolLabelClasses = classNames(
     'text-[16px]/[120%]',
     'font-[700]',
@@ -247,14 +173,15 @@
   const lineClasses = classNames('w-full', 'h-[10px]');
   const lineReverseClasses = classNames(lineClasses, 'scale-x-[-1]');
 
-  const prizesWrapper = classNames('grid grid-cols-5');
-
   const prizeItemClasses = classNames(
     'flex',
     'gap-4',
-    'border',
+    'border-l',
+    'border-r',
+    'first:border-l-0',
+    'last:border-r-0',
     'border-grey-600',
-    'py-[16px]',
+    //'py-[16px]',
     'items-center',
     'w-full',
     'justify-center',
@@ -267,70 +194,97 @@
     'uppercase',
     'font-["Clash Grotesk"]',
   );
-  const prizeTokenNameClasses = classNames('text-secondary-content');
-  const priceWrapperClasses = classNames(
-    'grid',
-    'grid-cols-5',
-    // 'mt-[34px]',
-    // 'mb-[113px]',
+  const priceWrapperClasses = classNames('grid', 'grid-cols-5', 'w-[calc(100%-100px]', 'lg:w-[calc(100%-212px)]');
+
+  const borderedCellSmClasses = classNames(
+    'lg:w-[106px]',
+    'border-l',
+    'border-r',
+    'first:border-l-0',
+    'last:border-r-0',
+    'border-grey-600',
+    'h-[57px]',
+    'w-[50px]',
+  );
+
+  const borderedRowClasses = classNames(
+    'flex',
+    'justify-between',
+    'relative',
+    'items-stretch',
+    'border-b',
+    'border-grey-600',
+    'h-[57px]',
     'w-full',
   );
-  const h2Classes = classNames(
-    'text-center',
-    'text-[#5DDEB5]',
-    'font-[Clash Grotesk]',
-    'text-[20px]',
-    'font-medium',
-    'leading-normal',
-    'tracking-[4px]',
-    'uppercase',
-    'inline-block',
+
+  const logoClasses = classNames('relative', 'flex', 'flex-col', 'justify-center', 'items-center', 'w-max');
+
+  const linesClasses = classNames(
+    'border-r',
+    'border-l',
+    'lg:w-[106px]',
+    'w-[50px]',
+    'h-full',
+    'border-grey-600',
+    'bg-cover',
   );
-  const h3Classes = classNames(
-    'font-[Clash Grotesk]',
-    'text-[24px]',
-    'font-medium',
-    'leading-normal',
-    'tracking-[4.8px]',
-    'text-center',
-    'uppercase',
-  );
+
+  const backgroundClasses = classNames('top-0', 'absolute', 'w-full', 'h-full', 'bg-fit');
 </script>
 
 <div class={wrapperClasses}>
-  <SideBar />
+  <div class={borderedRowClasses}>
+    <div class={borderedCellSmClasses}></div>
+    <div class={borderedCellSmClasses}></div>
+  </div>
 
-  <div class={headerContentClasses}>
-    <div class={borderedRowClasses}></div>
-    <div class={borderedRowClasses}>
-      {#if edition}
-        <div class={editionClasses}>
-          Edition {numberToRoman(edition)}
-        </div>
-      {/if}
-    </div>
+  <div class={borderedRowClasses}>
+    <div class={borderedCellSmClasses}></div>
+    {#if edition}
+      <div class={editionClasses}>
+        Edition {numberToRoman(edition)}
+      </div>
+    {/if}
+    <div class={borderedCellSmClasses}></div>
+  </div>
 
+  <div class={classNames(borderedRowClasses, 'h-[416px]')}>
+    <div class={linesClasses} style="background-image:url(/thrillblazers/diagonal-lines.svg)"></div>
     <div class={frameClasses}>
-      <h1 class={h1Classes}>Thrill</h1>
+      <div class={backgroundClasses} style="background-image:url(/thrillblazers/cubes-bg.svg)"></div>
 
-      <img src="/blazers.svg" alt="Thrillblazers" class={blazersClasses} />
+      <div class={logoClasses}>
+        <h1 class={h1Classes}>Thrill</h1>
+
+        <img src="/blazers.svg" alt="Thrillblazers" class={blazersClasses} />
+      </div>
       <span class={descriptionClasses}>
         {description}
       </span>
+    </div>
+    <div class={linesClasses} style="background-image:url(/thrillblazers/diagonal-lines.svg)"></div>
+  </div>
 
-      <div class={prizePoolWrapperClasses}>
-        <img class={lineClasses} alt="line" src="/thrillblazers/pink-line.svg" />
+  <div class={borderedRowClasses}>
+    <div class={borderedCellSmClasses}></div>
+    <div class={prizePoolWrapperClasses}>
+      <img class={lineClasses} alt="line" src="/thrillblazers/pink-line.svg" />
 
-        <div class={prizePoolClasses}>
-          <div class={prizePoolLabelClasses}>Prize Pool</div>
-          <div class={prizePoolValueClasses}>100K TAIKO</div>
-        </div>
-
-        <img class={lineReverseClasses} alt="line" src="/thrillblazers/pink-line.svg" />
+      <div class={prizePoolClasses}>
+        <div class={prizePoolLabelClasses}>Prize Pool</div>
+        <div class={prizePoolValueClasses}>100K TAIKO</div>
       </div>
+
+      <img class={lineReverseClasses} alt="line" src="/thrillblazers/pink-line.svg" />
     </div>
 
-    {#if selectedCompetitionInfo}
+    <div class={borderedCellSmClasses}></div>
+  </div>
+
+  {#if selectedCompetitionInfo}
+    <div class={borderedRowClasses}>
+      <div class={borderedCellSmClasses}></div>
       <div class={priceWrapperClasses}>
         {#each selectedCompetitionInfo.prizes as prize}
           <div class={prizeItemClasses}>
@@ -341,9 +295,9 @@
           </div>
         {/each}
       </div>
-    {/if}
-  </div>
-  <SideBar />
+      <div class={borderedCellSmClasses}></div>
+    </div>
+  {/if}
 </div>
 <div class={secondaryContentClasses}>
   <div class={ctaWrapperClasses}>
