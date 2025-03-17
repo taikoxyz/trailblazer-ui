@@ -78,17 +78,6 @@
   <div class={partnersWrapperClasses}>
     <EcosystemItem
       data={{
-        name: 'Symmetric',
-        description:
-          'Symmetric is a Balancer fork and you can boost your earnings by locking your 80TAIKO-20WETH LP tokens in a Symmetric Taiko LP Vault until March 17th.',
-        logo: '/lockdown/symmetric.png',
-        url: 'https://app.symm.fi/#/taiko',
-        category: 'DeFi',
-        button: 'Lock Now',
-      }} />
-
-    <EcosystemItem
-      data={{
         name: 'Taiko Drips',
         description:
           'Introducing Taiko Drips 💧, the lock-to-earn platform for loyal $TAIKO holders to earn rewards from the based @taikoxyz ecosystem.',
@@ -97,16 +86,5 @@
         category: 'DeFi',
         button: 'Lock Now',
       }} />
-
-    <!-- <EcosystemItem
-      data={{
-        name: 'Loopring',
-        description:
-          'Layer 2 scaling protocol for Ethereum that focuses on secure, high-speed, and low-cost trading and payment services.',
-        logo: '/lockdown/loopring.png',
-        url: 'https://loopring.org/',
-        category: 'DeFi',
-        button: 'Lock Now',
-      }} /> -->
   </div>
 </div>
