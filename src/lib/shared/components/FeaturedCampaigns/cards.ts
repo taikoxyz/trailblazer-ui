@@ -3,7 +3,7 @@ import type { CampaignCardType } from './types';
 export const cards: CampaignCardType[] = [
   {
     title: 'New look, who ‘dis?',
-    text: 'The Devs are out in full force looking for new recruits to join their Faction. Will you join them?',
+    text: 'New badge recruitment is live! Join the Devs and recruit fresh faces to your faction today!',
     btn: {
       text: 'Recruit now',
       external: false,
