@@ -10,10 +10,10 @@
   import type { PaginationInfo } from '$shared/dto/CommonPageApiResponse';
   import { classNames } from '$shared/utils/classNames';
   import { numberToRoman } from '$shared/utils/numberToRoman';
-  import { thrillblazerDetails } from '../thrillblazerDetails';
 
-  import PrizePool from './PrizePool.svelte';
   import type { CompetitionInfo } from '../../../types';
+  import { thrillblazerDetails } from '../thrillblazerDetails';
+  import PrizePool from './PrizePool.svelte';
   import SideBar from './SideBar.svelte';
 
   const loadLeaderboardData = getContext<LoadLeaderboardDataType>('loadCompetitionLeaderboardData');
