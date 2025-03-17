@@ -58,4 +58,3 @@ export async function fetchLeaderboardUserEntry(address: string, edition: number
 }
 
 export const competitionSlug = writable('');
-
