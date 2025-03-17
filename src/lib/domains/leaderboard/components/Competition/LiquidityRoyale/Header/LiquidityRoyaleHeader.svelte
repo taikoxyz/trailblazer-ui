@@ -1,27 +1,34 @@
 <script lang="ts">
-  import { getContext } from 'svelte';
+  import { getContext, onDestroy, onMount } from 'svelte';
+  import { derived, type Unsubscriber } from 'svelte/store';
   import { t } from 'svelte-i18n';
 
   import { browser } from '$app/environment';
+  import { activeLiquidityType, leaderboardStore } from '$lib/domains/leaderboard/stores/liquidityCompetitionStore';
   import type { LoadLeaderboardDataType } from '$lib/domains/leaderboard/types/shared/types';
   import type { UserLeaderboardItem } from '$lib/domains/leaderboard/types/user/types';
   import { PlusIcon } from '$shared/components/Icon';
   import LiquidityRoyalCarousel from '$shared/components/PartnerCarousel/LiquidityRoyalCarousel.svelte';
   import type { PaginationInfo } from '$shared/dto/CommonPageApiResponse';
-  import { activeSeason } from '$shared/stores/activeSeason';
   import { classNames } from '$shared/utils/classNames';
   import { isDesktop, isTablet, isTabletLg } from '$shared/utils/responsiveCheck';
 
-  import LastUpdated from '../../LastUpdated.svelte';
-  import Search from '../../Search.svelte';
+  import LastUpdated from '../../../LastUpdated.svelte';
+  import Search from '../../../Search.svelte';
   import Infoboxes from './Infoboxes.svelte';
   import PrizePool from './PrizePool.svelte';
   import ReadMoreBox from './ReadMoreBox.svelte';
 
   export let lastUpdated: Date;
 
-  const loadLeaderboardData = getContext<LoadLeaderboardDataType>('loadDappsLiquidityCompetitionLeaderboardData');
-  const pageInfo = getContext<PaginationInfo<UserLeaderboardItem>>('loadLiquidityCompetitionPageInfo');
+  const loadLeaderboardData = getContext<LoadLeaderboardDataType>('loadLiquidityCompetitionLeaderboardData');
+  const edition = getContext<number>('liquidityEdition');
+
+  let pageInfo: PaginationInfo<UserLeaderboardItem>;
+  const pageInfoStore = derived(leaderboardStore, ($leaderboardStore) => $leaderboardStore.pagination);
+  const unsubscribePageInfo = pageInfoStore.subscribe((value) => {
+    pageInfo = value;
+  });
 
   const handleSearch = async (value: string) => {
     await loadLeaderboardData(pageInfo.page, value);
@@ -31,10 +38,10 @@
   const wrapperClasses = classNames('f-col', 'w-full', 'z-10', 'overflow-hidden', 'space-y-[120px]');
   const innerWrapperClasses = classNames('f-col', 'md:f-row', 'justify-between', 'items-center', 'space-y-[50px]');
 
-  $: smallHeaderImage = `/competitionInfo/liquidityRoyale/s${$activeSeason}/sm/header.png`;
-  $: mediumHeaderImage = `/competitionInfo/liquidityRoyale/s${$activeSeason}/md/header.png`;
-  $: largeHeaderImage = `/competitionInfo/liquidityRoyale/s${$activeSeason}/lg/header.png`;
-  $: xlargeHeaderImage = `/competitionInfo/liquidityRoyale/s${$activeSeason}/xl/header.png`;
+  $: smallHeaderImage = `/competitionInfo/liquidityRoyale/edition${edition}/sm/header.png`;
+  $: mediumHeaderImage = `/competitionInfo/liquidityRoyale/edition${edition}/md/header.png`;
+  $: largeHeaderImage = `/competitionInfo/liquidityRoyale/edition${edition}/lg/header.png`;
+  $: xlargeHeaderImage = `/competitionInfo/liquidityRoyale/edition${edition}/xl/header.png`;
 
   $: imageUrl = $isDesktop
     ? xlargeHeaderImage
@@ -98,8 +105,20 @@
   const getHeaderImageClasses = () => {
     return headerImageClasses;
   };
-  $: $activeSeason && getHeaderImageClasses();
-  $: description = $t(`leaderboard.liquidityRoyale.description.s${$activeSeason}`);
+  $: edition && getHeaderImageClasses();
+  $: description = $t(`leaderboard.liquidityRoyale.description.edition${edition}`);
+
+  onDestroy(() => {
+    if (activeTypeUnsubscribe) activeTypeUnsubscribe();
+    unsubscribePageInfo();
+  });
+
+  let activeTypeUnsubscribe: Unsubscriber;
+  onMount(() => {
+    activeTypeUnsubscribe = activeLiquidityType.subscribe(() => {
+      if (pageInfo) loadLeaderboardData(pageInfo.page);
+    });
+  });
 </script>
 
 <div class={containerClasses}>

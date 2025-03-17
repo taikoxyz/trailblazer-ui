@@ -1,8 +1,8 @@
 <script lang="ts">
+  import { getContext } from 'svelte';
   import { t } from 'svelte-i18n';
 
   import ActionButton from '$shared/components/Button/ActionButton.svelte';
-  import { activeSeason } from '$shared/stores/activeSeason';
   import { classNames } from '$shared/utils/classNames';
 
   const innerWrapperClasses = classNames('f-col', 'md:f-row', 'gap-[30px]', 'items-center', 'justify-center');
@@ -11,8 +11,7 @@
     'font-medium',
     'leading-[24px]',
     'md:min-w-[289px]',
-    'lg:w-[485px]',
-    'xl:w-[603px]',
+
     'xl:justify-self-start',
   );
   const boxClasses = classNames(
@@ -36,15 +35,16 @@
   const buttonClasses = classNames('min-w-[140px]', 'max-w-[140px]');
 
   const iconClasses = classNames('w-[56px]', 'h-[56px]');
+  const edition = getContext<number>('liquidityEdition');
 
-  $: url = $t(`leaderboard.liquidityRoyale.blogpost.url.s${$activeSeason}`);
+  $: url = $t(`leaderboard.liquidityRoyale.blogpost.url.edition${edition}`);
 </script>
 
 <div class={boxClasses}>
   <div class={innerWrapperClasses}>
     <img src="/questionmark-glow.svg" alt="questionmark icon" class={iconClasses} />
 
-    <span class={textClasses}>{$t('leaderboard.liquidityRoyale.readmore.text')}</span>
+    <span class={textClasses}>{$t(`leaderboard.liquidityRoyale.readmore.edition${edition}.text`)}</span>
   </div>
   <ActionButton priority="primary" class={buttonClasses} href={url}>{$t('common.learn_more')}</ActionButton>
 </div>

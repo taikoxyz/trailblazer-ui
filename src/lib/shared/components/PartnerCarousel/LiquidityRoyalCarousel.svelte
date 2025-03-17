@@ -6,6 +6,15 @@
 
   const partners: PartnerCarouselItem[] = [
     {
+      title: 'TakoTako',
+      description: 'Serving the freshest lending and borrowing opportunities.',
+      imageSrc: '/dapps/defi/takotako.png',
+      imageAlt: 'Takotako logo',
+      tagText: 'Dex',
+      buttonText: 'Earn more',
+      buttonLink: 'https://www.takotako.xyz',
+    },
+    {
       title: 'LayerBank',
       description: 'The decentralized universal liquidity hub designed for all chains',
       imageSrc: '/dapps/defi/layerbank.svg',
@@ -22,24 +31,6 @@
       tagText: 'Lending',
       buttonText: 'Borrow now',
       buttonLink: 'https://www.avalonfinance.xyz/',
-    },
-    {
-      title: 'Panko',
-      description: 'Deep liquidity and top-class execution for native assets with permissionless pools.',
-      imageSrc: '/dapps/defi/panko.png',
-      imageAlt: 'Panko logo',
-      tagText: 'Dex',
-      buttonText: 'Earn more',
-      buttonLink: 'https://panko.finance/farms',
-    },
-    {
-      title: 'TakoTako',
-      description: 'Serving the freshest lending and borrowing opportunities.',
-      imageSrc: '/dapps/defi/takotako.png',
-      imageAlt: 'Takotako logo',
-      tagText: 'Dex',
-      buttonText: 'Earn more',
-      buttonLink: 'https://www.takotako.xyz',
     },
     {
       title: 'Unagi',

@@ -2,8 +2,8 @@ import type { RequestHandler } from '@sveltejs/kit';
 
 import { leaderboardConfig } from '$config';
 import type { DappLeaderboardItem } from '$lib/domains/leaderboard/dto/dapps.dto';
-import { thrillblazerInstances } from '$lib/domains/leaderboard/services/LeaderboardServiceInstances.server';
-import { CompetitionType } from '$lib/domains/leaderboard/types/competition/types';
+import { thrillblazerInstances } from '$lib/domains/leaderboard/services/server/LeaderboardServiceInstances.server';
+import { DappCompetitionType } from '$lib/domains/leaderboard/types/competition/types';
 import { getSeasonForThrillblazerEdition } from '$lib/domains/leaderboard/utils/mapEditionToSeason';
 import type { PaginationInfo } from '$shared/dto/CommonPageApiResponse';
 import { getLogger } from '$shared/utils/logger';
@@ -29,7 +29,7 @@ export const GET: RequestHandler = async ({ url }) => {
     }
     const leaderboardPage = await instance.fetchCompetitionData({
       pagination: initialPagination,
-      competitionType: CompetitionType.THRILLBLAZER,
+      competitionType: DappCompetitionType.THRILLBLAZER,
       edition,
     });
     return new Response(JSON.stringify(leaderboardPage));

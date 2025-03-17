@@ -1,32 +1,32 @@
 <script lang="ts">
+  import { getContext } from 'svelte';
   import { t } from 'svelte-i18n';
 
   import type { InfoBoxType } from '$lib/domains/leaderboard/types/liquidity/types';
-  import { activeSeason } from '$shared/stores/activeSeason';
   import { classNames } from '$shared/utils/classNames';
 
   import Infobox from './Infobox.svelte';
 
   $: boxes = [
     {
-      title: $t(`leaderboard.liquidityRoyale.infobox.s${$activeSeason}.rewards.title`),
+      title: $t(`leaderboard.liquidityRoyale.infobox.edition${edition}.rewards.title`),
       icon: '/icons/coins.svg',
-      text: $t(`leaderboard.liquidityRoyale.infobox.s${$activeSeason}.rewards.text`),
+      text: $t(`leaderboard.liquidityRoyale.infobox.edition${edition}.rewards.text`),
     },
     {
-      title: $t(`leaderboard.liquidityRoyale.infobox.s${$activeSeason}.boost.title`),
+      title: $t(`leaderboard.liquidityRoyale.infobox.edition${edition}.boost.title`),
       icon: '/icons/rocket.svg',
-      text: $t(`leaderboard.liquidityRoyale.infobox.s${$activeSeason}.boost.text`),
+      text: $t(`leaderboard.liquidityRoyale.infobox.edition${edition}.boost.text`),
     },
     {
-      title: $t(`leaderboard.liquidityRoyale.infobox.s${$activeSeason}.random.title`),
+      title: $t(`leaderboard.liquidityRoyale.infobox.edition${edition}.random.title`),
       icon: '/icons/gift.svg',
-      text: $t(`leaderboard.liquidityRoyale.infobox.s${$activeSeason}.random.text`),
+      text: $t(`leaderboard.liquidityRoyale.infobox.edition${edition}.random.text`),
     },
     {
-      title: $t(`leaderboard.liquidityRoyale.infobox.s${$activeSeason}.campaign.title`),
+      title: $t(`leaderboard.liquidityRoyale.infobox.edition${edition}.campaign.title`),
       icon: '/icons/flame.svg',
-      text: $t(`leaderboard.liquidityRoyale.infobox.s${$activeSeason}.campaign.text`),
+      text: $t(`leaderboard.liquidityRoyale.infobox.edition${edition}.campaign.text`),
     },
   ] satisfies InfoBoxType[];
 
@@ -50,7 +50,9 @@
 
   const lineClasses = classNames('border border-primary-brand w-16', 'mb-[70px]');
 
-  $: title = $t(`leaderboard.liquidityRoyale.infobox.s${$activeSeason}.title`);
+  const edition = getContext<number>('liquidityEdition');
+
+  $: title = $t(`leaderboard.liquidityRoyale.infobox.edition${edition}.title`);
 </script>
 
 <div class={wrapperClasses}>

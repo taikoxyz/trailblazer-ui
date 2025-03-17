@@ -4,17 +4,21 @@
   import { goto } from '$app/navigation';
   import { page } from '$app/stores';
   import LiquidityRoyaleLeaderboard from '$lib/domains/leaderboard/components/Competition/LiquidityRoyale/LiquidityRoyaleLeaderboard.svelte';
-  import type { UserLeaderboardItem } from '$lib/domains/leaderboard/types/user/types';
-  import type { PaginationInfo } from '$lib/shared/dto/CommonPageApiResponse';
+  import { activeLiquidityType } from '$lib/domains/leaderboard/stores/liquidityCompetitionStore.js';
   import { ActionButton } from '$shared/components/Button';
   import { Page } from '$shared/components/Page';
   import { activeSeason } from '$shared/stores/activeSeason';
   import { classNames } from '$shared/utils/classNames';
 
-  let pageInfo: PaginationInfo<UserLeaderboardItem>;
+  export let data;
+
+  const { slug, type } = data;
+
   let loading: boolean;
 
-  $: ({ pageInfo, loading } = $page.data);
+  activeLiquidityType.set(type);
+
+  $: ({ loading } = $page.data);
 
   const wrapperClasses = classNames('w-full', 'flex', 'justify-center', 'mt-[58px]');
   const buttonClasses = classNames('max-w-[280px]');
@@ -29,7 +33,9 @@
 </svelte:head>
 
 <Page>
-  <LiquidityRoyaleLeaderboard {pageInfo} {loading} />
+  {#key slug}
+    <LiquidityRoyaleLeaderboard {loading} edition={parseInt(slug)} />
+  {/key}
 
   <div class={wrapperClasses}>
     <ActionButton class={buttonClasses} priority="primary" on:click={handleClick} withArrow>
