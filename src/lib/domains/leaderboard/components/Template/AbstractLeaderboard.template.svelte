@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { ComponentType } from 'svelte';
+  import { type ComponentType, onDestroy } from 'svelte';
   import { isAddress, zeroAddress } from 'viem';
 
   import { leaderboardConfig } from '$config';
@@ -8,7 +8,6 @@
   import Paginator from '$shared/components/Paginator/Paginator.svelte';
   import { classNames } from '$shared/utils/classNames';
   import getConnectedAddress from '$shared/utils/getConnectedAddress';
-  import { getLogger } from '$shared/utils/logger';
 
   import LoadingRow from './LoadingRow.svelte';
   import TableHeader from './TableHeader.svelte';
@@ -27,41 +26,28 @@
   export let ended = false;
   export let scoreComponent: ComponentType;
   export let season: number;
-
   export let additionalInfoComponent: ComponentType | null = null;
   export let endedComponent: ComponentType | null = null;
   export let endTitleText = '';
   export let endDescriptionText = '';
   export let lastUpdated = new Date();
-
   export let showPagination = true;
   export let showDetailsColumn = true;
   export let qualifyingPositions = 3;
+  export let tabs: { slug: string; name: string }[] = [];
 
-  const log = getLogger('AbstractLeaderboard');
+  // A writable store for the active tab (for example, "og" or "moguls")
+  export let activeTabStore: import('svelte/store').Writable<string> | null = null;
 
-  // Reactive Variables
   $: pageSize = leaderboardConfig.pageSize;
-
-  // Local State
   let expandedRow = -1;
-
-  // Helper Functions
   function toggleRow(index: number) {
     expandedRow = expandedRow === index ? -1 : index;
   }
 
   function getFillClass(rank: number | null | undefined): string {
-    log('getFillClass called with rank:', rank);
-
-    if (rank === null || rank === undefined) {
-      console.warn('getFillClass received an invalid rank:', rank);
-      return '';
-    }
-
-    if (qualifyingPositions > 5 && rank <= qualifyingPositions) {
-      return 'fill-fixed-icon';
-    }
+    if (rank === null || rank === undefined) return '';
+    if (qualifyingPositions > 5 && rank <= qualifyingPositions) return 'fill-fixed-icon';
     switch (rank) {
       case 1:
         return 'fill-warning-sentiment';
@@ -78,15 +64,10 @@
   }
 
   function getRank(entry: UnifiedLeaderboardRow | undefined, index: number): number {
-    if (!entry) {
-      console.warn('getRank called with undefined entry at index:', index);
-      return index + 1 + (currentPage - 1) * pageSize; // Default rank
-    }
-
+    if (!entry) return index + 1 + (currentPage - 1) * pageSize;
     return entry.rank ?? index + 1 + (currentPage - 1) * pageSize;
   }
 
-  // CSS Classes
   const containerClass = classNames('overflow-x-auto', 'lg:w-full', 'px-8', 'md:px-0', 'lg:mt-0');
   const headerMarginClass = classNames('mt-[60px]', 'lg:mt-[80px]', 'block', 'lg:hidden');
   const additionalInfoMarginClass = classNames('mt-[60px]', 'lg:mt-[80px]');
@@ -116,29 +97,85 @@
   $: tbodyClass = ended ? 'rounded-lg blur-[1.5px]' : 'rounded-lg';
   const noDataRowClass = classNames('row', 'h-12');
   const paginationMarginClass = classNames('mt-[38px]');
+  const tabClasses = classNames(
+    'text-center',
+    'rounded-full',
+    'lg:rounded-none',
+    'lg:rounded-t-[20px]',
+    'h-[44px]',
+    'btn',
+    'md:tab',
+    'md:w-[140px]',
+    'px-[20px]',
+    'btn-ghost',
+    'border-primary-brand',
+    'hover:cursor-pointer',
+    'hover:bg-primary-interactive-hover',
+    'hover:text-white',
+    'hover:border-primary-brand',
+    'whitespace-nowrap',
+    'body-bold',
+    'lg:bg-transparent',
+    'lg:border-none',
+  );
+  const tablistClasses = classNames(
+    'flex',
+    'flex-wrap',
+    'w-full',
+    'justify-center',
+    'lg:justify-start',
+    'lg:px-[26px]',
+    'tabs',
+    'gap-[10px]',
+    'mb-[30px]',
+    'lg:mb-0',
+  );
+
+  let activeTab: string = '';
+  if (activeTabStore) {
+    const unsubscribe = activeTabStore.subscribe((val) => {
+      activeTab = val;
+    });
+    onDestroy(() => {
+      unsubscribe();
+    });
+  }
 </script>
 
 <div class={containerClass}>
-  <!-- The leaderboard header -->
   <svelte:component this={headerComponent} {lastUpdated} {season} />
-
-  <!-- Leaderboard or season ended overlay -->
   {#if ended && endedComponent}
     <div class={headerMarginClass}>
       <svelte:component this={endedComponent} title={endTitleText} description={endDescriptionText} />
     </div>
   {/if}
-
-  <!-- Additional component such as prize pool -->
   {#if additionalInfoComponent && !ended}
     <div class={additionalInfoMarginClass}>
       <svelte:component this={additionalInfoComponent} {lastUpdated} {season} />
     </div>
   {/if}
-
   <div class={textCenterClass}></div>
   <slot />
-
+  {#if tabs.length && activeTabStore}
+    <div role="tablist" class={tablistClasses}>
+      {#each tabs as tab, index}
+        {@const isSelected = tab.slug === activeTab}
+        <button
+          type="button"
+          role="tab"
+          class={tabClasses}
+          aria-selected={isSelected}
+          on:click={() => {
+            activeTabStore.set(tab.slug);
+          }}
+          aria-controls={`tabpanel-${index}`}
+          id={`tab-${index}`}
+          tabindex={tab.slug === activeTab ? 0 : -1}>
+          {tab.name}
+        </button>
+      {/each}
+    </div>
+  {/if}
   <div class={tableWrapperClass}>
     {#if ended && data.length > 0}
       <DisabledMask title={endTitleText} description={endDescriptionText} />
@@ -148,14 +185,11 @@
       <tr class="h-[4px]">
         <td colspan={headers.length}></td>
       </tr>
-
       <tbody class={tbodyClass}>
-        <!-- A single row to highlight a position -->
         {#if highlightedUserPosition && getConnectedAddress() !== zeroAddress}
           {@const rank = highlightedUserPosition.rank}
           {@const userEntry = { ...highlightedUserPosition, address: 'Your position' }}
           {@const fillClass = getFillClass(rank)}
-
           <TableRow
             entry={userEntry}
             index={-1}
@@ -168,15 +202,13 @@
             {showDetailsColumn}
             {qualifyingPositions} />
         {/if}
-
-        <!-- Loading rows -->
         {#if isLoading}
-          <!-- eslint-disable-next-line @typescript-eslint/no-unused-vars -->
-          {#each Array(pageSize) as _, index}
-            <LoadingRow />
+          {#each Array(pageSize) as _}
+            {#key _}
+              <LoadingRow />
+            {/key}
           {/each}
         {:else}
-          <!-- The actual data rows -->
           {#each data as entry, index}
             {@const computedRank = getRank(entry, index)}
             {@const fillClass = getFillClass(computedRank) || ''}
@@ -185,7 +217,6 @@
               entry.address && isAddress(entry.address) && entry.address === highlightedUserPosition?.address
                 ? index
                 : null}
-
             <TableRow
               {entry}
               {index}
@@ -200,7 +231,6 @@
               {qualifyingPositions} />
           {/each}
         {/if}
-
         {#if data.length === 0 && !isLoading}
           <tr class={noDataRowClass}>
             <td class="lg:px-10" colspan="3">No data available yet</td>
@@ -221,3 +251,19 @@
     </div>
   {/if}
 </div>
+
+<style>
+  [role='tab'][aria-selected='true'] {
+    background-color: #e81899;
+    color: white;
+  }
+
+  button:focus {
+    outline: none;
+  }
+
+  .md\:tab:is(.tab-active, [aria-selected='true']):not(.tab-disabled):not([disabled]),
+  .md\:tab:is(input:checked) {
+    border-color: transparent;
+  }
+</style>

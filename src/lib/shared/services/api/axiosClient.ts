@@ -29,9 +29,10 @@ export const globalAxiosConfig: AxiosRequestConfig = {
 };
 
 // get dynamic instance based on passed season
-export const getAxiosInstance = (season: number = get(activeSeason)): AxiosInstance => {
+export const getAxiosInstance = (season: number = get(activeSeason), bypassMock: boolean = false): AxiosInstance => {
+  const baseURL = bypassMock ? `${PUBLIC_TRAILBLAZER_API_URL}/s${season}` : getSeasonApiUrl(season);
   return axios.create({
-    baseURL: getSeasonApiUrl(season),
+    baseURL,
     ...globalAxiosConfig,
   });
 };

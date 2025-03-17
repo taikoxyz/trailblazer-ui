@@ -1,19 +1,34 @@
 <script lang="ts">
+  import type { Address, Hash } from 'viem';
+
   import { Icon } from '$shared/components/Icon';
+  import { classNames } from '$shared/utils/classNames';
   import { shortenAddress } from '$shared/utils/shortenAddress';
 
-  export let address: string;
+  type ExplorerCategory = 'address' | 'transaction' | 'token' | 'contract';
+
+  export let urlParam: Hash | Address | string;
+  export let category: ExplorerCategory = 'address';
   export let shorten: boolean = false;
   export let linkText: string = '';
+  export let noIcon = false;
 
-  $: url = `https://taikoscan.io/address/${address}`;
+  $: url = `https://www.taikoscan.io/${category}/${urlParam}`;
 </script>
 
-<a class="link flex align-center gap-1" target="_blank" href={url}>
+<a
+  class={classNames('link flex align-center gap-1', $$props.class)}
+  target="_blank"
+  href={url}
+  rel="noopener noreferrer">
   {#if linkText}
     <span>{linkText}</span>
+  {:else if shorten}
+    {shortenAddress(urlParam, 6, 4)}
   {:else}
-    {shorten ? shortenAddress(address, 8, 4) : address}
+    {urlParam}
   {/if}
-  <Icon size={10} type="arrow-top-right" />
+  {#if !noIcon}
+    <Icon size={10} type="arrow-top-right" />
+  {/if}
 </a>

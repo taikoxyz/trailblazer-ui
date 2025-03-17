@@ -1,48 +1,27 @@
-// TODO: add support for other positions: 'top-left', 'bottom-right', etc...
-export function positionElementByTarget(
-  elementToPosition: HTMLElement,
-  targetElement: HTMLElement,
-  position: Position = 'top',
-  gap = 10,
-) {
-  if (!elementToPosition || !targetElement) {
-    return;
-  }
-  const { style } = elementToPosition;
+export function positionElementByTarget(tooltipEl: HTMLElement, targetEl: HTMLElement, pos: Position, gap: number) {
+  if (!tooltipEl || !targetEl) return;
 
-  // Reset styles.
-  style.top = '';
-  style.bottom = '';
-  style.left = '';
-  style.right = '';
-  style.transform = '';
+  const targetRect = targetEl.getBoundingClientRect();
+  const tooltipRect = tooltipEl.getBoundingClientRect();
+  const { style } = tooltipEl;
+  style.position = 'absolute';
 
-  switch (position) {
+  switch (pos) {
     case 'top':
-    case 'top-right':
-    case 'top-left':
-      style.bottom = `${targetElement.offsetHeight + gap}px`;
-      style.left = '50%';
-      style.transform = 'translateX(-50%)';
+      style.top = `${targetRect.top - tooltipRect.height - gap + window.scrollY}px`;
+      style.left = `${targetRect.left + targetRect.width / 2 - tooltipRect.width / 2}px`;
       break;
     case 'bottom':
-    case 'bottom-right':
-    case 'bottom-left':
-      style.top = `${targetElement.offsetHeight + gap}px`;
-      style.left = '50%';
-      style.transform = 'translateX(-50%)';
+      style.top = `${targetRect.bottom + gap + window.scrollY}px`;
+      style.left = `${targetRect.left + targetRect.width / 2 - tooltipRect.width / 2}px`;
       break;
     case 'left':
-      style.left = 'auto';
-      style.right = `${targetElement.offsetWidth + gap}px`;
-      style.top = '50%';
-      style.transform = 'translateY(-50%)';
+      style.top = `${targetRect.top + targetRect.height / 2 - tooltipRect.height / 2 + window.scrollY}px`;
+      style.left = `${targetRect.left - tooltipRect.width - gap}px`;
       break;
     case 'right':
-      style.right = 'auto';
-      style.left = `${targetElement.offsetWidth + gap}px`;
-      style.top = '50%';
-      style.transform = 'translateY(-50%)';
+      style.top = `${targetRect.top + targetRect.height / 2 - tooltipRect.height / 2 + window.scrollY}px`;
+      style.left = `${targetRect.right + gap}px`;
       break;
   }
 }

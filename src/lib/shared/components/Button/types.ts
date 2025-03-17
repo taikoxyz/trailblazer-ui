@@ -1,1 +1,1 @@
-export type ActionButtonType = 'primary' | 'secondary' | 'tertiary';
+export type ActionButtonType = 'primary' | 'secondary' | 'tertiary' | 'fancy';

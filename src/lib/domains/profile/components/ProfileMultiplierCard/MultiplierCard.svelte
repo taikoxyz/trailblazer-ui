@@ -1,41 +1,45 @@
 <script lang="ts">
-  // import { onMount } from 'svelte';
+  import { onMount } from 'svelte';
   import { t } from 'svelte-i18n';
+  import { type Address, isAddressEqual } from 'viem';
 
-  // import { type Address, isAddressEqual } from 'viem';
-  // import { page } from '$app/stores';
+  import { page } from '$app/stores';
   import Icon from '$shared/components/Icon/Icon.svelte';
   import { Tooltip } from '$shared/components/Tooltip';
-  // import { activeSeason } from '$shared/stores/activeSeason';
+  import { activeSeason } from '$shared/stores/activeSeason';
   import { classNames } from '$shared/utils/classNames';
   import getConnectedAddress from '$shared/utils/getConnectedAddress';
 
-  // import profileService from '../../services/ProfileServiceInstance';
-  // import type { Multipliers } from '../../types/Multipliers';
+  import profileService from '../../services/ProfileServiceInstance';
+  import type { Multipliers } from '../../types/Multipliers';
   import { AbstractProfileCard } from '../templates';
-  // import MultiplierItem from './MultiplierItem.svelte';
+  import MultiplierItem from './MultiplierItem.svelte';
 
-  // $: globalMultiplierView = { multiplier: 0, max: false };
-  // $: transactionVolumeMultiplierView = { multiplier: 0, max: false };
-  // $: transationMultiplierView = { multiplier: 0, max: false };
+  $: transactionVolumeMultiplierView = { multiplier: 0, max: false };
+  $: transationMultiplierView = { multiplier: 0, max: false };
 
-  // let isSelfProfile: boolean;
-  // let urlAddress: Address;
+  let isSelfProfile: boolean;
+  let urlAddress: Address;
 
-  // onMount(async () => {
-  //   urlAddress = $page.url.pathname.split('/').pop() as Address;
-  //   isSelfProfile = isAddressEqual(urlAddress, getConnectedAddress());
+  onMount(async () => {
+    urlAddress = $page.url.pathname.split('/').pop() as Address;
+    isSelfProfile = isAddressEqual(urlAddress, getConnectedAddress());
 
-  //   const mp: Multipliers = await profileService.getBadgeMultiplierForProfile(
-  //     isSelfProfile ? getConnectedAddress() : urlAddress,
-  //     $activeSeason,
-  //   );
-  //   const { globalMultiplier, transactionVolumeMultiplier, transationMultiplier } = mp.multipliers;
+    const mp: Multipliers = await profileService.getBadgeMultiplierForProfile(
+      isSelfProfile ? getConnectedAddress() : urlAddress,
+      $activeSeason,
+    );
+    const { globalMultiplier, transactionVolumeMultiplier, transationMultiplier } = mp.multipliers;
 
-  //   globalMultiplierView = globalMultiplier;
-  //   transactionVolumeMultiplierView = transactionVolumeMultiplier;
-  //   transationMultiplierView = transationMultiplier;
-  // });
+    transactionVolumeMultiplierView = {
+      ...transactionVolumeMultiplier,
+      multiplier: transactionVolumeMultiplier.multiplier * globalMultiplier.multiplier,
+    };
+    transationMultiplierView = {
+      ...transationMultiplier,
+      multiplier: transationMultiplier.multiplier * globalMultiplier.multiplier,
+    };
+  });
 
   const headerClasses = classNames(
     'f-center',
@@ -49,10 +53,10 @@
     'gap-[5px]',
   );
 
-  const cardClasses = classNames('bg-purple-900', 'relative', 'flex', 'flex-col', 'h-full');
-  const statusClasses = classNames('flex-1', 'mt-[80px]', 'xl:mt-0', 'text-center', 'h-full');
+  const cardClasses = classNames(' bg-elevated-background', 'relative', 'flex', 'flex-col', 'h-full');
+  const statusClasses = classNames('flex-1', 'mt-[80px]', 'xl:mt-[150px]', 'text-center', 'h-full');
   const fontBoldTextLeftClasses = classNames('font-bold', 'f-col', 'h-full');
-  // const listClasses = classNames('f-col', 'gap-[8px]');
+  const listClasses = classNames('f-col', 'gap-[8px]');
   const ctaClasses = classNames('absolute', 'bottom-0', 'w-full', 'pb-[27px]', 'px-[24px]');
   const linkClasses = classNames('f-row', 'justify-between', 'items-center', 'w-full');
   const tooltipContentClasses = classNames('bg-white', 'text-black');
@@ -73,20 +77,17 @@
 
   <div slot="status" class={statusClasses}>
     <div class={fontBoldTextLeftClasses}>
-      <span class="text-secondary-content font-normal pt-[20px] xl:pt-[90px] items-center"
-        >We’re aware of the issues and are actively working to resolve them. Thank you for your patience.</span>
-      <!-- <ul class={listClasses}>
+      <ul class={listClasses}>
         <MultiplierItem label={$t('profile.multipliers.card.tx')} multiplierView={transationMultiplierView} />
         <MultiplierItem
           label={$t('profile.multipliers.card.txValue')}
           multiplierView={transactionVolumeMultiplierView} />
-        <MultiplierItem label={$t('profile.multipliers.card.global')} multiplierView={globalMultiplierView} />
-      </ul> -->
+      </ul>
     </div>
   </div>
 
   <div slot="cta" class={ctaClasses}>
-    <a class={linkClasses} href={`/profile/${getConnectedAddress()}#badge-recruitment`}>
+    <a class={linkClasses} href={`/profile/${getConnectedAddress()}#nft-collection`}>
       <span class="font-bold">{$t('profile.multipliers.card.cta')}</span>
       <Icon type="chevron-right" />
     </a>

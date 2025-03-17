@@ -156,7 +156,4 @@
   .pill-bg {
     background-color: rgba(255, 198, 233, 0.7);
   }
-  video {
-    transition: opacity 0.3s ease;
-  }
 </style>

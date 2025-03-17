@@ -27,7 +27,11 @@ export const fetchFromApi = async <T>(
   const controller = new AbortController();
   const timeoutId = setTimeout(() => controller.abort(), apiConfig.timeout);
 
-  const builtUrl = `${getSeasonApiUrl(season)}${url}`;
+  let builtUrl = `${getSeasonApiUrl(season)}${url}`;
+  // If in development and the builtUrl is relative, convert it to an absolute URL.
+  if (isDevelopmentEnv && builtUrl.startsWith('/')) {
+    builtUrl = new URL(builtUrl, 'http://localhost:5173').toString();
+  }
   try {
     const response = await fetch(builtUrl, {
       ...globalFetchConfig,

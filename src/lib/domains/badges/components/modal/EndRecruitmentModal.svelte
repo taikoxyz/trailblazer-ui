@@ -1,18 +1,19 @@
 <script lang="ts">
+  import { getContext, tick } from 'svelte';
   import Flippable from 'svelte-flip';
   import { t } from 'svelte-i18n';
 
   import RecruitmentBadgeItem from '$lib/domains/badges/components/RecruitmentBadgeItem.svelte';
-  import profileService from '$lib/domains/profile/services/ProfileServiceInstance';
   import { MovementNames, Movements } from '$lib/domains/profile/types/types';
   import { Spinner } from '$shared/components';
   import { ActionButton } from '$shared/components/Button';
   import { errorToast, successToast } from '$shared/components/NotificationToast';
   import { account } from '$shared/stores';
-  import { activeRecruitment, endRecruitmentModal } from '$shared/stores/recruitment';
-  import type { NFT } from '$shared/types/NFT';
+  import { currentRecruitmentStore, endRecruitmentModal } from '$shared/stores/recruitment';
+  import type { TBBadge } from '$shared/types/NFT';
   import { classNames } from '$shared/utils/classNames';
 
+  import badgeRecruitmentService from '../../services/BadgeRecruitmentServiceInstance';
   import FancyButton from '../FancyButton.svelte';
   import CoreModal from './components/CoreModal.svelte';
   import CoreModalDescription from './components/CoreModalDescription.svelte';
@@ -22,7 +23,7 @@
 
   $: isLoading = false;
 
-  $: backToken = null as null | NFT;
+  $: backToken = null as null | TBBadge;
 
   async function handleEndRecruitment() {
     try {
@@ -30,13 +31,21 @@
         return;
       }
 
-      if (!$activeRecruitment || !$activeRecruitment.s1Badge) {
+      if (!$currentRecruitmentStore || !$currentRecruitmentStore.badge) {
         return;
       }
       isLoading = true;
-      await profileService.endRecruitment($account.address, $activeRecruitment.s1Badge, $activeRecruitment);
-      backToken = $activeRecruitment.s2Badge!;
-      // give 1s of buffer before re-fetching
+      const updatedRecruitment = await badgeRecruitmentService.endRecruitment(
+        $account.address,
+        $currentRecruitmentStore.badge,
+      );
+      currentRecruitmentStore.set(updatedRecruitment);
+      if (!updatedRecruitment.recruitedBadge) {
+        throw new Error('Recruited badge not found');
+      }
+      backToken = updatedRecruitment.recruitedBadge;
+
+      tick();
       isRevealed = true;
 
       successToast({
@@ -55,13 +64,15 @@
       });
     } finally {
       isLoading = false;
+      updateStatus();
     }
   }
+  const updateStatus: () => void = getContext('badgeRecruitUpdate');
 
   $: isRevealed = false;
 
-  function getMovementName(token: NFT) {
-    return MovementNames[token.metadata.movement as Movements];
+  function getMovementName(token: TBBadge) {
+    return MovementNames[token.movement as Movements];
   }
 
   const badgeWrapperClasses = classNames('w-full', 'flex', 'justify-center', 'items-center');
@@ -77,14 +88,24 @@
     </CoreModalDescription>
   </CoreModalHeader>
 
-  {#if $activeRecruitment}
+  {#if $currentRecruitmentStore}
     <div class={badgeWrapperClasses}>
       <Flippable height="400px" width="300px" flip={isRevealed}>
-        <RecruitmentBadgeItem locked token={$activeRecruitment.s1Badge} slot="front" />
+        <RecruitmentBadgeItem locked token={$currentRecruitmentStore.badge} slot="front">
+          <div slot="overlay">
+            <img
+              src="/factions/recruitment/overlay-dev.svg"
+              alt="Badge Overlay"
+              class="absolute top-0 left-0 w-full h-full pointer-events-none" />
+            <span class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[90px] font-clash-grotesk">
+              ?
+            </span>
+          </div>
+        </RecruitmentBadgeItem>
 
         <div slot="back">
-          {#if backToken && backToken.metadata.movement !== undefined}
-            <RecruitmentBadgeItem hideBubbles token={backToken}>
+          {#if backToken && backToken.movement !== undefined}
+            <RecruitmentBadgeItem token={backToken}>
               {getMovementName(backToken)}
             </RecruitmentBadgeItem>
           {:else}
@@ -98,7 +119,11 @@
   <CoreModalFooter>
     {#if !isRevealed}
       <FancyButton disabled={isLoading} loading={isLoading} on:click={handleEndRecruitment}>
-        {$t('badge_recruitment.buttons.reveal')}
+        {#if isLoading}
+          {$t('badge_recruitment.buttons.revealing')}
+        {:else}
+          {$t('badge_recruitment.buttons.reveal')}
+        {/if}
       </FancyButton>
     {:else}
       <ActionButton on:click={() => ($endRecruitmentModal = false)} priority="primary">Confirm</ActionButton>

@@ -7,7 +7,7 @@ const config = {
   kit: {
     adapter: adapter(),
     files: {
-      assets: 'static',
+      assets: `static`,
     },
     alias: {
       '$shared/*': './src/lib/shared/*',

@@ -6,3 +6,19 @@ export type S2Multipliers = {
   whaleMultiplier: number;
   globalMultiplier: number;
 };
+
+export type MultiplierApiResponse = {
+  address: string;
+  global: {
+    value: number;
+    max: boolean;
+  };
+  tx: {
+    value: number;
+    max: boolean;
+  };
+  txValue: {
+    value: number;
+    max: boolean;
+  };
+};

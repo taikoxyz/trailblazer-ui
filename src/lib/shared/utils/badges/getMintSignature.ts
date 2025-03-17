@@ -9,7 +9,10 @@ import { chainId } from '$lib/shared/utils/chain';
 import { wagmiConfig } from '$lib/shared/wagmi';
 import { isDevelopmentEnv } from '$shared/utils/isDevelopmentEnv';
 
+import { getLogger } from '../logger';
 import { mockSignHash } from './getMockMintSignature';
+
+const log = getLogger('getMintSignature');
 
 async function signHash(
   config: typeof wagmiConfig,
@@ -52,6 +55,7 @@ export default async function getMintSignature(
 ): Promise<{ signature: Address; hash: Address }> {
   const contractAddress = trailblazersBadgesAddress[chainId];
 
+  log('getMintSignature', { address, factionId, contractAddress });
   const hash = await readContract(wagmiConfig, {
     abi: trailblazersBadgesAbi,
     address: contractAddress,
@@ -59,12 +63,14 @@ export default async function getMintSignature(
     args: [address, BigInt(factionId)],
     chainId,
   });
-
+  log('getMintSignature hash', { hash });
   // sign with the dev account instead of the API
   if (isDevelopmentEnv) {
     const signature = await mockSignHash(hash);
+    log('dev signature', { signature });
     return { signature, hash };
   }
   const signature = await signHash(wagmiConfig, address, factionId, chainId);
+  log('getMintSignature signature', { signature });
   return { signature, hash };
 }

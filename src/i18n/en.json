@@ -1,12 +1,18 @@
 {
   "badge_recruitment": {
     "buttons": {
+      "already_recruited": "Already recruited this season",
       "end_recruitment": "Claim",
       "influence": "Influence",
+      "influencing": "Influencing",
       "not_eligible": "Not eligible",
       "ongoing_recruitment": "Recruiting another badge",
+      "recruiting": "Recruiting",
+      "reset": "Reset recruitment",
       "reveal": "Reveal",
-      "start_recruitment": "Start recruitment"
+      "revealing": "Revealing",
+      "start_recruitment": "Recruit now",
+      "view": "View"
     },
     "faq": {
       "entries": [
@@ -181,12 +187,21 @@
       "can_claim_in": "Badge recruited in:",
       "can_influence_in": "You can influence again in:",
       "cta": "Have questions?",
-      "no_enabled_recruitments": "No recruitments are currently enabled. Stay tuned!"
+      "no_badges_to_recruit": "You don't own any dev badges of this type. Visit NFT marketplaces and have a look for available ones.",
+      "no_enabled_recruitments": "No recruitments are currently enabled. Stay tuned!",
+      "reset_recruitment": {
+        "toast": {
+          "success": {
+            "message": "Badge can be recruited again in a future cycle",
+            "title": "Recruitment reset"
+          }
+        }
+      }
     },
     "modal": {
       "end_recruitment": {
-        "description": "You have successfully recruited your badge. You can now claim it.",
-        "title": "Congratulations!",
+        "description": "The countdown is over! See which team your badge has joined—Whales or Minnows.",
+        "title": "Ready to see what you’ve got?",
         "toast": {
           "error": {
             "default_message": "Error claiming your badge recruitment",
@@ -199,8 +214,8 @@
         }
       },
       "influence_recruitment": {
-        "description": "Influence your badge to favor the path of your Season 2 badge.",
-        "title": "Your Season 2 Badge is being recruited",
+        "description": "Your badge is on its way! Influence its path—will it lean toward the Whales or the Minnows? Engage with the contract to sway the outcome in your favor!",
+        "title": "Your new Badge is being recruited",
         "toast": {
           "error": {
             "message": "Error refining your recruitment process",
@@ -213,7 +228,7 @@
         }
       },
       "start_recruitment": {
-        "description": "Time to recruit your Season 2 {badgeName} badge!",
+        "description": "Time to recruit your new {badgeName} badge!",
         "title": "Start your recruitment process",
         "toast": {
           "error": {
@@ -229,7 +244,7 @@
             "title": "Success"
           }
         },
-        "warning": "Warning: Once you click 'Start Recruitment', your Season 1 badge will be locked for the rest of the season."
+        "warning": "Warning: Once you click 'Start Recruitment', your Dev badge will be locked for the rest of the season and its multiplier will not apply."
       }
     }
   },
@@ -388,6 +403,7 @@
     "locked": "Locked",
     "migrate": "Recruitment",
     "not_eligible": "Not eligible",
+    "status": "Status",
     "trail": "Trail",
     "week": "Week"
   },
@@ -672,8 +688,9 @@
     "liquidityRoyale": {
       "blogpost": {
         "url": {
-          "s2": "https: //taiko.mirror.xyz/sB3dVLrVRn3DPKaAi6ed1C1qKLCtpaCfyaQdw7LD0XI",
-          "s3": "https://taiko.mirror.xyz/t3T94NzDKne3-agm1M3PTJN6apGYvJRnlvJ5qy-xymk"
+          "edition1": "https: //taiko.mirror.xyz/sB3dVLrVRn3DPKaAi6ed1C1qKLCtpaCfyaQdw7LD0XI",
+          "edition2": "https://taiko.mirror.xyz/t3T94NzDKne3-agm1M3PTJN6apGYvJRnlvJ5qy-xymk",
+          "edition3": "https://taiko.mirror.xyz/rUY4jIJgW8sX3YlidwBzotrYkhoaXGhAZTu6IZeASwY"
         }
       },
       "carousel": {
@@ -682,13 +699,22 @@
         "title": "Boost your Taiko score"
       },
       "description": {
-        "s2": "Ready to supercharge your liquidity and get rewarded for it? The Taiko Liquidity Royale is here, offering a massive 1M Taiko tokens in rewards! Whether you’re a seasoned liquidity provider or looking to get started, this is your chance to dive in and earn juicy prizes.",
-        "s3": "Ready to supercharge your liquidity and get rewarded for it? The Taiko Liquidity Royale is here, offering a massive 1.2M Taiko tokens in rewards! Whether you’re a seasoned liquidity provider or looking to get started, this is your chance to dive in and earn juicy prizes."
+        "edition1": "Ready to supercharge your liquidity and get rewarded for it? The Taiko Liquidity Royale is here, offering a massive 1M Taiko tokens in rewards! Whether you’re a seasoned liquidity provider or looking to get started, this is your chance to dive in and earn juicy prizes.",
+        "edition2": "Ready to supercharge your liquidity and get rewarded for it? The Taiko Liquidity Royale is here, offering a massive 1.2M Taiko tokens in rewards! Whether you’re a seasoned liquidity provider or looking to get started, this is your chance to dive in and earn juicy prizes.",
+        "edition3": "Ready to supercharge your liquidity and get rewarded for it? 1 Million TAIKO tokens are up for grabs! Provide liquidity, climb the leaderboard, and secure your share of the rewards. Two challenges, double the excitement!"
       },
       "ended": {
-        "s2": {
+        "edition1": {
           "description": "Our journey concluded on Dec. 16th, 2024. Congratulations to the winners!",
           "title": "Season 2 ended"
+        },
+        "edition2": {
+          "description": "Our journey concluded on Mar. 17th, 2025. Congratulations to the winners!",
+          "title": "Season 3 ended"
+        },
+        "edition3": {
+          "description": "Our journey concluded on June 16th, 2025. Congratulations to the winners!",
+          "title": "Season 4 ended"
         }
       },
       "infobox": {
@@ -700,15 +726,7 @@
           "text": "",
           "title": ""
         },
-        "random": {
-          "text": "",
-          "title": ""
-        },
-        "rewards": {
-          "text": "",
-          "title": ""
-        },
-        "s2": {
+        "edition1": {
           "boost": {
             "text": "Random snapshot rewards mean every contribution counts! The more liquidity you provide, the higher your points, stacking across all protocols.",
             "title": "Boost your points"
@@ -727,7 +745,7 @@
           },
           "title": "🏆&nbsp;&nbsp;What’s in it for you?"
         },
-        "s3": {
+        "edition2": {
           "boost": {
             "text": "Random snapshot rewards mean every contribution counts! The more liquidity you provide, the higher your points, stacking across all protocols.",
             "title": "Boost your points"
@@ -746,10 +764,74 @@
           },
           "title": "🏆&nbsp;&nbsp;What’s in it for you?"
         },
+        "edition3": {
+          "boost": {
+            "text": "Your contributions to the ecosystem don’t just grow your portfolio—they put you in the running for random snapshot rewards throughout the season.",
+            "title": "Boost liquidity, earn passively"
+          },
+          "campaign": {
+            "text": "Choose between Liquidity Royale OGs or Liquidity Royale DeFi Moguls, each with 500K TAIKO tokens allocated for top liquidity providers.",
+            "title": "Two ways to win"
+          },
+          "random": {
+            "text": "Your liquidity helps strengthen Taiko’s DeFi ecosystem, attracting projects and making Taiko a premier destination for on-chain finance.",
+            "title": "Make an impact"
+          },
+          "rewards": {
+            "text": "Compete for a share of 1M TAIKO tokens—every top 100 participant gets 10K TAIKO tokens, no matter their final rank!",
+            "title": "Massive rewards"
+          },
+          "title": "🏆&nbsp;&nbsp;What’s in it for you?"
+        },
+        "random": {
+          "text": "",
+          "title": ""
+        },
+        "rewards": {
+          "text": "",
+          "title": ""
+        },
         "title": ""
       },
+      "prizePoolTooltip": {
+        "edition3": {
+          "title": "Prize pool breakdown",
+          "content": "The total 1M TAIKO token prize pool is evenly split between two Liquidity Royale challenges, with 500K TAIKO allocated to each."
+        }
+      },
       "readmore": {
-        "text": "Do you still have questions about earning points and how they're calculated? Visit our blog post for all the answers!"
+        "edition1": {
+          "text": "Do you still have questions about earning points and how they're calculated? Visit our blog post for all the answers!"
+        },
+        "edition2": {
+          "text": "Do you still have questions about earning points and how they're calculated? Visit our blog post for all the answers!"
+        },
+        "edition3": {
+          "text": "Want to learn more about the different pools in OGs Edition and DeFi Moguls? Check out our blog post for all the details"
+        }
+      }
+    },
+    "thrillblazer": {
+      "ended": {
+        "description": "",
+        "title": ""
+      },
+      "prize_breakdown": {
+        "fifth": {
+          "amount": ""
+        },
+        "first": {
+          "amount": ""
+        },
+        "fourth": {
+          "amount": ""
+        },
+        "second": {
+          "amount": ""
+        },
+        "third": {
+          "amount": ""
+        }
       }
     },
     "thrillblazer": {
@@ -915,6 +997,17 @@
         "title": "Connected"
       },
       "switching": "Switching network"
+    }
+  },
+  "nfts": {
+    "collection": {
+      "collected": "Collected",
+      "contract_address": "Contract Address",
+      "faction": "Faction",
+      "locked": "Locked for this season",
+      "multiplier": "Multiplier",
+      "team": "Team",
+      "token_id": "Token ID"
     }
   },
   "pages": {
