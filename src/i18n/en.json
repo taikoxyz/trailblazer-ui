@@ -795,8 +795,8 @@
       },
       "prizePoolTooltip": {
         "edition3": {
-          "title": "Prize pool breakdown",
-          "content": "The total 1M TAIKO token prize pool is evenly split between two Liquidity Royale challenges, with 500K TAIKO allocated to each."
+          "content": "The total 1M TAIKO token prize pool is evenly split between two Liquidity Royale challenges, with 500K TAIKO allocated to each.",
+          "title": "Prize pool breakdown"
         }
       },
       "readmore": {
@@ -808,30 +808,8 @@
         },
         "edition3": {
           "text": "Want to learn more about the different pools in OGs Edition and DeFi Moguls? Check out our blog post for all the details"
-        }
-      }
-    },
-    "thrillblazer": {
-      "ended": {
-        "description": "",
-        "title": ""
-      },
-      "prize_breakdown": {
-        "fifth": {
-          "amount": ""
         },
-        "first": {
-          "amount": ""
-        },
-        "fourth": {
-          "amount": ""
-        },
-        "second": {
-          "amount": ""
-        },
-        "third": {
-          "amount": ""
-        }
+        "text": ""
       }
     },
     "thrillblazer": {
@@ -1006,6 +984,8 @@
       "faction": "Faction",
       "locked": "Locked for this season",
       "multiplier": "Multiplier",
+      "multiplier_per_badge": "Multiplier per Badge",
+      "multiplier_per_nft": "Multiplier per NFT",
       "team": "Team",
       "token_id": "Token ID"
     }

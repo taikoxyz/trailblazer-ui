@@ -22,6 +22,9 @@
     'rounded-[30px]',
     'bg-[#310E2F]',
     'transition-all',
+    'flex',
+    'items-center',
+    'justify-center',
   );
   const imageWrapperClasses = classNames('relative', 'w-full', 'h-full', 'z-0', $$props.class);
 

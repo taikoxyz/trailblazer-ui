@@ -44,6 +44,24 @@
     'items-center',
     'justify-center',
   );
+
+  const inputClasses = classNames('collapse-checkbox', 'peer', 'hidden');
+  const labelClasses = classNames('collapse-title', 'items-center', 'cursor-pointer', 'p-0', 'm-0', 'w-full', 'flex');
+  const collapseContentClasses = classNames(
+    'collapse-content',
+    'w-full',
+    'px-0',
+    'peer-checked:max-h-[100rem]',
+    'max-h-0',
+    'overflow-hidden',
+    'peer-checked:overflow-visible',
+    'transition-all',
+  );
+  const flexColCenterClasses = classNames('flex', 'flex-col', 'items-center');
+  const mt2TextCenterClasses = classNames('mt-2', 'text-center');
+  const pFontBoldCapitalizeClasses = classNames('font-bold', 'capitalize');
+  const pTextSecondaryClasses = classNames('text-secondary-content');
+
   const collectionInfoWrapper = classNames(
     'w-full',
     'md:f-row',
@@ -102,14 +120,32 @@
     'hover:shadow-[0_0_30px_0px_rgba(255,111,200,1)]',
   );
 
+  const factionBadgeItemClasses = classNames(
+    'size-[130px]',
+    'lg:size-[186px]',
+    'xl:size-[290px]',
+    'max-w-[130px]',
+    'lg:max-w-[186px]',
+    'xl:max-w-[290px]',
+    `hover:${pinkShadowed}`,
+  );
+  const nftItemClasses = classNames('lg:size-[186px]', 'xl:size-[290px]', 'lg:max-w-[186px]', 'xl:max-w-[290px]');
   const calculateMultiplier = () => {
     const base = Multipliers[movement];
-    return badgesToDisplay.reduce((acc, { badge }) => {
-      if (Array.isArray(badge)) {
-        return badge[0] && !isBadgeLocked(badge[0]) ? acc + base : acc;
+    if (collectionType === NftTypes.BADGE) {
+      return badgesToDisplay.reduce((acc, { badge }) => {
+        if (Array.isArray(badge)) {
+          return badge[0] && !isBadgeLocked(badge[0]) ? acc + base : acc;
+        }
+        return badge && !isBadgeLocked(badge) ? acc + base : acc;
+      }, 0);
+    } else if (collectionType === NftTypes.TAIKOON || collectionType === NftTypes.SNAEFELL) {
+      if (Array.isArray(nftsToDisplay)) {
+        return nftsToDisplay.reduce((acc, _token, index) => (index === 0 ? acc + base : acc), 0);
       }
-      return badge && !isBadgeLocked(badge) ? acc + base : acc;
-    }, 0);
+      return base;
+    }
+    return 0;
   };
 
   $: multiplier = calculateMultiplier();
@@ -183,9 +219,9 @@
 
 <div class={wrapperClasses}>
   <div class={containerClasses}>
-    <input type="checkbox" id={uuid} class="collapse-checkbox peer hidden" bind:checked />
+    <input type="checkbox" id={uuid} class={inputClasses} bind:checked />
 
-    <label for={uuid} class="collapse-title items-center cursor-pointer p-0 m-0 w-full flex">
+    <label for={uuid} class={labelClasses}>
       <div class={collectionInfoWrapper}>
         <div class={titleClasses}>
           <img class={titleImageClasses} src={image} alt={collectionName} />
@@ -202,7 +238,10 @@
             </div>
           </div>
           <div class={collectionDetailsRowClasses}>
-            <span class="text-secondary-content">Multiplier per Badge</span>
+            <span class="text-secondary-content"
+              >{collectionType === NftTypes.BADGE
+                ? $t('nfts.collection.multiplier_per_badge')
+                : $t('nfts.collection.multiplier_per_nft')}</span>
             <span>+{Multipliers[movement]}x</span>
           </div>
           <div class={collectionDetailsRowClasses}>
@@ -213,8 +252,7 @@
       </div>
     </label>
 
-    <div
-      class="collapse-content w-full px-0 peer-checked:max-h-[100rem] max-h-0 overflow-hidden peer-checked:overflow-visible transition-all">
+    <div class={collapseContentClasses}>
       {#if loading}
         <div class="flex justify-center">
           <Spinner size="sm" />
@@ -225,23 +263,23 @@
           {#if badgesToDisplay.length > 0}
             {#each badgesToDisplay as { badge, total, faction }}
               {#if badge && collectionType === NftTypes.BADGE && !Array.isArray(badge)}
-                <div class="flex flex-col items-center">
+                <div class={flexColCenterClasses}>
                   <FactionBadgeItem
-                    class="size-[130px] lg:size-[186px] xl:size-[290px] max-w-[130px] lg:max-w-[186px] xl:max-w-[290px] hover:{pinkShadowed}"
+                    class={factionBadgeItemClasses}
                     token={badge}
                     hideBubbles
                     on:badgeClick={viewFullCollection} />
-                  <div class="mt-2 text-center">
-                    <p class="font-bold capitalize">{faction}</p>
-                    <p class="text-secondary-content">Total: {total}</p>
+                  <div class={mt2TextCenterClasses}>
+                    <p class={pFontBoldCapitalizeClasses}>{faction}</p>
+                    <p class={pTextSecondaryClasses}>Total: {total}</p>
                   </div>
                 </div>
               {:else}
-                <div class="flex flex-col items-center">
+                <div class={flexColCenterClasses}>
                   <Placeholder />
-                  <div class="mt-2 text-center">
-                    <p class="font-bold capitalize">{faction}</p>
-                    <p class="text-secondary-content">Total: {total}</p>
+                  <div class={mt2TextCenterClasses}>
+                    <p class={pFontBoldCapitalizeClasses}>{faction}</p>
+                    <p class={pTextSecondaryClasses}>Total: {total}</p>
                   </div>
                 </div>
               {/if}
@@ -250,11 +288,7 @@
           {:else if nftsToDisplay.length > 0}
             {#if Array.isArray(nftsToDisplay)}
               {#each nftsToDisplay as token, index}
-                <UserNftItem
-                  class="h-[130px] w-[130px] lg:w-[186px] lg:h-[186px] xl:w-[290px] xl:h-[290px]"
-                  {token}
-                  locked={index > 0}
-                  hideBubbles />
+                <UserNftItem class={nftItemClasses} {token} locked={index > 0} hideBubbles />
               {/each}
             {:else}
               <UserNftItem token={nftsToDisplay} hideBubbles />
