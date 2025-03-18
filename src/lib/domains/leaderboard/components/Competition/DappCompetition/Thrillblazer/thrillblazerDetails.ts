@@ -125,6 +125,14 @@ export const thrillblazerDetails: Record<number, CompetitionInfo> = {
         image: '/thrillblazers/prize/default.svg',
         amount: translate('leaderboard.thrillblazers.edition4.prize_breakdown.fifth.amount'),
       },
+      {
+        image: '/thrillblazers/prize/default.svg',
+        amount: translate('leaderboard.thrillblazers.edition4.prize_breakdown.sixth.amount'),
+      },
+      {
+        image: '/thrillblazers/prize/default.svg',
+        amount: translate('leaderboard.thrillblazers.edition4.prize_breakdown.seventh.amount'),
+      },
     ],
     qualifyingPositions: 5,
   },

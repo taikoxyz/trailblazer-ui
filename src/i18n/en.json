@@ -855,20 +855,26 @@
           "title": "Journey ended"
         },
         "prize_breakdown": {
-          "fifth": {
-            "amount": "5k"
-          },
           "first": {
             "amount": "45k"
           },
           "fourth": {
-            "amount": "10k"
+            "amount": "20k"
           },
           "second": {
-            "amount": "25k"
+            "amount": "30k"
           },
           "third": {
+            "amount": "25k"
+          },
+          "fifth": {
             "amount": "15k"
+          },
+          "sixth": {
+            "amount": "10k"
+          },
+          "seventh": {
+            "amount": "5k"
           },
           "total": "150k TAIKO Tokens"
         }

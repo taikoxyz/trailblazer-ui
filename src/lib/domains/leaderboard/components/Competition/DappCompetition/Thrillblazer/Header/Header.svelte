@@ -10,6 +10,7 @@
   import type { PaginationInfo } from '$shared/dto/CommonPageApiResponse';
   import { classNames } from '$shared/utils/classNames';
   import { numberToRoman } from '$shared/utils/numberToRoman';
+  import { isMobile } from '$shared/utils/responsiveCheck';
 
   import type { CompetitionInfo } from '../../../types';
   import { thrillblazerDetails } from '../thrillblazerDetails';
@@ -80,7 +81,9 @@
   const descriptionClasses = classNames(
     ' text-secondary-content',
     'text-center',
+    'relative',
     'max-w-[297px]',
+    'z-50',
     'mt-[20px]',
     //md
     'md:max-w-[449px]',
@@ -123,7 +126,7 @@
     'text-center',
     'w-[740px]',
     'max-w-full',
-    'h-full',
+    'h-[57px]',
     'flex',
     'items-center',
     'justify-center',
@@ -137,16 +140,18 @@
     'h-full',
     'mt-[20px]',
     'relative',
-    'w-[calc(100%-100px]',
-    'lg:w-[calc(100%-212px)]',
+    'w-full',
+    'md:w-[calc(100%-212px)]',
     'items-center',
   );
 
   const prizePoolWrapperClasses = classNames(
     'absolute',
     'bottom-[50%]',
-    'left-[25%]',
-    'w-[50%]',
+    'lg:left-[25%]',
+    'left-0',
+    'lg:w-[50%]',
+    'w-full',
     'flex',
     'justify-between',
     'items-center',
@@ -178,16 +183,14 @@
     'border-grey-600',
     //'py-[16px]',
     'items-center',
-    'lg:w-full',
-    'md:w-[30%]',
+    'w-full',
+    'h-[57px]',
+    'md:w-[25%]',
+    'md:h-full',
     'justify-center',
-    //md
-    'md:border',
-    // lg
-    'lg:border-l',
-    'lg:border-r',
-    'lg:first:border-l-0',
-    'lg:last:border-r-0',
+    'border',
+    'md:border-r',
+    'md:first:border-l',
   );
   const prizeImageClasses = classNames('size-[26px]');
   const prizeInfoClasses = classNames(
@@ -197,22 +200,21 @@
     'uppercase',
     'font-["Clash Grotesk"]',
   );
-  const priceWrapperClasses = classNames(
-    // lg
-    'lg:grid',
-    'lg:grid-cols-5',
-    // md
-    'md:flex',
-    'md:flex-wrap',
-    'md:justify-center',
-    'bg-[green]',
-    'md:items-center',
-    'w-[calc(100%-100px]',
-    'lg:w-[calc(100%-212px)]',
+
+  const priceRowClasses = classNames(
+    'flex',
+    'flex-col',
+    'md:flex-row',
+    'justify-center',
+    'items-center',
+    'w-full',
+    'md:h-[57px]',
   );
 
   const borderedCellSmClasses = classNames(
     'lg:w-[106px]',
+    'md:flex',
+    'hidden',
     'border-l',
     'border-r',
     'first:border-l-0',
@@ -222,20 +224,21 @@
     'w-[50px]',
   );
 
-  const borderedRowClasses = classNames(
+  const unBorderedRowClasses = classNames(
     'flex',
     'justify-between',
     'relative',
-    'items-center',
-    'border-b',
-    'border-grey-600',
+    'items-stretch',
     'min-h-[57px]',
     'w-full',
   );
+  const borderedRowClasses = classNames(unBorderedRowClasses, 'border-b', 'border-grey-600');
 
-  const logoClasses = classNames('relative', 'flex', 'flex-col', 'justify-center', 'items-center', 'w-max');
+  const logoClasses = classNames('z-50', 'relative', 'flex', 'flex-col', 'justify-center', 'items-center', 'w-max');
 
   const linesClasses = classNames(
+    'hidden',
+    'md:flex',
     'border-r',
     'border-l',
     'lg:w-[106px]',
@@ -245,12 +248,26 @@
     'bg-cover',
   );
 
-  const backgroundClasses = classNames('top-0', 'absolute', 'w-full', 'h-full', 'bg-fit');
+  const horizontalLinesClasses = classNames(
+    'h-[57px]',
+
+    'w-full',
+    'flex',
+    'justify-center',
+    'items-center',
+  );
+
+  const backgroundClasses = classNames('z-0', 'top-0', 'absolute', 'w-full', 'h-full', 'bg-fit');
 </script>
 
 <div class={wrapperClasses}>
   <div class={borderedRowClasses}>
     <div class={borderedCellSmClasses}></div>
+    {#if $isMobile}
+      <div class={horizontalLinesClasses}>
+        <img alt="Lines" src="/thrillblazers/diagonal-lines-sm.svg" />
+      </div>
+    {/if}
     <div class={borderedCellSmClasses}></div>
   </div>
 
@@ -264,7 +281,7 @@
     <div class={borderedCellSmClasses}></div>
   </div>
 
-  <div class={classNames(borderedRowClasses, 'h-[416px]')}>
+  <div class={classNames($isMobile ? unBorderedRowClasses : borderedRowClasses, 'h-[415px]')}>
     <div class={linesClasses} style="background-image:url(/thrillblazers/diagonal-lines.svg)"></div>
     <div class={frameClasses}>
       <div class={backgroundClasses} style="background-image:url(/thrillblazers/cubes-bg.svg)"></div>
@@ -281,17 +298,23 @@
     <div class={linesClasses} style="background-image:url(/thrillblazers/diagonal-lines.svg)"></div>
   </div>
 
-  <div class={borderedRowClasses}>
+  <div class={$isMobile ? unBorderedRowClasses : borderedRowClasses}>
     <div class={borderedCellSmClasses}></div>
     <div class={prizePoolWrapperClasses}>
-      <img class={lineClasses} alt="line" src="/thrillblazers/pink-line.svg" />
-
+      {#if $isMobile}
+        <img class={lineClasses} alt="line" src="/thrillblazers/pink-line-sm.svg" />
+      {:else}
+        <img class={lineClasses} alt="line" src="/thrillblazers/pink-line.svg" />
+      {/if}
       <div class={prizePoolClasses}>
         <div class={prizePoolLabelClasses}>Prize Pool</div>
         <div class={prizePoolValueClasses}>100K TAIKO</div>
       </div>
-
-      <img class={lineReverseClasses} alt="line" src="/thrillblazers/pink-line.svg" />
+      {#if $isMobile}
+        <img class={lineReverseClasses} alt="line" src="/thrillblazers/pink-line-sm.svg" />
+      {:else}
+        <img class={lineReverseClasses} alt="line" src="/thrillblazers/pink-line.svg" />
+      {/if}
     </div>
 
     <div class={borderedCellSmClasses}></div>
@@ -300,8 +323,24 @@
   {#if selectedCompetitionInfo}
     <div class={borderedRowClasses}>
       <div class={borderedCellSmClasses}></div>
-      <div class={priceWrapperClasses}>
-        {#each selectedCompetitionInfo.prizes as prize}
+      <div class={priceRowClasses}>
+        {#each selectedCompetitionInfo.prizes.slice(0, 3) as prize}
+          <div class={prizeItemClasses}>
+            <img src={prize.image} alt="{prize.amount} TAIKO Tokens" class={prizeImageClasses} />
+            <div class={prizeInfoClasses}>
+              {prize.amount} TAIKO
+            </div>
+          </div>
+        {/each}
+      </div>
+      <div class={borderedCellSmClasses}></div>
+    </div>
+
+    <div class={borderedRowClasses}>
+      <div class={borderedCellSmClasses}></div>
+
+      <div class={priceRowClasses}>
+        {#each selectedCompetitionInfo.prizes.slice(3, selectedCompetitionInfo.prizes.length) as prize}
           <div class={prizeItemClasses}>
             <img src={prize.image} alt="{prize.amount} TAIKO Tokens" class={prizeImageClasses} />
             <div class={prizeInfoClasses}>
