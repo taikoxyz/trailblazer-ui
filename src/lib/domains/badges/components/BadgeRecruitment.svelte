@@ -116,7 +116,6 @@
     if (!browser || isLoading) return;
     isLoading = true;
     const address = getConnectedAddress();
-    // const address = '0x69Bd1321Bea82fE4D4d022d19F8c28499D1282b3';
     if (!address || address === zeroAddress) return;
     const [cycleIdResult, enabledRecruitmentsResult, recruitmentsOfUser] = await Promise.all([
       badgeRecruitmentService.getRecruitmentCycleId(),

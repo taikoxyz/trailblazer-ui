@@ -7,7 +7,7 @@ import {
   watchContractEvent,
   writeContract,
 } from '@wagmi/core';
-import { type Address, parseSignature, recoverAddress } from 'viem';
+import { type Address, isAddressEqual, parseSignature, recoverAddress } from 'viem';
 
 import {
   badgeRecruitmentAbi,
@@ -410,8 +410,9 @@ export default class BadgeRecruitmentAdapter {
       whaleInfluences: r.whaleInfluences,
       minnowInfluences: r.minnowInfluences,
     }));
+    log('getRecruitmentStatusForUser!', { recruitments }, { address });
 
-    const filtered = recruitments.filter((r) => r.user === address);
+    const filtered = recruitments.filter((r) => isAddressEqual(r.user, address));
     log('getRecruitmentStatusForUser', { recruitments: filtered });
     return filtered;
   }

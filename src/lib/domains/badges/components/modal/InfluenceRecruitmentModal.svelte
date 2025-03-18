@@ -1,6 +1,7 @@
 <script lang="ts">
   import { getContext, onMount } from 'svelte';
   import { t } from 'svelte-i18n';
+  import { zeroAddress } from 'viem';
 
   import { MovementNames, Movements } from '$lib/domains/profile/types/types';
   import { errorToast, successToast } from '$shared/components/NotificationToast';
@@ -12,6 +13,7 @@
   } from '$shared/stores/recruitment';
   import type { TBBadge } from '$shared/types/NFT';
   import { classNames } from '$shared/utils/classNames';
+  import getConnectedAddress from '$shared/utils/getConnectedAddress';
 
   import badgeRecruitmentService from '../../services/BadgeRecruitmentServiceInstance';
   import FancyButton from '../FancyButton.svelte';
@@ -73,7 +75,9 @@
     }
   }
 
-  $: influenceRecruitmentModal && $account?.address && badgeRecruitmentService.getUserRecruitments($account.address);
+  $: influenceRecruitmentModal &&
+    getConnectedAddress() !== zeroAddress &&
+    badgeRecruitmentService.getUserRecruitments(getConnectedAddress());
 
   let maxInfluences = 0;
 
