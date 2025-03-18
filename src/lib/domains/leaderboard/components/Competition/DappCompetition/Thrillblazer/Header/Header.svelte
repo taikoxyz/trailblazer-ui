@@ -57,13 +57,10 @@
     'drop-shadow-neon-red',
     'mb-[85px]',
     //md
-    // 'md:self-start',
-    // 'md:ml-[80px]',
     'md:text-[101.775px]',
     'md:font-semibold',
     'md:leading-[101.775px]',
     'md:tracking-[15.266px]',
-    // 'md:mt-[109px]',
     //lg
     'lg:text-[150.39px]',
     'lg:font-semibold',
@@ -71,10 +68,6 @@
     'lg:tracking-[22.558px]',
     'lg:uppercase',
     'lg:stroke-4',
-    //  'lg:mt-[83px]',
-    //  'lg:ml-[85px]',
-    //xl
-    //  'xl:ml-[293px]',
   );
 
   const blazersClasses = classNames('absolute', 'top-[50%]', 'w-[440px]');
@@ -90,11 +83,9 @@
     'md:text-[16px]',
     'md:font-normal',
     'md:leading-[24px]',
-    //'my-[50px]',
     //lg
     'lg:max-w-[538px]',
     //xl
-    // 'xl:my-[40px]',
   );
 
   const secondaryContentClasses = classNames(
@@ -124,8 +115,8 @@
   const editionClasses = classNames(
     'uppercase',
     'text-center',
-    'w-[740px]',
-    'max-w-full',
+    'w-full',
+    'md:w-max',
     'h-[57px]',
     'flex',
     'items-center',
@@ -189,6 +180,9 @@
     'md:h-full',
     'justify-center',
     'border',
+    'md:border-t-0',
+    'md:border-b-0',
+    'md:border-l-0',
     'md:border-r',
     'md:first:border-l',
   );
@@ -208,6 +202,9 @@
     'justify-center',
     'items-center',
     'w-full',
+
+    'md:w-[calc(100%-212px)]',
+
     'md:h-[57px]',
   );
 
