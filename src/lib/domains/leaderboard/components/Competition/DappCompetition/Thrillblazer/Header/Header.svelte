@@ -121,21 +121,20 @@
   const editionClasses = classNames(
     'uppercase',
     'text-center',
-    'border-r',
-    'border-l',
     'w-[740px]',
     'max-w-full',
     'h-full',
     'flex',
     'items-center',
     'justify-center',
-    'border-grey-600',
     'text-pink-400',
-    'text-[16px]/[120%] font-[700]',
+    'text-[16px]/[120%]',
+    'font-[700]',
   );
 
   const frameClasses = classNames(
     'f-col',
+    'h-full',
     'mt-[20px]',
     'relative',
     'w-[calc(100%-100px]',
@@ -176,15 +175,19 @@
   const prizeItemClasses = classNames(
     'flex',
     'gap-4',
-    'border-l',
-    'border-r',
-    'first:border-l-0',
-    'last:border-r-0',
     'border-grey-600',
     //'py-[16px]',
     'items-center',
-    'w-full',
+    'lg:w-full',
+    'md:w-[30%]',
     'justify-center',
+    //md
+    'md:border',
+    // lg
+    'lg:border-l',
+    'lg:border-r',
+    'lg:first:border-l-0',
+    'lg:last:border-r-0',
   );
   const prizeImageClasses = classNames('size-[26px]');
   const prizeInfoClasses = classNames(
@@ -194,7 +197,19 @@
     'uppercase',
     'font-["Clash Grotesk"]',
   );
-  const priceWrapperClasses = classNames('grid', 'grid-cols-5', 'w-[calc(100%-100px]', 'lg:w-[calc(100%-212px)]');
+  const priceWrapperClasses = classNames(
+    // lg
+    'lg:grid',
+    'lg:grid-cols-5',
+    // md
+    'md:flex',
+    'md:flex-wrap',
+    'md:justify-center',
+    'bg-[green]',
+    'md:items-center',
+    'w-[calc(100%-100px]',
+    'lg:w-[calc(100%-212px)]',
+  );
 
   const borderedCellSmClasses = classNames(
     'lg:w-[106px]',
@@ -211,10 +226,10 @@
     'flex',
     'justify-between',
     'relative',
-    'items-stretch',
+    'items-center',
     'border-b',
     'border-grey-600',
-    'h-[57px]',
+    'min-h-[57px]',
     'w-full',
   );
 
@@ -239,7 +254,7 @@
     <div class={borderedCellSmClasses}></div>
   </div>
 
-  <div class={borderedRowClasses}>
+  <div class={classNames(borderedRowClasses)}>
     <div class={borderedCellSmClasses}></div>
     {#if edition}
       <div class={editionClasses}>
