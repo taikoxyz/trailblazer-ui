@@ -85,7 +85,6 @@
     'md:leading-[24px]',
     //lg
     'lg:max-w-[538px]',
-    //xl
   );
 
   const secondaryContentClasses = classNames(
@@ -116,7 +115,6 @@
     'uppercase',
     'text-center',
     'w-full',
-    'md:w-max',
     'h-[57px]',
     'flex',
     'items-center',
@@ -139,17 +137,19 @@
   const prizePoolWrapperClasses = classNames(
     'absolute',
     'bottom-[50%]',
-    'lg:left-[25%]',
     'left-0',
-    'lg:w-[50%]',
+    'md:w-[calc(100%-212px)]',
+    'md:left-[106px]',
     'w-full',
     'flex',
-    'justify-between',
+    'overflow-hidden',
+    'justify-center',
     'items-center',
   );
   const prizePoolClasses = classNames(
     'bg-grey-900',
     'w-full',
+    'min-w-[200px]',
     'gap-[5px]',
     'flex',
     'flex-col',
@@ -172,14 +172,13 @@
     'flex',
     'gap-4',
     'border-grey-600',
-    //'py-[16px]',
     'items-center',
     'w-full',
     'h-[57px]',
     'md:w-[25%]',
     'md:h-full',
     'justify-center',
-    'border',
+    'border-t',
     'md:border-t-0',
     'md:border-b-0',
     'md:border-l-0',
@@ -202,23 +201,8 @@
     'justify-center',
     'items-center',
     'w-full',
-
     'md:w-[calc(100%-212px)]',
-
     'md:h-[57px]',
-  );
-
-  const borderedCellSmClasses = classNames(
-    'lg:w-[106px]',
-    'md:flex',
-    'hidden',
-    'border-l',
-    'border-r',
-    'first:border-l-0',
-    'last:border-r-0',
-    'border-grey-600',
-    'h-[57px]',
-    'w-[50px]',
   );
 
   const unBorderedRowClasses = classNames(
@@ -236,13 +220,13 @@
   const linesClasses = classNames(
     'hidden',
     'md:flex',
-    'border-r',
-    'border-l',
     'lg:w-[106px]',
     'w-[50px]',
     'h-full',
     'border-grey-600',
     'bg-cover',
+    'first:border-r',
+    'last:border-l',
   );
 
   const horizontalLinesClasses = classNames(
@@ -259,26 +243,22 @@
 
 <div class={wrapperClasses}>
   <div class={borderedRowClasses}>
-    <div class={borderedCellSmClasses}></div>
     {#if $isMobile}
       <div class={horizontalLinesClasses}>
         <img alt="Lines" src="/thrillblazers/diagonal-lines-sm.svg" />
       </div>
     {/if}
-    <div class={borderedCellSmClasses}></div>
   </div>
 
   <div class={classNames(borderedRowClasses)}>
-    <div class={borderedCellSmClasses}></div>
     {#if edition}
       <div class={editionClasses}>
         Edition {numberToRoman(edition)}
       </div>
     {/if}
-    <div class={borderedCellSmClasses}></div>
   </div>
 
-  <div class={classNames($isMobile ? unBorderedRowClasses : borderedRowClasses, 'h-[415px]')}>
+  <div class={classNames(borderedRowClasses, 'h-[415px]')}>
     <div class={linesClasses} style="background-image:url(/thrillblazers/diagonal-lines.svg)"></div>
     <div class={frameClasses}>
       <div class={backgroundClasses} style="background-image:url(/thrillblazers/cubes-bg.svg)"></div>
@@ -296,7 +276,6 @@
   </div>
 
   <div class={$isMobile ? unBorderedRowClasses : borderedRowClasses}>
-    <div class={borderedCellSmClasses}></div>
     <div class={prizePoolWrapperClasses}>
       {#if $isMobile}
         <img class={lineClasses} alt="line" src="/thrillblazers/pink-line-sm.svg" />
@@ -305,7 +284,7 @@
       {/if}
       <div class={prizePoolClasses}>
         <div class={prizePoolLabelClasses}>Prize Pool</div>
-        <div class={prizePoolValueClasses}>100K TAIKO</div>
+        <div class={prizePoolValueClasses}>150K TAIKO</div>
       </div>
       {#if $isMobile}
         <img class={lineReverseClasses} alt="line" src="/thrillblazers/pink-line-sm.svg" />
@@ -313,13 +292,11 @@
         <img class={lineReverseClasses} alt="line" src="/thrillblazers/pink-line.svg" />
       {/if}
     </div>
-
-    <div class={borderedCellSmClasses}></div>
   </div>
 
   {#if selectedCompetitionInfo}
-    <div class={borderedRowClasses}>
-      <div class={borderedCellSmClasses}></div>
+    <div class={$isMobile ? unBorderedRowClasses : borderedRowClasses}>
+      <div></div>
       <div class={priceRowClasses}>
         {#each selectedCompetitionInfo.prizes.slice(0, 3) as prize}
           <div class={prizeItemClasses}>
@@ -330,12 +307,11 @@
           </div>
         {/each}
       </div>
-      <div class={borderedCellSmClasses}></div>
+      <div></div>
     </div>
 
-    <div class={borderedRowClasses}>
-      <div class={borderedCellSmClasses}></div>
-
+    <div class={unBorderedRowClasses}>
+      <div></div>
       <div class={priceRowClasses}>
         {#each selectedCompetitionInfo.prizes.slice(3, selectedCompetitionInfo.prizes.length) as prize}
           <div class={prizeItemClasses}>
@@ -346,7 +322,7 @@
           </div>
         {/each}
       </div>
-      <div class={borderedCellSmClasses}></div>
+      <div></div>
     </div>
   {/if}
 </div>
