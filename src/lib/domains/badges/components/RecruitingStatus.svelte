@@ -1,62 +1,27 @@
 <script lang="ts">
-  import { getContext, onDestroy } from 'svelte';
+  import { getContext, onDestroy, onMount } from 'svelte';
   import { t } from 'svelte-i18n';
 
   import { Spinner } from '$shared/components';
   import ActionButton from '$shared/components/Button/ActionButton.svelte';
-  import {
-    activeRecruitmentStore,
-    currentCycleStore,
-    currentRecruitmentStore,
-    influenceRecruitmentModal,
-  } from '$shared/stores/recruitment';
+  import { currentCycleStore, currentRecruitmentStore, influenceRecruitmentModal } from '$shared/stores/recruitment';
   import { type ActiveRecruitment, RecruitmentStatus } from '$shared/types/BadgeRecruitment';
   import type { TBBadge } from '$shared/types/NFT';
-  import { getRecruitmentStatus } from '$shared/utils/badges/getRecruitmentStatus';
   import { classNames } from '$shared/utils/classNames';
   import { isDevelopmentEnv } from '$shared/utils/isDevelopmentEnv';
-  import { getLogger } from '$shared/utils/logger';
-
-  const log = getLogger('BadgeRecruitmentItem');
 
   export let badge: TBBadge;
 
-  $: recruitment = null as ActiveRecruitment | null;
+  $: recruitment = $currentRecruitmentStore as ActiveRecruitment | null;
   let activeCycle: number = $currentCycleStore || -1;
+
+  const updateStatus: () => void = getContext('badgeRecruitUpdate');
 
   const buttonClasses = classNames();
 
   const rowClasses = classNames('f-row', 'justify-between', 'font-bold', 'w-full', 'my-[8px]');
 
-  let updating = false;
   let loading = false;
-
-  const updateStatus = async () => {
-    log('Updating status for badge:', badge);
-    if (updating || !recruitment) {
-      log('Skipping update status for badge:', badge, recruitment);
-      return;
-    }
-    const filter = $activeRecruitmentStore?.filter((r) => r.badge.tokenId === badge.tokenId)[0];
-    if (!filter) {
-      status = RecruitmentStatus.NOT_STARTED;
-      log('No recruitment found for badge:', badge, status);
-      return;
-    }
-    recruitment = filter;
-    updating = true;
-    loading = true;
-    log('Updating status for badge:', badge, recruitment);
-    const newStatus = await getRecruitmentStatus(recruitment, activeCycle);
-    loading = false;
-    updating = false;
-
-    // Only update if status actually changed
-    if (newStatus !== status) {
-      status = newStatus;
-      log('Status updated:', status, recruitment);
-    }
-  };
 
   const unsubscribeRecruitment = currentRecruitmentStore.subscribe((value) => {
     recruitment = value;
@@ -73,8 +38,6 @@
     unsubscribeCurrentCycle();
   });
 
-  $: if (badge) updateStatus();
-
   const handleButtonClick = () => {
     if (status === RecruitmentStatus.UNFINISHED && recruitment) reset(recruitment);
     if (status === RecruitmentStatus.CAN_CLAIM && $currentRecruitmentStore) claim($currentRecruitmentStore);
@@ -90,8 +53,6 @@
 
   $: status = recruitment?.status || RecruitmentStatus.NOT_STARTED;
 
-  $: $influenceRecruitmentModal && updateStatus();
-
   $: isCurrentRecruitment = $currentRecruitmentStore && $currentRecruitmentStore?.badge?.tokenId === badge.tokenId;
 
   $: recruitmentFinished = status === RecruitmentStatus.COMPLETED;
@@ -104,14 +65,11 @@
     ? $currentRecruitmentStore.cooldowns.claim > new Date()
     : false;
 
-  $: $influenceRecruitmentModal && updateStatus();
-
-  $: $currentRecruitmentStore?.cooldowns.claim && updateStatus();
-  $: $currentRecruitmentStore?.cooldowns.influence && updateStatus();
-
   $: canClaim = isCurrentRecruitment && status === RecruitmentStatus.CAN_CLAIM;
 
-  $: isRecruitingAnotherBadge = $currentRecruitmentStore && recruiting && !isCurrentRecruitment;
+  $: isRecruitingAnotherBadge =
+    ($currentRecruitmentStore && recruiting) ||
+    ($currentRecruitmentStore && status === RecruitmentStatus.CAN_CLAIM && !isCurrentRecruitment);
 
   $: alreadyRecruitedThisSeason =
     status === RecruitmentStatus.LOCKED ||
@@ -126,6 +84,10 @@
   $: disableInfluence = recruiting && influencing;
 
   $: resettable = status === RecruitmentStatus.UNFINISHED;
+
+  onMount(() => {
+    updateStatus();
+  });
 </script>
 
 {#if loading}

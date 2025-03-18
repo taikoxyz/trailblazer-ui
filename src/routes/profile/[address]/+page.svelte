@@ -1,7 +1,7 @@
 <script lang="ts">
+  import UpdateStatusProvider from '$lib/domains/badges/components/UpdateStatusProvider.svelte';
   import { Profile } from '$lib/domains/profile/components';
   import { Page } from '$shared/components/Page';
-  // import { Profile } from '$shared/components/Profile';
 </script>
 
 <svelte:head>
@@ -9,5 +9,7 @@
 </svelte:head>
 
 <Page>
-  <Profile />
+  <UpdateStatusProvider>
+    <Profile />
+  </UpdateStatusProvider>
 </Page>

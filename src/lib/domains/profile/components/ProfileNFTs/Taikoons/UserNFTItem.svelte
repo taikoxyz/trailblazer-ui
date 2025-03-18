@@ -66,14 +66,10 @@
     <img src={prefixIpfsGateway(image)} alt={`NFT #${token.tokenId}`} class={imageClasses} />
   </div>
 
-  <!-- <div class={bubbleWrapperClasses}>
-    <MultiplierBadge {token} />
-  </div> -->
-
   {#if locked}
     <div class={lockedOverlayClasses}>
       <Icon type="lock" size={80} />
-      <span class="text-sm hidden lg:block">Locked for current season</span>
+      <span class="text-sm hidden lg:block">Max multiplier reached</span>
     </div>
   {/if}
 </div>
