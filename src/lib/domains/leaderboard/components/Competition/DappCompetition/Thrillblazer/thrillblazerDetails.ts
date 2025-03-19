@@ -134,6 +134,6 @@ export const thrillblazerDetails: Record<number, CompetitionInfo> = {
         amount: translate('leaderboard.thrillblazers.edition4.prize_breakdown.seventh.amount'),
       },
     ],
-    qualifyingPositions: 5,
+    qualifyingPositions: 7,
   },
 };

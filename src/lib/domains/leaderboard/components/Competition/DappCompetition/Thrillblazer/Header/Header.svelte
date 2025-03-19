@@ -45,7 +45,8 @@
     'text-left',
     'font-bold',
     'font-clash-grotesk',
-    'text-[65px]',
+    'text-[77px]',
+    'mt-[43px]',
     'leading-none',
     'tracking-[9.74px]',
     'xl:tracking-[9.1px]',
@@ -55,12 +56,13 @@
     'text-transparent',
     'text-stroke-neon-red',
     'drop-shadow-neon-red',
-    'mb-[85px]',
+    'mb-[45px]',
     //md
     'md:text-[101.775px]',
     'md:font-semibold',
     'md:leading-[101.775px]',
     'md:tracking-[15.266px]',
+    'md:mb-[60px]',
     //lg
     'lg:text-[150.39px]',
     'lg:font-semibold',
@@ -70,9 +72,9 @@
     'lg:stroke-4',
   );
 
-  const blazersClasses = classNames('absolute', 'top-[50%]', 'w-[440px]');
+  const blazersClasses = classNames('absolute', 'top-[55%]', 'w-[440px]');
   const descriptionClasses = classNames(
-    ' text-secondary-content',
+    'text-secondary-content',
     'text-center',
     'relative',
     'max-w-[297px]',
