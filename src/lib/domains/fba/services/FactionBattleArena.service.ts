@@ -8,7 +8,6 @@ const log = getLogger('FactionBattleArenaService');
 
 export default class FactionBattleArenaService {
   private adapter: FactionBattleArenaAdapter;
-
   constructor(adapter?: FactionBattleArenaAdapter) {
     this.adapter = adapter || new FactionBattleArenaAdapter();
   }
