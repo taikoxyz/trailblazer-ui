@@ -1,7 +1,7 @@
 {
   "badge_recruitment": {
     "buttons": {
-      "already_recruited": "Already recruited this season",
+      "already_recruited": "Already recruited this cycle",
       "end_recruitment": "Claim",
       "influence": "Influence",
       "influencing": "Influencing",
@@ -836,7 +836,7 @@
       }
     },
     "thrillblazers": {
-      "1": {
+      "edition1": {
         "description": "Thrill-Blazer launches Oct 18th. Calling all gaming and SocialFi dApps: Blaze new trails, fuel Taiko's momentum, and seize your chance for legendary rewards!",
         "ended": {
           "description": "Our journey concluded on November 18th, 2024. Congratulations to the winners!",
@@ -861,7 +861,7 @@
           "total": "140k TAIKO Tokens"
         }
       },
-      "2": {
+      "edition2": {
         "description": "Thrill-Blazer launches Jan 17th. Calling all gaming and SocialFi dApps: Blaze new trails, fuel Taiko's momentum, and seize your chance for legendary rewards!",
         "ended": {
           "description": "Our journey concluded on February 17th, 2025. Congratulations to the winners!",
@@ -883,7 +883,7 @@
           "total": "100k TAIKO Tokens"
         }
       },
-      "3": {
+      "edition3": {
         "description": "Thrill-Blazer III launches Feb 17th. Calling all gaming and SocialFi dApps: Blaze new trails, fuel Taiko's momentum, and seize your chance for legendary rewards!",
         "ended": {
           "description": "Our journey concluded on March 17th, 2025. Congratulations to the winners!",
@@ -906,6 +906,37 @@
             "amount": "15k"
           },
           "total": "100k TAIKO Tokens"
+        }
+      },
+      "edition4": {
+        "description": "Blaze new trails, fuel Taiko's momentum, and seize your chance for legendary rewards!",
+        "ended": {
+          "description": "Our journey concluded on June 16th, 2025. Congratulations to the winners!",
+          "title": "Journey ended"
+        },
+        "prize_breakdown": {
+          "first": {
+            "amount": "45k"
+          },
+          "fourth": {
+            "amount": "20k"
+          },
+          "second": {
+            "amount": "30k"
+          },
+          "third": {
+            "amount": "25k"
+          },
+          "fifth": {
+            "amount": "15k"
+          },
+          "sixth": {
+            "amount": "10k"
+          },
+          "seventh": {
+            "amount": "5k"
+          },
+          "total": "150k TAIKO Tokens"
         }
       }
     },

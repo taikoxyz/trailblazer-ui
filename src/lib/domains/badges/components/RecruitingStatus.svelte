@@ -3,6 +3,7 @@
   import { t } from 'svelte-i18n';
 
   import { Spinner } from '$shared/components';
+  import Alert from '$shared/components/Alert/Alert.svelte';
   import ActionButton from '$shared/components/Button/ActionButton.svelte';
   import { currentCycleStore, currentRecruitmentStore, influenceRecruitmentModal } from '$shared/stores/recruitment';
   import { type ActiveRecruitment, RecruitmentStatus } from '$shared/types/BadgeRecruitment';
@@ -99,6 +100,11 @@
   <ActionButton class={buttonClasses} priority="primary" disabled={true}
     >{$t('badge_recruitment.buttons.ongoing_recruitment')}</ActionButton>
 {:else if alreadyRecruitedThisSeason}
+  <Alert type="info" class="mb-[24px]">
+    <b>Note:</b><br />
+    Only <b>1</b> faction recruitment possible per cycle.<br />
+    You will need to wait for a future cycle when this faction becomes available again.
+  </Alert>
   <ActionButton class={buttonClasses} priority="primary" disabled={true}
     >{$t('badge_recruitment.buttons.already_recruited')}</ActionButton>
 {:else if canClaim}

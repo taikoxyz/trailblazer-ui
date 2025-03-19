@@ -1,11 +1,19 @@
 import { get } from 'svelte/store';
-import { t } from 'svelte-i18n';
+import { isLoading, locale, t } from 'svelte-i18n';
 
 import { browser } from '$app/environment';
 
 import type { CompetitionInfo } from '../../types';
 
-const translate = (key: string): string => (browser ? get(t)(key) : key);
+const translate = (key: string): string => {
+  if (browser && get(locale)) {
+    if (get(isLoading)) {
+      return '';
+    }
+    return get(t)(key);
+  }
+  return key;
+};
 
 export const thrillblazerDetails: Record<number, CompetitionInfo> = {
   1: {
@@ -14,11 +22,26 @@ export const thrillblazerDetails: Record<number, CompetitionInfo> = {
     prizeTitle: translate('leaderboard.gaming.prize.1'),
     prizeSubtitle: '',
     prizes: [
-      { image: '/first.svg', amount: translate('leaderboard.thrillblazers.1.prize_breakdown.first.amount') },
-      { image: '/second.svg', amount: translate('leaderboard.thrillblazers.1.prize_breakdown.second.amount') },
-      { image: '/third.svg', amount: translate('leaderboard.thrillblazers.1.prize_breakdown.third.amount') },
-      { image: '/default-prize.svg', amount: translate('leaderboard.thrillblazers.1.prize_breakdown.fourth.amount') },
-      { image: '/default-prize.svg', amount: translate('leaderboard.thrillblazers.1.prize_breakdown.fifth.amount') },
+      {
+        image: '/first.svg',
+        amount: translate('leaderboard.thrillblazers.edition1.prize_breakdown.first.amount'),
+      },
+      {
+        image: '/second.svg',
+        amount: translate('leaderboard.thrillblazers.edition1.prize_breakdown.second.amount'),
+      },
+      {
+        image: '/third.svg',
+        amount: translate('leaderboard.thrillblazers.edition1.prize_breakdown.third.amount'),
+      },
+      {
+        image: '/default-prize.svg',
+        amount: translate('leaderboard.thrillblazers.edition1.prize_breakdown.fourth.amount'),
+      },
+      {
+        image: '/default-prize.svg',
+        amount: translate('leaderboard.thrillblazers.edition1.prize_breakdown.fifth.amount'),
+      },
     ],
     qualifyingPositions: 5,
   } satisfies CompetitionInfo,
@@ -28,10 +51,22 @@ export const thrillblazerDetails: Record<number, CompetitionInfo> = {
     prizeTitle: translate('leaderboard.gaming.prize.1'),
     prizeSubtitle: '',
     prizes: [
-      { image: '/first.svg', amount: translate('leaderboard.thrillblazers.2.prize_breakdown.first.amount') },
-      { image: '/second.svg', amount: translate('leaderboard.thrillblazers.2.prize_breakdown.second.amount') },
-      { image: '/third.svg', amount: translate('leaderboard.thrillblazers.2.prize_breakdown.third.amount') },
-      { image: '/default-prize.svg', amount: translate('leaderboard.thrillblazers.2.prize_breakdown.fourth.amount') },
+      {
+        image: '/first.svg',
+        amount: translate('leaderboard.thrillblazers.edition2.prize_breakdown.first.amount'),
+      },
+      {
+        image: '/second.svg',
+        amount: translate('leaderboard.thrillblazers.edition2.prize_breakdown.second.amount'),
+      },
+      {
+        image: '/third.svg',
+        amount: translate('leaderboard.thrillblazers.edition2.prize_breakdown.third.amount'),
+      },
+      {
+        image: '/default-prize.svg',
+        amount: translate('leaderboard.thrillblazers.edition2.prize_breakdown.fourth.amount'),
+      },
     ],
     qualifyingPositions: 4,
   } satisfies CompetitionInfo,
@@ -41,12 +76,64 @@ export const thrillblazerDetails: Record<number, CompetitionInfo> = {
     prizeTitle: translate('leaderboard.gaming.prize.1'),
     prizeSubtitle: '',
     prizes: [
-      { image: '/first.svg', amount: translate('leaderboard.thrillblazers.3.prize_breakdown.first.amount') },
-      { image: '/second.svg', amount: translate('leaderboard.thrillblazers.3.prize_breakdown.second.amount') },
-      { image: '/third.svg', amount: translate('leaderboard.thrillblazers.3.prize_breakdown.third.amount') },
-      { image: '/default-prize.svg', amount: translate('leaderboard.thrillblazers.3.prize_breakdown.fourth.amount') },
-      { image: '/default-prize.svg', amount: translate('leaderboard.thrillblazers.3.prize_breakdown.fifth.amount') },
+      {
+        image: '/first.svg',
+        amount: translate('leaderboard.thrillblazers.edition3.prize_breakdown.first.amount'),
+      },
+      {
+        image: '/second.svg',
+        amount: translate('leaderboard.thrillblazers.edition3.prize_breakdown.second.amount'),
+      },
+      {
+        image: '/third.svg',
+        amount: translate('leaderboard.thrillblazers.edition3.prize_breakdown.third.amount'),
+      },
+      {
+        image: '/default-prize.svg',
+        amount: translate('leaderboard.thrillblazers.edition3.prize_breakdown.fourth.amount'),
+      },
+      {
+        image: '/default-prize.svg',
+        amount: translate('leaderboard.thrillblazers.edition3.prize_breakdown.fifth.amount'),
+      },
     ],
     qualifyingPositions: 5,
   } satisfies CompetitionInfo,
+  4: {
+    title: '',
+    description: '',
+    prizeTitle: translate('leaderboard.gaming.prize.1'),
+    prizeSubtitle: '',
+    prizes: [
+      {
+        image: '/thrillblazers/prize/first.svg',
+        amount: translate('leaderboard.thrillblazers.edition4.prize_breakdown.first.amount'),
+      },
+      {
+        image: '/thrillblazers/prize/second.svg',
+        amount: translate('leaderboard.thrillblazers.edition4.prize_breakdown.second.amount'),
+      },
+      {
+        image: '/thrillblazers/prize/third.svg',
+        amount: translate('leaderboard.thrillblazers.edition4.prize_breakdown.third.amount'),
+      },
+      {
+        image: '/thrillblazers/prize/default.svg',
+        amount: translate('leaderboard.thrillblazers.edition4.prize_breakdown.fourth.amount'),
+      },
+      {
+        image: '/thrillblazers/prize/default.svg',
+        amount: translate('leaderboard.thrillblazers.edition4.prize_breakdown.fifth.amount'),
+      },
+      {
+        image: '/thrillblazers/prize/default.svg',
+        amount: translate('leaderboard.thrillblazers.edition4.prize_breakdown.sixth.amount'),
+      },
+      {
+        image: '/thrillblazers/prize/default.svg',
+        amount: translate('leaderboard.thrillblazers.edition4.prize_breakdown.seventh.amount'),
+      },
+    ],
+    qualifyingPositions: 7,
+  },
 };
