@@ -47,7 +47,7 @@
 
   function getFillClass(rank: number | null | undefined): string {
     if (rank === null || rank === undefined) return '';
-    if (qualifyingPositions > 5 && rank <= qualifyingPositions) return 'fill-fixed-icon';
+    if (qualifyingPositions > 7 && rank <= qualifyingPositions) return 'fill-fixed-icon';
     switch (rank) {
       case 1:
         return 'fill-warning-sentiment';
@@ -57,6 +57,8 @@
         return 'fill-yellow-700';
       case 4:
       case 5:
+      case 6:
+      case 7:
         return 'fill-secondary-brand';
       default:
         return '';
