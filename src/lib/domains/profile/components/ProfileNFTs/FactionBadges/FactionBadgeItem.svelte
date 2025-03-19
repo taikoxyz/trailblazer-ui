@@ -19,7 +19,7 @@
   $: badgeId = (token.metadata.badgeId as number) || 0;
 
   // season-relevant value
-  $: isFrozen = token.metadata.frozenS3;
+  $: isFrozen = false; //token.metadata.frozenS3;
 
   // CSS classes
   $: wrapperClasses = classNames(

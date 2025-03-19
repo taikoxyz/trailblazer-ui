@@ -1,4 +1,4 @@
-import client from 'https://api.goldsky.com/api/public/project_clz85cxrvng3n01ughcv5e7hg/subgraphs/tbz-badges-hekla/0.0.3/gn';
+import client from 'https://api.goldsky.com/api/public/project_clz85cxrvng3n01ughcv5e7hg/subgraphs/tbz-badges-hekla/0.0.4/gn';
 import type {} from '@apollo/client';
 import { readable } from 'svelte/store';
 import type { Readable } from 'svelte/store';
@@ -275,8 +275,7 @@ export enum BadgeRecruitment_OrderBy {
   S1BadgeBadgeId = 's1Badge__badgeId',
   S1BadgeContract = 's1Badge__contract',
   S1BadgeErc = 's1Badge__erc',
-  S1BadgeFrozenS2 = 's1Badge__frozenS2',
-  S1BadgeFrozenS3 = 's1Badge__frozenS3',
+  S1BadgeFrozenUntil = 's1Badge__frozenUntil',
   S1BadgeId = 's1Badge__id',
   S1BadgeMovement = 's1Badge__movement',
   S1BadgeSeason = 's1Badge__season',
@@ -286,8 +285,7 @@ export enum BadgeRecruitment_OrderBy {
   S2BadgeBadgeId = 's2Badge__badgeId',
   S2BadgeContract = 's2Badge__contract',
   S2BadgeErc = 's2Badge__erc',
-  S2BadgeFrozenS2 = 's2Badge__frozenS2',
-  S2BadgeFrozenS3 = 's2Badge__frozenS3',
+  S2BadgeFrozenUntil = 's2Badge__frozenUntil',
   S2BadgeId = 's2Badge__id',
   S2BadgeMovement = 's2Badge__movement',
   S2BadgeSeason = 's2Badge__season',
@@ -539,8 +537,7 @@ export type Token = {
   badgeId?: Maybe<Scalars['BigInt']['output']>;
   contract: Scalars['Bytes']['output'];
   erc: Scalars['BigInt']['output'];
-  frozenS2?: Maybe<Scalars['Boolean']['output']>;
-  frozenS3?: Maybe<Scalars['Boolean']['output']>;
+  frozenUntil?: Maybe<Scalars['BigInt']['output']>;
   id: Scalars['ID']['output'];
   movement?: Maybe<Scalars['BigInt']['output']>;
   owner: Account;
@@ -579,14 +576,14 @@ export type Token_Filter = {
   erc_lte?: InputMaybe<Scalars['BigInt']['input']>;
   erc_not?: InputMaybe<Scalars['BigInt']['input']>;
   erc_not_in?: InputMaybe<Array<Scalars['BigInt']['input']>>;
-  frozenS2?: InputMaybe<Scalars['Boolean']['input']>;
-  frozenS2_in?: InputMaybe<Array<Scalars['Boolean']['input']>>;
-  frozenS2_not?: InputMaybe<Scalars['Boolean']['input']>;
-  frozenS2_not_in?: InputMaybe<Array<Scalars['Boolean']['input']>>;
-  frozenS3?: InputMaybe<Scalars['Boolean']['input']>;
-  frozenS3_in?: InputMaybe<Array<Scalars['Boolean']['input']>>;
-  frozenS3_not?: InputMaybe<Scalars['Boolean']['input']>;
-  frozenS3_not_in?: InputMaybe<Array<Scalars['Boolean']['input']>>;
+  frozenUntil?: InputMaybe<Scalars['BigInt']['input']>;
+  frozenUntil_gt?: InputMaybe<Scalars['BigInt']['input']>;
+  frozenUntil_gte?: InputMaybe<Scalars['BigInt']['input']>;
+  frozenUntil_in?: InputMaybe<Array<Scalars['BigInt']['input']>>;
+  frozenUntil_lt?: InputMaybe<Scalars['BigInt']['input']>;
+  frozenUntil_lte?: InputMaybe<Scalars['BigInt']['input']>;
+  frozenUntil_not?: InputMaybe<Scalars['BigInt']['input']>;
+  frozenUntil_not_in?: InputMaybe<Array<Scalars['BigInt']['input']>>;
   id?: InputMaybe<Scalars['ID']['input']>;
   id_gt?: InputMaybe<Scalars['ID']['input']>;
   id_gte?: InputMaybe<Scalars['ID']['input']>;
@@ -667,8 +664,7 @@ export enum Token_OrderBy {
   BadgeId = 'badgeId',
   Contract = 'contract',
   Erc = 'erc',
-  FrozenS2 = 'frozenS2',
-  FrozenS3 = 'frozenS3',
+  FrozenUntil = 'frozenUntil',
   Id = 'id',
   Movement = 'movement',
   Owner = 'owner',

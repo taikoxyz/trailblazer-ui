@@ -16,7 +16,7 @@
   $: currentLeagueId = -1;
 
   onMount(async () => {
-    if (!nfts) return;
+    if (!nfts || !nfts.length) return;
     currentLeagueId = await service.getCurrentLeagueId();
     await service.getLeagueParticipants(currentLeagueId);
     await service.getMockLeague(nfts[0]);

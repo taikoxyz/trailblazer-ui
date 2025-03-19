@@ -61,8 +61,6 @@ export const USER_NFTS_FETCH_BADGES_QUERY = gql`
       movement
       season
       uri
-      frozenS2
-      frozenS3
     }
   }
 `;

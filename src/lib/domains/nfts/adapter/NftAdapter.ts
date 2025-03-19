@@ -67,8 +67,8 @@ export class NftAdapter {
             badgeId: isNaN(badgeId) ? undefined : badgeId,
             erc,
             movement: isNaN(movement) ? undefined : movement,
-            frozenS2: token.frozenS2 || false,
-            frozenS3: token.frozenS3 || false,
+            //     frozenS2: token.frozenS2 || false,
+            //    frozenS3: token.frozenS3 || false,
           },
         } satisfies NFT;
       });
