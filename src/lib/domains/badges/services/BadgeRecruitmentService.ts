@@ -123,7 +123,7 @@ export default class BadgeRecruitmentService {
       return;
     }
     return recruitmentsOfUser.filter((recruitment) => {
-      if (recruitment.cycle !== cycleId) {
+      if (recruitment.cycle !== cycleId && !recruitment.recruitedBadge) {
         if (recruitment.status !== RecruitmentStatus.COMPLETED) return recruitment;
       }
     });
