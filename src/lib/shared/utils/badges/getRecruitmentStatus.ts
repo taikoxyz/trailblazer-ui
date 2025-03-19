@@ -18,7 +18,10 @@ export const getRecruitmentStatus = (recruitment: ActiveRecruitment, cycle: numb
 
   log('influenceCooldown > now', influenceCooldown > now);
 
-  if ((now > claimCooldown && recruitedBadge && recruitedBadge.tokenId > 0n) || recruitment.badge.tokenId === -1) {
+  if (
+    (claimCooldown > 0 && now > claimCooldown && recruitedBadge && recruitedBadge.tokenId > 0n) ||
+    recruitment.badge.tokenId === -1
+  ) {
     log('Recruitment is completed', recruitment);
     return RecruitmentStatus.COMPLETED;
   }
@@ -46,13 +49,3 @@ export const getRecruitmentStatus = (recruitment: ActiveRecruitment, cycle: numb
   log('Recruitment has not started');
   return RecruitmentStatus.NOT_STARTED;
 };
-
-// ELIGIBLE = 'ELIGIBLE',
-// NOT_STARTED = 'NOT_STARTED',
-// STARTED = 'STARTED',
-// CAN_REFINE = 'CAN_REFINE',
-// CAN_CLAIM = 'CAN_CLAIM',
-// COMPLETED = 'COMPLETED',
-// LOCKED = 'LOCKED',
-1739918040000000;
-1739953090537;

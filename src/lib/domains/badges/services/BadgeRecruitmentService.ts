@@ -256,7 +256,7 @@ export default class BadgeRecruitmentService {
       activeRecruitmentStore.set(filtered);
 
       if (filtered.length > 0) {
-        currentRecruitmentStore.set(filtered[filtered.length - 1]);
+        currentRecruitmentStore.set(filtered.find((recruitment) => recruitment.cycle === cycleId) || null);
       }
 
       return filtered;
