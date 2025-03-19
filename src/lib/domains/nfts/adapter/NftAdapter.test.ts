@@ -69,8 +69,6 @@ describe('NftAdapter', () => {
             badgeId: 1,
             erc: 777,
             movement: Movements.Dev,
-            // frozenS2: false,
-            // frozenS3: false,
           },
           tokenId: 33,
           tokenUri: 'uri',
