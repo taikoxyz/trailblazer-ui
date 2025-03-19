@@ -19,29 +19,29 @@ export const getRecruitmentStatus = (recruitment: ActiveRecruitment, cycle: numb
   log('influenceCooldown > now', influenceCooldown > now);
 
   if (
-    (claimCooldown > 0 && now > claimCooldown && recruitedBadge && recruitedBadge.tokenId > 0n) ||
+    ((claimCooldown === 0 || now > claimCooldown) && recruitedBadge && recruitedBadge.tokenId > 0n) ||
     recruitment.badge.tokenId === -1
   ) {
     log('Recruitment is completed', recruitment);
     return RecruitmentStatus.COMPLETED;
   }
 
-  if (Number(recruitment.cycle) !== cycle) {
+  if (Number(recruitment.cycle) !== cycle && !recruitment.recruitedBadge) {
     log('Recruitment is unfinished', recruitment, cycle, recruitment.cycle);
     return RecruitmentStatus.UNFINISHED;
   }
 
-  if (now > claimCooldown) {
+  if (now > claimCooldown && claimCooldown > 0) {
     log('Recruitment can be claimed', { now, claimCooldown });
     return RecruitmentStatus.CAN_CLAIM;
   }
 
-  if (influenceCooldown < now) {
+  if (influenceCooldown < now && influenceCooldown > 0) {
     log('Recruitment can be refined');
     return RecruitmentStatus.CAN_REFINE;
   }
 
-  if (now < claimCooldown) {
+  if (now < claimCooldown && claimCooldown > 0) {
     log('Recruitment started', recruitment, { now, claimCooldown });
     return RecruitmentStatus.STARTED;
   }
