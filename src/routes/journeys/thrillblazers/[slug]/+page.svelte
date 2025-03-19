@@ -26,7 +26,6 @@
   const handleClick = () => {
     goto('/leaderboard/s3/dapps');
   };
-
   $: if (pageInfo) {
     $leaderboardLoading = false;
   } else {
