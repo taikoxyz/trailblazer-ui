@@ -25,7 +25,7 @@ const subgraphs = [
     name: 'fba',
     url: process.env.PUBLIC_FBA_SUBGRAPH_URL,
     outputDir: './src/generated/graphql/fba/',
-  }
+  },
 ];
 
 // Generates object to hold dynamic codegen configuration

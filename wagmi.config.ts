@@ -118,10 +118,10 @@ export default defineConfig({
         167009: '0x2682Bc7be092Fba32C5622109b11892eE5db49F2',
         //167009: FactionBattleArenaHeklaDeployment.FactionBattleArena as Address,
         // todo: update mainnet address
-        167000: FactionBattleArenaHeklaDeployment.FactionBattleArena as Address
+        167000: FactionBattleArenaHeklaDeployment.FactionBattleArena as Address,
       },
       abi: FactionBattleArena.abi as Abi,
-    }
+    },
   ],
 
   plugins: [actions()],

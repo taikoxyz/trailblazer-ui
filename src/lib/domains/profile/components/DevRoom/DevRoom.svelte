@@ -11,9 +11,6 @@
   import { classNames } from '$shared/utils/classNames';
   import { isDevelopmentEnv } from '$shared/utils/isDevelopmentEnv';
   import { wagmiConfig } from '$shared/wagmi';
-  import Button from '$shared/components/Button/Button.svelte';
-  import FbaTableView from '$lib/domains/fba/components/FbaTableView.svelte';
-  import FactionBattleArenaService from '$lib/domains/fba/services/FactionBattleArena.service';
 
   const containerClass = classNames(
     'container',
@@ -186,5 +183,4 @@
       </div>
     </div>
   </div>
-
 {/if}

@@ -1,10 +1,8 @@
-import client from "https://api.goldsky.com/api/public/project_clz85cxrvng3n01ughcv5e7hg/subgraphs/fba-hekla/0.0.4/gn";
-import type {
-        
-      } from "@apollo/client";
-import { readable } from "svelte/store";
-import type { Readable } from "svelte/store";
-import gql from "graphql-tag"
+import client from 'https://api.goldsky.com/api/public/project_clz85cxrvng3n01ughcv5e7hg/subgraphs/fba-hekla/0.0.4/gn';
+import type {} from '@apollo/client';
+import { readable } from 'svelte/store';
+import type { Readable } from 'svelte/store';
+import gql from 'graphql-tag';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -14,16 +12,16 @@ export type MakeEmpty<T extends { [key: string]: unknown }, K extends keyof T> =
 export type Incremental<T> = T | { [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
-  ID: { input: string; output: string; }
-  String: { input: string; output: string; }
-  Boolean: { input: boolean; output: boolean; }
-  Int: { input: number; output: number; }
-  Float: { input: number; output: number; }
-  BigDecimal: { input: any; output: any; }
-  BigInt: { input: any; output: any; }
-  Bytes: { input: any; output: any; }
-  Int8: { input: any; output: any; }
-  Timestamp: { input: any; output: any; }
+  ID: { input: string; output: string };
+  String: { input: string; output: string };
+  Boolean: { input: boolean; output: boolean };
+  Int: { input: number; output: number };
+  Float: { input: number; output: number };
+  BigDecimal: { input: any; output: any };
+  BigInt: { input: any; output: any };
+  Bytes: { input: any; output: any };
+  Int8: { input: any; output: any };
+  Timestamp: { input: any; output: any };
 };
 
 export type Account = {
@@ -36,7 +34,6 @@ export type Account = {
   tokens: Array<Token>;
 };
 
-
 export type AccountApprovedS1TokensArgs = {
   first?: InputMaybe<Scalars['Int']['input']>;
   orderBy?: InputMaybe<Token_OrderBy>;
@@ -45,7 +42,6 @@ export type AccountApprovedS1TokensArgs = {
   where?: InputMaybe<Token_Filter>;
 };
 
-
 export type AccountS2BadgesArgs = {
   first?: InputMaybe<Scalars['Int']['input']>;
   orderBy?: InputMaybe<Token_OrderBy>;
@@ -53,7 +49,6 @@ export type AccountS2BadgesArgs = {
   skip?: InputMaybe<Scalars['Int']['input']>;
   where?: InputMaybe<Token_Filter>;
 };
-
 
 export type AccountTokensArgs = {
   first?: InputMaybe<Scalars['Int']['input']>;
@@ -104,12 +99,12 @@ export enum Account_OrderBy {
   ApprovedS1Tokens = 'approvedS1Tokens',
   Id = 'id',
   S2Badges = 's2Badges',
-  Tokens = 'tokens'
+  Tokens = 'tokens',
 }
 
 export enum Aggregation_Interval {
   Day = 'day',
-  Hour = 'hour'
+  Hour = 'hour',
 }
 
 export type BlockChangedFilter = {
@@ -173,13 +168,13 @@ export enum League_OrderBy {
   ExecuteTimestamp = 'executeTimestamp',
   Id = 'id',
   OpenTimestamp = 'openTimestamp',
-  Seed = 'seed'
+  Seed = 'seed',
 }
 
 /** Defines the order direction, either ascending or descending */
 export enum OrderDirection {
   Asc = 'asc',
-  Desc = 'desc'
+  Desc = 'desc',
 }
 
 export type Participant = {
@@ -271,7 +266,7 @@ export enum Participant_OrderBy {
   TokenMovement = 'token__movement',
   TokenSeason = 'token__season',
   TokenTokenId = 'token__tokenId',
-  TokenUri = 'token__uri'
+  TokenUri = 'token__uri',
 }
 
 export type Query = {
@@ -288,18 +283,15 @@ export type Query = {
   tokens: Array<Token>;
 };
 
-
 export type Query_MetaArgs = {
   block?: InputMaybe<Block_Height>;
 };
-
 
 export type QueryAccountArgs = {
   block?: InputMaybe<Block_Height>;
   id: Scalars['ID']['input'];
   subgraphError?: _SubgraphErrorPolicy_;
 };
-
 
 export type QueryAccountsArgs = {
   block?: InputMaybe<Block_Height>;
@@ -311,13 +303,11 @@ export type QueryAccountsArgs = {
   where?: InputMaybe<Account_Filter>;
 };
 
-
 export type QueryLeagueArgs = {
   block?: InputMaybe<Block_Height>;
   id: Scalars['ID']['input'];
   subgraphError?: _SubgraphErrorPolicy_;
 };
-
 
 export type QueryLeaguesArgs = {
   block?: InputMaybe<Block_Height>;
@@ -329,13 +319,11 @@ export type QueryLeaguesArgs = {
   where?: InputMaybe<League_Filter>;
 };
 
-
 export type QueryParticipantArgs = {
   block?: InputMaybe<Block_Height>;
   id: Scalars['ID']['input'];
   subgraphError?: _SubgraphErrorPolicy_;
 };
-
 
 export type QueryParticipantsArgs = {
   block?: InputMaybe<Block_Height>;
@@ -347,13 +335,11 @@ export type QueryParticipantsArgs = {
   where?: InputMaybe<Participant_Filter>;
 };
 
-
 export type QueryTokenArgs = {
   block?: InputMaybe<Block_Height>;
   id: Scalars['ID']['input'];
   subgraphError?: _SubgraphErrorPolicy_;
 };
-
 
 export type QueryTokensArgs = {
   block?: InputMaybe<Block_Height>;
@@ -379,18 +365,15 @@ export type Subscription = {
   tokens: Array<Token>;
 };
 
-
 export type Subscription_MetaArgs = {
   block?: InputMaybe<Block_Height>;
 };
-
 
 export type SubscriptionAccountArgs = {
   block?: InputMaybe<Block_Height>;
   id: Scalars['ID']['input'];
   subgraphError?: _SubgraphErrorPolicy_;
 };
-
 
 export type SubscriptionAccountsArgs = {
   block?: InputMaybe<Block_Height>;
@@ -402,13 +385,11 @@ export type SubscriptionAccountsArgs = {
   where?: InputMaybe<Account_Filter>;
 };
 
-
 export type SubscriptionLeagueArgs = {
   block?: InputMaybe<Block_Height>;
   id: Scalars['ID']['input'];
   subgraphError?: _SubgraphErrorPolicy_;
 };
-
 
 export type SubscriptionLeaguesArgs = {
   block?: InputMaybe<Block_Height>;
@@ -420,13 +401,11 @@ export type SubscriptionLeaguesArgs = {
   where?: InputMaybe<League_Filter>;
 };
 
-
 export type SubscriptionParticipantArgs = {
   block?: InputMaybe<Block_Height>;
   id: Scalars['ID']['input'];
   subgraphError?: _SubgraphErrorPolicy_;
 };
-
 
 export type SubscriptionParticipantsArgs = {
   block?: InputMaybe<Block_Height>;
@@ -438,13 +417,11 @@ export type SubscriptionParticipantsArgs = {
   where?: InputMaybe<Participant_Filter>;
 };
 
-
 export type SubscriptionTokenArgs = {
   block?: InputMaybe<Block_Height>;
   id: Scalars['ID']['input'];
   subgraphError?: _SubgraphErrorPolicy_;
 };
-
 
 export type SubscriptionTokensArgs = {
   block?: InputMaybe<Block_Height>;
@@ -586,7 +563,7 @@ export enum Token_OrderBy {
   OwnerId = 'owner__id',
   Season = 'season',
   TokenId = 'tokenId',
-  Uri = 'uri'
+  Uri = 'uri',
 }
 
 export type _Block_ = {
@@ -622,7 +599,5 @@ export enum _SubgraphErrorPolicy_ {
   /** Data will be returned even if the subgraph has indexing errors */
   Allow = 'allow',
   /** If the subgraph has indexing errors, data will be omitted. The default. */
-  Deny = 'deny'
+  Deny = 'deny',
 }
-
-

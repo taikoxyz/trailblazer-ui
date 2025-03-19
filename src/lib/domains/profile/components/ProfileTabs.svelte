@@ -5,6 +5,7 @@
   import { page } from '$app/stores';
   import { PUBLIC_CLAIMING_ACTIVE } from '$env/static/public';
   import BadgeRecruitment from '$lib/domains/badges/components/BadgeRecruitment.svelte';
+  import FbaTab from '$lib/domains/fba/components/FbaTab.svelte';
   import DevRoom from '$lib/domains/profile/components/DevRoom/DevRoom.svelte';
   import { ProfileNFTs } from '$lib/domains/profile/components/ProfileNFTs';
   import { classNames } from '$shared/utils/classNames';
@@ -13,7 +14,6 @@
   import ProfileTransactions from './ProfileActivity/ProfileTransactions.svelte';
   import ProfileLockdownTab from './ProfileLockdownTab.svelte';
   import ProfileRewardClaim from './ProfileRewardClaim/ProfileRewardClaim.svelte';
-  import FbaTab from '$lib/domains/fba/components/FbaTab.svelte';
 
   type TabContent = {
     name: string;
@@ -66,11 +66,11 @@
           },
         ]
       : []),
-      {
-        slug: 'fba',
-        name: 'Faction Battle Arena',
-        content: FbaTab
-      },
+    {
+      slug: 'fba',
+      name: 'Faction Battle Arena',
+      content: FbaTab,
+    },
 
     {
       slug: 'lockdown',
