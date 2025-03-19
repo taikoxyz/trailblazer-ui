@@ -133,7 +133,7 @@
 <br />
 <br />
 
-{#if !isDevelopmentEnv}
+{#if isDevelopmentEnv}
   <h1>
     Debug info
     <span class="text-sm"> (to be removed)</span>
