@@ -2,10 +2,17 @@
   import { writeContract } from '@wagmi/core';
   import { type Address, isAddressEqual, zeroAddress } from 'viem';
 
-  import { trailblazersBadgesAbi, trailblazersBadgesAddress } from '$generated/abi';
+  import {
+    badgeRecruitmentAbi,
+    badgeRecruitmentAddress,
+    trailblazersBadgesAbi,
+    trailblazersBadgesAddress,
+  } from '$generated/abi';
+  import { getFactionName } from '$lib/domains/nfts/types/badges/types';
   import ActionButton from '$shared/components/Button/ActionButton.svelte';
   import { errorToast, successToast } from '$shared/components/NotificationToast';
   import { account } from '$shared/stores/account';
+  import { pendingTransactions } from '$shared/stores/pendingTransactions';
   import claimBadge from '$shared/utils/badges/claimBadge';
   import { chainId } from '$shared/utils/chain';
   import { classNames } from '$shared/utils/classNames';
@@ -147,6 +154,64 @@
       canTransfer = true;
     }
   }
+
+  const stopRecruitmentCylce = async () => {
+    try {
+      const tx = await writeContract(wagmiConfig, {
+        abi: badgeRecruitmentAbi,
+        address: badgeRecruitmentAddress[chainId],
+        functionName: 'forceDisableAllRecruitments',
+        args: [],
+        chainId,
+      });
+      await pendingTransactions.add(tx);
+
+      successToast({
+        title: 'Success',
+        message: 'Recruitment cycle stopped',
+      });
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      console.error(error);
+      errorToast({
+        title: 'Error',
+        message: error.shortMessage || 'Error stopping recruitment cycle',
+      });
+    }
+  };
+
+  const startRecruitments = async () => {
+    try {
+      const tx = await writeContract(wagmiConfig, {
+        abi: badgeRecruitmentAbi,
+        address: badgeRecruitmentAddress[chainId],
+        functionName: 'enableRecruitments',
+        args: [selectedRecruitments],
+        chainId,
+      });
+      await pendingTransactions.add(tx);
+      successToast({
+        title: 'Success',
+        message: 'Recruitment cycle started',
+      });
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      console.error(error);
+      errorToast({
+        title: 'Error',
+        message: error.shortMessage || 'Error starting recruitment cycle',
+      });
+    }
+  };
+
+  $: recruitmentArray = [false, false, false, false, false, false, false, false];
+
+  $: selectedRecruitments = recruitmentArray.reduce((acc, curr, index) => {
+    if (curr) {
+      acc.push(BigInt(index));
+    }
+    return acc;
+  }, [] as bigint[]);
 </script>
 
 {#if isDevelopmentEnv}
@@ -164,22 +229,64 @@
       {/each}
     </div>
 
-    <div class="mt-6 py-6 flex flex-col">
-      <h1>Badge transfer</h1>
+    <div class="f-row w-full space-y-[20px] mt-[50px] px-[47px] pt-[34px]">
+      <div class="f-col w-full">
+        <h2>Recruitments</h2>
+        <ActionButton class="max-w-[240px] !min-h-[30px]" priority="primary" on:click={stopRecruitmentCylce}>
+          Stop Recruitment Cycle</ActionButton>
+
+        <div class="f-row w-full space-[25px]">
+          <div class="grid grid-cols-4 gap-[40px] mt-6">
+            <!-- eslint-disable-next-line @typescript-eslint/no-unused-vars -->
+            {#each recruitmentArray as _, index}
+              <div class="form-control">
+                <label class="label cursor-pointer">
+                  <span class="label-text">{getFactionName(index)} </span>
+                  <input
+                    type="checkbox"
+                    bind:checked={recruitmentArray[index]}
+                    class="checkbox checkbox-primary bg-black bg-opacity-50" />
+                </label>
+              </div>
+            {/each}
+          </div>
+        </div>
+        <ActionButton class="max-w-[240px] !min-h-[30px] mt-6" priority="primary" on:click={startRecruitments}>
+          Start Recruitment Cycle
+        </ActionButton>
+      </div>
+    </div>
+
+    <div class="mt-6 py-6 flex flex-col space-y-[20px] mt-[50px] px-[47px] pt-[34px]">
+      <h2>Badge transfer</h2>
       <div class={rowClass}>
-        <input
-          value={tokenId}
-          on:change={(e) => {
-            tokenId = parseInt(e.currentTarget?.value);
-          }}
-          placeholder="Token ID"
-          class="w-full h-full rounded-full text-center" />
-        <input
-          value={receiverAddress}
-          on:change={handleReceiverChanged}
-          placeholder="Receiver Address"
-          class="w-full h-full rounded-full text-center" />
-        <ActionButton disabled={!canTransfer} on:click={handleTransferClick} priority="primary">Transfer</ActionButton>
+        <label class="form-control w-full max-w-xs gap-1">
+          <div class="label">
+            <span class="label-text">TokenId</span>
+          </div>
+          <input
+            value={tokenId}
+            on:change={(e) => {
+              tokenId = parseInt(e.currentTarget?.value);
+            }}
+            placeholder="Token ID"
+            class=" input input-bordered input-primary w-full max-w-xs w-full h-[48px] rounded-full text-center" />
+        </label>
+
+        <label class="form-control w-full max-w-xs gap-1">
+          <div class="label">
+            <span class="label-text">Receiver Address</span>
+          </div>
+
+          <input
+            value={receiverAddress}
+            on:change={handleReceiverChanged}
+            placeholder="Receiver Address"
+            class="input input-bordered input-primary w-full max-w-xs w-full h-[48px] rounded-full text-center" />
+        </label>
+
+        <ActionButton class="place-self-end" disabled={!canTransfer} on:click={handleTransferClick} priority="primary"
+          >Transfer</ActionButton>
       </div>
     </div>
   </div>

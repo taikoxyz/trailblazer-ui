@@ -1,80 +1,118 @@
 <script lang="ts">
-  import { setContext } from 'svelte';
+  import { onDestroy, onMount, setContext } from 'svelte';
+  import type { Unsubscriber } from 'svelte/motion';
+  import { derived } from 'svelte/store';
   import { t } from 'svelte-i18n';
+  import { zeroAddress } from 'viem';
 
-  import { leaderboardConfig } from '$config';
+  import { browser } from '$app/environment';
   import { CampaignEndedInfoBox } from '$lib/domains/leaderboard/components/CampaignEndedInfoBox';
   import { AbstractLeaderboard, PointScore } from '$lib/domains/leaderboard/components/Template';
-  import { liquidityCompetitionService } from '$lib/domains/leaderboard/services/LeaderboardServiceInstances';
   import {
     currentLiquidityCompetitionLeaderboard,
     currentLiquidityCompetitionLeaderboardUserEntry,
   } from '$lib/domains/leaderboard/stores/liquidityCompetitionLeaderboard';
+  import {
+    activeLiquidityType,
+    fetchLeaderboard,
+    fetchLeaderboardUserEntry,
+    leaderboardStore,
+  } from '$lib/domains/leaderboard/stores/liquidityCompetitionStore';
+  import type { LiquidityCompetitionPage } from '$lib/domains/leaderboard/types/liquidity/types';
   import type { UserLeaderboardItem } from '$lib/domains/leaderboard/types/user/types';
   import type { PaginationInfo } from '$lib/shared/dto/CommonPageApiResponse';
   import { activeSeason } from '$shared/stores/activeSeason';
   import getConnectedAddress from '$shared/utils/getConnectedAddress';
 
-  import LiquidityRoyaleHeader from '../../Header/LiquidityRoyaleHeader/LiquidityRoyaleHeader.svelte';
+  import { getEditionDetails } from './editionDetails';
+  import LiquidityRoyaleHeader from './Header/LiquidityRoyaleHeader.svelte';
   import LiquidityDisclaimer from './LiquidityDisclaimer.svelte';
 
   let headers = ['No.', 'Address', 'Points'];
+  let leaderboard: LiquidityCompetitionPage;
 
   export let loading = false;
-  export let pageInfo: PaginationInfo<UserLeaderboardItem>;
-  const endedSeasons: number[] = [2];
+  export let edition: number;
 
-  // The seasons this campaign was active
-  const seasons: number[] = [2, 3];
+  let pageInfo: PaginationInfo<UserLeaderboardItem>;
+  const pageInfoStore = derived(leaderboardStore, ($leaderboardStore) => $leaderboardStore.pagination);
+  const unsubscribePageInfo = pageInfoStore.subscribe((value) => {
+    pageInfo = value;
+  });
 
+  const currentEdition: number = 3;
+  $: reactiveEdition = edition;
   $: totalItems = pageInfo?.total || 0;
-  $: pageSize = pageInfo?.size || leaderboardConfig.pageSizeXlarge;
-  $: hasEnded = endedSeasons.includes(Number($activeSeason));
+  $: hasEnded = reactiveEdition !== currentEdition;
+  $: leaderboard = $leaderboardStore;
 
-  function handlePageChange(page: number) {
-    loadLeaderboardData(page);
+  async function handlePageChange(page: number) {
+    if (browser) await fetchLeaderboard(page, $activeLiquidityType, reactiveEdition);
   }
 
   async function loadLeaderboardData(page: number, address = '') {
-    loading = true;
-    const args: PaginationInfo<UserLeaderboardItem> = { page, size: pageSize, total: totalItems, address };
-    const [leaderboardPage, userEntry] = await Promise.all([
-      liquidityCompetitionService.getLiquidityCompetitionLeaderboard(args, $activeSeason),
-      liquidityCompetitionService.getLiquidityCompetitionDataForAddress($activeSeason, getConnectedAddress()),
-    ]);
-
-    totalItems = leaderboardPage?.pagination.total || $currentLiquidityCompetitionLeaderboard.items.length;
-    $currentLiquidityCompetitionLeaderboardUserEntry = userEntry;
-    loading = false;
+    if (browser) await fetchLeaderboard(page, $activeLiquidityType, reactiveEdition, address);
   }
 
-  $: $activeSeason && loadLeaderboardData(pageInfo.page);
+  let activeTypeUnsubscribe: Unsubscriber;
+  onMount(() => {
+    if (browser && $activeSeason && pageInfo) {
+      loadLeaderboardData(pageInfo.page);
+    }
+    activeTypeUnsubscribe = activeLiquidityType.subscribe(() => {
+      if (pageInfo) loadLeaderboardData(pageInfo.page);
+    });
+  });
 
-  setContext('loadDappsLiquidityCompetitionLeaderboardData', loadLeaderboardData);
-  setContext('loadLiquidityCompetitionPageInfo', pageInfo);
+  onDestroy(() => {
+    if (activeTypeUnsubscribe) activeTypeUnsubscribe();
+    unsubscribePageInfo();
+  });
+
+  setContext('loadLiquidityCompetitionLeaderboardData', loadLeaderboardData);
+  setContext('liquidityEdition', edition);
+
+  $: details = getEditionDetails(reactiveEdition);
+  $: tabs = details?.tabs || [];
+
+  onMount(async () => {
+    const address = await getConnectedAddress();
+    if (address && address !== zeroAddress) {
+      const season = $activeSeason;
+      try {
+        await fetchLeaderboardUserEntry(address, edition, season);
+      } catch (error) {
+        console.error('Error fetching user row:', error);
+      }
+    }
+  });
 </script>
 
-{#if seasons.includes(Number($activeSeason))}
-  <AbstractLeaderboard
-    {headers}
-    season={$activeSeason}
-    data={$currentLiquidityCompetitionLeaderboard.items}
-    lastUpdated={new Date($currentLiquidityCompetitionLeaderboard.lastUpdated)}
-    showPagination={true}
-    showDetailsColumn={false}
-    showTrophy={true}
-    qualifyingPositions={100}
-    highlightedUserPosition={$currentLiquidityCompetitionLeaderboardUserEntry}
-    isLoading={loading}
-    ended={hasEnded}
-    endedComponent={CampaignEndedInfoBox}
-    endTitleText={$t(`leaderboard.liquidityRoyale.ended.s${$activeSeason}.title`)}
-    endDescriptionText={$t(`leaderboard.liquidityRoyale.ended.s${$activeSeason}.description`)}
-    {handlePageChange}
-    {totalItems}
-    headerComponent={LiquidityRoyaleHeader}
-    scoreComponent={PointScore} />
-  <LiquidityDisclaimer />
-{:else}
-  No data
-{/if}
+{#key edition}
+  {#if edition <= currentEdition}
+    <AbstractLeaderboard
+      {tabs}
+      {headers}
+      activeTabStore={activeLiquidityType}
+      season={$activeSeason}
+      data={leaderboard.items}
+      lastUpdated={new Date($currentLiquidityCompetitionLeaderboard.lastUpdated)}
+      showPagination={true}
+      showDetailsColumn={false}
+      showTrophy={true}
+      qualifyingPositions={50}
+      highlightedUserPosition={$currentLiquidityCompetitionLeaderboardUserEntry}
+      isLoading={loading}
+      ended={hasEnded}
+      endedComponent={CampaignEndedInfoBox}
+      endTitleText={$t(`leaderboard.liquidityRoyale.ended.edition${edition}.title`)}
+      endDescriptionText={$t(`leaderboard.liquidityRoyale.ended.edition${edition}.description`)}
+      {handlePageChange}
+      {totalItems}
+      headerComponent={LiquidityRoyaleHeader}
+      scoreComponent={PointScore} />
+    <LiquidityDisclaimer />
+  {:else}
+    No data
+  {/if}
+{/key}

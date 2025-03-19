@@ -10,6 +10,7 @@
 
 <ProfilePictureModal />
 <MintDisclaimerModal />
+
 <StartRecruitmentModal />
 <EndRecruitmentModal />
 <InfluenceRecruitmentModal />

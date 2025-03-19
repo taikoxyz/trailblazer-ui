@@ -8,7 +8,7 @@
   import type { DappLeaderboardItem } from '$lib/domains/leaderboard/dto/dapps.dto';
   import { leaderboardLoading } from '$lib/domains/leaderboard/stores/dappCompetitionLeaderboard';
   import { fetchLeaderboard, leaderboardStore } from '$lib/domains/leaderboard/stores/dappCompetitionStore';
-  import { CompetitionType } from '$lib/domains/leaderboard/types/competition/types';
+  import { DappCompetitionType } from '$lib/domains/leaderboard/types/competition/types';
   import type { PaginationInfo } from '$lib/shared/dto/CommonPageApiResponse';
   import { activeSeason } from '$shared/stores/activeSeason';
   import { getLogger } from '$shared/utils/logger';
@@ -29,12 +29,12 @@
 
   async function handlePageChange(page: number) {
     log('handlePageChange', page);
-    if (browser) await fetchLeaderboard(page, CompetitionType.THRILLBLAZER, reactiveEdition);
+    if (browser) await fetchLeaderboard(page, DappCompetitionType.THRILLBLAZER, reactiveEdition);
   }
 
   async function loadLeaderboardData(page: number) {
     log('loadLeaderboardData', page);
-    if (browser) await fetchLeaderboard(page, CompetitionType.THRILLBLAZER, reactiveEdition);
+    if (browser) await fetchLeaderboard(page, DappCompetitionType.THRILLBLAZER, reactiveEdition);
   }
 
   let leaderboard;

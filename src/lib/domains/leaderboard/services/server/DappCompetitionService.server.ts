@@ -8,7 +8,7 @@ import type { ProtocolDetailsAdapter } from '../../adapter/server/ProtocolDetail
 // import { DappCompetitionAdapter } from '../adapter/DappCompetitionAdapter';
 import type { DappLeaderboardItem } from '../../dto/dapps.dto';
 import { mapDappLeaderboardRow } from '../../mapper/mapper';
-import { CompetitionType, type DappCompetitionArgs } from '../../types/competition/types';
+import { type DappCompetitionArgs, DappCompetitionType } from '../../types/competition/types';
 import type { DappLeaderboardPage, DappLeaderboardRow } from '../../types/dapps/types';
 import type { UnifiedLeaderboardRow } from '../../types/shared/types';
 import { getSeasonForChillblazerEdition, getSeasonForThrillblazerEdition } from '../../utils/mapEditionToSeason';
@@ -37,12 +37,12 @@ export class DappCompetitionService {
       const { competitionType, edition, pagination } = args;
 
       let season = 0;
-      if (competitionType === CompetitionType.CHILLBLAZER) {
+      if (competitionType === DappCompetitionType.CHILLBLAZER) {
         season = getSeasonForChillblazerEdition(edition);
-      } else if (competitionType === CompetitionType.THRILLBLAZER) {
+      } else if (competitionType === DappCompetitionType.THRILLBLAZER) {
         season = getSeasonForThrillblazerEdition(edition);
       } else {
-        throw new Error('Invalid competition type', competitionType);
+        throw new Error('Invalid competition type');
       }
 
       const leaderboardPage: DappLeaderboardPage = {

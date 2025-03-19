@@ -105,7 +105,7 @@
         {#if entry.data?.length > 0}
           <button class="link">Details</button>
         {:else if entry.address}
-          <ExplorerLink address={entry.address} linkText="Explorer" shorten />
+          <ExplorerLink category="address" urlParam={entry.address} linkText="Explorer" shorten />
         {/if}
       </div>
     </td>
@@ -142,7 +142,7 @@
   {#each entry.data as detail}
     <tr id={(index + 0.5).toString()} class={expandedRowClasses}>
       <td class=""></td>
-      <td class="lg:px-10 w-1/4"><ExplorerLink address={detail.address} /></td>
+      <td class="lg:px-10 w-1/4"><ExplorerLink category="address" urlParam={detail.address} /></td>
       <td class="text-start table-cell lg:px-10 w-1/4"> </td>
       <td class="lg:px-10 body-regular w-1/4">
         <svelte:component this={scoreComponent} score={detail.score} />

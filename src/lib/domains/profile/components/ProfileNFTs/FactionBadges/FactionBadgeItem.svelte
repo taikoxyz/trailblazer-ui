@@ -1,29 +1,36 @@
 <script lang="ts">
-  import type { FactionBadgeButton } from '$lib/domains/profile/types/FactionBadgeButton';
-  import { MovementNames, Movements } from '$lib/domains/profile/types/types';
-  import { ActionButton } from '$shared/components/Button';
-  import type { NFT } from '$shared/types/NFT';
-  import { classNames } from '$shared/utils/classNames';
+  import { createEventDispatcher } from 'svelte';
 
-  import MultiplierBadge from '../MultiplierBadge.svelte';
+  import { ActionButton } from '$shared/components/Button';
+  import type { ActionButtonType } from '$shared/components/Button/types';
+  import { Icon } from '$shared/components/Icon';
+  import { currentRecruitmentStore } from '$shared/stores/recruitment';
+  import type { TBBadge } from '$shared/types/NFT';
+  import { isBadgeLocked } from '$shared/utils/badges/isBadgeLocked';
+  import { classNames } from '$shared/utils/classNames';
+  import { getLogger } from '$shared/utils/logger';
+
   import FactionImage from './FactionImage.svelte';
 
-  export let blurred: boolean = false;
   export let inColor: boolean = true;
-  export let buttonDisabled = false;
-  export let button: null | FactionBadgeButton = null;
-  export let hideBubbles = false;
-  export let locked: boolean = false;
-  export let token: NFT;
+  export let token: TBBadge;
+  export let blurred: boolean = false;
+  export let recruitingView: boolean = false;
+  export let isHovered: boolean = false;
+  export let button: { label: string; type: ActionButtonType } | null = null;
 
-  $: badgeId = (token.metadata.badgeId as number) || 0;
+  const dispatch = createEventDispatcher();
+  const log = getLogger('FactionBadgeItem');
 
-  // season-relevant value
-  $: isFrozen = token.metadata.frozenS3;
+  const handleBadgeClick = () => {
+    log('Badge clicked', token);
+    dispatch('badgeClick', { badge: token, badgeId });
+  };
+
+  $: badgeId = 'badgeId' in token ? (token.badgeId as number) : 0;
 
   // CSS classes
   $: wrapperClasses = classNames(
-    'w-[277px]',
     'relative',
     'overflow-hidden',
     'flex',
@@ -31,7 +38,8 @@
     'aspect-square',
     'rounded-[30px]',
     'transition-all',
-    inColor && !isFrozen ? 'grayscale-0' : 'grayscale',
+    inColor ? 'grayscale-0' : 'grayscale',
+    $$props.class,
   );
 
   const contentWrapperClasses = classNames(
@@ -43,56 +51,37 @@
     'overflow-hidden',
   );
 
-  $: imageWrapperClasses = classNames('w-full', 'f-col', 'items-center', blurred ? 'blur-md' : null);
+  $: imageWrapperClasses = classNames('w-full', 'f-col', 'items-center', isBlurred ? 'blur-md' : null);
 
-  const bubbleWrapperClasses = classNames(
-    'absolute',
-    'top-[20px]',
-    'right-[20px]',
-    'flex',
-    'flex-col',
-    'justify-end',
-    'items-end',
-    'gap-[5px]',
-  );
+  const lockedOverlayClasses = classNames('absolute', 'w-full', 'h-full', 'items-center', 'justify-center', 'f-col');
 
-  const buttonWrapperClasses = classNames('absolute', 'w-full', 'bottom-0', 'p-[20px]', 'h-[88px]');
+  $: reactiveToken = { ...token };
 
-  const lockedOverlayClasses = classNames('w-full', 'h-full');
+  $: isRecruiting = $currentRecruitmentStore?.cooldowns.claim
+    ? new Date($currentRecruitmentStore.cooldowns.claim) > new Date()
+    : false;
 
-  const lockedOverlayGlassClasses = classNames('glassy-background', 'absolute', 'w-full', 'h-full');
-
-  $: overlayImage = `/factions/recruitment/overlay-${MovementNames[token.metadata.movement as Movements].toLowerCase()}.svg`;
+  $: isBlurred = blurred || (isBadgeLocked(token) && (!isRecruiting || recruitingView));
 </script>
 
-<div class={wrapperClasses} role="button">
+<div class={wrapperClasses} on:click={handleBadgeClick} role="button" on:keydown tabindex="0">
   <div class={contentWrapperClasses}>
     <div class={imageWrapperClasses}>
-      <FactionImage {token} />
+      <FactionImage token={reactiveToken} />
     </div>
   </div>
   <slot />
 
-  {#if !hideBubbles}
-    <div class={bubbleWrapperClasses}>
-      <MultiplierBadge {token} />
+  {#if isBlurred}
+    <div class={lockedOverlayClasses}>
+      {#if !recruitingView || !isRecruiting}
+        <Icon type="lock" size={60} />
+      {/if}
     </div>
   {/if}
-
-  {#if button}
-    <div class={buttonWrapperClasses}>
-      <ActionButton
-        disabled={buttonDisabled || button.disabled}
-        on:click={() => button.handler && button.handler(badgeId)}
-        priority={button.type}>
-        {button.label}
-      </ActionButton>
-    </div>
-  {/if}
-
-  {#if locked}
-    <div class={lockedOverlayGlassClasses}>
-      <img class={lockedOverlayClasses} alt="Overlay" src={overlayImage} />
+  {#if isHovered && button}
+    <div class="absolute flex w-full h-full bg-black bg-opacity-20 z-10">
+      <ActionButton class="self-end m-2 !min-h-[48px] h-[48px]" priority={button.type}>{button.label}</ActionButton>
     </div>
   {/if}
 </div>

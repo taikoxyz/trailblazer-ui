@@ -31,6 +31,11 @@
       start_date: 'Dec 16th. 2024',
       end_date: 'March 17th 2025',
     },
+    {
+      id: 4,
+      start_date: 'March 17th 2025',
+      end_date: 'June 16th 2025',
+    },
   ];
 
   const getSeasonDetails = () => {

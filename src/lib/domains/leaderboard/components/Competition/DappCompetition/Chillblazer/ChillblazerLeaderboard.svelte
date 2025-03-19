@@ -7,7 +7,7 @@
   import { AbstractLeaderboard, PointScore } from '$lib/domains/leaderboard/components/Template';
   import type { DappLeaderboardItem } from '$lib/domains/leaderboard/dto/dapps.dto';
   import { fetchLeaderboard, leaderboardStore } from '$lib/domains/leaderboard/stores/dappCompetitionStore';
-  import { CompetitionType } from '$lib/domains/leaderboard/types/competition/types';
+  import { DappCompetitionType } from '$lib/domains/leaderboard/types/competition/types';
   import type { PaginationInfo } from '$lib/shared/dto/CommonPageApiResponse';
   import { activeSeason } from '$shared/stores/activeSeason';
   import { getLogger } from '$shared/utils/logger';
@@ -30,13 +30,13 @@
 
   function handlePageChange(page: number) {
     log('handlePageChange', page);
-    if (browser) fetchLeaderboard(page, CompetitionType.CHILLBLAZER, edition);
+    if (browser) fetchLeaderboard(page, DappCompetitionType.CHILLBLAZER, edition);
   }
 
   async function loadLeaderboardData(page: number) {
     log('loadLeaderboardData', page);
     loading = true;
-    if (browser) await fetchLeaderboard(page, CompetitionType.CHILLBLAZER, edition);
+    if (browser) await fetchLeaderboard(page, DappCompetitionType.CHILLBLAZER, edition);
     loading = false;
   }
 

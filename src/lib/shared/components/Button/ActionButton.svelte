@@ -52,6 +52,37 @@
 
   $: tertiaryClasses = classNames('btn-primary', 'border-none');
 
+  const fancyButtonClasses = classNames(
+    'btn',
+    'btn-ghost',
+    'border-none',
+    'w-full',
+    'fancy-background',
+    'rounded-full',
+    'py-[16px]',
+    'font-[700]',
+    'text-[#F3F3F3]',
+    'text-[16px]/[24px]',
+    'relative',
+    'flex',
+    'justify-center',
+    'gap-[12px]',
+    'items-center',
+    'disabled:grayscale',
+    'disabled:opacity-50',
+  );
+
+  const fancyBorderClasses = classNames(
+    'w-2/3',
+    'h-[1px]',
+    'absolute',
+    'rounded-full',
+    'bg-gradient-to-r',
+    'from-transparent',
+    'via-[white]',
+    'to-transparent',
+  );
+
   const tertiaryBorderClasses = classNames(
     'bg-[green]',
     'absolute',
@@ -67,6 +98,7 @@
 
   $: priorityToClassMap = {
     primary: primaryClasses,
+    fancy: fancyButtonClasses,
     secondary: secondaryClasses,
     tertiary: tertiaryClasses,
   };
@@ -76,7 +108,10 @@
 
 {#if $$restProps.href}
   <a {...$$restProps} href={$$restProps.href} target="_blank" class={classes}>
-    {#if priority === 'tertiary'}
+    {#if priority === 'fancy'}
+      <div class={classNames(fancyBorderClasses, 'top-0')}></div>
+      <div class={classNames(fancyBorderClasses, 'bottom-0')}></div>
+    {:else if priority === 'tertiary'}
       <div class={tertiaryBorderClasses}></div>
     {/if}
     {#if loading}
@@ -96,7 +131,10 @@
   </a>
 {:else}
   <button {...$$restProps} class={classes} on:click>
-    {#if priority === 'tertiary'}
+    {#if priority === 'fancy'}
+      <div class={classNames(fancyBorderClasses, 'top-0')}></div>
+      <div class={classNames(fancyBorderClasses, 'bottom-0')}></div>
+    {:else if priority === 'tertiary'}
       <div class={tertiaryBorderClasses}></div>
     {/if}
     {#if loading}
