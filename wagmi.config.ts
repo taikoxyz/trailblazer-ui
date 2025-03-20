@@ -1,24 +1,23 @@
 import { defineConfig } from '@wagmi/cli';
 import { actions } from '@wagmi/cli/plugins';
 import type { Abi, Address } from 'abitype';
-
-import * as EventRegisterHeklaDeployment from '../trailblazer-contracts/deployments/eventRegister/hekla.json';
-import * as EventRegisterMainnetDeployment from '../trailblazer-contracts/deployments/eventRegister/mainnet.json';
-import * as ProfilePictureHeklaDeployment from '../trailblazer-contracts/deployments/profile/hekla.json';
-import * as ProfilePictureMainnetDeployment from '../trailblazer-contracts/deployments/profile/mainnet.json';
-import * as TaikoonHeklaDeployment from '../trailblazer-contracts/deployments/taikoon/hekla.json';
-import * as TaikoonMainnetDeployment from '../trailblazer-contracts/deployments/taikoon/mainnet.json';
-import * as S1ClaimHeklaDeployment from '../trailblazer-contracts/deployments/trailblazers-airdrop/hekla.json';
-import * as S1ClaimMainnetDeployment from '../trailblazer-contracts/deployments/trailblazers-airdrop/mainnet.json';
-import * as TrailblazerBadgesS2HeklaDeployment from '../trailblazer-contracts/deployments/trailblazers-season-2/hekla.json';
-import * as TrailblazerBadgesS2MainnetDeployment from '../trailblazer-contracts/deployments/trailblazers-season-2/mainnet.json';
-import BadgeRecruitmentV2 from '../trailblazer-contracts/out/BadgeRecruitmentV2.sol/BadgeRecruitmentV2.json';
-import ERC20Airdrop from '../trailblazer-contracts/out/ERC20Airdrop.sol/ERC20Airdrop.json';
-import EventRegister from '../trailblazer-contracts/out/EventRegister.sol/EventRegister.json';
-import RegisterProfilePicture from '../trailblazer-contracts/out/RegisterProfilePicture.sol/RegisterProfilePicture.json';
-import TaikoonToken from '../trailblazer-contracts/out/TaikoonToken.sol/TaikoonToken.json';
-import TrailblazersBadgesS2 from '../trailblazer-contracts/out/TrailblazersBadgesS2.sol/TrailblazersBadgesS2.json';
-import TrailblazersS1BadgesV8 from '../trailblazer-contracts/out/TrailblazersS1BadgesV8.sol/TrailblazersBadgesV8.json';
+import { default as EventRegisterHeklaDeployment } from 'trailblazer-contracts/deployments/eventRegister/hekla.json' assert { type: 'json' };
+import { default as EventRegisterMainnetDeployment } from 'trailblazer-contracts/deployments/eventRegister/mainnet.json' assert { type: 'json' };
+import { default as ProfilePictureHeklaDeployment } from 'trailblazer-contracts/deployments/profile/hekla.json' assert { type: 'json' };
+import { default as ProfilePictureMainnetDeployment } from 'trailblazer-contracts/deployments/profile/mainnet.json' assert { type: 'json' };
+import { default as TaikoonHeklaDeployment } from 'trailblazer-contracts/deployments/taikoon/hekla.json' assert { type: 'json' };
+import { default as TaikoonMainnetDeployment } from 'trailblazer-contracts/deployments/taikoon/mainnet.json' assert { type: 'json' };
+import { default as S1ClaimHeklaDeployment } from 'trailblazer-contracts/deployments/trailblazers-airdrop/hekla.json' assert { type: 'json' };
+import { default as S1ClaimMainnetDeployment } from 'trailblazer-contracts/deployments/trailblazers-airdrop/mainnet.json' assert { type: 'json' };
+import { default as TrailblazerBadgesS2HeklaDeployment } from 'trailblazer-contracts/deployments/trailblazers-season-2/hekla.json' assert { type: 'json' };
+import { default as TrailblazerBadgesS2MainnetDeployment } from 'trailblazer-contracts/deployments/trailblazers-season-2/mainnet.json' assert { type: 'json' };
+import BadgeRecruitmentV2 from 'trailblazer-contracts/out/BadgeRecruitmentV2.sol/BadgeRecruitmentV2.json' assert { type: 'json' };
+import ERC20Airdrop from 'trailblazer-contracts/out/ERC20Airdrop.sol/ERC20Airdrop.json' assert { type: 'json' };
+import EventRegister from 'trailblazer-contracts/out/EventRegister.sol/EventRegister.json' assert { type: 'json' };
+import RegisterProfilePicture from 'trailblazer-contracts/out/RegisterProfilePicture.sol/RegisterProfilePicture.json' assert { type: 'json' };
+import TaikoonToken from 'trailblazer-contracts/out/TaikoonToken.sol/TaikoonToken.json' assert { type: 'json' };
+import TrailblazersBadgesS2 from 'trailblazer-contracts/out/TrailblazersBadgesS2.sol/TrailblazersBadgesS2.json' assert { type: 'json' };
+import TrailblazersS1BadgesV8 from 'trailblazer-contracts/out/TrailblazersS1BadgesV8.sol/TrailblazersBadgesV8.json' assert { type: 'json' };
 
 export default defineConfig({
   out: 'src/generated/abi/index.ts',
