@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { Spinner } from '$shared/components';
   import { ActionButton } from '$shared/components/Button';
   import { classNames } from '$shared/utils/classNames';
 
@@ -87,7 +88,7 @@
 
 <div class={contentWrapperClasses}>
   {#if loading}
-    Test
+    <Spinner />
   {:else if amount && amount === 0}
     <img class={iconClasses} alt="Error" src="/error/error.png" />
     <div class={textWrapperClasses}>
