@@ -1,6 +1,6 @@
 import { PUBLIC_ACTIVE_SEASON } from '$env/static/public';
 
-const SeasonEndToDateMap: { [key: number]: Date } = {
+export const SeasonEndToDateMap: { [key: number]: Date } = {
   1: new Date('2024-09-15'),
   2: new Date('2024-12-16'),
   3: new Date('2025-03-17'),

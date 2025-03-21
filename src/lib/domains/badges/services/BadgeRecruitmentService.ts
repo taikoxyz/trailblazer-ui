@@ -1,7 +1,6 @@
 import { get } from 'svelte/store';
 import { type Address, zeroAddress } from 'viem';
 
-import { default as AffectedMonkTokenIds } from '$generated/affected-monk-token-ids.json';
 import nftService from '$lib/domains/nfts/services/NFTServiceInstance';
 import { type FactionNames, getFactionName } from '$lib/domains/nfts/types/badges/types';
 import type { RecruitmentDetails } from '$lib/domains/profile/types/RecruitmentDetails';
@@ -265,18 +264,6 @@ export default class BadgeRecruitmentService {
       console.error('Error in getUserRecruitments', error);
       return [] as ActiveRecruitment[];
     }
-  }
-
-  async canRecruitInCycle(address: Address, cylce: number, badge: TBBadge): Promise<boolean> {
-    log('canRecruitInCycle', { address, cylce, badge });
-
-    const tokenId = badge.tokenId;
-    const isAffected = AffectedMonkTokenIds.includes(tokenId);
-    if (isAffected) {
-      return true;
-    }
-    const alreadyRecruited = await this.adapter.hasRecruitedInCycle(address, cylce, badge.badgeId);
-    return !alreadyRecruited;
   }
 
   //   /**
