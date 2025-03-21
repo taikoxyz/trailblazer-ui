@@ -267,6 +267,7 @@
                   <FactionBadgeItem
                     class={factionBadgeItemClasses}
                     token={badge}
+                    locked={isBadgeLocked(badge)}
                     hideBubbles
                     on:badgeClick={viewFullCollection} />
                   <div class={mt2TextCenterClasses}>
