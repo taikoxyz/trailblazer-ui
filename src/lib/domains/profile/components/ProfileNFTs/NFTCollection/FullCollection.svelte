@@ -5,7 +5,8 @@
   import { getMovementName, Movements } from '$lib/domains/profile/types/types';
   import { Spinner } from '$shared/components';
   import { Icon } from '$shared/components/Icon';
-  import { activeRecruitmentStore } from '$shared/stores/recruitment';
+  import { currentRecruitmentStore } from '$shared/stores/recruitment';
+  import { RecruitmentStatus } from '$shared/types/BadgeRecruitment';
   import type { NFT, TBBadge } from '$shared/types/NFT';
   import { isBadgeLocked } from '$shared/utils/badges/isBadgeLocked';
   import { classNames } from '$shared/utils/classNames';
@@ -167,14 +168,8 @@
               {@const isSelected = selectedBadge && selectedBadge.tokenId === badge.tokenId}
               {@const displayIndicator =
                 recruitingView &&
-                $activeRecruitmentStore?.some((recruitment) => {
-                  log(recruitment.badge.tokenId, badge.tokenId, recruitment.status);
-                  return (
-                    recruitment.badge.tokenId === badge.tokenId &&
-                    recruitment.status !== 'COMPLETED' &&
-                    badge.badgeId === recruitment.badge.badgeId
-                  );
-                })}
+                $currentRecruitmentStore?.badge.tokenId === badge.tokenId &&
+                $currentRecruitmentStore?.status !== RecruitmentStatus.COMPLETED}
               <div class="indicator w-full">
                 {#if displayIndicator}
                   <span

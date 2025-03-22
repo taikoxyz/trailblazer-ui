@@ -42,7 +42,8 @@ export class NftService {
       }
 
       const tokenUriUrl = `/api/proxy?url=${encodeURIComponent(tokenBaseUri)}`;
-      const src = await axios.get(tokenUriUrl);
+
+      const src = await axios.get(tokenUriUrl, globalAxiosConfig);
       return src.data;
     } catch (error) {
       log('getNFTMetadata error', { error }, nft);
