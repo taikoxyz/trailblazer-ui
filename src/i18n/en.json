@@ -2,6 +2,7 @@
   "badge_recruitment": {
     "buttons": {
       "already_recruited": "Already recruited this cycle",
+      "already_recruited_season": "Already recruited this season",
       "end_recruitment": "Claim",
       "influence": "Influence",
       "influencing": "Influencing",
@@ -915,6 +916,9 @@
           "title": "Journey ended"
         },
         "prize_breakdown": {
+          "fifth": {
+            "amount": "15k"
+          },
           "first": {
             "amount": "45k"
           },
@@ -924,17 +928,14 @@
           "second": {
             "amount": "30k"
           },
-          "third": {
-            "amount": "25k"
-          },
-          "fifth": {
-            "amount": "15k"
+          "seventh": {
+            "amount": "5k"
           },
           "sixth": {
             "amount": "10k"
           },
-          "seventh": {
-            "amount": "5k"
+          "third": {
+            "amount": "25k"
           },
           "total": "150k TAIKO Tokens"
         }

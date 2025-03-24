@@ -1,43 +1,53 @@
 <!-- UpdateStatusProvider.svelte -->
 <script lang="ts">
   import { setContext } from 'svelte';
+  import { get } from 'svelte/store';
 
-  import { activeRecruitmentStore, currentCycleStore, currentRecruitmentStore } from '$shared/stores/recruitment';
-  import { RecruitmentStatus } from '$shared/types/BadgeRecruitment';
+  import { activeRecruitmentStore, currentCycleStore } from '$shared/stores/recruitment';
+  import { type ActiveRecruitment, RecruitmentStatus } from '$shared/types/BadgeRecruitment';
+  import type { TBBadge } from '$shared/types/NFT';
   import { getRecruitmentStatus } from '$shared/utils/badges/getRecruitmentStatus';
   import { getLogger } from '$shared/utils/logger';
 
   const log = getLogger('UpdateStatus');
-  let updating = false;
-  let activeCycle: number = $currentCycleStore || -1;
-  let status: RecruitmentStatus = RecruitmentStatus.NOT_STARTED;
 
-  const updateStatus = async (): Promise<void> => {
-    let recruitment = $currentRecruitmentStore;
+  // Updates current recruitment status
+  export const updateStatus = async (badge: TBBadge): Promise<RecruitmentStatus> => {
+    log('passed badge', badge.tokenId);
+    const activeCycle = get(currentCycleStore);
+    if (!activeCycle) {
+      log('No active cycle found');
+      return RecruitmentStatus.NOT_STARTED;
+    }
+
+    log('Badge tokenId:', badge.tokenId, 'Type:', typeof badge.tokenId);
+    get(activeRecruitmentStore)?.forEach((r: ActiveRecruitment) => {
+      log('Recruitment badge tokenId:', r.badge.tokenId, 'Type:', typeof r.badge.tokenId, 'Cycle:', r.cycle);
+    });
+    const recruitment = get(activeRecruitmentStore)?.find(
+      (r: ActiveRecruitment) => r.badge.tokenId.toString() === badge.tokenId.toString() && r.cycle === activeCycle,
+    );
     if (!recruitment) {
-      return;
-    }
-    log('Updating status for recruitment:', recruitment);
-    if (updating || !recruitment) {
-      log('Skipping update status for badge:', recruitment.badge, recruitment);
-      return;
-    }
-    const filter = $activeRecruitmentStore?.find((r) => r.badge.tokenId === recruitment?.badge.tokenId);
-    if (!filter) {
-      status = RecruitmentStatus.NOT_STARTED;
-      log('No recruitment found for badge:', recruitment.badge, status);
-      return;
-    }
-    recruitment = filter;
-    updating = true;
-    log('Updating status for badge:', recruitment.badge, recruitment);
-    const newStatus = await getRecruitmentStatus(recruitment, activeCycle);
-    updating = false;
+      log('No recruitment found for badge:', badge);
 
-    if (newStatus !== status) {
-      status = newStatus;
-      log('Status updated:', status, recruitment);
+      // check if badgeId was recruited this cycle
+      const wasRecruitedInCylce = get(activeRecruitmentStore)?.some(
+        (r: ActiveRecruitment) => r.badge.badgeId === badge.badgeId && r.cycle === activeCycle,
+      );
+
+      if (wasRecruitedInCylce) {
+        log('Badge was recruited in this cycle:', activeCycle);
+        return RecruitmentStatus.ALREADY_RECRUITED_CYCLE;
+      }
+
+      return RecruitmentStatus.NOT_STARTED;
     }
+    log('Updating status for badge:', recruitment.badge.tokenId, recruitment.badge, recruitment);
+
+    const newStatus = await getRecruitmentStatus(recruitment, activeCycle);
+    recruitment.status = newStatus;
+    log('Status updated:', newStatus, recruitment);
+    return newStatus;
   };
 
   setContext('badgeRecruitUpdate', updateStatus);
