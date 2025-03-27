@@ -1,8 +1,10 @@
-import client from 'https://api.goldsky.com/api/public/project_clz85cxrvng3n01ughcv5e7hg/subgraphs/tbz-badges-hekla/0.0.4/gn';
-import type {} from '@apollo/client';
-import { readable } from 'svelte/store';
-import type { Readable } from 'svelte/store';
-import gql from 'graphql-tag';
+import client from "https://api.goldsky.com/api/public/project_cm0gfm7474if101wcawrq6mhu/subgraphs/tbz-all/2.0.0/gn";
+import type {
+        
+      } from "@apollo/client";
+import { readable } from "svelte/store";
+import type { Readable } from "svelte/store";
+import gql from "graphql-tag"
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -12,16 +14,16 @@ export type MakeEmpty<T extends { [key: string]: unknown }, K extends keyof T> =
 export type Incremental<T> = T | { [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
-  ID: { input: string; output: string };
-  String: { input: string; output: string };
-  Boolean: { input: boolean; output: boolean };
-  Int: { input: number; output: number };
-  Float: { input: number; output: number };
-  BigDecimal: { input: any; output: any };
-  BigInt: { input: any; output: any };
-  Bytes: { input: any; output: any };
-  Int8: { input: any; output: any };
-  Timestamp: { input: any; output: any };
+  ID: { input: string; output: string; }
+  String: { input: string; output: string; }
+  Boolean: { input: boolean; output: boolean; }
+  Int: { input: number; output: number; }
+  Float: { input: number; output: number; }
+  BigDecimal: { input: any; output: any; }
+  BigInt: { input: any; output: any; }
+  Bytes: { input: any; output: any; }
+  Int8: { input: any; output: any; }
+  Timestamp: { input: any; output: any; }
 };
 
 export type Account = {
@@ -35,6 +37,7 @@ export type Account = {
   tokens: Array<Token>;
 };
 
+
 export type AccountApprovedS1TokensArgs = {
   first?: InputMaybe<Scalars['Int']['input']>;
   orderBy?: InputMaybe<Token_OrderBy>;
@@ -42,6 +45,7 @@ export type AccountApprovedS1TokensArgs = {
   skip?: InputMaybe<Scalars['Int']['input']>;
   where?: InputMaybe<Token_Filter>;
 };
+
 
 export type AccountS2BadgesArgs = {
   first?: InputMaybe<Scalars['Int']['input']>;
@@ -51,6 +55,7 @@ export type AccountS2BadgesArgs = {
   where?: InputMaybe<Token_Filter>;
 };
 
+
 export type AccountS2RecruitmentsArgs = {
   first?: InputMaybe<Scalars['Int']['input']>;
   orderBy?: InputMaybe<BadgeRecruitment_OrderBy>;
@@ -58,6 +63,7 @@ export type AccountS2RecruitmentsArgs = {
   skip?: InputMaybe<Scalars['Int']['input']>;
   where?: InputMaybe<BadgeRecruitment_Filter>;
 };
+
 
 export type AccountTokensArgs = {
   first?: InputMaybe<Scalars['Int']['input']>;
@@ -110,12 +116,12 @@ export enum Account_OrderBy {
   Id = 'id',
   S2Badges = 's2Badges',
   S2Recruitments = 's2Recruitments',
-  Tokens = 'tokens',
+  Tokens = 'tokens'
 }
 
 export enum Aggregation_Interval {
   Day = 'day',
-  Hour = 'hour',
+  Hour = 'hour'
 }
 
 export type BadgeRecruitment = {
@@ -275,7 +281,7 @@ export enum BadgeRecruitment_OrderBy {
   S1BadgeBadgeId = 's1Badge__badgeId',
   S1BadgeContract = 's1Badge__contract',
   S1BadgeErc = 's1Badge__erc',
-  S1BadgeFrozenUntil = 's1Badge__frozenUntil',
+  S1BadgeFrozenAt = 's1Badge__frozenAt',
   S1BadgeId = 's1Badge__id',
   S1BadgeMovement = 's1Badge__movement',
   S1BadgeSeason = 's1Badge__season',
@@ -285,13 +291,13 @@ export enum BadgeRecruitment_OrderBy {
   S2BadgeBadgeId = 's2Badge__badgeId',
   S2BadgeContract = 's2Badge__contract',
   S2BadgeErc = 's2Badge__erc',
-  S2BadgeFrozenUntil = 's2Badge__frozenUntil',
+  S2BadgeFrozenAt = 's2Badge__frozenAt',
   S2BadgeId = 's2Badge__id',
   S2BadgeMovement = 's2Badge__movement',
   S2BadgeSeason = 's2Badge__season',
   S2BadgeTokenId = 's2Badge__tokenId',
   S2BadgeUri = 's2Badge__uri',
-  WhaleInfluences = 'whaleInfluences',
+  WhaleInfluences = 'whaleInfluences'
 }
 
 export type BlockChangedFilter = {
@@ -359,13 +365,13 @@ export enum OpenRecruitment_OrderBy {
   Enabled = 'enabled',
   EndTime = 'endTime',
   Id = 'id',
-  StartTime = 'startTime',
+  StartTime = 'startTime'
 }
 
 /** Defines the order direction, either ascending or descending */
 export enum OrderDirection {
   Asc = 'asc',
-  Desc = 'desc',
+  Desc = 'desc'
 }
 
 export type Query = {
@@ -382,15 +388,18 @@ export type Query = {
   tokens: Array<Token>;
 };
 
+
 export type Query_MetaArgs = {
   block?: InputMaybe<Block_Height>;
 };
+
 
 export type QueryAccountArgs = {
   block?: InputMaybe<Block_Height>;
   id: Scalars['ID']['input'];
   subgraphError?: _SubgraphErrorPolicy_;
 };
+
 
 export type QueryAccountsArgs = {
   block?: InputMaybe<Block_Height>;
@@ -402,11 +411,13 @@ export type QueryAccountsArgs = {
   where?: InputMaybe<Account_Filter>;
 };
 
+
 export type QueryBadgeRecruitmentArgs = {
   block?: InputMaybe<Block_Height>;
   id: Scalars['ID']['input'];
   subgraphError?: _SubgraphErrorPolicy_;
 };
+
 
 export type QueryBadgeRecruitmentsArgs = {
   block?: InputMaybe<Block_Height>;
@@ -418,11 +429,13 @@ export type QueryBadgeRecruitmentsArgs = {
   where?: InputMaybe<BadgeRecruitment_Filter>;
 };
 
+
 export type QueryOpenRecruitmentArgs = {
   block?: InputMaybe<Block_Height>;
   id: Scalars['ID']['input'];
   subgraphError?: _SubgraphErrorPolicy_;
 };
+
 
 export type QueryOpenRecruitmentsArgs = {
   block?: InputMaybe<Block_Height>;
@@ -434,11 +447,13 @@ export type QueryOpenRecruitmentsArgs = {
   where?: InputMaybe<OpenRecruitment_Filter>;
 };
 
+
 export type QueryTokenArgs = {
   block?: InputMaybe<Block_Height>;
   id: Scalars['ID']['input'];
   subgraphError?: _SubgraphErrorPolicy_;
 };
+
 
 export type QueryTokensArgs = {
   block?: InputMaybe<Block_Height>;
@@ -464,15 +479,18 @@ export type Subscription = {
   tokens: Array<Token>;
 };
 
+
 export type Subscription_MetaArgs = {
   block?: InputMaybe<Block_Height>;
 };
+
 
 export type SubscriptionAccountArgs = {
   block?: InputMaybe<Block_Height>;
   id: Scalars['ID']['input'];
   subgraphError?: _SubgraphErrorPolicy_;
 };
+
 
 export type SubscriptionAccountsArgs = {
   block?: InputMaybe<Block_Height>;
@@ -484,11 +502,13 @@ export type SubscriptionAccountsArgs = {
   where?: InputMaybe<Account_Filter>;
 };
 
+
 export type SubscriptionBadgeRecruitmentArgs = {
   block?: InputMaybe<Block_Height>;
   id: Scalars['ID']['input'];
   subgraphError?: _SubgraphErrorPolicy_;
 };
+
 
 export type SubscriptionBadgeRecruitmentsArgs = {
   block?: InputMaybe<Block_Height>;
@@ -500,11 +520,13 @@ export type SubscriptionBadgeRecruitmentsArgs = {
   where?: InputMaybe<BadgeRecruitment_Filter>;
 };
 
+
 export type SubscriptionOpenRecruitmentArgs = {
   block?: InputMaybe<Block_Height>;
   id: Scalars['ID']['input'];
   subgraphError?: _SubgraphErrorPolicy_;
 };
+
 
 export type SubscriptionOpenRecruitmentsArgs = {
   block?: InputMaybe<Block_Height>;
@@ -516,11 +538,13 @@ export type SubscriptionOpenRecruitmentsArgs = {
   where?: InputMaybe<OpenRecruitment_Filter>;
 };
 
+
 export type SubscriptionTokenArgs = {
   block?: InputMaybe<Block_Height>;
   id: Scalars['ID']['input'];
   subgraphError?: _SubgraphErrorPolicy_;
 };
+
 
 export type SubscriptionTokensArgs = {
   block?: InputMaybe<Block_Height>;
@@ -537,7 +561,7 @@ export type Token = {
   badgeId?: Maybe<Scalars['BigInt']['output']>;
   contract: Scalars['Bytes']['output'];
   erc: Scalars['BigInt']['output'];
-  frozenUntil?: Maybe<Scalars['BigInt']['output']>;
+  frozenAt?: Maybe<Scalars['BigInt']['output']>;
   id: Scalars['ID']['output'];
   movement?: Maybe<Scalars['BigInt']['output']>;
   owner: Account;
@@ -576,14 +600,14 @@ export type Token_Filter = {
   erc_lte?: InputMaybe<Scalars['BigInt']['input']>;
   erc_not?: InputMaybe<Scalars['BigInt']['input']>;
   erc_not_in?: InputMaybe<Array<Scalars['BigInt']['input']>>;
-  frozenUntil?: InputMaybe<Scalars['BigInt']['input']>;
-  frozenUntil_gt?: InputMaybe<Scalars['BigInt']['input']>;
-  frozenUntil_gte?: InputMaybe<Scalars['BigInt']['input']>;
-  frozenUntil_in?: InputMaybe<Array<Scalars['BigInt']['input']>>;
-  frozenUntil_lt?: InputMaybe<Scalars['BigInt']['input']>;
-  frozenUntil_lte?: InputMaybe<Scalars['BigInt']['input']>;
-  frozenUntil_not?: InputMaybe<Scalars['BigInt']['input']>;
-  frozenUntil_not_in?: InputMaybe<Array<Scalars['BigInt']['input']>>;
+  frozenAt?: InputMaybe<Scalars['BigInt']['input']>;
+  frozenAt_gt?: InputMaybe<Scalars['BigInt']['input']>;
+  frozenAt_gte?: InputMaybe<Scalars['BigInt']['input']>;
+  frozenAt_in?: InputMaybe<Array<Scalars['BigInt']['input']>>;
+  frozenAt_lt?: InputMaybe<Scalars['BigInt']['input']>;
+  frozenAt_lte?: InputMaybe<Scalars['BigInt']['input']>;
+  frozenAt_not?: InputMaybe<Scalars['BigInt']['input']>;
+  frozenAt_not_in?: InputMaybe<Array<Scalars['BigInt']['input']>>;
   id?: InputMaybe<Scalars['ID']['input']>;
   id_gt?: InputMaybe<Scalars['ID']['input']>;
   id_gte?: InputMaybe<Scalars['ID']['input']>;
@@ -664,7 +688,7 @@ export enum Token_OrderBy {
   BadgeId = 'badgeId',
   Contract = 'contract',
   Erc = 'erc',
-  FrozenUntil = 'frozenUntil',
+  FrozenAt = 'frozenAt',
   Id = 'id',
   Movement = 'movement',
   Owner = 'owner',
@@ -672,7 +696,7 @@ export enum Token_OrderBy {
   OwnerId = 'owner__id',
   Season = 'season',
   TokenId = 'tokenId',
-  Uri = 'uri',
+  Uri = 'uri'
 }
 
 export type _Block_ = {
@@ -708,5 +732,7 @@ export enum _SubgraphErrorPolicy_ {
   /** Data will be returned even if the subgraph has indexing errors */
   Allow = 'allow',
   /** If the subgraph has indexing errors, data will be omitted. The default. */
-  Deny = 'deny',
+  Deny = 'deny'
 }
+
+

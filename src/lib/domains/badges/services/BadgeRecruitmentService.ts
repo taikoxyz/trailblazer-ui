@@ -319,7 +319,7 @@ export default class BadgeRecruitmentService {
       return RecruitmentStatus.COMPLETED;
     }
 
-    if (recruitment.badge.frozenUntil && recruitment.badge.frozenUntil >= getCurrentSeasonEnd()) {
+    if (recruitment.badge.frozenAt && recruitment.badge.frozenAt >= getCurrentSeasonEnd()) {
       log('Badge is frozen until next season', recruitment);
       return RecruitmentStatus.LOCKED;
     }
