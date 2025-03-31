@@ -9,4 +9,6 @@ export const eventToActivityTypeMap: Record<string, ActivityType> = {
   Prediction: ActivityType.PREDICTION,
   DoraHacksVoting: ActivityType.DORAHACKS_VOTE,
   AvalonClaim: ActivityType.AVALON_CLAIM,
+  FrozenBonus: ActivityType.MONK_COMPENSATION,
+  PfpRegister: ActivityType.PFP_BONUS,
 };
