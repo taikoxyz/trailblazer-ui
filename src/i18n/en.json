@@ -317,6 +317,8 @@
       "bridge": "Go to Bridge leaderboard",
       "dapp": "Go to Dapps leaderboard",
       "gaming": "Go to Gaming leaderboard",
+      "liquidity": "Go to Liquidity Royale",
+      "thrillblazers": "Go to Thrillblazers",
       "user": "Go to User leaderboard"
     },
     "learn_more": "Learn more"
@@ -953,13 +955,23 @@
         "s2": {
           "description": "Our journey concluded on December 16th, 2024. Congratulations to the winners!",
           "title": "Season 2 ended"
+        },
+        "s3": {
+          "description": "Our journey concluded on Mar 17th, 2025. Congratulations to the winners!",
+          "title": "Season 3 ended"
+        },
+        "s4": {
+          "description": "Our journey concluded on June 16th, 2025. Congratulations to the winners!",
+          "title": "Season 4 ended"
         }
       },
       "event": {
         "avalon_claim": "Avalon Claim",
         "block_proposed": "Block Proposed",
         "bridged": "Bridged",
+        "compensation": "Compensation",
         "dora_hacks": "DoraHacks Vote",
+        "pfp_bonus": "PFP Bonus",
         "prediction": "Prediction",
         "transaction": "Transaction",
         "transaction_value": "Tx Value"
