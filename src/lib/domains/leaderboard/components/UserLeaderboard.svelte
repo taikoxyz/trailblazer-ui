@@ -21,7 +21,7 @@
   export let loading = false;
   export let pageInfo: PaginationInfo<UserLeaderboardItem>;
   export let season: number;
-  const endedSeasons = [1, 2];
+  const endedSeasons = [1, 2, 3];
 
   $: totalItems = pageInfo?.total || 0;
   $: pageSize = pageInfo?.size || leaderboardConfig.pageSize;
