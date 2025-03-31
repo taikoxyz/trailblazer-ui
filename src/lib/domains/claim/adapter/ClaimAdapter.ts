@@ -50,6 +50,9 @@ export class ClaimAdapter {
    */
   async claim(address: Address, amount: number, proof: string): Promise<Hash> {
     log('Claiming %s for %s', amount, address);
+console.log('calling claim', {address, amount, proof});
+
+proof = '["0x563cdb79ba0e548fe275c08aaf44da15bc0da166f9a3051b29380914bbec0eea"]'
 
     const tx = await writeContract(wagmiConfig, {
       abi: erc20AirdropAbi,
@@ -73,7 +76,10 @@ export class ClaimAdapter {
     log('Preflight for %s in season %s', address, season);
 
     const client = getAxiosInstance(season);
-    const res = await client.get<PreflightDTO>('/claim/proof', {
+    const res = await client.get<PreflightDTO>(
+      //'/claim/proof',
+      'https://trailblazer.qa.taiko.xyz/s3/claim/proof',
+      {
       params: {
         address: address,
       },
