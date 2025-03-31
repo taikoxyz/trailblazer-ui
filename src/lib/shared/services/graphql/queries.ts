@@ -61,7 +61,7 @@ export const USER_NFTS_FETCH_BADGES_QUERY = gql`
       movement
       season
       uri
-      frozenUntil
+      frozenAt
     }
   }
 `;

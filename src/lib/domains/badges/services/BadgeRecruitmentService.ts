@@ -9,7 +9,7 @@ import { activeRecruitmentStore, currentCycleStore, currentRecruitmentStore } fr
 import { type ActiveRecruitment, type IBadgeRecruitment, RecruitmentStatus } from '$shared/types/BadgeRecruitment';
 import type { TBBadge } from '$shared/types/NFT';
 import { getRecruitmentStatus } from '$shared/utils/badges/getRecruitmentStatus';
-import { getCurrentSeasonEnd } from '$shared/utils/getCurrentSeasonEnd';
+import { getLastSeasonEnd } from '$shared/utils/getCurrentSeasonEnd';
 import { getLogger } from '$shared/utils/logger';
 
 import BadgeRecruitmentAdapter from '../adapter/BadgeRecruitmentAdapter';
@@ -317,7 +317,7 @@ export default class BadgeRecruitmentService {
       return RecruitmentStatus.COMPLETED;
     }
 
-    if (recruitment.badge.frozenUntil && recruitment.badge.frozenUntil >= getCurrentSeasonEnd()) {
+    if (recruitment.badge.frozenAt && recruitment.badge.frozenAt >= getLastSeasonEnd()) {
       log('Badge is frozen until next season', recruitment);
       return RecruitmentStatus.LOCKED;
     }
