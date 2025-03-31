@@ -1,6 +1,7 @@
 import { json } from '@sveltejs/kit';
 import type { Address } from 'viem';
 
+import { eventToActivityTypeMap } from '$lib/domains/profile/mappers/eventToActivityMapper';
 import { ActivityType, type UserPointHistory } from '$lib/domains/profile/types/ActivityHistory';
 
 type APIResponse<T> = {
@@ -21,6 +22,22 @@ export function GET({ url }) {
 
   return json({
     items: [
+      {
+        address: address,
+        points: 2000,
+        event: eventToActivityTypeMap['PfpRegister'],
+        date: 1721642099,
+        multiplier: 1,
+        tx_hash: '0x1234567890abcdef',
+      },
+      {
+        address: address,
+        points: 2_125,
+        event: eventToActivityTypeMap['FrozenBonus'],
+        date: 1721642099,
+        multiplier: 1,
+        tx_hash: '0x1234567890abcdef',
+      },
       {
         address: address,
         points: 50_000,

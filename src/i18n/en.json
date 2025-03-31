@@ -968,7 +968,9 @@
         "avalon_claim": "Avalon Claim",
         "block_proposed": "Block Proposed",
         "bridged": "Bridged",
+        "compensation": "Compensation",
         "dora_hacks": "DoraHacks Vote",
+        "pfp_bonus": "PFP Bonus",
         "prediction": "Prediction",
         "transaction": "Transaction",
         "transaction_value": "Tx Value"

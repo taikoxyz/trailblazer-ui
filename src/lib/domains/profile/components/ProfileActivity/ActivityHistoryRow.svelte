@@ -60,6 +60,12 @@
     {:else if eventToActivityTypeMap[historyEntry?.event] === ActivityType.AVALON_CLAIM}
       <ActivityIcon type="double-diamond" />
       <span class={eventClasses}>{$t('leaderboard.user.event.avalon_claim')}</span>
+    {:else if eventToActivityTypeMap[historyEntry?.event] === ActivityType.MONK_COMPENSATION}
+      <ActivityIcon type="double-diamond" />
+      <span class={eventClasses}>{$t('leaderboard.user.event.compensation')}</span>
+    {:else if eventToActivityTypeMap[historyEntry?.event] === ActivityType.PFP_BONUS}
+      <ActivityIcon type="cube" />
+      <span class={eventClasses}>{$t('leaderboard.user.event.pfp_bonus')}</span>
     {:else}
       <ActivityIcon type="triple-coin-stacked" />
       <span class={eventClasses}>{$t('leaderboard.user.event.transaction')}</span>
