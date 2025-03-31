@@ -316,6 +316,8 @@
       "bridge": "Go to Bridge leaderboard",
       "dapp": "Go to Dapps leaderboard",
       "gaming": "Go to Gaming leaderboard",
+      "liquidity": "Go to Liquidity Royale",
+      "thrillblazers": "Go to Thrillblazers",
       "user": "Go to User leaderboard"
     },
     "learn_more": "Learn more"
@@ -915,6 +917,9 @@
           "title": "Journey ended"
         },
         "prize_breakdown": {
+          "fifth": {
+            "amount": "15k"
+          },
           "first": {
             "amount": "45k"
           },
@@ -924,17 +929,14 @@
           "second": {
             "amount": "30k"
           },
-          "third": {
-            "amount": "25k"
-          },
-          "fifth": {
-            "amount": "15k"
+          "seventh": {
+            "amount": "5k"
           },
           "sixth": {
             "amount": "10k"
           },
-          "seventh": {
-            "amount": "5k"
+          "third": {
+            "amount": "25k"
           },
           "total": "150k TAIKO Tokens"
         }
@@ -952,6 +954,14 @@
         "s2": {
           "description": "Our journey concluded on December 16th, 2024. Congratulations to the winners!",
           "title": "Season 2 ended"
+        },
+        "s3": {
+          "description": "Our journey concluded on Mar 17th, 2025. Congratulations to the winners!",
+          "title": "Season 3 ended"
+        },
+        "s4": {
+          "description": "Our journey concluded on June 16th, 2025. Congratulations to the winners!",
+          "title": "Season 4 ended"
         }
       },
       "event": {
