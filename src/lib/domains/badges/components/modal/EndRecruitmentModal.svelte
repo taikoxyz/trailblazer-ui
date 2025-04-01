@@ -64,10 +64,10 @@
       });
     } finally {
       isLoading = false;
-      updateStatus($currentRecruitmentStore!.badge);
+      updateStatus();
     }
   }
-  const updateStatus: (badge: TBBadge) => void = getContext('badgeRecruitUpdate');
+  const updateStatus: () => void = getContext('badgeRecruitUpdate');
 
   $: isRevealed = false;
 

@@ -71,7 +71,7 @@
           : $t('badge_recruitment.modal.influence_recruitment.toast.error.message'),
       });
     } finally {
-      updateStatus($currentRecruitmentStore!.badge);
+      updateStatus();
     }
   }
 
@@ -99,8 +99,7 @@
     'md:gap-[40px]',
     'lg:gap-[80px]',
   );
-
-  const updateStatus: (badge: TBBadge) => void = getContext('badgeRecruitUpdate');
+  const updateStatus: () => void = getContext('badgeRecruitUpdate');
 </script>
 
 <CoreModal bind:open={$influenceRecruitmentModal}>
