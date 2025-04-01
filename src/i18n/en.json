@@ -2,6 +2,7 @@
   "badge_recruitment": {
     "buttons": {
       "already_recruited": "Already recruited this cycle",
+      "already_recruited_season": "Already recruited this season",
       "end_recruitment": "Claim",
       "influence": "Influence",
       "influencing": "Influencing",

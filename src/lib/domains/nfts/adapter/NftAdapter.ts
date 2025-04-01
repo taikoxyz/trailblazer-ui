@@ -92,7 +92,7 @@ export class NftAdapter {
           metadata,
           tokenUri,
           faction,
-          frozenUntil: token.frozenUntil || null,
+          frozenAt: token.frozenAt || null,
         } satisfies TBBadge;
         log('fetchBadgesByMovementForUser badge', { badge });
         badgesByMovement[movement][faction].push(badge);
@@ -166,7 +166,7 @@ export class NftAdapter {
           metadata,
           faction,
           tokenUri,
-          frozenUntil: token.frozenUntil || null,
+          frozenAt: token.frozenAt || null,
         } satisfies TBBadge);
       });
       log('fetchBadgesForUser badgesByFaction', { badgesByFaction });
@@ -230,7 +230,7 @@ export class NftAdapter {
           tokenId,
           metadata,
           tokenUri,
-          frozenUntil: token.frozenUntil || null,
+          frozenAt: token.frozenAt || null,
         } satisfies NFT;
       });
 

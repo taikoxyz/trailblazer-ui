@@ -99,7 +99,6 @@
     'md:gap-[40px]',
     'lg:gap-[80px]',
   );
-
   const updateStatus: () => void = getContext('badgeRecruitUpdate');
 </script>
 

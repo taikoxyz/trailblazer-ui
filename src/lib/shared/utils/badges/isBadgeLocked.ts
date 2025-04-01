@@ -1,11 +1,11 @@
 import type { TBBadge } from '$shared/types/NFT';
 
-import { getCurrentSeasonEnd } from '../getCurrentSeasonEnd';
+import { getLastSeasonEnd } from '../getCurrentSeasonEnd';
 
 export const isBadgeLocked = (badge: TBBadge): boolean => {
-  if (!badge.frozenUntil) {
+  if (!badge.frozenAt) {
     return false;
   }
 
-  return badge.frozenUntil * 1000 >= getCurrentSeasonEnd();
+  return badge.frozenAt * 1000 >= getLastSeasonEnd();
 };
