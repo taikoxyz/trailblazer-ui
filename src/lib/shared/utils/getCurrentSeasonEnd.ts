@@ -27,8 +27,6 @@ export const getLastSeasonEnd = (): number => {
   return SeasonEndToDateMap[lastSeason].getTime();
 };
 
-export const SEASON_4_PATCH_DATE = 1742287391000;
-
 export const getCurrentSeasonEnd = (): number => {
   const configured = parseInt(PUBLIC_ACTIVE_SEASON);
 
