@@ -4,7 +4,7 @@
 
   import profileService from '$lib/domains/profile/services/ProfileServiceInstance';
   import { pfpModal, userProfile } from '$lib/domains/profile/stores';
-  import type { NFT } from '$lib/shared/types/NFT';
+  import type { BadgeDetailsByMovement, NFT } from '$lib/shared/types/NFT';
   import { closeOnEscapeOrOutsideClick } from '$lib/shared/utils/customActions';
   import { ActionButton } from '$shared/components/Button';
   import { Icon } from '$shared/components/Icon';
@@ -13,10 +13,20 @@
   import { classNames } from '$shared/utils/classNames';
   import { getLogger } from '$shared/utils/logger';
   import getNftImage from '$shared/utils/nfts/getNftImage';
+  import { badgeStore, taikoonStore, snaefellStore } from '$lib/domains/nfts/stores/nft.store';
+  import getConnectedAddress from '$shared/utils/getConnectedAddress';
+  import { shortenAddress } from '$shared/utils/shortenAddress';
+  import { taikoonTokenAddress, trailblazersBadgesAddress, trailblazersBadgesS2Address } from '$generated/abi';
+  import { chainId } from '$shared/utils/chain';
+  import { isAddressEqual, type Address } from 'viem';
 
   const log = getLogger('ProfilePictureModal');
 
   const dialogId = crypto.randomUUID();
+
+  let badgeMovements: BadgeDetailsByMovement | null = $badgeStore;
+  let taikoons = $taikoonStore;
+  let snaefell: NFT | null = $snaefellStore;
 
   $: modalContentWrapperClasses = classNames(
     'w-[100vw]',
@@ -78,8 +88,7 @@
 
   const modalBodyClasses = classNames(
     'w-full',
-    'h-max',
-
+    'h-full',
     'py-[20px]',
     'px-[24px]',
     'flex',
@@ -88,7 +97,17 @@
     'justify-center',
   );
 
-  const selectorWrapperClasses = classNames('w-full', 'h-max', 'flex', 'flex-col', 'gap-[20px]');
+  const selectorWrapperClasses = classNames(
+    'w-full',
+    'overflow-y-scroll',
+    'md:max-h-[50vh]',
+    'pb-[64px]',
+    'md:pb-0',
+    'h-full',
+    'flex',
+    'flex-col',
+    'gap-[20px]',
+  );
 
   const selectorTitleRowClasses = classNames(
     'text-[16px]/[24px]',
@@ -105,18 +124,20 @@
     'rounded-[20px]',
     'w-full',
     'grid',
+    'grid-flow-row',
+    'auto-rows-fr',
     'grid-cols-2',
     'md:grid-cols-3',
     'lg:grid-cols-4',
     'gap-[20px]',
-    'h-[600px]',
-    'md:h-[350px]',
+    //'h-[600px]',
+    'h-max', //'overflow-y-scroll',
+    // 'md:h-[350px]',
     'transition-all',
     'bg-elevated-background',
     'p-[20px]',
-    'overflow-x-scroll',
     'relative',
-    'min-h-[100px]',
+    // 'min-h-[100px]',
   );
   const selectorGridItemClasses = classNames(
     'overflow-hidden',
@@ -125,14 +146,42 @@
     'border-transparent',
     'hover:border-primary-focus',
     'transition-all',
-    'w-[124px]',
-    'h-[124px]',
+    //'w-[124px]',
+    // 'h-[124px]',
+    'h-max',
+    'w-full',
+    'aspect-square',
     'rounded-[10px]',
   );
 
   $: modal = undefined as HTMLDialogElement | undefined;
+  // stores all owned, candidate PFPs
+  let possiblePFPs: NFT[] = [];
+  // stores filtered PFPs
+  let filteredPFPs: NFT[] = [];
 
-  $: possiblePFPs = [] as NFT[];
+  function updateFilteredPFPs() {
+    filteredPFPs = possiblePFPs.filter((pfp) => {
+      const addresses = activeFilter.addresses;
+      let found = false;
+      for (const address of addresses) {
+        if (isAddressEqual(pfp.address, address as Address)) {
+          found = true;
+          break;
+        }
+      }
+      return found;
+    });
+  }
+
+  $: activeFilter, updateFilteredPFPs();
+
+  onMount(async () => {
+    const address = getConnectedAddress();
+    const possibles = await profileService.getPossibleProfilePictures(address);
+    possiblePFPs = possibles;
+    filteredPFPs = possibles;
+  });
 
   $: previewVisible = false;
   $: selectedPfp = null as NFT | null;
@@ -144,9 +193,7 @@
 
   function closeModal() {
     $pfpModal = false;
-
     modal?.close();
-
     previewVisible = false;
   }
 
@@ -198,9 +245,56 @@
     'p-[20px]',
   );
 
-  onMount(() => {
-    possiblePFPs = $userProfile?.nfts || [];
-  });
+  const pfpPreviewWrapperClasses = classNames(
+    'w-full',
+    'h-full',
+    'flex',
+    'flex-col',
+    'gap-[10px]',
+    'justify-center',
+    'items-center',
+  );
+
+  const filterWrapperClasses = classNames(
+    'justify-center',
+    'items-center',
+    'flex',
+    'p-[10px]',
+    'gap-[10px]',
+    'flex-wrap',
+    'w-full',
+  );
+
+  const filters = [
+    {
+      label: 'All',
+      addresses: [
+        taikoonTokenAddress[chainId],
+        '0xa5804b2a764f9808858355c1f1832588f47ab654',
+        trailblazersBadgesAddress[chainId],
+        trailblazersBadgesS2Address[chainId],
+        '0xb941ac9AD2f10F38d9852B58cbFf709573E665AA',
+        '0x56b0d8d04de22f2539945258ddb288c123026775',
+      ],
+    },
+    { label: 'Taikoons', addresses: [taikoonTokenAddress[chainId]] },
+    { label: 'Snaefell', addresses: ['0xa5804b2a764f9808858355c1f1832588f47ab654'] },
+    {
+      label: 'Trailblazer Badges',
+      addresses: [trailblazersBadgesAddress[chainId], trailblazersBadgesS2Address[chainId]],
+    },
+    {
+      label: 'Sentinels',
+      addresses: ['0xb941ac9AD2f10F38d9852B58cbFf709573E665AA'],
+    },
+    {
+      label: 'Taikonauts',
+      addresses: ['0x56b0d8d04de22f2539945258ddb288c123026775'],
+    },
+  ];
+
+  let activeFilterId = 0;
+  $: activeFilter = filters[activeFilterId];
 </script>
 
 <dialog
@@ -220,14 +314,24 @@
 
     <div class={modalBodyClasses}>
       {#if previewVisible && selectedPfp}
-        <!-- svelte-ignore a11y-img-redundant-alt -->
-        <img alt="Profile picture preview" class={pfpPreviewClasses} src={getNftImage(selectedPfp)} />
+        <div class={pfpPreviewWrapperClasses}>
+          <!-- svelte-ignore a11y-img-redundant-alt -->
+          <img alt="Profile picture preview" class={pfpPreviewClasses} src={getNftImage(selectedPfp)} />
+          <div><b>Token Address:</b>{shortenAddress(selectedPfp.address)}</div>
+          <div><b>Token ID:</b>{selectedPfp.tokenId}</div>
+          <a
+            target="_blank"
+            class="text-secondary underline"
+            href="https://taikoscan.io/nft/{selectedPfp.address}/{selectedPfp.tokenId}">
+            View on Taikoscan</a>
+        </div>
       {:else}
         <div class={selectorWrapperClasses}>
           <div class={selectorTitleRowClasses}>
             <div class={selectorTitleClasses}>
               {$t('pfp.modal.yourNfts')}
             </div>
+
             {#if possiblePFPs.length > 0}
               <div class={selectorCounterClasses}>
                 ({possiblePFPs.length}
@@ -246,19 +350,33 @@
           {/if}
 
           {#if possiblePFPs.length > 0}
+            <div class={filterWrapperClasses}>
+              {#each filters as filter, index}
+                <button
+                  on:click={() => (activeFilterId = index)}
+                  class={classNames(
+                    //'w-full',
+                    'badge badge-outline badge-lg',
+                    activeFilterId === index ? 'badge-primary' : 'opacity-50',
+                  )}>
+                  {filter.label}
+                </button>
+              {/each}
+            </div>
             <div class={selectorGridClasses}>
-              {#each possiblePFPs as pfp}
+              {#each filteredPFPs as pfp}
                 <button on:click={() => selectPfp(pfp)} class={selectorGridItemClasses}>
-                  <img src={getNftImage(pfp)} alt="pfp" />
+                  <img
+                    style="image-rendering:pixelated"
+                    class="w-full h-full object-cover"
+                    src={getNftImage(pfp)}
+                    alt="pfp" />
                 </button>
               {/each}
             </div>
           {/if}
           {#if possiblePFPs.length === 0}
-            <div class={noNftsClasses}>
-              You don't have any eligible NFTs. Currently only Season 1 badges can be used. But we will enable more
-              soon!
-            </div>
+            <div class={noNftsClasses}>You don't have any eligible NFTs.</div>
           {/if}
         </div>
       {/if}

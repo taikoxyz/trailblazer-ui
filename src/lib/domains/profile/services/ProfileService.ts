@@ -3,6 +3,7 @@ import { type Address, getAddress, type Hash } from 'viem';
 
 import { BadgeMultiplierService } from '$lib/domains/badges/services/BadgeMultiplierService';
 import type { UserLeaderboardItem } from '$lib/domains/leaderboard/types/user/types';
+import { NftAdapter } from '$lib/domains/nfts/adapter/NftAdapter';
 import { NftService } from '$lib/domains/nfts/services/NftService';
 import { ProfileApiAdapter } from '$lib/domains/profile/adapter/ProfileAdapter';
 import { SeasonBonusPointsAdapter } from '$lib/domains/profile/adapter/SeasonBonusPointsAdapter';
@@ -32,6 +33,7 @@ export class ProfileService implements IProfileService {
 
   // Adapters
   private apiAdapter: ProfileApiAdapter;
+  private nftAdapter: NftAdapter;
   private seasonBonusAdapter: SeasonBonusPointsAdapter;
   private badgeMultiplierService: BadgeMultiplierService;
 
@@ -51,6 +53,7 @@ export class ProfileService implements IProfileService {
     // badgeRecruitmentService?: BadgeRecruitmentService,
     seasonBonusAdapter?: SeasonBonusPointsAdapter,
     badgeMultiplierService?: BadgeMultiplierService,
+    nftAdapter?: NftAdapter,
   ) {
     this.apiAdapter = apiAdapter || new ProfileApiAdapter();
     this.userRepository = userRepository || new UserRepository();
@@ -58,6 +61,7 @@ export class ProfileService implements IProfileService {
     // this.badgeRecruitmentService = badgeRecruitmentService || new BadgeRecruitmentService();
     this.seasonBonusAdapter = seasonBonusAdapter || new SeasonBonusPointsAdapter();
     this.badgeMultiplierService = badgeMultiplierService || new BadgeMultiplierService();
+    this.nftAdapter = nftAdapter || new NftAdapter();
   }
 
   /**
@@ -738,5 +742,20 @@ export class ProfileService implements IProfileService {
       log('Error fetching badge multiplier:', error);
       return mp;
     }
+  }
+
+  async getPossibleProfilePictures(address: Address): Promise<NFT[]> {
+    log('Fetching possible profile pictures for address:', address);
+    const nfts = await this.apiAdapter.getPossibleProfilePictures(address);
+
+    return await Promise.all(
+      nfts.map(async (nft) => {
+        const metadata = await this.nftAdapter.getNFTMetadata(nft);
+        return {
+          ...nft,
+          metadata: metadata || { image: '' },
+        } satisfies NFT;
+      }),
+    );
   }
 }

@@ -1,8 +1,10 @@
-import { type Address } from 'viem';
+import axios from 'axios';
+import { isAddressEqual, type Address } from 'viem';
 
 import type { Token } from '$generated/graphql/badges';
-import { Movements } from '$lib/domains/profile/types/types';
+import { getMovementName, Movements } from '$lib/domains/profile/types/types';
 import type { BadgesByFaction, BadgesByMovement, NFT, TBBadge } from '$lib/shared/types/NFT';
+import { globalAxiosConfig } from '$shared/services/api/axiosClient';
 import { badgesSubgraphClient, taikoonsSubgraphClient } from '$shared/services/graphql/client';
 import {
   USER_NFTS_FETCH_BADGES_QUERY,
@@ -12,6 +14,13 @@ import { getLogger } from '$shared/utils/logger';
 
 import { FactionNames, getFactionName } from '../types/badges/types';
 import type { NFTMetadata } from '../types/shared/types';
+import {
+  taikoonTokenAddress,
+  trailblazersBadgesAbi,
+  trailblazersBadgesAddress,
+  trailblazersBadgesS2Address,
+} from '$generated/abi';
+import { chainId } from '$shared/utils/chain';
 
 const log = getLogger('NftAdapter');
 export class NftAdapter {
@@ -244,6 +253,59 @@ export class NftAdapter {
         return [];
       }
       throw e;
+    }
+  }
+
+  /**
+   * Fetches the metadata for an NFT.
+   *
+   * @param {NFT} nft
+   * @return {*}  {(Promise<NFTMetadata | null>)}
+   * @memberof NftService
+   */
+  async getNFTMetadata(nft: NFT): Promise<NFTMetadata | null> {
+    if (!nft.tokenUri) return null;
+    try {
+      // Trailblazer S1 Badges
+      if (isAddressEqual(nft.address, trailblazersBadgesAddress[chainId])) {
+        const uriParts = nft.tokenUri.split('/');
+        const badgeId = Number(uriParts.pop());
+        const movementId = Number(uriParts.pop()) as Movements;
+        const movementName = getMovementName(movementId).toLowerCase();
+        const factionName = getFactionName(badgeId).toLowerCase();
+
+        return {
+          image: `/badges/${movementName}/${factionName}.png`,
+        };
+      }
+
+      // Trailblazer S2 Badges
+      if (isAddressEqual(nft.address, trailblazersBadgesS2Address[chainId])) {
+        console.log('found tbz s2 badge', nft.metadata);
+      }
+
+        let tokenBaseUri = nft.tokenUri;
+        if (!tokenBaseUri.startsWith('https://')) {
+          tokenBaseUri = `https://taikonfts.4everland.link/ipfs/${tokenBaseUri}`;
+        }
+
+        const tokenUriUrl = `/api/proxy?url=${encodeURIComponent(tokenBaseUri)}`;
+
+        const src = await axios.get(tokenUriUrl, globalAxiosConfig);
+
+        let ipfsUri = src.data.image;
+
+        if (!ipfsUri.startsWith('https://')) {
+          ipfsUri =  `https://taikonfts.4everland.link/ipfs/${ipfsUri}`
+        }
+
+        return {
+          image: ipfsUri
+        };
+
+    } catch (error) {
+      log('getNFTMetadata error', { error }, nft);
+      return null;
     }
   }
 }
