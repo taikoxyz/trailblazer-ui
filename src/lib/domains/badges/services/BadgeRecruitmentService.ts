@@ -256,7 +256,11 @@ export default class BadgeRecruitmentService {
       activeRecruitmentStore.set(filtered);
 
       if (filtered.length > 0) {
-        currentRecruitmentStore.set(filtered.find((recruitment) => recruitment.cycle === cycleId) || null);
+        currentRecruitmentStore.set(
+          filtered.find(
+            (recruitment) => recruitment.cycle === cycleId && recruitment.status !== RecruitmentStatus.COMPLETED,
+          ) || null,
+        );
       }
 
       return filtered;
@@ -264,12 +268,6 @@ export default class BadgeRecruitmentService {
       console.error('Error in getUserRecruitments', error);
       return [] as ActiveRecruitment[];
     }
-  }
-
-  async canRecruitInCycle(address: Address, cylce: number, badge: TBBadge): Promise<boolean> {
-    log('canRecruitInCycle', { address, cylce, badge });
-    const alreadyRecruited = await this.adapter.hasRecruitedInCycle(address, cylce, badge.badgeId);
-    return !alreadyRecruited;
   }
 
   //   /**

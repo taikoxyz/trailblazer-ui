@@ -16,7 +16,7 @@
   $: recruitment = $currentRecruitmentStore as ActiveRecruitment | null;
   let activeCycle: number = $currentCycleStore || -1;
 
-  const updateStatus: () => void = getContext('badgeRecruitUpdate');
+  const updateStatus: (badge: TBBadge) => RecruitmentStatus = getContext('badgeRecruitUpdate');
 
   const buttonClasses = classNames();
 
@@ -26,12 +26,12 @@
 
   const unsubscribeRecruitment = currentRecruitmentStore.subscribe((value) => {
     recruitment = value;
-    updateStatus();
+    status = updateStatus(badge);
   });
 
   const unsubscribeCurrentCycle = currentCycleStore.subscribe((value) => {
     if (value) activeCycle = value;
-    updateStatus();
+    updateStatus(badge);
   });
 
   onDestroy(() => {
@@ -69,25 +69,30 @@
   $: canClaim = isCurrentRecruitment && status === RecruitmentStatus.CAN_CLAIM;
 
   $: isRecruitingAnotherBadge =
-    ($currentRecruitmentStore && recruiting) ||
+    ($currentRecruitmentStore && recruiting && $currentRecruitmentStore.badge.tokenId !== badge.tokenId) ||
     ($currentRecruitmentStore && status === RecruitmentStatus.CAN_CLAIM && !isCurrentRecruitment);
 
-  $: alreadyRecruitedThisSeason =
-    status === RecruitmentStatus.LOCKED ||
-    status === RecruitmentStatus.COMPLETED ||
-    status === RecruitmentStatus.ALREADY_RECRUITED;
+  $: alreadyRecruitedThisSeason = status === RecruitmentStatus.LOCKED || status === RecruitmentStatus.COMPLETED;
+
+  $: alreadyRecruitedThisCycle = status === RecruitmentStatus.ALREADY_RECRUITED_CYCLE;
 
   $: canRecruit = status === RecruitmentStatus.NOT_STARTED && !recruitmentFinished;
 
   $: isRefining = status === RecruitmentStatus.REFINING && $currentRecruitmentStore?.cooldowns.influence && influencing;
 
-  $: canRefine = status === RecruitmentStatus.CAN_REFINE && isCurrentRecruitment && !recruitmentFinished;
+  $: canRefine = status === RecruitmentStatus.CAN_REFINE;
   $: disableInfluence = recruiting && influencing;
 
   $: resettable = status === RecruitmentStatus.UNFINISHED;
 
-  onMount(() => {
-    updateStatus();
+  $: badge && update();
+
+  const update = async () => {
+    status = await updateStatus(badge);
+  };
+
+  onMount(async () => {
+    status = await updateStatus(badge);
   });
 </script>
 
@@ -100,6 +105,9 @@
   <ActionButton class={buttonClasses} priority="primary" disabled={true}
     >{$t('badge_recruitment.buttons.ongoing_recruitment')}</ActionButton>
 {:else if alreadyRecruitedThisSeason}
+  <ActionButton class={buttonClasses} priority="primary" disabled={true}
+    >{$t('badge_recruitment.buttons.already_recruited_season')}</ActionButton>
+{:else if alreadyRecruitedThisCycle}
   <Alert type="info" class="mb-[24px]">
     <b>Note:</b><br />
     Only <b>1</b> faction recruitment possible per cycle.<br />
@@ -183,6 +191,8 @@
 
   isRefining {isRefining}
 
+  alreadyRecruitedThisCycle {alreadyRecruitedThisCycle}
+
   <div class={rowClasses}>
     <span class="text-secondary-content">Recruiting</span>
     <span>{recruiting ? 'Yes' : 'No'}</span>
@@ -203,6 +213,9 @@
     <span>{$currentRecruitmentStore?.cooldowns.influence}</span>
   </div>
 
+  badge
   <textarea class="w-full h-[200px]">{JSON.stringify(badge, null, 2)}</textarea>
+
+  $currentRecruitmentStore
   <textarea class="w-full h-[200px]">{JSON.stringify($currentRecruitmentStore, null, 2)}</textarea>
 {/if}
