@@ -27,4 +27,4 @@ export const getLastSeasonEnd = (): number => {
   }
 
   return SeasonEndToDateMap[configured - 1].getTime();
-}
+};
