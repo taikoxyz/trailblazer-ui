@@ -1,4 +1,4 @@
-import client from 'https://api.goldsky.com/api/public/project_clz85cxrvng3n01ughcv5e7hg/subgraphs/tbz-pfps/0.0.3/gn';
+import client from 'https://api.goldsky.com/api/public/project_clz85cxrvng3n01ughcv5e7hg/subgraphs/tbz-pfps/0.0.5/gn';
 import type {} from '@apollo/client';
 import { readable } from 'svelte/store';
 import type { Readable } from 'svelte/store';
@@ -24,6 +24,72 @@ export type Scalars = {
   Timestamp: { input: any; output: any };
 };
 
+export type Account = {
+  __typename?: 'Account';
+  id: Scalars['Bytes']['output'];
+  profilePicture?: Maybe<Token>;
+  tokens: Array<Token>;
+};
+
+export type AccountTokensArgs = {
+  first?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Token_OrderBy>;
+  orderDirection?: InputMaybe<OrderDirection>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<Token_Filter>;
+};
+
+export type Account_Filter = {
+  /** Filter for the block changed event. */
+  _change_block?: InputMaybe<BlockChangedFilter>;
+  and?: InputMaybe<Array<InputMaybe<Account_Filter>>>;
+  id?: InputMaybe<Scalars['Bytes']['input']>;
+  id_contains?: InputMaybe<Scalars['Bytes']['input']>;
+  id_gt?: InputMaybe<Scalars['Bytes']['input']>;
+  id_gte?: InputMaybe<Scalars['Bytes']['input']>;
+  id_in?: InputMaybe<Array<Scalars['Bytes']['input']>>;
+  id_lt?: InputMaybe<Scalars['Bytes']['input']>;
+  id_lte?: InputMaybe<Scalars['Bytes']['input']>;
+  id_not?: InputMaybe<Scalars['Bytes']['input']>;
+  id_not_contains?: InputMaybe<Scalars['Bytes']['input']>;
+  id_not_in?: InputMaybe<Array<Scalars['Bytes']['input']>>;
+  or?: InputMaybe<Array<InputMaybe<Account_Filter>>>;
+  profilePicture?: InputMaybe<Scalars['String']['input']>;
+  profilePicture_?: InputMaybe<Token_Filter>;
+  profilePicture_contains?: InputMaybe<Scalars['String']['input']>;
+  profilePicture_contains_nocase?: InputMaybe<Scalars['String']['input']>;
+  profilePicture_ends_with?: InputMaybe<Scalars['String']['input']>;
+  profilePicture_ends_with_nocase?: InputMaybe<Scalars['String']['input']>;
+  profilePicture_gt?: InputMaybe<Scalars['String']['input']>;
+  profilePicture_gte?: InputMaybe<Scalars['String']['input']>;
+  profilePicture_in?: InputMaybe<Array<Scalars['String']['input']>>;
+  profilePicture_lt?: InputMaybe<Scalars['String']['input']>;
+  profilePicture_lte?: InputMaybe<Scalars['String']['input']>;
+  profilePicture_not?: InputMaybe<Scalars['String']['input']>;
+  profilePicture_not_contains?: InputMaybe<Scalars['String']['input']>;
+  profilePicture_not_contains_nocase?: InputMaybe<Scalars['String']['input']>;
+  profilePicture_not_ends_with?: InputMaybe<Scalars['String']['input']>;
+  profilePicture_not_ends_with_nocase?: InputMaybe<Scalars['String']['input']>;
+  profilePicture_not_in?: InputMaybe<Array<Scalars['String']['input']>>;
+  profilePicture_not_starts_with?: InputMaybe<Scalars['String']['input']>;
+  profilePicture_not_starts_with_nocase?: InputMaybe<Scalars['String']['input']>;
+  profilePicture_starts_with?: InputMaybe<Scalars['String']['input']>;
+  profilePicture_starts_with_nocase?: InputMaybe<Scalars['String']['input']>;
+  tokens_?: InputMaybe<Token_Filter>;
+};
+
+export enum Account_OrderBy {
+  Id = 'id',
+  ProfilePicture = 'profilePicture',
+  ProfilePictureId = 'profilePicture__id',
+  ProfilePictureIsErc721 = 'profilePicture__isERC721',
+  ProfilePictureIsErc1155 = 'profilePicture__isERC1155',
+  ProfilePictureTokenAddress = 'profilePicture__tokenAddress',
+  ProfilePictureTokenId = 'profilePicture__tokenId',
+  ProfilePictureTokenUri = 'profilePicture__tokenURI',
+  Tokens = 'tokens',
+}
+
 export enum Aggregation_Interval {
   Day = 'day',
   Hour = 'hour',
@@ -45,18 +111,113 @@ export enum OrderDirection {
   Desc = 'desc',
 }
 
-export type ProfilePicture = {
-  __typename?: 'ProfilePicture';
+export type Query = {
+  __typename?: 'Query';
+  /** Access to subgraph metadata */
+  _meta?: Maybe<_Meta_>;
+  account?: Maybe<Account>;
+  accounts: Array<Account>;
+  token?: Maybe<Token>;
+  tokens: Array<Token>;
+};
+
+export type Query_MetaArgs = {
+  block?: InputMaybe<Block_Height>;
+};
+
+export type QueryAccountArgs = {
+  block?: InputMaybe<Block_Height>;
+  id: Scalars['ID']['input'];
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+export type QueryAccountsArgs = {
+  block?: InputMaybe<Block_Height>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Account_OrderBy>;
+  orderDirection?: InputMaybe<OrderDirection>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  subgraphError?: _SubgraphErrorPolicy_;
+  where?: InputMaybe<Account_Filter>;
+};
+
+export type QueryTokenArgs = {
+  block?: InputMaybe<Block_Height>;
+  id: Scalars['ID']['input'];
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+export type QueryTokensArgs = {
+  block?: InputMaybe<Block_Height>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Token_OrderBy>;
+  orderDirection?: InputMaybe<OrderDirection>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  subgraphError?: _SubgraphErrorPolicy_;
+  where?: InputMaybe<Token_Filter>;
+};
+
+export type Subscription = {
+  __typename?: 'Subscription';
+  /** Access to subgraph metadata */
+  _meta?: Maybe<_Meta_>;
+  account?: Maybe<Account>;
+  accounts: Array<Account>;
+  token?: Maybe<Token>;
+  tokens: Array<Token>;
+};
+
+export type Subscription_MetaArgs = {
+  block?: InputMaybe<Block_Height>;
+};
+
+export type SubscriptionAccountArgs = {
+  block?: InputMaybe<Block_Height>;
+  id: Scalars['ID']['input'];
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+export type SubscriptionAccountsArgs = {
+  block?: InputMaybe<Block_Height>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Account_OrderBy>;
+  orderDirection?: InputMaybe<OrderDirection>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  subgraphError?: _SubgraphErrorPolicy_;
+  where?: InputMaybe<Account_Filter>;
+};
+
+export type SubscriptionTokenArgs = {
+  block?: InputMaybe<Block_Height>;
+  id: Scalars['ID']['input'];
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+export type SubscriptionTokensArgs = {
+  block?: InputMaybe<Block_Height>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Token_OrderBy>;
+  orderDirection?: InputMaybe<OrderDirection>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  subgraphError?: _SubgraphErrorPolicy_;
+  where?: InputMaybe<Token_Filter>;
+};
+
+export type Token = {
+  __typename?: 'Token';
   id: Scalars['Bytes']['output'];
+  isERC721: Scalars['Boolean']['output'];
+  isERC1155: Scalars['Boolean']['output'];
+  owner: Account;
   tokenAddress: Scalars['Bytes']['output'];
   tokenId: Scalars['BigInt']['output'];
   tokenURI?: Maybe<Scalars['String']['output']>;
 };
 
-export type ProfilePicture_Filter = {
+export type Token_Filter = {
   /** Filter for the block changed event. */
   _change_block?: InputMaybe<BlockChangedFilter>;
-  and?: InputMaybe<Array<InputMaybe<ProfilePicture_Filter>>>;
+  and?: InputMaybe<Array<InputMaybe<Token_Filter>>>;
   id?: InputMaybe<Scalars['Bytes']['input']>;
   id_contains?: InputMaybe<Scalars['Bytes']['input']>;
   id_gt?: InputMaybe<Scalars['Bytes']['input']>;
@@ -67,7 +228,36 @@ export type ProfilePicture_Filter = {
   id_not?: InputMaybe<Scalars['Bytes']['input']>;
   id_not_contains?: InputMaybe<Scalars['Bytes']['input']>;
   id_not_in?: InputMaybe<Array<Scalars['Bytes']['input']>>;
-  or?: InputMaybe<Array<InputMaybe<ProfilePicture_Filter>>>;
+  isERC721?: InputMaybe<Scalars['Boolean']['input']>;
+  isERC721_in?: InputMaybe<Array<Scalars['Boolean']['input']>>;
+  isERC721_not?: InputMaybe<Scalars['Boolean']['input']>;
+  isERC721_not_in?: InputMaybe<Array<Scalars['Boolean']['input']>>;
+  isERC1155?: InputMaybe<Scalars['Boolean']['input']>;
+  isERC1155_in?: InputMaybe<Array<Scalars['Boolean']['input']>>;
+  isERC1155_not?: InputMaybe<Scalars['Boolean']['input']>;
+  isERC1155_not_in?: InputMaybe<Array<Scalars['Boolean']['input']>>;
+  or?: InputMaybe<Array<InputMaybe<Token_Filter>>>;
+  owner?: InputMaybe<Scalars['String']['input']>;
+  owner_?: InputMaybe<Account_Filter>;
+  owner_contains?: InputMaybe<Scalars['String']['input']>;
+  owner_contains_nocase?: InputMaybe<Scalars['String']['input']>;
+  owner_ends_with?: InputMaybe<Scalars['String']['input']>;
+  owner_ends_with_nocase?: InputMaybe<Scalars['String']['input']>;
+  owner_gt?: InputMaybe<Scalars['String']['input']>;
+  owner_gte?: InputMaybe<Scalars['String']['input']>;
+  owner_in?: InputMaybe<Array<Scalars['String']['input']>>;
+  owner_lt?: InputMaybe<Scalars['String']['input']>;
+  owner_lte?: InputMaybe<Scalars['String']['input']>;
+  owner_not?: InputMaybe<Scalars['String']['input']>;
+  owner_not_contains?: InputMaybe<Scalars['String']['input']>;
+  owner_not_contains_nocase?: InputMaybe<Scalars['String']['input']>;
+  owner_not_ends_with?: InputMaybe<Scalars['String']['input']>;
+  owner_not_ends_with_nocase?: InputMaybe<Scalars['String']['input']>;
+  owner_not_in?: InputMaybe<Array<Scalars['String']['input']>>;
+  owner_not_starts_with?: InputMaybe<Scalars['String']['input']>;
+  owner_not_starts_with_nocase?: InputMaybe<Scalars['String']['input']>;
+  owner_starts_with?: InputMaybe<Scalars['String']['input']>;
+  owner_starts_with_nocase?: InputMaybe<Scalars['String']['input']>;
   tokenAddress?: InputMaybe<Scalars['Bytes']['input']>;
   tokenAddress_contains?: InputMaybe<Scalars['Bytes']['input']>;
   tokenAddress_gt?: InputMaybe<Scalars['Bytes']['input']>;
@@ -108,68 +298,16 @@ export type ProfilePicture_Filter = {
   tokenURI_starts_with_nocase?: InputMaybe<Scalars['String']['input']>;
 };
 
-export enum ProfilePicture_OrderBy {
+export enum Token_OrderBy {
   Id = 'id',
+  IsErc721 = 'isERC721',
+  IsErc1155 = 'isERC1155',
+  Owner = 'owner',
+  OwnerId = 'owner__id',
   TokenAddress = 'tokenAddress',
   TokenId = 'tokenId',
   TokenUri = 'tokenURI',
 }
-
-export type Query = {
-  __typename?: 'Query';
-  /** Access to subgraph metadata */
-  _meta?: Maybe<_Meta_>;
-  profilePicture?: Maybe<ProfilePicture>;
-  profilePictures: Array<ProfilePicture>;
-};
-
-export type Query_MetaArgs = {
-  block?: InputMaybe<Block_Height>;
-};
-
-export type QueryProfilePictureArgs = {
-  block?: InputMaybe<Block_Height>;
-  id: Scalars['ID']['input'];
-  subgraphError?: _SubgraphErrorPolicy_;
-};
-
-export type QueryProfilePicturesArgs = {
-  block?: InputMaybe<Block_Height>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  orderBy?: InputMaybe<ProfilePicture_OrderBy>;
-  orderDirection?: InputMaybe<OrderDirection>;
-  skip?: InputMaybe<Scalars['Int']['input']>;
-  subgraphError?: _SubgraphErrorPolicy_;
-  where?: InputMaybe<ProfilePicture_Filter>;
-};
-
-export type Subscription = {
-  __typename?: 'Subscription';
-  /** Access to subgraph metadata */
-  _meta?: Maybe<_Meta_>;
-  profilePicture?: Maybe<ProfilePicture>;
-  profilePictures: Array<ProfilePicture>;
-};
-
-export type Subscription_MetaArgs = {
-  block?: InputMaybe<Block_Height>;
-};
-
-export type SubscriptionProfilePictureArgs = {
-  block?: InputMaybe<Block_Height>;
-  id: Scalars['ID']['input'];
-  subgraphError?: _SubgraphErrorPolicy_;
-};
-
-export type SubscriptionProfilePicturesArgs = {
-  block?: InputMaybe<Block_Height>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  orderBy?: InputMaybe<ProfilePicture_OrderBy>;
-  orderDirection?: InputMaybe<OrderDirection>;
-  skip?: InputMaybe<Scalars['Int']['input']>;
-  subgraphError?: _SubgraphErrorPolicy_;
-  where?: InputMaybe<ProfilePicture_Filter>;
-};
 
 export type _Block_ = {
   __typename?: '_Block_';
