@@ -746,16 +746,21 @@ export class ProfileService implements IProfileService {
 
   async getPossibleProfilePictures(address: Address): Promise<NFT[]> {
     log('Fetching possible profile pictures for address:', address);
-    const nfts = await this.apiAdapter.getPossibleProfilePictures(address);
+    try {
+      const nfts = await this.apiAdapter.getPossibleProfilePictures(address);
 
-    return await Promise.all(
-      nfts.map(async (nft) => {
-        const metadata = await this.nftAdapter.getNFTMetadata(nft);
-        return {
-          ...nft,
-          metadata: metadata || { image: '' },
-        } satisfies NFT;
-      }),
-    );
+      return await Promise.all(
+        nfts.map(async (nft) => {
+          const metadata = await this.nftAdapter.getNFTMetadata(nft);
+          return {
+            ...nft,
+            metadata: metadata || { image: '' },
+          } satisfies NFT;
+        }),
+      );
+    } catch (error) {
+      log('Error fetching possible profile pictures:', error);
+      return [];
+    }
   }
 }

@@ -148,7 +148,6 @@ export class ProfileApiAdapter {
       return pfp;
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (e: any) {
-      console.error(e);
       console.error('Error fetching profile picture', { address: checksummedAddress, error: e });
       // Cache the failure to prevent repeated attempts
       profilePictureCache.setSingle(checksummedAddress, null);
