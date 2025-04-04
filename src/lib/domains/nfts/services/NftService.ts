@@ -34,21 +34,7 @@ export class NftService {
    * @memberof NftService
    */
   async getNFTMetadata(nft: NFT): Promise<NFTMetadata | null> {
-    if (!nft.tokenUri) return null;
-    try {
-      let tokenBaseUri = nft.tokenUri;
-      if (!tokenBaseUri.startsWith('https://')) {
-        tokenBaseUri = `https://taikonfts.4everland.link/ipfs/${tokenBaseUri}`;
-      }
-
-      const tokenUriUrl = `/api/proxy?url=${encodeURIComponent(tokenBaseUri)}`;
-
-      const src = await axios.get(tokenUriUrl, globalAxiosConfig);
-      return src.data;
-    } catch (error) {
-      log('getNFTMetadata error', { error }, nft);
-      return null;
-    }
+    return this.adapter.getNFTMetadata(nft);
   }
 
   /**
