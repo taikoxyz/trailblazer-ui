@@ -1,4 +1,4 @@
-import client from 'https://api.goldsky.com/api/public/project_cm0gfm7474if101wcawrq6mhu/subgraphs/tbz-all/2.0.0/gn';
+import client from 'https://api.goldsky.com/api/public/project_clz85cxrvng3n01ughcv5e7hg/subgraphs/tbz-all/0.0.1/gn';
 import type {} from '@apollo/client';
 import { readable } from 'svelte/store';
 import type { Readable } from 'svelte/store';

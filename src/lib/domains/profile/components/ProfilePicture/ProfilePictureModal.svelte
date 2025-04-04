@@ -1,32 +1,34 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import { t } from 'svelte-i18n';
+  import { type Address, isAddressEqual } from 'viem';
 
   import profileService from '$lib/domains/profile/services/ProfileServiceInstance';
-  import { pfpModal, userProfile } from '$lib/domains/profile/stores';
-  import type { BadgeDetailsByMovement, NFT } from '$lib/shared/types/NFT';
+  import { pfpModal } from '$lib/domains/profile/stores';
+  import type { NFT } from '$lib/shared/types/NFT';
   import { closeOnEscapeOrOutsideClick } from '$lib/shared/utils/customActions';
   import { ActionButton } from '$shared/components/Button';
   import { Icon } from '$shared/components/Icon';
   import { errorToast, successToast } from '$shared/components/NotificationToast';
   import Spinner from '$shared/components/Spinner/Spinner.svelte';
   import { classNames } from '$shared/utils/classNames';
+  import getConnectedAddress from '$shared/utils/getConnectedAddress';
   import { getLogger } from '$shared/utils/logger';
   import getNftImage from '$shared/utils/nfts/getNftImage';
-  import { badgeStore, taikoonStore, snaefellStore } from '$lib/domains/nfts/stores/nft.store';
-  import getConnectedAddress from '$shared/utils/getConnectedAddress';
+  import {
+    PFP_SOURCE_SENTINELS,
+    PFP_SOURCE_SNAEFELLS,
+    PFP_SOURCE_TAIKONAUTS,
+    PFP_SOURCE_TAIKOONS,
+    PFP_SOURCE_TRAILBLAZER_BADGES_S1,
+    PFP_SOURCE_TRAILBLAZER_BADGES_S2,
+    PFP_SOURCES,
+  } from '$shared/utils/nfts/pfp.sources';
   import { shortenAddress } from '$shared/utils/shortenAddress';
-  import { taikoonTokenAddress, trailblazersBadgesAddress, trailblazersBadgesS2Address } from '$generated/abi';
-  import { chainId } from '$shared/utils/chain';
-  import { isAddressEqual, type Address } from 'viem';
 
   const log = getLogger('ProfilePictureModal');
 
   const dialogId = crypto.randomUUID();
-
-  let badgeMovements: BadgeDetailsByMovement | null = $badgeStore;
-  let taikoons = $taikoonStore;
-  let snaefell: NFT | null = $snaefellStore;
 
   $: modalContentWrapperClasses = classNames(
     'w-[100vw]',
@@ -130,14 +132,11 @@
     'md:grid-cols-3',
     'lg:grid-cols-4',
     'gap-[20px]',
-    //'h-[600px]',
-    'h-max', //'overflow-y-scroll',
-    // 'md:h-[350px]',
+    'h-max',
     'transition-all',
     'bg-elevated-background',
     'p-[20px]',
     'relative',
-    // 'min-h-[100px]',
   );
   const selectorGridItemClasses = classNames(
     'overflow-hidden',
@@ -146,8 +145,6 @@
     'border-transparent',
     'hover:border-primary-focus',
     'transition-all',
-    //'w-[124px]',
-    // 'h-[124px]',
     'h-max',
     'w-full',
     'aspect-square',
@@ -268,28 +265,21 @@
   const filters = [
     {
       label: 'All',
-      addresses: [
-        taikoonTokenAddress[chainId],
-        '0xa5804b2a764f9808858355c1f1832588f47ab654',
-        trailblazersBadgesAddress[chainId],
-        trailblazersBadgesS2Address[chainId],
-        '0xb941ac9AD2f10F38d9852B58cbFf709573E665AA',
-        '0x56b0d8d04de22f2539945258ddb288c123026775',
-      ],
+      addresses: PFP_SOURCES,
     },
-    { label: 'Taikoons', addresses: [taikoonTokenAddress[chainId]] },
-    { label: 'Snaefell', addresses: ['0xa5804b2a764f9808858355c1f1832588f47ab654'] },
+    { label: 'Taikoons', addresses: [PFP_SOURCE_TAIKOONS] },
+    { label: 'Snaefell', addresses: [PFP_SOURCE_SNAEFELLS] },
     {
       label: 'Trailblazer Badges',
-      addresses: [trailblazersBadgesAddress[chainId], trailblazersBadgesS2Address[chainId]],
+      addresses: [PFP_SOURCE_TRAILBLAZER_BADGES_S1, PFP_SOURCE_TRAILBLAZER_BADGES_S2],
     },
     {
       label: 'Sentinels',
-      addresses: ['0xb941ac9AD2f10F38d9852B58cbFf709573E665AA'],
+      addresses: [PFP_SOURCE_SENTINELS],
     },
     {
       label: 'Taikonauts',
-      addresses: ['0x56b0d8d04de22f2539945258ddb288c123026775'],
+      addresses: [PFP_SOURCE_TAIKONAUTS],
     },
   ];
 

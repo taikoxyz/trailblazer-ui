@@ -7,11 +7,7 @@ import { registerProfilePictureAbi, registerProfilePictureAddress } from '$gener
 import { profilePictureCache } from '$lib/domains/leaderboard/stores/cache';
 import { getAxiosInstance, globalAxiosConfig } from '$lib/shared/services/api/axiosClient';
 import { pfpSubgraphClient } from '$lib/shared/services/graphql/client';
-import {
-  USER_PROFILE_PICTURE_QUERY,
-  USER_POSSIBLE_PROFILE_PICTURES_QUERY,
-  USER_PROFILE_PICTURE_BULK_QUERY,
-} from '$lib/shared/services/graphql/queries';
+import { USER_PROFILE_PICTURE_BULK_QUERY, USER_PROFILE_PICTURE_QUERY } from '$lib/shared/services/graphql/queries';
 import { pendingTransactions } from '$lib/shared/stores/pendingTransactions';
 import type { NFT } from '$lib/shared/types/NFT';
 import { chainId } from '$lib/shared/utils/chain';

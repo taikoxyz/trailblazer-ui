@@ -1,6 +1,7 @@
 import axios from 'axios';
-import { isAddressEqual, type Address } from 'viem';
+import { type Address, isAddressEqual } from 'viem';
 
+import { trailblazersBadgesAddress, trailblazersBadgesS2Address } from '$generated/abi';
 import type { Token } from '$generated/graphql/badges';
 import { getMovementName, Movements } from '$lib/domains/profile/types/types';
 import type { BadgesByFaction, BadgesByMovement, NFT, TBBadge } from '$lib/shared/types/NFT';
@@ -10,17 +11,12 @@ import {
   USER_NFTS_FETCH_BADGES_QUERY,
   USER_NFTS_FETCH_TAIKOONS_AND_SNAEFELLS_QUERY,
 } from '$shared/services/graphql/queries';
+import { chainId } from '$shared/utils/chain';
 import { getLogger } from '$shared/utils/logger';
+import sanitizeIpfsUri from '$shared/utils/nfts/sanitizeIpfsUri';
 
 import { FactionNames, getFactionName } from '../types/badges/types';
 import type { NFTMetadata } from '../types/shared/types';
-import {
-  taikoonTokenAddress,
-  trailblazersBadgesAbi,
-  trailblazersBadgesAddress,
-  trailblazersBadgesS2Address,
-} from '$generated/abi';
-import { chainId } from '$shared/utils/chain';
 
 const log = getLogger('NftAdapter');
 export class NftAdapter {
@@ -266,8 +262,11 @@ export class NftAdapter {
   async getNFTMetadata(nft: NFT): Promise<NFTMetadata | null> {
     if (!nft.tokenUri) return null;
     try {
-      // Trailblazer S1 Badges
-      if (isAddressEqual(nft.address, trailblazersBadgesAddress[chainId])) {
+      // Trailblazer Badges
+      if (
+        isAddressEqual(nft.address, trailblazersBadgesAddress[chainId]) ||
+        isAddressEqual(nft.address, trailblazersBadgesS2Address[chainId])
+      ) {
         const uriParts = nft.tokenUri.split('/');
         const badgeId = Number(uriParts.pop());
         const movementId = Number(uriParts.pop()) as Movements;
@@ -279,30 +278,15 @@ export class NftAdapter {
         };
       }
 
-      // Trailblazer S2 Badges
-      if (isAddressEqual(nft.address, trailblazersBadgesS2Address[chainId])) {
-        console.log('found tbz s2 badge', nft.metadata);
-      }
+      // any other NFT
+      const tokenBaseUri = sanitizeIpfsUri(nft.tokenUri);
+      const tokenUriUrl = `/api/proxy?url=${encodeURIComponent(tokenBaseUri)}`;
 
-        let tokenBaseUri = nft.tokenUri;
-        if (!tokenBaseUri.startsWith('https://')) {
-          tokenBaseUri = `https://taikonfts.4everland.link/ipfs/${tokenBaseUri}`;
-        }
+      const src = await axios.get(tokenUriUrl, globalAxiosConfig);
 
-        const tokenUriUrl = `/api/proxy?url=${encodeURIComponent(tokenBaseUri)}`;
-
-        const src = await axios.get(tokenUriUrl, globalAxiosConfig);
-
-        let ipfsUri = src.data.image;
-
-        if (!ipfsUri.startsWith('https://')) {
-          ipfsUri =  `https://taikonfts.4everland.link/ipfs/${ipfsUri}`
-        }
-
-        return {
-          image: ipfsUri
-        };
-
+      return {
+        image: sanitizeIpfsUri(src.data.image),
+      };
     } catch (error) {
       log('getNFTMetadata error', { error }, nft);
       return null;
