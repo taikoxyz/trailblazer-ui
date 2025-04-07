@@ -25,10 +25,10 @@
 
   // Ensure i18n is initialized before rendering the layout
   let i18nReady = false;
-  (async () => {
+  onMount(async () => {
     await setupI18n();
     i18nReady = true;
-  })();
+  });
 
   const syncPointer = ({ x, y }: { x: number; y: number }) => {
     if (browser) {
