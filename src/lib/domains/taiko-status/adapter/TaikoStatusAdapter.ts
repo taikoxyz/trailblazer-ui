@@ -8,8 +8,8 @@ import { getLogger } from '$shared/utils/logger';
 const log = getLogger('TaikoStatusAdapter');
 
 export class TaikoStatusAdapter {
-  private getEndpoint(): string {
-    if (isDevelopmentEnv) {
+  private getEndpoint(isDev?: boolean): string {
+    if (isDev || isDevelopmentEnv) {
       return '/api/mock-api/s4/taiko-status?address=';
     }
     return 'https://trailblazer.mainnet.taiko.xyz/s4/taikopass?address=';
