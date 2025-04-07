@@ -87,7 +87,8 @@
       isBlacklisted.set(blacklistStatus);
 
       try {
-        const hasClaimed = await claimServiceInstance.hasClaimed(urlAddress, $activeSeason - 1);
+        //const hasClaimed = await claimServiceInstance.hasClaimed(urlAddress, $activeSeason - 1);
+        const hasClaimed = true;
         if (hasClaimed) {
           currentStep.set(ClaimStates.SUCCESS);
           isClaimSuccessful.set(true);
@@ -126,6 +127,8 @@
       try {
         // we need to go back 1 season as the current season is not claimable yet
         const { value, proof } = await claimServiceInstance.preflight(address, $activeSeason - 1);
+
+        console.log('claim start', { value, proof });
         claimAmount.set(value);
         claimProof.set(proof);
         claimLabel.set('Start');

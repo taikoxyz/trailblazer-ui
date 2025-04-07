@@ -50,9 +50,9 @@ export class ClaimAdapter {
    */
   async claim(address: Address, amount: number, proof: string): Promise<Hash> {
     log('Claiming %s for %s', amount, address);
-console.log('calling claim', {address, amount, proof});
+    console.log('calling claim', { address, amount, proof });
 
-proof = '["0x563cdb79ba0e548fe275c08aaf44da15bc0da166f9a3051b29380914bbec0eea"]'
+    proof = '["0x563cdb79ba0e548fe275c08aaf44da15bc0da166f9a3051b29380914bbec0eea"]';
 
     const tx = await writeContract(wagmiConfig, {
       abi: erc20AirdropAbi,
@@ -80,11 +80,13 @@ proof = '["0x563cdb79ba0e548fe275c08aaf44da15bc0da166f9a3051b29380914bbec0eea"]'
       //'/claim/proof',
       'https://trailblazer.qa.taiko.xyz/s3/claim/proof',
       {
-      params: {
-        address: address,
+        params: {
+          address: address,
+        },
       },
-    });
+    );
     log('Preflight response', res.data);
+    console.log('Preflight response', { address, season }, res.data);
     return res.data;
   }
 
