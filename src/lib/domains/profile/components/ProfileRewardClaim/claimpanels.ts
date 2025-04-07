@@ -1,6 +1,8 @@
 import { get } from 'svelte/store';
 import { t } from 'svelte-i18n';
 
+import { PUBLIC_ACTIVE_SEASON } from '$env/static/public';
+
 import type { ClaimPanelType } from './types';
 import { ClaimStates } from './types';
 
@@ -28,7 +30,10 @@ export const getPanels = (): Record<ClaimStates, ClaimPanelType> => ({
   [ClaimStates.INELIGIBLE]: {
     title: get(t)('claim.panels.ineligible.title'),
     text: get(t)('claim.panels.ineligible.text', {
-      values: { blogUrl: 'https://taiko.mirror.xyz/FzcMa0qlAeIVuZlQelZDSlQZlnINCCOOxrDRmduiflk ' },
+      values: {
+        seasonNumber: PUBLIC_ACTIVE_SEASON,
+        blogUrl: 'https://taiko.mirror.xyz/naE5ZNssGzw_FVs_-r2Eqd3DquRkx1dQ5Cg5kUswwns',
+      },
     }),
     state: ClaimStates.INELIGIBLE,
     additionalContent: null,
