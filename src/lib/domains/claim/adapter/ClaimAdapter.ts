@@ -52,7 +52,7 @@ export class ClaimAdapter {
     log('Claiming %s for %s', amount, address);
     console.log('calling claim', { address, amount, proof });
 
-   // proof = '["0x563cdb79ba0e548fe275c08aaf44da15bc0da166f9a3051b29380914bbec0eea"]';
+    // proof = '["0x563cdb79ba0e548fe275c08aaf44da15bc0da166f9a3051b29380914bbec0eea"]';
 
     const tx = await writeContract(wagmiConfig, {
       abi: erc20AirdropAbi,

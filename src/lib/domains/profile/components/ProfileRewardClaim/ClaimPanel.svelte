@@ -1,15 +1,10 @@
 <script lang="ts">
+  import { TaikoStatusService } from '$lib/domains/taiko-status/service/TaikoStatusService';
+  import { RanksToPoints, StatusRank } from '$lib/domains/taiko-status/types';
   import { Spinner } from '$shared/components';
   import { ActionButton } from '$shared/components/Button';
   import { classNames } from '$shared/utils/classNames';
   import getConnectedAddress from '$shared/utils/getConnectedAddress';
-  import getTaikoStatus from '$shared/utils/taiko-status/getTaikoStatus';
-  import { getTaikoStatusNextRank } from '$shared/utils/taiko-status/getTaikoStatusNextRank';
-  import { getTaikoStatusRankBackgroundColorCss } from '$shared/utils/taiko-status/getTaikoStatusRankBackgroundColor';
-  import { getTaikoStatusRankIcon } from '$shared/utils/taiko-status/getTaikoStatusRankIcon';
-  import { getTaikoStatusRankName } from '$shared/utils/taiko-status/rankName';
-  import { formatTaikoStatusPoints, getTaikoStatusPointsToNextRank } from '$shared/utils/taiko-status/rankPoints';
-  import { RanksToPoints, StatusRank } from '$shared/utils/taiko-status/types';
 
   import ClaimTerms from './ClaimTerms.svelte';
   import { ClaimStates, type IClaimButton } from './types';
@@ -130,20 +125,26 @@
   }
   let statusRank: StatusRank = StatusRank.None;
   let statusPoints: number = 0;
-  let statusPointsToNextRank: number = 0;
   let statusNextRank = StatusRank.Bronze;
   let statusPointsNextThreshold: number = 0;
-
+  let statusIcon = '';
+  let statusName = '';
+  let statusNextName = '';
   async function loadTaikoStatus() {
     if (state !== ClaimStates.SUCCESS) return;
     const address = getConnectedAddress();
-    const { rank, points } = await getTaikoStatus(address);
+    const service = new TaikoStatusService();
+
+    const points = await service.getUserPoints(address);
+    const rank = service.getRank(points);
 
     statusRank = rank;
     statusPoints = points;
-    statusPointsToNextRank = getTaikoStatusPointsToNextRank(statusPoints);
-    statusNextRank = getTaikoStatusNextRank(statusPoints);
+    statusNextRank = service.getNextRank(points);
     statusPointsNextThreshold = RanksToPoints[statusNextRank];
+    statusIcon = service.getRankIcon(points);
+    statusName = service.getRankName(points);
+    statusNextName = service.getRankName(statusPointsNextThreshold + 1);
   }
 
   $: state, loadTaikoStatus();
@@ -209,19 +210,19 @@
             Your Taiko Status
 
             <div class={taikoStatusBadgeClasses}>
-              <img src={getTaikoStatusRankIcon(statusPoints)} alt={statusRank} />
-              <span>{getTaikoStatusRankName(statusPoints)}</span>
+              <img src={statusIcon} alt={statusRank} />
+              <span>{statusName}</span>
             </div>
           </div>
 
           <div class={statusProgressWrapperClasses}>
             <div class={statusProgressLabelClasses}>
               <div>Status Progress</div>
-              <div>{getTaikoStatusRankName(statusPointsNextThreshold)}</div>
+              <div>{statusNextName}</div>
             </div>
             <progress class={taikoStatusProgressClasses} value={statusPoints} max={statusPointsNextThreshold} />
             <div class="text-grey-500">
-              {formatTaikoStatusPoints(statusPoints)} / {formatTaikoStatusPoints(statusPointsNextThreshold)}
+              {statusPoints} / {statusPointsNextThreshold}
             </div>
           </div>
         {/if}
