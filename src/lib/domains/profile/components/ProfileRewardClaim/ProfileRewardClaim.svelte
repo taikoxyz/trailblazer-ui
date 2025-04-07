@@ -16,6 +16,7 @@
     isLoading,
     isSelfProfile,
   } from '$lib/domains/claim/stores/claimStores';
+  import { TaikoStatusModalStore } from '$lib/domains/taiko-status/stores/TaikoStatusModalStore';
   import { errorToast, warningToast } from '$shared/components/NotificationToast';
   import { account } from '$shared/stores/account';
   import { activeSeason } from '$shared/stores/activeSeason';
@@ -117,7 +118,7 @@
    *
    * @param state - The current state of the claim process
    */
-  async function handlePanelButtonClick(state: ClaimStates) {
+  async function handlePanelButtonClick(state: ClaimStates, index: number) {
     if (!$account || !$account.address) return;
     const address = $account.address;
 
@@ -127,7 +128,6 @@
         // we need to go back 1 season as the current season is not claimable yet
         const { value, proof } = await claimServiceInstance.preflight(address, $activeSeason - 1);
 
-        console.log('claim start', { value, proof });
         claimAmount.set(value);
         claimProof.set(proof);
         claimLabel.set('Start');
@@ -182,13 +182,23 @@
     if (state === ClaimStates.INELIGIBLE) {
       currentStep.set(ClaimStates.INELIGIBLE);
     }
+
+    if (state === ClaimStates.SUCCESS) {
+      if (index === 0) {
+        // add to wallet
+        claimServiceInstance.addTokenToWallet();
+      } else if (index === 1) {
+        // earn more taiko; open up status modal
+        TaikoStatusModalStore.set(true);
+      }
+    }
   }
 
   $: disableButton = $currentStep === ClaimStates.CLAIM ? !$tokenClaimTermsAccepted : false;
 
-  $: mappedButtons = panels[$currentStep].buttons.map((button) => ({
+  $: mappedButtons = panels[$currentStep].buttons.map((button, i) => ({
     ...button,
-    handler: () => handlePanelButtonClick(panels[$currentStep].state),
+    handler: () => handlePanelButtonClick(panels[$currentStep].state, i),
   }));
 </script>
 

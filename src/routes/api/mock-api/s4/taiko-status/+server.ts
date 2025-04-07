@@ -9,6 +9,6 @@ export function GET({ url }) {
 
   return json({
     address: searchParams.get('address'),
-    points: Math.round(Math.random() * 265_000),
+    points: 12345,
   });
 }

@@ -1,8 +1,15 @@
 import type { Address } from 'viem';
 
-import type { StatusRank } from '$lib/domains/taiko-status/types';
+import { RanksToPoints, type StatusRank } from '$lib/domains/taiko-status/types';
 
 import { TaikoStatusAdapter } from '../adapter/TaikoStatusAdapter';
+
+export interface TaikoStatusInfo {
+  rank: StatusRank;
+  points: number;
+  icon: string;
+  name: string;
+}
 
 export class TaikoStatusService {
   // adapters
@@ -38,5 +45,27 @@ export class TaikoStatusService {
 
   getRankName(points: number): string {
     return this.adapter.getRankName(points);
+  }
+
+  async getTaikoStatus(address: Address): Promise<{ current: TaikoStatusInfo; next: TaikoStatusInfo }> {
+    const points = await this.adapter.getUserPoints(address);
+    const rank = this.adapter.getRank(points);
+
+    const nextRank = this.adapter.getNextRank(points);
+    const nextPoints = RanksToPoints[nextRank];
+    return {
+      current: {
+        rank,
+        points,
+        name: this.adapter.getRankName(points),
+        icon: this.adapter.getRankIcon(points),
+      },
+      next: {
+        rank: nextRank,
+        points: nextPoints,
+        name: this.adapter.getRankName(nextPoints),
+        icon: this.adapter.getRankIcon(nextPoints),
+      },
+    };
   }
 }

@@ -1,9 +1,9 @@
 <script lang="ts">
-  import { TaikoStatusService } from '$lib/domains/taiko-status/service/TaikoStatusService';
-  import { RanksToPoints, StatusRank } from '$lib/domains/taiko-status/types';
+  import { type TaikoStatusInfo, TaikoStatusService } from '$lib/domains/taiko-status/service/TaikoStatusService';
   import { Spinner } from '$shared/components';
   import { ActionButton } from '$shared/components/Button';
   import { classNames } from '$shared/utils/classNames';
+  import formatTaikoStatusPoints from '$shared/utils/formatTaikoStatusPoints';
   import getConnectedAddress from '$shared/utils/getConnectedAddress';
 
   import ClaimTerms from './ClaimTerms.svelte';
@@ -123,28 +123,19 @@
     const formattedInteger = integer.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
     return decimal ? `${formattedInteger}.${decimal}` : formattedInteger;
   }
-  let statusRank: StatusRank = StatusRank.None;
-  let statusPoints: number = 0;
-  let statusNextRank = StatusRank.Bronze;
-  let statusPointsNextThreshold: number = 0;
-  let statusIcon = '';
-  let statusName = '';
-  let statusNextName = '';
+
+  let currentStatus: null | TaikoStatusInfo = null;
+  let nextStatus: null | TaikoStatusInfo = null;
+
   async function loadTaikoStatus() {
     if (state !== ClaimStates.SUCCESS) return;
     const address = getConnectedAddress();
     const service = new TaikoStatusService();
 
-    const points = await service.getUserPoints(address);
-    const rank = service.getRank(points);
+    const { current, next } = await service.getTaikoStatus(address);
 
-    statusRank = rank;
-    statusPoints = points;
-    statusNextRank = service.getNextRank(points);
-    statusPointsNextThreshold = RanksToPoints[statusNextRank];
-    statusIcon = service.getRankIcon(points);
-    statusName = service.getRankName(points);
-    statusNextName = service.getRankName(statusPointsNextThreshold + 1);
+    currentStatus = current;
+    nextStatus = next;
   }
 
   $: state, loadTaikoStatus();
@@ -205,24 +196,24 @@
           </div>
         </div>
 
-        {#if ClaimStates.SUCCESS === state}
+        {#if ClaimStates.SUCCESS === state && currentStatus && nextStatus}
           <div class={rewardInputClasses}>
             Your Taiko Status
 
             <div class={taikoStatusBadgeClasses}>
-              <img src={statusIcon} alt={statusRank} />
-              <span>{statusName}</span>
+              <img src={currentStatus.icon} alt={currentStatus.name} />
+              <span>{currentStatus.name}</span>
             </div>
           </div>
 
           <div class={statusProgressWrapperClasses}>
             <div class={statusProgressLabelClasses}>
               <div>Status Progress</div>
-              <div>{statusNextName}</div>
+              <div>{nextStatus.name}</div>
             </div>
-            <progress class={taikoStatusProgressClasses} value={statusPoints} max={statusPointsNextThreshold} />
+            <progress class={taikoStatusProgressClasses} value={currentStatus.points} max={nextStatus.points} />
             <div class="text-grey-500">
-              {statusPoints} / {statusPointsNextThreshold}
+              {formatTaikoStatusPoints(currentStatus.points)} / {formatTaikoStatusPoints(nextStatus.points)}
             </div>
           </div>
         {/if}
