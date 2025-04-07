@@ -133,6 +133,7 @@
   let statusPointsToNextRank: number = 0;
   let statusNextRank = StatusRank.Bronze;
   let statusPointsNextThreshold: number = 0;
+
   async function loadTaikoStatus() {
     if (state !== ClaimStates.SUCCESS) return;
     const address = getConnectedAddress();

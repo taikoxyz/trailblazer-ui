@@ -3,7 +3,7 @@ import {
   createWriteContract,
   createSimulateContract,
   createWatchContractEvent,
-} from '@wagmi/core/codegen';
+} from 'wagmi/codegen'
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // BadgeRecruitment
@@ -44,7 +44,9 @@ export const badgeRecruitmentAbi = [
   },
   {
     type: 'function',
-    inputs: [{ name: '_s1BadgeIds', internalType: 'uint256[]', type: 'uint256[]' }],
+    inputs: [
+      { name: '_s1BadgeIds', internalType: 'uint256[]', type: 'uint256[]' },
+    ],
     name: 'enableRecruitments',
     outputs: [],
     stateMutability: 'nonpayable',
@@ -960,7 +962,9 @@ export const badgeRecruitmentAbi = [
   { type: 'error', inputs: [], name: 'CURRENT_CYCLE_NOT_OVER' },
   {
     type: 'error',
-    inputs: [{ name: 'implementation', internalType: 'address', type: 'address' }],
+    inputs: [
+      { name: 'implementation', internalType: 'address', type: 'address' },
+    ],
     name: 'ERC1967InvalidImplementation',
   },
   { type: 'error', inputs: [], name: 'ERC1967NonPayable' },
@@ -998,7 +1002,7 @@ export const badgeRecruitmentAbi = [
     inputs: [{ name: 'slot', internalType: 'bytes32', type: 'bytes32' }],
     name: 'UUPSUnsupportedProxiableUUID',
   },
-] as const;
+] as const
 
 /**
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa9Ceb04F3aF71fF123409d426A92BABb5124970C)
@@ -1007,7 +1011,7 @@ export const badgeRecruitmentAbi = [
 export const badgeRecruitmentAddress = {
   167000: '0xa9Ceb04F3aF71fF123409d426A92BABb5124970C',
   167009: '0x4BB626aA38F3C0884b4f3D7D4051124Ce4160225',
-} as const;
+} as const
 
 /**
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa9Ceb04F3aF71fF123409d426A92BABb5124970C)
@@ -1016,7 +1020,7 @@ export const badgeRecruitmentAddress = {
 export const badgeRecruitmentConfig = {
   address: badgeRecruitmentAddress,
   abi: badgeRecruitmentAbi,
-} as const;
+} as const
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // ERC20Airdrop
@@ -1024,7 +1028,7 @@ export const badgeRecruitmentConfig = {
 
 /**
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x95345D5A092623D79a56a016001f7878FA9Da3Ef)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x9dFE8d1CD87782a8f1Be65396b657d97E5c1A95d)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x16a59B792d91Eb446b167D3225e2979C8E4E0827)
  */
 export const erc20AirdropAbi = [
   {
@@ -1045,7 +1049,9 @@ export const erc20AirdropAbi = [
     type: 'function',
     inputs: [],
     name: 'blacklist',
-    outputs: [{ name: '', internalType: 'contract IMinimalBlacklist', type: 'address' }],
+    outputs: [
+      { name: '', internalType: 'contract IMinimalBlacklist', type: 'address' },
+    ],
     stateMutability: 'view',
   },
   {
@@ -1190,7 +1196,9 @@ export const erc20AirdropAbi = [
   },
   {
     type: 'function',
-    inputs: [{ name: '_token', internalType: 'contract IERC20', type: 'address' }],
+    inputs: [
+      { name: '_token', internalType: 'contract IERC20', type: 'address' },
+    ],
     name: 'withdrawERC20',
     outputs: [],
     stateMutability: 'nonpayable',
@@ -1346,7 +1354,9 @@ export const erc20AirdropAbi = [
   { type: 'error', inputs: [], name: 'CLAIM_NOT_ONGOING' },
   {
     type: 'error',
-    inputs: [{ name: 'implementation', internalType: 'address', type: 'address' }],
+    inputs: [
+      { name: 'implementation', internalType: 'address', type: 'address' },
+    ],
     name: 'ERC1967InvalidImplementation',
   },
   { type: 'error', inputs: [], name: 'ERC1967NonPayable' },
@@ -1374,25 +1384,25 @@ export const erc20AirdropAbi = [
     inputs: [{ name: 'slot', internalType: 'bytes32', type: 'bytes32' }],
     name: 'UUPSUnsupportedProxiableUUID',
   },
-] as const;
+] as const
 
 /**
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x95345D5A092623D79a56a016001f7878FA9Da3Ef)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x9dFE8d1CD87782a8f1Be65396b657d97E5c1A95d)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x16a59B792d91Eb446b167D3225e2979C8E4E0827)
  */
 export const erc20AirdropAddress = {
   167000: '0x95345D5A092623D79a56a016001f7878FA9Da3Ef',
-  167009: '0x9dFE8d1CD87782a8f1Be65396b657d97E5c1A95d',
-} as const;
+  167009: '0x16a59B792d91Eb446b167D3225e2979C8E4E0827',
+} as const
 
 /**
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x95345D5A092623D79a56a016001f7878FA9Da3Ef)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x9dFE8d1CD87782a8f1Be65396b657d97E5c1A95d)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x16a59B792d91Eb446b167D3225e2979C8E4E0827)
  */
 export const erc20AirdropConfig = {
   address: erc20AirdropAddress,
   abi: erc20AirdropAbi,
-} as const;
+} as const
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // ERC20TaikoToken
@@ -1402,7 +1412,7 @@ export const erc20AirdropConfig = {
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x290265ACd21816EE414E64eEC77dd490d8dd9f51)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x9dFE8d1CD87782a8f1Be65396b657d97E5c1A95d)
  */
-export const erc20TaikoTokenAbi = [] as const;
+export const erc20TaikoTokenAbi = [] as const
 
 /**
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x290265ACd21816EE414E64eEC77dd490d8dd9f51)
@@ -1411,7 +1421,7 @@ export const erc20TaikoTokenAbi = [] as const;
 export const erc20TaikoTokenAddress = {
   167000: '0x290265ACd21816EE414E64eEC77dd490d8dd9f51',
   167009: '0x9dFE8d1CD87782a8f1Be65396b657d97E5c1A95d',
-} as const;
+} as const
 
 /**
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x290265ACd21816EE414E64eEC77dd490d8dd9f51)
@@ -1420,7 +1430,7 @@ export const erc20TaikoTokenAddress = {
 export const erc20TaikoTokenConfig = {
   address: erc20TaikoTokenAddress,
   abi: erc20TaikoTokenAbi,
-} as const;
+} as const
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // EventRegister
@@ -1428,7 +1438,7 @@ export const erc20TaikoTokenConfig = {
 
 /**
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x7cbec64D099D49eA91062746B38182455c94862C)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6677abea2C52d9378BB399DB09219000a0ACBbe4)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6439Bb31dE508Dc36B8D3A39C389EB8E6C214ebE)
  */
 export const eventRegisterAbi = [
   { type: 'constructor', inputs: [], stateMutability: 'nonpayable' },
@@ -1839,25 +1849,25 @@ export const eventRegisterAbi = [
     inputs: [{ name: 'account', internalType: 'address', type: 'address' }],
     name: 'OwnableUnauthorizedAccount',
   },
-] as const;
+] as const
 
 /**
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x7cbec64D099D49eA91062746B38182455c94862C)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6677abea2C52d9378BB399DB09219000a0ACBbe4)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6439Bb31dE508Dc36B8D3A39C389EB8E6C214ebE)
  */
 export const eventRegisterAddress = {
   167000: '0x7cbec64D099D49eA91062746B38182455c94862C',
-  167009: '0x6677abea2C52d9378BB399DB09219000a0ACBbe4',
-} as const;
+  167009: '0x6439Bb31dE508Dc36B8D3A39C389EB8E6C214ebE',
+} as const
 
 /**
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x7cbec64D099D49eA91062746B38182455c94862C)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6677abea2C52d9378BB399DB09219000a0ACBbe4)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6439Bb31dE508Dc36B8D3A39C389EB8E6C214ebE)
  */
 export const eventRegisterConfig = {
   address: eventRegisterAddress,
   abi: eventRegisterAbi,
-} as const;
+} as const
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // RegisterProfilePicture
@@ -2052,7 +2062,9 @@ export const registerProfilePictureAbi = [
   },
   {
     type: 'error',
-    inputs: [{ name: 'implementation', internalType: 'address', type: 'address' }],
+    inputs: [
+      { name: 'implementation', internalType: 'address', type: 'address' },
+    ],
     name: 'ERC1967InvalidImplementation',
   },
   { type: 'error', inputs: [], name: 'ERC1967NonPayable' },
@@ -2089,7 +2101,7 @@ export const registerProfilePictureAbi = [
     inputs: [{ name: 'slot', internalType: 'bytes32', type: 'bytes32' }],
     name: 'UUPSUnsupportedProxiableUUID',
   },
-] as const;
+] as const
 
 /**
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x58617427f3d42e5435908661d3c788d7d2EAf3fa)
@@ -2098,7 +2110,7 @@ export const registerProfilePictureAbi = [
 export const registerProfilePictureAddress = {
   167000: '0x58617427f3d42e5435908661d3c788d7d2EAf3fa',
   167009: '0xdBfaFc789c4272161ce01a4A3aBa04C232362504',
-} as const;
+} as const
 
 /**
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x58617427f3d42e5435908661d3c788d7d2EAf3fa)
@@ -2107,7 +2119,7 @@ export const registerProfilePictureAddress = {
 export const registerProfilePictureConfig = {
   address: registerProfilePictureAddress,
   abi: registerProfilePictureAbi,
-} as const;
+} as const
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // TaikoonToken
@@ -2160,7 +2172,9 @@ export const taikoonTokenAbi = [
     type: 'function',
     inputs: [],
     name: 'blacklist',
-    outputs: [{ name: '', internalType: 'contract IMinimalBlacklist', type: 'address' }],
+    outputs: [
+      { name: '', internalType: 'contract IMinimalBlacklist', type: 'address' },
+    ],
     stateMutability: 'view',
   },
   {
@@ -2624,7 +2638,9 @@ export const taikoonTokenAbi = [
   },
   {
     type: 'error',
-    inputs: [{ name: 'implementation', internalType: 'address', type: 'address' }],
+    inputs: [
+      { name: 'implementation', internalType: 'address', type: 'address' },
+    ],
     name: 'ERC1967InvalidImplementation',
   },
   { type: 'error', inputs: [], name: 'ERC1967NonPayable' },
@@ -2710,7 +2726,7 @@ export const taikoonTokenAbi = [
     inputs: [{ name: 'slot', internalType: 'bytes32', type: 'bytes32' }],
     name: 'UUPSUnsupportedProxiableUUID',
   },
-] as const;
+] as const
 
 /**
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x4A045C5016B200F7E08a4caBB2cdA6E85bF53295)
@@ -2719,7 +2735,7 @@ export const taikoonTokenAbi = [
 export const taikoonTokenAddress = {
   167000: '0x4A045C5016B200F7E08a4caBB2cdA6E85bF53295',
   167009: '0x6e68900B53D6de5c20A4b81CE42A488b887f40Ce',
-} as const;
+} as const
 
 /**
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x4A045C5016B200F7E08a4caBB2cdA6E85bF53295)
@@ -2728,7 +2744,7 @@ export const taikoonTokenAddress = {
 export const taikoonTokenConfig = {
   address: taikoonTokenAddress,
   abi: taikoonTokenAbi,
-} as const;
+} as const
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // TrailblazersBadges
@@ -2879,7 +2895,9 @@ export const trailblazersBadgesAbi = [
     type: 'function',
     inputs: [],
     name: 'blacklist',
-    outputs: [{ name: '', internalType: 'contract IMinimalBlacklist', type: 'address' }],
+    outputs: [
+      { name: '', internalType: 'contract IMinimalBlacklist', type: 'address' },
+    ],
     stateMutability: 'view',
   },
   {
@@ -2998,7 +3016,9 @@ export const trailblazersBadgesAbi = [
   },
   {
     type: 'function',
-    inputs: [{ name: 'signatureHash', internalType: 'bytes32', type: 'bytes32' }],
+    inputs: [
+      { name: 'signatureHash', internalType: 'bytes32', type: 'bytes32' },
+    ],
     name: 'minted',
     outputs: [{ name: 'hasMinted', internalType: 'bool', type: 'bool' }],
     stateMutability: 'view',
@@ -3010,7 +3030,9 @@ export const trailblazersBadgesAbi = [
       { name: '', internalType: 'uint256', type: 'uint256' },
     ],
     name: 'movementBadges',
-    outputs: [{ name: 'movementBadge', internalType: 'uint256', type: 'uint256' }],
+    outputs: [
+      { name: 'movementBadge', internalType: 'uint256', type: 'uint256' },
+    ],
     stateMutability: 'view',
   },
   {
@@ -3059,7 +3081,9 @@ export const trailblazersBadgesAbi = [
     type: 'function',
     inputs: [],
     name: 'recruitmentContract',
-    outputs: [{ name: '', internalType: 'contract BadgeRecruitment', type: 'address' }],
+    outputs: [
+      { name: '', internalType: 'contract BadgeRecruitment', type: 'address' },
+    ],
     stateMutability: 'view',
   },
   {
@@ -3277,7 +3301,9 @@ export const trailblazersBadgesAbi = [
     type: 'function',
     inputs: [],
     name: 'totalBadgeSupply',
-    outputs: [{ name: 'balances', internalType: 'uint256[]', type: 'uint256[]' }],
+    outputs: [
+      { name: 'balances', internalType: 'uint256[]', type: 'uint256[]' },
+    ],
     stateMutability: 'view',
   },
   {
@@ -3309,7 +3335,9 @@ export const trailblazersBadgesAbi = [
     type: 'function',
     inputs: [{ name: 'tokenId', internalType: 'uint256', type: 'uint256' }],
     name: 'unlockTimestamps',
-    outputs: [{ name: 'unlockTimestamp', internalType: 'uint256', type: 'uint256' }],
+    outputs: [
+      { name: 'unlockTimestamp', internalType: 'uint256', type: 'uint256' },
+    ],
     stateMutability: 'view',
   },
   {
@@ -3575,7 +3603,9 @@ export const trailblazersBadgesAbi = [
   {
     type: 'event',
     anonymous: false,
-    inputs: [{ name: '_uri', internalType: 'string', type: 'string', indexed: false }],
+    inputs: [
+      { name: '_uri', internalType: 'string', type: 'string', indexed: false },
+    ],
     name: 'UriSet',
   },
   { type: 'error', inputs: [], name: 'ADDRESS_BLACKLISTED' },
@@ -3588,7 +3618,9 @@ export const trailblazersBadgesAbi = [
   { type: 'error', inputs: [], name: 'BADGE_LOCKED_SEASON_2' },
   {
     type: 'error',
-    inputs: [{ name: 'implementation', internalType: 'address', type: 'address' }],
+    inputs: [
+      { name: 'implementation', internalType: 'address', type: 'address' },
+    ],
     name: 'ERC1967InvalidImplementation',
   },
   { type: 'error', inputs: [], name: 'ERC1967NonPayable' },
@@ -3678,7 +3710,7 @@ export const trailblazersBadgesAbi = [
     inputs: [{ name: 'slot', internalType: 'bytes32', type: 'bytes32' }],
     name: 'UUPSUnsupportedProxiableUUID',
   },
-] as const;
+] as const
 
 /**
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa20a8856e00F5ad024a55A663F06DCc419FFc4d5)
@@ -3687,7 +3719,7 @@ export const trailblazersBadgesAbi = [
 export const trailblazersBadgesAddress = {
   167000: '0xa20a8856e00F5ad024a55A663F06DCc419FFc4d5',
   167009: '0xEB310b20b030e9c227Ac23e0A39FE6a6e09Ba755',
-} as const;
+} as const
 
 /**
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa20a8856e00F5ad024a55A663F06DCc419FFc4d5)
@@ -3696,7 +3728,7 @@ export const trailblazersBadgesAddress = {
 export const trailblazersBadgesConfig = {
   address: trailblazersBadgesAddress,
   abi: trailblazersBadgesAbi,
-} as const;
+} as const
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // TrailblazersBadgesS2
@@ -4300,7 +4332,9 @@ export const trailblazersBadgesS2Abi = [
   },
   {
     type: 'error',
-    inputs: [{ name: 'implementation', internalType: 'address', type: 'address' }],
+    inputs: [
+      { name: 'implementation', internalType: 'address', type: 'address' },
+    ],
     name: 'ERC1967InvalidImplementation',
   },
   { type: 'error', inputs: [], name: 'ERC1967NonPayable' },
@@ -4325,7 +4359,7 @@ export const trailblazersBadgesS2Abi = [
     inputs: [{ name: 'slot', internalType: 'bytes32', type: 'bytes32' }],
     name: 'UUPSUnsupportedProxiableUUID',
   },
-] as const;
+] as const
 
 /**
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x52A7dBeC10B404548066F59DE89484e27b4181dA)
@@ -4334,7 +4368,7 @@ export const trailblazersBadgesS2Abi = [
 export const trailblazersBadgesS2Address = {
   167000: '0x52A7dBeC10B404548066F59DE89484e27b4181dA',
   167009: '0xC50b384b26a0118A6F896Cb58C331e83d51973d2',
-} as const;
+} as const
 
 /**
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x52A7dBeC10B404548066F59DE89484e27b4181dA)
@@ -4343,7 +4377,7 @@ export const trailblazersBadgesS2Address = {
 export const trailblazersBadgesS2Config = {
   address: trailblazersBadgesS2Address,
   abi: trailblazersBadgesS2Abi,
-} as const;
+} as const
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // USDC
@@ -4353,7 +4387,7 @@ export const trailblazersBadgesS2Config = {
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x07d83526730c7438048D55A4fc0b850e2aaB6f0b)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xB1Ca1F376AAF482Bf5db741EF4B884eB5d69f27B)
  */
-export const usdcAbi = [] as const;
+export const usdcAbi = [] as const
 
 /**
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x07d83526730c7438048D55A4fc0b850e2aaB6f0b)
@@ -4362,13 +4396,13 @@ export const usdcAbi = [] as const;
 export const usdcAddress = {
   167000: '0x07d83526730c7438048D55A4fc0b850e2aaB6f0b',
   167009: '0xB1Ca1F376AAF482Bf5db741EF4B884eB5d69f27B',
-} as const;
+} as const
 
 /**
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x07d83526730c7438048D55A4fc0b850e2aaB6f0b)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xB1Ca1F376AAF482Bf5db741EF4B884eB5d69f27B)
  */
-export const usdcConfig = { address: usdcAddress, abi: usdcAbi } as const;
+export const usdcConfig = { address: usdcAddress, abi: usdcAbi } as const
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // USDT
@@ -4378,7 +4412,7 @@ export const usdcConfig = { address: usdcAddress, abi: usdcAbi } as const;
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x2DEF195713CF4a606B49D07E520e22C17899a736)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x1292DFD7abeC7D739448e10903C103C99f032cd2)
  */
-export const usdtAbi = [] as const;
+export const usdtAbi = [] as const
 
 /**
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x2DEF195713CF4a606B49D07E520e22C17899a736)
@@ -4387,13 +4421,13 @@ export const usdtAbi = [] as const;
 export const usdtAddress = {
   167000: '0x2DEF195713CF4a606B49D07E520e22C17899a736',
   167009: '0x1292DFD7abeC7D739448e10903C103C99f032cd2',
-} as const;
+} as const
 
 /**
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x2DEF195713CF4a606B49D07E520e22C17899a736)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x1292DFD7abeC7D739448e10903C103C99f032cd2)
  */
-export const usdtConfig = { address: usdtAddress, abi: usdtAbi } as const;
+export const usdtConfig = { address: usdtAddress, abi: usdtAbi } as const
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Action
@@ -4408,7 +4442,7 @@ export const usdtConfig = { address: usdtAddress, abi: usdtAbi } as const;
 export const readBadgeRecruitment = /*#__PURE__*/ createReadContract({
   abi: badgeRecruitmentAbi,
   address: badgeRecruitmentAddress,
-});
+})
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link badgeRecruitmentAbi}__ and `functionName` set to `"DEFAULT_ADMIN_ROLE"`
@@ -4416,11 +4450,12 @@ export const readBadgeRecruitment = /*#__PURE__*/ createReadContract({
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa9Ceb04F3aF71fF123409d426A92BABb5124970C)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x4BB626aA38F3C0884b4f3D7D4051124Ce4160225)
  */
-export const readBadgeRecruitmentDefaultAdminRole = /*#__PURE__*/ createReadContract({
-  abi: badgeRecruitmentAbi,
-  address: badgeRecruitmentAddress,
-  functionName: 'DEFAULT_ADMIN_ROLE',
-});
+export const readBadgeRecruitmentDefaultAdminRole =
+  /*#__PURE__*/ createReadContract({
+    abi: badgeRecruitmentAbi,
+    address: badgeRecruitmentAddress,
+    functionName: 'DEFAULT_ADMIN_ROLE',
+  })
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link badgeRecruitmentAbi}__ and `functionName` set to `"S1_BADGES_ROLE"`
@@ -4428,11 +4463,12 @@ export const readBadgeRecruitmentDefaultAdminRole = /*#__PURE__*/ createReadCont
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa9Ceb04F3aF71fF123409d426A92BABb5124970C)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x4BB626aA38F3C0884b4f3D7D4051124Ce4160225)
  */
-export const readBadgeRecruitmentS1BadgesRole = /*#__PURE__*/ createReadContract({
-  abi: badgeRecruitmentAbi,
-  address: badgeRecruitmentAddress,
-  functionName: 'S1_BADGES_ROLE',
-});
+export const readBadgeRecruitmentS1BadgesRole =
+  /*#__PURE__*/ createReadContract({
+    abi: badgeRecruitmentAbi,
+    address: badgeRecruitmentAddress,
+    functionName: 'S1_BADGES_ROLE',
+  })
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link badgeRecruitmentAbi}__ and `functionName` set to `"UPGRADE_INTERFACE_VERSION"`
@@ -4440,11 +4476,12 @@ export const readBadgeRecruitmentS1BadgesRole = /*#__PURE__*/ createReadContract
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa9Ceb04F3aF71fF123409d426A92BABb5124970C)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x4BB626aA38F3C0884b4f3D7D4051124Ce4160225)
  */
-export const readBadgeRecruitmentUpgradeInterfaceVersion = /*#__PURE__*/ createReadContract({
-  abi: badgeRecruitmentAbi,
-  address: badgeRecruitmentAddress,
-  functionName: 'UPGRADE_INTERFACE_VERSION',
-});
+export const readBadgeRecruitmentUpgradeInterfaceVersion =
+  /*#__PURE__*/ createReadContract({
+    abi: badgeRecruitmentAbi,
+    address: badgeRecruitmentAddress,
+    functionName: 'UPGRADE_INTERFACE_VERSION',
+  })
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link badgeRecruitmentAbi}__ and `functionName` set to `"generateClaimHash"`
@@ -4452,11 +4489,12 @@ export const readBadgeRecruitmentUpgradeInterfaceVersion = /*#__PURE__*/ createR
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa9Ceb04F3aF71fF123409d426A92BABb5124970C)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x4BB626aA38F3C0884b4f3D7D4051124Ce4160225)
  */
-export const readBadgeRecruitmentGenerateClaimHash = /*#__PURE__*/ createReadContract({
-  abi: badgeRecruitmentAbi,
-  address: badgeRecruitmentAddress,
-  functionName: 'generateClaimHash',
-});
+export const readBadgeRecruitmentGenerateClaimHash =
+  /*#__PURE__*/ createReadContract({
+    abi: badgeRecruitmentAbi,
+    address: badgeRecruitmentAddress,
+    functionName: 'generateClaimHash',
+  })
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link badgeRecruitmentAbi}__ and `functionName` set to `"getActiveRecruitmentFor"`
@@ -4464,11 +4502,12 @@ export const readBadgeRecruitmentGenerateClaimHash = /*#__PURE__*/ createReadCon
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa9Ceb04F3aF71fF123409d426A92BABb5124970C)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x4BB626aA38F3C0884b4f3D7D4051124Ce4160225)
  */
-export const readBadgeRecruitmentGetActiveRecruitmentFor = /*#__PURE__*/ createReadContract({
-  abi: badgeRecruitmentAbi,
-  address: badgeRecruitmentAddress,
-  functionName: 'getActiveRecruitmentFor',
-});
+export const readBadgeRecruitmentGetActiveRecruitmentFor =
+  /*#__PURE__*/ createReadContract({
+    abi: badgeRecruitmentAbi,
+    address: badgeRecruitmentAddress,
+    functionName: 'getActiveRecruitmentFor',
+  })
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link badgeRecruitmentAbi}__ and `functionName` set to `"getActiveRecruitmentsFor"`
@@ -4476,11 +4515,12 @@ export const readBadgeRecruitmentGetActiveRecruitmentFor = /*#__PURE__*/ createR
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa9Ceb04F3aF71fF123409d426A92BABb5124970C)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x4BB626aA38F3C0884b4f3D7D4051124Ce4160225)
  */
-export const readBadgeRecruitmentGetActiveRecruitmentsFor = /*#__PURE__*/ createReadContract({
-  abi: badgeRecruitmentAbi,
-  address: badgeRecruitmentAddress,
-  functionName: 'getActiveRecruitmentsFor',
-});
+export const readBadgeRecruitmentGetActiveRecruitmentsFor =
+  /*#__PURE__*/ createReadContract({
+    abi: badgeRecruitmentAbi,
+    address: badgeRecruitmentAddress,
+    functionName: 'getActiveRecruitmentsFor',
+  })
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link badgeRecruitmentAbi}__ and `functionName` set to `"getConfig"`
@@ -4492,7 +4532,7 @@ export const readBadgeRecruitmentGetConfig = /*#__PURE__*/ createReadContract({
   abi: badgeRecruitmentAbi,
   address: badgeRecruitmentAddress,
   functionName: 'getConfig',
-});
+})
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link badgeRecruitmentAbi}__ and `functionName` set to `"getRecruitmentCycle"`
@@ -4500,11 +4540,12 @@ export const readBadgeRecruitmentGetConfig = /*#__PURE__*/ createReadContract({
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa9Ceb04F3aF71fF123409d426A92BABb5124970C)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x4BB626aA38F3C0884b4f3D7D4051124Ce4160225)
  */
-export const readBadgeRecruitmentGetRecruitmentCycle = /*#__PURE__*/ createReadContract({
-  abi: badgeRecruitmentAbi,
-  address: badgeRecruitmentAddress,
-  functionName: 'getRecruitmentCycle',
-});
+export const readBadgeRecruitmentGetRecruitmentCycle =
+  /*#__PURE__*/ createReadContract({
+    abi: badgeRecruitmentAbi,
+    address: badgeRecruitmentAddress,
+    functionName: 'getRecruitmentCycle',
+  })
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link badgeRecruitmentAbi}__ and `functionName` set to `"getRecruitmentInfluences"`
@@ -4512,11 +4553,12 @@ export const readBadgeRecruitmentGetRecruitmentCycle = /*#__PURE__*/ createReadC
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa9Ceb04F3aF71fF123409d426A92BABb5124970C)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x4BB626aA38F3C0884b4f3D7D4051124Ce4160225)
  */
-export const readBadgeRecruitmentGetRecruitmentInfluences = /*#__PURE__*/ createReadContract({
-  abi: badgeRecruitmentAbi,
-  address: badgeRecruitmentAddress,
-  functionName: 'getRecruitmentInfluences',
-});
+export const readBadgeRecruitmentGetRecruitmentInfluences =
+  /*#__PURE__*/ createReadContract({
+    abi: badgeRecruitmentAbi,
+    address: badgeRecruitmentAddress,
+    functionName: 'getRecruitmentInfluences',
+  })
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link badgeRecruitmentAbi}__ and `functionName` set to `"getRoleAdmin"`
@@ -4524,11 +4566,12 @@ export const readBadgeRecruitmentGetRecruitmentInfluences = /*#__PURE__*/ create
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa9Ceb04F3aF71fF123409d426A92BABb5124970C)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x4BB626aA38F3C0884b4f3D7D4051124Ce4160225)
  */
-export const readBadgeRecruitmentGetRoleAdmin = /*#__PURE__*/ createReadContract({
-  abi: badgeRecruitmentAbi,
-  address: badgeRecruitmentAddress,
-  functionName: 'getRoleAdmin',
-});
+export const readBadgeRecruitmentGetRoleAdmin =
+  /*#__PURE__*/ createReadContract({
+    abi: badgeRecruitmentAbi,
+    address: badgeRecruitmentAddress,
+    functionName: 'getRoleAdmin',
+  })
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link badgeRecruitmentAbi}__ and `functionName` set to `"hasRole"`
@@ -4540,7 +4583,7 @@ export const readBadgeRecruitmentHasRole = /*#__PURE__*/ createReadContract({
   abi: badgeRecruitmentAbi,
   address: badgeRecruitmentAddress,
   functionName: 'hasRole',
-});
+})
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link badgeRecruitmentAbi}__ and `functionName` set to `"isInfluenceActive"`
@@ -4548,11 +4591,12 @@ export const readBadgeRecruitmentHasRole = /*#__PURE__*/ createReadContract({
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa9Ceb04F3aF71fF123409d426A92BABb5124970C)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x4BB626aA38F3C0884b4f3D7D4051124Ce4160225)
  */
-export const readBadgeRecruitmentIsInfluenceActive = /*#__PURE__*/ createReadContract({
-  abi: badgeRecruitmentAbi,
-  address: badgeRecruitmentAddress,
-  functionName: 'isInfluenceActive',
-});
+export const readBadgeRecruitmentIsInfluenceActive =
+  /*#__PURE__*/ createReadContract({
+    abi: badgeRecruitmentAbi,
+    address: badgeRecruitmentAddress,
+    functionName: 'isInfluenceActive',
+  })
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link badgeRecruitmentAbi}__ and `functionName` set to `"isRecruitmentActive"`
@@ -4560,11 +4604,12 @@ export const readBadgeRecruitmentIsInfluenceActive = /*#__PURE__*/ createReadCon
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa9Ceb04F3aF71fF123409d426A92BABb5124970C)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x4BB626aA38F3C0884b4f3D7D4051124Ce4160225)
  */
-export const readBadgeRecruitmentIsRecruitmentActive = /*#__PURE__*/ createReadContract({
-  abi: badgeRecruitmentAbi,
-  address: badgeRecruitmentAddress,
-  functionName: 'isRecruitmentActive',
-});
+export const readBadgeRecruitmentIsRecruitmentActive =
+  /*#__PURE__*/ createReadContract({
+    abi: badgeRecruitmentAbi,
+    address: badgeRecruitmentAddress,
+    functionName: 'isRecruitmentActive',
+  })
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link badgeRecruitmentAbi}__ and `functionName` set to `"maxInfluences"`
@@ -4572,11 +4617,12 @@ export const readBadgeRecruitmentIsRecruitmentActive = /*#__PURE__*/ createReadC
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa9Ceb04F3aF71fF123409d426A92BABb5124970C)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x4BB626aA38F3C0884b4f3D7D4051124Ce4160225)
  */
-export const readBadgeRecruitmentMaxInfluences = /*#__PURE__*/ createReadContract({
-  abi: badgeRecruitmentAbi,
-  address: badgeRecruitmentAddress,
-  functionName: 'maxInfluences',
-});
+export const readBadgeRecruitmentMaxInfluences =
+  /*#__PURE__*/ createReadContract({
+    abi: badgeRecruitmentAbi,
+    address: badgeRecruitmentAddress,
+    functionName: 'maxInfluences',
+  })
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link badgeRecruitmentAbi}__ and `functionName` set to `"owner"`
@@ -4588,7 +4634,7 @@ export const readBadgeRecruitmentOwner = /*#__PURE__*/ createReadContract({
   abi: badgeRecruitmentAbi,
   address: badgeRecruitmentAddress,
   functionName: 'owner',
-});
+})
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link badgeRecruitmentAbi}__ and `functionName` set to `"pendingOwner"`
@@ -4596,11 +4642,12 @@ export const readBadgeRecruitmentOwner = /*#__PURE__*/ createReadContract({
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa9Ceb04F3aF71fF123409d426A92BABb5124970C)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x4BB626aA38F3C0884b4f3D7D4051124Ce4160225)
  */
-export const readBadgeRecruitmentPendingOwner = /*#__PURE__*/ createReadContract({
-  abi: badgeRecruitmentAbi,
-  address: badgeRecruitmentAddress,
-  functionName: 'pendingOwner',
-});
+export const readBadgeRecruitmentPendingOwner =
+  /*#__PURE__*/ createReadContract({
+    abi: badgeRecruitmentAbi,
+    address: badgeRecruitmentAddress,
+    functionName: 'pendingOwner',
+  })
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link badgeRecruitmentAbi}__ and `functionName` set to `"proxiableUUID"`
@@ -4608,11 +4655,12 @@ export const readBadgeRecruitmentPendingOwner = /*#__PURE__*/ createReadContract
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa9Ceb04F3aF71fF123409d426A92BABb5124970C)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x4BB626aA38F3C0884b4f3D7D4051124Ce4160225)
  */
-export const readBadgeRecruitmentProxiableUuid = /*#__PURE__*/ createReadContract({
-  abi: badgeRecruitmentAbi,
-  address: badgeRecruitmentAddress,
-  functionName: 'proxiableUUID',
-});
+export const readBadgeRecruitmentProxiableUuid =
+  /*#__PURE__*/ createReadContract({
+    abi: badgeRecruitmentAbi,
+    address: badgeRecruitmentAddress,
+    functionName: 'proxiableUUID',
+  })
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link badgeRecruitmentAbi}__ and `functionName` set to `"randomFromSignature"`
@@ -4620,11 +4668,12 @@ export const readBadgeRecruitmentProxiableUuid = /*#__PURE__*/ createReadContrac
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa9Ceb04F3aF71fF123409d426A92BABb5124970C)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x4BB626aA38F3C0884b4f3D7D4051124Ce4160225)
  */
-export const readBadgeRecruitmentRandomFromSignature = /*#__PURE__*/ createReadContract({
-  abi: badgeRecruitmentAbi,
-  address: badgeRecruitmentAddress,
-  functionName: 'randomFromSignature',
-});
+export const readBadgeRecruitmentRandomFromSignature =
+  /*#__PURE__*/ createReadContract({
+    abi: badgeRecruitmentAbi,
+    address: badgeRecruitmentAddress,
+    functionName: 'randomFromSignature',
+  })
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link badgeRecruitmentAbi}__ and `functionName` set to `"randomSigner"`
@@ -4632,11 +4681,12 @@ export const readBadgeRecruitmentRandomFromSignature = /*#__PURE__*/ createReadC
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa9Ceb04F3aF71fF123409d426A92BABb5124970C)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x4BB626aA38F3C0884b4f3D7D4051124Ce4160225)
  */
-export const readBadgeRecruitmentRandomSigner = /*#__PURE__*/ createReadContract({
-  abi: badgeRecruitmentAbi,
-  address: badgeRecruitmentAddress,
-  functionName: 'randomSigner',
-});
+export const readBadgeRecruitmentRandomSigner =
+  /*#__PURE__*/ createReadContract({
+    abi: badgeRecruitmentAbi,
+    address: badgeRecruitmentAddress,
+    functionName: 'randomSigner',
+  })
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link badgeRecruitmentAbi}__ and `functionName` set to `"recruitmentCycleId"`
@@ -4644,11 +4694,12 @@ export const readBadgeRecruitmentRandomSigner = /*#__PURE__*/ createReadContract
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa9Ceb04F3aF71fF123409d426A92BABb5124970C)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x4BB626aA38F3C0884b4f3D7D4051124Ce4160225)
  */
-export const readBadgeRecruitmentRecruitmentCycleId = /*#__PURE__*/ createReadContract({
-  abi: badgeRecruitmentAbi,
-  address: badgeRecruitmentAddress,
-  functionName: 'recruitmentCycleId',
-});
+export const readBadgeRecruitmentRecruitmentCycleId =
+  /*#__PURE__*/ createReadContract({
+    abi: badgeRecruitmentAbi,
+    address: badgeRecruitmentAddress,
+    functionName: 'recruitmentCycleId',
+  })
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link badgeRecruitmentAbi}__ and `functionName` set to `"recruitmentCycleUniqueMints"`
@@ -4656,11 +4707,12 @@ export const readBadgeRecruitmentRecruitmentCycleId = /*#__PURE__*/ createReadCo
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa9Ceb04F3aF71fF123409d426A92BABb5124970C)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x4BB626aA38F3C0884b4f3D7D4051124Ce4160225)
  */
-export const readBadgeRecruitmentRecruitmentCycleUniqueMints = /*#__PURE__*/ createReadContract({
-  abi: badgeRecruitmentAbi,
-  address: badgeRecruitmentAddress,
-  functionName: 'recruitmentCycleUniqueMints',
-});
+export const readBadgeRecruitmentRecruitmentCycleUniqueMints =
+  /*#__PURE__*/ createReadContract({
+    abi: badgeRecruitmentAbi,
+    address: badgeRecruitmentAddress,
+    functionName: 'recruitmentCycleUniqueMints',
+  })
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link badgeRecruitmentAbi}__ and `functionName` set to `"recruitmentCycles"`
@@ -4668,11 +4720,12 @@ export const readBadgeRecruitmentRecruitmentCycleUniqueMints = /*#__PURE__*/ cre
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa9Ceb04F3aF71fF123409d426A92BABb5124970C)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x4BB626aA38F3C0884b4f3D7D4051124Ce4160225)
  */
-export const readBadgeRecruitmentRecruitmentCycles = /*#__PURE__*/ createReadContract({
-  abi: badgeRecruitmentAbi,
-  address: badgeRecruitmentAddress,
-  functionName: 'recruitmentCycles',
-});
+export const readBadgeRecruitmentRecruitmentCycles =
+  /*#__PURE__*/ createReadContract({
+    abi: badgeRecruitmentAbi,
+    address: badgeRecruitmentAddress,
+    functionName: 'recruitmentCycles',
+  })
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link badgeRecruitmentAbi}__ and `functionName` set to `"recruitments"`
@@ -4680,11 +4733,12 @@ export const readBadgeRecruitmentRecruitmentCycles = /*#__PURE__*/ createReadCon
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa9Ceb04F3aF71fF123409d426A92BABb5124970C)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x4BB626aA38F3C0884b4f3D7D4051124Ce4160225)
  */
-export const readBadgeRecruitmentRecruitments = /*#__PURE__*/ createReadContract({
-  abi: badgeRecruitmentAbi,
-  address: badgeRecruitmentAddress,
-  functionName: 'recruitments',
-});
+export const readBadgeRecruitmentRecruitments =
+  /*#__PURE__*/ createReadContract({
+    abi: badgeRecruitmentAbi,
+    address: badgeRecruitmentAddress,
+    functionName: 'recruitments',
+  })
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link badgeRecruitmentAbi}__ and `functionName` set to `"s1Badges"`
@@ -4696,7 +4750,7 @@ export const readBadgeRecruitmentS1Badges = /*#__PURE__*/ createReadContract({
   abi: badgeRecruitmentAbi,
   address: badgeRecruitmentAddress,
   functionName: 's1Badges',
-});
+})
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link badgeRecruitmentAbi}__ and `functionName` set to `"s2Badges"`
@@ -4708,7 +4762,7 @@ export const readBadgeRecruitmentS2Badges = /*#__PURE__*/ createReadContract({
   abi: badgeRecruitmentAbi,
   address: badgeRecruitmentAddress,
   functionName: 's2Badges',
-});
+})
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link badgeRecruitmentAbi}__ and `functionName` set to `"supportsInterface"`
@@ -4716,11 +4770,12 @@ export const readBadgeRecruitmentS2Badges = /*#__PURE__*/ createReadContract({
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa9Ceb04F3aF71fF123409d426A92BABb5124970C)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x4BB626aA38F3C0884b4f3D7D4051124Ce4160225)
  */
-export const readBadgeRecruitmentSupportsInterface = /*#__PURE__*/ createReadContract({
-  abi: badgeRecruitmentAbi,
-  address: badgeRecruitmentAddress,
-  functionName: 'supportsInterface',
-});
+export const readBadgeRecruitmentSupportsInterface =
+  /*#__PURE__*/ createReadContract({
+    abi: badgeRecruitmentAbi,
+    address: badgeRecruitmentAddress,
+    functionName: 'supportsInterface',
+  })
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link badgeRecruitmentAbi}__ and `functionName` set to `"userExperience"`
@@ -4728,11 +4783,12 @@ export const readBadgeRecruitmentSupportsInterface = /*#__PURE__*/ createReadCon
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa9Ceb04F3aF71fF123409d426A92BABb5124970C)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x4BB626aA38F3C0884b4f3D7D4051124Ce4160225)
  */
-export const readBadgeRecruitmentUserExperience = /*#__PURE__*/ createReadContract({
-  abi: badgeRecruitmentAbi,
-  address: badgeRecruitmentAddress,
-  functionName: 'userExperience',
-});
+export const readBadgeRecruitmentUserExperience =
+  /*#__PURE__*/ createReadContract({
+    abi: badgeRecruitmentAbi,
+    address: badgeRecruitmentAddress,
+    functionName: 'userExperience',
+  })
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link badgeRecruitmentAbi}__ and `functionName` set to `"version"`
@@ -4744,7 +4800,7 @@ export const readBadgeRecruitmentVersion = /*#__PURE__*/ createReadContract({
   abi: badgeRecruitmentAbi,
   address: badgeRecruitmentAddress,
   functionName: 'version',
-});
+})
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link badgeRecruitmentAbi}__
@@ -4755,7 +4811,7 @@ export const readBadgeRecruitmentVersion = /*#__PURE__*/ createReadContract({
 export const writeBadgeRecruitment = /*#__PURE__*/ createWriteContract({
   abi: badgeRecruitmentAbi,
   address: badgeRecruitmentAddress,
-});
+})
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link badgeRecruitmentAbi}__ and `functionName` set to `"acceptOwnership"`
@@ -4763,11 +4819,12 @@ export const writeBadgeRecruitment = /*#__PURE__*/ createWriteContract({
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa9Ceb04F3aF71fF123409d426A92BABb5124970C)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x4BB626aA38F3C0884b4f3D7D4051124Ce4160225)
  */
-export const writeBadgeRecruitmentAcceptOwnership = /*#__PURE__*/ createWriteContract({
-  abi: badgeRecruitmentAbi,
-  address: badgeRecruitmentAddress,
-  functionName: 'acceptOwnership',
-});
+export const writeBadgeRecruitmentAcceptOwnership =
+  /*#__PURE__*/ createWriteContract({
+    abi: badgeRecruitmentAbi,
+    address: badgeRecruitmentAddress,
+    functionName: 'acceptOwnership',
+  })
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link badgeRecruitmentAbi}__ and `functionName` set to `"enableRecruitments"`
@@ -4775,11 +4832,12 @@ export const writeBadgeRecruitmentAcceptOwnership = /*#__PURE__*/ createWriteCon
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa9Ceb04F3aF71fF123409d426A92BABb5124970C)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x4BB626aA38F3C0884b4f3D7D4051124Ce4160225)
  */
-export const writeBadgeRecruitmentEnableRecruitments = /*#__PURE__*/ createWriteContract({
-  abi: badgeRecruitmentAbi,
-  address: badgeRecruitmentAddress,
-  functionName: 'enableRecruitments',
-});
+export const writeBadgeRecruitmentEnableRecruitments =
+  /*#__PURE__*/ createWriteContract({
+    abi: badgeRecruitmentAbi,
+    address: badgeRecruitmentAddress,
+    functionName: 'enableRecruitments',
+  })
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link badgeRecruitmentAbi}__ and `functionName` set to `"endRecruitment"`
@@ -4787,11 +4845,12 @@ export const writeBadgeRecruitmentEnableRecruitments = /*#__PURE__*/ createWrite
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa9Ceb04F3aF71fF123409d426A92BABb5124970C)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x4BB626aA38F3C0884b4f3D7D4051124Ce4160225)
  */
-export const writeBadgeRecruitmentEndRecruitment = /*#__PURE__*/ createWriteContract({
-  abi: badgeRecruitmentAbi,
-  address: badgeRecruitmentAddress,
-  functionName: 'endRecruitment',
-});
+export const writeBadgeRecruitmentEndRecruitment =
+  /*#__PURE__*/ createWriteContract({
+    abi: badgeRecruitmentAbi,
+    address: badgeRecruitmentAddress,
+    functionName: 'endRecruitment',
+  })
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link badgeRecruitmentAbi}__ and `functionName` set to `"forceDisableAllRecruitments"`
@@ -4799,11 +4858,12 @@ export const writeBadgeRecruitmentEndRecruitment = /*#__PURE__*/ createWriteCont
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa9Ceb04F3aF71fF123409d426A92BABb5124970C)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x4BB626aA38F3C0884b4f3D7D4051124Ce4160225)
  */
-export const writeBadgeRecruitmentForceDisableAllRecruitments = /*#__PURE__*/ createWriteContract({
-  abi: badgeRecruitmentAbi,
-  address: badgeRecruitmentAddress,
-  functionName: 'forceDisableAllRecruitments',
-});
+export const writeBadgeRecruitmentForceDisableAllRecruitments =
+  /*#__PURE__*/ createWriteContract({
+    abi: badgeRecruitmentAbi,
+    address: badgeRecruitmentAddress,
+    functionName: 'forceDisableAllRecruitments',
+  })
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link badgeRecruitmentAbi}__ and `functionName` set to `"grantRole"`
@@ -4811,11 +4871,13 @@ export const writeBadgeRecruitmentForceDisableAllRecruitments = /*#__PURE__*/ cr
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa9Ceb04F3aF71fF123409d426A92BABb5124970C)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x4BB626aA38F3C0884b4f3D7D4051124Ce4160225)
  */
-export const writeBadgeRecruitmentGrantRole = /*#__PURE__*/ createWriteContract({
-  abi: badgeRecruitmentAbi,
-  address: badgeRecruitmentAddress,
-  functionName: 'grantRole',
-});
+export const writeBadgeRecruitmentGrantRole = /*#__PURE__*/ createWriteContract(
+  {
+    abi: badgeRecruitmentAbi,
+    address: badgeRecruitmentAddress,
+    functionName: 'grantRole',
+  },
+)
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link badgeRecruitmentAbi}__ and `functionName` set to `"influenceRecruitment"`
@@ -4823,11 +4885,12 @@ export const writeBadgeRecruitmentGrantRole = /*#__PURE__*/ createWriteContract(
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa9Ceb04F3aF71fF123409d426A92BABb5124970C)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x4BB626aA38F3C0884b4f3D7D4051124Ce4160225)
  */
-export const writeBadgeRecruitmentInfluenceRecruitment = /*#__PURE__*/ createWriteContract({
-  abi: badgeRecruitmentAbi,
-  address: badgeRecruitmentAddress,
-  functionName: 'influenceRecruitment',
-});
+export const writeBadgeRecruitmentInfluenceRecruitment =
+  /*#__PURE__*/ createWriteContract({
+    abi: badgeRecruitmentAbi,
+    address: badgeRecruitmentAddress,
+    functionName: 'influenceRecruitment',
+  })
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link badgeRecruitmentAbi}__ and `functionName` set to `"initialize"`
@@ -4835,11 +4898,12 @@ export const writeBadgeRecruitmentInfluenceRecruitment = /*#__PURE__*/ createWri
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa9Ceb04F3aF71fF123409d426A92BABb5124970C)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x4BB626aA38F3C0884b4f3D7D4051124Ce4160225)
  */
-export const writeBadgeRecruitmentInitialize = /*#__PURE__*/ createWriteContract({
-  abi: badgeRecruitmentAbi,
-  address: badgeRecruitmentAddress,
-  functionName: 'initialize',
-});
+export const writeBadgeRecruitmentInitialize =
+  /*#__PURE__*/ createWriteContract({
+    abi: badgeRecruitmentAbi,
+    address: badgeRecruitmentAddress,
+    functionName: 'initialize',
+  })
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link badgeRecruitmentAbi}__ and `functionName` set to `"onERC721Received"`
@@ -4847,11 +4911,12 @@ export const writeBadgeRecruitmentInitialize = /*#__PURE__*/ createWriteContract
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa9Ceb04F3aF71fF123409d426A92BABb5124970C)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x4BB626aA38F3C0884b4f3D7D4051124Ce4160225)
  */
-export const writeBadgeRecruitmentOnErc721Received = /*#__PURE__*/ createWriteContract({
-  abi: badgeRecruitmentAbi,
-  address: badgeRecruitmentAddress,
-  functionName: 'onERC721Received',
-});
+export const writeBadgeRecruitmentOnErc721Received =
+  /*#__PURE__*/ createWriteContract({
+    abi: badgeRecruitmentAbi,
+    address: badgeRecruitmentAddress,
+    functionName: 'onERC721Received',
+  })
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link badgeRecruitmentAbi}__ and `functionName` set to `"renounceOwnership"`
@@ -4859,11 +4924,12 @@ export const writeBadgeRecruitmentOnErc721Received = /*#__PURE__*/ createWriteCo
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa9Ceb04F3aF71fF123409d426A92BABb5124970C)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x4BB626aA38F3C0884b4f3D7D4051124Ce4160225)
  */
-export const writeBadgeRecruitmentRenounceOwnership = /*#__PURE__*/ createWriteContract({
-  abi: badgeRecruitmentAbi,
-  address: badgeRecruitmentAddress,
-  functionName: 'renounceOwnership',
-});
+export const writeBadgeRecruitmentRenounceOwnership =
+  /*#__PURE__*/ createWriteContract({
+    abi: badgeRecruitmentAbi,
+    address: badgeRecruitmentAddress,
+    functionName: 'renounceOwnership',
+  })
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link badgeRecruitmentAbi}__ and `functionName` set to `"renounceRole"`
@@ -4871,11 +4937,12 @@ export const writeBadgeRecruitmentRenounceOwnership = /*#__PURE__*/ createWriteC
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa9Ceb04F3aF71fF123409d426A92BABb5124970C)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x4BB626aA38F3C0884b4f3D7D4051124Ce4160225)
  */
-export const writeBadgeRecruitmentRenounceRole = /*#__PURE__*/ createWriteContract({
-  abi: badgeRecruitmentAbi,
-  address: badgeRecruitmentAddress,
-  functionName: 'renounceRole',
-});
+export const writeBadgeRecruitmentRenounceRole =
+  /*#__PURE__*/ createWriteContract({
+    abi: badgeRecruitmentAbi,
+    address: badgeRecruitmentAddress,
+    functionName: 'renounceRole',
+  })
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link badgeRecruitmentAbi}__ and `functionName` set to `"resetRecruitment"`
@@ -4883,11 +4950,12 @@ export const writeBadgeRecruitmentRenounceRole = /*#__PURE__*/ createWriteContra
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa9Ceb04F3aF71fF123409d426A92BABb5124970C)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x4BB626aA38F3C0884b4f3D7D4051124Ce4160225)
  */
-export const writeBadgeRecruitmentResetRecruitment = /*#__PURE__*/ createWriteContract({
-  abi: badgeRecruitmentAbi,
-  address: badgeRecruitmentAddress,
-  functionName: 'resetRecruitment',
-});
+export const writeBadgeRecruitmentResetRecruitment =
+  /*#__PURE__*/ createWriteContract({
+    abi: badgeRecruitmentAbi,
+    address: badgeRecruitmentAddress,
+    functionName: 'resetRecruitment',
+  })
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link badgeRecruitmentAbi}__ and `functionName` set to `"revokeRole"`
@@ -4895,11 +4963,12 @@ export const writeBadgeRecruitmentResetRecruitment = /*#__PURE__*/ createWriteCo
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa9Ceb04F3aF71fF123409d426A92BABb5124970C)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x4BB626aA38F3C0884b4f3D7D4051124Ce4160225)
  */
-export const writeBadgeRecruitmentRevokeRole = /*#__PURE__*/ createWriteContract({
-  abi: badgeRecruitmentAbi,
-  address: badgeRecruitmentAddress,
-  functionName: 'revokeRole',
-});
+export const writeBadgeRecruitmentRevokeRole =
+  /*#__PURE__*/ createWriteContract({
+    abi: badgeRecruitmentAbi,
+    address: badgeRecruitmentAddress,
+    functionName: 'revokeRole',
+  })
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link badgeRecruitmentAbi}__ and `functionName` set to `"setConfig"`
@@ -4907,11 +4976,13 @@ export const writeBadgeRecruitmentRevokeRole = /*#__PURE__*/ createWriteContract
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa9Ceb04F3aF71fF123409d426A92BABb5124970C)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x4BB626aA38F3C0884b4f3D7D4051124Ce4160225)
  */
-export const writeBadgeRecruitmentSetConfig = /*#__PURE__*/ createWriteContract({
-  abi: badgeRecruitmentAbi,
-  address: badgeRecruitmentAddress,
-  functionName: 'setConfig',
-});
+export const writeBadgeRecruitmentSetConfig = /*#__PURE__*/ createWriteContract(
+  {
+    abi: badgeRecruitmentAbi,
+    address: badgeRecruitmentAddress,
+    functionName: 'setConfig',
+  },
+)
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link badgeRecruitmentAbi}__ and `functionName` set to `"setS2BadgesContract"`
@@ -4919,11 +4990,12 @@ export const writeBadgeRecruitmentSetConfig = /*#__PURE__*/ createWriteContract(
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa9Ceb04F3aF71fF123409d426A92BABb5124970C)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x4BB626aA38F3C0884b4f3D7D4051124Ce4160225)
  */
-export const writeBadgeRecruitmentSetS2BadgesContract = /*#__PURE__*/ createWriteContract({
-  abi: badgeRecruitmentAbi,
-  address: badgeRecruitmentAddress,
-  functionName: 'setS2BadgesContract',
-});
+export const writeBadgeRecruitmentSetS2BadgesContract =
+  /*#__PURE__*/ createWriteContract({
+    abi: badgeRecruitmentAbi,
+    address: badgeRecruitmentAddress,
+    functionName: 'setS2BadgesContract',
+  })
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link badgeRecruitmentAbi}__ and `functionName` set to `"startRecruitment"`
@@ -4931,11 +5003,12 @@ export const writeBadgeRecruitmentSetS2BadgesContract = /*#__PURE__*/ createWrit
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa9Ceb04F3aF71fF123409d426A92BABb5124970C)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x4BB626aA38F3C0884b4f3D7D4051124Ce4160225)
  */
-export const writeBadgeRecruitmentStartRecruitment = /*#__PURE__*/ createWriteContract({
-  abi: badgeRecruitmentAbi,
-  address: badgeRecruitmentAddress,
-  functionName: 'startRecruitment',
-});
+export const writeBadgeRecruitmentStartRecruitment =
+  /*#__PURE__*/ createWriteContract({
+    abi: badgeRecruitmentAbi,
+    address: badgeRecruitmentAddress,
+    functionName: 'startRecruitment',
+  })
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link badgeRecruitmentAbi}__ and `functionName` set to `"transferOwnership"`
@@ -4943,11 +5016,12 @@ export const writeBadgeRecruitmentStartRecruitment = /*#__PURE__*/ createWriteCo
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa9Ceb04F3aF71fF123409d426A92BABb5124970C)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x4BB626aA38F3C0884b4f3D7D4051124Ce4160225)
  */
-export const writeBadgeRecruitmentTransferOwnership = /*#__PURE__*/ createWriteContract({
-  abi: badgeRecruitmentAbi,
-  address: badgeRecruitmentAddress,
-  functionName: 'transferOwnership',
-});
+export const writeBadgeRecruitmentTransferOwnership =
+  /*#__PURE__*/ createWriteContract({
+    abi: badgeRecruitmentAbi,
+    address: badgeRecruitmentAddress,
+    functionName: 'transferOwnership',
+  })
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link badgeRecruitmentAbi}__ and `functionName` set to `"upgradeToAndCall"`
@@ -4955,11 +5029,12 @@ export const writeBadgeRecruitmentTransferOwnership = /*#__PURE__*/ createWriteC
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa9Ceb04F3aF71fF123409d426A92BABb5124970C)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x4BB626aA38F3C0884b4f3D7D4051124Ce4160225)
  */
-export const writeBadgeRecruitmentUpgradeToAndCall = /*#__PURE__*/ createWriteContract({
-  abi: badgeRecruitmentAbi,
-  address: badgeRecruitmentAddress,
-  functionName: 'upgradeToAndCall',
-});
+export const writeBadgeRecruitmentUpgradeToAndCall =
+  /*#__PURE__*/ createWriteContract({
+    abi: badgeRecruitmentAbi,
+    address: badgeRecruitmentAddress,
+    functionName: 'upgradeToAndCall',
+  })
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link badgeRecruitmentAbi}__
@@ -4970,7 +5045,7 @@ export const writeBadgeRecruitmentUpgradeToAndCall = /*#__PURE__*/ createWriteCo
 export const simulateBadgeRecruitment = /*#__PURE__*/ createSimulateContract({
   abi: badgeRecruitmentAbi,
   address: badgeRecruitmentAddress,
-});
+})
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link badgeRecruitmentAbi}__ and `functionName` set to `"acceptOwnership"`
@@ -4978,11 +5053,12 @@ export const simulateBadgeRecruitment = /*#__PURE__*/ createSimulateContract({
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa9Ceb04F3aF71fF123409d426A92BABb5124970C)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x4BB626aA38F3C0884b4f3D7D4051124Ce4160225)
  */
-export const simulateBadgeRecruitmentAcceptOwnership = /*#__PURE__*/ createSimulateContract({
-  abi: badgeRecruitmentAbi,
-  address: badgeRecruitmentAddress,
-  functionName: 'acceptOwnership',
-});
+export const simulateBadgeRecruitmentAcceptOwnership =
+  /*#__PURE__*/ createSimulateContract({
+    abi: badgeRecruitmentAbi,
+    address: badgeRecruitmentAddress,
+    functionName: 'acceptOwnership',
+  })
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link badgeRecruitmentAbi}__ and `functionName` set to `"enableRecruitments"`
@@ -4990,11 +5066,12 @@ export const simulateBadgeRecruitmentAcceptOwnership = /*#__PURE__*/ createSimul
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa9Ceb04F3aF71fF123409d426A92BABb5124970C)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x4BB626aA38F3C0884b4f3D7D4051124Ce4160225)
  */
-export const simulateBadgeRecruitmentEnableRecruitments = /*#__PURE__*/ createSimulateContract({
-  abi: badgeRecruitmentAbi,
-  address: badgeRecruitmentAddress,
-  functionName: 'enableRecruitments',
-});
+export const simulateBadgeRecruitmentEnableRecruitments =
+  /*#__PURE__*/ createSimulateContract({
+    abi: badgeRecruitmentAbi,
+    address: badgeRecruitmentAddress,
+    functionName: 'enableRecruitments',
+  })
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link badgeRecruitmentAbi}__ and `functionName` set to `"endRecruitment"`
@@ -5002,11 +5079,12 @@ export const simulateBadgeRecruitmentEnableRecruitments = /*#__PURE__*/ createSi
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa9Ceb04F3aF71fF123409d426A92BABb5124970C)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x4BB626aA38F3C0884b4f3D7D4051124Ce4160225)
  */
-export const simulateBadgeRecruitmentEndRecruitment = /*#__PURE__*/ createSimulateContract({
-  abi: badgeRecruitmentAbi,
-  address: badgeRecruitmentAddress,
-  functionName: 'endRecruitment',
-});
+export const simulateBadgeRecruitmentEndRecruitment =
+  /*#__PURE__*/ createSimulateContract({
+    abi: badgeRecruitmentAbi,
+    address: badgeRecruitmentAddress,
+    functionName: 'endRecruitment',
+  })
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link badgeRecruitmentAbi}__ and `functionName` set to `"forceDisableAllRecruitments"`
@@ -5014,11 +5092,12 @@ export const simulateBadgeRecruitmentEndRecruitment = /*#__PURE__*/ createSimula
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa9Ceb04F3aF71fF123409d426A92BABb5124970C)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x4BB626aA38F3C0884b4f3D7D4051124Ce4160225)
  */
-export const simulateBadgeRecruitmentForceDisableAllRecruitments = /*#__PURE__*/ createSimulateContract({
-  abi: badgeRecruitmentAbi,
-  address: badgeRecruitmentAddress,
-  functionName: 'forceDisableAllRecruitments',
-});
+export const simulateBadgeRecruitmentForceDisableAllRecruitments =
+  /*#__PURE__*/ createSimulateContract({
+    abi: badgeRecruitmentAbi,
+    address: badgeRecruitmentAddress,
+    functionName: 'forceDisableAllRecruitments',
+  })
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link badgeRecruitmentAbi}__ and `functionName` set to `"grantRole"`
@@ -5026,11 +5105,12 @@ export const simulateBadgeRecruitmentForceDisableAllRecruitments = /*#__PURE__*/
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa9Ceb04F3aF71fF123409d426A92BABb5124970C)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x4BB626aA38F3C0884b4f3D7D4051124Ce4160225)
  */
-export const simulateBadgeRecruitmentGrantRole = /*#__PURE__*/ createSimulateContract({
-  abi: badgeRecruitmentAbi,
-  address: badgeRecruitmentAddress,
-  functionName: 'grantRole',
-});
+export const simulateBadgeRecruitmentGrantRole =
+  /*#__PURE__*/ createSimulateContract({
+    abi: badgeRecruitmentAbi,
+    address: badgeRecruitmentAddress,
+    functionName: 'grantRole',
+  })
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link badgeRecruitmentAbi}__ and `functionName` set to `"influenceRecruitment"`
@@ -5038,11 +5118,12 @@ export const simulateBadgeRecruitmentGrantRole = /*#__PURE__*/ createSimulateCon
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa9Ceb04F3aF71fF123409d426A92BABb5124970C)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x4BB626aA38F3C0884b4f3D7D4051124Ce4160225)
  */
-export const simulateBadgeRecruitmentInfluenceRecruitment = /*#__PURE__*/ createSimulateContract({
-  abi: badgeRecruitmentAbi,
-  address: badgeRecruitmentAddress,
-  functionName: 'influenceRecruitment',
-});
+export const simulateBadgeRecruitmentInfluenceRecruitment =
+  /*#__PURE__*/ createSimulateContract({
+    abi: badgeRecruitmentAbi,
+    address: badgeRecruitmentAddress,
+    functionName: 'influenceRecruitment',
+  })
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link badgeRecruitmentAbi}__ and `functionName` set to `"initialize"`
@@ -5050,11 +5131,12 @@ export const simulateBadgeRecruitmentInfluenceRecruitment = /*#__PURE__*/ create
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa9Ceb04F3aF71fF123409d426A92BABb5124970C)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x4BB626aA38F3C0884b4f3D7D4051124Ce4160225)
  */
-export const simulateBadgeRecruitmentInitialize = /*#__PURE__*/ createSimulateContract({
-  abi: badgeRecruitmentAbi,
-  address: badgeRecruitmentAddress,
-  functionName: 'initialize',
-});
+export const simulateBadgeRecruitmentInitialize =
+  /*#__PURE__*/ createSimulateContract({
+    abi: badgeRecruitmentAbi,
+    address: badgeRecruitmentAddress,
+    functionName: 'initialize',
+  })
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link badgeRecruitmentAbi}__ and `functionName` set to `"onERC721Received"`
@@ -5062,11 +5144,12 @@ export const simulateBadgeRecruitmentInitialize = /*#__PURE__*/ createSimulateCo
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa9Ceb04F3aF71fF123409d426A92BABb5124970C)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x4BB626aA38F3C0884b4f3D7D4051124Ce4160225)
  */
-export const simulateBadgeRecruitmentOnErc721Received = /*#__PURE__*/ createSimulateContract({
-  abi: badgeRecruitmentAbi,
-  address: badgeRecruitmentAddress,
-  functionName: 'onERC721Received',
-});
+export const simulateBadgeRecruitmentOnErc721Received =
+  /*#__PURE__*/ createSimulateContract({
+    abi: badgeRecruitmentAbi,
+    address: badgeRecruitmentAddress,
+    functionName: 'onERC721Received',
+  })
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link badgeRecruitmentAbi}__ and `functionName` set to `"renounceOwnership"`
@@ -5074,11 +5157,12 @@ export const simulateBadgeRecruitmentOnErc721Received = /*#__PURE__*/ createSimu
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa9Ceb04F3aF71fF123409d426A92BABb5124970C)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x4BB626aA38F3C0884b4f3D7D4051124Ce4160225)
  */
-export const simulateBadgeRecruitmentRenounceOwnership = /*#__PURE__*/ createSimulateContract({
-  abi: badgeRecruitmentAbi,
-  address: badgeRecruitmentAddress,
-  functionName: 'renounceOwnership',
-});
+export const simulateBadgeRecruitmentRenounceOwnership =
+  /*#__PURE__*/ createSimulateContract({
+    abi: badgeRecruitmentAbi,
+    address: badgeRecruitmentAddress,
+    functionName: 'renounceOwnership',
+  })
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link badgeRecruitmentAbi}__ and `functionName` set to `"renounceRole"`
@@ -5086,11 +5170,12 @@ export const simulateBadgeRecruitmentRenounceOwnership = /*#__PURE__*/ createSim
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa9Ceb04F3aF71fF123409d426A92BABb5124970C)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x4BB626aA38F3C0884b4f3D7D4051124Ce4160225)
  */
-export const simulateBadgeRecruitmentRenounceRole = /*#__PURE__*/ createSimulateContract({
-  abi: badgeRecruitmentAbi,
-  address: badgeRecruitmentAddress,
-  functionName: 'renounceRole',
-});
+export const simulateBadgeRecruitmentRenounceRole =
+  /*#__PURE__*/ createSimulateContract({
+    abi: badgeRecruitmentAbi,
+    address: badgeRecruitmentAddress,
+    functionName: 'renounceRole',
+  })
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link badgeRecruitmentAbi}__ and `functionName` set to `"resetRecruitment"`
@@ -5098,11 +5183,12 @@ export const simulateBadgeRecruitmentRenounceRole = /*#__PURE__*/ createSimulate
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa9Ceb04F3aF71fF123409d426A92BABb5124970C)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x4BB626aA38F3C0884b4f3D7D4051124Ce4160225)
  */
-export const simulateBadgeRecruitmentResetRecruitment = /*#__PURE__*/ createSimulateContract({
-  abi: badgeRecruitmentAbi,
-  address: badgeRecruitmentAddress,
-  functionName: 'resetRecruitment',
-});
+export const simulateBadgeRecruitmentResetRecruitment =
+  /*#__PURE__*/ createSimulateContract({
+    abi: badgeRecruitmentAbi,
+    address: badgeRecruitmentAddress,
+    functionName: 'resetRecruitment',
+  })
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link badgeRecruitmentAbi}__ and `functionName` set to `"revokeRole"`
@@ -5110,11 +5196,12 @@ export const simulateBadgeRecruitmentResetRecruitment = /*#__PURE__*/ createSimu
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa9Ceb04F3aF71fF123409d426A92BABb5124970C)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x4BB626aA38F3C0884b4f3D7D4051124Ce4160225)
  */
-export const simulateBadgeRecruitmentRevokeRole = /*#__PURE__*/ createSimulateContract({
-  abi: badgeRecruitmentAbi,
-  address: badgeRecruitmentAddress,
-  functionName: 'revokeRole',
-});
+export const simulateBadgeRecruitmentRevokeRole =
+  /*#__PURE__*/ createSimulateContract({
+    abi: badgeRecruitmentAbi,
+    address: badgeRecruitmentAddress,
+    functionName: 'revokeRole',
+  })
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link badgeRecruitmentAbi}__ and `functionName` set to `"setConfig"`
@@ -5122,11 +5209,12 @@ export const simulateBadgeRecruitmentRevokeRole = /*#__PURE__*/ createSimulateCo
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa9Ceb04F3aF71fF123409d426A92BABb5124970C)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x4BB626aA38F3C0884b4f3D7D4051124Ce4160225)
  */
-export const simulateBadgeRecruitmentSetConfig = /*#__PURE__*/ createSimulateContract({
-  abi: badgeRecruitmentAbi,
-  address: badgeRecruitmentAddress,
-  functionName: 'setConfig',
-});
+export const simulateBadgeRecruitmentSetConfig =
+  /*#__PURE__*/ createSimulateContract({
+    abi: badgeRecruitmentAbi,
+    address: badgeRecruitmentAddress,
+    functionName: 'setConfig',
+  })
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link badgeRecruitmentAbi}__ and `functionName` set to `"setS2BadgesContract"`
@@ -5134,11 +5222,12 @@ export const simulateBadgeRecruitmentSetConfig = /*#__PURE__*/ createSimulateCon
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa9Ceb04F3aF71fF123409d426A92BABb5124970C)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x4BB626aA38F3C0884b4f3D7D4051124Ce4160225)
  */
-export const simulateBadgeRecruitmentSetS2BadgesContract = /*#__PURE__*/ createSimulateContract({
-  abi: badgeRecruitmentAbi,
-  address: badgeRecruitmentAddress,
-  functionName: 'setS2BadgesContract',
-});
+export const simulateBadgeRecruitmentSetS2BadgesContract =
+  /*#__PURE__*/ createSimulateContract({
+    abi: badgeRecruitmentAbi,
+    address: badgeRecruitmentAddress,
+    functionName: 'setS2BadgesContract',
+  })
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link badgeRecruitmentAbi}__ and `functionName` set to `"startRecruitment"`
@@ -5146,11 +5235,12 @@ export const simulateBadgeRecruitmentSetS2BadgesContract = /*#__PURE__*/ createS
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa9Ceb04F3aF71fF123409d426A92BABb5124970C)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x4BB626aA38F3C0884b4f3D7D4051124Ce4160225)
  */
-export const simulateBadgeRecruitmentStartRecruitment = /*#__PURE__*/ createSimulateContract({
-  abi: badgeRecruitmentAbi,
-  address: badgeRecruitmentAddress,
-  functionName: 'startRecruitment',
-});
+export const simulateBadgeRecruitmentStartRecruitment =
+  /*#__PURE__*/ createSimulateContract({
+    abi: badgeRecruitmentAbi,
+    address: badgeRecruitmentAddress,
+    functionName: 'startRecruitment',
+  })
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link badgeRecruitmentAbi}__ and `functionName` set to `"transferOwnership"`
@@ -5158,11 +5248,12 @@ export const simulateBadgeRecruitmentStartRecruitment = /*#__PURE__*/ createSimu
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa9Ceb04F3aF71fF123409d426A92BABb5124970C)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x4BB626aA38F3C0884b4f3D7D4051124Ce4160225)
  */
-export const simulateBadgeRecruitmentTransferOwnership = /*#__PURE__*/ createSimulateContract({
-  abi: badgeRecruitmentAbi,
-  address: badgeRecruitmentAddress,
-  functionName: 'transferOwnership',
-});
+export const simulateBadgeRecruitmentTransferOwnership =
+  /*#__PURE__*/ createSimulateContract({
+    abi: badgeRecruitmentAbi,
+    address: badgeRecruitmentAddress,
+    functionName: 'transferOwnership',
+  })
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link badgeRecruitmentAbi}__ and `functionName` set to `"upgradeToAndCall"`
@@ -5170,11 +5261,12 @@ export const simulateBadgeRecruitmentTransferOwnership = /*#__PURE__*/ createSim
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa9Ceb04F3aF71fF123409d426A92BABb5124970C)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x4BB626aA38F3C0884b4f3D7D4051124Ce4160225)
  */
-export const simulateBadgeRecruitmentUpgradeToAndCall = /*#__PURE__*/ createSimulateContract({
-  abi: badgeRecruitmentAbi,
-  address: badgeRecruitmentAddress,
-  functionName: 'upgradeToAndCall',
-});
+export const simulateBadgeRecruitmentUpgradeToAndCall =
+  /*#__PURE__*/ createSimulateContract({
+    abi: badgeRecruitmentAbi,
+    address: badgeRecruitmentAddress,
+    functionName: 'upgradeToAndCall',
+  })
 
 /**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link badgeRecruitmentAbi}__
@@ -5182,10 +5274,11 @@ export const simulateBadgeRecruitmentUpgradeToAndCall = /*#__PURE__*/ createSimu
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa9Ceb04F3aF71fF123409d426A92BABb5124970C)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x4BB626aA38F3C0884b4f3D7D4051124Ce4160225)
  */
-export const watchBadgeRecruitmentEvent = /*#__PURE__*/ createWatchContractEvent({
-  abi: badgeRecruitmentAbi,
-  address: badgeRecruitmentAddress,
-});
+export const watchBadgeRecruitmentEvent =
+  /*#__PURE__*/ createWatchContractEvent({
+    abi: badgeRecruitmentAbi,
+    address: badgeRecruitmentAddress,
+  })
 
 /**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link badgeRecruitmentAbi}__ and `eventName` set to `"Initialized"`
@@ -5193,11 +5286,12 @@ export const watchBadgeRecruitmentEvent = /*#__PURE__*/ createWatchContractEvent
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa9Ceb04F3aF71fF123409d426A92BABb5124970C)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x4BB626aA38F3C0884b4f3D7D4051124Ce4160225)
  */
-export const watchBadgeRecruitmentInitializedEvent = /*#__PURE__*/ createWatchContractEvent({
-  abi: badgeRecruitmentAbi,
-  address: badgeRecruitmentAddress,
-  eventName: 'Initialized',
-});
+export const watchBadgeRecruitmentInitializedEvent =
+  /*#__PURE__*/ createWatchContractEvent({
+    abi: badgeRecruitmentAbi,
+    address: badgeRecruitmentAddress,
+    eventName: 'Initialized',
+  })
 
 /**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link badgeRecruitmentAbi}__ and `eventName` set to `"OwnershipTransferStarted"`
@@ -5205,11 +5299,12 @@ export const watchBadgeRecruitmentInitializedEvent = /*#__PURE__*/ createWatchCo
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa9Ceb04F3aF71fF123409d426A92BABb5124970C)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x4BB626aA38F3C0884b4f3D7D4051124Ce4160225)
  */
-export const watchBadgeRecruitmentOwnershipTransferStartedEvent = /*#__PURE__*/ createWatchContractEvent({
-  abi: badgeRecruitmentAbi,
-  address: badgeRecruitmentAddress,
-  eventName: 'OwnershipTransferStarted',
-});
+export const watchBadgeRecruitmentOwnershipTransferStartedEvent =
+  /*#__PURE__*/ createWatchContractEvent({
+    abi: badgeRecruitmentAbi,
+    address: badgeRecruitmentAddress,
+    eventName: 'OwnershipTransferStarted',
+  })
 
 /**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link badgeRecruitmentAbi}__ and `eventName` set to `"OwnershipTransferred"`
@@ -5217,11 +5312,12 @@ export const watchBadgeRecruitmentOwnershipTransferStartedEvent = /*#__PURE__*/ 
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa9Ceb04F3aF71fF123409d426A92BABb5124970C)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x4BB626aA38F3C0884b4f3D7D4051124Ce4160225)
  */
-export const watchBadgeRecruitmentOwnershipTransferredEvent = /*#__PURE__*/ createWatchContractEvent({
-  abi: badgeRecruitmentAbi,
-  address: badgeRecruitmentAddress,
-  eventName: 'OwnershipTransferred',
-});
+export const watchBadgeRecruitmentOwnershipTransferredEvent =
+  /*#__PURE__*/ createWatchContractEvent({
+    abi: badgeRecruitmentAbi,
+    address: badgeRecruitmentAddress,
+    eventName: 'OwnershipTransferred',
+  })
 
 /**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link badgeRecruitmentAbi}__ and `eventName` set to `"RecruitmentComplete"`
@@ -5229,11 +5325,12 @@ export const watchBadgeRecruitmentOwnershipTransferredEvent = /*#__PURE__*/ crea
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa9Ceb04F3aF71fF123409d426A92BABb5124970C)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x4BB626aA38F3C0884b4f3D7D4051124Ce4160225)
  */
-export const watchBadgeRecruitmentRecruitmentCompleteEvent = /*#__PURE__*/ createWatchContractEvent({
-  abi: badgeRecruitmentAbi,
-  address: badgeRecruitmentAddress,
-  eventName: 'RecruitmentComplete',
-});
+export const watchBadgeRecruitmentRecruitmentCompleteEvent =
+  /*#__PURE__*/ createWatchContractEvent({
+    abi: badgeRecruitmentAbi,
+    address: badgeRecruitmentAddress,
+    eventName: 'RecruitmentComplete',
+  })
 
 /**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link badgeRecruitmentAbi}__ and `eventName` set to `"RecruitmentCycleToggled"`
@@ -5241,11 +5338,12 @@ export const watchBadgeRecruitmentRecruitmentCompleteEvent = /*#__PURE__*/ creat
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa9Ceb04F3aF71fF123409d426A92BABb5124970C)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x4BB626aA38F3C0884b4f3D7D4051124Ce4160225)
  */
-export const watchBadgeRecruitmentRecruitmentCycleToggledEvent = /*#__PURE__*/ createWatchContractEvent({
-  abi: badgeRecruitmentAbi,
-  address: badgeRecruitmentAddress,
-  eventName: 'RecruitmentCycleToggled',
-});
+export const watchBadgeRecruitmentRecruitmentCycleToggledEvent =
+  /*#__PURE__*/ createWatchContractEvent({
+    abi: badgeRecruitmentAbi,
+    address: badgeRecruitmentAddress,
+    eventName: 'RecruitmentCycleToggled',
+  })
 
 /**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link badgeRecruitmentAbi}__ and `eventName` set to `"RecruitmentReset"`
@@ -5253,11 +5351,12 @@ export const watchBadgeRecruitmentRecruitmentCycleToggledEvent = /*#__PURE__*/ c
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa9Ceb04F3aF71fF123409d426A92BABb5124970C)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x4BB626aA38F3C0884b4f3D7D4051124Ce4160225)
  */
-export const watchBadgeRecruitmentRecruitmentResetEvent = /*#__PURE__*/ createWatchContractEvent({
-  abi: badgeRecruitmentAbi,
-  address: badgeRecruitmentAddress,
-  eventName: 'RecruitmentReset',
-});
+export const watchBadgeRecruitmentRecruitmentResetEvent =
+  /*#__PURE__*/ createWatchContractEvent({
+    abi: badgeRecruitmentAbi,
+    address: badgeRecruitmentAddress,
+    eventName: 'RecruitmentReset',
+  })
 
 /**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link badgeRecruitmentAbi}__ and `eventName` set to `"RecruitmentUpdated"`
@@ -5265,11 +5364,12 @@ export const watchBadgeRecruitmentRecruitmentResetEvent = /*#__PURE__*/ createWa
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa9Ceb04F3aF71fF123409d426A92BABb5124970C)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x4BB626aA38F3C0884b4f3D7D4051124Ce4160225)
  */
-export const watchBadgeRecruitmentRecruitmentUpdatedEvent = /*#__PURE__*/ createWatchContractEvent({
-  abi: badgeRecruitmentAbi,
-  address: badgeRecruitmentAddress,
-  eventName: 'RecruitmentUpdated',
-});
+export const watchBadgeRecruitmentRecruitmentUpdatedEvent =
+  /*#__PURE__*/ createWatchContractEvent({
+    abi: badgeRecruitmentAbi,
+    address: badgeRecruitmentAddress,
+    eventName: 'RecruitmentUpdated',
+  })
 
 /**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link badgeRecruitmentAbi}__ and `eventName` set to `"RoleAdminChanged"`
@@ -5277,11 +5377,12 @@ export const watchBadgeRecruitmentRecruitmentUpdatedEvent = /*#__PURE__*/ create
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa9Ceb04F3aF71fF123409d426A92BABb5124970C)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x4BB626aA38F3C0884b4f3D7D4051124Ce4160225)
  */
-export const watchBadgeRecruitmentRoleAdminChangedEvent = /*#__PURE__*/ createWatchContractEvent({
-  abi: badgeRecruitmentAbi,
-  address: badgeRecruitmentAddress,
-  eventName: 'RoleAdminChanged',
-});
+export const watchBadgeRecruitmentRoleAdminChangedEvent =
+  /*#__PURE__*/ createWatchContractEvent({
+    abi: badgeRecruitmentAbi,
+    address: badgeRecruitmentAddress,
+    eventName: 'RoleAdminChanged',
+  })
 
 /**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link badgeRecruitmentAbi}__ and `eventName` set to `"RoleGranted"`
@@ -5289,11 +5390,12 @@ export const watchBadgeRecruitmentRoleAdminChangedEvent = /*#__PURE__*/ createWa
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa9Ceb04F3aF71fF123409d426A92BABb5124970C)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x4BB626aA38F3C0884b4f3D7D4051124Ce4160225)
  */
-export const watchBadgeRecruitmentRoleGrantedEvent = /*#__PURE__*/ createWatchContractEvent({
-  abi: badgeRecruitmentAbi,
-  address: badgeRecruitmentAddress,
-  eventName: 'RoleGranted',
-});
+export const watchBadgeRecruitmentRoleGrantedEvent =
+  /*#__PURE__*/ createWatchContractEvent({
+    abi: badgeRecruitmentAbi,
+    address: badgeRecruitmentAddress,
+    eventName: 'RoleGranted',
+  })
 
 /**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link badgeRecruitmentAbi}__ and `eventName` set to `"RoleRevoked"`
@@ -5301,11 +5403,12 @@ export const watchBadgeRecruitmentRoleGrantedEvent = /*#__PURE__*/ createWatchCo
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa9Ceb04F3aF71fF123409d426A92BABb5124970C)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x4BB626aA38F3C0884b4f3D7D4051124Ce4160225)
  */
-export const watchBadgeRecruitmentRoleRevokedEvent = /*#__PURE__*/ createWatchContractEvent({
-  abi: badgeRecruitmentAbi,
-  address: badgeRecruitmentAddress,
-  eventName: 'RoleRevoked',
-});
+export const watchBadgeRecruitmentRoleRevokedEvent =
+  /*#__PURE__*/ createWatchContractEvent({
+    abi: badgeRecruitmentAbi,
+    address: badgeRecruitmentAddress,
+    eventName: 'RoleRevoked',
+  })
 
 /**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link badgeRecruitmentAbi}__ and `eventName` set to `"Upgraded"`
@@ -5313,1167 +5416,1230 @@ export const watchBadgeRecruitmentRoleRevokedEvent = /*#__PURE__*/ createWatchCo
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa9Ceb04F3aF71fF123409d426A92BABb5124970C)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x4BB626aA38F3C0884b4f3D7D4051124Ce4160225)
  */
-export const watchBadgeRecruitmentUpgradedEvent = /*#__PURE__*/ createWatchContractEvent({
-  abi: badgeRecruitmentAbi,
-  address: badgeRecruitmentAddress,
-  eventName: 'Upgraded',
-});
+export const watchBadgeRecruitmentUpgradedEvent =
+  /*#__PURE__*/ createWatchContractEvent({
+    abi: badgeRecruitmentAbi,
+    address: badgeRecruitmentAddress,
+    eventName: 'Upgraded',
+  })
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link erc20AirdropAbi}__
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x95345D5A092623D79a56a016001f7878FA9Da3Ef)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x9dFE8d1CD87782a8f1Be65396b657d97E5c1A95d)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x16a59B792d91Eb446b167D3225e2979C8E4E0827)
  */
 export const readErc20Airdrop = /*#__PURE__*/ createReadContract({
   abi: erc20AirdropAbi,
   address: erc20AirdropAddress,
-});
+})
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link erc20AirdropAbi}__ and `functionName` set to `"UPGRADE_INTERFACE_VERSION"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x95345D5A092623D79a56a016001f7878FA9Da3Ef)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x9dFE8d1CD87782a8f1Be65396b657d97E5c1A95d)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x16a59B792d91Eb446b167D3225e2979C8E4E0827)
  */
-export const readErc20AirdropUpgradeInterfaceVersion = /*#__PURE__*/ createReadContract({
-  abi: erc20AirdropAbi,
-  address: erc20AirdropAddress,
-  functionName: 'UPGRADE_INTERFACE_VERSION',
-});
+export const readErc20AirdropUpgradeInterfaceVersion =
+  /*#__PURE__*/ createReadContract({
+    abi: erc20AirdropAbi,
+    address: erc20AirdropAddress,
+    functionName: 'UPGRADE_INTERFACE_VERSION',
+  })
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link erc20AirdropAbi}__ and `functionName` set to `"blacklist"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x95345D5A092623D79a56a016001f7878FA9Da3Ef)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x9dFE8d1CD87782a8f1Be65396b657d97E5c1A95d)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x16a59B792d91Eb446b167D3225e2979C8E4E0827)
  */
 export const readErc20AirdropBlacklist = /*#__PURE__*/ createReadContract({
   abi: erc20AirdropAbi,
   address: erc20AirdropAddress,
   functionName: 'blacklist',
-});
+})
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link erc20AirdropAbi}__ and `functionName` set to `"claimEnd"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x95345D5A092623D79a56a016001f7878FA9Da3Ef)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x9dFE8d1CD87782a8f1Be65396b657d97E5c1A95d)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x16a59B792d91Eb446b167D3225e2979C8E4E0827)
  */
 export const readErc20AirdropClaimEnd = /*#__PURE__*/ createReadContract({
   abi: erc20AirdropAbi,
   address: erc20AirdropAddress,
   functionName: 'claimEnd',
-});
+})
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link erc20AirdropAbi}__ and `functionName` set to `"claimStart"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x95345D5A092623D79a56a016001f7878FA9Da3Ef)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x9dFE8d1CD87782a8f1Be65396b657d97E5c1A95d)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x16a59B792d91Eb446b167D3225e2979C8E4E0827)
  */
 export const readErc20AirdropClaimStart = /*#__PURE__*/ createReadContract({
   abi: erc20AirdropAbi,
   address: erc20AirdropAddress,
   functionName: 'claimStart',
-});
+})
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link erc20AirdropAbi}__ and `functionName` set to `"hasClaimed"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x95345D5A092623D79a56a016001f7878FA9Da3Ef)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x9dFE8d1CD87782a8f1Be65396b657d97E5c1A95d)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x16a59B792d91Eb446b167D3225e2979C8E4E0827)
  */
 export const readErc20AirdropHasClaimed = /*#__PURE__*/ createReadContract({
   abi: erc20AirdropAbi,
   address: erc20AirdropAddress,
   functionName: 'hasClaimed',
-});
+})
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link erc20AirdropAbi}__ and `functionName` set to `"isClaimed"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x95345D5A092623D79a56a016001f7878FA9Da3Ef)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x9dFE8d1CD87782a8f1Be65396b657d97E5c1A95d)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x16a59B792d91Eb446b167D3225e2979C8E4E0827)
  */
 export const readErc20AirdropIsClaimed = /*#__PURE__*/ createReadContract({
   abi: erc20AirdropAbi,
   address: erc20AirdropAddress,
   functionName: 'isClaimed',
-});
+})
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link erc20AirdropAbi}__ and `functionName` set to `"merkleRoot"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x95345D5A092623D79a56a016001f7878FA9Da3Ef)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x9dFE8d1CD87782a8f1Be65396b657d97E5c1A95d)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x16a59B792d91Eb446b167D3225e2979C8E4E0827)
  */
 export const readErc20AirdropMerkleRoot = /*#__PURE__*/ createReadContract({
   abi: erc20AirdropAbi,
   address: erc20AirdropAddress,
   functionName: 'merkleRoot',
-});
+})
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link erc20AirdropAbi}__ and `functionName` set to `"owner"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x95345D5A092623D79a56a016001f7878FA9Da3Ef)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x9dFE8d1CD87782a8f1Be65396b657d97E5c1A95d)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x16a59B792d91Eb446b167D3225e2979C8E4E0827)
  */
 export const readErc20AirdropOwner = /*#__PURE__*/ createReadContract({
   abi: erc20AirdropAbi,
   address: erc20AirdropAddress,
   functionName: 'owner',
-});
+})
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link erc20AirdropAbi}__ and `functionName` set to `"paused"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x95345D5A092623D79a56a016001f7878FA9Da3Ef)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x9dFE8d1CD87782a8f1Be65396b657d97E5c1A95d)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x16a59B792d91Eb446b167D3225e2979C8E4E0827)
  */
 export const readErc20AirdropPaused = /*#__PURE__*/ createReadContract({
   abi: erc20AirdropAbi,
   address: erc20AirdropAddress,
   functionName: 'paused',
-});
+})
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link erc20AirdropAbi}__ and `functionName` set to `"pendingOwner"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x95345D5A092623D79a56a016001f7878FA9Da3Ef)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x9dFE8d1CD87782a8f1Be65396b657d97E5c1A95d)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x16a59B792d91Eb446b167D3225e2979C8E4E0827)
  */
 export const readErc20AirdropPendingOwner = /*#__PURE__*/ createReadContract({
   abi: erc20AirdropAbi,
   address: erc20AirdropAddress,
   functionName: 'pendingOwner',
-});
+})
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link erc20AirdropAbi}__ and `functionName` set to `"proxiableUUID"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x95345D5A092623D79a56a016001f7878FA9Da3Ef)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x9dFE8d1CD87782a8f1Be65396b657d97E5c1A95d)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x16a59B792d91Eb446b167D3225e2979C8E4E0827)
  */
 export const readErc20AirdropProxiableUuid = /*#__PURE__*/ createReadContract({
   abi: erc20AirdropAbi,
   address: erc20AirdropAddress,
   functionName: 'proxiableUUID',
-});
+})
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link erc20AirdropAbi}__ and `functionName` set to `"token"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x95345D5A092623D79a56a016001f7878FA9Da3Ef)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x9dFE8d1CD87782a8f1Be65396b657d97E5c1A95d)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x16a59B792d91Eb446b167D3225e2979C8E4E0827)
  */
 export const readErc20AirdropToken = /*#__PURE__*/ createReadContract({
   abi: erc20AirdropAbi,
   address: erc20AirdropAddress,
   functionName: 'token',
-});
+})
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link erc20AirdropAbi}__
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x95345D5A092623D79a56a016001f7878FA9Da3Ef)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x9dFE8d1CD87782a8f1Be65396b657d97E5c1A95d)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x16a59B792d91Eb446b167D3225e2979C8E4E0827)
  */
 export const writeErc20Airdrop = /*#__PURE__*/ createWriteContract({
   abi: erc20AirdropAbi,
   address: erc20AirdropAddress,
-});
+})
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link erc20AirdropAbi}__ and `functionName` set to `"acceptOwnership"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x95345D5A092623D79a56a016001f7878FA9Da3Ef)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x9dFE8d1CD87782a8f1Be65396b657d97E5c1A95d)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x16a59B792d91Eb446b167D3225e2979C8E4E0827)
  */
-export const writeErc20AirdropAcceptOwnership = /*#__PURE__*/ createWriteContract({
-  abi: erc20AirdropAbi,
-  address: erc20AirdropAddress,
-  functionName: 'acceptOwnership',
-});
+export const writeErc20AirdropAcceptOwnership =
+  /*#__PURE__*/ createWriteContract({
+    abi: erc20AirdropAbi,
+    address: erc20AirdropAddress,
+    functionName: 'acceptOwnership',
+  })
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link erc20AirdropAbi}__ and `functionName` set to `"claim"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x95345D5A092623D79a56a016001f7878FA9Da3Ef)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x9dFE8d1CD87782a8f1Be65396b657d97E5c1A95d)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x16a59B792d91Eb446b167D3225e2979C8E4E0827)
  */
 export const writeErc20AirdropClaim = /*#__PURE__*/ createWriteContract({
   abi: erc20AirdropAbi,
   address: erc20AirdropAddress,
   functionName: 'claim',
-});
+})
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link erc20AirdropAbi}__ and `functionName` set to `"init"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x95345D5A092623D79a56a016001f7878FA9Da3Ef)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x9dFE8d1CD87782a8f1Be65396b657d97E5c1A95d)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x16a59B792d91Eb446b167D3225e2979C8E4E0827)
  */
 export const writeErc20AirdropInit = /*#__PURE__*/ createWriteContract({
   abi: erc20AirdropAbi,
   address: erc20AirdropAddress,
   functionName: 'init',
-});
+})
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link erc20AirdropAbi}__ and `functionName` set to `"renounceOwnership"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x95345D5A092623D79a56a016001f7878FA9Da3Ef)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x9dFE8d1CD87782a8f1Be65396b657d97E5c1A95d)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x16a59B792d91Eb446b167D3225e2979C8E4E0827)
  */
-export const writeErc20AirdropRenounceOwnership = /*#__PURE__*/ createWriteContract({
-  abi: erc20AirdropAbi,
-  address: erc20AirdropAddress,
-  functionName: 'renounceOwnership',
-});
+export const writeErc20AirdropRenounceOwnership =
+  /*#__PURE__*/ createWriteContract({
+    abi: erc20AirdropAbi,
+    address: erc20AirdropAddress,
+    functionName: 'renounceOwnership',
+  })
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link erc20AirdropAbi}__ and `functionName` set to `"setConfig"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x95345D5A092623D79a56a016001f7878FA9Da3Ef)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x9dFE8d1CD87782a8f1Be65396b657d97E5c1A95d)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x16a59B792d91Eb446b167D3225e2979C8E4E0827)
  */
 export const writeErc20AirdropSetConfig = /*#__PURE__*/ createWriteContract({
   abi: erc20AirdropAbi,
   address: erc20AirdropAddress,
   functionName: 'setConfig',
-});
+})
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link erc20AirdropAbi}__ and `functionName` set to `"transferOwnership"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x95345D5A092623D79a56a016001f7878FA9Da3Ef)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x9dFE8d1CD87782a8f1Be65396b657d97E5c1A95d)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x16a59B792d91Eb446b167D3225e2979C8E4E0827)
  */
-export const writeErc20AirdropTransferOwnership = /*#__PURE__*/ createWriteContract({
-  abi: erc20AirdropAbi,
-  address: erc20AirdropAddress,
-  functionName: 'transferOwnership',
-});
+export const writeErc20AirdropTransferOwnership =
+  /*#__PURE__*/ createWriteContract({
+    abi: erc20AirdropAbi,
+    address: erc20AirdropAddress,
+    functionName: 'transferOwnership',
+  })
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link erc20AirdropAbi}__ and `functionName` set to `"updateBlacklist"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x95345D5A092623D79a56a016001f7878FA9Da3Ef)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x9dFE8d1CD87782a8f1Be65396b657d97E5c1A95d)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x16a59B792d91Eb446b167D3225e2979C8E4E0827)
  */
-export const writeErc20AirdropUpdateBlacklist = /*#__PURE__*/ createWriteContract({
-  abi: erc20AirdropAbi,
-  address: erc20AirdropAddress,
-  functionName: 'updateBlacklist',
-});
+export const writeErc20AirdropUpdateBlacklist =
+  /*#__PURE__*/ createWriteContract({
+    abi: erc20AirdropAbi,
+    address: erc20AirdropAddress,
+    functionName: 'updateBlacklist',
+  })
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link erc20AirdropAbi}__ and `functionName` set to `"upgradeToAndCall"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x95345D5A092623D79a56a016001f7878FA9Da3Ef)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x9dFE8d1CD87782a8f1Be65396b657d97E5c1A95d)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x16a59B792d91Eb446b167D3225e2979C8E4E0827)
  */
-export const writeErc20AirdropUpgradeToAndCall = /*#__PURE__*/ createWriteContract({
-  abi: erc20AirdropAbi,
-  address: erc20AirdropAddress,
-  functionName: 'upgradeToAndCall',
-});
+export const writeErc20AirdropUpgradeToAndCall =
+  /*#__PURE__*/ createWriteContract({
+    abi: erc20AirdropAbi,
+    address: erc20AirdropAddress,
+    functionName: 'upgradeToAndCall',
+  })
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link erc20AirdropAbi}__ and `functionName` set to `"withdrawERC20"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x95345D5A092623D79a56a016001f7878FA9Da3Ef)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x9dFE8d1CD87782a8f1Be65396b657d97E5c1A95d)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x16a59B792d91Eb446b167D3225e2979C8E4E0827)
  */
-export const writeErc20AirdropWithdrawErc20 = /*#__PURE__*/ createWriteContract({
-  abi: erc20AirdropAbi,
-  address: erc20AirdropAddress,
-  functionName: 'withdrawERC20',
-});
+export const writeErc20AirdropWithdrawErc20 = /*#__PURE__*/ createWriteContract(
+  {
+    abi: erc20AirdropAbi,
+    address: erc20AirdropAddress,
+    functionName: 'withdrawERC20',
+  },
+)
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link erc20AirdropAbi}__
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x95345D5A092623D79a56a016001f7878FA9Da3Ef)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x9dFE8d1CD87782a8f1Be65396b657d97E5c1A95d)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x16a59B792d91Eb446b167D3225e2979C8E4E0827)
  */
 export const simulateErc20Airdrop = /*#__PURE__*/ createSimulateContract({
   abi: erc20AirdropAbi,
   address: erc20AirdropAddress,
-});
+})
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link erc20AirdropAbi}__ and `functionName` set to `"acceptOwnership"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x95345D5A092623D79a56a016001f7878FA9Da3Ef)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x9dFE8d1CD87782a8f1Be65396b657d97E5c1A95d)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x16a59B792d91Eb446b167D3225e2979C8E4E0827)
  */
-export const simulateErc20AirdropAcceptOwnership = /*#__PURE__*/ createSimulateContract({
-  abi: erc20AirdropAbi,
-  address: erc20AirdropAddress,
-  functionName: 'acceptOwnership',
-});
+export const simulateErc20AirdropAcceptOwnership =
+  /*#__PURE__*/ createSimulateContract({
+    abi: erc20AirdropAbi,
+    address: erc20AirdropAddress,
+    functionName: 'acceptOwnership',
+  })
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link erc20AirdropAbi}__ and `functionName` set to `"claim"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x95345D5A092623D79a56a016001f7878FA9Da3Ef)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x9dFE8d1CD87782a8f1Be65396b657d97E5c1A95d)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x16a59B792d91Eb446b167D3225e2979C8E4E0827)
  */
 export const simulateErc20AirdropClaim = /*#__PURE__*/ createSimulateContract({
   abi: erc20AirdropAbi,
   address: erc20AirdropAddress,
   functionName: 'claim',
-});
+})
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link erc20AirdropAbi}__ and `functionName` set to `"init"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x95345D5A092623D79a56a016001f7878FA9Da3Ef)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x9dFE8d1CD87782a8f1Be65396b657d97E5c1A95d)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x16a59B792d91Eb446b167D3225e2979C8E4E0827)
  */
 export const simulateErc20AirdropInit = /*#__PURE__*/ createSimulateContract({
   abi: erc20AirdropAbi,
   address: erc20AirdropAddress,
   functionName: 'init',
-});
+})
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link erc20AirdropAbi}__ and `functionName` set to `"renounceOwnership"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x95345D5A092623D79a56a016001f7878FA9Da3Ef)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x9dFE8d1CD87782a8f1Be65396b657d97E5c1A95d)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x16a59B792d91Eb446b167D3225e2979C8E4E0827)
  */
-export const simulateErc20AirdropRenounceOwnership = /*#__PURE__*/ createSimulateContract({
-  abi: erc20AirdropAbi,
-  address: erc20AirdropAddress,
-  functionName: 'renounceOwnership',
-});
+export const simulateErc20AirdropRenounceOwnership =
+  /*#__PURE__*/ createSimulateContract({
+    abi: erc20AirdropAbi,
+    address: erc20AirdropAddress,
+    functionName: 'renounceOwnership',
+  })
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link erc20AirdropAbi}__ and `functionName` set to `"setConfig"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x95345D5A092623D79a56a016001f7878FA9Da3Ef)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x9dFE8d1CD87782a8f1Be65396b657d97E5c1A95d)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x16a59B792d91Eb446b167D3225e2979C8E4E0827)
  */
-export const simulateErc20AirdropSetConfig = /*#__PURE__*/ createSimulateContract({
-  abi: erc20AirdropAbi,
-  address: erc20AirdropAddress,
-  functionName: 'setConfig',
-});
+export const simulateErc20AirdropSetConfig =
+  /*#__PURE__*/ createSimulateContract({
+    abi: erc20AirdropAbi,
+    address: erc20AirdropAddress,
+    functionName: 'setConfig',
+  })
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link erc20AirdropAbi}__ and `functionName` set to `"transferOwnership"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x95345D5A092623D79a56a016001f7878FA9Da3Ef)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x9dFE8d1CD87782a8f1Be65396b657d97E5c1A95d)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x16a59B792d91Eb446b167D3225e2979C8E4E0827)
  */
-export const simulateErc20AirdropTransferOwnership = /*#__PURE__*/ createSimulateContract({
-  abi: erc20AirdropAbi,
-  address: erc20AirdropAddress,
-  functionName: 'transferOwnership',
-});
+export const simulateErc20AirdropTransferOwnership =
+  /*#__PURE__*/ createSimulateContract({
+    abi: erc20AirdropAbi,
+    address: erc20AirdropAddress,
+    functionName: 'transferOwnership',
+  })
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link erc20AirdropAbi}__ and `functionName` set to `"updateBlacklist"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x95345D5A092623D79a56a016001f7878FA9Da3Ef)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x9dFE8d1CD87782a8f1Be65396b657d97E5c1A95d)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x16a59B792d91Eb446b167D3225e2979C8E4E0827)
  */
-export const simulateErc20AirdropUpdateBlacklist = /*#__PURE__*/ createSimulateContract({
-  abi: erc20AirdropAbi,
-  address: erc20AirdropAddress,
-  functionName: 'updateBlacklist',
-});
+export const simulateErc20AirdropUpdateBlacklist =
+  /*#__PURE__*/ createSimulateContract({
+    abi: erc20AirdropAbi,
+    address: erc20AirdropAddress,
+    functionName: 'updateBlacklist',
+  })
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link erc20AirdropAbi}__ and `functionName` set to `"upgradeToAndCall"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x95345D5A092623D79a56a016001f7878FA9Da3Ef)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x9dFE8d1CD87782a8f1Be65396b657d97E5c1A95d)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x16a59B792d91Eb446b167D3225e2979C8E4E0827)
  */
-export const simulateErc20AirdropUpgradeToAndCall = /*#__PURE__*/ createSimulateContract({
-  abi: erc20AirdropAbi,
-  address: erc20AirdropAddress,
-  functionName: 'upgradeToAndCall',
-});
+export const simulateErc20AirdropUpgradeToAndCall =
+  /*#__PURE__*/ createSimulateContract({
+    abi: erc20AirdropAbi,
+    address: erc20AirdropAddress,
+    functionName: 'upgradeToAndCall',
+  })
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link erc20AirdropAbi}__ and `functionName` set to `"withdrawERC20"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x95345D5A092623D79a56a016001f7878FA9Da3Ef)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x9dFE8d1CD87782a8f1Be65396b657d97E5c1A95d)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x16a59B792d91Eb446b167D3225e2979C8E4E0827)
  */
-export const simulateErc20AirdropWithdrawErc20 = /*#__PURE__*/ createSimulateContract({
-  abi: erc20AirdropAbi,
-  address: erc20AirdropAddress,
-  functionName: 'withdrawERC20',
-});
+export const simulateErc20AirdropWithdrawErc20 =
+  /*#__PURE__*/ createSimulateContract({
+    abi: erc20AirdropAbi,
+    address: erc20AirdropAddress,
+    functionName: 'withdrawERC20',
+  })
 
 /**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link erc20AirdropAbi}__
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x95345D5A092623D79a56a016001f7878FA9Da3Ef)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x9dFE8d1CD87782a8f1Be65396b657d97E5c1A95d)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x16a59B792d91Eb446b167D3225e2979C8E4E0827)
  */
 export const watchErc20AirdropEvent = /*#__PURE__*/ createWatchContractEvent({
   abi: erc20AirdropAbi,
   address: erc20AirdropAddress,
-});
+})
 
 /**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link erc20AirdropAbi}__ and `eventName` set to `"BlacklistUpdated"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x95345D5A092623D79a56a016001f7878FA9Da3Ef)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x9dFE8d1CD87782a8f1Be65396b657d97E5c1A95d)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x16a59B792d91Eb446b167D3225e2979C8E4E0827)
  */
-export const watchErc20AirdropBlacklistUpdatedEvent = /*#__PURE__*/ createWatchContractEvent({
-  abi: erc20AirdropAbi,
-  address: erc20AirdropAddress,
-  eventName: 'BlacklistUpdated',
-});
+export const watchErc20AirdropBlacklistUpdatedEvent =
+  /*#__PURE__*/ createWatchContractEvent({
+    abi: erc20AirdropAbi,
+    address: erc20AirdropAddress,
+    eventName: 'BlacklistUpdated',
+  })
 
 /**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link erc20AirdropAbi}__ and `eventName` set to `"Claimed"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x95345D5A092623D79a56a016001f7878FA9Da3Ef)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x9dFE8d1CD87782a8f1Be65396b657d97E5c1A95d)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x16a59B792d91Eb446b167D3225e2979C8E4E0827)
  */
-export const watchErc20AirdropClaimedEvent = /*#__PURE__*/ createWatchContractEvent({
-  abi: erc20AirdropAbi,
-  address: erc20AirdropAddress,
-  eventName: 'Claimed',
-});
+export const watchErc20AirdropClaimedEvent =
+  /*#__PURE__*/ createWatchContractEvent({
+    abi: erc20AirdropAbi,
+    address: erc20AirdropAddress,
+    eventName: 'Claimed',
+  })
 
 /**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link erc20AirdropAbi}__ and `eventName` set to `"ConfigChanged"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x95345D5A092623D79a56a016001f7878FA9Da3Ef)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x9dFE8d1CD87782a8f1Be65396b657d97E5c1A95d)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x16a59B792d91Eb446b167D3225e2979C8E4E0827)
  */
-export const watchErc20AirdropConfigChangedEvent = /*#__PURE__*/ createWatchContractEvent({
-  abi: erc20AirdropAbi,
-  address: erc20AirdropAddress,
-  eventName: 'ConfigChanged',
-});
+export const watchErc20AirdropConfigChangedEvent =
+  /*#__PURE__*/ createWatchContractEvent({
+    abi: erc20AirdropAbi,
+    address: erc20AirdropAddress,
+    eventName: 'ConfigChanged',
+  })
 
 /**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link erc20AirdropAbi}__ and `eventName` set to `"Initialized"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x95345D5A092623D79a56a016001f7878FA9Da3Ef)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x9dFE8d1CD87782a8f1Be65396b657d97E5c1A95d)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x16a59B792d91Eb446b167D3225e2979C8E4E0827)
  */
-export const watchErc20AirdropInitializedEvent = /*#__PURE__*/ createWatchContractEvent({
-  abi: erc20AirdropAbi,
-  address: erc20AirdropAddress,
-  eventName: 'Initialized',
-});
+export const watchErc20AirdropInitializedEvent =
+  /*#__PURE__*/ createWatchContractEvent({
+    abi: erc20AirdropAbi,
+    address: erc20AirdropAddress,
+    eventName: 'Initialized',
+  })
 
 /**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link erc20AirdropAbi}__ and `eventName` set to `"OwnershipTransferStarted"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x95345D5A092623D79a56a016001f7878FA9Da3Ef)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x9dFE8d1CD87782a8f1Be65396b657d97E5c1A95d)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x16a59B792d91Eb446b167D3225e2979C8E4E0827)
  */
-export const watchErc20AirdropOwnershipTransferStartedEvent = /*#__PURE__*/ createWatchContractEvent({
-  abi: erc20AirdropAbi,
-  address: erc20AirdropAddress,
-  eventName: 'OwnershipTransferStarted',
-});
+export const watchErc20AirdropOwnershipTransferStartedEvent =
+  /*#__PURE__*/ createWatchContractEvent({
+    abi: erc20AirdropAbi,
+    address: erc20AirdropAddress,
+    eventName: 'OwnershipTransferStarted',
+  })
 
 /**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link erc20AirdropAbi}__ and `eventName` set to `"OwnershipTransferred"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x95345D5A092623D79a56a016001f7878FA9Da3Ef)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x9dFE8d1CD87782a8f1Be65396b657d97E5c1A95d)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x16a59B792d91Eb446b167D3225e2979C8E4E0827)
  */
-export const watchErc20AirdropOwnershipTransferredEvent = /*#__PURE__*/ createWatchContractEvent({
-  abi: erc20AirdropAbi,
-  address: erc20AirdropAddress,
-  eventName: 'OwnershipTransferred',
-});
+export const watchErc20AirdropOwnershipTransferredEvent =
+  /*#__PURE__*/ createWatchContractEvent({
+    abi: erc20AirdropAbi,
+    address: erc20AirdropAddress,
+    eventName: 'OwnershipTransferred',
+  })
 
 /**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link erc20AirdropAbi}__ and `eventName` set to `"Paused"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x95345D5A092623D79a56a016001f7878FA9Da3Ef)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x9dFE8d1CD87782a8f1Be65396b657d97E5c1A95d)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x16a59B792d91Eb446b167D3225e2979C8E4E0827)
  */
-export const watchErc20AirdropPausedEvent = /*#__PURE__*/ createWatchContractEvent({
-  abi: erc20AirdropAbi,
-  address: erc20AirdropAddress,
-  eventName: 'Paused',
-});
+export const watchErc20AirdropPausedEvent =
+  /*#__PURE__*/ createWatchContractEvent({
+    abi: erc20AirdropAbi,
+    address: erc20AirdropAddress,
+    eventName: 'Paused',
+  })
 
 /**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link erc20AirdropAbi}__ and `eventName` set to `"Unpaused"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x95345D5A092623D79a56a016001f7878FA9Da3Ef)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x9dFE8d1CD87782a8f1Be65396b657d97E5c1A95d)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x16a59B792d91Eb446b167D3225e2979C8E4E0827)
  */
-export const watchErc20AirdropUnpausedEvent = /*#__PURE__*/ createWatchContractEvent({
-  abi: erc20AirdropAbi,
-  address: erc20AirdropAddress,
-  eventName: 'Unpaused',
-});
+export const watchErc20AirdropUnpausedEvent =
+  /*#__PURE__*/ createWatchContractEvent({
+    abi: erc20AirdropAbi,
+    address: erc20AirdropAddress,
+    eventName: 'Unpaused',
+  })
 
 /**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link erc20AirdropAbi}__ and `eventName` set to `"Upgraded"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x95345D5A092623D79a56a016001f7878FA9Da3Ef)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x9dFE8d1CD87782a8f1Be65396b657d97E5c1A95d)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x16a59B792d91Eb446b167D3225e2979C8E4E0827)
  */
-export const watchErc20AirdropUpgradedEvent = /*#__PURE__*/ createWatchContractEvent({
-  abi: erc20AirdropAbi,
-  address: erc20AirdropAddress,
-  eventName: 'Upgraded',
-});
+export const watchErc20AirdropUpgradedEvent =
+  /*#__PURE__*/ createWatchContractEvent({
+    abi: erc20AirdropAbi,
+    address: erc20AirdropAddress,
+    eventName: 'Upgraded',
+  })
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link eventRegisterAbi}__
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x7cbec64D099D49eA91062746B38182455c94862C)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6677abea2C52d9378BB399DB09219000a0ACBbe4)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6439Bb31dE508Dc36B8D3A39C389EB8E6C214ebE)
  */
 export const readEventRegister = /*#__PURE__*/ createReadContract({
   abi: eventRegisterAbi,
   address: eventRegisterAddress,
-});
+})
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link eventRegisterAbi}__ and `functionName` set to `"DEFAULT_ADMIN_ROLE"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x7cbec64D099D49eA91062746B38182455c94862C)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6677abea2C52d9378BB399DB09219000a0ACBbe4)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6439Bb31dE508Dc36B8D3A39C389EB8E6C214ebE)
  */
-export const readEventRegisterDefaultAdminRole = /*#__PURE__*/ createReadContract({
-  abi: eventRegisterAbi,
-  address: eventRegisterAddress,
-  functionName: 'DEFAULT_ADMIN_ROLE',
-});
+export const readEventRegisterDefaultAdminRole =
+  /*#__PURE__*/ createReadContract({
+    abi: eventRegisterAbi,
+    address: eventRegisterAddress,
+    functionName: 'DEFAULT_ADMIN_ROLE',
+  })
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link eventRegisterAbi}__ and `functionName` set to `"EVENT_MANAGER_ROLE"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x7cbec64D099D49eA91062746B38182455c94862C)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6677abea2C52d9378BB399DB09219000a0ACBbe4)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6439Bb31dE508Dc36B8D3A39C389EB8E6C214ebE)
  */
-export const readEventRegisterEventManagerRole = /*#__PURE__*/ createReadContract({
-  abi: eventRegisterAbi,
-  address: eventRegisterAddress,
-  functionName: 'EVENT_MANAGER_ROLE',
-});
+export const readEventRegisterEventManagerRole =
+  /*#__PURE__*/ createReadContract({
+    abi: eventRegisterAbi,
+    address: eventRegisterAddress,
+    functionName: 'EVENT_MANAGER_ROLE',
+  })
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link eventRegisterAbi}__ and `functionName` set to `"events"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x7cbec64D099D49eA91062746B38182455c94862C)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6677abea2C52d9378BB399DB09219000a0ACBbe4)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6439Bb31dE508Dc36B8D3A39C389EB8E6C214ebE)
  */
 export const readEventRegisterEvents = /*#__PURE__*/ createReadContract({
   abi: eventRegisterAbi,
   address: eventRegisterAddress,
   functionName: 'events',
-});
+})
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link eventRegisterAbi}__ and `functionName` set to `"getEvent"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x7cbec64D099D49eA91062746B38182455c94862C)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6677abea2C52d9378BB399DB09219000a0ACBbe4)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6439Bb31dE508Dc36B8D3A39C389EB8E6C214ebE)
  */
 export const readEventRegisterGetEvent = /*#__PURE__*/ createReadContract({
   abi: eventRegisterAbi,
   address: eventRegisterAddress,
   functionName: 'getEvent',
-});
+})
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link eventRegisterAbi}__ and `functionName` set to `"getRegisteredEvents"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x7cbec64D099D49eA91062746B38182455c94862C)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6677abea2C52d9378BB399DB09219000a0ACBbe4)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6439Bb31dE508Dc36B8D3A39C389EB8E6C214ebE)
  */
-export const readEventRegisterGetRegisteredEvents = /*#__PURE__*/ createReadContract({
-  abi: eventRegisterAbi,
-  address: eventRegisterAddress,
-  functionName: 'getRegisteredEvents',
-});
+export const readEventRegisterGetRegisteredEvents =
+  /*#__PURE__*/ createReadContract({
+    abi: eventRegisterAbi,
+    address: eventRegisterAddress,
+    functionName: 'getRegisteredEvents',
+  })
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link eventRegisterAbi}__ and `functionName` set to `"getRoleAdmin"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x7cbec64D099D49eA91062746B38182455c94862C)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6677abea2C52d9378BB399DB09219000a0ACBbe4)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6439Bb31dE508Dc36B8D3A39C389EB8E6C214ebE)
  */
 export const readEventRegisterGetRoleAdmin = /*#__PURE__*/ createReadContract({
   abi: eventRegisterAbi,
   address: eventRegisterAddress,
   functionName: 'getRoleAdmin',
-});
+})
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link eventRegisterAbi}__ and `functionName` set to `"hasRole"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x7cbec64D099D49eA91062746B38182455c94862C)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6677abea2C52d9378BB399DB09219000a0ACBbe4)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6439Bb31dE508Dc36B8D3A39C389EB8E6C214ebE)
  */
 export const readEventRegisterHasRole = /*#__PURE__*/ createReadContract({
   abi: eventRegisterAbi,
   address: eventRegisterAddress,
   functionName: 'hasRole',
-});
+})
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link eventRegisterAbi}__ and `functionName` set to `"isRegistered"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x7cbec64D099D49eA91062746B38182455c94862C)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6677abea2C52d9378BB399DB09219000a0ACBbe4)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6439Bb31dE508Dc36B8D3A39C389EB8E6C214ebE)
  */
 export const readEventRegisterIsRegistered = /*#__PURE__*/ createReadContract({
   abi: eventRegisterAbi,
   address: eventRegisterAddress,
   functionName: 'isRegistered',
-});
+})
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link eventRegisterAbi}__ and `functionName` set to `"owner"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x7cbec64D099D49eA91062746B38182455c94862C)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6677abea2C52d9378BB399DB09219000a0ACBbe4)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6439Bb31dE508Dc36B8D3A39C389EB8E6C214ebE)
  */
 export const readEventRegisterOwner = /*#__PURE__*/ createReadContract({
   abi: eventRegisterAbi,
   address: eventRegisterAddress,
   functionName: 'owner',
-});
+})
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link eventRegisterAbi}__ and `functionName` set to `"pendingOwner"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x7cbec64D099D49eA91062746B38182455c94862C)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6677abea2C52d9378BB399DB09219000a0ACBbe4)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6439Bb31dE508Dc36B8D3A39C389EB8E6C214ebE)
  */
 export const readEventRegisterPendingOwner = /*#__PURE__*/ createReadContract({
   abi: eventRegisterAbi,
   address: eventRegisterAddress,
   functionName: 'pendingOwner',
-});
+})
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link eventRegisterAbi}__ and `functionName` set to `"supportsInterface"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x7cbec64D099D49eA91062746B38182455c94862C)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6677abea2C52d9378BB399DB09219000a0ACBbe4)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6439Bb31dE508Dc36B8D3A39C389EB8E6C214ebE)
  */
-export const readEventRegisterSupportsInterface = /*#__PURE__*/ createReadContract({
-  abi: eventRegisterAbi,
-  address: eventRegisterAddress,
-  functionName: 'supportsInterface',
-});
+export const readEventRegisterSupportsInterface =
+  /*#__PURE__*/ createReadContract({
+    abi: eventRegisterAbi,
+    address: eventRegisterAddress,
+    functionName: 'supportsInterface',
+  })
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link eventRegisterAbi}__
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x7cbec64D099D49eA91062746B38182455c94862C)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6677abea2C52d9378BB399DB09219000a0ACBbe4)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6439Bb31dE508Dc36B8D3A39C389EB8E6C214ebE)
  */
 export const writeEventRegister = /*#__PURE__*/ createWriteContract({
   abi: eventRegisterAbi,
   address: eventRegisterAddress,
-});
+})
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link eventRegisterAbi}__ and `functionName` set to `"acceptOwnership"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x7cbec64D099D49eA91062746B38182455c94862C)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6677abea2C52d9378BB399DB09219000a0ACBbe4)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6439Bb31dE508Dc36B8D3A39C389EB8E6C214ebE)
  */
-export const writeEventRegisterAcceptOwnership = /*#__PURE__*/ createWriteContract({
-  abi: eventRegisterAbi,
-  address: eventRegisterAddress,
-  functionName: 'acceptOwnership',
-});
+export const writeEventRegisterAcceptOwnership =
+  /*#__PURE__*/ createWriteContract({
+    abi: eventRegisterAbi,
+    address: eventRegisterAddress,
+    functionName: 'acceptOwnership',
+  })
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link eventRegisterAbi}__ and `functionName` set to `"closeRegistration"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x7cbec64D099D49eA91062746B38182455c94862C)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6677abea2C52d9378BB399DB09219000a0ACBbe4)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6439Bb31dE508Dc36B8D3A39C389EB8E6C214ebE)
  */
-export const writeEventRegisterCloseRegistration = /*#__PURE__*/ createWriteContract({
-  abi: eventRegisterAbi,
-  address: eventRegisterAddress,
-  functionName: 'closeRegistration',
-});
+export const writeEventRegisterCloseRegistration =
+  /*#__PURE__*/ createWriteContract({
+    abi: eventRegisterAbi,
+    address: eventRegisterAddress,
+    functionName: 'closeRegistration',
+  })
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link eventRegisterAbi}__ and `functionName` set to `"createEvent"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x7cbec64D099D49eA91062746B38182455c94862C)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6677abea2C52d9378BB399DB09219000a0ACBbe4)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6439Bb31dE508Dc36B8D3A39C389EB8E6C214ebE)
  */
 export const writeEventRegisterCreateEvent = /*#__PURE__*/ createWriteContract({
   abi: eventRegisterAbi,
   address: eventRegisterAddress,
   functionName: 'createEvent',
-});
+})
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link eventRegisterAbi}__ and `functionName` set to `"grantEventManagerRole"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x7cbec64D099D49eA91062746B38182455c94862C)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6677abea2C52d9378BB399DB09219000a0ACBbe4)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6439Bb31dE508Dc36B8D3A39C389EB8E6C214ebE)
  */
-export const writeEventRegisterGrantEventManagerRole = /*#__PURE__*/ createWriteContract({
-  abi: eventRegisterAbi,
-  address: eventRegisterAddress,
-  functionName: 'grantEventManagerRole',
-});
+export const writeEventRegisterGrantEventManagerRole =
+  /*#__PURE__*/ createWriteContract({
+    abi: eventRegisterAbi,
+    address: eventRegisterAddress,
+    functionName: 'grantEventManagerRole',
+  })
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link eventRegisterAbi}__ and `functionName` set to `"grantRole"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x7cbec64D099D49eA91062746B38182455c94862C)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6677abea2C52d9378BB399DB09219000a0ACBbe4)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6439Bb31dE508Dc36B8D3A39C389EB8E6C214ebE)
  */
 export const writeEventRegisterGrantRole = /*#__PURE__*/ createWriteContract({
   abi: eventRegisterAbi,
   address: eventRegisterAddress,
   functionName: 'grantRole',
-});
+})
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link eventRegisterAbi}__ and `functionName` set to `"initialize"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x7cbec64D099D49eA91062746B38182455c94862C)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6677abea2C52d9378BB399DB09219000a0ACBbe4)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6439Bb31dE508Dc36B8D3A39C389EB8E6C214ebE)
  */
 export const writeEventRegisterInitialize = /*#__PURE__*/ createWriteContract({
   abi: eventRegisterAbi,
   address: eventRegisterAddress,
   functionName: 'initialize',
-});
+})
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link eventRegisterAbi}__ and `functionName` set to `"openRegistration"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x7cbec64D099D49eA91062746B38182455c94862C)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6677abea2C52d9378BB399DB09219000a0ACBbe4)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6439Bb31dE508Dc36B8D3A39C389EB8E6C214ebE)
  */
-export const writeEventRegisterOpenRegistration = /*#__PURE__*/ createWriteContract({
-  abi: eventRegisterAbi,
-  address: eventRegisterAddress,
-  functionName: 'openRegistration',
-});
+export const writeEventRegisterOpenRegistration =
+  /*#__PURE__*/ createWriteContract({
+    abi: eventRegisterAbi,
+    address: eventRegisterAddress,
+    functionName: 'openRegistration',
+  })
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link eventRegisterAbi}__ and `functionName` set to `"register"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x7cbec64D099D49eA91062746B38182455c94862C)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6677abea2C52d9378BB399DB09219000a0ACBbe4)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6439Bb31dE508Dc36B8D3A39C389EB8E6C214ebE)
  */
 export const writeEventRegisterRegister = /*#__PURE__*/ createWriteContract({
   abi: eventRegisterAbi,
   address: eventRegisterAddress,
   functionName: 'register',
-});
+})
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link eventRegisterAbi}__ and `functionName` set to `"renounceOwnership"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x7cbec64D099D49eA91062746B38182455c94862C)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6677abea2C52d9378BB399DB09219000a0ACBbe4)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6439Bb31dE508Dc36B8D3A39C389EB8E6C214ebE)
  */
-export const writeEventRegisterRenounceOwnership = /*#__PURE__*/ createWriteContract({
-  abi: eventRegisterAbi,
-  address: eventRegisterAddress,
-  functionName: 'renounceOwnership',
-});
+export const writeEventRegisterRenounceOwnership =
+  /*#__PURE__*/ createWriteContract({
+    abi: eventRegisterAbi,
+    address: eventRegisterAddress,
+    functionName: 'renounceOwnership',
+  })
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link eventRegisterAbi}__ and `functionName` set to `"renounceRole"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x7cbec64D099D49eA91062746B38182455c94862C)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6677abea2C52d9378BB399DB09219000a0ACBbe4)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6439Bb31dE508Dc36B8D3A39C389EB8E6C214ebE)
  */
-export const writeEventRegisterRenounceRole = /*#__PURE__*/ createWriteContract({
-  abi: eventRegisterAbi,
-  address: eventRegisterAddress,
-  functionName: 'renounceRole',
-});
+export const writeEventRegisterRenounceRole = /*#__PURE__*/ createWriteContract(
+  {
+    abi: eventRegisterAbi,
+    address: eventRegisterAddress,
+    functionName: 'renounceRole',
+  },
+)
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link eventRegisterAbi}__ and `functionName` set to `"revokeEventManagerRole"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x7cbec64D099D49eA91062746B38182455c94862C)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6677abea2C52d9378BB399DB09219000a0ACBbe4)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6439Bb31dE508Dc36B8D3A39C389EB8E6C214ebE)
  */
-export const writeEventRegisterRevokeEventManagerRole = /*#__PURE__*/ createWriteContract({
-  abi: eventRegisterAbi,
-  address: eventRegisterAddress,
-  functionName: 'revokeEventManagerRole',
-});
+export const writeEventRegisterRevokeEventManagerRole =
+  /*#__PURE__*/ createWriteContract({
+    abi: eventRegisterAbi,
+    address: eventRegisterAddress,
+    functionName: 'revokeEventManagerRole',
+  })
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link eventRegisterAbi}__ and `functionName` set to `"revokeRole"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x7cbec64D099D49eA91062746B38182455c94862C)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6677abea2C52d9378BB399DB09219000a0ACBbe4)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6439Bb31dE508Dc36B8D3A39C389EB8E6C214ebE)
  */
 export const writeEventRegisterRevokeRole = /*#__PURE__*/ createWriteContract({
   abi: eventRegisterAbi,
   address: eventRegisterAddress,
   functionName: 'revokeRole',
-});
+})
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link eventRegisterAbi}__ and `functionName` set to `"transferOwnership"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x7cbec64D099D49eA91062746B38182455c94862C)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6677abea2C52d9378BB399DB09219000a0ACBbe4)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6439Bb31dE508Dc36B8D3A39C389EB8E6C214ebE)
  */
-export const writeEventRegisterTransferOwnership = /*#__PURE__*/ createWriteContract({
-  abi: eventRegisterAbi,
-  address: eventRegisterAddress,
-  functionName: 'transferOwnership',
-});
+export const writeEventRegisterTransferOwnership =
+  /*#__PURE__*/ createWriteContract({
+    abi: eventRegisterAbi,
+    address: eventRegisterAddress,
+    functionName: 'transferOwnership',
+  })
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link eventRegisterAbi}__ and `functionName` set to `"unregister"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x7cbec64D099D49eA91062746B38182455c94862C)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6677abea2C52d9378BB399DB09219000a0ACBbe4)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6439Bb31dE508Dc36B8D3A39C389EB8E6C214ebE)
  */
 export const writeEventRegisterUnregister = /*#__PURE__*/ createWriteContract({
   abi: eventRegisterAbi,
   address: eventRegisterAddress,
   functionName: 'unregister',
-});
+})
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link eventRegisterAbi}__
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x7cbec64D099D49eA91062746B38182455c94862C)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6677abea2C52d9378BB399DB09219000a0ACBbe4)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6439Bb31dE508Dc36B8D3A39C389EB8E6C214ebE)
  */
 export const simulateEventRegister = /*#__PURE__*/ createSimulateContract({
   abi: eventRegisterAbi,
   address: eventRegisterAddress,
-});
+})
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link eventRegisterAbi}__ and `functionName` set to `"acceptOwnership"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x7cbec64D099D49eA91062746B38182455c94862C)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6677abea2C52d9378BB399DB09219000a0ACBbe4)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6439Bb31dE508Dc36B8D3A39C389EB8E6C214ebE)
  */
-export const simulateEventRegisterAcceptOwnership = /*#__PURE__*/ createSimulateContract({
-  abi: eventRegisterAbi,
-  address: eventRegisterAddress,
-  functionName: 'acceptOwnership',
-});
+export const simulateEventRegisterAcceptOwnership =
+  /*#__PURE__*/ createSimulateContract({
+    abi: eventRegisterAbi,
+    address: eventRegisterAddress,
+    functionName: 'acceptOwnership',
+  })
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link eventRegisterAbi}__ and `functionName` set to `"closeRegistration"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x7cbec64D099D49eA91062746B38182455c94862C)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6677abea2C52d9378BB399DB09219000a0ACBbe4)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6439Bb31dE508Dc36B8D3A39C389EB8E6C214ebE)
  */
-export const simulateEventRegisterCloseRegistration = /*#__PURE__*/ createSimulateContract({
-  abi: eventRegisterAbi,
-  address: eventRegisterAddress,
-  functionName: 'closeRegistration',
-});
+export const simulateEventRegisterCloseRegistration =
+  /*#__PURE__*/ createSimulateContract({
+    abi: eventRegisterAbi,
+    address: eventRegisterAddress,
+    functionName: 'closeRegistration',
+  })
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link eventRegisterAbi}__ and `functionName` set to `"createEvent"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x7cbec64D099D49eA91062746B38182455c94862C)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6677abea2C52d9378BB399DB09219000a0ACBbe4)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6439Bb31dE508Dc36B8D3A39C389EB8E6C214ebE)
  */
-export const simulateEventRegisterCreateEvent = /*#__PURE__*/ createSimulateContract({
-  abi: eventRegisterAbi,
-  address: eventRegisterAddress,
-  functionName: 'createEvent',
-});
+export const simulateEventRegisterCreateEvent =
+  /*#__PURE__*/ createSimulateContract({
+    abi: eventRegisterAbi,
+    address: eventRegisterAddress,
+    functionName: 'createEvent',
+  })
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link eventRegisterAbi}__ and `functionName` set to `"grantEventManagerRole"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x7cbec64D099D49eA91062746B38182455c94862C)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6677abea2C52d9378BB399DB09219000a0ACBbe4)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6439Bb31dE508Dc36B8D3A39C389EB8E6C214ebE)
  */
-export const simulateEventRegisterGrantEventManagerRole = /*#__PURE__*/ createSimulateContract({
-  abi: eventRegisterAbi,
-  address: eventRegisterAddress,
-  functionName: 'grantEventManagerRole',
-});
+export const simulateEventRegisterGrantEventManagerRole =
+  /*#__PURE__*/ createSimulateContract({
+    abi: eventRegisterAbi,
+    address: eventRegisterAddress,
+    functionName: 'grantEventManagerRole',
+  })
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link eventRegisterAbi}__ and `functionName` set to `"grantRole"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x7cbec64D099D49eA91062746B38182455c94862C)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6677abea2C52d9378BB399DB09219000a0ACBbe4)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6439Bb31dE508Dc36B8D3A39C389EB8E6C214ebE)
  */
-export const simulateEventRegisterGrantRole = /*#__PURE__*/ createSimulateContract({
-  abi: eventRegisterAbi,
-  address: eventRegisterAddress,
-  functionName: 'grantRole',
-});
+export const simulateEventRegisterGrantRole =
+  /*#__PURE__*/ createSimulateContract({
+    abi: eventRegisterAbi,
+    address: eventRegisterAddress,
+    functionName: 'grantRole',
+  })
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link eventRegisterAbi}__ and `functionName` set to `"initialize"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x7cbec64D099D49eA91062746B38182455c94862C)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6677abea2C52d9378BB399DB09219000a0ACBbe4)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6439Bb31dE508Dc36B8D3A39C389EB8E6C214ebE)
  */
-export const simulateEventRegisterInitialize = /*#__PURE__*/ createSimulateContract({
-  abi: eventRegisterAbi,
-  address: eventRegisterAddress,
-  functionName: 'initialize',
-});
+export const simulateEventRegisterInitialize =
+  /*#__PURE__*/ createSimulateContract({
+    abi: eventRegisterAbi,
+    address: eventRegisterAddress,
+    functionName: 'initialize',
+  })
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link eventRegisterAbi}__ and `functionName` set to `"openRegistration"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x7cbec64D099D49eA91062746B38182455c94862C)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6677abea2C52d9378BB399DB09219000a0ACBbe4)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6439Bb31dE508Dc36B8D3A39C389EB8E6C214ebE)
  */
-export const simulateEventRegisterOpenRegistration = /*#__PURE__*/ createSimulateContract({
-  abi: eventRegisterAbi,
-  address: eventRegisterAddress,
-  functionName: 'openRegistration',
-});
+export const simulateEventRegisterOpenRegistration =
+  /*#__PURE__*/ createSimulateContract({
+    abi: eventRegisterAbi,
+    address: eventRegisterAddress,
+    functionName: 'openRegistration',
+  })
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link eventRegisterAbi}__ and `functionName` set to `"register"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x7cbec64D099D49eA91062746B38182455c94862C)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6677abea2C52d9378BB399DB09219000a0ACBbe4)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6439Bb31dE508Dc36B8D3A39C389EB8E6C214ebE)
  */
-export const simulateEventRegisterRegister = /*#__PURE__*/ createSimulateContract({
-  abi: eventRegisterAbi,
-  address: eventRegisterAddress,
-  functionName: 'register',
-});
+export const simulateEventRegisterRegister =
+  /*#__PURE__*/ createSimulateContract({
+    abi: eventRegisterAbi,
+    address: eventRegisterAddress,
+    functionName: 'register',
+  })
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link eventRegisterAbi}__ and `functionName` set to `"renounceOwnership"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x7cbec64D099D49eA91062746B38182455c94862C)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6677abea2C52d9378BB399DB09219000a0ACBbe4)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6439Bb31dE508Dc36B8D3A39C389EB8E6C214ebE)
  */
-export const simulateEventRegisterRenounceOwnership = /*#__PURE__*/ createSimulateContract({
-  abi: eventRegisterAbi,
-  address: eventRegisterAddress,
-  functionName: 'renounceOwnership',
-});
+export const simulateEventRegisterRenounceOwnership =
+  /*#__PURE__*/ createSimulateContract({
+    abi: eventRegisterAbi,
+    address: eventRegisterAddress,
+    functionName: 'renounceOwnership',
+  })
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link eventRegisterAbi}__ and `functionName` set to `"renounceRole"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x7cbec64D099D49eA91062746B38182455c94862C)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6677abea2C52d9378BB399DB09219000a0ACBbe4)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6439Bb31dE508Dc36B8D3A39C389EB8E6C214ebE)
  */
-export const simulateEventRegisterRenounceRole = /*#__PURE__*/ createSimulateContract({
-  abi: eventRegisterAbi,
-  address: eventRegisterAddress,
-  functionName: 'renounceRole',
-});
+export const simulateEventRegisterRenounceRole =
+  /*#__PURE__*/ createSimulateContract({
+    abi: eventRegisterAbi,
+    address: eventRegisterAddress,
+    functionName: 'renounceRole',
+  })
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link eventRegisterAbi}__ and `functionName` set to `"revokeEventManagerRole"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x7cbec64D099D49eA91062746B38182455c94862C)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6677abea2C52d9378BB399DB09219000a0ACBbe4)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6439Bb31dE508Dc36B8D3A39C389EB8E6C214ebE)
  */
-export const simulateEventRegisterRevokeEventManagerRole = /*#__PURE__*/ createSimulateContract({
-  abi: eventRegisterAbi,
-  address: eventRegisterAddress,
-  functionName: 'revokeEventManagerRole',
-});
+export const simulateEventRegisterRevokeEventManagerRole =
+  /*#__PURE__*/ createSimulateContract({
+    abi: eventRegisterAbi,
+    address: eventRegisterAddress,
+    functionName: 'revokeEventManagerRole',
+  })
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link eventRegisterAbi}__ and `functionName` set to `"revokeRole"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x7cbec64D099D49eA91062746B38182455c94862C)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6677abea2C52d9378BB399DB09219000a0ACBbe4)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6439Bb31dE508Dc36B8D3A39C389EB8E6C214ebE)
  */
-export const simulateEventRegisterRevokeRole = /*#__PURE__*/ createSimulateContract({
-  abi: eventRegisterAbi,
-  address: eventRegisterAddress,
-  functionName: 'revokeRole',
-});
+export const simulateEventRegisterRevokeRole =
+  /*#__PURE__*/ createSimulateContract({
+    abi: eventRegisterAbi,
+    address: eventRegisterAddress,
+    functionName: 'revokeRole',
+  })
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link eventRegisterAbi}__ and `functionName` set to `"transferOwnership"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x7cbec64D099D49eA91062746B38182455c94862C)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6677abea2C52d9378BB399DB09219000a0ACBbe4)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6439Bb31dE508Dc36B8D3A39C389EB8E6C214ebE)
  */
-export const simulateEventRegisterTransferOwnership = /*#__PURE__*/ createSimulateContract({
-  abi: eventRegisterAbi,
-  address: eventRegisterAddress,
-  functionName: 'transferOwnership',
-});
+export const simulateEventRegisterTransferOwnership =
+  /*#__PURE__*/ createSimulateContract({
+    abi: eventRegisterAbi,
+    address: eventRegisterAddress,
+    functionName: 'transferOwnership',
+  })
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link eventRegisterAbi}__ and `functionName` set to `"unregister"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x7cbec64D099D49eA91062746B38182455c94862C)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6677abea2C52d9378BB399DB09219000a0ACBbe4)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6439Bb31dE508Dc36B8D3A39C389EB8E6C214ebE)
  */
-export const simulateEventRegisterUnregister = /*#__PURE__*/ createSimulateContract({
-  abi: eventRegisterAbi,
-  address: eventRegisterAddress,
-  functionName: 'unregister',
-});
+export const simulateEventRegisterUnregister =
+  /*#__PURE__*/ createSimulateContract({
+    abi: eventRegisterAbi,
+    address: eventRegisterAddress,
+    functionName: 'unregister',
+  })
 
 /**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link eventRegisterAbi}__
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x7cbec64D099D49eA91062746B38182455c94862C)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6677abea2C52d9378BB399DB09219000a0ACBbe4)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6439Bb31dE508Dc36B8D3A39C389EB8E6C214ebE)
  */
 export const watchEventRegisterEvent = /*#__PURE__*/ createWatchContractEvent({
   abi: eventRegisterAbi,
   address: eventRegisterAddress,
-});
+})
 
 /**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link eventRegisterAbi}__ and `eventName` set to `"EventCreated"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x7cbec64D099D49eA91062746B38182455c94862C)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6677abea2C52d9378BB399DB09219000a0ACBbe4)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6439Bb31dE508Dc36B8D3A39C389EB8E6C214ebE)
  */
-export const watchEventRegisterEventCreatedEvent = /*#__PURE__*/ createWatchContractEvent({
-  abi: eventRegisterAbi,
-  address: eventRegisterAddress,
-  eventName: 'EventCreated',
-});
+export const watchEventRegisterEventCreatedEvent =
+  /*#__PURE__*/ createWatchContractEvent({
+    abi: eventRegisterAbi,
+    address: eventRegisterAddress,
+    eventName: 'EventCreated',
+  })
 
 /**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link eventRegisterAbi}__ and `eventName` set to `"Initialized"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x7cbec64D099D49eA91062746B38182455c94862C)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6677abea2C52d9378BB399DB09219000a0ACBbe4)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6439Bb31dE508Dc36B8D3A39C389EB8E6C214ebE)
  */
-export const watchEventRegisterInitializedEvent = /*#__PURE__*/ createWatchContractEvent({
-  abi: eventRegisterAbi,
-  address: eventRegisterAddress,
-  eventName: 'Initialized',
-});
+export const watchEventRegisterInitializedEvent =
+  /*#__PURE__*/ createWatchContractEvent({
+    abi: eventRegisterAbi,
+    address: eventRegisterAddress,
+    eventName: 'Initialized',
+  })
 
 /**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link eventRegisterAbi}__ and `eventName` set to `"OwnershipTransferStarted"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x7cbec64D099D49eA91062746B38182455c94862C)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6677abea2C52d9378BB399DB09219000a0ACBbe4)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6439Bb31dE508Dc36B8D3A39C389EB8E6C214ebE)
  */
-export const watchEventRegisterOwnershipTransferStartedEvent = /*#__PURE__*/ createWatchContractEvent({
-  abi: eventRegisterAbi,
-  address: eventRegisterAddress,
-  eventName: 'OwnershipTransferStarted',
-});
+export const watchEventRegisterOwnershipTransferStartedEvent =
+  /*#__PURE__*/ createWatchContractEvent({
+    abi: eventRegisterAbi,
+    address: eventRegisterAddress,
+    eventName: 'OwnershipTransferStarted',
+  })
 
 /**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link eventRegisterAbi}__ and `eventName` set to `"OwnershipTransferred"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x7cbec64D099D49eA91062746B38182455c94862C)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6677abea2C52d9378BB399DB09219000a0ACBbe4)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6439Bb31dE508Dc36B8D3A39C389EB8E6C214ebE)
  */
-export const watchEventRegisterOwnershipTransferredEvent = /*#__PURE__*/ createWatchContractEvent({
-  abi: eventRegisterAbi,
-  address: eventRegisterAddress,
-  eventName: 'OwnershipTransferred',
-});
+export const watchEventRegisterOwnershipTransferredEvent =
+  /*#__PURE__*/ createWatchContractEvent({
+    abi: eventRegisterAbi,
+    address: eventRegisterAddress,
+    eventName: 'OwnershipTransferred',
+  })
 
 /**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link eventRegisterAbi}__ and `eventName` set to `"Registered"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x7cbec64D099D49eA91062746B38182455c94862C)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6677abea2C52d9378BB399DB09219000a0ACBbe4)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6439Bb31dE508Dc36B8D3A39C389EB8E6C214ebE)
  */
-export const watchEventRegisterRegisteredEvent = /*#__PURE__*/ createWatchContractEvent({
-  abi: eventRegisterAbi,
-  address: eventRegisterAddress,
-  eventName: 'Registered',
-});
+export const watchEventRegisterRegisteredEvent =
+  /*#__PURE__*/ createWatchContractEvent({
+    abi: eventRegisterAbi,
+    address: eventRegisterAddress,
+    eventName: 'Registered',
+  })
 
 /**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link eventRegisterAbi}__ and `eventName` set to `"RegistrationClosed"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x7cbec64D099D49eA91062746B38182455c94862C)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6677abea2C52d9378BB399DB09219000a0ACBbe4)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6439Bb31dE508Dc36B8D3A39C389EB8E6C214ebE)
  */
-export const watchEventRegisterRegistrationClosedEvent = /*#__PURE__*/ createWatchContractEvent({
-  abi: eventRegisterAbi,
-  address: eventRegisterAddress,
-  eventName: 'RegistrationClosed',
-});
+export const watchEventRegisterRegistrationClosedEvent =
+  /*#__PURE__*/ createWatchContractEvent({
+    abi: eventRegisterAbi,
+    address: eventRegisterAddress,
+    eventName: 'RegistrationClosed',
+  })
 
 /**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link eventRegisterAbi}__ and `eventName` set to `"RegistrationOpened"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x7cbec64D099D49eA91062746B38182455c94862C)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6677abea2C52d9378BB399DB09219000a0ACBbe4)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6439Bb31dE508Dc36B8D3A39C389EB8E6C214ebE)
  */
-export const watchEventRegisterRegistrationOpenedEvent = /*#__PURE__*/ createWatchContractEvent({
-  abi: eventRegisterAbi,
-  address: eventRegisterAddress,
-  eventName: 'RegistrationOpened',
-});
+export const watchEventRegisterRegistrationOpenedEvent =
+  /*#__PURE__*/ createWatchContractEvent({
+    abi: eventRegisterAbi,
+    address: eventRegisterAddress,
+    eventName: 'RegistrationOpened',
+  })
 
 /**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link eventRegisterAbi}__ and `eventName` set to `"RoleAdminChanged"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x7cbec64D099D49eA91062746B38182455c94862C)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6677abea2C52d9378BB399DB09219000a0ACBbe4)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6439Bb31dE508Dc36B8D3A39C389EB8E6C214ebE)
  */
-export const watchEventRegisterRoleAdminChangedEvent = /*#__PURE__*/ createWatchContractEvent({
-  abi: eventRegisterAbi,
-  address: eventRegisterAddress,
-  eventName: 'RoleAdminChanged',
-});
+export const watchEventRegisterRoleAdminChangedEvent =
+  /*#__PURE__*/ createWatchContractEvent({
+    abi: eventRegisterAbi,
+    address: eventRegisterAddress,
+    eventName: 'RoleAdminChanged',
+  })
 
 /**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link eventRegisterAbi}__ and `eventName` set to `"RoleGranted"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x7cbec64D099D49eA91062746B38182455c94862C)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6677abea2C52d9378BB399DB09219000a0ACBbe4)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6439Bb31dE508Dc36B8D3A39C389EB8E6C214ebE)
  */
-export const watchEventRegisterRoleGrantedEvent = /*#__PURE__*/ createWatchContractEvent({
-  abi: eventRegisterAbi,
-  address: eventRegisterAddress,
-  eventName: 'RoleGranted',
-});
+export const watchEventRegisterRoleGrantedEvent =
+  /*#__PURE__*/ createWatchContractEvent({
+    abi: eventRegisterAbi,
+    address: eventRegisterAddress,
+    eventName: 'RoleGranted',
+  })
 
 /**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link eventRegisterAbi}__ and `eventName` set to `"RoleRevoked"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x7cbec64D099D49eA91062746B38182455c94862C)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6677abea2C52d9378BB399DB09219000a0ACBbe4)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6439Bb31dE508Dc36B8D3A39C389EB8E6C214ebE)
  */
-export const watchEventRegisterRoleRevokedEvent = /*#__PURE__*/ createWatchContractEvent({
-  abi: eventRegisterAbi,
-  address: eventRegisterAddress,
-  eventName: 'RoleRevoked',
-});
+export const watchEventRegisterRoleRevokedEvent =
+  /*#__PURE__*/ createWatchContractEvent({
+    abi: eventRegisterAbi,
+    address: eventRegisterAddress,
+    eventName: 'RoleRevoked',
+  })
 
 /**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link eventRegisterAbi}__ and `eventName` set to `"Unregistered"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x7cbec64D099D49eA91062746B38182455c94862C)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6677abea2C52d9378BB399DB09219000a0ACBbe4)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6439Bb31dE508Dc36B8D3A39C389EB8E6C214ebE)
  */
-export const watchEventRegisterUnregisteredEvent = /*#__PURE__*/ createWatchContractEvent({
-  abi: eventRegisterAbi,
-  address: eventRegisterAddress,
-  eventName: 'Unregistered',
-});
+export const watchEventRegisterUnregisteredEvent =
+  /*#__PURE__*/ createWatchContractEvent({
+    abi: eventRegisterAbi,
+    address: eventRegisterAddress,
+    eventName: 'Unregistered',
+  })
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link registerProfilePictureAbi}__
@@ -6484,7 +6650,7 @@ export const watchEventRegisterUnregisteredEvent = /*#__PURE__*/ createWatchCont
 export const readRegisterProfilePicture = /*#__PURE__*/ createReadContract({
   abi: registerProfilePictureAbi,
   address: registerProfilePictureAddress,
-});
+})
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link registerProfilePictureAbi}__ and `functionName` set to `"UPGRADE_INTERFACE_VERSION"`
@@ -6492,11 +6658,12 @@ export const readRegisterProfilePicture = /*#__PURE__*/ createReadContract({
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x58617427f3d42e5435908661d3c788d7d2EAf3fa)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xdBfaFc789c4272161ce01a4A3aBa04C232362504)
  */
-export const readRegisterProfilePictureUpgradeInterfaceVersion = /*#__PURE__*/ createReadContract({
-  abi: registerProfilePictureAbi,
-  address: registerProfilePictureAddress,
-  functionName: 'UPGRADE_INTERFACE_VERSION',
-});
+export const readRegisterProfilePictureUpgradeInterfaceVersion =
+  /*#__PURE__*/ createReadContract({
+    abi: registerProfilePictureAbi,
+    address: registerProfilePictureAddress,
+    functionName: 'UPGRADE_INTERFACE_VERSION',
+  })
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link registerProfilePictureAbi}__ and `functionName` set to `"getProfilePicture"`
@@ -6504,11 +6671,12 @@ export const readRegisterProfilePictureUpgradeInterfaceVersion = /*#__PURE__*/ c
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x58617427f3d42e5435908661d3c788d7d2EAf3fa)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xdBfaFc789c4272161ce01a4A3aBa04C232362504)
  */
-export const readRegisterProfilePictureGetProfilePicture = /*#__PURE__*/ createReadContract({
-  abi: registerProfilePictureAbi,
-  address: registerProfilePictureAddress,
-  functionName: 'getProfilePicture',
-});
+export const readRegisterProfilePictureGetProfilePicture =
+  /*#__PURE__*/ createReadContract({
+    abi: registerProfilePictureAbi,
+    address: registerProfilePictureAddress,
+    functionName: 'getProfilePicture',
+  })
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link registerProfilePictureAbi}__ and `functionName` set to `"owner"`
@@ -6516,11 +6684,13 @@ export const readRegisterProfilePictureGetProfilePicture = /*#__PURE__*/ createR
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x58617427f3d42e5435908661d3c788d7d2EAf3fa)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xdBfaFc789c4272161ce01a4A3aBa04C232362504)
  */
-export const readRegisterProfilePictureOwner = /*#__PURE__*/ createReadContract({
-  abi: registerProfilePictureAbi,
-  address: registerProfilePictureAddress,
-  functionName: 'owner',
-});
+export const readRegisterProfilePictureOwner = /*#__PURE__*/ createReadContract(
+  {
+    abi: registerProfilePictureAbi,
+    address: registerProfilePictureAddress,
+    functionName: 'owner',
+  },
+)
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link registerProfilePictureAbi}__ and `functionName` set to `"pendingOwner"`
@@ -6528,11 +6698,12 @@ export const readRegisterProfilePictureOwner = /*#__PURE__*/ createReadContract(
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x58617427f3d42e5435908661d3c788d7d2EAf3fa)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xdBfaFc789c4272161ce01a4A3aBa04C232362504)
  */
-export const readRegisterProfilePicturePendingOwner = /*#__PURE__*/ createReadContract({
-  abi: registerProfilePictureAbi,
-  address: registerProfilePictureAddress,
-  functionName: 'pendingOwner',
-});
+export const readRegisterProfilePicturePendingOwner =
+  /*#__PURE__*/ createReadContract({
+    abi: registerProfilePictureAbi,
+    address: registerProfilePictureAddress,
+    functionName: 'pendingOwner',
+  })
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link registerProfilePictureAbi}__ and `functionName` set to `"profilePicture"`
@@ -6540,11 +6711,12 @@ export const readRegisterProfilePicturePendingOwner = /*#__PURE__*/ createReadCo
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x58617427f3d42e5435908661d3c788d7d2EAf3fa)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xdBfaFc789c4272161ce01a4A3aBa04C232362504)
  */
-export const readRegisterProfilePictureProfilePicture = /*#__PURE__*/ createReadContract({
-  abi: registerProfilePictureAbi,
-  address: registerProfilePictureAddress,
-  functionName: 'profilePicture',
-});
+export const readRegisterProfilePictureProfilePicture =
+  /*#__PURE__*/ createReadContract({
+    abi: registerProfilePictureAbi,
+    address: registerProfilePictureAddress,
+    functionName: 'profilePicture',
+  })
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link registerProfilePictureAbi}__ and `functionName` set to `"proxiableUUID"`
@@ -6552,11 +6724,12 @@ export const readRegisterProfilePictureProfilePicture = /*#__PURE__*/ createRead
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x58617427f3d42e5435908661d3c788d7d2EAf3fa)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xdBfaFc789c4272161ce01a4A3aBa04C232362504)
  */
-export const readRegisterProfilePictureProxiableUuid = /*#__PURE__*/ createReadContract({
-  abi: registerProfilePictureAbi,
-  address: registerProfilePictureAddress,
-  functionName: 'proxiableUUID',
-});
+export const readRegisterProfilePictureProxiableUuid =
+  /*#__PURE__*/ createReadContract({
+    abi: registerProfilePictureAbi,
+    address: registerProfilePictureAddress,
+    functionName: 'proxiableUUID',
+  })
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link registerProfilePictureAbi}__
@@ -6567,7 +6740,7 @@ export const readRegisterProfilePictureProxiableUuid = /*#__PURE__*/ createReadC
 export const writeRegisterProfilePicture = /*#__PURE__*/ createWriteContract({
   abi: registerProfilePictureAbi,
   address: registerProfilePictureAddress,
-});
+})
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link registerProfilePictureAbi}__ and `functionName` set to `"acceptOwnership"`
@@ -6575,11 +6748,12 @@ export const writeRegisterProfilePicture = /*#__PURE__*/ createWriteContract({
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x58617427f3d42e5435908661d3c788d7d2EAf3fa)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xdBfaFc789c4272161ce01a4A3aBa04C232362504)
  */
-export const writeRegisterProfilePictureAcceptOwnership = /*#__PURE__*/ createWriteContract({
-  abi: registerProfilePictureAbi,
-  address: registerProfilePictureAddress,
-  functionName: 'acceptOwnership',
-});
+export const writeRegisterProfilePictureAcceptOwnership =
+  /*#__PURE__*/ createWriteContract({
+    abi: registerProfilePictureAbi,
+    address: registerProfilePictureAddress,
+    functionName: 'acceptOwnership',
+  })
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link registerProfilePictureAbi}__ and `functionName` set to `"initialize"`
@@ -6587,11 +6761,12 @@ export const writeRegisterProfilePictureAcceptOwnership = /*#__PURE__*/ createWr
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x58617427f3d42e5435908661d3c788d7d2EAf3fa)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xdBfaFc789c4272161ce01a4A3aBa04C232362504)
  */
-export const writeRegisterProfilePictureInitialize = /*#__PURE__*/ createWriteContract({
-  abi: registerProfilePictureAbi,
-  address: registerProfilePictureAddress,
-  functionName: 'initialize',
-});
+export const writeRegisterProfilePictureInitialize =
+  /*#__PURE__*/ createWriteContract({
+    abi: registerProfilePictureAbi,
+    address: registerProfilePictureAddress,
+    functionName: 'initialize',
+  })
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link registerProfilePictureAbi}__ and `functionName` set to `"renounceOwnership"`
@@ -6599,11 +6774,12 @@ export const writeRegisterProfilePictureInitialize = /*#__PURE__*/ createWriteCo
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x58617427f3d42e5435908661d3c788d7d2EAf3fa)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xdBfaFc789c4272161ce01a4A3aBa04C232362504)
  */
-export const writeRegisterProfilePictureRenounceOwnership = /*#__PURE__*/ createWriteContract({
-  abi: registerProfilePictureAbi,
-  address: registerProfilePictureAddress,
-  functionName: 'renounceOwnership',
-});
+export const writeRegisterProfilePictureRenounceOwnership =
+  /*#__PURE__*/ createWriteContract({
+    abi: registerProfilePictureAbi,
+    address: registerProfilePictureAddress,
+    functionName: 'renounceOwnership',
+  })
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link registerProfilePictureAbi}__ and `functionName` set to `"setPFP"`
@@ -6611,11 +6787,12 @@ export const writeRegisterProfilePictureRenounceOwnership = /*#__PURE__*/ create
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x58617427f3d42e5435908661d3c788d7d2EAf3fa)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xdBfaFc789c4272161ce01a4A3aBa04C232362504)
  */
-export const writeRegisterProfilePictureSetPfp = /*#__PURE__*/ createWriteContract({
-  abi: registerProfilePictureAbi,
-  address: registerProfilePictureAddress,
-  functionName: 'setPFP',
-});
+export const writeRegisterProfilePictureSetPfp =
+  /*#__PURE__*/ createWriteContract({
+    abi: registerProfilePictureAbi,
+    address: registerProfilePictureAddress,
+    functionName: 'setPFP',
+  })
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link registerProfilePictureAbi}__ and `functionName` set to `"transferOwnership"`
@@ -6623,11 +6800,12 @@ export const writeRegisterProfilePictureSetPfp = /*#__PURE__*/ createWriteContra
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x58617427f3d42e5435908661d3c788d7d2EAf3fa)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xdBfaFc789c4272161ce01a4A3aBa04C232362504)
  */
-export const writeRegisterProfilePictureTransferOwnership = /*#__PURE__*/ createWriteContract({
-  abi: registerProfilePictureAbi,
-  address: registerProfilePictureAddress,
-  functionName: 'transferOwnership',
-});
+export const writeRegisterProfilePictureTransferOwnership =
+  /*#__PURE__*/ createWriteContract({
+    abi: registerProfilePictureAbi,
+    address: registerProfilePictureAddress,
+    functionName: 'transferOwnership',
+  })
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link registerProfilePictureAbi}__ and `functionName` set to `"upgradeToAndCall"`
@@ -6635,11 +6813,12 @@ export const writeRegisterProfilePictureTransferOwnership = /*#__PURE__*/ create
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x58617427f3d42e5435908661d3c788d7d2EAf3fa)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xdBfaFc789c4272161ce01a4A3aBa04C232362504)
  */
-export const writeRegisterProfilePictureUpgradeToAndCall = /*#__PURE__*/ createWriteContract({
-  abi: registerProfilePictureAbi,
-  address: registerProfilePictureAddress,
-  functionName: 'upgradeToAndCall',
-});
+export const writeRegisterProfilePictureUpgradeToAndCall =
+  /*#__PURE__*/ createWriteContract({
+    abi: registerProfilePictureAbi,
+    address: registerProfilePictureAddress,
+    functionName: 'upgradeToAndCall',
+  })
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link registerProfilePictureAbi}__
@@ -6647,10 +6826,11 @@ export const writeRegisterProfilePictureUpgradeToAndCall = /*#__PURE__*/ createW
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x58617427f3d42e5435908661d3c788d7d2EAf3fa)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xdBfaFc789c4272161ce01a4A3aBa04C232362504)
  */
-export const simulateRegisterProfilePicture = /*#__PURE__*/ createSimulateContract({
-  abi: registerProfilePictureAbi,
-  address: registerProfilePictureAddress,
-});
+export const simulateRegisterProfilePicture =
+  /*#__PURE__*/ createSimulateContract({
+    abi: registerProfilePictureAbi,
+    address: registerProfilePictureAddress,
+  })
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link registerProfilePictureAbi}__ and `functionName` set to `"acceptOwnership"`
@@ -6658,11 +6838,12 @@ export const simulateRegisterProfilePicture = /*#__PURE__*/ createSimulateContra
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x58617427f3d42e5435908661d3c788d7d2EAf3fa)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xdBfaFc789c4272161ce01a4A3aBa04C232362504)
  */
-export const simulateRegisterProfilePictureAcceptOwnership = /*#__PURE__*/ createSimulateContract({
-  abi: registerProfilePictureAbi,
-  address: registerProfilePictureAddress,
-  functionName: 'acceptOwnership',
-});
+export const simulateRegisterProfilePictureAcceptOwnership =
+  /*#__PURE__*/ createSimulateContract({
+    abi: registerProfilePictureAbi,
+    address: registerProfilePictureAddress,
+    functionName: 'acceptOwnership',
+  })
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link registerProfilePictureAbi}__ and `functionName` set to `"initialize"`
@@ -6670,11 +6851,12 @@ export const simulateRegisterProfilePictureAcceptOwnership = /*#__PURE__*/ creat
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x58617427f3d42e5435908661d3c788d7d2EAf3fa)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xdBfaFc789c4272161ce01a4A3aBa04C232362504)
  */
-export const simulateRegisterProfilePictureInitialize = /*#__PURE__*/ createSimulateContract({
-  abi: registerProfilePictureAbi,
-  address: registerProfilePictureAddress,
-  functionName: 'initialize',
-});
+export const simulateRegisterProfilePictureInitialize =
+  /*#__PURE__*/ createSimulateContract({
+    abi: registerProfilePictureAbi,
+    address: registerProfilePictureAddress,
+    functionName: 'initialize',
+  })
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link registerProfilePictureAbi}__ and `functionName` set to `"renounceOwnership"`
@@ -6682,11 +6864,12 @@ export const simulateRegisterProfilePictureInitialize = /*#__PURE__*/ createSimu
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x58617427f3d42e5435908661d3c788d7d2EAf3fa)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xdBfaFc789c4272161ce01a4A3aBa04C232362504)
  */
-export const simulateRegisterProfilePictureRenounceOwnership = /*#__PURE__*/ createSimulateContract({
-  abi: registerProfilePictureAbi,
-  address: registerProfilePictureAddress,
-  functionName: 'renounceOwnership',
-});
+export const simulateRegisterProfilePictureRenounceOwnership =
+  /*#__PURE__*/ createSimulateContract({
+    abi: registerProfilePictureAbi,
+    address: registerProfilePictureAddress,
+    functionName: 'renounceOwnership',
+  })
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link registerProfilePictureAbi}__ and `functionName` set to `"setPFP"`
@@ -6694,11 +6877,12 @@ export const simulateRegisterProfilePictureRenounceOwnership = /*#__PURE__*/ cre
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x58617427f3d42e5435908661d3c788d7d2EAf3fa)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xdBfaFc789c4272161ce01a4A3aBa04C232362504)
  */
-export const simulateRegisterProfilePictureSetPfp = /*#__PURE__*/ createSimulateContract({
-  abi: registerProfilePictureAbi,
-  address: registerProfilePictureAddress,
-  functionName: 'setPFP',
-});
+export const simulateRegisterProfilePictureSetPfp =
+  /*#__PURE__*/ createSimulateContract({
+    abi: registerProfilePictureAbi,
+    address: registerProfilePictureAddress,
+    functionName: 'setPFP',
+  })
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link registerProfilePictureAbi}__ and `functionName` set to `"transferOwnership"`
@@ -6706,11 +6890,12 @@ export const simulateRegisterProfilePictureSetPfp = /*#__PURE__*/ createSimulate
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x58617427f3d42e5435908661d3c788d7d2EAf3fa)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xdBfaFc789c4272161ce01a4A3aBa04C232362504)
  */
-export const simulateRegisterProfilePictureTransferOwnership = /*#__PURE__*/ createSimulateContract({
-  abi: registerProfilePictureAbi,
-  address: registerProfilePictureAddress,
-  functionName: 'transferOwnership',
-});
+export const simulateRegisterProfilePictureTransferOwnership =
+  /*#__PURE__*/ createSimulateContract({
+    abi: registerProfilePictureAbi,
+    address: registerProfilePictureAddress,
+    functionName: 'transferOwnership',
+  })
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link registerProfilePictureAbi}__ and `functionName` set to `"upgradeToAndCall"`
@@ -6718,11 +6903,12 @@ export const simulateRegisterProfilePictureTransferOwnership = /*#__PURE__*/ cre
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x58617427f3d42e5435908661d3c788d7d2EAf3fa)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xdBfaFc789c4272161ce01a4A3aBa04C232362504)
  */
-export const simulateRegisterProfilePictureUpgradeToAndCall = /*#__PURE__*/ createSimulateContract({
-  abi: registerProfilePictureAbi,
-  address: registerProfilePictureAddress,
-  functionName: 'upgradeToAndCall',
-});
+export const simulateRegisterProfilePictureUpgradeToAndCall =
+  /*#__PURE__*/ createSimulateContract({
+    abi: registerProfilePictureAbi,
+    address: registerProfilePictureAddress,
+    functionName: 'upgradeToAndCall',
+  })
 
 /**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link registerProfilePictureAbi}__
@@ -6730,10 +6916,11 @@ export const simulateRegisterProfilePictureUpgradeToAndCall = /*#__PURE__*/ crea
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x58617427f3d42e5435908661d3c788d7d2EAf3fa)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xdBfaFc789c4272161ce01a4A3aBa04C232362504)
  */
-export const watchRegisterProfilePictureEvent = /*#__PURE__*/ createWatchContractEvent({
-  abi: registerProfilePictureAbi,
-  address: registerProfilePictureAddress,
-});
+export const watchRegisterProfilePictureEvent =
+  /*#__PURE__*/ createWatchContractEvent({
+    abi: registerProfilePictureAbi,
+    address: registerProfilePictureAddress,
+  })
 
 /**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link registerProfilePictureAbi}__ and `eventName` set to `"Initialized"`
@@ -6741,11 +6928,12 @@ export const watchRegisterProfilePictureEvent = /*#__PURE__*/ createWatchContrac
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x58617427f3d42e5435908661d3c788d7d2EAf3fa)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xdBfaFc789c4272161ce01a4A3aBa04C232362504)
  */
-export const watchRegisterProfilePictureInitializedEvent = /*#__PURE__*/ createWatchContractEvent({
-  abi: registerProfilePictureAbi,
-  address: registerProfilePictureAddress,
-  eventName: 'Initialized',
-});
+export const watchRegisterProfilePictureInitializedEvent =
+  /*#__PURE__*/ createWatchContractEvent({
+    abi: registerProfilePictureAbi,
+    address: registerProfilePictureAddress,
+    eventName: 'Initialized',
+  })
 
 /**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link registerProfilePictureAbi}__ and `eventName` set to `"OwnershipTransferStarted"`
@@ -6753,11 +6941,12 @@ export const watchRegisterProfilePictureInitializedEvent = /*#__PURE__*/ createW
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x58617427f3d42e5435908661d3c788d7d2EAf3fa)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xdBfaFc789c4272161ce01a4A3aBa04C232362504)
  */
-export const watchRegisterProfilePictureOwnershipTransferStartedEvent = /*#__PURE__*/ createWatchContractEvent({
-  abi: registerProfilePictureAbi,
-  address: registerProfilePictureAddress,
-  eventName: 'OwnershipTransferStarted',
-});
+export const watchRegisterProfilePictureOwnershipTransferStartedEvent =
+  /*#__PURE__*/ createWatchContractEvent({
+    abi: registerProfilePictureAbi,
+    address: registerProfilePictureAddress,
+    eventName: 'OwnershipTransferStarted',
+  })
 
 /**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link registerProfilePictureAbi}__ and `eventName` set to `"OwnershipTransferred"`
@@ -6765,11 +6954,12 @@ export const watchRegisterProfilePictureOwnershipTransferStartedEvent = /*#__PUR
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x58617427f3d42e5435908661d3c788d7d2EAf3fa)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xdBfaFc789c4272161ce01a4A3aBa04C232362504)
  */
-export const watchRegisterProfilePictureOwnershipTransferredEvent = /*#__PURE__*/ createWatchContractEvent({
-  abi: registerProfilePictureAbi,
-  address: registerProfilePictureAddress,
-  eventName: 'OwnershipTransferred',
-});
+export const watchRegisterProfilePictureOwnershipTransferredEvent =
+  /*#__PURE__*/ createWatchContractEvent({
+    abi: registerProfilePictureAbi,
+    address: registerProfilePictureAddress,
+    eventName: 'OwnershipTransferred',
+  })
 
 /**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link registerProfilePictureAbi}__ and `eventName` set to `"ProfilePictureSet"`
@@ -6777,11 +6967,12 @@ export const watchRegisterProfilePictureOwnershipTransferredEvent = /*#__PURE__*
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x58617427f3d42e5435908661d3c788d7d2EAf3fa)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xdBfaFc789c4272161ce01a4A3aBa04C232362504)
  */
-export const watchRegisterProfilePictureProfilePictureSetEvent = /*#__PURE__*/ createWatchContractEvent({
-  abi: registerProfilePictureAbi,
-  address: registerProfilePictureAddress,
-  eventName: 'ProfilePictureSet',
-});
+export const watchRegisterProfilePictureProfilePictureSetEvent =
+  /*#__PURE__*/ createWatchContractEvent({
+    abi: registerProfilePictureAbi,
+    address: registerProfilePictureAddress,
+    eventName: 'ProfilePictureSet',
+  })
 
 /**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link registerProfilePictureAbi}__ and `eventName` set to `"Upgraded"`
@@ -6789,11 +6980,12 @@ export const watchRegisterProfilePictureProfilePictureSetEvent = /*#__PURE__*/ c
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x58617427f3d42e5435908661d3c788d7d2EAf3fa)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xdBfaFc789c4272161ce01a4A3aBa04C232362504)
  */
-export const watchRegisterProfilePictureUpgradedEvent = /*#__PURE__*/ createWatchContractEvent({
-  abi: registerProfilePictureAbi,
-  address: registerProfilePictureAddress,
-  eventName: 'Upgraded',
-});
+export const watchRegisterProfilePictureUpgradedEvent =
+  /*#__PURE__*/ createWatchContractEvent({
+    abi: registerProfilePictureAbi,
+    address: registerProfilePictureAddress,
+    eventName: 'Upgraded',
+  })
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link taikoonTokenAbi}__
@@ -6804,7 +6996,7 @@ export const watchRegisterProfilePictureUpgradedEvent = /*#__PURE__*/ createWatc
 export const readTaikoonToken = /*#__PURE__*/ createReadContract({
   abi: taikoonTokenAbi,
   address: taikoonTokenAddress,
-});
+})
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link taikoonTokenAbi}__ and `functionName` set to `"UPGRADE_INTERFACE_VERSION"`
@@ -6812,11 +7004,12 @@ export const readTaikoonToken = /*#__PURE__*/ createReadContract({
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x4A045C5016B200F7E08a4caBB2cdA6E85bF53295)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6e68900B53D6de5c20A4b81CE42A488b887f40Ce)
  */
-export const readTaikoonTokenUpgradeInterfaceVersion = /*#__PURE__*/ createReadContract({
-  abi: taikoonTokenAbi,
-  address: taikoonTokenAddress,
-  functionName: 'UPGRADE_INTERFACE_VERSION',
-});
+export const readTaikoonTokenUpgradeInterfaceVersion =
+  /*#__PURE__*/ createReadContract({
+    abi: taikoonTokenAbi,
+    address: taikoonTokenAddress,
+    functionName: 'UPGRADE_INTERFACE_VERSION',
+  })
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link taikoonTokenAbi}__ and `functionName` set to `"balanceOf"`
@@ -6828,7 +7021,7 @@ export const readTaikoonTokenBalanceOf = /*#__PURE__*/ createReadContract({
   abi: taikoonTokenAbi,
   address: taikoonTokenAddress,
   functionName: 'balanceOf',
-});
+})
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link taikoonTokenAbi}__ and `functionName` set to `"baseURI"`
@@ -6840,7 +7033,7 @@ export const readTaikoonTokenBaseUri = /*#__PURE__*/ createReadContract({
   abi: taikoonTokenAbi,
   address: taikoonTokenAddress,
   functionName: 'baseURI',
-});
+})
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link taikoonTokenAbi}__ and `functionName` set to `"blacklist"`
@@ -6852,7 +7045,7 @@ export const readTaikoonTokenBlacklist = /*#__PURE__*/ createReadContract({
   abi: taikoonTokenAbi,
   address: taikoonTokenAddress,
   functionName: 'blacklist',
-});
+})
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link taikoonTokenAbi}__ and `functionName` set to `"canMint"`
@@ -6864,7 +7057,7 @@ export const readTaikoonTokenCanMint = /*#__PURE__*/ createReadContract({
   abi: taikoonTokenAbi,
   address: taikoonTokenAddress,
   functionName: 'canMint',
-});
+})
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link taikoonTokenAbi}__ and `functionName` set to `"getApproved"`
@@ -6876,7 +7069,7 @@ export const readTaikoonTokenGetApproved = /*#__PURE__*/ createReadContract({
   abi: taikoonTokenAbi,
   address: taikoonTokenAddress,
   functionName: 'getApproved',
-});
+})
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link taikoonTokenAbi}__ and `functionName` set to `"isApprovedForAll"`
@@ -6884,11 +7077,12 @@ export const readTaikoonTokenGetApproved = /*#__PURE__*/ createReadContract({
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x4A045C5016B200F7E08a4caBB2cdA6E85bF53295)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6e68900B53D6de5c20A4b81CE42A488b887f40Ce)
  */
-export const readTaikoonTokenIsApprovedForAll = /*#__PURE__*/ createReadContract({
-  abi: taikoonTokenAbi,
-  address: taikoonTokenAddress,
-  functionName: 'isApprovedForAll',
-});
+export const readTaikoonTokenIsApprovedForAll =
+  /*#__PURE__*/ createReadContract({
+    abi: taikoonTokenAbi,
+    address: taikoonTokenAddress,
+    functionName: 'isApprovedForAll',
+  })
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link taikoonTokenAbi}__ and `functionName` set to `"leaf"`
@@ -6900,7 +7094,7 @@ export const readTaikoonTokenLeaf = /*#__PURE__*/ createReadContract({
   abi: taikoonTokenAbi,
   address: taikoonTokenAddress,
   functionName: 'leaf',
-});
+})
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link taikoonTokenAbi}__ and `functionName` set to `"maxSupply"`
@@ -6912,7 +7106,7 @@ export const readTaikoonTokenMaxSupply = /*#__PURE__*/ createReadContract({
   abi: taikoonTokenAbi,
   address: taikoonTokenAddress,
   functionName: 'maxSupply',
-});
+})
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link taikoonTokenAbi}__ and `functionName` set to `"minted"`
@@ -6924,7 +7118,7 @@ export const readTaikoonTokenMinted = /*#__PURE__*/ createReadContract({
   abi: taikoonTokenAbi,
   address: taikoonTokenAddress,
   functionName: 'minted',
-});
+})
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link taikoonTokenAbi}__ and `functionName` set to `"name"`
@@ -6936,7 +7130,7 @@ export const readTaikoonTokenName = /*#__PURE__*/ createReadContract({
   abi: taikoonTokenAbi,
   address: taikoonTokenAddress,
   functionName: 'name',
-});
+})
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link taikoonTokenAbi}__ and `functionName` set to `"owner"`
@@ -6948,7 +7142,7 @@ export const readTaikoonTokenOwner = /*#__PURE__*/ createReadContract({
   abi: taikoonTokenAbi,
   address: taikoonTokenAddress,
   functionName: 'owner',
-});
+})
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link taikoonTokenAbi}__ and `functionName` set to `"ownerOf"`
@@ -6960,7 +7154,7 @@ export const readTaikoonTokenOwnerOf = /*#__PURE__*/ createReadContract({
   abi: taikoonTokenAbi,
   address: taikoonTokenAddress,
   functionName: 'ownerOf',
-});
+})
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link taikoonTokenAbi}__ and `functionName` set to `"pendingOwner"`
@@ -6972,7 +7166,7 @@ export const readTaikoonTokenPendingOwner = /*#__PURE__*/ createReadContract({
   abi: taikoonTokenAbi,
   address: taikoonTokenAddress,
   functionName: 'pendingOwner',
-});
+})
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link taikoonTokenAbi}__ and `functionName` set to `"proxiableUUID"`
@@ -6984,7 +7178,7 @@ export const readTaikoonTokenProxiableUuid = /*#__PURE__*/ createReadContract({
   abi: taikoonTokenAbi,
   address: taikoonTokenAddress,
   functionName: 'proxiableUUID',
-});
+})
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link taikoonTokenAbi}__ and `functionName` set to `"root"`
@@ -6996,7 +7190,7 @@ export const readTaikoonTokenRoot = /*#__PURE__*/ createReadContract({
   abi: taikoonTokenAbi,
   address: taikoonTokenAddress,
   functionName: 'root',
-});
+})
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link taikoonTokenAbi}__ and `functionName` set to `"supportsInterface"`
@@ -7004,11 +7198,12 @@ export const readTaikoonTokenRoot = /*#__PURE__*/ createReadContract({
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x4A045C5016B200F7E08a4caBB2cdA6E85bF53295)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6e68900B53D6de5c20A4b81CE42A488b887f40Ce)
  */
-export const readTaikoonTokenSupportsInterface = /*#__PURE__*/ createReadContract({
-  abi: taikoonTokenAbi,
-  address: taikoonTokenAddress,
-  functionName: 'supportsInterface',
-});
+export const readTaikoonTokenSupportsInterface =
+  /*#__PURE__*/ createReadContract({
+    abi: taikoonTokenAbi,
+    address: taikoonTokenAddress,
+    functionName: 'supportsInterface',
+  })
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link taikoonTokenAbi}__ and `functionName` set to `"symbol"`
@@ -7020,7 +7215,7 @@ export const readTaikoonTokenSymbol = /*#__PURE__*/ createReadContract({
   abi: taikoonTokenAbi,
   address: taikoonTokenAddress,
   functionName: 'symbol',
-});
+})
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link taikoonTokenAbi}__ and `functionName` set to `"tokenByIndex"`
@@ -7032,7 +7227,7 @@ export const readTaikoonTokenTokenByIndex = /*#__PURE__*/ createReadContract({
   abi: taikoonTokenAbi,
   address: taikoonTokenAddress,
   functionName: 'tokenByIndex',
-});
+})
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link taikoonTokenAbi}__ and `functionName` set to `"tokenOfOwnerByIndex"`
@@ -7040,11 +7235,12 @@ export const readTaikoonTokenTokenByIndex = /*#__PURE__*/ createReadContract({
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x4A045C5016B200F7E08a4caBB2cdA6E85bF53295)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6e68900B53D6de5c20A4b81CE42A488b887f40Ce)
  */
-export const readTaikoonTokenTokenOfOwnerByIndex = /*#__PURE__*/ createReadContract({
-  abi: taikoonTokenAbi,
-  address: taikoonTokenAddress,
-  functionName: 'tokenOfOwnerByIndex',
-});
+export const readTaikoonTokenTokenOfOwnerByIndex =
+  /*#__PURE__*/ createReadContract({
+    abi: taikoonTokenAbi,
+    address: taikoonTokenAddress,
+    functionName: 'tokenOfOwnerByIndex',
+  })
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link taikoonTokenAbi}__ and `functionName` set to `"tokenURI"`
@@ -7056,7 +7252,7 @@ export const readTaikoonTokenTokenUri = /*#__PURE__*/ createReadContract({
   abi: taikoonTokenAbi,
   address: taikoonTokenAddress,
   functionName: 'tokenURI',
-});
+})
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link taikoonTokenAbi}__ and `functionName` set to `"totalSupply"`
@@ -7068,7 +7264,7 @@ export const readTaikoonTokenTotalSupply = /*#__PURE__*/ createReadContract({
   abi: taikoonTokenAbi,
   address: taikoonTokenAddress,
   functionName: 'totalSupply',
-});
+})
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link taikoonTokenAbi}__
@@ -7079,7 +7275,7 @@ export const readTaikoonTokenTotalSupply = /*#__PURE__*/ createReadContract({
 export const writeTaikoonToken = /*#__PURE__*/ createWriteContract({
   abi: taikoonTokenAbi,
   address: taikoonTokenAddress,
-});
+})
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link taikoonTokenAbi}__ and `functionName` set to `"acceptOwnership"`
@@ -7087,11 +7283,12 @@ export const writeTaikoonToken = /*#__PURE__*/ createWriteContract({
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x4A045C5016B200F7E08a4caBB2cdA6E85bF53295)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6e68900B53D6de5c20A4b81CE42A488b887f40Ce)
  */
-export const writeTaikoonTokenAcceptOwnership = /*#__PURE__*/ createWriteContract({
-  abi: taikoonTokenAbi,
-  address: taikoonTokenAddress,
-  functionName: 'acceptOwnership',
-});
+export const writeTaikoonTokenAcceptOwnership =
+  /*#__PURE__*/ createWriteContract({
+    abi: taikoonTokenAbi,
+    address: taikoonTokenAddress,
+    functionName: 'acceptOwnership',
+  })
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link taikoonTokenAbi}__ and `functionName` set to `"approve"`
@@ -7103,7 +7300,7 @@ export const writeTaikoonTokenApprove = /*#__PURE__*/ createWriteContract({
   abi: taikoonTokenAbi,
   address: taikoonTokenAddress,
   functionName: 'approve',
-});
+})
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link taikoonTokenAbi}__ and `functionName` set to `"initialize"`
@@ -7115,7 +7312,7 @@ export const writeTaikoonTokenInitialize = /*#__PURE__*/ createWriteContract({
   abi: taikoonTokenAbi,
   address: taikoonTokenAddress,
   functionName: 'initialize',
-});
+})
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link taikoonTokenAbi}__ and `functionName` set to `"mint"`
@@ -7127,7 +7324,7 @@ export const writeTaikoonTokenMint = /*#__PURE__*/ createWriteContract({
   abi: taikoonTokenAbi,
   address: taikoonTokenAddress,
   functionName: 'mint',
-});
+})
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link taikoonTokenAbi}__ and `functionName` set to `"renounceOwnership"`
@@ -7135,11 +7332,12 @@ export const writeTaikoonTokenMint = /*#__PURE__*/ createWriteContract({
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x4A045C5016B200F7E08a4caBB2cdA6E85bF53295)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6e68900B53D6de5c20A4b81CE42A488b887f40Ce)
  */
-export const writeTaikoonTokenRenounceOwnership = /*#__PURE__*/ createWriteContract({
-  abi: taikoonTokenAbi,
-  address: taikoonTokenAddress,
-  functionName: 'renounceOwnership',
-});
+export const writeTaikoonTokenRenounceOwnership =
+  /*#__PURE__*/ createWriteContract({
+    abi: taikoonTokenAbi,
+    address: taikoonTokenAddress,
+    functionName: 'renounceOwnership',
+  })
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link taikoonTokenAbi}__ and `functionName` set to `"safeTransferFrom"`
@@ -7147,11 +7345,12 @@ export const writeTaikoonTokenRenounceOwnership = /*#__PURE__*/ createWriteContr
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x4A045C5016B200F7E08a4caBB2cdA6E85bF53295)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6e68900B53D6de5c20A4b81CE42A488b887f40Ce)
  */
-export const writeTaikoonTokenSafeTransferFrom = /*#__PURE__*/ createWriteContract({
-  abi: taikoonTokenAbi,
-  address: taikoonTokenAddress,
-  functionName: 'safeTransferFrom',
-});
+export const writeTaikoonTokenSafeTransferFrom =
+  /*#__PURE__*/ createWriteContract({
+    abi: taikoonTokenAbi,
+    address: taikoonTokenAddress,
+    functionName: 'safeTransferFrom',
+  })
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link taikoonTokenAbi}__ and `functionName` set to `"setApprovalForAll"`
@@ -7159,11 +7358,12 @@ export const writeTaikoonTokenSafeTransferFrom = /*#__PURE__*/ createWriteContra
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x4A045C5016B200F7E08a4caBB2cdA6E85bF53295)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6e68900B53D6de5c20A4b81CE42A488b887f40Ce)
  */
-export const writeTaikoonTokenSetApprovalForAll = /*#__PURE__*/ createWriteContract({
-  abi: taikoonTokenAbi,
-  address: taikoonTokenAddress,
-  functionName: 'setApprovalForAll',
-});
+export const writeTaikoonTokenSetApprovalForAll =
+  /*#__PURE__*/ createWriteContract({
+    abi: taikoonTokenAbi,
+    address: taikoonTokenAddress,
+    functionName: 'setApprovalForAll',
+  })
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link taikoonTokenAbi}__ and `functionName` set to `"transferFrom"`
@@ -7175,7 +7375,7 @@ export const writeTaikoonTokenTransferFrom = /*#__PURE__*/ createWriteContract({
   abi: taikoonTokenAbi,
   address: taikoonTokenAddress,
   functionName: 'transferFrom',
-});
+})
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link taikoonTokenAbi}__ and `functionName` set to `"transferOwnership"`
@@ -7183,11 +7383,12 @@ export const writeTaikoonTokenTransferFrom = /*#__PURE__*/ createWriteContract({
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x4A045C5016B200F7E08a4caBB2cdA6E85bF53295)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6e68900B53D6de5c20A4b81CE42A488b887f40Ce)
  */
-export const writeTaikoonTokenTransferOwnership = /*#__PURE__*/ createWriteContract({
-  abi: taikoonTokenAbi,
-  address: taikoonTokenAddress,
-  functionName: 'transferOwnership',
-});
+export const writeTaikoonTokenTransferOwnership =
+  /*#__PURE__*/ createWriteContract({
+    abi: taikoonTokenAbi,
+    address: taikoonTokenAddress,
+    functionName: 'transferOwnership',
+  })
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link taikoonTokenAbi}__ and `functionName` set to `"updateBaseURI"`
@@ -7195,11 +7396,13 @@ export const writeTaikoonTokenTransferOwnership = /*#__PURE__*/ createWriteContr
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x4A045C5016B200F7E08a4caBB2cdA6E85bF53295)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6e68900B53D6de5c20A4b81CE42A488b887f40Ce)
  */
-export const writeTaikoonTokenUpdateBaseUri = /*#__PURE__*/ createWriteContract({
-  abi: taikoonTokenAbi,
-  address: taikoonTokenAddress,
-  functionName: 'updateBaseURI',
-});
+export const writeTaikoonTokenUpdateBaseUri = /*#__PURE__*/ createWriteContract(
+  {
+    abi: taikoonTokenAbi,
+    address: taikoonTokenAddress,
+    functionName: 'updateBaseURI',
+  },
+)
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link taikoonTokenAbi}__ and `functionName` set to `"updateBlacklist"`
@@ -7207,11 +7410,12 @@ export const writeTaikoonTokenUpdateBaseUri = /*#__PURE__*/ createWriteContract(
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x4A045C5016B200F7E08a4caBB2cdA6E85bF53295)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6e68900B53D6de5c20A4b81CE42A488b887f40Ce)
  */
-export const writeTaikoonTokenUpdateBlacklist = /*#__PURE__*/ createWriteContract({
-  abi: taikoonTokenAbi,
-  address: taikoonTokenAddress,
-  functionName: 'updateBlacklist',
-});
+export const writeTaikoonTokenUpdateBlacklist =
+  /*#__PURE__*/ createWriteContract({
+    abi: taikoonTokenAbi,
+    address: taikoonTokenAddress,
+    functionName: 'updateBlacklist',
+  })
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link taikoonTokenAbi}__ and `functionName` set to `"updateRoot"`
@@ -7223,7 +7427,7 @@ export const writeTaikoonTokenUpdateRoot = /*#__PURE__*/ createWriteContract({
   abi: taikoonTokenAbi,
   address: taikoonTokenAddress,
   functionName: 'updateRoot',
-});
+})
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link taikoonTokenAbi}__ and `functionName` set to `"upgradeToAndCall"`
@@ -7231,11 +7435,12 @@ export const writeTaikoonTokenUpdateRoot = /*#__PURE__*/ createWriteContract({
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x4A045C5016B200F7E08a4caBB2cdA6E85bF53295)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6e68900B53D6de5c20A4b81CE42A488b887f40Ce)
  */
-export const writeTaikoonTokenUpgradeToAndCall = /*#__PURE__*/ createWriteContract({
-  abi: taikoonTokenAbi,
-  address: taikoonTokenAddress,
-  functionName: 'upgradeToAndCall',
-});
+export const writeTaikoonTokenUpgradeToAndCall =
+  /*#__PURE__*/ createWriteContract({
+    abi: taikoonTokenAbi,
+    address: taikoonTokenAddress,
+    functionName: 'upgradeToAndCall',
+  })
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link taikoonTokenAbi}__
@@ -7246,7 +7451,7 @@ export const writeTaikoonTokenUpgradeToAndCall = /*#__PURE__*/ createWriteContra
 export const simulateTaikoonToken = /*#__PURE__*/ createSimulateContract({
   abi: taikoonTokenAbi,
   address: taikoonTokenAddress,
-});
+})
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link taikoonTokenAbi}__ and `functionName` set to `"acceptOwnership"`
@@ -7254,11 +7459,12 @@ export const simulateTaikoonToken = /*#__PURE__*/ createSimulateContract({
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x4A045C5016B200F7E08a4caBB2cdA6E85bF53295)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6e68900B53D6de5c20A4b81CE42A488b887f40Ce)
  */
-export const simulateTaikoonTokenAcceptOwnership = /*#__PURE__*/ createSimulateContract({
-  abi: taikoonTokenAbi,
-  address: taikoonTokenAddress,
-  functionName: 'acceptOwnership',
-});
+export const simulateTaikoonTokenAcceptOwnership =
+  /*#__PURE__*/ createSimulateContract({
+    abi: taikoonTokenAbi,
+    address: taikoonTokenAddress,
+    functionName: 'acceptOwnership',
+  })
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link taikoonTokenAbi}__ and `functionName` set to `"approve"`
@@ -7266,11 +7472,13 @@ export const simulateTaikoonTokenAcceptOwnership = /*#__PURE__*/ createSimulateC
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x4A045C5016B200F7E08a4caBB2cdA6E85bF53295)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6e68900B53D6de5c20A4b81CE42A488b887f40Ce)
  */
-export const simulateTaikoonTokenApprove = /*#__PURE__*/ createSimulateContract({
-  abi: taikoonTokenAbi,
-  address: taikoonTokenAddress,
-  functionName: 'approve',
-});
+export const simulateTaikoonTokenApprove = /*#__PURE__*/ createSimulateContract(
+  {
+    abi: taikoonTokenAbi,
+    address: taikoonTokenAddress,
+    functionName: 'approve',
+  },
+)
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link taikoonTokenAbi}__ and `functionName` set to `"initialize"`
@@ -7278,11 +7486,12 @@ export const simulateTaikoonTokenApprove = /*#__PURE__*/ createSimulateContract(
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x4A045C5016B200F7E08a4caBB2cdA6E85bF53295)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6e68900B53D6de5c20A4b81CE42A488b887f40Ce)
  */
-export const simulateTaikoonTokenInitialize = /*#__PURE__*/ createSimulateContract({
-  abi: taikoonTokenAbi,
-  address: taikoonTokenAddress,
-  functionName: 'initialize',
-});
+export const simulateTaikoonTokenInitialize =
+  /*#__PURE__*/ createSimulateContract({
+    abi: taikoonTokenAbi,
+    address: taikoonTokenAddress,
+    functionName: 'initialize',
+  })
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link taikoonTokenAbi}__ and `functionName` set to `"mint"`
@@ -7294,7 +7503,7 @@ export const simulateTaikoonTokenMint = /*#__PURE__*/ createSimulateContract({
   abi: taikoonTokenAbi,
   address: taikoonTokenAddress,
   functionName: 'mint',
-});
+})
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link taikoonTokenAbi}__ and `functionName` set to `"renounceOwnership"`
@@ -7302,11 +7511,12 @@ export const simulateTaikoonTokenMint = /*#__PURE__*/ createSimulateContract({
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x4A045C5016B200F7E08a4caBB2cdA6E85bF53295)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6e68900B53D6de5c20A4b81CE42A488b887f40Ce)
  */
-export const simulateTaikoonTokenRenounceOwnership = /*#__PURE__*/ createSimulateContract({
-  abi: taikoonTokenAbi,
-  address: taikoonTokenAddress,
-  functionName: 'renounceOwnership',
-});
+export const simulateTaikoonTokenRenounceOwnership =
+  /*#__PURE__*/ createSimulateContract({
+    abi: taikoonTokenAbi,
+    address: taikoonTokenAddress,
+    functionName: 'renounceOwnership',
+  })
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link taikoonTokenAbi}__ and `functionName` set to `"safeTransferFrom"`
@@ -7314,11 +7524,12 @@ export const simulateTaikoonTokenRenounceOwnership = /*#__PURE__*/ createSimulat
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x4A045C5016B200F7E08a4caBB2cdA6E85bF53295)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6e68900B53D6de5c20A4b81CE42A488b887f40Ce)
  */
-export const simulateTaikoonTokenSafeTransferFrom = /*#__PURE__*/ createSimulateContract({
-  abi: taikoonTokenAbi,
-  address: taikoonTokenAddress,
-  functionName: 'safeTransferFrom',
-});
+export const simulateTaikoonTokenSafeTransferFrom =
+  /*#__PURE__*/ createSimulateContract({
+    abi: taikoonTokenAbi,
+    address: taikoonTokenAddress,
+    functionName: 'safeTransferFrom',
+  })
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link taikoonTokenAbi}__ and `functionName` set to `"setApprovalForAll"`
@@ -7326,11 +7537,12 @@ export const simulateTaikoonTokenSafeTransferFrom = /*#__PURE__*/ createSimulate
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x4A045C5016B200F7E08a4caBB2cdA6E85bF53295)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6e68900B53D6de5c20A4b81CE42A488b887f40Ce)
  */
-export const simulateTaikoonTokenSetApprovalForAll = /*#__PURE__*/ createSimulateContract({
-  abi: taikoonTokenAbi,
-  address: taikoonTokenAddress,
-  functionName: 'setApprovalForAll',
-});
+export const simulateTaikoonTokenSetApprovalForAll =
+  /*#__PURE__*/ createSimulateContract({
+    abi: taikoonTokenAbi,
+    address: taikoonTokenAddress,
+    functionName: 'setApprovalForAll',
+  })
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link taikoonTokenAbi}__ and `functionName` set to `"transferFrom"`
@@ -7338,11 +7550,12 @@ export const simulateTaikoonTokenSetApprovalForAll = /*#__PURE__*/ createSimulat
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x4A045C5016B200F7E08a4caBB2cdA6E85bF53295)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6e68900B53D6de5c20A4b81CE42A488b887f40Ce)
  */
-export const simulateTaikoonTokenTransferFrom = /*#__PURE__*/ createSimulateContract({
-  abi: taikoonTokenAbi,
-  address: taikoonTokenAddress,
-  functionName: 'transferFrom',
-});
+export const simulateTaikoonTokenTransferFrom =
+  /*#__PURE__*/ createSimulateContract({
+    abi: taikoonTokenAbi,
+    address: taikoonTokenAddress,
+    functionName: 'transferFrom',
+  })
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link taikoonTokenAbi}__ and `functionName` set to `"transferOwnership"`
@@ -7350,11 +7563,12 @@ export const simulateTaikoonTokenTransferFrom = /*#__PURE__*/ createSimulateCont
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x4A045C5016B200F7E08a4caBB2cdA6E85bF53295)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6e68900B53D6de5c20A4b81CE42A488b887f40Ce)
  */
-export const simulateTaikoonTokenTransferOwnership = /*#__PURE__*/ createSimulateContract({
-  abi: taikoonTokenAbi,
-  address: taikoonTokenAddress,
-  functionName: 'transferOwnership',
-});
+export const simulateTaikoonTokenTransferOwnership =
+  /*#__PURE__*/ createSimulateContract({
+    abi: taikoonTokenAbi,
+    address: taikoonTokenAddress,
+    functionName: 'transferOwnership',
+  })
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link taikoonTokenAbi}__ and `functionName` set to `"updateBaseURI"`
@@ -7362,11 +7576,12 @@ export const simulateTaikoonTokenTransferOwnership = /*#__PURE__*/ createSimulat
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x4A045C5016B200F7E08a4caBB2cdA6E85bF53295)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6e68900B53D6de5c20A4b81CE42A488b887f40Ce)
  */
-export const simulateTaikoonTokenUpdateBaseUri = /*#__PURE__*/ createSimulateContract({
-  abi: taikoonTokenAbi,
-  address: taikoonTokenAddress,
-  functionName: 'updateBaseURI',
-});
+export const simulateTaikoonTokenUpdateBaseUri =
+  /*#__PURE__*/ createSimulateContract({
+    abi: taikoonTokenAbi,
+    address: taikoonTokenAddress,
+    functionName: 'updateBaseURI',
+  })
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link taikoonTokenAbi}__ and `functionName` set to `"updateBlacklist"`
@@ -7374,11 +7589,12 @@ export const simulateTaikoonTokenUpdateBaseUri = /*#__PURE__*/ createSimulateCon
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x4A045C5016B200F7E08a4caBB2cdA6E85bF53295)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6e68900B53D6de5c20A4b81CE42A488b887f40Ce)
  */
-export const simulateTaikoonTokenUpdateBlacklist = /*#__PURE__*/ createSimulateContract({
-  abi: taikoonTokenAbi,
-  address: taikoonTokenAddress,
-  functionName: 'updateBlacklist',
-});
+export const simulateTaikoonTokenUpdateBlacklist =
+  /*#__PURE__*/ createSimulateContract({
+    abi: taikoonTokenAbi,
+    address: taikoonTokenAddress,
+    functionName: 'updateBlacklist',
+  })
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link taikoonTokenAbi}__ and `functionName` set to `"updateRoot"`
@@ -7386,11 +7602,12 @@ export const simulateTaikoonTokenUpdateBlacklist = /*#__PURE__*/ createSimulateC
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x4A045C5016B200F7E08a4caBB2cdA6E85bF53295)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6e68900B53D6de5c20A4b81CE42A488b887f40Ce)
  */
-export const simulateTaikoonTokenUpdateRoot = /*#__PURE__*/ createSimulateContract({
-  abi: taikoonTokenAbi,
-  address: taikoonTokenAddress,
-  functionName: 'updateRoot',
-});
+export const simulateTaikoonTokenUpdateRoot =
+  /*#__PURE__*/ createSimulateContract({
+    abi: taikoonTokenAbi,
+    address: taikoonTokenAddress,
+    functionName: 'updateRoot',
+  })
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link taikoonTokenAbi}__ and `functionName` set to `"upgradeToAndCall"`
@@ -7398,11 +7615,12 @@ export const simulateTaikoonTokenUpdateRoot = /*#__PURE__*/ createSimulateContra
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x4A045C5016B200F7E08a4caBB2cdA6E85bF53295)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6e68900B53D6de5c20A4b81CE42A488b887f40Ce)
  */
-export const simulateTaikoonTokenUpgradeToAndCall = /*#__PURE__*/ createSimulateContract({
-  abi: taikoonTokenAbi,
-  address: taikoonTokenAddress,
-  functionName: 'upgradeToAndCall',
-});
+export const simulateTaikoonTokenUpgradeToAndCall =
+  /*#__PURE__*/ createSimulateContract({
+    abi: taikoonTokenAbi,
+    address: taikoonTokenAddress,
+    functionName: 'upgradeToAndCall',
+  })
 
 /**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link taikoonTokenAbi}__
@@ -7413,7 +7631,7 @@ export const simulateTaikoonTokenUpgradeToAndCall = /*#__PURE__*/ createSimulate
 export const watchTaikoonTokenEvent = /*#__PURE__*/ createWatchContractEvent({
   abi: taikoonTokenAbi,
   address: taikoonTokenAddress,
-});
+})
 
 /**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link taikoonTokenAbi}__ and `eventName` set to `"Approval"`
@@ -7421,11 +7639,12 @@ export const watchTaikoonTokenEvent = /*#__PURE__*/ createWatchContractEvent({
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x4A045C5016B200F7E08a4caBB2cdA6E85bF53295)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6e68900B53D6de5c20A4b81CE42A488b887f40Ce)
  */
-export const watchTaikoonTokenApprovalEvent = /*#__PURE__*/ createWatchContractEvent({
-  abi: taikoonTokenAbi,
-  address: taikoonTokenAddress,
-  eventName: 'Approval',
-});
+export const watchTaikoonTokenApprovalEvent =
+  /*#__PURE__*/ createWatchContractEvent({
+    abi: taikoonTokenAbi,
+    address: taikoonTokenAddress,
+    eventName: 'Approval',
+  })
 
 /**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link taikoonTokenAbi}__ and `eventName` set to `"ApprovalForAll"`
@@ -7433,11 +7652,12 @@ export const watchTaikoonTokenApprovalEvent = /*#__PURE__*/ createWatchContractE
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x4A045C5016B200F7E08a4caBB2cdA6E85bF53295)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6e68900B53D6de5c20A4b81CE42A488b887f40Ce)
  */
-export const watchTaikoonTokenApprovalForAllEvent = /*#__PURE__*/ createWatchContractEvent({
-  abi: taikoonTokenAbi,
-  address: taikoonTokenAddress,
-  eventName: 'ApprovalForAll',
-});
+export const watchTaikoonTokenApprovalForAllEvent =
+  /*#__PURE__*/ createWatchContractEvent({
+    abi: taikoonTokenAbi,
+    address: taikoonTokenAddress,
+    eventName: 'ApprovalForAll',
+  })
 
 /**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link taikoonTokenAbi}__ and `eventName` set to `"BlacklistUpdated"`
@@ -7445,11 +7665,12 @@ export const watchTaikoonTokenApprovalForAllEvent = /*#__PURE__*/ createWatchCon
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x4A045C5016B200F7E08a4caBB2cdA6E85bF53295)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6e68900B53D6de5c20A4b81CE42A488b887f40Ce)
  */
-export const watchTaikoonTokenBlacklistUpdatedEvent = /*#__PURE__*/ createWatchContractEvent({
-  abi: taikoonTokenAbi,
-  address: taikoonTokenAddress,
-  eventName: 'BlacklistUpdated',
-});
+export const watchTaikoonTokenBlacklistUpdatedEvent =
+  /*#__PURE__*/ createWatchContractEvent({
+    abi: taikoonTokenAbi,
+    address: taikoonTokenAddress,
+    eventName: 'BlacklistUpdated',
+  })
 
 /**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link taikoonTokenAbi}__ and `eventName` set to `"Initialized"`
@@ -7457,11 +7678,12 @@ export const watchTaikoonTokenBlacklistUpdatedEvent = /*#__PURE__*/ createWatchC
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x4A045C5016B200F7E08a4caBB2cdA6E85bF53295)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6e68900B53D6de5c20A4b81CE42A488b887f40Ce)
  */
-export const watchTaikoonTokenInitializedEvent = /*#__PURE__*/ createWatchContractEvent({
-  abi: taikoonTokenAbi,
-  address: taikoonTokenAddress,
-  eventName: 'Initialized',
-});
+export const watchTaikoonTokenInitializedEvent =
+  /*#__PURE__*/ createWatchContractEvent({
+    abi: taikoonTokenAbi,
+    address: taikoonTokenAddress,
+    eventName: 'Initialized',
+  })
 
 /**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link taikoonTokenAbi}__ and `eventName` set to `"MintConsumed"`
@@ -7469,11 +7691,12 @@ export const watchTaikoonTokenInitializedEvent = /*#__PURE__*/ createWatchContra
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x4A045C5016B200F7E08a4caBB2cdA6E85bF53295)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6e68900B53D6de5c20A4b81CE42A488b887f40Ce)
  */
-export const watchTaikoonTokenMintConsumedEvent = /*#__PURE__*/ createWatchContractEvent({
-  abi: taikoonTokenAbi,
-  address: taikoonTokenAddress,
-  eventName: 'MintConsumed',
-});
+export const watchTaikoonTokenMintConsumedEvent =
+  /*#__PURE__*/ createWatchContractEvent({
+    abi: taikoonTokenAbi,
+    address: taikoonTokenAddress,
+    eventName: 'MintConsumed',
+  })
 
 /**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link taikoonTokenAbi}__ and `eventName` set to `"OwnershipTransferStarted"`
@@ -7481,11 +7704,12 @@ export const watchTaikoonTokenMintConsumedEvent = /*#__PURE__*/ createWatchContr
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x4A045C5016B200F7E08a4caBB2cdA6E85bF53295)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6e68900B53D6de5c20A4b81CE42A488b887f40Ce)
  */
-export const watchTaikoonTokenOwnershipTransferStartedEvent = /*#__PURE__*/ createWatchContractEvent({
-  abi: taikoonTokenAbi,
-  address: taikoonTokenAddress,
-  eventName: 'OwnershipTransferStarted',
-});
+export const watchTaikoonTokenOwnershipTransferStartedEvent =
+  /*#__PURE__*/ createWatchContractEvent({
+    abi: taikoonTokenAbi,
+    address: taikoonTokenAddress,
+    eventName: 'OwnershipTransferStarted',
+  })
 
 /**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link taikoonTokenAbi}__ and `eventName` set to `"OwnershipTransferred"`
@@ -7493,11 +7717,12 @@ export const watchTaikoonTokenOwnershipTransferStartedEvent = /*#__PURE__*/ crea
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x4A045C5016B200F7E08a4caBB2cdA6E85bF53295)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6e68900B53D6de5c20A4b81CE42A488b887f40Ce)
  */
-export const watchTaikoonTokenOwnershipTransferredEvent = /*#__PURE__*/ createWatchContractEvent({
-  abi: taikoonTokenAbi,
-  address: taikoonTokenAddress,
-  eventName: 'OwnershipTransferred',
-});
+export const watchTaikoonTokenOwnershipTransferredEvent =
+  /*#__PURE__*/ createWatchContractEvent({
+    abi: taikoonTokenAbi,
+    address: taikoonTokenAddress,
+    eventName: 'OwnershipTransferred',
+  })
 
 /**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link taikoonTokenAbi}__ and `eventName` set to `"RootUpdated"`
@@ -7505,11 +7730,12 @@ export const watchTaikoonTokenOwnershipTransferredEvent = /*#__PURE__*/ createWa
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x4A045C5016B200F7E08a4caBB2cdA6E85bF53295)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6e68900B53D6de5c20A4b81CE42A488b887f40Ce)
  */
-export const watchTaikoonTokenRootUpdatedEvent = /*#__PURE__*/ createWatchContractEvent({
-  abi: taikoonTokenAbi,
-  address: taikoonTokenAddress,
-  eventName: 'RootUpdated',
-});
+export const watchTaikoonTokenRootUpdatedEvent =
+  /*#__PURE__*/ createWatchContractEvent({
+    abi: taikoonTokenAbi,
+    address: taikoonTokenAddress,
+    eventName: 'RootUpdated',
+  })
 
 /**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link taikoonTokenAbi}__ and `eventName` set to `"Transfer"`
@@ -7517,11 +7743,12 @@ export const watchTaikoonTokenRootUpdatedEvent = /*#__PURE__*/ createWatchContra
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x4A045C5016B200F7E08a4caBB2cdA6E85bF53295)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6e68900B53D6de5c20A4b81CE42A488b887f40Ce)
  */
-export const watchTaikoonTokenTransferEvent = /*#__PURE__*/ createWatchContractEvent({
-  abi: taikoonTokenAbi,
-  address: taikoonTokenAddress,
-  eventName: 'Transfer',
-});
+export const watchTaikoonTokenTransferEvent =
+  /*#__PURE__*/ createWatchContractEvent({
+    abi: taikoonTokenAbi,
+    address: taikoonTokenAddress,
+    eventName: 'Transfer',
+  })
 
 /**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link taikoonTokenAbi}__ and `eventName` set to `"Upgraded"`
@@ -7529,11 +7756,12 @@ export const watchTaikoonTokenTransferEvent = /*#__PURE__*/ createWatchContractE
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x4A045C5016B200F7E08a4caBB2cdA6E85bF53295)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x6e68900B53D6de5c20A4b81CE42A488b887f40Ce)
  */
-export const watchTaikoonTokenUpgradedEvent = /*#__PURE__*/ createWatchContractEvent({
-  abi: taikoonTokenAbi,
-  address: taikoonTokenAddress,
-  eventName: 'Upgraded',
-});
+export const watchTaikoonTokenUpgradedEvent =
+  /*#__PURE__*/ createWatchContractEvent({
+    abi: taikoonTokenAbi,
+    address: taikoonTokenAddress,
+    eventName: 'Upgraded',
+  })
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link trailblazersBadgesAbi}__
@@ -7544,7 +7772,7 @@ export const watchTaikoonTokenUpgradedEvent = /*#__PURE__*/ createWatchContractE
 export const readTrailblazersBadges = /*#__PURE__*/ createReadContract({
   abi: trailblazersBadgesAbi,
   address: trailblazersBadgesAddress,
-});
+})
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link trailblazersBadgesAbi}__ and `functionName` set to `"BADGE_ANDROIDS"`
@@ -7552,11 +7780,12 @@ export const readTrailblazersBadges = /*#__PURE__*/ createReadContract({
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa20a8856e00F5ad024a55A663F06DCc419FFc4d5)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xEB310b20b030e9c227Ac23e0A39FE6a6e09Ba755)
  */
-export const readTrailblazersBadgesBadgeAndroids = /*#__PURE__*/ createReadContract({
-  abi: trailblazersBadgesAbi,
-  address: trailblazersBadgesAddress,
-  functionName: 'BADGE_ANDROIDS',
-});
+export const readTrailblazersBadgesBadgeAndroids =
+  /*#__PURE__*/ createReadContract({
+    abi: trailblazersBadgesAbi,
+    address: trailblazersBadgesAddress,
+    functionName: 'BADGE_ANDROIDS',
+  })
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link trailblazersBadgesAbi}__ and `functionName` set to `"BADGE_BOUNCERS"`
@@ -7564,11 +7793,12 @@ export const readTrailblazersBadgesBadgeAndroids = /*#__PURE__*/ createReadContr
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa20a8856e00F5ad024a55A663F06DCc419FFc4d5)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xEB310b20b030e9c227Ac23e0A39FE6a6e09Ba755)
  */
-export const readTrailblazersBadgesBadgeBouncers = /*#__PURE__*/ createReadContract({
-  abi: trailblazersBadgesAbi,
-  address: trailblazersBadgesAddress,
-  functionName: 'BADGE_BOUNCERS',
-});
+export const readTrailblazersBadgesBadgeBouncers =
+  /*#__PURE__*/ createReadContract({
+    abi: trailblazersBadgesAbi,
+    address: trailblazersBadgesAddress,
+    functionName: 'BADGE_BOUNCERS',
+  })
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link trailblazersBadgesAbi}__ and `functionName` set to `"BADGE_DRUMMERS"`
@@ -7576,11 +7806,12 @@ export const readTrailblazersBadgesBadgeBouncers = /*#__PURE__*/ createReadContr
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa20a8856e00F5ad024a55A663F06DCc419FFc4d5)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xEB310b20b030e9c227Ac23e0A39FE6a6e09Ba755)
  */
-export const readTrailblazersBadgesBadgeDrummers = /*#__PURE__*/ createReadContract({
-  abi: trailblazersBadgesAbi,
-  address: trailblazersBadgesAddress,
-  functionName: 'BADGE_DRUMMERS',
-});
+export const readTrailblazersBadgesBadgeDrummers =
+  /*#__PURE__*/ createReadContract({
+    abi: trailblazersBadgesAbi,
+    address: trailblazersBadgesAddress,
+    functionName: 'BADGE_DRUMMERS',
+  })
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link trailblazersBadgesAbi}__ and `functionName` set to `"BADGE_MASTERS"`
@@ -7588,11 +7819,12 @@ export const readTrailblazersBadgesBadgeDrummers = /*#__PURE__*/ createReadContr
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa20a8856e00F5ad024a55A663F06DCc419FFc4d5)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xEB310b20b030e9c227Ac23e0A39FE6a6e09Ba755)
  */
-export const readTrailblazersBadgesBadgeMasters = /*#__PURE__*/ createReadContract({
-  abi: trailblazersBadgesAbi,
-  address: trailblazersBadgesAddress,
-  functionName: 'BADGE_MASTERS',
-});
+export const readTrailblazersBadgesBadgeMasters =
+  /*#__PURE__*/ createReadContract({
+    abi: trailblazersBadgesAbi,
+    address: trailblazersBadgesAddress,
+    functionName: 'BADGE_MASTERS',
+  })
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link trailblazersBadgesAbi}__ and `functionName` set to `"BADGE_MONKS"`
@@ -7600,11 +7832,12 @@ export const readTrailblazersBadgesBadgeMasters = /*#__PURE__*/ createReadContra
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa20a8856e00F5ad024a55A663F06DCc419FFc4d5)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xEB310b20b030e9c227Ac23e0A39FE6a6e09Ba755)
  */
-export const readTrailblazersBadgesBadgeMonks = /*#__PURE__*/ createReadContract({
-  abi: trailblazersBadgesAbi,
-  address: trailblazersBadgesAddress,
-  functionName: 'BADGE_MONKS',
-});
+export const readTrailblazersBadgesBadgeMonks =
+  /*#__PURE__*/ createReadContract({
+    abi: trailblazersBadgesAbi,
+    address: trailblazersBadgesAddress,
+    functionName: 'BADGE_MONKS',
+  })
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link trailblazersBadgesAbi}__ and `functionName` set to `"BADGE_RAVERS"`
@@ -7612,11 +7845,12 @@ export const readTrailblazersBadgesBadgeMonks = /*#__PURE__*/ createReadContract
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa20a8856e00F5ad024a55A663F06DCc419FFc4d5)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xEB310b20b030e9c227Ac23e0A39FE6a6e09Ba755)
  */
-export const readTrailblazersBadgesBadgeRavers = /*#__PURE__*/ createReadContract({
-  abi: trailblazersBadgesAbi,
-  address: trailblazersBadgesAddress,
-  functionName: 'BADGE_RAVERS',
-});
+export const readTrailblazersBadgesBadgeRavers =
+  /*#__PURE__*/ createReadContract({
+    abi: trailblazersBadgesAbi,
+    address: trailblazersBadgesAddress,
+    functionName: 'BADGE_RAVERS',
+  })
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link trailblazersBadgesAbi}__ and `functionName` set to `"BADGE_ROBOTS"`
@@ -7624,11 +7858,12 @@ export const readTrailblazersBadgesBadgeRavers = /*#__PURE__*/ createReadContrac
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa20a8856e00F5ad024a55A663F06DCc419FFc4d5)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xEB310b20b030e9c227Ac23e0A39FE6a6e09Ba755)
  */
-export const readTrailblazersBadgesBadgeRobots = /*#__PURE__*/ createReadContract({
-  abi: trailblazersBadgesAbi,
-  address: trailblazersBadgesAddress,
-  functionName: 'BADGE_ROBOTS',
-});
+export const readTrailblazersBadgesBadgeRobots =
+  /*#__PURE__*/ createReadContract({
+    abi: trailblazersBadgesAbi,
+    address: trailblazersBadgesAddress,
+    functionName: 'BADGE_ROBOTS',
+  })
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link trailblazersBadgesAbi}__ and `functionName` set to `"BADGE_SHINTO"`
@@ -7636,11 +7871,12 @@ export const readTrailblazersBadgesBadgeRobots = /*#__PURE__*/ createReadContrac
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa20a8856e00F5ad024a55A663F06DCc419FFc4d5)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xEB310b20b030e9c227Ac23e0A39FE6a6e09Ba755)
  */
-export const readTrailblazersBadgesBadgeShinto = /*#__PURE__*/ createReadContract({
-  abi: trailblazersBadgesAbi,
-  address: trailblazersBadgesAddress,
-  functionName: 'BADGE_SHINTO',
-});
+export const readTrailblazersBadgesBadgeShinto =
+  /*#__PURE__*/ createReadContract({
+    abi: trailblazersBadgesAbi,
+    address: trailblazersBadgesAddress,
+    functionName: 'BADGE_SHINTO',
+  })
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link trailblazersBadgesAbi}__ and `functionName` set to `"MOVEMENT_BASED"`
@@ -7648,11 +7884,12 @@ export const readTrailblazersBadgesBadgeShinto = /*#__PURE__*/ createReadContrac
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa20a8856e00F5ad024a55A663F06DCc419FFc4d5)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xEB310b20b030e9c227Ac23e0A39FE6a6e09Ba755)
  */
-export const readTrailblazersBadgesMovementBased = /*#__PURE__*/ createReadContract({
-  abi: trailblazersBadgesAbi,
-  address: trailblazersBadgesAddress,
-  functionName: 'MOVEMENT_BASED',
-});
+export const readTrailblazersBadgesMovementBased =
+  /*#__PURE__*/ createReadContract({
+    abi: trailblazersBadgesAbi,
+    address: trailblazersBadgesAddress,
+    functionName: 'MOVEMENT_BASED',
+  })
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link trailblazersBadgesAbi}__ and `functionName` set to `"MOVEMENT_BOOSTED"`
@@ -7660,11 +7897,12 @@ export const readTrailblazersBadgesMovementBased = /*#__PURE__*/ createReadContr
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa20a8856e00F5ad024a55A663F06DCc419FFc4d5)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xEB310b20b030e9c227Ac23e0A39FE6a6e09Ba755)
  */
-export const readTrailblazersBadgesMovementBoosted = /*#__PURE__*/ createReadContract({
-  abi: trailblazersBadgesAbi,
-  address: trailblazersBadgesAddress,
-  functionName: 'MOVEMENT_BOOSTED',
-});
+export const readTrailblazersBadgesMovementBoosted =
+  /*#__PURE__*/ createReadContract({
+    abi: trailblazersBadgesAbi,
+    address: trailblazersBadgesAddress,
+    functionName: 'MOVEMENT_BOOSTED',
+  })
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link trailblazersBadgesAbi}__ and `functionName` set to `"MOVEMENT_NEUTRAL"`
@@ -7672,11 +7910,12 @@ export const readTrailblazersBadgesMovementBoosted = /*#__PURE__*/ createReadCon
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa20a8856e00F5ad024a55A663F06DCc419FFc4d5)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xEB310b20b030e9c227Ac23e0A39FE6a6e09Ba755)
  */
-export const readTrailblazersBadgesMovementNeutral = /*#__PURE__*/ createReadContract({
-  abi: trailblazersBadgesAbi,
-  address: trailblazersBadgesAddress,
-  functionName: 'MOVEMENT_NEUTRAL',
-});
+export const readTrailblazersBadgesMovementNeutral =
+  /*#__PURE__*/ createReadContract({
+    abi: trailblazersBadgesAbi,
+    address: trailblazersBadgesAddress,
+    functionName: 'MOVEMENT_NEUTRAL',
+  })
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link trailblazersBadgesAbi}__ and `functionName` set to `"UPGRADE_INTERFACE_VERSION"`
@@ -7684,11 +7923,12 @@ export const readTrailblazersBadgesMovementNeutral = /*#__PURE__*/ createReadCon
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa20a8856e00F5ad024a55A663F06DCc419FFc4d5)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xEB310b20b030e9c227Ac23e0A39FE6a6e09Ba755)
  */
-export const readTrailblazersBadgesUpgradeInterfaceVersion = /*#__PURE__*/ createReadContract({
-  abi: trailblazersBadgesAbi,
-  address: trailblazersBadgesAddress,
-  functionName: 'UPGRADE_INTERFACE_VERSION',
-});
+export const readTrailblazersBadgesUpgradeInterfaceVersion =
+  /*#__PURE__*/ createReadContract({
+    abi: trailblazersBadgesAbi,
+    address: trailblazersBadgesAddress,
+    functionName: 'UPGRADE_INTERFACE_VERSION',
+  })
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link trailblazersBadgesAbi}__ and `functionName` set to `"badgeBalances"`
@@ -7696,11 +7936,12 @@ export const readTrailblazersBadgesUpgradeInterfaceVersion = /*#__PURE__*/ creat
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa20a8856e00F5ad024a55A663F06DCc419FFc4d5)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xEB310b20b030e9c227Ac23e0A39FE6a6e09Ba755)
  */
-export const readTrailblazersBadgesBadgeBalances = /*#__PURE__*/ createReadContract({
-  abi: trailblazersBadgesAbi,
-  address: trailblazersBadgesAddress,
-  functionName: 'badgeBalances',
-});
+export const readTrailblazersBadgesBadgeBalances =
+  /*#__PURE__*/ createReadContract({
+    abi: trailblazersBadgesAbi,
+    address: trailblazersBadgesAddress,
+    functionName: 'badgeBalances',
+  })
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link trailblazersBadgesAbi}__ and `functionName` set to `"badgeBalancesV2"`
@@ -7708,11 +7949,12 @@ export const readTrailblazersBadgesBadgeBalances = /*#__PURE__*/ createReadContr
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa20a8856e00F5ad024a55A663F06DCc419FFc4d5)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xEB310b20b030e9c227Ac23e0A39FE6a6e09Ba755)
  */
-export const readTrailblazersBadgesBadgeBalancesV2 = /*#__PURE__*/ createReadContract({
-  abi: trailblazersBadgesAbi,
-  address: trailblazersBadgesAddress,
-  functionName: 'badgeBalancesV2',
-});
+export const readTrailblazersBadgesBadgeBalancesV2 =
+  /*#__PURE__*/ createReadContract({
+    abi: trailblazersBadgesAbi,
+    address: trailblazersBadgesAddress,
+    functionName: 'badgeBalancesV2',
+  })
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link trailblazersBadgesAbi}__ and `functionName` set to `"badges"`
@@ -7724,7 +7966,7 @@ export const readTrailblazersBadgesBadges = /*#__PURE__*/ createReadContract({
   abi: trailblazersBadgesAbi,
   address: trailblazersBadgesAddress,
   functionName: 'badges',
-});
+})
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link trailblazersBadgesAbi}__ and `functionName` set to `"balanceOf"`
@@ -7732,11 +7974,13 @@ export const readTrailblazersBadgesBadges = /*#__PURE__*/ createReadContract({
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa20a8856e00F5ad024a55A663F06DCc419FFc4d5)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xEB310b20b030e9c227Ac23e0A39FE6a6e09Ba755)
  */
-export const readTrailblazersBadgesBalanceOf = /*#__PURE__*/ createReadContract({
-  abi: trailblazersBadgesAbi,
-  address: trailblazersBadgesAddress,
-  functionName: 'balanceOf',
-});
+export const readTrailblazersBadgesBalanceOf = /*#__PURE__*/ createReadContract(
+  {
+    abi: trailblazersBadgesAbi,
+    address: trailblazersBadgesAddress,
+    functionName: 'balanceOf',
+  },
+)
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link trailblazersBadgesAbi}__ and `functionName` set to `"baseURI"`
@@ -7748,7 +7992,7 @@ export const readTrailblazersBadgesBaseUri = /*#__PURE__*/ createReadContract({
   abi: trailblazersBadgesAbi,
   address: trailblazersBadgesAddress,
   functionName: 'baseURI',
-});
+})
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link trailblazersBadgesAbi}__ and `functionName` set to `"blacklist"`
@@ -7756,11 +8000,13 @@ export const readTrailblazersBadgesBaseUri = /*#__PURE__*/ createReadContract({
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa20a8856e00F5ad024a55A663F06DCc419FFc4d5)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xEB310b20b030e9c227Ac23e0A39FE6a6e09Ba755)
  */
-export const readTrailblazersBadgesBlacklist = /*#__PURE__*/ createReadContract({
-  abi: trailblazersBadgesAbi,
-  address: trailblazersBadgesAddress,
-  functionName: 'blacklist',
-});
+export const readTrailblazersBadgesBlacklist = /*#__PURE__*/ createReadContract(
+  {
+    abi: trailblazersBadgesAbi,
+    address: trailblazersBadgesAddress,
+    functionName: 'blacklist',
+  },
+)
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link trailblazersBadgesAbi}__ and `functionName` set to `"canMint"`
@@ -7772,7 +8018,7 @@ export const readTrailblazersBadgesCanMint = /*#__PURE__*/ createReadContract({
   abi: trailblazersBadgesAbi,
   address: trailblazersBadgesAddress,
   functionName: 'canMint',
-});
+})
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link trailblazersBadgesAbi}__ and `functionName` set to `"getApproved"`
@@ -7780,11 +8026,12 @@ export const readTrailblazersBadgesCanMint = /*#__PURE__*/ createReadContract({
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa20a8856e00F5ad024a55A663F06DCc419FFc4d5)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xEB310b20b030e9c227Ac23e0A39FE6a6e09Ba755)
  */
-export const readTrailblazersBadgesGetApproved = /*#__PURE__*/ createReadContract({
-  abi: trailblazersBadgesAbi,
-  address: trailblazersBadgesAddress,
-  functionName: 'getApproved',
-});
+export const readTrailblazersBadgesGetApproved =
+  /*#__PURE__*/ createReadContract({
+    abi: trailblazersBadgesAbi,
+    address: trailblazersBadgesAddress,
+    functionName: 'getApproved',
+  })
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link trailblazersBadgesAbi}__ and `functionName` set to `"getHash"`
@@ -7796,7 +8043,7 @@ export const readTrailblazersBadgesGetHash = /*#__PURE__*/ createReadContract({
   abi: trailblazersBadgesAbi,
   address: trailblazersBadgesAddress,
   functionName: 'getHash',
-});
+})
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link trailblazersBadgesAbi}__ and `functionName` set to `"getTokenId"`
@@ -7804,11 +8051,12 @@ export const readTrailblazersBadgesGetHash = /*#__PURE__*/ createReadContract({
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa20a8856e00F5ad024a55A663F06DCc419FFc4d5)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xEB310b20b030e9c227Ac23e0A39FE6a6e09Ba755)
  */
-export const readTrailblazersBadgesGetTokenId = /*#__PURE__*/ createReadContract({
-  abi: trailblazersBadgesAbi,
-  address: trailblazersBadgesAddress,
-  functionName: 'getTokenId',
-});
+export const readTrailblazersBadgesGetTokenId =
+  /*#__PURE__*/ createReadContract({
+    abi: trailblazersBadgesAbi,
+    address: trailblazersBadgesAddress,
+    functionName: 'getTokenId',
+  })
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link trailblazersBadgesAbi}__ and `functionName` set to `"isApprovedForAll"`
@@ -7816,11 +8064,12 @@ export const readTrailblazersBadgesGetTokenId = /*#__PURE__*/ createReadContract
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa20a8856e00F5ad024a55A663F06DCc419FFc4d5)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xEB310b20b030e9c227Ac23e0A39FE6a6e09Ba755)
  */
-export const readTrailblazersBadgesIsApprovedForAll = /*#__PURE__*/ createReadContract({
-  abi: trailblazersBadgesAbi,
-  address: trailblazersBadgesAddress,
-  functionName: 'isApprovedForAll',
-});
+export const readTrailblazersBadgesIsApprovedForAll =
+  /*#__PURE__*/ createReadContract({
+    abi: trailblazersBadgesAbi,
+    address: trailblazersBadgesAddress,
+    functionName: 'isApprovedForAll',
+  })
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link trailblazersBadgesAbi}__ and `functionName` set to `"isLocked"`
@@ -7832,7 +8081,7 @@ export const readTrailblazersBadgesIsLocked = /*#__PURE__*/ createReadContract({
   abi: trailblazersBadgesAbi,
   address: trailblazersBadgesAddress,
   functionName: 'isLocked',
-});
+})
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link trailblazersBadgesAbi}__ and `functionName` set to `"mintSigner"`
@@ -7840,11 +8089,12 @@ export const readTrailblazersBadgesIsLocked = /*#__PURE__*/ createReadContract({
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa20a8856e00F5ad024a55A663F06DCc419FFc4d5)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xEB310b20b030e9c227Ac23e0A39FE6a6e09Ba755)
  */
-export const readTrailblazersBadgesMintSigner = /*#__PURE__*/ createReadContract({
-  abi: trailblazersBadgesAbi,
-  address: trailblazersBadgesAddress,
-  functionName: 'mintSigner',
-});
+export const readTrailblazersBadgesMintSigner =
+  /*#__PURE__*/ createReadContract({
+    abi: trailblazersBadgesAbi,
+    address: trailblazersBadgesAddress,
+    functionName: 'mintSigner',
+  })
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link trailblazersBadgesAbi}__ and `functionName` set to `"minted"`
@@ -7856,7 +8106,7 @@ export const readTrailblazersBadgesMinted = /*#__PURE__*/ createReadContract({
   abi: trailblazersBadgesAbi,
   address: trailblazersBadgesAddress,
   functionName: 'minted',
-});
+})
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link trailblazersBadgesAbi}__ and `functionName` set to `"movementBadges"`
@@ -7864,11 +8114,12 @@ export const readTrailblazersBadgesMinted = /*#__PURE__*/ createReadContract({
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa20a8856e00F5ad024a55A663F06DCc419FFc4d5)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xEB310b20b030e9c227Ac23e0A39FE6a6e09Ba755)
  */
-export const readTrailblazersBadgesMovementBadges = /*#__PURE__*/ createReadContract({
-  abi: trailblazersBadgesAbi,
-  address: trailblazersBadgesAddress,
-  functionName: 'movementBadges',
-});
+export const readTrailblazersBadgesMovementBadges =
+  /*#__PURE__*/ createReadContract({
+    abi: trailblazersBadgesAbi,
+    address: trailblazersBadgesAddress,
+    functionName: 'movementBadges',
+  })
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link trailblazersBadgesAbi}__ and `functionName` set to `"movements"`
@@ -7876,11 +8127,13 @@ export const readTrailblazersBadgesMovementBadges = /*#__PURE__*/ createReadCont
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa20a8856e00F5ad024a55A663F06DCc419FFc4d5)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xEB310b20b030e9c227Ac23e0A39FE6a6e09Ba755)
  */
-export const readTrailblazersBadgesMovements = /*#__PURE__*/ createReadContract({
-  abi: trailblazersBadgesAbi,
-  address: trailblazersBadgesAddress,
-  functionName: 'movements',
-});
+export const readTrailblazersBadgesMovements = /*#__PURE__*/ createReadContract(
+  {
+    abi: trailblazersBadgesAbi,
+    address: trailblazersBadgesAddress,
+    functionName: 'movements',
+  },
+)
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link trailblazersBadgesAbi}__ and `functionName` set to `"name"`
@@ -7892,7 +8145,7 @@ export const readTrailblazersBadgesName = /*#__PURE__*/ createReadContract({
   abi: trailblazersBadgesAbi,
   address: trailblazersBadgesAddress,
   functionName: 'name',
-});
+})
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link trailblazersBadgesAbi}__ and `functionName` set to `"owner"`
@@ -7904,7 +8157,7 @@ export const readTrailblazersBadgesOwner = /*#__PURE__*/ createReadContract({
   abi: trailblazersBadgesAbi,
   address: trailblazersBadgesAddress,
   functionName: 'owner',
-});
+})
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link trailblazersBadgesAbi}__ and `functionName` set to `"ownerOf"`
@@ -7916,7 +8169,7 @@ export const readTrailblazersBadgesOwnerOf = /*#__PURE__*/ createReadContract({
   abi: trailblazersBadgesAbi,
   address: trailblazersBadgesAddress,
   functionName: 'ownerOf',
-});
+})
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link trailblazersBadgesAbi}__ and `functionName` set to `"pendingOwner"`
@@ -7924,11 +8177,12 @@ export const readTrailblazersBadgesOwnerOf = /*#__PURE__*/ createReadContract({
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa20a8856e00F5ad024a55A663F06DCc419FFc4d5)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xEB310b20b030e9c227Ac23e0A39FE6a6e09Ba755)
  */
-export const readTrailblazersBadgesPendingOwner = /*#__PURE__*/ createReadContract({
-  abi: trailblazersBadgesAbi,
-  address: trailblazersBadgesAddress,
-  functionName: 'pendingOwner',
-});
+export const readTrailblazersBadgesPendingOwner =
+  /*#__PURE__*/ createReadContract({
+    abi: trailblazersBadgesAbi,
+    address: trailblazersBadgesAddress,
+    functionName: 'pendingOwner',
+  })
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link trailblazersBadgesAbi}__ and `functionName` set to `"proxiableUUID"`
@@ -7936,11 +8190,12 @@ export const readTrailblazersBadgesPendingOwner = /*#__PURE__*/ createReadContra
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa20a8856e00F5ad024a55A663F06DCc419FFc4d5)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xEB310b20b030e9c227Ac23e0A39FE6a6e09Ba755)
  */
-export const readTrailblazersBadgesProxiableUuid = /*#__PURE__*/ createReadContract({
-  abi: trailblazersBadgesAbi,
-  address: trailblazersBadgesAddress,
-  functionName: 'proxiableUUID',
-});
+export const readTrailblazersBadgesProxiableUuid =
+  /*#__PURE__*/ createReadContract({
+    abi: trailblazersBadgesAbi,
+    address: trailblazersBadgesAddress,
+    functionName: 'proxiableUUID',
+  })
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link trailblazersBadgesAbi}__ and `functionName` set to `"recruitmentContract"`
@@ -7948,11 +8203,12 @@ export const readTrailblazersBadgesProxiableUuid = /*#__PURE__*/ createReadContr
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa20a8856e00F5ad024a55A663F06DCc419FFc4d5)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xEB310b20b030e9c227Ac23e0A39FE6a6e09Ba755)
  */
-export const readTrailblazersBadgesRecruitmentContract = /*#__PURE__*/ createReadContract({
-  abi: trailblazersBadgesAbi,
-  address: trailblazersBadgesAddress,
-  functionName: 'recruitmentContract',
-});
+export const readTrailblazersBadgesRecruitmentContract =
+  /*#__PURE__*/ createReadContract({
+    abi: trailblazersBadgesAbi,
+    address: trailblazersBadgesAddress,
+    functionName: 'recruitmentContract',
+  })
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link trailblazersBadgesAbi}__ and `functionName` set to `"recruitmentContractV2"`
@@ -7960,11 +8216,12 @@ export const readTrailblazersBadgesRecruitmentContract = /*#__PURE__*/ createRea
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa20a8856e00F5ad024a55A663F06DCc419FFc4d5)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xEB310b20b030e9c227Ac23e0A39FE6a6e09Ba755)
  */
-export const readTrailblazersBadgesRecruitmentContractV2 = /*#__PURE__*/ createReadContract({
-  abi: trailblazersBadgesAbi,
-  address: trailblazersBadgesAddress,
-  functionName: 'recruitmentContractV2',
-});
+export const readTrailblazersBadgesRecruitmentContractV2 =
+  /*#__PURE__*/ createReadContract({
+    abi: trailblazersBadgesAbi,
+    address: trailblazersBadgesAddress,
+    functionName: 'recruitmentContractV2',
+  })
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link trailblazersBadgesAbi}__ and `functionName` set to `"recruitmentLockDuration"`
@@ -7972,11 +8229,12 @@ export const readTrailblazersBadgesRecruitmentContractV2 = /*#__PURE__*/ createR
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa20a8856e00F5ad024a55A663F06DCc419FFc4d5)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xEB310b20b030e9c227Ac23e0A39FE6a6e09Ba755)
  */
-export const readTrailblazersBadgesRecruitmentLockDuration = /*#__PURE__*/ createReadContract({
-  abi: trailblazersBadgesAbi,
-  address: trailblazersBadgesAddress,
-  functionName: 'recruitmentLockDuration',
-});
+export const readTrailblazersBadgesRecruitmentLockDuration =
+  /*#__PURE__*/ createReadContract({
+    abi: trailblazersBadgesAbi,
+    address: trailblazersBadgesAddress,
+    functionName: 'recruitmentLockDuration',
+  })
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link trailblazersBadgesAbi}__ and `functionName` set to `"season2EndTimestamp"`
@@ -7984,11 +8242,12 @@ export const readTrailblazersBadgesRecruitmentLockDuration = /*#__PURE__*/ creat
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa20a8856e00F5ad024a55A663F06DCc419FFc4d5)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xEB310b20b030e9c227Ac23e0A39FE6a6e09Ba755)
  */
-export const readTrailblazersBadgesSeason2EndTimestamp = /*#__PURE__*/ createReadContract({
-  abi: trailblazersBadgesAbi,
-  address: trailblazersBadgesAddress,
-  functionName: 'season2EndTimestamp',
-});
+export const readTrailblazersBadgesSeason2EndTimestamp =
+  /*#__PURE__*/ createReadContract({
+    abi: trailblazersBadgesAbi,
+    address: trailblazersBadgesAddress,
+    functionName: 'season2EndTimestamp',
+  })
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link trailblazersBadgesAbi}__ and `functionName` set to `"season3EndTimestamp"`
@@ -7996,11 +8255,12 @@ export const readTrailblazersBadgesSeason2EndTimestamp = /*#__PURE__*/ createRea
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa20a8856e00F5ad024a55A663F06DCc419FFc4d5)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xEB310b20b030e9c227Ac23e0A39FE6a6e09Ba755)
  */
-export const readTrailblazersBadgesSeason3EndTimestamp = /*#__PURE__*/ createReadContract({
-  abi: trailblazersBadgesAbi,
-  address: trailblazersBadgesAddress,
-  functionName: 'season3EndTimestamp',
-});
+export const readTrailblazersBadgesSeason3EndTimestamp =
+  /*#__PURE__*/ createReadContract({
+    abi: trailblazersBadgesAbi,
+    address: trailblazersBadgesAddress,
+    functionName: 'season3EndTimestamp',
+  })
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link trailblazersBadgesAbi}__ and `functionName` set to `"supportsInterface"`
@@ -8008,11 +8268,12 @@ export const readTrailblazersBadgesSeason3EndTimestamp = /*#__PURE__*/ createRea
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa20a8856e00F5ad024a55A663F06DCc419FFc4d5)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xEB310b20b030e9c227Ac23e0A39FE6a6e09Ba755)
  */
-export const readTrailblazersBadgesSupportsInterface = /*#__PURE__*/ createReadContract({
-  abi: trailblazersBadgesAbi,
-  address: trailblazersBadgesAddress,
-  functionName: 'supportsInterface',
-});
+export const readTrailblazersBadgesSupportsInterface =
+  /*#__PURE__*/ createReadContract({
+    abi: trailblazersBadgesAbi,
+    address: trailblazersBadgesAddress,
+    functionName: 'supportsInterface',
+  })
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link trailblazersBadgesAbi}__ and `functionName` set to `"symbol"`
@@ -8024,7 +8285,7 @@ export const readTrailblazersBadgesSymbol = /*#__PURE__*/ createReadContract({
   abi: trailblazersBadgesAbi,
   address: trailblazersBadgesAddress,
   functionName: 'symbol',
-});
+})
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link trailblazersBadgesAbi}__ and `functionName` set to `"tokenByIndex"`
@@ -8032,11 +8293,12 @@ export const readTrailblazersBadgesSymbol = /*#__PURE__*/ createReadContract({
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa20a8856e00F5ad024a55A663F06DCc419FFc4d5)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xEB310b20b030e9c227Ac23e0A39FE6a6e09Ba755)
  */
-export const readTrailblazersBadgesTokenByIndex = /*#__PURE__*/ createReadContract({
-  abi: trailblazersBadgesAbi,
-  address: trailblazersBadgesAddress,
-  functionName: 'tokenByIndex',
-});
+export const readTrailblazersBadgesTokenByIndex =
+  /*#__PURE__*/ createReadContract({
+    abi: trailblazersBadgesAbi,
+    address: trailblazersBadgesAddress,
+    functionName: 'tokenByIndex',
+  })
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link trailblazersBadgesAbi}__ and `functionName` set to `"tokenOfOwnerByIndex"`
@@ -8044,11 +8306,12 @@ export const readTrailblazersBadgesTokenByIndex = /*#__PURE__*/ createReadContra
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa20a8856e00F5ad024a55A663F06DCc419FFc4d5)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xEB310b20b030e9c227Ac23e0A39FE6a6e09Ba755)
  */
-export const readTrailblazersBadgesTokenOfOwnerByIndex = /*#__PURE__*/ createReadContract({
-  abi: trailblazersBadgesAbi,
-  address: trailblazersBadgesAddress,
-  functionName: 'tokenOfOwnerByIndex',
-});
+export const readTrailblazersBadgesTokenOfOwnerByIndex =
+  /*#__PURE__*/ createReadContract({
+    abi: trailblazersBadgesAbi,
+    address: trailblazersBadgesAddress,
+    functionName: 'tokenOfOwnerByIndex',
+  })
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link trailblazersBadgesAbi}__ and `functionName` set to `"tokenURI"`
@@ -8060,7 +8323,7 @@ export const readTrailblazersBadgesTokenUri = /*#__PURE__*/ createReadContract({
   abi: trailblazersBadgesAbi,
   address: trailblazersBadgesAddress,
   functionName: 'tokenURI',
-});
+})
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link trailblazersBadgesAbi}__ and `functionName` set to `"totalBadgeSupply"`
@@ -8068,11 +8331,12 @@ export const readTrailblazersBadgesTokenUri = /*#__PURE__*/ createReadContract({
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa20a8856e00F5ad024a55A663F06DCc419FFc4d5)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xEB310b20b030e9c227Ac23e0A39FE6a6e09Ba755)
  */
-export const readTrailblazersBadgesTotalBadgeSupply = /*#__PURE__*/ createReadContract({
-  abi: trailblazersBadgesAbi,
-  address: trailblazersBadgesAddress,
-  functionName: 'totalBadgeSupply',
-});
+export const readTrailblazersBadgesTotalBadgeSupply =
+  /*#__PURE__*/ createReadContract({
+    abi: trailblazersBadgesAbi,
+    address: trailblazersBadgesAddress,
+    functionName: 'totalBadgeSupply',
+  })
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link trailblazersBadgesAbi}__ and `functionName` set to `"totalSupply"`
@@ -8080,11 +8344,12 @@ export const readTrailblazersBadgesTotalBadgeSupply = /*#__PURE__*/ createReadCo
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa20a8856e00F5ad024a55A663F06DCc419FFc4d5)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xEB310b20b030e9c227Ac23e0A39FE6a6e09Ba755)
  */
-export const readTrailblazersBadgesTotalSupply = /*#__PURE__*/ createReadContract({
-  abi: trailblazersBadgesAbi,
-  address: trailblazersBadgesAddress,
-  functionName: 'totalSupply',
-});
+export const readTrailblazersBadgesTotalSupply =
+  /*#__PURE__*/ createReadContract({
+    abi: trailblazersBadgesAbi,
+    address: trailblazersBadgesAddress,
+    functionName: 'totalSupply',
+  })
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link trailblazersBadgesAbi}__ and `functionName` set to `"unlockTimestamps"`
@@ -8092,11 +8357,12 @@ export const readTrailblazersBadgesTotalSupply = /*#__PURE__*/ createReadContrac
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa20a8856e00F5ad024a55A663F06DCc419FFc4d5)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xEB310b20b030e9c227Ac23e0A39FE6a6e09Ba755)
  */
-export const readTrailblazersBadgesUnlockTimestamps = /*#__PURE__*/ createReadContract({
-  abi: trailblazersBadgesAbi,
-  address: trailblazersBadgesAddress,
-  functionName: 'unlockTimestamps',
-});
+export const readTrailblazersBadgesUnlockTimestamps =
+  /*#__PURE__*/ createReadContract({
+    abi: trailblazersBadgesAbi,
+    address: trailblazersBadgesAddress,
+    functionName: 'unlockTimestamps',
+  })
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link trailblazersBadgesAbi}__ and `functionName` set to `"userBadges"`
@@ -8104,11 +8370,12 @@ export const readTrailblazersBadgesUnlockTimestamps = /*#__PURE__*/ createReadCo
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa20a8856e00F5ad024a55A663F06DCc419FFc4d5)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xEB310b20b030e9c227Ac23e0A39FE6a6e09Ba755)
  */
-export const readTrailblazersBadgesUserBadges = /*#__PURE__*/ createReadContract({
-  abi: trailblazersBadgesAbi,
-  address: trailblazersBadgesAddress,
-  functionName: 'userBadges',
-});
+export const readTrailblazersBadgesUserBadges =
+  /*#__PURE__*/ createReadContract({
+    abi: trailblazersBadgesAbi,
+    address: trailblazersBadgesAddress,
+    functionName: 'userBadges',
+  })
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link trailblazersBadgesAbi}__ and `functionName` set to `"version"`
@@ -8120,7 +8387,7 @@ export const readTrailblazersBadgesVersion = /*#__PURE__*/ createReadContract({
   abi: trailblazersBadgesAbi,
   address: trailblazersBadgesAddress,
   functionName: 'version',
-});
+})
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link trailblazersBadgesAbi}__
@@ -8131,7 +8398,7 @@ export const readTrailblazersBadgesVersion = /*#__PURE__*/ createReadContract({
 export const writeTrailblazersBadges = /*#__PURE__*/ createWriteContract({
   abi: trailblazersBadgesAbi,
   address: trailblazersBadgesAddress,
-});
+})
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link trailblazersBadgesAbi}__ and `functionName` set to `"acceptOwnership"`
@@ -8139,11 +8406,12 @@ export const writeTrailblazersBadges = /*#__PURE__*/ createWriteContract({
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa20a8856e00F5ad024a55A663F06DCc419FFc4d5)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xEB310b20b030e9c227Ac23e0A39FE6a6e09Ba755)
  */
-export const writeTrailblazersBadgesAcceptOwnership = /*#__PURE__*/ createWriteContract({
-  abi: trailblazersBadgesAbi,
-  address: trailblazersBadgesAddress,
-  functionName: 'acceptOwnership',
-});
+export const writeTrailblazersBadgesAcceptOwnership =
+  /*#__PURE__*/ createWriteContract({
+    abi: trailblazersBadgesAbi,
+    address: trailblazersBadgesAddress,
+    functionName: 'acceptOwnership',
+  })
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link trailblazersBadgesAbi}__ and `functionName` set to `"approve"`
@@ -8151,11 +8419,13 @@ export const writeTrailblazersBadgesAcceptOwnership = /*#__PURE__*/ createWriteC
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa20a8856e00F5ad024a55A663F06DCc419FFc4d5)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xEB310b20b030e9c227Ac23e0A39FE6a6e09Ba755)
  */
-export const writeTrailblazersBadgesApprove = /*#__PURE__*/ createWriteContract({
-  abi: trailblazersBadgesAbi,
-  address: trailblazersBadgesAddress,
-  functionName: 'approve',
-});
+export const writeTrailblazersBadgesApprove = /*#__PURE__*/ createWriteContract(
+  {
+    abi: trailblazersBadgesAbi,
+    address: trailblazersBadgesAddress,
+    functionName: 'approve',
+  },
+)
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link trailblazersBadgesAbi}__ and `functionName` set to `"initialize"`
@@ -8163,11 +8433,12 @@ export const writeTrailblazersBadgesApprove = /*#__PURE__*/ createWriteContract(
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa20a8856e00F5ad024a55A663F06DCc419FFc4d5)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xEB310b20b030e9c227Ac23e0A39FE6a6e09Ba755)
  */
-export const writeTrailblazersBadgesInitialize = /*#__PURE__*/ createWriteContract({
-  abi: trailblazersBadgesAbi,
-  address: trailblazersBadgesAddress,
-  functionName: 'initialize',
-});
+export const writeTrailblazersBadgesInitialize =
+  /*#__PURE__*/ createWriteContract({
+    abi: trailblazersBadgesAbi,
+    address: trailblazersBadgesAddress,
+    functionName: 'initialize',
+  })
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link trailblazersBadgesAbi}__ and `functionName` set to `"mint"`
@@ -8179,7 +8450,7 @@ export const writeTrailblazersBadgesMint = /*#__PURE__*/ createWriteContract({
   abi: trailblazersBadgesAbi,
   address: trailblazersBadgesAddress,
   functionName: 'mint',
-});
+})
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link trailblazersBadgesAbi}__ and `functionName` set to `"renounceOwnership"`
@@ -8187,11 +8458,12 @@ export const writeTrailblazersBadgesMint = /*#__PURE__*/ createWriteContract({
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa20a8856e00F5ad024a55A663F06DCc419FFc4d5)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xEB310b20b030e9c227Ac23e0A39FE6a6e09Ba755)
  */
-export const writeTrailblazersBadgesRenounceOwnership = /*#__PURE__*/ createWriteContract({
-  abi: trailblazersBadgesAbi,
-  address: trailblazersBadgesAddress,
-  functionName: 'renounceOwnership',
-});
+export const writeTrailblazersBadgesRenounceOwnership =
+  /*#__PURE__*/ createWriteContract({
+    abi: trailblazersBadgesAbi,
+    address: trailblazersBadgesAddress,
+    functionName: 'renounceOwnership',
+  })
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link trailblazersBadgesAbi}__ and `functionName` set to `"resetMigration"`
@@ -8199,11 +8471,12 @@ export const writeTrailblazersBadgesRenounceOwnership = /*#__PURE__*/ createWrit
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa20a8856e00F5ad024a55A663F06DCc419FFc4d5)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xEB310b20b030e9c227Ac23e0A39FE6a6e09Ba755)
  */
-export const writeTrailblazersBadgesResetMigration = /*#__PURE__*/ createWriteContract({
-  abi: trailblazersBadgesAbi,
-  address: trailblazersBadgesAddress,
-  functionName: 'resetMigration',
-});
+export const writeTrailblazersBadgesResetMigration =
+  /*#__PURE__*/ createWriteContract({
+    abi: trailblazersBadgesAbi,
+    address: trailblazersBadgesAddress,
+    functionName: 'resetMigration',
+  })
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link trailblazersBadgesAbi}__ and `functionName` set to `"safeTransferFrom"`
@@ -8211,11 +8484,12 @@ export const writeTrailblazersBadgesResetMigration = /*#__PURE__*/ createWriteCo
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa20a8856e00F5ad024a55A663F06DCc419FFc4d5)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xEB310b20b030e9c227Ac23e0A39FE6a6e09Ba755)
  */
-export const writeTrailblazersBadgesSafeTransferFrom = /*#__PURE__*/ createWriteContract({
-  abi: trailblazersBadgesAbi,
-  address: trailblazersBadgesAddress,
-  functionName: 'safeTransferFrom',
-});
+export const writeTrailblazersBadgesSafeTransferFrom =
+  /*#__PURE__*/ createWriteContract({
+    abi: trailblazersBadgesAbi,
+    address: trailblazersBadgesAddress,
+    functionName: 'safeTransferFrom',
+  })
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link trailblazersBadgesAbi}__ and `functionName` set to `"setApprovalForAll"`
@@ -8223,11 +8497,12 @@ export const writeTrailblazersBadgesSafeTransferFrom = /*#__PURE__*/ createWrite
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa20a8856e00F5ad024a55A663F06DCc419FFc4d5)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xEB310b20b030e9c227Ac23e0A39FE6a6e09Ba755)
  */
-export const writeTrailblazersBadgesSetApprovalForAll = /*#__PURE__*/ createWriteContract({
-  abi: trailblazersBadgesAbi,
-  address: trailblazersBadgesAddress,
-  functionName: 'setApprovalForAll',
-});
+export const writeTrailblazersBadgesSetApprovalForAll =
+  /*#__PURE__*/ createWriteContract({
+    abi: trailblazersBadgesAbi,
+    address: trailblazersBadgesAddress,
+    functionName: 'setApprovalForAll',
+  })
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link trailblazersBadgesAbi}__ and `functionName` set to `"setMovement"`
@@ -8235,11 +8510,12 @@ export const writeTrailblazersBadgesSetApprovalForAll = /*#__PURE__*/ createWrit
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa20a8856e00F5ad024a55A663F06DCc419FFc4d5)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xEB310b20b030e9c227Ac23e0A39FE6a6e09Ba755)
  */
-export const writeTrailblazersBadgesSetMovement = /*#__PURE__*/ createWriteContract({
-  abi: trailblazersBadgesAbi,
-  address: trailblazersBadgesAddress,
-  functionName: 'setMovement',
-});
+export const writeTrailblazersBadgesSetMovement =
+  /*#__PURE__*/ createWriteContract({
+    abi: trailblazersBadgesAbi,
+    address: trailblazersBadgesAddress,
+    functionName: 'setMovement',
+  })
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link trailblazersBadgesAbi}__ and `functionName` set to `"setRecruitmentContract"`
@@ -8247,11 +8523,12 @@ export const writeTrailblazersBadgesSetMovement = /*#__PURE__*/ createWriteContr
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa20a8856e00F5ad024a55A663F06DCc419FFc4d5)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xEB310b20b030e9c227Ac23e0A39FE6a6e09Ba755)
  */
-export const writeTrailblazersBadgesSetRecruitmentContract = /*#__PURE__*/ createWriteContract({
-  abi: trailblazersBadgesAbi,
-  address: trailblazersBadgesAddress,
-  functionName: 'setRecruitmentContract',
-});
+export const writeTrailblazersBadgesSetRecruitmentContract =
+  /*#__PURE__*/ createWriteContract({
+    abi: trailblazersBadgesAbi,
+    address: trailblazersBadgesAddress,
+    functionName: 'setRecruitmentContract',
+  })
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link trailblazersBadgesAbi}__ and `functionName` set to `"setRecruitmentContractV2"`
@@ -8259,11 +8536,12 @@ export const writeTrailblazersBadgesSetRecruitmentContract = /*#__PURE__*/ creat
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa20a8856e00F5ad024a55A663F06DCc419FFc4d5)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xEB310b20b030e9c227Ac23e0A39FE6a6e09Ba755)
  */
-export const writeTrailblazersBadgesSetRecruitmentContractV2 = /*#__PURE__*/ createWriteContract({
-  abi: trailblazersBadgesAbi,
-  address: trailblazersBadgesAddress,
-  functionName: 'setRecruitmentContractV2',
-});
+export const writeTrailblazersBadgesSetRecruitmentContractV2 =
+  /*#__PURE__*/ createWriteContract({
+    abi: trailblazersBadgesAbi,
+    address: trailblazersBadgesAddress,
+    functionName: 'setRecruitmentContractV2',
+  })
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link trailblazersBadgesAbi}__ and `functionName` set to `"setRecruitmentLockDuration"`
@@ -8271,11 +8549,12 @@ export const writeTrailblazersBadgesSetRecruitmentContractV2 = /*#__PURE__*/ cre
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa20a8856e00F5ad024a55A663F06DCc419FFc4d5)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xEB310b20b030e9c227Ac23e0A39FE6a6e09Ba755)
  */
-export const writeTrailblazersBadgesSetRecruitmentLockDuration = /*#__PURE__*/ createWriteContract({
-  abi: trailblazersBadgesAbi,
-  address: trailblazersBadgesAddress,
-  functionName: 'setRecruitmentLockDuration',
-});
+export const writeTrailblazersBadgesSetRecruitmentLockDuration =
+  /*#__PURE__*/ createWriteContract({
+    abi: trailblazersBadgesAbi,
+    address: trailblazersBadgesAddress,
+    functionName: 'setRecruitmentLockDuration',
+  })
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link trailblazersBadgesAbi}__ and `functionName` set to `"setSeason2EndTimestamp"`
@@ -8283,11 +8562,12 @@ export const writeTrailblazersBadgesSetRecruitmentLockDuration = /*#__PURE__*/ c
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa20a8856e00F5ad024a55A663F06DCc419FFc4d5)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xEB310b20b030e9c227Ac23e0A39FE6a6e09Ba755)
  */
-export const writeTrailblazersBadgesSetSeason2EndTimestamp = /*#__PURE__*/ createWriteContract({
-  abi: trailblazersBadgesAbi,
-  address: trailblazersBadgesAddress,
-  functionName: 'setSeason2EndTimestamp',
-});
+export const writeTrailblazersBadgesSetSeason2EndTimestamp =
+  /*#__PURE__*/ createWriteContract({
+    abi: trailblazersBadgesAbi,
+    address: trailblazersBadgesAddress,
+    functionName: 'setSeason2EndTimestamp',
+  })
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link trailblazersBadgesAbi}__ and `functionName` set to `"setSeason3EndTimestamp"`
@@ -8295,11 +8575,12 @@ export const writeTrailblazersBadgesSetSeason2EndTimestamp = /*#__PURE__*/ creat
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa20a8856e00F5ad024a55A663F06DCc419FFc4d5)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xEB310b20b030e9c227Ac23e0A39FE6a6e09Ba755)
  */
-export const writeTrailblazersBadgesSetSeason3EndTimestamp = /*#__PURE__*/ createWriteContract({
-  abi: trailblazersBadgesAbi,
-  address: trailblazersBadgesAddress,
-  functionName: 'setSeason3EndTimestamp',
-});
+export const writeTrailblazersBadgesSetSeason3EndTimestamp =
+  /*#__PURE__*/ createWriteContract({
+    abi: trailblazersBadgesAbi,
+    address: trailblazersBadgesAddress,
+    functionName: 'setSeason3EndTimestamp',
+  })
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link trailblazersBadgesAbi}__ and `functionName` set to `"setUri"`
@@ -8311,7 +8592,7 @@ export const writeTrailblazersBadgesSetUri = /*#__PURE__*/ createWriteContract({
   abi: trailblazersBadgesAbi,
   address: trailblazersBadgesAddress,
   functionName: 'setUri',
-});
+})
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link trailblazersBadgesAbi}__ and `functionName` set to `"startRecruitment"`
@@ -8319,11 +8600,12 @@ export const writeTrailblazersBadgesSetUri = /*#__PURE__*/ createWriteContract({
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa20a8856e00F5ad024a55A663F06DCc419FFc4d5)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xEB310b20b030e9c227Ac23e0A39FE6a6e09Ba755)
  */
-export const writeTrailblazersBadgesStartRecruitment = /*#__PURE__*/ createWriteContract({
-  abi: trailblazersBadgesAbi,
-  address: trailblazersBadgesAddress,
-  functionName: 'startRecruitment',
-});
+export const writeTrailblazersBadgesStartRecruitment =
+  /*#__PURE__*/ createWriteContract({
+    abi: trailblazersBadgesAbi,
+    address: trailblazersBadgesAddress,
+    functionName: 'startRecruitment',
+  })
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link trailblazersBadgesAbi}__ and `functionName` set to `"transferFrom"`
@@ -8331,11 +8613,12 @@ export const writeTrailblazersBadgesStartRecruitment = /*#__PURE__*/ createWrite
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa20a8856e00F5ad024a55A663F06DCc419FFc4d5)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xEB310b20b030e9c227Ac23e0A39FE6a6e09Ba755)
  */
-export const writeTrailblazersBadgesTransferFrom = /*#__PURE__*/ createWriteContract({
-  abi: trailblazersBadgesAbi,
-  address: trailblazersBadgesAddress,
-  functionName: 'transferFrom',
-});
+export const writeTrailblazersBadgesTransferFrom =
+  /*#__PURE__*/ createWriteContract({
+    abi: trailblazersBadgesAbi,
+    address: trailblazersBadgesAddress,
+    functionName: 'transferFrom',
+  })
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link trailblazersBadgesAbi}__ and `functionName` set to `"transferOwnership"`
@@ -8343,11 +8626,12 @@ export const writeTrailblazersBadgesTransferFrom = /*#__PURE__*/ createWriteCont
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa20a8856e00F5ad024a55A663F06DCc419FFc4d5)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xEB310b20b030e9c227Ac23e0A39FE6a6e09Ba755)
  */
-export const writeTrailblazersBadgesTransferOwnership = /*#__PURE__*/ createWriteContract({
-  abi: trailblazersBadgesAbi,
-  address: trailblazersBadgesAddress,
-  functionName: 'transferOwnership',
-});
+export const writeTrailblazersBadgesTransferOwnership =
+  /*#__PURE__*/ createWriteContract({
+    abi: trailblazersBadgesAbi,
+    address: trailblazersBadgesAddress,
+    functionName: 'transferOwnership',
+  })
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link trailblazersBadgesAbi}__ and `functionName` set to `"updateBlacklist"`
@@ -8355,11 +8639,12 @@ export const writeTrailblazersBadgesTransferOwnership = /*#__PURE__*/ createWrit
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa20a8856e00F5ad024a55A663F06DCc419FFc4d5)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xEB310b20b030e9c227Ac23e0A39FE6a6e09Ba755)
  */
-export const writeTrailblazersBadgesUpdateBlacklist = /*#__PURE__*/ createWriteContract({
-  abi: trailblazersBadgesAbi,
-  address: trailblazersBadgesAddress,
-  functionName: 'updateBlacklist',
-});
+export const writeTrailblazersBadgesUpdateBlacklist =
+  /*#__PURE__*/ createWriteContract({
+    abi: trailblazersBadgesAbi,
+    address: trailblazersBadgesAddress,
+    functionName: 'updateBlacklist',
+  })
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link trailblazersBadgesAbi}__ and `functionName` set to `"updateMintSigner"`
@@ -8367,11 +8652,12 @@ export const writeTrailblazersBadgesUpdateBlacklist = /*#__PURE__*/ createWriteC
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa20a8856e00F5ad024a55A663F06DCc419FFc4d5)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xEB310b20b030e9c227Ac23e0A39FE6a6e09Ba755)
  */
-export const writeTrailblazersBadgesUpdateMintSigner = /*#__PURE__*/ createWriteContract({
-  abi: trailblazersBadgesAbi,
-  address: trailblazersBadgesAddress,
-  functionName: 'updateMintSigner',
-});
+export const writeTrailblazersBadgesUpdateMintSigner =
+  /*#__PURE__*/ createWriteContract({
+    abi: trailblazersBadgesAbi,
+    address: trailblazersBadgesAddress,
+    functionName: 'updateMintSigner',
+  })
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link trailblazersBadgesAbi}__ and `functionName` set to `"upgradeToAndCall"`
@@ -8379,11 +8665,12 @@ export const writeTrailblazersBadgesUpdateMintSigner = /*#__PURE__*/ createWrite
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa20a8856e00F5ad024a55A663F06DCc419FFc4d5)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xEB310b20b030e9c227Ac23e0A39FE6a6e09Ba755)
  */
-export const writeTrailblazersBadgesUpgradeToAndCall = /*#__PURE__*/ createWriteContract({
-  abi: trailblazersBadgesAbi,
-  address: trailblazersBadgesAddress,
-  functionName: 'upgradeToAndCall',
-});
+export const writeTrailblazersBadgesUpgradeToAndCall =
+  /*#__PURE__*/ createWriteContract({
+    abi: trailblazersBadgesAbi,
+    address: trailblazersBadgesAddress,
+    functionName: 'upgradeToAndCall',
+  })
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link trailblazersBadgesAbi}__
@@ -8394,7 +8681,7 @@ export const writeTrailblazersBadgesUpgradeToAndCall = /*#__PURE__*/ createWrite
 export const simulateTrailblazersBadges = /*#__PURE__*/ createSimulateContract({
   abi: trailblazersBadgesAbi,
   address: trailblazersBadgesAddress,
-});
+})
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link trailblazersBadgesAbi}__ and `functionName` set to `"acceptOwnership"`
@@ -8402,11 +8689,12 @@ export const simulateTrailblazersBadges = /*#__PURE__*/ createSimulateContract({
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa20a8856e00F5ad024a55A663F06DCc419FFc4d5)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xEB310b20b030e9c227Ac23e0A39FE6a6e09Ba755)
  */
-export const simulateTrailblazersBadgesAcceptOwnership = /*#__PURE__*/ createSimulateContract({
-  abi: trailblazersBadgesAbi,
-  address: trailblazersBadgesAddress,
-  functionName: 'acceptOwnership',
-});
+export const simulateTrailblazersBadgesAcceptOwnership =
+  /*#__PURE__*/ createSimulateContract({
+    abi: trailblazersBadgesAbi,
+    address: trailblazersBadgesAddress,
+    functionName: 'acceptOwnership',
+  })
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link trailblazersBadgesAbi}__ and `functionName` set to `"approve"`
@@ -8414,11 +8702,12 @@ export const simulateTrailblazersBadgesAcceptOwnership = /*#__PURE__*/ createSim
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa20a8856e00F5ad024a55A663F06DCc419FFc4d5)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xEB310b20b030e9c227Ac23e0A39FE6a6e09Ba755)
  */
-export const simulateTrailblazersBadgesApprove = /*#__PURE__*/ createSimulateContract({
-  abi: trailblazersBadgesAbi,
-  address: trailblazersBadgesAddress,
-  functionName: 'approve',
-});
+export const simulateTrailblazersBadgesApprove =
+  /*#__PURE__*/ createSimulateContract({
+    abi: trailblazersBadgesAbi,
+    address: trailblazersBadgesAddress,
+    functionName: 'approve',
+  })
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link trailblazersBadgesAbi}__ and `functionName` set to `"initialize"`
@@ -8426,11 +8715,12 @@ export const simulateTrailblazersBadgesApprove = /*#__PURE__*/ createSimulateCon
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa20a8856e00F5ad024a55A663F06DCc419FFc4d5)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xEB310b20b030e9c227Ac23e0A39FE6a6e09Ba755)
  */
-export const simulateTrailblazersBadgesInitialize = /*#__PURE__*/ createSimulateContract({
-  abi: trailblazersBadgesAbi,
-  address: trailblazersBadgesAddress,
-  functionName: 'initialize',
-});
+export const simulateTrailblazersBadgesInitialize =
+  /*#__PURE__*/ createSimulateContract({
+    abi: trailblazersBadgesAbi,
+    address: trailblazersBadgesAddress,
+    functionName: 'initialize',
+  })
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link trailblazersBadgesAbi}__ and `functionName` set to `"mint"`
@@ -8438,11 +8728,12 @@ export const simulateTrailblazersBadgesInitialize = /*#__PURE__*/ createSimulate
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa20a8856e00F5ad024a55A663F06DCc419FFc4d5)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xEB310b20b030e9c227Ac23e0A39FE6a6e09Ba755)
  */
-export const simulateTrailblazersBadgesMint = /*#__PURE__*/ createSimulateContract({
-  abi: trailblazersBadgesAbi,
-  address: trailblazersBadgesAddress,
-  functionName: 'mint',
-});
+export const simulateTrailblazersBadgesMint =
+  /*#__PURE__*/ createSimulateContract({
+    abi: trailblazersBadgesAbi,
+    address: trailblazersBadgesAddress,
+    functionName: 'mint',
+  })
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link trailblazersBadgesAbi}__ and `functionName` set to `"renounceOwnership"`
@@ -8450,11 +8741,12 @@ export const simulateTrailblazersBadgesMint = /*#__PURE__*/ createSimulateContra
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa20a8856e00F5ad024a55A663F06DCc419FFc4d5)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xEB310b20b030e9c227Ac23e0A39FE6a6e09Ba755)
  */
-export const simulateTrailblazersBadgesRenounceOwnership = /*#__PURE__*/ createSimulateContract({
-  abi: trailblazersBadgesAbi,
-  address: trailblazersBadgesAddress,
-  functionName: 'renounceOwnership',
-});
+export const simulateTrailblazersBadgesRenounceOwnership =
+  /*#__PURE__*/ createSimulateContract({
+    abi: trailblazersBadgesAbi,
+    address: trailblazersBadgesAddress,
+    functionName: 'renounceOwnership',
+  })
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link trailblazersBadgesAbi}__ and `functionName` set to `"resetMigration"`
@@ -8462,11 +8754,12 @@ export const simulateTrailblazersBadgesRenounceOwnership = /*#__PURE__*/ createS
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa20a8856e00F5ad024a55A663F06DCc419FFc4d5)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xEB310b20b030e9c227Ac23e0A39FE6a6e09Ba755)
  */
-export const simulateTrailblazersBadgesResetMigration = /*#__PURE__*/ createSimulateContract({
-  abi: trailblazersBadgesAbi,
-  address: trailblazersBadgesAddress,
-  functionName: 'resetMigration',
-});
+export const simulateTrailblazersBadgesResetMigration =
+  /*#__PURE__*/ createSimulateContract({
+    abi: trailblazersBadgesAbi,
+    address: trailblazersBadgesAddress,
+    functionName: 'resetMigration',
+  })
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link trailblazersBadgesAbi}__ and `functionName` set to `"safeTransferFrom"`
@@ -8474,11 +8767,12 @@ export const simulateTrailblazersBadgesResetMigration = /*#__PURE__*/ createSimu
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa20a8856e00F5ad024a55A663F06DCc419FFc4d5)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xEB310b20b030e9c227Ac23e0A39FE6a6e09Ba755)
  */
-export const simulateTrailblazersBadgesSafeTransferFrom = /*#__PURE__*/ createSimulateContract({
-  abi: trailblazersBadgesAbi,
-  address: trailblazersBadgesAddress,
-  functionName: 'safeTransferFrom',
-});
+export const simulateTrailblazersBadgesSafeTransferFrom =
+  /*#__PURE__*/ createSimulateContract({
+    abi: trailblazersBadgesAbi,
+    address: trailblazersBadgesAddress,
+    functionName: 'safeTransferFrom',
+  })
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link trailblazersBadgesAbi}__ and `functionName` set to `"setApprovalForAll"`
@@ -8486,11 +8780,12 @@ export const simulateTrailblazersBadgesSafeTransferFrom = /*#__PURE__*/ createSi
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa20a8856e00F5ad024a55A663F06DCc419FFc4d5)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xEB310b20b030e9c227Ac23e0A39FE6a6e09Ba755)
  */
-export const simulateTrailblazersBadgesSetApprovalForAll = /*#__PURE__*/ createSimulateContract({
-  abi: trailblazersBadgesAbi,
-  address: trailblazersBadgesAddress,
-  functionName: 'setApprovalForAll',
-});
+export const simulateTrailblazersBadgesSetApprovalForAll =
+  /*#__PURE__*/ createSimulateContract({
+    abi: trailblazersBadgesAbi,
+    address: trailblazersBadgesAddress,
+    functionName: 'setApprovalForAll',
+  })
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link trailblazersBadgesAbi}__ and `functionName` set to `"setMovement"`
@@ -8498,11 +8793,12 @@ export const simulateTrailblazersBadgesSetApprovalForAll = /*#__PURE__*/ createS
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa20a8856e00F5ad024a55A663F06DCc419FFc4d5)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xEB310b20b030e9c227Ac23e0A39FE6a6e09Ba755)
  */
-export const simulateTrailblazersBadgesSetMovement = /*#__PURE__*/ createSimulateContract({
-  abi: trailblazersBadgesAbi,
-  address: trailblazersBadgesAddress,
-  functionName: 'setMovement',
-});
+export const simulateTrailblazersBadgesSetMovement =
+  /*#__PURE__*/ createSimulateContract({
+    abi: trailblazersBadgesAbi,
+    address: trailblazersBadgesAddress,
+    functionName: 'setMovement',
+  })
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link trailblazersBadgesAbi}__ and `functionName` set to `"setRecruitmentContract"`
@@ -8510,11 +8806,12 @@ export const simulateTrailblazersBadgesSetMovement = /*#__PURE__*/ createSimulat
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa20a8856e00F5ad024a55A663F06DCc419FFc4d5)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xEB310b20b030e9c227Ac23e0A39FE6a6e09Ba755)
  */
-export const simulateTrailblazersBadgesSetRecruitmentContract = /*#__PURE__*/ createSimulateContract({
-  abi: trailblazersBadgesAbi,
-  address: trailblazersBadgesAddress,
-  functionName: 'setRecruitmentContract',
-});
+export const simulateTrailblazersBadgesSetRecruitmentContract =
+  /*#__PURE__*/ createSimulateContract({
+    abi: trailblazersBadgesAbi,
+    address: trailblazersBadgesAddress,
+    functionName: 'setRecruitmentContract',
+  })
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link trailblazersBadgesAbi}__ and `functionName` set to `"setRecruitmentContractV2"`
@@ -8522,11 +8819,12 @@ export const simulateTrailblazersBadgesSetRecruitmentContract = /*#__PURE__*/ cr
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa20a8856e00F5ad024a55A663F06DCc419FFc4d5)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xEB310b20b030e9c227Ac23e0A39FE6a6e09Ba755)
  */
-export const simulateTrailblazersBadgesSetRecruitmentContractV2 = /*#__PURE__*/ createSimulateContract({
-  abi: trailblazersBadgesAbi,
-  address: trailblazersBadgesAddress,
-  functionName: 'setRecruitmentContractV2',
-});
+export const simulateTrailblazersBadgesSetRecruitmentContractV2 =
+  /*#__PURE__*/ createSimulateContract({
+    abi: trailblazersBadgesAbi,
+    address: trailblazersBadgesAddress,
+    functionName: 'setRecruitmentContractV2',
+  })
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link trailblazersBadgesAbi}__ and `functionName` set to `"setRecruitmentLockDuration"`
@@ -8534,11 +8832,12 @@ export const simulateTrailblazersBadgesSetRecruitmentContractV2 = /*#__PURE__*/ 
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa20a8856e00F5ad024a55A663F06DCc419FFc4d5)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xEB310b20b030e9c227Ac23e0A39FE6a6e09Ba755)
  */
-export const simulateTrailblazersBadgesSetRecruitmentLockDuration = /*#__PURE__*/ createSimulateContract({
-  abi: trailblazersBadgesAbi,
-  address: trailblazersBadgesAddress,
-  functionName: 'setRecruitmentLockDuration',
-});
+export const simulateTrailblazersBadgesSetRecruitmentLockDuration =
+  /*#__PURE__*/ createSimulateContract({
+    abi: trailblazersBadgesAbi,
+    address: trailblazersBadgesAddress,
+    functionName: 'setRecruitmentLockDuration',
+  })
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link trailblazersBadgesAbi}__ and `functionName` set to `"setSeason2EndTimestamp"`
@@ -8546,11 +8845,12 @@ export const simulateTrailblazersBadgesSetRecruitmentLockDuration = /*#__PURE__*
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa20a8856e00F5ad024a55A663F06DCc419FFc4d5)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xEB310b20b030e9c227Ac23e0A39FE6a6e09Ba755)
  */
-export const simulateTrailblazersBadgesSetSeason2EndTimestamp = /*#__PURE__*/ createSimulateContract({
-  abi: trailblazersBadgesAbi,
-  address: trailblazersBadgesAddress,
-  functionName: 'setSeason2EndTimestamp',
-});
+export const simulateTrailblazersBadgesSetSeason2EndTimestamp =
+  /*#__PURE__*/ createSimulateContract({
+    abi: trailblazersBadgesAbi,
+    address: trailblazersBadgesAddress,
+    functionName: 'setSeason2EndTimestamp',
+  })
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link trailblazersBadgesAbi}__ and `functionName` set to `"setSeason3EndTimestamp"`
@@ -8558,11 +8858,12 @@ export const simulateTrailblazersBadgesSetSeason2EndTimestamp = /*#__PURE__*/ cr
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa20a8856e00F5ad024a55A663F06DCc419FFc4d5)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xEB310b20b030e9c227Ac23e0A39FE6a6e09Ba755)
  */
-export const simulateTrailblazersBadgesSetSeason3EndTimestamp = /*#__PURE__*/ createSimulateContract({
-  abi: trailblazersBadgesAbi,
-  address: trailblazersBadgesAddress,
-  functionName: 'setSeason3EndTimestamp',
-});
+export const simulateTrailblazersBadgesSetSeason3EndTimestamp =
+  /*#__PURE__*/ createSimulateContract({
+    abi: trailblazersBadgesAbi,
+    address: trailblazersBadgesAddress,
+    functionName: 'setSeason3EndTimestamp',
+  })
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link trailblazersBadgesAbi}__ and `functionName` set to `"setUri"`
@@ -8570,11 +8871,12 @@ export const simulateTrailblazersBadgesSetSeason3EndTimestamp = /*#__PURE__*/ cr
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa20a8856e00F5ad024a55A663F06DCc419FFc4d5)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xEB310b20b030e9c227Ac23e0A39FE6a6e09Ba755)
  */
-export const simulateTrailblazersBadgesSetUri = /*#__PURE__*/ createSimulateContract({
-  abi: trailblazersBadgesAbi,
-  address: trailblazersBadgesAddress,
-  functionName: 'setUri',
-});
+export const simulateTrailblazersBadgesSetUri =
+  /*#__PURE__*/ createSimulateContract({
+    abi: trailblazersBadgesAbi,
+    address: trailblazersBadgesAddress,
+    functionName: 'setUri',
+  })
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link trailblazersBadgesAbi}__ and `functionName` set to `"startRecruitment"`
@@ -8582,11 +8884,12 @@ export const simulateTrailblazersBadgesSetUri = /*#__PURE__*/ createSimulateCont
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa20a8856e00F5ad024a55A663F06DCc419FFc4d5)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xEB310b20b030e9c227Ac23e0A39FE6a6e09Ba755)
  */
-export const simulateTrailblazersBadgesStartRecruitment = /*#__PURE__*/ createSimulateContract({
-  abi: trailblazersBadgesAbi,
-  address: trailblazersBadgesAddress,
-  functionName: 'startRecruitment',
-});
+export const simulateTrailblazersBadgesStartRecruitment =
+  /*#__PURE__*/ createSimulateContract({
+    abi: trailblazersBadgesAbi,
+    address: trailblazersBadgesAddress,
+    functionName: 'startRecruitment',
+  })
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link trailblazersBadgesAbi}__ and `functionName` set to `"transferFrom"`
@@ -8594,11 +8897,12 @@ export const simulateTrailblazersBadgesStartRecruitment = /*#__PURE__*/ createSi
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa20a8856e00F5ad024a55A663F06DCc419FFc4d5)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xEB310b20b030e9c227Ac23e0A39FE6a6e09Ba755)
  */
-export const simulateTrailblazersBadgesTransferFrom = /*#__PURE__*/ createSimulateContract({
-  abi: trailblazersBadgesAbi,
-  address: trailblazersBadgesAddress,
-  functionName: 'transferFrom',
-});
+export const simulateTrailblazersBadgesTransferFrom =
+  /*#__PURE__*/ createSimulateContract({
+    abi: trailblazersBadgesAbi,
+    address: trailblazersBadgesAddress,
+    functionName: 'transferFrom',
+  })
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link trailblazersBadgesAbi}__ and `functionName` set to `"transferOwnership"`
@@ -8606,11 +8910,12 @@ export const simulateTrailblazersBadgesTransferFrom = /*#__PURE__*/ createSimula
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa20a8856e00F5ad024a55A663F06DCc419FFc4d5)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xEB310b20b030e9c227Ac23e0A39FE6a6e09Ba755)
  */
-export const simulateTrailblazersBadgesTransferOwnership = /*#__PURE__*/ createSimulateContract({
-  abi: trailblazersBadgesAbi,
-  address: trailblazersBadgesAddress,
-  functionName: 'transferOwnership',
-});
+export const simulateTrailblazersBadgesTransferOwnership =
+  /*#__PURE__*/ createSimulateContract({
+    abi: trailblazersBadgesAbi,
+    address: trailblazersBadgesAddress,
+    functionName: 'transferOwnership',
+  })
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link trailblazersBadgesAbi}__ and `functionName` set to `"updateBlacklist"`
@@ -8618,11 +8923,12 @@ export const simulateTrailblazersBadgesTransferOwnership = /*#__PURE__*/ createS
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa20a8856e00F5ad024a55A663F06DCc419FFc4d5)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xEB310b20b030e9c227Ac23e0A39FE6a6e09Ba755)
  */
-export const simulateTrailblazersBadgesUpdateBlacklist = /*#__PURE__*/ createSimulateContract({
-  abi: trailblazersBadgesAbi,
-  address: trailblazersBadgesAddress,
-  functionName: 'updateBlacklist',
-});
+export const simulateTrailblazersBadgesUpdateBlacklist =
+  /*#__PURE__*/ createSimulateContract({
+    abi: trailblazersBadgesAbi,
+    address: trailblazersBadgesAddress,
+    functionName: 'updateBlacklist',
+  })
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link trailblazersBadgesAbi}__ and `functionName` set to `"updateMintSigner"`
@@ -8630,11 +8936,12 @@ export const simulateTrailblazersBadgesUpdateBlacklist = /*#__PURE__*/ createSim
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa20a8856e00F5ad024a55A663F06DCc419FFc4d5)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xEB310b20b030e9c227Ac23e0A39FE6a6e09Ba755)
  */
-export const simulateTrailblazersBadgesUpdateMintSigner = /*#__PURE__*/ createSimulateContract({
-  abi: trailblazersBadgesAbi,
-  address: trailblazersBadgesAddress,
-  functionName: 'updateMintSigner',
-});
+export const simulateTrailblazersBadgesUpdateMintSigner =
+  /*#__PURE__*/ createSimulateContract({
+    abi: trailblazersBadgesAbi,
+    address: trailblazersBadgesAddress,
+    functionName: 'updateMintSigner',
+  })
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link trailblazersBadgesAbi}__ and `functionName` set to `"upgradeToAndCall"`
@@ -8642,11 +8949,12 @@ export const simulateTrailblazersBadgesUpdateMintSigner = /*#__PURE__*/ createSi
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa20a8856e00F5ad024a55A663F06DCc419FFc4d5)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xEB310b20b030e9c227Ac23e0A39FE6a6e09Ba755)
  */
-export const simulateTrailblazersBadgesUpgradeToAndCall = /*#__PURE__*/ createSimulateContract({
-  abi: trailblazersBadgesAbi,
-  address: trailblazersBadgesAddress,
-  functionName: 'upgradeToAndCall',
-});
+export const simulateTrailblazersBadgesUpgradeToAndCall =
+  /*#__PURE__*/ createSimulateContract({
+    abi: trailblazersBadgesAbi,
+    address: trailblazersBadgesAddress,
+    functionName: 'upgradeToAndCall',
+  })
 
 /**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link trailblazersBadgesAbi}__
@@ -8654,10 +8962,11 @@ export const simulateTrailblazersBadgesUpgradeToAndCall = /*#__PURE__*/ createSi
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa20a8856e00F5ad024a55A663F06DCc419FFc4d5)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xEB310b20b030e9c227Ac23e0A39FE6a6e09Ba755)
  */
-export const watchTrailblazersBadgesEvent = /*#__PURE__*/ createWatchContractEvent({
-  abi: trailblazersBadgesAbi,
-  address: trailblazersBadgesAddress,
-});
+export const watchTrailblazersBadgesEvent =
+  /*#__PURE__*/ createWatchContractEvent({
+    abi: trailblazersBadgesAbi,
+    address: trailblazersBadgesAddress,
+  })
 
 /**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link trailblazersBadgesAbi}__ and `eventName` set to `"Approval"`
@@ -8665,11 +8974,12 @@ export const watchTrailblazersBadgesEvent = /*#__PURE__*/ createWatchContractEve
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa20a8856e00F5ad024a55A663F06DCc419FFc4d5)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xEB310b20b030e9c227Ac23e0A39FE6a6e09Ba755)
  */
-export const watchTrailblazersBadgesApprovalEvent = /*#__PURE__*/ createWatchContractEvent({
-  abi: trailblazersBadgesAbi,
-  address: trailblazersBadgesAddress,
-  eventName: 'Approval',
-});
+export const watchTrailblazersBadgesApprovalEvent =
+  /*#__PURE__*/ createWatchContractEvent({
+    abi: trailblazersBadgesAbi,
+    address: trailblazersBadgesAddress,
+    eventName: 'Approval',
+  })
 
 /**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link trailblazersBadgesAbi}__ and `eventName` set to `"ApprovalForAll"`
@@ -8677,11 +8987,12 @@ export const watchTrailblazersBadgesApprovalEvent = /*#__PURE__*/ createWatchCon
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa20a8856e00F5ad024a55A663F06DCc419FFc4d5)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xEB310b20b030e9c227Ac23e0A39FE6a6e09Ba755)
  */
-export const watchTrailblazersBadgesApprovalForAllEvent = /*#__PURE__*/ createWatchContractEvent({
-  abi: trailblazersBadgesAbi,
-  address: trailblazersBadgesAddress,
-  eventName: 'ApprovalForAll',
-});
+export const watchTrailblazersBadgesApprovalForAllEvent =
+  /*#__PURE__*/ createWatchContractEvent({
+    abi: trailblazersBadgesAbi,
+    address: trailblazersBadgesAddress,
+    eventName: 'ApprovalForAll',
+  })
 
 /**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link trailblazersBadgesAbi}__ and `eventName` set to `"BadgeCreated"`
@@ -8689,11 +9000,12 @@ export const watchTrailblazersBadgesApprovalForAllEvent = /*#__PURE__*/ createWa
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa20a8856e00F5ad024a55A663F06DCc419FFc4d5)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xEB310b20b030e9c227Ac23e0A39FE6a6e09Ba755)
  */
-export const watchTrailblazersBadgesBadgeCreatedEvent = /*#__PURE__*/ createWatchContractEvent({
-  abi: trailblazersBadgesAbi,
-  address: trailblazersBadgesAddress,
-  eventName: 'BadgeCreated',
-});
+export const watchTrailblazersBadgesBadgeCreatedEvent =
+  /*#__PURE__*/ createWatchContractEvent({
+    abi: trailblazersBadgesAbi,
+    address: trailblazersBadgesAddress,
+    eventName: 'BadgeCreated',
+  })
 
 /**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link trailblazersBadgesAbi}__ and `eventName` set to `"BlacklistUpdated"`
@@ -8701,11 +9013,12 @@ export const watchTrailblazersBadgesBadgeCreatedEvent = /*#__PURE__*/ createWatc
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa20a8856e00F5ad024a55A663F06DCc419FFc4d5)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xEB310b20b030e9c227Ac23e0A39FE6a6e09Ba755)
  */
-export const watchTrailblazersBadgesBlacklistUpdatedEvent = /*#__PURE__*/ createWatchContractEvent({
-  abi: trailblazersBadgesAbi,
-  address: trailblazersBadgesAddress,
-  eventName: 'BlacklistUpdated',
-});
+export const watchTrailblazersBadgesBlacklistUpdatedEvent =
+  /*#__PURE__*/ createWatchContractEvent({
+    abi: trailblazersBadgesAbi,
+    address: trailblazersBadgesAddress,
+    eventName: 'BlacklistUpdated',
+  })
 
 /**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link trailblazersBadgesAbi}__ and `eventName` set to `"Initialized"`
@@ -8713,11 +9026,12 @@ export const watchTrailblazersBadgesBlacklistUpdatedEvent = /*#__PURE__*/ create
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa20a8856e00F5ad024a55A663F06DCc419FFc4d5)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xEB310b20b030e9c227Ac23e0A39FE6a6e09Ba755)
  */
-export const watchTrailblazersBadgesInitializedEvent = /*#__PURE__*/ createWatchContractEvent({
-  abi: trailblazersBadgesAbi,
-  address: trailblazersBadgesAddress,
-  eventName: 'Initialized',
-});
+export const watchTrailblazersBadgesInitializedEvent =
+  /*#__PURE__*/ createWatchContractEvent({
+    abi: trailblazersBadgesAbi,
+    address: trailblazersBadgesAddress,
+    eventName: 'Initialized',
+  })
 
 /**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link trailblazersBadgesAbi}__ and `eventName` set to `"MintConsumed"`
@@ -8725,11 +9039,12 @@ export const watchTrailblazersBadgesInitializedEvent = /*#__PURE__*/ createWatch
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa20a8856e00F5ad024a55A663F06DCc419FFc4d5)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xEB310b20b030e9c227Ac23e0A39FE6a6e09Ba755)
  */
-export const watchTrailblazersBadgesMintConsumedEvent = /*#__PURE__*/ createWatchContractEvent({
-  abi: trailblazersBadgesAbi,
-  address: trailblazersBadgesAddress,
-  eventName: 'MintConsumed',
-});
+export const watchTrailblazersBadgesMintConsumedEvent =
+  /*#__PURE__*/ createWatchContractEvent({
+    abi: trailblazersBadgesAbi,
+    address: trailblazersBadgesAddress,
+    eventName: 'MintConsumed',
+  })
 
 /**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link trailblazersBadgesAbi}__ and `eventName` set to `"MintSignerUpdated"`
@@ -8737,11 +9052,12 @@ export const watchTrailblazersBadgesMintConsumedEvent = /*#__PURE__*/ createWatc
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa20a8856e00F5ad024a55A663F06DCc419FFc4d5)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xEB310b20b030e9c227Ac23e0A39FE6a6e09Ba755)
  */
-export const watchTrailblazersBadgesMintSignerUpdatedEvent = /*#__PURE__*/ createWatchContractEvent({
-  abi: trailblazersBadgesAbi,
-  address: trailblazersBadgesAddress,
-  eventName: 'MintSignerUpdated',
-});
+export const watchTrailblazersBadgesMintSignerUpdatedEvent =
+  /*#__PURE__*/ createWatchContractEvent({
+    abi: trailblazersBadgesAbi,
+    address: trailblazersBadgesAddress,
+    eventName: 'MintSignerUpdated',
+  })
 
 /**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link trailblazersBadgesAbi}__ and `eventName` set to `"MovementSet"`
@@ -8749,11 +9065,12 @@ export const watchTrailblazersBadgesMintSignerUpdatedEvent = /*#__PURE__*/ creat
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa20a8856e00F5ad024a55A663F06DCc419FFc4d5)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xEB310b20b030e9c227Ac23e0A39FE6a6e09Ba755)
  */
-export const watchTrailblazersBadgesMovementSetEvent = /*#__PURE__*/ createWatchContractEvent({
-  abi: trailblazersBadgesAbi,
-  address: trailblazersBadgesAddress,
-  eventName: 'MovementSet',
-});
+export const watchTrailblazersBadgesMovementSetEvent =
+  /*#__PURE__*/ createWatchContractEvent({
+    abi: trailblazersBadgesAbi,
+    address: trailblazersBadgesAddress,
+    eventName: 'MovementSet',
+  })
 
 /**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link trailblazersBadgesAbi}__ and `eventName` set to `"OwnershipTransferStarted"`
@@ -8761,11 +9078,12 @@ export const watchTrailblazersBadgesMovementSetEvent = /*#__PURE__*/ createWatch
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa20a8856e00F5ad024a55A663F06DCc419FFc4d5)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xEB310b20b030e9c227Ac23e0A39FE6a6e09Ba755)
  */
-export const watchTrailblazersBadgesOwnershipTransferStartedEvent = /*#__PURE__*/ createWatchContractEvent({
-  abi: trailblazersBadgesAbi,
-  address: trailblazersBadgesAddress,
-  eventName: 'OwnershipTransferStarted',
-});
+export const watchTrailblazersBadgesOwnershipTransferStartedEvent =
+  /*#__PURE__*/ createWatchContractEvent({
+    abi: trailblazersBadgesAbi,
+    address: trailblazersBadgesAddress,
+    eventName: 'OwnershipTransferStarted',
+  })
 
 /**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link trailblazersBadgesAbi}__ and `eventName` set to `"OwnershipTransferred"`
@@ -8773,11 +9091,12 @@ export const watchTrailblazersBadgesOwnershipTransferStartedEvent = /*#__PURE__*
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa20a8856e00F5ad024a55A663F06DCc419FFc4d5)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xEB310b20b030e9c227Ac23e0A39FE6a6e09Ba755)
  */
-export const watchTrailblazersBadgesOwnershipTransferredEvent = /*#__PURE__*/ createWatchContractEvent({
-  abi: trailblazersBadgesAbi,
-  address: trailblazersBadgesAddress,
-  eventName: 'OwnershipTransferred',
-});
+export const watchTrailblazersBadgesOwnershipTransferredEvent =
+  /*#__PURE__*/ createWatchContractEvent({
+    abi: trailblazersBadgesAbi,
+    address: trailblazersBadgesAddress,
+    eventName: 'OwnershipTransferred',
+  })
 
 /**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link trailblazersBadgesAbi}__ and `eventName` set to `"Transfer"`
@@ -8785,11 +9104,12 @@ export const watchTrailblazersBadgesOwnershipTransferredEvent = /*#__PURE__*/ cr
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa20a8856e00F5ad024a55A663F06DCc419FFc4d5)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xEB310b20b030e9c227Ac23e0A39FE6a6e09Ba755)
  */
-export const watchTrailblazersBadgesTransferEvent = /*#__PURE__*/ createWatchContractEvent({
-  abi: trailblazersBadgesAbi,
-  address: trailblazersBadgesAddress,
-  eventName: 'Transfer',
-});
+export const watchTrailblazersBadgesTransferEvent =
+  /*#__PURE__*/ createWatchContractEvent({
+    abi: trailblazersBadgesAbi,
+    address: trailblazersBadgesAddress,
+    eventName: 'Transfer',
+  })
 
 /**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link trailblazersBadgesAbi}__ and `eventName` set to `"Upgraded"`
@@ -8797,11 +9117,12 @@ export const watchTrailblazersBadgesTransferEvent = /*#__PURE__*/ createWatchCon
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa20a8856e00F5ad024a55A663F06DCc419FFc4d5)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xEB310b20b030e9c227Ac23e0A39FE6a6e09Ba755)
  */
-export const watchTrailblazersBadgesUpgradedEvent = /*#__PURE__*/ createWatchContractEvent({
-  abi: trailblazersBadgesAbi,
-  address: trailblazersBadgesAddress,
-  eventName: 'Upgraded',
-});
+export const watchTrailblazersBadgesUpgradedEvent =
+  /*#__PURE__*/ createWatchContractEvent({
+    abi: trailblazersBadgesAbi,
+    address: trailblazersBadgesAddress,
+    eventName: 'Upgraded',
+  })
 
 /**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link trailblazersBadgesAbi}__ and `eventName` set to `"UriSet"`
@@ -8809,11 +9130,12 @@ export const watchTrailblazersBadgesUpgradedEvent = /*#__PURE__*/ createWatchCon
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa20a8856e00F5ad024a55A663F06DCc419FFc4d5)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xEB310b20b030e9c227Ac23e0A39FE6a6e09Ba755)
  */
-export const watchTrailblazersBadgesUriSetEvent = /*#__PURE__*/ createWatchContractEvent({
-  abi: trailblazersBadgesAbi,
-  address: trailblazersBadgesAddress,
-  eventName: 'UriSet',
-});
+export const watchTrailblazersBadgesUriSetEvent =
+  /*#__PURE__*/ createWatchContractEvent({
+    abi: trailblazersBadgesAbi,
+    address: trailblazersBadgesAddress,
+    eventName: 'UriSet',
+  })
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link trailblazersBadgesS2Abi}__
@@ -8824,7 +9146,7 @@ export const watchTrailblazersBadgesUriSetEvent = /*#__PURE__*/ createWatchContr
 export const readTrailblazersBadgesS2 = /*#__PURE__*/ createReadContract({
   abi: trailblazersBadgesS2Abi,
   address: trailblazersBadgesS2Address,
-});
+})
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link trailblazersBadgesS2Abi}__ and `functionName` set to `"DEFAULT_ADMIN_ROLE"`
@@ -8832,11 +9154,12 @@ export const readTrailblazersBadgesS2 = /*#__PURE__*/ createReadContract({
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x52A7dBeC10B404548066F59DE89484e27b4181dA)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xC50b384b26a0118A6F896Cb58C331e83d51973d2)
  */
-export const readTrailblazersBadgesS2DefaultAdminRole = /*#__PURE__*/ createReadContract({
-  abi: trailblazersBadgesS2Abi,
-  address: trailblazersBadgesS2Address,
-  functionName: 'DEFAULT_ADMIN_ROLE',
-});
+export const readTrailblazersBadgesS2DefaultAdminRole =
+  /*#__PURE__*/ createReadContract({
+    abi: trailblazersBadgesS2Abi,
+    address: trailblazersBadgesS2Address,
+    functionName: 'DEFAULT_ADMIN_ROLE',
+  })
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link trailblazersBadgesS2Abi}__ and `functionName` set to `"MINTER_ROLE"`
@@ -8844,11 +9167,12 @@ export const readTrailblazersBadgesS2DefaultAdminRole = /*#__PURE__*/ createRead
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x52A7dBeC10B404548066F59DE89484e27b4181dA)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xC50b384b26a0118A6F896Cb58C331e83d51973d2)
  */
-export const readTrailblazersBadgesS2MinterRole = /*#__PURE__*/ createReadContract({
-  abi: trailblazersBadgesS2Abi,
-  address: trailblazersBadgesS2Address,
-  functionName: 'MINTER_ROLE',
-});
+export const readTrailblazersBadgesS2MinterRole =
+  /*#__PURE__*/ createReadContract({
+    abi: trailblazersBadgesS2Abi,
+    address: trailblazersBadgesS2Address,
+    functionName: 'MINTER_ROLE',
+  })
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link trailblazersBadgesS2Abi}__ and `functionName` set to `"UPGRADE_INTERFACE_VERSION"`
@@ -8856,11 +9180,12 @@ export const readTrailblazersBadgesS2MinterRole = /*#__PURE__*/ createReadContra
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x52A7dBeC10B404548066F59DE89484e27b4181dA)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xC50b384b26a0118A6F896Cb58C331e83d51973d2)
  */
-export const readTrailblazersBadgesS2UpgradeInterfaceVersion = /*#__PURE__*/ createReadContract({
-  abi: trailblazersBadgesS2Abi,
-  address: trailblazersBadgesS2Address,
-  functionName: 'UPGRADE_INTERFACE_VERSION',
-});
+export const readTrailblazersBadgesS2UpgradeInterfaceVersion =
+  /*#__PURE__*/ createReadContract({
+    abi: trailblazersBadgesS2Abi,
+    address: trailblazersBadgesS2Address,
+    functionName: 'UPGRADE_INTERFACE_VERSION',
+  })
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link trailblazersBadgesS2Abi}__ and `functionName` set to `"balanceOf"`
@@ -8868,11 +9193,12 @@ export const readTrailblazersBadgesS2UpgradeInterfaceVersion = /*#__PURE__*/ cre
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x52A7dBeC10B404548066F59DE89484e27b4181dA)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xC50b384b26a0118A6F896Cb58C331e83d51973d2)
  */
-export const readTrailblazersBadgesS2BalanceOf = /*#__PURE__*/ createReadContract({
-  abi: trailblazersBadgesS2Abi,
-  address: trailblazersBadgesS2Address,
-  functionName: 'balanceOf',
-});
+export const readTrailblazersBadgesS2BalanceOf =
+  /*#__PURE__*/ createReadContract({
+    abi: trailblazersBadgesS2Abi,
+    address: trailblazersBadgesS2Address,
+    functionName: 'balanceOf',
+  })
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link trailblazersBadgesS2Abi}__ and `functionName` set to `"balanceOfBatch"`
@@ -8880,11 +9206,12 @@ export const readTrailblazersBadgesS2BalanceOf = /*#__PURE__*/ createReadContrac
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x52A7dBeC10B404548066F59DE89484e27b4181dA)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xC50b384b26a0118A6F896Cb58C331e83d51973d2)
  */
-export const readTrailblazersBadgesS2BalanceOfBatch = /*#__PURE__*/ createReadContract({
-  abi: trailblazersBadgesS2Abi,
-  address: trailblazersBadgesS2Address,
-  functionName: 'balanceOfBatch',
-});
+export const readTrailblazersBadgesS2BalanceOfBatch =
+  /*#__PURE__*/ createReadContract({
+    abi: trailblazersBadgesS2Abi,
+    address: trailblazersBadgesS2Address,
+    functionName: 'balanceOfBatch',
+  })
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link trailblazersBadgesS2Abi}__ and `functionName` set to `"exists"`
@@ -8896,7 +9223,7 @@ export const readTrailblazersBadgesS2Exists = /*#__PURE__*/ createReadContract({
   abi: trailblazersBadgesS2Abi,
   address: trailblazersBadgesS2Address,
   functionName: 'exists',
-});
+})
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link trailblazersBadgesS2Abi}__ and `functionName` set to `"getBadge"`
@@ -8904,11 +9231,12 @@ export const readTrailblazersBadgesS2Exists = /*#__PURE__*/ createReadContract({
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x52A7dBeC10B404548066F59DE89484e27b4181dA)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xC50b384b26a0118A6F896Cb58C331e83d51973d2)
  */
-export const readTrailblazersBadgesS2GetBadge = /*#__PURE__*/ createReadContract({
-  abi: trailblazersBadgesS2Abi,
-  address: trailblazersBadgesS2Address,
-  functionName: 'getBadge',
-});
+export const readTrailblazersBadgesS2GetBadge =
+  /*#__PURE__*/ createReadContract({
+    abi: trailblazersBadgesS2Abi,
+    address: trailblazersBadgesS2Address,
+    functionName: 'getBadge',
+  })
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link trailblazersBadgesS2Abi}__ and `functionName` set to `"getRoleAdmin"`
@@ -8916,11 +9244,12 @@ export const readTrailblazersBadgesS2GetBadge = /*#__PURE__*/ createReadContract
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x52A7dBeC10B404548066F59DE89484e27b4181dA)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xC50b384b26a0118A6F896Cb58C331e83d51973d2)
  */
-export const readTrailblazersBadgesS2GetRoleAdmin = /*#__PURE__*/ createReadContract({
-  abi: trailblazersBadgesS2Abi,
-  address: trailblazersBadgesS2Address,
-  functionName: 'getRoleAdmin',
-});
+export const readTrailblazersBadgesS2GetRoleAdmin =
+  /*#__PURE__*/ createReadContract({
+    abi: trailblazersBadgesS2Abi,
+    address: trailblazersBadgesS2Address,
+    functionName: 'getRoleAdmin',
+  })
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link trailblazersBadgesS2Abi}__ and `functionName` set to `"hasRole"`
@@ -8928,11 +9257,13 @@ export const readTrailblazersBadgesS2GetRoleAdmin = /*#__PURE__*/ createReadCont
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x52A7dBeC10B404548066F59DE89484e27b4181dA)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xC50b384b26a0118A6F896Cb58C331e83d51973d2)
  */
-export const readTrailblazersBadgesS2HasRole = /*#__PURE__*/ createReadContract({
-  abi: trailblazersBadgesS2Abi,
-  address: trailblazersBadgesS2Address,
-  functionName: 'hasRole',
-});
+export const readTrailblazersBadgesS2HasRole = /*#__PURE__*/ createReadContract(
+  {
+    abi: trailblazersBadgesS2Abi,
+    address: trailblazersBadgesS2Address,
+    functionName: 'hasRole',
+  },
+)
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link trailblazersBadgesS2Abi}__ and `functionName` set to `"isApprovedForAll"`
@@ -8940,11 +9271,12 @@ export const readTrailblazersBadgesS2HasRole = /*#__PURE__*/ createReadContract(
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x52A7dBeC10B404548066F59DE89484e27b4181dA)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xC50b384b26a0118A6F896Cb58C331e83d51973d2)
  */
-export const readTrailblazersBadgesS2IsApprovedForAll = /*#__PURE__*/ createReadContract({
-  abi: trailblazersBadgesS2Abi,
-  address: trailblazersBadgesS2Address,
-  functionName: 'isApprovedForAll',
-});
+export const readTrailblazersBadgesS2IsApprovedForAll =
+  /*#__PURE__*/ createReadContract({
+    abi: trailblazersBadgesS2Abi,
+    address: trailblazersBadgesS2Address,
+    functionName: 'isApprovedForAll',
+  })
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link trailblazersBadgesS2Abi}__ and `functionName` set to `"minter"`
@@ -8956,7 +9288,7 @@ export const readTrailblazersBadgesS2Minter = /*#__PURE__*/ createReadContract({
   abi: trailblazersBadgesS2Abi,
   address: trailblazersBadgesS2Address,
   functionName: 'minter',
-});
+})
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link trailblazersBadgesS2Abi}__ and `functionName` set to `"owner"`
@@ -8968,7 +9300,7 @@ export const readTrailblazersBadgesS2Owner = /*#__PURE__*/ createReadContract({
   abi: trailblazersBadgesS2Abi,
   address: trailblazersBadgesS2Address,
   functionName: 'owner',
-});
+})
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link trailblazersBadgesS2Abi}__ and `functionName` set to `"pendingOwner"`
@@ -8976,11 +9308,12 @@ export const readTrailblazersBadgesS2Owner = /*#__PURE__*/ createReadContract({
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x52A7dBeC10B404548066F59DE89484e27b4181dA)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xC50b384b26a0118A6F896Cb58C331e83d51973d2)
  */
-export const readTrailblazersBadgesS2PendingOwner = /*#__PURE__*/ createReadContract({
-  abi: trailblazersBadgesS2Abi,
-  address: trailblazersBadgesS2Address,
-  functionName: 'pendingOwner',
-});
+export const readTrailblazersBadgesS2PendingOwner =
+  /*#__PURE__*/ createReadContract({
+    abi: trailblazersBadgesS2Abi,
+    address: trailblazersBadgesS2Address,
+    functionName: 'pendingOwner',
+  })
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link trailblazersBadgesS2Abi}__ and `functionName` set to `"proxiableUUID"`
@@ -8988,11 +9321,12 @@ export const readTrailblazersBadgesS2PendingOwner = /*#__PURE__*/ createReadCont
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x52A7dBeC10B404548066F59DE89484e27b4181dA)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xC50b384b26a0118A6F896Cb58C331e83d51973d2)
  */
-export const readTrailblazersBadgesS2ProxiableUuid = /*#__PURE__*/ createReadContract({
-  abi: trailblazersBadgesS2Abi,
-  address: trailblazersBadgesS2Address,
-  functionName: 'proxiableUUID',
-});
+export const readTrailblazersBadgesS2ProxiableUuid =
+  /*#__PURE__*/ createReadContract({
+    abi: trailblazersBadgesS2Abi,
+    address: trailblazersBadgesS2Address,
+    functionName: 'proxiableUUID',
+  })
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link trailblazersBadgesS2Abi}__ and `functionName` set to `"supportsInterface"`
@@ -9000,11 +9334,12 @@ export const readTrailblazersBadgesS2ProxiableUuid = /*#__PURE__*/ createReadCon
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x52A7dBeC10B404548066F59DE89484e27b4181dA)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xC50b384b26a0118A6F896Cb58C331e83d51973d2)
  */
-export const readTrailblazersBadgesS2SupportsInterface = /*#__PURE__*/ createReadContract({
-  abi: trailblazersBadgesS2Abi,
-  address: trailblazersBadgesS2Address,
-  functionName: 'supportsInterface',
-});
+export const readTrailblazersBadgesS2SupportsInterface =
+  /*#__PURE__*/ createReadContract({
+    abi: trailblazersBadgesS2Abi,
+    address: trailblazersBadgesS2Address,
+    functionName: 'supportsInterface',
+  })
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link trailblazersBadgesS2Abi}__ and `functionName` set to `"totalSupply"`
@@ -9012,11 +9347,12 @@ export const readTrailblazersBadgesS2SupportsInterface = /*#__PURE__*/ createRea
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x52A7dBeC10B404548066F59DE89484e27b4181dA)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xC50b384b26a0118A6F896Cb58C331e83d51973d2)
  */
-export const readTrailblazersBadgesS2TotalSupply = /*#__PURE__*/ createReadContract({
-  abi: trailblazersBadgesS2Abi,
-  address: trailblazersBadgesS2Address,
-  functionName: 'totalSupply',
-});
+export const readTrailblazersBadgesS2TotalSupply =
+  /*#__PURE__*/ createReadContract({
+    abi: trailblazersBadgesS2Abi,
+    address: trailblazersBadgesS2Address,
+    functionName: 'totalSupply',
+  })
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link trailblazersBadgesS2Abi}__ and `functionName` set to `"uri"`
@@ -9028,7 +9364,7 @@ export const readTrailblazersBadgesS2Uri = /*#__PURE__*/ createReadContract({
   abi: trailblazersBadgesS2Abi,
   address: trailblazersBadgesS2Address,
   functionName: 'uri',
-});
+})
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link trailblazersBadgesS2Abi}__ and `functionName` set to `"uriTemplate"`
@@ -9036,11 +9372,12 @@ export const readTrailblazersBadgesS2Uri = /*#__PURE__*/ createReadContract({
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x52A7dBeC10B404548066F59DE89484e27b4181dA)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xC50b384b26a0118A6F896Cb58C331e83d51973d2)
  */
-export const readTrailblazersBadgesS2UriTemplate = /*#__PURE__*/ createReadContract({
-  abi: trailblazersBadgesS2Abi,
-  address: trailblazersBadgesS2Address,
-  functionName: 'uriTemplate',
-});
+export const readTrailblazersBadgesS2UriTemplate =
+  /*#__PURE__*/ createReadContract({
+    abi: trailblazersBadgesS2Abi,
+    address: trailblazersBadgesS2Address,
+    functionName: 'uriTemplate',
+  })
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link trailblazersBadgesS2Abi}__ and `functionName` set to `"version"`
@@ -9048,11 +9385,13 @@ export const readTrailblazersBadgesS2UriTemplate = /*#__PURE__*/ createReadContr
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x52A7dBeC10B404548066F59DE89484e27b4181dA)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xC50b384b26a0118A6F896Cb58C331e83d51973d2)
  */
-export const readTrailblazersBadgesS2Version = /*#__PURE__*/ createReadContract({
-  abi: trailblazersBadgesS2Abi,
-  address: trailblazersBadgesS2Address,
-  functionName: 'version',
-});
+export const readTrailblazersBadgesS2Version = /*#__PURE__*/ createReadContract(
+  {
+    abi: trailblazersBadgesS2Abi,
+    address: trailblazersBadgesS2Address,
+    functionName: 'version',
+  },
+)
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link trailblazersBadgesS2Abi}__
@@ -9063,7 +9402,7 @@ export const readTrailblazersBadgesS2Version = /*#__PURE__*/ createReadContract(
 export const writeTrailblazersBadgesS2 = /*#__PURE__*/ createWriteContract({
   abi: trailblazersBadgesS2Abi,
   address: trailblazersBadgesS2Address,
-});
+})
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link trailblazersBadgesS2Abi}__ and `functionName` set to `"acceptOwnership"`
@@ -9071,11 +9410,12 @@ export const writeTrailblazersBadgesS2 = /*#__PURE__*/ createWriteContract({
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x52A7dBeC10B404548066F59DE89484e27b4181dA)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xC50b384b26a0118A6F896Cb58C331e83d51973d2)
  */
-export const writeTrailblazersBadgesS2AcceptOwnership = /*#__PURE__*/ createWriteContract({
-  abi: trailblazersBadgesS2Abi,
-  address: trailblazersBadgesS2Address,
-  functionName: 'acceptOwnership',
-});
+export const writeTrailblazersBadgesS2AcceptOwnership =
+  /*#__PURE__*/ createWriteContract({
+    abi: trailblazersBadgesS2Abi,
+    address: trailblazersBadgesS2Address,
+    functionName: 'acceptOwnership',
+  })
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link trailblazersBadgesS2Abi}__ and `functionName` set to `"grantRole"`
@@ -9083,11 +9423,12 @@ export const writeTrailblazersBadgesS2AcceptOwnership = /*#__PURE__*/ createWrit
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x52A7dBeC10B404548066F59DE89484e27b4181dA)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xC50b384b26a0118A6F896Cb58C331e83d51973d2)
  */
-export const writeTrailblazersBadgesS2GrantRole = /*#__PURE__*/ createWriteContract({
-  abi: trailblazersBadgesS2Abi,
-  address: trailblazersBadgesS2Address,
-  functionName: 'grantRole',
-});
+export const writeTrailblazersBadgesS2GrantRole =
+  /*#__PURE__*/ createWriteContract({
+    abi: trailblazersBadgesS2Abi,
+    address: trailblazersBadgesS2Address,
+    functionName: 'grantRole',
+  })
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link trailblazersBadgesS2Abi}__ and `functionName` set to `"initialize"`
@@ -9095,11 +9436,12 @@ export const writeTrailblazersBadgesS2GrantRole = /*#__PURE__*/ createWriteContr
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x52A7dBeC10B404548066F59DE89484e27b4181dA)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xC50b384b26a0118A6F896Cb58C331e83d51973d2)
  */
-export const writeTrailblazersBadgesS2Initialize = /*#__PURE__*/ createWriteContract({
-  abi: trailblazersBadgesS2Abi,
-  address: trailblazersBadgesS2Address,
-  functionName: 'initialize',
-});
+export const writeTrailblazersBadgesS2Initialize =
+  /*#__PURE__*/ createWriteContract({
+    abi: trailblazersBadgesS2Abi,
+    address: trailblazersBadgesS2Address,
+    functionName: 'initialize',
+  })
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link trailblazersBadgesS2Abi}__ and `functionName` set to `"mint"`
@@ -9111,7 +9453,7 @@ export const writeTrailblazersBadgesS2Mint = /*#__PURE__*/ createWriteContract({
   abi: trailblazersBadgesS2Abi,
   address: trailblazersBadgesS2Address,
   functionName: 'mint',
-});
+})
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link trailblazersBadgesS2Abi}__ and `functionName` set to `"renounceOwnership"`
@@ -9119,11 +9461,12 @@ export const writeTrailblazersBadgesS2Mint = /*#__PURE__*/ createWriteContract({
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x52A7dBeC10B404548066F59DE89484e27b4181dA)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xC50b384b26a0118A6F896Cb58C331e83d51973d2)
  */
-export const writeTrailblazersBadgesS2RenounceOwnership = /*#__PURE__*/ createWriteContract({
-  abi: trailblazersBadgesS2Abi,
-  address: trailblazersBadgesS2Address,
-  functionName: 'renounceOwnership',
-});
+export const writeTrailblazersBadgesS2RenounceOwnership =
+  /*#__PURE__*/ createWriteContract({
+    abi: trailblazersBadgesS2Abi,
+    address: trailblazersBadgesS2Address,
+    functionName: 'renounceOwnership',
+  })
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link trailblazersBadgesS2Abi}__ and `functionName` set to `"renounceRole"`
@@ -9131,11 +9474,12 @@ export const writeTrailblazersBadgesS2RenounceOwnership = /*#__PURE__*/ createWr
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x52A7dBeC10B404548066F59DE89484e27b4181dA)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xC50b384b26a0118A6F896Cb58C331e83d51973d2)
  */
-export const writeTrailblazersBadgesS2RenounceRole = /*#__PURE__*/ createWriteContract({
-  abi: trailblazersBadgesS2Abi,
-  address: trailblazersBadgesS2Address,
-  functionName: 'renounceRole',
-});
+export const writeTrailblazersBadgesS2RenounceRole =
+  /*#__PURE__*/ createWriteContract({
+    abi: trailblazersBadgesS2Abi,
+    address: trailblazersBadgesS2Address,
+    functionName: 'renounceRole',
+  })
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link trailblazersBadgesS2Abi}__ and `functionName` set to `"revokeRole"`
@@ -9143,11 +9487,12 @@ export const writeTrailblazersBadgesS2RenounceRole = /*#__PURE__*/ createWriteCo
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x52A7dBeC10B404548066F59DE89484e27b4181dA)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xC50b384b26a0118A6F896Cb58C331e83d51973d2)
  */
-export const writeTrailblazersBadgesS2RevokeRole = /*#__PURE__*/ createWriteContract({
-  abi: trailblazersBadgesS2Abi,
-  address: trailblazersBadgesS2Address,
-  functionName: 'revokeRole',
-});
+export const writeTrailblazersBadgesS2RevokeRole =
+  /*#__PURE__*/ createWriteContract({
+    abi: trailblazersBadgesS2Abi,
+    address: trailblazersBadgesS2Address,
+    functionName: 'revokeRole',
+  })
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link trailblazersBadgesS2Abi}__ and `functionName` set to `"safeBatchTransferFrom"`
@@ -9155,11 +9500,12 @@ export const writeTrailblazersBadgesS2RevokeRole = /*#__PURE__*/ createWriteCont
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x52A7dBeC10B404548066F59DE89484e27b4181dA)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xC50b384b26a0118A6F896Cb58C331e83d51973d2)
  */
-export const writeTrailblazersBadgesS2SafeBatchTransferFrom = /*#__PURE__*/ createWriteContract({
-  abi: trailblazersBadgesS2Abi,
-  address: trailblazersBadgesS2Address,
-  functionName: 'safeBatchTransferFrom',
-});
+export const writeTrailblazersBadgesS2SafeBatchTransferFrom =
+  /*#__PURE__*/ createWriteContract({
+    abi: trailblazersBadgesS2Abi,
+    address: trailblazersBadgesS2Address,
+    functionName: 'safeBatchTransferFrom',
+  })
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link trailblazersBadgesS2Abi}__ and `functionName` set to `"safeTransferFrom"`
@@ -9167,11 +9513,12 @@ export const writeTrailblazersBadgesS2SafeBatchTransferFrom = /*#__PURE__*/ crea
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x52A7dBeC10B404548066F59DE89484e27b4181dA)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xC50b384b26a0118A6F896Cb58C331e83d51973d2)
  */
-export const writeTrailblazersBadgesS2SafeTransferFrom = /*#__PURE__*/ createWriteContract({
-  abi: trailblazersBadgesS2Abi,
-  address: trailblazersBadgesS2Address,
-  functionName: 'safeTransferFrom',
-});
+export const writeTrailblazersBadgesS2SafeTransferFrom =
+  /*#__PURE__*/ createWriteContract({
+    abi: trailblazersBadgesS2Abi,
+    address: trailblazersBadgesS2Address,
+    functionName: 'safeTransferFrom',
+  })
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link trailblazersBadgesS2Abi}__ and `functionName` set to `"setApprovalForAll"`
@@ -9179,11 +9526,12 @@ export const writeTrailblazersBadgesS2SafeTransferFrom = /*#__PURE__*/ createWri
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x52A7dBeC10B404548066F59DE89484e27b4181dA)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xC50b384b26a0118A6F896Cb58C331e83d51973d2)
  */
-export const writeTrailblazersBadgesS2SetApprovalForAll = /*#__PURE__*/ createWriteContract({
-  abi: trailblazersBadgesS2Abi,
-  address: trailblazersBadgesS2Address,
-  functionName: 'setApprovalForAll',
-});
+export const writeTrailblazersBadgesS2SetApprovalForAll =
+  /*#__PURE__*/ createWriteContract({
+    abi: trailblazersBadgesS2Abi,
+    address: trailblazersBadgesS2Address,
+    functionName: 'setApprovalForAll',
+  })
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link trailblazersBadgesS2Abi}__ and `functionName` set to `"setMinter"`
@@ -9191,11 +9539,12 @@ export const writeTrailblazersBadgesS2SetApprovalForAll = /*#__PURE__*/ createWr
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x52A7dBeC10B404548066F59DE89484e27b4181dA)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xC50b384b26a0118A6F896Cb58C331e83d51973d2)
  */
-export const writeTrailblazersBadgesS2SetMinter = /*#__PURE__*/ createWriteContract({
-  abi: trailblazersBadgesS2Abi,
-  address: trailblazersBadgesS2Address,
-  functionName: 'setMinter',
-});
+export const writeTrailblazersBadgesS2SetMinter =
+  /*#__PURE__*/ createWriteContract({
+    abi: trailblazersBadgesS2Abi,
+    address: trailblazersBadgesS2Address,
+    functionName: 'setMinter',
+  })
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link trailblazersBadgesS2Abi}__ and `functionName` set to `"setUri"`
@@ -9203,11 +9552,12 @@ export const writeTrailblazersBadgesS2SetMinter = /*#__PURE__*/ createWriteContr
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x52A7dBeC10B404548066F59DE89484e27b4181dA)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xC50b384b26a0118A6F896Cb58C331e83d51973d2)
  */
-export const writeTrailblazersBadgesS2SetUri = /*#__PURE__*/ createWriteContract({
-  abi: trailblazersBadgesS2Abi,
-  address: trailblazersBadgesS2Address,
-  functionName: 'setUri',
-});
+export const writeTrailblazersBadgesS2SetUri =
+  /*#__PURE__*/ createWriteContract({
+    abi: trailblazersBadgesS2Abi,
+    address: trailblazersBadgesS2Address,
+    functionName: 'setUri',
+  })
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link trailblazersBadgesS2Abi}__ and `functionName` set to `"transferOwnership"`
@@ -9215,11 +9565,12 @@ export const writeTrailblazersBadgesS2SetUri = /*#__PURE__*/ createWriteContract
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x52A7dBeC10B404548066F59DE89484e27b4181dA)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xC50b384b26a0118A6F896Cb58C331e83d51973d2)
  */
-export const writeTrailblazersBadgesS2TransferOwnership = /*#__PURE__*/ createWriteContract({
-  abi: trailblazersBadgesS2Abi,
-  address: trailblazersBadgesS2Address,
-  functionName: 'transferOwnership',
-});
+export const writeTrailblazersBadgesS2TransferOwnership =
+  /*#__PURE__*/ createWriteContract({
+    abi: trailblazersBadgesS2Abi,
+    address: trailblazersBadgesS2Address,
+    functionName: 'transferOwnership',
+  })
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link trailblazersBadgesS2Abi}__ and `functionName` set to `"upgradeToAndCall"`
@@ -9227,11 +9578,12 @@ export const writeTrailblazersBadgesS2TransferOwnership = /*#__PURE__*/ createWr
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x52A7dBeC10B404548066F59DE89484e27b4181dA)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xC50b384b26a0118A6F896Cb58C331e83d51973d2)
  */
-export const writeTrailblazersBadgesS2UpgradeToAndCall = /*#__PURE__*/ createWriteContract({
-  abi: trailblazersBadgesS2Abi,
-  address: trailblazersBadgesS2Address,
-  functionName: 'upgradeToAndCall',
-});
+export const writeTrailblazersBadgesS2UpgradeToAndCall =
+  /*#__PURE__*/ createWriteContract({
+    abi: trailblazersBadgesS2Abi,
+    address: trailblazersBadgesS2Address,
+    functionName: 'upgradeToAndCall',
+  })
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link trailblazersBadgesS2Abi}__
@@ -9239,10 +9591,11 @@ export const writeTrailblazersBadgesS2UpgradeToAndCall = /*#__PURE__*/ createWri
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x52A7dBeC10B404548066F59DE89484e27b4181dA)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xC50b384b26a0118A6F896Cb58C331e83d51973d2)
  */
-export const simulateTrailblazersBadgesS2 = /*#__PURE__*/ createSimulateContract({
-  abi: trailblazersBadgesS2Abi,
-  address: trailblazersBadgesS2Address,
-});
+export const simulateTrailblazersBadgesS2 =
+  /*#__PURE__*/ createSimulateContract({
+    abi: trailblazersBadgesS2Abi,
+    address: trailblazersBadgesS2Address,
+  })
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link trailblazersBadgesS2Abi}__ and `functionName` set to `"acceptOwnership"`
@@ -9250,11 +9603,12 @@ export const simulateTrailblazersBadgesS2 = /*#__PURE__*/ createSimulateContract
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x52A7dBeC10B404548066F59DE89484e27b4181dA)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xC50b384b26a0118A6F896Cb58C331e83d51973d2)
  */
-export const simulateTrailblazersBadgesS2AcceptOwnership = /*#__PURE__*/ createSimulateContract({
-  abi: trailblazersBadgesS2Abi,
-  address: trailblazersBadgesS2Address,
-  functionName: 'acceptOwnership',
-});
+export const simulateTrailblazersBadgesS2AcceptOwnership =
+  /*#__PURE__*/ createSimulateContract({
+    abi: trailblazersBadgesS2Abi,
+    address: trailblazersBadgesS2Address,
+    functionName: 'acceptOwnership',
+  })
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link trailblazersBadgesS2Abi}__ and `functionName` set to `"grantRole"`
@@ -9262,11 +9616,12 @@ export const simulateTrailblazersBadgesS2AcceptOwnership = /*#__PURE__*/ createS
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x52A7dBeC10B404548066F59DE89484e27b4181dA)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xC50b384b26a0118A6F896Cb58C331e83d51973d2)
  */
-export const simulateTrailblazersBadgesS2GrantRole = /*#__PURE__*/ createSimulateContract({
-  abi: trailblazersBadgesS2Abi,
-  address: trailblazersBadgesS2Address,
-  functionName: 'grantRole',
-});
+export const simulateTrailblazersBadgesS2GrantRole =
+  /*#__PURE__*/ createSimulateContract({
+    abi: trailblazersBadgesS2Abi,
+    address: trailblazersBadgesS2Address,
+    functionName: 'grantRole',
+  })
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link trailblazersBadgesS2Abi}__ and `functionName` set to `"initialize"`
@@ -9274,11 +9629,12 @@ export const simulateTrailblazersBadgesS2GrantRole = /*#__PURE__*/ createSimulat
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x52A7dBeC10B404548066F59DE89484e27b4181dA)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xC50b384b26a0118A6F896Cb58C331e83d51973d2)
  */
-export const simulateTrailblazersBadgesS2Initialize = /*#__PURE__*/ createSimulateContract({
-  abi: trailblazersBadgesS2Abi,
-  address: trailblazersBadgesS2Address,
-  functionName: 'initialize',
-});
+export const simulateTrailblazersBadgesS2Initialize =
+  /*#__PURE__*/ createSimulateContract({
+    abi: trailblazersBadgesS2Abi,
+    address: trailblazersBadgesS2Address,
+    functionName: 'initialize',
+  })
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link trailblazersBadgesS2Abi}__ and `functionName` set to `"mint"`
@@ -9286,11 +9642,12 @@ export const simulateTrailblazersBadgesS2Initialize = /*#__PURE__*/ createSimula
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x52A7dBeC10B404548066F59DE89484e27b4181dA)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xC50b384b26a0118A6F896Cb58C331e83d51973d2)
  */
-export const simulateTrailblazersBadgesS2Mint = /*#__PURE__*/ createSimulateContract({
-  abi: trailblazersBadgesS2Abi,
-  address: trailblazersBadgesS2Address,
-  functionName: 'mint',
-});
+export const simulateTrailblazersBadgesS2Mint =
+  /*#__PURE__*/ createSimulateContract({
+    abi: trailblazersBadgesS2Abi,
+    address: trailblazersBadgesS2Address,
+    functionName: 'mint',
+  })
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link trailblazersBadgesS2Abi}__ and `functionName` set to `"renounceOwnership"`
@@ -9298,11 +9655,12 @@ export const simulateTrailblazersBadgesS2Mint = /*#__PURE__*/ createSimulateCont
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x52A7dBeC10B404548066F59DE89484e27b4181dA)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xC50b384b26a0118A6F896Cb58C331e83d51973d2)
  */
-export const simulateTrailblazersBadgesS2RenounceOwnership = /*#__PURE__*/ createSimulateContract({
-  abi: trailblazersBadgesS2Abi,
-  address: trailblazersBadgesS2Address,
-  functionName: 'renounceOwnership',
-});
+export const simulateTrailblazersBadgesS2RenounceOwnership =
+  /*#__PURE__*/ createSimulateContract({
+    abi: trailblazersBadgesS2Abi,
+    address: trailblazersBadgesS2Address,
+    functionName: 'renounceOwnership',
+  })
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link trailblazersBadgesS2Abi}__ and `functionName` set to `"renounceRole"`
@@ -9310,11 +9668,12 @@ export const simulateTrailblazersBadgesS2RenounceOwnership = /*#__PURE__*/ creat
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x52A7dBeC10B404548066F59DE89484e27b4181dA)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xC50b384b26a0118A6F896Cb58C331e83d51973d2)
  */
-export const simulateTrailblazersBadgesS2RenounceRole = /*#__PURE__*/ createSimulateContract({
-  abi: trailblazersBadgesS2Abi,
-  address: trailblazersBadgesS2Address,
-  functionName: 'renounceRole',
-});
+export const simulateTrailblazersBadgesS2RenounceRole =
+  /*#__PURE__*/ createSimulateContract({
+    abi: trailblazersBadgesS2Abi,
+    address: trailblazersBadgesS2Address,
+    functionName: 'renounceRole',
+  })
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link trailblazersBadgesS2Abi}__ and `functionName` set to `"revokeRole"`
@@ -9322,11 +9681,12 @@ export const simulateTrailblazersBadgesS2RenounceRole = /*#__PURE__*/ createSimu
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x52A7dBeC10B404548066F59DE89484e27b4181dA)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xC50b384b26a0118A6F896Cb58C331e83d51973d2)
  */
-export const simulateTrailblazersBadgesS2RevokeRole = /*#__PURE__*/ createSimulateContract({
-  abi: trailblazersBadgesS2Abi,
-  address: trailblazersBadgesS2Address,
-  functionName: 'revokeRole',
-});
+export const simulateTrailblazersBadgesS2RevokeRole =
+  /*#__PURE__*/ createSimulateContract({
+    abi: trailblazersBadgesS2Abi,
+    address: trailblazersBadgesS2Address,
+    functionName: 'revokeRole',
+  })
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link trailblazersBadgesS2Abi}__ and `functionName` set to `"safeBatchTransferFrom"`
@@ -9334,11 +9694,12 @@ export const simulateTrailblazersBadgesS2RevokeRole = /*#__PURE__*/ createSimula
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x52A7dBeC10B404548066F59DE89484e27b4181dA)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xC50b384b26a0118A6F896Cb58C331e83d51973d2)
  */
-export const simulateTrailblazersBadgesS2SafeBatchTransferFrom = /*#__PURE__*/ createSimulateContract({
-  abi: trailblazersBadgesS2Abi,
-  address: trailblazersBadgesS2Address,
-  functionName: 'safeBatchTransferFrom',
-});
+export const simulateTrailblazersBadgesS2SafeBatchTransferFrom =
+  /*#__PURE__*/ createSimulateContract({
+    abi: trailblazersBadgesS2Abi,
+    address: trailblazersBadgesS2Address,
+    functionName: 'safeBatchTransferFrom',
+  })
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link trailblazersBadgesS2Abi}__ and `functionName` set to `"safeTransferFrom"`
@@ -9346,11 +9707,12 @@ export const simulateTrailblazersBadgesS2SafeBatchTransferFrom = /*#__PURE__*/ c
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x52A7dBeC10B404548066F59DE89484e27b4181dA)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xC50b384b26a0118A6F896Cb58C331e83d51973d2)
  */
-export const simulateTrailblazersBadgesS2SafeTransferFrom = /*#__PURE__*/ createSimulateContract({
-  abi: trailblazersBadgesS2Abi,
-  address: trailblazersBadgesS2Address,
-  functionName: 'safeTransferFrom',
-});
+export const simulateTrailblazersBadgesS2SafeTransferFrom =
+  /*#__PURE__*/ createSimulateContract({
+    abi: trailblazersBadgesS2Abi,
+    address: trailblazersBadgesS2Address,
+    functionName: 'safeTransferFrom',
+  })
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link trailblazersBadgesS2Abi}__ and `functionName` set to `"setApprovalForAll"`
@@ -9358,11 +9720,12 @@ export const simulateTrailblazersBadgesS2SafeTransferFrom = /*#__PURE__*/ create
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x52A7dBeC10B404548066F59DE89484e27b4181dA)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xC50b384b26a0118A6F896Cb58C331e83d51973d2)
  */
-export const simulateTrailblazersBadgesS2SetApprovalForAll = /*#__PURE__*/ createSimulateContract({
-  abi: trailblazersBadgesS2Abi,
-  address: trailblazersBadgesS2Address,
-  functionName: 'setApprovalForAll',
-});
+export const simulateTrailblazersBadgesS2SetApprovalForAll =
+  /*#__PURE__*/ createSimulateContract({
+    abi: trailblazersBadgesS2Abi,
+    address: trailblazersBadgesS2Address,
+    functionName: 'setApprovalForAll',
+  })
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link trailblazersBadgesS2Abi}__ and `functionName` set to `"setMinter"`
@@ -9370,11 +9733,12 @@ export const simulateTrailblazersBadgesS2SetApprovalForAll = /*#__PURE__*/ creat
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x52A7dBeC10B404548066F59DE89484e27b4181dA)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xC50b384b26a0118A6F896Cb58C331e83d51973d2)
  */
-export const simulateTrailblazersBadgesS2SetMinter = /*#__PURE__*/ createSimulateContract({
-  abi: trailblazersBadgesS2Abi,
-  address: trailblazersBadgesS2Address,
-  functionName: 'setMinter',
-});
+export const simulateTrailblazersBadgesS2SetMinter =
+  /*#__PURE__*/ createSimulateContract({
+    abi: trailblazersBadgesS2Abi,
+    address: trailblazersBadgesS2Address,
+    functionName: 'setMinter',
+  })
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link trailblazersBadgesS2Abi}__ and `functionName` set to `"setUri"`
@@ -9382,11 +9746,12 @@ export const simulateTrailblazersBadgesS2SetMinter = /*#__PURE__*/ createSimulat
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x52A7dBeC10B404548066F59DE89484e27b4181dA)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xC50b384b26a0118A6F896Cb58C331e83d51973d2)
  */
-export const simulateTrailblazersBadgesS2SetUri = /*#__PURE__*/ createSimulateContract({
-  abi: trailblazersBadgesS2Abi,
-  address: trailblazersBadgesS2Address,
-  functionName: 'setUri',
-});
+export const simulateTrailblazersBadgesS2SetUri =
+  /*#__PURE__*/ createSimulateContract({
+    abi: trailblazersBadgesS2Abi,
+    address: trailblazersBadgesS2Address,
+    functionName: 'setUri',
+  })
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link trailblazersBadgesS2Abi}__ and `functionName` set to `"transferOwnership"`
@@ -9394,11 +9759,12 @@ export const simulateTrailblazersBadgesS2SetUri = /*#__PURE__*/ createSimulateCo
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x52A7dBeC10B404548066F59DE89484e27b4181dA)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xC50b384b26a0118A6F896Cb58C331e83d51973d2)
  */
-export const simulateTrailblazersBadgesS2TransferOwnership = /*#__PURE__*/ createSimulateContract({
-  abi: trailblazersBadgesS2Abi,
-  address: trailblazersBadgesS2Address,
-  functionName: 'transferOwnership',
-});
+export const simulateTrailblazersBadgesS2TransferOwnership =
+  /*#__PURE__*/ createSimulateContract({
+    abi: trailblazersBadgesS2Abi,
+    address: trailblazersBadgesS2Address,
+    functionName: 'transferOwnership',
+  })
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link trailblazersBadgesS2Abi}__ and `functionName` set to `"upgradeToAndCall"`
@@ -9406,11 +9772,12 @@ export const simulateTrailblazersBadgesS2TransferOwnership = /*#__PURE__*/ creat
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x52A7dBeC10B404548066F59DE89484e27b4181dA)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xC50b384b26a0118A6F896Cb58C331e83d51973d2)
  */
-export const simulateTrailblazersBadgesS2UpgradeToAndCall = /*#__PURE__*/ createSimulateContract({
-  abi: trailblazersBadgesS2Abi,
-  address: trailblazersBadgesS2Address,
-  functionName: 'upgradeToAndCall',
-});
+export const simulateTrailblazersBadgesS2UpgradeToAndCall =
+  /*#__PURE__*/ createSimulateContract({
+    abi: trailblazersBadgesS2Abi,
+    address: trailblazersBadgesS2Address,
+    functionName: 'upgradeToAndCall',
+  })
 
 /**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link trailblazersBadgesS2Abi}__
@@ -9418,10 +9785,11 @@ export const simulateTrailblazersBadgesS2UpgradeToAndCall = /*#__PURE__*/ create
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x52A7dBeC10B404548066F59DE89484e27b4181dA)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xC50b384b26a0118A6F896Cb58C331e83d51973d2)
  */
-export const watchTrailblazersBadgesS2Event = /*#__PURE__*/ createWatchContractEvent({
-  abi: trailblazersBadgesS2Abi,
-  address: trailblazersBadgesS2Address,
-});
+export const watchTrailblazersBadgesS2Event =
+  /*#__PURE__*/ createWatchContractEvent({
+    abi: trailblazersBadgesS2Abi,
+    address: trailblazersBadgesS2Address,
+  })
 
 /**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link trailblazersBadgesS2Abi}__ and `eventName` set to `"ApprovalForAll"`
@@ -9429,11 +9797,12 @@ export const watchTrailblazersBadgesS2Event = /*#__PURE__*/ createWatchContractE
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x52A7dBeC10B404548066F59DE89484e27b4181dA)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xC50b384b26a0118A6F896Cb58C331e83d51973d2)
  */
-export const watchTrailblazersBadgesS2ApprovalForAllEvent = /*#__PURE__*/ createWatchContractEvent({
-  abi: trailblazersBadgesS2Abi,
-  address: trailblazersBadgesS2Address,
-  eventName: 'ApprovalForAll',
-});
+export const watchTrailblazersBadgesS2ApprovalForAllEvent =
+  /*#__PURE__*/ createWatchContractEvent({
+    abi: trailblazersBadgesS2Abi,
+    address: trailblazersBadgesS2Address,
+    eventName: 'ApprovalForAll',
+  })
 
 /**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link trailblazersBadgesS2Abi}__ and `eventName` set to `"Initialized"`
@@ -9441,11 +9810,12 @@ export const watchTrailblazersBadgesS2ApprovalForAllEvent = /*#__PURE__*/ create
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x52A7dBeC10B404548066F59DE89484e27b4181dA)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xC50b384b26a0118A6F896Cb58C331e83d51973d2)
  */
-export const watchTrailblazersBadgesS2InitializedEvent = /*#__PURE__*/ createWatchContractEvent({
-  abi: trailblazersBadgesS2Abi,
-  address: trailblazersBadgesS2Address,
-  eventName: 'Initialized',
-});
+export const watchTrailblazersBadgesS2InitializedEvent =
+  /*#__PURE__*/ createWatchContractEvent({
+    abi: trailblazersBadgesS2Abi,
+    address: trailblazersBadgesS2Address,
+    eventName: 'Initialized',
+  })
 
 /**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link trailblazersBadgesS2Abi}__ and `eventName` set to `"OwnershipTransferStarted"`
@@ -9453,11 +9823,12 @@ export const watchTrailblazersBadgesS2InitializedEvent = /*#__PURE__*/ createWat
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x52A7dBeC10B404548066F59DE89484e27b4181dA)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xC50b384b26a0118A6F896Cb58C331e83d51973d2)
  */
-export const watchTrailblazersBadgesS2OwnershipTransferStartedEvent = /*#__PURE__*/ createWatchContractEvent({
-  abi: trailblazersBadgesS2Abi,
-  address: trailblazersBadgesS2Address,
-  eventName: 'OwnershipTransferStarted',
-});
+export const watchTrailblazersBadgesS2OwnershipTransferStartedEvent =
+  /*#__PURE__*/ createWatchContractEvent({
+    abi: trailblazersBadgesS2Abi,
+    address: trailblazersBadgesS2Address,
+    eventName: 'OwnershipTransferStarted',
+  })
 
 /**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link trailblazersBadgesS2Abi}__ and `eventName` set to `"OwnershipTransferred"`
@@ -9465,11 +9836,12 @@ export const watchTrailblazersBadgesS2OwnershipTransferStartedEvent = /*#__PURE_
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x52A7dBeC10B404548066F59DE89484e27b4181dA)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xC50b384b26a0118A6F896Cb58C331e83d51973d2)
  */
-export const watchTrailblazersBadgesS2OwnershipTransferredEvent = /*#__PURE__*/ createWatchContractEvent({
-  abi: trailblazersBadgesS2Abi,
-  address: trailblazersBadgesS2Address,
-  eventName: 'OwnershipTransferred',
-});
+export const watchTrailblazersBadgesS2OwnershipTransferredEvent =
+  /*#__PURE__*/ createWatchContractEvent({
+    abi: trailblazersBadgesS2Abi,
+    address: trailblazersBadgesS2Address,
+    eventName: 'OwnershipTransferred',
+  })
 
 /**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link trailblazersBadgesS2Abi}__ and `eventName` set to `"RoleAdminChanged"`
@@ -9477,11 +9849,12 @@ export const watchTrailblazersBadgesS2OwnershipTransferredEvent = /*#__PURE__*/ 
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x52A7dBeC10B404548066F59DE89484e27b4181dA)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xC50b384b26a0118A6F896Cb58C331e83d51973d2)
  */
-export const watchTrailblazersBadgesS2RoleAdminChangedEvent = /*#__PURE__*/ createWatchContractEvent({
-  abi: trailblazersBadgesS2Abi,
-  address: trailblazersBadgesS2Address,
-  eventName: 'RoleAdminChanged',
-});
+export const watchTrailblazersBadgesS2RoleAdminChangedEvent =
+  /*#__PURE__*/ createWatchContractEvent({
+    abi: trailblazersBadgesS2Abi,
+    address: trailblazersBadgesS2Address,
+    eventName: 'RoleAdminChanged',
+  })
 
 /**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link trailblazersBadgesS2Abi}__ and `eventName` set to `"RoleGranted"`
@@ -9489,11 +9862,12 @@ export const watchTrailblazersBadgesS2RoleAdminChangedEvent = /*#__PURE__*/ crea
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x52A7dBeC10B404548066F59DE89484e27b4181dA)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xC50b384b26a0118A6F896Cb58C331e83d51973d2)
  */
-export const watchTrailblazersBadgesS2RoleGrantedEvent = /*#__PURE__*/ createWatchContractEvent({
-  abi: trailblazersBadgesS2Abi,
-  address: trailblazersBadgesS2Address,
-  eventName: 'RoleGranted',
-});
+export const watchTrailblazersBadgesS2RoleGrantedEvent =
+  /*#__PURE__*/ createWatchContractEvent({
+    abi: trailblazersBadgesS2Abi,
+    address: trailblazersBadgesS2Address,
+    eventName: 'RoleGranted',
+  })
 
 /**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link trailblazersBadgesS2Abi}__ and `eventName` set to `"RoleRevoked"`
@@ -9501,11 +9875,12 @@ export const watchTrailblazersBadgesS2RoleGrantedEvent = /*#__PURE__*/ createWat
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x52A7dBeC10B404548066F59DE89484e27b4181dA)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xC50b384b26a0118A6F896Cb58C331e83d51973d2)
  */
-export const watchTrailblazersBadgesS2RoleRevokedEvent = /*#__PURE__*/ createWatchContractEvent({
-  abi: trailblazersBadgesS2Abi,
-  address: trailblazersBadgesS2Address,
-  eventName: 'RoleRevoked',
-});
+export const watchTrailblazersBadgesS2RoleRevokedEvent =
+  /*#__PURE__*/ createWatchContractEvent({
+    abi: trailblazersBadgesS2Abi,
+    address: trailblazersBadgesS2Address,
+    eventName: 'RoleRevoked',
+  })
 
 /**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link trailblazersBadgesS2Abi}__ and `eventName` set to `"TransferBatch"`
@@ -9513,11 +9888,12 @@ export const watchTrailblazersBadgesS2RoleRevokedEvent = /*#__PURE__*/ createWat
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x52A7dBeC10B404548066F59DE89484e27b4181dA)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xC50b384b26a0118A6F896Cb58C331e83d51973d2)
  */
-export const watchTrailblazersBadgesS2TransferBatchEvent = /*#__PURE__*/ createWatchContractEvent({
-  abi: trailblazersBadgesS2Abi,
-  address: trailblazersBadgesS2Address,
-  eventName: 'TransferBatch',
-});
+export const watchTrailblazersBadgesS2TransferBatchEvent =
+  /*#__PURE__*/ createWatchContractEvent({
+    abi: trailblazersBadgesS2Abi,
+    address: trailblazersBadgesS2Address,
+    eventName: 'TransferBatch',
+  })
 
 /**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link trailblazersBadgesS2Abi}__ and `eventName` set to `"TransferSingle"`
@@ -9525,11 +9901,12 @@ export const watchTrailblazersBadgesS2TransferBatchEvent = /*#__PURE__*/ createW
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x52A7dBeC10B404548066F59DE89484e27b4181dA)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xC50b384b26a0118A6F896Cb58C331e83d51973d2)
  */
-export const watchTrailblazersBadgesS2TransferSingleEvent = /*#__PURE__*/ createWatchContractEvent({
-  abi: trailblazersBadgesS2Abi,
-  address: trailblazersBadgesS2Address,
-  eventName: 'TransferSingle',
-});
+export const watchTrailblazersBadgesS2TransferSingleEvent =
+  /*#__PURE__*/ createWatchContractEvent({
+    abi: trailblazersBadgesS2Abi,
+    address: trailblazersBadgesS2Address,
+    eventName: 'TransferSingle',
+  })
 
 /**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link trailblazersBadgesS2Abi}__ and `eventName` set to `"URI"`
@@ -9537,11 +9914,12 @@ export const watchTrailblazersBadgesS2TransferSingleEvent = /*#__PURE__*/ create
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x52A7dBeC10B404548066F59DE89484e27b4181dA)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xC50b384b26a0118A6F896Cb58C331e83d51973d2)
  */
-export const watchTrailblazersBadgesS2UriEvent = /*#__PURE__*/ createWatchContractEvent({
-  abi: trailblazersBadgesS2Abi,
-  address: trailblazersBadgesS2Address,
-  eventName: 'URI',
-});
+export const watchTrailblazersBadgesS2UriEvent =
+  /*#__PURE__*/ createWatchContractEvent({
+    abi: trailblazersBadgesS2Abi,
+    address: trailblazersBadgesS2Address,
+    eventName: 'URI',
+  })
 
 /**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link trailblazersBadgesS2Abi}__ and `eventName` set to `"Upgraded"`
@@ -9549,8 +9927,9 @@ export const watchTrailblazersBadgesS2UriEvent = /*#__PURE__*/ createWatchContra
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x52A7dBeC10B404548066F59DE89484e27b4181dA)
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xC50b384b26a0118A6F896Cb58C331e83d51973d2)
  */
-export const watchTrailblazersBadgesS2UpgradedEvent = /*#__PURE__*/ createWatchContractEvent({
-  abi: trailblazersBadgesS2Abi,
-  address: trailblazersBadgesS2Address,
-  eventName: 'Upgraded',
-});
+export const watchTrailblazersBadgesS2UpgradedEvent =
+  /*#__PURE__*/ createWatchContractEvent({
+    abi: trailblazersBadgesS2Abi,
+    address: trailblazersBadgesS2Address,
+    eventName: 'Upgraded',
+  })

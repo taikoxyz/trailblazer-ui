@@ -87,8 +87,7 @@
       isBlacklisted.set(blacklistStatus);
 
       try {
-        //const hasClaimed = await claimServiceInstance.hasClaimed(urlAddress, $activeSeason - 1);
-        const hasClaimed = true;
+        const hasClaimed = await claimServiceInstance.hasClaimed(urlAddress, $activeSeason - 1);
         if (hasClaimed) {
           currentStep.set(ClaimStates.SUCCESS);
           isClaimSuccessful.set(true);
