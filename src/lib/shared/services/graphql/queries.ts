@@ -30,22 +30,46 @@ export const USER_BADGES_S1_QUERY = gql`
 
 export const USER_PROFILE_PICTURE_QUERY = gql`
   query PfpTokenURI($address: String) {
-    profilePicture(id: $address) {
-      id
-      tokenAddress
-      tokenId
-      tokenURI
+    account(id: $address) {
+      profilePicture {
+        id
+        tokenAddress
+        tokenId
+        tokenURI
+        isERC721
+        isERC1155
+      }
     }
   }
 `;
 
-export const USER_PROFILE_PICTURES_QUERY = gql`
-  query PfpTokenURI($address: String) {
-    profilePictures(id: $address) {
+export const USER_PROFILE_PICTURE_BULK_QUERY = gql`
+  query PfpTokenURI($addresses: [String!]) {
+    accounts(where: { id_in: $addresses }) {
       id
-      tokenAddress
-      tokenId
-      tokenURI
+      profilePicture {
+        id
+        tokenAddress
+        tokenId
+        tokenURI
+        isERC721
+        isERC1155
+      }
+    }
+  }
+`;
+
+export const USER_POSSIBLE_PROFILE_PICTURES_QUERY = gql`
+  query GetTokensByOwner($address: String) {
+    account(id: $address) {
+      tokens {
+        id
+        tokenAddress
+        tokenId
+        tokenURI
+        isERC721
+        isERC1155
+      }
     }
   }
 `;
@@ -61,7 +85,7 @@ export const USER_NFTS_FETCH_BADGES_QUERY = gql`
       movement
       season
       uri
-      frozenUntil
+      frozenAt
     }
   }
 `;

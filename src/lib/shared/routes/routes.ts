@@ -12,7 +12,7 @@ export interface NavigationItem {
 export const routes: NavigationItem[] = [
   {
     name: 'Leaderboards',
-    children: [{ name: 'Users', route: '/leaderboard/s3/user', icon: 'double-user' }],
+    children: [{ name: 'Users', route: '/leaderboard/s4/user', icon: 'double-user' }],
   },
   {
     name: 'Discover',
