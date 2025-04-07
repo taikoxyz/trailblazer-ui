@@ -1,7 +1,12 @@
 import { get } from 'svelte/store';
 import { t } from 'svelte-i18n';
 
+import { setupI18n } from '$i18n/index';
+
 import type { CompetitionInfo } from '../../types';
+
+// Ensure i18n is initialized before accessing translations
+await setupI18n();
 
 export const thrillblazerDetails: Record<number, CompetitionInfo> = {
   1: {
