@@ -3,43 +3,35 @@
 
   import { goto } from '$app/navigation';
   import { page } from '$app/stores';
-  import LiquidityRoyaleLeaderboard from '$lib/domains/leaderboard/components/Competition/LiquidityRoyale/LiquidityRoyaleLeaderboard.svelte';
-  import { activeLiquidityType } from '$lib/domains/leaderboard/stores/liquidityCompetitionStore.js';
+  import UserLeaderboard from '$lib/domains/leaderboard/components/UserLeaderboard.svelte';
+  import type { UserLeaderboardItem } from '$lib/domains/leaderboard/types/user/types';
+  import type { PaginationInfo } from '$lib/shared/dto/CommonPageApiResponse';
   import { ActionButton } from '$shared/components/Button';
   import { Page } from '$shared/components/Page';
-  import { activeSeason } from '$shared/stores/activeSeason';
   import { classNames } from '$shared/utils/classNames';
 
-  export let data;
-
-  const { slug, type } = data;
-
+  let pageInfo: PaginationInfo<UserLeaderboardItem>;
   let loading: boolean;
-
-  activeLiquidityType.set(type);
-
-  $: ({ loading } = $page.data);
 
   const wrapperClasses = classNames('w-full', 'flex', 'justify-center', 'mt-[58px]');
   const buttonClasses = classNames('max-w-[280px]');
 
+  $: ({ pageInfo, loading } = $page.data);
+
   const handleClick = () => {
-    goto(`/leaderboard/s${$activeSeason}/user`);
+    goto('/journeys/liquidity/3');
   };
 </script>
 
 <svelte:head>
-  <title>{$t('pagetitle.competition.liquidity')}</title>
+  <title>Taiko Trailblazer - Users Leaderboard</title>
 </svelte:head>
 
 <Page>
-  {#key slug}
-    <LiquidityRoyaleLeaderboard {loading} edition={parseInt(slug)} />
-  {/key}
-
+  <UserLeaderboard {pageInfo} {loading} season={4} />
   <div class={wrapperClasses}>
     <ActionButton class={buttonClasses} priority="primary" on:click={handleClick} withArrow>
-      {$t('buttons.leaderboard.user')}
+      {$t('buttons.leaderboard.liquidity')}
     </ActionButton>
   </div>
 </Page>

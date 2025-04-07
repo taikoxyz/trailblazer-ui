@@ -33,4 +33,6 @@ export enum ActivityType {
   BLOCK_PROVEN = 'BlockProven',
   DORAHACKS_VOTE = 'DoraHacksVoting',
   AVALON_CLAIM = 'AvalonClaim',
+  MONK_COMPENSATION = 'FrozenBonus',
+  PFP_BONUS = 'PfpRegister',
 }

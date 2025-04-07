@@ -1,14 +1,19 @@
-import { type Address } from 'viem';
+import axios from 'axios';
+import { type Address, isAddressEqual } from 'viem';
 
+import { trailblazersBadgesAddress, trailblazersBadgesS2Address } from '$generated/abi';
 import type { Token } from '$generated/graphql/badges';
-import { Movements } from '$lib/domains/profile/types/types';
+import { getMovementName, Movements } from '$lib/domains/profile/types/types';
 import type { BadgesByFaction, BadgesByMovement, NFT, TBBadge } from '$lib/shared/types/NFT';
+import { globalAxiosConfig } from '$shared/services/api/axiosClient';
 import { badgesSubgraphClient, taikoonsSubgraphClient } from '$shared/services/graphql/client';
 import {
   USER_NFTS_FETCH_BADGES_QUERY,
   USER_NFTS_FETCH_TAIKOONS_AND_SNAEFELLS_QUERY,
 } from '$shared/services/graphql/queries';
+import { chainId } from '$shared/utils/chain';
 import { getLogger } from '$shared/utils/logger';
+import sanitizeIpfsUri from '$shared/utils/nfts/sanitizeIpfsUri';
 
 import { FactionNames, getFactionName } from '../types/badges/types';
 import type { NFTMetadata } from '../types/shared/types';
@@ -92,7 +97,7 @@ export class NftAdapter {
           metadata,
           tokenUri,
           faction,
-          frozenUntil: token.frozenUntil || null,
+          frozenAt: token.frozenAt || null,
         } satisfies TBBadge;
         log('fetchBadgesByMovementForUser badge', { badge });
         badgesByMovement[movement][faction].push(badge);
@@ -166,7 +171,7 @@ export class NftAdapter {
           metadata,
           faction,
           tokenUri,
-          frozenUntil: token.frozenUntil || null,
+          frozenAt: token.frozenAt || null,
         } satisfies TBBadge);
       });
       log('fetchBadgesForUser badgesByFaction', { badgesByFaction });
@@ -230,7 +235,7 @@ export class NftAdapter {
           tokenId,
           metadata,
           tokenUri,
-          frozenUntil: token.frozenUntil || null,
+          frozenAt: token.frozenAt || null,
         } satisfies NFT;
       });
 
@@ -244,6 +249,47 @@ export class NftAdapter {
         return [];
       }
       throw e;
+    }
+  }
+
+  /**
+   * Fetches the metadata for an NFT.
+   *
+   * @param {NFT} nft
+   * @return {*}  {(Promise<NFTMetadata | null>)}
+   * @memberof NftService
+   */
+  async getNFTMetadata(nft: NFT): Promise<NFTMetadata | null> {
+    if (!nft.tokenUri) return null;
+    try {
+      // Trailblazer Badges
+      if (
+        isAddressEqual(nft.address, trailblazersBadgesAddress[chainId]) ||
+        isAddressEqual(nft.address, trailblazersBadgesS2Address[chainId])
+      ) {
+        const uriParts = nft.tokenUri.split('/');
+        const badgeId = Number(uriParts.pop());
+        const movementId = Number(uriParts.pop()) as Movements;
+        const movementName = getMovementName(movementId).toLowerCase();
+        const factionName = getFactionName(badgeId).toLowerCase();
+
+        return {
+          image: `/badges/${movementName}/${factionName}.png`,
+        };
+      }
+
+      // any other NFT
+      const tokenBaseUri = sanitizeIpfsUri(nft.tokenUri);
+      const tokenUriUrl = `/api/proxy?url=${encodeURIComponent(tokenBaseUri)}`;
+
+      const src = await axios.get(tokenUriUrl, globalAxiosConfig);
+
+      return {
+        image: sanitizeIpfsUri(src.data.image),
+      };
+    } catch (error) {
+      log('getNFTMetadata error', { error }, nft);
+      return null;
     }
   }
 }

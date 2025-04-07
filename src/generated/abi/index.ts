@@ -2902,6 +2902,20 @@ export const trailblazersBadgesAbi = [
   },
   {
     type: 'function',
+    inputs: [],
+    name: 'getCurrentSeasonEndTimestamp',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [],
+    name: 'getCurrentSeasonId',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
     inputs: [
       { name: '_minter', internalType: 'address', type: 'address' },
       { name: '_tokenId', internalType: 'uint256', type: 'uint256' },
@@ -2963,9 +2977,16 @@ export const trailblazersBadgesAbi = [
   },
   {
     type: 'function',
-    inputs: [{ name: 'tokenId', internalType: 'uint256', type: 'uint256' }],
+    inputs: [{ name: '_tokenId', internalType: 'uint256', type: 'uint256' }],
     name: 'isLocked',
     outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [],
+    name: 'lastKnownSeason',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
     stateMutability: 'view',
   },
   {
@@ -3139,6 +3160,13 @@ export const trailblazersBadgesAbi = [
   },
   {
     type: 'function',
+    inputs: [{ name: 'season', internalType: 'uint256', type: 'uint256' }],
+    name: 'seasonEndTimestamps',
+    outputs: [{ name: 'endTimestamp', internalType: 'uint256', type: 'uint256' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
     inputs: [
       { name: 'operator', internalType: 'address', type: 'address' },
       { name: 'approved', internalType: 'bool', type: 'bool' },
@@ -3208,6 +3236,16 @@ export const trailblazersBadgesAbi = [
     type: 'function',
     inputs: [{ name: '_ts', internalType: 'uint256', type: 'uint256' }],
     name: 'setSeason3EndTimestamp',
+    outputs: [],
+    stateMutability: 'nonpayable',
+  },
+  {
+    type: 'function',
+    inputs: [
+      { name: '_season', internalType: 'uint256', type: 'uint256' },
+      { name: '_timestamp', internalType: 'uint256', type: 'uint256' },
+    ],
+    name: 'setSeasonEndTimestamp',
     outputs: [],
     stateMutability: 'nonpayable',
   },
@@ -3588,6 +3626,15 @@ export const trailblazersBadgesAbi = [
   { type: 'error', inputs: [], name: 'BADGE_LOCKED_SEASON_2' },
   {
     type: 'error',
+    inputs: [
+      { name: 'seasonId', internalType: 'uint256', type: 'uint256' },
+      { name: 'seasonEnd', internalType: 'uint256', type: 'uint256' },
+      { name: 'ts', internalType: 'uint256', type: 'uint256' },
+    ],
+    name: 'BADGE_STILL_LOCKED',
+  },
+  {
+    type: 'error',
     inputs: [{ name: 'implementation', internalType: 'address', type: 'address' }],
     name: 'ERC1967InvalidImplementation',
   },
@@ -3657,6 +3704,7 @@ export const trailblazersBadgesAbi = [
   { type: 'error', inputs: [], name: 'MINTS_EXCEEDED' },
   { type: 'error', inputs: [], name: 'NOT_IMPLEMENTED' },
   { type: 'error', inputs: [], name: 'NOT_OWNER' },
+  { type: 'error', inputs: [], name: 'NO_ACTIVE_SEASON' },
   { type: 'error', inputs: [], name: 'NotInitializing' },
   { type: 'error', inputs: [], name: 'ONLY_MINT_SIGNER' },
   {
@@ -7787,6 +7835,30 @@ export const readTrailblazersBadgesGetApproved = /*#__PURE__*/ createReadContrac
 });
 
 /**
+ * Wraps __{@link readContract}__ with `abi` set to __{@link trailblazersBadgesAbi}__ and `functionName` set to `"getCurrentSeasonEndTimestamp"`
+ *
+ * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa20a8856e00F5ad024a55A663F06DCc419FFc4d5)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xEB310b20b030e9c227Ac23e0A39FE6a6e09Ba755)
+ */
+export const readTrailblazersBadgesGetCurrentSeasonEndTimestamp = /*#__PURE__*/ createReadContract({
+  abi: trailblazersBadgesAbi,
+  address: trailblazersBadgesAddress,
+  functionName: 'getCurrentSeasonEndTimestamp',
+});
+
+/**
+ * Wraps __{@link readContract}__ with `abi` set to __{@link trailblazersBadgesAbi}__ and `functionName` set to `"getCurrentSeasonId"`
+ *
+ * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa20a8856e00F5ad024a55A663F06DCc419FFc4d5)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xEB310b20b030e9c227Ac23e0A39FE6a6e09Ba755)
+ */
+export const readTrailblazersBadgesGetCurrentSeasonId = /*#__PURE__*/ createReadContract({
+  abi: trailblazersBadgesAbi,
+  address: trailblazersBadgesAddress,
+  functionName: 'getCurrentSeasonId',
+});
+
+/**
  * Wraps __{@link readContract}__ with `abi` set to __{@link trailblazersBadgesAbi}__ and `functionName` set to `"getHash"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa20a8856e00F5ad024a55A663F06DCc419FFc4d5)
@@ -7832,6 +7904,18 @@ export const readTrailblazersBadgesIsLocked = /*#__PURE__*/ createReadContract({
   abi: trailblazersBadgesAbi,
   address: trailblazersBadgesAddress,
   functionName: 'isLocked',
+});
+
+/**
+ * Wraps __{@link readContract}__ with `abi` set to __{@link trailblazersBadgesAbi}__ and `functionName` set to `"lastKnownSeason"`
+ *
+ * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa20a8856e00F5ad024a55A663F06DCc419FFc4d5)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xEB310b20b030e9c227Ac23e0A39FE6a6e09Ba755)
+ */
+export const readTrailblazersBadgesLastKnownSeason = /*#__PURE__*/ createReadContract({
+  abi: trailblazersBadgesAbi,
+  address: trailblazersBadgesAddress,
+  functionName: 'lastKnownSeason',
 });
 
 /**
@@ -8000,6 +8084,18 @@ export const readTrailblazersBadgesSeason3EndTimestamp = /*#__PURE__*/ createRea
   abi: trailblazersBadgesAbi,
   address: trailblazersBadgesAddress,
   functionName: 'season3EndTimestamp',
+});
+
+/**
+ * Wraps __{@link readContract}__ with `abi` set to __{@link trailblazersBadgesAbi}__ and `functionName` set to `"seasonEndTimestamps"`
+ *
+ * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa20a8856e00F5ad024a55A663F06DCc419FFc4d5)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xEB310b20b030e9c227Ac23e0A39FE6a6e09Ba755)
+ */
+export const readTrailblazersBadgesSeasonEndTimestamps = /*#__PURE__*/ createReadContract({
+  abi: trailblazersBadgesAbi,
+  address: trailblazersBadgesAddress,
+  functionName: 'seasonEndTimestamps',
 });
 
 /**
@@ -8302,6 +8398,18 @@ export const writeTrailblazersBadgesSetSeason3EndTimestamp = /*#__PURE__*/ creat
 });
 
 /**
+ * Wraps __{@link writeContract}__ with `abi` set to __{@link trailblazersBadgesAbi}__ and `functionName` set to `"setSeasonEndTimestamp"`
+ *
+ * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa20a8856e00F5ad024a55A663F06DCc419FFc4d5)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xEB310b20b030e9c227Ac23e0A39FE6a6e09Ba755)
+ */
+export const writeTrailblazersBadgesSetSeasonEndTimestamp = /*#__PURE__*/ createWriteContract({
+  abi: trailblazersBadgesAbi,
+  address: trailblazersBadgesAddress,
+  functionName: 'setSeasonEndTimestamp',
+});
+
+/**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link trailblazersBadgesAbi}__ and `functionName` set to `"setUri"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa20a8856e00F5ad024a55A663F06DCc419FFc4d5)
@@ -8562,6 +8670,18 @@ export const simulateTrailblazersBadgesSetSeason3EndTimestamp = /*#__PURE__*/ cr
   abi: trailblazersBadgesAbi,
   address: trailblazersBadgesAddress,
   functionName: 'setSeason3EndTimestamp',
+});
+
+/**
+ * Wraps __{@link simulateContract}__ with `abi` set to __{@link trailblazersBadgesAbi}__ and `functionName` set to `"setSeasonEndTimestamp"`
+ *
+ * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa20a8856e00F5ad024a55A663F06DCc419FFc4d5)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xEB310b20b030e9c227Ac23e0A39FE6a6e09Ba755)
+ */
+export const simulateTrailblazersBadgesSetSeasonEndTimestamp = /*#__PURE__*/ createSimulateContract({
+  abi: trailblazersBadgesAbi,
+  address: trailblazersBadgesAddress,
+  functionName: 'setSeasonEndTimestamp',
 });
 
 /**
