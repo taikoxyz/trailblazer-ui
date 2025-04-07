@@ -176,7 +176,7 @@
       </div>
 
       <div class={buttonWrapperClasses}>
-        <a href="https://takeoff.taiko.xyz" target="_blank">
+        <a href="https://taiko.mirror.xyz/vXGo-HofGENNl3J9ObyGponpAoIqAtNyQG_cKKlHeC4" target="_blank">
           <ButtonWithArrow text="How to earn more points" />
         </a>
       </div>
