@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { ButtonWithArrow } from '$shared/components/Button';
+  import { ActionButton } from '$shared/components/Button';
   import { Icon } from '$shared/components/Icon';
   import { classNames } from '$shared/utils/classNames';
   import formatTaikoStatusPoints from '$shared/utils/formatTaikoStatusPoints';
@@ -8,6 +8,7 @@
   import { type TaikoStatusInfo, TaikoStatusService } from '../service/TaikoStatusService';
   import { TaikoStatusModalStore } from '../stores/TaikoStatusModalStore';
 
+  const modalClasses = classNames('modal', 'p-[24px]', 'overflow-y-scroll');
   const modalContentWrapperClasses = classNames(
     'rounded-[40px]',
     'font-clash-grotesk',
@@ -104,9 +105,9 @@
     'py-[30px]',
   );
 
-  const dataWrapperClasses = classNames('grid', 'grid-cols-2', 'gap-[16px]');
+  const dataWrapperClasses = classNames('grid', 'grid-cols-1', 'md:grid-cols-2', 'gap-[16px]');
 
-  const wideInfoPanelClasses = classNames(infoPanelClasses, 'col-span-2');
+  const wideInfoPanelClasses = classNames(infoPanelClasses, 'md:col-span-2');
 
   const infoPanelValuesClasses = classNames();
 
@@ -115,7 +116,7 @@
   const infoPanelValueLabelClasses = classNames('font-[700]', 'text-grey-500', 'text-[16px]/[24px]');
 </script>
 
-<dialog bind:this={modal} class="modal">
+<dialog bind:this={modal} class={modalClasses}>
   {#if currentStatus && nextStatus}
     <div class={modalContentWrapperClasses}>
       <div class={modalTitleClasses}>
@@ -176,9 +177,12 @@
       </div>
 
       <div class={buttonWrapperClasses}>
-        <a href="https://taiko.mirror.xyz/vXGo-HofGENNl3J9ObyGponpAoIqAtNyQG_cKKlHeC4" target="_blank">
-          <ButtonWithArrow text="How to earn more points" />
-        </a>
+        <ActionButton
+          withArrow
+          class="md:max-w-[300px]"
+          href="https://taiko.mirror.xyz/vXGo-HofGENNl3J9ObyGponpAoIqAtNyQG_cKKlHeC4"
+          target="_blank"
+          priority="primary">How to earn more points</ActionButton>
       </div>
     </div>{/if}
 </dialog>

@@ -155,6 +155,8 @@
         claimLabel.set('You have claimed');
         isClaimSuccessful.set(true);
         currentStep.set(ClaimStates.SUCCESS);
+        // open up status modal
+        TaikoStatusModalStore.set(true);
       } catch (e) {
         if (e instanceof TransactionTimedOutError) {
           currentStep.set(ClaimStates.ERROR_TIMEOUT);

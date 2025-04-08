@@ -22,6 +22,7 @@
     'gap-[40px]',
     'max-w-[500px]',
     'flex',
+    'py-[10px]',
     'flex-col',
     'items-center',
     'justify-center',
