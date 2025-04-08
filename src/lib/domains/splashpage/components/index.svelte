@@ -6,6 +6,7 @@
   import FeaturedCampaigns from '$shared/components/FeaturedCampaigns/FeaturedCampaigns.svelte';
   import { classNames } from '$shared/utils/classNames';
 
+  import S3ClaimBanner from './Banner/S3ClaimBanner.svelte';
   import Factions from './Factions/Factions.svelte';
   import { TrailblazerGuide } from './Guide';
   import HeroSection from './HeroSection/HeroSection.svelte';
@@ -28,10 +29,10 @@
   const separator120pxClasses = classNames(separatorBaseClasses, 'h-[120px]');
 
   const slides: Slide[] = [
-    // {
-    //   component: AvalonAirdropBanner,
-    //   url: 'https://avl.avalonfinance.xyz/airdrop/',
-    // },
+    {
+      component: S3ClaimBanner,
+      url: 'profile',
+    },
     {
       component: S4StartBanner,
     },

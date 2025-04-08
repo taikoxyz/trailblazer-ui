@@ -13,8 +13,9 @@
   import { activeSeason } from '$shared/stores/activeSeason';
   import { getLogger } from '$shared/utils/logger';
 
+  import type { CompetitionInfo } from '../../types';
   import Header from './Header/Header.svelte';
-  import { thrillblazerDetails } from './thrillblazerDetails';
+  import { getThrillblazerDetails } from './thrillblazerDetails';
 
   const log = getLogger('DappsLeaderboard');
   export let pageInfo: PaginationInfo<DappLeaderboardItem>;
@@ -40,8 +41,11 @@
   let leaderboard;
   $: leaderboard = $leaderboardStore;
 
-  onMount(() => {
-    if (browser && $activeSeason && pageInfo) {
+  let thrillblazerDetails: Record<number, CompetitionInfo> | null = null;
+
+  onMount(async () => {
+    thrillblazerDetails = await getThrillblazerDetails();
+    if (browser && $activeSeason && pageInfo && thrillblazerDetails) {
       loadLeaderboardData(pageInfo.page);
     }
   });
@@ -53,7 +57,7 @@
 </script>
 
 {#key edition}
-  {#if edition <= currentEdition}
+  {#if edition <= currentEdition && thrillblazerDetails}
     <AbstractLeaderboard
       headers={['No.', 'Dapp', '', 'Points']}
       season={$activeSeason}

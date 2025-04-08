@@ -5,7 +5,7 @@
   import { competitionSlug } from '$lib/domains/leaderboard/stores/dappCompetitionStore';
   import { classNames } from '$shared/utils/classNames';
 
-  import { thrillblazerDetails } from '../thrillblazerDetails';
+  import { getThrillblazerDetails } from '../thrillblazerDetails';
 
   const prizeItemClasses = classNames('f-center', 'gap-4', 'w-fit', 'justify-center', 'md:w-[169px]');
   const prizeImageClasses = classNames('size-[48px]');
@@ -51,13 +51,17 @@
     'uppercase',
   );
 
-  $: selectedCompetitionInfo = null as CompetitionInfo | null;
+  let selectedCompetitionInfo = null as CompetitionInfo | null;
   let totalAmount = '';
 
   $: edition = parseInt($competitionSlug);
 
   $: {
-    selectedCompetitionInfo = thrillblazerDetails[edition];
+    (async () => {
+      const details = await getThrillblazerDetails();
+      if (!details) return;
+      selectedCompetitionInfo = details[edition];
+    })();
     // Update totalAmount based on activeSeason
     totalAmount = $t(`leaderboard.thrillblazers.edition${edition}.prize_breakdown.total`);
   }

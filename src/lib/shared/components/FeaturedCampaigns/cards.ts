@@ -37,7 +37,7 @@ export const cards: CampaignCardType[] = [
     btn: {
       text: 'Earn now',
       external: false,
-      destination: 'journeys/liquidity/3',
+      destination: '/journeys/liquidity/3',
     },
     images: {
       sm: '/campaign/cards/sm/liquidity-royale.png',
