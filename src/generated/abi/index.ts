@@ -1024,7 +1024,7 @@ export const badgeRecruitmentConfig = {
 
 /**
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x95345D5A092623D79a56a016001f7878FA9Da3Ef)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x16a59B792d91Eb446b167D3225e2979C8E4E0827)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x8C514215FC20F56e00fFB6D42254946D715cF508)
  */
 export const erc20AirdropAbi = [
   {
@@ -1378,16 +1378,16 @@ export const erc20AirdropAbi = [
 
 /**
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x95345D5A092623D79a56a016001f7878FA9Da3Ef)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x16a59B792d91Eb446b167D3225e2979C8E4E0827)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x8C514215FC20F56e00fFB6D42254946D715cF508)
  */
 export const erc20AirdropAddress = {
   167000: '0x95345D5A092623D79a56a016001f7878FA9Da3Ef',
-  167009: '0x16a59B792d91Eb446b167D3225e2979C8E4E0827',
+  167009: '0x8C514215FC20F56e00fFB6D42254946D715cF508',
 } as const;
 
 /**
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x95345D5A092623D79a56a016001f7878FA9Da3Ef)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x16a59B792d91Eb446b167D3225e2979C8E4E0827)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x8C514215FC20F56e00fFB6D42254946D715cF508)
  */
 export const erc20AirdropConfig = {
   address: erc20AirdropAddress,
@@ -2902,20 +2902,6 @@ export const trailblazersBadgesAbi = [
   },
   {
     type: 'function',
-    inputs: [],
-    name: 'getCurrentSeasonEndTimestamp',
-    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
-    stateMutability: 'view',
-  },
-  {
-    type: 'function',
-    inputs: [],
-    name: 'getCurrentSeasonId',
-    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
-    stateMutability: 'view',
-  },
-  {
-    type: 'function',
     inputs: [
       { name: '_minter', internalType: 'address', type: 'address' },
       { name: '_tokenId', internalType: 'uint256', type: 'uint256' },
@@ -2977,16 +2963,9 @@ export const trailblazersBadgesAbi = [
   },
   {
     type: 'function',
-    inputs: [{ name: '_tokenId', internalType: 'uint256', type: 'uint256' }],
+    inputs: [{ name: 'tokenId', internalType: 'uint256', type: 'uint256' }],
     name: 'isLocked',
     outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
-    stateMutability: 'view',
-  },
-  {
-    type: 'function',
-    inputs: [],
-    name: 'lastKnownSeason',
-    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
     stateMutability: 'view',
   },
   {
@@ -3160,13 +3139,6 @@ export const trailblazersBadgesAbi = [
   },
   {
     type: 'function',
-    inputs: [{ name: 'season', internalType: 'uint256', type: 'uint256' }],
-    name: 'seasonEndTimestamps',
-    outputs: [{ name: 'endTimestamp', internalType: 'uint256', type: 'uint256' }],
-    stateMutability: 'view',
-  },
-  {
-    type: 'function',
     inputs: [
       { name: 'operator', internalType: 'address', type: 'address' },
       { name: 'approved', internalType: 'bool', type: 'bool' },
@@ -3236,16 +3208,6 @@ export const trailblazersBadgesAbi = [
     type: 'function',
     inputs: [{ name: '_ts', internalType: 'uint256', type: 'uint256' }],
     name: 'setSeason3EndTimestamp',
-    outputs: [],
-    stateMutability: 'nonpayable',
-  },
-  {
-    type: 'function',
-    inputs: [
-      { name: '_season', internalType: 'uint256', type: 'uint256' },
-      { name: '_timestamp', internalType: 'uint256', type: 'uint256' },
-    ],
-    name: 'setSeasonEndTimestamp',
     outputs: [],
     stateMutability: 'nonpayable',
   },
@@ -3626,15 +3588,6 @@ export const trailblazersBadgesAbi = [
   { type: 'error', inputs: [], name: 'BADGE_LOCKED_SEASON_2' },
   {
     type: 'error',
-    inputs: [
-      { name: 'seasonId', internalType: 'uint256', type: 'uint256' },
-      { name: 'seasonEnd', internalType: 'uint256', type: 'uint256' },
-      { name: 'ts', internalType: 'uint256', type: 'uint256' },
-    ],
-    name: 'BADGE_STILL_LOCKED',
-  },
-  {
-    type: 'error',
     inputs: [{ name: 'implementation', internalType: 'address', type: 'address' }],
     name: 'ERC1967InvalidImplementation',
   },
@@ -3704,7 +3657,6 @@ export const trailblazersBadgesAbi = [
   { type: 'error', inputs: [], name: 'MINTS_EXCEEDED' },
   { type: 'error', inputs: [], name: 'NOT_IMPLEMENTED' },
   { type: 'error', inputs: [], name: 'NOT_OWNER' },
-  { type: 'error', inputs: [], name: 'NO_ACTIVE_SEASON' },
   { type: 'error', inputs: [], name: 'NotInitializing' },
   { type: 'error', inputs: [], name: 'ONLY_MINT_SIGNER' },
   {
@@ -5371,7 +5323,7 @@ export const watchBadgeRecruitmentUpgradedEvent = /*#__PURE__*/ createWatchContr
  * Wraps __{@link readContract}__ with `abi` set to __{@link erc20AirdropAbi}__
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x95345D5A092623D79a56a016001f7878FA9Da3Ef)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x16a59B792d91Eb446b167D3225e2979C8E4E0827)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x8C514215FC20F56e00fFB6D42254946D715cF508)
  */
 export const readErc20Airdrop = /*#__PURE__*/ createReadContract({
   abi: erc20AirdropAbi,
@@ -5382,7 +5334,7 @@ export const readErc20Airdrop = /*#__PURE__*/ createReadContract({
  * Wraps __{@link readContract}__ with `abi` set to __{@link erc20AirdropAbi}__ and `functionName` set to `"UPGRADE_INTERFACE_VERSION"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x95345D5A092623D79a56a016001f7878FA9Da3Ef)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x16a59B792d91Eb446b167D3225e2979C8E4E0827)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x8C514215FC20F56e00fFB6D42254946D715cF508)
  */
 export const readErc20AirdropUpgradeInterfaceVersion = /*#__PURE__*/ createReadContract({
   abi: erc20AirdropAbi,
@@ -5394,7 +5346,7 @@ export const readErc20AirdropUpgradeInterfaceVersion = /*#__PURE__*/ createReadC
  * Wraps __{@link readContract}__ with `abi` set to __{@link erc20AirdropAbi}__ and `functionName` set to `"blacklist"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x95345D5A092623D79a56a016001f7878FA9Da3Ef)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x16a59B792d91Eb446b167D3225e2979C8E4E0827)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x8C514215FC20F56e00fFB6D42254946D715cF508)
  */
 export const readErc20AirdropBlacklist = /*#__PURE__*/ createReadContract({
   abi: erc20AirdropAbi,
@@ -5406,7 +5358,7 @@ export const readErc20AirdropBlacklist = /*#__PURE__*/ createReadContract({
  * Wraps __{@link readContract}__ with `abi` set to __{@link erc20AirdropAbi}__ and `functionName` set to `"claimEnd"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x95345D5A092623D79a56a016001f7878FA9Da3Ef)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x16a59B792d91Eb446b167D3225e2979C8E4E0827)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x8C514215FC20F56e00fFB6D42254946D715cF508)
  */
 export const readErc20AirdropClaimEnd = /*#__PURE__*/ createReadContract({
   abi: erc20AirdropAbi,
@@ -5418,7 +5370,7 @@ export const readErc20AirdropClaimEnd = /*#__PURE__*/ createReadContract({
  * Wraps __{@link readContract}__ with `abi` set to __{@link erc20AirdropAbi}__ and `functionName` set to `"claimStart"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x95345D5A092623D79a56a016001f7878FA9Da3Ef)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x16a59B792d91Eb446b167D3225e2979C8E4E0827)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x8C514215FC20F56e00fFB6D42254946D715cF508)
  */
 export const readErc20AirdropClaimStart = /*#__PURE__*/ createReadContract({
   abi: erc20AirdropAbi,
@@ -5430,7 +5382,7 @@ export const readErc20AirdropClaimStart = /*#__PURE__*/ createReadContract({
  * Wraps __{@link readContract}__ with `abi` set to __{@link erc20AirdropAbi}__ and `functionName` set to `"hasClaimed"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x95345D5A092623D79a56a016001f7878FA9Da3Ef)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x16a59B792d91Eb446b167D3225e2979C8E4E0827)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x8C514215FC20F56e00fFB6D42254946D715cF508)
  */
 export const readErc20AirdropHasClaimed = /*#__PURE__*/ createReadContract({
   abi: erc20AirdropAbi,
@@ -5442,7 +5394,7 @@ export const readErc20AirdropHasClaimed = /*#__PURE__*/ createReadContract({
  * Wraps __{@link readContract}__ with `abi` set to __{@link erc20AirdropAbi}__ and `functionName` set to `"isClaimed"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x95345D5A092623D79a56a016001f7878FA9Da3Ef)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x16a59B792d91Eb446b167D3225e2979C8E4E0827)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x8C514215FC20F56e00fFB6D42254946D715cF508)
  */
 export const readErc20AirdropIsClaimed = /*#__PURE__*/ createReadContract({
   abi: erc20AirdropAbi,
@@ -5454,7 +5406,7 @@ export const readErc20AirdropIsClaimed = /*#__PURE__*/ createReadContract({
  * Wraps __{@link readContract}__ with `abi` set to __{@link erc20AirdropAbi}__ and `functionName` set to `"merkleRoot"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x95345D5A092623D79a56a016001f7878FA9Da3Ef)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x16a59B792d91Eb446b167D3225e2979C8E4E0827)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x8C514215FC20F56e00fFB6D42254946D715cF508)
  */
 export const readErc20AirdropMerkleRoot = /*#__PURE__*/ createReadContract({
   abi: erc20AirdropAbi,
@@ -5466,7 +5418,7 @@ export const readErc20AirdropMerkleRoot = /*#__PURE__*/ createReadContract({
  * Wraps __{@link readContract}__ with `abi` set to __{@link erc20AirdropAbi}__ and `functionName` set to `"owner"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x95345D5A092623D79a56a016001f7878FA9Da3Ef)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x16a59B792d91Eb446b167D3225e2979C8E4E0827)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x8C514215FC20F56e00fFB6D42254946D715cF508)
  */
 export const readErc20AirdropOwner = /*#__PURE__*/ createReadContract({
   abi: erc20AirdropAbi,
@@ -5478,7 +5430,7 @@ export const readErc20AirdropOwner = /*#__PURE__*/ createReadContract({
  * Wraps __{@link readContract}__ with `abi` set to __{@link erc20AirdropAbi}__ and `functionName` set to `"paused"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x95345D5A092623D79a56a016001f7878FA9Da3Ef)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x16a59B792d91Eb446b167D3225e2979C8E4E0827)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x8C514215FC20F56e00fFB6D42254946D715cF508)
  */
 export const readErc20AirdropPaused = /*#__PURE__*/ createReadContract({
   abi: erc20AirdropAbi,
@@ -5490,7 +5442,7 @@ export const readErc20AirdropPaused = /*#__PURE__*/ createReadContract({
  * Wraps __{@link readContract}__ with `abi` set to __{@link erc20AirdropAbi}__ and `functionName` set to `"pendingOwner"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x95345D5A092623D79a56a016001f7878FA9Da3Ef)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x16a59B792d91Eb446b167D3225e2979C8E4E0827)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x8C514215FC20F56e00fFB6D42254946D715cF508)
  */
 export const readErc20AirdropPendingOwner = /*#__PURE__*/ createReadContract({
   abi: erc20AirdropAbi,
@@ -5502,7 +5454,7 @@ export const readErc20AirdropPendingOwner = /*#__PURE__*/ createReadContract({
  * Wraps __{@link readContract}__ with `abi` set to __{@link erc20AirdropAbi}__ and `functionName` set to `"proxiableUUID"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x95345D5A092623D79a56a016001f7878FA9Da3Ef)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x16a59B792d91Eb446b167D3225e2979C8E4E0827)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x8C514215FC20F56e00fFB6D42254946D715cF508)
  */
 export const readErc20AirdropProxiableUuid = /*#__PURE__*/ createReadContract({
   abi: erc20AirdropAbi,
@@ -5514,7 +5466,7 @@ export const readErc20AirdropProxiableUuid = /*#__PURE__*/ createReadContract({
  * Wraps __{@link readContract}__ with `abi` set to __{@link erc20AirdropAbi}__ and `functionName` set to `"token"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x95345D5A092623D79a56a016001f7878FA9Da3Ef)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x16a59B792d91Eb446b167D3225e2979C8E4E0827)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x8C514215FC20F56e00fFB6D42254946D715cF508)
  */
 export const readErc20AirdropToken = /*#__PURE__*/ createReadContract({
   abi: erc20AirdropAbi,
@@ -5526,7 +5478,7 @@ export const readErc20AirdropToken = /*#__PURE__*/ createReadContract({
  * Wraps __{@link writeContract}__ with `abi` set to __{@link erc20AirdropAbi}__
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x95345D5A092623D79a56a016001f7878FA9Da3Ef)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x16a59B792d91Eb446b167D3225e2979C8E4E0827)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x8C514215FC20F56e00fFB6D42254946D715cF508)
  */
 export const writeErc20Airdrop = /*#__PURE__*/ createWriteContract({
   abi: erc20AirdropAbi,
@@ -5537,7 +5489,7 @@ export const writeErc20Airdrop = /*#__PURE__*/ createWriteContract({
  * Wraps __{@link writeContract}__ with `abi` set to __{@link erc20AirdropAbi}__ and `functionName` set to `"acceptOwnership"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x95345D5A092623D79a56a016001f7878FA9Da3Ef)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x16a59B792d91Eb446b167D3225e2979C8E4E0827)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x8C514215FC20F56e00fFB6D42254946D715cF508)
  */
 export const writeErc20AirdropAcceptOwnership = /*#__PURE__*/ createWriteContract({
   abi: erc20AirdropAbi,
@@ -5549,7 +5501,7 @@ export const writeErc20AirdropAcceptOwnership = /*#__PURE__*/ createWriteContrac
  * Wraps __{@link writeContract}__ with `abi` set to __{@link erc20AirdropAbi}__ and `functionName` set to `"claim"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x95345D5A092623D79a56a016001f7878FA9Da3Ef)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x16a59B792d91Eb446b167D3225e2979C8E4E0827)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x8C514215FC20F56e00fFB6D42254946D715cF508)
  */
 export const writeErc20AirdropClaim = /*#__PURE__*/ createWriteContract({
   abi: erc20AirdropAbi,
@@ -5561,7 +5513,7 @@ export const writeErc20AirdropClaim = /*#__PURE__*/ createWriteContract({
  * Wraps __{@link writeContract}__ with `abi` set to __{@link erc20AirdropAbi}__ and `functionName` set to `"init"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x95345D5A092623D79a56a016001f7878FA9Da3Ef)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x16a59B792d91Eb446b167D3225e2979C8E4E0827)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x8C514215FC20F56e00fFB6D42254946D715cF508)
  */
 export const writeErc20AirdropInit = /*#__PURE__*/ createWriteContract({
   abi: erc20AirdropAbi,
@@ -5573,7 +5525,7 @@ export const writeErc20AirdropInit = /*#__PURE__*/ createWriteContract({
  * Wraps __{@link writeContract}__ with `abi` set to __{@link erc20AirdropAbi}__ and `functionName` set to `"renounceOwnership"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x95345D5A092623D79a56a016001f7878FA9Da3Ef)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x16a59B792d91Eb446b167D3225e2979C8E4E0827)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x8C514215FC20F56e00fFB6D42254946D715cF508)
  */
 export const writeErc20AirdropRenounceOwnership = /*#__PURE__*/ createWriteContract({
   abi: erc20AirdropAbi,
@@ -5585,7 +5537,7 @@ export const writeErc20AirdropRenounceOwnership = /*#__PURE__*/ createWriteContr
  * Wraps __{@link writeContract}__ with `abi` set to __{@link erc20AirdropAbi}__ and `functionName` set to `"setConfig"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x95345D5A092623D79a56a016001f7878FA9Da3Ef)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x16a59B792d91Eb446b167D3225e2979C8E4E0827)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x8C514215FC20F56e00fFB6D42254946D715cF508)
  */
 export const writeErc20AirdropSetConfig = /*#__PURE__*/ createWriteContract({
   abi: erc20AirdropAbi,
@@ -5597,7 +5549,7 @@ export const writeErc20AirdropSetConfig = /*#__PURE__*/ createWriteContract({
  * Wraps __{@link writeContract}__ with `abi` set to __{@link erc20AirdropAbi}__ and `functionName` set to `"transferOwnership"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x95345D5A092623D79a56a016001f7878FA9Da3Ef)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x16a59B792d91Eb446b167D3225e2979C8E4E0827)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x8C514215FC20F56e00fFB6D42254946D715cF508)
  */
 export const writeErc20AirdropTransferOwnership = /*#__PURE__*/ createWriteContract({
   abi: erc20AirdropAbi,
@@ -5609,7 +5561,7 @@ export const writeErc20AirdropTransferOwnership = /*#__PURE__*/ createWriteContr
  * Wraps __{@link writeContract}__ with `abi` set to __{@link erc20AirdropAbi}__ and `functionName` set to `"updateBlacklist"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x95345D5A092623D79a56a016001f7878FA9Da3Ef)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x16a59B792d91Eb446b167D3225e2979C8E4E0827)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x8C514215FC20F56e00fFB6D42254946D715cF508)
  */
 export const writeErc20AirdropUpdateBlacklist = /*#__PURE__*/ createWriteContract({
   abi: erc20AirdropAbi,
@@ -5621,7 +5573,7 @@ export const writeErc20AirdropUpdateBlacklist = /*#__PURE__*/ createWriteContrac
  * Wraps __{@link writeContract}__ with `abi` set to __{@link erc20AirdropAbi}__ and `functionName` set to `"upgradeToAndCall"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x95345D5A092623D79a56a016001f7878FA9Da3Ef)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x16a59B792d91Eb446b167D3225e2979C8E4E0827)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x8C514215FC20F56e00fFB6D42254946D715cF508)
  */
 export const writeErc20AirdropUpgradeToAndCall = /*#__PURE__*/ createWriteContract({
   abi: erc20AirdropAbi,
@@ -5633,7 +5585,7 @@ export const writeErc20AirdropUpgradeToAndCall = /*#__PURE__*/ createWriteContra
  * Wraps __{@link writeContract}__ with `abi` set to __{@link erc20AirdropAbi}__ and `functionName` set to `"withdrawERC20"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x95345D5A092623D79a56a016001f7878FA9Da3Ef)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x16a59B792d91Eb446b167D3225e2979C8E4E0827)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x8C514215FC20F56e00fFB6D42254946D715cF508)
  */
 export const writeErc20AirdropWithdrawErc20 = /*#__PURE__*/ createWriteContract({
   abi: erc20AirdropAbi,
@@ -5645,7 +5597,7 @@ export const writeErc20AirdropWithdrawErc20 = /*#__PURE__*/ createWriteContract(
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link erc20AirdropAbi}__
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x95345D5A092623D79a56a016001f7878FA9Da3Ef)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x16a59B792d91Eb446b167D3225e2979C8E4E0827)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x8C514215FC20F56e00fFB6D42254946D715cF508)
  */
 export const simulateErc20Airdrop = /*#__PURE__*/ createSimulateContract({
   abi: erc20AirdropAbi,
@@ -5656,7 +5608,7 @@ export const simulateErc20Airdrop = /*#__PURE__*/ createSimulateContract({
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link erc20AirdropAbi}__ and `functionName` set to `"acceptOwnership"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x95345D5A092623D79a56a016001f7878FA9Da3Ef)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x16a59B792d91Eb446b167D3225e2979C8E4E0827)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x8C514215FC20F56e00fFB6D42254946D715cF508)
  */
 export const simulateErc20AirdropAcceptOwnership = /*#__PURE__*/ createSimulateContract({
   abi: erc20AirdropAbi,
@@ -5668,7 +5620,7 @@ export const simulateErc20AirdropAcceptOwnership = /*#__PURE__*/ createSimulateC
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link erc20AirdropAbi}__ and `functionName` set to `"claim"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x95345D5A092623D79a56a016001f7878FA9Da3Ef)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x16a59B792d91Eb446b167D3225e2979C8E4E0827)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x8C514215FC20F56e00fFB6D42254946D715cF508)
  */
 export const simulateErc20AirdropClaim = /*#__PURE__*/ createSimulateContract({
   abi: erc20AirdropAbi,
@@ -5680,7 +5632,7 @@ export const simulateErc20AirdropClaim = /*#__PURE__*/ createSimulateContract({
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link erc20AirdropAbi}__ and `functionName` set to `"init"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x95345D5A092623D79a56a016001f7878FA9Da3Ef)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x16a59B792d91Eb446b167D3225e2979C8E4E0827)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x8C514215FC20F56e00fFB6D42254946D715cF508)
  */
 export const simulateErc20AirdropInit = /*#__PURE__*/ createSimulateContract({
   abi: erc20AirdropAbi,
@@ -5692,7 +5644,7 @@ export const simulateErc20AirdropInit = /*#__PURE__*/ createSimulateContract({
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link erc20AirdropAbi}__ and `functionName` set to `"renounceOwnership"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x95345D5A092623D79a56a016001f7878FA9Da3Ef)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x16a59B792d91Eb446b167D3225e2979C8E4E0827)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x8C514215FC20F56e00fFB6D42254946D715cF508)
  */
 export const simulateErc20AirdropRenounceOwnership = /*#__PURE__*/ createSimulateContract({
   abi: erc20AirdropAbi,
@@ -5704,7 +5656,7 @@ export const simulateErc20AirdropRenounceOwnership = /*#__PURE__*/ createSimulat
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link erc20AirdropAbi}__ and `functionName` set to `"setConfig"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x95345D5A092623D79a56a016001f7878FA9Da3Ef)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x16a59B792d91Eb446b167D3225e2979C8E4E0827)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x8C514215FC20F56e00fFB6D42254946D715cF508)
  */
 export const simulateErc20AirdropSetConfig = /*#__PURE__*/ createSimulateContract({
   abi: erc20AirdropAbi,
@@ -5716,7 +5668,7 @@ export const simulateErc20AirdropSetConfig = /*#__PURE__*/ createSimulateContrac
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link erc20AirdropAbi}__ and `functionName` set to `"transferOwnership"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x95345D5A092623D79a56a016001f7878FA9Da3Ef)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x16a59B792d91Eb446b167D3225e2979C8E4E0827)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x8C514215FC20F56e00fFB6D42254946D715cF508)
  */
 export const simulateErc20AirdropTransferOwnership = /*#__PURE__*/ createSimulateContract({
   abi: erc20AirdropAbi,
@@ -5728,7 +5680,7 @@ export const simulateErc20AirdropTransferOwnership = /*#__PURE__*/ createSimulat
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link erc20AirdropAbi}__ and `functionName` set to `"updateBlacklist"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x95345D5A092623D79a56a016001f7878FA9Da3Ef)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x16a59B792d91Eb446b167D3225e2979C8E4E0827)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x8C514215FC20F56e00fFB6D42254946D715cF508)
  */
 export const simulateErc20AirdropUpdateBlacklist = /*#__PURE__*/ createSimulateContract({
   abi: erc20AirdropAbi,
@@ -5740,7 +5692,7 @@ export const simulateErc20AirdropUpdateBlacklist = /*#__PURE__*/ createSimulateC
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link erc20AirdropAbi}__ and `functionName` set to `"upgradeToAndCall"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x95345D5A092623D79a56a016001f7878FA9Da3Ef)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x16a59B792d91Eb446b167D3225e2979C8E4E0827)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x8C514215FC20F56e00fFB6D42254946D715cF508)
  */
 export const simulateErc20AirdropUpgradeToAndCall = /*#__PURE__*/ createSimulateContract({
   abi: erc20AirdropAbi,
@@ -5752,7 +5704,7 @@ export const simulateErc20AirdropUpgradeToAndCall = /*#__PURE__*/ createSimulate
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link erc20AirdropAbi}__ and `functionName` set to `"withdrawERC20"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x95345D5A092623D79a56a016001f7878FA9Da3Ef)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x16a59B792d91Eb446b167D3225e2979C8E4E0827)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x8C514215FC20F56e00fFB6D42254946D715cF508)
  */
 export const simulateErc20AirdropWithdrawErc20 = /*#__PURE__*/ createSimulateContract({
   abi: erc20AirdropAbi,
@@ -5764,7 +5716,7 @@ export const simulateErc20AirdropWithdrawErc20 = /*#__PURE__*/ createSimulateCon
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link erc20AirdropAbi}__
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x95345D5A092623D79a56a016001f7878FA9Da3Ef)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x16a59B792d91Eb446b167D3225e2979C8E4E0827)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x8C514215FC20F56e00fFB6D42254946D715cF508)
  */
 export const watchErc20AirdropEvent = /*#__PURE__*/ createWatchContractEvent({
   abi: erc20AirdropAbi,
@@ -5775,7 +5727,7 @@ export const watchErc20AirdropEvent = /*#__PURE__*/ createWatchContractEvent({
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link erc20AirdropAbi}__ and `eventName` set to `"BlacklistUpdated"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x95345D5A092623D79a56a016001f7878FA9Da3Ef)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x16a59B792d91Eb446b167D3225e2979C8E4E0827)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x8C514215FC20F56e00fFB6D42254946D715cF508)
  */
 export const watchErc20AirdropBlacklistUpdatedEvent = /*#__PURE__*/ createWatchContractEvent({
   abi: erc20AirdropAbi,
@@ -5787,7 +5739,7 @@ export const watchErc20AirdropBlacklistUpdatedEvent = /*#__PURE__*/ createWatchC
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link erc20AirdropAbi}__ and `eventName` set to `"Claimed"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x95345D5A092623D79a56a016001f7878FA9Da3Ef)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x16a59B792d91Eb446b167D3225e2979C8E4E0827)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x8C514215FC20F56e00fFB6D42254946D715cF508)
  */
 export const watchErc20AirdropClaimedEvent = /*#__PURE__*/ createWatchContractEvent({
   abi: erc20AirdropAbi,
@@ -5799,7 +5751,7 @@ export const watchErc20AirdropClaimedEvent = /*#__PURE__*/ createWatchContractEv
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link erc20AirdropAbi}__ and `eventName` set to `"ConfigChanged"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x95345D5A092623D79a56a016001f7878FA9Da3Ef)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x16a59B792d91Eb446b167D3225e2979C8E4E0827)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x8C514215FC20F56e00fFB6D42254946D715cF508)
  */
 export const watchErc20AirdropConfigChangedEvent = /*#__PURE__*/ createWatchContractEvent({
   abi: erc20AirdropAbi,
@@ -5811,7 +5763,7 @@ export const watchErc20AirdropConfigChangedEvent = /*#__PURE__*/ createWatchCont
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link erc20AirdropAbi}__ and `eventName` set to `"Initialized"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x95345D5A092623D79a56a016001f7878FA9Da3Ef)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x16a59B792d91Eb446b167D3225e2979C8E4E0827)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x8C514215FC20F56e00fFB6D42254946D715cF508)
  */
 export const watchErc20AirdropInitializedEvent = /*#__PURE__*/ createWatchContractEvent({
   abi: erc20AirdropAbi,
@@ -5823,7 +5775,7 @@ export const watchErc20AirdropInitializedEvent = /*#__PURE__*/ createWatchContra
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link erc20AirdropAbi}__ and `eventName` set to `"OwnershipTransferStarted"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x95345D5A092623D79a56a016001f7878FA9Da3Ef)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x16a59B792d91Eb446b167D3225e2979C8E4E0827)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x8C514215FC20F56e00fFB6D42254946D715cF508)
  */
 export const watchErc20AirdropOwnershipTransferStartedEvent = /*#__PURE__*/ createWatchContractEvent({
   abi: erc20AirdropAbi,
@@ -5835,7 +5787,7 @@ export const watchErc20AirdropOwnershipTransferStartedEvent = /*#__PURE__*/ crea
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link erc20AirdropAbi}__ and `eventName` set to `"OwnershipTransferred"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x95345D5A092623D79a56a016001f7878FA9Da3Ef)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x16a59B792d91Eb446b167D3225e2979C8E4E0827)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x8C514215FC20F56e00fFB6D42254946D715cF508)
  */
 export const watchErc20AirdropOwnershipTransferredEvent = /*#__PURE__*/ createWatchContractEvent({
   abi: erc20AirdropAbi,
@@ -5847,7 +5799,7 @@ export const watchErc20AirdropOwnershipTransferredEvent = /*#__PURE__*/ createWa
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link erc20AirdropAbi}__ and `eventName` set to `"Paused"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x95345D5A092623D79a56a016001f7878FA9Da3Ef)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x16a59B792d91Eb446b167D3225e2979C8E4E0827)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x8C514215FC20F56e00fFB6D42254946D715cF508)
  */
 export const watchErc20AirdropPausedEvent = /*#__PURE__*/ createWatchContractEvent({
   abi: erc20AirdropAbi,
@@ -5859,7 +5811,7 @@ export const watchErc20AirdropPausedEvent = /*#__PURE__*/ createWatchContractEve
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link erc20AirdropAbi}__ and `eventName` set to `"Unpaused"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x95345D5A092623D79a56a016001f7878FA9Da3Ef)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x16a59B792d91Eb446b167D3225e2979C8E4E0827)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x8C514215FC20F56e00fFB6D42254946D715cF508)
  */
 export const watchErc20AirdropUnpausedEvent = /*#__PURE__*/ createWatchContractEvent({
   abi: erc20AirdropAbi,
@@ -5871,7 +5823,7 @@ export const watchErc20AirdropUnpausedEvent = /*#__PURE__*/ createWatchContractE
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link erc20AirdropAbi}__ and `eventName` set to `"Upgraded"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0x95345D5A092623D79a56a016001f7878FA9Da3Ef)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x16a59B792d91Eb446b167D3225e2979C8E4E0827)
+ * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x8C514215FC20F56e00fFB6D42254946D715cF508)
  */
 export const watchErc20AirdropUpgradedEvent = /*#__PURE__*/ createWatchContractEvent({
   abi: erc20AirdropAbi,
@@ -7835,30 +7787,6 @@ export const readTrailblazersBadgesGetApproved = /*#__PURE__*/ createReadContrac
 });
 
 /**
- * Wraps __{@link readContract}__ with `abi` set to __{@link trailblazersBadgesAbi}__ and `functionName` set to `"getCurrentSeasonEndTimestamp"`
- *
- * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa20a8856e00F5ad024a55A663F06DCc419FFc4d5)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xEB310b20b030e9c227Ac23e0A39FE6a6e09Ba755)
- */
-export const readTrailblazersBadgesGetCurrentSeasonEndTimestamp = /*#__PURE__*/ createReadContract({
-  abi: trailblazersBadgesAbi,
-  address: trailblazersBadgesAddress,
-  functionName: 'getCurrentSeasonEndTimestamp',
-});
-
-/**
- * Wraps __{@link readContract}__ with `abi` set to __{@link trailblazersBadgesAbi}__ and `functionName` set to `"getCurrentSeasonId"`
- *
- * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa20a8856e00F5ad024a55A663F06DCc419FFc4d5)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xEB310b20b030e9c227Ac23e0A39FE6a6e09Ba755)
- */
-export const readTrailblazersBadgesGetCurrentSeasonId = /*#__PURE__*/ createReadContract({
-  abi: trailblazersBadgesAbi,
-  address: trailblazersBadgesAddress,
-  functionName: 'getCurrentSeasonId',
-});
-
-/**
  * Wraps __{@link readContract}__ with `abi` set to __{@link trailblazersBadgesAbi}__ and `functionName` set to `"getHash"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa20a8856e00F5ad024a55A663F06DCc419FFc4d5)
@@ -7904,18 +7832,6 @@ export const readTrailblazersBadgesIsLocked = /*#__PURE__*/ createReadContract({
   abi: trailblazersBadgesAbi,
   address: trailblazersBadgesAddress,
   functionName: 'isLocked',
-});
-
-/**
- * Wraps __{@link readContract}__ with `abi` set to __{@link trailblazersBadgesAbi}__ and `functionName` set to `"lastKnownSeason"`
- *
- * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa20a8856e00F5ad024a55A663F06DCc419FFc4d5)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xEB310b20b030e9c227Ac23e0A39FE6a6e09Ba755)
- */
-export const readTrailblazersBadgesLastKnownSeason = /*#__PURE__*/ createReadContract({
-  abi: trailblazersBadgesAbi,
-  address: trailblazersBadgesAddress,
-  functionName: 'lastKnownSeason',
 });
 
 /**
@@ -8084,18 +8000,6 @@ export const readTrailblazersBadgesSeason3EndTimestamp = /*#__PURE__*/ createRea
   abi: trailblazersBadgesAbi,
   address: trailblazersBadgesAddress,
   functionName: 'season3EndTimestamp',
-});
-
-/**
- * Wraps __{@link readContract}__ with `abi` set to __{@link trailblazersBadgesAbi}__ and `functionName` set to `"seasonEndTimestamps"`
- *
- * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa20a8856e00F5ad024a55A663F06DCc419FFc4d5)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xEB310b20b030e9c227Ac23e0A39FE6a6e09Ba755)
- */
-export const readTrailblazersBadgesSeasonEndTimestamps = /*#__PURE__*/ createReadContract({
-  abi: trailblazersBadgesAbi,
-  address: trailblazersBadgesAddress,
-  functionName: 'seasonEndTimestamps',
 });
 
 /**
@@ -8398,18 +8302,6 @@ export const writeTrailblazersBadgesSetSeason3EndTimestamp = /*#__PURE__*/ creat
 });
 
 /**
- * Wraps __{@link writeContract}__ with `abi` set to __{@link trailblazersBadgesAbi}__ and `functionName` set to `"setSeasonEndTimestamp"`
- *
- * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa20a8856e00F5ad024a55A663F06DCc419FFc4d5)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xEB310b20b030e9c227Ac23e0A39FE6a6e09Ba755)
- */
-export const writeTrailblazersBadgesSetSeasonEndTimestamp = /*#__PURE__*/ createWriteContract({
-  abi: trailblazersBadgesAbi,
-  address: trailblazersBadgesAddress,
-  functionName: 'setSeasonEndTimestamp',
-});
-
-/**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link trailblazersBadgesAbi}__ and `functionName` set to `"setUri"`
  *
  * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa20a8856e00F5ad024a55A663F06DCc419FFc4d5)
@@ -8670,18 +8562,6 @@ export const simulateTrailblazersBadgesSetSeason3EndTimestamp = /*#__PURE__*/ cr
   abi: trailblazersBadgesAbi,
   address: trailblazersBadgesAddress,
   functionName: 'setSeason3EndTimestamp',
-});
-
-/**
- * Wraps __{@link simulateContract}__ with `abi` set to __{@link trailblazersBadgesAbi}__ and `functionName` set to `"setSeasonEndTimestamp"`
- *
- * - [__View Contract on Taiko Mainnet Taikoscan__](https://taikoscan.io/address/0xa20a8856e00F5ad024a55A663F06DCc419FFc4d5)
- * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0xEB310b20b030e9c227Ac23e0A39FE6a6e09Ba755)
- */
-export const simulateTrailblazersBadgesSetSeasonEndTimestamp = /*#__PURE__*/ createSimulateContract({
-  abi: trailblazersBadgesAbi,
-  address: trailblazersBadgesAddress,
-  functionName: 'setSeasonEndTimestamp',
 });
 
 /**
