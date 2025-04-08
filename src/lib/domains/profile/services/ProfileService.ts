@@ -463,6 +463,7 @@ export class ProfileService implements IProfileService {
     try {
       // Fetch the profile picture NFT reference from the API
       const pfpNFT = await this.apiAdapter.getProfilePicture(address);
+
       if (!pfpNFT) {
         log('No profile picture NFT found for address:', address);
         return null;

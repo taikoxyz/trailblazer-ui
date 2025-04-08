@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { fade } from 'svelte/transition';
+
   import { ActionButton } from '$shared/components/Button';
   import { Icon } from '$shared/components/Icon';
   import { classNames } from '$shared/utils/classNames';
@@ -8,9 +10,24 @@
   import { type TaikoStatusInfo, TaikoStatusService } from '../service/TaikoStatusService';
   import { TaikoStatusModalStore } from '../stores/TaikoStatusModalStore';
 
-  const modalClasses = classNames('modal', 'p-[24px]', 'overflow-y-scroll');
+  const modalClasses = classNames(
+    'z-[9999]',
+    'p-[24px]',
+    'fixed',
+    'w-[100vw]',
+    'h-[100vh]',
+    'bg-black/50',
+    'flex',
+    'justify-center',
+    'items-stretch',
+    'md:items-center',
+    'top-0',
+    'left-0',
+    'overflow-y-scroll',
+  );
   const modalContentWrapperClasses = classNames(
     'rounded-[40px]',
+    'h-max',
     'font-clash-grotesk',
     'p-0',
     'bg-grey-700',
@@ -26,16 +43,11 @@
     'm-0',
     'text-[24px]/[95%]',
   );
-  const bodyWrapperClasses = classNames('text-grey-200', 'font-public-sans', 'px-[24px]');
-
-  let modal = undefined as HTMLDialogElement | undefined;
+  const bodyWrapperClasses = classNames('text-grey-200', 'font-public-sans', 'px-[24px]', 'flex', 'flex-col');
 
   TaikoStatusModalStore.subscribe(async (open) => {
     if (open) {
       await loadTaikoStatus();
-      modal?.showModal();
-    } else {
-      modal?.close();
     }
   });
 
@@ -52,7 +64,15 @@
     nextStatus = next;
   }
 
-  const buttonWrapperClasses = classNames('w-full', 'px-[24px]', 'py-[40px]', 'flex', 'justify-end');
+  const buttonWrapperClasses = classNames(
+    'w-full',
+    'py-[40px]',
+    'md:col-span-2',
+    'h-max',
+    'px-[24px]',
+    'flex',
+    'justify-end',
+  );
 
   const statusProgressWrapperClasses = classNames(
     'w-full',
@@ -116,8 +136,8 @@
   const infoPanelValueLabelClasses = classNames('font-[700]', 'text-grey-500', 'text-[16px]/[24px]');
 </script>
 
-<dialog bind:this={modal} class={modalClasses}>
-  {#if currentStatus && nextStatus}
+{#if $TaikoStatusModalStore && currentStatus && nextStatus}
+  <div transition:fade class={modalClasses}>
     <div class={modalContentWrapperClasses}>
       <div class={modalTitleClasses}>
         <span>What's next?</span>
@@ -173,16 +193,17 @@
               </div>
             </div>
           </div>
+
+          <div class={buttonWrapperClasses}>
+            <ActionButton
+              withArrow
+              class="md:max-w-[300px] font-[500]"
+              href="https://taiko.mirror.xyz/vXGo-HofGENNl3J9ObyGponpAoIqAtNyQG_cKKlHeC4"
+              target="_blank"
+              priority="primary">Taiko Status</ActionButton>
+          </div>
         </div>
       </div>
-
-      <div class={buttonWrapperClasses}>
-        <ActionButton
-          withArrow
-          class="md:max-w-[300px]"
-          href="https://taiko.mirror.xyz/vXGo-HofGENNl3J9ObyGponpAoIqAtNyQG_cKKlHeC4"
-          target="_blank"
-          priority="primary">How to earn more points</ActionButton>
-      </div>
-    </div>{/if}
-</dialog>
+    </div>
+  </div>
+{/if}

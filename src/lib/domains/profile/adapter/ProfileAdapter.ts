@@ -127,13 +127,12 @@ export class ProfileApiAdapter {
 
       log('getProfilePicture graphql result', { result });
 
-      if (!result.data.profilePicture) {
+      if (!result || !result.data || !result.data.account || !result.data.account.profilePicture) {
         log(`No profile picture found for address: ${checksummedAddress}`);
         profilePictureCache.setSingle(checksummedAddress, null);
         return null;
       }
-
-      const { tokenURI, tokenAddress, tokenId } = result.data.profilePicture;
+      const { tokenURI, tokenAddress, tokenId } = result.data.account.profilePicture;
 
       const pfp: NFT = {
         address: tokenAddress,
