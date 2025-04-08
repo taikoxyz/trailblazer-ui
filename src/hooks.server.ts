@@ -1,6 +1,7 @@
 import { type Handle } from '@sveltejs/kit';
 
 import { PUBLIC_BYPASS_GEOBLOCK } from '$env/static/public';
+import { setupI18n } from '$i18n/index';
 
 const bannedCountries: Record<string, string> = {
   AF: 'Afghanistan',
@@ -83,6 +84,8 @@ const allowedUserAgents = [
 const bannedCountryCodes = Object.keys(bannedCountries);
 
 export const handle: Handle = async ({ event, resolve }) => {
+  await setupI18n();
+
   const country = event.request.headers.get('x-vercel-ip-country') ?? '';
   const userAgent = event.request.headers.get('user-agent') ?? '';
   const isDev = event.url.hostname === 'localhost' || event.url.port === '5173';

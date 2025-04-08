@@ -1,5 +1,3 @@
-// Contains the individual edition details for the Liquidity Royale competition
-
 import { LiquidityCompetitionType } from '$lib/domains/leaderboard/types/competition/types';
 
 export type EditionDetails = {
