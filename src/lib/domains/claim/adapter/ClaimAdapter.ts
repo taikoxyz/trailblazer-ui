@@ -73,11 +73,15 @@ export class ClaimAdapter {
     log('Preflight for %s in season %s', address, season);
 
     const client = getAxiosInstance(season);
-    const res = await client.get<PreflightDTO>('/claim/proof', {
-      params: {
-        address: address,
+    const res = await client.get<PreflightDTO>(
+      //'/claim/proof',
+      'https://trailblazer.qa.taiko.xyz/s3/claim/proof',
+      {
+        params: {
+          address: address,
+        },
       },
-    });
+    );
     log('Preflight response', res.data);
     return res.data;
   }

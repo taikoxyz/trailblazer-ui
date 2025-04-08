@@ -13,14 +13,14 @@
   );
 
   const titleClasses = classNames('font-clash-grotesk', 'text-[35px]/[42px]', 'font-[500]', 'mb-[16px]', 'text-center');
-  const textClasses = classNames('text-[16px]/[24px]', 'text-center', 'text-[#ADB1B8]');
+  const textClasses = classNames('text-[16px]/[24px]', 'text-center', 'text-grey-200');
   const bottomTextClasses = classNames(
     textClasses,
     'w-full',
     '!text-left',
     'border-t',
     'pt-[24px]',
-    'border-[#444A55]',
+    'border-grey-600',
     'mt-[180px]',
     'md:block',
     'hidden',

@@ -364,7 +364,7 @@
         "title": "Timeout"
       },
       "ineligible": {
-        "text": "You’re not eligible to claim tokens this time, but don’t worry! Season 3 is here—join now for your chance to earn rewards this season.<br/><br/> Read more about our token distribution and eligibility <a target=\"_blank\" href=\"{blogUrl}\" class=\"link\"> here</a>.",
+        "text": "You’re not eligible to claim tokens this time, but don’t worry! Season {seasonNumber} is here—join now for your chance to earn rewards this season.<br/><br/> Read more about our token distribution and eligibility <a target=\"_blank\" href=\"{blogUrl}\" class=\"link\"> here</a>.",
         "title": "Sorry, you’re not eligible"
       },
       "not_eligible": {
@@ -376,9 +376,9 @@
         "title": "Are you ready to claim your tokens?"
       },
       "start": {
-        "button": "Review",
+        "button": "Review amount",
         "text": "Click on review below to check your eligibility and claim your rewards.",
-        "title": "Season 2 claiming is now live!"
+        "title": "Season 3 claiming is now live!"
       },
       "success": {
         "buttons": ["Add to wallet", "Earn more TAIKO"],
