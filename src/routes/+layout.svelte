@@ -5,6 +5,8 @@
   import { onDestroy, onMount } from 'svelte';
 
   import { browser } from '$app/environment';
+  import { setupI18n } from '$i18n/index';
+  import LoadingBlobby from '$lib/domains/profile/components/LoadingBlobby.svelte';
   import { startWatching, stopWatching } from '$lib/shared/wagmi';
   // import { AccountConnectionToast } from '$shared/components/AccountConnectionToast';
   import { Footer } from '$shared/components/Footer';
@@ -20,6 +22,13 @@
     mobileQuery,
     tabletQuery,
   } from '$shared/utils/responsiveCheck';
+
+  // Ensure i18n is initialized before rendering the layout
+  let i18nReady = false;
+  onMount(async () => {
+    await setupI18n();
+    i18nReady = true;
+  });
 
   const syncPointer = ({ x, y }: { x: number; y: number }) => {
     if (browser) {
@@ -65,18 +74,22 @@
   let showRibbon = false;
 </script>
 
-{#if showRibbon}
-  <Ribbon />
+{#if i18nReady}
+  {#if showRibbon}
+    <Ribbon />
+  {/if}
+
+  <!-- Main content with dynamic margin-top -->
+  <div class={`relative ${showRibbon ? 'mt-[60px]' : 'mt-0'}`}>
+    <Header ribbonActive={showRibbon} />
+    <slot />
+    <Footer />
+  </div>
+
+  <!-- Global UI Components -->
+  <NotificationToast />
+  <SwitchChainModal />
+  <BlacklistModal />
+{:else}
+  <LoadingBlobby />
 {/if}
-
-<!-- Main content with dynamic margin-top -->
-<div class={`relative ${showRibbon ? 'mt-[60px]' : 'mt-0'}`}>
-  <Header ribbonActive={showRibbon} />
-  <slot />
-  <Footer />
-</div>
-
-<!-- Global UI Components -->
-<NotificationToast />
-<SwitchChainModal />
-<BlacklistModal />

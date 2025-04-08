@@ -13,7 +13,7 @@
   import { isMobile } from '$shared/utils/responsiveCheck';
 
   import type { CompetitionInfo } from '../../../types';
-  import { thrillblazerDetails } from '../thrillblazerDetails';
+  import { getThrillblazerDetails } from '../thrillblazerDetails';
 
   const loadLeaderboardData = getContext<LoadLeaderboardDataType>('loadCompetitionLeaderboardData');
   const pageInfo = getContext<PaginationInfo<DappLeaderboardItem>>('dappsCompetitionPageInfo');
@@ -25,9 +25,15 @@
   export let lastUpdated: Date;
 
   let selectedCompetitionInfo = null as CompetitionInfo | null;
+
   $: {
-    selectedCompetitionInfo = thrillblazerDetails[edition];
+    (async () => {
+      const details = await getThrillblazerDetails();
+      if (!details) return;
+      selectedCompetitionInfo = details[edition];
+    })();
   }
+
   const wrapperClasses = classNames(
     'flex',
     'flex-col',

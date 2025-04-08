@@ -22,6 +22,7 @@ const config = {
       // new below
       $domain: './src/domain/*',
       '$lib/*': './src/lib/*',
+      $i18n: './src/i18n/*',
     },
   },
 };
