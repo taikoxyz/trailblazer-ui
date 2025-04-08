@@ -170,6 +170,7 @@
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           message: (e as any).shortMessage || 'An error occurred while claiming.',
         });
+        pendingTransactions.set([]);
       } finally {
         isLoading.set(false);
       }
