@@ -13,7 +13,11 @@ import type {
 } from '$lib/domains/profile/dto/profile.dto';
 import { getAxiosInstance, globalAxiosConfig } from '$lib/shared/services/api/axiosClient';
 import { pfpSubgraphClient } from '$lib/shared/services/graphql/client';
-import { USER_PROFILE_PICTURE_QUERY, USER_PROFILE_PICTURES_QUERY } from '$lib/shared/services/graphql/queries';
+import {
+  USER_POSSIBLE_PROFILE_PICTURES_QUERY,
+  USER_PROFILE_PICTURE_BULK_QUERY,
+  USER_PROFILE_PICTURE_QUERY,
+} from '$lib/shared/services/graphql/queries';
 import { pendingTransactions } from '$lib/shared/stores/pendingTransactions';
 import type { NFT } from '$lib/shared/types/NFT';
 import { chainId } from '$lib/shared/utils/chain';
@@ -176,7 +180,7 @@ export class ProfileApiAdapter {
     if (addressesToFetch.length > 0) {
       try {
         const result = await pfpSubgraphClient.query({
-          query: USER_PROFILE_PICTURES_QUERY,
+          query: USER_PROFILE_PICTURE_BULK_QUERY,
           variables: { addresses: addressesToFetch },
         });
 
@@ -244,6 +248,31 @@ export class ProfileApiAdapter {
       params: { address },
     });
     return response.data;
+  }
+
+  async getPossibleProfilePictures(address: Address): Promise<NFT[]> {
+    const result = await pfpSubgraphClient.query({
+      query: USER_POSSIBLE_PROFILE_PICTURES_QUERY,
+      variables: { address: address },
+    });
+
+    if (!result || !result.data || !result.data.account || !result.data.account.tokens) {
+      throw new Error(`Invalid response from GraphQL query: ${JSON.stringify(result)}`);
+    }
+    const { tokens } = result.data.account;
+
+    const candidates: NFT[] = [];
+
+    for (const token of tokens) {
+      const { tokenURI, tokenAddress, tokenId } = token;
+      candidates.push({
+        address: tokenAddress,
+        tokenId: tokenId,
+        metadata: { image: '' },
+        tokenUri: tokenURI,
+      });
+    }
+    return candidates;
   }
 }
 
