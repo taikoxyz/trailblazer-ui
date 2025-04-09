@@ -364,7 +364,7 @@
         "title": "Timeout"
       },
       "ineligible": {
-        "text": "You’re not eligible to claim tokens this time, but don’t worry! Season {seasonNumber} is here—join now for your chance to earn rewards this season.<br/><br/> Read more about our token distribution and eligibility <a target=\"_blank\" href=\"{blogUrl}\" class=\"link\"> here</a>.",
+        "text": "You’re not eligible to claim tokens this time, but don’t worry! Season {seasonNumber} is here—join now for your chance to earn rewards this season.",
         "title": "Sorry, you’re not eligible"
       },
       "not_eligible": {
