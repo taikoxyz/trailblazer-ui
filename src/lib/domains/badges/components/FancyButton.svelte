@@ -14,7 +14,7 @@
     'rounded-full',
     'py-[16px]',
     'font-[700]',
-    'text-[#F3F3F3]',
+    'text-grey-10',
     'text-[16px]/[24px]',
     'relative',
     'flex',

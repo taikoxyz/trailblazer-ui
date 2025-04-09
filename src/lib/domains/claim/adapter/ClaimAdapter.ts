@@ -4,6 +4,7 @@ import { type Address, type Hash, parseEther } from 'viem';
 import { erc20AirdropAbi, erc20AirdropAddress, erc20TaikoTokenAddress } from '$generated/abi';
 import { getAxiosInstance } from '$shared/services/api/axiosClient';
 import { chainId } from '$shared/utils/chain';
+import { isDevelopmentEnv } from '$shared/utils/isDevelopmentEnv';
 import { getLogger } from '$shared/utils/logger';
 import { wagmiConfig } from '$shared/wagmi';
 
@@ -73,7 +74,10 @@ export class ClaimAdapter {
     log('Preflight for %s in season %s', address, season);
 
     const client = getAxiosInstance(season);
-    const res = await client.get<PreflightDTO>('/claim/proof', {
+    const endpoint = isDevelopmentEnv
+      ? 'https://trailblazer.qa.taiko.xyz/s3/claim/proof'
+      : 'https://trailblazer.mainnet.taiko.xyz/s3/claim/proof';
+    const res = await client.get<PreflightDTO>(endpoint, {
       params: {
         address: address,
       },

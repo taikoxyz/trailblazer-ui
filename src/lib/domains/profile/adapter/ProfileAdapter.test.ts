@@ -158,11 +158,13 @@ describe('ProfileApiAdapter', () => {
     it('should fetch the profile picture for a user', async () => {
       vi.mocked(pfpSubgraphClient.query).mockResolvedValue(
         createMockQueryResult({
-          profilePicture: {
-            id: mockAddress,
-            tokenAddress: mockNFT.address,
-            tokenId: mockNFT.tokenId,
-            tokenURI: mockNFT.tokenUri,
+          account: {
+            profilePicture: {
+              id: mockAddress,
+              tokenAddress: mockNFT.address,
+              tokenId: mockNFT.tokenId,
+              tokenURI: mockNFT.tokenUri,
+            },
           },
         }),
       );
