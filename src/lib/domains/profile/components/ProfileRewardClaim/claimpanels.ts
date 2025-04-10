@@ -32,7 +32,7 @@ export const getPanels = (): Record<ClaimStates, ClaimPanelType> => ({
     text: get(t)('claim.panels.ineligible.text', {
       values: {
         seasonNumber: PUBLIC_ACTIVE_SEASON,
-        // blogUrl: 'https://taiko.mirror.xyz/naE5ZNssGzw_FVs_-r2Eqd3DquRkx1dQ5Cg5kUswwns',
+        blogUrl: 'https://taiko.mirror.xyz/naE5ZNssGzw_FVs_-r2Eqd3DquRkx1dQ5Cg5kUswwns',
       },
     }),
     state: ClaimStates.INELIGIBLE,
