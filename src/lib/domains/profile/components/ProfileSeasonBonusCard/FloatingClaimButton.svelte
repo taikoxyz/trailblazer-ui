@@ -14,7 +14,7 @@
   import { claimModal } from '../../stores';
   import { EventIds } from '../../types/EventIds';
 
-  const wrapperClasses = classNames(
+  const wrapperActiveClasses = classNames(
     'bg-grey-700',
     'fixed',
     'bottom-[30px]',
@@ -29,6 +29,22 @@
     'p-[4px]',
     'pl-[16px]',
     'gap-[40px]',
+  );
+  const wrapperNotActiveClasses = classNames(
+    'bg-grey-700',
+    'fixed',
+    'bottom-[30px]',
+    'right-[30px]',
+    'flex',
+    'justify-center',
+    'items-center',
+    'rounded-full',
+    'shadow-[0px_0px_30px_0px_#FFC6E933]',
+    'border',
+    'border-grey-600',
+    'p-[12px]',
+    'pl-[16px]',
+    'pr-[16px]',
   );
 
   const labelClasses = classNames('text-grey-10', 'font-[700]', 'text-[16px]/[24px]', 'flex');
@@ -58,16 +74,21 @@
 </script>
 
 {#if visible}
-  <div style="z-index:100;" class={wrapperClasses}>
-    <div class={labelClasses}>
-      <img class={iconClasses} src="/news/flame.svg" alt="Flame" />
-      {#if claimActive}
+  {#if claimActive}
+    <div style="z-index:100;" class={wrapperActiveClasses}>
+      <div class={labelClasses}>
+        <img class={iconClasses} src="/news/flame.svg" alt="Flame" />
         {$t('claim.modal.float_cta_open')}
-      {:else}
-        {$t('claim.modal.float_cta_closed')}
-      {/if}
+      </div>
+      <ActionButton onPopup disabled={!claimActive} on:click={() => claimModal.set(true)} priority="primary"
+        >Claim Now</ActionButton>
     </div>
-    <ActionButton onPopup disabled={!claimActive} on:click={() => claimModal.set(true)} priority="primary"
-      >Claim Now</ActionButton>
-  </div>
+  {:else}
+    <div style="z-index:100;" class={wrapperNotActiveClasses}>
+      <div class={labelClasses}>
+        <img class={iconClasses} src="/news/flame.svg" alt="Flame" />
+        {$t('claim.modal.float_cta_closed')}
+      </div>
+    </div>
+  {/if}
 {/if}
