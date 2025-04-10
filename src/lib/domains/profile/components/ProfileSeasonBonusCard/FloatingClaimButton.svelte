@@ -80,7 +80,8 @@
         <img class={iconClasses} src="/news/flame.svg" alt="Flame" />
         {$t('claim.modal.float_cta_open')}
       </div>
-      <ActionButton onPopup disabled={!claimActive} on:click={() => claimModal.set(true)} priority="primary">Claim Now</ActionButton>
+      <ActionButton onPopup disabled={!claimActive} on:click={() => claimModal.set(true)} priority="primary"
+        >Claim Now</ActionButton>
     </div>
   {:else}
     <div style="z-index:100;" class={wrapperNotActiveClasses}>
