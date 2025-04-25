@@ -3,7 +3,6 @@
   import { t } from 'svelte-i18n';
   import { type Address, isAddressEqual, zeroAddress } from 'viem';
 
-  import { browser } from '$app/environment';
   import { PUBLIC_SEASON_BONUS_CLAIM_ACTIVE } from '$env/static/public';
   import ActionButton from '$shared/components/Button/ActionButton.svelte';
   import { activeSeason } from '$shared/stores/activeSeason';
@@ -14,7 +13,7 @@
   import { claimModal } from '../../stores';
   import { EventIds } from '../../types/EventIds';
 
-  const wrapperClasses = classNames(
+  const wrapperActiveClasses = classNames(
     'bg-grey-700',
     'fixed',
     'bottom-[30px]',
@@ -35,39 +34,45 @@
 
   const iconClasses = classNames('w-[24px]', 'h-[24px]');
 
-  $: visible = false;
-  function load() {
-    const connectedAddress = getConnectedAddress();
-    if (!browser || !connectedAddress || connectedAddress === zeroAddress) {
-      return;
-    }
+  const checkButton = async () => {
     const urlAddress = window.location.pathname.split('/')[2];
-    visible = isAddressEqual(connectedAddress, urlAddress as Address);
-  }
-
-  $: getConnectedAddress() && load();
-  $: claimActive = false;
-
-  $: bonusClaimActive = PUBLIC_SEASON_BONUS_CLAIM_ACTIVE === 'true';
-  onMount(async () => {
-    const address = getConnectedAddress();
-    if (address && address !== zeroAddress && $activeSeason && bonusClaimActive) {
-      claimActive = await profileService.checkRegistrationOpen(EventIds.SEASON2);
+    const connectedAddress = getConnectedAddress();
+    if (
+      connectedAddress &&
+      connectedAddress !== zeroAddress &&
+      $activeSeason &&
+      PUBLIC_SEASON_BONUS_CLAIM_ACTIVE === 'true' &&
+      isAddressEqual(connectedAddress, urlAddress as Address)
+    ) {
+      // button is visible if connected address is the same as the visited profile and env is set to true
+      isButtonVisible = true;
+      const claimActive = await profileService.checkRegistrationOpen(EventIds.SEASON2);
+      // button is active if the claim is open on contract side
+      isClaimActive = claimActive;
     }
+  };
+
+  $: getConnectedAddress() && checkButton();
+  $: isButtonVisible = false;
+  $: isClaimActive = false;
+
+  onMount(async () => {
+    await checkButton();
   });
 </script>
 
-{#if visible}
-  <div style="z-index:100;" class={wrapperClasses}>
+{#if isButtonVisible}
+  <div style="z-index:100;" class={wrapperActiveClasses}>
     <div class={labelClasses}>
       <img class={iconClasses} src="/news/flame.svg" alt="Flame" />
-      {#if claimActive}
+      {#if isClaimActive}
         {$t('claim.modal.float_cta_open')}
       {:else}
         {$t('claim.modal.float_cta_closed')}
       {/if}
     </div>
-    <ActionButton onPopup disabled={!claimActive} on:click={() => claimModal.set(true)} priority="primary"
-      >Claim Now</ActionButton>
+    <ActionButton onPopup disabled={!isClaimActive} on:click={() => claimModal.set(true)} priority="primary">
+      Claim now
+    </ActionButton>
   </div>
 {/if}
