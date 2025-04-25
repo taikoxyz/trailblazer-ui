@@ -23,7 +23,7 @@
 
   $: reactiveEdition = edition;
 
-  const currentEdition: number = 4;
+  const currentEdition: number = 5;
 
   $: totalItems = pageInfo?.total || 0;
   $: hasEnded = reactiveEdition !== currentEdition;
@@ -70,8 +70,8 @@
       ended={hasEnded}
       qualifyingPositions={thrillblazerDetails[edition].qualifyingPositions}
       endedComponent={CampaignEndedInfoBox}
-      endTitleText={$t(`leaderboard.thrillblazers.${edition}.ended.title`)}
-      endDescriptionText={$t(`leaderboard.thrillblazers.${edition}.ended.description`)}
+      endTitleText={$t(`leaderboard.thrillblazers.edition${edition}.ended.title`)}
+      endDescriptionText={$t(`leaderboard.thrillblazers.edition${edition}.ended.description`)}
       showPagination={true}
       headerComponent={Header}
       scoreComponent={PointScore} />
