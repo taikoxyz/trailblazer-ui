@@ -815,29 +815,6 @@
         "text": ""
       }
     },
-    "thrillblazer": {
-      "ended": {
-        "description": "",
-        "title": ""
-      },
-      "prize_breakdown": {
-        "fifth": {
-          "amount": ""
-        },
-        "first": {
-          "amount": ""
-        },
-        "fourth": {
-          "amount": ""
-        },
-        "second": {
-          "amount": ""
-        },
-        "third": {
-          "amount": ""
-        }
-      }
-    },
     "thrillblazers": {
       "edition1": {
         "description": "Thrill-Blazer launches Oct 18th. Calling all gaming and SocialFi dApps: Blaze new trails, fuel Taiko's momentum, and seize your chance for legendary rewards!",
@@ -914,7 +891,38 @@
       "edition4": {
         "description": "Blaze new trails, fuel Taiko's momentum, and seize your chance for legendary rewards!",
         "ended": {
-          "description": "Our journey concluded on June 16th, 2025. Congratulations to the winners!",
+          "description": "Our journey concluded on April 18th, 2025. Congratulations to the winners!",
+          "title": "Journey ended"
+        },
+        "prize_breakdown": {
+          "fifth": {
+            "amount": "15k"
+          },
+          "first": {
+            "amount": "45k"
+          },
+          "fourth": {
+            "amount": "20k"
+          },
+          "second": {
+            "amount": "30k"
+          },
+          "seventh": {
+            "amount": "5k"
+          },
+          "sixth": {
+            "amount": "10k"
+          },
+          "third": {
+            "amount": "25k"
+          },
+          "total": "150k TAIKO Tokens"
+        }
+      },
+      "edition5": {
+        "description": "Blaze new trails, fuel Taiko's momentum, and seize your chance for legendary rewards!",
+        "ended": {
+          "description": "Our journey concluded on May 18th, 2025. Congratulations to the winners!",
           "title": "Journey ended"
         },
         "prize_breakdown": {

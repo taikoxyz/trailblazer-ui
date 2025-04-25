@@ -1,13 +1,15 @@
 <script lang="ts">
-  import { getContext } from 'svelte';
+  import { getContext, onMount } from 'svelte';
   import { t } from 'svelte-i18n';
 
+  import { browser } from '$app/environment';
   import { LastUpdated } from '$lib/domains/leaderboard/components';
   import Search from '$lib/domains/leaderboard/components/Search.svelte';
   import type { DappLeaderboardItem } from '$lib/domains/leaderboard/dto/dapps.dto';
   import { competitionSlug } from '$lib/domains/leaderboard/stores/dappCompetitionStore';
   import type { LoadLeaderboardDataType } from '$lib/domains/leaderboard/types/shared/types';
   import type { PaginationInfo } from '$shared/dto/CommonPageApiResponse';
+  import { activeSeason } from '$shared/stores/activeSeason';
   import { classNames } from '$shared/utils/classNames';
   import { numberToRoman } from '$shared/utils/numberToRoman';
   import { isMobile } from '$shared/utils/responsiveCheck';
@@ -115,9 +117,6 @@
   const lastUpdatedClasses = classNames('mt-[30px]', 'mb-[40px]', 'md:my-[20px]', 'lg:my-[10px]', 'lg:order-1');
 
   const searchClasses = classNames('w-full', 'lg:w-[400px]', 'lg:order-1', 'order-last', 'z-0', 'ml-[3px]');
-
-  $: description = $t(`leaderboard.thrillblazers.edition${edition}.description`);
-  $: edition = parseInt($competitionSlug);
 
   const editionClasses = classNames(
     'uppercase',
@@ -248,6 +247,18 @@
   );
 
   const backgroundClasses = classNames('z-0', 'top-0', 'absolute', 'w-full', 'h-full', 'bg-fit');
+
+  let thrillblazerDetails: Record<number, CompetitionInfo> | null = null;
+
+  $: description = thrillblazerDetails ? thrillblazerDetails[edition]?.description : '';
+  $: edition = parseInt($competitionSlug);
+
+  onMount(async () => {
+    thrillblazerDetails = await getThrillblazerDetails();
+    if (browser && $activeSeason && pageInfo && thrillblazerDetails) {
+      loadLeaderboardData(pageInfo.page);
+    }
+  });
 </script>
 
 <div class={wrapperClasses}>
