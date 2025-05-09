@@ -1,4 +1,5 @@
-export function truncateDecimal(num: number, decimalPlaces: number) {
+export function truncateDecimal(num: number, decimalPlaces: number): number {
   const factor = 10 ** decimalPlaces;
-  return Math.floor(num * factor) / factor;
+  const truncated = Math.round(num * factor) / factor;
+  return truncated;
 }
