@@ -24,7 +24,7 @@ export function GET({ url }) {
     items: [
       {
         address: address,
-        points: 2000,
+        points: 4206.9,
         event: eventToActivityTypeMap['PfpRegister'],
         date: 1721642099,
         multiplier: 1,
@@ -37,6 +37,13 @@ export function GET({ url }) {
         date: 1721642099,
         multiplier: 1,
         tx_hash: '0x1234567890abcdef',
+      },
+      {
+        address: address,
+        points: 50_000,
+        event: ActivityType.LOOPRING_DEPOSIT,
+        date: 1721642099,
+        multiplier: 1,
       },
       {
         address: address,

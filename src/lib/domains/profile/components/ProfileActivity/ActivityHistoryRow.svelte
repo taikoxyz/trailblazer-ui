@@ -57,6 +57,9 @@
     {:else if eventToActivityTypeMap[historyEntry?.event] === ActivityType.DORAHACKS_VOTE}
       <ActivityIcon type="double-diamond" />
       <span class={eventClasses}>{$t('leaderboard.user.event.dora_hacks')}</span>
+    {:else if eventToActivityTypeMap[historyEntry?.event] === ActivityType.LOOPRING_DEPOSIT}
+      <ActivityIcon type="double-diamond" />
+      <span class={eventClasses}>{$t('leaderboard.user.event.loopring_deposit')}</span>
     {:else if eventToActivityTypeMap[historyEntry?.event] === ActivityType.AVALON_CLAIM}
       <ActivityIcon type="double-diamond" />
       <span class={eventClasses}>{$t('leaderboard.user.event.avalon_claim')}</span>
