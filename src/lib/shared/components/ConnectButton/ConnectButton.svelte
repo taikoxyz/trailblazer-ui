@@ -1,4 +1,5 @@
 <script lang="ts">
+  import type { PublicStateControllerState } from '@reown/appkit/core';
   import { onDestroy, onMount } from 'svelte';
   import { t } from 'svelte-i18n';
 
@@ -21,8 +22,9 @@
     web3modal.open();
   }
 
-  function onWeb3Modal(state: { open: boolean }) {
-    web3modalOpen = state.open;
+  function onWeb3Modal(state: PublicStateControllerState) {
+    const typedState = state;
+    web3modalOpen = typedState.open;
   }
 
   $: currentChainId = $connectedSourceChain?.id;

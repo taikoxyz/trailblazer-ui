@@ -1,8 +1,26 @@
-import { createWeb3Modal } from '@web3modal/wagmi';
+import { createAppKit } from '@reown/appkit';
 
 import { PUBLIC_WALLETCONNECT_PROJECT_ID } from '$env/static/public';
-import { wagmiConfig } from '$shared/wagmi/client';
+import { chains } from '$lib/shared/utils/chain';
+import { wagmiAdapter } from '$shared/wagmi/client';
 
-const projectId = PUBLIC_WALLETCONNECT_PROJECT_ID;
+const metadata = {
+  name: 'Taiko Trailblazer',
+  description: 'Taiko Trailblazer',
+  url: 'https://trailblazers.taiko.xyz/',
+  icons: ['https://avatars.githubusercontent.com/u/99078433'],
+};
 
-export const web3modal = createWeb3Modal({ wagmiConfig, projectId });
+export const web3modal = createAppKit({
+  adapters: [wagmiAdapter],
+  networks: chains,
+  metadata: metadata,
+  chainImages: {
+    167000: '/chains/taiko.svg',
+    167009: '/chains/taiko.svg',
+  },
+  projectId: PUBLIC_WALLETCONNECT_PROJECT_ID,
+  features: {
+    analytics: true,
+  },
+});
