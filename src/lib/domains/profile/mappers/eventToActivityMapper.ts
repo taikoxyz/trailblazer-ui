@@ -11,4 +11,5 @@ export const eventToActivityTypeMap: Record<string, ActivityType> = {
   AvalonClaim: ActivityType.AVALON_CLAIM,
   FrozenBonus: ActivityType.MONK_COMPENSATION,
   PfpRegister: ActivityType.PFP_BONUS,
+  LoopringDeposit: ActivityType.LOOPRING_DEPOSIT,
 };

@@ -35,4 +35,5 @@ export enum ActivityType {
   AVALON_CLAIM = 'AvalonClaim',
   MONK_COMPENSATION = 'FrozenBonus',
   PFP_BONUS = 'PfpRegister',
+  LOOPRING_DEPOSIT = 'LoopringDeposit',
 }

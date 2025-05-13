@@ -815,6 +815,29 @@
         "text": ""
       }
     },
+    "thrillblazer": {
+      "ended": {
+        "description": "",
+        "title": ""
+      },
+      "prize_breakdown": {
+        "fifth": {
+          "amount": ""
+        },
+        "first": {
+          "amount": ""
+        },
+        "fourth": {
+          "amount": ""
+        },
+        "second": {
+          "amount": ""
+        },
+        "third": {
+          "amount": ""
+        }
+      }
+    },
     "thrillblazers": {
       "edition1": {
         "description": "Thrill-Blazer launches Oct 18th. Calling all gaming and SocialFi dApps: Blaze new trails, fuel Taiko's momentum, and seize your chance for legendary rewards!",
@@ -979,6 +1002,7 @@
         "bridged": "Bridged",
         "compensation": "Compensation",
         "dora_hacks": "DoraHacks Vote",
+        "loopring_deposit": "Loopring Deposit",
         "pfp_bonus": "PFP Bonus",
         "prediction": "Prediction",
         "transaction": "Transaction",
