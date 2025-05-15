@@ -3,16 +3,15 @@
   import { json, t } from 'svelte-i18n';
 
   import { goto } from '$app/navigation';
+  import { FaqBlock } from '$lib/domains/splashpage/components/FaqBlock';
+  import type { IFaqEntry } from '$lib/domains/splashpage/components/FaqBlock/FaqBlock.svelte';
   import ActionButton from '$shared/components/Button/ActionButton.svelte';
   import ContentBox from '$shared/components/ContentBox/ContentBox.svelte';
   import Note from '$shared/components/Note/Note.svelte';
   import { classNames } from '$shared/utils/classNames';
   import getConnectedAddress from '$shared/utils/getConnectedAddress';
 
-  import { FaqBlock } from '../../FaqBlock';
-  import type { IFaqEntry } from '../../FaqBlock/FaqBlock.svelte';
-  import Multipliers from './Multipliers.svelte';
-  import Teams from './Teams.svelte';
+  import BasedLiners from '../BasedLiners/BasedLiners.svelte';
 
   let faqElement: HTMLElement;
 
@@ -104,6 +103,8 @@
     </div>
   </div>
 
+  <BasedLiners />
+
   <ActionButton class={ctaClasses} priority="primary" href="/profile">
     {$t('pages.badge_recruitment.buttons.start')}
   </ActionButton>
@@ -133,9 +134,6 @@
     </p>
   </ContentBox>
 
-  <!-- Teams Carousel -->
-  <Teams />
-
   <!-- Teams description -->
   <ContentBox title={$t('pages.badge_recruitment.teams.title')}>
     <div>
@@ -160,9 +158,6 @@
       {$t('pages.badge_recruitment.teams.note')}
     </Note>
   </ContentBox>
-
-  <!-- Multipliers -->
-  <Multipliers />
 
   <!-- Get more badges -->
   <ContentBox title={$t('pages.badge_recruitment.ways_to_get.title')}>

@@ -12,7 +12,12 @@ export interface NavigationItem {
 export const routes: NavigationItem[] = [
   {
     name: 'Leaderboards',
-    children: [{ name: 'Users', route: '/leaderboard/s4/user', icon: 'double-user' }],
+    children: [
+      { name: 'Users', route: '/leaderboard/s4/user', icon: 'double-user' },
+      { name: 'Liquidity Royale', route: '/leaderboard/liquidity/3', icon: 'nav-liquidity' },
+      { name: 'Thrillblazers V', route: '/leaderboard/thrillblazers/5', icon: 'nav-cross' },
+      { name: 'Thrillblazers IV', route: '/leaderboard/thrillblazers/4', icon: 'nav-cross' },
+    ],
   },
   {
     name: 'Discover',
@@ -27,10 +32,8 @@ export const routes: NavigationItem[] = [
     name: 'Journeys',
     flamboyant: true,
     children: [
-      { name: 'Thrillblazers V', route: '/journeys/thrillblazers/5', icon: 'nav-cross' },
-      { name: 'Thrillblazers IV', route: '/journeys/thrillblazers/4', icon: 'nav-cross' },
-      { name: 'Liquidity Royale', route: '/journeys/liquidity/3', icon: 'nav-liquidity' },
-      { name: 'Badges', route: '/badge', icon: 'badge-migration' },
+      { name: 'Preconfs', route: '/journeys/preconfs', icon: 'nav-liquidity' },
+      { name: 'Badges', route: '/journeys/badge', icon: 'badge-migration' },
     ],
   },
   {

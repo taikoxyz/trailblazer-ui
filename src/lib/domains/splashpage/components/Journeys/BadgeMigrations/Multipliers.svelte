@@ -1,6 +1,6 @@
 <script lang="ts">
-  import ContentBox from './ContentBox.svelte';
-  import Note from './Note.svelte';
+  import ContentBox from '$shared/components/ContentBox/ContentBox.svelte';
+  import Note from '$shared/components/Note/Note.svelte';
 
   const multipliers = [
     {

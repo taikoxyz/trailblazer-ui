@@ -5,9 +5,7 @@
   import LogoWithText from '$shared/components/Logo/LogoWithText.svelte';
   import { MobileNavigation } from '$shared/components/Navigation/MobileNavigation';
   import Navigation from '$shared/components/Navigation/Navigation.svelte';
-  import { activeSeason } from '$shared/stores/activeSeason';
   import { classNames } from '$shared/utils/classNames';
-  import { isDevelopmentEnv } from '$shared/utils/isDevelopmentEnv';
 
   let isMenuOpen = false;
   export let ribbonActive = false;
@@ -59,35 +57,8 @@
   const mobileLogoClasses = classNames('md:hidden');
   const desktopLogoClasses = classNames('hidden', 'md:flex', 'h-[25px]', 'w-[90px]');
   const trailblazersLogoClasses = classNames('max-w-[125px]', 'pb-[2px]', 'max-h-[25px]', 'min-h-[25px]');
-  function handleSeasonChange(event: Event) {
-    const select = event.target as HTMLSelectElement;
-    const selectedValue = parseInt(select.value, 10);
-
-    if (!isNaN(selectedValue)) {
-      activeSeason.set(selectedValue);
-    } else {
-      console.error(`Invalid season selected: ${select.value}`);
-    }
-  }
 </script>
 
-{#if isDevelopmentEnv}
-  <div class="f-col justify-center text-lg text-primary-brand items-center z-[100] fixed right-[50%] mt-[50px]">
-    <label class="form-control w-full max-w-xs">
-      <div class="label">
-        <span class="label-text">Select season</span>
-        <span class="label-text-alt">Active: {$activeSeason}</span>
-      </div>
-      <select class="select select-bordered w-full max-w-xs" on:change={handleSeasonChange} value={$activeSeason}>
-        <option disabled>Select season</option>
-        <option value="1">Season 1</option>
-        <option value="2">Season 2</option>
-        <option value="3">Season 3</option>
-        <option value="4">Season 4</option>
-      </select>
-    </label>
-  </div>
-{/if}
 <div class={wrapperClasses}>
   <div class={containerClasses}>
     <div class={headerClasses}>
