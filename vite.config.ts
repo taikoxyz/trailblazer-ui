@@ -24,6 +24,9 @@ export default defineConfig({
   esbuild: {
     sourcemap: true,
   },
+  ssr: {
+    noExternal: ['@reown/appkit'],
+  },
   plugins: [
     qrcode(),
     sveltekit(), // This plugin gives vite the ability to resolve imports using TypeScript's path mapping.
