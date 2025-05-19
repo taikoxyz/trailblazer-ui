@@ -25,7 +25,7 @@ export default defineConfig({
     sourcemap: true,
   },
   ssr: {
-    noExternal: ['@reown/appkit'],
+    noExternal: ['@reown/appkit', 'viem'],
   },
   plugins: [
     qrcode(),
