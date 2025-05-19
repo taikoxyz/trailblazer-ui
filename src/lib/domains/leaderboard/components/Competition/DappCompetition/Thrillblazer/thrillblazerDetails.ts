@@ -167,6 +167,43 @@ const thrillblazerDetailsPromise = (async () => {
       ],
       qualifyingPositions: 7,
     },
+    6: {
+      title: '',
+      description: get(t)('leaderboard.thrillblazers.edition5.description'),
+      prizeTitle: get(t)('leaderboard.gaming.prize.1'),
+      prizeSubtitle: '',
+      prizes: [
+        {
+          image: '/thrillblazers/prize/first.svg',
+          amount: get(t)('leaderboard.thrillblazers.edition5.prize_breakdown.first.amount'),
+        },
+        {
+          image: '/thrillblazers/prize/second.svg',
+          amount: get(t)('leaderboard.thrillblazers.edition5.prize_breakdown.second.amount'),
+        },
+        {
+          image: '/thrillblazers/prize/third.svg',
+          amount: get(t)('leaderboard.thrillblazers.edition5.prize_breakdown.third.amount'),
+        },
+        {
+          image: '/thrillblazers/prize/default.svg',
+          amount: get(t)('leaderboard.thrillblazers.edition5.prize_breakdown.fourth.amount'),
+        },
+        {
+          image: '/thrillblazers/prize/default.svg',
+          amount: get(t)('leaderboard.thrillblazers.edition5.prize_breakdown.fifth.amount'),
+        },
+        {
+          image: '/thrillblazers/prize/default.svg',
+          amount: get(t)('leaderboard.thrillblazers.edition5.prize_breakdown.sixth.amount'),
+        },
+        {
+          image: '/thrillblazers/prize/default.svg',
+          amount: get(t)('leaderboard.thrillblazers.edition5.prize_breakdown.seventh.amount'),
+        },
+      ],
+      qualifyingPositions: 7,
+    },
   };
 })();
 
