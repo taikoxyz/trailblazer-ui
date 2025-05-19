@@ -1,0 +1,9 @@
+export enum PRECONF_CAMPAIGN_PHASE {
+  BEFORE,
+  AFTER,
+}
+
+export enum PRECONF_TX_STAGE {
+  INITIAL,
+  FINAL,
+}

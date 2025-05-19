@@ -105,10 +105,6 @@
 
   <BasedLiners />
 
-  <ActionButton class={ctaClasses} priority="primary" href="/profile">
-    {$t('pages.badge_recruitment.buttons.start')}
-  </ActionButton>
-
   <div class="h-sep" />
 
   <!-- Hero box -->

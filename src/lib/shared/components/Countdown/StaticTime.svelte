@@ -1,8 +1,10 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
+  import { afterUpdate, onMount } from 'svelte';
+
   export let seconds: number = 0;
   export let duration: number = 700; // ms, total animation duration
   export let slowDownMs: number = 200; // ms, slow-down period at the end
+  export let diff: number = 0;
 
   // Calculate target minutes and seconds
   $: targetM = Math.floor(seconds / 60);
@@ -11,7 +13,7 @@
   let displayM = 0;
   let displayS = 0;
   let animating = true;
-  let startTime: number = 0;
+  let startTime: number;
   let timer: number;
   let animationFrameId: number;
 
@@ -80,15 +82,41 @@
     }
   }
 
+  $: if (!animating) {
+    // If seconds prop changes after animation, update display immediately
+    displayM = Math.floor(seconds / 60);
+    displayS = seconds - displayM * 60;
+  }
+
   onMount(() => {
     lockedM = [false, false];
     lockedS = [false, false];
+    animating = true;
+    startTime = performance.now();
     animationFrameId = requestAnimationFrame(animateFlip);
     timer = requestAnimationFrame(animateFlip);
     return () => {
       cancelAnimationFrame(animationFrameId);
       cancelAnimationFrame(timer);
     };
+  });
+
+  $: seconds = diff;
+
+  let lastSeconds = seconds;
+
+  // Watch for changes to seconds and re-run animation if changed
+  afterUpdate(() => {
+    if (seconds !== lastSeconds) {
+      lastSeconds = seconds;
+      // Reset animation state
+      animating = true;
+      lockedM = [false, false];
+      lockedS = [false, false];
+      startTime = performance.now();
+      // Start animation
+      animationFrameId = requestAnimationFrame(animateFlip);
+    }
   });
 </script>
 

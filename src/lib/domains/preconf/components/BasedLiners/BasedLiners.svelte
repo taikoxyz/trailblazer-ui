@@ -3,6 +3,9 @@
 
   import AfterPreconf from './AfterPreconf.svelte';
   import BeforePreconf from './BeforePreconf.svelte';
+  import Score from './Score.svelte';
+
+  $: error = null;
 
   const wrapperClasses = classNames(
     'w-full',
@@ -12,7 +15,7 @@
     'items-center',
     'justify-center',
     'px-[24px]',
-    'md:px-[48px]',
+    'md:px-0',
   );
 
   let isDesktopOrLarger = true;
@@ -34,7 +37,8 @@
   const bodyClasses = classNames(
     'card-body',
     'body-regular',
-    'p-[20px]',
+    'px-[24px]',
+    'py-[54px]',
     'flex',
     'flex-row',
     'justify-between',
@@ -45,8 +49,12 @@
 <div class={wrapperClasses}>
   <div class={cardClasses}>
     <div {...dynamicAttrs} class={bodyClasses}>
-      <BeforePreconf />
-      <AfterPreconf />
+      <BeforePreconf bind:error />
+      <AfterPreconf bind:error />
+      <Score bind:error />
     </div>
   </div>
 </div>
+{#if error}
+  <div class="text-red-500 mt-2">{error}</div>
+{/if}

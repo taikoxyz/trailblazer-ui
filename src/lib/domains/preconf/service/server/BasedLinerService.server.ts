@@ -1,113 +1,59 @@
-import type { Abi, Address, Hex } from 'viem';
-import { encodePacked, keccak256 } from 'viem';
-import { signMessage } from 'viem/accounts';
+import { getBlock } from '@wagmi/core';
+import type { Address, Hex } from 'viem';
+
+import { getLogger } from '$shared/utils/logger';
+import { wagmiConfig } from '$shared/wagmi';
 
 import { BasedLinerAdapter } from '../../adapter/server/BasedLinerAdapter.server';
+import { type PRECONF_CAMPAIGN_PHASE, PRECONF_TX_STAGE } from '../../types';
 
-// In-memory store for demonstration (replace with DB or GCP in production)
-const registrationStore: Array<{
-  wallet: string;
-  stage: string;
-  phase: string;
-  timestamp: number;
-  txHash: string;
-  diff: number;
-}> = [];
-
+const log = getLogger('BasedLinerService');
 export class BasedLinerService {
-  /**
-   * Sends a transaction and tracks the time from sending to receipt (server-side).
-   * @returns timings and receipt
-   */
-  static async sendAndTrackTx({
-    contractAddress,
-    abi,
-    functionName,
-    args = [],
-    value,
-    eventName,
-    eventArgs,
-  }: {
-    contractAddress: Address;
-    abi: Abi;
-    functionName: string;
-    args?: unknown[];
-    value?: bigint;
-    eventName?: string;
-    eventArgs?: Record<string, unknown>;
-  }) {
-    return BasedLinerAdapter.sendAndTrackTx({
-      contractAddress,
-      abi,
-      functionName,
-      args,
-      value,
-      eventName,
-      eventArgs,
+  static getTimingDiffForAddress(address: Address) {
+    if (!address) {
+      throw new Error('Address is required');
+    }
+    throw new Error('Method not implemented.');
+  }
+
+  static async submitPhase(args: { phase: PRECONF_CAMPAIGN_PHASE; timestamp: number; wallet: Address; txHash: Hex }) {
+    const { phase, timestamp, wallet, txHash } = args;
+
+    const initialResponse = await BasedLinerAdapter.submitStage({
+      stage: PRECONF_TX_STAGE.INITIAL,
+      phase,
+      timestamp,
+      wallet,
     });
-  }
+    //TOOD check if the response is ok
+    log('initialResponse', initialResponse);
 
-  /**
-   * Signs a registration message (user address + timestamp) with the backend's private key using viem.
-   * @param user The user's address
-   * @param timestamp The registration timestamp
-   * @param privateKey The backend's private key (0x...)
-   * @returns The signature as 0x string
-   */
-  static async getRegistrationSignature({
-    user,
-    timestamp,
-  }: {
-    user: Address;
-    timestamp: bigint | number;
-  }): Promise<Hex> {
-    // The message must match the contract's expectation: keccak256(abi.encodePacked(user, timestamp))
-    const privateKey = process.env.BACKEND_PRIVATE_KEY as Address;
-    if (!privateKey) throw new Error('Private key not set in environment variables');
+    const receipt = await BasedLinerAdapter.waitForTransactionReceipt({
+      txHash,
+    });
+    if (!receipt) throw new Error('No receipt found for this txHash');
+    const blockNumber = receipt.blockNumber;
 
-    const packed = encodePacked(['address', 'uint256'], [user, BigInt(timestamp)]);
-    const hash = keccak256(packed);
-    return signMessage({ privateKey, message: hash });
-  }
+    const finalResponse = await BasedLinerAdapter.submitStage({
+      stage: PRECONF_TX_STAGE.FINAL,
+      phase,
+      blockNumber: Number(blockNumber),
+      wallet,
+    });
 
-  /**
-   * Handles registration and timing, stores the result, and returns timing diff.
-   */
-  static async handleRegistration({
-    stage,
-    phase,
-    timestamp,
-    wallet,
-    txHash,
-  }: {
-    stage: string;
-    phase: string;
-    timestamp: number;
-    wallet: string;
-    txHash: string;
-  }) {
-    // Simulate timing diff calculation (replace with real logic)
-    const now = Date.now();
-    const diff = now - timestamp;
-    registrationStore.push({ wallet, stage, phase, timestamp, txHash, diff });
-    return { wallet, stage, phase, timestamp, txHash, diff };
-  }
+    //TOOD check if the response is ok
+    log('finalResponse', finalResponse);
 
-  /**
-   * Returns the timing diff for a specific address (wallet).
-   */
-  static async getTimingDiffForAddress(wallet: string) {
-    // Return the latest diff for the wallet
-    const entry = [...registrationStore].reverse().find((r) => r.wallet.toLowerCase() === wallet.toLowerCase());
-    if (!entry) throw new Error('No registration found for this address');
-    return entry.diff;
-  }
+    const block = await getBlock(wagmiConfig, {
+      blockNumber,
+    });
+    const blockTime = block.timestamp * 1000n;
 
-  /**
-   * Returns all timing diffs (leaderboard style).
-   */
-  static async getAllTimingDiffs() {
-    // Return all entries, sorted by diff ascending (fastest first)
-    return registrationStore.slice().sort((a, b) => a.diff - b.diff);
+    // TODO fetch diff from api
+
+    const txTime = BigInt(timestamp);
+    const diff = blockTime - txTime;
+
+    return Number(diff);
   }
 }
