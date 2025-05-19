@@ -1,8 +1,8 @@
 import {
   createReadContract,
-  createWriteContract,
   createSimulateContract,
   createWatchContractEvent,
+  createWriteContract,
 } from 'wagmi/codegen';
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -9557,679 +9557,766 @@ export const watchTrailblazersBadgesS2UpgradedEvent = /*#__PURE__*/ createWatchC
 
 export const BasedLinersAbi = [
   {
+    inputs: [],
+    stateMutability: 'nonpayable',
     type: 'constructor',
+  },
+  {
     inputs: [],
-    stateMutability: 'nonpayable',
-  },
-  {
-    type: 'function',
-    name: 'DEFAULT_ADMIN_ROLE',
-    inputs: [],
-    outputs: [
-      {
-        name: '',
-        type: 'bytes32',
-        internalType: 'bytes32',
-      },
-    ],
-    stateMutability: 'view',
-  },
-  {
-    type: 'function',
-    name: 'EVENT_MANAGER_ROLE',
-    inputs: [],
-    outputs: [
-      {
-        name: '',
-        type: 'bytes32',
-        internalType: 'bytes32',
-      },
-    ],
-    stateMutability: 'view',
-  },
-  {
-    type: 'function',
-    name: 'acceptOwnership',
-    inputs: [],
-    outputs: [],
-    stateMutability: 'nonpayable',
-  },
-  {
-    type: 'function',
-    name: 'closeRegistration',
-    inputs: [
-      {
-        name: '_eventId',
-        type: 'uint256',
-        internalType: 'uint256',
-      },
-    ],
-    outputs: [],
-    stateMutability: 'nonpayable',
-  },
-  {
-    type: 'function',
-    name: 'createEvent',
-    inputs: [
-      {
-        name: '_name',
-        type: 'string',
-        internalType: 'string',
-      },
-    ],
-    outputs: [],
-    stateMutability: 'nonpayable',
-  },
-  {
-    type: 'function',
-    name: 'events',
-    inputs: [
-      {
-        name: 'eventId',
-        type: 'uint256',
-        internalType: 'uint256',
-      },
-    ],
-    outputs: [
-      {
-        name: 'id',
-        type: 'uint256',
-        internalType: 'uint256',
-      },
-      {
-        name: 'name',
-        type: 'string',
-        internalType: 'string',
-      },
-      {
-        name: 'exists',
-        type: 'bool',
-        internalType: 'bool',
-      },
-      {
-        name: 'registrationOpen',
-        type: 'bool',
-        internalType: 'bool',
-      },
-    ],
-    stateMutability: 'view',
-  },
-  {
-    type: 'function',
-    name: 'getEvent',
-    inputs: [
-      {
-        name: '_eventId',
-        type: 'uint256',
-        internalType: 'uint256',
-      },
-    ],
-    outputs: [
-      {
-        name: 'id',
-        type: 'uint256',
-        internalType: 'uint256',
-      },
-      {
-        name: 'name',
-        type: 'string',
-        internalType: 'string',
-      },
-      {
-        name: 'registrationOpen_',
-        type: 'bool',
-        internalType: 'bool',
-      },
-    ],
-    stateMutability: 'view',
-  },
-  {
-    type: 'function',
-    name: 'getRegisteredEvents',
-    inputs: [
-      {
-        name: '_user',
-        type: 'address',
-        internalType: 'address',
-      },
-    ],
-    outputs: [
-      {
-        name: '',
-        type: 'uint256[]',
-        internalType: 'uint256[]',
-      },
-    ],
-    stateMutability: 'view',
-  },
-  {
-    type: 'function',
-    name: 'getRoleAdmin',
-    inputs: [
-      {
-        name: 'role',
-        type: 'bytes32',
-        internalType: 'bytes32',
-      },
-    ],
-    outputs: [
-      {
-        name: '',
-        type: 'bytes32',
-        internalType: 'bytes32',
-      },
-    ],
-    stateMutability: 'view',
-  },
-  {
-    type: 'function',
-    name: 'grantEventManagerRole',
-    inputs: [
-      {
-        name: 'account',
-        type: 'address',
-        internalType: 'address',
-      },
-    ],
-    outputs: [],
-    stateMutability: 'nonpayable',
-  },
-  {
-    type: 'function',
-    name: 'grantRole',
-    inputs: [
-      {
-        name: 'role',
-        type: 'bytes32',
-        internalType: 'bytes32',
-      },
-      {
-        name: 'account',
-        type: 'address',
-        internalType: 'address',
-      },
-    ],
-    outputs: [],
-    stateMutability: 'nonpayable',
-  },
-  {
-    type: 'function',
-    name: 'hasRole',
-    inputs: [
-      {
-        name: 'role',
-        type: 'bytes32',
-        internalType: 'bytes32',
-      },
-      {
-        name: 'account',
-        type: 'address',
-        internalType: 'address',
-      },
-    ],
-    outputs: [
-      {
-        name: '',
-        type: 'bool',
-        internalType: 'bool',
-      },
-    ],
-    stateMutability: 'view',
-  },
-  {
-    type: 'function',
-    name: 'initialize',
-    inputs: [],
-    outputs: [],
-    stateMutability: 'nonpayable',
-  },
-  {
-    type: 'function',
-    name: 'isRegistered',
-    inputs: [
-      {
-        name: 'eventId',
-        type: 'uint256',
-        internalType: 'uint256',
-      },
-      {
-        name: 'registrant',
-        type: 'address',
-        internalType: 'address',
-      },
-    ],
-    outputs: [
-      {
-        name: 'timestamp',
-        type: 'uint256',
-        internalType: 'uint256',
-      },
-    ],
-    stateMutability: 'view',
-  },
-  {
-    type: 'function',
-    name: 'openRegistration',
-    inputs: [
-      {
-        name: '_eventId',
-        type: 'uint256',
-        internalType: 'uint256',
-      },
-    ],
-    outputs: [],
-    stateMutability: 'nonpayable',
-  },
-  {
-    type: 'function',
-    name: 'owner',
-    inputs: [],
-    outputs: [
-      {
-        name: '',
-        type: 'address',
-        internalType: 'address',
-      },
-    ],
-    stateMutability: 'view',
-  },
-  {
-    type: 'function',
-    name: 'pendingOwner',
-    inputs: [],
-    outputs: [
-      {
-        name: '',
-        type: 'address',
-        internalType: 'address',
-      },
-    ],
-    stateMutability: 'view',
-  },
-  {
-    type: 'function',
-    name: 'register',
-    inputs: [
-      {
-        name: '_eventId',
-        type: 'uint256',
-        internalType: 'uint256',
-      },
-    ],
-    outputs: [],
-    stateMutability: 'nonpayable',
-  },
-  {
-    type: 'function',
-    name: 'renounceOwnership',
-    inputs: [],
-    outputs: [],
-    stateMutability: 'nonpayable',
-  },
-  {
-    type: 'function',
-    name: 'renounceRole',
-    inputs: [
-      {
-        name: 'role',
-        type: 'bytes32',
-        internalType: 'bytes32',
-      },
-      {
-        name: 'callerConfirmation',
-        type: 'address',
-        internalType: 'address',
-      },
-    ],
-    outputs: [],
-    stateMutability: 'nonpayable',
-  },
-  {
-    type: 'function',
-    name: 'revokeEventManagerRole',
-    inputs: [
-      {
-        name: 'account',
-        type: 'address',
-        internalType: 'address',
-      },
-    ],
-    outputs: [],
-    stateMutability: 'nonpayable',
-  },
-  {
-    type: 'function',
-    name: 'revokeRole',
-    inputs: [
-      {
-        name: 'role',
-        type: 'bytes32',
-        internalType: 'bytes32',
-      },
-      {
-        name: 'account',
-        type: 'address',
-        internalType: 'address',
-      },
-    ],
-    outputs: [],
-    stateMutability: 'nonpayable',
-  },
-  {
-    type: 'function',
-    name: 'supportsInterface',
-    inputs: [
-      {
-        name: 'interfaceId',
-        type: 'bytes4',
-        internalType: 'bytes4',
-      },
-    ],
-    outputs: [
-      {
-        name: '',
-        type: 'bool',
-        internalType: 'bool',
-      },
-    ],
-    stateMutability: 'view',
-  },
-  {
-    type: 'function',
-    name: 'transferOwnership',
-    inputs: [
-      {
-        name: 'newOwner',
-        type: 'address',
-        internalType: 'address',
-      },
-    ],
-    outputs: [],
-    stateMutability: 'nonpayable',
-  },
-  {
-    type: 'function',
-    name: 'unregister',
-    inputs: [
-      {
-        name: '_eventId',
-        type: 'uint256',
-        internalType: 'uint256',
-      },
-      {
-        name: '_user',
-        type: 'address',
-        internalType: 'address',
-      },
-    ],
-    outputs: [],
-    stateMutability: 'nonpayable',
-  },
-  {
-    type: 'event',
-    name: 'EventCreated',
-    inputs: [
-      {
-        name: 'id',
-        type: 'uint256',
-        indexed: false,
-        internalType: 'uint256',
-      },
-      {
-        name: 'name',
-        type: 'string',
-        indexed: false,
-        internalType: 'string',
-      },
-    ],
-    anonymous: false,
-  },
-  {
-    type: 'event',
-    name: 'Initialized',
-    inputs: [
-      {
-        name: 'version',
-        type: 'uint64',
-        indexed: false,
-        internalType: 'uint64',
-      },
-    ],
-    anonymous: false,
-  },
-  {
-    type: 'event',
-    name: 'OwnershipTransferStarted',
-    inputs: [
-      {
-        name: 'previousOwner',
-        type: 'address',
-        indexed: true,
-        internalType: 'address',
-      },
-      {
-        name: 'newOwner',
-        type: 'address',
-        indexed: true,
-        internalType: 'address',
-      },
-    ],
-    anonymous: false,
-  },
-  {
-    type: 'event',
-    name: 'OwnershipTransferred',
-    inputs: [
-      {
-        name: 'previousOwner',
-        type: 'address',
-        indexed: true,
-        internalType: 'address',
-      },
-      {
-        name: 'newOwner',
-        type: 'address',
-        indexed: true,
-        internalType: 'address',
-      },
-    ],
-    anonymous: false,
-  },
-  {
-    type: 'event',
-    name: 'Registered',
-    inputs: [
-      {
-        name: 'registrant',
-        type: 'address',
-        indexed: true,
-        internalType: 'address',
-      },
-      {
-        name: 'eventId',
-        type: 'uint256',
-        indexed: false,
-        internalType: 'uint256',
-      },
-    ],
-    anonymous: false,
-  },
-  {
-    type: 'event',
-    name: 'RegistrationClosed',
-    inputs: [
-      {
-        name: 'eventId',
-        type: 'uint256',
-        indexed: false,
-        internalType: 'uint256',
-      },
-    ],
-    anonymous: false,
-  },
-  {
-    type: 'event',
-    name: 'RegistrationOpened',
-    inputs: [
-      {
-        name: 'eventId',
-        type: 'uint256',
-        indexed: false,
-        internalType: 'uint256',
-      },
-    ],
-    anonymous: false,
-  },
-  {
-    type: 'event',
-    name: 'RoleAdminChanged',
-    inputs: [
-      {
-        name: 'role',
-        type: 'bytes32',
-        indexed: true,
-        internalType: 'bytes32',
-      },
-      {
-        name: 'previousAdminRole',
-        type: 'bytes32',
-        indexed: true,
-        internalType: 'bytes32',
-      },
-      {
-        name: 'newAdminRole',
-        type: 'bytes32',
-        indexed: true,
-        internalType: 'bytes32',
-      },
-    ],
-    anonymous: false,
-  },
-  {
-    type: 'event',
-    name: 'RoleGranted',
-    inputs: [
-      {
-        name: 'role',
-        type: 'bytes32',
-        indexed: true,
-        internalType: 'bytes32',
-      },
-      {
-        name: 'account',
-        type: 'address',
-        indexed: true,
-        internalType: 'address',
-      },
-      {
-        name: 'sender',
-        type: 'address',
-        indexed: true,
-        internalType: 'address',
-      },
-    ],
-    anonymous: false,
-  },
-  {
-    type: 'event',
-    name: 'RoleRevoked',
-    inputs: [
-      {
-        name: 'role',
-        type: 'bytes32',
-        indexed: true,
-        internalType: 'bytes32',
-      },
-      {
-        name: 'account',
-        type: 'address',
-        indexed: true,
-        internalType: 'address',
-      },
-      {
-        name: 'sender',
-        type: 'address',
-        indexed: true,
-        internalType: 'address',
-      },
-    ],
-    anonymous: false,
-  },
-  {
-    type: 'event',
-    name: 'Unregistered',
-    inputs: [
-      {
-        name: 'registrant',
-        type: 'address',
-        indexed: true,
-        internalType: 'address',
-      },
-      {
-        name: 'eventId',
-        type: 'uint256',
-        indexed: false,
-        internalType: 'uint256',
-      },
-    ],
-    anonymous: false,
-  },
-  {
-    type: 'error',
     name: 'AccessControlBadConfirmation',
-    inputs: [],
+    type: 'error',
   },
   {
-    type: 'error',
-    name: 'AccessControlUnauthorizedAccount',
     inputs: [
       {
+        internalType: 'address',
         name: 'account',
         type: 'address',
-        internalType: 'address',
       },
       {
+        internalType: 'bytes32',
         name: 'neededRole',
         type: 'bytes32',
-        internalType: 'bytes32',
       },
     ],
+    name: 'AccessControlUnauthorizedAccount',
+    type: 'error',
   },
   {
-    type: 'error',
+    inputs: [],
     name: 'InvalidInitialization',
-    inputs: [],
+    type: 'error',
   },
   {
-    type: 'error',
+    inputs: [],
     name: 'NotInitializing',
-    inputs: [],
+    type: 'error',
   },
   {
-    type: 'error',
-    name: 'OwnableInvalidOwner',
     inputs: [
       {
+        internalType: 'address',
         name: 'owner',
         type: 'address',
-        internalType: 'address',
       },
     ],
+    name: 'OwnableInvalidOwner',
+    type: 'error',
   },
   {
-    type: 'error',
-    name: 'OwnableUnauthorizedAccount',
     inputs: [
       {
+        internalType: 'address',
         name: 'account',
         type: 'address',
-        internalType: 'address',
       },
     ],
+    name: 'OwnableUnauthorizedAccount',
+    type: 'error',
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: 'uint256',
+        name: 'id',
+        type: 'uint256',
+      },
+      {
+        indexed: false,
+        internalType: 'string',
+        name: 'name',
+        type: 'string',
+      },
+    ],
+    name: 'EventCreated',
+    type: 'event',
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: 'uint64',
+        name: 'version',
+        type: 'uint64',
+      },
+    ],
+    name: 'Initialized',
+    type: 'event',
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: 'address',
+        name: 'previousOwner',
+        type: 'address',
+      },
+      {
+        indexed: true,
+        internalType: 'address',
+        name: 'newOwner',
+        type: 'address',
+      },
+    ],
+    name: 'OwnershipTransferStarted',
+    type: 'event',
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: 'address',
+        name: 'previousOwner',
+        type: 'address',
+      },
+      {
+        indexed: true,
+        internalType: 'address',
+        name: 'newOwner',
+        type: 'address',
+      },
+    ],
+    name: 'OwnershipTransferred',
+    type: 'event',
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: 'uint256',
+        name: 'eventId',
+        type: 'uint256',
+      },
+      {
+        indexed: false,
+        internalType: 'uint256',
+        name: 'phaseId',
+        type: 'uint256',
+      },
+    ],
+    name: 'PhaseClosed',
+    type: 'event',
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: 'uint256',
+        name: 'eventId',
+        type: 'uint256',
+      },
+      {
+        indexed: false,
+        internalType: 'uint256',
+        name: 'phaseId',
+        type: 'uint256',
+      },
+    ],
+    name: 'PhaseOpened',
+    type: 'event',
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: 'address',
+        name: 'registrant',
+        type: 'address',
+      },
+      {
+        indexed: false,
+        internalType: 'uint256',
+        name: 'eventId',
+        type: 'uint256',
+      },
+      {
+        indexed: false,
+        internalType: 'uint256',
+        name: 'phaseId',
+        type: 'uint256',
+      },
+    ],
+    name: 'Registered',
+    type: 'event',
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: 'bytes32',
+        name: 'role',
+        type: 'bytes32',
+      },
+      {
+        indexed: true,
+        internalType: 'bytes32',
+        name: 'previousAdminRole',
+        type: 'bytes32',
+      },
+      {
+        indexed: true,
+        internalType: 'bytes32',
+        name: 'newAdminRole',
+        type: 'bytes32',
+      },
+    ],
+    name: 'RoleAdminChanged',
+    type: 'event',
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: 'bytes32',
+        name: 'role',
+        type: 'bytes32',
+      },
+      {
+        indexed: true,
+        internalType: 'address',
+        name: 'account',
+        type: 'address',
+      },
+      {
+        indexed: true,
+        internalType: 'address',
+        name: 'sender',
+        type: 'address',
+      },
+    ],
+    name: 'RoleGranted',
+    type: 'event',
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: 'bytes32',
+        name: 'role',
+        type: 'bytes32',
+      },
+      {
+        indexed: true,
+        internalType: 'address',
+        name: 'account',
+        type: 'address',
+      },
+      {
+        indexed: true,
+        internalType: 'address',
+        name: 'sender',
+        type: 'address',
+      },
+    ],
+    name: 'RoleRevoked',
+    type: 'event',
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: 'address',
+        name: 'registrant',
+        type: 'address',
+      },
+      {
+        indexed: false,
+        internalType: 'uint256',
+        name: 'eventId',
+        type: 'uint256',
+      },
+      {
+        indexed: false,
+        internalType: 'uint256',
+        name: 'phaseId',
+        type: 'uint256',
+      },
+    ],
+    name: 'Unregistered',
+    type: 'event',
+  },
+  {
+    inputs: [],
+    name: 'DEFAULT_ADMIN_ROLE',
+    outputs: [
+      {
+        internalType: 'bytes32',
+        name: '',
+        type: 'bytes32',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: 'EVENT_MANAGER_ROLE',
+    outputs: [
+      {
+        internalType: 'bytes32',
+        name: '',
+        type: 'bytes32',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: 'acceptOwnership',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'uint256',
+        name: '_eventId',
+        type: 'uint256',
+      },
+      {
+        internalType: 'uint256',
+        name: '_phaseId',
+        type: 'uint256',
+      },
+    ],
+    name: 'closePhase',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'string',
+        name: '_name',
+        type: 'string',
+      },
+      {
+        internalType: 'uint256',
+        name: '_totalPhases',
+        type: 'uint256',
+      },
+    ],
+    name: 'createEvent',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'uint256',
+        name: 'eventId',
+        type: 'uint256',
+      },
+    ],
+    name: 'events',
+    outputs: [
+      {
+        internalType: 'uint256',
+        name: 'id',
+        type: 'uint256',
+      },
+      {
+        internalType: 'string',
+        name: 'name',
+        type: 'string',
+      },
+      {
+        internalType: 'bool',
+        name: 'exists',
+        type: 'bool',
+      },
+      {
+        internalType: 'uint256',
+        name: 'totalPhases',
+        type: 'uint256',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'uint256',
+        name: '_eventId',
+        type: 'uint256',
+      },
+    ],
+    name: 'getEvent',
+    outputs: [
+      {
+        internalType: 'uint256',
+        name: 'id',
+        type: 'uint256',
+      },
+      {
+        internalType: 'string',
+        name: 'name',
+        type: 'string',
+      },
+      {
+        internalType: 'uint256',
+        name: 'totalPhases',
+        type: 'uint256',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'uint256',
+        name: '_eventId',
+        type: 'uint256',
+      },
+      {
+        internalType: 'address',
+        name: '_user',
+        type: 'address',
+      },
+    ],
+    name: 'getRegistrationStatus',
+    outputs: [
+      {
+        internalType: 'bool[]',
+        name: 'registered',
+        type: 'bool[]',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'bytes32',
+        name: 'role',
+        type: 'bytes32',
+      },
+    ],
+    name: 'getRoleAdmin',
+    outputs: [
+      {
+        internalType: 'bytes32',
+        name: '',
+        type: 'bytes32',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'address',
+        name: 'account',
+        type: 'address',
+      },
+    ],
+    name: 'grantEventManagerRole',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'bytes32',
+        name: 'role',
+        type: 'bytes32',
+      },
+      {
+        internalType: 'address',
+        name: 'account',
+        type: 'address',
+      },
+    ],
+    name: 'grantRole',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'bytes32',
+        name: 'role',
+        type: 'bytes32',
+      },
+      {
+        internalType: 'address',
+        name: 'account',
+        type: 'address',
+      },
+    ],
+    name: 'hasRole',
+    outputs: [
+      {
+        internalType: 'bool',
+        name: '',
+        type: 'bool',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: 'initialize',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'uint256',
+        name: '_eventId',
+        type: 'uint256',
+      },
+      {
+        internalType: 'uint256',
+        name: '_phaseId',
+        type: 'uint256',
+      },
+    ],
+    name: 'openPhase',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: 'owner',
+    outputs: [
+      {
+        internalType: 'address',
+        name: '',
+        type: 'address',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: 'pendingOwner',
+    outputs: [
+      {
+        internalType: 'address',
+        name: '',
+        type: 'address',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'uint256',
+        name: 'eventId',
+        type: 'uint256',
+      },
+      {
+        internalType: 'uint256',
+        name: 'phaseId',
+        type: 'uint256',
+      },
+    ],
+    name: 'phaseOpen',
+    outputs: [
+      {
+        internalType: 'bool',
+        name: 'isOpen',
+        type: 'bool',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'uint256',
+        name: '_eventId',
+        type: 'uint256',
+      },
+      {
+        internalType: 'uint256',
+        name: '_phaseId',
+        type: 'uint256',
+      },
+    ],
+    name: 'register',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'uint256',
+        name: 'eventId',
+        type: 'uint256',
+      },
+      {
+        internalType: 'uint256',
+        name: 'phaseId',
+        type: 'uint256',
+      },
+      {
+        internalType: 'address',
+        name: 'registrant',
+        type: 'address',
+      },
+    ],
+    name: 'registrations',
+    outputs: [
+      {
+        internalType: 'uint256',
+        name: 'timestamp',
+        type: 'uint256',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: 'renounceOwnership',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'bytes32',
+        name: 'role',
+        type: 'bytes32',
+      },
+      {
+        internalType: 'address',
+        name: 'callerConfirmation',
+        type: 'address',
+      },
+    ],
+    name: 'renounceRole',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'address',
+        name: 'account',
+        type: 'address',
+      },
+    ],
+    name: 'revokeEventManagerRole',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'bytes32',
+        name: 'role',
+        type: 'bytes32',
+      },
+      {
+        internalType: 'address',
+        name: 'account',
+        type: 'address',
+      },
+    ],
+    name: 'revokeRole',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'bytes4',
+        name: 'interfaceId',
+        type: 'bytes4',
+      },
+    ],
+    name: 'supportsInterface',
+    outputs: [
+      {
+        internalType: 'bool',
+        name: '',
+        type: 'bool',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'address',
+        name: 'newOwner',
+        type: 'address',
+      },
+    ],
+    name: 'transferOwnership',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'uint256',
+        name: '_eventId',
+        type: 'uint256',
+      },
+      {
+        internalType: 'uint256',
+        name: '_phaseId',
+        type: 'uint256',
+      },
+      {
+        internalType: 'address',
+        name: '_user',
+        type: 'address',
+      },
+    ],
+    name: 'unregister',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
   },
 ] as const;
 
 export const basedLinersAddress = {
-  167009: '0xb40cA9BE3e2a93ec0Ce01cF5FD1469bfC6a8a8D4',
-  167000: '0xb40cA9BE3e2a93ec0Ce01cF5FD1469bfC6a8a8D4',
+  167009: '0x27C9d9e8E6E2D33088A9A42F7F840b30143C29d0',
+  167000: '0x27C9d9e8E6E2D33088A9A42F7F840b30143C29d0',
 } as const;
+// export const basedLinersAddress = {
+//   167009: '0xb40cA9BE3e2a93ec0Ce01cF5FD1469bfC6a8a8D4',
+//   167000: '0xb40cA9BE3e2a93ec0Ce01cF5FD1469bfC6a8a8D4',
+// } as const;

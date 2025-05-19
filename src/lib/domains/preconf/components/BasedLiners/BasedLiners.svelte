@@ -11,7 +11,6 @@
     'w-full',
     'flex',
     'flex-col',
-    'gap-4',
     'items-center',
     'justify-center',
     'px-[24px]',
@@ -39,22 +38,29 @@
     'body-regular',
     'px-[24px]',
     'py-[54px]',
-    'flex',
-    'flex-row',
+    'f-col',
+    'lg:f-row',
+    'items-center',
     'justify-between',
     'h-full',
   );
+
+  $: diffBefore = 0;
+  $: diffAfter = 0;
 </script>
 
 <div class={wrapperClasses}>
   <div class={cardClasses}>
     <div {...dynamicAttrs} class={bodyClasses}>
-      <BeforePreconf bind:error />
-      <AfterPreconf bind:error />
-      <Score bind:error />
+      <BeforePreconf bind:error bind:diffBefore />
+      <div class="lg:v-sep h-sep" />
+      <AfterPreconf bind:error bind:diffAfter />
+      <div class="lg:v-sep h-sep" />
+      <Score bind:error {diffAfter} {diffBefore} />
     </div>
   </div>
 </div>
+
 {#if error}
   <div class="text-red-500 mt-2">{error}</div>
 {/if}

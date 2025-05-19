@@ -1,42 +1,40 @@
-import { simulateContract, writeContract } from '@wagmi/core';
-import type { Abi, Address, Hex } from 'viem';
+import { readContract, simulateContract, writeContract } from '@wagmi/core';
+import type { Hex } from 'viem';
 
+import { BasedLinersAbi, basedLinersAddress } from '$generated/abi';
+import { chainId } from '$shared/utils/chain';
 import { wagmiConfig } from '$shared/wagmi';
 
 export class BasedLinerAdapter {
   /**
    * Send a transaction to a contract using the user's wallet (client-side)
-   * @param contractAddress
-   * @param abi
-   * @param functionName
    * @param args
-   * @param value
+
    * @returns txHash
    */
-  static async sendTx({
-    contractAddress,
-    abi,
-    functionName,
-    args = [],
-    value,
-  }: {
-    contractAddress: Address;
-    abi: Abi;
-    functionName: string;
-    args?: unknown[];
-    value?: bigint;
-  }) {
+  static async sendTx({ eventId, phaseId }: { eventId: number; phaseId: number }) {
     // Simulate transaction
     const { request } = await simulateContract(wagmiConfig, {
-      address: contractAddress,
-      abi,
-      functionName,
-      args,
-      value,
+      address: basedLinersAddress[chainId],
+      abi: BasedLinersAbi,
+      functionName: 'register',
+      args: [BigInt(eventId), BigInt(phaseId)],
     });
 
     // Send transaction
     const txHash: Hex = await writeContract(wagmiConfig, request);
     return txHash;
+  }
+
+  // check if specific phase is open
+  static async isPhaseOpen({ eventId, phaseId }: { eventId: number; phaseId: number }) {
+    const response = await readContract(wagmiConfig, {
+      address: basedLinersAddress[chainId],
+      abi: BasedLinersAbi,
+      functionName: 'phaseOpen',
+      args: [BigInt(eventId), BigInt(phaseId)],
+    });
+
+    return response;
   }
 }
