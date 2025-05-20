@@ -25,7 +25,7 @@ export default defineConfig({
     sourcemap: true,
   },
   ssr: {
-    noExternal: ['@reown/appkit', 'viem'],
+    noExternal: ['@reown/appkit', 'viem', '@reown/appkit-adapter-wagmi', 'wagmi'],
   },
   plugins: [
     qrcode(),
