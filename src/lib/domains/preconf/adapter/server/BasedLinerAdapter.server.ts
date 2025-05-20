@@ -1,8 +1,9 @@
-import type { Address, Hex } from 'viem';
+import type { Hex } from 'viem';
 
+import { API_KEY } from '$env/static/private';
 import { fetchFromApi } from '$shared/services/api/fetchClient';
 
-import type { PRECONF_CAMPAIGN_PHASE, PRECONF_TX_STAGE } from '../../types';
+import type { BasedLinerSubmitDto } from '../../dto/BasedlinerSubmit.dto';
 
 export class BasedLinerAdapter {
   /**
@@ -10,17 +11,20 @@ export class BasedLinerAdapter {
    * @param args - The arguments containing stage, phase, timestamp, wallet, and txHash.
    * @returns The time difference in seconds.
    */
-  static async submitStage(args: {
-    stage: PRECONF_TX_STAGE;
-    phase: PRECONF_CAMPAIGN_PHASE;
-    wallet: Address;
-    blockNumber?: number;
-    timestamp?: number;
-  }) {
+  static async submitStage(args: BasedLinerSubmitDto) {
     try {
+      const payload: BasedLinerSubmitDto = {
+        address: args.address,
+        stage: args.stage,
+        phase: args.phase,
+        timestamp: args.timestamp || 0,
+        tx_hash: args.tx_hash,
+      };
+
       return (await fetchFromApi)<Response>('/basedliner/submit', 4, {
         method: 'POST',
-        body: JSON.stringify(args),
+        headers: { 'x-api-key': `${API_KEY}` },
+        body: JSON.stringify(payload),
       });
     } catch (error) {
       console.error('Error submitting stage', error);

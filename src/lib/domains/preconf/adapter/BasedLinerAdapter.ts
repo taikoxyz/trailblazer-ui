@@ -3,8 +3,10 @@ import type { Hex } from 'viem';
 
 import { BasedLinersAbi, basedLinersAddress } from '$generated/abi';
 import { chainId } from '$shared/utils/chain';
+import { getLogger } from '$shared/utils/logger';
 import { wagmiConfig } from '$shared/wagmi';
 
+const log = getLogger('BasedLinerAdapter');
 export class BasedLinerAdapter {
   /**
    * Send a transaction to a contract using the user's wallet (client-side)
@@ -26,8 +28,13 @@ export class BasedLinerAdapter {
     return txHash;
   }
 
-  // check if specific phase is open
+  /**
+   * Checks if a specific phase is open.
+   * @param param0 - The event ID and phase to check.
+   * @returns A promise that resolves to a boolean indicating if the phase is open.
+   */
   static async isPhaseOpen({ eventId, phaseId }: { eventId: number; phaseId: number }) {
+    log(`Checking if phase ${phaseId} is open for event ${eventId}`);
     const response = await readContract(wagmiConfig, {
       address: basedLinersAddress[chainId],
       abi: BasedLinersAbi,

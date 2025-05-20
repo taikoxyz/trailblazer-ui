@@ -9,7 +9,7 @@ export const POST: RequestHandler = async ({ request }) => {
     const body: InternalAPIPayload = await request.json();
     const { phase, wallet, txHash, phaseEnded } = body;
 
-    if (phase == null || !wallet) {
+    if (phase == null || !wallet || !txHash) {
       return new Response(JSON.stringify({ error: 'Missing required fields' }), { status: 400 });
     }
 
@@ -19,6 +19,7 @@ export const POST: RequestHandler = async ({ request }) => {
     }
 
     const timestamp = Date.now();
+    // console.log(`Submitting phase ${phase} for wallet ${wallet} with txHash ${txHash} at ${timestamp}`);
     const diffInMilliseconds = await BasedLinerService.submitPhase({
       phase,
       wallet,

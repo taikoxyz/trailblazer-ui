@@ -1,13 +1,18 @@
 import { getBlock } from '@wagmi/core';
-import type { Address, Hex } from 'viem';
+import { type Address, type Hex, zeroAddress } from 'viem';
 
+import { API_KEY } from '$env/static/private';
+import { fetchFromApi } from '$shared/services/api/fetchClient';
 import { getLogger } from '$shared/utils/logger';
 import { wagmiConfig } from '$shared/wagmi';
 
 import { BasedLinerAdapter } from '../../adapter/server/BasedLinerAdapter.server';
+import type { BasedlinerLeaderboard } from '../../dto/BasedlinerLeaderboard';
 import { type PRECONF_CAMPAIGN_PHASE, PRECONF_TX_STAGE } from '../../types';
 
 const log = getLogger('BasedLinerService');
+const BASEDLINER_LEADERBOARD_API = '/basedliner/leaderboard';
+
 export class BasedLinerService {
   static getTimingDiffForAddress(address: Address) {
     if (!address) {
@@ -19,26 +24,35 @@ export class BasedLinerService {
   static async submitPhase(args: { phase: PRECONF_CAMPAIGN_PHASE; timestamp: number; wallet: Address; txHash: Hex }) {
     const { phase, timestamp, wallet, txHash } = args;
 
+    if (phase === undefined || phase === null || !timestamp || !wallet || wallet === zeroAddress || !txHash) {
+      throw new Error('Phase, timestamp, wallet and txHash are required');
+    }
+
     const initialResponse = await BasedLinerAdapter.submitStage({
       stage: PRECONF_TX_STAGE.INITIAL,
       phase,
       timestamp,
-      wallet,
+      address: wallet,
+      tx_hash: txHash,
     });
+
     //TOOD check if the response is ok
     log('initialResponse', initialResponse);
 
     const receipt = await BasedLinerAdapter.waitForTransactionReceipt({
       txHash,
     });
+    // console.log('receipt', receipt);
+
     if (!receipt) throw new Error('No receipt found for this txHash');
     const blockNumber = receipt.blockNumber;
 
     const finalResponse = await BasedLinerAdapter.submitStage({
       stage: PRECONF_TX_STAGE.FINAL,
       phase,
-      blockNumber: Number(blockNumber),
-      wallet,
+      address: wallet,
+      timestamp,
+      tx_hash: txHash,
     });
 
     //TOOD check if the response is ok
@@ -55,5 +69,40 @@ export class BasedLinerService {
     const diff = blockTime - txTime;
 
     return Number(diff);
+  }
+
+  /**
+   * Fetches the leaderboard data from the API.
+   * @param {string} [address] - The address to filter the leaderboard by.
+   * @returns {Promise<BasedlinerLeaderboard[]>} - The leaderboard data.
+   * @memberof BasedLinerService
+   */
+  static async getLeaderboard({ address }: { address?: string }) {
+    const queryParams = new URLSearchParams();
+    if (address) queryParams.set('address', address);
+    const endpoint = `${BASEDLINER_LEADERBOARD_API}?${queryParams.toString()}`;
+    const response = await fetchFromApi<{ entries: BasedlinerLeaderboard[]; entry?: BasedlinerLeaderboard }>(
+      endpoint,
+      undefined, // no additional season parameter
+      {
+        headers: { 'x-api-key': `${API_KEY}` },
+        method: 'GET',
+      },
+    );
+    // If address is provided, return single entry, else return all entries
+    if (address) {
+      return response.entry || null;
+    }
+    return response.entries || [];
+  }
+
+  /**
+   * Fetches the leaderboard entry for a specific address.
+   * @param {string} address - The address to fetch the leaderboard entry for.
+   * @returns {Promise<BasedlinerLeaderboard>} - The leaderboard entry data.
+   * @memberof BasedLinerService
+   */
+  static async getLeaderboardEntry({ address }: { address: string }) {
+    return await this.getLeaderboard({ address });
   }
 }

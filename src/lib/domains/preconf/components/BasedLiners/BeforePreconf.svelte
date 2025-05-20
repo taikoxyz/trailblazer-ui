@@ -22,7 +22,6 @@
     'justify-start',
     'px-[24px]',
     'md:px-[48px]',
-    'min-h-[300px]',
     'relative',
   );
 
@@ -89,6 +88,5 @@
         Track your time
       {/if}
     </ActionButton>
-    <div class="text-[12px] text-secondary-content mt-2">Global avg: ~42s</div>
   </div>
 </div>

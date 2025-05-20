@@ -11,7 +11,6 @@
     'justify-start',
     'px-[24px]',
     'md:px-[48px]',
-    'min-h-[300px]',
     'relative',
     'w-full',
   );
@@ -46,16 +45,6 @@
     diffBefore && diffAfter && diffAfter < diffBefore
       ? Math.min(Number(((diffBefore / diffAfter) * 10_000).toFixed(2)), 150_000)
       : 0;
-
-  // speed increase in "times", e.g. 2x faster
-  $: speedIncreaseTimes = diffBefore && diffAfter ? (diffBefore / diffAfter).toFixed(2) : 0;
-
-  $: speedMessage =
-    diffBefore && diffAfter
-      ? diffAfter < diffBefore
-        ? `A ${speedIncreaseTimes}x increase in transactions speed`
-        : `No improvement: your transactions are slower or unchanged`
-      : '';
 </script>
 
 <div class={wrapperClasses}>
@@ -84,11 +73,6 @@
         Share your score
       {/if}
     </ActionButton>
-    {#if speedMessage}
-      <div class="text-[12px] text-green-500 mt-2">{speedMessage}</div>
-    {:else}
-      <div class="text-[12px] text-secondary-content mt-2">Global avg: 4x faster</div>
-    {/if}
   </div>
 </div>
 {#if score}

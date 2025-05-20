@@ -1,10 +1,10 @@
-import { zeroAddress } from 'viem';
+import { type Address, zeroAddress } from 'viem';
 
 import getConnectedAddress from '$shared/utils/getConnectedAddress';
 
 import { BasedLinerAdapter } from '../adapter/BasedLinerAdapter';
 import type { InternalAPIPayload } from '../dto/InternalAPIPayload';
-import { PRECONF_CAMPAIGN_PHASE } from '../types';
+import { PRECONF_CAMPAIGN_PHASE, PRECONF_EVENT } from '../types';
 
 export class BasedLinerService {
   /**
@@ -62,5 +62,39 @@ export class BasedLinerService {
    */
   static async isPhaseOpen({ eventId, phaseId }: { eventId: number; phaseId: PRECONF_CAMPAIGN_PHASE }) {
     return await BasedLinerAdapter.isPhaseOpen({ eventId, phaseId });
+  }
+  /**
+   * Fetches the leaderboard for a specific event and phase.
+   * @param param0 - The event ID and phase to fetch the leaderboard for.
+   * @returns A promise that resolves to the leaderboard data.
+   * @memberof BasedLinerService
+   */
+  static async getLeaderboard({ eventId, phaseId }: { eventId: number; phaseId: PRECONF_CAMPAIGN_PHASE }) {
+    const res = await fetch(`/api/basedliner/leaderboard/entry`, {
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ eventId, phaseId }),
+    });
+
+    if (!res.ok) {
+      console.error('Error calling API:', res.status, res.statusText);
+      throw new Error(`API call failed: ${res.status} ${res.statusText}`);
+    }
+    // 3. Parse the response and return it
+    return await res.json();
+  }
+
+  static async getLeaderboardEntry({ address }: { eventId: PRECONF_EVENT.BASEDLINER; address: Address }) {
+    const res = await fetch(`/api/basedliner/leaderboard/entry?address=${address}`, {
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' },
+    });
+
+    if (!res.ok) {
+      console.error('Error calling API:', res.status, res.statusText);
+      throw new Error(`API call failed: ${res.status} ${res.statusText}`);
+    }
+    // 3. Parse the response and return it
+    return await res.json();
   }
 }
