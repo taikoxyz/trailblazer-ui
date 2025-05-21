@@ -15,6 +15,8 @@
 
   export let onPopup = false;
 
+  export let disabled: boolean = false;
+
   $: if (loading) {
     state = ButtonState.LOADING;
   } else {
@@ -107,7 +109,13 @@
 </script>
 
 {#if $$restProps.href}
-  <a {...$$restProps} href={$$restProps.href} target="_blank" class={classes}>
+  <a
+    {...$$restProps}
+    href={disabled ? undefined : $$restProps.href}
+    aria-disabled={disabled}
+    target="_blank"
+    tabindex={disabled ? -1 : 0}
+    class={classes}>
     {#if priority === 'fancy'}
       <div class={classNames(fancyBorderClasses, 'top-0')}></div>
       <div class={classNames(fancyBorderClasses, 'bottom-0')}></div>
@@ -130,7 +138,7 @@
     {/if}
   </a>
 {:else}
-  <button {...$$restProps} class={classes} on:click>
+  <button {...$$restProps} class={classes} {disabled} on:click>
     {#if priority === 'fancy'}
       <div class={classNames(fancyBorderClasses, 'top-0')}></div>
       <div class={classNames(fancyBorderClasses, 'bottom-0')}></div>

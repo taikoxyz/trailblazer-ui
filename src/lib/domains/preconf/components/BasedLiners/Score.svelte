@@ -26,8 +26,6 @@
     'justify-center',
   );
 
-  let loading = false;
-
   $: disabled = !score;
 
   export let diffBefore: number = 0;
@@ -62,7 +60,7 @@
       class="max-w-[200px] w-[200px] !max-h-[48px]"
       priority="primary"
       href={tweetLink}
-      {loading}
+      {disabled}
       withArrow={!disabled}>
       {#if disabled}
         No score yet
@@ -71,10 +69,13 @@
       {/if}
     </ActionButton>
   </div>
-  <span class="text-positive-sentiment font-clash-grotesk font-bold mt-[-20px]"
-    >{speedIncreaseTimes}x faster transaction speed!</span>
+  {#if score && score > 0}
+    <span class="text-positive-sentiment font-clash-grotesk font-bold mt-[-20px]">
+      {speedIncreaseTimes}x faster transaction speed!
+    </span>
+  {/if}
 </div>
-{#if score}
+{#if score && score > 0}
   <div
     style="position: fixed; z-index: 50; top: -50px; left: 0; height: 100vh; width: 100vw; pointer-events: none; display: flex; justify-content: center; overflow: hidden;">
     <Confetti x={[-5, 5]} y={[0, 0.1]} delay={[500, 10000]} duration={5000} amount={200} fallDistance="100vh" />
