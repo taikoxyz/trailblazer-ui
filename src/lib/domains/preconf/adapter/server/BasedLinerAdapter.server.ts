@@ -21,7 +21,7 @@ export class BasedLinerAdapter {
         tx_hash: args.tx_hash,
       };
 
-      return (await fetchFromApi)<Response>('/basedliner/submit', 4, {
+      return await fetchFromApi<Response>('/basedliner/submit', 4, {
         method: 'POST',
         headers: { 'x-api-key': `${API_KEY}` },
         body: JSON.stringify(payload),

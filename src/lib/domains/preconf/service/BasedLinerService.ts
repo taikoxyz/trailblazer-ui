@@ -1,11 +1,13 @@
 import { type Address, zeroAddress } from 'viem';
 
 import getConnectedAddress from '$shared/utils/getConnectedAddress';
+import { getLogger } from '$shared/utils/logger';
 
 import { BasedLinerAdapter } from '../adapter/BasedLinerAdapter';
 import type { InternalAPIPayload } from '../dto/InternalAPIPayload';
 import { PRECONF_CAMPAIGN_PHASE, PRECONF_EVENT } from '../types';
 
+const log = getLogger('BasedLinerService');
 export class BasedLinerService {
   /**
    * Registers for a phase for a specific event.
@@ -76,6 +78,8 @@ export class BasedLinerService {
       body: JSON.stringify({ eventId, phaseId }),
     });
 
+    log('Response from BasedLinerService:', res);
+
     if (!res.ok) {
       console.error('Error calling API:', res.status, res.statusText);
       throw new Error(`API call failed: ${res.status} ${res.statusText}`);
@@ -94,7 +98,14 @@ export class BasedLinerService {
       console.error('Error calling API:', res.status, res.statusText);
       throw new Error(`API call failed: ${res.status} ${res.statusText}`);
     }
+    const response = await res.json();
+    log('Entry:', response.entry);
     // 3. Parse the response and return it
-    return await res.json();
+    const parsed = {
+      ...response.entry,
+      phase1: Math.floor((response.entry.phase1 || 0) / 1000),
+      phase2: Math.floor((response.entry.phase2 || 0) / 1000),
+    };
+    return parsed;
   }
 }

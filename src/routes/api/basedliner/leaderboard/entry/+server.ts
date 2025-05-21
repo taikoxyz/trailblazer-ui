@@ -3,6 +3,7 @@ import { json } from '@sveltejs/kit';
 
 import { BasedLinerService } from '$lib/domains/preconf/service/server/BasedLinerService.server';
 
+// api/basedliner/leaderboard/entry
 export const GET: RequestHandler = async ({ url }) => {
   const address = url.searchParams.get('address');
 

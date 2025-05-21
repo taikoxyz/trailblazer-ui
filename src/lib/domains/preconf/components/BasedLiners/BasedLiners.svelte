@@ -52,6 +52,10 @@
     const address = getConnectedAddress();
     const entry = await BasedLinerService.getLeaderboardEntry({ eventId: PRECONF_EVENT.BASEDLINER, address });
     log('entry', entry);
+    if (entry) {
+      diffBefore = entry.phase1 || 0;
+      diffAfter = entry.phase2 || 0;
+    }
   });
 </script>
 
