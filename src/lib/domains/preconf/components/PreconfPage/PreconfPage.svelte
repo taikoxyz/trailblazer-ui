@@ -133,10 +133,8 @@
 
   <BasedLiners />
 
-  <div>[leaderboard]</div>
-
   <div class={entryRowClasses}>
-    <div class="w-full flex flex-col">
+    <div class="w-full flex flex-col gap-[46px]">
       <div class={entryTitleClass}>{$t('pages.preconfs.sections.earn.title')}</div>
       <p>{$t('pages.preconfs.sections.earn.content')}</p>
     </div>
