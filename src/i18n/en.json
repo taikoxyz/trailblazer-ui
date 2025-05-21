@@ -1124,7 +1124,7 @@
     },
     "preconfs": {
       "sections": {
-      "hero":  {
+        "hero": {
           "title": "Taiko - now 60x faster!",
           "subtitle": "Preconfs launch June 15th at Block 1234567",
           "content": "Taiko is a based rollup, meaning we do not rely on a centralized sequencer and instead use Ethereum validators. This limited our speed compared to centralized networks. But not anymore. With based preconfirmations, we are speeding up and becoming as fast as centralized networks without compromising decentralization.",
@@ -1159,8 +1159,12 @@
         "become": {
           "title": "Become a \"Basedliner\"",
           "content": "Transactions are about to get a whole lot faster! Check your speed now, set a baseline before preconfirmations go live, and witness the incredible boost coming to the Taiko Alethia mainnet. Plus, get a chance to win a Taikoon or other surprise rewards."
+        },
+        "earn": {
+          "title": "Earn TAIKO and more - Explore your favorite dApps and feel the speed",
+          "content": "Taiko is best experienced with preconfirmations! Try your favorite dApps, now faster than ever, and join the campaigns to celebrate the launch of preconfirmations with us."
         }
-    }
+      }
     }
   },
   "pagetitle": {

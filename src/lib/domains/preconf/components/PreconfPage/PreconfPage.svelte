@@ -13,7 +13,7 @@
 
   import BasedLiners from '../BasedLiners/BasedLiners.svelte';
   import Carousel from './Carousel.svelte';
-
+  import FeaturedPartners from './FeaturedPartners.svelte';
 
   let faqElement: HTMLElement;
 
@@ -87,24 +87,27 @@
   const entryRowClasses = classNames(
     'text-[#ADB1B8]',
     'w-full',
-    'grid','grid-cols-1','lg:grid-cols-2',
-    'items-start', 'justify-center',
-  )
-
+    'grid',
+    'grid-cols-1',
+    'lg:grid-cols-2',
+    'items-start',
+    'justify-center',
+  );
 
   const entryTitleClass = classNames(
     'text-[35px]',
     'lg:text-[45px]',
     'font-medium',
     'leading-[42px]',
+    'w-full',
     'font-clash-grotesk',
     'lg:leading-[52px]',
     'lg:min-w-[293px]',
-    'lg:max-w-[293px]',
-    'text-[#F3F3F3]'
+    // 'lg:max-w-[293px]',
+    'text-[#F3F3F3]',
   );
 
-  $: carouselItems = $json('pages.preconfs.sections.carousel') as {label: string, image:string}[]
+  $: carouselItems = $json('pages.preconfs.sections.carousel') as { label: string; image: string }[];
 </script>
 
 <div class={wrapperClasses}>
@@ -123,10 +126,8 @@
         <Note>
           {$t('pages.preconfs.sections.hero.note')}
         </Note>
-        <ActionButton
-        priority="primary"
-        href={$t('pages.preconfs.sections.hero.cta.href')}
-        >{$t('pages.preconfs.sections.hero.cta.text')}</ActionButton>
+        <ActionButton priority="primary" href={$t('pages.preconfs.sections.hero.cta.href')}
+          >{$t('pages.preconfs.sections.hero.cta.text')}</ActionButton>
       </ContentBox>
     </div>
   </div>
@@ -134,94 +135,40 @@
   <div class="h-sep" />
 
   <div class={entryRowClasses}>
-<div class={entryTitleClass}>{$t('pages.preconfs.sections.preconfirmations.title')}</div>
-<div class="flex flex-col gap-[16px]">
-<p>{$t('pages.preconfs.sections.preconfirmations.content')}</p>
-<div></div>
-<ActionButton
-        priority="primary"
-        href={$t('pages.preconfs.sections.preconfirmations.cta.href')}
+    <div class={entryTitleClass}>{$t('pages.preconfs.sections.preconfirmations.title')}</div>
+    <div class="flex flex-col gap-[16px]">
+      <p>{$t('pages.preconfs.sections.preconfirmations.content')}</p>
+      <div></div>
+      <ActionButton priority="primary" href={$t('pages.preconfs.sections.preconfirmations.cta.href')}
         >{$t('pages.preconfs.sections.preconfirmations.cta.text')}</ActionButton>
-</div>
+    </div>
   </div>
 
-  <Carousel
-  items={carouselItems}
-  />
+  <Carousel items={carouselItems} />
 
   <div class={entryRowClasses}>
-    <div>
-    <div class={entryTitleClass}>{$t('pages.preconfs.sections.become.title')}</div>
-    <p>{$t('pages.preconfs.sections.become.content')}</p>
-
-  </div>
-    <div class="flex flex-col gap-[16px]">
-    <div></div>
-    some taikoons as prizes?
+    <div class="flex flex-col gap-[46px]">
+      <div class={entryTitleClass}>{$t('pages.preconfs.sections.become.title')}</div>
+      <p>{$t('pages.preconfs.sections.become.content')}</p>
     </div>
-      </div>
-    
+    <div class="flex flex-col gap-[16px]">
+      <div></div>
+      some taikoons as prizes?
+    </div>
+  </div>
+
   <BasedLiners />
 
-  <div class="h-sep" />
+  <div>[leaderboard]</div>
 
-
-  <!-- Hero box -->
-  <ContentBox title="Season 2 Badge overview">
-    <p>
-      {$t('pages.badge_recruitment.content.overview.p1')}
-    </p>
-    <p>
-      {$t('pages.badge_recruitment.content.overview.p2')}
-    </p>
-    <p>
-      {$t('pages.badge_recruitment.content.overview.p3')}
-    </p>
-  </ContentBox>
-
-  <!-- Recruitment -->
-  <ContentBox title="Recruit new members">
-    <p>
-      {$t('pages.badge_recruitment.content.recruit.p1')}
-    </p>
-    <p>
-      {$t('pages.badge_recruitment.content.recruit.p2')}
-    </p>
-  </ContentBox>
-
-  <!-- Teams description -->
-  <ContentBox title={$t('pages.badge_recruitment.teams.title')}>
-    <div>
-      <div class={headlineClasses}>{$t('pages.badge_recruitment.teams.devs.title')}</div>
-      {$t('pages.badge_recruitment.teams.devs.description')}
+  <div class={entryRowClasses}>
+    <div class="w-full flex flex-col">
+      <div class={entryTitleClass}>{$t('pages.preconfs.sections.earn.title')}</div>
+      <p>{$t('pages.preconfs.sections.earn.content')}</p>
     </div>
+  </div>
 
-    <div>
-      <div class={headlineClasses}>{$t('pages.badge_recruitment.teams.whales.title')}</div>
-      {$t('pages.badge_recruitment.teams.whales.description')}
-    </div>
-
-    <div>
-      <div class={headlineClasses}>{$t('pages.badge_recruitment.teams.minnows.title')}</div>
-      {$t('pages.badge_recruitment.teams.minnows.description')}
-    </div>
-    <div>
-      {$t('pages.badge_recruitment.teams.forumla')}
-    </div>
-
-    <Note>
-      {$t('pages.badge_recruitment.teams.note')}
-    </Note>
-  </ContentBox>
-
-  <!-- Get more badges -->
-  <ContentBox title={$t('pages.badge_recruitment.ways_to_get.title')}>
-    <div class={headlineClasses}>{$t('pages.badge_recruitment.ways_to_get.taikoon.title')}</div>
-    {$t('pages.badge_recruitment.ways_to_get.taikoon.description')}
-
-    <div class={headlineClasses}>{$t('pages.badge_recruitment.ways_to_get.liquidity_royale.title')}</div>
-    {$t('pages.badge_recruitment.ways_to_get.liquidity_royale.description')}
-  </ContentBox>
+  <FeaturedPartners title="Featured Partners" />
 
   <!-- CTA -->
   <div class={containerClasses}>
@@ -230,10 +177,5 @@
       {$t('pages.badge_recruitment.buttons.start')}
     </ActionButton>
     <div class={lineClassesRight}></div>
-  </div>
-
-  <!-- FAQ -->
-  <div bind:this={faqElement}>
-    <FaqBlock title="FAQs" titleSize="lg" entries={faqEntries} />
   </div>
 </div>
