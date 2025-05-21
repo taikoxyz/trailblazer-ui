@@ -1,10 +1,10 @@
 <script lang="ts">
   import { onDestroy, onMount } from 'svelte';
 
-  import { Icon } from '$shared/components/Icon';
-  import { classNames } from '$shared/utils/classNames';
   import { Card } from '$shared/components/Card';
   import type { CampaignCardType } from '$shared/components/FeaturedCampaigns/types';
+  import { Icon } from '$shared/components/Icon';
+  import { classNames } from '$shared/utils/classNames';
 
   export let title: string | undefined = undefined;
 

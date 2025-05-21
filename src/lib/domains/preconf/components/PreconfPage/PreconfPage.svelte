@@ -1,10 +1,7 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
   import { json, t } from 'svelte-i18n';
 
   import { goto } from '$app/navigation';
-  import { FaqBlock } from '$lib/domains/splashpage/components/FaqBlock';
-  import type { IFaqEntry } from '$lib/domains/splashpage/components/FaqBlock/FaqBlock.svelte';
   import ActionButton from '$shared/components/Button/ActionButton.svelte';
   import ContentBox from '$shared/components/ContentBox/ContentBox.svelte';
   import Note from '$shared/components/Note/Note.svelte';
@@ -15,29 +12,8 @@
   import Carousel from './Carousel.svelte';
   import FeaturedPartners from './FeaturedPartners.svelte';
 
-  let faqElement: HTMLElement;
-
-  function scrollToHash() {
-    const hash = window.location.hash;
-    if (hash === '#faq' && faqElement) {
-      faqElement.scrollIntoView({ behavior: 'smooth' });
-    }
-  }
-
-  onMount(() => {
-    scrollToHash();
-
-    const handleHashChange = () => scrollToHash();
-    window.addEventListener('hashchange', handleHashChange);
-
-    return () => {
-      window.removeEventListener('hashchange', handleHashChange);
-    };
-  });
-
   const wrapperClasses =
     'f-col items-center gap-[100px] px-[48px] container justify-center self-center mx-auto mt-[70px] mb-[150px]';
-  const headlineClasses = 'lg:text-left text-white font-bold leading-[28px]';
   const startTimeClasses = classNames(
     'mb-[20px]',
     'text-primary-link',
@@ -81,8 +57,6 @@
   );
 
   const ctaLink = `/profile/${getConnectedAddress()}#badge-recruitment`;
-
-  const faqEntries = $json('badge_recruitment.faq.entries') as IFaqEntry[];
 
   const entryRowClasses = classNames(
     'text-[#ADB1B8]',
