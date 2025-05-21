@@ -14,16 +14,13 @@ importers:
       '@reown/appkit-adapter-wagmi':
         specifier: ^1.7.4
         version: 1.7.4(@wagmi/core@2.16.7(@tanstack/query-core@5.76.0)(react@19.0.0-rc-fb9a90fa48-20240614)(typescript@5.8.2)(use-sync-external-store@1.4.0(react@19.0.0-rc-fb9a90fa48-20240614))(viem@2.23.13(bufferutil@4.0.9)(typescript@5.8.2)(utf-8-validate@5.0.10)(zod@3.24.2)))(bufferutil@4.0.9)(encoding@0.1.13)(react@19.0.0-rc-fb9a90fa48-20240614)(typescript@5.8.2)(utf-8-validate@5.0.10)(viem@2.23.13(bufferutil@4.0.9)(typescript@5.8.2)(utf-8-validate@5.0.10)(zod@3.24.2))(wagmi@2.14.15(@tanstack/query-core@5.76.0)(@tanstack/react-query@5.76.0(react@19.0.0-rc-fb9a90fa48-20240614))(bufferutil@4.0.9)(encoding@0.1.13)(react@19.0.0-rc-fb9a90fa48-20240614)(typescript@5.8.2)(utf-8-validate@5.0.10)(viem@2.23.13(bufferutil@4.0.9)(typescript@5.8.2)(utf-8-validate@5.0.10)(zod@3.24.2))(zod@3.24.2))(zod@3.24.2)
-      '@tanstack/react-query':
-        specifier: ^5.76.0
-        version: 5.76.0(react@19.0.0-rc-fb9a90fa48-20240614)
       axios:
         specifier: ^1.7.2
         version: 1.8.4(debug@4.4.0)
     devDependencies:
       '@apollo/client':
         specifier: ^3.11.4
-        version: 3.13.4(graphql-ws@6.0.4(graphql@16.10.0)(ws@8.18.0(bufferutil@4.0.9)(utf-8-validate@5.0.10)))(graphql@16.10.0)(react@19.0.0-rc-fb9a90fa48-20240614)
+        version: 3.13.4(graphql-ws@6.0.4(graphql@16.10.0)(ws@8.18.1(bufferutil@4.0.9)(utf-8-validate@5.0.10)))(graphql@16.10.0)(react@19.0.0-rc-fb9a90fa48-20240614)
       '@ethereumjs/util':
         specifier: ^9.0.3
         version: 9.1.0
@@ -158,7 +155,7 @@ importers:
         version: 0.4.0
       graphql-codegen-svelte-apollo:
         specifier: ^1.1.0
-        version: 1.1.0(encoding@0.1.13)(graphql-ws@6.0.4(graphql@16.10.0)(ws@8.18.0(bufferutil@4.0.9)(utf-8-validate@5.0.10)))(graphql@16.10.0)(react@19.0.0-rc-fb9a90fa48-20240614)
+        version: 1.1.0(encoding@0.1.13)(graphql-ws@6.0.4(graphql@16.10.0)(ws@8.18.1(bufferutil@4.0.9)(utf-8-validate@5.0.10)))(graphql@16.10.0)(react@19.0.0-rc-fb9a90fa48-20240614)
       graphql-tag:
         specifier: ^2.12.6
         version: 2.12.6(graphql@16.10.0)
@@ -203,7 +200,7 @@ importers:
         version: 4.2.19
       svelte-apollo:
         specifier: ^0.5.0
-        version: 0.5.0(@apollo/client@3.13.4(graphql-ws@6.0.4(graphql@16.10.0)(ws@8.18.0(bufferutil@4.0.9)(utf-8-validate@5.0.10)))(graphql@16.10.0)(react@19.0.0-rc-fb9a90fa48-20240614))(graphql@16.10.0)(svelte@4.2.19)
+        version: 0.5.0(@apollo/client@3.13.4(graphql-ws@6.0.4(graphql@16.10.0)(ws@8.18.1(bufferutil@4.0.9)(utf-8-validate@5.0.10)))(graphql@16.10.0)(react@19.0.0-rc-fb9a90fa48-20240614))(graphql@16.10.0)(svelte@4.2.19)
       svelte-check:
         specifier: ^3.8.0
         version: 3.8.6(@babel/core@7.26.10)(postcss-load-config@4.0.2(postcss@8.5.3))(postcss@8.5.3)(svelte@4.2.19)
@@ -4491,8 +4488,8 @@ packages:
     resolution: {integrity: sha512-gIXjKqtFuWEgzFRJA9WCQeSJLZDjgJUOMCMzxtvFq/37KojM1BFGufqsCy0r4qSQmYLsZYMeyRqzIWOMup03sw==}
     engines: {node: '>=14'}
 
-  forge-std@https://codeload.github.com/foundry-rs/forge-std/tar.gz/77041d2ce690e692d6e03cc812b57d1ddaa4d505:
-    resolution: {tarball: https://codeload.github.com/foundry-rs/forge-std/tar.gz/77041d2ce690e692d6e03cc812b57d1ddaa4d505}
+  forge-std@https://codeload.github.com/foundry-rs/forge-std/tar.gz/f46d8301cf732f4f83846565aa475628265e51e0:
+    resolution: {tarball: https://codeload.github.com/foundry-rs/forge-std/tar.gz/f46d8301cf732f4f83846565aa475628265e51e0}
     version: 1.9.7
 
   form-data@4.0.2:
@@ -6691,8 +6688,8 @@ packages:
     resolution: {integrity: sha512-qd/R7n5rQTRFi+Zf2sk5XVVd9UQl6ZkduPFC3S7WEGJAmetDTjY3qPN50eSKzwuzEyQKy5TN2TiZdkIjos2L6A==}
     engines: {node: '>=8.0.0'}
 
-  taiko-mono@https://codeload.github.com/taikoxyz/taiko-mono/tar.gz/de7ce0d4934efd9323853d43ffc2ef064166547c:
-    resolution: {tarball: https://codeload.github.com/taikoxyz/taiko-mono/tar.gz/de7ce0d4934efd9323853d43ffc2ef064166547c}
+  taiko-mono@https://codeload.github.com/taikoxyz/taiko-mono/tar.gz/05f241d855e5049fa3aac2e644bd56e02afce9ef:
+    resolution: {tarball: https://codeload.github.com/taikoxyz/taiko-mono/tar.gz/05f241d855e5049fa3aac2e644bd56e02afce9ef}
     version: 0.23.0
 
   tailwindcss@3.4.17:
@@ -7459,7 +7456,7 @@ snapshots:
       '@jridgewell/gen-mapping': 0.3.8
       '@jridgewell/trace-mapping': 0.3.25
 
-  '@apollo/client@3.13.4(graphql-ws@6.0.4(graphql@16.10.0)(ws@8.18.0(bufferutil@4.0.9)(utf-8-validate@5.0.10)))(graphql@16.10.0)(react@19.0.0-rc-fb9a90fa48-20240614)':
+  '@apollo/client@3.13.4(graphql-ws@6.0.4(graphql@16.10.0)(ws@8.18.1(bufferutil@4.0.9)(utf-8-validate@5.0.10)))(graphql@16.10.0)(react@19.0.0-rc-fb9a90fa48-20240614)':
     dependencies:
       '@graphql-typed-document-node/core': 3.2.0(graphql@16.10.0)
       '@wry/caches': 1.0.1
@@ -7476,7 +7473,7 @@ snapshots:
       tslib: 2.8.1
       zen-observable-ts: 1.2.5
     optionalDependencies:
-      graphql-ws: 6.0.4(graphql@16.10.0)(ws@8.18.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))
+      graphql-ws: 6.0.4(graphql@16.10.0)(ws@8.18.1(bufferutil@4.0.9)(utf-8-validate@5.0.10))
       react: 19.0.0-rc-fb9a90fa48-20240614
     transitivePeerDependencies:
       - '@types/react'
@@ -14211,7 +14208,7 @@ snapshots:
       cross-spawn: 7.0.6
       signal-exit: 4.1.0
 
-  forge-std@https://codeload.github.com/foundry-rs/forge-std/tar.gz/77041d2ce690e692d6e03cc812b57d1ddaa4d505: {}
+  forge-std@https://codeload.github.com/foundry-rs/forge-std/tar.gz/f46d8301cf732f4f83846565aa475628265e51e0: {}
 
   form-data@4.0.2:
     dependencies:
@@ -14326,9 +14323,9 @@ snapshots:
 
   graphemer@1.4.0: {}
 
-  graphql-codegen-svelte-apollo@1.1.0(encoding@0.1.13)(graphql-ws@6.0.4(graphql@16.10.0)(ws@8.18.0(bufferutil@4.0.9)(utf-8-validate@5.0.10)))(graphql@16.10.0)(react@19.0.0-rc-fb9a90fa48-20240614):
+  graphql-codegen-svelte-apollo@1.1.0(encoding@0.1.13)(graphql-ws@6.0.4(graphql@16.10.0)(ws@8.18.1(bufferutil@4.0.9)(utf-8-validate@5.0.10)))(graphql@16.10.0)(react@19.0.0-rc-fb9a90fa48-20240614):
     dependencies:
-      '@apollo/client': 3.13.4(graphql-ws@6.0.4(graphql@16.10.0)(ws@8.18.0(bufferutil@4.0.9)(utf-8-validate@5.0.10)))(graphql@16.10.0)(react@19.0.0-rc-fb9a90fa48-20240614)
+      '@apollo/client': 3.13.4(graphql-ws@6.0.4(graphql@16.10.0)(ws@8.18.1(bufferutil@4.0.9)(utf-8-validate@5.0.10)))(graphql@16.10.0)(react@19.0.0-rc-fb9a90fa48-20240614)
       '@graphql-codegen/plugin-helpers': 2.7.2(graphql@16.10.0)
       '@graphql-codegen/visitor-plugin-common': 2.13.8(encoding@0.1.13)(graphql@16.10.0)
       camel-case: 4.1.2
@@ -14387,13 +14384,6 @@ snapshots:
     dependencies:
       graphql: 16.10.0
       tslib: 2.8.1
-
-  graphql-ws@6.0.4(graphql@16.10.0)(ws@8.18.0(bufferutil@4.0.9)(utf-8-validate@5.0.10)):
-    dependencies:
-      graphql: 16.10.0
-    optionalDependencies:
-      ws: 8.18.0(bufferutil@4.0.9)(utf-8-validate@5.0.10)
-    optional: true
 
   graphql-ws@6.0.4(graphql@16.10.0)(ws@8.18.1(bufferutil@4.0.9)(utf-8-validate@5.0.10)):
     dependencies:
@@ -16436,9 +16426,9 @@ snapshots:
 
   supports-preserve-symlinks-flag@1.0.0: {}
 
-  svelte-apollo@0.5.0(@apollo/client@3.13.4(graphql-ws@6.0.4(graphql@16.10.0)(ws@8.18.0(bufferutil@4.0.9)(utf-8-validate@5.0.10)))(graphql@16.10.0)(react@19.0.0-rc-fb9a90fa48-20240614))(graphql@16.10.0)(svelte@4.2.19):
+  svelte-apollo@0.5.0(@apollo/client@3.13.4(graphql-ws@6.0.4(graphql@16.10.0)(ws@8.18.1(bufferutil@4.0.9)(utf-8-validate@5.0.10)))(graphql@16.10.0)(react@19.0.0-rc-fb9a90fa48-20240614))(graphql@16.10.0)(svelte@4.2.19):
     dependencies:
-      '@apollo/client': 3.13.4(graphql-ws@6.0.4(graphql@16.10.0)(ws@8.18.0(bufferutil@4.0.9)(utf-8-validate@5.0.10)))(graphql@16.10.0)(react@19.0.0-rc-fb9a90fa48-20240614)
+      '@apollo/client': 3.13.4(graphql-ws@6.0.4(graphql@16.10.0)(ws@8.18.1(bufferutil@4.0.9)(utf-8-validate@5.0.10)))(graphql@16.10.0)(react@19.0.0-rc-fb9a90fa48-20240614)
       graphql: 16.10.0
       svelte: 4.2.19
 
@@ -16554,7 +16544,7 @@ snapshots:
       typical: 5.2.0
       wordwrapjs: 4.0.1
 
-  taiko-mono@https://codeload.github.com/taikoxyz/taiko-mono/tar.gz/de7ce0d4934efd9323853d43ffc2ef064166547c: {}
+  taiko-mono@https://codeload.github.com/taikoxyz/taiko-mono/tar.gz/05f241d855e5049fa3aac2e644bd56e02afce9ef: {}
 
   tailwindcss@3.4.17:
     dependencies:
@@ -16683,7 +16673,7 @@ snapshots:
       convert-csv-to-json: 2.50.0
       dotenv: 16.4.7
       ds-test: https://codeload.github.com/dapphub/ds-test/tar.gz/e282159d5170298eb2455a6c05280ab5a73a4ef0
-      forge-std: https://codeload.github.com/foundry-rs/forge-std/tar.gz/77041d2ce690e692d6e03cc812b57d1ddaa4d505
+      forge-std: https://codeload.github.com/foundry-rs/forge-std/tar.gz/f46d8301cf732f4f83846565aa475628265e51e0
       ipfs-http-client: 60.0.1(encoding@0.1.13)
       merkletreejs: 0.4.1
       murky: https://codeload.github.com/dmfxyz/murky/tar.gz/991e371eb1dfa9f86701869eb08ec4e98c3cc0b0
@@ -16691,7 +16681,7 @@ snapshots:
       sharp: 0.33.5
       solady: https://codeload.github.com/Vectorized/solady/tar.gz/de0f336d2033d04e0f77c923d639c7fbffd48b6d
       solidity-stringutils: https://codeload.github.com/Arachnid/solidity-stringutils/tar.gz/4b2fcc43fa0426e19ce88b1f1ec16f5903a2e461
-      taiko-mono: https://codeload.github.com/taikoxyz/taiko-mono/tar.gz/de7ce0d4934efd9323853d43ffc2ef064166547c
+      taiko-mono: https://codeload.github.com/taikoxyz/taiko-mono/tar.gz/05f241d855e5049fa3aac2e644bd56e02afce9ef
     transitivePeerDependencies:
       - aws-crt
       - encoding
