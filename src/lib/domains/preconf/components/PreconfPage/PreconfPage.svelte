@@ -12,6 +12,8 @@
   import getConnectedAddress from '$shared/utils/getConnectedAddress';
 
   import BasedLiners from '../BasedLiners/BasedLiners.svelte';
+  import Carousel from './Carousel.svelte';
+
 
   let faqElement: HTMLElement;
 
@@ -81,31 +83,88 @@
   const ctaLink = `/profile/${getConnectedAddress()}#badge-recruitment`;
 
   const faqEntries = $json('badge_recruitment.faq.entries') as IFaqEntry[];
+
+  const entryRowClasses = classNames(
+    'text-[#ADB1B8]',
+    'w-full',
+    'grid','grid-cols-1','lg:grid-cols-2',
+    'items-start', 'justify-center',
+  )
+
+
+  const entryTitleClass = classNames(
+    'text-[35px]',
+    'lg:text-[45px]',
+    'font-medium',
+    'leading-[42px]',
+    'font-clash-grotesk',
+    'lg:leading-[52px]',
+    'lg:min-w-[293px]',
+    'lg:max-w-[293px]',
+    'text-[#F3F3F3]'
+  );
+
+  $: carouselItems = $json('pages.preconfs.sections.carousel') as {label: string, image:string}[]
 </script>
 
 <div class={wrapperClasses}>
   <div class="lg:f-between-center w-full f-col items-center lg:f-row">
-    <img src="/header/migrations/migrations.svg" alt="Badge Recruitment" class={headerImageClasses} />
+    <img src="/preconfs/speed.png" alt="Preconfs" class={headerImageClasses} />
     <div class="f-col">
-      <span class={startTimeClasses}> {$t('pages.badge_recruitment.journey.begin.timer')} </span>
+      <span class={startTimeClasses}> {$t('pages.preconfs.sections.hero.subtitle')} </span>
       <ContentBox
-        title={$t('pages.badge_recruitment.journey.begin.title')}
+        title={$t('pages.preconfs.sections.hero.title')}
         alwaysColumn
         titleOverrideClasses={'lg:max-w-[452px]'}
         contentOverrideClasses={'lg:max-w-[452px]'}>
         <p>
-          {$t('pages.badge_recruitment.journey.begin.description')}
+          {$t('pages.preconfs.sections.hero.content')}
         </p>
         <Note>
-          {$t('pages.badge_recruitment.journey.begin.note')}
+          {$t('pages.preconfs.sections.hero.note')}
         </Note>
+        <ActionButton
+        priority="primary"
+        href={$t('pages.preconfs.sections.hero.cta.href')}
+        >{$t('pages.preconfs.sections.hero.cta.text')}</ActionButton>
       </ContentBox>
     </div>
   </div>
 
+  <div class="h-sep" />
+
+  <div class={entryRowClasses}>
+<div class={entryTitleClass}>{$t('pages.preconfs.sections.preconfirmations.title')}</div>
+<div class="flex flex-col gap-[16px]">
+<p>{$t('pages.preconfs.sections.preconfirmations.content')}</p>
+<div></div>
+<ActionButton
+        priority="primary"
+        href={$t('pages.preconfs.sections.preconfirmations.cta.href')}
+        >{$t('pages.preconfs.sections.preconfirmations.cta.text')}</ActionButton>
+</div>
+  </div>
+
+  <Carousel
+  items={carouselItems}
+  />
+
+  <div class={entryRowClasses}>
+    <div>
+    <div class={entryTitleClass}>{$t('pages.preconfs.sections.become.title')}</div>
+    <p>{$t('pages.preconfs.sections.become.content')}</p>
+
+  </div>
+    <div class="flex flex-col gap-[16px]">
+    <div></div>
+    some taikoons as prizes?
+    </div>
+      </div>
+    
   <BasedLiners />
 
   <div class="h-sep" />
+
 
   <!-- Hero box -->
   <ContentBox title="Season 2 Badge overview">
