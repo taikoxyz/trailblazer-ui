@@ -1,6 +1,7 @@
 import { sveltekit } from '@sveltejs/kit/vite';
 import dotenv from 'dotenv';
 import { defineConfig } from 'vite';
+import commonjsExternals from 'vite-plugin-commonjs-externals';
 import { qrcode } from 'vite-plugin-qrcode';
 import tsconfigPaths from 'vite-tsconfig-paths';
 
@@ -24,14 +25,15 @@ export default defineConfig({
   esbuild: {
     sourcemap: true,
   },
-  ssr: {
-    noExternal: true,
-  },
+
   plugins: [
     qrcode(),
     sveltekit(), // This plugin gives vite the ability to resolve imports using TypeScript's path mapping.
     // https://www.npmjs.com/package/vite-tsconfig-paths
     tsconfigPaths({ ignoreConfigErrors: true }),
+    commonjsExternals({
+      externals: ['ws'],
+    }),
   ],
   test: {
     environment: 'jsdom',
