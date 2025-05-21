@@ -81,8 +81,3 @@
     <Confetti x={[-5, 5]} y={[0, 0.1]} delay={[500, 10000]} duration={5000} amount={200} fallDistance="100vh" />
   </div>
 {/if}
-<button
-  on:click={() => (score === 0 ? (score = 100) : (score = 0))}
-  class="btn top-0 absolute right-0 m-4 p-2 bg-gray-800 text-white rounded">
-  {score ? 'Stop Debug' : 'Debug'}
-</button>
