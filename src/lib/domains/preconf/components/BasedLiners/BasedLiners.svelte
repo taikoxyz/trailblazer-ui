@@ -67,7 +67,7 @@
         <div class="lg:v-sep h-sep" />
         <AfterPreconf bind:error bind:diffAfter />
         <div class="lg:v-sep h-sep" />
-        <Score bind:error {diffAfter} {diffBefore} />
+        <Score {diffAfter} {diffBefore} />
       </div>
       <!-- <Stats {diffBefore} {diffAfter} /> -->
     </div>
