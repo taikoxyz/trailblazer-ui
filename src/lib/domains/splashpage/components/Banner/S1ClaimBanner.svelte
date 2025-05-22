@@ -2,7 +2,7 @@
   import { t } from 'svelte-i18n';
 
   import { goto } from '$app/navigation';
-  import { web3modal } from '$lib/shared/utils/connect';
+  import { reownModal } from '$lib/shared/utils/connect';
   import ActionButton from '$shared/components/Button/ActionButton.svelte';
   import { account } from '$shared/stores/account';
   import { classNames } from '$shared/utils/classNames';
@@ -221,7 +221,7 @@
   );
 
   const handleClick = () => {
-    $account.isConnected ? goto('/profile') : web3modal.open();
+    $account.isConnected ? goto('/profile') : reownModal.open();
   };
 </script>
 

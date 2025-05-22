@@ -11,7 +11,7 @@ const metadata = {
   icons: ['https://avatars.githubusercontent.com/u/99078433'],
 };
 
-export const web3modal = createAppKit({
+export const reownModal = createAppKit({
   adapters: [wagmiAdapter],
   networks: chains,
   metadata: metadata,

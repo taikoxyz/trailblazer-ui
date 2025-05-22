@@ -4,7 +4,7 @@
   import { t } from 'svelte-i18n';
 
   import { getChainImage } from '$lib/shared/utils/chain';
-  import { web3modal } from '$lib/shared/utils/connect';
+  import { reownModal } from '$lib/shared/utils/connect';
   import { ActionButton } from '$shared/components/Button';
   import { Icon } from '$shared/components/Icon';
   import { account } from '$shared/stores/account';
@@ -19,7 +19,7 @@
 
   function connectWallet() {
     if (web3modalOpen) return;
-    web3modal.open();
+    reownModal.open();
   }
 
   function onWeb3Modal(state: PublicStateControllerState) {
@@ -33,7 +33,7 @@
   $: balance = $ethBalance || 0n;
 
   onMount(async () => {
-    unsubscribeWeb3Modal = web3modal.subscribeState(onWeb3Modal);
+    unsubscribeWeb3Modal = reownModal.subscribeState(onWeb3Modal);
     await refreshUserBalance();
   });
 
