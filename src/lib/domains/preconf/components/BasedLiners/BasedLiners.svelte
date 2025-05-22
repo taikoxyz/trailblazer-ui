@@ -92,7 +92,7 @@
         <div class="lg:v-sep h-sep" />
         <AfterPreconf bind:error bind:diffAfter />
         <div class="lg:v-sep h-sep" />
-        <Score {score} {diffAfter} {diffBefore} />
+        <Score {score} {diffAfter} {diffBefore} {isPhase2Open} />
       </div>
       <!-- <Stats {diffBefore} {diffAfter} /> -->
     </div>

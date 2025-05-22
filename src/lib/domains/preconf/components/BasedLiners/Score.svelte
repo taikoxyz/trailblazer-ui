@@ -28,10 +28,11 @@
     'lg:mb-0',
   );
 
-  $: disabled = !score || score <= 0;
+  $: disabled = !score || score <= 0 || !isPhase2Open;
 
   export let diffBefore: number = 0;
   export let diffAfter: number = 0;
+  export let isPhase2Open: boolean = false;
   export let score: number = 0 || diffAfter - diffBefore;
 
   $: speedIncreaseTimes = diffBefore && diffAfter ? (diffBefore / diffAfter).toFixed(2) : 0;
@@ -49,7 +50,7 @@
 <div class={wrapperClasses}>
   <h1>Your points</h1>
   <div class={digit}>
-    {#if score}
+    {#if score && isPhase2Open}
       <Confetti cone x={[-0.5, 0.5]} />
       {score}
       <Confetti cone amount={10} x={[-1, -0.4]} y={[0.25, 0.75]} />
@@ -58,7 +59,7 @@
       0
     {/if}
   </div>
-  {#if score && score > 0}
+  {#if score && score > 0 && isPhase2Open}
     <span class="text-positive-sentiment font-clash-grotesk font-bold lg:mt-[-20px] lg:mb-0 mt-[-170px] mb-[80px]">
       {speedIncreaseTimes}x faster transaction speed!
     </span>
@@ -79,7 +80,7 @@
     </ActionButton>
   </div>
 </div>
-{#if score && score > 0}
+{#if score && score > 0 && isPhase2Open}
   <div
     style="position: fixed; z-index: 50; top: -50px; left: 0; height: 100vh; width: 100vw; pointer-events: none; display: flex; justify-content: center; overflow: hidden;">
     <Confetti x={[-5, 5]} y={[0, 0.1]} delay={[500, 10000]} duration={5000} amount={200} fallDistance="100vh" />
