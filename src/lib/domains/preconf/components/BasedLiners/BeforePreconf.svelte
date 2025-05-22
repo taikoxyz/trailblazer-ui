@@ -78,7 +78,7 @@
     <!-- <span class="text-sm text-secondary-content">(Before Preconf)</span> -->
   </h1>
 
-  <StaticTime seconds={diffBefore} />
+  <StaticTime seconds={Math.floor(diffBefore)} />
 
   <div class="absolute bottom-0 left-0 w-full flex flex-col items-center">
     {#if error}
@@ -94,6 +94,8 @@
         Tracking...
       {:else if noAccount}
         Connect wallet
+      {:else if !isPhaseOpen}
+        Phase is closed
       {:else}
         Track your time
       {/if}

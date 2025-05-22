@@ -91,21 +91,25 @@
         titleOverrideClasses={'lg:max-w-[502px]'}
         contentOverrideClasses={'lg:max-w-[452px]'}>
         <p>
-          {$t('pages.preconfs.sections.hero.content')}
+          <!-- eslint-disable-next-line svelte/no-at-html-tags -->
+          {@html $t('pages.preconfs.sections.hero.content')}
         </p>
         <Note>
           {$t('pages.preconfs.sections.hero.note')}
         </Note>
-        <ActionButton
-          priority="primary"
-          type="button"
-          on:click={(event) => {
-            event.preventDefault();
-            const el = document.getElementById('basedliners-section');
-            if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
-          }}>
-          {$t('pages.preconfs.sections.hero.cta.text')}
-        </ActionButton>
+        <div class="pt-[50px]">
+          <ActionButton
+            priority="primary"
+            type="button"
+            class={ctaClasses}
+            on:click={(event) => {
+              event.preventDefault();
+              const el = document.getElementById('basedliners-section');
+              if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }}>
+            {$t('pages.preconfs.sections.hero.cta.text')}
+          </ActionButton>
+        </div>
       </ContentBox>
     </div>
   </div>
@@ -117,7 +121,7 @@
     <div class="flex flex-col gap-[16px]">
       <p>{$t('pages.preconfs.sections.preconfirmations.content')}</p>
       <div></div>
-      <ActionButton priority="primary" href={$t('pages.preconfs.sections.preconfirmations.cta.href')}
+      <ActionButton class={ctaClasses} priority="primary" href={$t('pages.preconfs.sections.preconfirmations.cta.href')}
         >{$t('pages.preconfs.sections.preconfirmations.cta.text')}</ActionButton>
     </div>
   </div>

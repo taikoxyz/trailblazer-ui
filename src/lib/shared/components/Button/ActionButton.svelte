@@ -108,14 +108,9 @@
   $: classes = classNames(commonClasses, priorityToClassMap[priority], $$props.class);
 </script>
 
-{#if $$restProps.href}
-  <a
-    {...$$restProps}
-    href={disabled ? undefined : $$restProps.href}
-    aria-disabled={disabled}
-    target="_blank"
-    tabindex={disabled ? -1 : 0}
-    class={classes}>
+{#if $$restProps.href && !disabled}
+  <!-- @ts-expect-error: 'disabled' is not valid for <a>, but we use it for consistency -->
+  <a {...$$restProps} href={$$restProps.href} target="_blank" tabindex={0} class={classes}>
     {#if priority === 'fancy'}
       <div class={classNames(fancyBorderClasses, 'top-0')}></div>
       <div class={classNames(fancyBorderClasses, 'bottom-0')}></div>

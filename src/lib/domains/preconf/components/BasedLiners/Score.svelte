@@ -28,25 +28,26 @@
     'lg:mb-0',
   );
 
-  $: disabled = !score && score > 0;
+  $: disabled = !score || score <= 0;
 
   export let diffBefore: number = 0;
   export let diffAfter: number = 0;
+  export let score: number = 0 || diffAfter - diffBefore;
 
   $: speedIncreaseTimes = diffBefore && diffAfter ? (diffBefore / diffAfter).toFixed(2) : 0;
 
   // const activePhase: PRECONF_CAMPAIGN_PHASE = PRECONF_CAMPAIGN_PHASE.AFTER;
 
-  $: score =
-    diffBefore && diffAfter && diffAfter < diffBefore
-      ? Math.min(Number(((diffBefore / diffAfter) * 10_000).toFixed(2)), 150_000)
-      : 0;
+  // $: score2 =
+  //   diffBefore && diffAfter && diffAfter < diffBefore
+  //     ? Math.min(Number(((diffBefore / diffAfter) * 10_000).toFixed(2)), 150_000)
+  //     : 0;
 
   $: tweetLink = `https://twitter.com/intent/post?text=%F0%9F%9A%80%20Preconfirmations%20are%20LIVE%20on%20%40taikoxyz%20%E2%80%94%20my%20tx%20was%20${speedIncreaseTimes}x%20faster.%0A%0AThis%20isn%E2%80%99t%20just%20an%20upgrade.%20It%E2%80%99s%20a%20paradigm%20shift.%0AThe%20new%20era%20of%20Ethereum%20starts%20NOW.%0A%0A%F0%9F%94%97%20Try%20it%20yourself%3A%20https%3A%2F%2Ftrailblazers.taiko.xyz%2Fpreconfs%0A%0A%23Taiko%20%23Ethereum%20%23Basedliner`;
 </script>
 
 <div class={wrapperClasses}>
-  <h1>Your score</h1>
+  <h1>Your points</h1>
   <div class={digit}>
     {#if score}
       <Confetti cone x={[-0.5, 0.5]} />
@@ -62,6 +63,7 @@
       {speedIncreaseTimes}x faster transaction speed!
     </span>
   {/if}
+
   <div class="absolute bottom-0 left-0 w-full flex flex-col items-center">
     <ActionButton
       class="max-w-[200px] w-[200px] !max-h-[48px]"

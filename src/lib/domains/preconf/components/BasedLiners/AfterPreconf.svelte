@@ -44,6 +44,8 @@
 
       diffAfter = Math.floor(response.diffInSeconds);
     } catch (e) {
+      console.error('Error tracking time:', e);
+
       if (e && typeof e === 'object' && 'message' in e && typeof e.message === 'string') {
         if (e.message.includes('User rejected the request')) {
           errorToast({
@@ -73,7 +75,7 @@
 
 <div class={wrapperClasses}>
   <h1>With preconfs</h1>
-  <StaticTime seconds={diffAfter} />
+  <StaticTime seconds={Math.floor(diffAfter)} />
   <div class="absolute bottom-0 left-0 w-full flex flex-col items-center">
     <ActionButton
       class="!max-h-[48px] !max-w-[200px]"
@@ -85,6 +87,8 @@
         Tracking...
       {:else if noAccount}
         Connect wallet
+      {:else if !isPhaseOpen}
+        Not launched yet
       {:else}
         Track your time
       {/if}

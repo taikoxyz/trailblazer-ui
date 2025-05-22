@@ -1,10 +1,14 @@
 import { type Address, zeroAddress } from 'viem';
 
+import { browser } from '$app/environment';
+import type { UnifiedLeaderboardRow } from '$lib/domains/leaderboard/types/shared/types';
 import getConnectedAddress from '$shared/utils/getConnectedAddress';
 import { getLogger } from '$shared/utils/logger';
 
 import { BasedLinerAdapter } from '../adapter/BasedLinerAdapter';
+import type { BasedlinerLeaderboard } from '../dto/BasedlinerLeaderboard';
 import type { InternalAPIPayload } from '../dto/InternalAPIPayload';
+import { leaderboardStore } from '../stores/BasedlinerLeaderboardStore';
 import { PRECONF_CAMPAIGN_PHASE, PRECONF_EVENT } from '../types';
 
 const log = getLogger('BasedLinerService');
@@ -71,24 +75,66 @@ export class BasedLinerService {
    * @returns A promise that resolves to the leaderboard data.
    * @memberof BasedLinerService
    */
-  static async getLeaderboard({ eventId, phaseId }: { eventId: number; phaseId: PRECONF_CAMPAIGN_PHASE }) {
-    const res = await fetch(`/api/basedliner/leaderboard/entry`, {
-      method: 'GET',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ eventId, phaseId }),
-    });
+  static async fetchLeaderboard({ eventId, page }: { eventId: number; page: number }) {
+    if (!browser) return;
+    try {
+      const res = await fetch(`/api/basedliner/leaderboard/entry`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ eventId, page }),
+      });
 
-    log('Response from BasedLinerService:', res);
+      log('Response from BasedLinerService:', res);
 
-    if (!res.ok) {
-      console.error('Error calling API:', res.status, res.statusText);
-      throw new Error(`API call failed: ${res.status} ${res.statusText}`);
+      if (!res.ok) {
+        console.error('Error calling API:', res.status, res.statusText);
+        throw new Error(`API call failed: ${res.status} ${res.statusText}`);
+      }
+      // 3. Parse the response and return it
+      const data = await res.json();
+      log('Leaderboard data:', data);
+      const leaderboardPage = {
+        items: Array.isArray(data.entries) ? data.entries : [],
+        lastUpdated: Date.now(),
+        pagination: { page, size: data.entries?.length || 0, total: data.entries?.length || 0 },
+      };
+
+      // Map the leaderboard data to the UnifiedLeaderboardRow format
+      const mappedItems = leaderboardPage.items.map((row: BasedlinerLeaderboard) => {
+        const mappedRow = mapBasedlinerLeaderboardRow(row);
+        return {
+          ...mappedRow,
+          phase1: (row.phase1 || 0) / 1000,
+          phase2: (row.phase2 || 0) / 1000,
+        };
+      });
+
+      leaderboardPage.items = mappedItems;
+
+      leaderboardStore.set(leaderboardPage);
+      return leaderboardPage;
+    } catch (error) {
+      console.error('Error fetching leaderboard:', error);
+      return {
+        items: [],
+        lastUpdated: Date.now(),
+        pagination: { page, size: 0, total: 0 },
+      };
     }
-    // 3. Parse the response and return it
-    return await res.json();
   }
 
-  static async getLeaderboardEntry({ address }: { eventId: PRECONF_EVENT.BASEDLINER; address: Address }) {
+  /**
+   * Fetches the leaderboard .
+   * @param param0 - The event ID and address to fetch the leaderboard entry for.
+   * @returns A promise that resolves to the leaderboard entry data.
+   * @memberof BasedLinerService
+   */
+  static async fetchLeaderboardEntry({
+    address,
+  }: {
+    eventId: PRECONF_EVENT.BASEDLINER;
+    address: Address;
+  }): Promise<BasedlinerLeaderboard | null> {
     const res = await fetch(`/api/basedliner/leaderboard/entry?address=${address}`, {
       method: 'GET',
       headers: { 'Content-Type': 'application/json' },
@@ -107,9 +153,22 @@ export class BasedLinerService {
     // 3. Parse the response and return it
     const parsed = {
       ...response.entry,
-      phase1: Math.floor((response.entry.phase1 || 0) / 1000),
-      phase2: Math.floor((response.entry.phase2 || 0) / 1000),
+      phase1: (response.entry.phase1 || 0) / 1000,
+      phase2: (response.entry.phase2 || 0) / 1000,
     };
     return parsed;
   }
+}
+
+function mapBasedlinerLeaderboardRow(row: BasedlinerLeaderboard): UnifiedLeaderboardRow {
+  if (!row.rank) {
+    throw new Error('');
+  }
+  return {
+    address: row.address,
+    rank: row.rank,
+    icon: '',
+    data: [],
+    totalScore: row.diff ? row.diff : 0,
+  };
 }

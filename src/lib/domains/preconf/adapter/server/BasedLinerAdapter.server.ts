@@ -28,6 +28,7 @@ export class BasedLinerAdapter {
       });
     } catch (error) {
       console.error('Error submitting stage', error);
+      throw new Error('Failed to submit stage');
     }
   }
 

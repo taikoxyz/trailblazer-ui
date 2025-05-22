@@ -25,15 +25,18 @@ export class BasedLinerService {
       throw new Error('Phase, timestamp, wallet and txHash are required');
     }
 
-    await BasedLinerAdapter.submitStage({
-      stage: PRECONF_TX_STAGE.INITIAL,
-      phase,
-      timestamp,
-      address: wallet,
-      tx_hash: txHash,
-    });
-
-    //TOOD check if the response is ok
+    try {
+      await BasedLinerAdapter.submitStage({
+        stage: PRECONF_TX_STAGE.INITIAL,
+        phase,
+        timestamp,
+        address: wallet,
+        tx_hash: txHash,
+      });
+    } catch (error) {
+      console.error('Error submitting phase:', error);
+      throw new Error('Failed to submit phase');
+    }
 
     const receipt = await BasedLinerAdapter.waitForTransactionReceipt({
       txHash,
@@ -47,15 +50,18 @@ export class BasedLinerService {
     });
     const blockTime = block.timestamp * 1000n;
 
-    await BasedLinerAdapter.submitStage({
-      stage: PRECONF_TX_STAGE.FINAL,
-      phase,
-      address: wallet,
-      timestamp: Number(blockTime),
-      tx_hash: txHash,
-    });
-
-    //TOOD check if the response is ok
+    try {
+      await BasedLinerAdapter.submitStage({
+        stage: PRECONF_TX_STAGE.FINAL,
+        phase,
+        address: wallet,
+        timestamp: Number(blockTime),
+        tx_hash: txHash,
+      });
+    } catch (error) {
+      console.error('Error submitting phase:', error);
+      throw new Error('Failed to submit phase');
+    }
 
     // TODO fetch diff from api
 
