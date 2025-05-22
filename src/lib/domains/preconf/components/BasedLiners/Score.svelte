@@ -24,9 +24,11 @@
     'items-center',
     'text-center',
     'justify-center',
+    'mb-[150px]',
+    'lg:mb-0',
   );
 
-  $: disabled = !score;
+  $: disabled = !score && score > 0;
 
   export let diffBefore: number = 0;
   export let diffAfter: number = 0;
@@ -55,6 +57,11 @@
       0
     {/if}
   </div>
+  {#if score && score > 0}
+    <span class="text-positive-sentiment font-clash-grotesk font-bold lg:mt-[-20px] lg:mb-0 mt-[-170px] mb-[80px]">
+      {speedIncreaseTimes}x faster transaction speed!
+    </span>
+  {/if}
   <div class="absolute bottom-0 left-0 w-full flex flex-col items-center">
     <ActionButton
       class="max-w-[200px] w-[200px] !max-h-[48px]"
@@ -69,11 +76,6 @@
       {/if}
     </ActionButton>
   </div>
-  {#if score && score > 0}
-    <span class="text-positive-sentiment font-clash-grotesk font-bold mt-[-20px]">
-      {speedIncreaseTimes}x faster transaction speed!
-    </span>
-  {/if}
 </div>
 {#if score && score > 0}
   <div

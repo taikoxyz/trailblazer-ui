@@ -120,7 +120,7 @@
   });
 </script>
 
-<div class="flipclock-wrapper">
+<div class="flipclock-wrapper mb-[90px] lg:mt-0">
   <div class="flipclock w-[150px] f-row f-between-center">
     <div class="f-row">
       {#each pad(displayM).split('') as m, i}

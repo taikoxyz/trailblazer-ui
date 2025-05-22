@@ -99,6 +99,10 @@ export class BasedLinerService {
       throw new Error(`API call failed: ${res.status} ${res.statusText}`);
     }
     const response = await res.json();
+    if (!response.entry) {
+      log('No entry found for address:', address);
+      return null;
+    }
     log('Entry:', response.entry);
     // 3. Parse the response and return it
     const parsed = {

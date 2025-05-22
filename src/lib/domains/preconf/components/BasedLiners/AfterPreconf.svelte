@@ -72,7 +72,7 @@
 </script>
 
 <div class={wrapperClasses}>
-  <h1>After preconfs</h1>
+  <h1>With preconfs</h1>
   <StaticTime seconds={diffAfter} />
   <div class="absolute bottom-0 left-0 w-full flex flex-col items-center">
     <ActionButton

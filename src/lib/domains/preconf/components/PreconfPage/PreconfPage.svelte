@@ -6,11 +6,9 @@
   import ContentBox from '$shared/components/ContentBox/ContentBox.svelte';
   import Note from '$shared/components/Note/Note.svelte';
   import { classNames } from '$shared/utils/classNames';
-  import getConnectedAddress from '$shared/utils/getConnectedAddress';
 
   import BasedLiners from '../BasedLiners/BasedLiners.svelte';
   import Carousel from './Carousel.svelte';
-  import FeaturedPartners from './FeaturedPartners.svelte';
 
   const wrapperClasses =
     'f-col items-center gap-[100px] px-[48px] container justify-center self-center mx-auto mt-[70px] mb-[150px]';
@@ -56,8 +54,6 @@
     'ml-4',
   );
 
-  const ctaLink = `/profile/${getConnectedAddress()}#badge-recruitment`;
-
   const entryRowClasses = classNames(
     'text-[#ADB1B8]',
     'w-full',
@@ -92,7 +88,7 @@
       <ContentBox
         title={$t('pages.preconfs.sections.hero.title')}
         alwaysColumn
-        titleOverrideClasses={'lg:max-w-[452px]'}
+        titleOverrideClasses={'lg:max-w-[502px]'}
         contentOverrideClasses={'lg:max-w-[452px]'}>
         <p>
           {$t('pages.preconfs.sections.hero.content')}
@@ -100,8 +96,16 @@
         <Note>
           {$t('pages.preconfs.sections.hero.note')}
         </Note>
-        <ActionButton priority="primary" href={$t('pages.preconfs.sections.hero.cta.href')}
-          >{$t('pages.preconfs.sections.hero.cta.text')}</ActionButton>
+        <ActionButton
+          priority="primary"
+          type="button"
+          on:click={(event) => {
+            event.preventDefault();
+            const el = document.getElementById('basedliners-section');
+            if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          }}>
+          {$t('pages.preconfs.sections.hero.cta.text')}
+        </ActionButton>
       </ContentBox>
     </div>
   </div>
@@ -127,7 +131,6 @@
     </div>
     <div class="flex flex-col gap-[16px]">
       <div></div>
-      some taikoons as prizes?
     </div>
   </div>
 
@@ -140,13 +143,17 @@
     </div>
   </div>
 
-  <FeaturedPartners title="Featured Partners" />
+  <!-- <FeaturedPartners title="Featured Partners" /> -->
 
   <!-- CTA -->
   <div class={containerClasses}>
     <div class={lineClassesLeft}></div>
-    <ActionButton class={ctaClasses} priority="primary" on:click={() => goto(ctaLink)}>
-      {$t('pages.badge_recruitment.buttons.start')}
+    <ActionButton
+      class={ctaClasses + ' min-w-[300px]'}
+      priority="primary"
+      on:click={() => goto('/ecosystem')}
+      withArrow>
+      Explore the ecosystem now
     </ActionButton>
     <div class={lineClassesRight}></div>
   </div>

@@ -22,6 +22,7 @@
     'justify-start',
     'px-[24px]',
     'md:px-[48px]',
+
     'relative',
   );
 
@@ -71,9 +72,18 @@
 </script>
 
 <div class={wrapperClasses}>
-  <h1>Before preconfs</h1>
+  <h1>
+    Baseline
+    <br />
+    <!-- <span class="text-sm text-secondary-content">(Before Preconf)</span> -->
+  </h1>
+
   <StaticTime seconds={diffBefore} />
+
   <div class="absolute bottom-0 left-0 w-full flex flex-col items-center">
+    {#if error}
+      <p class="text-red-500">{error}</p>
+    {/if}
     <ActionButton
       class="!max-h-[48px] !max-w-[200px]"
       priority="primary"
