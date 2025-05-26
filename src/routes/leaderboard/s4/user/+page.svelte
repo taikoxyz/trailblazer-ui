@@ -19,7 +19,7 @@
   $: ({ pageInfo, loading } = $page.data);
 
   const handleClick = () => {
-    goto('/journeys/liquidity/3');
+    goto('/leaderboard/liquidity/3');
   };
 </script>
 

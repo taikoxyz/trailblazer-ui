@@ -24,7 +24,7 @@ export const newsEntries: NewsCardContent[] = [
     title: 'Liquidity Royale Season 4',
     subtitle: 'Supercharge your liquidity and get rewarded for it',
     cta: {
-      href: '/journeys/liquidity/3',
+      href: '/leaderboard/liquidity/3',
     },
   },
   {
