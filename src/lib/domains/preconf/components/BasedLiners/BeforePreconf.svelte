@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
+  import { onDestroy, onMount } from 'svelte';
   import { zeroAddress } from 'viem';
 
   import { BasedLinerService } from '$lib/domains/preconf/service/BasedLinerService';
@@ -30,7 +30,7 @@
   let isPhaseOpen = false;
   $: noAccount = getConnectedAddress() === zeroAddress;
 
-  $: disabled = noAccount || loading || !isPhaseOpen;
+  $: disabled = noAccount || loading || !isPhaseOpen || !reSubmitEnabled;
   export let error: string | null = null;
   export let diffBefore: number = 0;
 
@@ -51,6 +51,11 @@
       log('diffInSeconds', response.diffInSeconds);
 
       diffBefore = Math.floor(response.diffInSeconds);
+      // disable re-submiting for 1 minute after sending
+      reSubmitEnabled = false;
+      reSubmitTimeout = setTimeout(() => {
+        reSubmitEnabled = true;
+      }, 1000 * 60);
     } catch (e) {
       if (e && typeof e === 'object' && 'message' in e && typeof e.message === 'string') {
         if (e.message.includes('User rejected the request')) {
@@ -65,10 +70,23 @@
           message: 'Please try again',
         });
       }
+      // reset values
+      diffBefore = 0;
+      reSubmitEnabled = true;
     } finally {
       loading = false;
     }
   }
+
+  onDestroy(() => {
+    if (reSubmitTimeout) {
+      clearTimeout(reSubmitTimeout);
+      reSubmitTimeout = null;
+    }
+  });
+
+  let reSubmitTimeout: NodeJS.Timeout | null = null;
+  let reSubmitEnabled = true;
 </script>
 
 <div class={wrapperClasses}>
