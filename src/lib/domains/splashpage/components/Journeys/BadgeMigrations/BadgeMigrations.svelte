@@ -4,14 +4,14 @@
 
   import { goto } from '$app/navigation';
   import ActionButton from '$shared/components/Button/ActionButton.svelte';
+  import ContentBox from '$shared/components/ContentBox/ContentBox.svelte';
+  import Note from '$shared/components/Note/Note.svelte';
   import { classNames } from '$shared/utils/classNames';
   import getConnectedAddress from '$shared/utils/getConnectedAddress';
 
   import { FaqBlock } from '../../FaqBlock';
   import type { IFaqEntry } from '../../FaqBlock/FaqBlock.svelte';
-  import ContentBox from './ContentBox.svelte';
   import Multipliers from './Multipliers.svelte';
-  import Note from './Note.svelte';
   import Teams from './Teams.svelte';
 
   let faqElement: HTMLElement;

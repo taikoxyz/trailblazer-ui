@@ -1121,6 +1121,53 @@
         },
         "title": "Ways to get"
       }
+    },
+    "preconfs": {
+      "sections": {
+        "basedliner": {
+          "note": "Set your baseline before preconf launch. When preconfs launched, do step 2 to see your final score. The score is capped to 150.000 and will be claimable as Trailblazers points after the campaign ended."
+        },
+        "become": {
+          "content": "Transactions are about to get a whole lot faster! Check your speed now, set a baseline before preconfirmations go live, and witness the incredible boost coming to the Taiko Alethia mainnet. Your score will directly translate to Trailblazer points! Plus, get a chance to win a Taikoon or other surprise rewards.",
+          "title": "Become a \"Basedliner\""
+        },
+        "carousel": [
+          {
+            "image": "/preconfs/carousel/truck.png",
+            "label": "FEEL"
+          },
+          {
+            "image": "/preconfs/carousel/city.png",
+            "label": "THE"
+          },
+          {
+            "image": "/preconfs/carousel/engine.png",
+            "label": "SPEED"
+          }
+        ],
+        "earn": {
+          "content": "Taiko is best experienced with preconfirmations! Try your favorite dApps, now faster than ever, and join the campaigns to celebrate the launch of preconfirmations with us.",
+          "title": "Earn TAIKO and more - Explore your favorite dApps and feel the speed"
+        },
+        "hero": {
+          "content": "Taiko is a based rollup, meaning we do not rely on a centralized sequencer and instead use Ethereum validators. This limited our speed compared to centralized networks. But not anymore. With based preconfirmations, we are speeding up and becoming as fast as centralized networks without compromising decentralization.<br/><br/>Show the impact of based preconfirmations by making a transaction, saving your speed, and comparing it once preconfirmations go live.",
+          "cta": {
+            "href": "#basedliners-section",
+            "text": "Join the race"
+          },
+          "note": "Become a Basedliner and set your baseline today.",
+          "subtitle": "Preconfs will launch Q2 2025",
+          "title": "Taiko - now 20x faster!"
+        },
+        "preconfirmations": {
+          "content": "Based rollups like Taiko Alethia exist to scale Ethereum, but unlike traditional L2s, they prioritize decentralization. This creates challenges, such as transaction speed. Preconfirmations solve this, bringing decentralization and speed together for the first time without compromise.",
+          "cta": {
+            "href": "https://www.taiko.xyz",
+            "text": "Learn more"
+          },
+          "title": "Preconfirmations = Decentralized speed, no compromise."
+        }
+      }
     }
   },
   "pagetitle": {

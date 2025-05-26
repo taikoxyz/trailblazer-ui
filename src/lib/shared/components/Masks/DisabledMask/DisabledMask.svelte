@@ -27,8 +27,9 @@
 
 <div class={classes} style="mask-image=url(favicon.svg)"></div>
 <div class="hidden lg:block">
-  <div class="f-center w-full f-col space-y-[35px] z-10 absolute top-[10%] left-0 text-white">
-    <span class={headline}>{title}</span>
-    <span class={textClasses}>{description}</span>
+  <div class="f-center w-full f-col space-y-[35px] z-10 absolute top-[50%] left-0 text-white">
+    {#if title}<span class={headline}>{title}</span>{/if}
+    {#if description}<span class={textClasses}>{description}</span>{/if}
+    <slot />
   </div>
 </div>

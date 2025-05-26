@@ -22,7 +22,7 @@
   export let handlePageChange: (page: number) => void;
   export let currentPage = 1;
   export let totalItems = 0;
-  export let headerComponent: ComponentType;
+  export let headerComponent: ComponentType | null = null;
   export let ended = false;
   export let scoreComponent: ComponentType;
   export let season: number;
@@ -145,7 +145,9 @@
 </script>
 
 <div class={containerClass}>
-  <svelte:component this={headerComponent} {lastUpdated} {season} />
+  {#if headerComponent}
+    <svelte:component this={headerComponent} {lastUpdated} {season} />
+  {/if}
   {#if ended && endedComponent}
     <div class={headerMarginClass}>
       <svelte:component this={endedComponent} title={endTitleText} description={endDescriptionText} />

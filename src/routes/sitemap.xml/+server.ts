@@ -9,9 +9,9 @@ export const GET: RequestHandler = async () => {
   return await sitemap.response({
     origin: 'https://trailblazers.taiko.xyz',
     paramValues: {
-      '/journeys/thrillblazers/[slug]': ['1', '2', '3', '4'],
-      '/journeys/chillblazers/[slug]': ['1', '2', '3'],
-      '/journeys/liquidity/[slug]': ['1', '2', '3'],
+      '/leaderboard/thrillblazers/[slug]': ['1', '2', '3', '4', '5', '6'],
+      '/leaderboard/chillblazers/[slug]': ['1', '2', '3'],
+      '/leaderboard/liquidity/[slug]': ['1', '2', '3'],
     },
     excludeRoutePatterns: ['^/mock-api.*', '.*\\[page=integer\\].*', '.*\\/pinkify\\/.*', '.*\\/profile\\/.*'],
     defaultChangefreq: 'daily',

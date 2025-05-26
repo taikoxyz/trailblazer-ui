@@ -15,6 +15,8 @@
 
   export let onPopup = false;
 
+  export let disabled: boolean = false;
+
   $: if (loading) {
     state = ButtonState.LOADING;
   } else {
@@ -106,8 +108,9 @@
   $: classes = classNames(commonClasses, priorityToClassMap[priority], $$props.class);
 </script>
 
-{#if $$restProps.href}
-  <a {...$$restProps} href={$$restProps.href} target="_blank" class={classes}>
+{#if $$restProps.href && !disabled}
+  <!-- @ts-expect-error: 'disabled' is not valid for <a>, but we use it for consistency -->
+  <a {...$$restProps} href={$$restProps.href} target="_blank" tabindex={0} class={classes}>
     {#if priority === 'fancy'}
       <div class={classNames(fancyBorderClasses, 'top-0')}></div>
       <div class={classNames(fancyBorderClasses, 'bottom-0')}></div>
@@ -130,7 +133,7 @@
     {/if}
   </a>
 {:else}
-  <button {...$$restProps} class={classes} on:click>
+  <button {...$$restProps} class={classes} {disabled} on:click>
     {#if priority === 'fancy'}
       <div class={classNames(fancyBorderClasses, 'top-0')}></div>
       <div class={classNames(fancyBorderClasses, 'bottom-0')}></div>
