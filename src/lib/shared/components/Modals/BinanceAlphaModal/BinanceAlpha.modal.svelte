@@ -10,7 +10,6 @@
   import { onMount } from 'svelte';
   import BinanceAlphaBanner from '$lib/domains/splashpage/components/Banner/BinanceAlphaBanner.svelte';
 
-
   const modalClasses = classNames(
     'z-[9999]',
     'p-[24px]',
@@ -44,16 +43,23 @@
     'm-0',
     'text-[24px]/[95%]',
   );
-  const bodyWrapperClasses = classNames('text-grey-200', 'font-public-sans', 'pt-[24px]', 'px-[24px]', 'flex', 'flex-col');
-/*
+  const bodyWrapperClasses = classNames(
+    'text-grey-200',
+    'font-public-sans',
+    'pt-[24px]',
+    'px-[24px]',
+    'flex',
+    'flex-col',
+  );
+  /*
   TaikoStatusModalStore.subscribe(async (open) => {
     if (open) {
       await loadTaikoStatus();
     }
   });*/
 
- // let currentStatus: null | TaikoStatusInfo = null;
- // let nextStatus: null | TaikoStatusInfo = null;
+  // let currentStatus: null | TaikoStatusInfo = null;
+  // let nextStatus: null | TaikoStatusInfo = null;
 
   async function loadTaikoStatus() {
     /*
@@ -66,17 +72,17 @@
     nextStatus = next;*/
   }
 
-  let TaikoStatusModalStore = writable(false)
+  let TaikoStatusModalStore = writable(false);
 
   const buttonWrapperClasses = classNames(
     'w-full',
     'py-[20px]',
-   // 'md:col-span-2',
+    // 'md:col-span-2',
     'h-max',
-   // 'px-[24px]',
+    // 'px-[24px]',
     'grid grid-cols-1 md:grid-cols-3 gap-[24px]',
     //  'flex',
-   // 'justify-end','items-center',
+    // 'justify-end','items-center',
   );
 
   const statusProgressWrapperClasses = classNames(
@@ -117,7 +123,6 @@
   const contentTitleClasses = classNames('font-clash-grotesk', 'text-[25px]/[42px]', 'text-grey-10');
 
   const textWrapperClasses = classNames('flex', 'w-full', 'flex-col', 'gap-[24px]', 'pb-[40px]');
- 
 
   function showModal() {
     TaikoStatusModalStore.set(true);
@@ -135,8 +140,7 @@
 
   const dataWrapperClasses = classNames('grid', 'grid-cols-1', 'md:grid-cols-2', 'gap-[16px]');
 
-  const wideInfoPanelClasses = classNames(infoPanelClasses, 
-  'md:col-span-2');
+  const wideInfoPanelClasses = classNames(infoPanelClasses, 'md:col-span-2');
 
   const infoPanelValuesClasses = classNames();
 
@@ -149,23 +153,22 @@
     if (!TaikoStatusModalStore || accepted) return;
 
     loadTaikoStatus();
-  })
+  });
 
-      const termsKey = 'hideBinanceAlphaAlert'
-function closeModal() {
-    if (isTermsChecked){
-        localStorage.setItem(termsKey, 'true');
+  const termsKey = 'hideBinanceAlphaAlert';
+  function closeModal() {
+    if (isTermsChecked) {
+      localStorage.setItem(termsKey, 'true');
     }
-        TaikoStatusModalStore.set(false);
-
+    TaikoStatusModalStore.set(false);
   }
 
-    $: isTermsChecked = false;
+  $: isTermsChecked = false;
 
- onMount(() => {
+  onMount(() => {
     const accepted = localStorage.getItem(termsKey) === 'true';
-    if ( accepted) return;
-    showModal()
+    if (accepted) return;
+    showModal();
   });
 
   const checkboxWrapperClasses = classNames(
@@ -181,6 +184,8 @@ function closeModal() {
     'text-[16px]/[24px]',
     'items-center',
   );
+
+  const textContentClasses = classNames('flex', 'flex-col', 'gap-[16px]');
 </script>
 
 {#if $TaikoStatusModalStore}
@@ -189,36 +194,38 @@ function closeModal() {
       <div>
         <div class={bodyWrapperClasses}>
           <div class={textWrapperClasses}>
-            <div class={contentTitleClasses}>TAIKO token is now listed on Binance Alpha!
-</div>
+            <div class={contentTitleClasses}>TAIKO token is now listed on Binance Alpha!</div>
 
-            <div>
-Trade TAIKO tokens on Binance Alpha and earn rewards!
+            <div class={textContentClasses}>
+              <p>Trailblazers!</p>
+              <p>
+                The TAIKO token is now listed on Binance Alpha, and it comes with a massive airdrop opportunity! 7
+                million TAIKO tokens will be distributed on Binance Alpha as an airdrop, and 3 million more are up for
+                grabs in a trading competition on the platform. But that’s not all!
+              </p>
+              <p>
+                Your trading activity on Taiko Alpha could pave the way for even more listing opportunities. So go
+                ahead, trade for the airdrop and trade for the entire TAIKO ecosystem.
+              </p>
+              <p>We know you love to explore, and you love opportunities. This is a huge one.</p>
+              Trailblazers, let’s go!
             </div>
           </div>
           <div class={dataWrapperClasses}>
-          
             <div class={wideInfoPanelClasses}>
-              <img 
-              alt="Binance Alpha Banner"
-              src="/banner/binance-alpha/panel.png"/>
+              <img alt="Binance Alpha Banner" src="/banner/binance-alpha/panel.png" />
             </div>
           </div>
 
           <div class={buttonWrapperClasses}>
-             <label class={checkboxWrapperClasses}>
-        <input type="checkbox" bind:checked={isTermsChecked} class="checkbox border bg-overlay-background" />
-        <span class="label-text text-content-secondary">Don't show this again</span>
-      </label>
- <button  class={closeButtonClasses} on:click={closeModal}>
-         Close
-        </button>
+            <label class={checkboxWrapperClasses}>
+              <input type="checkbox" bind:checked={isTermsChecked} class="checkbox border bg-overlay-background" />
+              <span class="label-text text-content-secondary">Don't show this again</span>
+            </label>
+            <button class={closeButtonClasses} on:click={closeModal}> Close </button>
 
-       <ActionButton priority="primary" on:click={closeModal}>
-         Let's Go
-        </ActionButton>
+            <ActionButton priority="primary" on:click={closeModal}>Let's Go</ActionButton>
           </div>
-
         </div>
       </div>
     </div>

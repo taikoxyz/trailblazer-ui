@@ -9,7 +9,9 @@
     text: string;
   }
 
-  const items: MarqueeItem[] = [{ highlight: 'Avalon Airdrop', text: 'Claim on Taiko and get 100X' }];
+  const items: MarqueeItem[] = [
+    { highlight: 'TAIKO IS NOW LISTED ON BINANCE ALPHA', text: 'TRADE AND EARN YOUR SHARE FROM THE AIRDROP' },
+  ];
 
   let containerRef: HTMLDivElement;
   let contentWidth = 0;

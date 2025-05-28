@@ -99,10 +99,10 @@
     'items-center',
   );
 
-  $: smallHeaderImage = `/splash/s4/sm/evergreen.png`;
-  $: mediumHeaderImage = `/splash/s4/md/evergreen.png`;
-  $: largeHeaderImage = `/splash/s4/lg/evergreen.png`;
-  $: xlargeHeaderImage = `/splash/s4/xl/evergreen.png`;
+  $: smallHeaderImage = `/banner/binance-alpha/header-sm.png`;
+  $: mediumHeaderImage = `/banner/binance-alpha/header-md.png`;
+  $: largeHeaderImage = `/banner/binance-alpha/header-lg.png`;
+  $: xlargeHeaderImage = `/banner/binance-alpha/header-xl.png`;
 
   $: imageUrl = $isDesktop
     ? xlargeHeaderImage
@@ -115,7 +115,7 @@
 
 <div class={wrapperClasses}>
   {#if $activeSeason === 4}
-    <img src={imageUrl} alt="splash" class="absolute w-full h-full object-cover" />
+    <img src={imageUrl} alt="splash" class="w-full h-auto object-fit" />
   {/if}
   {#if $activeSeason === 3}
     <video
@@ -140,7 +140,9 @@
     <div class={contentWrapperClasses}>
       <div class={innerContentClasses}>
         <div class={descriptionWrapperClasses}>
-          <div class={descriptionTextClasses}>Embark on the Trailblazers Journey and unleash your potential!</div>
+          <div class={descriptionTextClasses}>
+            Trade TAIKO on Binance Alpha and get your share from the massive airdrop!
+          </div>
         </div>
         <div class={buttonWrapperClasses}>
           <ActionButton priority="primary" on:click={handlePrimaryAction} class="font-bold" withArrow>

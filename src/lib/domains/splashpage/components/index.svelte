@@ -45,8 +45,7 @@
   <HeroSection />
   <div class={separator40pxClasses} />
 
-  <BinanceAlphaBanner/>
-
+  <BinanceAlphaBanner />
 
   <div class={separator40pxClasses} />
 
@@ -65,4 +64,4 @@
   <EcosystemSection />
 </div>
 
-<BinanceAlphaModal/>
+<BinanceAlphaModal />

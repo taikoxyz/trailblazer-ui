@@ -14,9 +14,8 @@
     'bg-contain',
     'bg-no-repeat',
     'bg-center',
-    'cursor-pointer'
+    'cursor-pointer',
   );
 </script>
 
-<a href="/bla" target="_blank"
-class={imageClasses} />
+<a href="/bla" target="_blank" class={imageClasses} />
