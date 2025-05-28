@@ -2,6 +2,7 @@ import { type Address, zeroAddress } from 'viem';
 
 import { browser } from '$app/environment';
 import type { UnifiedLeaderboardRow } from '$lib/domains/leaderboard/types/shared/types';
+import { TransactionTimedOutError } from '$shared/types/errors';
 import getConnectedAddress from '$shared/utils/getConnectedAddress';
 import { getLogger } from '$shared/utils/logger';
 
@@ -54,6 +55,12 @@ export class BasedLinerService {
 
     if (!res.ok) {
       console.error('Error calling API:', res.status, res.statusText);
+
+      // Handle timeout errors specifically
+      if (res.status === 408) {
+        throw new TransactionTimedOutError('Transaction timed out');
+      }
+
       throw new Error(`API call failed: ${res.status} ${res.statusText}`);
     }
     // 3. Parse the response and return it

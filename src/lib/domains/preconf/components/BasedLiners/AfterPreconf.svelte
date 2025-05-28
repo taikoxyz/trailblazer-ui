@@ -6,8 +6,9 @@
   import { ActionButton } from '$shared/components/Button';
   import StaticTime from '$shared/components/Countdown/StaticTime.svelte';
   import { errorToast } from '$shared/components/NotificationToast';
+  import { account } from '$shared/stores/account';
+  import { TransactionTimedOutError } from '$shared/types/errors';
   import { classNames } from '$shared/utils/classNames';
-  import getConnectedAddress from '$shared/utils/getConnectedAddress';
   import { getLogger } from '$shared/utils/logger';
 
   import { PRECONF_CAMPAIGN_PHASE, PRECONF_EVENT } from '../../types';
@@ -27,7 +28,7 @@
 
   let isPhaseOpen = false;
   let loading = false;
-  $: noAccount = getConnectedAddress() === zeroAddress;
+  $: noAccount = !$account?.isConnected || $account?.address === zeroAddress;
 
   $: disabled = noAccount || loading || !isPhaseOpen;
   export let error: string | null = null;
@@ -46,11 +47,21 @@
     } catch (e) {
       console.error('Error tracking time:', e);
 
-      if (e && typeof e === 'object' && 'message' in e && typeof e.message === 'string') {
+      if (e instanceof TransactionTimedOutError) {
+        errorToast({
+          title: 'Transaction Timeout',
+          message: 'Your transaction timed out after 5 minutes. Please set a realistic gas price and try again.',
+        });
+      } else if (e && typeof e === 'object' && 'message' in e && typeof e.message === 'string') {
         if (e.message.includes('User rejected the request')) {
           errorToast({
             title: 'Request rejected by user',
             message: 'Please try again',
+          });
+        } else {
+          errorToast({
+            title: 'Error',
+            message: e.message,
           });
         }
       } else {

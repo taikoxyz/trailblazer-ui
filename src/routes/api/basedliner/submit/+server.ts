@@ -2,6 +2,7 @@ import type { RequestHandler } from '@sveltejs/kit';
 
 import type { InternalAPIPayload } from '$lib/domains/preconf/dto/InternalAPIPayload';
 import { BasedLinerService } from '$lib/domains/preconf/service/server/BasedLinerService.server';
+import { TransactionTimedOutError } from '$shared/types/errors';
 
 // POST /api/basedliner/submit
 export const POST: RequestHandler = async ({ request }) => {
@@ -30,6 +31,21 @@ export const POST: RequestHandler = async ({ request }) => {
       return new Response(JSON.stringify({ diffInSeconds: diffInMilliseconds / 1000 }), { status: 200 });
     } catch (error) {
       console.error('Error submitting phase:', error);
+
+      // Handle specific timeout errors with appropriate status code and message
+      if (error instanceof TransactionTimedOutError) {
+        return new Response(
+          JSON.stringify({
+            error: 'Transaction timeout',
+            message:
+              'Transaction timed out while waiting for receipt. Please try again or check the transaction status manually.',
+            timeout: true,
+          }),
+          { status: 408 }, // 408 Request Timeout
+        );
+      }
+
+      // Generic error handling for other types of errors
       return new Response(JSON.stringify({ error: 'Failed to submit phase' }), { status: 500 });
     }
   } catch (error) {

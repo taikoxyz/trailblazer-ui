@@ -1,8 +1,10 @@
-import { getBlock } from '@wagmi/core';
-import { type Address, type Hex, zeroAddress } from 'viem';
+import { getBlock, waitForTransactionReceipt } from '@wagmi/core';
+import { type Address, type Hex, WaitForTransactionReceiptTimeoutError, zeroAddress } from 'viem';
 
 import { API_KEY } from '$env/static/private';
 import { fetchFromApi } from '$shared/services/api/fetchClient';
+import { TransactionTimedOutError } from '$shared/types/errors';
+import { chainId } from '$shared/utils/chain';
 import { wagmiConfig } from '$shared/wagmi';
 
 import { BasedLinerAdapter } from '../../adapter/server/BasedLinerAdapter.server';
@@ -10,6 +12,8 @@ import type { BasedlinerLeaderboard } from '../../dto/BasedlinerLeaderboard';
 import { type PRECONF_CAMPAIGN_PHASE, PRECONF_TX_STAGE } from '../../types';
 
 const BASEDLINER_LEADERBOARD_API = '/basedliner/leaderboard';
+// 5-minute timeout for transaction receipt waiting (300,000ms)
+const TRANSACTION_RECEIPT_TIMEOUT = 0.5 * 60 * 1000;
 export class BasedLinerService {
   static getTimingDiffForAddress(address: Address) {
     if (!address) {
@@ -38,12 +42,28 @@ export class BasedLinerService {
       throw new Error('Failed to submit phase');
     }
 
-    const receipt = await BasedLinerAdapter.waitForTransactionReceipt({
-      txHash,
-    });
+    let receipt;
+    let blockNumber;
+    try {
+      // Wait for transaction receipt with 5-minute timeout, following the same pattern as pendingTransactions.ts
+      receipt = await waitForTransactionReceipt(wagmiConfig, {
+        hash: txHash,
+        chainId,
+        timeout: TRANSACTION_RECEIPT_TIMEOUT,
+      });
 
-    if (!receipt) throw new Error('No receipt found for this txHash');
-    const blockNumber = receipt.blockNumber;
+      if (!receipt) throw new Error('No receipt found for this txHash');
+      blockNumber = receipt.blockNumber;
+    } catch (error) {
+      console.error('Error waiting for transaction receipt:', error);
+      if (error instanceof WaitForTransactionReceiptTimeoutError) {
+        throw new TransactionTimedOutError(
+          `Transaction with hash "${txHash}" timed out after ${TRANSACTION_RECEIPT_TIMEOUT}ms`,
+          { cause: error },
+        );
+      }
+      throw new Error(`Failed to get transaction receipt for hash "${txHash}"`, { cause: error });
+    }
 
     const block = await getBlock(wagmiConfig, {
       blockNumber,
