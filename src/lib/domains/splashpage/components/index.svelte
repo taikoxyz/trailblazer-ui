@@ -4,7 +4,9 @@
   import S4StartBanner from '$lib/domains/splashpage/components/Banner/S4StartBanner.svelte';
   import type { Slide } from '$lib/domains/splashpage/components/Banner/types';
   import FeaturedCampaigns from '$shared/components/FeaturedCampaigns/FeaturedCampaigns.svelte';
+  import { BinanceAlphaModal } from '$shared/components/Modals/BinanceAlphaModal';
   import { classNames } from '$shared/utils/classNames';
+  import BinanceAlphaBanner from './Banner/BinanceAlphaBanner.svelte';
 
   import S3ClaimBanner from './Banner/S3ClaimBanner.svelte';
   import Factions from './Factions/Factions.svelte';
@@ -43,6 +45,11 @@
   <HeroSection />
   <div class={separator40pxClasses} />
 
+  <BinanceAlphaBanner/>
+
+
+  <div class={separator40pxClasses} />
+
   <FeaturedCampaigns title="Featured campaigns" />
 
   <BannerCarousel interval={5000} transitionDuration={700} transitionDistance={200} {slides} withDots />
@@ -57,3 +64,5 @@
 
   <EcosystemSection />
 </div>
+
+<BinanceAlphaModal/>
