@@ -44,7 +44,7 @@
     'm-0',
     'text-[24px]/[95%]',
   );
-  const bodyWrapperClasses = classNames('text-grey-200', 'font-public-sans', 'px-[24px]', 'flex', 'flex-col');
+  const bodyWrapperClasses = classNames('text-grey-200', 'font-public-sans', 'pt-[24px]', 'px-[24px]', 'flex', 'flex-col');
 /*
   TaikoStatusModalStore.subscribe(async (open) => {
     if (open) {
@@ -71,11 +71,12 @@
   const buttonWrapperClasses = classNames(
     'w-full',
     'py-[20px]',
-    'md:col-span-2',
+   // 'md:col-span-2',
     'h-max',
-    'px-[24px]',
-    'flex',
-    'justify-end','items-center',
+   // 'px-[24px]',
+    'grid grid-cols-1 md:grid-cols-3 gap-[24px]',
+    //  'flex',
+   // 'justify-end','items-center',
   );
 
   const statusProgressWrapperClasses = classNames(
@@ -99,8 +100,9 @@
   const taikoStatusProgressClasses = classNames('progress', 'w-full', 'progress-primary', 'h-[16px]');
 
   const closeButtonClasses = classNames(
-    'w-[50px]',
-    'h-[50px]',
+    //'w-[50px]',
+    'w-full',
+    'h-[58px]',
     'bg-grey-600',
     'rounded-full',
     'text-grey-100',
@@ -115,9 +117,7 @@
   const contentTitleClasses = classNames('font-clash-grotesk', 'text-[25px]/[42px]', 'text-grey-10');
 
   const textWrapperClasses = classNames('flex', 'w-full', 'flex-col', 'gap-[24px]', 'pb-[40px]');
-  function closeModal() {
-    TaikoStatusModalStore.set(false);
-  }
+ 
 
   function showModal() {
     TaikoStatusModalStore.set(true);
@@ -152,11 +152,12 @@
   })
 
       const termsKey = 'hideBinanceAlphaAlert'
-function acceptTerms() {
+function closeModal() {
     if (isTermsChecked){
         localStorage.setItem(termsKey, 'true');
     }
-    closeModal()
+        TaikoStatusModalStore.set(false);
+
   }
 
     $: isTermsChecked = false;
@@ -185,15 +186,6 @@ function acceptTerms() {
 {#if $TaikoStatusModalStore}
   <div transition:fade class={modalClasses}>
     <div class={modalContentWrapperClasses}>
-      <div class={modalTitleClasses}>
-        <span>AAA</span>
-
-        <button class={closeButtonClasses} on:click={closeModal}>
-          <Icon type="x-close" class={closeButtonIconClasses} size={24} />
-        </button>
-      </div>
-
-      <div class={classNames('divider')}></div>
       <div>
         <div class={bodyWrapperClasses}>
           <div class={textWrapperClasses}>
@@ -207,7 +199,9 @@ Trade TAIKO tokens on Binance Alpha and earn rewards!
           <div class={dataWrapperClasses}>
           
             <div class={wideInfoPanelClasses}>
-              <BinanceAlphaBanner/>
+              <img 
+              alt="Binance Alpha Banner"
+              src="/banner/binance-alpha/panel.png"/>
             </div>
           </div>
 
@@ -216,6 +210,13 @@ Trade TAIKO tokens on Binance Alpha and earn rewards!
         <input type="checkbox" bind:checked={isTermsChecked} class="checkbox border bg-overlay-background" />
         <span class="label-text text-content-secondary">Don't show this again</span>
       </label>
+ <button  class={closeButtonClasses} on:click={closeModal}>
+         Close
+        </button>
+
+       <ActionButton priority="primary" on:click={closeModal}>
+         Let's Go
+        </ActionButton>
           </div>
 
         </div>
