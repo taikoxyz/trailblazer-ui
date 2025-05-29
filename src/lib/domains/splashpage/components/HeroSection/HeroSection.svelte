@@ -41,6 +41,7 @@
   );
 
   const contentWrapperClasses = classNames('f-col', 'w-full', 'h-full', 'justify-end', 'items-end', 'mb-[30px]');
+  
   const innerContentClasses = classNames(
     'f-col',
     'md:f-row',
