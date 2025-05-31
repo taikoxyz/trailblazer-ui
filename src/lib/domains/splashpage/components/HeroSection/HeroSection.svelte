@@ -145,7 +145,7 @@
           </div>
         </div>
         <div class={buttonWrapperClasses}>
-          <ActionButton priority="primary" on:click={handlePrimaryAction} class="font-bold" withArrow>
+          <ActionButton priority="primary" href="BINANCE_URL" class="font-bold" withArrow>
             {primaryButtonText}
           </ActionButton>
         </div>

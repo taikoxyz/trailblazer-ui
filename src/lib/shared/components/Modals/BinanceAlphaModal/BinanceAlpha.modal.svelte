@@ -199,9 +199,8 @@
             <div class={textContentClasses}>
               <p>Trailblazers!</p>
               <p>
-                The TAIKO token is now listed on Binance Alpha, and it comes with a massive airdrop opportunity! 7
-                million TAIKO tokens will be distributed on Binance Alpha as an airdrop, and 3 million more are up for
-                grabs in a trading competition on the platform. But that’s not all!
+                The TAIKO token is now listed on Binance Alpha, and it comes with a massive trading contest where you
+                can win your share of 3 million TAIKO tokens. But that’s not all!
               </p>
               <p>
                 Your trading activity on Taiko Alpha could pave the way for even more listing opportunities. So go
@@ -224,7 +223,7 @@
             </label>
             <button class={closeButtonClasses} on:click={closeModal}> Close </button>
 
-            <ActionButton priority="primary" on:click={closeModal}>Let's Go</ActionButton>
+            <ActionButton priority="primary" href="BINANCE_URL">Let's Go</ActionButton>
           </div>
         </div>
       </div>

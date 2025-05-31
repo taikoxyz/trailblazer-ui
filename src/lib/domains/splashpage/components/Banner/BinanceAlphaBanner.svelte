@@ -18,4 +18,4 @@
   );
 </script>
 
-<a href="/bla" target="_blank" class={imageClasses} />
+<a href="BINANCE_URL" target="_blank" class={imageClasses}></a>
