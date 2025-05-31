@@ -10,7 +10,7 @@
   }
 
   const items: MarqueeItem[] = [
-    { highlight: 'TAIKO IS NOW LISTED ON BINANCE ALPHA', text: 'TRADE AND EARN YOUR SHARE FROM THE AIRDROP' },
+    { highlight: 'TAIKO IS NOW LISTED ON BINANCE ALPHA', text: 'TRADE AND WIN YOUR SHARE FROM REWARDS' },
   ];
 
   let containerRef: HTMLDivElement;
