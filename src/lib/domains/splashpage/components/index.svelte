@@ -6,8 +6,8 @@
   import FeaturedCampaigns from '$shared/components/FeaturedCampaigns/FeaturedCampaigns.svelte';
   import { BinanceAlphaModal } from '$shared/components/Modals/BinanceAlphaModal';
   import { classNames } from '$shared/utils/classNames';
-  import BinanceAlphaBanner from './Banner/BinanceAlphaBanner.svelte';
 
+  import BinanceAlphaBanner from './Banner/BinanceAlphaBanner.svelte';
   import S3ClaimBanner from './Banner/S3ClaimBanner.svelte';
   import Factions from './Factions/Factions.svelte';
   import { TrailblazerGuide } from './Guide';

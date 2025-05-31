@@ -1,14 +1,10 @@
 <script lang="ts">
+  import { onMount } from 'svelte';
+  import { writable } from 'svelte/store';
   import { fade } from 'svelte/transition';
 
   import { ActionButton } from '$shared/components/Button';
-  import { Icon } from '$shared/components/Icon';
   import { classNames } from '$shared/utils/classNames';
-  import formatTaikoStatusPoints from '$shared/utils/formatTaikoStatusPoints';
-  import getConnectedAddress from '$shared/utils/getConnectedAddress';
-  import { writable } from 'svelte/store';
-  import { onMount } from 'svelte';
-  import BinanceAlphaBanner from '$lib/domains/splashpage/components/Banner/BinanceAlphaBanner.svelte';
 
   const modalClasses = classNames(
     'z-[9999]',
@@ -33,16 +29,7 @@
     'bg-grey-700',
     'md:w-[748px]',
   );
-  const modalTitleClasses = classNames(
-    'pt-6',
-    'px-[24px]',
-    'flex',
-    'justify-between',
-    'items-center',
-    'w-full',
-    'm-0',
-    'text-[24px]/[95%]',
-  );
+
   const bodyWrapperClasses = classNames(
     'text-grey-200',
     'font-public-sans',
@@ -51,26 +38,6 @@
     'flex',
     'flex-col',
   );
-  /*
-  TaikoStatusModalStore.subscribe(async (open) => {
-    if (open) {
-      await loadTaikoStatus();
-    }
-  });*/
-
-  // let currentStatus: null | TaikoStatusInfo = null;
-  // let nextStatus: null | TaikoStatusInfo = null;
-
-  async function loadTaikoStatus() {
-    /*
-    const address = getConnectedAddress();
-    const service = new TaikoStatusService();
-
-    const { current, next } = await service.getTaikoStatus(address);
-
-    currentStatus = current;
-    nextStatus = next;*/
-  }
 
   let TaikoStatusModalStore = writable(false);
 
@@ -84,27 +51,6 @@
     //  'flex',
     // 'justify-end','items-center',
   );
-
-  const statusProgressWrapperClasses = classNames(
-    'w-full',
-    'flex',
-    'flex-col',
-    'bg-grey-800',
-    'gap-[16px]',
-    'rounded-[30px]',
-  );
-
-  const statusProgressLabelClasses = classNames(
-    'font-[700]',
-    'text-[16px]/[24px]',
-    'w-full',
-    'flex',
-    'justify-between',
-    'text-grey-200',
-  );
-
-  const taikoStatusProgressClasses = classNames('progress', 'w-full', 'progress-primary', 'h-[16px]');
-
   const closeButtonClasses = classNames(
     //'w-[50px]',
     'w-full',
@@ -119,7 +65,7 @@
     'hover:bg-grey-900',
     'transition-all',
   );
-  const closeButtonIconClasses = classNames('absolute', 'left-[11px]', 'top-[11px]');
+
   const contentTitleClasses = classNames('font-clash-grotesk', 'text-[25px]/[42px]', 'text-grey-10');
 
   const textWrapperClasses = classNames('flex', 'w-full', 'flex-col', 'gap-[24px]', 'pb-[40px]');
@@ -142,17 +88,9 @@
 
   const wideInfoPanelClasses = classNames(infoPanelClasses, 'md:col-span-2');
 
-  const infoPanelValuesClasses = classNames();
-
-  const infoPanelValueClasses = classNames('font-clash-grotesk', 'text-[25px]/[42px]', 'text-grey-10');
-
-  const infoPanelValueLabelClasses = classNames('font-[700]', 'text-grey-500', 'text-[16px]/[24px]');
-
   onMount(() => {
     const accepted = localStorage.getItem('acceptedLegal') === 'true';
     if (!TaikoStatusModalStore || accepted) return;
-
-    loadTaikoStatus();
   });
 
   const termsKey = 'hideBinanceAlphaAlert';
