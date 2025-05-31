@@ -145,7 +145,11 @@
           </div>
         </div>
         <div class={buttonWrapperClasses}>
-          <ActionButton priority="primary" href="BINANCE_URL" class="font-bold" withArrow>
+          <ActionButton
+            priority="primary"
+            href="https://www.binance.com/en/support/announcement/detail/3d90cc107e3f486d91981a3c8cbc5d76"
+            class="font-bold"
+            withArrow>
             {primaryButtonText}
           </ActionButton>
         </div>

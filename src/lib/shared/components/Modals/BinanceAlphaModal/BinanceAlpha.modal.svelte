@@ -200,7 +200,7 @@
               <p>Trailblazers!</p>
               <p>
                 The TAIKO token is now listed on Binance Alpha, and it comes with a massive trading contest where you
-                can win your share of 3 million TAIKO tokens. But that’s not all!
+                can win your share of 1,495,000 TAIKO tokens. But that’s not all!
               </p>
               <p>
                 Your trading activity on Taiko Alpha could pave the way for even more listing opportunities. So go
@@ -223,7 +223,10 @@
             </label>
             <button class={closeButtonClasses} on:click={closeModal}> Close </button>
 
-            <ActionButton priority="primary" href="BINANCE_URL">Let's Go</ActionButton>
+            <ActionButton
+              priority="primary"
+              href="https://www.binance.com/en/support/announcement/detail/3d90cc107e3f486d91981a3c8cbc5d76"
+              >Let's Go</ActionButton>
           </div>
         </div>
       </div>

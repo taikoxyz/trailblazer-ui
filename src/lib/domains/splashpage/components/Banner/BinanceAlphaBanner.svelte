@@ -18,4 +18,8 @@
   );
 </script>
 
-<a href="BINANCE_URL" target="_blank" class={imageClasses}></a>
+<!-- svelte-ignore a11y-missing-content -->
+<a
+  href="https://www.binance.com/en/support/announcement/detail/3d90cc107e3f486d91981a3c8cbc5d76"
+  target="_blank"
+  class={imageClasses}></a>
