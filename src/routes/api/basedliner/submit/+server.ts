@@ -30,7 +30,9 @@ export const POST: RequestHandler = async ({ request }) => {
       return new Response(JSON.stringify({ diffInSeconds: diffInMilliseconds / 1000 }), { status: 200 });
     } catch (error) {
       console.error('Error submitting phase:', error);
-      return new Response(JSON.stringify({ error: 'Failed to submit phase' }), { status: 500 });
+      return new Response(JSON.stringify({ error: `Failed to submit phase: ${(error as Error).message}` }), {
+        status: 500,
+      });
     }
   } catch (error) {
     console.error('Error in /api/basedliner/submit:', error);
