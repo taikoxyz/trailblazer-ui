@@ -35,7 +35,7 @@ export class BasedLinerService {
       });
     } catch (error) {
       console.error('Error submitting phase:', error);
-      throw new Error('Failed to submit phase');
+      throw new Error(`Failed to submit phase: ${(error as Error).message}`);
     }
 
     const receipt = await BasedLinerAdapter.waitForTransactionReceipt({
@@ -60,7 +60,7 @@ export class BasedLinerService {
       });
     } catch (error) {
       console.error('Error submitting phase:', error);
-      throw new Error('Failed to submit phase');
+      throw new Error(`Failed to submit phase: ${(error as Error).message}`);
     }
 
     // TODO fetch diff from api
