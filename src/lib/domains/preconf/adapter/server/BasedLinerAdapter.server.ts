@@ -34,9 +34,10 @@ export class BasedLinerAdapter {
 
   static async waitForTransactionReceipt({ txHash }: { txHash: Hex }) {
     const { getPublicClient } = await import('@wagmi/core');
-    const { wagmiConfig } = await import('$shared/wagmi');
+    const { basedLinersServerConfig } = await import('$shared/wagmi/server');
 
-    const client = getPublicClient(wagmiConfig);
+    const client = getPublicClient(basedLinersServerConfig);
+
     if (!client) throw new Error('Could not get public client');
 
     const receipt = await client.waitForTransactionReceipt({ hash: txHash });

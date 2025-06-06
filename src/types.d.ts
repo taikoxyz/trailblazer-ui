@@ -4,4 +4,6 @@ declare module 'ethereum-address' {
 }
 declare module '$env/static/private' {
   export const API_KEY: string;
+  export const RPC_API_KEY: string;
+  export const RPC_URL: string;
 }

@@ -3,6 +3,7 @@
   import { zeroAddress } from 'viem';
 
   import { BasedLinerService } from '$lib/domains/preconf/service/BasedLinerService';
+  import { ResubmitStorage } from '$lib/domains/preconf/utils/resubmitStorage';
   import { ActionButton } from '$shared/components/Button';
   import StaticTime from '$shared/components/Countdown/StaticTime.svelte';
   import { errorToast } from '$shared/components/NotificationToast';
@@ -29,7 +30,34 @@
 
   let loading = false;
   let isPhaseOpen = false;
+  let remainingCooldown = 0;
+  let cooldownInterval: NodeJS.Timeout | null = null;
+
   $: noAccount = !$account?.isConnected || $account?.address === zeroAddress;
+  $: userAddress = $account?.address || zeroAddress;
+
+  // Check resubmit status using persistent storage - now reactive to remainingCooldown changes
+  $: reSubmitEnabled = remainingCooldown <= 0;
+
+  // Update remaining cooldown time
+  function updateRemainingCooldown() {
+    if (userAddress && userAddress !== zeroAddress) {
+      const newCooldown = ResubmitStorage.getRemainingCooldown(userAddress, PRECONF_EVENT.BASEDLINER);
+      if (newCooldown !== remainingCooldown) {
+        remainingCooldown = newCooldown;
+      }
+    } else {
+      remainingCooldown = 0;
+    }
+  }
+
+  // Format remaining time as MM:SS
+  function formatRemainingTime(milliseconds: number): string {
+    const totalSeconds = Math.ceil(milliseconds / 1000);
+    const minutes = Math.floor(totalSeconds / 60);
+    const seconds = totalSeconds % 60;
+    return `${minutes}:${seconds.toString().padStart(2, '0')}`;
+  }
 
   $: disabled = noAccount || loading || !isPhaseOpen || !reSubmitEnabled;
   export let error: string | null = null;
@@ -41,6 +69,19 @@
       eventId: PRECONF_EVENT.BASEDLINER,
       phaseId: PRECONF_CAMPAIGN_PHASE.BEFORE,
     });
+
+    // Clear any existing resubmit blocks for different users/events
+    if (userAddress && userAddress !== zeroAddress) {
+      ResubmitStorage.clearResubmitBlockIfDifferent(
+        userAddress,
+        PRECONF_EVENT.BASEDLINER,
+        PRECONF_CAMPAIGN_PHASE.BEFORE,
+      );
+    }
+
+    // Start cooldown interval to update remaining time
+    updateRemainingCooldown();
+    cooldownInterval = setInterval(updateRemainingCooldown, 1000);
   });
 
   async function handleTrackTime() {
@@ -52,18 +93,21 @@
       log('diffInSeconds', response.diffInSeconds);
 
       diffBefore = Math.floor(response.diffInSeconds);
-      // disable re-submiting for 1 minute after sending
-      reSubmitEnabled = false;
-      reSubmitTimeout = setTimeout(() => {
-        reSubmitEnabled = true;
-      }, 1000 * 60);
+
+      // Set persistent resubmit block for 1 minute
+      if (userAddress && userAddress !== zeroAddress) {
+        ResubmitStorage.setResubmitBlock(userAddress, PRECONF_EVENT.BASEDLINER, PRECONF_CAMPAIGN_PHASE.BEFORE);
+        // Immediately update the cooldown display
+        updateRemainingCooldown();
+      }
     } catch (e) {
       console.error('Error tracking time:', e);
 
       if (e instanceof TransactionTimedOutError) {
         errorToast({
           title: 'Transaction Timeout',
-          message: 'Your transaction timed out after 5 minutes. Please set a realistic gas price and try again.',
+          message:
+            'Your transaction timed out after 5 minutes. Please set a realistic gas price and try again. Your time has been set to 0',
         });
       } else if (e && typeof e === 'object' && 'message' in e && typeof e.message === 'string') {
         if (e.message.includes('User rejected the request')) {
@@ -85,21 +129,22 @@
       }
       // reset values
       diffBefore = 0;
-      reSubmitEnabled = true;
+      // Clear resubmit block on error so user can try again
+      if (userAddress && userAddress !== zeroAddress) {
+        ResubmitStorage.clearResubmitBlock();
+      }
     } finally {
       loading = false;
     }
   }
 
   onDestroy(() => {
-    if (reSubmitTimeout) {
-      clearTimeout(reSubmitTimeout);
-      reSubmitTimeout = null;
+    // Clean up the cooldown interval
+    if (cooldownInterval) {
+      clearInterval(cooldownInterval);
+      cooldownInterval = null;
     }
   });
-
-  let reSubmitTimeout: NodeJS.Timeout | null = null;
-  let reSubmitEnabled = true;
 </script>
 
 <div class={wrapperClasses}>
@@ -127,6 +172,8 @@
         Connect wallet
       {:else if !isPhaseOpen}
         Phase is closed
+      {:else if remainingCooldown > 0}
+        Wait {formatRemainingTime(remainingCooldown)}
       {:else}
         Track your time
       {/if}
