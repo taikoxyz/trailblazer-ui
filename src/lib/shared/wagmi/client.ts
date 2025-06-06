@@ -1,5 +1,5 @@
 import { WagmiAdapter } from '@reown/appkit-adapter-wagmi';
-import { cookieStorage, createStorage, injected, reconnect } from '@wagmi/core';
+import { cookieStorage, createStorage, reconnect } from '@wagmi/core';
 import type { Transport } from 'viem';
 import { fallback, http } from 'viem';
 
@@ -31,7 +31,6 @@ export const wagmiAdapter = new WagmiAdapter({
   projectId: PUBLIC_WALLETCONNECT_PROJECT_ID,
   networks: chains,
   transports: createTransportsWithWalletFallback(),
-  connectors: [injected()],
   storage: createStorage({
     storage: cookieStorage,
   }),
