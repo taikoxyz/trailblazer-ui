@@ -1,5 +1,5 @@
 import { readContract, simulateContract, writeContract } from '@wagmi/core';
-import { type Hex,parseGwei } from 'viem';
+import { type Hex, parseGwei } from 'viem';
 
 import { BasedLinersAbi, basedLinersAddress } from '$generated/abi';
 import { chainId } from '$shared/utils/chain';

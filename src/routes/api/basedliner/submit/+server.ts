@@ -1,5 +1,5 @@
 import type { RequestHandler } from '@sveltejs/kit';
-import { getPublicClient } from '@wagmi/core';
+import { getGasPrice, getPublicClient } from '@wagmi/core';
 
 import type { InternalAPIPayload } from '$lib/domains/preconf/dto/InternalAPIPayload';
 import { BasedLinerService } from '$lib/domains/preconf/service/server/BasedLinerService.server';
@@ -21,8 +21,9 @@ export const POST: RequestHandler = async ({ request }) => {
     }
 
     const transaction = await getPublicClient(wagmiConfig)?.getTransaction({ hash: txHash });
+    const gasPrice = await getGasPrice(wagmiConfig);
 
-    if (!transaction || transaction.gas <= 1000000n) {
+    if (!transaction || (transaction.gasPrice || 0n) <= gasPrice * 10n) {
       // do not allow txs with gas limit below 1,000,000
       return new Response(JSON.stringify({ error: 'Invalid transaction or gas limit too low' }), { status: 400 });
     }
