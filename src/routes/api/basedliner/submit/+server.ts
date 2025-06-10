@@ -1,7 +1,9 @@
 import type { RequestHandler } from '@sveltejs/kit';
+import { getPublicClient } from '@wagmi/core';
 
 import type { InternalAPIPayload } from '$lib/domains/preconf/dto/InternalAPIPayload';
 import { BasedLinerService } from '$lib/domains/preconf/service/server/BasedLinerService.server';
+import { wagmiConfig } from '$shared/wagmi';
 
 // POST /api/basedliner/submit
 export const POST: RequestHandler = async ({ request }) => {
@@ -16,6 +18,13 @@ export const POST: RequestHandler = async ({ request }) => {
     if (phaseEnded) {
       // if the phase ended we assume an avg of 42 seconds
       return new Response(JSON.stringify({ diffInSeconds: 42 }), { status: 200 });
+    }
+
+    const transaction = await getPublicClient(wagmiConfig)?.getTransaction({ hash: txHash });
+
+    if (!transaction || transaction.gas <= 1000000n) {
+      // do not allow txs with gas limit below 1,000,000
+      return new Response(JSON.stringify({ error: 'Invalid transaction or gas limit too low' }), { status: 400 });
     }
 
     const timestamp = Date.now();
