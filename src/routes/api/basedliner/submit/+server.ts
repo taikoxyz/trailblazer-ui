@@ -32,6 +32,7 @@ export const POST: RequestHandler = async ({ request }) => {
     } catch (error) {
       console.error('Error submitting phase:', error);
 
+
       // Handle specific timeout errors with appropriate status code and message
       if (error instanceof TransactionTimedOutError) {
         return new Response(
@@ -45,8 +46,9 @@ export const POST: RequestHandler = async ({ request }) => {
         );
       }
 
-      // Generic error handling for other types of errors
-      return new Response(JSON.stringify({ error: 'Failed to submit phase' }), { status: 500 });
+      return new Response(JSON.stringify({ error: `Failed to submit phase: ${(error as Error).message}` }), {
+        status: 500,
+      });
     }
   } catch (error) {
     console.error('Error in /api/basedliner/submit:', error);
