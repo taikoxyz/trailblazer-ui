@@ -1,6 +1,6 @@
 {
   "functions": {
-    "src/routes/api/basedliner/**": {
+    "api/basedliner/**": {
       "maxDuration": 300
     }
   }
