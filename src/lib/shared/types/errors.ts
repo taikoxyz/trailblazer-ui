@@ -34,6 +34,11 @@ export class TransactionTimedOutError extends Error {
   shortMessage = 'Transaction timed out';
 }
 
+export class TooManyRequestsError extends Error {
+  name = 'TooManyRequestsError';
+  shortMessage = 'Too many requests';
+}
+
 // Recruiting errors
 
 export class InfluenceError extends Error {
