@@ -1,4 +1,4 @@
-import adapter from '@sveltejs/adapter-auto';
+import adapter from '@sveltejs/adapter-vercel';
 import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
 
 /** @type {import('@sveltejs/kit').Config} */
@@ -6,7 +6,7 @@ const config = {
   preprocess: [vitePreprocess()],
   kit: {
     adapter: adapter({
-      maxDuration: 300000, // 5 minutes
+      maxDuration: 300, // 5 minutes in seconds
     }),
     files: {
       assets: `static`,

@@ -7,6 +7,8 @@
   import { ConnectButton } from '$shared/components/ConnectButton';
   import DisabledMask from '$shared/components/Masks/DisabledMask/DisabledMask.svelte';
   import Note from '$shared/components/Note/Note.svelte';
+  import { OnAccount } from '$shared/components/OnAccount';
+  import { account } from '$shared/stores/account';
   import { classNames } from '$shared/utils/classNames';
   import getConnectedAddress from '$shared/utils/getConnectedAddress';
   import { getLogger } from '$shared/utils/logger';
@@ -28,7 +30,7 @@
 
   let isDesktopOrLarger = true;
   $: dynamicAttrs = isDesktopOrLarger ? { 'data-glow-border': true } : {};
-  $: noAccount = getConnectedAddress() === zeroAddress;
+  $: noAccount = !$account?.isConnected || $account?.address === zeroAddress;
   const cardClasses = classNames(
     'f-row',
     'w-full',
@@ -52,7 +54,6 @@
     'items-center',
     'justify-between',
     'h-full',
-    noAccount ? 'blur' : '',
   );
 
   $: diffBefore = 0;
@@ -77,6 +78,46 @@
       phaseId: PRECONF_CAMPAIGN_PHASE.AFTER,
     });
   });
+
+  async function onAccountChange() {
+    log('Account changed, refreshing data...');
+    // Refresh user data when account changes
+    const address = getConnectedAddress();
+
+    if (address && address !== zeroAddress) {
+      // Fetch updated leaderboard entry for the new account
+      try {
+        const entry = await BasedLinerService.fetchLeaderboardEntry({
+          eventId: PRECONF_EVENT.BASEDLINER,
+          address,
+        });
+
+        log('Updated entry for new account:', entry);
+
+        if (entry) {
+          diffBefore = entry.phase1 || 0;
+          diffAfter = entry.phase2 || 0;
+          score = entry.diff || 0;
+        } else {
+          // Reset values if no entry found for this account
+          diffBefore = 0;
+          diffAfter = 0;
+          score = 0;
+        }
+      } catch (error) {
+        console.error('Error fetching leaderboard entry on account change:', error);
+        // Reset values on error
+        diffBefore = 0;
+        diffAfter = 0;
+        score = 0;
+      }
+    } else {
+      // No account connected, reset values
+      diffBefore = 0;
+      diffAfter = 0;
+      score = 0;
+    }
+  }
 </script>
 
 <div class={wrapperClasses}>
@@ -87,7 +128,7 @@
       </DisabledMask>
     {/if}
     <div {...dynamicAttrs} class={bodyClasses} id="basedliners-section">
-      <div class="f-col lg:f-row w-full lg:h-[250px] h-full">
+      <div class="f-col lg:f-row {noAccount ? 'blur-md' : ''} w-full lg:h-[250px] h-full">
         <BeforePreconf bind:error bind:diffBefore />
         <div class="lg:v-sep h-sep" />
         <AfterPreconf bind:error bind:diffAfter />
@@ -106,3 +147,5 @@
     <BasedlinersLeaderboard {pageInfo} />
   {/if}
 </div>
+
+<OnAccount change={onAccountChange} />
