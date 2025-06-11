@@ -2,6 +2,7 @@ import type { Hex } from 'viem';
 
 import { API_KEY } from '$env/static/private';
 import { fetchFromApi } from '$shared/services/api/fetchClient';
+import { TooManyRequestsError } from '$shared/types/errors';
 
 import type { BasedLinerSubmitDto } from '../../dto/BasedlinerSubmit.dto';
 
@@ -28,7 +29,13 @@ export class BasedLinerAdapter {
       });
     } catch (error) {
       console.error('Error submitting stage', error);
-      throw new Error(`Failed to submit stage: ${(error as Error).message}`);
+
+      // Check if it's a 429 Too Many Requests error
+      if (error instanceof Error && error.message.includes('API Error: 429')) {
+        throw new TooManyRequestsError('Rate limit exceeded. Please wait before submitting again.');
+      }
+
+      throw new Error('Failed to submit stage');
     }
   }
 

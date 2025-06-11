@@ -4,7 +4,7 @@ import { type Address, type Hex, WaitForTransactionReceiptTimeoutError, zeroAddr
 
 import { API_KEY } from '$env/static/private';
 import { fetchFromApi } from '$shared/services/api/fetchClient';
-import { TransactionTimedOutError } from '$shared/types/errors';
+import { TooManyRequestsError, TransactionTimedOutError } from '$shared/types/errors';
 import { chainId } from '$shared/utils/chain';
 import { getLogger } from '$shared/utils/logger';
 import { wagmiConfig } from '$shared/wagmi';
@@ -73,7 +73,13 @@ export class BasedLinerService {
       });
     } catch (error) {
       console.error('Error submitting phase:', error);
-      throw new Error(`Failed to submit phase: ${(error as Error).message}`);
+
+      // Re-throw specific errors to preserve their type
+      if (error instanceof TooManyRequestsError) {
+        throw error;
+      }
+
+      throw new Error('Failed to submit phase');
     }
 
     let receipt;
@@ -113,7 +119,13 @@ export class BasedLinerService {
       });
     } catch (error) {
       console.error('Error submitting phase:', error);
-      throw new Error(`Failed to submit phase: ${(error as Error).message}`);
+
+      // Re-throw specific errors to preserve their type
+      if (error instanceof TooManyRequestsError) {
+        throw error;
+      }
+
+      throw new Error('Failed to submit phase');
     }
 
     // TODO fetch diff from api

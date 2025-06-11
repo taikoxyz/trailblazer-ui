@@ -1,7 +1,7 @@
 import { type Address, zeroAddress } from 'viem';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
-import { TransactionTimedOutError } from '$shared/types/errors';
+import { TooManyRequestsError, TransactionTimedOutError } from '$shared/types/errors';
 import getConnectedAddress from '$shared/utils/getConnectedAddress';
 
 import { BasedLinerAdapter } from '../adapter/BasedLinerAdapter';
@@ -152,6 +152,23 @@ describe('BasedLinerService', () => {
 
       // When & Then
       await expect(BasedLinerService.registerPhase(mockEventId, mockPhase)).rejects.toThrow(TransactionTimedOutError);
+    });
+
+    it('should throw TooManyRequestsError when API returns 429', async () => {
+      // Given
+      vi.mocked(BasedLinerAdapter.isPhaseOpen).mockResolvedValue(true);
+      vi.mocked(BasedLinerAdapter.sendTx).mockResolvedValue(mockTxHash);
+      vi.mocked(fetch).mockResolvedValue({
+        ok: false,
+        status: 429,
+        statusText: 'Too Many Requests',
+      } as Response);
+
+      // When & Then
+      await expect(BasedLinerService.registerPhase(mockEventId, mockPhase)).rejects.toThrow(TooManyRequestsError);
+      await expect(BasedLinerService.registerPhase(mockEventId, mockPhase)).rejects.toThrow(
+        'Rate limit exceeded. Please wait before submitting again.',
+      );
     });
 
     it('should throw error when API call fails', async () => {

@@ -3,7 +3,7 @@ import { type Address, type Hex, WaitForTransactionReceiptTimeoutError, zeroAddr
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { fetchFromApi } from '$shared/services/api/fetchClient';
-import { TransactionTimedOutError } from '$shared/types/errors';
+import { TooManyRequestsError, TransactionTimedOutError } from '$shared/types/errors';
 
 import { BasedLinerAdapter } from '../../adapter/server/BasedLinerAdapter.server';
 import type { BasedlinerLeaderboard } from '../../dto/BasedlinerLeaderboard';
@@ -188,6 +188,27 @@ describe('BasedLinerService.server', () => {
       expect(waitForTransactionReceipt).not.toHaveBeenCalled();
     });
 
+    it('should handle 429 error in initial stage submission and re-throw TooManyRequestsError', async () => {
+      // Given
+      const tooManyRequestsError = new TooManyRequestsError(
+        'Rate limit exceeded. Please wait before submitting again.',
+      );
+      vi.mocked(BasedLinerAdapter.submitStage).mockRejectedValueOnce(tooManyRequestsError);
+
+      // When & Then
+      await expect(
+        BasedLinerService.submitPhase({
+          phase: mockPhase,
+          timestamp: mockTimestamp,
+          wallet: mockAddress,
+          txHash: mockTxHash,
+        }),
+      ).rejects.toThrow(TooManyRequestsError);
+
+      expect(BasedLinerAdapter.submitStage).toHaveBeenCalledTimes(1);
+      expect(waitForTransactionReceipt).not.toHaveBeenCalled();
+    });
+
     it('should handle transaction timeout error', async () => {
       // Given
       const timeoutError = new WaitForTransactionReceiptTimeoutError({
@@ -292,6 +313,30 @@ describe('BasedLinerService.server', () => {
           txHash: mockTxHash,
         }),
       ).rejects.toThrow('Failed to submit phase');
+
+      expect(BasedLinerAdapter.submitStage).toHaveBeenCalledTimes(2);
+      expect(waitForTransactionReceipt).toHaveBeenCalled();
+      expect(getBlock).toHaveBeenCalled();
+    });
+
+    it('should handle 429 error in final stage submission and re-throw TooManyRequestsError', async () => {
+      // Given
+      const tooManyRequestsError = new TooManyRequestsError(
+        'Rate limit exceeded. Please wait before submitting again.',
+      );
+      vi.mocked(BasedLinerAdapter.submitStage)
+        .mockResolvedValueOnce(undefined as never) // Initial stage succeeds
+        .mockRejectedValueOnce(tooManyRequestsError); // Final stage fails with 429
+
+      // When & Then
+      await expect(
+        BasedLinerService.submitPhase({
+          phase: mockPhase,
+          timestamp: mockTimestamp,
+          wallet: mockAddress,
+          txHash: mockTxHash,
+        }),
+      ).rejects.toThrow(TooManyRequestsError);
 
       expect(BasedLinerAdapter.submitStage).toHaveBeenCalledTimes(2);
       expect(waitForTransactionReceipt).toHaveBeenCalled();

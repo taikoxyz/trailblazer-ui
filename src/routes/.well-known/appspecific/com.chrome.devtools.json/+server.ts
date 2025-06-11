@@ -1,5 +1,5 @@
-import { json } from '@sveltejs/kit';
 import type { RequestHandler } from '@sveltejs/kit';
+import { json } from '@sveltejs/kit';
 
 // Handle Chrome DevTools requests for app-specific configuration
 // This prevents 404 errors in the console when Chrome DevTools looks for this file

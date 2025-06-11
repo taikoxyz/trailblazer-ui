@@ -3,6 +3,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { API_KEY } from '$env/static/private';
 import { fetchFromApi } from '$shared/services/api/fetchClient';
+import { TooManyRequestsError } from '$shared/types/errors';
 
 import { PRECONF_CAMPAIGN_PHASE, PRECONF_TX_STAGE } from '../../types';
 import { BasedLinerAdapter } from './BasedLinerAdapter.server';
@@ -95,6 +96,27 @@ describe('BasedLinerAdapter', () => {
     it('should handle network errors and throw descriptive error', async () => {
       // Given
       vi.mocked(fetchFromApi).mockRejectedValue(new Error('Network error'));
+
+      // When & Then
+      await expect(BasedLinerAdapter.submitStage(mockSubmitArgs)).rejects.toThrow('Failed to submit stage');
+    });
+
+    it('should handle 429 Too Many Requests errors and throw TooManyRequestsError', async () => {
+      // Given
+      const rateLimitError = new Error('API Error: 429 Too Many Requests');
+      vi.mocked(fetchFromApi).mockRejectedValue(rateLimitError);
+
+      // When & Then
+      await expect(BasedLinerAdapter.submitStage(mockSubmitArgs)).rejects.toThrow(TooManyRequestsError);
+      await expect(BasedLinerAdapter.submitStage(mockSubmitArgs)).rejects.toThrow(
+        'Rate limit exceeded. Please wait before submitting again.',
+      );
+    });
+
+    it('should handle other API errors with status codes', async () => {
+      // Given
+      const serverError = new Error('API Error: 500 Internal Server Error');
+      vi.mocked(fetchFromApi).mockRejectedValue(serverError);
 
       // When & Then
       await expect(BasedLinerAdapter.submitStage(mockSubmitArgs)).rejects.toThrow('Failed to submit stage');

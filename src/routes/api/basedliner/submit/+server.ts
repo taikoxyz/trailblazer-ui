@@ -2,7 +2,7 @@ import type { RequestHandler } from '@sveltejs/kit';
 
 import type { InternalAPIPayload } from '$lib/domains/preconf/dto/InternalAPIPayload';
 import { BasedLinerService } from '$lib/domains/preconf/service/server/BasedLinerService.server';
-import { TransactionTimedOutError } from '$shared/types/errors';
+import { TooManyRequestsError, TransactionTimedOutError } from '$shared/types/errors';
 
 // POST /api/basedliner/submit
 export const POST: RequestHandler = async ({ request }) => {
@@ -32,7 +32,6 @@ export const POST: RequestHandler = async ({ request }) => {
     } catch (error) {
       console.error('Error submitting phase:', error);
 
-
       // Handle specific timeout errors with appropriate status code and message
       if (error instanceof TransactionTimedOutError) {
         return new Response(
@@ -46,9 +45,20 @@ export const POST: RequestHandler = async ({ request }) => {
         );
       }
 
-      return new Response(JSON.stringify({ error: `Failed to submit phase: ${(error as Error).message}` }), {
-        status: 500,
-      });
+      // Handle rate limiting errors with appropriate status code and message
+      if (error instanceof TooManyRequestsError) {
+        return new Response(
+          JSON.stringify({
+            error: 'Too many requests',
+            message: 'Rate limit exceeded. Please wait a moment before trying again.',
+            rateLimited: true,
+          }),
+          { status: 429 }, // 429 Too Many Requests
+        );
+      }
+
+      // Generic error handling for other types of errors
+      return new Response(JSON.stringify({ error: 'Failed to submit phase' }), { status: 500 });
     }
   } catch (error) {
     console.error('Error in /api/basedliner/submit:', error);

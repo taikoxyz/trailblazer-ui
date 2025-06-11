@@ -8,7 +8,7 @@
   import StaticTime from '$shared/components/Countdown/StaticTime.svelte';
   import { errorToast } from '$shared/components/NotificationToast';
   import { account } from '$shared/stores/account';
-  import { TransactionTimedOutError } from '$shared/types/errors';
+  import { TooManyRequestsError, TransactionTimedOutError } from '$shared/types/errors';
   import { classNames } from '$shared/utils/classNames';
   import { getLogger } from '$shared/utils/logger';
 
@@ -84,6 +84,11 @@
           title: 'Transaction Timeout',
           message:
             'Your transaction timed out after 5 minutes. Please set a realistic gas price and try again. Your time has been set to 0',
+        });
+      } else if (e instanceof TooManyRequestsError) {
+        errorToast({
+          title: 'Rate Limit Exceeded',
+          message: 'Too many requests. Please wait a moment before trying again.',
         });
       } else if (e && typeof e === 'object' && 'message' in e && typeof e.message === 'string') {
         if (e.message.includes('User rejected the request')) {

@@ -2,7 +2,7 @@ import { type Address, zeroAddress } from 'viem';
 
 import { browser } from '$app/environment';
 import type { UnifiedLeaderboardRow } from '$lib/domains/leaderboard/types/shared/types';
-import { TransactionTimedOutError } from '$shared/types/errors';
+import { TooManyRequestsError, TransactionTimedOutError } from '$shared/types/errors';
 import getConnectedAddress from '$shared/utils/getConnectedAddress';
 import { getLogger } from '$shared/utils/logger';
 
@@ -59,6 +59,11 @@ export class BasedLinerService {
       // Handle timeout errors specifically
       if (res.status === 408) {
         throw new TransactionTimedOutError('Transaction timed out');
+      }
+
+      // Handle rate limiting errors specifically
+      if (res.status === 429) {
+        throw new TooManyRequestsError('Rate limit exceeded. Please wait before submitting again.');
       }
 
       throw new Error(`API call failed: ${res.status} ${res.statusText}`);
