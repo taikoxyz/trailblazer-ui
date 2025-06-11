@@ -1,7 +1,0 @@
-{
-  "functions": {
-    ".svelte-kit/output/server/entries/endpoints/api/basedliner/submit/_page.server.js": {
-      "maxDuration": 800
-    }
-  }
-}
