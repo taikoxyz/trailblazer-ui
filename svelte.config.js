@@ -6,7 +6,7 @@ const config = {
   preprocess: [vitePreprocess()],
   kit: {
     adapter: adapter({
-      maxDuration: 800, // 5 minutes in seconds
+      maxDuration: 300, // 5 minutes in seconds
     }),
     files: {
       assets: `static`,
