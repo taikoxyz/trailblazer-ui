@@ -60,6 +60,7 @@ describe('BasedLinerAdapter', () => {
         abi: BasedLinersAbi,
         functionName: 'register',
         args: [BigInt(mockEventId), BigInt(mockPhaseId)],
+        gas: 10000000n,
       });
       expect(writeContract).toHaveBeenCalledWith(wagmiConfig, mockRequest);
       expect(result).toBe(mockTxHash);
@@ -83,6 +84,7 @@ describe('BasedLinerAdapter', () => {
         abi: BasedLinersAbi,
         functionName: 'register',
         args: [BigInt(mockEventId), BigInt(mockPhaseId)],
+        gas: 10000000n,
       });
       expect(writeContract).not.toHaveBeenCalled();
     });
@@ -117,6 +119,7 @@ describe('BasedLinerAdapter', () => {
         abi: BasedLinersAbi,
         functionName: 'register',
         args: [BigInt(mockEventId), BigInt(mockPhaseId)],
+        gas: 10000000n,
       });
       expect(writeContract).toHaveBeenCalledWith(wagmiConfig, mockRequest);
     });
@@ -149,6 +152,7 @@ describe('BasedLinerAdapter', () => {
         abi: BasedLinersAbi,
         functionName: 'register',
         args: [BigInt(0), BigInt(0)],
+        gas: 10000000n,
       });
       expect(result).toBe(mockTxHash);
     });
@@ -183,6 +187,7 @@ describe('BasedLinerAdapter', () => {
         abi: BasedLinersAbi,
         functionName: 'register',
         args: [BigInt(largeEventId), BigInt(largePhaseId)],
+        gas: 10000000n,
       });
       expect(result).toBe(mockTxHash);
     });
@@ -217,6 +222,7 @@ describe('BasedLinerAdapter', () => {
         abi: BasedLinersAbi,
         functionName: 'register',
         args: [BigInt(negativeEventId), BigInt(negativePhaseId)],
+        gas: 10000000n,
       });
       expect(result).toBe(mockTxHash);
     });

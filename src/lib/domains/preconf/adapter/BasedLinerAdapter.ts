@@ -1,5 +1,5 @@
 import { readContract, simulateContract, writeContract } from '@wagmi/core';
-import type { Hex } from 'viem';
+import { type Hex, parseGwei } from 'viem';
 
 import { BasedLinersAbi, basedLinersAddress } from '$generated/abi';
 import { chainId } from '$shared/utils/chain';
@@ -21,6 +21,7 @@ export class BasedLinerAdapter {
       abi: BasedLinersAbi,
       functionName: 'register',
       args: [BigInt(eventId), BigInt(phaseId)],
+      gas: parseGwei('0.01'),
     });
 
     // Send transaction
