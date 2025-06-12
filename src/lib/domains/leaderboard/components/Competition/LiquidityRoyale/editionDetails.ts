@@ -23,6 +23,12 @@ const edition3 = {
   ],
 };
 
+const edition4 = {
+  prizePool: '700K',
+  tooltip: true,
+  tabs: [{ slug: LiquidityCompetitionType.OG, name: 'OGs Edition' }],
+};
+
 export const getEditionDetails = (edition: number): EditionDetails | null => {
   switch (edition) {
     case 1:
@@ -31,6 +37,9 @@ export const getEditionDetails = (edition: number): EditionDetails | null => {
       return edition2;
     case 3:
       return edition3;
+    case 4:
+      return edition4;
+    // Add more editions as needed
     default:
       return null;
   }
