@@ -10,7 +10,6 @@
   import { isDevelopmentEnv } from '$shared/utils/isDevelopmentEnv';
 
   import ProfileTransactions from './ProfileActivity/ProfileTransactions.svelte';
-  import ProfileLockdownTab from './ProfileLockdownTab.svelte';
   import ProfileNftCollection from './ProfileNFTs/NFTCollection/ProfileNFTCollection.svelte';
   import ProfileRewardClaim from './ProfileRewardClaim/ProfileRewardClaim.svelte';
 
@@ -61,12 +60,6 @@
           },
         ]
       : []),
-
-    {
-      slug: 'lockdown',
-      name: 'Lockdown',
-      content: ProfileLockdownTab,
-    },
   ] as TabContent[];
 
   $: activeTab = 0;

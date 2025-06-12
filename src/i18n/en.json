@@ -1022,10 +1022,6 @@
     "textPre": "By confirming your claim, you agree to the ",
     "title": "Token claim"
   },
-  "lockdown": {
-    "content": "Introducing Trailblazers Lockdown, an exciting campaign where you can use Taiko tokens and earn Trailblazers multipliers along with with participating projects offering boosted rewards and exclusive benefits for users who commit to locking their tokens.",
-    "title": "How it works"
-  },
   "messages": {
     "account": {
       "connected": "Account connected",
