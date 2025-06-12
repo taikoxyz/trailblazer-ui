@@ -3,8 +3,8 @@ import { getGasPrice, getPublicClient } from '@wagmi/core';
 
 import type { InternalAPIPayload } from '$lib/domains/preconf/dto/InternalAPIPayload';
 import { BasedLinerService } from '$lib/domains/preconf/service/server/BasedLinerService.server';
-import { wagmiConfig } from '$shared/wagmi';
 import { TooManyRequestsError, TransactionTimedOutError } from '$shared/types/errors';
+import { wagmiConfig } from '$shared/wagmi';
 
 // POST /api/basedliner/submit
 export const POST: RequestHandler = async ({ request }) => {
