@@ -17,10 +17,7 @@ const edition2 = {
 const edition3 = {
   prizePool: '1M',
   tooltip: true,
-  tabs: [
-    { slug: LiquidityCompetitionType.OG, name: 'OGs Edition' },
-    { slug: LiquidityCompetitionType.MOGULS, name: 'DeFi Moguls' },
-  ],
+  tabs: [{ slug: LiquidityCompetitionType.OG, name: 'OGs Edition' }],
 };
 
 export const getEditionDetails = (edition: number): EditionDetails | null => {
