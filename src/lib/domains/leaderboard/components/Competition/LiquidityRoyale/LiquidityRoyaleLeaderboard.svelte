@@ -40,7 +40,7 @@
     pageInfo = value;
   });
 
-  const currentEdition: number = 3;
+  const currentEdition: number = 4;
   $: reactiveEdition = edition;
   $: totalItems = pageInfo?.total || 0;
   $: hasEnded = reactiveEdition !== currentEdition;
