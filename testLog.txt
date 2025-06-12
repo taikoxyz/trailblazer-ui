@@ -1,0 +1,5420 @@
+
+> trailblazer-ui@2.2.0 test:unit /home/bearni/taiko/trailblazer-ui.git
+> vitest run --silent
+
+
+ RUN  v1.6.1 /home/bearni/taiko/trailblazer-ui.git
+
+ ✓ src/lib/domains/taiko-status/service/TaikoStatusService.test.ts  (12 tests) 12ms
+ ✓ src/lib/domains/preconf/adapter/server/BasedLinerAdapter.server.test.ts  (13 tests) 25ms
+ ✓ src/lib/domains/preconf/service/BasedLinerService.test.ts  (21 tests) 48ms
+ ✓ src/lib/domains/leaderboard/services/DappLeaderboardService.test.ts  (5 tests) 14ms
+ ✓ src/lib/domains/taiko-status/adapter/TaikoStatusAdapter.test.ts  (30 tests) 56ms
+ ✓ src/lib/domains/leaderboard/services/GamingLeaderboardService.test.ts  (2 tests) 16ms
+ ❯ src/lib/domains/preconf/adapter/BasedLinerAdapter.test.ts  (22 tests | 6 failed) 85ms
+   ❯ src/lib/domains/preconf/adapter/BasedLinerAdapter.test.ts > BasedLinerAdapter > sendTx > should simulate and send transaction successfully
+     → expected "spy" to be called with arguments: [ …(2) ]
+
+Received: 
+
+  1st spy call:
+
+  Array [
+    Object {
+      "_internal": Object {
+        "chains": Object {
+          "setState": [Function setState],
+          "subscribe": [Function subscribe],
+        },
+        "connectors": Object {
+          "providerDetailToConnector": [Function providerDetailToConnector],
+          "setState": [Function setState],
+          "setup": [Function setup],
+          "subscribe": [Function subscribe],
+        },
+        "events": Object {
+          "change": [Function change],
+          "connect": [Function connect],
+          "disconnect": [Function disconnect],
+        },
+        "mipd": Object {
+          "_listeners": [Function _listeners],
+          "clear": [Function clear],
+          "destroy": [Function destroy],
+          "findProvider": [Function findProvider],
+          "getProviders": [Function getProviders],
+          "reset": [Function reset],
+          "subscribe": [Function subscribe],
+        },
+        "ssr": false,
+        "store": Object {
+          "getInitialState": [Function anonymous],
+          "getState": [Function getState],
+          "persist": Object {
+            "clearStorage": [Function clearStorage],
+            "getOptions": [Function getOptions],
+            "hasHydrated": [Function hasHydrated],
+            "onFinishHydration": [Function onFinishHydration],
+            "onHydrate": [Function onHydrate],
+            "rehydrate": [Function rehydrate],
+            "setOptions": [Function setOptions],
+          },
+          "setState": [Function anonymous],
+          "subscribe": [Function anonymous],
+        },
+        "syncConnectedChain": true,
+        "transports": Object {
+          "167000": [Function anonymous],
+        },
+      },
+      "chains": Array [
+        Object {
+          "assets": Object {
+            "imageId": undefined,
+            "imageUrl": undefined,
+          },
+          "blockExplorers": Object {
+            "default": Object {
+              "apiUrl": "https://api.taikoscan.io/api",
+              "name": "Taikoscan",
+              "url": "https://taikoscan.io",
+            },
+          },
+          "caipNetworkId": "eip155:167000",
+          "chainNamespace": "eip155",
+          "contracts": Object {
+            "multicall3": Object {
+              "address": "0xcb2436774C3e191c85056d248EF4260ce5f27A9D",
+            },
+          },
+          "fees": undefined,
+          "formatters": undefined,
+          "id": 167000,
+          "name": "Taiko Mainnet",
+          "nativeCurrency": Object {
+            "decimals": 18,
+            "name": "Ether",
+            "symbol": "ETH",
+          },
+          "rpcUrls": Object {
+            "chainDefault": Object {
+              "http": Array [
+                "https://rpc.mainnet.taiko.xyz",
+              ],
+            },
+            "default": Object {
+              "http": Array [
+                "https://rpc.mainnet.taiko.xyz",
+              ],
+            },
+          },
+          "serializers": undefined,
+        },
+      ],
+      "connectors": Array [],
+      "getClient": [Function getClient],
+      "setState": [Function setState],
+      "state": Object {
+        "chainId": 167000,
+        "connections": Map {},
+        "current": null,
+        "status": "disconnected",
+      },
+      "storage": Object {
+        "getItem": [Function getItem],
+        "key": "wagmi",
+        "removeItem": [Function removeItem],
+        "setItem": [Function setItem],
+      },
+      "subscribe": [Function subscribe],
+    },
+    Object {
+      "abi": Array [
+        Object {
+          "inputs": Array [],
+          "stateMutability": "nonpayable",
+          "type": "constructor",
+        },
+        Object {
+          "inputs": Array [],
+          "name": "DEFAULT_ADMIN_ROLE",
+          "outputs": Array [
+            Object {
+              "internalType": "bytes32",
+              "name": "",
+              "type": "bytes32",
+            },
+          ],
+          "stateMutability": "view",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [],
+          "name": "EVENT_MANAGER_ROLE",
+          "outputs": Array [
+            Object {
+              "internalType": "bytes32",
+              "name": "",
+              "type": "bytes32",
+            },
+          ],
+          "stateMutability": "view",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [],
+          "name": "acceptOwnership",
+          "outputs": Array [],
+          "stateMutability": "nonpayable",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "uint256",
+              "name": "_eventId",
+              "type": "uint256",
+            },
+            Object {
+              "internalType": "uint256",
+              "name": "_phaseId",
+              "type": "uint256",
+            },
+          ],
+          "name": "closePhase",
+          "outputs": Array [],
+          "stateMutability": "nonpayable",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "string",
+              "name": "_name",
+              "type": "string",
+            },
+            Object {
+              "internalType": "uint256",
+              "name": "_totalPhases",
+              "type": "uint256",
+            },
+          ],
+          "name": "createEvent",
+          "outputs": Array [],
+          "stateMutability": "nonpayable",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "uint256",
+              "name": "eventId",
+              "type": "uint256",
+            },
+          ],
+          "name": "events",
+          "outputs": Array [
+            Object {
+              "internalType": "uint256",
+              "name": "id",
+              "type": "uint256",
+            },
+            Object {
+              "internalType": "string",
+              "name": "name",
+              "type": "string",
+            },
+            Object {
+              "internalType": "uint256",
+              "name": "totalPhases",
+              "type": "uint256",
+            },
+          ],
+          "stateMutability": "view",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "uint256",
+              "name": "_eventId",
+              "type": "uint256",
+            },
+          ],
+          "name": "getEvent",
+          "outputs": Array [
+            Object {
+              "internalType": "uint256",
+              "name": "id",
+              "type": "uint256",
+            },
+            Object {
+              "internalType": "string",
+              "name": "name",
+              "type": "string",
+            },
+            Object {
+              "internalType": "uint256",
+              "name": "totalPhases",
+              "type": "uint256",
+            },
+          ],
+          "stateMutability": "view",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "uint256",
+              "name": "_eventId",
+              "type": "uint256",
+            },
+            Object {
+              "internalType": "address",
+              "name": "_user",
+              "type": "address",
+            },
+          ],
+          "name": "getRegistrationStatus",
+          "outputs": Array [
+            Object {
+              "internalType": "bool[]",
+              "name": "registered",
+              "type": "bool[]",
+            },
+          ],
+          "stateMutability": "view",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "bytes32",
+              "name": "role",
+              "type": "bytes32",
+            },
+          ],
+          "name": "getRoleAdmin",
+          "outputs": Array [
+            Object {
+              "internalType": "bytes32",
+              "name": "",
+              "type": "bytes32",
+            },
+          ],
+          "stateMutability": "view",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "address",
+              "name": "account",
+              "type": "address",
+            },
+          ],
+          "name": "grantEventManagerRole",
+          "outputs": Array [],
+          "stateMutability": "nonpayable",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "bytes32",
+              "name": "role",
+              "type": "bytes32",
+            },
+            Object {
+              "internalType": "address",
+              "name": "account",
+              "type": "address",
+            },
+          ],
+          "name": "grantRole",
+          "outputs": Array [],
+          "stateMutability": "nonpayable",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "bytes32",
+              "name": "role",
+              "type": "bytes32",
+            },
+            Object {
+              "internalType": "address",
+              "name": "account",
+              "type": "address",
+            },
+          ],
+          "name": "hasRole",
+          "outputs": Array [
+            Object {
+              "internalType": "bool",
+              "name": "",
+              "type": "bool",
+            },
+          ],
+          "stateMutability": "view",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [],
+          "name": "initialize",
+          "outputs": Array [],
+          "stateMutability": "nonpayable",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "uint256",
+              "name": "_eventId",
+              "type": "uint256",
+            },
+            Object {
+              "internalType": "uint256",
+              "name": "_phaseId",
+              "type": "uint256",
+            },
+          ],
+          "name": "openPhase",
+          "outputs": Array [],
+          "stateMutability": "nonpayable",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [],
+          "name": "owner",
+          "outputs": Array [
+            Object {
+              "internalType": "address",
+              "name": "",
+              "type": "address",
+            },
+          ],
+          "stateMutability": "view",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [],
+          "name": "pendingOwner",
+          "outputs": Array [
+            Object {
+              "internalType": "address",
+              "name": "",
+              "type": "address",
+            },
+          ],
+          "stateMutability": "view",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "uint256",
+              "name": "eventId",
+              "type": "uint256",
+            },
+            Object {
+              "internalType": "uint256",
+              "name": "phaseId",
+              "type": "uint256",
+            },
+          ],
+          "name": "phaseOpen",
+          "outputs": Array [
+            Object {
+              "internalType": "bool",
+              "name": "isOpen",
+              "type": "bool",
+            },
+          ],
+          "stateMutability": "view",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "uint256",
+              "name": "_eventId",
+              "type": "uint256",
+            },
+            Object {
+              "internalType": "uint256",
+              "name": "_phaseId",
+              "type": "uint256",
+            },
+          ],
+          "name": "register",
+          "outputs": Array [],
+          "stateMutability": "nonpayable",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "uint256",
+              "name": "eventId",
+              "type": "uint256",
+            },
+            Object {
+              "internalType": "uint256",
+              "name": "phaseId",
+              "type": "uint256",
+            },
+            Object {
+              "internalType": "address",
+              "name": "registrant",
+              "type": "address",
+            },
+          ],
+          "name": "registrations",
+          "outputs": Array [
+            Object {
+              "internalType": "uint256",
+              "name": "timestamp",
+              "type": "uint256",
+            },
+          ],
+          "stateMutability": "view",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [],
+          "name": "renounceOwnership",
+          "outputs": Array [],
+          "stateMutability": "nonpayable",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "bytes32",
+              "name": "role",
+              "type": "bytes32",
+            },
+            Object {
+              "internalType": "address",
+              "name": "callerConfirmation",
+              "type": "address",
+            },
+          ],
+          "name": "renounceRole",
+          "outputs": Array [],
+          "stateMutability": "nonpayable",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "address",
+              "name": "account",
+              "type": "address",
+            },
+          ],
+          "name": "revokeEventManagerRole",
+          "outputs": Array [],
+          "stateMutability": "nonpayable",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "bytes32",
+              "name": "role",
+              "type": "bytes32",
+            },
+            Object {
+              "internalType": "address",
+              "name": "account",
+              "type": "address",
+            },
+          ],
+          "name": "revokeRole",
+          "outputs": Array [],
+          "stateMutability": "nonpayable",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "bytes4",
+              "name": "interfaceId",
+              "type": "bytes4",
+            },
+          ],
+          "name": "supportsInterface",
+          "outputs": Array [
+            Object {
+              "internalType": "bool",
+              "name": "",
+              "type": "bool",
+            },
+          ],
+          "stateMutability": "view",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "address",
+              "name": "newOwner",
+              "type": "address",
+            },
+          ],
+          "name": "transferOwnership",
+          "outputs": Array [],
+          "stateMutability": "nonpayable",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "uint256",
+              "name": "_eventId",
+              "type": "uint256",
+            },
+            Object {
+              "internalType": "uint256",
+              "name": "_phaseId",
+              "type": "uint256",
+            },
+            Object {
+              "internalType": "address",
+              "name": "_user",
+              "type": "address",
+            },
+          ],
+          "name": "unregister",
+          "outputs": Array [],
+          "stateMutability": "nonpayable",
+          "type": "function",
+        },
+        Object {
+          "anonymous": false,
+          "inputs": Array [
+            Object {
+              "indexed": true,
+              "internalType": "uint256",
+              "name": "id",
+              "type": "uint256",
+            },
+            Object {
+              "indexed": false,
+              "internalType": "string",
+              "name": "name",
+              "type": "string",
+            },
+          ],
+          "name": "EventCreated",
+          "type": "event",
+        },
+        Object {
+          "anonymous": false,
+          "inputs": Array [
+            Object {
+              "indexed": false,
+              "internalType": "uint64",
+              "name": "version",
+              "type": "uint64",
+            },
+          ],
+          "name": "Initialized",
+          "type": "event",
+        },
+        Object {
+          "anonymous": false,
+          "inputs": Array [
+            Object {
+              "indexed": true,
+              "internalType": "address",
+              "name": "previousOwner",
+              "type": "address",
+            },
+            Object {
+              "indexed": true,
+              "internalType": "address",
+              "name": "newOwner",
+              "type": "address",
+            },
+          ],
+          "name": "OwnershipTransferStarted",
+          "type": "event",
+        },
+        Object {
+          "anonymous": false,
+          "inputs": Array [
+            Object {
+              "indexed": true,
+              "internalType": "address",
+              "name": "previousOwner",
+              "type": "address",
+            },
+            Object {
+              "indexed": true,
+              "internalType": "address",
+              "name": "newOwner",
+              "type": "address",
+            },
+          ],
+          "name": "OwnershipTransferred",
+          "type": "event",
+        },
+        Object {
+          "anonymous": false,
+          "inputs": Array [
+            Object {
+              "indexed": true,
+              "internalType": "uint256",
+              "name": "eventId",
+              "type": "uint256",
+            },
+            Object {
+              "indexed": true,
+              "internalType": "uint256",
+              "name": "phaseId",
+              "type": "uint256",
+            },
+          ],
+          "name": "PhaseClosed",
+          "type": "event",
+        },
+        Object {
+          "anonymous": false,
+          "inputs": Array [
+            Object {
+              "indexed": true,
+              "internalType": "uint256",
+              "name": "eventId",
+              "type": "uint256",
+            },
+            Object {
+              "indexed": true,
+              "internalType": "uint256",
+              "name": "phaseId",
+              "type": "uint256",
+            },
+          ],
+          "name": "PhaseOpened",
+          "type": "event",
+        },
+        Object {
+          "anonymous": false,
+          "inputs": Array [
+            Object {
+              "indexed": true,
+              "internalType": "address",
+              "name": "registrant",
+              "type": "address",
+            },
+            Object {
+              "indexed": true,
+              "internalType": "uint256",
+              "name": "eventId",
+              "type": "uint256",
+            },
+            Object {
+              "indexed": true,
+              "internalType": "uint256",
+              "name": "phaseId",
+              "type": "uint256",
+            },
+          ],
+          "name": "Registered",
+          "type": "event",
+        },
+        Object {
+          "anonymous": false,
+          "inputs": Array [
+            Object {
+              "indexed": true,
+              "internalType": "bytes32",
+              "name": "role",
+              "type": "bytes32",
+            },
+            Object {
+              "indexed": true,
+              "internalType": "bytes32",
+              "name": "previousAdminRole",
+              "type": "bytes32",
+            },
+            Object {
+              "indexed": true,
+              "internalType": "bytes32",
+              "name": "newAdminRole",
+              "type": "bytes32",
+            },
+          ],
+          "name": "RoleAdminChanged",
+          "type": "event",
+        },
+        Object {
+          "anonymous": false,
+          "inputs": Array [
+            Object {
+              "indexed": true,
+              "internalType": "bytes32",
+              "name": "role",
+              "type": "bytes32",
+            },
+            Object {
+              "indexed": true,
+              "internalType": "address",
+              "name": "account",
+              "type": "address",
+            },
+            Object {
+              "indexed": true,
+              "internalType": "address",
+              "name": "sender",
+              "type": "address",
+            },
+          ],
+          "name": "RoleGranted",
+          "type": "event",
+        },
+        Object {
+          "anonymous": false,
+          "inputs": Array [
+            Object {
+              "indexed": true,
+              "internalType": "bytes32",
+              "name": "role",
+              "type": "bytes32",
+            },
+            Object {
+              "indexed": true,
+              "internalType": "address",
+              "name": "account",
+              "type": "address",
+            },
+            Object {
+              "indexed": true,
+              "internalType": "address",
+              "name": "sender",
+              "type": "address",
+            },
+          ],
+          "name": "RoleRevoked",
+          "type": "event",
+        },
+        Object {
+          "anonymous": false,
+          "inputs": Array [
+            Object {
+              "indexed": true,
+              "internalType": "address",
+              "name": "registrant",
+              "type": "address",
+            },
+            Object {
+              "indexed": true,
+              "internalType": "uint256",
+              "name": "eventId",
+              "type": "uint256",
+            },
+            Object {
+              "indexed": true,
+              "internalType": "uint256",
+              "name": "phaseId",
+              "type": "uint256",
+            },
+          ],
+          "name": "Unregistered",
+          "type": "event",
+        },
+        Object {
+          "inputs": Array [],
+          "name": "AccessControlBadConfirmation",
+          "type": "error",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "address",
+              "name": "account",
+              "type": "address",
+            },
+            Object {
+              "internalType": "bytes32",
+              "name": "neededRole",
+              "type": "bytes32",
+            },
+          ],
+          "name": "AccessControlUnauthorizedAccount",
+          "type": "error",
+        },
+        Object {
+          "inputs": Array [],
+          "name": "INVALID_EVENT_ID",
+          "type": "error",
+        },
+        Object {
+          "inputs": Array [],
+          "name": "INVALID_PHASE_ID",
+          "type": "error",
+        },
+        Object {
+          "inputs": Array [],
+          "name": "InvalidInitialization",
+          "type": "error",
+        },
+        Object {
+          "inputs": Array [],
+          "name": "NotInitializing",
+          "type": "error",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "address",
+              "name": "owner",
+              "type": "address",
+            },
+          ],
+          "name": "OwnableInvalidOwner",
+          "type": "error",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "address",
+              "name": "account",
+              "type": "address",
+            },
+          ],
+          "name": "OwnableUnauthorizedAccount",
+          "type": "error",
+        },
+        Object {
+          "inputs": Array [],
+          "name": "PHASE_CLOSED",
+          "type": "error",
+        },
+      ],
+      "address": "0x76B3c064bc4771a1536F376432832828edB2dB33",
+      "args": Array [
+        1n,
+        2n,
+      ],
+      "functionName": "register",
++     "gas": 10000000n,
+    },
+  ]
+
+
+Number of calls: 1
+
+   ❯ src/lib/domains/preconf/adapter/BasedLinerAdapter.test.ts > BasedLinerAdapter > sendTx > should throw error when simulation fails
+     → expected "spy" to be called with arguments: [ …(2) ]
+
+Received: 
+
+  1st spy call:
+
+  Array [
+    Object {
+      "_internal": Object {
+        "chains": Object {
+          "setState": [Function setState],
+          "subscribe": [Function subscribe],
+        },
+        "connectors": Object {
+          "providerDetailToConnector": [Function providerDetailToConnector],
+          "setState": [Function setState],
+          "setup": [Function setup],
+          "subscribe": [Function subscribe],
+        },
+        "events": Object {
+          "change": [Function change],
+          "connect": [Function connect],
+          "disconnect": [Function disconnect],
+        },
+        "mipd": Object {
+          "_listeners": [Function _listeners],
+          "clear": [Function clear],
+          "destroy": [Function destroy],
+          "findProvider": [Function findProvider],
+          "getProviders": [Function getProviders],
+          "reset": [Function reset],
+          "subscribe": [Function subscribe],
+        },
+        "ssr": false,
+        "store": Object {
+          "getInitialState": [Function anonymous],
+          "getState": [Function getState],
+          "persist": Object {
+            "clearStorage": [Function clearStorage],
+            "getOptions": [Function getOptions],
+            "hasHydrated": [Function hasHydrated],
+            "onFinishHydration": [Function onFinishHydration],
+            "onHydrate": [Function onHydrate],
+            "rehydrate": [Function rehydrate],
+            "setOptions": [Function setOptions],
+          },
+          "setState": [Function anonymous],
+          "subscribe": [Function anonymous],
+        },
+        "syncConnectedChain": true,
+        "transports": Object {
+          "167000": [Function anonymous],
+        },
+      },
+      "chains": Array [
+        Object {
+          "assets": Object {
+            "imageId": undefined,
+            "imageUrl": undefined,
+          },
+          "blockExplorers": Object {
+            "default": Object {
+              "apiUrl": "https://api.taikoscan.io/api",
+              "name": "Taikoscan",
+              "url": "https://taikoscan.io",
+            },
+          },
+          "caipNetworkId": "eip155:167000",
+          "chainNamespace": "eip155",
+          "contracts": Object {
+            "multicall3": Object {
+              "address": "0xcb2436774C3e191c85056d248EF4260ce5f27A9D",
+            },
+          },
+          "fees": undefined,
+          "formatters": undefined,
+          "id": 167000,
+          "name": "Taiko Mainnet",
+          "nativeCurrency": Object {
+            "decimals": 18,
+            "name": "Ether",
+            "symbol": "ETH",
+          },
+          "rpcUrls": Object {
+            "chainDefault": Object {
+              "http": Array [
+                "https://rpc.mainnet.taiko.xyz",
+              ],
+            },
+            "default": Object {
+              "http": Array [
+                "https://rpc.mainnet.taiko.xyz",
+              ],
+            },
+          },
+          "serializers": undefined,
+        },
+      ],
+      "connectors": Array [],
+      "getClient": [Function getClient],
+      "setState": [Function setState],
+      "state": Object {
+        "chainId": 167000,
+        "connections": Map {},
+        "current": null,
+        "status": "disconnected",
+      },
+      "storage": Object {
+        "getItem": [Function getItem],
+        "key": "wagmi",
+        "removeItem": [Function removeItem],
+        "setItem": [Function setItem],
+      },
+      "subscribe": [Function subscribe],
+    },
+    Object {
+      "abi": Array [
+        Object {
+          "inputs": Array [],
+          "stateMutability": "nonpayable",
+          "type": "constructor",
+        },
+        Object {
+          "inputs": Array [],
+          "name": "DEFAULT_ADMIN_ROLE",
+          "outputs": Array [
+            Object {
+              "internalType": "bytes32",
+              "name": "",
+              "type": "bytes32",
+            },
+          ],
+          "stateMutability": "view",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [],
+          "name": "EVENT_MANAGER_ROLE",
+          "outputs": Array [
+            Object {
+              "internalType": "bytes32",
+              "name": "",
+              "type": "bytes32",
+            },
+          ],
+          "stateMutability": "view",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [],
+          "name": "acceptOwnership",
+          "outputs": Array [],
+          "stateMutability": "nonpayable",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "uint256",
+              "name": "_eventId",
+              "type": "uint256",
+            },
+            Object {
+              "internalType": "uint256",
+              "name": "_phaseId",
+              "type": "uint256",
+            },
+          ],
+          "name": "closePhase",
+          "outputs": Array [],
+          "stateMutability": "nonpayable",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "string",
+              "name": "_name",
+              "type": "string",
+            },
+            Object {
+              "internalType": "uint256",
+              "name": "_totalPhases",
+              "type": "uint256",
+            },
+          ],
+          "name": "createEvent",
+          "outputs": Array [],
+          "stateMutability": "nonpayable",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "uint256",
+              "name": "eventId",
+              "type": "uint256",
+            },
+          ],
+          "name": "events",
+          "outputs": Array [
+            Object {
+              "internalType": "uint256",
+              "name": "id",
+              "type": "uint256",
+            },
+            Object {
+              "internalType": "string",
+              "name": "name",
+              "type": "string",
+            },
+            Object {
+              "internalType": "uint256",
+              "name": "totalPhases",
+              "type": "uint256",
+            },
+          ],
+          "stateMutability": "view",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "uint256",
+              "name": "_eventId",
+              "type": "uint256",
+            },
+          ],
+          "name": "getEvent",
+          "outputs": Array [
+            Object {
+              "internalType": "uint256",
+              "name": "id",
+              "type": "uint256",
+            },
+            Object {
+              "internalType": "string",
+              "name": "name",
+              "type": "string",
+            },
+            Object {
+              "internalType": "uint256",
+              "name": "totalPhases",
+              "type": "uint256",
+            },
+          ],
+          "stateMutability": "view",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "uint256",
+              "name": "_eventId",
+              "type": "uint256",
+            },
+            Object {
+              "internalType": "address",
+              "name": "_user",
+              "type": "address",
+            },
+          ],
+          "name": "getRegistrationStatus",
+          "outputs": Array [
+            Object {
+              "internalType": "bool[]",
+              "name": "registered",
+              "type": "bool[]",
+            },
+          ],
+          "stateMutability": "view",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "bytes32",
+              "name": "role",
+              "type": "bytes32",
+            },
+          ],
+          "name": "getRoleAdmin",
+          "outputs": Array [
+            Object {
+              "internalType": "bytes32",
+              "name": "",
+              "type": "bytes32",
+            },
+          ],
+          "stateMutability": "view",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "address",
+              "name": "account",
+              "type": "address",
+            },
+          ],
+          "name": "grantEventManagerRole",
+          "outputs": Array [],
+          "stateMutability": "nonpayable",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "bytes32",
+              "name": "role",
+              "type": "bytes32",
+            },
+            Object {
+              "internalType": "address",
+              "name": "account",
+              "type": "address",
+            },
+          ],
+          "name": "grantRole",
+          "outputs": Array [],
+          "stateMutability": "nonpayable",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "bytes32",
+              "name": "role",
+              "type": "bytes32",
+            },
+            Object {
+              "internalType": "address",
+              "name": "account",
+              "type": "address",
+            },
+          ],
+          "name": "hasRole",
+          "outputs": Array [
+            Object {
+              "internalType": "bool",
+              "name": "",
+              "type": "bool",
+            },
+          ],
+          "stateMutability": "view",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [],
+          "name": "initialize",
+          "outputs": Array [],
+          "stateMutability": "nonpayable",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "uint256",
+              "name": "_eventId",
+              "type": "uint256",
+            },
+            Object {
+              "internalType": "uint256",
+              "name": "_phaseId",
+              "type": "uint256",
+            },
+          ],
+          "name": "openPhase",
+          "outputs": Array [],
+          "stateMutability": "nonpayable",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [],
+          "name": "owner",
+          "outputs": Array [
+            Object {
+              "internalType": "address",
+              "name": "",
+              "type": "address",
+            },
+          ],
+          "stateMutability": "view",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [],
+          "name": "pendingOwner",
+          "outputs": Array [
+            Object {
+              "internalType": "address",
+              "name": "",
+              "type": "address",
+            },
+          ],
+          "stateMutability": "view",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "uint256",
+              "name": "eventId",
+              "type": "uint256",
+            },
+            Object {
+              "internalType": "uint256",
+              "name": "phaseId",
+              "type": "uint256",
+            },
+          ],
+          "name": "phaseOpen",
+          "outputs": Array [
+            Object {
+              "internalType": "bool",
+              "name": "isOpen",
+              "type": "bool",
+            },
+          ],
+          "stateMutability": "view",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "uint256",
+              "name": "_eventId",
+              "type": "uint256",
+            },
+            Object {
+              "internalType": "uint256",
+              "name": "_phaseId",
+              "type": "uint256",
+            },
+          ],
+          "name": "register",
+          "outputs": Array [],
+          "stateMutability": "nonpayable",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "uint256",
+              "name": "eventId",
+              "type": "uint256",
+            },
+            Object {
+              "internalType": "uint256",
+              "name": "phaseId",
+              "type": "uint256",
+            },
+            Object {
+              "internalType": "address",
+              "name": "registrant",
+              "type": "address",
+            },
+          ],
+          "name": "registrations",
+          "outputs": Array [
+            Object {
+              "internalType": "uint256",
+              "name": "timestamp",
+              "type": "uint256",
+            },
+          ],
+          "stateMutability": "view",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [],
+          "name": "renounceOwnership",
+          "outputs": Array [],
+          "stateMutability": "nonpayable",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "bytes32",
+              "name": "role",
+              "type": "bytes32",
+            },
+            Object {
+              "internalType": "address",
+              "name": "callerConfirmation",
+              "type": "address",
+            },
+          ],
+          "name": "renounceRole",
+          "outputs": Array [],
+          "stateMutability": "nonpayable",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "address",
+              "name": "account",
+              "type": "address",
+            },
+          ],
+          "name": "revokeEventManagerRole",
+          "outputs": Array [],
+          "stateMutability": "nonpayable",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "bytes32",
+              "name": "role",
+              "type": "bytes32",
+            },
+            Object {
+              "internalType": "address",
+              "name": "account",
+              "type": "address",
+            },
+          ],
+          "name": "revokeRole",
+          "outputs": Array [],
+          "stateMutability": "nonpayable",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "bytes4",
+              "name": "interfaceId",
+              "type": "bytes4",
+            },
+          ],
+          "name": "supportsInterface",
+          "outputs": Array [
+            Object {
+              "internalType": "bool",
+              "name": "",
+              "type": "bool",
+            },
+          ],
+          "stateMutability": "view",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "address",
+              "name": "newOwner",
+              "type": "address",
+            },
+          ],
+          "name": "transferOwnership",
+          "outputs": Array [],
+          "stateMutability": "nonpayable",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "uint256",
+              "name": "_eventId",
+              "type": "uint256",
+            },
+            Object {
+              "internalType": "uint256",
+              "name": "_phaseId",
+              "type": "uint256",
+            },
+            Object {
+              "internalType": "address",
+              "name": "_user",
+              "type": "address",
+            },
+          ],
+          "name": "unregister",
+          "outputs": Array [],
+          "stateMutability": "nonpayable",
+          "type": "function",
+        },
+        Object {
+          "anonymous": false,
+          "inputs": Array [
+            Object {
+              "indexed": true,
+              "internalType": "uint256",
+              "name": "id",
+              "type": "uint256",
+            },
+            Object {
+              "indexed": false,
+              "internalType": "string",
+              "name": "name",
+              "type": "string",
+            },
+          ],
+          "name": "EventCreated",
+          "type": "event",
+        },
+        Object {
+          "anonymous": false,
+          "inputs": Array [
+            Object {
+              "indexed": false,
+              "internalType": "uint64",
+              "name": "version",
+              "type": "uint64",
+            },
+          ],
+          "name": "Initialized",
+          "type": "event",
+        },
+        Object {
+          "anonymous": false,
+          "inputs": Array [
+            Object {
+              "indexed": true,
+              "internalType": "address",
+              "name": "previousOwner",
+              "type": "address",
+            },
+            Object {
+              "indexed": true,
+              "internalType": "address",
+              "name": "newOwner",
+              "type": "address",
+            },
+          ],
+          "name": "OwnershipTransferStarted",
+          "type": "event",
+        },
+        Object {
+          "anonymous": false,
+          "inputs": Array [
+            Object {
+              "indexed": true,
+              "internalType": "address",
+              "name": "previousOwner",
+              "type": "address",
+            },
+            Object {
+              "indexed": true,
+              "internalType": "address",
+              "name": "newOwner",
+              "type": "address",
+            },
+          ],
+          "name": "OwnershipTransferred",
+          "type": "event",
+        },
+        Object {
+          "anonymous": false,
+          "inputs": Array [
+            Object {
+              "indexed": true,
+              "internalType": "uint256",
+              "name": "eventId",
+              "type": "uint256",
+            },
+            Object {
+              "indexed": true,
+              "internalType": "uint256",
+              "name": "phaseId",
+              "type": "uint256",
+            },
+          ],
+          "name": "PhaseClosed",
+          "type": "event",
+        },
+        Object {
+          "anonymous": false,
+          "inputs": Array [
+            Object {
+              "indexed": true,
+              "internalType": "uint256",
+              "name": "eventId",
+              "type": "uint256",
+            },
+            Object {
+              "indexed": true,
+              "internalType": "uint256",
+              "name": "phaseId",
+              "type": "uint256",
+            },
+          ],
+          "name": "PhaseOpened",
+          "type": "event",
+        },
+        Object {
+          "anonymous": false,
+          "inputs": Array [
+            Object {
+              "indexed": true,
+              "internalType": "address",
+              "name": "registrant",
+              "type": "address",
+            },
+            Object {
+              "indexed": true,
+              "internalType": "uint256",
+              "name": "eventId",
+              "type": "uint256",
+            },
+            Object {
+              "indexed": true,
+              "internalType": "uint256",
+              "name": "phaseId",
+              "type": "uint256",
+            },
+          ],
+          "name": "Registered",
+          "type": "event",
+        },
+        Object {
+          "anonymous": false,
+          "inputs": Array [
+            Object {
+              "indexed": true,
+              "internalType": "bytes32",
+              "name": "role",
+              "type": "bytes32",
+            },
+            Object {
+              "indexed": true,
+              "internalType": "bytes32",
+              "name": "previousAdminRole",
+              "type": "bytes32",
+            },
+            Object {
+              "indexed": true,
+              "internalType": "bytes32",
+              "name": "newAdminRole",
+              "type": "bytes32",
+            },
+          ],
+          "name": "RoleAdminChanged",
+          "type": "event",
+        },
+        Object {
+          "anonymous": false,
+          "inputs": Array [
+            Object {
+              "indexed": true,
+              "internalType": "bytes32",
+              "name": "role",
+              "type": "bytes32",
+            },
+            Object {
+              "indexed": true,
+              "internalType": "address",
+              "name": "account",
+              "type": "address",
+            },
+            Object {
+              "indexed": true,
+              "internalType": "address",
+              "name": "sender",
+              "type": "address",
+            },
+          ],
+          "name": "RoleGranted",
+          "type": "event",
+        },
+        Object {
+          "anonymous": false,
+          "inputs": Array [
+            Object {
+              "indexed": true,
+              "internalType": "bytes32",
+              "name": "role",
+              "type": "bytes32",
+            },
+            Object {
+              "indexed": true,
+              "internalType": "address",
+              "name": "account",
+              "type": "address",
+            },
+            Object {
+              "indexed": true,
+              "internalType": "address",
+              "name": "sender",
+              "type": "address",
+            },
+          ],
+          "name": "RoleRevoked",
+          "type": "event",
+        },
+        Object {
+          "anonymous": false,
+          "inputs": Array [
+            Object {
+              "indexed": true,
+              "internalType": "address",
+              "name": "registrant",
+              "type": "address",
+            },
+            Object {
+              "indexed": true,
+              "internalType": "uint256",
+              "name": "eventId",
+              "type": "uint256",
+            },
+            Object {
+              "indexed": true,
+              "internalType": "uint256",
+              "name": "phaseId",
+              "type": "uint256",
+            },
+          ],
+          "name": "Unregistered",
+          "type": "event",
+        },
+        Object {
+          "inputs": Array [],
+          "name": "AccessControlBadConfirmation",
+          "type": "error",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "address",
+              "name": "account",
+              "type": "address",
+            },
+            Object {
+              "internalType": "bytes32",
+              "name": "neededRole",
+              "type": "bytes32",
+            },
+          ],
+          "name": "AccessControlUnauthorizedAccount",
+          "type": "error",
+        },
+        Object {
+          "inputs": Array [],
+          "name": "INVALID_EVENT_ID",
+          "type": "error",
+        },
+        Object {
+          "inputs": Array [],
+          "name": "INVALID_PHASE_ID",
+          "type": "error",
+        },
+        Object {
+          "inputs": Array [],
+          "name": "InvalidInitialization",
+          "type": "error",
+        },
+        Object {
+          "inputs": Array [],
+          "name": "NotInitializing",
+          "type": "error",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "address",
+              "name": "owner",
+              "type": "address",
+            },
+          ],
+          "name": "OwnableInvalidOwner",
+          "type": "error",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "address",
+              "name": "account",
+              "type": "address",
+            },
+          ],
+          "name": "OwnableUnauthorizedAccount",
+          "type": "error",
+        },
+        Object {
+          "inputs": Array [],
+          "name": "PHASE_CLOSED",
+          "type": "error",
+        },
+      ],
+      "address": "0x76B3c064bc4771a1536F376432832828edB2dB33",
+      "args": Array [
+        1n,
+        2n,
+      ],
+      "functionName": "register",
++     "gas": 10000000n,
+    },
+  ]
+
+
+Number of calls: 1
+
+   ❯ src/lib/domains/preconf/adapter/BasedLinerAdapter.test.ts > BasedLinerAdapter > sendTx > should throw error when transaction fails
+     → expected "spy" to be called with arguments: [ …(2) ]
+
+Received: 
+
+  1st spy call:
+
+  Array [
+    Object {
+      "_internal": Object {
+        "chains": Object {
+          "setState": [Function setState],
+          "subscribe": [Function subscribe],
+        },
+        "connectors": Object {
+          "providerDetailToConnector": [Function providerDetailToConnector],
+          "setState": [Function setState],
+          "setup": [Function setup],
+          "subscribe": [Function subscribe],
+        },
+        "events": Object {
+          "change": [Function change],
+          "connect": [Function connect],
+          "disconnect": [Function disconnect],
+        },
+        "mipd": Object {
+          "_listeners": [Function _listeners],
+          "clear": [Function clear],
+          "destroy": [Function destroy],
+          "findProvider": [Function findProvider],
+          "getProviders": [Function getProviders],
+          "reset": [Function reset],
+          "subscribe": [Function subscribe],
+        },
+        "ssr": false,
+        "store": Object {
+          "getInitialState": [Function anonymous],
+          "getState": [Function getState],
+          "persist": Object {
+            "clearStorage": [Function clearStorage],
+            "getOptions": [Function getOptions],
+            "hasHydrated": [Function hasHydrated],
+            "onFinishHydration": [Function onFinishHydration],
+            "onHydrate": [Function onHydrate],
+            "rehydrate": [Function rehydrate],
+            "setOptions": [Function setOptions],
+          },
+          "setState": [Function anonymous],
+          "subscribe": [Function anonymous],
+        },
+        "syncConnectedChain": true,
+        "transports": Object {
+          "167000": [Function anonymous],
+        },
+      },
+      "chains": Array [
+        Object {
+          "assets": Object {
+            "imageId": undefined,
+            "imageUrl": undefined,
+          },
+          "blockExplorers": Object {
+            "default": Object {
+              "apiUrl": "https://api.taikoscan.io/api",
+              "name": "Taikoscan",
+              "url": "https://taikoscan.io",
+            },
+          },
+          "caipNetworkId": "eip155:167000",
+          "chainNamespace": "eip155",
+          "contracts": Object {
+            "multicall3": Object {
+              "address": "0xcb2436774C3e191c85056d248EF4260ce5f27A9D",
+            },
+          },
+          "fees": undefined,
+          "formatters": undefined,
+          "id": 167000,
+          "name": "Taiko Mainnet",
+          "nativeCurrency": Object {
+            "decimals": 18,
+            "name": "Ether",
+            "symbol": "ETH",
+          },
+          "rpcUrls": Object {
+            "chainDefault": Object {
+              "http": Array [
+                "https://rpc.mainnet.taiko.xyz",
+              ],
+            },
+            "default": Object {
+              "http": Array [
+                "https://rpc.mainnet.taiko.xyz",
+              ],
+            },
+          },
+          "serializers": undefined,
+        },
+      ],
+      "connectors": Array [],
+      "getClient": [Function getClient],
+      "setState": [Function setState],
+      "state": Object {
+        "chainId": 167000,
+        "connections": Map {},
+        "current": null,
+        "status": "disconnected",
+      },
+      "storage": Object {
+        "getItem": [Function getItem],
+        "key": "wagmi",
+        "removeItem": [Function removeItem],
+        "setItem": [Function setItem],
+      },
+      "subscribe": [Function subscribe],
+    },
+    Object {
+      "abi": Array [
+        Object {
+          "inputs": Array [],
+          "stateMutability": "nonpayable",
+          "type": "constructor",
+        },
+        Object {
+          "inputs": Array [],
+          "name": "DEFAULT_ADMIN_ROLE",
+          "outputs": Array [
+            Object {
+              "internalType": "bytes32",
+              "name": "",
+              "type": "bytes32",
+            },
+          ],
+          "stateMutability": "view",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [],
+          "name": "EVENT_MANAGER_ROLE",
+          "outputs": Array [
+            Object {
+              "internalType": "bytes32",
+              "name": "",
+              "type": "bytes32",
+            },
+          ],
+          "stateMutability": "view",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [],
+          "name": "acceptOwnership",
+          "outputs": Array [],
+          "stateMutability": "nonpayable",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "uint256",
+              "name": "_eventId",
+              "type": "uint256",
+            },
+            Object {
+              "internalType": "uint256",
+              "name": "_phaseId",
+              "type": "uint256",
+            },
+          ],
+          "name": "closePhase",
+          "outputs": Array [],
+          "stateMutability": "nonpayable",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "string",
+              "name": "_name",
+              "type": "string",
+            },
+            Object {
+              "internalType": "uint256",
+              "name": "_totalPhases",
+              "type": "uint256",
+            },
+          ],
+          "name": "createEvent",
+          "outputs": Array [],
+          "stateMutability": "nonpayable",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "uint256",
+              "name": "eventId",
+              "type": "uint256",
+            },
+          ],
+          "name": "events",
+          "outputs": Array [
+            Object {
+              "internalType": "uint256",
+              "name": "id",
+              "type": "uint256",
+            },
+            Object {
+              "internalType": "string",
+              "name": "name",
+              "type": "string",
+            },
+            Object {
+              "internalType": "uint256",
+              "name": "totalPhases",
+              "type": "uint256",
+            },
+          ],
+          "stateMutability": "view",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "uint256",
+              "name": "_eventId",
+              "type": "uint256",
+            },
+          ],
+          "name": "getEvent",
+          "outputs": Array [
+            Object {
+              "internalType": "uint256",
+              "name": "id",
+              "type": "uint256",
+            },
+            Object {
+              "internalType": "string",
+              "name": "name",
+              "type": "string",
+            },
+            Object {
+              "internalType": "uint256",
+              "name": "totalPhases",
+              "type": "uint256",
+            },
+          ],
+          "stateMutability": "view",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "uint256",
+              "name": "_eventId",
+              "type": "uint256",
+            },
+            Object {
+              "internalType": "address",
+              "name": "_user",
+              "type": "address",
+            },
+          ],
+          "name": "getRegistrationStatus",
+          "outputs": Array [
+            Object {
+              "internalType": "bool[]",
+              "name": "registered",
+              "type": "bool[]",
+            },
+          ],
+          "stateMutability": "view",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "bytes32",
+              "name": "role",
+              "type": "bytes32",
+            },
+          ],
+          "name": "getRoleAdmin",
+          "outputs": Array [
+            Object {
+              "internalType": "bytes32",
+              "name": "",
+              "type": "bytes32",
+            },
+          ],
+          "stateMutability": "view",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "address",
+              "name": "account",
+              "type": "address",
+            },
+          ],
+          "name": "grantEventManagerRole",
+          "outputs": Array [],
+          "stateMutability": "nonpayable",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "bytes32",
+              "name": "role",
+              "type": "bytes32",
+            },
+            Object {
+              "internalType": "address",
+              "name": "account",
+              "type": "address",
+            },
+          ],
+          "name": "grantRole",
+          "outputs": Array [],
+          "stateMutability": "nonpayable",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "bytes32",
+              "name": "role",
+              "type": "bytes32",
+            },
+            Object {
+              "internalType": "address",
+              "name": "account",
+              "type": "address",
+            },
+          ],
+          "name": "hasRole",
+          "outputs": Array [
+            Object {
+              "internalType": "bool",
+              "name": "",
+              "type": "bool",
+            },
+          ],
+          "stateMutability": "view",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [],
+          "name": "initialize",
+          "outputs": Array [],
+          "stateMutability": "nonpayable",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "uint256",
+              "name": "_eventId",
+              "type": "uint256",
+            },
+            Object {
+              "internalType": "uint256",
+              "name": "_phaseId",
+              "type": "uint256",
+            },
+          ],
+          "name": "openPhase",
+          "outputs": Array [],
+          "stateMutability": "nonpayable",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [],
+          "name": "owner",
+          "outputs": Array [
+            Object {
+              "internalType": "address",
+              "name": "",
+              "type": "address",
+            },
+          ],
+          "stateMutability": "view",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [],
+          "name": "pendingOwner",
+          "outputs": Array [
+            Object {
+              "internalType": "address",
+              "name": "",
+              "type": "address",
+            },
+          ],
+          "stateMutability": "view",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "uint256",
+              "name": "eventId",
+              "type": "uint256",
+            },
+            Object {
+              "internalType": "uint256",
+              "name": "phaseId",
+              "type": "uint256",
+            },
+          ],
+          "name": "phaseOpen",
+          "outputs": Array [
+            Object {
+              "internalType": "bool",
+              "name": "isOpen",
+              "type": "bool",
+            },
+          ],
+          "stateMutability": "view",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "uint256",
+              "name": "_eventId",
+              "type": "uint256",
+            },
+            Object {
+              "internalType": "uint256",
+              "name": "_phaseId",
+              "type": "uint256",
+            },
+          ],
+          "name": "register",
+          "outputs": Array [],
+          "stateMutability": "nonpayable",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "uint256",
+              "name": "eventId",
+              "type": "uint256",
+            },
+            Object {
+              "internalType": "uint256",
+              "name": "phaseId",
+              "type": "uint256",
+            },
+            Object {
+              "internalType": "address",
+              "name": "registrant",
+              "type": "address",
+            },
+          ],
+          "name": "registrations",
+          "outputs": Array [
+            Object {
+              "internalType": "uint256",
+              "name": "timestamp",
+              "type": "uint256",
+            },
+          ],
+          "stateMutability": "view",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [],
+          "name": "renounceOwnership",
+          "outputs": Array [],
+          "stateMutability": "nonpayable",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "bytes32",
+              "name": "role",
+              "type": "bytes32",
+            },
+            Object {
+              "internalType": "address",
+              "name": "callerConfirmation",
+              "type": "address",
+            },
+          ],
+          "name": "renounceRole",
+          "outputs": Array [],
+          "stateMutability": "nonpayable",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "address",
+              "name": "account",
+              "type": "address",
+            },
+          ],
+          "name": "revokeEventManagerRole",
+          "outputs": Array [],
+          "stateMutability": "nonpayable",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "bytes32",
+              "name": "role",
+              "type": "bytes32",
+            },
+            Object {
+              "internalType": "address",
+              "name": "account",
+              "type": "address",
+            },
+          ],
+          "name": "revokeRole",
+          "outputs": Array [],
+          "stateMutability": "nonpayable",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "bytes4",
+              "name": "interfaceId",
+              "type": "bytes4",
+            },
+          ],
+          "name": "supportsInterface",
+          "outputs": Array [
+            Object {
+              "internalType": "bool",
+              "name": "",
+              "type": "bool",
+            },
+          ],
+          "stateMutability": "view",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "address",
+              "name": "newOwner",
+              "type": "address",
+            },
+          ],
+          "name": "transferOwnership",
+          "outputs": Array [],
+          "stateMutability": "nonpayable",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "uint256",
+              "name": "_eventId",
+              "type": "uint256",
+            },
+            Object {
+              "internalType": "uint256",
+              "name": "_phaseId",
+              "type": "uint256",
+            },
+            Object {
+              "internalType": "address",
+              "name": "_user",
+              "type": "address",
+            },
+          ],
+          "name": "unregister",
+          "outputs": Array [],
+          "stateMutability": "nonpayable",
+          "type": "function",
+        },
+        Object {
+          "anonymous": false,
+          "inputs": Array [
+            Object {
+              "indexed": true,
+              "internalType": "uint256",
+              "name": "id",
+              "type": "uint256",
+            },
+            Object {
+              "indexed": false,
+              "internalType": "string",
+              "name": "name",
+              "type": "string",
+            },
+          ],
+          "name": "EventCreated",
+          "type": "event",
+        },
+        Object {
+          "anonymous": false,
+          "inputs": Array [
+            Object {
+              "indexed": false,
+              "internalType": "uint64",
+              "name": "version",
+              "type": "uint64",
+            },
+          ],
+          "name": "Initialized",
+          "type": "event",
+        },
+        Object {
+          "anonymous": false,
+          "inputs": Array [
+            Object {
+              "indexed": true,
+              "internalType": "address",
+              "name": "previousOwner",
+              "type": "address",
+            },
+            Object {
+              "indexed": true,
+              "internalType": "address",
+              "name": "newOwner",
+              "type": "address",
+            },
+          ],
+          "name": "OwnershipTransferStarted",
+          "type": "event",
+        },
+        Object {
+          "anonymous": false,
+          "inputs": Array [
+            Object {
+              "indexed": true,
+              "internalType": "address",
+              "name": "previousOwner",
+              "type": "address",
+            },
+            Object {
+              "indexed": true,
+              "internalType": "address",
+              "name": "newOwner",
+              "type": "address",
+            },
+          ],
+          "name": "OwnershipTransferred",
+          "type": "event",
+        },
+        Object {
+          "anonymous": false,
+          "inputs": Array [
+            Object {
+              "indexed": true,
+              "internalType": "uint256",
+              "name": "eventId",
+              "type": "uint256",
+            },
+            Object {
+              "indexed": true,
+              "internalType": "uint256",
+              "name": "phaseId",
+              "type": "uint256",
+            },
+          ],
+          "name": "PhaseClosed",
+          "type": "event",
+        },
+        Object {
+          "anonymous": false,
+          "inputs": Array [
+            Object {
+              "indexed": true,
+              "internalType": "uint256",
+              "name": "eventId",
+              "type": "uint256",
+            },
+            Object {
+              "indexed": true,
+              "internalType": "uint256",
+              "name": "phaseId",
+              "type": "uint256",
+            },
+          ],
+          "name": "PhaseOpened",
+          "type": "event",
+        },
+        Object {
+          "anonymous": false,
+          "inputs": Array [
+            Object {
+              "indexed": true,
+              "internalType": "address",
+              "name": "registrant",
+              "type": "address",
+            },
+            Object {
+              "indexed": true,
+              "internalType": "uint256",
+              "name": "eventId",
+              "type": "uint256",
+            },
+            Object {
+              "indexed": true,
+              "internalType": "uint256",
+              "name": "phaseId",
+              "type": "uint256",
+            },
+          ],
+          "name": "Registered",
+          "type": "event",
+        },
+        Object {
+          "anonymous": false,
+          "inputs": Array [
+            Object {
+              "indexed": true,
+              "internalType": "bytes32",
+              "name": "role",
+              "type": "bytes32",
+            },
+            Object {
+              "indexed": true,
+              "internalType": "bytes32",
+              "name": "previousAdminRole",
+              "type": "bytes32",
+            },
+            Object {
+              "indexed": true,
+              "internalType": "bytes32",
+              "name": "newAdminRole",
+              "type": "bytes32",
+            },
+          ],
+          "name": "RoleAdminChanged",
+          "type": "event",
+        },
+        Object {
+          "anonymous": false,
+          "inputs": Array [
+            Object {
+              "indexed": true,
+              "internalType": "bytes32",
+              "name": "role",
+              "type": "bytes32",
+            },
+            Object {
+              "indexed": true,
+              "internalType": "address",
+              "name": "account",
+              "type": "address",
+            },
+            Object {
+              "indexed": true,
+              "internalType": "address",
+              "name": "sender",
+              "type": "address",
+            },
+          ],
+          "name": "RoleGranted",
+          "type": "event",
+        },
+        Object {
+          "anonymous": false,
+          "inputs": Array [
+            Object {
+              "indexed": true,
+              "internalType": "bytes32",
+              "name": "role",
+              "type": "bytes32",
+            },
+            Object {
+              "indexed": true,
+              "internalType": "address",
+              "name": "account",
+              "type": "address",
+            },
+            Object {
+              "indexed": true,
+              "internalType": "address",
+              "name": "sender",
+              "type": "address",
+            },
+          ],
+          "name": "RoleRevoked",
+          "type": "event",
+        },
+        Object {
+          "anonymous": false,
+          "inputs": Array [
+            Object {
+              "indexed": true,
+              "internalType": "address",
+              "name": "registrant",
+              "type": "address",
+            },
+            Object {
+              "indexed": true,
+              "internalType": "uint256",
+              "name": "eventId",
+              "type": "uint256",
+            },
+            Object {
+              "indexed": true,
+              "internalType": "uint256",
+              "name": "phaseId",
+              "type": "uint256",
+            },
+          ],
+          "name": "Unregistered",
+          "type": "event",
+        },
+        Object {
+          "inputs": Array [],
+          "name": "AccessControlBadConfirmation",
+          "type": "error",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "address",
+              "name": "account",
+              "type": "address",
+            },
+            Object {
+              "internalType": "bytes32",
+              "name": "neededRole",
+              "type": "bytes32",
+            },
+          ],
+          "name": "AccessControlUnauthorizedAccount",
+          "type": "error",
+        },
+        Object {
+          "inputs": Array [],
+          "name": "INVALID_EVENT_ID",
+          "type": "error",
+        },
+        Object {
+          "inputs": Array [],
+          "name": "INVALID_PHASE_ID",
+          "type": "error",
+        },
+        Object {
+          "inputs": Array [],
+          "name": "InvalidInitialization",
+          "type": "error",
+        },
+        Object {
+          "inputs": Array [],
+          "name": "NotInitializing",
+          "type": "error",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "address",
+              "name": "owner",
+              "type": "address",
+            },
+          ],
+          "name": "OwnableInvalidOwner",
+          "type": "error",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "address",
+              "name": "account",
+              "type": "address",
+            },
+          ],
+          "name": "OwnableUnauthorizedAccount",
+          "type": "error",
+        },
+        Object {
+          "inputs": Array [],
+          "name": "PHASE_CLOSED",
+          "type": "error",
+        },
+      ],
+      "address": "0x76B3c064bc4771a1536F376432832828edB2dB33",
+      "args": Array [
+        1n,
+        2n,
+      ],
+      "functionName": "register",
++     "gas": 10000000n,
+    },
+  ]
+
+
+Number of calls: 1
+
+   ❯ src/lib/domains/preconf/adapter/BasedLinerAdapter.test.ts > BasedLinerAdapter > sendTx > should handle zero eventId and phaseId
+     → expected "spy" to be called with arguments: [ …(2) ]
+
+Received: 
+
+  1st spy call:
+
+  Array [
+    Object {
+      "_internal": Object {
+        "chains": Object {
+          "setState": [Function setState],
+          "subscribe": [Function subscribe],
+        },
+        "connectors": Object {
+          "providerDetailToConnector": [Function providerDetailToConnector],
+          "setState": [Function setState],
+          "setup": [Function setup],
+          "subscribe": [Function subscribe],
+        },
+        "events": Object {
+          "change": [Function change],
+          "connect": [Function connect],
+          "disconnect": [Function disconnect],
+        },
+        "mipd": Object {
+          "_listeners": [Function _listeners],
+          "clear": [Function clear],
+          "destroy": [Function destroy],
+          "findProvider": [Function findProvider],
+          "getProviders": [Function getProviders],
+          "reset": [Function reset],
+          "subscribe": [Function subscribe],
+        },
+        "ssr": false,
+        "store": Object {
+          "getInitialState": [Function anonymous],
+          "getState": [Function getState],
+          "persist": Object {
+            "clearStorage": [Function clearStorage],
+            "getOptions": [Function getOptions],
+            "hasHydrated": [Function hasHydrated],
+            "onFinishHydration": [Function onFinishHydration],
+            "onHydrate": [Function onHydrate],
+            "rehydrate": [Function rehydrate],
+            "setOptions": [Function setOptions],
+          },
+          "setState": [Function anonymous],
+          "subscribe": [Function anonymous],
+        },
+        "syncConnectedChain": true,
+        "transports": Object {
+          "167000": [Function anonymous],
+        },
+      },
+      "chains": Array [
+        Object {
+          "assets": Object {
+            "imageId": undefined,
+            "imageUrl": undefined,
+          },
+          "blockExplorers": Object {
+            "default": Object {
+              "apiUrl": "https://api.taikoscan.io/api",
+              "name": "Taikoscan",
+              "url": "https://taikoscan.io",
+            },
+          },
+          "caipNetworkId": "eip155:167000",
+          "chainNamespace": "eip155",
+          "contracts": Object {
+            "multicall3": Object {
+              "address": "0xcb2436774C3e191c85056d248EF4260ce5f27A9D",
+            },
+          },
+          "fees": undefined,
+          "formatters": undefined,
+          "id": 167000,
+          "name": "Taiko Mainnet",
+          "nativeCurrency": Object {
+            "decimals": 18,
+            "name": "Ether",
+            "symbol": "ETH",
+          },
+          "rpcUrls": Object {
+            "chainDefault": Object {
+              "http": Array [
+                "https://rpc.mainnet.taiko.xyz",
+              ],
+            },
+            "default": Object {
+              "http": Array [
+                "https://rpc.mainnet.taiko.xyz",
+              ],
+            },
+          },
+          "serializers": undefined,
+        },
+      ],
+      "connectors": Array [],
+      "getClient": [Function getClient],
+      "setState": [Function setState],
+      "state": Object {
+        "chainId": 167000,
+        "connections": Map {},
+        "current": null,
+        "status": "disconnected",
+      },
+      "storage": Object {
+        "getItem": [Function getItem],
+        "key": "wagmi",
+        "removeItem": [Function removeItem],
+        "setItem": [Function setItem],
+      },
+      "subscribe": [Function subscribe],
+    },
+    Object {
+      "abi": Array [
+        Object {
+          "inputs": Array [],
+          "stateMutability": "nonpayable",
+          "type": "constructor",
+        },
+        Object {
+          "inputs": Array [],
+          "name": "DEFAULT_ADMIN_ROLE",
+          "outputs": Array [
+            Object {
+              "internalType": "bytes32",
+              "name": "",
+              "type": "bytes32",
+            },
+          ],
+          "stateMutability": "view",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [],
+          "name": "EVENT_MANAGER_ROLE",
+          "outputs": Array [
+            Object {
+              "internalType": "bytes32",
+              "name": "",
+              "type": "bytes32",
+            },
+          ],
+          "stateMutability": "view",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [],
+          "name": "acceptOwnership",
+          "outputs": Array [],
+          "stateMutability": "nonpayable",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "uint256",
+              "name": "_eventId",
+              "type": "uint256",
+            },
+            Object {
+              "internalType": "uint256",
+              "name": "_phaseId",
+              "type": "uint256",
+            },
+          ],
+          "name": "closePhase",
+          "outputs": Array [],
+          "stateMutability": "nonpayable",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "string",
+              "name": "_name",
+              "type": "string",
+            },
+            Object {
+              "internalType": "uint256",
+              "name": "_totalPhases",
+              "type": "uint256",
+            },
+          ],
+          "name": "createEvent",
+          "outputs": Array [],
+          "stateMutability": "nonpayable",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "uint256",
+              "name": "eventId",
+              "type": "uint256",
+            },
+          ],
+          "name": "events",
+          "outputs": Array [
+            Object {
+              "internalType": "uint256",
+              "name": "id",
+              "type": "uint256",
+            },
+            Object {
+              "internalType": "string",
+              "name": "name",
+              "type": "string",
+            },
+            Object {
+              "internalType": "uint256",
+              "name": "totalPhases",
+              "type": "uint256",
+            },
+          ],
+          "stateMutability": "view",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "uint256",
+              "name": "_eventId",
+              "type": "uint256",
+            },
+          ],
+          "name": "getEvent",
+          "outputs": Array [
+            Object {
+              "internalType": "uint256",
+              "name": "id",
+              "type": "uint256",
+            },
+            Object {
+              "internalType": "string",
+              "name": "name",
+              "type": "string",
+            },
+            Object {
+              "internalType": "uint256",
+              "name": "totalPhases",
+              "type": "uint256",
+            },
+          ],
+          "stateMutability": "view",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "uint256",
+              "name": "_eventId",
+              "type": "uint256",
+            },
+            Object {
+              "internalType": "address",
+              "name": "_user",
+              "type": "address",
+            },
+          ],
+          "name": "getRegistrationStatus",
+          "outputs": Array [
+            Object {
+              "internalType": "bool[]",
+              "name": "registered",
+              "type": "bool[]",
+            },
+          ],
+          "stateMutability": "view",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "bytes32",
+              "name": "role",
+              "type": "bytes32",
+            },
+          ],
+          "name": "getRoleAdmin",
+          "outputs": Array [
+            Object {
+              "internalType": "bytes32",
+              "name": "",
+              "type": "bytes32",
+            },
+          ],
+          "stateMutability": "view",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "address",
+              "name": "account",
+              "type": "address",
+            },
+          ],
+          "name": "grantEventManagerRole",
+          "outputs": Array [],
+          "stateMutability": "nonpayable",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "bytes32",
+              "name": "role",
+              "type": "bytes32",
+            },
+            Object {
+              "internalType": "address",
+              "name": "account",
+              "type": "address",
+            },
+          ],
+          "name": "grantRole",
+          "outputs": Array [],
+          "stateMutability": "nonpayable",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "bytes32",
+              "name": "role",
+              "type": "bytes32",
+            },
+            Object {
+              "internalType": "address",
+              "name": "account",
+              "type": "address",
+            },
+          ],
+          "name": "hasRole",
+          "outputs": Array [
+            Object {
+              "internalType": "bool",
+              "name": "",
+              "type": "bool",
+            },
+          ],
+          "stateMutability": "view",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [],
+          "name": "initialize",
+          "outputs": Array [],
+          "stateMutability": "nonpayable",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "uint256",
+              "name": "_eventId",
+              "type": "uint256",
+            },
+            Object {
+              "internalType": "uint256",
+              "name": "_phaseId",
+              "type": "uint256",
+            },
+          ],
+          "name": "openPhase",
+          "outputs": Array [],
+          "stateMutability": "nonpayable",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [],
+          "name": "owner",
+          "outputs": Array [
+            Object {
+              "internalType": "address",
+              "name": "",
+              "type": "address",
+            },
+          ],
+          "stateMutability": "view",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [],
+          "name": "pendingOwner",
+          "outputs": Array [
+            Object {
+              "internalType": "address",
+              "name": "",
+              "type": "address",
+            },
+          ],
+          "stateMutability": "view",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "uint256",
+              "name": "eventId",
+              "type": "uint256",
+            },
+            Object {
+              "internalType": "uint256",
+              "name": "phaseId",
+              "type": "uint256",
+            },
+          ],
+          "name": "phaseOpen",
+          "outputs": Array [
+            Object {
+              "internalType": "bool",
+              "name": "isOpen",
+              "type": "bool",
+            },
+          ],
+          "stateMutability": "view",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "uint256",
+              "name": "_eventId",
+              "type": "uint256",
+            },
+            Object {
+              "internalType": "uint256",
+              "name": "_phaseId",
+              "type": "uint256",
+            },
+          ],
+          "name": "register",
+          "outputs": Array [],
+          "stateMutability": "nonpayable",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "uint256",
+              "name": "eventId",
+              "type": "uint256",
+            },
+            Object {
+              "internalType": "uint256",
+              "name": "phaseId",
+              "type": "uint256",
+            },
+            Object {
+              "internalType": "address",
+              "name": "registrant",
+              "type": "address",
+            },
+          ],
+          "name": "registrations",
+          "outputs": Array [
+            Object {
+              "internalType": "uint256",
+              "name": "timestamp",
+              "type": "uint256",
+            },
+          ],
+          "stateMutability": "view",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [],
+          "name": "renounceOwnership",
+          "outputs": Array [],
+          "stateMutability": "nonpayable",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "bytes32",
+              "name": "role",
+              "type": "bytes32",
+            },
+            Object {
+              "internalType": "address",
+              "name": "callerConfirmation",
+              "type": "address",
+            },
+          ],
+          "name": "renounceRole",
+          "outputs": Array [],
+          "stateMutability": "nonpayable",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "address",
+              "name": "account",
+              "type": "address",
+            },
+          ],
+          "name": "revokeEventManagerRole",
+          "outputs": Array [],
+          "stateMutability": "nonpayable",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "bytes32",
+              "name": "role",
+              "type": "bytes32",
+            },
+            Object {
+              "internalType": "address",
+              "name": "account",
+              "type": "address",
+            },
+          ],
+          "name": "revokeRole",
+          "outputs": Array [],
+          "stateMutability": "nonpayable",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "bytes4",
+              "name": "interfaceId",
+              "type": "bytes4",
+            },
+          ],
+          "name": "supportsInterface",
+          "outputs": Array [
+            Object {
+              "internalType": "bool",
+              "name": "",
+              "type": "bool",
+            },
+          ],
+          "stateMutability": "view",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "address",
+              "name": "newOwner",
+              "type": "address",
+            },
+          ],
+          "name": "transferOwnership",
+          "outputs": Array [],
+          "stateMutability": "nonpayable",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "uint256",
+              "name": "_eventId",
+              "type": "uint256",
+            },
+            Object {
+              "internalType": "uint256",
+              "name": "_phaseId",
+              "type": "uint256",
+            },
+            Object {
+              "internalType": "address",
+              "name": "_user",
+              "type": "address",
+            },
+          ],
+          "name": "unregister",
+          "outputs": Array [],
+          "stateMutability": "nonpayable",
+          "type": "function",
+        },
+        Object {
+          "anonymous": false,
+          "inputs": Array [
+            Object {
+              "indexed": true,
+              "internalType": "uint256",
+              "name": "id",
+              "type": "uint256",
+            },
+            Object {
+              "indexed": false,
+              "internalType": "string",
+              "name": "name",
+              "type": "string",
+            },
+          ],
+          "name": "EventCreated",
+          "type": "event",
+        },
+        Object {
+          "anonymous": false,
+          "inputs": Array [
+            Object {
+              "indexed": false,
+              "internalType": "uint64",
+              "name": "version",
+              "type": "uint64",
+            },
+          ],
+          "name": "Initialized",
+          "type": "event",
+        },
+        Object {
+          "anonymous": false,
+          "inputs": Array [
+            Object {
+              "indexed": true,
+              "internalType": "address",
+              "name": "previousOwner",
+              "type": "address",
+            },
+            Object {
+              "indexed": true,
+              "internalType": "address",
+              "name": "newOwner",
+              "type": "address",
+            },
+          ],
+          "name": "OwnershipTransferStarted",
+          "type": "event",
+        },
+        Object {
+          "anonymous": false,
+          "inputs": Array [
+            Object {
+              "indexed": true,
+              "internalType": "address",
+              "name": "previousOwner",
+              "type": "address",
+            },
+            Object {
+              "indexed": true,
+              "internalType": "address",
+              "name": "newOwner",
+              "type": "address",
+            },
+          ],
+          "name": "OwnershipTransferred",
+          "type": "event",
+        },
+        Object {
+          "anonymous": false,
+          "inputs": Array [
+            Object {
+              "indexed": true,
+              "internalType": "uint256",
+              "name": "eventId",
+              "type": "uint256",
+            },
+            Object {
+              "indexed": true,
+              "internalType": "uint256",
+              "name": "phaseId",
+              "type": "uint256",
+            },
+          ],
+          "name": "PhaseClosed",
+          "type": "event",
+        },
+        Object {
+          "anonymous": false,
+          "inputs": Array [
+            Object {
+              "indexed": true,
+              "internalType": "uint256",
+              "name": "eventId",
+              "type": "uint256",
+            },
+            Object {
+              "indexed": true,
+              "internalType": "uint256",
+              "name": "phaseId",
+              "type": "uint256",
+            },
+          ],
+          "name": "PhaseOpened",
+          "type": "event",
+        },
+        Object {
+          "anonymous": false,
+          "inputs": Array [
+            Object {
+              "indexed": true,
+              "internalType": "address",
+              "name": "registrant",
+              "type": "address",
+            },
+            Object {
+              "indexed": true,
+              "internalType": "uint256",
+              "name": "eventId",
+              "type": "uint256",
+            },
+            Object {
+              "indexed": true,
+              "internalType": "uint256",
+              "name": "phaseId",
+              "type": "uint256",
+            },
+          ],
+          "name": "Registered",
+          "type": "event",
+        },
+        Object {
+          "anonymous": false,
+          "inputs": Array [
+            Object {
+              "indexed": true,
+              "internalType": "bytes32",
+              "name": "role",
+              "type": "bytes32",
+            },
+            Object {
+              "indexed": true,
+              "internalType": "bytes32",
+              "name": "previousAdminRole",
+              "type": "bytes32",
+            },
+            Object {
+              "indexed": true,
+              "internalType": "bytes32",
+              "name": "newAdminRole",
+              "type": "bytes32",
+            },
+          ],
+          "name": "RoleAdminChanged",
+          "type": "event",
+        },
+        Object {
+          "anonymous": false,
+          "inputs": Array [
+            Object {
+              "indexed": true,
+              "internalType": "bytes32",
+              "name": "role",
+              "type": "bytes32",
+            },
+            Object {
+              "indexed": true,
+              "internalType": "address",
+              "name": "account",
+              "type": "address",
+            },
+            Object {
+              "indexed": true,
+              "internalType": "address",
+              "name": "sender",
+              "type": "address",
+            },
+          ],
+          "name": "RoleGranted",
+          "type": "event",
+        },
+        Object {
+          "anonymous": false,
+          "inputs": Array [
+            Object {
+              "indexed": true,
+              "internalType": "bytes32",
+              "name": "role",
+              "type": "bytes32",
+            },
+            Object {
+              "indexed": true,
+              "internalType": "address",
+              "name": "account",
+              "type": "address",
+            },
+            Object {
+              "indexed": true,
+              "internalType": "address",
+              "name": "sender",
+              "type": "address",
+            },
+          ],
+          "name": "RoleRevoked",
+          "type": "event",
+        },
+        Object {
+          "anonymous": false,
+          "inputs": Array [
+            Object {
+              "indexed": true,
+              "internalType": "address",
+              "name": "registrant",
+              "type": "address",
+            },
+            Object {
+              "indexed": true,
+              "internalType": "uint256",
+              "name": "eventId",
+              "type": "uint256",
+            },
+            Object {
+              "indexed": true,
+              "internalType": "uint256",
+              "name": "phaseId",
+              "type": "uint256",
+            },
+          ],
+          "name": "Unregistered",
+          "type": "event",
+        },
+        Object {
+          "inputs": Array [],
+          "name": "AccessControlBadConfirmation",
+          "type": "error",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "address",
+              "name": "account",
+              "type": "address",
+            },
+            Object {
+              "internalType": "bytes32",
+              "name": "neededRole",
+              "type": "bytes32",
+            },
+          ],
+          "name": "AccessControlUnauthorizedAccount",
+          "type": "error",
+        },
+        Object {
+          "inputs": Array [],
+          "name": "INVALID_EVENT_ID",
+          "type": "error",
+        },
+        Object {
+          "inputs": Array [],
+          "name": "INVALID_PHASE_ID",
+          "type": "error",
+        },
+        Object {
+          "inputs": Array [],
+          "name": "InvalidInitialization",
+          "type": "error",
+        },
+        Object {
+          "inputs": Array [],
+          "name": "NotInitializing",
+          "type": "error",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "address",
+              "name": "owner",
+              "type": "address",
+            },
+          ],
+          "name": "OwnableInvalidOwner",
+          "type": "error",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "address",
+              "name": "account",
+              "type": "address",
+            },
+          ],
+          "name": "OwnableUnauthorizedAccount",
+          "type": "error",
+        },
+        Object {
+          "inputs": Array [],
+          "name": "PHASE_CLOSED",
+          "type": "error",
+        },
+      ],
+      "address": "0x76B3c064bc4771a1536F376432832828edB2dB33",
+      "args": Array [
+        0n,
+        0n,
+      ],
+      "functionName": "register",
++     "gas": 10000000n,
+    },
+  ]
+
+
+Number of calls: 1
+
+   ❯ src/lib/domains/preconf/adapter/BasedLinerAdapter.test.ts > BasedLinerAdapter > sendTx > should handle large numbers for eventId and phaseId
+     → expected "spy" to be called with arguments: [ …(2) ]
+
+Received: 
+
+  1st spy call:
+
+  Array [
+    Object {
+      "_internal": Object {
+        "chains": Object {
+          "setState": [Function setState],
+          "subscribe": [Function subscribe],
+        },
+        "connectors": Object {
+          "providerDetailToConnector": [Function providerDetailToConnector],
+          "setState": [Function setState],
+          "setup": [Function setup],
+          "subscribe": [Function subscribe],
+        },
+        "events": Object {
+          "change": [Function change],
+          "connect": [Function connect],
+          "disconnect": [Function disconnect],
+        },
+        "mipd": Object {
+          "_listeners": [Function _listeners],
+          "clear": [Function clear],
+          "destroy": [Function destroy],
+          "findProvider": [Function findProvider],
+          "getProviders": [Function getProviders],
+          "reset": [Function reset],
+          "subscribe": [Function subscribe],
+        },
+        "ssr": false,
+        "store": Object {
+          "getInitialState": [Function anonymous],
+          "getState": [Function getState],
+          "persist": Object {
+            "clearStorage": [Function clearStorage],
+            "getOptions": [Function getOptions],
+            "hasHydrated": [Function hasHydrated],
+            "onFinishHydration": [Function onFinishHydration],
+            "onHydrate": [Function onHydrate],
+            "rehydrate": [Function rehydrate],
+            "setOptions": [Function setOptions],
+          },
+          "setState": [Function anonymous],
+          "subscribe": [Function anonymous],
+        },
+        "syncConnectedChain": true,
+        "transports": Object {
+          "167000": [Function anonymous],
+        },
+      },
+      "chains": Array [
+        Object {
+          "assets": Object {
+            "imageId": undefined,
+            "imageUrl": undefined,
+          },
+          "blockExplorers": Object {
+            "default": Object {
+              "apiUrl": "https://api.taikoscan.io/api",
+              "name": "Taikoscan",
+              "url": "https://taikoscan.io",
+            },
+          },
+          "caipNetworkId": "eip155:167000",
+          "chainNamespace": "eip155",
+          "contracts": Object {
+            "multicall3": Object {
+              "address": "0xcb2436774C3e191c85056d248EF4260ce5f27A9D",
+            },
+          },
+          "fees": undefined,
+          "formatters": undefined,
+          "id": 167000,
+          "name": "Taiko Mainnet",
+          "nativeCurrency": Object {
+            "decimals": 18,
+            "name": "Ether",
+            "symbol": "ETH",
+          },
+          "rpcUrls": Object {
+            "chainDefault": Object {
+              "http": Array [
+                "https://rpc.mainnet.taiko.xyz",
+              ],
+            },
+            "default": Object {
+              "http": Array [
+                "https://rpc.mainnet.taiko.xyz",
+              ],
+            },
+          },
+          "serializers": undefined,
+        },
+      ],
+      "connectors": Array [],
+      "getClient": [Function getClient],
+      "setState": [Function setState],
+      "state": Object {
+        "chainId": 167000,
+        "connections": Map {},
+        "current": null,
+        "status": "disconnected",
+      },
+      "storage": Object {
+        "getItem": [Function getItem],
+        "key": "wagmi",
+        "removeItem": [Function removeItem],
+        "setItem": [Function setItem],
+      },
+      "subscribe": [Function subscribe],
+    },
+    Object {
+      "abi": Array [
+        Object {
+          "inputs": Array [],
+          "stateMutability": "nonpayable",
+          "type": "constructor",
+        },
+        Object {
+          "inputs": Array [],
+          "name": "DEFAULT_ADMIN_ROLE",
+          "outputs": Array [
+            Object {
+              "internalType": "bytes32",
+              "name": "",
+              "type": "bytes32",
+            },
+          ],
+          "stateMutability": "view",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [],
+          "name": "EVENT_MANAGER_ROLE",
+          "outputs": Array [
+            Object {
+              "internalType": "bytes32",
+              "name": "",
+              "type": "bytes32",
+            },
+          ],
+          "stateMutability": "view",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [],
+          "name": "acceptOwnership",
+          "outputs": Array [],
+          "stateMutability": "nonpayable",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "uint256",
+              "name": "_eventId",
+              "type": "uint256",
+            },
+            Object {
+              "internalType": "uint256",
+              "name": "_phaseId",
+              "type": "uint256",
+            },
+          ],
+          "name": "closePhase",
+          "outputs": Array [],
+          "stateMutability": "nonpayable",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "string",
+              "name": "_name",
+              "type": "string",
+            },
+            Object {
+              "internalType": "uint256",
+              "name": "_totalPhases",
+              "type": "uint256",
+            },
+          ],
+          "name": "createEvent",
+          "outputs": Array [],
+          "stateMutability": "nonpayable",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "uint256",
+              "name": "eventId",
+              "type": "uint256",
+            },
+          ],
+          "name": "events",
+          "outputs": Array [
+            Object {
+              "internalType": "uint256",
+              "name": "id",
+              "type": "uint256",
+            },
+            Object {
+              "internalType": "string",
+              "name": "name",
+              "type": "string",
+            },
+            Object {
+              "internalType": "uint256",
+              "name": "totalPhases",
+              "type": "uint256",
+            },
+          ],
+          "stateMutability": "view",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "uint256",
+              "name": "_eventId",
+              "type": "uint256",
+            },
+          ],
+          "name": "getEvent",
+          "outputs": Array [
+            Object {
+              "internalType": "uint256",
+              "name": "id",
+              "type": "uint256",
+            },
+            Object {
+              "internalType": "string",
+              "name": "name",
+              "type": "string",
+            },
+            Object {
+              "internalType": "uint256",
+              "name": "totalPhases",
+              "type": "uint256",
+            },
+          ],
+          "stateMutability": "view",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "uint256",
+              "name": "_eventId",
+              "type": "uint256",
+            },
+            Object {
+              "internalType": "address",
+              "name": "_user",
+              "type": "address",
+            },
+          ],
+          "name": "getRegistrationStatus",
+          "outputs": Array [
+            Object {
+              "internalType": "bool[]",
+              "name": "registered",
+              "type": "bool[]",
+            },
+          ],
+          "stateMutability": "view",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "bytes32",
+              "name": "role",
+              "type": "bytes32",
+            },
+          ],
+          "name": "getRoleAdmin",
+          "outputs": Array [
+            Object {
+              "internalType": "bytes32",
+              "name": "",
+              "type": "bytes32",
+            },
+          ],
+          "stateMutability": "view",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "address",
+              "name": "account",
+              "type": "address",
+            },
+          ],
+          "name": "grantEventManagerRole",
+          "outputs": Array [],
+          "stateMutability": "nonpayable",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "bytes32",
+              "name": "role",
+              "type": "bytes32",
+            },
+            Object {
+              "internalType": "address",
+              "name": "account",
+              "type": "address",
+            },
+          ],
+          "name": "grantRole",
+          "outputs": Array [],
+          "stateMutability": "nonpayable",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "bytes32",
+              "name": "role",
+              "type": "bytes32",
+            },
+            Object {
+              "internalType": "address",
+              "name": "account",
+              "type": "address",
+            },
+          ],
+          "name": "hasRole",
+          "outputs": Array [
+            Object {
+              "internalType": "bool",
+              "name": "",
+              "type": "bool",
+            },
+          ],
+          "stateMutability": "view",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [],
+          "name": "initialize",
+          "outputs": Array [],
+          "stateMutability": "nonpayable",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "uint256",
+              "name": "_eventId",
+              "type": "uint256",
+            },
+            Object {
+              "internalType": "uint256",
+              "name": "_phaseId",
+              "type": "uint256",
+            },
+          ],
+          "name": "openPhase",
+          "outputs": Array [],
+          "stateMutability": "nonpayable",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [],
+          "name": "owner",
+          "outputs": Array [
+            Object {
+              "internalType": "address",
+              "name": "",
+              "type": "address",
+            },
+          ],
+          "stateMutability": "view",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [],
+          "name": "pendingOwner",
+          "outputs": Array [
+            Object {
+              "internalType": "address",
+              "name": "",
+              "type": "address",
+            },
+          ],
+          "stateMutability": "view",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "uint256",
+              "name": "eventId",
+              "type": "uint256",
+            },
+            Object {
+              "internalType": "uint256",
+              "name": "phaseId",
+              "type": "uint256",
+            },
+          ],
+          "name": "phaseOpen",
+          "outputs": Array [
+            Object {
+              "internalType": "bool",
+              "name": "isOpen",
+              "type": "bool",
+            },
+          ],
+          "stateMutability": "view",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "uint256",
+              "name": "_eventId",
+              "type": "uint256",
+            },
+            Object {
+              "internalType": "uint256",
+              "name": "_phaseId",
+              "type": "uint256",
+            },
+          ],
+          "name": "register",
+          "outputs": Array [],
+          "stateMutability": "nonpayable",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "uint256",
+              "name": "eventId",
+              "type": "uint256",
+            },
+            Object {
+              "internalType": "uint256",
+              "name": "phaseId",
+              "type": "uint256",
+            },
+            Object {
+              "internalType": "address",
+              "name": "registrant",
+              "type": "address",
+            },
+          ],
+          "name": "registrations",
+          "outputs": Array [
+            Object {
+              "internalType": "uint256",
+              "name": "timestamp",
+              "type": "uint256",
+            },
+          ],
+          "stateMutability": "view",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [],
+          "name": "renounceOwnership",
+          "outputs": Array [],
+          "stateMutability": "nonpayable",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "bytes32",
+              "name": "role",
+              "type": "bytes32",
+            },
+            Object {
+              "internalType": "address",
+              "name": "callerConfirmation",
+              "type": "address",
+            },
+          ],
+          "name": "renounceRole",
+          "outputs": Array [],
+          "stateMutability": "nonpayable",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "address",
+              "name": "account",
+              "type": "address",
+            },
+          ],
+          "name": "revokeEventManagerRole",
+          "outputs": Array [],
+          "stateMutability": "nonpayable",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "bytes32",
+              "name": "role",
+              "type": "bytes32",
+            },
+            Object {
+              "internalType": "address",
+              "name": "account",
+              "type": "address",
+            },
+          ],
+          "name": "revokeRole",
+          "outputs": Array [],
+          "stateMutability": "nonpayable",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "bytes4",
+              "name": "interfaceId",
+              "type": "bytes4",
+            },
+          ],
+          "name": "supportsInterface",
+          "outputs": Array [
+            Object {
+              "internalType": "bool",
+              "name": "",
+              "type": "bool",
+            },
+          ],
+          "stateMutability": "view",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "address",
+              "name": "newOwner",
+              "type": "address",
+            },
+          ],
+          "name": "transferOwnership",
+          "outputs": Array [],
+          "stateMutability": "nonpayable",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "uint256",
+              "name": "_eventId",
+              "type": "uint256",
+            },
+            Object {
+              "internalType": "uint256",
+              "name": "_phaseId",
+              "type": "uint256",
+            },
+            Object {
+              "internalType": "address",
+              "name": "_user",
+              "type": "address",
+            },
+          ],
+          "name": "unregister",
+          "outputs": Array [],
+          "stateMutability": "nonpayable",
+          "type": "function",
+        },
+        Object {
+          "anonymous": false,
+          "inputs": Array [
+            Object {
+              "indexed": true,
+              "internalType": "uint256",
+              "name": "id",
+              "type": "uint256",
+            },
+            Object {
+              "indexed": false,
+              "internalType": "string",
+              "name": "name",
+              "type": "string",
+            },
+          ],
+          "name": "EventCreated",
+          "type": "event",
+        },
+        Object {
+          "anonymous": false,
+          "inputs": Array [
+            Object {
+              "indexed": false,
+              "internalType": "uint64",
+              "name": "version",
+              "type": "uint64",
+            },
+          ],
+          "name": "Initialized",
+          "type": "event",
+        },
+        Object {
+          "anonymous": false,
+          "inputs": Array [
+            Object {
+              "indexed": true,
+              "internalType": "address",
+              "name": "previousOwner",
+              "type": "address",
+            },
+            Object {
+              "indexed": true,
+              "internalType": "address",
+              "name": "newOwner",
+              "type": "address",
+            },
+          ],
+          "name": "OwnershipTransferStarted",
+          "type": "event",
+        },
+        Object {
+          "anonymous": false,
+          "inputs": Array [
+            Object {
+              "indexed": true,
+              "internalType": "address",
+              "name": "previousOwner",
+              "type": "address",
+            },
+            Object {
+              "indexed": true,
+              "internalType": "address",
+              "name": "newOwner",
+              "type": "address",
+            },
+          ],
+          "name": "OwnershipTransferred",
+          "type": "event",
+        },
+        Object {
+          "anonymous": false,
+          "inputs": Array [
+            Object {
+              "indexed": true,
+              "internalType": "uint256",
+              "name": "eventId",
+              "type": "uint256",
+            },
+            Object {
+              "indexed": true,
+              "internalType": "uint256",
+              "name": "phaseId",
+              "type": "uint256",
+            },
+          ],
+          "name": "PhaseClosed",
+          "type": "event",
+        },
+        Object {
+          "anonymous": false,
+          "inputs": Array [
+            Object {
+              "indexed": true,
+              "internalType": "uint256",
+              "name": "eventId",
+              "type": "uint256",
+            },
+            Object {
+              "indexed": true,
+              "internalType": "uint256",
+              "name": "phaseId",
+              "type": "uint256",
+            },
+          ],
+          "name": "PhaseOpened",
+          "type": "event",
+        },
+        Object {
+          "anonymous": false,
+          "inputs": Array [
+            Object {
+              "indexed": true,
+              "internalType": "address",
+              "name": "registrant",
+              "type": "address",
+            },
+            Object {
+              "indexed": true,
+              "internalType": "uint256",
+              "name": "eventId",
+              "type": "uint256",
+            },
+            Object {
+              "indexed": true,
+              "internalType": "uint256",
+              "name": "phaseId",
+              "type": "uint256",
+            },
+          ],
+          "name": "Registered",
+          "type": "event",
+        },
+        Object {
+          "anonymous": false,
+          "inputs": Array [
+            Object {
+              "indexed": true,
+              "internalType": "bytes32",
+              "name": "role",
+              "type": "bytes32",
+            },
+            Object {
+              "indexed": true,
+              "internalType": "bytes32",
+              "name": "previousAdminRole",
+              "type": "bytes32",
+            },
+            Object {
+              "indexed": true,
+              "internalType": "bytes32",
+              "name": "newAdminRole",
+              "type": "bytes32",
+            },
+          ],
+          "name": "RoleAdminChanged",
+          "type": "event",
+        },
+        Object {
+          "anonymous": false,
+          "inputs": Array [
+            Object {
+              "indexed": true,
+              "internalType": "bytes32",
+              "name": "role",
+              "type": "bytes32",
+            },
+            Object {
+              "indexed": true,
+              "internalType": "address",
+              "name": "account",
+              "type": "address",
+            },
+            Object {
+              "indexed": true,
+              "internalType": "address",
+              "name": "sender",
+              "type": "address",
+            },
+          ],
+          "name": "RoleGranted",
+          "type": "event",
+        },
+        Object {
+          "anonymous": false,
+          "inputs": Array [
+            Object {
+              "indexed": true,
+              "internalType": "bytes32",
+              "name": "role",
+              "type": "bytes32",
+            },
+            Object {
+              "indexed": true,
+              "internalType": "address",
+              "name": "account",
+              "type": "address",
+            },
+            Object {
+              "indexed": true,
+              "internalType": "address",
+              "name": "sender",
+              "type": "address",
+            },
+          ],
+          "name": "RoleRevoked",
+          "type": "event",
+        },
+        Object {
+          "anonymous": false,
+          "inputs": Array [
+            Object {
+              "indexed": true,
+              "internalType": "address",
+              "name": "registrant",
+              "type": "address",
+            },
+            Object {
+              "indexed": true,
+              "internalType": "uint256",
+              "name": "eventId",
+              "type": "uint256",
+            },
+            Object {
+              "indexed": true,
+              "internalType": "uint256",
+              "name": "phaseId",
+              "type": "uint256",
+            },
+          ],
+          "name": "Unregistered",
+          "type": "event",
+        },
+        Object {
+          "inputs": Array [],
+          "name": "AccessControlBadConfirmation",
+          "type": "error",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "address",
+              "name": "account",
+              "type": "address",
+            },
+            Object {
+              "internalType": "bytes32",
+              "name": "neededRole",
+              "type": "bytes32",
+            },
+          ],
+          "name": "AccessControlUnauthorizedAccount",
+          "type": "error",
+        },
+        Object {
+          "inputs": Array [],
+          "name": "INVALID_EVENT_ID",
+          "type": "error",
+        },
+        Object {
+          "inputs": Array [],
+          "name": "INVALID_PHASE_ID",
+          "type": "error",
+        },
+        Object {
+          "inputs": Array [],
+          "name": "InvalidInitialization",
+          "type": "error",
+        },
+        Object {
+          "inputs": Array [],
+          "name": "NotInitializing",
+          "type": "error",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "address",
+              "name": "owner",
+              "type": "address",
+            },
+          ],
+          "name": "OwnableInvalidOwner",
+          "type": "error",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "address",
+              "name": "account",
+              "type": "address",
+            },
+          ],
+          "name": "OwnableUnauthorizedAccount",
+          "type": "error",
+        },
+        Object {
+          "inputs": Array [],
+          "name": "PHASE_CLOSED",
+          "type": "error",
+        },
+      ],
+      "address": "0x76B3c064bc4771a1536F376432832828edB2dB33",
+      "args": Array [
+        999999n,
+        888888n,
+      ],
+      "functionName": "register",
++     "gas": 10000000n,
+    },
+  ]
+
+
+Number of calls: 1
+
+   ❯ src/lib/domains/preconf/adapter/BasedLinerAdapter.test.ts > BasedLinerAdapter > sendTx > should handle negative numbers by converting to BigInt
+     → expected "spy" to be called with arguments: [ …(2) ]
+
+Received: 
+
+  1st spy call:
+
+  Array [
+    Object {
+      "_internal": Object {
+        "chains": Object {
+          "setState": [Function setState],
+          "subscribe": [Function subscribe],
+        },
+        "connectors": Object {
+          "providerDetailToConnector": [Function providerDetailToConnector],
+          "setState": [Function setState],
+          "setup": [Function setup],
+          "subscribe": [Function subscribe],
+        },
+        "events": Object {
+          "change": [Function change],
+          "connect": [Function connect],
+          "disconnect": [Function disconnect],
+        },
+        "mipd": Object {
+          "_listeners": [Function _listeners],
+          "clear": [Function clear],
+          "destroy": [Function destroy],
+          "findProvider": [Function findProvider],
+          "getProviders": [Function getProviders],
+          "reset": [Function reset],
+          "subscribe": [Function subscribe],
+        },
+        "ssr": false,
+        "store": Object {
+          "getInitialState": [Function anonymous],
+          "getState": [Function getState],
+          "persist": Object {
+            "clearStorage": [Function clearStorage],
+            "getOptions": [Function getOptions],
+            "hasHydrated": [Function hasHydrated],
+            "onFinishHydration": [Function onFinishHydration],
+            "onHydrate": [Function onHydrate],
+            "rehydrate": [Function rehydrate],
+            "setOptions": [Function setOptions],
+          },
+          "setState": [Function anonymous],
+          "subscribe": [Function anonymous],
+        },
+        "syncConnectedChain": true,
+        "transports": Object {
+          "167000": [Function anonymous],
+        },
+      },
+      "chains": Array [
+        Object {
+          "assets": Object {
+            "imageId": undefined,
+            "imageUrl": undefined,
+          },
+          "blockExplorers": Object {
+            "default": Object {
+              "apiUrl": "https://api.taikoscan.io/api",
+              "name": "Taikoscan",
+              "url": "https://taikoscan.io",
+            },
+          },
+          "caipNetworkId": "eip155:167000",
+          "chainNamespace": "eip155",
+          "contracts": Object {
+            "multicall3": Object {
+              "address": "0xcb2436774C3e191c85056d248EF4260ce5f27A9D",
+            },
+          },
+          "fees": undefined,
+          "formatters": undefined,
+          "id": 167000,
+          "name": "Taiko Mainnet",
+          "nativeCurrency": Object {
+            "decimals": 18,
+            "name": "Ether",
+            "symbol": "ETH",
+          },
+          "rpcUrls": Object {
+            "chainDefault": Object {
+              "http": Array [
+                "https://rpc.mainnet.taiko.xyz",
+              ],
+            },
+            "default": Object {
+              "http": Array [
+                "https://rpc.mainnet.taiko.xyz",
+              ],
+            },
+          },
+          "serializers": undefined,
+        },
+      ],
+      "connectors": Array [],
+      "getClient": [Function getClient],
+      "setState": [Function setState],
+      "state": Object {
+        "chainId": 167000,
+        "connections": Map {},
+        "current": null,
+        "status": "disconnected",
+      },
+      "storage": Object {
+        "getItem": [Function getItem],
+        "key": "wagmi",
+        "removeItem": [Function removeItem],
+        "setItem": [Function setItem],
+      },
+      "subscribe": [Function subscribe],
+    },
+    Object {
+      "abi": Array [
+        Object {
+          "inputs": Array [],
+          "stateMutability": "nonpayable",
+          "type": "constructor",
+        },
+        Object {
+          "inputs": Array [],
+          "name": "DEFAULT_ADMIN_ROLE",
+          "outputs": Array [
+            Object {
+              "internalType": "bytes32",
+              "name": "",
+              "type": "bytes32",
+            },
+          ],
+          "stateMutability": "view",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [],
+          "name": "EVENT_MANAGER_ROLE",
+          "outputs": Array [
+            Object {
+              "internalType": "bytes32",
+              "name": "",
+              "type": "bytes32",
+            },
+          ],
+          "stateMutability": "view",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [],
+          "name": "acceptOwnership",
+          "outputs": Array [],
+          "stateMutability": "nonpayable",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "uint256",
+              "name": "_eventId",
+              "type": "uint256",
+            },
+            Object {
+              "internalType": "uint256",
+              "name": "_phaseId",
+              "type": "uint256",
+            },
+          ],
+          "name": "closePhase",
+          "outputs": Array [],
+          "stateMutability": "nonpayable",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "string",
+              "name": "_name",
+              "type": "string",
+            },
+            Object {
+              "internalType": "uint256",
+              "name": "_totalPhases",
+              "type": "uint256",
+            },
+          ],
+          "name": "createEvent",
+          "outputs": Array [],
+          "stateMutability": "nonpayable",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "uint256",
+              "name": "eventId",
+              "type": "uint256",
+            },
+          ],
+          "name": "events",
+          "outputs": Array [
+            Object {
+              "internalType": "uint256",
+              "name": "id",
+              "type": "uint256",
+            },
+            Object {
+              "internalType": "string",
+              "name": "name",
+              "type": "string",
+            },
+            Object {
+              "internalType": "uint256",
+              "name": "totalPhases",
+              "type": "uint256",
+            },
+          ],
+          "stateMutability": "view",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "uint256",
+              "name": "_eventId",
+              "type": "uint256",
+            },
+          ],
+          "name": "getEvent",
+          "outputs": Array [
+            Object {
+              "internalType": "uint256",
+              "name": "id",
+              "type": "uint256",
+            },
+            Object {
+              "internalType": "string",
+              "name": "name",
+              "type": "string",
+            },
+            Object {
+              "internalType": "uint256",
+              "name": "totalPhases",
+              "type": "uint256",
+            },
+          ],
+          "stateMutability": "view",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "uint256",
+              "name": "_eventId",
+              "type": "uint256",
+            },
+            Object {
+              "internalType": "address",
+              "name": "_user",
+              "type": "address",
+            },
+          ],
+          "name": "getRegistrationStatus",
+          "outputs": Array [
+            Object {
+              "internalType": "bool[]",
+              "name": "registered",
+              "type": "bool[]",
+            },
+          ],
+          "stateMutability": "view",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "bytes32",
+              "name": "role",
+              "type": "bytes32",
+            },
+          ],
+          "name": "getRoleAdmin",
+          "outputs": Array [
+            Object {
+              "internalType": "bytes32",
+              "name": "",
+              "type": "bytes32",
+            },
+          ],
+          "stateMutability": "view",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "address",
+              "name": "account",
+              "type": "address",
+            },
+          ],
+          "name": "grantEventManagerRole",
+          "outputs": Array [],
+          "stateMutability": "nonpayable",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "bytes32",
+              "name": "role",
+              "type": "bytes32",
+            },
+            Object {
+              "internalType": "address",
+              "name": "account",
+              "type": "address",
+            },
+          ],
+          "name": "grantRole",
+          "outputs": Array [],
+          "stateMutability": "nonpayable",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "bytes32",
+              "name": "role",
+              "type": "bytes32",
+            },
+            Object {
+              "internalType": "address",
+              "name": "account",
+              "type": "address",
+            },
+          ],
+          "name": "hasRole",
+          "outputs": Array [
+            Object {
+              "internalType": "bool",
+              "name": "",
+              "type": "bool",
+            },
+          ],
+          "stateMutability": "view",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [],
+          "name": "initialize",
+          "outputs": Array [],
+          "stateMutability": "nonpayable",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "uint256",
+              "name": "_eventId",
+              "type": "uint256",
+            },
+            Object {
+              "internalType": "uint256",
+              "name": "_phaseId",
+              "type": "uint256",
+            },
+          ],
+          "name": "openPhase",
+          "outputs": Array [],
+          "stateMutability": "nonpayable",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [],
+          "name": "owner",
+          "outputs": Array [
+            Object {
+              "internalType": "address",
+              "name": "",
+              "type": "address",
+            },
+          ],
+          "stateMutability": "view",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [],
+          "name": "pendingOwner",
+          "outputs": Array [
+            Object {
+              "internalType": "address",
+              "name": "",
+              "type": "address",
+            },
+          ],
+          "stateMutability": "view",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "uint256",
+              "name": "eventId",
+              "type": "uint256",
+            },
+            Object {
+              "internalType": "uint256",
+              "name": "phaseId",
+              "type": "uint256",
+            },
+          ],
+          "name": "phaseOpen",
+          "outputs": Array [
+            Object {
+              "internalType": "bool",
+              "name": "isOpen",
+              "type": "bool",
+            },
+          ],
+          "stateMutability": "view",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "uint256",
+              "name": "_eventId",
+              "type": "uint256",
+            },
+            Object {
+              "internalType": "uint256",
+              "name": "_phaseId",
+              "type": "uint256",
+            },
+          ],
+          "name": "register",
+          "outputs": Array [],
+          "stateMutability": "nonpayable",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "uint256",
+              "name": "eventId",
+              "type": "uint256",
+            },
+            Object {
+              "internalType": "uint256",
+              "name": "phaseId",
+              "type": "uint256",
+            },
+            Object {
+              "internalType": "address",
+              "name": "registrant",
+              "type": "address",
+            },
+          ],
+          "name": "registrations",
+          "outputs": Array [
+            Object {
+              "internalType": "uint256",
+              "name": "timestamp",
+              "type": "uint256",
+            },
+          ],
+          "stateMutability": "view",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [],
+          "name": "renounceOwnership",
+          "outputs": Array [],
+          "stateMutability": "nonpayable",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "bytes32",
+              "name": "role",
+              "type": "bytes32",
+            },
+            Object {
+              "internalType": "address",
+              "name": "callerConfirmation",
+              "type": "address",
+            },
+          ],
+          "name": "renounceRole",
+          "outputs": Array [],
+          "stateMutability": "nonpayable",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "address",
+              "name": "account",
+              "type": "address",
+            },
+          ],
+          "name": "revokeEventManagerRole",
+          "outputs": Array [],
+          "stateMutability": "nonpayable",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "bytes32",
+              "name": "role",
+              "type": "bytes32",
+            },
+            Object {
+              "internalType": "address",
+              "name": "account",
+              "type": "address",
+            },
+          ],
+          "name": "revokeRole",
+          "outputs": Array [],
+          "stateMutability": "nonpayable",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "bytes4",
+              "name": "interfaceId",
+              "type": "bytes4",
+            },
+          ],
+          "name": "supportsInterface",
+          "outputs": Array [
+            Object {
+              "internalType": "bool",
+              "name": "",
+              "type": "bool",
+            },
+          ],
+          "stateMutability": "view",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "address",
+              "name": "newOwner",
+              "type": "address",
+            },
+          ],
+          "name": "transferOwnership",
+          "outputs": Array [],
+          "stateMutability": "nonpayable",
+          "type": "function",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "uint256",
+              "name": "_eventId",
+              "type": "uint256",
+            },
+            Object {
+              "internalType": "uint256",
+              "name": "_phaseId",
+              "type": "uint256",
+            },
+            Object {
+              "internalType": "address",
+              "name": "_user",
+              "type": "address",
+            },
+          ],
+          "name": "unregister",
+          "outputs": Array [],
+          "stateMutability": "nonpayable",
+          "type": "function",
+        },
+        Object {
+          "anonymous": false,
+          "inputs": Array [
+            Object {
+              "indexed": true,
+              "internalType": "uint256",
+              "name": "id",
+              "type": "uint256",
+            },
+            Object {
+              "indexed": false,
+              "internalType": "string",
+              "name": "name",
+              "type": "string",
+            },
+          ],
+          "name": "EventCreated",
+          "type": "event",
+        },
+        Object {
+          "anonymous": false,
+          "inputs": Array [
+            Object {
+              "indexed": false,
+              "internalType": "uint64",
+              "name": "version",
+              "type": "uint64",
+            },
+          ],
+          "name": "Initialized",
+          "type": "event",
+        },
+        Object {
+          "anonymous": false,
+          "inputs": Array [
+            Object {
+              "indexed": true,
+              "internalType": "address",
+              "name": "previousOwner",
+              "type": "address",
+            },
+            Object {
+              "indexed": true,
+              "internalType": "address",
+              "name": "newOwner",
+              "type": "address",
+            },
+          ],
+          "name": "OwnershipTransferStarted",
+          "type": "event",
+        },
+        Object {
+          "anonymous": false,
+          "inputs": Array [
+            Object {
+              "indexed": true,
+              "internalType": "address",
+              "name": "previousOwner",
+              "type": "address",
+            },
+            Object {
+              "indexed": true,
+              "internalType": "address",
+              "name": "newOwner",
+              "type": "address",
+            },
+          ],
+          "name": "OwnershipTransferred",
+          "type": "event",
+        },
+        Object {
+          "anonymous": false,
+          "inputs": Array [
+            Object {
+              "indexed": true,
+              "internalType": "uint256",
+              "name": "eventId",
+              "type": "uint256",
+            },
+            Object {
+              "indexed": true,
+              "internalType": "uint256",
+              "name": "phaseId",
+              "type": "uint256",
+            },
+          ],
+          "name": "PhaseClosed",
+          "type": "event",
+        },
+        Object {
+          "anonymous": false,
+          "inputs": Array [
+            Object {
+              "indexed": true,
+              "internalType": "uint256",
+              "name": "eventId",
+              "type": "uint256",
+            },
+            Object {
+              "indexed": true,
+              "internalType": "uint256",
+              "name": "phaseId",
+              "type": "uint256",
+            },
+          ],
+          "name": "PhaseOpened",
+          "type": "event",
+        },
+        Object {
+          "anonymous": false,
+          "inputs": Array [
+            Object {
+              "indexed": true,
+              "internalType": "address",
+              "name": "registrant",
+              "type": "address",
+            },
+            Object {
+              "indexed": true,
+              "internalType": "uint256",
+              "name": "eventId",
+              "type": "uint256",
+            },
+            Object {
+              "indexed": true,
+              "internalType": "uint256",
+              "name": "phaseId",
+              "type": "uint256",
+            },
+          ],
+          "name": "Registered",
+          "type": "event",
+        },
+        Object {
+          "anonymous": false,
+          "inputs": Array [
+            Object {
+              "indexed": true,
+              "internalType": "bytes32",
+              "name": "role",
+              "type": "bytes32",
+            },
+            Object {
+              "indexed": true,
+              "internalType": "bytes32",
+              "name": "previousAdminRole",
+              "type": "bytes32",
+            },
+            Object {
+              "indexed": true,
+              "internalType": "bytes32",
+              "name": "newAdminRole",
+              "type": "bytes32",
+            },
+          ],
+          "name": "RoleAdminChanged",
+          "type": "event",
+        },
+        Object {
+          "anonymous": false,
+          "inputs": Array [
+            Object {
+              "indexed": true,
+              "internalType": "bytes32",
+              "name": "role",
+              "type": "bytes32",
+            },
+            Object {
+              "indexed": true,
+              "internalType": "address",
+              "name": "account",
+              "type": "address",
+            },
+            Object {
+              "indexed": true,
+              "internalType": "address",
+              "name": "sender",
+              "type": "address",
+            },
+          ],
+          "name": "RoleGranted",
+          "type": "event",
+        },
+        Object {
+          "anonymous": false,
+          "inputs": Array [
+            Object {
+              "indexed": true,
+              "internalType": "bytes32",
+              "name": "role",
+              "type": "bytes32",
+            },
+            Object {
+              "indexed": true,
+              "internalType": "address",
+              "name": "account",
+              "type": "address",
+            },
+            Object {
+              "indexed": true,
+              "internalType": "address",
+              "name": "sender",
+              "type": "address",
+            },
+          ],
+          "name": "RoleRevoked",
+          "type": "event",
+        },
+        Object {
+          "anonymous": false,
+          "inputs": Array [
+            Object {
+              "indexed": true,
+              "internalType": "address",
+              "name": "registrant",
+              "type": "address",
+            },
+            Object {
+              "indexed": true,
+              "internalType": "uint256",
+              "name": "eventId",
+              "type": "uint256",
+            },
+            Object {
+              "indexed": true,
+              "internalType": "uint256",
+              "name": "phaseId",
+              "type": "uint256",
+            },
+          ],
+          "name": "Unregistered",
+          "type": "event",
+        },
+        Object {
+          "inputs": Array [],
+          "name": "AccessControlBadConfirmation",
+          "type": "error",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "address",
+              "name": "account",
+              "type": "address",
+            },
+            Object {
+              "internalType": "bytes32",
+              "name": "neededRole",
+              "type": "bytes32",
+            },
+          ],
+          "name": "AccessControlUnauthorizedAccount",
+          "type": "error",
+        },
+        Object {
+          "inputs": Array [],
+          "name": "INVALID_EVENT_ID",
+          "type": "error",
+        },
+        Object {
+          "inputs": Array [],
+          "name": "INVALID_PHASE_ID",
+          "type": "error",
+        },
+        Object {
+          "inputs": Array [],
+          "name": "InvalidInitialization",
+          "type": "error",
+        },
+        Object {
+          "inputs": Array [],
+          "name": "NotInitializing",
+          "type": "error",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "address",
+              "name": "owner",
+              "type": "address",
+            },
+          ],
+          "name": "OwnableInvalidOwner",
+          "type": "error",
+        },
+        Object {
+          "inputs": Array [
+            Object {
+              "internalType": "address",
+              "name": "account",
+              "type": "address",
+            },
+          ],
+          "name": "OwnableUnauthorizedAccount",
+          "type": "error",
+        },
+        Object {
+          "inputs": Array [],
+          "name": "PHASE_CLOSED",
+          "type": "error",
+        },
+      ],
+      "address": "0x76B3c064bc4771a1536F376432832828edB2dB33",
+      "args": Array [
+        -1n,
+        -2n,
+      ],
+      "functionName": "register",
++     "gas": 10000000n,
+    },
+  ]
+
+
+Number of calls: 1
+
+ ✓ src/lib/domains/leaderboard/services/UserLeaderboardService.test.ts  (6 tests) 11ms
+ ✓ src/lib/domains/leaderboard/adapter/ProtocolAdapter.test.ts  (4 tests) 9ms
+ ✓ src/lib/domains/leaderboard/services/server/DappCompetitionService.server.test.ts  (1 test) 10ms
+ ✓ src/lib/domains/leaderboard/adapter/server/ProtocolDetailsAdapter.server.test.ts  (3 tests) 9ms
+ ✓ src/lib/domains/profile/adapter/ProfileAdapter.test.ts  (7 tests) 17ms
+ ✓ src/lib/domains/leaderboard/mapper/mapper.test.ts  (4 tests) 5ms
+ ✓ src/lib/domains/profile/adapter/SeasonBonusPointsAdapter.test.ts  (5 tests) 13ms
+ ✓ src/lib/domains/leaderboard/adapter/server/DappCompetitionAdapter.test.ts  (4 tests) 13ms
+ ✓ src/lib/domains/leaderboard/adapter/LiquidityCompetitionAdapter.test.ts  (2 tests) 9ms
+ ✓ src/lib/domains/leaderboard/adapter/UserLeaderboardAdapter.test.ts  (2 tests) 9ms
+ ✓ src/lib/shared/utils/positionElementByTarget.test.ts  (4 tests) 4ms
+ ✓ src/lib/shared/utils/balance.test.ts  (18 tests) 21ms
+ ✓ src/lib/domains/leaderboard/adapter/GamingLeaderboardAdapter.test.ts  (1 test) 5ms
+ ✓ src/lib/domains/badges/adapter/BadgeMultiplierAdapter.test.ts  (2 tests) 7ms
+ ✓ src/lib/domains/leaderboard/adapter/DappLeaderboardAdapter.test.ts  (1 test) 4ms
+ ✓ src/lib/domains/ecosystem/adapter/EcosystemAdapter.test.ts  (1 test) 4ms
+ ✓ src/lib/domains/ecosystem/service/EcosystemService.test.ts  (1 test) 6ms
+ ✓ src/lib/shared/utils/shortenAddress.test.ts  (2 tests) 3ms
+ ✓ src/lib/shared/utils/classNames.test.ts  (1 test) 2ms
+ ✓ src/lib/shared/utils/truncateString.test.ts  (1 test) 2ms
+ ✓ src/lib/shared/utils/truncateDecimal.test.ts  (1 test) 3ms
+ ✓ src/lib/shared/utils/uid.test.ts  (1 test) 3ms
+ ✓ src/lib/domains/preconf/service/server/BasedLinerService.server.test.ts  (23 tests) 18048ms
+
+ Test Files  1 failed | 29 passed (30)
+      Tests  6 failed | 194 passed (200)
+   Start at  13:28:39
+   Duration  20.96s (transform 1.57s, setup 366ms, collect 13.27s, tests 18.47s, environment 15.57s, prepare 3.90s)
+
+ ELIFECYCLE  Command failed with exit code 1.
