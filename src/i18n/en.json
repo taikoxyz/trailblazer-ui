@@ -802,8 +802,8 @@
             "title": "Random rewards"
           },
           "rewards": {
-            "text": "The top 100 will each win a guaranteed 7K Taiko tokens, no matter your final ranking!",
-            "title": "Earn 7K TAIKO"
+            "text": "The top 70 will each win a guaranteed 10K Taiko tokens, no matter your final ranking!",
+            "title": "Earn 10K TAIKO"
           },
           "title": "🏆&nbsp;&nbsp;What’s in it for you?"
         },
@@ -823,7 +823,7 @@
           "title": "Prize pool breakdown"
         },
         "edition4": {
-          "content": "The total 700K TAIKO token prize pool",
+          "content": "The total 700K TAIKO token prize pool, 10k for each of the top 70 participants.",
           "title": "Prize pool breakdown"
         }
       },

@@ -5,8 +5,8 @@ import { PUBLIC_TRAILBLAZER_API_URL } from '$env/static/public';
 import { activeSeason } from '$lib/shared/stores/activeSeason';
 import { isDevelopmentEnv } from '$shared/utils/isDevelopmentEnv';
 
-// const baseApiUrl = isDevelopmentEnv ? '/api/mock-api' : PUBLIC_TRAILBLAZER_API_URL;
-const baseApiUrl = PUBLIC_TRAILBLAZER_API_URL;
+const baseApiUrl = isDevelopmentEnv ? '/api/mock-api' : PUBLIC_TRAILBLAZER_API_URL;
+// const baseApiUrl = PUBLIC_TRAILBLAZER_API_URL;
 
 const getBaseSeasonURL = (season: number = get(activeSeason)) => `${baseApiUrl}/s${season}`;
 
@@ -33,6 +33,7 @@ export const fetchFromApi = async <T>(
   if (isDevelopmentEnv && builtUrl.startsWith('/')) {
     builtUrl = new URL(builtUrl, 'http://localhost:5173').toString();
   }
+
   try {
     const response = await fetch(builtUrl, {
       ...globalFetchConfig,
