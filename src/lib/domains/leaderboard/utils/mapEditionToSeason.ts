@@ -6,6 +6,8 @@ export const thrillblazerEditionSeasonMapping: Record<number, number> = {
   5: 4, // Edition 5 uses Season 4
   6: 4, // Edition 6 uses Season 4
   7: 5, // Edition 7 uses Season 5
+  8: 5, // Edition 8 uses Season 5
+  9: 5, // Edition 9 uses Season 5
 };
 
 export const chillblazerEditionSeasonMapping: Record<number, number> = {
