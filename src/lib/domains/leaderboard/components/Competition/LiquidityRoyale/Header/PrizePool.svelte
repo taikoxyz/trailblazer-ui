@@ -7,7 +7,7 @@
 
   import { getEditionDetails } from '../editionDetails';
 
-  const wrapperClasses = classNames('w-[150px]', 'items-center', 'justify-center', 'f-col', 'gap-[15px]');
+  const wrapperClasses = classNames('w-[180px]', 'items-center', 'justify-center', 'f-col', 'gap-[15px]');
   const badgeClasses = classNames(
     'border',
     'border-divider-border',
@@ -18,7 +18,7 @@
     'f-row',
     'gap-[10px]',
   );
-  const prizeWrapperClasses = classNames('f-row', 'gap-[16px]', 'items-center');
+  const prizeWrapperClasses = classNames('f-row', 'gap-[10px]', 'items-center');
   const prizeClasses = classNames(
     'font-clash-grotesk',
     'text-[45px]',
