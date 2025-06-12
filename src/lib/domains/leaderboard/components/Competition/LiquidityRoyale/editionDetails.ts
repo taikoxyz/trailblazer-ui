@@ -24,7 +24,7 @@ const edition3 = {
 };
 
 const edition4 = {
-  prizePool: '1M',
+  prizePool: '700K',
   tooltip: true,
   tabs: [{ slug: LiquidityCompetitionType.OG, name: 'OGs Edition' }],
 };
