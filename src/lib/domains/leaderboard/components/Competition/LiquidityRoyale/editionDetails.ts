@@ -4,29 +4,33 @@ export type EditionDetails = {
   prizePool: string;
   tooltip?: boolean;
   tabs?: { slug: LiquidityCompetitionType; name: string }[];
+  qualifyingPositions: number;
 };
 
-const edition1 = {
+const edition1: EditionDetails = {
   prizePool: '1M',
+  qualifyingPositions: 100,
 };
 
-const edition2 = {
+const edition2: EditionDetails = {
   prizePool: '1.2M',
+  qualifyingPositions: 100,
 };
 
-const edition3 = {
+const edition3: EditionDetails = {
   prizePool: '1M',
   tooltip: true,
   tabs: [
     { slug: LiquidityCompetitionType.OG, name: 'OGs Edition' },
     { slug: LiquidityCompetitionType.MOGULS, name: 'DeFi Moguls' },
   ],
+  qualifyingPositions: 50,
 };
 
-const edition4 = {
+const edition4: EditionDetails = {
   prizePool: '700K',
   tooltip: true,
-  tabs: [{ slug: LiquidityCompetitionType.OG, name: 'OGs Edition' }],
+  qualifyingPositions: 70,
 };
 
 export const getEditionDetails = (edition: number): EditionDetails | null => {

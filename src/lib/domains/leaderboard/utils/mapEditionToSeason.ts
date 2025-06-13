@@ -17,6 +17,7 @@ export const liquidityEditionSeasonMapping: Record<number, number> = {
   1: 2, // Edition 1 uses Season 2
   2: 3, // Edition 2 uses Season 3
   3: 4, // Edition 3 uses Season 4
+  4: 5, // Edition 4 uses Season 5
 };
 
 export function getSeasonForThrillblazerEdition(edition: number): number {
