@@ -120,6 +120,11 @@
             title: 'Request rejected by user',
             message: 'Please try again',
           });
+        } else if (e.message.includes('400 Bad Request')) {
+          errorToast({
+            title: 'Bad Basedliner Request',
+            message: 'Please  increase your gas limit and try again',
+          });
         } else {
           errorToast({
             title: 'Error',
