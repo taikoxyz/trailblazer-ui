@@ -32,6 +32,7 @@ export const GET: RequestHandler = async ({ url }) => {
       competitionType: DappCompetitionType.THRILLBLAZER,
       edition,
     });
+
     return new Response(JSON.stringify(leaderboardPage));
   } catch (error) {
     log('Error fetching leaderboard data:', error);

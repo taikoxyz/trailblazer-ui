@@ -8,6 +8,9 @@ export const thrillblazerInstances: Record<number, DappCompetition> = {
   4: new DappCompetition('thrillblazer', 'thrillblazer', 'Thrillblazers Edition 4', 4),
   5: new DappCompetition('thrillblazer', 'thrillblazer', 'Thrillblazers Edition 5', 5),
   6: new DappCompetition('thrillblazer', 'thrillblazer', 'Thrillblazers Edition 6', 6),
+  7: new DappCompetition('thrillblazer', 'thrillblazer', 'Thrillblazers Edition 7', 7),
+  8: new DappCompetition('thrillblazer', 'thrillblazer', 'Thrillblazers Edition 8', 8),
+  9: new DappCompetition('thrillblazer', 'thrillblazer', 'Thrillblazers Edition 9', 9),
 };
 
 export const chillblazerServiceInstances: Record<number, DappCompetition> = {
