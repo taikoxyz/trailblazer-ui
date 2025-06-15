@@ -9,6 +9,49 @@ export let thrillblazerDetails: Record<number, CompetitionInfo> | null = null;
 
 const thrillblazerDetailsPromise = (async () => {
   await setupI18n();
+
+  // Helper function to create identical editions
+  const createEdition = ({ editionNumber, useDefault = false }: { editionNumber: number; useDefault?: boolean }) => {
+    const edition = useDefault ? 0 : editionNumber;
+    return {
+      title: '',
+      description: get(t)(`leaderboard.thrillblazers.edition${edition}.description`),
+      prizeTitle: get(t)('leaderboard.gaming.prize.1'),
+      prizeSubtitle: '',
+      prizes: [
+        {
+          image: '/thrillblazers/prize/first.svg',
+          amount: get(t)(`leaderboard.thrillblazers.edition${edition}.prize_breakdown.first.amount`),
+        },
+        {
+          image: '/thrillblazers/prize/second.svg',
+          amount: get(t)(`leaderboard.thrillblazers.edition${edition}.prize_breakdown.second.amount`),
+        },
+        {
+          image: '/thrillblazers/prize/third.svg',
+          amount: get(t)(`leaderboard.thrillblazers.edition${edition}.prize_breakdown.third.amount`),
+        },
+        {
+          image: '/thrillblazers/prize/default.svg',
+          amount: get(t)(`leaderboard.thrillblazers.edition${edition}.prize_breakdown.fourth.amount`),
+        },
+        {
+          image: '/thrillblazers/prize/default.svg',
+          amount: get(t)(`leaderboard.thrillblazers.edition${edition}.prize_breakdown.fifth.amount`),
+        },
+        {
+          image: '/thrillblazers/prize/default.svg',
+          amount: get(t)(`leaderboard.thrillblazers.edition${edition}.prize_breakdown.sixth.amount`),
+        },
+        {
+          image: '/thrillblazers/prize/default.svg',
+          amount: get(t)(`leaderboard.thrillblazers.edition${edition}.prize_breakdown.seventh.amount`),
+        },
+      ],
+      qualifyingPositions: 7,
+    };
+  };
+
   thrillblazerDetails = {
     1: {
       title: '',
@@ -93,117 +136,12 @@ const thrillblazerDetailsPromise = (async () => {
       ],
       qualifyingPositions: 5,
     },
-    4: {
-      title: '',
-      description: get(t)('leaderboard.thrillblazers.edition4.description'),
-      prizeTitle: get(t)('leaderboard.gaming.prize.1'),
-      prizeSubtitle: '',
-      prizes: [
-        {
-          image: '/thrillblazers/prize/first.svg',
-          amount: get(t)('leaderboard.thrillblazers.edition4.prize_breakdown.first.amount'),
-        },
-        {
-          image: '/thrillblazers/prize/second.svg',
-          amount: get(t)('leaderboard.thrillblazers.edition4.prize_breakdown.second.amount'),
-        },
-        {
-          image: '/thrillblazers/prize/third.svg',
-          amount: get(t)('leaderboard.thrillblazers.edition4.prize_breakdown.third.amount'),
-        },
-        {
-          image: '/thrillblazers/prize/default.svg',
-          amount: get(t)('leaderboard.thrillblazers.edition4.prize_breakdown.fourth.amount'),
-        },
-        {
-          image: '/thrillblazers/prize/default.svg',
-          amount: get(t)('leaderboard.thrillblazers.edition4.prize_breakdown.fifth.amount'),
-        },
-        {
-          image: '/thrillblazers/prize/default.svg',
-          amount: get(t)('leaderboard.thrillblazers.edition4.prize_breakdown.sixth.amount'),
-        },
-        {
-          image: '/thrillblazers/prize/default.svg',
-          amount: get(t)('leaderboard.thrillblazers.edition4.prize_breakdown.seventh.amount'),
-        },
-      ],
-      qualifyingPositions: 7,
-    },
-    5: {
-      title: '',
-      description: get(t)('leaderboard.thrillblazers.edition5.description'),
-      prizeTitle: get(t)('leaderboard.gaming.prize.1'),
-      prizeSubtitle: '',
-      prizes: [
-        {
-          image: '/thrillblazers/prize/first.svg',
-          amount: get(t)('leaderboard.thrillblazers.edition5.prize_breakdown.first.amount'),
-        },
-        {
-          image: '/thrillblazers/prize/second.svg',
-          amount: get(t)('leaderboard.thrillblazers.edition5.prize_breakdown.second.amount'),
-        },
-        {
-          image: '/thrillblazers/prize/third.svg',
-          amount: get(t)('leaderboard.thrillblazers.edition5.prize_breakdown.third.amount'),
-        },
-        {
-          image: '/thrillblazers/prize/default.svg',
-          amount: get(t)('leaderboard.thrillblazers.edition5.prize_breakdown.fourth.amount'),
-        },
-        {
-          image: '/thrillblazers/prize/default.svg',
-          amount: get(t)('leaderboard.thrillblazers.edition5.prize_breakdown.fifth.amount'),
-        },
-        {
-          image: '/thrillblazers/prize/default.svg',
-          amount: get(t)('leaderboard.thrillblazers.edition5.prize_breakdown.sixth.amount'),
-        },
-        {
-          image: '/thrillblazers/prize/default.svg',
-          amount: get(t)('leaderboard.thrillblazers.edition5.prize_breakdown.seventh.amount'),
-        },
-      ],
-      qualifyingPositions: 7,
-    },
-    6: {
-      title: '',
-      description: get(t)('leaderboard.thrillblazers.edition5.description'),
-      prizeTitle: get(t)('leaderboard.gaming.prize.1'),
-      prizeSubtitle: '',
-      prizes: [
-        {
-          image: '/thrillblazers/prize/first.svg',
-          amount: get(t)('leaderboard.thrillblazers.edition5.prize_breakdown.first.amount'),
-        },
-        {
-          image: '/thrillblazers/prize/second.svg',
-          amount: get(t)('leaderboard.thrillblazers.edition5.prize_breakdown.second.amount'),
-        },
-        {
-          image: '/thrillblazers/prize/third.svg',
-          amount: get(t)('leaderboard.thrillblazers.edition5.prize_breakdown.third.amount'),
-        },
-        {
-          image: '/thrillblazers/prize/default.svg',
-          amount: get(t)('leaderboard.thrillblazers.edition5.prize_breakdown.fourth.amount'),
-        },
-        {
-          image: '/thrillblazers/prize/default.svg',
-          amount: get(t)('leaderboard.thrillblazers.edition5.prize_breakdown.fifth.amount'),
-        },
-        {
-          image: '/thrillblazers/prize/default.svg',
-          amount: get(t)('leaderboard.thrillblazers.edition5.prize_breakdown.sixth.amount'),
-        },
-        {
-          image: '/thrillblazers/prize/default.svg',
-          amount: get(t)('leaderboard.thrillblazers.edition5.prize_breakdown.seventh.amount'),
-        },
-      ],
-      qualifyingPositions: 7,
-    },
+    4: createEdition({ editionNumber: 4, useDefault: true }),
+    5: createEdition({ editionNumber: 5, useDefault: true }),
+    6: createEdition({ editionNumber: 6, useDefault: true }),
+    7: createEdition({ editionNumber: 7, useDefault: true }),
+    8: createEdition({ editionNumber: 8, useDefault: true }),
+    9: createEdition({ editionNumber: 9, useDefault: true }),
   };
 })();
 

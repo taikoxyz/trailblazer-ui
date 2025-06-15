@@ -939,41 +939,10 @@
           "total": "100k TAIKO Tokens"
         }
       },
-      "edition4": {
+      "edition0": {
         "description": "Blaze new trails, fuel Taiko's momentum, and seize your chance for legendary rewards!",
         "ended": {
           "description": "Our journey concluded on April 17th, 2025. Congratulations to the winners!",
-          "title": "Journey ended"
-        },
-        "prize_breakdown": {
-          "fifth": {
-            "amount": "15k"
-          },
-          "first": {
-            "amount": "45k"
-          },
-          "fourth": {
-            "amount": "20k"
-          },
-          "second": {
-            "amount": "30k"
-          },
-          "seventh": {
-            "amount": "5k"
-          },
-          "sixth": {
-            "amount": "10k"
-          },
-          "third": {
-            "amount": "25k"
-          },
-          "total": "150k TAIKO Tokens"
-        }
-      },
-      "edition5": {
-        "description": "Blaze new trails, fuel Taiko's momentum, and seize your chance for legendary rewards!",
-        "ended": {
-          "description": "Our journey concluded on May 18th, 2025. Congratulations to the winners!",
           "title": "Journey ended"
         },
         "prize_breakdown": {
