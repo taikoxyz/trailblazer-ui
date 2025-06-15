@@ -1,10 +1,10 @@
 <script lang="ts">
-  import { getContext, onDestroy, onMount } from 'svelte';
-  import { derived, type Unsubscriber } from 'svelte/store';
+  import { getContext, onDestroy } from 'svelte';
+  import { derived } from 'svelte/store';
   import { t } from 'svelte-i18n';
 
   import { browser } from '$app/environment';
-  import { activeLiquidityType, leaderboardStore } from '$lib/domains/leaderboard/stores/liquidityCompetitionStore';
+  import { leaderboardStore } from '$lib/domains/leaderboard/stores/liquidityCompetitionStore';
   import type { LoadLeaderboardDataType } from '$lib/domains/leaderboard/types/shared/types';
   import type { UserLeaderboardItem } from '$lib/domains/leaderboard/types/user/types';
   import { PlusIcon } from '$shared/components/Icon';
@@ -109,15 +109,7 @@
   $: description = $t(`leaderboard.liquidityRoyale.description.edition${edition}`);
 
   onDestroy(() => {
-    if (activeTypeUnsubscribe) activeTypeUnsubscribe();
     unsubscribePageInfo();
-  });
-
-  let activeTypeUnsubscribe: Unsubscriber;
-  onMount(() => {
-    activeTypeUnsubscribe = activeLiquidityType.subscribe(() => {
-      if (pageInfo) loadLeaderboardData(pageInfo.page);
-    });
   });
 </script>
 

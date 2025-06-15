@@ -34,6 +34,7 @@ export class LiquidityCompetitionAdapter {
 
       log('fetching leaderboard data', args, season);
       const endpoint = this.buildEndpoint(args);
+
       const response = await fetchFromApi<LiquidityLeaderboardPageApiResponse>(endpoint, season, {
         method: 'GET',
         headers: { 'x-api-key': `${API_KEY}` },
@@ -92,8 +93,11 @@ export class LiquidityCompetitionAdapter {
 
   private buildPositionEndpoint(address: string): string {
     const params = new URLSearchParams({ address: address });
-    const endpoint = `/v2/leaderboard/competition/${this.competitionUrl}?${params.toString()}`;
-    log('built position endpoint', endpoint);
-    return endpoint;
+    const competitionType = params.get('competitionType');
+    if (competitionType) {
+      return `/v2/leaderboard/competition/${this.competitionUrl}/${competitionType}?${params.toString()}`;
+    } else {
+      return `/v2/leaderboard/competition/${this.competitionUrl}?${params.toString()}`;
+    }
   }
 }

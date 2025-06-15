@@ -8,6 +8,7 @@ export const thrillblazerInstances: Record<number, DappCompetition> = {
   4: new DappCompetition('thrillblazer', 'thrillblazer', 'Thrillblazers Edition 4', 4),
   5: new DappCompetition('thrillblazer', 'thrillblazer', 'Thrillblazers Edition 5', 5),
   6: new DappCompetition('thrillblazer', 'thrillblazer', 'Thrillblazers Edition 6', 6),
+  7: new DappCompetition('thrillblazer', 'thrillblazer', 'Thrillblazers Edition 7', 7),
 };
 
 export const chillblazerServiceInstances: Record<number, DappCompetition> = {
@@ -27,6 +28,6 @@ export const liquidityServiceInstances: Record<number, Record<string, LiquidityC
     MOGULS: new LiquidityCompetition('liquidity/moguls', 'liquidity', 'Moguls Edition', 3),
   },
   4: {
-    OG: new LiquidityCompetition('liquidity', 'liquidity', 'OG Edition', 4),
+    OG: new LiquidityCompetition('liquidity/ogs', 'liquidity', 'OG Edition', 4),
   },
 };

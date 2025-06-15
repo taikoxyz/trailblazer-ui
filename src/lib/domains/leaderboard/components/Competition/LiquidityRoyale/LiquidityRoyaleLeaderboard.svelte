@@ -33,12 +33,18 @@
 
   export let loading = false;
   export let edition: number;
+  export let serverPageInfo: PaginationInfo<UserLeaderboardItem> | undefined = undefined;
 
   let pageInfo: PaginationInfo<UserLeaderboardItem>;
   const pageInfoStore = derived(leaderboardStore, ($leaderboardStore) => $leaderboardStore.pagination);
   const unsubscribePageInfo = pageInfoStore.subscribe((value) => {
     pageInfo = value;
   });
+
+  // Initialize pageInfo with server data if available
+  $: if (serverPageInfo && !pageInfo) {
+    pageInfo = serverPageInfo;
+  }
 
   const currentEdition: number = 4;
   $: reactiveEdition = edition;
@@ -55,16 +61,86 @@
   }
 
   let activeTypeUnsubscribe: Unsubscriber;
-  onMount(() => {
-    if (browser && $activeSeason && pageInfo) {
-      loadLeaderboardData(pageInfo.page);
-    }
-    activeTypeUnsubscribe = activeLiquidityType.subscribe(() => {
-      if (pageInfo) loadLeaderboardData(pageInfo.page);
+  let isInitialized = false;
+  let isMounted = false;
+  let currentEditionRef = edition; // Track current edition
+
+  // Add unique component ID for debugging
+  const componentId = Math.random().toString(36).substr(2, 9);
+
+  onMount(async () => {
+    isMounted = true;
+    currentEditionRef = edition;
+
+    // Clear the leaderboard store to prevent showing data from previous editions
+    leaderboardStore.set({
+      items: [],
+      lastUpdated: Date.now(),
+      pagination: serverPageInfo || { page: 0, size: 10, total: 0 },
     });
+
+    // Wait for pageInfo to be available
+    if (!pageInfo && serverPageInfo) {
+      pageInfo = serverPageInfo;
+    }
+
+    // Track whether we've made the initial API call to prevent duplicates
+    let hasLoadedInitialData = false;
+
+    // Set up subscription for tab changes
+    activeTypeUnsubscribe = activeLiquidityType.subscribe(() => {
+      // Only load data once during initialization
+      if (!hasLoadedInitialData && pageInfo) {
+        hasLoadedInitialData = true;
+        isInitialized = true;
+        loadLeaderboardData(pageInfo.page);
+        return;
+      }
+
+      // For subsequent type changes (user clicking tabs), reload data
+      if (hasLoadedInitialData && isInitialized && isMounted && currentEditionRef === edition) {
+        // Clear existing data first to prevent showing stale data
+        leaderboardStore.set({
+          items: [],
+          lastUpdated: Date.now(),
+          pagination: pageInfo,
+        });
+        loadLeaderboardData(pageInfo.page);
+      }
+    });
+
+    // Fetch user position separately
+    const address = await getConnectedAddress();
+    if (address && address !== zeroAddress) {
+      const season = $activeSeason;
+      try {
+        await fetchLeaderboardUserEntry(address, edition, season);
+      } catch (error) {
+        console.error(`[${componentId}] Error fetching user row:`, error);
+      }
+    }
+
+    // Mark initial mount as completed to allow reactive edition changes
+    hasInitialMountCompleted = true;
   });
 
+  // Watch for edition changes and update reference
+  // Only trigger reload if this is not the initial mount
+  let hasInitialMountCompleted = false;
+  $: if (edition !== currentEditionRef && hasInitialMountCompleted) {
+    currentEditionRef = edition;
+    if (isInitialized && isMounted) {
+      // Reset and reload for new edition
+      isInitialized = false;
+      if (browser && $activeSeason && pageInfo) {
+        isInitialized = true;
+        loadLeaderboardData(pageInfo.page);
+      }
+    }
+  }
+
   onDestroy(() => {
+    isMounted = false;
     if (activeTypeUnsubscribe) activeTypeUnsubscribe();
     unsubscribePageInfo();
   });
@@ -74,18 +150,6 @@
 
   $: details = getEditionDetails(reactiveEdition);
   $: tabs = details?.tabs || [];
-
-  onMount(async () => {
-    const address = await getConnectedAddress();
-    if (address && address !== zeroAddress) {
-      const season = $activeSeason;
-      try {
-        await fetchLeaderboardUserEntry(address, edition, season);
-      } catch (error) {
-        console.error('Error fetching user row:', error);
-      }
-    }
-  });
 </script>
 
 {#key edition}

@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { onMount } from 'svelte';
   import { t } from 'svelte-i18n';
 
   import { goto } from '$app/navigation';
@@ -12,11 +13,14 @@
 
   export let data;
 
-  const { slug, type } = data;
+  const { slug, type, pageInfo } = data;
 
   let loading: boolean;
 
-  activeLiquidityType.set(type);
+  // Set the active liquidity type only once on mount
+  onMount(() => {
+    activeLiquidityType.set(type);
+  });
 
   $: ({ loading } = $page.data);
 
@@ -34,7 +38,7 @@
 
 <Page>
   {#key slug}
-    <LiquidityRoyaleLeaderboard {loading} edition={parseInt(slug)} />
+    <LiquidityRoyaleLeaderboard {loading} edition={parseInt(slug)} serverPageInfo={pageInfo} />
   {/key}
 
   <div class={wrapperClasses}>
