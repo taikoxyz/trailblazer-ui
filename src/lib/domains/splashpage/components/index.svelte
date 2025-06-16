@@ -1,12 +1,10 @@
 <script lang="ts">
   import { EcosystemSection } from '$lib/domains/ecosystem/components/index';
   import BannerCarousel from '$lib/domains/splashpage/components/Banner/BannerCarousel.svelte';
-  import S4StartBanner from '$lib/domains/splashpage/components/Banner/S4StartBanner.svelte';
   import type { Slide } from '$lib/domains/splashpage/components/Banner/types';
   import FeaturedCampaigns from '$shared/components/FeaturedCampaigns/FeaturedCampaigns.svelte';
   import { classNames } from '$shared/utils/classNames';
 
-  import S3ClaimBanner from './Banner/S3ClaimBanner.svelte';
   import S5StartBanner from './Banner/S5StartBanner.svelte';
   import Factions from './Factions/Factions.svelte';
   import { TrailblazerGuide } from './Guide';
@@ -31,11 +29,7 @@
 
   const slides: Slide[] = [
     {
-      component: S3ClaimBanner,
-      url: 'profile',
-    },
-    {
-      component: S4StartBanner,
+      component: S5StartBanner,
     },
   ];
 </script>
@@ -44,11 +38,8 @@
   <HeroSection />
   <div class={separator40pxClasses} />
 
-  <S5StartBanner />
-
-  <div class={separator40pxClasses} />
-
   <FeaturedCampaigns title="Featured campaigns" />
+  <div class={separator40pxClasses} />
 
   <BannerCarousel interval={5000} transitionDuration={700} transitionDistance={200} {slides} withDots />
 
