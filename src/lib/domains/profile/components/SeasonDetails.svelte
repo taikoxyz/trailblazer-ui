@@ -1,6 +1,4 @@
 <script lang="ts">
-  import { Icon } from '$shared/components/Icon';
-  import { Tooltip } from '$shared/components/Tooltip';
   import { activeSeason } from '$shared/stores/activeSeason';
   import { classNames } from '$shared/utils/classNames';
 
@@ -36,6 +34,11 @@
       start_date: 'March 17th 2025',
       end_date: 'June 16th 2025',
     },
+    {
+      id: 5,
+      start_date: 'June 16th 2025',
+      end_date: 'Sep 15th 2025',
+    },
   ];
 
   const getSeasonDetails = () => {
@@ -43,23 +46,12 @@
     const currentSeason = seasons.find((season) => season.id === $activeSeason);
     return currentSeason ? `${currentSeason.start_date} - ${currentSeason.end_date}` : 'N/A';
   };
-  const tooltipContentClasses = classNames('bg-white', 'text-black');
   $: $activeSeason && getSeasonDetails();
 </script>
 
 <div class={seasonSelectorWrapper}>
   <div class="font-bold f-row gap-1">
     <span>Season {$activeSeason}</span>
-
-    <Tooltip position="bottom">
-      <div class={tooltipContentClasses}>
-        <h2 class="text-black">Season selector soon</h2>
-        <div class="body-regular text-black">
-          We are working on a way to let you view your previous season's statistics. Stay tuned!
-        </div>
-      </div>
-    </Tooltip>
-    <Icon type="chevron-down" size={14} class="min-w-[20px] self-center" />
   </div>
   <span class="text-secondary-content text-sm">{getSeasonDetails()}</span>
 </div>
