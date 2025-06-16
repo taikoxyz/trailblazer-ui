@@ -12,11 +12,12 @@
 
   let pageInfo: PaginationInfo<UserLeaderboardItem>;
   let loading: boolean;
+  let season: number;
 
   const wrapperClasses = classNames('w-full', 'flex', 'justify-center', 'mt-[58px]');
   const buttonClasses = classNames('max-w-[280px]');
 
-  $: ({ pageInfo, loading } = $page.data);
+  $: ({ pageInfo, loading, season } = $page.data);
 
   const handleClick = () => {
     goto('/leaderboard/s2/dapp');
@@ -28,7 +29,7 @@
 </svelte:head>
 
 <Page>
-  <UserLeaderboard {pageInfo} {loading} season={2} />
+  <UserLeaderboard {pageInfo} {loading} {season} />
   <div class={wrapperClasses}>
     <ActionButton class={buttonClasses} priority="primary" on:click={handleClick} withArrow>
       {$t('buttons.leaderboard.dapp')}

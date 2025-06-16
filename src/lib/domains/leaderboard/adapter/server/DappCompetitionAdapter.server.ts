@@ -28,9 +28,7 @@ export class DappCompetitionAdapter {
     season: number,
   ): Promise<PaginationInfo<DappLeaderboardItem>> {
     try {
-      log('Fetching competition data on server', args, season, this.competitionUrl, this.edition);
       const endpoint = this.buildEndpoint(args);
-      log('endpoint', endpoint);
       const response = await fetchFromApi<DappLeaderboardPageApiResponse>(endpoint, season, {
         method: 'GET',
         headers: { 'x-api-key': `${API_KEY}` },

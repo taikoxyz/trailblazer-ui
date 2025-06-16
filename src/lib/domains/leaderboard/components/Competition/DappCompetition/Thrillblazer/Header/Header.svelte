@@ -252,6 +252,9 @@
 
   $: description = thrillblazerDetails ? thrillblazerDetails[edition]?.description : '';
   $: edition = parseInt($competitionSlug);
+  $: totalPrizePool = thrillblazerDetails ? thrillblazerDetails[edition]?.totalPrizePool : '150K TAIKO';
+
+  // thrillblazerDetails[edition]?.totalPrizePool ? thrillblazerDetails[edition]?.totalPrizePool : '150K TAIKO'
 
   onMount(async () => {
     thrillblazerDetails = await getThrillblazerDetails();
@@ -304,7 +307,9 @@
       {/if}
       <div class={prizePoolClasses}>
         <div class={prizePoolLabelClasses}>Prize Pool</div>
-        <div class={prizePoolValueClasses}>150K TAIKO</div>
+        <div class={prizePoolValueClasses}>
+          {totalPrizePool}
+        </div>
       </div>
       {#if $isMobile}
         <img class={lineReverseClasses} alt="line" src="/thrillblazers/pink-line-sm.svg" />

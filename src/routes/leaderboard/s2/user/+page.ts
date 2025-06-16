@@ -1,12 +1,12 @@
 import { browser } from '$app/environment';
 import { leaderboardConfig } from '$config';
 import { userLeaderboardService } from '$lib/domains/leaderboard/services/LeaderboardServiceInstances';
-import { currentUserLeaderboardUserEntry } from '$lib/domains/leaderboard/stores/userLeaderboard';
+import { clearUserLeaderboardStore } from '$lib/domains/leaderboard/stores/userLeaderboard';
 import type { UserLeaderboardItem } from '$lib/domains/leaderboard/types/user/types';
 import type { PaginationInfo } from '$lib/shared/dto/CommonPageApiResponse';
-import getConnectedAddress from '$shared/utils/getConnectedAddress';
 
 export const load = async () => {
+  const season = 2;
   let loading = true;
   let pageInfo: PaginationInfo<UserLeaderboardItem> = {
     page: 0,
@@ -17,11 +17,11 @@ export const load = async () => {
   };
 
   if (browser) {
+    // Clear the store first to ensure clean state
+    clearUserLeaderboardStore(season);
+
     try {
-      const page = await userLeaderboardService.getUserLeaderboardData(pageInfo, 2);
-      currentUserLeaderboardUserEntry.set(
-        await userLeaderboardService.getUserLeaderboardDataForAddress(2, getConnectedAddress()),
-      );
+      const page = await userLeaderboardService.getUserLeaderboardData(pageInfo, season);
       if (page) {
         pageInfo = page.pagination;
       }
@@ -34,5 +34,6 @@ export const load = async () => {
   return {
     pageInfo,
     loading,
+    season,
   };
 };

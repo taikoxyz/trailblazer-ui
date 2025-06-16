@@ -10,4 +10,5 @@ export type CompetitionInfo = {
   prizeSubtitle: string;
   prizes: Prize[];
   qualifyingPositions: number;
+  totalPrizePool?: string;
 };
