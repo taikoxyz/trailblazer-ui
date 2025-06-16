@@ -6,7 +6,7 @@ import type { UserLeaderboardItem } from '$lib/domains/leaderboard/types/user/ty
 import type { PaginationInfo } from '$lib/shared/dto/CommonPageApiResponse';
 
 export const load = async () => {
-  const season = 4;
+  const season = 5;
   let loading = true;
   const pageInfo: PaginationInfo<UserLeaderboardItem> = {
     page: 0,

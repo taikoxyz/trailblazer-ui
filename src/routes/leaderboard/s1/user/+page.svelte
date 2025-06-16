@@ -11,8 +11,9 @@
 
   let pageInfo: PaginationInfo<UserLeaderboardItem>;
   let loading: boolean;
+  let season: number;
 
-  $: ({ pageInfo, loading } = $page.data);
+  $: ({ pageInfo, loading, season } = $page.data);
 
   const handleClick = () => {
     goto('/leaderboard/s1/user');
@@ -24,7 +25,7 @@
 </svelte:head>
 
 <Page>
-  <UserLeaderboard {pageInfo} {loading} season={1} />
+  <UserLeaderboard {pageInfo} {loading} {season} />
 
   <div class="w-full flex justify-center mt-[58px]">
     <ActionButton class="max-w-[280px]" priority="primary" on:click={handleClick} withArrow>

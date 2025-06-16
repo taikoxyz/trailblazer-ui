@@ -30,6 +30,7 @@ const edition3: EditionDetails = {
 const edition4: EditionDetails = {
   prizePool: '700K',
   tooltip: true,
+  tabs: [{ slug: LiquidityCompetitionType.OG, name: 'OGs Edition' }],
   qualifyingPositions: 70,
 };
 

@@ -20,19 +20,19 @@
   $: ({ pageInfo, loading, season } = $page.data);
 
   const handleClick = () => {
-    goto('/leaderboard/s3/dapp');
+    goto('/leaderboard/liquidity/4');
   };
 </script>
 
 <svelte:head>
-  <title>Taiko Trailblazer - User Leaderboard</title>
+  <title>Taiko Trailblazer - Users Leaderboard</title>
 </svelte:head>
 
 <Page>
   <UserLeaderboard {pageInfo} {loading} {season} />
   <div class={wrapperClasses}>
     <ActionButton class={buttonClasses} priority="primary" on:click={handleClick} withArrow>
-      {$t('buttons.leaderboard.dapp')}
+      {$t('buttons.leaderboard.liquidity')}
     </ActionButton>
   </div>
 </Page>
