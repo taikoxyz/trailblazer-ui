@@ -93,10 +93,10 @@
     'items-center',
   );
 
-  $: smallHeaderImage = `/banner/binance-alpha/header-sm.png`;
-  $: mediumHeaderImage = `/banner/binance-alpha/header-md.png`;
-  $: largeHeaderImage = `/banner/binance-alpha/header-lg.png`;
-  $: xlargeHeaderImage = `/banner/binance-alpha/header-xl.png`;
+  $: smallHeaderImage = `/banner/s5startbanner/header-sm.png`;
+  $: mediumHeaderImage = `/banner/s5startbanner/header-md.png`;
+  $: largeHeaderImage = `/banner/s5startbanner/header-lg.png`;
+  $: xlargeHeaderImage = `/banner/s5startbanner/header-xl.png`;
 
   $: imageUrl = $isDesktop
     ? xlargeHeaderImage
@@ -108,6 +108,9 @@
 </script>
 
 <div class={wrapperClasses}>
+  {#if $activeSeason === 5}
+    <img src={imageUrl} alt="splash" class="w-full h-auto bg-top object-cover object-top" />
+  {/if}
   {#if $activeSeason === 4}
     <img src={imageUrl} alt="splash" class="w-full h-auto object-fit" />
   {/if}
@@ -134,16 +137,10 @@
     <div class={contentWrapperClasses}>
       <div class={innerContentClasses}>
         <div class={descriptionWrapperClasses}>
-          <div class={descriptionTextClasses}>
-            Trade TAIKO on Binance Alpha and get your share from the massive airdrop!
-          </div>
+          <div class={descriptionTextClasses}>Start earning Season 5 Points now</div>
         </div>
         <div class={buttonWrapperClasses}>
-          <ActionButton
-            priority="primary"
-            href="https://www.binance.com/en/support/announcement/detail/3d90cc107e3f486d91981a3c8cbc5d76"
-            class="font-bold"
-            withArrow>
+          <ActionButton priority="primary" href="/profile" class="font-bold" withArrow>
             {primaryButtonText}
           </ActionButton>
         </div>
