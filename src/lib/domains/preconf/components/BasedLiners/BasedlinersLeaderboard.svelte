@@ -6,7 +6,6 @@
   import { PointScore } from '$lib/domains/leaderboard/components/Template';
   import AbstractLeaderboard from '$lib/domains/leaderboard/components/Template/AbstractLeaderboard.template.svelte';
   import type { PaginationInfo } from '$shared/dto/CommonPageApiResponse';
-  import { activeSeason } from '$shared/stores/activeSeason';
   import { getLogger } from '$shared/utils/logger';
 
   import type { BasedlinerLeaderboard } from '../../dto/BasedlinerLeaderboard';
@@ -33,7 +32,7 @@
   $: totalItems = pageInfo?.total || 0;
 
   onMount(async () => {
-    if (browser && $activeSeason && pageInfo) {
+    if (browser && pageInfo) {
       loadLeaderboardData(pageInfo.page);
     }
   });
@@ -46,7 +45,7 @@
   <h1 class="text-left mt-[50px]">Leaderboard</h1>
   <AbstractLeaderboard
     headers={['No.', 'Wallet', '', 'Score']}
-    season={$activeSeason}
+    season={4}
     data={leaderboard.items}
     showTrophy={true}
     lastUpdated={new Date(leaderboard.lastUpdated)}
