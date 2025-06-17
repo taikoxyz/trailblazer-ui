@@ -24,8 +24,8 @@ export const POST: RequestHandler = async ({ request }) => {
     const transaction = await getPublicClient(wagmiConfig)?.getTransaction({ hash: txHash });
     const gasPrice = await getGasPrice(wagmiConfig);
 
-    if (!transaction || (transaction.gasPrice || 0n) <= gasPrice * 10n) {
-      // do not allow txs with gas limit below 1,000,000
+    // do not allow a transaction with a gas price lower than the current gas price - 10%
+    if (transaction?.gasPrice && gasPrice && transaction.gasPrice < (gasPrice * 9n) / 10n) {
       return new Response(JSON.stringify({ error: 'Invalid transaction or gas limit too low' }), { status: 400 });
     }
 
