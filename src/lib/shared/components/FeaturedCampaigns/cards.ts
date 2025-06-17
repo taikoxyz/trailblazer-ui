@@ -22,7 +22,7 @@ export const cards: CampaignCardType[] = [
     btn: {
       text: 'Earn now',
       external: false,
-      destination: '/leaderboard/thrillblazer/7',
+      destination: '/leaderboard/thrillblazers/7',
     },
     images: {
       sm: '/campaign/cards/sm/thrillblazer.png',
