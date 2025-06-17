@@ -1,23 +1,41 @@
 import { defineConfig } from '@wagmi/cli';
 import { actions } from '@wagmi/cli/plugins';
 import type { Abi, Address } from 'abitype';
-import { default as EventRegisterHeklaDeployment } from 'trailblazer-contracts/deployments/eventRegister/hekla.json' assert { type: 'json' };
-import { default as EventRegisterMainnetDeployment } from 'trailblazer-contracts/deployments/eventRegister/mainnet.json' assert { type: 'json' };
-import { default as ProfilePictureHeklaDeployment } from 'trailblazer-contracts/deployments/profile/hekla.json' assert { type: 'json' };
-import { default as ProfilePictureMainnetDeployment } from 'trailblazer-contracts/deployments/profile/mainnet.json' assert { type: 'json' };
-import { default as TaikoonHeklaDeployment } from 'trailblazer-contracts/deployments/taikoon/hekla.json' assert { type: 'json' };
-import { default as TaikoonMainnetDeployment } from 'trailblazer-contracts/deployments/taikoon/mainnet.json' assert { type: 'json' };
-import { default as S1ClaimHeklaDeployment } from 'trailblazer-contracts/deployments/trailblazers-airdrop/hekla.json' assert { type: 'json' };
-import { default as S1ClaimMainnetDeployment } from 'trailblazer-contracts/deployments/trailblazers-airdrop/mainnet.json' assert { type: 'json' };
-import { default as TrailblazerBadgesS2HeklaDeployment } from 'trailblazer-contracts/deployments/trailblazers-season-2/hekla.json' assert { type: 'json' };
-import { default as TrailblazerBadgesS2MainnetDeployment } from 'trailblazer-contracts/deployments/trailblazers-season-2/mainnet.json' assert { type: 'json' };
-import BadgeRecruitmentV2 from 'trailblazer-contracts/out/BadgeRecruitmentV2.sol/BadgeRecruitmentV2.json' assert { type: 'json' };
-import ERC20Airdrop from 'trailblazer-contracts/out/ERC20Airdrop.sol/ERC20Airdrop.json' assert { type: 'json' };
-import EventRegister from 'trailblazer-contracts/out/EventRegister.sol/EventRegister.json' assert { type: 'json' };
-import RegisterProfilePicture from 'trailblazer-contracts/out/RegisterProfilePicture.sol/RegisterProfilePicture.json' assert { type: 'json' };
-import TaikoonToken from 'trailblazer-contracts/out/TaikoonToken.sol/TaikoonToken.json' assert { type: 'json' };
-import TrailblazersBadgesS2 from 'trailblazer-contracts/out/TrailblazersBadgesS2.sol/TrailblazersBadgesS2.json' assert { type: 'json' };
-import TrailblazersS1BadgesV8 from 'trailblazer-contracts/out/TrailblazersS1BadgesV8.sol/TrailblazersBadgesV8.json' assert { type: 'json' };
+import { readFileSync } from 'fs';
+import { dirname, join } from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+function importJsonFile(filePath: string) {
+  try {
+    const absolutePath = join(__dirname, '/node_modules/trailblazer-contracts/', filePath);
+    return JSON.parse(readFileSync(absolutePath, 'utf8'));
+  } catch (error) {
+    console.error(`Error reading JSON file at ${filePath}:`, error);
+    throw error;
+  }
+}
+const EventRegisterHeklaDeployment = importJsonFile('/deployments/eventRegister/hekla.json');
+const EventRegisterMainnetDeployment = importJsonFile('/deployments/eventRegister/mainnet.json');
+const ProfilePictureHeklaDeployment = importJsonFile('/deployments/profile/hekla.json');
+const ProfilePictureMainnetDeployment = importJsonFile('/deployments/profile/mainnet.json');
+const TaikoonHeklaDeployment = importJsonFile('/deployments/taikoon/hekla.json');
+const TaikoonMainnetDeployment = importJsonFile('/deployments/taikoon/mainnet.json');
+const S1ClaimHeklaDeployment = importJsonFile('/deployments/trailblazers-airdrop/hekla.json');
+const S1ClaimMainnetDeployment = importJsonFile('/deployments/trailblazers-airdrop/mainnet.json');
+const TrailblazerBadgesS2HeklaDeployment = importJsonFile('/deployments/trailblazers-season-2/hekla.json');
+const TrailblazerBadgesS2MainnetDeployment = importJsonFile('/deployments/trailblazers-season-2/mainnet.json');
+const BadgeRecruitmentV2 = importJsonFile('/out/BadgeRecruitmentV2.sol/BadgeRecruitmentV2.json');
+const ERC20Airdrop = importJsonFile('/out/ERC20Airdrop.sol/ERC20Airdrop.json');
+const EventRegister = importJsonFile('/out/EventRegister.sol/EventRegister.json');
+const RegisterProfilePicture = importJsonFile('/out/RegisterProfilePicture.sol/RegisterProfilePicture.json');
+const TaikoonToken = importJsonFile('/out/TaikoonToken.sol/TaikoonToken.json');
+const TrailblazersBadgesS2 = importJsonFile('/out/TrailblazersBadgesS2.sol/TrailblazersBadgesS2.json');
+const TrailblazersS1BadgesV8 = importJsonFile('/out/TrailblazersS1BadgesV8.sol/TrailblazersBadgesV8.json');
+
+
 
 export default defineConfig({
   out: 'src/generated/abi/index.ts',
