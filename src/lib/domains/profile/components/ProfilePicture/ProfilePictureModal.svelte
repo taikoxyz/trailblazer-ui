@@ -171,7 +171,7 @@
     });
   }
 
-  $: activeFilter, updateFilteredPFPs();
+  $: (activeFilter, updateFilteredPFPs());
 
   onMount(async () => {
     const address = getConnectedAddress();

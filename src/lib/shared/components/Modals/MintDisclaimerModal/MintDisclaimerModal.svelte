@@ -38,7 +38,7 @@
 
   $: modal = undefined as HTMLDialogElement | undefined;
 
-  $: $mintDisclaimerModal, load();
+  $: ($mintDisclaimerModal, load());
 
   function load() {
     if ($mintDisclaimerModal && modal) {

@@ -16,7 +16,7 @@
     }
   }
 
-  $: $account, load();
+  $: ($account, load());
 </script>
 
 <Page>

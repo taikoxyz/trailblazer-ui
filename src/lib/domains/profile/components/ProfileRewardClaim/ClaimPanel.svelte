@@ -139,7 +139,7 @@
     nextStatus = next;
   }
 
-  $: state, loadTaikoStatus();
+  $: (state, loadTaikoStatus());
 </script>
 
 <div class={contentWrapperClasses}>

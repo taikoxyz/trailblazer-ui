@@ -85,7 +85,7 @@
     }
   }
 
-  $: filterText, onFilterTextChange();
+  $: (filterText, onFilterTextChange());
   $: filteredPartners =
     filterCategory === 'ALL CATEGORIES'
       ? entries
