@@ -95,7 +95,7 @@
 
   $: modal = undefined as HTMLDialogElement | undefined;
 
-  $: $doraHacksModal, load();
+  $: ($doraHacksModal, load());
 </script>
 
 {#if $doraHacksModal}
