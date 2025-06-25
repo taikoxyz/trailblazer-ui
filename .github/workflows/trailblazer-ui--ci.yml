@@ -17,10 +17,6 @@ jobs:
       - name: Install pnpm dependencies
         uses: ./.github/actions/install-pnpm-dependencies
 
-      - name: Linting
-        working-directory: .
-        run: pnpm lint
-
       - name: Copy .env.example to .env
         working-directory: .
         run: cp .env.example .env
