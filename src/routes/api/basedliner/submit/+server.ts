@@ -1,10 +1,43 @@
 import type { RequestHandler } from '@sveltejs/kit';
-import { getGasPrice, getPublicClient } from '@wagmi/core';
+import type { Config } from '@wagmi/core';
+import { getGasPrice, getTransaction } from '@wagmi/core';
+import type { Hex } from 'viem';
 
 import type { InternalAPIPayload } from '$lib/domains/preconf/dto/InternalAPIPayload';
 import { BasedLinerService } from '$lib/domains/preconf/service/server/BasedLinerService.server';
 import { TooManyRequestsError, TransactionTimedOutError } from '$shared/types/errors';
+import { getLogger } from '$shared/utils/logger';
 import { wagmiConfig } from '$shared/wagmi';
+
+const log = getLogger('BasedLinerSubmit');
+
+/**
+ * Utility function to retry getting a transaction with exponential backoff
+ */
+async function getTransactionWithRetry(config: Config, txHash: Hex, maxRetries = 5, baseDelay = 1000) {
+  let retryCount = 0;
+
+  while (retryCount < maxRetries) {
+    try {
+      log(`Attempting to get transaction ${txHash} (attempt ${retryCount + 1})`);
+      return await getTransaction(config, { hash: txHash });
+    } catch (error) {
+      retryCount++;
+      log(`Failed to get transaction ${txHash} (attempt ${retryCount}): ${(error as Error).message}`);
+      if (retryCount >= maxRetries) {
+        throw new Error(
+          `Transaction ${txHash} not available after ${maxRetries} attempts. Transaction may not be indexed yet.`,
+        );
+      }
+
+      // Exponential backoff: wait 1s, 2s, 4s, 8s, 16s
+      const delay = baseDelay * Math.pow(2, retryCount - 1);
+      await new Promise((resolve) => setTimeout(resolve, delay));
+    }
+  }
+
+  throw new Error(`Unable to retrieve transaction ${txHash}`);
+}
 
 // POST /api/basedliner/submit
 export const POST: RequestHandler = async ({ request }) => {
@@ -21,7 +54,7 @@ export const POST: RequestHandler = async ({ request }) => {
       return new Response(JSON.stringify({ diffInSeconds: 42 }), { status: 200 });
     }
 
-    const transaction = await getPublicClient(wagmiConfig)?.getTransaction({ hash: txHash });
+    const transaction = await getTransactionWithRetry(wagmiConfig, txHash);
     const gasPrice = await getGasPrice(wagmiConfig);
 
     // do not allow a transaction with a gas price lower than the current gas price - 10%
