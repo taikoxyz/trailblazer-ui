@@ -110,6 +110,11 @@
                 until July 10, 2025, to claim it. After that, the role will be closed until Season 4 rewards are ready
                 to be claimed.
               </p>
+
+              <p>
+                To keep things balanced, we’re also increasing the daily point limits for Tx Value and Transaction
+                Points. New limit will 100k base points (before multipliers) for each
+              </p>
             </div>
           </div>
           <div class={buttonWrapperClasses}>

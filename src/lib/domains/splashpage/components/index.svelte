@@ -7,6 +7,7 @@
   import { classNames } from '$shared/utils/classNames';
 
   import GuildBanner from './Banner/GuildBanner.svelte';
+  import S5StartBanner from './Banner/S5StartBanner.svelte';
   import Factions from './Factions/Factions.svelte';
   import { TrailblazerGuide } from './Guide';
   import HeroSection from './HeroSection/HeroSection.svelte';
@@ -29,8 +30,9 @@
   const separator120pxClasses = classNames(separatorBaseClasses, 'h-[120px]');
 
   const slides: Slide[] = [
+    { component: GuildBanner },
     {
-      component: GuildBanner,
+      component: S5StartBanner,
     },
   ];
 </script>
