@@ -3,9 +3,10 @@
   import BannerCarousel from '$lib/domains/splashpage/components/Banner/BannerCarousel.svelte';
   import type { Slide } from '$lib/domains/splashpage/components/Banner/types';
   import FeaturedCampaigns from '$shared/components/FeaturedCampaigns/FeaturedCampaigns.svelte';
+  import { GuildModal } from '$shared/components/Modals/GuildModal';
   import { classNames } from '$shared/utils/classNames';
 
-  import S5StartBanner from './Banner/S5StartBanner.svelte';
+  import GuildBanner from './Banner/GuildBanner.svelte';
   import Factions from './Factions/Factions.svelte';
   import { TrailblazerGuide } from './Guide';
   import HeroSection from './HeroSection/HeroSection.svelte';
@@ -29,7 +30,7 @@
 
   const slides: Slide[] = [
     {
-      component: S5StartBanner,
+      component: GuildBanner,
     },
   ];
 </script>
@@ -53,3 +54,5 @@
 
   <EcosystemSection />
 </div>
+
+<GuildModal />
