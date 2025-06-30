@@ -28,7 +28,7 @@ export class BasedLinerAdapter {
         body: JSON.stringify(payload),
       });
     } catch (error) {
-      console.error('Error submitting stage', error);
+      console.error('Error submitting stage', error, args);
 
       // Check if it's a 429 Too Many Requests error
       if (error instanceof Error && error.message.includes('API Error: 429')) {
