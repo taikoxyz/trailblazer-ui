@@ -73,7 +73,7 @@ export const POST: RequestHandler = async ({ request }) => {
       });
       return new Response(JSON.stringify({ diffInSeconds: diffInMilliseconds / 1000 }), { status: 200 });
     } catch (error) {
-      console.error('Error submitting phase:', error);
+      console.error('Error submitting phase:', error, wallet, txHash, phase);
 
       // Handle specific timeout errors with appropriate status code and message
       if (error instanceof TransactionTimedOutError) {
