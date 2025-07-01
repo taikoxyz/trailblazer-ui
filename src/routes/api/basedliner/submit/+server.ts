@@ -14,7 +14,7 @@ const log = getLogger('BasedLinerSubmit');
 /**
  * Utility function to retry getting a transaction with exponential backoff
  */
-async function getTransactionWithRetry(config: Config, txHash: Hex, maxRetries = 5, baseDelay = 1000) {
+async function getTransactionWithRetry(config: Config, txHash: Hex, maxRetries = 7, baseDelay = 1000) {
   let retryCount = 0;
 
   while (retryCount < maxRetries) {
