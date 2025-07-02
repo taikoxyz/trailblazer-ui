@@ -7,7 +7,6 @@ import { fetchFromApi } from '$shared/services/api/fetchClient';
 import { TooManyRequestsError, TransactionTimedOutError } from '$shared/types/errors';
 import { chainId } from '$shared/utils/chain';
 import { getLogger } from '$shared/utils/logger';
-import { wagmiConfig } from '$shared/wagmi';
 import { basedLinersServerConfig } from '$shared/wagmi/server';
 
 import { BasedLinerAdapter } from '../../adapter/server/BasedLinerAdapter.server';
@@ -86,7 +85,7 @@ export class BasedLinerService {
     let blockNumber;
     try {
       // Wait for transaction receipt with 5-minute timeout, following the same pattern as pendingTransactions.ts
-      receipt = await waitForTransactionReceipt(wagmiConfig, {
+      receipt = await waitForTransactionReceipt(basedLinersServerConfig, {
         hash: txHash,
         chainId,
         timeout: TRANSACTION_RECEIPT_TIMEOUT,

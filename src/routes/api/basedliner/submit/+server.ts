@@ -8,25 +8,35 @@ import { BasedLinerService } from '$lib/domains/preconf/service/server/BasedLine
 import { TooManyRequestsError, TransactionTimedOutError } from '$shared/types/errors';
 import { getLogger } from '$shared/utils/logger';
 import { wagmiConfig } from '$shared/wagmi';
+import { basedLinersServerConfig } from '$shared/wagmi/server';
 
 const log = getLogger('BasedLinerSubmit');
 
 /**
  * Utility function to retry getting a transaction with exponential backoff
+ * Falls back to regular wagmi config on the last attempt if basedLiners config fails
  */
-async function getTransactionWithRetry(config: Config, txHash: Hex, maxRetries = 7, baseDelay = 1000) {
+async function getTransactionWithRetry(
+  config: Config = basedLinersServerConfig,
+  txHash: Hex,
+  maxRetries = 7,
+  baseDelay = 1000,
+) {
   let retryCount = 0;
-
+  if (!txHash) {
+    throw new Error('Transaction hash is required');
+  }
   while (retryCount < maxRetries) {
     try {
-      log(`Attempting to get transaction ${txHash} (attempt ${retryCount + 1})`);
-      return await getTransaction(config, { hash: txHash });
+      // Use basedLinersServerConfig for first attempts, fallback to passed config on last attempt
+      const configToUse = retryCount === maxRetries - 1 ? wagmiConfig : config;
+      return await getTransaction(configToUse, { hash: txHash });
     } catch (error) {
       retryCount++;
       log(`Failed to get transaction ${txHash} (attempt ${retryCount}): ${(error as Error).message}`);
       if (retryCount >= maxRetries) {
         throw new Error(
-          `Transaction ${txHash} not available after ${maxRetries} attempts. Transaction may not be indexed yet.`,
+          `Transaction ${txHash} not available after ${maxRetries} attempts using both basedLiners and fallback RPCs. Transaction may not be indexed yet.`,
         );
       }
 
@@ -54,8 +64,8 @@ export const POST: RequestHandler = async ({ request }) => {
       return new Response(JSON.stringify({ diffInSeconds: 42 }), { status: 200 });
     }
 
-    const transaction = await getTransactionWithRetry(wagmiConfig, txHash);
-    const gasPrice = await getGasPrice(wagmiConfig);
+    const transaction = await getTransactionWithRetry(basedLinersServerConfig, txHash);
+    const gasPrice = await getGasPrice(basedLinersServerConfig);
 
     // do not allow a transaction with a gas price lower than the current gas price - 10%
     if (transaction?.gasPrice && gasPrice && transaction.gasPrice < (gasPrice * 9n) / 10n) {
