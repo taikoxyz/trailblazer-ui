@@ -67,6 +67,7 @@
   const buttonWrapperClasses = classNames(
     'w-full',
     'py-[40px]',
+    'gap-[16px]',
     'md:col-span-2',
     'h-max',
     'px-[24px]',
@@ -108,7 +109,6 @@
     'transition-all',
   );
   const closeButtonIconClasses = classNames('absolute', 'left-[11px]', 'top-[11px]');
-  const contentTitleClasses = classNames('font-clash-grotesk', 'text-[25px]/[42px]', 'text-grey-10');
 
   const textWrapperClasses = classNames('flex', 'w-full', 'flex-col', 'gap-[24px]', 'pb-[40px]');
   function closeModal() {
@@ -140,7 +140,7 @@
   <div transition:fade class={modalClasses}>
     <div class={modalContentWrapperClasses}>
       <div class={modalTitleClasses}>
-        <span>What's next?</span>
+        <span>Taiko Status</span>
 
         <button class={closeButtonClasses} on:click={closeModal}>
           <Icon type="x-close" class={closeButtonIconClasses} size={24} />
@@ -151,8 +151,6 @@
       <div>
         <div class={bodyWrapperClasses}>
           <div class={textWrapperClasses}>
-            <div class={contentTitleClasses}>Claim Complete, Status Updated!</div>
-
             <div>
               Holding TAIKO tokens boosts your Status. The more you hold, the more perks you unlock. Check your Taiko
               Status—you could be just steps away from a new level and unlocking fresh rewards and roles.
@@ -196,9 +194,15 @@
 
           <div class={buttonWrapperClasses}>
             <ActionButton
-              withArrow
               class="md:max-w-[300px] font-[500]"
               href="https://taiko.mirror.xyz/vXGo-HofGENNl3J9ObyGponpAoIqAtNyQG_cKKlHeC4"
+              target="_blank"
+              priority="secondary">Learn More</ActionButton>
+
+            <ActionButton
+              withArrow
+              class="md:max-w-[300px] font-[500]"
+              href="https://takeoff.taiko.xyz/status"
               target="_blank"
               priority="primary">Taiko Status</ActionButton>
           </div>

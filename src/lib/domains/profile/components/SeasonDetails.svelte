@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { TaikoStatusModalStore } from '$lib/domains/taiko-status/stores/TaikoStatusModalStore';
+  import ActionButton from '$shared/components/Button/ActionButton.svelte';
   import { activeSeason } from '$shared/stores/activeSeason';
   import { classNames } from '$shared/utils/classNames';
 
@@ -54,4 +56,7 @@
     <span>Season {$activeSeason}</span>
   </div>
   <span class="text-secondary-content text-sm">{getSeasonDetails()}</span>
+  <div>
+    <ActionButton on:click={() => TaikoStatusModalStore.set(true)} priority="primary">Taiko Status</ActionButton>
+  </div>
 </div>
