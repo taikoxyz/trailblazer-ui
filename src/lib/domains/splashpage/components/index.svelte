@@ -3,7 +3,6 @@
   import BannerCarousel from '$lib/domains/splashpage/components/Banner/BannerCarousel.svelte';
   import type { Slide } from '$lib/domains/splashpage/components/Banner/types';
   import FeaturedCampaigns from '$shared/components/FeaturedCampaigns/FeaturedCampaigns.svelte';
-  import { GuildModal } from '$shared/components/Modals/GuildModal';
   import { classNames } from '$shared/utils/classNames';
 
   import GuildBanner from './Banner/GuildBanner.svelte';
@@ -56,5 +55,3 @@
 
   <EcosystemSection />
 </div>
-
-<GuildModal />
