@@ -71,7 +71,7 @@
         </div>
       </div>
       <div
-        class="flex flex-col lg:flex-row gap-8 lg:gap-16 grid-cols-1 bg-neutral lg:grid-cols-4 col-span-5 lg:col-span-4 w-full h-full rounded-2xl box-border order-3 bg-elevated-background px-[45px] py-[40px]">
+        class="relative pb-[60px] flex flex-col lg:flex-row gap-8 lg:gap-16 grid-cols-1 bg-neutral lg:grid-cols-4 col-span-5 lg:col-span-4 w-full h-full rounded-2xl box-border order-3 bg-elevated-background px-[45px] py-[40px]">
         <div class="flex flex-col gap-4">
           <div class="body-bold">ABOUT</div>
           <a href="https://taiko.mirror.xyz/" class="body-regular text-secondary-content hover:text-primary-content"
@@ -99,7 +99,26 @@
           <a href="https://www.taikoscan.io/" class="body-regular text-secondary-content hover:text-primary-content"
             >Explorer</a>
         </div>
-        <div class="col-span-5 lg:col-span-1 opacity-25 mt-auto ml-auto text-right body-regular order-7">
+        <div class="flex flex-col gap-4">
+          <div class="body-bold">DISCLAIMERS</div>
+          <ul class="body-regular text-secondary-content list-disc pl-4">
+            <li>
+              If the number of the same points exceeds the percentile, we reserve the right to divide up the total
+              reward of that tier among all the people in that same tier
+            </li>
+            <li>Taiko reserves the right to modify the above-mentioned conditions</li>
+            <li>
+              Sybil detection will be applied throughout the season. Taiko reserves the right to blacklist any address
+              from the Trailblazers program
+            </li>
+            <li>
+              Only transaction/contract interactions with the contracts in the dApp leaderboard will be considered to
+              reduce spam
+            </li>
+          </ul>
+        </div>
+        <div
+          class="absolute bottom-[16px] right-[32px] col-span-5 lg:col-span-1 opacity-25 mt-auto ml-auto text-right body-regular order-7">
           © {new Date().getFullYear()} Taiko Labs
         </div>
       </div>

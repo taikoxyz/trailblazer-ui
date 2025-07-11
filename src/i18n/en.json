@@ -439,6 +439,27 @@
     {
       "items": [
         {
+          "question": "What happens if many participants reach the same point threshold in a reward tier?",
+          "answer": "If the number of the same points exceeds the percentile, we reserve the right to divide up the total reward of that tier among all the people in that same tier."
+        },
+        {
+          "question": "Can the reward program conditions change over time?",
+          "answer": "Taiko reserves the right to modify the above-mentioned conditions."
+        },
+        {
+          "question": "How does Taiko handle Sybil attacks or fraudulent participation?",
+          "answer": "Sybil detection will be applied throughout the season. Taiko reserves the right to blacklist any address from the Trailblazers program."
+        },
+        {
+          "question": "Which interactions are counted toward the leaderboard points?",
+          "answer": "Only transaction/contract interactions with the contracts in the dApp leaderboard will be considered to reduce spam."
+        }
+      ],
+      "section": "Disclaimers"
+    },
+    {
+      "items": [
+        {
           "answer": "Each season lasts about 12 weeks.",
           "question": "How long does a season last?"
         },
