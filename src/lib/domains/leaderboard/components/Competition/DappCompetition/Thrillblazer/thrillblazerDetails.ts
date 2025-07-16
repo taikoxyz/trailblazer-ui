@@ -161,7 +161,28 @@ const thrillblazerDetailsPromise = (async () => {
       qualifyingPositions: 3,
       totalPrizePool: get(t)('leaderboard.thrillblazers.edition7.prize_breakdown.total'),
     },
-    8: createEdition({ editionNumber: 8, useDefault: true }),
+    8: {
+      title: '',
+      description: get(t)(`leaderboard.thrillblazers.edition8.description`),
+      prizeTitle: get(t)('leaderboard.gaming.prize.1'),
+      prizeSubtitle: '',
+      prizes: [
+        {
+          image: '/first.svg',
+          amount: get(t)(`leaderboard.thrillblazers.edition8.prize_breakdown.first.amount`),
+        },
+        {
+          image: '/second.svg',
+          amount: get(t)(`leaderboard.thrillblazers.edition8.prize_breakdown.second.amount`),
+        },
+        {
+          image: '/third.svg',
+          amount: get(t)(`leaderboard.thrillblazers.edition8.prize_breakdown.third.amount`),
+        },
+      ],
+      qualifyingPositions: 3,
+      totalPrizePool: get(t)('leaderboard.thrillblazers.edition8.prize_breakdown.total'),
+    },
     9: createEdition({ editionNumber: 9, useDefault: true }),
   };
 })();
