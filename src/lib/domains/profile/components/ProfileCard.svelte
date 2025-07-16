@@ -3,7 +3,7 @@
   import { zeroAddress } from 'viem';
 
   import { userProfile } from '$lib/domains/profile/stores/profileStore';
-  import { type TaikoStatusInfo,TaikoStatusService } from '$lib/domains/taiko-status/service/TaikoStatusService';
+  import { type TaikoStatusInfo, TaikoStatusService } from '$lib/domains/taiko-status/service/TaikoStatusService';
   import { openTaikoStatusBonusModal } from '$lib/domains/taiko-status/stores/TaikoStatusModalStore';
   import { Spinner } from '$lib/shared/components';
   import { formatNumbers } from '$lib/shared/utils';
