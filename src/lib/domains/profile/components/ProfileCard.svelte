@@ -1,5 +1,10 @@
 <script lang="ts">
+  import { onMount } from 'svelte';
+  import { zeroAddress } from 'viem';
+
   import { userProfile } from '$lib/domains/profile/stores/profileStore';
+  import { type TaikoStatusInfo,TaikoStatusService } from '$lib/domains/taiko-status/service/TaikoStatusService';
+  import { openTaikoStatusBonusModal } from '$lib/domains/taiko-status/stores/TaikoStatusModalStore';
   import { Spinner } from '$lib/shared/components';
   import { formatNumbers } from '$lib/shared/utils';
   import { classNames } from '$shared/utils/classNames';
@@ -10,8 +15,6 @@
 
   export let loading: boolean;
   export let isSelfProfile: boolean;
-
-  let profile;
 
   $: profile = $userProfile;
   $: displayedScore = profile?.userStats?.score || 0;
@@ -76,6 +79,27 @@
   const rankWrapperClasses = classNames('flex', 'md:items-start', 'items-center', 'flex-col', 'gap-[10px]', 'w-full');
 
   const spinnerContainerClasses = classNames('flex', 'h-full', 'w-full', 'items-center', 'justify-center');
+
+  let currentStatus: TaikoStatusInfo | null = null;
+
+  async function loadTaikoStatus() {
+    const address = $userProfile?.address || zeroAddress;
+    const service = new TaikoStatusService();
+
+    const { current } = await service.getTaikoStatus(address);
+
+    currentStatus = current;
+  }
+
+  const toggleStatus = (event: Event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    openTaikoStatusBonusModal();
+  };
+
+  onMount(() => {
+    loadTaikoStatus();
+  });
 </script>
 
 <div class={cardClasses}>
@@ -93,7 +117,13 @@
       <!-- Name (mobile)-->
       <div class={mobileNameWrapperClasses}>
         <ProfileName {profile} />
+        <button type="button" on:click={toggleStatus} class="flex my-5">
+          <img src={currentStatus?.icon} class="w-[40px] h-[40px]" alt="Profile" />
+        </button>
       </div>
+      <button type="button" on:click={toggleStatus} class="md:absolute md:right-[20px] md:top-[35px] hidden md:flex">
+        <img src={currentStatus?.icon} class="w-[60px] h-[60px]" alt="Profile" />
+      </button>
       <!-- Points -->
       <div class={pointsWrapperClasses}>
         <div class="f-col md:f-row items-center gap-2">
@@ -104,7 +134,7 @@
       </div>
 
       <div class={rankWrapperClasses}>
-        <ProfileStats {profile} />
+        <ProfileStats {profile} {currentStatus} />
       </div>
     </div>
   {:else}
