@@ -992,6 +992,30 @@
         }
       },
       "edition7": {
+        "description": "Thrillblazer Edition 7 launches June 16th. Calling all gaming and SocialFi dApps: Blaze new trails, fuel Taiko's momentum, and seize your chance for legendary rewards!",
+        "ended": {
+          "description": "Our journey concluded on July 16th, 2025. Congratulations to the winners!",
+          "title": "Journey ended"
+        },
+        "prize_breakdown": {
+          "first": {
+            "amount": "50k"
+          },
+          "second": {
+            "amount": "20k"
+          },
+          "third": {
+            "amount": "5k"
+          },
+          "total": "75k TAIKO Tokens"
+        }
+      },
+      "edition8": {
+        "description": "Thrillblazer Edition 8 launches July 16th. Calling all gaming and SocialFi dApps: Blaze new trails, fuel Taiko's momentum, and seize your chance for legendary rewards!",
+        "ended": {
+          "description": "Our journey concluded on August 16th, 2025. Congratulations to the winners!",
+          "title": "Journey ended"
+        },
         "prize_breakdown": {
           "first": {
             "amount": "50k"
