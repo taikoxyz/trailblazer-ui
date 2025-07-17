@@ -2,7 +2,7 @@ import type { CampaignCardType } from './types';
 
 export const cards: CampaignCardType[] = [
   {
-    title: 'Weekly Staus Points',
+    title: 'Weekly Bonus Points',
     text: 'You can earn weekly trailblazer points by simply holding your TAIKO tokens!',
     btn: {
       text: 'Learn more',
