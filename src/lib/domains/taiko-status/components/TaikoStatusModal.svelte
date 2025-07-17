@@ -4,49 +4,53 @@
   import { ActionButton } from '$shared/components/Button';
   import { Icon } from '$shared/components/Icon';
   import { classNames } from '$shared/utils/classNames';
+  import { closeOnEscapeOrOutsideClick } from '$shared/utils/customActions';
   import formatTaikoStatusPoints from '$shared/utils/formatTaikoStatusPoints';
   import getConnectedAddress from '$shared/utils/getConnectedAddress';
 
   import { type TaikoStatusInfo, TaikoStatusService } from '../service/TaikoStatusService';
-  import { TaikoStatusModalStore } from '../stores/TaikoStatusModalStore';
+  import { TaikoStatusModalStore, TaikoStatusModalType } from '../stores/TaikoStatusModalStore';
 
-  const modalClasses = classNames(
-    'z-[9999]',
-    'p-[24px]',
-    'fixed',
-    'w-[100vw]',
-    'h-[100vh]',
-    'bg-black/50',
-    'flex',
-    'justify-center',
-    'items-stretch',
-    'md:items-center',
-    'top-0',
-    'left-0',
-    'overflow-y-scroll',
-  );
   const modalContentWrapperClasses = classNames(
     'rounded-[40px]',
     'h-max',
+    'max-h-[100vh]',
+    'overflow-y-auto',
     'font-clash-grotesk',
     'p-0',
     'bg-grey-700',
-    'md:w-[748px]',
+    'w-full',
+    'max-w-[748px]',
+    'mx-auto',
+    'relative',
   );
   const modalTitleClasses = classNames(
     'pt-6',
-    'px-[24px]',
+    'px-[16px]',
+    'sm:px-[24px]',
     'flex',
     'justify-between',
-    'items-center',
+    'items-start',
+    'sm:items-center',
     'w-full',
     'm-0',
-    'text-[24px]/[95%]',
+    'text-[18px]/[24px]',
+    'sm:text-[24px]/[95%]',
+    'gap-3',
   );
-  const bodyWrapperClasses = classNames('text-grey-200', 'font-public-sans', 'px-[24px]', 'flex', 'flex-col');
+  const bodyWrapperClasses = classNames(
+    'text-grey-200',
+    'font-public-sans',
+    'px-[16px]',
+    'sm:px-[24px]',
+    'flex',
+    'flex-col',
+    'pb-[16px]',
+    'sm:pb-[24px]',
+  );
 
-  TaikoStatusModalStore.subscribe(async (open) => {
-    if (open) {
+  TaikoStatusModalStore.subscribe(async (modalState) => {
+    if (modalState.isOpen && modalState.type !== TaikoStatusModalType.NONE) {
       await loadTaikoStatus();
     }
   });
@@ -65,13 +69,17 @@
   }
 
   const buttonWrapperClasses = classNames(
-    'w-full',
-    'py-[40px]',
+    'py-[16px]',
+    'sm:py-[20px]',
     'md:col-span-2',
     'h-max',
-    'px-[24px]',
+    'px-[16px]',
+    'sm:px-[24px]',
     'flex',
-    'justify-end',
+    'flex-col',
+    'sm:flex-row',
+    'gap-3',
+    'justify-between',
   );
 
   const statusProgressWrapperClasses = classNames(
@@ -81,6 +89,10 @@
     'bg-grey-800',
     'gap-[16px]',
     'rounded-[30px]',
+    'px-[16px]',
+    'sm:px-[24px]',
+    'py-[20px]',
+    'sm:py-[30px]',
   );
 
   const statusProgressLabelClasses = classNames(
@@ -95,55 +107,107 @@
   const taikoStatusProgressClasses = classNames('progress', 'w-full', 'progress-primary', 'h-[16px]');
 
   const closeButtonClasses = classNames(
-    'w-[50px]',
-    'h-[50px]',
+    'w-[40px]',
+    'h-[40px]',
+    'sm:w-[50px]',
+    'sm:h-[50px]',
     'bg-grey-600',
     'rounded-full',
     'text-grey-100',
     'flex',
-    'relative',
+    'flex-shrink-0',
     'items-center',
     'justify-center',
     'hover:bg-grey-900',
     'transition-all',
   );
-  const closeButtonIconClasses = classNames('absolute', 'left-[11px]', 'top-[11px]');
-  const contentTitleClasses = classNames('font-clash-grotesk', 'text-[25px]/[42px]', 'text-grey-10');
+  const closeButtonIconClasses = classNames('fill-primary-icon');
+  const contentTitleClasses = classNames(
+    'font-clash-grotesk',
+    'text-[20px]/[32px]',
+    'sm:text-[25px]/[42px]',
+    'text-grey-10',
+  );
 
-  const textWrapperClasses = classNames('flex', 'w-full', 'flex-col', 'gap-[24px]', 'pb-[40px]');
+  const textWrapperClasses = classNames(
+    'flex',
+    'w-full',
+    'flex-col',
+    'gap-[16px]',
+    'sm:gap-[24px]',
+    'pb-[20px]',
+    'sm:pb-[40px]',
+  );
+
   function closeModal() {
-    TaikoStatusModalStore.set(false);
+    $TaikoStatusModalStore.isOpen = false;
   }
 
   const infoPanelClasses = classNames(
     'bg-grey-800',
     'w-full',
     'flex',
-    'gap-[20px]',
-    'rounded-[30px]',
-    'px-[24px]',
-    'py-[30px]',
+    'gap-[12px]',
+    'sm:gap-[20px]',
+    'rounded-[20px]',
+    'sm:rounded-[30px]',
+    'px-[16px]',
+    'sm:px-[24px]',
+    'py-[20px]',
+    'sm:py-[30px]',
   );
 
   const dataWrapperClasses = classNames('grid', 'grid-cols-1', 'md:grid-cols-2', 'gap-[16px]');
 
   const wideInfoPanelClasses = classNames(infoPanelClasses, 'md:col-span-2');
 
-  const infoPanelValuesClasses = classNames();
+  const infoPanelValuesClasses = classNames('f-col', 'w-full');
 
   const infoPanelValueClasses = classNames('font-clash-grotesk', 'text-[25px]/[42px]', 'text-grey-10');
 
   const infoPanelValueLabelClasses = classNames('font-[700]', 'text-grey-500', 'text-[16px]/[24px]');
+
+  const tableWrapperClasses = classNames('mt-6', 'overflow-x-auto');
+  const tableClasses = classNames(
+    'w-full',
+    'border-collapse',
+    'bg-grey-900',
+    'rounded-lg',
+    'overflow-hidden',
+    'cursor-pointer',
+  );
+  const tableHeaderClasses = classNames('border-b-2', 'border-gray-800', 'bg-grey-700');
+  const tableHeaderCellClasses = classNames(
+    'text-left',
+    'py-3',
+    'px-4',
+    'font-semibold',
+    'text-grey-200',
+    'border-b',
+    'border-grey-700',
+  );
+  const tableRowClasses = classNames('border-b', 'border-grey-700');
+  const tableRowHoverClasses = classNames(tableRowClasses, 'hover:bg-neutral-background');
+  const tableCellClasses = classNames('py-3', 'px-4', 'text-grey-200');
+  const dialogId = crypto.randomUUID();
+  // Reactive variables for modal config
+  $: modalState = $TaikoStatusModalStore;
+  $: isModalOpen = modalState.isOpen && modalState.type !== TaikoStatusModalType.NONE;
 </script>
 
-{#if $TaikoStatusModalStore && currentStatus && nextStatus}
-  <div transition:fade class={modalClasses}>
+{#if isModalOpen && currentStatus && nextStatus}
+  <dialog
+    id={dialogId}
+    class:modal-open={isModalOpen}
+    use:closeOnEscapeOrOutsideClick={{ enabled: isModalOpen, callback: closeModal, uuid: dialogId }}
+    transition:fade
+    class="modal">
     <div class={modalContentWrapperClasses}>
       <div class={modalTitleClasses}>
-        <span>What's next?</span>
+        <h1 class="text-left">Taiko Status meets Trailblazers</h1>
 
         <button class={closeButtonClasses} on:click={closeModal}>
-          <Icon type="x-close" class={closeButtonIconClasses} size={24} />
+          <Icon type="x-close" class={closeButtonIconClasses} size={20} />
         </button>
       </div>
 
@@ -151,13 +215,17 @@
       <div>
         <div class={bodyWrapperClasses}>
           <div class={textWrapperClasses}>
-            <div class={contentTitleClasses}>Claim Complete, Status Updated!</div>
-
-            <div>
-              Holding TAIKO tokens boosts your Status. The more you hold, the more perks you unlock. Check your Taiko
+            <p>
+              <b>Holding TAIKO tokens boosts your Status. The more you hold, the more perks you unlock.</b> Check your Taiko
               Status—you could be just steps away from a new level and unlocking fresh rewards and roles.
-            </div>
+            </p>
+            <p>
+              As part of Taiko Takeoff, supported projects will create opportunities, such as airdrops, for the Taiko
+              community. This is where Taiko Status comes into play.
+            </p>
           </div>
+
+          <!-- Status Information - Always Visible (Non-collapsible) -->
           <div class={dataWrapperClasses}>
             <div class={infoPanelClasses}>
               <img src="/taiko-status/profile.png" class="w-[60px] h-[60px]" alt="Profile" />
@@ -194,16 +262,102 @@
             </div>
           </div>
 
+          <div class={classNames('divider', 'mt-6')}></div>
+          <div class={wideInfoPanelClasses}>
+            <div class={textWrapperClasses}>
+              <div class={contentTitleClasses}>Weekly bonus points</div>
+
+              <!-- Weekly Bonus Points Section -->
+              <div class="flex gap-[12px] sm:gap-[20px] items-start mb-6">
+                <img src="/icons/gift.svg" class="size-[40px] flex-shrink-0" alt="Weekly Bonus" />
+                <div class="flex-1">
+                  <div class="text-grey-200 mb-4">
+                    Each week you can earn additional Trailblazer Points by simply holding TAIKO. The exact numbers are
+                    subject to change but the table below gives you a rough range of what you can expect.
+                  </div>
+
+                  <div class={tableWrapperClasses}>
+                    <table class={tableClasses}>
+                      <thead>
+                        <tr class={tableHeaderClasses}>
+                          <th class={tableHeaderCellClasses}>Rank</th>
+                          <th
+                            class="hidden sm:table-cell text-left py-3 px-2 sm:px-4 font-semibold text-grey-200 border-b border-grey-700"
+                            >Status points range</th>
+                          <th class={classNames(tableHeaderCellClasses, 'text-center', 'px-2', 'sm:px-4')}>Min</th>
+                          <th class={classNames(tableHeaderCellClasses, 'text-center', 'px-2', 'sm:px-4')}>Max</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr class={tableRowHoverClasses}>
+                          <td class={tableCellClasses}>
+                            <div class="font-semibold">Bronze</div>
+                            <div class="text-xs text-grey-400 sm:hidden">1-5k</div>
+                          </td>
+                          <td class="hidden sm:table-cell py-3 px-2 sm:px-4 text-grey-200">1-5k</td>
+                          <td class={classNames(tableCellClasses, 'text-center', 'px-2', 'sm:px-4')}>350k</td>
+                          <td class={classNames(tableCellClasses, 'text-center', 'px-2', 'sm:px-4')}>500k</td>
+                        </tr>
+                        <tr class={tableRowHoverClasses}>
+                          <td class={tableCellClasses}>
+                            <div class="font-semibold">Silver</div>
+                            <div class="text-xs text-grey-400 sm:hidden">5-25k</div>
+                          </td>
+                          <td class="hidden sm:table-cell py-3 px-2 sm:px-4 text-grey-200">5-25k</td>
+                          <td class={classNames(tableCellClasses, 'text-center', 'px-2', 'sm:px-4')}>500k</td>
+                          <td class={classNames(tableCellClasses, 'text-center', 'px-2', 'sm:px-4')}>700k</td>
+                        </tr>
+                        <tr class={tableRowHoverClasses}>
+                          <td class={tableCellClasses}>
+                            <div class="font-semibold">Gold</div>
+                            <div class="text-xs text-grey-400 sm:hidden">25-100k</div>
+                          </td>
+                          <td class="hidden sm:table-cell py-3 px-2 sm:px-4 text-grey-200">25-100k</td>
+                          <td class={classNames(tableCellClasses, 'text-center', 'px-2', 'sm:px-4')}>700k</td>
+                          <td class={classNames(tableCellClasses, 'text-center', 'px-2', 'sm:px-4')}>850k</td>
+                        </tr>
+                        <tr class={tableRowHoverClasses}>
+                          <td class={tableCellClasses}>
+                            <div class="font-semibold">Platinum</div>
+                            <div class="text-xs text-grey-400 sm:hidden">100-250k</div>
+                          </td>
+                          <td class="hidden sm:table-cell py-3 px-2 sm:px-4 text-grey-200">100-250k</td>
+                          <td class={classNames(tableCellClasses, 'text-center', 'px-2', 'sm:px-4')}>850k</td>
+                          <td class={classNames(tableCellClasses, 'text-center', 'px-2', 'sm:px-4')}>1,000k</td>
+                        </tr>
+                        <tr class={tableRowHoverClasses}>
+                          <td class={tableCellClasses}>
+                            <div class="font-semibold">Based</div>
+                            <div class="text-xs text-grey-400 sm:hidden">250k+</div>
+                          </td>
+                          <td class="hidden sm:table-cell py-3 px-2 sm:px-4 text-grey-200">250k+</td>
+                          <td class={classNames(tableCellClasses, 'text-center', 'px-2', 'sm:px-4')}>1,000k</td>
+                          <td class={classNames(tableCellClasses, 'text-center', 'px-2', 'sm:px-4')}>1,000k</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
           <div class={buttonWrapperClasses}>
             <ActionButton
               withArrow
-              class="md:max-w-[300px] font-[500]"
+              class="w-full sm:max-w-[220px] font-[500]"
               href="https://taiko.mirror.xyz/vXGo-HofGENNl3J9ObyGponpAoIqAtNyQG_cKKlHeC4"
               target="_blank"
-              priority="primary">Taiko Status</ActionButton>
+              priority="secondary">About Taiko Status</ActionButton>
+            <ActionButton
+              withArrow
+              class="w-full sm:max-w-[220px] font-[500]"
+              href="https://taiko.mirror.xyz/SfIbIBBE1fDs2IjD4AxgK9r8IFi5LiqzsGpjb3sChIM"
+              target="_blank"
+              priority="primary">Weekly bonus info</ActionButton>
           </div>
         </div>
       </div>
+      <button class="overlay-backdrop" data-modal-uuid={dialogId} />
     </div>
-  </div>
+  </dialog>
 {/if}

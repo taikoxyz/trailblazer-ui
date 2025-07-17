@@ -16,7 +16,7 @@
     isLoading,
     isSelfProfile,
   } from '$lib/domains/claim/stores/claimStores';
-  import { TaikoStatusModalStore } from '$lib/domains/taiko-status/stores/TaikoStatusModalStore';
+  import { openTaikoStatusClaimModal } from '$lib/domains/taiko-status/stores/TaikoStatusModalStore';
   import { errorToast, warningToast } from '$shared/components/NotificationToast';
   import { account } from '$shared/stores/account';
   import { activeSeason } from '$shared/stores/activeSeason';
@@ -156,7 +156,7 @@
         isClaimSuccessful.set(true);
         currentStep.set(ClaimStates.SUCCESS);
         // open up status modal
-        TaikoStatusModalStore.set(true);
+        openTaikoStatusClaimModal();
       } catch (e) {
         if (e instanceof TransactionTimedOutError) {
           currentStep.set(ClaimStates.ERROR_TIMEOUT);
@@ -192,7 +192,7 @@
         claimServiceInstance.addTokenToWallet();
       } else if (index === 1) {
         // earn more taiko; open up status modal
-        TaikoStatusModalStore.set(true);
+        openTaikoStatusClaimModal();
       }
     }
   }
