@@ -7,7 +7,8 @@
   import ProfileModals from '$lib/domains/profile/components/ProfileModals.svelte';
   import ProfileTabs from '$lib/domains/profile/components/ProfileTabs.svelte';
   import profileService from '$lib/domains/profile/services/ProfileServiceInstance';
-  import { profileLoading } from '$lib/domains/profile/stores/profileStore';
+  import { profileLoading, userProfile } from '$lib/domains/profile/stores/profileStore';
+  import { ActivityType } from '$lib/domains/profile/types/ActivityHistory';
   import { activeSeason } from '$lib/shared/stores/activeSeason';
   // import { Alert } from '$shared/components/Alert';
   import LeaderboardDisclaimer from '$shared/components/Disclaimer/LeaderboardDisclaimer.svelte';
@@ -19,9 +20,12 @@
   import MultiplierCard from './ProfileMultiplierCard/MultiplierCard.svelte';
   import FloatingClaimButton from './ProfileSeasonBonusCard/FloatingClaimButton.svelte';
   import SeasonDetails from './SeasonDetails.svelte';
+  import StatusDistributionModal from './StatusDistributionModal.svelte';
   // import ProfileSeasonBonusCard from './ProfileSeasonBonusCard/ProfileSeasonBonusCard.svelte';
 
   let isSelfProfile: boolean;
+  let showStatusPointsModal = false;
+  let statusPoints = 0;
 
   const disclaimerWrapperClasses = classNames('mt-[100px]', 'px-[24px]', 'md:px-0');
   const containerClasses = classNames('flex', 'flex-col', 'items-center');
@@ -56,6 +60,30 @@
   const tabsClasses = classNames('mt-[28px]');
 
   $: isSelfProfile = false;
+
+  // Function to check for recent TaikoStatusReward events
+  function checkForStatusPointsEvents() {
+    const activityHistory = $userProfile?.activityHistory?.items;
+    if (!activityHistory || !isSelfProfile) return;
+
+    const sevenDaysAgo = Date.now() - 7 * 24 * 60 * 60 * 1000;
+
+    // Find TaikoStatusReward events within the last 7 days
+    const recentStatusEvents = activityHistory.filter(
+      (event) => event.event === ActivityType.TAIKO_STATUS_REWARD && event.date * 1000 >= sevenDaysAgo, // Convert Unix timestamp to milliseconds
+    );
+
+    if (recentStatusEvents.length > 0) {
+      // Calculate total points from recent events
+      statusPoints = recentStatusEvents.reduce((total, event) => total + event.points, 0);
+      showStatusPointsModal = true;
+    }
+  }
+
+  // Watch for changes in userProfile to trigger the check
+  $: if ($userProfile && !$profileLoading) {
+    checkForStatusPointsEvents();
+  }
 
   onMount(async () => {
     const urlAddress = $page.url.pathname.split('/').pop() as Address;
@@ -100,3 +128,4 @@
 <FloatingClaimButton />
 
 <ProfileModals />
+<StatusDistributionModal points={statusPoints} show={showStatusPointsModal} />

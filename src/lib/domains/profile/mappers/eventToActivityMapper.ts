@@ -12,4 +12,5 @@ export const eventToActivityTypeMap: Record<string, ActivityType> = {
   FrozenBonus: ActivityType.MONK_COMPENSATION,
   PfpRegister: ActivityType.PFP_BONUS,
   LoopringDeposit: ActivityType.LOOPRING_DEPOSIT,
+  TaikoStatusReward: ActivityType.TAIKO_STATUS_REWARD,
 };

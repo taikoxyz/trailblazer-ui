@@ -36,4 +36,5 @@ export enum ActivityType {
   MONK_COMPENSATION = 'FrozenBonus',
   PFP_BONUS = 'PfpRegister',
   LOOPRING_DEPOSIT = 'LoopringDeposit',
+  TAIKO_STATUS_REWARD = 'TaikoStatusReward',
 }

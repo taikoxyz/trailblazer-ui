@@ -69,6 +69,9 @@
     {:else if eventToActivityTypeMap[historyEntry?.event] === ActivityType.PFP_BONUS}
       <ActivityIcon type="cube" />
       <span class={eventClasses}>{$t('leaderboard.user.event.pfp_bonus')}</span>
+    {:else if eventToActivityTypeMap[historyEntry?.event] === ActivityType.TAIKO_STATUS_REWARD}
+      <ActivityIcon type="double-diamond" />
+      <span class={eventClasses}>{$t('leaderboard.user.event.taiko_status_reward')}</span>
     {:else}
       <ActivityIcon type="triple-coin-stacked" />
       <span class={eventClasses}>{$t('leaderboard.user.event.transaction')}</span>
