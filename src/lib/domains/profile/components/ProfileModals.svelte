@@ -7,6 +7,7 @@
 
   import ProfilePictureModal from './ProfilePicture/ProfilePictureModal.svelte';
   import ClaimModal from './ProfileSeasonBonusCard/ClaimModal.svelte';
+  import StatusDistributionModal from './StatusDistributionModal.svelte';
 </script>
 
 <ProfilePictureModal />
@@ -17,3 +18,4 @@
 <InfluenceRecruitmentModal />
 <ClaimModal />
 <TaikoStatusModal />
+<StatusDistributionModal />

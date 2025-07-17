@@ -23,6 +23,13 @@ export function GET({ url }) {
     items: [
       {
         address: address,
+        points: 7633.54493,
+        event: ActivityType.TAIKO_STATUS_REWARD,
+        date: Math.floor(Date.now() / 1000) - 2 * 24 * 60 * 60, // 2 days ago
+        multiplier: 1,
+      },
+      {
+        address: address,
         points: 50_000,
         event: ActivityType.DORAHACKS_VOTE,
         date: 1721642099,
