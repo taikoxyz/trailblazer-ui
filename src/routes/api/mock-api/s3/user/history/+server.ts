@@ -2,7 +2,7 @@ import { json } from '@sveltejs/kit';
 import type { Address } from 'viem';
 
 import { eventToActivityTypeMap } from '$lib/domains/profile/mappers/eventToActivityMapper';
-import type { UserPointHistory } from '$lib/domains/profile/types/ActivityHistory';
+import { ActivityType, type UserPointHistory } from '$lib/domains/profile/types/ActivityHistory';
 
 type APIResponse<T> = {
   items: T[];
@@ -22,6 +22,14 @@ export function GET({ url }) {
 
   return json({
     items: [
+      {
+        address: address,
+        points: 7633.54493,
+        event: ActivityType.TAIKO_STATUS_REWARD,
+        date: Math.floor(Date.now() / 1000) - 2 * 24 * 60 * 60, // 2 days ago
+        multiplier: 1,
+        tx_hash: '0xa4ac6fa3505783cc6d0b199646208095c5bc74fb14fab51d9dafbd0a309478de',
+      },
       {
         address: address,
         points: 50_000,
