@@ -5,8 +5,8 @@
   import FeaturedCampaigns from '$shared/components/FeaturedCampaigns/FeaturedCampaigns.svelte';
   import { classNames } from '$shared/utils/classNames';
 
-  import GuildBanner from './Banner/GuildBanner.svelte';
   import S5StartBanner from './Banner/S5StartBanner.svelte';
+  import StatusBanner from './Banner/StatusBanner.svelte';
   import Factions from './Factions/Factions.svelte';
   import { TrailblazerGuide } from './Guide';
   import HeroSection from './HeroSection/HeroSection.svelte';
@@ -29,7 +29,7 @@
   const separator120pxClasses = classNames(separatorBaseClasses, 'h-[120px]');
 
   const slides: Slide[] = [
-    { component: GuildBanner },
+    { component: StatusBanner, url: 'https://taiko.mirror.xyz/SfIbIBBE1fDs2IjD4AxgK9r8IFi5LiqzsGpjb3sChIM' },
     {
       component: S5StartBanner,
     },
