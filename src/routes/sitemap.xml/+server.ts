@@ -11,7 +11,6 @@ export const GET: RequestHandler = async () => {
     paramValues: {
       '/leaderboard/thrillblazers/[slug]': ['1', '2', '3', '4', '5', '6'],
       '/leaderboard/chillblazers/[slug]': ['1', '2', '3'],
-      '/leaderboard/liquidity/[slug]': ['1', '2', '3'],
     },
     excludeRoutePatterns: ['^/mock-api.*', '.*\\[page=integer\\].*', '.*\\/pinkify\\/.*', '.*\\/profile\\/.*'],
     defaultChangefreq: 'daily',
