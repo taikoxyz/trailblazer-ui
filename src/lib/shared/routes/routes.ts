@@ -14,7 +14,6 @@ export const routes: NavigationItem[] = [
     name: 'Leaderboards',
     children: [
       { name: 'Users', route: '/leaderboard/s5/user', icon: 'double-user' },
-      { name: 'Liquidity Royale', route: '/leaderboard/liquidity/4', icon: 'nav-liquidity' },
       { name: 'Thrillblazers VIII', route: '/leaderboard/thrillblazers/8', icon: 'nav-cross' },
       { name: 'Thrillblazers VII', route: '/leaderboard/thrillblazers/7', icon: 'nav-cross' },
     ],
