@@ -16,11 +16,6 @@ export const TaikoStatusModalStore = writable<TaikoStatusModalState>({
   isOpen: false,
 });
 
-// Helper functions for backwards compatibility and ease of use
-export function openTaikoStatusClaimModal() {
-  TaikoStatusModalStore.set({ type: TaikoStatusModalType.CLAIM, isOpen: true });
-}
-
 export function openTaikoStatusBonusModal() {
   TaikoStatusModalStore.set({ type: TaikoStatusModalType.BONUS, isOpen: true });
 }
