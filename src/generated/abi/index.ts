@@ -1381,8 +1381,8 @@ export const erc20AirdropAbi = [
  * - [__View Contract on Taiko Hekla L2 Taikoscan__](https://hekla.taikoscan.network/address/0x263eE63fCC159401a29c35cb35989ff1bB4b2feD)
  */
 export const erc20AirdropAddress = {
-  167000: '0xFe5321a7DedA9eA1a51d90E2E08229670571e39F',
-  167009: '0xFe5321a7DedA9eA1a51d90E2E08229670571e39F',
+  167000: '0xfff1De8f94d053EaB4Ba013a1389869c98A6fDF2',
+  167009: '0x557Ed48c0112a68CFfE8578e520daF6DbE5CdcED',
 } as const;
 
 /**

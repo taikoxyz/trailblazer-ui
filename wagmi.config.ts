@@ -82,9 +82,9 @@ export default defineConfig({
     {
       name: 'ERC20Airdrop',
       address: {
-        // s4 claim
-        167009: '0xFe5321a7DedA9eA1a51d90E2E08229670571e39F' as Address,
-        167000: '0xFe5321a7DedA9eA1a51d90E2E08229670571e39F' as Address,
+        // s3 claim
+        167009: '0xfff1De8f94d053EaB4Ba013a1389869c98A6fDF2' as Address,
+        167000: '0xA34dDfC3F8D1dE31276c9c640F56B4470c49359F' as Address,
       },
       abi: ERC20Airdrop.abi as Abi,
     },

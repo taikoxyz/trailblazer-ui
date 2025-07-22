@@ -5,6 +5,7 @@
   import FeaturedCampaigns from '$shared/components/FeaturedCampaigns/FeaturedCampaigns.svelte';
   import { classNames } from '$shared/utils/classNames';
 
+  import S4ClaimBanner from './Banner/S4ClaimBanner.svelte';
   import S5StartBanner from './Banner/S5StartBanner.svelte';
   import StatusBanner from './Banner/StatusBanner.svelte';
   import Factions from './Factions/Factions.svelte';
@@ -29,6 +30,7 @@
   const separator120pxClasses = classNames(separatorBaseClasses, 'h-[120px]');
 
   const slides: Slide[] = [
+    { component: S4ClaimBanner, url: 'https://trailblazers.taiko.xyz/profile' },
     { component: StatusBanner, url: 'https://taiko.mirror.xyz/SfIbIBBE1fDs2IjD4AxgK9r8IFi5LiqzsGpjb3sChIM' },
     {
       component: S5StartBanner,
