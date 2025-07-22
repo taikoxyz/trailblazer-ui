@@ -115,7 +115,7 @@
         </div>
 
         <ActionButton
-          href="https://github.com/taikoxyz/website-v2/issues/new?assignees=&labels=category.enhancement%2Cstatus.needs-triage&projects=&template=add_project.yml"
+          href="https://github.com/taikoxyz/website-v3/issues/new?assignees=&labels=category.enhancement%2Cstatus.needs-triage&projects=&template=add_project.yml"
           class="w-max"
           withArrow
           priority="primary">Join our ecosystem</ActionButton>
