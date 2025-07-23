@@ -3,6 +3,7 @@ import { type Address, type Hex, parseEther } from 'viem';
 
 import { erc20AirdropAbi, erc20AirdropAddress, erc20TaikoTokenAddress } from '$generated/abi';
 import { fetchFromApi } from '$shared/services/api/fetchClient';
+import { ClaimIneligibleError } from '$shared/types/errors';
 import { chainId } from '$shared/utils/chain';
 import { getLogger } from '$shared/utils/logger';
 import { wagmiConfig } from '$shared/wagmi';
@@ -17,6 +18,7 @@ export class ClaimClientAdapter {
    * This calls the external API directly using fetchFromApi.
    * @param address - The user's wallet address
    * @returns Eligibility data with address and claimable value
+   * @throws ClaimIneligibleError if user is not eligible
    */
   async checkEligibility(address: Address): Promise<ClaimEligibilityDto> {
     log('Checking eligibility for %s', address);
@@ -26,6 +28,17 @@ export class ClaimClientAdapter {
       4,
     );
     log('Eligibility response', eligibilityData);
+
+    // Check if user is eligible - empty address or value means ineligible
+    if (
+      !eligibilityData.address ||
+      !eligibilityData.value ||
+      eligibilityData.value === '0' ||
+      eligibilityData.value === ''
+    ) {
+      throw new ClaimIneligibleError('You are not eligible for claiming rewards');
+    }
+
     return eligibilityData;
   }
 

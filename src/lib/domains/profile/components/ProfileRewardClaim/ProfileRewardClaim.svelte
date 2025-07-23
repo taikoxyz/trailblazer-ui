@@ -21,7 +21,7 @@
   import { activeSeason } from '$shared/stores/activeSeason';
   import { pendingTransactions } from '$shared/stores/pendingTransactions';
   import { tokenClaimTermsAccepted } from '$shared/stores/tokenClaim';
-  import { TransactionTimedOutError } from '$shared/types/errors';
+  import { ClaimIneligibleError, TransactionTimedOutError } from '$shared/types/errors';
   import { classNames } from '$shared/utils/classNames';
   import getConnectedAddress from '$shared/utils/getConnectedAddress';
 
@@ -106,7 +106,11 @@
         }
       } catch (error) {
         console.error(error);
-        currentStep.set(ClaimStates.ERROR_CLAIM);
+        if (error instanceof ClaimIneligibleError) {
+          currentStep.set(ClaimStates.INELIGIBLE);
+        } else {
+          currentStep.set(ClaimStates.ERROR_CLAIM);
+        }
       }
     }
   });
@@ -121,33 +125,44 @@
     const address = $account.address;
 
     if (state === ClaimStates.START) {
-      isLoading.set(true);
-      try {
-        // we need to go back 1 season as the current season is not claimable yet
-        const eligibility = await claimServerService.checkEligibility(address);
-        const value = parseFloat(eligibility.value);
+      if (index === 1) {
+        // go to external link in a new tab
+        window.open('https://taiko.mirror.xyz/oqAfmnmsWpGsVC89GtIbPDreDv5c37JXx0m2_N5edB8', '_blank');
+      } else {
+        isLoading.set(true);
 
-        claimAmount.set(value);
+        try {
+          // we need to go back 1 season as the current season is not claimable yet
+          const eligibility = await claimServerService.checkEligibility(address);
+          const value = parseFloat(eligibility.value);
 
-        claimLabel.set('Start');
-        if (value === -1) {
-          currentStep.set(ClaimStates.ERROR_GENERIC);
-        } else if (value === 0) {
-          currentStep.set(ClaimStates.INELIGIBLE);
-        } else {
-          currentStep.set(ClaimStates.CLAIM);
+          claimAmount.set(value);
+
+          claimLabel.set('Start');
+          if (value === -1) {
+            currentStep.set(ClaimStates.ERROR_GENERIC);
+          } else if (value === 0) {
+            currentStep.set(ClaimStates.INELIGIBLE);
+          } else {
+            currentStep.set(ClaimStates.CLAIM);
+          }
+        } catch (error) {
+          console.error(error);
+          if (error instanceof ClaimIneligibleError) {
+            currentStep.set(ClaimStates.INELIGIBLE);
+          } else {
+            currentStep.set(ClaimStates.ERROR_GENERIC);
+          }
+        } finally {
+          isLoading.set(false);
         }
-      } catch (error) {
-        console.error(error);
-        currentStep.set(ClaimStates.ERROR_GENERIC);
-      } finally {
-        isLoading.set(false);
       }
     }
 
     if (state === ClaimStates.CLAIM) {
       isLoading.set(true);
       $tokenClaimTermsAccepted = false;
+
       try {
         // Execute claim server-side (no need to pass proof as it's handled server-side)
         await claimServerService.executeClaim(address, $activeSeason - 1);

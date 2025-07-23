@@ -14,6 +14,11 @@ export class InvalidClaimAmount extends Error {
   shortMessage = 'An invalid amount was provided';
 }
 
+export class ClaimIneligibleError extends Error {
+  name = 'ClaimIneligibleError';
+  shortMessage = 'You are not eligible for claiming';
+}
+
 export class UnknownClaimError extends Error {
   name = 'UnknownClaimError';
   shortMessage = 'An unknown error occurred while claiming';

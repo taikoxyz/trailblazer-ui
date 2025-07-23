@@ -377,6 +377,7 @@
       },
       "start": {
         "button": "Review amount",
+        "learnmore": "Learn more",
         "text": "Click on review below to check your eligibility and claim your rewards.",
         "title": "Season 4 claiming is now live!"
       },
@@ -439,20 +440,20 @@
     {
       "items": [
         {
-          "question": "What happens if many participants reach the same point threshold in a reward tier?",
-          "answer": "If the number of the same points exceeds the percentile, we reserve the right to divide up the total reward of that tier among all the people in that same tier."
+          "answer": "If the number of the same points exceeds the percentile, we reserve the right to divide up the total reward of that tier among all the people in that same tier.",
+          "question": "What happens if many participants reach the same point threshold in a reward tier?"
         },
         {
-          "question": "Can the reward program conditions change over time?",
-          "answer": "Taiko reserves the right to modify the above-mentioned conditions."
+          "answer": "Taiko reserves the right to modify the above-mentioned conditions.",
+          "question": "Can the reward program conditions change over time?"
         },
         {
-          "question": "How does Taiko handle Sybil attacks or fraudulent participation?",
-          "answer": "Sybil detection will be applied throughout the season. Taiko reserves the right to blacklist any address from the Trailblazers program."
+          "answer": "Sybil detection will be applied throughout the season. Taiko reserves the right to blacklist any address from the Trailblazers program.",
+          "question": "How does Taiko handle Sybil attacks or fraudulent participation?"
         },
         {
-          "question": "Which interactions are counted toward the leaderboard points?",
-          "answer": "Only transaction/contract interactions with the contracts in the dApp leaderboard will be considered to reduce spam."
+          "answer": "Only transaction/contract interactions with the contracts in the dApp leaderboard will be considered to reduce spam.",
+          "question": "Which interactions are counted toward the leaderboard points?"
         }
       ],
       "section": "Disclaimers"
@@ -547,6 +548,28 @@
       "section": "Multipliers and rewards"
     }
   ],
+  "faq[0]": {
+    "items[4]": {
+      "answer": "",
+      "question": ""
+    }
+  },
+  "faq[1]": {
+    "items[5]": {
+      "answer": "",
+      "question": ""
+    }
+  },
+  "faq[4]": {
+    "items[1]": {
+      "answer": "",
+      "question": ""
+    },
+    "items[2]": {
+      "answer": "",
+      "question": ""
+    }
+  },
   "leaderboard": {
     "bridge": {
       "ended": {
