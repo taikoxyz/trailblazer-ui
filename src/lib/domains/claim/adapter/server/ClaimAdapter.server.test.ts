@@ -23,10 +23,18 @@ vi.mock('$generated/abi', () => ({
 
 vi.mock('$shared/utils/chain', () => ({
   chainId: 1,
+  chains: [{ id: 1, name: 'Mock Chain' }],
+  getChainImages: vi.fn(() => ({ 1: '/mock-chain.svg' })),
+  getChainImage: vi.fn(() => '/mock-chain.svg'),
+  isSupportedChain: vi.fn(() => true),
 }));
 
 vi.mock('$shared/wagmi/server', () => ({
   basedLinersServerConfig: {},
+}));
+
+vi.mock('$shared/wagmi', () => ({
+  wagmiConfig: {},
 }));
 
 vi.mock('viem', () => ({

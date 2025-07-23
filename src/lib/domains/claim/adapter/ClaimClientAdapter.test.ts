@@ -2,14 +2,12 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { ClaimClientAdapter } from './ClaimClientAdapter';
 
-// Mock dependencies
-vi.mock('@wagmi/core', () => ({
-  readContract: vi.fn(),
-  watchAsset: vi.fn(),
-  writeContract: vi.fn(),
+// Mock fetchFromApi
+vi.mock('$shared/services/api/fetchClient', () => ({
+  fetchFromApi: vi.fn(),
 }));
 
-// Mock fetch globally
+// Mock fetch globally for the executeClaim method
 global.fetch = vi.fn();
 
 describe('ClaimClientAdapter', () => {
@@ -34,30 +32,21 @@ describe('ClaimClientAdapter', () => {
         value: '100.5',
       };
 
-      const mockResponse: Response = {
-        ok: true,
-        json: vi.fn().mockResolvedValue(mockEligibilityData),
-      } as unknown as Response;
-
-      vi.mocked(fetch).mockResolvedValue(mockResponse);
+      const { fetchFromApi } = await import('$shared/services/api/fetchClient');
+      vi.mocked(fetchFromApi).mockResolvedValue(mockEligibilityData);
 
       // When
       const result = await claimAdapter.checkEligibility(mockAddress);
 
       // Then
-      expect(fetch).toHaveBeenCalledWith(`/api/s4/claim/eligibility?address=${encodeURIComponent(mockAddress)}`);
+      expect(fetchFromApi).toHaveBeenCalledWith(`/claim/eligibility?address=${encodeURIComponent(mockAddress)}`, 4);
       expect(result).toEqual(mockEligibilityData);
     });
 
     it('should handle API errors', async () => {
       // Given
-      const mockResponse: Response = {
-        ok: false,
-        status: 404,
-        statusText: 'Not Found',
-      } as unknown as Response;
-
-      vi.mocked(fetch).mockResolvedValue(mockResponse);
+      const { fetchFromApi } = await import('$shared/services/api/fetchClient');
+      vi.mocked(fetchFromApi).mockRejectedValue(new Error('Failed to check eligibility: 404 Not Found'));
 
       // When & Then
       await expect(claimAdapter.checkEligibility(mockAddress)).rejects.toThrow(
@@ -122,12 +111,8 @@ describe('ClaimClientAdapter', () => {
         value: '100.5',
       };
 
-      const mockFetchResponse: Response = {
-        ok: true,
-        json: vi.fn().mockResolvedValue(mockEligibilityData),
-      } as unknown as Response;
-
-      vi.mocked(fetch).mockResolvedValue(mockFetchResponse);
+      const { fetchFromApi } = await import('$shared/services/api/fetchClient');
+      vi.mocked(fetchFromApi).mockResolvedValue(mockEligibilityData);
 
       const { readContract } = await import('@wagmi/core');
       vi.mocked(readContract).mockResolvedValue(true);
@@ -137,18 +122,14 @@ describe('ClaimClientAdapter', () => {
 
       // Then
       expect(result).toBe(true);
+      expect(fetchFromApi).toHaveBeenCalledWith(`/claim/eligibility?address=${encodeURIComponent(mockAddress)}`, 4);
       expect(readContract).toHaveBeenCalled();
     });
 
     it('should handle errors and return null', async () => {
       // Given
-      const mockResponse: Response = {
-        ok: false,
-        status: 500,
-        statusText: 'Error',
-      } as unknown as Response;
-
-      vi.mocked(fetch).mockResolvedValue(mockResponse);
+      const { fetchFromApi } = await import('$shared/services/api/fetchClient');
+      vi.mocked(fetchFromApi).mockRejectedValue(new Error('Error'));
 
       // When
       const result = await claimAdapter.hasClaimed(mockAddress, 2);
