@@ -10,7 +10,7 @@
   }
 
   const items: MarqueeItem[] = [
-    { highlight: 'TAIKO IS NOW LISTED ON BINANCE ALPHA', text: 'TRADE AND WIN YOUR SHARE FROM REWARDS' },
+    { highlight: 'S4 CLAIM IS NOW LIVE', text: 'HOLD THEM FOR SEASON 5 POINTS AND OTHER EXCLUSIVE PERKS' },
   ];
 
   let containerRef: HTMLDivElement;

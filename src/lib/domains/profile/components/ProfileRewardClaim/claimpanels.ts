@@ -25,6 +25,11 @@ export const getPanels = (): Record<ClaimStates, ClaimPanelType> => ({
         label: get(t)('claim.panels.start.button'),
         handler: () => {},
       },
+      {
+        priority: 'secondary',
+        label: get(t)('claim.panels.start.learnmore'),
+        handler: () => {},
+      },
     ],
   },
   [ClaimStates.INELIGIBLE]: {
@@ -32,7 +37,7 @@ export const getPanels = (): Record<ClaimStates, ClaimPanelType> => ({
     text: get(t)('claim.panels.ineligible.text', {
       values: {
         seasonNumber: PUBLIC_ACTIVE_SEASON,
-        blogUrl: 'https://taiko.mirror.xyz/naE5ZNssGzw_FVs_-r2Eqd3DquRkx1dQ5Cg5kUswwns',
+        blogUrl: 'https://taiko.mirror.xyz/oqAfmnmsWpGsVC89GtIbPDreDv5c37JXx0m2_N5edB8',
       },
     }),
     state: ClaimStates.INELIGIBLE,

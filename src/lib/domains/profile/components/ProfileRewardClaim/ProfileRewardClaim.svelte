@@ -5,24 +5,23 @@
 
   import { page } from '$app/stores';
   import { PUBLIC_CLAIMING_ACTIVE } from '$env/static/public';
-  import { claimServiceInstance } from '$lib/domains/claim/service/ClaimServiceInstance';
+  import { claimServerService } from '$lib/domains/claim/service/ClaimServerServiceInstance';
   import {
     claimAmount,
     claimLabel,
-    claimProof,
     currentStep,
     isBlacklisted,
     isClaimSuccessful,
     isLoading,
     isSelfProfile,
   } from '$lib/domains/claim/stores/claimStores';
-  import { openTaikoStatusClaimModal } from '$lib/domains/taiko-status/stores/TaikoStatusModalStore';
+  import { openTaikoStatusBonusModal } from '$lib/domains/taiko-status/stores/TaikoStatusModalStore';
   import { errorToast, warningToast } from '$shared/components/NotificationToast';
   import { account } from '$shared/stores/account';
   import { activeSeason } from '$shared/stores/activeSeason';
   import { pendingTransactions } from '$shared/stores/pendingTransactions';
   import { tokenClaimTermsAccepted } from '$shared/stores/tokenClaim';
-  import { TransactionTimedOutError } from '$shared/types/errors';
+  import { ClaimIneligibleError, TransactionTimedOutError } from '$shared/types/errors';
   import { classNames } from '$shared/utils/classNames';
   import getConnectedAddress from '$shared/utils/getConnectedAddress';
 
@@ -88,16 +87,15 @@
       isBlacklisted.set(blacklistStatus);
 
       try {
-        const hasClaimed = await claimServiceInstance.hasClaimed(urlAddress, $activeSeason - 1);
+        const hasClaimed = await claimServerService.hasClaimed(urlAddress, $activeSeason - 1);
         if (hasClaimed) {
           currentStep.set(ClaimStates.SUCCESS);
           isClaimSuccessful.set(true);
           claimLabel.set('You have claimed');
           // we need to go back 1 season as the current season is not claimable yet
-          const { value, proof } = await claimServiceInstance.preflight(urlAddress, $activeSeason - 1);
-          if (value) {
-            claimAmount.set(value);
-            claimProof.set(proof);
+          const eligibility = await claimServerService.checkEligibility(urlAddress);
+          if (eligibility.value) {
+            claimAmount.set(parseFloat(eligibility.value));
           } else {
             currentStep.set(ClaimStates.ERROR_CLAIM);
             warningToast({
@@ -108,7 +106,11 @@
         }
       } catch (error) {
         console.error(error);
-        currentStep.set(ClaimStates.ERROR_CLAIM);
+        if (error instanceof ClaimIneligibleError) {
+          currentStep.set(ClaimStates.INELIGIBLE);
+        } else {
+          currentStep.set(ClaimStates.ERROR_CLAIM);
+        }
       }
     }
   });
@@ -123,40 +125,52 @@
     const address = $account.address;
 
     if (state === ClaimStates.START) {
-      isLoading.set(true);
-      try {
-        // we need to go back 1 season as the current season is not claimable yet
-        const { value, proof } = await claimServiceInstance.preflight(address, $activeSeason - 1);
+      if (index === 1) {
+        // go to external link in a new tab
+        window.open('https://taiko.mirror.xyz/oqAfmnmsWpGsVC89GtIbPDreDv5c37JXx0m2_N5edB8', '_blank');
+      } else {
+        isLoading.set(true);
 
-        claimAmount.set(value);
-        claimProof.set(proof);
-        claimLabel.set('Start');
-        if (value === -1) {
-          currentStep.set(ClaimStates.ERROR_GENERIC);
-        } else if (value === 0) {
-          currentStep.set(ClaimStates.INELIGIBLE);
-        } else {
-          currentStep.set(ClaimStates.CLAIM);
+        try {
+          // we need to go back 1 season as the current season is not claimable yet
+          const eligibility = await claimServerService.checkEligibility(address);
+          const value = parseFloat(eligibility.value);
+
+          claimAmount.set(value);
+
+          claimLabel.set('Start');
+          if (value === -1) {
+            currentStep.set(ClaimStates.ERROR_GENERIC);
+          } else if (value === 0) {
+            currentStep.set(ClaimStates.INELIGIBLE);
+          } else {
+            currentStep.set(ClaimStates.CLAIM);
+          }
+        } catch (error) {
+          console.error(error);
+          if (error instanceof ClaimIneligibleError) {
+            currentStep.set(ClaimStates.INELIGIBLE);
+          } else {
+            currentStep.set(ClaimStates.ERROR_GENERIC);
+          }
+        } finally {
+          isLoading.set(false);
         }
-      } catch (error) {
-        console.error(error);
-        currentStep.set(ClaimStates.ERROR_GENERIC);
-      } finally {
-        isLoading.set(false);
       }
     }
 
     if (state === ClaimStates.CLAIM) {
       isLoading.set(true);
       $tokenClaimTermsAccepted = false;
-      // currentStep.set(ClaimStates.SUCCESS);
+
       try {
-        await claimServiceInstance.claim(address, $claimAmount, $claimProof, $activeSeason);
+        // Execute claim server-side (no need to pass proof as it's handled server-side)
+        await claimServerService.executeClaim(address, $activeSeason - 1);
         claimLabel.set('You have claimed');
         isClaimSuccessful.set(true);
         currentStep.set(ClaimStates.SUCCESS);
         // open up status modal
-        openTaikoStatusClaimModal();
+        openTaikoStatusBonusModal();
       } catch (e) {
         if (e instanceof TransactionTimedOutError) {
           currentStep.set(ClaimStates.ERROR_TIMEOUT);
@@ -189,10 +203,10 @@
     if (state === ClaimStates.SUCCESS) {
       if (index === 0) {
         // add to wallet
-        claimServiceInstance.addTokenToWallet();
+        claimServerService.addTokenToWallet();
       } else if (index === 1) {
         // earn more taiko; open up status modal
-        openTaikoStatusClaimModal();
+        openTaikoStatusBonusModal();
       }
     }
   }
