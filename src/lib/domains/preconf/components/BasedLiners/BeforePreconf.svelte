@@ -61,6 +61,7 @@
 
   $: disabled = noAccount || loading || !isPhaseOpen || !reSubmitEnabled;
   export let error: string | null = null;
+  export let onPhaseComplete: () => Promise<void>;
   export let diffBefore: number = 0;
 
   onMount(async () => {
@@ -92,7 +93,12 @@
       const response = await BasedLinerService.registerPhase(PRECONF_EVENT.BASEDLINER, PRECONF_CAMPAIGN_PHASE.BEFORE);
       log('diffInSeconds', response.diffInSeconds);
 
-      diffBefore = Math.floor(response.diffInSeconds);
+      diffBefore = response.diffInSeconds;
+
+      // Refresh user data to get updated score from backend
+      if (onPhaseComplete) {
+        await onPhaseComplete();
+      }
 
       // Set persistent resubmit block for 1 minute
       if (userAddress && userAddress !== zeroAddress) {
@@ -164,7 +170,7 @@
     <!-- <span class="text-sm text-secondary-content">(Before Preconf)</span> -->
   </h1>
 
-  <StaticTime seconds={Math.floor(diffBefore)} />
+  <StaticTime seconds={Math.round(diffBefore)} />
 
   <div class="absolute bottom-0 left-0 w-full flex flex-col items-center">
     {#if error}

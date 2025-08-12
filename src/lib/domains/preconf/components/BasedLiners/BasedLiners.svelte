@@ -62,6 +62,40 @@
 
   $: isPhase2Open = false;
 
+  // Reactive score calculation when both phases are completed
+  $: if (diffBefore > 0 && diffAfter > 0 && diffAfter < diffBefore) {
+    score = Math.min(Number(((diffBefore / diffAfter) * 10_000).toFixed(2)), 150_000);
+    log('Score calculated from diffs:', { diffBefore, diffAfter, score });
+  }
+
+  // Debug logging for all score updates
+  $: {
+    log('BasedLiners state update:', { diffBefore, diffAfter, score, isPhase2Open });
+  }
+
+  // Function to refresh user data after phase completion
+  async function refreshUserData() {
+    const address = getConnectedAddress();
+    if (address && address !== zeroAddress) {
+      try {
+        const entry = await BasedLinerService.fetchLeaderboardEntry({
+          eventId: PRECONF_EVENT.BASEDLINER,
+          address,
+        });
+
+        log('Refreshed entry after phase completion:', entry);
+
+        if (entry) {
+          diffBefore = entry.phase1 || 0;
+          diffAfter = entry.phase2 || 0;
+          score = Number(entry.diff) || 0;
+        }
+      } catch (error) {
+        console.error('Error refreshing user data:', error);
+      }
+    }
+  }
+
   onMount(async () => {
     // fetch data from backend
     const address = getConnectedAddress();
@@ -70,7 +104,7 @@
     if (entry) {
       diffBefore = entry.phase1 || 0;
       diffAfter = entry.phase2 || 0;
-      score = entry.diff || 0;
+      score = Number(entry.diff) || 0;
     }
 
     isPhase2Open = await BasedLinerService.isPhaseOpen({
@@ -97,7 +131,7 @@
         if (entry) {
           diffBefore = entry.phase1 || 0;
           diffAfter = entry.phase2 || 0;
-          score = entry.diff || 0;
+          score = Number(entry.diff) || 0;
         } else {
           // Reset values if no entry found for this account
           diffBefore = 0;
@@ -129,9 +163,9 @@
     {/if}
     <div {...dynamicAttrs} class={bodyClasses} id="basedliners-section">
       <div class="f-col lg:f-row {noAccount ? 'blur-md' : ''} w-full lg:h-[250px] h-full">
-        <BeforePreconf bind:error bind:diffBefore />
+        <BeforePreconf bind:error bind:diffBefore onPhaseComplete={refreshUserData} />
         <div class="lg:v-sep h-sep" />
-        <AfterPreconf bind:error bind:diffAfter />
+        <AfterPreconf bind:error bind:diffAfter onPhaseComplete={refreshUserData} />
         <div class="lg:v-sep h-sep" />
         <Score {score} {diffAfter} {diffBefore} {isPhase2Open} />
       </div>

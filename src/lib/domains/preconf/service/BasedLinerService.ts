@@ -181,6 +181,6 @@ function mapBasedlinerLeaderboardRow(row: BasedlinerLeaderboard): UnifiedLeaderb
     rank: row.rank,
     icon: '',
     data: [],
-    totalScore: row.diff ? row.diff : 0,
+    totalScore: Number(row.diff) || 0,
   };
 }

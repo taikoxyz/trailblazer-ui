@@ -37,6 +37,18 @@
 
   $: speedIncreaseTimes = diffBefore && diffAfter ? (diffBefore / diffAfter).toFixed(2) : 0;
 
+  // Track when score first becomes positive to trigger confetti
+  let confettiTrigger = 0;
+  let lastScore = 0;
+
+  $: {
+    // Only increment trigger when score goes from 0/null to positive
+    if (score && score > 0 && lastScore <= 0) {
+      confettiTrigger++;
+    }
+    lastScore = score || 0;
+  }
+
   // const activePhase: PRECONF_CAMPAIGN_PHASE = PRECONF_CAMPAIGN_PHASE.AFTER;
 
   // $: score2 =
@@ -51,10 +63,12 @@
   <h1>Your points</h1>
   <div class={digit}>
     {#if score && isPhase2Open}
-      <Confetti cone x={[-0.5, 0.5]} />
-      {score}
-      <Confetti cone amount={10} x={[-1, -0.4]} y={[0.25, 0.75]} />
-      <Confetti cone amount={10} x={[0.4, 1]} y={[0.25, 0.75]} />
+      {#key confettiTrigger}
+        <Confetti cone x={[-0.5, 0.5]} />
+        {score.toFixed(2)}
+        <Confetti cone amount={10} x={[-1, -0.4]} y={[0.25, 0.75]} />
+        <Confetti cone amount={10} x={[0.4, 1]} y={[0.25, 0.75]} />
+      {/key}
     {:else}
       0
     {/if}
@@ -81,8 +95,10 @@
   </div>
 </div>
 {#if score && score > 0 && isPhase2Open}
-  <div
-    style="position: fixed; z-index: 50; top: -50px; left: 0; height: 100vh; width: 100vw; pointer-events: none; display: flex; justify-content: center; overflow: hidden;">
-    <Confetti x={[-5, 5]} y={[0, 0.1]} delay={[500, 10000]} duration={5000} amount={200} fallDistance="100vh" />
-  </div>
+  {#key confettiTrigger}
+    <div
+      style="position: fixed; z-index: 50; top: -50px; left: 0; height: 100vh; width: 100vw; pointer-events: none; display: flex; justify-content: center; overflow: hidden;">
+      <Confetti x={[-5, 5]} y={[0, 0.1]} delay={[500, 10000]} duration={5000} amount={200} fallDistance="100vh" />
+    </div>
+  {/key}
 {/if}
