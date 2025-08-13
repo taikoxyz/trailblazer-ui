@@ -13,4 +13,5 @@ export const eventToActivityTypeMap: Record<string, ActivityType> = {
   PfpRegister: ActivityType.PFP_BONUS,
   LoopringDeposit: ActivityType.LOOPRING_DEPOSIT,
   TaikoStatusPoints: ActivityType.TAIKO_STATUS_REWARD,
+  OkidoriNftSold: ActivityType.OKIDORI_NFT_SOLD,
 };
