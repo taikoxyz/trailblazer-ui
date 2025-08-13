@@ -37,4 +37,5 @@ export enum ActivityType {
   PFP_BONUS = 'PfpRegister',
   LOOPRING_DEPOSIT = 'LoopringDeposit',
   TAIKO_STATUS_REWARD = 'TaikoStatusPoints',
+  OKIDORI_NFT_SOLD = 'OkidoriNftSold',
 }
