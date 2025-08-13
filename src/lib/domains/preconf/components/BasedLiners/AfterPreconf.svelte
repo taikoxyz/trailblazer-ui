@@ -33,15 +33,18 @@
   let cooldownInterval: NodeJS.Timeout | null = null;
 
   $: noAccount = !$account?.isConnected || $account?.address === zeroAddress;
-
-  // Check resubmit status using persistent storage
   $: userAddress = $account?.address || zeroAddress;
-  $: reSubmitEnabled = !ResubmitStorage.isResubmitBlocked(userAddress, PRECONF_EVENT.BASEDLINER);
+
+  // Check resubmit status using persistent storage - now reactive to remainingCooldown changes
+  $: reSubmitEnabled = remainingCooldown <= 0;
 
   // Update remaining cooldown time
   function updateRemainingCooldown() {
     if (userAddress && userAddress !== zeroAddress) {
-      remainingCooldown = ResubmitStorage.getRemainingCooldown(userAddress, PRECONF_EVENT.BASEDLINER);
+      const newCooldown = ResubmitStorage.getRemainingCooldown(userAddress, PRECONF_EVENT.BASEDLINER);
+      if (newCooldown !== remainingCooldown) {
+        remainingCooldown = newCooldown;
+      }
     } else {
       remainingCooldown = 0;
     }
@@ -57,6 +60,7 @@
 
   $: disabled = noAccount || loading || !isPhaseOpen || !reSubmitEnabled;
   export let error: string | null = null;
+  export let onPhaseComplete: () => Promise<void>;
 
   export let diffAfter = 0;
 
@@ -68,7 +72,12 @@
       const response = await BasedLinerService.registerPhase(PRECONF_EVENT.BASEDLINER, PRECONF_CAMPAIGN_PHASE.AFTER);
       log('diffInSeconds', response.diffInSeconds);
 
-      diffAfter = Math.floor(response.diffInSeconds);
+      diffAfter = response.diffInSeconds;
+
+      // Refresh user data to get updated score from backend
+      if (onPhaseComplete) {
+        await onPhaseComplete();
+      }
 
       // Set persistent resubmit block for 1 minute
       if (userAddress && userAddress !== zeroAddress) {
@@ -149,7 +158,7 @@
 
 <div class={wrapperClasses}>
   <h1>With preconfs</h1>
-  <StaticTime seconds={Math.floor(diffAfter)} />
+  <StaticTime seconds={Math.round(diffAfter)} />
   <div class="absolute bottom-0 left-0 w-full flex flex-col items-center">
     <ActionButton
       class="!max-h-[48px] !max-w-[200px]"
@@ -163,7 +172,7 @@
         Connect wallet
       {:else if !isPhaseOpen}
         Not launched yet
-      {:else if !reSubmitEnabled && remainingCooldown > 0}
+      {:else if remainingCooldown > 0}
         Wait {formatRemainingTime(remainingCooldown)}
       {:else}
         Track your time

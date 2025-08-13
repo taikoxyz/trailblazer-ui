@@ -132,7 +132,14 @@ export class BasedLinerService {
     const txTime = BigInt(timestamp);
     const diff = blockTime - txTime;
 
-    return Number(diff);
+    // Debug logging for negative values
+    if (diff < 0) {
+      log(`Negative diff detected: blockTime=${blockTime}, txTime=${txTime}, diff=${diff}ms`);
+      log(`Block timestamp: ${Number(block.timestamp)} seconds, Tx timestamp: ${timestamp} ms`);
+    }
+
+    // Return absolute value to avoid negative timing results due to clock skew
+    return Number(diff < 0n ? -diff : diff);
   }
 
   /**

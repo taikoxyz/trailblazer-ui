@@ -35,6 +35,18 @@ export class BasedLinerAdapter {
         throw new TooManyRequestsError('Rate limit exceeded. Please wait before submitting again.');
       }
 
+      // Check if it's a phase prerequisite error
+      if (error instanceof Error && error.message.includes('requires phase PrePreconf')) {
+        throw new Error(
+          'Phase prerequisite not met: You must complete the PrePreconf phase before submitting PostPreconf transactions.',
+        );
+      }
+
+      // Preserve the original error message if available
+      if (error instanceof Error) {
+        throw new Error(`Failed to submit stage: ${error.message}`);
+      }
+
       throw new Error('Failed to submit stage');
     }
   }
