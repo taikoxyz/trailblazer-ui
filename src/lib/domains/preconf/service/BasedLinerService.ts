@@ -170,6 +170,46 @@ export class BasedLinerService {
     };
     return parsed;
   }
+
+  /**
+   * Fetches the average phase1 time from the leaderboard.
+   * @returns A promise that resolves to the average phase1 time in seconds.
+   * @memberof BasedLinerService
+   */
+  // TODO: Re-enable when API average is available
+  // static async fetchAveragePhase1(): Promise<number> {
+  //   if (!browser) return 0;
+  //   try {
+  //     const res = await fetch(`/api/basedliner/leaderboard/entry`, {
+  //       method: 'GET',
+  //       headers: { 'Content-Type': 'application/json' },
+  //     });
+
+  //     if (!res.ok) {
+  //       console.error('Error calling API:', res.status, res.statusText);
+  //       throw new Error(`API call failed: ${res.status} ${res.statusText}`);
+  //     }
+
+  //     const response = await res.json();
+  //     const firstEntry = response.entries?.[0];
+  //     if (firstEntry?.avg_phase1) {
+  //       return Number(firstEntry.avg_phase1) / 1000; // Convert ms to seconds
+  //     }
+  //     return 30;
+  //   } catch (error) {
+  //     console.error('Error fetching average phase1:', error);
+  //     return 30;
+  //   }
+  // }
+
+  /**
+   * Returns hardcoded 30 seconds for phase1 fallback.
+   * @returns 30 seconds
+   * @memberof BasedLinerService
+   */
+  static async fetchAveragePhase1(): Promise<number> {
+    return 30;
+  }
 }
 
 function mapBasedlinerLeaderboardRow(row: BasedlinerLeaderboard): UnifiedLeaderboardRow {
