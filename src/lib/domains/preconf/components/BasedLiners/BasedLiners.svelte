@@ -228,10 +228,7 @@
   </div>
   {#if usedAveragePhase1 && isPhase2Open}
     <div class="w-full mb-[20px]">
-      <Alert type="info">
-        You didn't create a baseline in time, you see the average of other users. Unfortunately this means you can't win
-        the leaderboard anymore. You can still see the speed improvement!
-      </Alert>
+      <Alert type="info">You didn't create a baseline in time, you see the average of other users.</Alert>
     </div>
   {/if}
   <div class="w-full flex">
