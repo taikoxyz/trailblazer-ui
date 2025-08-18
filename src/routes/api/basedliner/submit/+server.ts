@@ -60,20 +60,19 @@ export const POST: RequestHandler = async ({ request }) => {
     }
 
     if (phaseEnded) {
-      // Fetch average phase 1 time from leaderboard
-      try {
-        const leaderboard = await BasedLinerService.getLeaderboard({});
-        const firstEntry = Array.isArray(leaderboard) ? leaderboard[0] : leaderboard;
-        if (firstEntry?.avg_phase1) {
-          const avgPhase1Ms = Number(firstEntry.avg_phase1);
-          return new Response(JSON.stringify({ diffInSeconds: avgPhase1Ms / 1000 }), { status: 200 });
-        }
-      } catch (error) {
-        console.error('Failed to fetch average phase 1 time:', error);
-        return new Response(JSON.stringify({ diffInSeconds: 30 }), { status: 200 });
-      }
+      // TODO: Fetch average phase 1 time from leaderboard
+      // try {
+      //   const leaderboard = await BasedLinerService.getLeaderboard({});
+      //   const firstEntry = Array.isArray(leaderboard) ? leaderboard[0] : leaderboard;
+      //   if (firstEntry?.avg_phase1) {
+      //     const avgPhase1Ms = Number(firstEntry.avg_phase1);
+      //     return new Response(JSON.stringify({ diffInSeconds: avgPhase1Ms / 1000 }), { status: 200 });
+      //   }
+      // } catch (error) {
+      //   console.error('Failed to fetch average phase 1 time:', error);
+      // }
 
-      // Fallback to 30 seconds if API call fails
+      // Use hardcoded 30 seconds fallback
       return new Response(JSON.stringify({ diffInSeconds: 30 }), { status: 200 });
     }
 
