@@ -105,6 +105,11 @@
             title: 'Request rejected by user',
             message: 'Please try again',
           });
+        } else if (e.message.includes('Gas price too low')) {
+          errorToast({
+            title: 'Gas Price Too Low',
+            message: e.message,
+          });
         } else {
           errorToast({
             title: 'Error',

@@ -1,5 +1,5 @@
-import { readContract, simulateContract, writeContract } from '@wagmi/core';
-import { type Hex, parseGwei } from 'viem';
+import { getGasPrice, readContract, simulateContract, writeContract } from '@wagmi/core';
+import { type Hex } from 'viem';
 
 import { BasedLinersAbi, basedLinersAddress } from '$generated/abi';
 import { chainId } from '$shared/utils/chain';
@@ -15,16 +15,19 @@ export class BasedLinerAdapter {
    * @returns txHash
    */
   static async sendTx({ eventId, phaseId }: { eventId: number; phaseId: number }) {
-    // Simulate transaction
+    // Get current gas price from the network
+    const gasPrice = await getGasPrice(wagmiConfig);
+
+    // Simulate transaction with proper gas price
     const { request } = await simulateContract(wagmiConfig, {
       address: basedLinersAddress[chainId],
       abi: BasedLinersAbi,
       functionName: 'register',
       args: [BigInt(eventId), BigInt(phaseId)],
-      gas: parseGwei('0.01'),
+      gasPrice: gasPrice,
     });
 
-    // Send transaction
+    // Send transaction with the gas price from simulation
     const txHash: Hex = await writeContract(wagmiConfig, request);
     return txHash;
   }
