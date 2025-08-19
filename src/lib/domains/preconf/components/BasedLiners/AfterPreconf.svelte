@@ -122,8 +122,17 @@
           message: 'Please try again',
         });
       }
-      // Clear resubmit block on error so user can try again
-      if (userAddress && userAddress !== zeroAddress) {
+      // Only clear resubmit block for user rejection errors
+      // Keep cooldown for gas price errors and other failures
+      if (
+        userAddress &&
+        userAddress !== zeroAddress &&
+        e &&
+        typeof e === 'object' &&
+        'message' in e &&
+        typeof e.message === 'string' &&
+        e.message.includes('User rejected the request')
+      ) {
         ResubmitStorage.clearResubmitBlock();
       }
     } finally {

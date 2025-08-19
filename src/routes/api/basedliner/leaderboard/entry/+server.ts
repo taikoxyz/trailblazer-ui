@@ -17,16 +17,20 @@ export const GET: RequestHandler = async ({ url }) => {
   }
 
   // Fetch the full leaderboard
-  const entries = await BasedLinerService.getLeaderboard({});
-  return json({ entries });
+  const result = await BasedLinerService.getLeaderboard({});
+  // Check if result is a single entry or a list
+  if ('items' in result) {
+    return json({ entries: result.items, total: result.total });
+  }
+  // Single entry case (shouldn't happen without address, but handle it)
+  return json({ entries: result ? [result] : [], total: result ? 1 : 0 });
 };
 
 export const POST: RequestHandler = async ({ request }) => {
   const body = await request.json();
   const address = body.address;
-  // page param is currently unused, but parsed for future extensibility
-  // const page = Number(body.page) || 0;
-  // calling leaderboard entry api (POST), address
+  const page = Number(body.page) || 0;
+
   if (address) {
     // Fetch a single entry for the address
     const entry = await BasedLinerService.getLeaderboardEntry({
@@ -35,7 +39,12 @@ export const POST: RequestHandler = async ({ request }) => {
     return json({ entry });
   }
 
-  // Fetch the full leaderboard
-  const entries = await BasedLinerService.getLeaderboard({});
-  return json({ entries });
+  // Fetch the full leaderboard with pagination
+  const result = await BasedLinerService.getLeaderboard({ page });
+  // Check if result is a single entry or a list
+  if ('items' in result) {
+    return json({ entries: result.items, total: result.total });
+  }
+  // Single entry case (shouldn't happen without address, but handle it)
+  return json({ entries: result ? [result] : [], total: result ? 1 : 0 });
 };

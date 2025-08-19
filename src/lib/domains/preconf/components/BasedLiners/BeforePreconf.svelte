@@ -147,7 +147,15 @@
       diffBefore = 0;
       // Only clear resubmit block for user rejection errors
       // Keep cooldown for gas price errors and other failures
-      if (userAddress && userAddress !== zeroAddress && e.message.includes('User rejected the request')) {
+      if (
+        userAddress &&
+        userAddress !== zeroAddress &&
+        e &&
+        typeof e === 'object' &&
+        'message' in e &&
+        typeof e.message === 'string' &&
+        e.message.includes('User rejected the request')
+      ) {
         ResubmitStorage.clearResubmitBlock();
       }
     } finally {
