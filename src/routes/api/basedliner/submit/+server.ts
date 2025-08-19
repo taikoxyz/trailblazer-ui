@@ -79,9 +79,24 @@ export const POST: RequestHandler = async ({ request }) => {
     const transaction = await getTransactionWithRetry(basedLinersServerConfig, txHash);
     const gasPrice = await getGasPrice(basedLinersServerConfig);
 
-    // do not allow a transaction with a gas price lower than the current gas price - 10%
-    if (transaction?.gasPrice && gasPrice && transaction.gasPrice < (gasPrice * 9n) / 10n) {
-      return new Response(JSON.stringify({ error: 'Invalid transaction or gas limit too low' }), { status: 400 });
+    // do not allow a transaction with a gas price lower than 0.025 gwei
+    const minGasPriceGwei = 0.025;
+    const minGasPriceWei = BigInt(Math.floor(minGasPriceGwei * 1e9));
+
+    if (transaction?.gasPrice && transaction.gasPrice < minGasPriceWei) {
+      const transactionGasPriceGwei = Number(transaction.gasPrice) / 1e9;
+      return new Response(
+        JSON.stringify({
+          error: 'Gas price too low',
+          message: `Transaction gas price (${transactionGasPriceGwei.toFixed(3)} gwei) is below the minimum required (${minGasPriceGwei} gwei). Please increase your gas price in your wallet settings and try again.`,
+          details: {
+            transactionGasPrice: transactionGasPriceGwei,
+            minimumRequired: minGasPriceGwei,
+            currentNetworkGasPrice: Number(gasPrice) / 1e9,
+          },
+        }),
+        { status: 400 },
+      );
     }
 
     const timestamp = Date.now();

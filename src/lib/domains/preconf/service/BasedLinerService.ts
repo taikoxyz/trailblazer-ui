@@ -54,7 +54,15 @@ export class BasedLinerService {
     });
 
     if (!res.ok) {
-      console.error('Error calling API:', res.status, res.statusText);
+      // Try to parse error details from response
+      let errorData;
+      try {
+        errorData = await res.json();
+      } catch {
+        errorData = null;
+      }
+
+      console.error('Error calling API:', res.status, res.statusText, errorData);
 
       // Handle timeout errors specifically
       if (res.status === 408) {
@@ -66,7 +74,14 @@ export class BasedLinerService {
         throw new TooManyRequestsError('Rate limit exceeded. Please wait before submitting again.');
       }
 
-      throw new Error(`API call failed: ${res.status} ${res.statusText}`);
+      // Handle gas price too low error
+      if (res.status === 400 && errorData?.error === 'Gas price too low') {
+        throw new Error(errorData.message || 'Gas price too low. Please increase gas price in wallet settings.');
+      }
+
+      // Generic error with details if available
+      const errorMessage = errorData?.message || errorData?.error || `API call failed: ${res.status} ${res.statusText}`;
+      throw new Error(errorMessage);
     }
     // 3. Parse the response and return it
     return await res.json();
@@ -108,7 +123,7 @@ export class BasedLinerService {
       const leaderboardPage = {
         items: Array.isArray(data.entries) ? data.entries : [],
         lastUpdated: Date.now(),
-        pagination: { page, size: data.entries?.length || 0, total: data.entries?.length || 0 },
+        pagination: { page, size: data.entries?.length || 0, total: data.total || data.entries?.length || 0 },
       };
 
       // Map the leaderboard data to the UnifiedLeaderboardRow format

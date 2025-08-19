@@ -126,10 +126,10 @@
             title: 'Request rejected by user',
             message: 'Please try again',
           });
-        } else if (e.message.includes('400 Bad Request')) {
+        } else if (e.message.includes('Gas price too low')) {
           errorToast({
-            title: 'Bad Basedliner Request',
-            message: 'Please  increase your gas limit and try again',
+            title: 'Gas Price Too Low',
+            message: e.message,
           });
         } else {
           errorToast({
@@ -145,8 +145,17 @@
       }
       // reset values
       diffBefore = 0;
-      // Clear resubmit block on error so user can try again
-      if (userAddress && userAddress !== zeroAddress) {
+      // Only clear resubmit block for user rejection errors
+      // Keep cooldown for gas price errors and other failures
+      if (
+        userAddress &&
+        userAddress !== zeroAddress &&
+        e &&
+        typeof e === 'object' &&
+        'message' in e &&
+        typeof e.message === 'string' &&
+        e.message.includes('User rejected the request')
+      ) {
         ResubmitStorage.clearResubmitBlock();
       }
     } finally {

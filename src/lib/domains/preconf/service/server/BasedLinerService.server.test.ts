@@ -375,11 +375,14 @@ describe('BasedLinerService.server', () => {
       const result = await BasedLinerService.getLeaderboard({});
 
       // Then
-      expect(fetchFromApi).toHaveBeenCalledWith('/basedliner/leaderboard?', 4, {
+      expect(fetchFromApi).toHaveBeenCalledWith('/basedliner/leaderboard?page=0&limit=20', 4, {
         headers: { 'x-api-key': 'test-api-key' },
         method: 'GET',
       });
-      expect(result).toEqual(mockLeaderboardData);
+      expect(result).toEqual({
+        items: mockLeaderboardData,
+        total: mockLeaderboardData.length,
+      });
     });
 
     it('should fetch leaderboard with address filter', async () => {
@@ -397,7 +400,7 @@ describe('BasedLinerService.server', () => {
       });
 
       // Then
-      expect(fetchFromApi).toHaveBeenCalledWith(`/basedliner/leaderboard?address=${mockAddress}`, 4, {
+      expect(fetchFromApi).toHaveBeenCalledWith(`/basedliner/leaderboard?address=${mockAddress}&page=0&limit=20`, 4, {
         headers: { 'x-api-key': 'test-api-key' },
         method: 'GET',
       });
@@ -435,7 +438,10 @@ describe('BasedLinerService.server', () => {
       const result = await BasedLinerService.getLeaderboard({});
 
       // Then
-      expect(result).toEqual([]);
+      expect(result).toEqual({
+        items: [],
+        total: 0,
+      });
     });
 
     it('should handle missing items in response', async () => {
@@ -449,7 +455,10 @@ describe('BasedLinerService.server', () => {
       const result = await BasedLinerService.getLeaderboard({});
 
       // Then
-      expect(result).toEqual([]);
+      expect(result).toEqual({
+        items: [],
+        total: 0,
+      });
     });
   });
 
@@ -476,7 +485,7 @@ describe('BasedLinerService.server', () => {
       });
 
       // Then
-      expect(fetchFromApi).toHaveBeenCalledWith(`/basedliner/leaderboard?address=${mockAddress}`, 4, {
+      expect(fetchFromApi).toHaveBeenCalledWith(`/basedliner/leaderboard?address=${mockAddress}&page=0&limit=20`, 4, {
         headers: { 'x-api-key': 'test-api-key' },
         method: 'GET',
       });

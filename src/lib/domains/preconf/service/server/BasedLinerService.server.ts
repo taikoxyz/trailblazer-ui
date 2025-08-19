@@ -145,22 +145,31 @@ export class BasedLinerService {
   /**
    * Fetches the leaderboard data from the API.
    * @param {string} [address] - The address to filter the leaderboard by.
+   * @param {number} [page] - The page number for pagination.
    * @returns {Promise<BasedlinerLeaderboard[]>} - The leaderboard data.
    * @memberof BasedLinerService
    */
-  static async getLeaderboard({ address }: { address?: string }) {
+  static async getLeaderboard({ address, page = 0 }: { address?: string; page?: number }) {
     const queryParams = new URLSearchParams();
     if (address) queryParams.set('address', address);
+    queryParams.set('page', page.toString());
+    queryParams.set('limit', '20'); // Using standard page size
     const endpoint = `${BASEDLINER_LEADERBOARD_API}?${queryParams.toString()}`;
-    const response = await fetchFromApi<{ data: { items: BasedlinerLeaderboard[] } }>(endpoint, 4, {
+    const response = await fetchFromApi<{ data: { items: BasedlinerLeaderboard[]; total?: number } }>(endpoint, 4, {
       headers: { 'x-api-key': `${API_KEY}` },
       method: 'GET',
     });
+
     // If address is provided, return single entry, else return all entries
     if (address) {
       return response.data.items[0] || null;
     }
-    return response.data.items || [];
+
+    const items = response.data?.items || [];
+    return {
+      items,
+      total: response.data?.total || items.length,
+    };
   }
 
   /**

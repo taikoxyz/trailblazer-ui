@@ -29,7 +29,7 @@
 
   let leaderboard;
   $: leaderboard = $leaderboardStore;
-  $: totalItems = pageInfo?.total || 0;
+  $: totalItems = leaderboard?.pagination?.total || pageInfo?.total || 0;
 
   onMount(async () => {
     if (browser && pageInfo) {
