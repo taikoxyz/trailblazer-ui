@@ -4,6 +4,7 @@
   import { zeroAddress } from 'viem';
 
   import { page } from '$app/stores';
+  import { Alert } from '$shared/components/Alert';
   import { ConnectButton } from '$shared/components/ConnectButton';
   import DisabledMask from '$shared/components/Masks/DisabledMask/DisabledMask.svelte';
   import Note from '$shared/components/Note/Note.svelte';
@@ -59,6 +60,7 @@
   $: diffBefore = 0;
   $: diffAfter = 0;
   $: score = 0;
+  $: usedAveragePhase1 = false;
 
   $: isPhase2Open = false;
 
@@ -88,7 +90,25 @@
         if (entry) {
           diffBefore = entry.phase1 || 0;
           diffAfter = entry.phase2 || 0;
-          score = Number(entry.diff) || 0;
+          score = Number(entry.score) || Number(entry.diff) || 0;
+          // Reset flag if we have actual phase1 data
+          if (entry.phase1 && entry.phase1 > 0) {
+            usedAveragePhase1 = false;
+          }
+        }
+
+        // If no phase1 data, use average phase1 from leaderboard
+        if (!diffBefore || diffBefore === 0) {
+          try {
+            const avgPhase1 = await BasedLinerService.fetchAveragePhase1();
+            if (avgPhase1 > 0) {
+              diffBefore = avgPhase1;
+              usedAveragePhase1 = true;
+              log('Using average phase1 from leaderboard:', avgPhase1);
+            }
+          } catch (error) {
+            console.error('Error fetching average phase1:', error);
+          }
         }
       } catch (error) {
         console.error('Error refreshing user data:', error);
@@ -104,7 +124,20 @@
     if (entry) {
       diffBefore = entry.phase1 || 0;
       diffAfter = entry.phase2 || 0;
-      score = Number(entry.diff) || 0;
+      score = Number(entry.score) || Number(entry.diff) || 0;
+    }
+
+    // If no phase1 data, use average phase1 from leaderboard
+    if (!diffBefore || diffBefore === 0) {
+      try {
+        const avgPhase1 = await BasedLinerService.fetchAveragePhase1();
+        if (avgPhase1 > 0) {
+          diffBefore = avgPhase1;
+          log('Using average phase1 from leaderboard:', avgPhase1);
+        }
+      } catch (error) {
+        console.error('Error fetching average phase1:', error);
+      }
     }
 
     isPhase2Open = await BasedLinerService.isPhaseOpen({
@@ -131,12 +164,31 @@
         if (entry) {
           diffBefore = entry.phase1 || 0;
           diffAfter = entry.phase2 || 0;
-          score = Number(entry.diff) || 0;
+          score = Number(entry.score) || Number(entry.diff) || 0;
+          // Reset flag if we have actual phase1 data
+          if (entry.phase1 && entry.phase1 > 0) {
+            usedAveragePhase1 = false;
+          }
         } else {
           // Reset values if no entry found for this account
           diffBefore = 0;
           diffAfter = 0;
           score = 0;
+          usedAveragePhase1 = false;
+        }
+
+        // If no phase1 data, use average phase1 from leaderboard
+        if (!diffBefore || diffBefore === 0) {
+          try {
+            const avgPhase1 = await BasedLinerService.fetchAveragePhase1();
+            if (avgPhase1 > 0) {
+              diffBefore = avgPhase1;
+              usedAveragePhase1 = true;
+              log('Using average phase1 from leaderboard:', avgPhase1);
+            }
+          } catch (error) {
+            console.error('Error fetching average phase1:', error);
+          }
         }
       } catch (error) {
         console.error('Error fetching leaderboard entry on account change:', error);
@@ -144,12 +196,14 @@
         diffBefore = 0;
         diffAfter = 0;
         score = 0;
+        usedAveragePhase1 = false;
       }
     } else {
       // No account connected, reset values
       diffBefore = 0;
       diffAfter = 0;
       score = 0;
+      usedAveragePhase1 = false;
     }
   }
 </script>
@@ -172,6 +226,11 @@
       <!-- <Stats {diffBefore} {diffAfter} /> -->
     </div>
   </div>
+  {#if usedAveragePhase1 && isPhase2Open}
+    <div class="w-full mb-[20px]">
+      <Alert type="info">You didn't create a baseline in time, you see the average of other users.</Alert>
+    </div>
+  {/if}
   <div class="w-full flex">
     <Note>
       {$t('pages.preconfs.sections.basedliner.note')}

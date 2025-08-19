@@ -5,4 +5,7 @@ export interface BasedlinerLeaderboard {
   diff?: number | null;
   address: string;
   rank: number;
+  avg_phase1?: string | null;
+  avg_phase2?: string | null;
+  score?: string | null;
 }
