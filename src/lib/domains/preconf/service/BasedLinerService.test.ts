@@ -228,14 +228,14 @@ describe('BasedLinerService', () => {
       {
         address: mockAddress,
         rank: 1,
-        diff: 1000,
+        score: '1000',
         phase1: 500,
         phase2: 600,
       },
       {
         address: '0x9876543210fedcba9876543210fedcba98765432' as Address,
         rank: 2,
-        diff: 2000,
+        score: '2000',
         phase1: 1000,
         phase2: 1200,
       },
@@ -392,6 +392,7 @@ describe('BasedLinerService', () => {
       address: mockAddress,
       rank: 1,
       diff: 1500,
+      score: '1500',
       phase1: 750,
       phase2: 900,
     };

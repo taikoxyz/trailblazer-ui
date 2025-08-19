@@ -90,7 +90,7 @@
         if (entry) {
           diffBefore = entry.phase1 || 0;
           diffAfter = entry.phase2 || 0;
-          score = Number(entry.diff) || 0;
+          score = Number(entry.score) || Number(entry.diff) || 0;
           // Reset flag if we have actual phase1 data
           if (entry.phase1 && entry.phase1 > 0) {
             usedAveragePhase1 = false;
@@ -124,7 +124,7 @@
     if (entry) {
       diffBefore = entry.phase1 || 0;
       diffAfter = entry.phase2 || 0;
-      score = Number(entry.diff) || 0;
+      score = Number(entry.score) || Number(entry.diff) || 0;
     }
 
     // If no phase1 data, use average phase1 from leaderboard
@@ -164,7 +164,7 @@
         if (entry) {
           diffBefore = entry.phase1 || 0;
           diffAfter = entry.phase2 || 0;
-          score = Number(entry.diff) || 0;
+          score = Number(entry.score) || Number(entry.diff) || 0;
           // Reset flag if we have actual phase1 data
           if (entry.phase1 && entry.phase1 > 0) {
             usedAveragePhase1 = false;
@@ -228,10 +228,7 @@
   </div>
   {#if usedAveragePhase1 && isPhase2Open}
     <div class="w-full mb-[20px]">
-      <Alert type="info">
-        You didn't create a baseline in time, you see the average of other users. Unfortunately this means you can't win
-        the leaderboard anymore. You can still see the speed improvement!
-      </Alert>
+      <Alert type="info">You didn't create a baseline in time, you see the average of other users.</Alert>
     </div>
   {/if}
   <div class="w-full flex">
