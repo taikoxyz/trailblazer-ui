@@ -1,4 +1,4 @@
-import { readContract, simulateContract, writeContract } from '@wagmi/core';
+import { getGasPrice, readContract, simulateContract, writeContract } from '@wagmi/core';
 import type { Hex } from 'viem';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
@@ -12,6 +12,7 @@ vi.mock('@wagmi/core', async (importOriginal) => {
   const actual = await importOriginal<typeof import('@wagmi/core')>();
   return {
     ...actual,
+    getGasPrice: vi.fn(),
     readContract: vi.fn(),
     simulateContract: vi.fn(),
     writeContract: vi.fn(),
@@ -26,6 +27,7 @@ describe('BasedLinerAdapter', () => {
   const mockEventId = 1;
   const mockPhaseId = 2;
   const mockTxHash: Hex = '0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef';
+  const mockGasPrice = 10000000n;
 
   beforeEach(() => {
     vi.clearAllMocks();
@@ -34,6 +36,7 @@ describe('BasedLinerAdapter', () => {
   describe('sendTx', () => {
     it('should simulate and send transaction successfully', async () => {
       // Given
+      vi.mocked(getGasPrice).mockResolvedValue(mockGasPrice);
       const mockRequest = {
         address: basedLinersAddress[chainId],
         abi: BasedLinersAbi,
@@ -60,7 +63,7 @@ describe('BasedLinerAdapter', () => {
         abi: BasedLinersAbi,
         functionName: 'register',
         args: [BigInt(mockEventId), BigInt(mockPhaseId)],
-        gas: 10000000n,
+        gasPrice: mockGasPrice,
       });
       expect(writeContract).toHaveBeenCalledWith(wagmiConfig, mockRequest);
       expect(result).toBe(mockTxHash);
@@ -68,6 +71,7 @@ describe('BasedLinerAdapter', () => {
 
     it('should throw error when simulation fails', async () => {
       // Given
+      vi.mocked(getGasPrice).mockResolvedValue(mockGasPrice);
       const simulationError = new Error('Simulation failed');
       vi.mocked(simulateContract).mockRejectedValue(simulationError);
 
@@ -84,13 +88,14 @@ describe('BasedLinerAdapter', () => {
         abi: BasedLinersAbi,
         functionName: 'register',
         args: [BigInt(mockEventId), BigInt(mockPhaseId)],
-        gas: 10000000n,
+        gasPrice: mockGasPrice,
       });
       expect(writeContract).not.toHaveBeenCalled();
     });
 
     it('should throw error when transaction fails', async () => {
       // Given
+      vi.mocked(getGasPrice).mockResolvedValue(mockGasPrice);
       const mockRequest = {
         address: basedLinersAddress[chainId],
         abi: BasedLinersAbi,
@@ -119,7 +124,7 @@ describe('BasedLinerAdapter', () => {
         abi: BasedLinersAbi,
         functionName: 'register',
         args: [BigInt(mockEventId), BigInt(mockPhaseId)],
-        gas: 10000000n,
+        gasPrice: mockGasPrice,
       });
       expect(writeContract).toHaveBeenCalledWith(wagmiConfig, mockRequest);
     });
@@ -152,7 +157,7 @@ describe('BasedLinerAdapter', () => {
         abi: BasedLinersAbi,
         functionName: 'register',
         args: [BigInt(0), BigInt(0)],
-        gas: 10000000n,
+        gasPrice: mockGasPrice,
       });
       expect(result).toBe(mockTxHash);
     });
@@ -187,7 +192,7 @@ describe('BasedLinerAdapter', () => {
         abi: BasedLinersAbi,
         functionName: 'register',
         args: [BigInt(largeEventId), BigInt(largePhaseId)],
-        gas: 10000000n,
+        gasPrice: mockGasPrice,
       });
       expect(result).toBe(mockTxHash);
     });
@@ -222,7 +227,7 @@ describe('BasedLinerAdapter', () => {
         abi: BasedLinersAbi,
         functionName: 'register',
         args: [BigInt(negativeEventId), BigInt(negativePhaseId)],
-        gas: 10000000n,
+        gasPrice: mockGasPrice,
       });
       expect(result).toBe(mockTxHash);
     });
