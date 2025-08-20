@@ -1051,6 +1051,25 @@
           },
           "total": "75k TAIKO Tokens"
         }
+      },
+      "edition9": {
+        "description": "Thrillblazer Edition 9 launches August 16th. Calling all gaming and SocialFi dApps: Blaze new trails, fuel Taiko's momentum, and seize your chance for legendary rewards!",
+        "ended": {
+          "description": "Our journey concluded on September 16th, 2025. Congratulations to the winners!",
+          "title": "Journey ended"
+        },
+        "prize_breakdown": {
+          "first": {
+            "amount": "50k"
+          },
+          "second": {
+            "amount": "20k"
+          },
+          "third": {
+            "amount": "5k"
+          },
+          "total": "75k TAIKO Tokens"
+        }
       }
     },
     "user": {

@@ -17,12 +17,12 @@ export const cards: CampaignCardType[] = [
     },
   },
   {
-    title: 'Blaze new trails with Thrillblazer Edition 8',
-    text: 'Blaze new trails, fuel Taiko’s momentum, and seize your chance for legendary rewards.',
+    title: 'Blaze new trails with Thrillblazer Edition 9',
+    text: "Blaze new trails, fuel Taiko's momentum, and seize your chance for legendary rewards.",
     btn: {
       text: 'Earn now',
       external: false,
-      destination: '/leaderboard/thrillblazers/8',
+      destination: '/leaderboard/thrillblazers/9',
     },
     images: {
       sm: '/campaign/cards/sm/thrillblazer.png',
