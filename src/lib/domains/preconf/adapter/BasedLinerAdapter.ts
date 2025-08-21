@@ -1,4 +1,4 @@
-import { getGasPrice, readContract, simulateContract, writeContract } from '@wagmi/core';
+import { readContract, simulateContract, writeContract } from '@wagmi/core';
 import { type Hex } from 'viem';
 
 import { BasedLinersAbi, basedLinersAddress } from '$generated/abi';
@@ -15,21 +15,39 @@ export class BasedLinerAdapter {
    * @returns txHash
    */
   static async sendTx({ eventId, phaseId }: { eventId: number; phaseId: number }) {
-    // Get current gas price from the network
-    const gasPrice = await getGasPrice(wagmiConfig);
+    try {
+      const { request } = await simulateContract(wagmiConfig, {
+        address: basedLinersAddress[chainId],
+        abi: BasedLinersAbi,
+        functionName: 'register',
+        args: [BigInt(eventId), BigInt(phaseId)],
+      });
 
-    // Simulate transaction with proper gas price
-    const { request } = await simulateContract(wagmiConfig, {
-      address: basedLinersAddress[chainId],
-      abi: BasedLinersAbi,
-      functionName: 'register',
-      args: [BigInt(eventId), BigInt(phaseId)],
-      gasPrice: gasPrice,
-    });
+      // Send transaction - let wallet handle gas pricing
+      const txHash: Hex = await writeContract(wagmiConfig, request);
+      return txHash;
+    } catch (error: unknown) {
+      // Handle insufficient funds error more clearly
+      if (error && typeof error === 'object' && 'message' in error) {
+        const errorMessage = String(error.message);
+        console.error(error);
+        // Check for insufficient funds error patterns
+        if (
+          errorMessage.includes('insufficient funds') ||
+          errorMessage.includes('exceeds the balance') ||
+          errorMessage.includes('gas * gas fee + value')
+        ) {
+          throw new Error('Insufficient ETH balance. Please add ETH to your wallet to cover transaction fees.');
+        }
 
-    // Send transaction with the gas price from simulation
-    const txHash: Hex = await writeContract(wagmiConfig, request);
-    return txHash;
+        // Check for gas price errors
+        if (errorMessage.includes('maxFeePerGas') || errorMessage.includes('gas price')) {
+          throw new Error('Gas price issue. Please try again or adjust gas settings in your wallet.');
+        }
+      }
+
+      throw error;
+    }
   }
 
   /**
