@@ -71,7 +71,7 @@
     }
   });
 
-  let showRibbon = true;
+  let showRibbon = false;
 </script>
 
 {#if i18nReady}

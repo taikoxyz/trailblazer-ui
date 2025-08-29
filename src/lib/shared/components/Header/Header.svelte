@@ -8,7 +8,7 @@
   import { classNames } from '$shared/utils/classNames';
 
   let isMenuOpen = false;
-  export let ribbonActive = false;
+  export let ribbonActive;
 
   const wrapperClasses = classNames(
     'w-[100vw]',
