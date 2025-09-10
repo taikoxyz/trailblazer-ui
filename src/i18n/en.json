@@ -1096,6 +1096,7 @@
       },
       "event": {
         "avalon_claim": "Avalon Claim",
+        "basedliner": "Basedliner",
         "block_proposed": "Block Proposed",
         "bridged": "Bridged",
         "compensation": "Compensation",

@@ -14,4 +14,5 @@ export const eventToActivityTypeMap: Record<string, ActivityType> = {
   LoopringDeposit: ActivityType.LOOPRING_DEPOSIT,
   TaikoStatusPoints: ActivityType.TAIKO_STATUS_REWARD,
   OkidoriNftSold: ActivityType.OKIDORI_NFT_SOLD,
+  Basedliner: ActivityType.BASEDLINER,
 };
