@@ -38,4 +38,5 @@ export enum ActivityType {
   LOOPRING_DEPOSIT = 'LoopringDeposit',
   TAIKO_STATUS_REWARD = 'TaikoStatusPoints',
   OKIDORI_NFT_SOLD = 'OkidoriNftSold',
+  BASEDLINER = 'Basedliner',
 }

@@ -30,6 +30,13 @@ export function GET({ url }) {
       },
       {
         address: address,
+        points: 12500,
+        event: ActivityType.BASEDLINER,
+        date: Math.floor(Date.now() / 1000) - 1 * 24 * 60 * 60, // 1 day ago
+        multiplier: 1,
+      },
+      {
+        address: address,
         points: 50_000,
         event: ActivityType.DORAHACKS_VOTE,
         date: 1721642099,

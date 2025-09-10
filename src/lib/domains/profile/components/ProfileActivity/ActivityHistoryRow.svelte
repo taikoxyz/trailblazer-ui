@@ -75,6 +75,9 @@
     {:else if eventToActivityTypeMap[historyEntry?.event] === ActivityType.OKIDORI_NFT_SOLD}
       <ActivityIcon type="cube" />
       <span class={eventClasses}>{$t('leaderboard.user.event.okidori')}</span>
+    {:else if eventToActivityTypeMap[historyEntry?.event] === ActivityType.BASEDLINER}
+      <ActivityIcon type="double-diamond" />
+      <span class={eventClasses}>{$t('leaderboard.user.event.basedliner')}</span>
     {:else}
       <ActivityIcon type="triple-coin-stacked" />
       <span class={eventClasses}>{$t('leaderboard.user.event.transaction')}</span>
